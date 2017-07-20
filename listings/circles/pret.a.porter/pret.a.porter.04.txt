@@ -1,0 +1,11 @@
+new
+config set depth 6
+config set drawentity isometric
+config set construction limitset
+method inversion
+tessellator radial startcenter:(0.5,0) radius:0.7 sector:2*pi rotationcenter:(0,0) circles:4
+
+init
+palette off
+zoom wplane (0,0) -145.2
+refresh wplane silent clean

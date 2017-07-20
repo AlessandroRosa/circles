@@ -1,0 +1,12 @@
+.dict_link
+{
+    font-family:lucida grande,tahoma,verdana,arial,sans-serif;
+    font-size:8pt;
+    color:white;
+}
+
+.dict_link:hover
+{
+    color:#FFF761;
+    cursor:pointer;
+}

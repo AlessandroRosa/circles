@@ -1,0 +1,19 @@
+new
+config set title six.circles.01
+method inversion
+
+grid zplane show
+config set depth 6
+silent on
+config set construction limitset < 0.01
+disk add a A center:-0.5,0.5 radius:0.5
+disk add A a center:-0.5,-0.5 radius:0.5
+disk add b B center:0,0.5 radius:0.5
+disk add B b center:0,-0.5 radius:0.5
+disk add c C center:0.5,0.5 radius:0.5
+disk add C c center:0.5,-0.5 radius:0.5
+init disks schottky
+refresh zplane
+zoom zplane (0,0) side:2.2
+zoom wplane (0,0) side:2.2
+refresh wplane

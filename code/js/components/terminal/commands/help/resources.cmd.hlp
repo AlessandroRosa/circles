@@ -1,0 +1,9 @@
+<banana>open a new tab to the chosen page of resources</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>resources %type%</snow>
+
+<lightblue>%type%</lightblue> <snow>recipes | listings</snow>
+
+<lightblue>resources release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

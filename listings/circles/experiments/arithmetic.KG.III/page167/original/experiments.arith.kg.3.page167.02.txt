@@ -1,0 +1,46 @@
+comment:
+[
+Generators refer to:
+2-GENERATOR ARITHMETIC KLEINIAN GROUPS III
+by M. D. E. CONDER, C. MACLACHLAN, G. J. MARTIN and E. A. O'BRIEN
+MATH. SCAND. 90 (2002), 161-179
+see page 167
+
+omega = 1.55+i
+lambda_n = 2cos(pi/n)
+n = 23
+
+generators
+X = ( 1, 1, 0, 1)
+Y = ( 0, -1/omega, omega, lambda_n )
+]
+
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+grid 12
+config set accuracy 12
+config set depth 18
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+mobius add A a:(1,0) b:(1,0) c:(0,0) d:(1,0)
+mobius update A a #61df61
+mobius add a a:(1,0) b:(-1,0) c:(0,0) d:(1,0)
+mobius update a A #61df61
+mobius add B a:(0,0) b:(-0.455547391623806,0.2939015429831006) c:(1.55,1) d:(1.9813718920726586,0)
+mobius update B b #61df61
+mobius add b a:(1.9813718920726586,0) b:(0.455547391623806,-0.2939015429831006) c:(-1.55,-1) d:(0,0)
+mobius update b B #61df61
+init maps singly
+probability set 0.24 0.26 0.24 0.26 built-in
+auto refresh off
+auto init off
+zoom zplane (0,0) side:4 silent 
+zoom wplane (0,0) side:4 silent 
+refresh zplane silent clean
+refresh wplane silent clean

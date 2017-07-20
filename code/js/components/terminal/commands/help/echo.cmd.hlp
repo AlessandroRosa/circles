@@ -1,0 +1,10 @@
+<banana>toggle on/off the echo mode</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>echo on | off</snow>
+
+<lightblue>echo off</lightblue>
+<cadetblue>no output from console cmds</cadetblue>
+
+<lightblue>echo release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

@@ -1,0 +1,25 @@
+<banana>help cmds management</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>source groups | %grouplabel% | cmd | tip</snow>
+
+<lightblue>help items</lightblue>
+<cadetblue>since 'items' is a cmds group label, all included entries will be listed</cadetblue>
+
+<lightblue>help mobius</lightblue>
+<cadetblue>display online help of 'mobius' cmd</cadetblue>
+
+<lightblue>help mobius html</lightblue>
+<cadetblue>display html help version of 'mobius' cmd</cadetblue>
+
+<lightblue>help tip opacity</lightblue>
+<cadetblue>scan help texts a return those ones including the term 'opacity'</cadetblue>
+
+<lightblue>help tip opacity mobius</lightblue>
+<cadetblue>scan help texts a return those ones including the terms 'opacity' or 'mobius'</cadetblue>
+
+<lightblue>help tip normalize exact</lightblue>
+<cadetblue>scan help texts a return those ones matching exactly the term 'normalize'</cadetblue>
+
+<lightblue>help release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

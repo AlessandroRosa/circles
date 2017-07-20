@@ -1,0 +1,1 @@
+<a name="ex06" ID="title">Example #6: &lsquo;One way&rsquo; inversion (method)</a><br><br>

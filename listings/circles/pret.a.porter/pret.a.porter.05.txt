@@ -1,0 +1,7 @@
+new
+method inversion
+tessellator grid startcenter:(-0.2,-0.2) radius:0.4 shifthorz:0.4 shiftvert:0.4 rows:2 cols:2 rec zplane
+config set depth 6
+config set drawentity isometric
+palette off
+refresh wplane silent clean

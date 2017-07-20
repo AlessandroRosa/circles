@@ -1,0 +1,50 @@
+/*
+Jorgensen's recipe #1
+Refer to 'Indra's Pearls'
+by David Mumford, Caroline Series, David Wright
+Cambridge Press, 2002
+Generators can be found at p. 256
+*/
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+plane zplane
+grid ticks 16
+config set accuracy 20
+config set depth 15
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+plugin set 4.05
+plugin var a=2*cos(PI/(256i))
+plugin var b=2*cos(PI/(8+i))
+plugin var p=2
+plugin run
+init maps singly
+config set diskfill no
+config set diskdraw yes
+config set diskdash no
+gensset flush
+gensset add a b A B abAB ABab
+gensset init
+probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
+
+fp bomb
+fp add 0.2797911683584071+0.28479013230273836i BabA
+fp add 0.2797911572413198+0.2847901147196275i BabA
+fp add 0.00000000172279288833+0.00000000113387073808i ABab
+fp add -0.00000000172279289506-0.00000000113387075371i ABab
+fp add -0.23080836527975215-0.2541916058821667i bABa
+fp add -30540563.99774949-73731442.68717182i abAB
+fp add 30540563.12274949+73731442.81217182i abAB
+auto refresh off
+auto init off
+zoom zplane (0,0) side:5 silent
+zoom wplane (0,0) side:2.4 silent
+refresh zplane silent clean
+refresh wplane silent clean

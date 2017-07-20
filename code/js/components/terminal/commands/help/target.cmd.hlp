@@ -1,0 +1,14 @@
+<banana>select a layer to be the target for canvas-dedicated services</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>target %action% %plane% %layer%</snow>
+
+<lightblue>action</lightblue> <snow>create | reset | list</snow>
+<lightblue>plane</lightblue> <snow>zplane | wplane</snow>
+<cadetblue>check plane layers pile for correct name space</cadetblue>
+
+<lightblue>target zplane work</lightblue>
+<cadetblue>select work layer in the Z-plane pile</cadetblue>
+
+<lightblue>target release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

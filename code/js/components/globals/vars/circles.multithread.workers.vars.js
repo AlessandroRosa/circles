@@ -1,0 +1,9 @@
+var _glob_inline_worker = null ;
+var _glob_worker = null ;
+var _glob_worker_lock = NO ;
+var _glob_multithreading_compatible = NO ;
+var _glob_multithread_vars = [];
+var _glob_multithread_canvas = null ;
+var _glob_multithread_mapper = null ;
+var _glob_multithread_context = null ;
+var _glob_multithread_pixelsize = 1 ;

@@ -1,0 +1,17 @@
+@beginlib
+external_def:draw_complex_disk( _context, _mapper, _complex_x, _complex_y, _complex_radius, _draw, _drawcolor, _fill, _fillcolor, _linewidth, _opacity, _sector_rad_start, _sector_rad_end )
+internal_def:circles_lib_draw_complex_disk( _context, _mapper, _complex_x, _complex_y, _complex_radius, _draw, _drawcolor, _fill, _fillcolor, _linewidth, _opacity, _sector_rad_start, _sector_rad_end )
+args_mapping:0>>0,1>>1,2>>2,3>>3,4>>4,5>>5,6>>6,7>>7,8>>8,9>>9,10>>10,11>>11,12>>12
+dox:
+Draw a disk using complex coordinates
+<orange>_context</orange> : rendering context
+<orange>_mapper</orange> : screen mapper
+<lightblue>_complex_x, _complex_y</lightblue> : (x,y) coords of circle center
+<lightblue>_complex_radius</lightblue> : circle radius
+<yellow>_draw</yellow> : boolean flag for drawing the border
+<yellow>_drawcolor</yellow> : rgbhex format or color tag
+<yellow>_fill</yellow> : boolean flag for filling the border
+<yellow>_fillcolor</yellow> : rgbhex format or color tag
+<gray>_sector_rad_start</gray> : start angle (in 2PI radians) for sector
+<gray>_sector_rad_end</gray> : end angle (in 2PI radians) for sector
+@endlib

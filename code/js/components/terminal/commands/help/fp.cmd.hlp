@@ -1,0 +1,82 @@
+<banana>input fixed points manager</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>fp %input% %index% %action% %category% %plane% %source% all</snow>
+
+<lightblue>%action%</lightblue> <snow>add | bomb | connect | delete | figures | localize</snow>
+<cadetblue>if %action% is empty, the input fixed points list is output</cadetblue>
+<lightblue>%category%</lightblue> <snow>sinks | source | neutral</snow>
+<cadetblue>if %category% is empty, no filter applies and action is performed over the whole input fixed points list</cadetblue>
+<lightblue>%input%</lightblue> <snow>it could be a complex number | pqword | word | repetend</snow>
+<lightblue>%plane%</lightblue> <snow>zplane | wplane</snow>
+<lightblue>%source%</lightblue> <snow>commutators | default | gensset</snow>
+<cadetblue>input the family of source maps for populating the fixed points list</cadetblue>
+<lightblue>all</lightblue> <snow>select all fixed points list for actions requiring input indexes</snow>
+<lightblue>force</lightblue> <snow>to skip questions or to overwrite existing elements</snow>
+
+<lightblue>fp release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<yellow>------------- EXAMPLES ----------------</yellow>
+<lightblue>fp add 1+1i</lightblue>
+<cadetblue>Add a fixed point from input coords</cadetblue>
+
+<lightblue>fp add abABBB</lightblue>
+<cadetblue>Add a fixed point from input word</cadetblue>
+
+<lightblue>fp 3/7 add</lightblue>
+<cadetblue>Add a fixed point from input P/Q word 3/7</cadetblue>
+
+<lightblue>fp add abAB*2</lightblue>
+<cadetblue>Add a fixed point from input repetend</cadetblue>
+
+<lightblue>fp add abAB*2 3/7 2+2i</lightblue>
+<cadetblue>same cmd, but with syntax for multiple inputs</cadetblue>
+
+<lightblue>fp add 0 abAB</lightblue>
+<cadetblue>paired insertion: add a new entry with a point at the origin and tagged with 'abAB' word</cadetblue>
+
+<lightblue>fp add 0.2-0.4i -0.2</lightblue>
+<cadetblue>multiple points insertion</cadetblue>
+
+<lightblue>fp add commutators</lightblue>
+<cadetblue>add fixed points calculated from commutators</cadetblue>
+
+<lightblue>fp bomb force</lightblue>
+<cadetblue>delete all input fixed points (skipping questions)</cadetblue>
+
+<lightblue>fp connect wplane</lightblue>
+<cadetblue>draw a polyline on the W-plane, connecting all points in the fixed points list</cadetblue>
+
+<lightblue>fp delete 1+1i</lightblue>
+<cadetblue>delete input fixed point (coords syntax)</cadetblue>
+
+<lightblue>fp delete 1</lightblue>
+<cadetblue>delete input fixed point (index syntax)</cadetblue>
+
+<lightblue>fp figures sources wplane</lightblue>
+<cadetblue>turn source points into objects of 'figure' type, belonging to the W-plane</cadetblue>
+<cadetblue>figures can be managed by 'figures' cmd</cadetblue>
+
+<lightblue>fp list roundto:3</lightblue>
+<cadetblue>return the list of currenly save fixed points, with coordinates rounded to 10E-3</cadetblue>
+
+<lightblue>fp delete source</lightblue>
+<cadetblue>delete all source fixed points from the list</cadetblue>
+
+<lightblue>fp delete 1 3 4</lightblue>
+<cadetblue>delete fixed points indexed as 1, 3 and 4</cadetblue>
+
+<lightblue>fp localize source zplane</lightblue>
+<cadetblue>draw only the source fixed points on the Z-plane</cadetblue>
+
+<lightblue>fp localize 4 5 zplane</lightblue>
+<cadetblue>draw fixed points, indexed as 4 and 5, on the Z-plane</cadetblue>
+
+<yellow>------------- NOTES ----------------</yellow>
+<yellow>Note (1)</yellow>
+<cadetblue>All indexes are 1-based</cadetblue>
+
+<yellow>Note (2)</yellow>
+<lightblue>fp %action% %category% %plane%</lightblue>
+<cadetblue>perform action over the input category of points and, if required, on the input plane</cadetblue>

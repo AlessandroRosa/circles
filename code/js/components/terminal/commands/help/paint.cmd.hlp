@@ -1,0 +1,24 @@
+<banana>set fill color for input items</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>paint %items% %color%</snow>
+
+<lightblue>color</lightblue> <snow>tag | rgbint | rgbhex</snow>
+
+<snow>paint all yellow</snow>
+<cadetblue>paint the disk interior yellow for all registered items</cadetblue>
+
+<snow>paint A transparent</snow>
+<cadetblue>remove the fill color from the disk associated to the item tagged as 'A'</cadetblue>
+
+<snow>paint A B #A0A0A0</snow>
+<cadetblue>use the color shade #A0A0A0 (hex coords) to paint the disks associated to items tagged as 'A' and as 'B'</cadetblue>
+
+<snow>paint A B rgb(160,160,160)</snow>
+<cadetblue>same as before, but integer coords are used</cadetblue>
+
+<lightblue>paint release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<yellow>------------- NOTES ----------------</yellow>
+<yellow>Note</yellow> <snow>this cmd applies to seeds esclusively</snow>

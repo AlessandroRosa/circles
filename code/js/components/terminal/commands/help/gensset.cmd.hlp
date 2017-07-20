@@ -1,0 +1,74 @@
+<banana>gens model set management</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>generator %action% %file% rec force</snow>
+
+<lightblue>%action%</lightblue> <snow>add | bomb | exact | init | list | model</snow>
+<lightblue>file</lightblue> <snow>export the list into a plain text file</snow>
+
+<lightblue>generator exact</lightblue>
+<cadetblue>construct the gens model set from seeds</cadetblue>
+
+<lightblue>generator model</lightblue>
+<cadetblue>display the gens set model</cadetblue>
+
+<lightblue>generator add &#91;a&#93;&#91;b:12&#93;</lightblue>
+<cadetblue>add a new item to the gens model set</cadetblue> <yellow>(*)</yellow>
+
+<lightblue>generator add &#91;a:3&#93; &#91;b:12&#93;</lightblue>
+<cadetblue>add more gens at once</cadetblue> <yellow>(*)</yellow>
+
+<lightblue>generator add map:(iz-1)/(z-1)</lightblue>
+<cadetblue>add a new item from input formula to seeds (seeds is the default option)</cadetblue>
+
+<lightblue>generator add map:i,-1,1,-1</lightblue>
+<cadetblue>add a new generator from input params to seeds</cadetblue>
+
+<lightblue>generator add map:i,-1,1,-1 map:1,2,0,1</lightblue>
+<cadetblue>add a two (or even more) gens from input params to seeds</cadetblue>
+
+<lightblue>generator add map:abAB</lightblue>
+<cadetblue>add another generator resulting from the input word to seeds</cadetblue>
+
+<lightblue>generator add map:abAB gens</lightblue>
+<cadetblue>add another generator resulting from the input word to the gens set</cadetblue>
+
+<lightblue>generator bomb</lightblue>
+<cadetblue>(ask to) delete the current gens set together with the model set</cadetblue>
+
+<lightblue>generator bomb force</lightblue>
+<cadetblue>straight deletion of the current gens set and model</cadetblue>
+
+<lightblue>generator init</lightblue>
+<cadetblue>construct the gens set from the current gens model</cadetblue>
+
+<lightblue>generator init noclear</lightblue>
+<cadetblue>construct the gens set from the current gens model without deleting existing entries</cadetblue>
+
+<lightblue>generator list</lightblue>
+<cadetblue>display the gens model list</cadetblue>
+
+<lightblue>generator list -> maps.list.txt</lightblue>
+<cadetblue>save the same list into a plain text file</cadetblue>
+
+<lightblue>generator list short</lightblue>
+<cadetblue>display the same list by omitting the details</cadetblue>
+
+<lightblue>generator rec %plane% %reset%</lightblue>
+<cadetblue>register current items (whether they are seeds or gens) into the figures list</cadetblue>
+<cadetblue>%plane% could be 'zplane' or 'wplane'</cadetblue>
+
+<lightblue>generator rec zplane</lightblue>
+<cadetblue>register gens disks as figures to be displayed on the Z-plane</cadetblue>
+
+<cadetblue>Note: the new figures are appended to the current list, if any</cadetblue>
+<lightblue>generator rec wplane reset</lightblue>
+<cadetblue>free the current figures list and register gens disks as new figures to be displayed on the Z-plane</cadetblue>
+
+<lightblue>generator release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<yellow>------------- NOTES ----------------</yellow>
+<yellow>* Supporting repetends syntax</yellow>
+
+<lightgray>Use 'roundto:n' to round output values to 10E-n</lightgray>

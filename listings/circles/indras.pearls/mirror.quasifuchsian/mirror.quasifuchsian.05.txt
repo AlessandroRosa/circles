@@ -1,0 +1,34 @@
+/*
+Mirror - Quasifuchsian
+Refer to 'Indra's Pearls'
+by David Mumford, Caroline Series, David Wright
+Cambridge Press, 2002
+Generators can be found at p. 351
+*/
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+plane wplane
+grid ticks 16
+config set accuracy 12
+config set depth 8
+palette off
+method algebraic breadthfirst
+config set drawentity pixel
+config set construction limitset
+plugin set 4.20
+plugin var tau=2.8
+plugin run
+init maps singly
+config set diskfill no
+config set diskdraw yes
+config set diskdash no
+auto refresh off
+auto init off
+zoom zplane (0,0) side:5.656854249492392 silent norender
+zoom wplane (0,0) side:4 silent norender
+refresh zplane silent clean
+refresh wplane silent clean

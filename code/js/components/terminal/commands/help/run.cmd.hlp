@@ -1,0 +1,7 @@
+<banana>run current batch script</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>run</snow>
+
+<lightblue>run release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

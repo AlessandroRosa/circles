@@ -1,0 +1,34 @@
+comment:
+[
+I took the classic Riley slice gens with c = -0.7 and then I changed params b,c slightly in the gensset B
+
+Use plug-in "General Purpose" to input the generators
+]
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+grid 12
+config set accuracy 12
+config set depth 10
+palette off
+method algebraic breadthfirst
+config set drawentity pixel
+config set construction limitset
+mobius add A a:(1,0) b:(0,0) c:(0,-0.7) d:(1,0)
+mobius update A a fill #3fbfff
+mobius add a a:(1,0) b:(0,0) c:(0,0.7) d:(1,0)
+mobius update a A fill #3fbfff
+mobius add B a:(1,0) b:(2.5,0) c:(1.1,0) d:(1,0)
+mobius update B b fill #3fbfff
+mobius add b a:(1,0) b:(-2.5,0) c:(-1.1,0) d:(1,0)
+mobius update b B fill #3fbfff
+init maps singly
+auto refresh off
+auto init off
+zoom zplane (0,0) side:4 silent 
+zoom wplane (0,0) side:6 silent 
+refresh zplane silent clean
+refresh wplane silent clean

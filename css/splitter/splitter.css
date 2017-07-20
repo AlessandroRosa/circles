@@ -1,0 +1,36 @@
+  .splitter {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .splitcontent {
+    border: 1px solid #C0C0C0;
+    box-shadow: inset 0 1px 2px #e4e4e4;
+    background-color: #fff;
+  }
+
+  .splitter-gutter {
+    background-color: transparent;
+
+    background-repeat: no-repeat;
+    background-position: 50%;
+  }
+
+  .splitter-gutter.gutter-horizontal {
+    cursor: col-resize;
+    background-image: url('support/img/icons/grips/vertical.png');
+  }
+
+  .splitter-gutter.gutter-vertical {
+    cursor: row-resize;
+    background-image: url('support/img/icons/grips/horizontal.png');
+  }
+
+  .splitter.split-horizontal, .splitter-gutter.gutter-horizontal {
+    height: 100%;
+    float: left;
+  }

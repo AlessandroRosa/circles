@@ -1,0 +1,7 @@
+<banana>toggle on/off the silent mode, to skip system questions</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>silent on | off</snow>
+
+<lightblue>silent release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

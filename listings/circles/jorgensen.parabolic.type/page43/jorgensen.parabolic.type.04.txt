@@ -1,0 +1,57 @@
+/*
+Arithmetic two-bridge link group
+ref. The Arithmetic and Geometry of Two-Generator Kleinian Groups
+Callahan J.T., dissertation, 2009, p. 43
+sigma=2*cos(PI/(256i)), lambda = 2*cos(PI/(8+i))
+*/
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+plane zplane
+grid ticks 16
+config set accuracy 20
+config set depth 15
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+plugin set 4.24
+plugin var g1_1=1
+plugin var g1_2=1
+plugin var g1_3=0
+plugin var g1_4=1
+plugin var g2_1=0
+plugin var g2_2=-1/$sigma
+plugin var g2_3=$sigma
+plugin var g2_4=$lambda
+plugin var v1=[$sigma@2*cos(PI/(256i))]
+plugin var v2=[$lambda@2*cos(PI/(8+i))]
+plugin run
+init maps singly
+config set diskfill no
+config set diskdraw yes
+config set diskdash no
+gensset flush
+gensset add A a B b ABab abAB
+gensset init
+probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
+
+fp bomb
+fp add 0.6795452686140632-0.501078301777161i BabA
+fp add -0.6795452686140633-0.07627196741246481i BabA
+fp add 1.6795452686140633-0.501078301777161i ABab
+fp add 0.3204547313859367-0.07627196741246495i ABab
+fp add -0.6795452686140632+0.501078301777161i bABa
+fp add 0.6795452686140633+0.07627196741246481i bABa
+fp add -1.6795452686140633+0.501078301777161i abAB
+fp add -0.3204547313859367+0.07627196741246495i abAB
+auto refresh off
+auto init off
+zoom zplane (0,0) side:5 silent
+zoom wplane (0.03275109170305679,-0.19104803493449773) side:1.8013100436681222 silent
+refresh zplane silent clean
+refresh wplane silent clean

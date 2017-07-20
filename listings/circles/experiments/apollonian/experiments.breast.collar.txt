@@ -1,0 +1,29 @@
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+grid 12
+config set accuracy 12
+config set depth 18
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+mobius add A a:(1,0) b:(0,0) c:(0,-1.3) d:(1,0)
+mobius update A a #61df61
+mobius add a a:(1,0) b:(0,0) c:(0,1.3) d:(1,0)
+mobius update a A #61df61
+mobius add B a:(1,-1) b:(1,0) c:(1,0) d:(1,1)
+mobius update B b #61df61
+mobius add b a:(1,1) b:(-1,0) c:(-1,0) d:(1,-1)
+mobius update b B #61df61
+init maps singly
+probability set 0.23 0.27 0.23 0.27 built-in
+auto refresh off
+auto init off
+zoom zplane (0,0) side:4 silent 
+zoom wplane (0,0) side:6 silent 
+refresh zplane silent clean
+refresh wplane silent clean

@@ -1,0 +1,33 @@
+/*
+Jorgensen group #1
+Refer to 'Indra's Pearls'
+by David Mumford, Caroline Series, David Wright
+Cambridge Press, 2002
+Generators can be found at p. 256
+*/
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+grid 12
+config set accuracy 18
+config set depth 15
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+plugin set 4.05
+plugin var a=1.91+0.05i
+plugin var b=3
+plugin var p=2
+plugin run
+init maps singly
+probability set 0.4 0.1 0.4 0.1
+auto refresh off
+auto init off
+zoom zplane (0,0) side:4 silent 
+zoom wplane (0,0) side:1.5 silent 
+refresh zplane silent clean
+refresh wplane silent clean

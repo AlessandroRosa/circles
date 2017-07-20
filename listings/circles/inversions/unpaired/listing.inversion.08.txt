@@ -1,0 +1,25 @@
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+grid 12
+config set accuracy 20
+config set depth 5
+palette on
+palette create start:rgb(0,255,0) end:rgb(255,255,255) steps:10
+method inversion
+config set drawentity circle
+config set construction tiling
+disk add A center:500,500 radius:706.5
+disk add B center:-500,-500 radius:706.5
+disk add C center:-500,500 radius:706.5
+disk add D center:500,-500 radius:706.5
+disk add E center:0,0 radius:0.55
+init disks singly
+all draw on
+zoom zplane (0,0) side:2 silent 
+zoom wplane (0,0) side:2 silent 
+refresh zplane silent clean
+refresh wplane silent clean

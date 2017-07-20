@@ -1,0 +1,31 @@
+<banana>send output data from cmd into a pdf file</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>pdf %param% <- %cmd%</snow>
+<lightblue>%param%</lightblue> <snow>canvas | silent</snow>
+
+<lightblue>pdf <- mobius list</lightblue>
+<lightblue>pdf <- disk list</lightblue>
+<lightblue>pdf <- zplane rendering</lightblue>
+<cadetblue>output the Z-plane rendering canvas into the pdf</cadetblue>
+<cadetblue>use role name: refer to 'canvas' cmd</cadetblue>
+
+<lightblue>pdf silent <- code</lightblue>
+<cadetblue>skip questions and output code from batch script service</cadetblue>
+
+<lightblue>pdf canvas <- code</lightblue>
+<cadetblue>output code and add both Z-plane and W-plane canvas into the pdf</cadetblue>
+
+<lightblue>pdf <- debug</lightblue>
+<cadetblue>output debug report from batch script service</cadetblue>
+
+<lightblue>pdf <- config</lightblue>
+<cadetblue>output config settings list</cadetblue>
+
+<lightblue>pdf <- alphabet</lightblue>
+<lightblue>pdf <- benchmark</lightblue>
+<lightblue>pdf <- comment</lightblue>
+<lightblue>pdf <- dictionary</lightblue>
+
+<lightblue>pdf release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

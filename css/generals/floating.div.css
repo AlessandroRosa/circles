@@ -1,0 +1,12 @@
+div.general_floating
+{
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+
+    -webkit-box-shadow: 0px 0px 12px 0px #565656;
+    -moz-box-shadow: 0px 0px 12px 0px #565656;
+    box-shadow: 0px 0px 12px 0px #565656;
+    
+    background-color:#F0F0F0;
+}

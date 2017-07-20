@@ -1,0 +1,23 @@
+Simple keyboard shortcuts:
+
+
+Shortcut keyboard combinations:
+
+ALT + S : Stop current drawing process
+ALT + PLUS : increment depth by one
+ALT + MINUS : decrement depth by one
+CTRL + SHIFT + A : Add circle
+CTRL + ALT + D : Open dictionary panel
+CTRL + E : Edit circle (current selection)
+CTRL + ALT + F : Render W-plane
+CTRL + ALT + I : Save W-plane into a file
+CTRL + K : open generators check panel
+CTRL + L : open seeds list panel
+CTRL + SHIFT + M : Add Mobius map
+CTRL + ALT + M : Open current method panel
+CTRL + N : New config
+CTRL + ALT + P : <free-for-further-use>
+CTRL + ALT + R : render Z-plane
+CTRL + ALT + S : save Z-plane into a file
+CTRL + ALT + T : open terminal console
+CTRL + U : toggle off selection

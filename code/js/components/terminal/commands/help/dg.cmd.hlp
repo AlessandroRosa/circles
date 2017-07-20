@@ -1,0 +1,70 @@
+<banana>storage manager for used-defined discrete groups</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>dg</lightblue> <snow>%action% %services%</snow>
+
+<lightblue>action</lightblue> <snow>call | clean | delete | info | list | record | save | show | subgroup</snow>
+<lightblue>services</lightblue> <snow>info | init | record | render | refresh | show</snow>
+
+<yellow>------------- EXAMPLES ----------------</yellow>
+<lightblue>dg call 1</lightblue>
+<cadetblue>call group entry indexed as 1 from groups storage and set it as the current dg in use</cadetblue>
+
+<lightblue>dg list</lightblue>
+<cadetblue>display all recorded groups</cadetblue>
+
+<lightblue>dg list 1</lightblue>
+<cadetblue>display the group indexed as '1' only</cadetblue>
+
+<lightblue>dg save def:mypersonalgroup</lightblue>
+<cadetblue>save current group in use and label it as 'mypersonalgroup' in the archive</cadetblue>
+
+<violet>Creating new subgroups</violet>
+<lightblue>dg subgroup ab bAB info</lightblue>
+<cadetblue>with regard to the current group in use, a subgroup is created from input words and info are displayed</cadetblue>
+
+<lightblue>dg subgroup ab bAB record</lightblue>
+<cadetblue>with regard to the current group in use, a subgroup is created from input words and recorded</cadetblue>
+
+<lightblue>dg subgroup ab bAB show</lightblue>
+<cadetblue>with regard to the current group in use, a subgroup is created from input words and gens are listed</cadetblue>
+
+<lightblue>dg subgroup ab bAB record</lightblue>
+<cadetblue>record the input subgroup in the archive, if no duplicates exist</cadetblue>
+
+<lightblue>dg subgroup ab bAB record refresh</lightblue>
+<cadetblue>record the input subgroup and refresh generator disks in the Z-plane</cadetblue>
+
+<lightblue>dg subgroup ab bAB record refresh render</lightblue>
+<cadetblue>record the input subgroup, refresh generator disks in the Z-plane and render the subgroup on the W-plane</cadetblue>
+
+<violet>Conjugation of the current group</violet>
+<lightblue>dg conjugate map:cayley %service%</lightblue>
+<cadetblue>conjugate current group via the Cayley map (type 'map list' cmd for params)</cadetblue>
+
+<lightblue>dg conjugate map:(iz-1)/(z-1) %service%</lightblue>
+<cadetblue>conjugate current group via the Cayley map (type 'map list' cmd for params)</cadetblue>
+
+<lightblue>dg conjugate map:unitdisk $a:0.2-0.2i %service%</lightblue>
+<cadetblue>conjugate current group via 'unitdisk' map (type 'map list' cmd for params) and set the var $a, inside that same map, to 0.2-0.2i</cadetblue>
+
+<lightblue>dg conjugate class:Mobius map:1,2,0,1 %service%</lightblue>
+<cadetblue>formulas can be input through a chain of params separated by comma (here, conjugating map is 'z+2')</cadetblue>
+
+<lightblue>dg conjugate class:Mobius map:1,$a,0,1 $a:2 %service%</lightblue>
+<cadetblue>parametrized version of the previous example</cadetblue>
+<lightblue>%service%</lightblue> <snow>apply | record</snow>
+<lightblue>apply</lightblue> <snow>set the conjugated group as the current one</snow>
+<lightblue>init</lightblue> <snow>initialize the new group</snow>
+<lightblue>record</lightblue> <snow>save the conjugated group into dg archive</snow>
+<lightblue>refresh</lightblue> <snow>draw the Z-plane again</snow>
+<lightblue>render</lightblue> <snow>render the W-plane again</snow>
+
+<lightblue>dg release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<yellow>------------- NOTES ----------------</yellow>
+<yellow>Note 1</yellow> <snow>dg cmd applies to seeds esclusively</snow>
+<yellow>Note 2</yellow> <snow>conjugation works with objects of &lsquo;Mobius map&rsquo; class exclusively.</snow>
+
+<lightgray>Use 'roundto:n' to round output values to 10E-n</lightgray>

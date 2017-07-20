@@ -1,0 +1,35 @@
+/*
+Jorgensen group #2
+Refer to 'J&Oslash;RGENSEN GROUPS OF PARABOLIC TYPE II'
+by CHANGJUN LI, MAKITO OICHI and HIROKI SATO
+Osaka J. Math., 41, 2004
+Generators can be found at p. 493
+*/
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+plane wplane
+grid ticks 16
+config set accuracy 12
+config set depth 10
+palette off
+method algebraic breadthfirst
+config set drawentity pixel
+config set construction limitset
+plugin set 4.22
+plugin var a=i+0.5
+plugin var b=1.2-0.5i
+plugin run
+init maps singly
+config set diskfill no
+config set diskdraw yes
+config set diskdash no
+auto refresh off
+auto init off
+zoom zplane (0,0) side:4 silent 
+zoom wplane (0,0) side:4 silent 
+refresh zplane silent clean
+refresh wplane silent clean

@@ -1,0 +1,160 @@
+/* $Id: example.css,v 1.5 2006/03/27 02:44:36 pat Exp $ */
+
+/*--------------------------------------------------
+  REQUIRED to hide the non-active tab content.
+  But do not hide them in the print stylesheet!
+  --------------------------------------------------*/
+.tabberlive .tabbertabhide { display:none; }
+
+/*--------------------------------------------------
+  .tabber = before the tabber interface is set up
+  .tabberlive = after the tabber interface is set up
+  --------------------------------------------------*/
+.tabber {
+}
+
+.tabberlive {
+ margin-top:1em;
+}
+
+/*--------------------------------------------------
+  ul.tabbernav = the tab navigation list
+  li.tabberactive = the active tab
+  --------------------------------------------------*/
+ul.tabbernav
+{
+ margin:0px;
+ padding: 0px 0;
+ border-bottom: 1px solid #C0C0C0;
+ font: bold 12px lucida grande,tahoma,verdana,arial,sans-serif;
+}
+
+ul.tabbernav li /* narrow space separating tabs */
+{
+ list-style: none;
+ margin: 0px;
+ padding:0px;
+ display: inline;
+ background: transparent;
+ color:#404040;
+ border-bottom: 1px solid #C0C0C0;
+}
+
+ul.tabbernav li a /* unselected tab */
+{
+     padding: 3px 0.5em 4px 14px ;
+     margin-left: 3px;
+    
+     border-left: 1px solid #C0C0C0;
+     border-top: 1px solid #C0C0C0;
+     border-right: 1px solid #C0C0C0;
+
+     -webkit-border-top-left-radius: 6px;
+     -webkit-border-top-right-radius: 6px;
+     -moz-border-radius-topleft: 6px;
+     -moz-border-radius-topright: 6px;
+     border-top-left-radius: 6px;
+     border-top-right-radius: 6px;
+
+     background-color:#F4F4F4;
+     color:#E0E0E0;
+     text-decoration: none;
+
+     font-size:8pt;
+     font-weight:normal;
+     font-family:lucida grande,tahoma,verdana,arial,sans-serif;
+
+     height:16px;
+}
+
+ul.tabbernav li a:link { color: #606060; padding:4px; } /* unselected tab link */
+ul.tabbernav li a:visited { color: #606060; padding:4px; } /* unselected tab visited */
+
+ul.tabbernav li a:hover
+{
+     background-color:#7CBDD9;
+     color:white;
+    
+     text-decoration:none;
+
+     border-left: 1px solid #C0C0C0;
+     border-top: 1px solid #C0C0C0;
+     border-right: 1px solid #C0C0C0;
+}
+
+ul.tabbernav li.tabberactive a /* selected tab */
+{
+     background-color:white;
+     color:black;
+     
+     border-left: 1px solid #C0C0C0 ;
+     border-top: 1px solid #C0C0C0 ;
+     border-right: 1px solid #C0C0C0 ;
+
+     -webkit-border-top-left-radius: 6px;
+     -webkit-border-top-right-radius: 6px;
+     -moz-border-radius-topleft: 6px;
+     -moz-border-radius-topright: 6px;
+     border-top-left-radius: 6px;
+     border-top-right-radius: 6px;
+
+     font-size:8pt;
+     font-family:lucida grande,tahoma,verdana,arial,sans-serif;
+}
+
+ul.tabbernav li.tabberactive a:hover
+{
+}
+
+/*--------------------------------------------------
+  .tabbertab = the tab content
+  Add style only after the tabber interface is set up (.tabberlive)
+  --------------------------------------------------*/
+.tabberlive .tabbertab {
+     border-left:1px solid #C0C0C0 ;
+     border-right:1px solid #C0C0C0 ;
+     border-bottom:1px solid #C0C0C0 ;
+ 
+ font-family:lucida grande,tahoma,verdana,arial,sans-serif;
+ font-size:7pt;
+ 
+ background-color:white;
+ 
+-webkit-border-bottom-right-radius: 5px;
+-webkit-border-bottom-left-radius: 5px;
+-moz-border-radius-bottomright: 5px;
+-moz-border-radius-bottomleft: 5px;
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+
+ /* If you don't want the tab size changing whenever a tab is changed
+    you can set a fixed height */
+
+ /* height:200px; */
+
+    height:100%;
+    width:100%;
+    padding:2px;
+    
+    vertical-align:top;
+    overflow:auto;
+
+ /* If you set a fix height set overflow to auto and you will get a
+    scrollbar when necessary */
+
+ /* overflow:auto; */
+}
+
+/* If desired, hide the heading since a heading is provided by the tab */
+.tabberlive .tabbertab h2 { display:none; width:100%; }
+.tabberlive .tabbertab h3 { display:none; width:100%; }
+
+/* Example of using an ID to set different styles for the tabs on the page */
+.tabberlive#tab1 { width:100%; }
+.tabberlive#tab2 { width:100%; }
+
+.tabberlive#tab2 .tabbertab {
+ height:200px;
+ width:100%;
+ overflow:auto;
+}

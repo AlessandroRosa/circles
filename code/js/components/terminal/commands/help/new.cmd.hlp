@@ -1,0 +1,21 @@
+<banana>delete all previous settings and set up a new config</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>new %action%</snow>
+
+<lightblue>action</lightblue> <snow> bip | coords | dict | generals | gensset | none | plugins | terminal</snow>
+
+<cadetblue>new</cadetblue>
+<lightblue>reset all settings</lightblue>
+
+<cadetblue>new plugins</cadetblue>
+<lightblue>reset settings belonging to plugins services exclusively</lightblue>
+
+<cadetblue>new terminal plugins</cadetblue>
+<lightblue>reset settings belonging to 'plugins' and 'terminal' services exclusively</lightblue>
+
+<lightblue>new silent</lightblue>
+<cadetblue>set a new configuration skipping user's confirmation</cadetblue>
+
+<lightblue>new release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

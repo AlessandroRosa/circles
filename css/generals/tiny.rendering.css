@@ -1,0 +1,16 @@
+.scripttext
+{
+		background-color:#323232;
+    font-family: FreeMono, monospace;
+    font-size:8pt;
+		color:lime;
+		overflow:auto;
+		padding:3px;
+		-opacity:0.95;
+		-moz-opacity:0.95;
+		filter:alpha('opacity=95');
+
+    border-radius: 5px; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px; 
+}

@@ -1,0 +1,34 @@
+/*
+Grandma's special parabolic commutators
+Refer to 'Indra's Pearls'
+by David Mumford, Caroline Series, David Wright
+Cambridge Press, 2002
+Generators can be found at p. 229
+*/
+new
+grid zplane show
+silent off
+echo on
+grid 12
+config set accuracy 20
+config set depth 10
+palette off
+method algebraic breadthfirst
+config set drawentity pixel
+config set construction limitset
+plugin set 4.01
+plugin var a=2*cos(PI/(256i))
+plugin var b=2*cos(PI/(3+1.8i))
+plugin var p=1
+plugin run
+init maps singly
+// A scheme was already found and deleted for further initialization
+gensset flush
+gensset add A B a b abAB ABab
+gensset init
+auto refresh off
+auto init off
+zoom zplane (0,0) side:2 silent 
+zoom wplane (0,0) side:8.775 silent 
+refresh zplane silent clean
+refresh wplane silent clean

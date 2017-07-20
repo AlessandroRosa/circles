@@ -1,0 +1,12 @@
+<banana>request to draw the select plane</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>refresh %plane% clean silent norender</snow>
+
+<lightblue>%plane%</lightblue> <snow>zplane | wplane</snow>
+<lightblue>clean</lightblue> <snow>erase the previous drawing</snow>
+<lightblue>silent</lightblue> <snow>skip confirm</snow>
+<lightblue>norender</lightblue> <snow>render the plane but not the figures</snow>
+
+<lightblue>refresh release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

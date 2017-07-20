@@ -1,0 +1,45 @@
+/*
+Riley slice #1
+Refer to 'Indra's Pearls'
+by David Mumford, Caroline Series, David Wright
+Cambridge Press, 2002
+Generators can be found at p. 258
+*/
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+plane zplane
+grid ticks 16
+config set accuracy 16
+config set depth 15
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+plugin set 4.10
+plugin var rho=0.5i-0.5
+plugin run
+init maps singly
+config set diskfill no
+config set diskdraw yes
+config set diskdash no
+gensset flush
+gensset add a b A B abAB ABab
+gensset init
+probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
+
+fp bomb
+fp add 1.0927631411557495+0.6612594183025716i BabA
+fp add -0.9072368588442503+0.6612594183025705i ABab
+fp add -1.0927631411557495-0.6612594183025716i bABa
+fp add 0.9072368588442503-0.6612594183025705i abAB
+auto refresh off
+auto init off
+zoom zplane (0,0) side:5 silent
+zoom wplane (0,0) side:4 silent
+refresh zplane silent clean
+refresh wplane silent clean

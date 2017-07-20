@@ -1,0 +1,54 @@
+/*
+Jorgensen's recipe #1
+Refer to 'Indra's Pearls'
+by David Mumford, Caroline Series, David Wright
+Cambridge Press, 2002
+Generators can be found at p. 256
+
+a = 2*cos(PI/(256i))
+b = 2*cos(PI/(8+1.0255i))
+Apply solution 2
+*/
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+plane zplane
+grid ticks 16
+config set accuracy 16
+config set depth 18
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+mobius add a a:(1.5369150417519029,0.4886475096568461) b:(-0.024633102027939308,-0.2623056512380547) c:(2.000150600102,0) d:(0.46323555835009744,-0.4886475096568461)
+mobius update a A draw drawcolor:#577a97
+mobius add b a:(1.3661358353867088,0.5741016065076968) b:(0.017946983002061618,0.2437107663077161) c:(-1.854853177215,-0.037338573124) d:(0.4887173418282913,-0.5367630333836968)
+mobius update b B draw drawcolor:#57e443
+mobius add A a:(0.46323555835009744,-0.4886475096568461) b:(0.024633102027939308,0.2623056512380547) c:(-2.000150600102,0) d:(1.5369150417519029,0.4886475096568461)
+mobius update A a draw drawcolor:#acc4d6
+mobius add B a:(0.4887173418282913,-0.5367630333836968) b:(-0.017946983002061618,-0.2437107663077161) c:(1.854853177215,0.037338573124) d:(1.3661358353867088,0.5741016065076968)
+mobius update B b draw drawcolor:#bfe443
+init maps singly
+dg conjugate map:D1toH apply init
+config set diskfill no
+config set diskdraw yes
+config set diskdash no
+gensset flush
+gensset add a b A B abAB ABab
+gensset init
+probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
+fp bomb
+fp add 0.9487440086185395+1.4241710740978373i BabA
+fp add 0.00000000878239789475+1.0000000229368369i ABab
+fp add -0.2838423636509137+0.5422581215123884i bABa
+fp add -0.00000001284579923461-0.999999969305201i abAB
+auto refresh off
+auto init off
+zoom zplane (0,0) side:5 silent
+zoom wplane (0,2.25) side:9 silent
+refresh zplane silent clean
+refresh wplane silent clean

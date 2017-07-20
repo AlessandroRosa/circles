@@ -1,0 +1,32 @@
+/*
+Kissing Schottkies
+Refer to 'Indra's Pearls'
+by David Mumford, Caroline Series, David Wright
+Cambridge Press, 2002
+Generators can be found at p. 170
+*/
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+plane wplane
+grid ticks 16
+config set accuracy 12
+config set depth 6
+palette off
+method inversion
+config set drawentity circle
+config set construction tiling
+plugin set 4.02
+plugin var y=1
+plugin var v=1
+plugin run
+init disks singly lock
+auto refresh off
+auto init off
+zoom zplane (0,0) side:4 silent 
+zoom wplane (0,0) side:4 silent 
+refresh zplane silent clean
+refresh wplane silent clean

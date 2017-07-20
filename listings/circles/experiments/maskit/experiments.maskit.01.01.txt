@@ -1,0 +1,49 @@
+comment:
+[
+Refer to Bernard Maskit's
+SOME SPECIAL 2-GENERATORS KLEINIAN GROUPS
+Proc. AMS, 106, 1, 1989
+Page 184
+
+a = ( e^(-i*pi/6), 0, 0, e^(i*pi/6) )
+b = ( 2, -1, 1, 0 )
+c = ( -e^(-i*pi/6), 2*e^(-i*pi/6), 0, e^(i*pi/6) )
+
+Here alpha = 6
+
+Use plug-in "General Purpose" to input the three generators
+]
+
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+grid 12
+config set accuracy 12
+config set depth 15
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+mobius add A a:(0.8660254037844387,-0.49999999999999983) b:(0,0) c:(0,0) d:(0.8660254037844387,0.5)
+mobius update A a #61df61
+mobius add a a:(0.8660254037844387,0.5) b:(0,0) c:(0,0) d:(0.8660254037844387,-0.49999999999999983)
+mobius update a A #61df61
+mobius add B a:(2,0) b:(-1,0) c:(1,0) d:(0,0)
+mobius update B b #61df61
+mobius add b a:(0,0) b:(1,0) c:(-1,0) d:(2,0)
+mobius update b B #61df61
+mobius add C a:(-0.8660254037844387,0.49999999999999983) b:(0,0) c:(1.7320508075688774,1) d:(0.8660254037844387,0.5)
+mobius update C c #61df61
+mobius add c a:(0.8660254037844387,0.5) b:(0,0) c:(-1.7320508075688774,-1) d:(-0.8660254037844387,0.49999999999999983)
+mobius update c C #61df61
+init maps singly
+probability set 0.15 0.18334000000000017 0.15 0.18333999999999995 0.15 0.18331999999999993 built-in
+auto refresh off
+auto init off
+zoom zplane (0,0) side:4 silent 
+zoom wplane (0,0) side:6 silent 
+refresh zplane silent clean
+refresh wplane silent clean

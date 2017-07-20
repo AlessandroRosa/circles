@@ -1,0 +1,14 @@
+// Circles - general purpose plug-in
+// group saved on 07-02-2015 - 07:26:03
+gens=2
+depth=7
+drawentity=isometric
+comment:This example shows the classic modula group of isometries
+a0=1
+b0=0
+c0=-2
+d0=1
+a1=1
+b1=2
+c1=0
+d1=1

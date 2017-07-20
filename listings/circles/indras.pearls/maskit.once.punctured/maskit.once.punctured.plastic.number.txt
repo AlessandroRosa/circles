@@ -1,0 +1,31 @@
+/*
+Maskit slice - once punctured torus
+Refer to 'Indra's Pearls'
+by David Mumford, Caroline Series, David Wright
+Cambridge Press, 2002
+Generators can be found at p. 287
+*/
+new
+silent off
+echo on
+grid zplane show
+grid 12
+config set accuracy 12
+config set depth 10
+palette off
+method algebraic breadthfirst
+config set drawentity pixel
+config set construction limitset
+plugin set 4.03
+plugin var mu=1.32471795724474602596i
+plugin run
+init maps singly
+gensset flush
+gensset add A B a b
+gensset init
+auto refresh off
+auto init off
+zoom zplane (0,0) side:4 silent 
+zoom wplane (0,0) side:6 silent 
+refresh zplane silent clean
+refresh wplane silent clean

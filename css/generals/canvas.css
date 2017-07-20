@@ -1,0 +1,18 @@
+.pilebaselayer
+{
+    -webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;
+		background-color:white;
+}
+
+.layer_canvas
+{
+    position:absolute;
+    z-index:10;
+    -moz-opacity:0.95;
+    opacity:0.95;
+    filter:alpha('opacity=95');
+    display:none;
+    top:100px;
+    background-color:white;
+    padding:1px;
+}

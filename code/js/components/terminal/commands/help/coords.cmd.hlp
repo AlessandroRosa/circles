@@ -1,0 +1,26 @@
+<banana>return the coordinates or center of the selected plane</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>coords %plane% %center%</snow>
+<lightblue>%plane%</lightblue> <snow>zplane | wplane | bip</snow>
+<lightblue>%center%</lightblue> <snow>return center coordinates</snow>
+
+<lightblue>coords wplane</lightblue>
+<cadetblue>return current coords of the W-plane</cadetblue>
+
+<lightblue>coords all</lightblue>
+<cadetblue>return coords of Z-PLANE, W-PLANE, BIP BOX</cadetblue>
+
+<lightblue>coords center wplane</lightblue>
+<cadetblue>return center coords of the W-plane</cadetblue>
+
+<lightblue>coords copy zplane wplane</lightblue>
+<cadetblue>set coords of the W-plane (dest) as of the Z-plane (src)</cadetblue>
+
+<lightblue>coords copy zplane wplane render clean silent</lightblue>
+<cadetblue>the same as before and the W-plane (dest) is rendered too</cadetblue>
+<cadetblue>clean --> erase graphics from the related canvas</cadetblue>
+<cadetblue>silent --> skip questions before rendering</cadetblue>
+
+<lightblue>coords release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

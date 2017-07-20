@@ -1,0 +1,11 @@
+new
+config set depth 7
+method inversion
+tessellator radial startcenter:(1.1334,0) radius:0.8 sector:2*pi rotationcenter:(0,0) circles:4
+
+palette create start:#305AB0 end:#FFFFFF steps:8
+palette on
+all fill on
+all draw off
+init
+refresh wplane silent clean

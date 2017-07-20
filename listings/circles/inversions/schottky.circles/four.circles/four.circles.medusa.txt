@@ -1,0 +1,29 @@
+new
+config set title medusa
+silent off
+echo on
+grid zplane show
+
+grid 12
+config set accuracy 20
+config set depth 8
+palette on
+palette create start:rgb(0,56,85) end:rgb(139,203,255) steps:10
+method inversion
+config set drawentity circle
+config set construction tiling
+disk add A center:0.3155080213903743,0.3155080213903743 radius:0.3992869875222817
+disk update A a draw nofill linewidth:1 #3FBFFF
+disk add b center:-0.4,0.4 radius:0.4
+disk update b B draw nofill linewidth:1 #3FBFFF
+disk add B center:-0.3155080213903743,-0.32620320855614976 radius:0.4028520499108734
+disk update B b draw nofill linewidth:1 #3FBFFF
+disk add a center:0.4,-0.4 radius:0.4
+disk update a A draw nofill linewidth:1 #3FBFFF
+init disks schottky
+auto refresh off
+auto init off
+zoom zplane (0,0) side:2 silent 
+zoom wplane (0,0) side:1.7 silent 
+refresh zplane silent clean
+refresh wplane silent clean

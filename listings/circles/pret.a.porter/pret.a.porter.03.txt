@@ -1,0 +1,11 @@
+new
+config set depth 12
+config set drawentity pixel
+config set construction limitset
+method inversion
+tessellator radial startcenter:(0.5,0) radius:0.6 sector:2*pi rotationcenter:(0,0) circles:3
+
+palette off
+init
+zoom wplane (0,0) side:2.5
+refresh wplane silent clean

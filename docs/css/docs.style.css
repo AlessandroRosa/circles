@@ -1,0 +1,170 @@
+body
+{
+      overflow:none;
+      margin:0px;
+      padding:0px;
+      font-family: lucida, tahoma, verdana, arial, sans-serif;
+      font-size:8pt;
+}
+
+a.info
+{
+      font-family: lucida, tahoma, verdana, arial, sans-serif;
+      color:blue;
+}
+
+.section
+{
+      font-family: lucida, tahoma, verdana, arial, sans-serif;
+      color:orange;
+      font-weight:bold;
+}
+
+#master
+{
+    width:100%;
+    height:99%;
+    font-size:8pt;
+}
+
+#header
+{
+    width:100%;
+    height:40px;
+    
+    font-size:16pt;
+    padding:2px;
+    padding-left:20px;
+    margin:0px;
+    color:white;
+
+    background: #0b2da8; /* Old browsers */
+    background: -moz-linear-gradient(left, #0b2da8 0%, #d4e4ef 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#0b2da8), color-stop(100%,#d4e4ef)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #0b2da8 0%,#d4e4ef 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #0b2da8 0%,#d4e4ef 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #0b2da8 0%,#d4e4ef 100%); /* IE10+ */
+    background: linear-gradient(to right, #0b2da8 0%,#d4e4ef 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0b2da8', endColorstr='#d4e4ef',GradientType=1 ); /* IE6-9 */
+
+    -webkit-border-bottom-right-radius: 16px;
+    -webkit-border-bottom-left-radius: 16px;
+    -moz-border-radius-bottomright: 16px;
+    -moz-border-radius-bottomleft: 16px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+}
+
+#navigation
+{
+    width:180px;
+    background-color:#FAFAFA;
+    padding:3px;
+    border-right:1px solid #D7D7D7;
+    height:100%;
+    margin:3px;
+    padding:3px;
+    font-size:8pt;
+}
+
+#contents
+{
+    background-color:#F5F5F5;
+    vertical-align:top;
+    margin:3px;
+    padding:3px;
+    width:100%;
+    font-size:8pt;
+}
+
+#contentsdiv
+{
+    width:100%;
+    height:100%;
+    overflow:auto;
+    font-family: lucida, tahoma, verdana, arial, sans-serif;
+    font-size:8pt;
+    margin:3px;
+}
+
+#navigationdiv
+{
+    width:180px;
+    height:100%;
+    overflow:auto;
+    font-family: lucida, tahoma, verdana, arial, sans-serif;
+    font-size:8pt;
+    padding:6px;
+}
+
+#title
+{
+    font-size:14pt;
+    font-weight:bold;
+}
+
+#definition
+{
+    font-size:10pt;
+    color:#323232;
+    line-height:14pt;
+}
+
+a
+{
+    text-decoration:none;
+    color:black;
+}
+
+a:hover
+{
+    color:blue;
+}
+
+ol
+{
+    font-size:8pt;
+}
+
+table
+{
+    font-family: lucida, tahoma, verdana, arial, sans-serif;
+    font-size:8pt;
+}
+
+table.docsinfo
+{
+    font-family: lucida, tahoma, verdana, arial, sans-serif;
+    font-size:8pt;
+    padding:4px;
+    width:200px;
+}
+
+td.docslabel
+{
+    font-family: lucida, tahoma, verdana, arial, sans-serif;
+    font-size:8pt;
+    color:#454545;
+    font-weight:bold;
+}
+
+#codewindow
+{
+		padding:3px;
+		background-color:#545454;
+		color:lime;
+    font-family: FreeMono, monospace;
+		font-size:8pt;
+    line-height: auto;
+
+    border-radius: 5px; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px; 
+}
+
+.general_rounded_corners
+{
+    border-radius: 5px; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px; 
+}

@@ -1,0 +1,47 @@
+<banana>plot a rectangle</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>rect %lefttop pt% %rightbottom pt% %width% %height% %opacity% %linethickness% %borderradius% %plane% %drawcolor% %fillcolor% %rec% $label</snow>
+
+<lightblue>%lefttop pt%</lightblue> <snow>starting corner point - example: (0,0)</snow>
+<cadetblue>left up is required for any construction</cadetblue>
+<lightblue>%rightbottom pt%</lightblue> <snow>ending corner point - example: (1,2)</snow>
+<cadetblue>rightbottom pt is optional for corners construction</cadetblue>
+<lightblue>%width height%</lightblue> <snow>rect extents</snow>
+<cadetblue>width and height are optional for width/height construction</cadetblue>
+<lightblue>%plane%</lightblue> <snow>zplane | wplane | bip</snow>
+<cadetblue>where the rect will be drawn</cadetblue>
+<lightblue>%borderradius%</lightblue></snow>
+<cadetblue>set it if rect has rounded borders</cadetblue>
+<lightblue>%drawcolor% %fillcolor%</lightblue> <snow>red | #FF0000 | rgb(255,0,0)</snow>
+<cadetblue>Colors can be input by tags, rgb hex or rgb integer triplets. Type 'noclr' to skip it</cadetblue>
+<lightblue>%linethickness%</lightblue> <snow>integer value</snow>
+<cadetblue>Rectangle border line thickness in pixels. Zero value means no border</cadetblue>
+<lightblue>%opacity%</lightblue> <snow>from 0 to 1</snow>
+<cadetblue>Set opacity level for current rect. It follows %drawcolor% or %fillcolor%</cadetblue>
+<lightblue>%rec%</lightblue></snow>
+<cadetblue>If mentioned, record this rect for further display after renderings</cadetblue>
+
+<lightblue>rect (0,0) (1,2) drawcolor blue fillcolor yellow zplane</lightblue>
+<cadetblue>(corner points input) plot rect in the Z-plane and paint it yellow with blue border</cadetblue>
+
+<lightblue>rect (0,0) 1 4 drawcolor blue fillcolor yellow thick 3 zplane $rect1 rec</lightblue>
+<cadetblue>(width/height input) plot rect with sides 1 and 4 in the Z-plane, paint it yellow with blue border and set line thickness to 3, then record it with label '$rect1'</cadetblue>
+
+<lightblue>rect (0,0) 1 4 drawcolor blue fillcolor yellow thick 3 zplane $rect1 storagein</lightblue>
+<cadetblue>same as above, but the line is saved into the default storage space</cadetblue>
+
+<lightblue>rect (0,0) 1 4 drawcolor blue fillcolor yellow thick 3 zplane $rect1 storagein storagesubset:rects</lightblue>
+<cadetblue>same as above, but the line is saved into the 'rects' storage space (if existing)</cadetblue>
+
+<lightblue>rect release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<lightgray>-------------------------------</lightgray>
+<turquoise>Note (1)</turquoise>
+<cadetblue>width, height, opacity, linethickness, borderradius must be input according to the above params sequence</cadetblue>
+<turquoise>Note (2)</turquoise> <cadetblue>params must follow the reported input order to work</cadetblue>
+<turquoise>Note (3)</turquoise> <cadetblue>$labels can be used to refer to figures, as alternative to indexes</cadetblue>
+<turquoise>Note (4)</turquoise> <cadetblue>if you want to update later a rect entry, use these parameters</cadetblue>
+<cadetblue>in'</cadetblue><white>figures</white><cadetblue>' cmd with '</cadetblue><white>update</white><cadetblue>' action</cadetblue>
+<snow>lefttop rightbottom center width height draw drawcolor fill fillcolor opacity linethickness borderradius</snow>

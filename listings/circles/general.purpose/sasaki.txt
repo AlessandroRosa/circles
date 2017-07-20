@@ -1,0 +1,21 @@
+// Circles - general purpose plug-in
+// group saved on 06-10-2015 - 21:42:41
+gens=2
+comment:The generators appear in the work:@@@A note on a paper of Sasaki, p. 36@@@This is a once-punctured torus group@@@
+a0=_a
+b0=0
+c0=0
+d0=1/_a
+a1=(_a^2+1)/(_a^2-1)
+b1=(4*_a^2)/(_a^4-1)
+c1=(_a^2+1)/(_a^2-1)
+d1=(_a^2+1)/(_a^2-1)
+// registered vars 
+var@_a=1+i/2
+// registered values 
+rec@_a=1+i
+rec@_a=(2+i)/(2-i)
+rec@_a=1+i/2
+rec@_a=1/2+i/2
+rec@_a=1.14+i/2
+rec@_a=1.14+5*i/6

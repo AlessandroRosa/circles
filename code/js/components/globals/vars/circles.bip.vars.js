@@ -1,0 +1,14 @@
+var _glob_bip_use = NO ;
+var _glob_bip_original_plane_data = Z_PLANE ;    // what to draw
+var _glob_bip_original_plane_coords = Z_PLANE ;  // where to pick up coordinates from
+var _glob_bip_box_center_pt = null ;
+var _glob_bip_shorterside_pixels = DEFAULT_BIP_SIZE ;
+var _glob_bip_x_extent = 0 ;
+var _glob_bip_y_extent = 0 ;
+var _glob_bip_ticks = DEFAULT_TICKS ;
+var _glob_bip_bk = "" ;
+var _glob_bip_halt = NO ;
+var _glob_bip_canvas = null ;
+var _glob_bip_canvas_placeholder = null ;
+var _glob_bip_opacity = DEFAULT_MAX_OPACITY ;
+var _glob_bip_pixel_size = 1 ;

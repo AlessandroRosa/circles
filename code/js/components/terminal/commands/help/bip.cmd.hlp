@@ -1,0 +1,75 @@
+<banana>render the input plane on a canvas of custom size</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>bip %switch% %plane% %diagram% %action% %export% %bk%</snow>
+
+<lightblue>%param%</lightblue> <snow>xextent | yextent | minside | coords | data</snow>
+<lightblue>%switch%</lightblue> <snow>on | off | list</snow>
+<lightblue>%plane%</lightblue> <snow>zplane | wplane</snow> (input)
+<lightblue>%diagram%</lightblue> <snow>zplane | wplane | userdef</snow> (output)
+<lightblue>%action%</lightblue> <snow>acquire | apply | render | save</snow>
+<lightblue>%export%</lightblue> <snow>svg | ps | eps | latex</snow>
+<lightblue>%minside%</lightblue> <snow>short side of the bip box (longer side is recomputed along the current ratio)</snow>
+<lightblue>%bk%</lightblue> <snow>set the background color</snow> (tag or rgb triplets)
+<lightblue>svg | no svg</lightblue> <snow>toggle on/off svg format for export</snow>
+
+<lightblue>bip on</lightblue>
+<cadetblue>open bip mode</cadetblue> <orange>(required)</orange>
+
+<lightblue>bip acquire</lightblue>
+<cadetblue>get bip parameters from selected plane for coords</cadetblue>
+
+<lightblue>bip list</lightblue>
+<cadetblue>resume current bip options</cadetblue>
+
+<lightblue>bip list -> list.txt</lightblue>
+<cadetblue>dump settings list into a plain text file</cadetblue>
+
+<lightblue>bip list html</lightblue>
+<cadetblue>dump settings list into a new popup</cadetblue>
+
+<lightblue>bip zplane userdef</lightblue>
+<cadetblue>pick the W-plane for data and user-defined coordinates (follow the order)</cadetblue>
+
+<lightblue>bip zplane (0,0) 12 4 500</lightblue>
+<cadetblue>set W-plane for input data, bip box is centered at the origin, sized 12 x 4 (cartesian metrics) and whose shorter side is 500 pixels long</cadetblue>
+
+<cadetblue>-----------------------------</cadetblue>
+<cadetblue>parameters can be also input one by one, mentioning their type, as follows</cadetblue>
+<cadetblue>-----------------------------</cadetblue>
+
+<lightblue>bip data zplane | wplane</lightblue>
+<cadetblue>set Z-plane | W-plane for picking items (disks, maps) data from</cadetblue>
+
+<lightblue>bip coords zplane | wplane | userdef</lightblue>
+<cadetblue>set Z-plane | W-plane or user-defined values for coords</cadetblue>
+
+<lightblue>bip xextent 12</lightblue>
+<cadetblue>set width 12 units for coords diagram</cadetblue>
+
+<lightblue>bip yextent 12</lightblue>
+<cadetblue>set height 4 units for coords diagram</cadetblue>
+
+<lightblue>bip minside 400</lightblue>
+<cadetblue>set 400 pixels for the shortest side of the bip box</cadetblue>
+
+<lightblue>bip aquamarine | #00FF00 | rgb(192,192,192)</lightblue>
+<cadetblue>set the background color (use tags or rgb triplets)</cadetblue>
+
+<lightblue>bip apply</lightblue>
+<cadetblue>apply current bip settings</cadetblue>
+
+<lightblue>bip render</lightblue>
+<cadetblue>render current disks configuration into the bip box, according to bip and config settings</cadetblue>
+
+<lightblue>bip save</lightblue>
+<cadetblue>save bip box into png file</cadetblue>
+
+<lightblue>bip save svg</lightblue>
+<cadetblue>save bip box into svg file</cadetblue>
+
+<lightblue>bip off</lightblue>
+<cadetblue>close bip mode</cadetblue>
+
+<lightblue>bip release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

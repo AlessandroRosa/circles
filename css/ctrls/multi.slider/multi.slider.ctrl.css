@@ -1,0 +1,22 @@
+.slide {
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 420px;
+    height:10px;
+    background: #FFFFFF;
+    padding-left:12px;
+    padding-right:12px;
+}
+
+.slide-back {
+    position:absolute;
+    height:100%;
+}
+
+.ui-slider .ui-slider-handle{
+    width:4px;
+    height:4px;
+    position:absolute;
+    top: 0px;
+    border-style:1px solid gray;
+}

@@ -1,0 +1,44 @@
+/*
+Earle slice
+Refer to 'Boundaries of slices of quasifuchsian space'
+by Daniel Francis Matthew Goodman
+Thesis, University of Warwick, 2006
+*/
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+plane zplane
+grid ticks 16
+config set accuracy 16
+config set depth 15
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+plugin set 4.06
+plugin var d=0.58+1.0i
+plugin run
+init maps singly
+config set diskfill no
+config set diskdraw yes
+config set diskdash no
+gensset flush
+gensset add a b A B abAB ABab
+gensset init
+probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
+
+fp bomb
+fp add 0.5298025644871933+0.21131405845623466i BabA
+fp add -0.00000000801906876289+0.00000000090092352562i ABab
+fp add -0.5298025686060461-0.21131404103617682i bABa
+fp add 20648881.032544333+30973321.72189343i abAB
+auto refresh off
+auto init off
+zoom zplane (0,0) side:5 silent
+zoom wplane (0,0) side:2 silent
+refresh zplane silent clean
+refresh wplane silent clean

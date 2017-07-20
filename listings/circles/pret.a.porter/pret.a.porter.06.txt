@@ -1,0 +1,12 @@
+new
+method inversion
+tessellator grid startcenter:(-0.4,-0.5) radius:0.4 shifthorz:0.8 shiftvert:0.5 rows:3 cols:2
+config set depth 6
+config set drawentity pixel
+palette on
+dict build force
+dict reverse
+dict apply
+zoom zplane tofit
+zoom wplane +3
+refresh wplane clean silent keepdict

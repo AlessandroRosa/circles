@@ -1,0 +1,7 @@
+<banana>open a new tab to the docs page</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>docs</snow>
+
+<lightblue>docs release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

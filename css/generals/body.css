@@ -1,0 +1,14 @@
+body
+{
+    background-color:#57839F;
+    margin:0px;
+    padding:0px;
+    margin-top:0px ;
+    overflow:auto;
+}
+
+.label
+{
+    font-family:lucida grande,tahoma,verdana,arial,sans-serif;
+    font-size:8pt;
+}

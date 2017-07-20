@@ -1,0 +1,43 @@
+/*
+General purpose
+Just input the generators and have your Mobius maps group !
+*/
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+plane wplane
+grid ticks 16
+config set accuracy 12
+config set depth 18
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+plugin set 4.24
+plugin var g1_1=1
+plugin var g1_2=1
+plugin var g1_3=0
+plugin var g1_4=1
+plugin var g2_1=0
+plugin var g2_2=-1
+plugin var g2_3=1
+plugin var g2_4=0
+plugin var g3_1=1
+plugin var g3_2=(1+sqrt(15)*i)/2
+plugin var g3_3=0
+plugin var g3_4=1
+plugin run
+init maps singly
+config set diskfill no
+config set diskdraw yes
+config set diskdash no
+auto refresh off
+probability set 0.16667 0.16667 0.16667 0.16667 0.16667 0.16664999999999996 built-in
+auto init off
+zoom zplane (0,0) side:4 silent 
+zoom wplane (0,0) side:4 silent 
+refresh zplane silent clean
+refresh wplane silent clean

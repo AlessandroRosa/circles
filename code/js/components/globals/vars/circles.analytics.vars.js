@@ -1,0 +1,9 @@
+var _glob_word_orbit = "" ;
+var _glob_word_orbit_pt = null ;
+var _glob_transform_x_shift = 0 ;
+var _glob_transform_y_shift = 0 ;
+var _glob_transform_rotate_angle = 0 ;
+var _glob_disk_threshold_operator = "" ;
+var _glob_disk_threshold_radius = 0 ;
+var _glob_disk_visibility_radius = Math.pow( 10, -3 );
+var _glob_method_fp_dist_tolerance = Math.pow( 10, -3 );

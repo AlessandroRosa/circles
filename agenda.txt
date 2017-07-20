@@ -1,0 +1,342 @@
+------------ READINGS ------------------------
+https://it.wikipedia.org/wiki/Paradigma_di_programmazione
+https://en.wikipedia.org/wiki/Programming_paradigm
+https://en.wikipedia.org/wiki/Kleene_algebra
+https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
+https://en.wikipedia.org/wiki/Structured_program_theorem
+
+------------ PARSER ------------------------
+  >>  get_filedata_from_folder( "../code/phpcode/svc/svc.
+      why 
+       get_filedata_from_folder( "../code/phpcode/svc/svc.
+      does not work ?
+
+  >> trap all occurrances of 
+     var _result = get_filedata_from_folder
+     check which data is
+
+  >> [test]
+     * as all's working, add also mobius_map / circle, point methods (.. inversion, isometric ...)
+     * test method registrations for all classes (mixing the compositions and not)
+
+  >> handle operators conversion inside the code, according to directive (replace)
+     example var _b = sin(_a) >> var _b = _a.sin();
+
+  >> Final code
+     * the syntax
+     <return-type> function <identifier>(<datatype><param#1>,<datatype><param#2>){<code>}
+     must turn into
+     function <identifier>(<params>){<code>}
+
+     * final code shall be built by concatenating these arrays
+
+     this.final_code_array['predirectives'] = []; // at the top
+     this.final_code_array['copy.functions'] = []; // for homymous functions return different datatype ...
+     this.final_code_array['code'] = []; // following ...
+
+     except 'code' chunk - to be filled now, other entries will be fulfilled as the following points
+     will be resolved
+
+     Resolve final concatenation now
+
+  >> simulate load, registration of function from .lib files
+     (first from a string var, later by loading the files from server, later
+      again from code editor)
+     example:
+     complex function fn1(p1, p2, ...)
+     rect function fn2(p1, p2, ...)
+     point function fn3(p1, p2, ...)
+
+  >> example
+     0: complex function test_add( _x, _y ){ return _x + _y ; }
+     1: number function test_add( _x, _y ){ return _x + _y ; }
+
+     2: var _a = new complex(1,1), _b = new complex(2,2);
+     3: var _c = 1, _d = 2 ;
+
+     4: var _t1 = test_add( _a, _b ) ;
+     5: var _t2 = test_add( _c, _d ) ;
+
+     candidate strategy:
+     1. scan for functions defs
+     2.1: test_add( _a, _b ) --> complex, fn id, complex, complex --> _complex_test_add
+        from the related block of test_add (used as a pattern),
+        create a temporary copy _complex_test_add
+        and we get
+        function _complex_test_add( _x, _y ) { return _x.add( _y ) ; }
+        check duplicates inside this.final_code_array['copy.functions']
+        if not yet, put it in
+
+     2.2: test_add( _c, _d ) --> number, fn id, number, number --> _number_test_add
+        from the related block of _number_test_add (used as a pattern),
+        create a temporary copy _number_test_add
+        and we get
+        function _number_test_add_02( _x, _y ) { return _x + _y ; }
+        check duplicates inside this.final_code_array['copy.functions']
+        if not yet, put it in
+
+     In this case, this.final_code_array['copy.functions'] shall be filled as follows:
+     {
+        original_fn_name : test_add,
+        copy_fn_name : _complex_test_add,
+        code_block : [ ... take code from the tree ... ],
+        token_call_coords : [ 3, 3 ]
+     },
+     {
+        original_fn_name : test_add,
+        copy_fn_name : _number_test_add,
+        reparsed_code : [ ... take code from the tree ... ],
+        token_call_coords : [ 4, 3 ]
+     }
+
+     3. by means of the history table
+     examine each call of 'test_add' (only ref, not def, thus those ones at rows 3 and 4)
+     and find the class type of their arguments.
+     find all occurrances for the pair return-type/fn_id and
+     rename the fn_id of each block (if fn_id is def or ref) in the tree.
+     Finally get the code from the whole tree again:
+
+     0: function _complex_test_add( _x, _y ) { return _x.add( _y ) ; }
+     1: function _number_test_add( _x, _y )  { return _x + _y ; }
+
+     1: var _a = new complex(1,1), _b = new complex(2,2);
+     2: var _c = 1, _d = 2 ;
+
+     3: var _t1 = _complex_test_add( _a, _b ) ;
+     4: var _t2 = _number_test_add( _c, _d ) ;
+
+------------ SCRIPT EDITOR ------------------------
+* OPERATORS MANAGEMENT
+     >> operators do work on simple data type exclusively, then
+        expressions in the form sin(z)+cos(z) are first evaluated
+        into var1+var2, before the operator '+' is processed
+     >> detect operator overloading declaration by
+     (\w*)\s*(\boperator\b)(\W+)\((.*)\)
+     yielding 4 groups:
+     1) return data format
+     2) 'operator' term
+     3) operatori symbol
+     4) comma-separated arguments data type
+        for example
+        rect operator+(rect, rect)
+ 
+        when such regular expression is matched then the lexical analysis
+        scans the further text until until the closing curl bracket '}' of
+        level 0
+        so that we can obtain the above 4 entries + the working function code,
+        after building and evaluating the code
+        "this.fn"+(++fn_id_counter)+" = function(arg1,arg2,...){"+code+"}" ;
+
+        >> this should fill-in the basic operators array, together with
+           a new entry in an internal catalogue of operators,
+           structured as follow somehow
+           ['+']
+             |---->[args_n,'rect','rect',function(left_op,right_op){}]
+             |---->[args_n,'number','number',function(left_op,right_op){}]
+             |---->[args_n,'complex','complex',function(left_op,right_op){}]
+
+           ['(+)']
+             |---->[args_n,'farey','farey',function(left_op,right_op){}]
+
+           ['-']
+             |---->[1,'number',function(left_op){}]
+             |---->[1,'complex',function(left_op){}]
+             |---->[2,'complex','complex',function(left_op,right_op){}]
+             |---->[2,'number','number',function(left_op,right_op){}]
+
+        >> Find how to fill-in the default operators set along the above approach,
+           as they have been already implemented into the parser. Then how can be
+           read and reinterpreted into .compute_binary_atomic_expr (which will be
+           finally renamed as .compute_atomic_expr)
+   
+  >> define the priority order for libs to be processed
+     1) process special syntax and operators
+     2) scan code for parsing formulas
+
+  >> implement such translation into code.manager for script editor
+     to do:
+     a) methods in the test files shall be renamed with circles_lib_ nomenclature
+        and put into file
+     b) the operators.lib.js file will include two functions which will
+        call methods in a) exclusively, no further processing of input expressions:
+        everything is already included in such methods
+
+  >> comments coloring handler
+  >> scan for function to be included inside libs definition
+     from foundation and framework
+     (put files in libs/default.load)
+  >> begin to plot something on a canvas, such as the isometric circle
+        
+* multicolor textarea (test codemirror)
+
+------------- MATH -------------------------------------------------
+* boundary tracer form:
+  >> [TEST] jorgensen boundary is not correctly displayed
+
+* implement a tool : brutal equation scanner
+
+  say you've to find solutions for abc - a^2+b^2+c^2 = 0 (Marden's p.44)
+
+  input "a" > complex > [-1,1,1,-1] (left,top,right,bottom) > incremental step 0.1
+  input "b" > complex > [-1,1,1,-1] (left,top,right,bottom) > incremental step 0.1
+  input "c" > complex > [-1,1,1,-1] (left,top,right,bottom) > incremental step 0.1
+
+  input sharpness <= 0.001 (all values \delta so that |\delta|<0.001 are imputed as accepted solutions )
+
+  creates a 3-nesting-level for-loop
+
+  for( -1<= a.real <= 1, _a += 0.1 )
+  {
+       for( -1<= a.imag <= 1, _a += 0.1 )
+  }
+
+* question #1: is mobius map indecomposable ?
+  question #2: is decomposition of a mobius map unique ?
+  question #3: how can I decompose a mobius map ?
+  question #4: how can I test if, given a decomposition, the first entry
+               is equal to some given map ?
+               For example, say that a map M decomposes into a ° B
+               then AM resolves into AaB and then B.
+               My goal is, given a group, to avoid cases like this one,
+               which may often happen causing a waste of time, instead of
+               computing B
+
+* continue to develop poincare disk model class
+  next step:
+  given any couple of points in the disk, plot the d-line connecting them
+  (you've already the disk from those two points, just compute the sector
+   angle between them)
+
+* continue to develop half-plane model class
+
+* curvilinear polygon
+  resume the development of _half_plane_polyline
+  insert the param centers_array, after _pts_array,
+  which replaces var _z0 inside the function itself and the call to
+  method _half_plane_geodesic
+
+----------------------- NOT IN THE PRIORITY QUEUE -----------------------------
+* visualizzare Z-plane e W-plane on the Riemann sphere through three.js
+  src material
+  http://www.bitstorm.it/blog/en/2011/05/3d-sphere-html5-canvas/
+  http://www.html5rocks.com/en/tutorials/three/intro/
+  http://www.howtojs.org/getting-started-with-three-js-part-1/
+  http://code.tutsplus.com/tutorials/webgl-with-threejs-basics--net-35688
+
+* algoritmo depthfirst con mia rivisitazione per ridurre il carico di calcolo
+  delle word/mobius map
+
+* Is it possible to draw the 3d model of Riemann surface related to
+  the input generators ?
+
+* Marden's book at p. 4, create an example as soon as the script editor is complete.
+  Share it on the web
+
+* from the current list of available cmds from terminal.
+  >> test all functionalities
+
+* fundamental region tool
+  >> plot isometric circles after multi-tasking process
+  >> FORD DOMAIN:
+  http://www.poritz.net/jonathan/FDB/index.html
+
+  Implement trace identities too and refer to Indra's pearls
+  for formulas
+
+* EARLE SLICE: http://www.brainjam.ca/slices.html
+  open related links
+
+* plugins:
+  > general purpose:
+    >> test features through the examples in
+       http://klein.math.okstate.edu/IndrasPearls/limitsets/puncture.html
+       http://klein.math.okstate.edu/IndrasPearls/limitsets/degenerate.html
+
+* if required, write more verbose explanations, whose displayed
+  is conditioned by global verbose flag
+
+* js components pages
+
+* docs
+
+* get in touch with prof. Kentaro Ita ("Linear slices close to a Maskit slice")
+  to present CIRCLES
+  
+* develop a new parser for polynomials (with differentiation and integration)
+
+------------------------ TESTS --------------------------------
+* plugin GENERAL PURPOSE: implement the Jorgensen example in Marden's book at p. 44
+  with comments, and share it on the web
+
+* ROSA GROUP
+   gen #1: 1.0,alpha,beta,1.0 | example alpha=0.5, beta=1.5
+   gen #2: 1,0,c,1 | c is complex
+   try other settings with alpha+beta=2
+
+* TEST :
+  consider a mobius map M, then develop a description about
+  a same figure being mapped by M as b and c ranges so
+  that a+b=2 and lim a = 2 and/or/xor lim b = 2
+
+* TEST
+  1) compute a cusp, say at 3/10
+  2) take the related p/q word c
+  3) construct a new group: a,b,c
+  4) trigger it
+  5) check whether convergence is again reasonably deep and fast
+
+* TEST
+  try displaying the modular grp by (1,0,-2,1) and (1,2,0,1)
+  or by arranging the four circles
+
+* TEST (sub-families of kleinian groups)
+  - pick up a group (1) of mobius map : a, b, A, B
+  - consider map a
+  * EXAMPLE 1
+  - factorize a into a couple of maps a1, b1
+  - generate a new group (2) : a1, b1, A1, B1
+  - render the limit set of (2)
+  * EXAMPLE 2
+  - divide map a by b and get the resulting a1
+  - generate a new group (2) : a, a1, A, A1 or a1, b, A1, B
+  - render the limit set of (2)
+
+
+* maskit plugin:
+  [EXPERIMENT #1] consider the current complex region. Take each point as
+  the trace for generating the maskit group and test whether it's discrete
+  through Jorgensen inequality. If so, plot that point into a canvas hosted inside
+  the plugin.
+  [EXPERIMENT #2] consider the maskit slice and plot as usual.
+  Then take the b generator and turn it to z+4 and init generators again
+  Render the new group after switching on LAST PT so we get it super-imposed.
+  What it the new limit set ? Is a completely new one or just the latter shifted to the right by +2 ?
+
+* [TEST] listings (continue...)
+  prevent all warnings or errors.
+  Start with "schottky disks" folder 
+
+* ricostruire tutti i listings con random algebraic:
+  >> aggiungere il primo punto fisso del commutatore abAB attraverso cmd fp
+
+* Posso ottenere una lista dinamica delle funzioni disponibili per librerie del framework
+  con relative descrizioni del risultato di ogni funzione + il ruolo dei parametri ?
+  Per esempio in un file circles.triggers.lib.desc, contenuto nella stessa cartella
+  di circles.triggers.lib.js
+  ogni entry is announced by
+  fn name:
+  fn desc:
+  fn param #1 with role
+  fn param #2 with role
+  ...
+  fn param #n with role
+
+* con la lista del punto precedente. Creare un form in cui gestire le j-unctions e le funzioni
+  in esse contenute. Per adesso la funzione dei j-unctions e definita dal programma.
+  Utilizzare le j-unctions per impostare delle azioni arbitrarie da parte dell'utente
+  in determinate.
+  Le azioni disponibili sono registrate in un array _glob_actions = [], in cui ogni
+  elemento è definito da :
+  idazione : 'render.3d.limit set'
+  desc : 'render a 3d model of the limit set associated to the curren group'
+  fns : '<call to a number functions in sequence>'

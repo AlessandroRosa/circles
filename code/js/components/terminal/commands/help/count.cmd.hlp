@@ -1,0 +1,7 @@
+<banana>count disks to draw for the given method and parameters</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>count</snow>
+
+<lightblue>count release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

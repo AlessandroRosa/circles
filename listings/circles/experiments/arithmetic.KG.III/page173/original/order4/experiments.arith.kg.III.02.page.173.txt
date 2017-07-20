@@ -1,0 +1,53 @@
+comment:
+[
+Generators refer to:
+2-GENERATOR ARITHMETIC KLEINIAN GROUPS III
+by M. D. E. CONDER, C. MACLACHLAN, G. J. MARTIN and E. A. O'BRIEN
+MATH. SCAND. 90 (2002), 161-179
+see page 173
+
+Parabolic and order 4
+X1 = (1,1,0,1)
+X2 = (1,0,-omega^2,1)
+X3 = (1+sqrt(2)omega,1,-2omega^2,1-sqrt(2)omega)
+X4 = (1+sqrt(2)omega,2,-omega^2,1-sqrt(2)omega)
+omega = 2i
+]
+
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+grid 12
+config set accuracy 12
+config set depth 18
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+mobius add A a:(1,0) b:(1,0) c:(0,0) d:(1,0)
+mobius update A a #61df61
+mobius add a a:(1,0) b:(-1,0) c:(0,0) d:(1,0)
+mobius update a A #61df61
+mobius add B a:(1,0) b:(1,0) c:(4,0) d:(1,0)
+mobius update B b #61df61
+mobius add b a:(1,0) b:(-1,0) c:(-4,0) d:(1,0)
+mobius update b B #61df61
+mobius add C a:(1,2.8284271247461903) b:(1,0) c:(8,0) d:(1,-2.8284271247461903)
+mobius update C c #61df61
+mobius add c a:(1,-2.8284271247461903) b:(-1,0) c:(-8,0) d:(1,2.8284271247461903)
+mobius update c C #61df61
+mobius add D a:(1,2.8284271247461903) b:(2,0) c:(4,0) d:(1,-2.8284271247461903)
+mobius update D d #61df61
+mobius add d a:(1,-2.8284271247461903) b:(-2,0) c:(-4,0) d:(1,2.8284271247461903)
+mobius update d D #61df61
+init maps singly
+probability set 0.125 0.125 0.125 0.125 0.125 0.125 0.125 0.125 built-in
+auto refresh off
+auto init off
+zoom zplane (0,0) side:4 silent 
+zoom wplane (0,0) side:4 silent 
+refresh zplane silent clean
+refresh wplane silent clean

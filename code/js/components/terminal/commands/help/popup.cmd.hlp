@@ -1,0 +1,34 @@
+<banana>popup windows manager</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>popup %action% %popupref%</snow>
+
+<lightblue>action</lightblue> <snow>available | close | list | open</snow>
+
+<lightblue>popup release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<lightblue>popup available forms</lightblue>
+<cadetblue>return a list of all services available in the 'forms' subset, together with opening params</cadetblue>
+
+<lightblue>popup list</lightblue>
+<cadetblue>return the list including popup ids to perform open|close operations</cadetblue>
+
+<lightblue>popup open %popup_subset% %popup_baseid% </lightblue>
+<white>popup open forms general.options</white>
+<cadetblue>attempts to open the form registered as 'general options'</cadetblue>
+
+<lightblue>popup open gens general.purpose</lightblue>
+<cadetblue>attempts to open the plug-in of gens registered as 'general purpose'</cadetblue>
+
+<lightblue>popup open tools canvas.composition</lightblue>
+<cadetblue>attempts to open the plug-in of tools registered as 'canvas composition'</cadetblue>
+
+<lightblue>popup remote forms general.options commands</lightblue>
+<cadetblue>return the list of remote control commands available for 'general options' commands</cadetblue>
+
+<lightblue>popup remote forms general.options open.params</lightblue>
+<cadetblue>return the list of remote control commands available for 'general options' commands</cadetblue>
+
+<lightblue>popup remote forms general.options activateifs</lightblue>
+<cadetblue>send remote control command 'activateifs'</cadetblue>

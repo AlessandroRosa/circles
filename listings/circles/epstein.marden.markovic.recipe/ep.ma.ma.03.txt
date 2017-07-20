@@ -1,0 +1,54 @@
+/*
+Refer to the paper
+Quasiconformal homeomorphisms and the convex hull boundary
+By D.B.A. Epstein, A. Marden and V. Markovic
+Annals of Mathematics, 159 (2004), 305Ã¢ÂÂ336
+//Generators can be found at p. 309
+//or visit http://klein.math.okstate.edu/kleinian/epstein/
+*/
+new
+silent off
+echo on
+
+grid zplane show
+grid wplane show
+plane zplane
+grid ticks 16
+config set accuracy 16
+config set depth 18
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+plugin set 4.24
+plugin var g1_1=sqrt(2)*e^(_z/2)
+plugin var g1_2=(1+sqrt(2))*e^(_z/2)
+plugin var g1_3=(-1+sqrt(2))*e^(-_z/2)
+plugin var g1_4=sqrt(2)*e^(-_z/2)
+plugin var g2_1=sqrt(2)-1
+plugin var g2_2=0
+plugin var g2_3=0
+plugin var g2_4=sqrt(2)+1
+plugin var v1=[_z@1.8i+1.4]
+plugin run
+init maps singly
+config set diskfill no
+config set diskdraw yes
+config set diskdash no
+gensset flush
+gensset add A a B b ABab abAB
+gensset init
+probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
+
+fp bomb
+fp add -1.0000000056153904+0.00000002180875563842i BabA
+fp add -0.41614681544505105+0.9092974322098467i ABab
+fp add -2.4254815865523316+5.299773744966685i bABa
+fp add -5.828427164851992+0.0000000956632423901i abAB
+auto refresh off
+auto init off
+zoom zplane (0,0) side:5 silent
+zoom wplane (-2.8740234375,2.2939453125) side:5.853515625 silent
+refresh zplane silent clean
+refresh wplane silent clean

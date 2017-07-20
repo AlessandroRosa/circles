@@ -1,0 +1,35 @@
+new
+silent off
+echo on
+
+grid zplane show
+grid 12
+config set accuracy 20
+config set depth 5
+palette off
+method inversion
+config set drawentity circle
+config set construction tiling
+disk add A center:-0.8852889667250438,0.27057793345008757 radius:0.36252189141856384
+disk update A a draw nofill linewidth:1 #3fbfff #3f96ea
+disk add a center:-0.9,-0.3 radius:0.3
+disk update a A draw nofill linewidth:1 #3fbfff #3f96ea
+disk add B center:-0.20753064798598947,0.23905429071803852 radius:0.3047285464098073
+disk update B b draw nofill linewidth:1 #3fbfff #3f96ea
+disk add b center:-0.3021015761821366,-0.27057793345008757 radius:0.3047285464098074
+disk update b B draw nofill linewidth:1 #3fbfff #3f96ea
+disk add C center:0.3966725043782837,0.23905429071803852 radius:0.29947460595446584
+disk update C c draw nofill linewidth:1 #3fbfff #3f96ea
+disk add c center:0.3021015761821366,-0.27057793345008757 radius:0.29947460595446584
+disk update c C draw nofill linewidth:1 #3fbfff #3f96ea
+disk add D center:0.9956217162872154,0.27057793345008757 radius:0.29947460595446573
+disk update D d draw nofill linewidth:1 #3fbfff #3f96ea
+disk add d center:0.9956217162872154,-0.3178633975481611 radius:0.38353765323992994
+disk update d D draw nofill linewidth:1 #3fbfff #3f96ea
+init disks schottky
+auto refresh off
+auto init off
+zoom zplane (0,0) side:3 silent 
+zoom wplane (0,0) side:4 silent 
+refresh zplane silent clean
+refresh wplane silent clean

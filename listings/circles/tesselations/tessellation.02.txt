@@ -1,0 +1,10 @@
+new
+disk add a center:0,0.5 radius:0.5 draw
+disk add B center:0.5,0 radius:0.5 draw
+disk add b center:-0.5,0 radius:0.5 draw
+disk add A center:0,-0.5 radius:0.5 draw
+method tessellation
+config set depth 7
+config set drawentity circles
+refresh zplane clean
+refresh wplane clean
