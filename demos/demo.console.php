@@ -3,7 +3,7 @@
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript" defer>
 var _demon = new demo_n();
     _demon.add( { ctrl_id : "alertYESbtn", time : 1.5, time_unit : "s",
-                  action : "click", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "click", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { pre_fn : function()
                   {
@@ -13,34 +13,34 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).show() ;
                   },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
-                  action : "move", set_value : { to_x : "center", to_y : "center" }, highlight : false, desc_label : ""
+                  action : "move", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { ctrl_id : "presentation_div", time : 3, time_unit : "s",
-                  action : "hide", set_value : null, highlight : false, desc_label : ""
+                  action : "hide", set_value : null, showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { ctrl_id : "plugin_maskitonce", time : 2, time_unit : "s",
-                  action : "click", set_value : -1, highlight : true, desc_label : "Calling the 'Maskit embedding' form",
+                  action : "click", set_value : -1, showlabel : true, desclabel : "Calling the 'Maskit embedding' form",
                   post_fn : function()
                   {
                     circles_lib_popup_load('embeddings','maskit.once','1','0','1');
                     circles_lib_menu_entries_update();
                   } } );
     _demon.add( { ctrl_id : "PLUGIN_PARAM_MU", time : 1.5, time_unit : "s",
-                  action : "focus", set_value : "", highlight : true, desc_label : "Focus on the parameter box" } );
+                  action : "focus", set_value : "", showlabel : true, desclabel : "Focus on the parameter box" } );
 
     var _str = "1.61688i+0.70567" ;
     for( var _i = 0 ; _i < _str.length ; _i++ )
     _demon.add( { ctrl_id : "PLUGIN_PARAM_MU", time : 130, time_unit : "ms",
-                  action : "keypress", set_value : _str[_i], highlight : true, desc_label : "Writing down the parameter for the group"
+                  action : "keypress", set_value : _str[_i], showlabel : true, desclabel : "Writing down the parameter for the group"
                 } );
                 
     _demon.add( { ctrl_id : "STATUSBARdepthEDIT", time : 1.5, time_unit : "s",
-                  action : "keydel", set_value : "", highlight : true, desc_label : "Deleting the old rendering depth"
+                  action : "keydel", set_value : "", showlabel : true, desclabel : "Deleting the old rendering depth"
                 } );
     _demon.add( { ctrl_id : "STATUSBARdepthEDIT", time : 1.5, time_unit : "s",
-                  action : "keypress", set_value : 10, highlight : true, desc_label : "Set the new rendering depth to 10",
+                  action : "keypress", set_value : 10, showlabel : true, desclabel : "Set the new rendering depth to 10",
                   post_fn : function()
                   {
                       var press = jQuery.Event("keypress");
@@ -54,7 +54,7 @@ var _demon = new demo_n();
                 } );
 
     _demon.add( { ctrl_id : "PLUGIN_PARAM_MU", time : 1.5, time_unit : "s",
-                  action : "focus", set_value : _str[_i], highlight : true, desc_label : "Group initialization",
+                  action : "focus", set_value : _str[_i], showlabel : true, desclabel : "Group initialization",
                   post_fn : function(){
                         var press = jQuery.Event("keypress");
                         press.ctrlKey = false;
@@ -67,19 +67,19 @@ var _demon = new demo_n();
 
     _demon.add( { post_fn : function() { circles_lib_popup_load('forms','terminal',YES,0,YES); circles_lib_popup_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2, time_unit : "s",
-                  action : "click", set_value : -1, highlight : true, desc_label : "Opening the Terminal console" } );
+                  action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "depth 9" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : true, desc_label : "Setting the depth to 9" } );
+                  action : "nothing", set_value : -1, showlabel : true, desclabel : "Setting the depth to 9" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "info group" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : true, desc_label : "Retrieving current group info" } );
+                  action : "nothing", set_value : -1, showlabel : true, desclabel : "Retrieving current group info" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "region zplane yellow cyan 0,2,1,0 opaq:0.2" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : true, desc_label : "Drawing a region on the z-plane" } );
+                  action : "nothing", set_value : -1, showlabel : true, desclabel : "Drawing a region on the z-plane" } );
 
     _demon.run();
 </SCRIPT>        

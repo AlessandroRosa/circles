@@ -3,7 +3,7 @@
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript" defer>
 var _demon = new demo_n();
     _demon.add( { ctrl_id : "alertYESbtn", time : 2, time_unit : "s",
-                  action : "click", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "click", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { pre_fn : function()
                   {
@@ -13,84 +13,84 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).show() ;
                   },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
-                  action : "move", set_value : { to_x : "center", to_y : "center" }, highlight : false, desc_label : ""
+                  action : "move", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
-                  action : "hide", set_value : null, highlight : false, desc_label : ""
+                  action : "hide", set_value : null, showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { ctrl_id : "MENU_ENTITY_PIXEL", time : 2, time_unit : "s",
-                  action : "click", set_value : "1", highlight : true, desc_label : "Draw entity is 'Pixel'" } );
+                  action : "click", set_value : "1", showlabel : true, desclabel : "Draw entity is 'Pixel'" } );
 
     _demon.add( { ctrl_id : "MENU_PROCESS_RANDOM", time : 3, time_unit : "s",
-                  action : "click", set_value : -1, highlight : true, desc_label : "Setting the process to RANDOM generators",
+                  action : "click", set_value : -1, showlabel : true, desclabel : "Setting the process to RANDOM generators",
                   post_fn : function() { circles_lib_process_set(PROCESS_RANDOM);_glob_fixedpt_io=FIXEDPOINTS_IO_INPUT;circles_lib_menu_entries_update(); }
               } );
 
     _demon.add( { post_fn : function() { circles_lib_popup_load('forms','triggers',YES); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2, time_unit : "s",
-                  action : "click", set_value : -1, highlight : true, desc_label : "Opening the 'Triggers' form" } );
+                  action : "click", set_value : -1, showlabel : true, desclabel : "Opening the 'Triggers' form" } );
 
     _demon.add( { ctrl_id : "CIRCLESformsTRIGGERScheckbox1", time : 3, time_unit : "s",
-                  action : "click", set_value : -1, highlight : true, desc_label : "Boosting the commutator option",
+                  action : "click", set_value : -1, showlabel : true, desclabel : "Boosting the commutator option",
                   post_fn : function(){ _glob_triggers_table['gens_set_01'][4] = 1 ; }
                 } );
                 
     _demon.add( { post_fn : function() { circles_lib_popup_load('embeddings','general.purpose',YES,0,YES); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 3, time_unit : "s",
-                  action : "click", set_value : -1, highlight : true, desc_label : "Opening the General Purpose mask" } );
+                  action : "click", set_value : -1, showlabel : true, desclabel : "Opening the General Purpose mask" } );
 
     _demon.add( { post_fn : function(){ $("#CIRCLESGENERALPURPOSEmainDIV").get(0).tabber.tabShow(3) ; },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2, time_unit : "s",
-                  action : "nothing", set_value : "0", highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : "0", showlabel : false, desclabel : "" } );
       
     // registering the param values
     _demon.add( { ctrl_id : "PLUGINvaridEDIT", time : 1.5, time_unit : "s",
-                  action : "keypress", set_value : "_a", highlight : true, desc_label : "Setting id for param _a" } );
+                  action : "keypress", set_value : "_a", showlabel : true, desclabel : "Setting id for param _a" } );
     _demon.add( { ctrl_id : "PLUGINvarvalueEDIT", time : 1.5, time_unit : "s",
-                  action : "keypress", set_value : "1+i/2", highlight : true, desc_label : "Setting value #1 for param _a" } );
+                  action : "keypress", set_value : "1+i/2", showlabel : true, desclabel : "Setting value #1 for param _a" } );
     _demon.add( { ctrl_id : "PLUGINparam_declareBTN", time : 1.5, time_unit : "s",
-                  action : "click", set_value : "1", highlight : true, desc_label : "Declaring the param _a" } );
+                  action : "click", set_value : "1", showlabel : true, desclabel : "Declaring the param _a" } );
     _demon.add( { ctrl_id : "PLUGINparam_registerBTN", time : 1.5, time_unit : "s",
-                  action : "click", set_value : "1", highlight : true, desc_label : "Registering the param _a" } );
+                  action : "click", set_value : "1", showlabel : true, desclabel : "Registering the param _a" } );
     _demon.add( { ctrl_id : "PLUGINparam_cleanBTN", time : 1.5, time_unit : "s",
-                  action : "click", set_value : null, highlight : true, desc_label : "Clean the param _a entries" } );
+                  action : "click", set_value : null, showlabel : true, desclabel : "Clean the param _a entries" } );
     //              
     _demon.add( { post_fn : function(){ $("#CIRCLESGENERALPURPOSEmainDIV").get(0).tabber.tabShow(0) ; },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2, time_unit : "s",
-                  action : "nothing", set_value : "0", highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : "0", showlabel : false, desclabel : "" } );
 
     _demon.add( { ctrl_id : "PLUGIN_PARAM_A", time : 1, time_unit : "s",
-                  action : "keypress", set_value : "_a", highlight : true, desc_label : "Setting param A for 1st generator" } );
+                  action : "keypress", set_value : "_a", showlabel : true, desclabel : "Setting param A for 1st generator" } );
     _demon.add( { ctrl_id : "PLUGIN_PARAM_B", time : 1, time_unit : "s",
-                  action : "keypress", set_value : "0", highlight : true, desc_label : "Setting param B for 1st generator" } );
+                  action : "keypress", set_value : "0", showlabel : true, desclabel : "Setting param B for 1st generator" } );
     _demon.add( { ctrl_id : "PLUGIN_PARAM_C", time : 1, time_unit : "s",
-                  action : "keypress", set_value : "0", highlight : true, desc_label : "Setting param C for 1st generator" } );
+                  action : "keypress", set_value : "0", showlabel : true, desclabel : "Setting param C for 1st generator" } );
     _demon.add( { ctrl_id : "PLUGIN_PARAM_D", time : 1, time_unit : "s",
-                  action : "keypress", set_value : "1/_a", highlight : true, desc_label : "Setting param D for 1st generator" } );
+                  action : "keypress", set_value : "1/_a", showlabel : true, desclabel : "Setting param D for 1st generator" } );
     _demon.add( { ctrl_id : "CIRCLESembeddingsGENERALPURPOSE_ADD_BTN", time : 1, time_unit : "s",
-                  action : "click", set_value : "1", highlight : true, desc_label : "Insert the 1st generator" } );
+                  action : "click", set_value : "1", showlabel : true, desclabel : "Insert the 1st generator" } );
 
     _demon.add( { ctrl_id : "PLUGIN_PARAM_A", time : 1, time_unit : "s",
-                  action : "keypress", set_value : "(_a^2+1)/(_a^2-1)", highlight : true, desc_label : "Setting param A for 2nd generator" } );
+                  action : "keypress", set_value : "(_a^2+1)/(_a^2-1)", showlabel : true, desclabel : "Setting param A for 2nd generator" } );
     _demon.add( { ctrl_id : "PLUGIN_PARAM_B", time : 1, time_unit : "s",
-                  action : "keypress", set_value : "(4*_a^2)/(_a^4-1)", highlight : true, desc_label : "Setting param B for 2nd generator" } );
+                  action : "keypress", set_value : "(4*_a^2)/(_a^4-1)", showlabel : true, desclabel : "Setting param B for 2nd generator" } );
     _demon.add( { ctrl_id : "PLUGIN_PARAM_C", time : 1, time_unit : "s",
-                  action : "keypress", set_value : "(_a^2+1)/(_a^2-1)", highlight : true, desc_label : "Setting param C for 2nd generator" } );
+                  action : "keypress", set_value : "(_a^2+1)/(_a^2-1)", showlabel : true, desclabel : "Setting param C for 2nd generator" } );
     _demon.add( { ctrl_id : "PLUGIN_PARAM_D", time : 1, time_unit : "s",
-                  action : "keypress", set_value : "(_a^2+1)/(_a^2-1)", highlight : true, desc_label : "Setting param D for 2nd generator" } );
+                  action : "keypress", set_value : "(_a^2+1)/(_a^2-1)", showlabel : true, desclabel : "Setting param D for 2nd generator" } );
     _demon.add( { ctrl_id : "CIRCLESembeddingsGENERALPURPOSE_ADD_BTN", time : 2, time_unit : "s",
-                  action : "click", set_value : "1", highlight : true, desc_label : "Insert the 2nd generator" } );
+                  action : "click", set_value : "1", showlabel : true, desclabel : "Insert the 2nd generator" } );
 
     _demon.add( { ctrl_id : "PLUGIN_GENERATE_GROUP_BTN", time : 2, time_unit : "s",
-                  action : "click", set_value : "1", highlight : true, desc_label : "Generate the 2-generators group" } );
+                  action : "click", set_value : "1", showlabel : true, desclabel : "Generate the 2-generators group" } );
 
     _demon.add( { ctrl_id : "STATUSBARdepthEDIT", time : 2, time_unit : "s",
-                  action : "keydel", set_value : "", highlight : true, desc_label : "Deleting the old rendering depth"
+                  action : "keydel", set_value : "", showlabel : true, desclabel : "Deleting the old rendering depth"
                 } );
     _demon.add( { ctrl_id : "STATUSBARdepthEDIT", time : 2, time_unit : "s",
-                  action : "keypress", set_value : 18, highlight : true, desc_label : "Set the new rendering depth to 18",
+                  action : "keypress", set_value : 18, showlabel : true, desclabel : "Set the new rendering depth to 18",
                   post_fn : function()
                   {
                       var press = jQuery.Event("keypress");
@@ -104,10 +104,10 @@ var _demon = new demo_n();
                 } );
 
     _demon.add( { ctrl_id : "STATUSBARrenderBTN", time : 2, time_unit : "s",
-                  action : "click", set_value : -1, highlight : false, desc_label : "Rendering ... go !" } );
+                  action : "click", set_value : -1, showlabel : false, desclabel : "Rendering ... go !" } );
 
     _demon.add( { ctrl_id : "alertYESbtn", time : 2, time_unit : "s",
-                  action : "click", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "click", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.run();
 </SCRIPT>

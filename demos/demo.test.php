@@ -3,10 +3,10 @@
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript" defer>
 var _demon = new demo_n();
     _demon.add( { ctrl_id : "alertYESbtn", time : 1.5, time_unit : "s",
-                  action : "click", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "click", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { ctrl_id : "alertYESbtn", time : 1, time_unit : "s",
-                  action : "wait", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "wait", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.run();
 </SCRIPT>        

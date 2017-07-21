@@ -3,7 +3,7 @@
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript" defer>
 var _demon = new demo_n();
     _demon.add( { ctrl_id : "alertYESbtn", time : 2, time_unit : "s",
-                  action : "click", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "click", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { pre_fn : function()
                   {
@@ -13,64 +13,64 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).show() ;
                   },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
-                  action : "move", set_value : { to_x : "center", to_y : "center" }, highlight : false, desc_label : ""
+                  action : "move", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
-                  action : "hide", set_value : null, highlight : false, desc_label : ""
+                  action : "hide", set_value : null, showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { post_fn : function() { circles_lib_popup_load('forms','terminal',YES,0,YES); circles_lib_popup_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 3, time_unit : "s",
-                  action : "click", set_value : -1, highlight : true, desc_label : "Opening the Terminal console" } );
+                  action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "new silent" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "depth 7" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plane zplane" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
     
     _demon.add( { post_fn : function() { _glob_terminal.exec( "method inversion" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "tessellator radial startcenter:(1.1334,0) radius:0.8 sector:2*pi rotationcenter:(0,0) circles:4" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "palette on" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "all fill on" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "all draw off" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "config set drawentity isometric" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { circles_lib_popup_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'LEFT', '' ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 3, time_unit : "s",
-                  action : "click", set_value : -1, highlight : true, desc_label : "Opening the Terminal console" } );
+                  action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "init auto" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "refresh wplane silent clean" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, highlight : false, desc_label : "" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.run();
 </SCRIPT>        
