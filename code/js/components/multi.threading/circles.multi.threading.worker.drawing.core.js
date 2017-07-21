@@ -1,6 +1,6 @@
-var _glob_multithread_path_to_root = "../../../../../" ;
+var _glob_multithread_path_to_root = "../../../../" ;
 var _glob_multithread_path_to_complex = _glob_multithread_path_to_root ;
-var _glob_multithread_path_to_circles = _glob_multithread_path_to_complex + "circles/" ;
+var _glob_multithread_path_to_circles = _glob_multithread_path_to_complex ;
 
 var _glob_multithread_accuracy = 0 ;
 var _glob_multithread_bunch_limit = 100 ;
@@ -27,8 +27,8 @@ var _glob_multithread_working_plane_def = "" ;
 
 self.addEventListener( 'message', function(e)
 {
-    var JS_FOLDER_ALL_PROJECTS = _glob_multithread_path_to_complex + "code/js/all.projects/" ;
-    var JS_FOLDER_ALL_SHARED = _glob_multithread_path_to_complex + "code/js/shared/" ;
+    var JS_FOLDER_ALL_PROJECTS = _glob_multithread_path_to_complex + "support/code/js/basements/" ;
+    var JS_FOLDER_ALL_SHARED = _glob_multithread_path_to_complex + "support/code/js/shared/" ;
     var JS_FOLDER_COMPONENTS = _glob_multithread_path_to_circles + "code/js/components/" ;
 
     var data = e.data ;

@@ -1,14 +1,14 @@
 var _glob_original_dict = [] ;
 var _glob_multithread_running = 0 ;
-var _glob_multithread_path_to_root = "../../../../../../" ;
-var _glob_multithread_path_to_complex = _glob_multithread_path_to_root + "complex/" ;
-var _glob_multithread_path_to_circles = _glob_multithread_path_to_complex + "circles/" ;
+var _glob_multithread_path_to_root = "../../../../" ;
+var _glob_multithread_path_to_complex = _glob_multithread_path_to_root ;
+var _glob_multithread_path_to_circles = _glob_multithread_path_to_complex ;
 var _glob_multithread_crash_words_packed = "" ;
 var _glob_multithread_dictionary_obj = null ;
 
 self.addEventListener( 'message', function(e)
 {
-      var JS_FOLDER_ALL_PROJECTS = _glob_multithread_path_to_complex + "code/js/all.projects/" ;
+      var JS_FOLDER_ALL_PROJECTS = _glob_multithread_path_to_complex + "support/code/js/basements/" ;
       var JS_FOLDER_COMPONENTS = _glob_multithread_path_to_circles + "code/js/components/" ;
       var data = e.data ;
       var msg_id = data.id ;
