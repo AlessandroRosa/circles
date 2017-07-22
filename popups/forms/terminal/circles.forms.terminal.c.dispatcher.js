@@ -51,6 +51,8 @@ function CIRCLESformsTERMINALdispatcher()
 					 circles_lib_statusbar_set_output_stream( OUTPUT_SCREEN );
 					 CIRCLESformsTERMINALbatchcompilerCLOSE( _suffix );
 					 circles_lib_unload_cmd();
+
+          circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
            break ;

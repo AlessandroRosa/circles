@@ -27,7 +27,6 @@ function CIRCLESformsTANGENTCIRCLEdispatcher()
 			          circles_lib_popup_load( _subset, _base_id, NO ) ;
 			          break ;
                 case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
-                
 					      var _sd_n = circles_lib_count_seeds();
 					      if ( _sd_n > 0 )
 						    {
@@ -76,6 +75,7 @@ function CIRCLESformsTANGENTCIRCLEdispatcher()
 				                return YES ;
 										}
 						    }
+          circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
                 break ;
                 case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
                 break ;

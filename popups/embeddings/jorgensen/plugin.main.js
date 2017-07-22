@@ -167,6 +167,8 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
     var _init_btn_clr = CELLgetCLR( "STATUSBARinitBTN" );
     var _draw_btn_clr = CELLgetCLR( "STATUSBARrenderBTN" );
     var _div_id = GLOB_PLUGIN_DIV_ID, _subset = "embeddings" ;
+    GLOB_PLUGIN_BASE_ID = _clean_base_id, GLOB_PLUGIN_SUBSET = _subset ;
+
     var WIDTH = 450, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
     HTMLcode += circles_lib_popup_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_CLOSE_POPUP();", WIDTH, HEIGHT, this_fn_name, 'jorgensen', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsJORGENSEN_",

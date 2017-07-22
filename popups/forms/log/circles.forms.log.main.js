@@ -60,9 +60,9 @@ function CIRCLESformsLOGmain( _base_id, _move )
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\"><DIV CLASS=\"general_rounded_corners\" ID=\"CIRCLESformsLOGdivLIST\" STYLE=\"overflow:auto;position:relative;width:"+(WIDTH-5)+"px;height:"+(HEIGHT-86)+"px;background-color:#323232;padding:2px;\"></td></DIV>" ;
     HTMLcode += "</table>" ;
-
-    
     HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
+
+    GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
     circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsLOGcaption, CLOSE_FN,
                       [ "CIRCLESformsLOGnormalize", _div_id, WIDTH, HEIGHT ],

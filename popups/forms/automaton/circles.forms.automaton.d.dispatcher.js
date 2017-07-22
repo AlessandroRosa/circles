@@ -43,6 +43,8 @@ function CIRCLESformsAUTOMATONdispatcher()
            _glob_using_automaton = NO ;
            if ( $("#" + CIRCLESformsAUTOMATONdiv_id).resizable('instance') != undefined )
            $("#" + CIRCLESformsAUTOMATONdiv_id).resizable('destroy');
+
+          circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
            break ;
 		          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
 		          var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;

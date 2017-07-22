@@ -6,7 +6,6 @@ function CIRCLESformsGENERALOPTIONSdispatcher()
                              and gain access to the stored features
        2 and more: arguments with index greater than 1 supply additional parameters, customizable for each message
     */
-      
 		if ( arguments.length > 0 )
 		{
 			 var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN );
@@ -41,6 +40,8 @@ function CIRCLESformsGENERALOPTIONSdispatcher()
           _glob_wplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID ;
 					if ( $("#" + CIRCLESformsGENERALOPTIONSdiv_id).resizable('instance') != undefined )
           $("#" + CIRCLESformsGENERALOPTIONSdiv_id).resizable('destroy');
+
+          circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
           break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
       		var TAB_INDEX = safe_float( arguments[2], CIRCLESformsGENERALOPTIONStabindex );

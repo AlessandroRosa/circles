@@ -109,6 +109,8 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
 
        CIRCLESformsTINYRENDERINGtabberOptions['prefix'] = "CIRCLESformsTINYRENDERING" +_REF_ID ;
+
+       GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
        var _div = circles_lib_popup_create( _base_id, _div_id, "forms", WIDTH, HEIGHT, HTMLcode );
        circles_lib_popup_activate( YES, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsTINYRENDERINGcaption );
        if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );

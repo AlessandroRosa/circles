@@ -18,7 +18,7 @@
 <white>popup open forms general.options</white>
 <cadetblue>attempts to open the form registered as 'general options'</cadetblue>
 
-<lightblue>popup open gens general.purpose</lightblue>
+<lightblue>popup open embeddings general.purpose</lightblue>
 <cadetblue>attempts to open the plug-in of gens registered as 'general purpose'</cadetblue>
 
 <lightblue>popup open tools canvas.composition</lightblue>

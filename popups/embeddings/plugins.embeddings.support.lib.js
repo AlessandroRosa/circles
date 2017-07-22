@@ -1,3 +1,5 @@
+var GLOB_PLUGIN_BASE_ID = "" ;
+var GLOB_PLUGIN_SUBSET = "" ;
 var GLOB_PLUGIN_DIV_ID = "POPUPpluginDIV" ;
 var GLOB_PLUGIN_CIRCLE_TYPE = DRAWENTITY_INVERSION_CIRCLE ;
 
@@ -415,7 +417,7 @@ function GLOB_PLUGIN_GENS_TABLE_SHOW()
 
 function GLOB_PLUGIN_GENS_DETAILS_SHOW( _mobius_map_index, _mobius_map_count )
 {
-    var CONTAINERID, PLUGIN_CONTAINER, _d, _new_d, a, _canvas, _ret_chunk ;
+    var CONTAINERID, PLUGIN_CONTAINER, _d, _new_d, a, _canvas, _ret_chunk, _ret_id, _ret_msg ;
     for( var i = 0 ; i < _mobius_map_count ; i++ )
     {
        if ( i == _mobius_map_index )
@@ -426,8 +428,8 @@ function GLOB_PLUGIN_GENS_DETAILS_SHOW( _mobius_map_index, _mobius_map_count )
           _canvas = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
           circles_lib_canvas_clean( _canvas );
           _ret_chunk = circles_lib_canvas_render_zplane( _canvas, zplane_sm, null, YES, YES, YES, NO, YES,OUTPUT_SCREEN );
-          var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-          var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "70Unknown error" ;
+          _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
+          _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "70Unknown error" ;
 			    if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
        }
        else $("#PLUGINS_SEEDS_CONTAINER_" + i ).hide();
@@ -492,8 +494,7 @@ function GLOB_PLUGIN_PARAMS_REGISTER()
     var _args_n = arguments.length, _plugin_ref ;
     if ( _args_n > 0 )
     {
-        var _params = [];
-        var _plugin_ref = safe_string( arguments[0], "" );
+        var _params = [], _plugin_ref = safe_string( arguments[0], "" );
         for( var _i = 1 ; _i < _args_n ; _i++ ) _params.push( ""+arguments[_i] );
 
         if ( _plugin_ref.length > 0 && _plugin_configs_list[ ""+_plugin_ref ] == null )

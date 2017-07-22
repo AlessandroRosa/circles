@@ -153,17 +153,13 @@ function circles_terminal_cmd_popup()
                  case "close":
                  var _id = _params_assoc_array['id'] ;
                  if ( _params_assoc_array['all'] ) circles_lib_popup_close_all();
-                 else if ( _caption.length == 0 )
-                 {
-                      var _msg = "Can't close: missing popup identifier" ;
-                      circles_lib_output( _out_channel, DISPATCH_WARNING, _error_str, _par_1, _cmd_tag );
-                 }
                  else
                  {
-                      var _popup_ref_obj = circles_lib_popup_find_wnd( _id, POPUP_SEARCH_BY_BASE_ID, YES ) ;
-                      var _subset = is_array( _popup_ref_obj ) ? _popup_ref_obj[8] : "" ;
-                      var _base_id = is_array( _popup_ref_obj ) ? _popup_ref_obj[12] : "" ;
-                      if ( _subset.length > 0 && _base_id ) circles_lib_popup_dispatcher_unicast_message( _subset, _base_id, POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ) ;
+                   var _popup_ref_obj = circles_lib_popup_find_wnd( _id, POPUP_SEARCH_BY_BASE_ID, YES ) ;
+                   var _subset = is_array( _popup_ref_obj ) ? _popup_ref_obj[8] : "" ;
+                   var _base_id = is_array( _popup_ref_obj ) ? _popup_ref_obj[12] : "" ;
+                   if ( _subset.length > 0 && _base_id.length > 0 )
+                   circles_lib_popup_dispatcher_unicast_message( _base_id, _subset, POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ) ;
                  }
                  break ;
                  case "list":

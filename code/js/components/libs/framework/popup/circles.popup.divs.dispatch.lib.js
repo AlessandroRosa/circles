@@ -12,9 +12,9 @@ function circles_lib_popup_dispatcher_unicast_message()
 		if ( arguments.length > 0 )
 		{
 				var _base_id = arguments[0] ;
-				var _subset = safe_string( arguments[1], "" );
+				var _subset = safe_string( arguments[1], "" ).replace( /[\.\_]/, "" );
 				var _message_id = safe_string( arguments[2], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN );
-				if ( _base_id.length > 0 && _message_id > 0 )
+				if ( _base_id.length > 0 && _message_id.length > 0 )
 				{
 					 var _popup_index = circles_lib_popup_find_offset( _base_id, POPUP_SEARCH_BY_BASE_ID, 0 ) ;
 					 _base_id = circles_lib_popup_clean_baseid( _base_id ) ;

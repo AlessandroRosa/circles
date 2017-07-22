@@ -38,6 +38,8 @@ function CIRCLESformsSCRIPTEDITORdispatcher()
                 case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
                 if ( $("#" + CIRCLESformsSCRIPTEDITORdiv_id).resizable('instance') != undefined )
                 $("#" + CIRCLESformsSCRIPTEDITORdiv_id).resizable('destroy');
+
+          circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
                 break ;
                 case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
                 CIRCLESformsSCRIPTEDITORlist();

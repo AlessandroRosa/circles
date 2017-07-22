@@ -36,8 +36,9 @@ function CIRCLEStoolsGROUPTABLEdispatcher()
 		          break ;
               case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
               var _div_id = _glob_popups_array[ POPUP_INDEX ][1] ;
-              if ( $('#'+_div_id).resizable('instance') != undefined )
-							$("#"+_div_id).resizable('destroy');
+              if ( $('#'+_div_id).resizable('instance') != undefined ) $("#"+_div_id).resizable('destroy');
+
+          circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
               break ;
 			          case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
 			          var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;

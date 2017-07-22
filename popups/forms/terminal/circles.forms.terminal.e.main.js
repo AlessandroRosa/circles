@@ -67,6 +67,8 @@ function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _te
     var _div_id = CIRCLESformsTERMINALdiv_id = circles_lib_popup_build_divid( _subset, _base_id ) + _suffix ;
     var HTMLcode = CIRCLESformsTERMINALgetHTML( _div_id, YES, WIDTH, HEIGHT, _suffix, _glob_popups_array.length );
     var _caption = CIRCLESformsTERMINALcaption + " #" + ( _glob_terminal_popup_active + 1 );
+
+    GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
     var CLOSE_FN = "CIRCLESformsTERMINALclose("+_suffix+");" ;
     circles_lib_popup_activate( YES, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN,

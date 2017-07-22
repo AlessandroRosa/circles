@@ -74,6 +74,7 @@ function CIRCLESformsTRIGGERSmain( _base_id, _move )
     HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
     HTMLcode += "</table>";
 
+    GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
     circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsTRIGGERScaption );
     if ( _move && _div != null ) move_div( _div.id, "LEFT", "BOTTOM", WIDTH, HEIGHT );

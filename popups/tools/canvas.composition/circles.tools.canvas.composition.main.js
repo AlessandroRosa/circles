@@ -160,6 +160,8 @@ function CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, _move )
 		 		HTMLcode += "</table>" ;
     
     HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
+
+    GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
     circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'tools', OPEN, _div_id, CIRCLEStoolsCANVASCOMPOSITIONcaption, CLOSE_FN,
                       [ "CIRCLEStoolsCANVASCOMPOSITIONnormalize", _div_id, WIDTH, HEIGHT ],

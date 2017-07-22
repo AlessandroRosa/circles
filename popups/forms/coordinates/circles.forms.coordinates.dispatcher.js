@@ -32,6 +32,8 @@ function CIRCLESformsCOORDINATESdispatcher()
           _glob_persistent_vars.remove_key('CIRCLESformsCOORDINATESmobiusmap');
           _glob_persistent_vars.remove_key('CIRCLESformsCOORDINATESsymbol');
           _glob_persistent_vars.remove_key('CIRCLESformsCOORDINATESitemobj');
+
+          circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
           break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
           CIRCLESformsCOORDINATESform( CIRCLESformsCOORDINATESplane_type, NO, [] ) ;

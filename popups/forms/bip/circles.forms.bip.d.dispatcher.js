@@ -27,6 +27,8 @@ function CIRCLESformsBIPdispatcher()
                 case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
                 _glob_bip_use = NO, _glob_target_plane = _glob_persistent_vars['old_target_plane'];
                 clrtable.setHANDLERonselectcolor( null );
+
+          circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
                 break ;
 			          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
 			          var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;

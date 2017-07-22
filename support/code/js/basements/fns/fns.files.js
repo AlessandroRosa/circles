@@ -93,6 +93,5 @@ function get_filedata_from_folder( _php_url, _method, _async, _vars )
 function get_file_modify_date( _path_to_file, _file )
 {
     var vars = { tip: "", exact: 0, folder : _path_to_file, filter : _file, search_params : '' } ;
-    console.log( _path_to_file );
     return get_filedata_from_folder( "support/code/phpcode/svc/svc.filelist.get.modify.datetime.php", "POST", false, vars );
 }

@@ -34,6 +34,8 @@ function CIRCLESformsFOURTHTANGENTCIRCLEdispatcher()
 				      if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
 			        circles_lib_canvas_update_icons_bar( "CANVASzplaneBAR" );
               circles_lib_statusbar_update_elements();
+
+              circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
               break ;
               case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
               break ;
