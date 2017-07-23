@@ -170,6 +170,17 @@ function CIRCLESembeddingsGRANDMAPARABOLICmain( _base_id, _move, _restore )
        GLOB_PLUGIN_VARS_PATTERN_RESTORE(_index_ref);
        GLOB_PLUGIN_VARS_PATTERN_FILL(_index_ref);
     }
+    else if ( _plugin_tmp_vars_config_array['embeddings@grandmaparabolic'] != null )
+    {
+      if ( _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['a'] != null )
+      CIRCLESembeddingsGRANDMAPARABOLIC_trA = _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['a'] ;
+
+      if ( _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['b'] != null )
+      CIRCLESembeddingsGRANDMAPARABOLIC_trB = _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['b'] ;
+
+      if ( _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['p'] != null )
+      CIRCLESembeddingsGRANDMAPARABOLIC_param = _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['p'] ;
+    }
 
     var SW = $(window).width(), SH = $(window).height();
     var _init_btn_clr = CELLgetCLR( "STATUSBARinitBTN" );

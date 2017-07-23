@@ -17,7 +17,7 @@ palette create start:rgb(255,0,0) end:rgb(255,255,0) steps:10
 method algebraic random
 config set drawentity pixel
 config set construction limitset
-plugin set 4.24
+plugin set embedding general.purpose
 plugin var g1_1=-1
 plugin var g1_2=-2-2i
 plugin var g1_3=2

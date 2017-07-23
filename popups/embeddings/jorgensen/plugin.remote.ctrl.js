@@ -16,6 +16,10 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn )
 		{
 				case "/*anyaction*/":
 				break ;
+        case "a":
+        break ;
+        case "b":
+        break ;
 				case "ifslastpt":
 				break ;
 				case "move":

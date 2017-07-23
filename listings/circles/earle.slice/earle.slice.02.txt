@@ -17,7 +17,7 @@ palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
-plugin set 4.06
+plugin set embeddings earle
 plugin var d=0.78+0.9i
 plugin run
 init maps singly

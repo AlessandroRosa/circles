@@ -16,7 +16,7 @@ palette off
 method algebraic breadthfirst
 config set drawentity circle
 config set construction limitset
-plugin set 4.24
+plugin set embedding general.purpose
 plugin var g1_1=(1-i)/sqrt(2)
 plugin var g1_2=0
 plugin var g1_3=0

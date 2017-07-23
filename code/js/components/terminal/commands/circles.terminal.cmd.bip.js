@@ -495,9 +495,7 @@ function circles_lib_terminal_bip_apply( _out_channel, _par_1 )
 {
     var _tmp_applied_settings_mask = 0 ;
     var _ret_chunk = circles_lib_bip_apply_settings( _out_channel, !_glob_terminal_silent, _glob_terminal_silent, NO,
-                                              _glob_bip_box_center_pt,
-                                              _glob_bip_x_extent, _glob_bip_y_extent,
-                                              _glob_bip_shorterside_pixels, _glob_bip_original_plane_coords, _glob_bip_original_plane_data,
-                                              _glob_bip_bk );
+                     _glob_bip_box_center_pt, _glob_bip_x_extent, _glob_bip_y_extent,
+                     _glob_bip_shorterside_pixels, _glob_bip_original_plane_coords, _glob_bip_original_plane_data, _glob_bip_bk );
     return _ret_chunk ;
 }

@@ -16,7 +16,7 @@ palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
-plugin set 4.24
+plugin set embedding general.purpose
 plugin var g1_1=1
 plugin var g1_2=1
 plugin var g1_3=0

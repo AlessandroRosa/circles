@@ -306,9 +306,10 @@ function CIRCLESembeddingsJORGENSEN_PARSE( _tr_a_formula, _tr_b_formula )
     CIRCLESembeddingsJORGENSEN_alpha_complex = parse_complex_from_string( CIRCLESembeddingsJORGENSEN_alpha_complex + "" );
     CIRCLESembeddingsJORGENSEN_beta_complex = parse_complex_from_string( CIRCLESembeddingsJORGENSEN_beta_complex + "" );
 
-    _plugin_tmp_vars_config_array['a'] = CIRCLESembeddingsJORGENSEN_alpha ;
-    _plugin_tmp_vars_config_array['b'] = CIRCLESembeddingsJORGENSEN_beta ;
-    _plugin_tmp_vars_config_array['p'] = CIRCLESembeddingsJORGENSEN_param ;
+    if ( _plugin_tmp_vars_config_array['embeddings@jorgensen'] == null ) _plugin_tmp_vars_config_array['embeddings@jorgensen'] = [] ;
+    _plugin_tmp_vars_config_array['embeddings@jorgensen']['a'] = CIRCLESembeddingsJORGENSEN_alpha ;
+    _plugin_tmp_vars_config_array['embeddings@jorgensen']['b'] = CIRCLESembeddingsJORGENSEN_beta ;
+    _plugin_tmp_vars_config_array['embeddings@jorgensen']['p'] = CIRCLESembeddingsJORGENSEN_param ;
 
     if ( _plugin_vars_array[_index_ref]['a']['value'] != null ) _plugin_vars_array[_index_ref]['a']['value'] = CIRCLESembeddingsJORGENSEN_alpha_complex ;
     if ( _plugin_vars_array[_index_ref]['b']['value'] != null ) _plugin_vars_array[_index_ref]['b']['value'] = CIRCLESembeddingsJORGENSEN_beta_complex ;

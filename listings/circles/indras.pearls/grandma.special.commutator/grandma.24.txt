@@ -18,7 +18,7 @@ palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
-plugin set 4.01
+plugin set embedding grandma.4.alarm
 plugin var a=2*cos(PI/(256i))
 plugin var b=2*cos(PI/(8+4i))
 plugin var p=2

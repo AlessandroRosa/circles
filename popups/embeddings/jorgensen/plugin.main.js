@@ -162,6 +162,17 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
         GLOB_PLUGIN_VARS_PATTERN_RESTORE(_index_ref);
         GLOB_PLUGIN_VARS_PATTERN_FILL(_index_ref);
     }
+    else if ( _plugin_tmp_vars_config_array['embeddings@jorgensen'] != null )
+    {
+      if ( _plugin_tmp_vars_config_array['embeddings@jorgensen']['a'] != null )
+      CIRCLESembeddingsJORGENSEN_alpha = _plugin_tmp_vars_config_array['embeddings@jorgensen']['a'] ;
+
+      if ( _plugin_tmp_vars_config_array['embeddings@jorgensen']['b'] != null )
+      CIRCLESembeddingsJORGENSEN_beta = _plugin_tmp_vars_config_array['embeddings@jorgensen']['b'] ;
+
+      if ( _plugin_tmp_vars_config_array['embeddings@jorgensen']['p'] != null )
+      CIRCLESembeddingsJORGENSEN_param = _plugin_tmp_vars_config_array['embeddings@jorgensen']['p'] ;
+    }
 
     var SW = $(window).width(), SH = $(window).height();
     var _init_btn_clr = CELLgetCLR( "STATUSBARinitBTN" );

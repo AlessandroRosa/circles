@@ -138,6 +138,11 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
        GLOB_PLUGIN_VARS_PATTERN_RESTORE(_index_ref);
        GLOB_PLUGIN_VARS_PATTERN_FILL(_index_ref);
     }
+    else if ( _plugin_tmp_vars_config_array['embeddings@maskitonce'] != null )
+    {
+      if ( _plugin_tmp_vars_config_array['embeddings@maskitonce']['mu'] != null )
+      CIRCLESembeddingsMASKITONCE_mu = _plugin_tmp_vars_config_array['embeddings@maskitonce']['mu'] ;
+    }
 
     var SW = $(window).width(), SH = $(window).height();
     var _init_btn_clr = CELLgetCLR( "STATUSBARinitBTN" );

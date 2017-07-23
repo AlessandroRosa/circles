@@ -212,6 +212,10 @@ function CIRCLESembeddingsMASKITTWICE_PARSE( _tau_1_formula, _tau_2_formula )
     CIRCLESembeddingsMASKITTWICE_TAU_1_complex = parse_complex_from_string( CIRCLESembeddingsMASKITTWICE_TAU_1_complex + "" );
     CIRCLESembeddingsMASKITTWICE_TAU_2_complex = parse_complex_from_string( CIRCLESembeddingsMASKITTWICE_TAU_2_complex + "" );
 
+    if ( _plugin_tmp_vars_config_array['embeddings@maskittwice'] == null ) _plugin_tmp_vars_config_array['embeddings@maskittwice'] = [] ;
+    _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau1'] = CIRCLESembeddingsMASKITTWICE_TAU_1 ;
+    _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau2'] = CIRCLESembeddingsMASKITTWICE_TAU_2 ;
+
     _plugin_tmp_vars_config_array['tau1'] = CIRCLESembeddingsMASKITTWICE_TAU_1 ;
     _plugin_tmp_vars_config_array['tau2'] = CIRCLESembeddingsMASKITTWICE_TAU_2 ;
 

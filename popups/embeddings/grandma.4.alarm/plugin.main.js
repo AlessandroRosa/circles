@@ -180,6 +180,20 @@ function CIRCLESembeddingsGRANDMA4ALARMmain( _base_id, _move, _restore )
          GLOB_PLUGIN_VARS_PATTERN_RESTORE(_index_ref);
          GLOB_PLUGIN_VARS_PATTERN_FILL(_index_ref);
     }
+    else if ( _plugin_tmp_vars_config_array['embeddings@grandma4alarm'] != null )
+    {
+      if ( _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['a'] != null )
+      CIRCLESembeddingsGRANDMA4ALARM_trA = _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['a'] ;
+
+      if ( _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['b'] != null )
+      CIRCLESembeddingsGRANDMA4ALARM_trB = _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['b'] ;
+
+      if ( _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['ab'] != null )
+      CIRCLESembeddingsGRANDMA4ALARM_trAB = _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['ab'] ;
+
+      if ( _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['p'] != null )
+      CIRCLESembeddingsGRANDMA4ALARM_param = _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['p'] ;
+    }
 
     var SW = $(window).width(), SH = $(window).height();
     var _init_btn_clr = CELLgetCLR( "STATUSBARinitBTN" );

@@ -18,7 +18,7 @@ palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
-plugin set 4.05
+plugin set embeddings jorgensen
 plugin var a=1.64213876-0.76658841i
 plugin var b=2
 plugin var p=2

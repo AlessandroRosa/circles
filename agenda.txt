@@ -5,150 +5,8 @@ https://en.wikipedia.org/wiki/Kleene_algebra
 https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
------------- PARSER ------------------------
-  >>  get_filedata_from_folder( "../code/phpcode/svc/svc.
-      why 
-       get_filedata_from_folder( "../code/phpcode/svc/svc.
-      does not work ?
-
-  >> trap all occurrances of 
-     var _result = get_filedata_from_folder
-     check which data is
-
-  >> [test]
-     * as all's working, add also mobius_map / circle, point methods (.. inversion, isometric ...)
-     * test method registrations for all classes (mixing the compositions and not)
-
-  >> handle operators conversion inside the code, according to directive (replace)
-     example var _b = sin(_a) >> var _b = _a.sin();
-
-  >> Final code
-     * the syntax
-     <return-type> function <identifier>(<datatype><param#1>,<datatype><param#2>){<code>}
-     must turn into
-     function <identifier>(<params>){<code>}
-
-     * final code shall be built by concatenating these arrays
-
-     this.final_code_array['predirectives'] = []; // at the top
-     this.final_code_array['copy.functions'] = []; // for homymous functions return different datatype ...
-     this.final_code_array['code'] = []; // following ...
-
-     except 'code' chunk - to be filled now, other entries will be fulfilled as the following points
-     will be resolved
-
-     Resolve final concatenation now
-
-  >> simulate load, registration of function from .lib files
-     (first from a string var, later by loading the files from server, later
-      again from code editor)
-     example:
-     complex function fn1(p1, p2, ...)
-     rect function fn2(p1, p2, ...)
-     point function fn3(p1, p2, ...)
-
-  >> example
-     0: complex function test_add( _x, _y ){ return _x + _y ; }
-     1: number function test_add( _x, _y ){ return _x + _y ; }
-
-     2: var _a = new complex(1,1), _b = new complex(2,2);
-     3: var _c = 1, _d = 2 ;
-
-     4: var _t1 = test_add( _a, _b ) ;
-     5: var _t2 = test_add( _c, _d ) ;
-
-     candidate strategy:
-     1. scan for functions defs
-     2.1: test_add( _a, _b ) --> complex, fn id, complex, complex --> _complex_test_add
-        from the related block of test_add (used as a pattern),
-        create a temporary copy _complex_test_add
-        and we get
-        function _complex_test_add( _x, _y ) { return _x.add( _y ) ; }
-        check duplicates inside this.final_code_array['copy.functions']
-        if not yet, put it in
-
-     2.2: test_add( _c, _d ) --> number, fn id, number, number --> _number_test_add
-        from the related block of _number_test_add (used as a pattern),
-        create a temporary copy _number_test_add
-        and we get
-        function _number_test_add_02( _x, _y ) { return _x + _y ; }
-        check duplicates inside this.final_code_array['copy.functions']
-        if not yet, put it in
-
-     In this case, this.final_code_array['copy.functions'] shall be filled as follows:
-     {
-        original_fn_name : test_add,
-        copy_fn_name : _complex_test_add,
-        code_block : [ ... take code from the tree ... ],
-        token_call_coords : [ 3, 3 ]
-     },
-     {
-        original_fn_name : test_add,
-        copy_fn_name : _number_test_add,
-        reparsed_code : [ ... take code from the tree ... ],
-        token_call_coords : [ 4, 3 ]
-     }
-
-     3. by means of the history table
-     examine each call of 'test_add' (only ref, not def, thus those ones at rows 3 and 4)
-     and find the class type of their arguments.
-     find all occurrances for the pair return-type/fn_id and
-     rename the fn_id of each block (if fn_id is def or ref) in the tree.
-     Finally get the code from the whole tree again:
-
-     0: function _complex_test_add( _x, _y ) { return _x.add( _y ) ; }
-     1: function _number_test_add( _x, _y )  { return _x + _y ; }
-
-     1: var _a = new complex(1,1), _b = new complex(2,2);
-     2: var _c = 1, _d = 2 ;
-
-     3: var _t1 = _complex_test_add( _a, _b ) ;
-     4: var _t2 = _number_test_add( _c, _d ) ;
-
 ------------ SCRIPT EDITOR ------------------------
-* OPERATORS MANAGEMENT
-     >> operators do work on simple data type exclusively, then
-        expressions in the form sin(z)+cos(z) are first evaluated
-        into var1+var2, before the operator '+' is processed
-     >> detect operator overloading declaration by
-     (\w*)\s*(\boperator\b)(\W+)\((.*)\)
-     yielding 4 groups:
-     1) return data format
-     2) 'operator' term
-     3) operatori symbol
-     4) comma-separated arguments data type
-        for example
-        rect operator+(rect, rect)
- 
-        when such regular expression is matched then the lexical analysis
-        scans the further text until until the closing curl bracket '}' of
-        level 0
-        so that we can obtain the above 4 entries + the working function code,
-        after building and evaluating the code
-        "this.fn"+(++fn_id_counter)+" = function(arg1,arg2,...){"+code+"}" ;
 
-        >> this should fill-in the basic operators array, together with
-           a new entry in an internal catalogue of operators,
-           structured as follow somehow
-           ['+']
-             |---->[args_n,'rect','rect',function(left_op,right_op){}]
-             |---->[args_n,'number','number',function(left_op,right_op){}]
-             |---->[args_n,'complex','complex',function(left_op,right_op){}]
-
-           ['(+)']
-             |---->[args_n,'farey','farey',function(left_op,right_op){}]
-
-           ['-']
-             |---->[1,'number',function(left_op){}]
-             |---->[1,'complex',function(left_op){}]
-             |---->[2,'complex','complex',function(left_op,right_op){}]
-             |---->[2,'number','number',function(left_op,right_op){}]
-
-        >> Find how to fill-in the default operators set along the above approach,
-           as they have been already implemented into the parser. Then how can be
-           read and reinterpreted into .compute_binary_atomic_expr (which will be
-           finally renamed as .compute_atomic_expr)
-   
   >> define the priority order for libs to be processed
      1) process special syntax and operators
      2) scan code for parsing formulas
@@ -170,6 +28,8 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 * multicolor textarea (test codemirror)
 
 ------------- MATH -------------------------------------------------
+* [TEST] all listings
+
 * boundary tracer form:
   >> [TEST] jorgensen boundary is not correctly displayed
 
@@ -216,21 +76,18 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
   method _half_plane_geodesic
 
 ----------------------- NOT IN THE PRIORITY QUEUE -----------------------------
-* visualizzare Z-plane e W-plane on the Riemann sphere through three.js
-  src material
+* display Z-plane e W-plane on the Riemann sphere through three.js src material
   http://www.bitstorm.it/blog/en/2011/05/3d-sphere-html5-canvas/
   http://www.html5rocks.com/en/tutorials/three/intro/
   http://www.howtojs.org/getting-started-with-three-js-part-1/
   http://code.tutsplus.com/tutorials/webgl-with-threejs-basics--net-35688
 
-* algoritmo depthfirst con mia rivisitazione per ridurre il carico di calcolo
-  delle word/mobius map
+* my revisitation of 'depthfirst' algorithm to reduce computation loads of the word/mobius map
 
-* Is it possible to draw the 3d model of Riemann surface related to
-  the input generators ?
+* Is it possible to draw the 3d model of Riemann surface related to the input generators ?
 
 * Marden's book at p. 4, create an example as soon as the script editor is complete.
-  Share it on the web
+  Make a demo
 
 * from the current list of available cmds from terminal.
   >> test all functionalities
@@ -300,7 +157,6 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
   - divide map a by b and get the resulting a1
   - generate a new group (2) : a, a1, A, A1 or a1, b, A1, B
   - render the limit set of (2)
-
 
 * maskit plugin:
   [EXPERIMENT #1] consider the current complex region. Take each point as

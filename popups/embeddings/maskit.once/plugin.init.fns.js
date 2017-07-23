@@ -203,6 +203,9 @@ function CIRCLESembeddingsMASKITONCE_PARSE( CIRCLESembeddingsMASKITONCE_mu_formu
     CIRCLESembeddingsMASKITONCE_mu_complex = circles_lib_math_parse_formula( CIRCLESembeddingsMASKITONCE_mu );
     CIRCLESembeddingsMASKITONCE_mu_complex = parse_complex_from_string( CIRCLESembeddingsMASKITONCE_mu_complex + "" );
 
+    if ( _plugin_tmp_vars_config_array['embeddings@maskitonce'] == null ) _plugin_tmp_vars_config_array['embeddings@maskitonce'] = [] ;
+    _plugin_tmp_vars_config_array['embeddings@maskitonce']['mu'] = CIRCLESembeddingsMASKITONCE_mu ;
+
     _plugin_tmp_vars_config_array['mu'] = CIRCLESembeddingsMASKITONCE_mu ;
     if ( _plugin_vars_array[_index_ref]['mu']['value'] != null ) _plugin_vars_array[_index_ref]['mu']['value'] = CIRCLESembeddingsMASKITONCE_mu_complex ;
 

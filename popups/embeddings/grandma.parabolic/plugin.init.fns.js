@@ -343,6 +343,11 @@ function CIRCLESembeddingsGRANDMAPARABOLIC_PARSE( _tr_a_formula, _tr_b_formula )
     CIRCLESembeddingsGRANDMAPARABOLIC_trA_complex = parse_complex_from_string( CIRCLESembeddingsGRANDMAPARABOLIC_trA_complex + "" );
     CIRCLESembeddingsGRANDMAPARABOLIC_trB_complex = parse_complex_from_string( CIRCLESembeddingsGRANDMAPARABOLIC_trB_complex + "" );
 
+    if ( _plugin_tmp_vars_config_array['embeddings@grandmaparabolic'] == null ) _plugin_tmp_vars_config_array['embeddings@grandmaparabolic'] = [] ;
+    _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['a'] = CIRCLESembeddingsGRANDMAPARABOLIC_trA ;
+    _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['b'] = CIRCLESembeddingsGRANDMAPARABOLIC_trB ;
+    _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['p'] = CIRCLESembeddingsGRANDMAPARABOLIC_param ;
+
     _plugin_tmp_vars_config_array['a'] = CIRCLESembeddingsGRANDMAPARABOLIC_trA ;
     _plugin_tmp_vars_config_array['b'] = CIRCLESembeddingsGRANDMAPARABOLIC_trB ;
     _plugin_tmp_vars_config_array['p'] = CIRCLESembeddingsGRANDMAPARABOLIC_param ;

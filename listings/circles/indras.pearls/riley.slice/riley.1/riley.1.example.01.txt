@@ -18,7 +18,7 @@ palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
-plugin set 4.10
+plugin set embeddings riley
 plugin var rho=0.8888i
 plugin run
 init maps singly

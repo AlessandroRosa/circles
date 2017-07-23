@@ -19,7 +19,7 @@ palette off
 method algebraic breadthfirst
 config set drawentity pixel
 config set construction limitset
-plugin set 4.22
+plugin set embedding jorgensen
 plugin var a=-i
 plugin var b=i
 plugin run

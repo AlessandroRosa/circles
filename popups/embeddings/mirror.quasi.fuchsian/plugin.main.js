@@ -124,6 +124,11 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
          GLOB_PLUGIN_VARS_PATTERN_RESTORE(_index_ref);
          GLOB_PLUGIN_VARS_PATTERN_FILL(_index_ref);
     }
+    else if ( _plugin_tmp_vars_config_array['embeddings@mirrorquasifuchsian'] != null )
+    {
+      if ( _plugin_tmp_vars_config_array['embeddings@mirrorquasifuchsian']['tau'] != null )
+      CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau = _plugin_tmp_vars_config_array['embeddings@mirrorquasifuchsian']['tau'] ;
+    }
 
     var SW = $(window).width(), SH = $(window).height();
     var _init_btn_clr = CELLgetCLR( "STATUSBARinitBTN" );

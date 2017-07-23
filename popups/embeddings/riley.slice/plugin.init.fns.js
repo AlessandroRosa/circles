@@ -185,6 +185,9 @@ function CIRCLESembeddingsRILEYSLICE_PARSE( _rho_formula )
   	_rho_formula = circles_lib_parse_fix_formula( _rho_formula );
     if ( $("#PLUGIN_PARAM_RHO").get(0) != null ) $("#PLUGIN_PARAM_RHO").val( _rho_formula );
 
+    if ( _plugin_tmp_vars_config_array['embeddings@riley'] == null ) _plugin_tmp_vars_config_array['embeddings@riley'] = [] ;
+    _plugin_tmp_vars_config_array['embeddings@riley']['rho'] = CIRCLESembeddingsRILEYSLICE_rho ;
+
     CIRCLESembeddingsRILEYSLICE_rho = _rho_formula ;
     CIRCLESembeddingsRILEYSLICE_rho_complex = circles_lib_math_parse_formula( CIRCLESembeddingsRILEYSLICE_rho + "" );
     CIRCLESembeddingsRILEYSLICE_rho_complex = parse_complex_from_string( CIRCLESembeddingsRILEYSLICE_rho_complex + "" );

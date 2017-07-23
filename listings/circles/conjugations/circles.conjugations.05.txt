@@ -19,7 +19,7 @@ palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
-plugin set 4.05
+plugin set embeddings jorgensen
 plugin var a=2*cos(PI/(16-4i))
 plugin var b=2*cos(PI/(16+4i))
 plugin var p=2

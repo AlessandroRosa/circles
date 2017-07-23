@@ -63,8 +63,7 @@ function circles_terminal_cmd_bk()
                           function( _help_text )
                           {
                                _help_text += _glob_crlf ;
-                               var _columns = 5, _counter = 0 ;
-                               var _color_name = "", _row = "" ;
+                               var _columns = 5, _counter = 0, _color_name = "", _row = "" ;
                                for( var _key in def_clrs_tags )
                                {
                                    if ( _key.includes( "tag." ) )

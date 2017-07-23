@@ -1,18 +1,18 @@
 function CIRCLESembeddingsJORGENSEN_TOGGLE_PREVIEW()
 {
 		$( "#PLUGIN_PREVIEW" ).toggle( "slow",
-																	 function()
-																	 {
-																	 		CIRCLESembeddingsJORGENSEN_RENDER_PREVIEW( "JORGENSEN", Z_PLANE );
-																	 		var _visible = $( "#PLUGIN_PREVIEW" ).is(":visible") ;
-																			$( "#PLUGIN_TOGGLE_PREVIEW_BTN" ).html( _visible ? "Hide preview" : "Show preview" );
-																			if ( _visible )
-																			{
-																					var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
-																					var _canvas = $( "#CIRCLESembeddingsJORGENSEN_CANVAS" ).get(0) ;
-																					_canvas.set_width( _plugin_width - 5 );
-																			}
-																	 } );
+		function()
+    {
+			CIRCLESembeddingsJORGENSEN_RENDER_PREVIEW( "JORGENSEN", Z_PLANE );
+			var _visible = $( "#PLUGIN_PREVIEW" ).is(":visible") ;
+			$( "#PLUGIN_TOGGLE_PREVIEW_BTN" ).html( _visible ? "Hide preview" : "Show preview" );
+			if ( _visible )
+			{
+				var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
+				var _canvas = $( "#CIRCLESembeddingsJORGENSEN_CANVAS" ).get(0) ;
+				_canvas.set_width( _plugin_width - 5 );
+			}
+		} );
 }
 
 function CIRCLESembeddingsJORGENSEN_RENDER_PREVIEW( _base_id, _plane_type )

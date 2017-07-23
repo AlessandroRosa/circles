@@ -46,9 +46,8 @@ function CIRCLESembeddingsGENERALPURPOSE_PRESETS( _opcode )
 						            else
 						            {
 						               _coords = circles_lib_interface_recalc_bounding_coords( INTERFACE_INPUT_HEIGHT,
-						                                                    _glob_wplaneLEFT, safe_float( _coords[1], DEFAULT_PLANE_COORD ),
-						                                                    _glob_wplaneRIGHT, safe_float( _coords[3], -DEFAULT_PLANE_COORD )
-						                                                   ) ;
+						                         _glob_wplaneLEFT, safe_float( _coords[1], DEFAULT_PLANE_COORD ),
+						                         _glob_wplaneRIGHT, safe_float( _coords[3], -DEFAULT_PLANE_COORD ) ) ;
 						            }
 						
 						            _glob_zplaneLEFT = _glob_wplaneLEFT = _glob_bipLEFT = safe_float( _coords[0], -DEFAULT_PLANE_COORD );

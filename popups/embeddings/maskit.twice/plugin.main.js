@@ -159,6 +159,13 @@ function CIRCLESembeddingsMASKITTWICEmain( _base_id, _move, _restore )
         GLOB_PLUGIN_VARS_PATTERN_RESTORE(_index_ref);
         GLOB_PLUGIN_VARS_PATTERN_FILL(_index_ref);
     }
+    else if ( _plugin_tmp_vars_config_array['embeddings@maskittwice'] != null )
+    {
+      if ( _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau1'] != null )
+      CIRCLESembeddingsMASKITTWICE_TAU_1 = _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau1'] ;
+      if ( _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau2'] != null )
+      CIRCLESembeddingsMASKITTWICE_TAU_2 = _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau2'] ;
+    }
 
     var SW = $(window).width(), SH = $(window).height();
     var _init_btn_clr = CELLgetCLR( "STATUSBARinitBTN" );

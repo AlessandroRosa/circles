@@ -135,7 +135,6 @@ circles_lib_statusbar_load( "vert", "left", "top", NO, 10, 100 );
         break ;
     }
 }
-
 ?>
 <?php load_src_code_dir( $PATH_TO_CIRCLES."code/js/init/", "js", $ERRCODE ); ?>
 <?php @include( $PATH_TO_CIRCLES."triggers/triggers.init.php" ); ?>

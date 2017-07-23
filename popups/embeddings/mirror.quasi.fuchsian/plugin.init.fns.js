@@ -227,6 +227,9 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIAN_PARSE( _tau_formula )
     CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau_complex = circles_lib_math_parse_formula( CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau );
     CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau_complex = parse_complex_from_string( CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau_complex + "" );
 
+    if ( _plugin_tmp_vars_config_array['embeddings@mirrorquasifuchsian'] == null ) _plugin_tmp_vars_config_array['embeddings@mirrorquasifuchsian'] = [] ;
+    _plugin_tmp_vars_config_array['embeddings@mirrorquasifuchsian']['tau'] = CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau ;
+
     _plugin_tmp_vars_config_array['tau'] = CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau ;
     if ( _plugin_vars_array[_index_ref]['tau']['value'] != null ) _plugin_vars_array[_index_ref]['tau']['value'] = CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau_complex ;
 
