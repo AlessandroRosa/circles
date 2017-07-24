@@ -20,7 +20,7 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings earle
 plugin var d=0.58+1.0i
-plugin run
+plugin open
 init maps singly
 config set diskfill no
 config set diskdraw yes

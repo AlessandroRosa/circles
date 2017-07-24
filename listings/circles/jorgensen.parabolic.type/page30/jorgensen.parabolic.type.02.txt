@@ -29,7 +29,7 @@ plugin var g2_3=-i*e^(i*$theta)
 plugin var g2_4=$k*e^(i*$theta)
 plugin var v1=[$k@1+sqrt(2)/2]
 plugin var v2=[$theta@PI/4]
-plugin run
+plugin open
 init maps singly
 config set diskfill no
 config set diskdraw yes

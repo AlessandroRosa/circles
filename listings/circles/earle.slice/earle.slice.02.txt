@@ -19,7 +19,7 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings earle
 plugin var d=0.78+0.9i
-plugin run
+plugin open
 init maps singly
 gensset flush
 gensset add A B a b ABab abAB

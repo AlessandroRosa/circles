@@ -23,7 +23,7 @@ plugin set embeddings jorgensen
 plugin var a=2*cos(PI/(256i))
 plugin var b=2*cos(PI/(8+i))
 plugin var p=2
-plugin run
+plugin open
 init maps singly
 config set diskfill no
 config set diskdraw yes

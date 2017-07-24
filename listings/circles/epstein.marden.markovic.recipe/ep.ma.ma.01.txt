@@ -30,7 +30,7 @@ plugin var g2_2=0
 plugin var g2_3=0
 plugin var g2_4=sqrt(2)+1
 plugin var v1=[_z@1+2i]
-plugin run
+plugin open
 init maps singly
 config set diskfill no
 config set diskdraw yes

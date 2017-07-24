@@ -23,7 +23,7 @@ plugin set embeddings jorgensen
 plugin var a=1.87+0.1i
 plugin var b=1.87-0.1i
 plugin var p=2
-plugin run
+plugin open
 init maps singly
 config set diskfill no
 config set diskdraw yes

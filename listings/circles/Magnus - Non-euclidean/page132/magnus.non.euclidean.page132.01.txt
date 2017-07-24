@@ -34,7 +34,7 @@ plugin var g4_1=-1-2i
 plugin var g4_2=2-4i
 plugin var g4_3=2+2i
 plugin var g4_4=-1+6i
-plugin run
+plugin open
 init maps singly
 config set diskfill no
 config set diskdraw yes

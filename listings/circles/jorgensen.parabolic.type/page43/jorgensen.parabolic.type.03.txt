@@ -29,7 +29,7 @@ plugin var g2_3=$sigma
 plugin var g2_4=$lambda
 plugin var v1=[$sigma@2i]
 plugin var v2=[$lambda@1]
-plugin run
+plugin open
 init maps singly
 config set diskfill no
 config set diskdraw yes

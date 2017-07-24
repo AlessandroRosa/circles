@@ -22,7 +22,7 @@ plugin set embedding grandma.4.alarm
 plugin var a=2*cos(PI/10)
 plugin var b=2*cos(PI/10)
 plugin var p=2
-plugin run
+plugin open
 init maps singly
 repetends set A [AB:3]
 repetends set B [BA:3]

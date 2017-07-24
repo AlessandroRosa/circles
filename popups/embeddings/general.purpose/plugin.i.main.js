@@ -90,34 +90,6 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     $.get( _rel_folder_path + "menu.html", function( response ) { HTMLcode += response.replaceAll( "%indexref%", _index_ref ) ; } );
     HTMLcode += "</td>" ;
 
-    if ( _plugin_tmp_vars_config_array[ "embedding@generalpurpose" ] != null )
-    {
-        var _data = _plugin_tmp_vars_config_array[ "embedding@generalpurpose" ] ;
-        var _store_gens = [] ;
-        $.each( _data.keys_associative(), function( _i, _key )
-        {
-              var _var_id = _key, _var_val = _data[ _key ] ;
-              if ( _var_id.start_with( "g" ) && _var_id.includes( "_" ) )
-              {
-                 _var_id = _var_id.replace( "g", "" ).split( "_" ) ;
-                 var _g_name = safe_int( _var_id[0], 0 ), _g_index = safe_int( _var_id[1], 0 ) ;
-                 if ( _g_index >= 1 && _g_index <= 4 ) _store_gens.push( _var_val );
-                 if ( _store_gens.length == 4 )
-                 {
-                   $( "#PLUGIN_PARAM_A" ).val( _store_gens[0] );
-                   $( "#PLUGIN_PARAM_B" ).val( _store_gens[1] );
-                   $( "#PLUGIN_PARAM_C" ).val( _store_gens[2] );
-                   $( "#PLUGIN_PARAM_D" ).val( _store_gens[3] );
-                   _store_gens = [] ;
-
-                   CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( CIRCLESembeddingsGENERALPURPOSE_ADD, YES );
-                   CIRCLESembeddingsGENERALPURPOSE_REGISTER_PARAMS();
-                   _glob_target_plane = W_PLANE ;
-                 }
-            }
-        } ) ;
-    }
-
     /*
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td STYLE=\"color:"+_init_btn_clr+";\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGENERALPURPOSE_REGISTER_PARAMS();\" ID=\"PLUGINinitBTN\">Init</td>" ;
@@ -462,6 +434,36 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 
     var DROPDOWN = $( "#CIRCLESchoose"+_base_id.replace( /[\-\.\_]/, "" ).toUpperCase()+"canvasDROPDOWN" ).get(0) ;
     if ( DROPDOWN != null ) DROPDOWN.options[0].text = "Preview canvas" ;
+
+    if ( _plugin_tmp_vars_config_array['plugin_sel'] != null )
+    {
+        var _data = _plugin_tmp_vars_config_array['plugin_sel'] ;
+        var _store_gens = [] ;
+        $.each( _data.keys_associative(), function( _i, _key )
+        {
+              var _var_id = _key, _var_val = _data[ _key ] ;
+              if ( _var_id.start_with( "g" ) && _var_id.includes( "_" ) )
+              {
+                 _var_id = _var_id.replace( "g", "" ).split( "_" ) ;
+                 var _g_name = safe_int( _var_id[0], 0 ), _g_index = safe_int( _var_id[1], 0 ) ;
+                 if ( _g_index >= 1 && _g_index <= 4 ) _store_gens.push( _var_val );
+                 if ( _store_gens.length == 4 )
+                 {
+                   CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array = [ _store_gens[0], _store_gens[1], _store_gens[2], _store_gens[3] ] ;
+                   $( "#PLUGIN_PARAM_A" ).val( _store_gens[0] );
+                   $( "#PLUGIN_PARAM_B" ).val( _store_gens[1] );
+                   $( "#PLUGIN_PARAM_C" ).val( _store_gens[2] );
+                   $( "#PLUGIN_PARAM_D" ).val( _store_gens[3] );
+                   _store_gens = [] ;
+
+                   CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( CIRCLESembeddingsGENERALPURPOSE_ADD, YES );
+                   _glob_target_plane = W_PLANE ;
+                 }
+            }
+        } ) ;
+
+        CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO);
+    }
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_FOCUS() { var SW = $(window).width(), SH = $(window).height(); CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, NO, SH > 540 ? YES : NO ); }

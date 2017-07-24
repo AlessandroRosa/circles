@@ -22,7 +22,7 @@ plugin set embeddings jorgensen
 plugin var a=1.64213876-0.76658841i
 plugin var b=2
 plugin var p=2
-plugin run
+plugin open
 init maps singly
 probability set 0.2 0.3 0.2 0.3
 auto refresh off

@@ -23,7 +23,7 @@ plugin set embeddings jorgensen
 plugin var a=2*cos(PI/(16-4i))
 plugin var b=2*cos(PI/(16+4i))
 plugin var p=2
-plugin run
+plugin open
 init maps schottky
 dg conjugate map:cayley init apply
 config set diskfill no

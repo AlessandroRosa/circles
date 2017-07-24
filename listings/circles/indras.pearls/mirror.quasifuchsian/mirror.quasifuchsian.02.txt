@@ -21,7 +21,7 @@ config set drawentity pixel
 config set construction limitset
 plugin set embedding mirror.quasifuchsian
 plugin var tau=2.8+0.5i
-plugin run
+plugin open
 init maps singly
 config set diskfill no
 config set diskdraw yes

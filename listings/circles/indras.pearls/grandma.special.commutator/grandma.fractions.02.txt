@@ -23,7 +23,7 @@ plugin set embedding grandma.4.alarm
 plugin var a=2
 plugin var b=1/2
 plugin var p=2
-plugin run
+plugin open
 init maps singly
 config set diskfill no
 config set diskdraw yes

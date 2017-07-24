@@ -22,7 +22,7 @@ plugin set embeddings jorgensen
 plugin var a=2*cos(PI/10)
 plugin var b=2*cos(PI/10)
 plugin var p=2
-plugin run
+plugin open
 init maps singly
 probability set 0.32 0.18 0.32 0.18
 auto refresh off

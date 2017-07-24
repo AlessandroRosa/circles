@@ -26,7 +26,7 @@ plugin var g2_1=1
 plugin var g2_2=0
 plugin var g2_3=1+i
 plugin var g2_4=1
-plugin run
+plugin open
 init maps singly
 config set diskfill no
 config set diskdraw yes

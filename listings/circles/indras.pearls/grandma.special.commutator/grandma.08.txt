@@ -22,7 +22,7 @@ plugin set embedding grandma.4.alarm
 plugin var a=1.9
 plugin var b=1.9+0.2i
 plugin var p=1
-plugin run
+plugin open
 init maps singly
 gensset flush
 gensset add A B a b ABab abAB

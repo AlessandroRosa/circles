@@ -21,7 +21,7 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings riley
 plugin var rho=0.5i-0.5
-plugin run
+plugin open
 init maps singly
 config set diskfill no
 config set diskdraw yes

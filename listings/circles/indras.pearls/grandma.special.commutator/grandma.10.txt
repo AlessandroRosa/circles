@@ -22,7 +22,7 @@ plugin set embedding grandma.4.alarm
 plugin var a=1.965557377-0.9953573493i
 plugin var b=3
 plugin var p=1
-plugin run
+plugin open
 init maps singly
 probability set 0.33 0.17 0.33 0.17
 auto refresh off

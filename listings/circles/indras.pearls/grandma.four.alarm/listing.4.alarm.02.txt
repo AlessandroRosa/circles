@@ -23,7 +23,7 @@ plugin var a=i
 plugin var b=i
 plugin var ab=i
 plugin var p=1
-plugin run
+plugin open
 init maps singly
 auto refresh off
 auto init off

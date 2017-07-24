@@ -22,7 +22,7 @@ config set construction limitset
 plugin set embedding jorgensen
 plugin var a=0.3i
 plugin var b=1.88
-plugin run
+plugin open
 init maps singly
 config set diskfill yes
 config set diskdraw yes

@@ -53,13 +53,13 @@ function circles_terminal_cmd_init()
             break ;
          }
          else if ( _p.stricmp( "disks" ) ) _params_assoc_array['initoptions'] |= INIT_FROM_DISKS ;
-         else if ( _p.stricmp( "symbols" ) ) _params_assoc_array['settings']['symbols'] = YES ;
-         else if ( _p.stricmp( "lock" ) ) _params_assoc_array['lock'] = YES ;
          else if ( _p.stricmp( "maps" ) ) _params_assoc_array['initoptions'] |= INIT_FROM_MAPS ;
          else if ( _p.stricmp( "paired" ) ) _params_assoc_array['initoptions'] |= INIT_PAIRED_ITEMS ;
-         else if ( _p.stricmp( "show" ) ) _params_assoc_array['showoptions'] = YES ;
          else if ( _p.stricmp( "singly" ) ) _params_assoc_array['initoptions'] |= INIT_SINGLE_ITEMS ;
+         else if ( _p.stricmp( "lock" ) ) _params_assoc_array['lock'] = YES ;
          else if ( _p.stricmp( "unlock" ) ) _params_assoc_array['lock'] = NO ;
+         else if ( _p.stricmp( "symbols" ) ) _params_assoc_array['settings']['symbols'] = YES ;
+         else if ( _p.stricmp( "show" ) ) _params_assoc_array['showoptions'] = YES ;
          else if ( _p.is_one_of_i( "and", "from" ) ) _params_assoc_array['grammars'].push( _p );
          else if ( _p.length > 0 )
          {
