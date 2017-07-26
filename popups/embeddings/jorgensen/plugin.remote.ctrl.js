@@ -16,9 +16,11 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn )
 		{
 				case "/*anyaction*/":
 				break ;
-        case "a":
+        case "alpha":
+        if ( _options[1] != null ) $("#PLUGIN_PARAM_ALPHA").val( _options[1] );
         break ;
-        case "b":
+        case "beta":
+        if ( _options[1] != null ) $("#PLUGIN_PARAM_BETA").val( _options[1] );
         break ;
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
@@ -26,6 +28,10 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn )
         break ;
 				case "ifslastpt":
 				break ;
+        case "params":
+        if ( _options[1] != null ) $("#PLUGIN_PARAM_ALPHA").val( _options[1] );
+        if ( _options[2] != null ) $("#PLUGIN_PARAM_BETA").val( _options[2] );
+        break ;
 				case "move":
 				var _ret = move_div( GLOB_PLUGIN_DIV_ID, _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
 				break ;

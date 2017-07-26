@@ -28,6 +28,10 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn )
 				}
 				else _out_msg = "<orange>IFS random params can be activated when the 'Basics' tab is visible</orange>" ;
 				break ;
+        case "close":
+        GLOB_PLUGIN_DESTROY_POPUP_VARS();
+        circles_lib_popup_activate( NO, GLOB_PLUGIN_SUBSET, '', '', GLOB_PLUGIN_BASE_ID, CLOSE, GLOB_PLUGIN_DIV_ID );
+        break ;
 				case "ifslastpt":
 				if ( CIRCLESformsGENERALOPTIONStabindex == 1 )
 				{

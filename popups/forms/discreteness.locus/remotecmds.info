@@ -1,1 +1,2 @@
-"get.point"="display a complex point on the diagram. Ex: get.point 1.1+0.3i"
+"close"="close pop-up window"
+"move"="move pop-up window. Example: move LEFT|RIGHT TOP|BOTTOM"

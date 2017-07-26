@@ -16,6 +16,10 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn )
 		{
 				case "/*anyaction*/":
 				break ;
+        case "close":
+        GLOB_PLUGIN_DESTROY_POPUP_VARS();
+        circles_lib_popup_activate( NO, GLOB_PLUGIN_SUBSET, '', '', GLOB_PLUGIN_BASE_ID, CLOSE, GLOB_PLUGIN_DIV_ID );
+        break ;
         case "get.point":
         console.log( _options[1] );
         $( "#CIRCLESformsDISCRETENESSLOCUSpickedCOMPLEXPT" ).val( _options[1] );

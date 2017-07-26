@@ -18,7 +18,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
   		{
   				case "/*anyaction*/":
   				break ;
-  				case "addmobius":
+  				case "add.mobius.map":
   				if ( _options[1] != null ) $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) );
   				if ( _options[2] != null ) $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
   				if ( _options[3] != null ) $( "#PLUGIN_PARAM_C" ).val( _options[3].replaceAll( [ ",", ";" ], "" ) );
@@ -46,12 +46,24 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
           GLOB_PLUGIN_DESTROY_POPUP_VARS();
           circles_lib_popup_activate( NO, GLOB_PLUGIN_SUBSET, '', '', GLOB_PLUGIN_BASE_ID, CLOSE, GLOB_PLUGIN_DIV_ID );
           break ;
-  				case "fullgroup":
+  				case "full.group":
   				CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);
           return 1 ;
   				break ;
   				case "generate.group":
   				CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO);
+          return 1 ;
+  				break ;
+  				case "move":
+  				var _ret = move_div( GLOB_PLUGIN_DIV_ID, _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+          return _ret ;
+  				break ;
+  				case "new.mobius.map":
+  				CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_NEW,YES);
+          return 1 ;
+  				break ;
+  				case "refresh":
+  				CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);
           return 1 ;
   				break ;
           case "vars.list":
@@ -63,18 +75,6 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
               _output.push( "<parameter-index> shall range from 1 to 4, bounds included" ) ;
           return _output.join( "\n" ) ;
           break ;
-  				case "move":
-  				var _ret = move_div( GLOB_PLUGIN_DIV_ID, _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
-          return _ret ;
-  				break ;
-  				case "newmobius":
-  				CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_NEW,YES);
-          return 1 ;
-  				break ;
-  				case "refresh":
-  				CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);
-          return 1 ;
-  				break ;
   				default:
   				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
           return 0 ;

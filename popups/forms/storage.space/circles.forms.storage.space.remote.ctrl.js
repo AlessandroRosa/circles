@@ -16,6 +16,10 @@ function CIRCLESformsSTORAGESPACEremotectrl( _options, _return_fn )
 		{
 				case "/*anyaction*/":
 				break ;
+        case "close":
+        GLOB_PLUGIN_DESTROY_POPUP_VARS();
+        circles_lib_popup_activate( NO, GLOB_PLUGIN_SUBSET, '', '', GLOB_PLUGIN_BASE_ID, CLOSE, GLOB_PLUGIN_DIV_ID );
+        break ;
 				case "move":
 				var _ret = move_div( GLOB_PLUGIN_DIV_ID, _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
 				break ;
