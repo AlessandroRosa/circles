@@ -6,28 +6,28 @@ var _glob_multithread_running = 0 ;
 
 self.addEventListener( 'message', function(e)
 {
-    var JS_FOLDER_ALL_PROJECTS = _glob_multithread_path_to_complex + "support/code/js/basements/" ;
+    var JS_FOLDER_SUPPORT = _glob_multithread_path_to_complex + "support/code/js/basements/" ;
     var JS_FOLDER_ALL_SHARED = _glob_multithread_path_to_complex + "support/code/js/shared/" ;
     var JS_FOLDER_COMPONENTS = _glob_multithread_path_to_circles + "code/js/components/" ;
 
     var data = e.data ;
 
-    importScripts( JS_FOLDER_ALL_PROJECTS + "basics/a-basics/number.js" );
-    importScripts( JS_FOLDER_ALL_PROJECTS + "basics/a-basics/string.js" );
-    importScripts( JS_FOLDER_ALL_PROJECTS + "basics/a-basics/json.lib.js" );
-    importScripts( JS_FOLDER_ALL_PROJECTS + "basics/array.js" );
-    importScripts( JS_FOLDER_ALL_PROJECTS + "fns/fns.generals.js" );
-    importScripts( JS_FOLDER_ALL_PROJECTS + "fns/fns.math.js" );
-    importScripts( JS_FOLDER_ALL_PROJECTS + "fns/fns.strings.js" );
+    importScripts( JS_FOLDER_SUPPORT + "basics/a-basics/number.js" );
+    importScripts( JS_FOLDER_SUPPORT + "basics/a-basics/string.js" );
+    importScripts( JS_FOLDER_SUPPORT + "basics/a-basics/json.lib.js" );
+    importScripts( JS_FOLDER_SUPPORT + "basics/array.js" );
+    importScripts( JS_FOLDER_SUPPORT + "fns/fns.generals.js" );
+    importScripts( JS_FOLDER_SUPPORT + "fns/fns.math.js" );
+    importScripts( JS_FOLDER_SUPPORT + "fns/fns.strings.js" );
 
     var msg_id = data.id, msg_lang = safe_string( data.lang, "en" ) ;
 
-    importScripts( JS_FOLDER_ALL_PROJECTS + "classes/load/a-primitives/circle.class.js" );
-    importScripts( JS_FOLDER_ALL_PROJECTS + "classes/load/a-primitives/line.class.js" );
-    importScripts( JS_FOLDER_ALL_PROJECTS + "classes/load/a-primitives/2d.point.class.js" );
-    importScripts( JS_FOLDER_ALL_PROJECTS + "classes/load/a-primitives/rect.class.js" );
-    importScripts( JS_FOLDER_ALL_PROJECTS + "classes/load/b-basic.maths/complex.number.class.js" );
-    importScripts( JS_FOLDER_ALL_PROJECTS + "classes/load/d-draw/screen.mapper.class.js" );
+    importScripts( JS_FOLDER_SUPPORT + "classes/load/a-primitives/circle.class.js" );
+    importScripts( JS_FOLDER_SUPPORT + "classes/load/a-primitives/line.class.js" );
+    importScripts( JS_FOLDER_SUPPORT + "classes/load/a-primitives/2d.point.class.js" );
+    importScripts( JS_FOLDER_SUPPORT + "classes/load/a-primitives/rect.class.js" );
+    importScripts( JS_FOLDER_SUPPORT + "classes/load/b-basic.maths/complex.number.class.js" );
+    importScripts( JS_FOLDER_SUPPORT + "classes/load/d-draw/screen.mapper.class.js" );
     importScripts( JS_FOLDER_COMPONENTS + "langs/" + msg_lang + "/circles.lang.js" );
     importScripts( JS_FOLDER_COMPONENTS + "globals/defaults/circles.defaults.js" );
     importScripts( JS_FOLDER_COMPONENTS + "globals/defs/circles.constants.js" );

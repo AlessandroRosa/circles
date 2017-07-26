@@ -536,8 +536,8 @@ function circles_terminal_cmd_dict()
 
             		            var JS_FOLDER_COMPONENTS = "code/js/components/" ;
                             var MULTITHREAD_FOLDER = JS_FOLDER_COMPONENTS + "multi.threading/cmds.support/dict.filter/" ;
-            		            var JS_FOLDER_ALL_PROJECTS = _glob_path_to_support + "code/js/all.projects/" ;
-            		            var JS_FOLDER_CLASSES = JS_FOLDER_ALL_PROJECTS + "classes/load/" ;
+            		            var JS_FOLDER_SUPPORT = _glob_path_to_support + "code/js/basements/" ;
+            		            var JS_FOLDER_CLASSES = JS_FOLDER_SUPPORT + "classes/load/" ;
                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Processing the dictionary ..", _par_1, _cmd_tag );
                             $.ajaxSetup( {async:false} );
                             var _code_array = [], _load_failure = 0 ;
@@ -553,10 +553,10 @@ function circles_terminal_cmd_dict()
 	                            // import this code for worker to process input data
 	                            _glob_inline_worker = new inline_worker( _inline_worker_code,
 	                                                                     [ MULTITHREAD_FOLDER + "multithread.dict.filter.process.js",
-												                                                 JS_FOLDER_ALL_PROJECTS + "basics/a-basics/json.lib.js",
-	                                                                       JS_FOLDER_ALL_PROJECTS + "basics/a-basics/number.js",
-	                                                                       JS_FOLDER_ALL_PROJECTS + "basics/a-basics/string.js",
-	                                                                       JS_FOLDER_ALL_PROJECTS + "basics/array.js" ] );
+												                                                 JS_FOLDER_SUPPORT + "basics/a-basics/json.lib.js",
+	                                                                       JS_FOLDER_SUPPORT + "basics/a-basics/number.js",
+	                                                                       JS_FOLDER_SUPPORT + "basics/a-basics/string.js",
+	                                                                       JS_FOLDER_SUPPORT + "basics/array.js" ] );
 	                            // feed some input vars
 	                            _glob_inline_worker.init_vars( { out_channel : _out_channel,
 	                                                             param_01 : _par_1,

@@ -19,8 +19,8 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        $.getScript( _glob_terminal_cmds_path + _filename).done( function() { _load_failure = 0, _plain_code = _show_code ? circles_terminal_cmd_code_assemble( null, _settings_array ) : "" ; } ).fail( function() { load_failure = 1 ; circles_lib_log_add_entry( "Component '"+_filename+"' code can't be loaded to support tiny rendering service", LOG_ERROR ); } ) ;
 
        var unixtime_ms = new Date().getTime();
-       if ( !is_array( _glob_tinyrenderingCODEarray ) ) _glob_tinyrenderingCODEarray = [];
-       _glob_tinyrenderingCODEarray[unixtime_ms+""] = _plain_code ;
+       if ( !is_array( _glob_tinyrender_code_array ) ) _glob_tinyrender_code_array = [];
+       _glob_tinyrender_code_array[unixtime_ms+""] = _plain_code ;
        var _REF_ID = CIRCLESformsTINYRENDERINGref_id = unixtime_ms, CLOSE_FN = "CIRCLESformsTINYRENDERINGclose("+_REF_ID+");" ;
        var CANVAS_SIZE = 160, WIDTH = $( window ).width() * 0.5, HEIGHT = "auto", _subset = "forms" ;
        var _div_id = CIRCLESformsTINYRENDERINGdiv_id = circles_lib_popup_build_divid( _subset, _base_id ) + _REF_ID ;
@@ -275,7 +275,7 @@ function CIRCLESformsTINYRENDERINGscriptSAVEFILE( _div_id, _REF_ID )
 
 function CIRCLESformsTINYRENDERINGremove( _div_id, _REF_ID )
 {
-    _glob_tinyrenderingCODEarray.remove_key( _REF_ID );
-    var _ret = _glob_tinyrenderingCODEarray.keys_associative();
+    _glob_tinyrender_code_array.remove_key( _REF_ID );
+    var _ret = _glob_tinyrender_code_array.keys_associative();
     if ( !object_exists( _ret ) ) _glob_tiny_rendering_ref_id = 0 ;
 }

@@ -42,6 +42,10 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
   				CIRCLESembeddingsGENERALPURPOSE_CLEAN();
           return 1 ;
   				break ;
+          case "close":
+          GLOB_PLUGIN_DESTROY_POPUP_VARS();
+          circles_lib_popup_activate( NO, GLOB_PLUGIN_SUBSET, '', '', GLOB_PLUGIN_BASE_ID, CLOSE, GLOB_PLUGIN_DIV_ID );
+          break ;
   				case "fullgroup":
   				CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);
           return 1 ;
@@ -50,6 +54,15 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
   				CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO);
           return 1 ;
   				break ;
+          case "vars.list":
+          var _v = [ "gx_n" ] ;
+          var _output = [] ;
+              _output.push( "General Purpose Plug-in --- Internal variables\n" ) ;
+              _output.push( "Each parameter shall be mentioned in the form g<generator-index>_<parameter-index>" ) ;
+              _output.push( "<generator-index> shall be strictly positive, i.e., > 0" ) ;
+              _output.push( "<parameter-index> shall range from 1 to 4, bounds included" ) ;
+          return _output.join( "\n" ) ;
+          break ;
   				case "move":
   				var _ret = move_div( GLOB_PLUGIN_DIV_ID, _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
           return _ret ;

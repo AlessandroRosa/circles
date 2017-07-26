@@ -260,20 +260,20 @@ function circles_lib_files_load_default_datatypes()
      framework data type */
 
     var _scan_folders = [
-    { abs : "code/js/all.projects/classes/load/a-primitives/",
-      rel : "support/code/js/all.projects/classes/load/a-primitives/",
+    { abs : "code/js/basements/classes/load/a-primitives/",
+      rel : "support/code/js/basements/classes/load/a-primitives/",
       filter : "/[?.js]$/"
     },
-    { abs : "code/js/all.projects/classes/load/b-basic.maths",
-      rel : "support/code/js/all.projects/classes/load/b-basic.maths/",
+    { abs : "code/js/basements/classes/load/b-basic.maths",
+      rel : "support/code/js/basements/classes/load/b-basic.maths/",
       filter : "/[?.js]$/"
     },
-    { abs : "code/js/all.projects/classes/load/e-adv.maths",
-      rel : "support/code/js/all.projects/classes/load/e-adv.maths/",
+    { abs : "code/js/basements/classes/load/e-adv.maths",
+      rel : "support/code/js/basements/classes/load/e-adv.maths/",
       filter : "/[?.js]$/"
     },
-    { abs : "code/js/all.projects/basics",
-      rel : "support/code/js/all.projects/basics/",
+    { abs : "code/js/basements/basics",
+      rel : "support/code/js/basements/basics/",
       filter : "/[?.js]$/"
     }
     ] ;

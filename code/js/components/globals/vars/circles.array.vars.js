@@ -31,17 +31,18 @@ var _glob_rnd_probability_array = [];
 var _glob_screencircles_sel_array = [] ;
 var _glob_script_editor_highlights = [] ;
 var _glob_script_editor_reserved_words = [] ;
-var _glob_circles_js_translation = [] ;
-var _glob_circles_js_translation_methods = [] ;
-var _glob_circles_js_translation_methods_index_map = [] ;
-
 var _glob_seeds_array = [];
 var _glob_storage = [];
 var _glob_symbols_index_array = [];
-var _glob_tinyrenderingCODEarray = [];
+var _glob_terminal_vars_array = [];
+var _glob_tinyrender_code_array = [];
 var _glob_volatile_settings = []; // vars that are to be erased after reset
 var _glob_wplane_selected_items_array = [];
 var _glob_zplane_selected_items_array = [];
+
+var _glob_circles_js_translation = [] ;
+var _glob_circles_js_translation_methods = [] ;
+var _glob_circles_js_translation_methods_index_map = [] ;
 
 var _glob_maps = [];
     _glob_maps["real"] = [ YES, FN_DEF_MOBIUS, "1", "0", "-1", "1", "bijection from the unit disk to the plane Re(w) > -1/2" ] ;

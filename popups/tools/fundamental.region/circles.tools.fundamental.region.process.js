@@ -36,8 +36,8 @@ function CIRCLEStoolsFUNDAMENTALREGIONprocess()
         _features['depth'] = Math.max( 0, _depth ) ;
 
     var MULTITHREAD_OBJ_PATH = "plugins/tools/fundamental.region/" ;
-    var JS_FOLDER_ALL_PROJECTS = "support/code/js/all.projects/" ;
-    var JS_FOLDER_CLASSES = JS_FOLDER_ALL_PROJECTS + "classes/load/" ;
+    var JS_FOLDER_SUPPORT = "support/code/js/basements/" ;
+    var JS_FOLDER_CLASSES = JS_FOLDER_SUPPORT + "classes/load/" ;
 
     if ( check_file_exists( MULTITHREAD_FOLDER + "fundamental.region.worker.mltsk" ) )
     {
@@ -58,11 +58,11 @@ function CIRCLEStoolsFUNDAMENTALREGIONprocess()
         _glob_inline_worker = new inline_worker( _inline_worker_code,
                                                  [ JS_FOLDER_COMPONENTS + "globals/defs/circles.constants.js",
                                                    MULTITHREAD_FOLDER + "discreteness.locus.process.mltsk",
-                                                   JS_FOLDER_ALL_PROJECTS + "fns/fns.math.js",
-                                                   JS_FOLDER_ALL_PROJECTS + "basics/a-basics/number.js",
-                                                   JS_FOLDER_ALL_PROJECTS + "basics/a-basics/string.js",
-																							     JS_FOLDER_ALL_PROJECTS + "basics/a-basics/json.lib.js",
-                                                   JS_FOLDER_ALL_PROJECTS + "basics/array.js",
+                                                   JS_FOLDER_SUPPORT + "fns/fns.math.js",
+                                                   JS_FOLDER_SUPPORT + "basics/a-basics/number.js",
+                                                   JS_FOLDER_SUPPORT + "basics/a-basics/string.js",
+																							     JS_FOLDER_SUPPORT + "basics/a-basics/json.lib.js",
+                                                   JS_FOLDER_SUPPORT + "basics/array.js",
                                                    JS_FOLDER_CLASSES + "a-primitives/2d.point.class.js",
                                                    JS_FOLDER_CLASSES + "a-primitives/circle.class.js",
                                                    JS_FOLDER_CLASSES + "b-basic.maths/complex.number.class.js",

@@ -1,0 +1,29 @@
+<banana>plugin management</banana>
+<white>Type param /k to return all available keywords</white>
+
+<lightblue>usage</lightblue> <snow>plugin %action%</snow>
+<lightblue>%action%</lightblue> <snow>current | open | set | var</snow>
+
+<lightblue>plugin release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<lightblue>plugin set</lightblue>
+<white>plugin set embeddings general.purpose</white>
+<cadetblue>set up the plug-in reference and save it for further plugin-cmds</cadetblue>
+
+<lightblue>plugin current</lightblue>
+<cadetblue>return the current refs to the working plug-in</cadetblue>
+
+<lightblue>plugin open</lightblue>
+<cadetblue>open the mask for the current working plug-in</cadetblue>
+
+<lightblue>plugin send</lightblue>
+<cadetblue>send a remote control message to the selected plug-in</cadetblue>
+<white>plugin set forms discreteness.locus move left</white>
+<white>plugin open</white>
+<white>plugin send get.point 1-0.3i</white>
+
+<lightblue>plugin var</lightblue>
+<cadetblue>set var id and related value for the current working plug-in</cadetblue>
+<white>plugin var g1_1=1+i</white>
+<slategray>Assuming we're working with the embeddings/general.purpose plug-in, we set the first (of four) parameter in the first generator</slategray>

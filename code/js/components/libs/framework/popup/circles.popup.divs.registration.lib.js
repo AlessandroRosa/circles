@@ -8,7 +8,7 @@
 */
 
 function circles_lib_popup_caption_code( _run, _title, _colspan, _arrows,
-					                               _close_fns, _width, _height, _caller_fn,
+					                               _append_fns_at_close, _width, _height, _caller_fn,
 				                                 _base_id, _div_id, _subset, _iconpath, _click_fn,
 						                             _help_fn, _fns_group_label,
 						                             _normalize_fns, _minimize_fns, _maximize_fns )
@@ -27,7 +27,7 @@ function circles_lib_popup_caption_code( _run, _title, _colspan, _arrows,
     _colspan = safe_int( _colspan, 1 ), _arrows = safe_int( _arrows, 1 );
     _caller_fn = safe_string( _caller_fn, "" );
     _click_fn = safe_string( _click_fn, "" );
-    _close_fns = safe_string( _close_fns, "" );
+    _append_fns_at_close = safe_string( _append_fns_at_close, "" );
     _help_fn = safe_string( _help_fn, "" );
 		_title = _title.length > 70 ? _title.substr( 0, 65 ) + "&nbsp;.." : _title ;
 
@@ -41,7 +41,7 @@ function circles_lib_popup_caption_code( _run, _title, _colspan, _arrows,
     // if playing with inversion circle is active, then it is also switched off whenever a panel is displayed
     if ( _glob_play_inversion ) circles_lib_forms_play_inversion(NO,YES);
     var ONHIDE_FN = "_glob_popup_mask ^= 1;circles_lib_forms_show_panel( HIDE,'"+_div_id+"');" ;
-    var ONCLOSE_FN = "circles_lib_popup_activate( NO, '"+_base_id+"', '', '', '"+_subset+"',CLOSE,'"+_div_id+"','','"+_close_fns+"');" ;
+    var ONCLOSE_FN = "circles_lib_popup_activate( NO, '"+_base_id+"', '', '', '"+_subset+"',CLOSE,'"+_div_id+"','','"+_append_fns_at_close+"');" ;
     if ( _fns_group_label.length > 0 ) ONCLOSE_FN += "unload_fns( window, '', '"+_fns_group_label+"', NO );" ;
     var _caller_fn_name = _fns_group_label ;
 
@@ -218,7 +218,7 @@ function circles_lib_popup_register( _calling_params, _div_id, _caption, _status
 }
 
 function circles_lib_popup_activate( _allow_multiple_instances, _base_id, _calling_fn, _calling_args,
-																		 _subset, _b_open, _div_id, _caption, _close_fns,
+																		 _subset, _b_open, _div_id, _caption, _append_fns_at_close,
 					                           _normalize_fns, _minimize_fns, _maximize_fns, _caption_class )
 {
 		var _tmp_args = [] ; for( var _a = 0 ; _a < _calling_args.length ; _a++ ) _tmp_args.push( _calling_args[_a] );
@@ -226,15 +226,19 @@ function circles_lib_popup_activate( _allow_multiple_instances, _base_id, _calli
 		var _calling_params = [ _calling_fn, _calling_args.join( "," ) ] ;
 
     _b_open = safe_int( _b_open, OPEN );
-    if ( !_b_open ) _glob_popup_mask ^= 1;
+    if ( !_b_open )
+    {
+      GLOB_PLUGIN_SUBSET = "", GLOB_PLUGIN_BASE_ID = "" ;
+      _glob_popup_mask ^= 1;
+    }
     _allow_multiple_instances = safe_int( _allow_multiple_instances, NO );
     _base_id = safe_string( _base_id, "" ).trim();
     _div_id = safe_string( _div_id, "popup_div" );
     _caption = safe_string( _caption, "" ).trim();
-    _close_fns = safe_string( _close_fns, "" ).trim();
+    _append_fns_at_close = safe_string( _append_fns_at_close, "" ).trim();
     _subset = safe_string( _subset, "forms" ).trim();
     _caption_class = safe_string( _caption_class, "popup_caption_bk_enabled" ).trim();
-    var _close = ( !_b_open && _close_fns.length > 0 ) ? eval( _close_fns ) : YES ;
+    var _close = ( !_b_open && _append_fns_at_close.length > 0 ) ? eval( _append_fns_at_close ) : YES ;
     if ( !_close ) return ;
 
     if ( _div_id.start_with( "#" ) ) _div_id = _div_id.replaceAll( "#", "" ) ;
@@ -303,8 +307,8 @@ function circles_lib_popup_activate( _allow_multiple_instances, _base_id, _calli
     // bind events
     if ( $( "#" + _div_id ).get(0) != null && _b_open )
     {
-  	    $( "#" + _div_id ).get(0).onmousedown = function( event )   { POPUPSDIVonmousedown( _unique_id, this.id, event, _close_fns, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
-  	    $( "#" + _div_id ).get(0).onmouseup = function( event )     { POPUPSDIVonmouseup( _unique_id, this.id, event, _close_fns, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
+  	    $( "#" + _div_id ).get(0).onmousedown = function( event )   { POPUPSDIVonmousedown( _unique_id, this.id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
+  	    $( "#" + _div_id ).get(0).onmouseup = function( event )     { POPUPSDIVonmouseup( _unique_id, this.id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
   	    $( "#" + _div_id ).get(0).oncontextmenu = function( event ) { return POPUPSDIVoncontextmenu( _unique_id, this.id, event ); }
 		}
 

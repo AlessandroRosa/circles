@@ -249,7 +249,7 @@ function CIRCLESformsDISCRETENESSLOCUS_WORK_canvas_onmousedown( obj, event )
             _ret_trace = parse_complex_from_string( _ret_trace + "" );
     
             if ( !CIRCLESformsDISCRETENESSLOCUScanvas_mouse_proc_switch.is_one_of( MOUSE_ZOOM_PROC_ID ) )
-						CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPT( 1 );
+						CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPT( null, 1 );
             var _trace_fix_op = $( "#FIXTRACECOMBO" ).get(0) != null ? $( "#FIXTRACECOMBO" ).val() : 0 ;
             if ( CIRCLESformsDISCRETENESSLOCUSplugin_pick )
             {

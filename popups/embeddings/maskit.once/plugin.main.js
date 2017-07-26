@@ -153,7 +153,7 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
 
     var WIDTH = 450, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_popup_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_CLOSE_POPUP();", WIDTH, HEIGHT, this_fn_name, 'maskit.once', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsMASKITONCE_",
+    HTMLcode += circles_lib_popup_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'maskit.once', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsMASKITONCE_",
 																								[ "CIRCLESembeddingsMASKITONCE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsMASKITONCE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsMASKITONCE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );

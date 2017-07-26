@@ -1234,9 +1234,9 @@ function circles_terminal_cmd_word()
 
                   var JS_FOLDER_COMPONENTS = "code/js/components/" ;
                   var MULTITHREAD_FOLDER = JS_FOLDER_COMPONENTS+"multi.threading/cmds.support/treescan/" ;
-   		            var JS_FOLDER_ALL_PROJECTS = _glob_path_to_support + "code/js/all.projects/" ;
+   		            var JS_FOLDER_SUPPORT = _glob_path_to_support + "code/js/basements/" ;
                   var JS_FOLDER_LIBS = JS_FOLDER_COMPONENTS + "libs/" ;
-   		            var JS_FOLDER_CLASSES = JS_FOLDER_ALL_PROJECTS + "classes/load/" ;
+   		            var JS_FOLDER_CLASSES = JS_FOLDER_SUPPORT + "classes/load/" ;
                   $.ajaxSetup( {async:false} );
                   var _code_array = [], _load_failure = 0;
                   _code_array.push( $.getScript( MULTITHREAD_FOLDER + "multithread.treescan.worker.js", function( response, status, jqxhr ) { _load_failure = status.toLowerCase().stricmp( "success" ) ? NO : YES ; } ).responseText );
@@ -1252,17 +1252,17 @@ function circles_terminal_cmd_word()
 		                  // import this code for worker to process input data
 		                  _glob_inline_worker = new inline_worker( _inline_worker_code,
 		                                               [ MULTITHREAD_FOLDER + "multithread.treescan.process.js",
-		                                                 JS_FOLDER_ALL_PROJECTS + "basics/a-basics/json.lib.js",
-		                                                 JS_FOLDER_ALL_PROJECTS + "basics/a-basics/number.js",
-		                                                 JS_FOLDER_ALL_PROJECTS + "basics/a-basics/string.js",
-		                                                 JS_FOLDER_ALL_PROJECTS + "basics/array.js",
-		                                                 JS_FOLDER_ALL_PROJECTS + "classes/load/a-primitives/2d.point.class.js",
-		                                                 JS_FOLDER_ALL_PROJECTS + "classes/load/a-primitives/rect.class.js",
-		                                                 JS_FOLDER_ALL_PROJECTS + "classes/load/b-basic.maths/complex.number.class.js",
-		                                                 JS_FOLDER_ALL_PROJECTS + "classes/load/e-adv.maths/mobius.map.class.js",
-		                                                 JS_FOLDER_ALL_PROJECTS + "fns/fns.generals.js",
-		                                                 JS_FOLDER_ALL_PROJECTS + "fns/fns.math.js",
-		                                                 JS_FOLDER_ALL_PROJECTS + "fns/fns.strings.js",
+		                                                 JS_FOLDER_SUPPORT + "basics/a-basics/json.lib.js",
+		                                                 JS_FOLDER_SUPPORT + "basics/a-basics/number.js",
+		                                                 JS_FOLDER_SUPPORT + "basics/a-basics/string.js",
+		                                                 JS_FOLDER_SUPPORT + "basics/array.js",
+		                                                 JS_FOLDER_SUPPORT + "classes/load/a-primitives/2d.point.class.js",
+		                                                 JS_FOLDER_SUPPORT + "classes/load/a-primitives/rect.class.js",
+		                                                 JS_FOLDER_SUPPORT + "classes/load/b-basic.maths/complex.number.class.js",
+		                                                 JS_FOLDER_SUPPORT + "classes/load/e-adv.maths/mobius.map.class.js",
+		                                                 JS_FOLDER_SUPPORT + "fns/fns.generals.js",
+		                                                 JS_FOLDER_SUPPORT + "fns/fns.math.js",
+		                                                 JS_FOLDER_SUPPORT + "fns/fns.strings.js",
 		                                                 JS_FOLDER_COMPONENTS + "globals/defs/circles.constants.js",
 		                                                 JS_FOLDER_LIBS + "symbols/circles.lib.word.js"
 		                                               ] );

@@ -62,6 +62,7 @@ function circles_lib_popup_is_visible( _form_title )
 
 function circles_lib_popup_move_wnd( _div_id, _X_TAG, _Y_TAG )
 {
+    console.log( _div_id );
     move_div( _div_id, _X_TAG, _Y_TAG );
    	if ( _glob_popup_divs_rec_positions_array[_div_id] != null )
     {

@@ -85,9 +85,9 @@ ol li
 }
 </STYLE>
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="../docs/js/docs.anchors.js"></SCRIPT>
-<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="support/code/js/all.projects/jquery/jquery.min.js"></SCRIPT>
-<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="support/code/js/all.projects/obj.position.js"></SCRIPT>
-<?php load_src_code_dir( $PATH_TO_COMPLEX."code/js/all.projects/fns/", "js", $ERRCODE ) ; ?>
+<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="support/code/js/basements/jquery/jquery.min.js"></SCRIPT>
+<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="support/code/js/basements/obj.position.js"></SCRIPT>
+<?php load_src_code_dir( $PATH_TO_COMPLEX."code/js/basements/fns/", "js", $ERRCODE ) ; ?>
 </head>
 <body>
 <DIV ID="docsdiv" STYLE="position:absolute;"></DIV>

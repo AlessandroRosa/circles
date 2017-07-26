@@ -3,7 +3,7 @@ var GLOB_PLUGIN_SUBSET = "" ;
 var GLOB_PLUGIN_DIV_ID = "POPUPpluginDIV" ;
 var GLOB_PLUGIN_CIRCLE_TYPE = DRAWENTITY_INVERSION_CIRCLE ;
 
-function GLOB_PLUGIN_CLOSE_POPUP()
+function GLOB_PLUGIN_DESTROY_POPUP_VARS()
 {
 		// delete all vars, declared in the plugin pop-up window, from memory
 		for( var _v in window ) if ( _v.start_with( "PLUGINglob_" ) ) eval( "window." + _v + " = null ;" );

@@ -16,8 +16,13 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn )
 		{
 				case "/*anyaction*/":
 				break ;
+        case "get.point":
+        console.log( _options[1] );
+        $( "#CIRCLESformsDISCRETENESSLOCUSpickedCOMPLEXPT" ).val( _options[1] );
+        CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPT( null, 1 ) ;
+        break ;
 				case "move":
-				var _ret = move_div( GLOB_PLUGIN_DIV_ID, _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
+				var _ret = move_div( _plugin_tmp_vars_config_array['forms']['discreteness.locus'], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
 				break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;

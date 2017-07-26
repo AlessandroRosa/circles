@@ -8,20 +8,20 @@ var _glob_multithread_dictionary_obj = null ;
 
 self.addEventListener( 'message', function(e)
 {
-      var JS_FOLDER_ALL_PROJECTS = _glob_multithread_path_to_complex + "support/code/js/basements/" ;
+      var JS_FOLDER_SUPPORT = _glob_multithread_path_to_complex + "support/code/js/basements/" ;
       var JS_FOLDER_COMPONENTS = _glob_multithread_path_to_circles + "code/js/components/" ;
       var data = e.data ;
       var msg_id = data.id ;
       var msg_lang = data.lang ;
 
-      importScripts( JS_FOLDER_ALL_PROJECTS + "basics/a-basics/number.js" );
-      importScripts( JS_FOLDER_ALL_PROJECTS + "basics/a-basics/string.js" );
-      importScripts( JS_FOLDER_ALL_PROJECTS + "basics/a-basics/json.lib.js" );
-      importScripts( JS_FOLDER_ALL_PROJECTS + "basics/array.js" );
-      importScripts( JS_FOLDER_ALL_PROJECTS + "fns/fns.date.time.js" );
-      importScripts( JS_FOLDER_ALL_PROJECTS + "fns/fns.math.js" );
-      importScripts( JS_FOLDER_ALL_PROJECTS + "fns/fns.generals.js" );
-      importScripts( JS_FOLDER_ALL_PROJECTS + "fns/fns.strings.js" );
+      importScripts( JS_FOLDER_SUPPORT + "basics/a-basics/number.js" );
+      importScripts( JS_FOLDER_SUPPORT + "basics/a-basics/string.js" );
+      importScripts( JS_FOLDER_SUPPORT + "basics/a-basics/json.lib.js" );
+      importScripts( JS_FOLDER_SUPPORT + "basics/array.js" );
+      importScripts( JS_FOLDER_SUPPORT + "fns/fns.date.time.js" );
+      importScripts( JS_FOLDER_SUPPORT + "fns/fns.math.js" );
+      importScripts( JS_FOLDER_SUPPORT + "fns/fns.generals.js" );
+      importScripts( JS_FOLDER_SUPPORT + "fns/fns.strings.js" );
       importScripts( JS_FOLDER_COMPONENTS + "globals/defaults/circles.defaults.js" );
       importScripts( JS_FOLDER_COMPONENTS + "globals/defs/circles.constants.js" );
       importScripts( JS_FOLDER_COMPONENTS + "libs/foundations/objs/circles.dictionary.obj.js" );

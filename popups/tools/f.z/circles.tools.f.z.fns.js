@@ -139,9 +139,9 @@ function CIRCLEStoolsFZredraw()
             var JS_FOLDER_COMPONENTS = "code/js/components/" ;
             var JS_FOLDER_FZ = "popups/tools/f.z/" ;
             var MULTITHREAD_FOLDER = JS_FOLDER_FZ + "multi.threading/" ;
-		        var JS_FOLDER_ALL_PROJECTS = _glob_path_to_support + "code/js/all.projects/" ;
+		        var JS_FOLDER_SUPPORT = _glob_path_to_support + "code/js/basements/" ;
 		        var JS_FOLDER_SHARED = _glob_path_to_support + "code/js/shared/" ;
-		        var JS_FOLDER_CLASSES = JS_FOLDER_ALL_PROJECTS + "classes/load/" ;
+		        var JS_FOLDER_CLASSES = JS_FOLDER_SUPPORT + "classes/load/" ;
              // multi-tasking custom obj
             $.ajaxSetup( {async:false} );
             if ( check_file_exists( JS_FOLDER_FZ + "circles.tools.f.z.worker.mtsk" ) )
@@ -162,10 +162,10 @@ function CIRCLEStoolsFZredraw()
     		        _glob_inline_worker = new inline_worker( _inline_worker_code,
     		                                                 [ JS_FOLDER_COMPONENTS + "globals/defs/circles.constants.js",
     		                                                   JS_FOLDER_FZ + "circles.tools.f.z.process.mtsk",
-    		                                                   JS_FOLDER_ALL_PROJECTS + "basics/a-basics/number.js",
-    		                                                   JS_FOLDER_ALL_PROJECTS + "basics/a-basics/string.js",
-																											     JS_FOLDER_ALL_PROJECTS + "basics/a-basics/json.lib.js",
-                                                           JS_FOLDER_ALL_PROJECTS + "basics/array.js",
+    		                                                   JS_FOLDER_SUPPORT + "basics/a-basics/number.js",
+    		                                                   JS_FOLDER_SUPPORT + "basics/a-basics/string.js",
+																											     JS_FOLDER_SUPPORT + "basics/a-basics/json.lib.js",
+                                                           JS_FOLDER_SUPPORT + "basics/array.js",
     		                                                   JS_FOLDER_CLASSES + "a-primitives/2d.point.class.js",
     		                                                   JS_FOLDER_CLASSES + "b-basic.maths/complex.number.class.js",
                                                            JS_FOLDER_SHARED + "math.js/math.min.js"

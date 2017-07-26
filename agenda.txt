@@ -5,6 +5,27 @@ https://en.wikipedia.org/wiki/Kleene_algebra
 https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
+------------ APP ----------------------------------
+* for each 'main' pop-up method, b4 calling 'circles_lib_popup_create', put the
+  following code:
+
+  if ( _plugin_tmp_vars_config_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_config_array[GLOB_PLUGIN_SUBSET] = [] ;
+  _plugin_tmp_vars_config_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
+
+* per ogni remotectrl method
+  - copy msg labels from remotectrl into remotecmds.info,
+    according to the following syntax
+    "msg.label"="description"
+  - "move" : come per discreteness locus
+    move_div( _plugin_tmp_vars_config_array['forms']['discreteness.locus']
+
+------------ DEMO ------------------------------------------------
+
+* aprire discreteness locus
+* selezionare Maskit T1,1
+* render (aspettare qualche secondo)
+* disegnare il punto 1.00+1.7347 tramite il remotectrl 'get.point'
+
 ------------ SCRIPT EDITOR ------------------------
 
   >> define the priority order for libs to be processed

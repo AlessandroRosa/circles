@@ -144,8 +144,8 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSP()
 																							 CIRCLESformsDISCRETENESSLOCUStr_ABab, CIRCLESformsDISCRETENESSLOCUSeq_solution ] ;
 		            var JS_FOLDER_COMPONENTS = "code/js/components/" ;
                 var MULTITHREAD_FOLDER = JS_FOLDER_COMPONENTS + "multi.threading/cmds.support/discreteness.locus/" ;
-		            var JS_FOLDER_ALL_PROJECTS = _glob_path_to_support + "code/js/all.projects/" ;
-		            var JS_FOLDER_CLASSES = JS_FOLDER_ALL_PROJECTS + "classes/load/" ;
+		            var JS_FOLDER_SUPPORT = _glob_path_to_support + "code/js/basements/" ;
+		            var JS_FOLDER_CLASSES = JS_FOLDER_SUPPORT + "classes/load/" ;
 		
 		            $.ajaxSetup( {async:false} );
                 if ( check_file_exists( MULTITHREAD_FOLDER + "discreteness.locus.worker.js" ) )
@@ -165,10 +165,10 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSP()
     		            _glob_inline_worker = new inline_worker( _inline_worker_code,
     		                                                     [ JS_FOLDER_COMPONENTS + "globals/defs/circles.constants.js",
     		                                                       MULTITHREAD_FOLDER + "discreteness.locus.process.js",
-    		                                                       JS_FOLDER_ALL_PROJECTS + "basics/a-basics/number.js",
-    		                                                       JS_FOLDER_ALL_PROJECTS + "basics/a-basics/string.js",
-																													     JS_FOLDER_ALL_PROJECTS + "basics/a-basics/json.lib.js",
-    		                                                       JS_FOLDER_ALL_PROJECTS + "basics/array.js",
+    		                                                       JS_FOLDER_SUPPORT + "basics/a-basics/number.js",
+    		                                                       JS_FOLDER_SUPPORT + "basics/a-basics/string.js",
+																													     JS_FOLDER_SUPPORT + "basics/a-basics/json.lib.js",
+    		                                                       JS_FOLDER_SUPPORT + "basics/array.js",
     		                                                       JS_FOLDER_CLASSES + "a-primitives/2d.point.class.js",
     		                                                       JS_FOLDER_CLASSES + "a-primitives/rect.class.js",
     		                                                       JS_FOLDER_CLASSES + "b-basic.maths/complex.number.class.js",
@@ -289,8 +289,8 @@ function CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARY( _canvas, _screen_rect )
 
 		            var JS_FOLDER_COMPONENTS = "code/js/components/" ;
                 var MULTITHREAD_FOLDER = JS_FOLDER_COMPONENTS + "multi.threading/cmds.support/discreteness.locus/" ;
-		            var JS_FOLDER_ALL_PROJECTS = _glob_path_to_support + "code/js/all.projects/" ;
-		            var JS_FOLDER_CLASSES = JS_FOLDER_ALL_PROJECTS + "classes/load/" ;
+		            var JS_FOLDER_SUPPORT = _glob_path_to_support + "code/js/basements/" ;
+		            var JS_FOLDER_CLASSES = JS_FOLDER_SUPPORT + "classes/load/" ;
 		        
 		            $.ajaxSetup( {async:false} );
                 if ( check_file_exists( MULTITHREAD_FOLDER + "discreteness.locus.worker.js" ) )
@@ -304,10 +304,10 @@ function CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARY( _canvas, _screen_rect )
     		            _glob_inline_worker = new inline_worker( _inline_worker_code,
     		                                                     [ JS_FOLDER_COMPONENTS + "globals/defs/circles.constants.js",
     		                                                       MULTITHREAD_FOLDER + "discreteness.locus.process.js",
-    		                                                       JS_FOLDER_ALL_PROJECTS + "basics/a-basics/number.js",
-    		                                                       JS_FOLDER_ALL_PROJECTS + "basics/a-basics/string.js",
-																													     JS_FOLDER_ALL_PROJECTS + "basics/a-basics/json.lib.js",
-    		                                                       JS_FOLDER_ALL_PROJECTS + "basics/array.js",
+    		                                                       JS_FOLDER_SUPPORT + "basics/a-basics/number.js",
+    		                                                       JS_FOLDER_SUPPORT + "basics/a-basics/string.js",
+																													     JS_FOLDER_SUPPORT + "basics/a-basics/json.lib.js",
+    		                                                       JS_FOLDER_SUPPORT + "basics/array.js",
     		                                                       JS_FOLDER_CLASSES + "a-primitives/2d.point.class.js",
     		                                                       JS_FOLDER_CLASSES + "a-primitives/rect.class.js",
     		                                                       JS_FOLDER_CLASSES + "b-basic.maths/complex.number.class.js",
