@@ -212,12 +212,12 @@ function CIRCLESembeddingsMASKITTWICE_PARSE( _tau_1_formula, _tau_2_formula )
     CIRCLESembeddingsMASKITTWICE_TAU_1_complex = parse_complex_from_string( CIRCLESembeddingsMASKITTWICE_TAU_1_complex + "" );
     CIRCLESembeddingsMASKITTWICE_TAU_2_complex = parse_complex_from_string( CIRCLESembeddingsMASKITTWICE_TAU_2_complex + "" );
 
-    if ( _plugin_tmp_vars_config_array['embeddings@maskittwice'] == null ) _plugin_tmp_vars_config_array['embeddings@maskittwice'] = [] ;
-    _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau1'] = CIRCLESembeddingsMASKITTWICE_TAU_1 ;
-    _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau2'] = CIRCLESembeddingsMASKITTWICE_TAU_2 ;
+    if ( _plugin_tmp_vars_array['embeddings@maskittwice'] == null ) _plugin_tmp_vars_array['embeddings@maskittwice'] = [] ;
+    _plugin_tmp_vars_array['embeddings@maskittwice']['tau1'] = CIRCLESembeddingsMASKITTWICE_TAU_1 ;
+    _plugin_tmp_vars_array['embeddings@maskittwice']['tau2'] = CIRCLESembeddingsMASKITTWICE_TAU_2 ;
 
-    _plugin_tmp_vars_config_array['tau1'] = CIRCLESembeddingsMASKITTWICE_TAU_1 ;
-    _plugin_tmp_vars_config_array['tau2'] = CIRCLESembeddingsMASKITTWICE_TAU_2 ;
+    _plugin_tmp_vars_array['tau1'] = CIRCLESembeddingsMASKITTWICE_TAU_1 ;
+    _plugin_tmp_vars_array['tau2'] = CIRCLESembeddingsMASKITTWICE_TAU_2 ;
 
     if ( _plugin_vars_array[_index_ref]['tau1']['value'] != null ) _plugin_vars_array[_index_ref]['tau1']['value'] = CIRCLESembeddingsMASKITTWICE_TAU_1_complex ;
     if ( _plugin_vars_array[_index_ref]['tau2']['value'] != null ) _plugin_vars_array[_index_ref]['tau2']['value'] = CIRCLESembeddingsMASKITTWICE_TAU_2_complex ;

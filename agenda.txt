@@ -5,19 +5,14 @@ https://en.wikipedia.org/wiki/Kleene_algebra
 https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
------------- APP ----------------------------------
-* for each 'main' pop-up method, b4 calling 'circles_lib_popup_create', put the
-  following code:
+------------ APP -------------------------------------------------
+* folder 'popup' shall be renamed into 'plug-ins'
+  replace all occurrances inside the code
 
-  if ( _plugin_tmp_vars_config_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_config_array[GLOB_PLUGIN_SUBSET] = [] ;
-  _plugin_tmp_vars_config_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
+* plugin list >> show the list of currently available plugins
+  (merge with 'popup' features)
 
-* per ogni remotectrl method
-  - copy msg labels from remotectrl into remotecmds.info,
-    according to the following syntax
-    "msg.label"="description"
-  - "move" : come per discreteness locus
-    move_div( _plugin_tmp_vars_config_array['forms']['discreteness.locus']
+* delete 'popup' cmd and help
 
 ------------ DEMO ------------------------------------------------
 

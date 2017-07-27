@@ -124,10 +124,10 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
          GLOB_PLUGIN_VARS_PATTERN_RESTORE(_index_ref);
          GLOB_PLUGIN_VARS_PATTERN_FILL(_index_ref);
     }
-    else if ( _plugin_tmp_vars_config_array['embeddings@mirrorquasifuchsian'] != null )
+    else if ( _plugin_tmp_vars_array['embeddings@mirrorquasifuchsian'] != null )
     {
-      if ( _plugin_tmp_vars_config_array['embeddings@mirrorquasifuchsian']['tau'] != null )
-      CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau = _plugin_tmp_vars_config_array['embeddings@mirrorquasifuchsian']['tau'] ;
+      if ( _plugin_tmp_vars_array['embeddings@mirrorquasifuchsian']['tau'] != null )
+      CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau = _plugin_tmp_vars_array['embeddings@mirrorquasifuchsian']['tau'] ;
     }
 
     var SW = $(window).width(), SH = $(window).height();
@@ -243,6 +243,8 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
 
     HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
                      
+    if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
+    _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_popup_create( _base_id, _div_id, 'embeddings', WIDTH, HEIGHT, HTMLcode );
     circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsMIRRORQUASIFUCHSIAN_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsMIRRORQUASIFUCHSIAN_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsMIRRORQUASIFUCHSIAN_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )

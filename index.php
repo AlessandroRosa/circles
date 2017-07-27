@@ -129,6 +129,9 @@ circles_lib_statusbar_load( "vert", "left", "top", NO, 10, 100 );
         case 7:
         @include( "demos/demo.sasaki.group.php" );
         break ;
+        case 8:
+        @include( "demos/demo.discreteness.locus.php" );
+        break ;
         case 0:
         default:
         @include( "demos/demo.test.php" );

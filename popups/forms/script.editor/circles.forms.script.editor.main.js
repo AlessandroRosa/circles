@@ -102,6 +102,8 @@ function CIRCLESformsSCRIPTEDITORmain( _base_id, _move )
     HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
 
     GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
+    if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
+    _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode, null, null, null, TOP );
     circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsSCRIPTEDITORcaption, CLOSE_FN,
 					                      [ "CIRCLESformsSCRIPTEDITORnormalize", _div_id, WIDTH, HEIGHT ],

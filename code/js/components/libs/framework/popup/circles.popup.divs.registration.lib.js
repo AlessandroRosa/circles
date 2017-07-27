@@ -226,11 +226,7 @@ function circles_lib_popup_activate( _allow_multiple_instances, _base_id, _calli
 		var _calling_params = [ _calling_fn, _calling_args.join( "," ) ] ;
 
     _b_open = safe_int( _b_open, OPEN );
-    if ( !_b_open )
-    {
-      GLOB_PLUGIN_SUBSET = "", GLOB_PLUGIN_BASE_ID = "" ;
-      _glob_popup_mask ^= 1;
-    }
+    if ( !_b_open ) _glob_popup_mask ^= 1;
     _allow_multiple_instances = safe_int( _allow_multiple_instances, NO );
     _base_id = safe_string( _base_id, "" ).trim();
     _div_id = safe_string( _div_id, "popup_div" );
@@ -322,4 +318,6 @@ function circles_lib_popup_activate( _allow_multiple_instances, _base_id, _calli
         var PREFIX = "CIRCLES" + _subset.toLowerCase() + _base_id.toUpperCase();
         for( var _v in window ) if ( _v.start_with( PREFIX ) ) { eval( "window." + _v + " = null ;" ); }
     }
+
+    if ( !_b_open ) GLOB_PLUGIN_SUBSET = GLOB_PLUGIN_BASE_ID = "" ;
 }

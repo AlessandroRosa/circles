@@ -180,19 +180,19 @@ function CIRCLESembeddingsGRANDMA4ALARMmain( _base_id, _move, _restore )
          GLOB_PLUGIN_VARS_PATTERN_RESTORE(_index_ref);
          GLOB_PLUGIN_VARS_PATTERN_FILL(_index_ref);
     }
-    else if ( _plugin_tmp_vars_config_array['embeddings@grandma4alarm'] != null )
+    else if ( _plugin_tmp_vars_array['embeddings@grandma4alarm'] != null )
     {
-      if ( _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['a'] != null )
-      CIRCLESembeddingsGRANDMA4ALARM_trA = _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['a'] ;
+      if ( _plugin_tmp_vars_array['embeddings@grandma4alarm']['a'] != null )
+      CIRCLESembeddingsGRANDMA4ALARM_trA = _plugin_tmp_vars_array['embeddings@grandma4alarm']['a'] ;
 
-      if ( _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['b'] != null )
-      CIRCLESembeddingsGRANDMA4ALARM_trB = _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['b'] ;
+      if ( _plugin_tmp_vars_array['embeddings@grandma4alarm']['b'] != null )
+      CIRCLESembeddingsGRANDMA4ALARM_trB = _plugin_tmp_vars_array['embeddings@grandma4alarm']['b'] ;
 
-      if ( _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['ab'] != null )
-      CIRCLESembeddingsGRANDMA4ALARM_trAB = _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['ab'] ;
+      if ( _plugin_tmp_vars_array['embeddings@grandma4alarm']['ab'] != null )
+      CIRCLESembeddingsGRANDMA4ALARM_trAB = _plugin_tmp_vars_array['embeddings@grandma4alarm']['ab'] ;
 
-      if ( _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['p'] != null )
-      CIRCLESembeddingsGRANDMA4ALARM_param = _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['p'] ;
+      if ( _plugin_tmp_vars_array['embeddings@grandma4alarm']['p'] != null )
+      CIRCLESembeddingsGRANDMA4ALARM_param = _plugin_tmp_vars_array['embeddings@grandma4alarm']['p'] ;
     }
 
     var SW = $(window).width(), SH = $(window).height();
@@ -321,6 +321,8 @@ function CIRCLESembeddingsGRANDMA4ALARMmain( _base_id, _move, _restore )
     
     HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
                      
+    if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
+    _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_popup_create( _base_id, _div_id, 'embeddings', WIDTH, HEIGHT, HTMLcode );
     circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGRANDMA4ALARM_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMA4ALARM_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMA4ALARM_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )

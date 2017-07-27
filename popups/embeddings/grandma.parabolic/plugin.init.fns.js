@@ -267,9 +267,9 @@ function CIRCLESembeddingsGRANDMAPARABOLIC_INIT( _skip_edit_acquisition, _calc )
     }
     else
     {
-        CIRCLESembeddingsGRANDMAPARABOLIC_trA = _plugin_tmp_vars_config_array['a'] ;
-        CIRCLESembeddingsGRANDMAPARABOLIC_trB = _plugin_tmp_vars_config_array['b'] ;
-        CIRCLESembeddingsGRANDMAPARABOLIC_param = safe_int( _plugin_tmp_vars_config_array['p'], 1 );
+        CIRCLESembeddingsGRANDMAPARABOLIC_trA = _plugin_tmp_vars_array['a'] ;
+        CIRCLESembeddingsGRANDMAPARABOLIC_trB = _plugin_tmp_vars_array['b'] ;
+        CIRCLESembeddingsGRANDMAPARABOLIC_param = safe_int( _plugin_tmp_vars_array['p'], 1 );
         CIRCLESembeddingsGRANDMAPARABOLIC_PARSE( CIRCLESembeddingsGRANDMAPARABOLIC_trA, CIRCLESembeddingsGRANDMAPARABOLIC_trB );
     }
 
@@ -343,14 +343,14 @@ function CIRCLESembeddingsGRANDMAPARABOLIC_PARSE( _tr_a_formula, _tr_b_formula )
     CIRCLESembeddingsGRANDMAPARABOLIC_trA_complex = parse_complex_from_string( CIRCLESembeddingsGRANDMAPARABOLIC_trA_complex + "" );
     CIRCLESembeddingsGRANDMAPARABOLIC_trB_complex = parse_complex_from_string( CIRCLESembeddingsGRANDMAPARABOLIC_trB_complex + "" );
 
-    if ( _plugin_tmp_vars_config_array['embeddings@grandmaparabolic'] == null ) _plugin_tmp_vars_config_array['embeddings@grandmaparabolic'] = [] ;
-    _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['a'] = CIRCLESembeddingsGRANDMAPARABOLIC_trA ;
-    _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['b'] = CIRCLESembeddingsGRANDMAPARABOLIC_trB ;
-    _plugin_tmp_vars_config_array['embeddings@grandmaparabolic']['p'] = CIRCLESembeddingsGRANDMAPARABOLIC_param ;
+    if ( _plugin_tmp_vars_array['embeddings@grandmaparabolic'] == null ) _plugin_tmp_vars_array['embeddings@grandmaparabolic'] = [] ;
+    _plugin_tmp_vars_array['embeddings@grandmaparabolic']['a'] = CIRCLESembeddingsGRANDMAPARABOLIC_trA ;
+    _plugin_tmp_vars_array['embeddings@grandmaparabolic']['b'] = CIRCLESembeddingsGRANDMAPARABOLIC_trB ;
+    _plugin_tmp_vars_array['embeddings@grandmaparabolic']['p'] = CIRCLESembeddingsGRANDMAPARABOLIC_param ;
 
-    _plugin_tmp_vars_config_array['a'] = CIRCLESembeddingsGRANDMAPARABOLIC_trA ;
-    _plugin_tmp_vars_config_array['b'] = CIRCLESembeddingsGRANDMAPARABOLIC_trB ;
-    _plugin_tmp_vars_config_array['p'] = CIRCLESembeddingsGRANDMAPARABOLIC_param ;
+    _plugin_tmp_vars_array['a'] = CIRCLESembeddingsGRANDMAPARABOLIC_trA ;
+    _plugin_tmp_vars_array['b'] = CIRCLESembeddingsGRANDMAPARABOLIC_trB ;
+    _plugin_tmp_vars_array['p'] = CIRCLESembeddingsGRANDMAPARABOLIC_param ;
 
     if ( _plugin_vars_array[_index_ref]['a']['value'] != null ) _plugin_vars_array[_index_ref]['a']['value'] = CIRCLESembeddingsGRANDMAPARABOLIC_trA_complex ;
     if ( _plugin_vars_array[_index_ref]['b']['value'] != null ) _plugin_vars_array[_index_ref]['b']['value'] = CIRCLESembeddingsGRANDMAPARABOLIC_trB_complex ;

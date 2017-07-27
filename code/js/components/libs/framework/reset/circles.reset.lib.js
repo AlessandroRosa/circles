@@ -139,7 +139,7 @@ function circles_lib_reset_vars( _reset_mask, _silent, _out_channel )
         var _keys = array_keys( _plugin_vars_array[ _plugin_index_ref ] );
         $.each( _keys, function( _i, _key ){ _plugin_vars_array[ _plugin_index_ref ][_key] = "" ; } ) ;
 
-        _plugin_tmp_vars_config_array.flush();
+        _plugin_tmp_vars_array.flush();
         _plugin_import_mask = 0 ;
         _plugin_import_chunk = [];
         _plugin_import_gens = [];

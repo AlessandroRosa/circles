@@ -9,7 +9,7 @@ var _plugin_run_fn_array = [];
 var _plugin_vars_array = [];
 var _plugin_user_vars = [];
 var _plugin_openref_array = [];
-var _plugin_tmp_vars_config_array = [];
+var _plugin_tmp_vars_array = [];
 var _plugin_rec_var_vals = [] ;
 
 var _plugin_configs_list = [];

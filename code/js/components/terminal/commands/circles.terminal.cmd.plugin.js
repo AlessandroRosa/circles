@@ -28,7 +28,7 @@ function circles_terminal_cmd_plugin()
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "close", "current", "html", "help", "remotectrl", "open", "release", "run", "set", "send", "silent", "var" );
+    				 _local_cmds_params_array.push( "close", "current", "html", "help", "list", "remotectrl", "open", "release", "run", "set", "send", "silent", "var" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -37,7 +37,7 @@ function circles_terminal_cmd_plugin()
               if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "close", "current", "remotectrl", "open", "set", "send", "var", "varslist" ) ) _params_assoc_array['action'] = _p.toLowerCase();
+              else if ( _p.is_one_of_i( "close", "current", "list", "remotectrl", "open", "set", "send", "var", "varslist" ) ) _params_assoc_array['action'] = _p.toLowerCase();
               else if ( _p.is_one_of_i( "silent" ) ) _params_assoc_array['settings'].push( _p ) ;
               else
               {
@@ -88,73 +88,38 @@ function circles_terminal_cmd_plugin()
              switch( _action )
              {
                   case "close":
-                  if ( _plugin_tmp_vars_config_array['plugin_sel'] != null )
+                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
-                      var _src = _plugin_tmp_vars_config_array['plugin_sel']['orig_family_def'] ;
+                      var _src = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                       if ( _src != null )
                       {
                           var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_]/, "" ) ;
                           var _options = [ "close" ] ;
                           var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null )" ;
+                          console.log( _dispatcher_fn );
                           var _output = null ;
                         	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
                         	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
-                          circles_lib_output( _out_channel, _output ? DISPATCH_SUCCESS : DISPATCH_ERROR, "Plug-in has "+(_output?"":"not ")+"been closed with success", _par_1, _cmd_tag );
+                          circles_lib_output( _out_channel, _output ? DISPATCH_SUCCESS : DISPATCH_ERROR, "Plug-in "+_src.fam+" "+_src.def+" has "+(_output?"":"not ")+"been closed with success", _par_1, _cmd_tag );
                       }
-                      else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                      else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                   case "current":
-                  if ( _plugin_tmp_vars_config_array['plugin_sel'] != null )
+                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
-                      var _plugin_specs = _plugin_tmp_vars_config_array['plugin_sel']['packed_name'].split( "@" ) ;
-                      circles_lib_output( _out_channel, DISPATCH_INFO, "Current plug-in is "+_plugin_specs[0]+ " "+_plugin_specs[1], _par_1, _cmd_tag );
+                      var _plugin_specs = _plugin_tmp_vars_array['plugin_sel']['packed_name'].split( "@" ) ;
+                      circles_lib_output( _out_channel, DISPATCH_INFO, "Current Plug-in is "+_plugin_specs[0]+ " "+_plugin_specs[1], _par_1, _cmd_tag );
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current plug-in: please, set it first", _par_1, _cmd_tag );
+                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in: please, set it first", _par_1, _cmd_tag );
                   break ;
-                  case "remotectrl":
-                  if ( _plugin_tmp_vars_config_array['plugin_sel'] != null )
-                  {
-                    var _json = _plugin_tmp_vars_config_array['plugin_sel']['orig_family_def'] ;
-                    var _path = "popups/" + _json.fam + "/" + _json.def + "/remotecmds.info" ;
-                    console.log( _path );
-                    var jqxhr = $.get( _path, function() {
-                    })
-                      .done(function( _data ) {
-                        _data = _data.split( "\n" ) ;
-                        if ( _data.length > 0 )
-                        {
-                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Remote control messages for plug-in <white>" + _json.fam + " / " + _json.def + "</white>", _par_1, _cmd_tag );
-                          for( var _i = 0 ; _i < _data.length ; _i++ )
-                          {
-                            if ( _data[_i].includes( "=" ) )
-                            {
-                              _data[_i] = _data[_i].split( "=" );
-                              if ( _data[_i].length == 2 )
-                              {
-                                 _data[_i][0] = _data[_i][0].replace( /\"/g, "" ) ;
-                                 _data[_i][1] = _data[_i][1].replace( /\"/g, "" ) ;
-                                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<white>"+_data[_i][0]+"</white> <lightblue>"+_data[_i][1]+"</lightblue>", _par_1, _cmd_tag );
-                              }
-                            }
-                          }
-                        }
-                        else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current plug-in remote control lists: missing file remotecmds.info", _par_1, _cmd_tag );
-                      })
-                      .fail(function() {
-                        circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current plug-in remote control lists: missing file remotecmds.info", _par_1, _cmd_tag );
-                      })
-                      .always(function() {
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "File remotecmds.info has been loaded with success", _par_1, _cmd_tag );
-                      });
-                    }
-                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current plug-in remote control lists: please, set it first", _par_1, _cmd_tag );
+                  case "list": // retrieve the list of currently available plug-ins
                   break ;
                   case "open":
-                  if ( _plugin_tmp_vars_config_array['plugin_sel'] != null )
+                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
                       var _fam = "", _def = "" ;
-                      var _json = _plugin_tmp_vars_config_array['plugin_sel']['orig_family_def'] ;
+                      var _json = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                       if ( _json != null ) { _fam = _json.fam, _def = _json.def ; }
                       if ( _fam.length > 0 && _def.length > 0 )
                       {
@@ -178,41 +143,58 @@ function circles_terminal_cmd_plugin()
                               },
                               1200 );
                             }
-                            else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                            else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                           }
                       }
-                      else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot open the mask: please, set a plug-in first", _par_1, _cmd_tag );
+                      else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot open the mask: please, set a Plug-in first", _par_1, _cmd_tag );
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot open current plug-in mask: please, set it first", _par_1, _cmd_tag );
+                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot open current Plug-in mask: please, set it first", _par_1, _cmd_tag );
                   break ;
                   case "release":
                   circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
-                  case "set":
-                  if ( _plugin_tmp_vars_config_array['plugin_sel'] == null ) _plugin_tmp_vars_config_array['plugin_sel'] = [] ;
-                  var _fam = _params_assoc_array['settings']['family'] != null ? _params_assoc_array['settings']['family'] : "" ;
-                  var _def = _params_assoc_array['settings']['def'] != null ? _params_assoc_array['settings']['def'] : "" ;
-                  if ( is_string( _fam ) && is_string( _def ) )
+                  case "remotectrl":
+                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
-                    var _famLC = _fam.toLowerCase(), _famUC = _fam.toUpperCase();
-                    var _defLC = _def.toLowerCase(), _defUC = _def.toUpperCase();
-
-                    _plugin_tmp_vars_config_array['plugin_sel']['orig_family_def'] = { fam : _fam, def : _def } ;
-                    _plugin_tmp_vars_config_array['plugin_sel']['packed_name'] = _famLC + "@" + _defLC ;
-                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "plugin has been correctly set to <white>"+_params_assoc_array['settings']['family']+" "+_params_assoc_array['settings']['def']+"</white>", _par_1, _cmd_tag );
-                  }
-                  else
-                  {
-                    if ( !is_string( _fam ) )
-                    circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing plug-in family specification", _par_1, _cmd_tag );
-                    if ( !is_string( _def ) )
-                    circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing plug-in definition", _par_1, _cmd_tag );
-                  }
+                    var _json = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
+                    var _path = "popups/" + _json.fam + "/" + _json.def + "/remotecmds.info" ;
+                    console.log( _path );
+                    var jqxhr = $.get( _path, function() {
+                    })
+                      .done(function( _data ) {
+                        _data = _data.split( "\n" ) ;
+                        if ( _data.length > 0 )
+                        {
+                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Remote control messages for Plug-in <white>" + _json.fam + " / " + _json.def + "</white>", _par_1, _cmd_tag );
+                          for( var _i = 0 ; _i < _data.length ; _i++ )
+                          {
+                            if ( _data[_i].includes( "=" ) )
+                            {
+                              _data[_i] = _data[_i].split( "=" );
+                              if ( _data[_i].length == 2 )
+                              {
+                                 _data[_i][0] = _data[_i][0].replace( /\"/g, "" ) ;
+                                 _data[_i][1] = _data[_i][1].replace( /\"/g, "" ) ;
+                                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<white>"+_data[_i][0]+"</white> <lightblue>"+_data[_i][1]+"</lightblue>", _par_1, _cmd_tag );
+                              }
+                            }
+                          }
+                        }
+                        else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: missing file remotecmds.info", _par_1, _cmd_tag );
+                      })
+                      .fail(function() {
+                        circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: missing file remotecmds.info", _par_1, _cmd_tag );
+                      })
+                      .always(function() {
+                        circles_lib_output( _out_channel, DISPATCH_INFO, "File remotecmds.info has been loaded with success", _par_1, _cmd_tag );
+                      });
+                    }
+                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: please, set it first", _par_1, _cmd_tag );
                   break ;
                   case "send":
                   if ( is_array( _params_assoc_array['settings']['send.params'] ) )
                   {
-                     var _src = _plugin_tmp_vars_config_array['plugin_sel']['orig_family_def'] ;
+                     var _src = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                      if ( _src != null )
                      {
                         var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_]/, "" ) ;
@@ -222,14 +204,35 @@ function circles_terminal_cmd_plugin()
                        	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
                        	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
                      }
-                     else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                     else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                   }
                   circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing params specification after 'send' action", _par_1, _cmd_tag );
                   break ;
-                  case "varslist":
-                  if ( _plugin_tmp_vars_config_array['plugin_sel'] != null )
+                  case "set":
+                  if ( _plugin_tmp_vars_array['plugin_sel'] == null ) _plugin_tmp_vars_array['plugin_sel'] = [] ;
+                  var _fam = _params_assoc_array['settings']['family'] != null ? _params_assoc_array['settings']['family'] : "" ;
+                  var _def = _params_assoc_array['settings']['def'] != null ? _params_assoc_array['settings']['def'] : "" ;
+                  if ( is_string( _fam ) && is_string( _def ) )
                   {
-                      var _src = _plugin_tmp_vars_config_array['plugin_sel']['orig_family_def'] ;
+                    var _famLC = _fam.toLowerCase(), _famUC = _fam.toUpperCase();
+                    var _defLC = _def.toLowerCase(), _defUC = _def.toUpperCase();
+
+                    _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] = { fam : _fam, def : _def } ;
+                    _plugin_tmp_vars_array['plugin_sel']['packed_name'] = _famLC + "@" + _defLC ;
+                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Plug-in has been correctly set to <white>"+_params_assoc_array['settings']['family']+" "+_params_assoc_array['settings']['def']+"</white>", _par_1, _cmd_tag );
+                  }
+                  else
+                  {
+                    if ( !is_string( _fam ) )
+                    circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing Plug-in family specification", _par_1, _cmd_tag );
+                    if ( !is_string( _def ) )
+                    circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing Plug-in definition", _par_1, _cmd_tag );
+                  }
+                  break ;
+                  case "varslist":
+                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
+                  {
+                      var _src = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                       if ( _src != null )
                       {
                           var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_]/, "" ) ;
@@ -243,14 +246,14 @@ function circles_terminal_cmd_plugin()
                              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _output, _par_1, _cmd_tag );
                           }
                       }
-                      else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                      else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                   break ;
                   case "var":
-                  if ( _plugin_tmp_vars_config_array['plugin_sel'] != null )
+                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
-                      var _plugin_sel = _plugin_tmp_vars_config_array['plugin_sel']['orig_family_def'] ;
+                      var _plugin_sel = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                       var _var_set = _params_assoc_array['settings']['var'] ;
                       if ( _var_set.includes( "=" ) )
                       {
@@ -258,8 +261,8 @@ function circles_terminal_cmd_plugin()
                         _var_set[0] = _var_set[0].trim(), _var_set[1] = _var_set[1].trim();
                         if ( _var_set[0].length > 0 && _var_set[1].length > 0 )
                         {
-                          if ( _plugin_tmp_vars_config_array[ 'plugin_sel' ] == null ) _plugin_tmp_vars_config_array[ 'plugin_sel' ] = [] ;
-                          _plugin_tmp_vars_config_array[ 'plugin_sel' ][ _var_set[0] ] = _var_set[1] ;
+                          if ( _plugin_tmp_vars_array[ 'plugin_sel' ] == null ) _plugin_tmp_vars_array[ 'plugin_sel' ] = [] ;
+                          _plugin_tmp_vars_array[ 'plugin_sel' ][ _var_set[0] ] = _var_set[1] ;
                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Plugin <white>" + _plugin_sel.fam + " " + _plugin_sel.def + "</white> : var <white>" + _var_set[0] + "</white> correctly set to <white>" + _var_set[1] + "</white>", _par_1, _cmd_tag );
                         }
                         else
@@ -272,7 +275,7 @@ function circles_terminal_cmd_plugin()
                       }
                       else circles_lib_output( _out_channel, DISPATCH_ERROR, "var setting shall be in the form <var-id>=<var-value>", _par_1, _cmd_tag );
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                   break ;
                   default: break ;
              }

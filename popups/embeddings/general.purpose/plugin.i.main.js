@@ -409,6 +409,8 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     
     HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
                      
+    if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
+    _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_popup_create( _base_id, _div_id, 'embeddings', WIDTH, HEIGHT, HTMLcode );
     circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )
@@ -435,9 +437,9 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     var DROPDOWN = $( "#CIRCLESchoose"+_base_id.replace( /[\-\.\_]/, "" ).toUpperCase()+"canvasDROPDOWN" ).get(0) ;
     if ( DROPDOWN != null ) DROPDOWN.options[0].text = "Preview canvas" ;
 
-    if ( _plugin_tmp_vars_config_array['plugin_sel'] != null )
+    if ( _plugin_tmp_vars_array['plugin_sel'] != null )
     {
-        var _data = _plugin_tmp_vars_config_array['plugin_sel'] ;
+        var _data = _plugin_tmp_vars_array['plugin_sel'] ;
         var _store_gens = [] ;
         $.each( _data.keys_associative(), function( _i, _key )
         {

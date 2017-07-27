@@ -191,10 +191,10 @@ function CIRCLESembeddingsEARLE_PARSE( _d_formula )
     CIRCLESembeddingsEARLE_d_complex = circles_lib_math_parse_formula( CIRCLESembeddingsEARLE_d );
     CIRCLESembeddingsEARLE_d_complex = parse_complex_from_string( CIRCLESembeddingsEARLE_d_complex + "" );
 
-    if ( _plugin_tmp_vars_config_array['embeddings@earle'] == null ) _plugin_tmp_vars_config_array['embeddings@earle'] = [] ;
-    _plugin_tmp_vars_config_array['embeddings@earle']['d'] = CIRCLESembeddingsEARLE_d ;
+    if ( _plugin_tmp_vars_array['embeddings@earle'] == null ) _plugin_tmp_vars_array['embeddings@earle'] = [] ;
+    _plugin_tmp_vars_array['embeddings@earle']['d'] = CIRCLESembeddingsEARLE_d ;
 
-    _plugin_tmp_vars_config_array['d'] = CIRCLESembeddingsEARLE_d ;
+    _plugin_tmp_vars_array['d'] = CIRCLESembeddingsEARLE_d ;
     if ( _plugin_vars_array[_index_ref]['d']['value'] != null ) _plugin_vars_array[_index_ref]['d']['value'] = CIRCLESembeddingsEARLE_d_complex ;
 
     GLOB_PLUGIN_VARS_PATTERN_SAVE(_index_ref);

@@ -301,16 +301,16 @@ function CIRCLESembeddingsGRANDMA4ALARM_PARSE( _tr_a_formula, _tr_b_formula, _tr
     CIRCLESembeddingsGRANDMA4ALARM_trB_complex = parse_complex_from_string( CIRCLESembeddingsGRANDMA4ALARM_trB_complex + "" );
     CIRCLESembeddingsGRANDMA4ALARM_trAB_complex = parse_complex_from_string( CIRCLESembeddingsGRANDMA4ALARM_trAB_complex + "" );
 
-    if ( _plugin_tmp_vars_config_array['embeddings@grandma4alarm'] == null ) _plugin_tmp_vars_config_array['embeddings@grandma4alarm'] = [] ;
-    _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['a'] = CIRCLESembeddingsGRANDMA4ALARM_trA ;
-    _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['b'] = CIRCLESembeddingsGRANDMA4ALARM_trB ;
-    _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['ab'] = CIRCLESembeddingsGRANDMA4ALARM_trAB ;
-    _plugin_tmp_vars_config_array['embeddings@grandma4alarm']['p'] = CIRCLESembeddingsGRANDMA4ALARM_param ;
+    if ( _plugin_tmp_vars_array['embeddings@grandma4alarm'] == null ) _plugin_tmp_vars_array['embeddings@grandma4alarm'] = [] ;
+    _plugin_tmp_vars_array['embeddings@grandma4alarm']['a'] = CIRCLESembeddingsGRANDMA4ALARM_trA ;
+    _plugin_tmp_vars_array['embeddings@grandma4alarm']['b'] = CIRCLESembeddingsGRANDMA4ALARM_trB ;
+    _plugin_tmp_vars_array['embeddings@grandma4alarm']['ab'] = CIRCLESembeddingsGRANDMA4ALARM_trAB ;
+    _plugin_tmp_vars_array['embeddings@grandma4alarm']['p'] = CIRCLESembeddingsGRANDMA4ALARM_param ;
 
-    _plugin_tmp_vars_config_array['a'] = CIRCLESembeddingsGRANDMA4ALARM_trA ;
-    _plugin_tmp_vars_config_array['b'] = CIRCLESembeddingsGRANDMA4ALARM_trB ;
-    _plugin_tmp_vars_config_array['ab'] = CIRCLESembeddingsGRANDMA4ALARM_trAB ;
-    _plugin_tmp_vars_config_array['p'] = CIRCLESembeddingsGRANDMA4ALARM_param ;
+    _plugin_tmp_vars_array['a'] = CIRCLESembeddingsGRANDMA4ALARM_trA ;
+    _plugin_tmp_vars_array['b'] = CIRCLESembeddingsGRANDMA4ALARM_trB ;
+    _plugin_tmp_vars_array['ab'] = CIRCLESembeddingsGRANDMA4ALARM_trAB ;
+    _plugin_tmp_vars_array['p'] = CIRCLESembeddingsGRANDMA4ALARM_param ;
 
     if ( _plugin_vars_array[_index_ref]['a']['value'] != null ) _plugin_vars_array[_index_ref]['a']['value'] = CIRCLESembeddingsGRANDMA4ALARM_trA_complex ;
     if ( _plugin_vars_array[_index_ref]['b']['value'] != null ) _plugin_vars_array[_index_ref]['b']['value'] = CIRCLESembeddingsGRANDMA4ALARM_trB_complex ;

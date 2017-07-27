@@ -159,12 +159,12 @@ function CIRCLESembeddingsMASKITTWICEmain( _base_id, _move, _restore )
         GLOB_PLUGIN_VARS_PATTERN_RESTORE(_index_ref);
         GLOB_PLUGIN_VARS_PATTERN_FILL(_index_ref);
     }
-    else if ( _plugin_tmp_vars_config_array['embeddings@maskittwice'] != null )
+    else if ( _plugin_tmp_vars_array['embeddings@maskittwice'] != null )
     {
-      if ( _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau1'] != null )
-      CIRCLESembeddingsMASKITTWICE_TAU_1 = _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau1'] ;
-      if ( _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau2'] != null )
-      CIRCLESembeddingsMASKITTWICE_TAU_2 = _plugin_tmp_vars_config_array['embeddings@maskittwice']['tau2'] ;
+      if ( _plugin_tmp_vars_array['embeddings@maskittwice']['tau1'] != null )
+      CIRCLESembeddingsMASKITTWICE_TAU_1 = _plugin_tmp_vars_array['embeddings@maskittwice']['tau1'] ;
+      if ( _plugin_tmp_vars_array['embeddings@maskittwice']['tau2'] != null )
+      CIRCLESembeddingsMASKITTWICE_TAU_2 = _plugin_tmp_vars_array['embeddings@maskittwice']['tau2'] ;
     }
 
     var SW = $(window).width(), SH = $(window).height();
@@ -287,6 +287,8 @@ function CIRCLESembeddingsMASKITTWICEmain( _base_id, _move, _restore )
     
     HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
                      
+    if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
+    _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_popup_create( _base_id, _div_id, 'embeddings', WIDTH, HEIGHT, HTMLcode );
     circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsMASKITTWICE_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsMASKITTWICE_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsMASKITTWICE_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )

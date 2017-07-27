@@ -80,9 +80,9 @@ function circles_terminal_cmd_plugin()
              switch( _action )
              {
                   case "current":
-                  if ( _plugin_tmp_vars_config_array['plugin_sel'] != null )
+                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
-                      var _plugin_specs = _plugin_tmp_vars_config_array['plugin_sel']['packed_name'].split( "@" ) ;
+                      var _plugin_specs = _plugin_tmp_vars_array['plugin_sel']['packed_name'].split( "@" ) ;
                       circles_lib_output( _out_channel, DISPATCH_INFO, "Current plug-in is "+_plugin_specs[0]+ " "+_plugin_specs[1], _par_1, _cmd_tag );
                   }
                   else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current plug-in: please, set it first", _par_1, _cmd_tag );
@@ -91,10 +91,10 @@ function circles_terminal_cmd_plugin()
                   console.log( _plugin_definitions_array );
                   break ;
                   case "open":
-                  if ( _plugin_tmp_vars_config_array['plugin_sel'] != null )
+                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
                       var _fam = "", _def = "" ;
-                      var _json = _plugin_tmp_vars_config_array['plugin_sel']['orig_family_def'] ;
+                      var _json = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                       if ( _json != null ) { _fam = _json.fam, _def = _json.def ; }
                       if ( _fam.length > 0 && _def.length > 0 )
                       {
@@ -113,7 +113,7 @@ function circles_terminal_cmd_plugin()
                   circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
                   case "set":
-                  if ( _plugin_tmp_vars_config_array['plugin_sel'] == null ) _plugin_tmp_vars_config_array['plugin_sel'] = [] ;
+                  if ( _plugin_tmp_vars_array['plugin_sel'] == null ) _plugin_tmp_vars_array['plugin_sel'] = [] ;
                   var _fam = _params_assoc_array['settings']['family'] != null ? _params_assoc_array['settings']['family'] : "" ;
                   var _def = _params_assoc_array['settings']['def'] != null ? _params_assoc_array['settings']['def'] : "" ;
                   if ( is_string( _fam ) && is_string( _def ) )
@@ -121,8 +121,8 @@ function circles_terminal_cmd_plugin()
                     var _famLC = _fam.toLowerCase(), _famUC = _fam.toUpperCase();
                     var _defLC = _def.toLowerCase(), _defUC = _def.toUpperCase();
 
-                    _plugin_tmp_vars_config_array['plugin_sel']['orig_family_def'] = { fam : _fam, def : _def } ;
-                    _plugin_tmp_vars_config_array['plugin_sel']['packed_name'] = _famLC + "@" + _defLC ;
+                    _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] = { fam : _fam, def : _def } ;
+                    _plugin_tmp_vars_array['plugin_sel']['packed_name'] = _famLC + "@" + _defLC ;
                     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "plugin has been correctly set to <white>"+_params_assoc_array['settings']['family']+" "+_params_assoc_array['settings']['def']+"</white>", _par_1, _cmd_tag );
                   }
                   else
@@ -134,9 +134,9 @@ function circles_terminal_cmd_plugin()
                   }
                   break ;
                   case "var":
-                  if ( _plugin_tmp_vars_config_array['plugin_sel'] != null )
+                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
-                      var _plugin_sel = _plugin_tmp_vars_config_array['plugin_sel']['orig_family_def'] ;
+                      var _plugin_sel = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                       var _var_set = _params_assoc_array['settings']['var'] ;
                       if ( _var_set.includes( "=" ) )
                       {
@@ -144,8 +144,8 @@ function circles_terminal_cmd_plugin()
                         _var_set[0] = _var_set[0].trim(), _var_set[1] = _var_set[1].trim();
                         if ( _var_set[0].length > 0 && _var_set[1].length > 0 )
                         {
-                          if ( _plugin_tmp_vars_config_array[ 'plugin_sel' ] == null ) _plugin_tmp_vars_config_array[ 'plugin_sel' ] = [] ;
-                          _plugin_tmp_vars_config_array[ 'plugin_sel' ][ _var_set[0] ] = _var_set[1] ;
+                          if ( _plugin_tmp_vars_array[ 'plugin_sel' ] == null ) _plugin_tmp_vars_array[ 'plugin_sel' ] = [] ;
+                          _plugin_tmp_vars_array[ 'plugin_sel' ][ _var_set[0] ] = _var_set[1] ;
                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Plugin <white>" + _plugin_sel.fam + " " + _plugin_sel.def + "</white> : var <white>" + _var_set[0] + "</white> correctly set to <white>" + _var_set[1] + "</white>", _par_1, _cmd_tag );
                         }
                         else

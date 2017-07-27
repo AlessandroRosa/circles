@@ -151,8 +151,8 @@ function GLOB_PLUGIN_VARS_PATTERN_SAVE( _plugin_ref )
 {
     var _index_ref = _plugin_ref ;
     _plugin_rec_configs_array[_index_ref] = [] ;
-    for( var _k in _plugin_tmp_vars_config_array )
-    _plugin_rec_configs_array[_index_ref][_k] = _plugin_tmp_vars_config_array[ _k ] ;
+    for( var _k in _plugin_tmp_vars_array )
+    _plugin_rec_configs_array[_index_ref][_k] = _plugin_tmp_vars_array[ _k ] ;
 }
 
 function GLOB_PLUGIN_VARS_PATTERN_RESTORE( _plugin_ref )
@@ -160,9 +160,9 @@ function GLOB_PLUGIN_VARS_PATTERN_RESTORE( _plugin_ref )
     var _index_ref = _plugin_ref ;
     if ( _plugin_rec_configs_array.size_associative() > 0 )
     {
-       _plugin_tmp_vars_config_array = [] ;
+       _plugin_tmp_vars_array = [] ;
        for( var _k in _plugin_rec_configs_array[_index_ref] )
-       _plugin_tmp_vars_config_array[ _k ] = _plugin_rec_configs_array[_index_ref][_k] ;
+       _plugin_tmp_vars_array[ _k ] = _plugin_rec_configs_array[_index_ref][_k] ;
     }
 
     return YES ;
@@ -442,16 +442,16 @@ function GLOB_PLUGIN_VARS_PATTERN_FILL( _index )
     var _keys = [], _values = [];
     var _chunk, _input_formula, _memory_formula, _memory_variable, _memory_default_value, _type_variable ;
     var _set_formula_cmd_step_1, _set_formula_cmd_step_2, _set_value_cmd, _store_value_cmd, _parsed_formula_cmd ;
-    for( var _k in _plugin_tmp_vars_config_array )
+    for( var _k in _plugin_tmp_vars_array )
     {
         _keys.push( _k );
-        _values.push( _plugin_tmp_vars_config_array[ _k ] );
+        _values.push( _plugin_tmp_vars_array[ _k ] );
     }
     
     for( var _param in _plugin_vars_array[ _index_ref ] )
     {
         _chunk = _plugin_vars_array[ _index_ref ][_param] ;
-        _input_formula = _plugin_tmp_vars_config_array[_param] ;
+        _input_formula = _plugin_tmp_vars_array[_param] ;
         _memory_formula = _chunk['formula'] ;
         _memory_variable = _chunk['label'] ;
         _memory_default_value = _chunk['value'] ;
