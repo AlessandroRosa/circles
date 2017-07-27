@@ -83,7 +83,7 @@ function circles_terminal_cmd_popup()
                  else
                  {
 							       var vars = { tip: "",
-							                    folder : "popups/" + _subset + "/",
+							                    folder : "plugins/" + _subset + "/",
 							                    filter : "/^.*\.(ini)$/i",
 																  exact : 0,
 							                    search_params : "1,1,1,0" } ;

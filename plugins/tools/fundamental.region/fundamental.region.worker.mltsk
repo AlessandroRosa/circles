@@ -1,0 +1,81 @@
+var _glob_inline_workers_input_data = [] ;
+var _glob_inline_worker_run_flag = 0 ;
+var _glob_inline_worker_fn_pointer = 0 ;
+var _glob_inline_worker_op_switch = 0 ;
+
+onmessage = function(e)
+{
+    switch( e.data.id )
+    {
+        case "import":
+        var _loc = e.data.location ;
+        for( var _s = 0 ; _s < e.data.scripts.length ; _s++ ) importScripts( _loc + e.data.scripts[_s] );
+        break ;
+        case "init":
+        for ( var _x in e.data.vars )
+            if ( e.data.vars.hasOwnProperty( _x ) ) _glob_inline_workers_input_data[ _x ] = e.data.vars[""+_x] ;
+        break ;
+        case "run":
+        multithread_fundamental_region_process();
+        break ;
+        case "stop":
+        multithread_boundary_tracker_stop();
+        break ;
+    }
+}
+
+function inline_worker_output_member( ret )
+{
+    var _out_channel = ret.out_channel ;
+    var _word = ret.word ;
+    var _isometrics = ret.isometrics ;
+    if ( _out_channel.is_one_of( OUTPUT_TERMINAL_CONSOLE, OUTPUT_SCREEN ) )
+    {
+         if ( !is_array( CIRCLEStoolsFUNDAMENTALREGIONisometric_circles[ _word ] ) )
+         CIRCLEStoolsFUNDAMENTALREGIONisometric_circles[ _word ] = [] ;
+
+         var _tmp = _isometrics.includes( "#" ) ? _isometrics.split( "#" ) : [ _isometrics ] ;
+         var _circle = new circle();
+         $.each( _tmp,
+                 function( _i, _circle_packed )
+                 {
+                      _circle.unpack( _circle_packed );
+                      CIRCLEStoolsFUNDAMENTALREGIONisometric_circles[ _word ].push( _circle.copy() );
+                 }
+               ) ;
+    }
+}
+
+function inline_worker_start_member( ret )
+{
+    var _out_channel = ret.out_channel ;
+    if ( _out_channel.is_one_of( OUTPUT_TERMINAL_CONSOLE, OUTPUT_SCREEN ) )
+    {
+
+    }
+}
+
+function inline_worker_end_member( ret )
+{
+    var _out_channel = ret.out_channel ;
+    if ( _out_channel.is_one_of( OUTPUT_TERMINAL_CONSOLE, OUTPUT_SCREEN ) )
+    {
+
+    }
+}
+
+function inline_worker_stop_member( ret )
+{
+    var _out_channel = ret.out_channel ;
+    if ( _out_channel == OUTPUT_SCREEN )
+    {
+         if ( safe_size( ret.features['stop_fn'], 0 ) > 0 )
+         {
+             var _stop_fn_pointer = eval( ret.features['stop_fn'] );
+             _stop_fn_pointer.call( null );
+         }
+    }
+    else if ( _out_channel == OUTPUT_TERMINAL_CONSOLE )
+    {
+    }
+}

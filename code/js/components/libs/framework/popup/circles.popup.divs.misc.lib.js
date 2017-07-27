@@ -132,8 +132,8 @@ function circles_lib_popup_load()
        var _popup_base_id = circles_lib_popup_clean_baseid( _base_id );
        var _main_opener_fn = "CIRCLES" + _subset + _popup_base_id + "main" ;
        var _main_opener_cmd = _main_opener_fn + "('"+_base_id+"'"+( is_consistent_array( _params ) ? ", "+_params.join( "," ) : "" )+");" ;
-       var _abs_folder_path = "popups/"+_subset+"/"+_base_id+"/" ;
-       var _rel_folder_path = "popups/"+_subset+"/"+_base_id+"/" ;
+       var _abs_folder_path = "plugins/"+_subset+"/"+_base_id+"/" ;
+       var _rel_folder_path = "plugins/"+_subset+"/"+_base_id+"/" ;
        if ( _abs_folder_path.match( /[A-Za-z0-9\.\-\/]/g ).length != _abs_folder_path.length )
        {
 						circles_lib_log_add_entry( "Incorrect input syntax", LOG_ERROR ) ;

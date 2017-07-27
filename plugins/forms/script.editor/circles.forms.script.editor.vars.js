@@ -1,0 +1,19 @@
+var CIRCLESformsSCRIPTEDITORcaption = "Circles (Java)script editor" ;
+var CIRCLESformsSCRIPTEDITORbaseid = "" ;
+var CIRCLESformsSCRIPTEDITORdiv_id = "" ;
+var CIRCLESformsSCRIPTEDITORprojectlabelCURRENT = "" ;
+var CIRCLESformsSCRIPTEDITORmodulelabelCURRENT = "" ;
+var CIRCLESformsSCRIPTEDITORstatusCURRENT = PASSED ;
+var CIRCLESformsSCRIPTEDITORcompiledFLAG = NO ;
+var CIRCLESformsSCRIPTEDITORboxesCONTENTStypeARRAY = [] ;
+		CIRCLESformsSCRIPTEDITORboxesCONTENTStypeARRAY['rightlower'] = 0 ;
+		CIRCLESformsSCRIPTEDITORboxesCONTENTStypeARRAY['rightupper'] = 0 ;
+var CIRCLESformsSCRIPTEDITORproject_collectedobjsCURRENT = [] ;
+var CIRCLESformsSCRIPTEDITORcodemirrorOBJ = null ;
+var CIRCLESformsSCRIPTEDITORremotectrlCOMMANDS = { } ; // json entry key : desc string (with color tags)
+var CIRCLESformsSCRIPTEDITORopenPARAMS = { 'move' : { 'desc' : 'move the popup to the input position', 'values' : 'yes|no|left,top,right,bottom' }
+                                				 } ;
+var CIRCLESformsSCRIPTEDITORdims = [] ;
+var CIRCLESformsSCRIPTEDITORglobalERRORflag = NO ;                                				 
+var CIRCLESformsSCRIPTEDITORcollectionCONSTANT = 1 ;
+var CIRCLESformsSCRIPTEDITORcodelistCONSTANT = 2 ;

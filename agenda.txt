@@ -6,13 +6,13 @@ https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ APP -------------------------------------------------
-* folder 'popup' shall be renamed into 'plug-ins'
-  replace all occurrances inside the code
-
 * plugin list >> show the list of currently available plugins
   (merge with 'popup' features)
 
-* delete 'popup' cmd and help
+* plugin open >> merge with 'popup' code about 'open' action, in order
+  to manage additional parameters
+
+* finally delete 'popup' cmd and help
 
 ------------ DEMO ------------------------------------------------
 

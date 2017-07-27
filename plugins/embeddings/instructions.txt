@@ -1,0 +1,13 @@
+INSTRUCTIONS
+--------------------------------------------
+The filename pattern for the support library
+is defined as follows:
+
+plugins.x.support.lib.js
+
+where 'x' stands for the folder name.
+For example:
+
+if x stands for 'generators', then we have:
+
+plugins.generators.support.lib.js

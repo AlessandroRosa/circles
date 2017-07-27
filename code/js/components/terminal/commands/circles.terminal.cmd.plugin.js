@@ -37,7 +37,7 @@ function circles_terminal_cmd_plugin()
               if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "close", "current", "list", "remotectrl", "open", "set", "send", "var", "varslist" ) ) _params_assoc_array['action'] = _p.toLowerCase();
+              else if ( _p.is_one_of_i( "available", "close", "current", "list", "remotectrl", "open", "set", "send", "var", "varslist" ) ) _params_assoc_array['action'] = _p.toLowerCase();
               else if ( _p.is_one_of_i( "silent" ) ) _params_assoc_array['settings'].push( _p ) ;
               else
               {
@@ -45,6 +45,12 @@ function circles_terminal_cmd_plugin()
                   {
                     switch( _params_assoc_array['action'] )
                     {
+                      case "available":
+                   		if ( !is_array( _params_assoc_array['settings'][ _params_assoc_array['action'] ] ) )
+      								_params_assoc_array['settings'][ _params_assoc_array['action'] ] = [] ;
+
+      								_params_assoc_array['settings'][ _params_assoc_array['action'] ].push( _p );
+                      break ;
                       case "var": _params_assoc_array['settings']['var'] = _p ; break ;
                       case "open":
                       case "set":
@@ -87,6 +93,84 @@ function circles_terminal_cmd_plugin()
              var _action = _params_assoc_array['action'] ;
              switch( _action )
              {
+             		 case "available" :
+                 var _settings = _params_assoc_array['settings'][ 'available' ] ;
+                 var _subset = is_array( _settings ) ? safe_string( _settings[0], "" ) : "" ;
+                 if ( _subset.length == 0 )
+                 {
+                     _b_fail = YES, _error_str = "Missing input subset" ;
+                 }
+                 else
+                 {
+							       var vars = { tip: "",
+							                    folder : "plugins/" + _subset + "/",
+							                    filter : "/^.*\.(ini)$/i",
+																  exact : 0,
+							                    search_params : "1,1,1,0" } ;
+							       var _result = get_filedata_from_folder( "support/code/phpcode/svc/svc.filelist.php", "POST", false, vars );
+                         if ( _result.includes( "@@" ) ) _result = _result.split( "@@" );
+							       if ( safe_size( _result, 0 ) == 0 )
+							       {
+												 circles_lib_output( _out_channel, DISPATCH_WARNING, "No available plug-ins for subset '"+_subset+"'", _par_1, _cmd_tag );
+										 		 break ;
+										 }
+							       var _rows = null, _crlf = "", _item, _archive = [] ;
+										 var _extract_entries = [ "caption", "subset", "baseid", "starting_params" ] ;
+							       $.each( _result,
+							       				 function( _i, _data_chunk )
+							       				 {
+													      // crlf detection
+ 												        _crlf = _data_chunk.includes( CRLF_WIN ) ? CRLF_WIN : CRLF_NO_WIN ;
+																_rows = _data_chunk.split( _crlf );
+																_item = [] ;
+																$.each( _rows,
+																				function( _r, _row )
+																				{
+																						if ( _row.count( "=" ) == 1 ) // check syntax
+																						{
+																								$.each( _extract_entries,
+																								function( _e, _ee )
+																								{
+																										if ( _row.toLowerCase().start_with( _ee ) )
+																										_item[""+_ee] = ( _row.split( "=" ) )[1];
+																								}
+																								) ;
+																						}
+																				}
+																		  ) ;
+																_archive.push( _item ) ;
+														 }
+										 			 ) ;
+
+		                 var _cols_width = [ 15, 25, 25, 36 ], _startINDEX = 0 ;
+		                 			_row = "<lightgray>Available plug-ins belonging to '"+_subset+"'</lightgray>" ;
+		                 			_row += _glob_crlf + "<gold>Opening syntax</gold> <lightgreen>plugin open "+_subset+" general.options no zplane</lightgreen>" ;
+		                      _row += _glob_crlf + "<snow>"+( new String( "Subset" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</snow>" ;
+		                      _startINDEX++ ;
+		                      _row += "<white>"+( new String( "Opening id" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</white>" ;
+		                      _startINDEX++ ;
+		                      _row += "<lightblue>"+( new String( "Plug-in caption" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
+		                      _startINDEX++ ;
+		                      _row += "<snow>"+( new String( "Starting params" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</snow>" ;
+		                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+                     var _subset, _base_id, _caption, _visible ;
+		                 $.each( _archive,
+		                         function( _i, _chunk )
+		                         {
+																_subset = _chunk['subset'], _base_id = _chunk['baseid'], _caption = _chunk['caption'], _starting_params = _chunk['starting_params'] ;
+		                         		_startINDEX = 0 ;
+															  _row  = "<snow>"+_subset.rpad( " ", _cols_width[_startINDEX] )+"</snow>" ;
+		                            _startINDEX++ ;
+															  _row += "<lightblue>"+_base_id.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
+		                            _startINDEX++ ;
+															  _row += "<white>"+_caption.rpad( " ", _cols_width[_startINDEX] )+"</white>" ;
+		                            _startINDEX++ ;
+		                            _row += "<lightblue>"+_starting_params.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
+		                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+		                         }
+		                       );
+								 }
+             		 break ;
                   case "close":
                   if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
@@ -113,7 +197,33 @@ function circles_terminal_cmd_plugin()
                   }
                   else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in: please, set it first", _par_1, _cmd_tag );
                   break ;
-                  case "list": // retrieve the list of currently available plug-ins
+                  case "list":
+                  var _cols_width = [ 14, 25, 30, 10 ], _startINDEX = 0 ;
+                 		  _row += "<lightgray>List of current open pop-up windows</lightgray>" ;
+                      _row += _glob_crlf + "<lightblue>"+( new String( "Subset" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
+                      _startINDEX++ ;
+                      _row += "<white>"+( new String( "Opening id" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</white>" ;
+                      _startINDEX++ ;
+                      _row += "<lightblue>"+( new String( "Popup caption" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
+                      _startINDEX++ ;
+                      _row += "<snow>"+( new String( "Visible" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</snow>" ;
+                  circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+                  var _subset, _base_id, _caption, _visible ;
+                  $.each( _glob_popups_array,
+                          function( _i, _chunk )
+                          {
+                            _base_id = _chunk[12], _caption = _chunk[2], _visible = _chunk[4], _subset = _chunk[8] ;
+                         		_startINDEX = 0 ;
+  												  _row  = "<lightblue>"+_subset.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
+                            _startINDEX++ ;
+  												  _row  += "<white>"+_base_id.rpad( " ", _cols_width[_startINDEX] )+"</white>" ;
+                            _startINDEX++ ;
+                            _row += "<lightblue>"+_caption.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
+                            _startINDEX++ ;
+                            _row += "<"+(_visible?"green":COLOR_ERROR)+">"+(_visible?"yes":"no").rpad( " ", _cols_width[_startINDEX] )+"</"+(_visible?"green":COLOR_ERROR)+">" ;
+                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+                          }
+                        );
                   break ;
                   case "open":
                   if ( _plugin_tmp_vars_array['plugin_sel'] != null )
@@ -157,7 +267,7 @@ function circles_terminal_cmd_plugin()
                   if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
                     var _json = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
-                    var _path = "popups/" + _json.fam + "/" + _json.def + "/remotecmds.info" ;
+                    var _path = "plugins/" + _json.fam + "/" + _json.def + "/remotecmds.info" ;
                     console.log( _path );
                     var jqxhr = $.get( _path, function() {
                     })

@@ -1,0 +1,89 @@
+function multithread_fundamental_region_stop() { _glob_inline_worker_run_flag = 0 ; }
+
+function multithread_fundamental_region_process()
+{
+    var CHUNK_SIZE = 100 ;
+    var _total_counter = 0, _chunk_counter = 0 ;
+
+    var _out_channel = _glob_inline_workers_input_data.out_channel ;
+    var _crlf = _glob_inline_workers_input_data.crlf ;
+    var _features = _glob_inline_workers_input_data.features ;
+
+    var _start_fn = _features['start_fn'] ;
+    var _end_fn = _features['end_fn'] ;
+    var _stop_fn = _features['stop_fn'] ;
+    var _updates_fn = _features['updates_fn'] ;
+    var _seeds = _features['seeds'] ;
+    var _mobius_seeds = [] ;
+        _seeds = _seeds.split( "#" );
+    var _d = 0, _i = 0, _s = 0, _w = 0, _map = null ; ;
+        if ( _seeds.length > 0 )
+        {
+             for( _i = 0 ; _i < _seeds.length ; _i++ )
+             {
+                 _seeds[_i] = _seeds[_i].split( "@" );
+                 for( _s = 0 ; _s <= 3 ; _s++ ) _seeds[_i][_s] = parse_complex_from_string( seeds[_i][_s] ) ;
+                 // index 4 contains the label
+                 _mobius_seeds[ ""+_seeds[_i][4] ] = new mobius_map( _seeds[_i][0],
+                                                                     _seeds[_i][1],
+                                                                     _seeds[_i][2],
+                                                                     _seeds[_i][3] );
+             }
+             
+        }
+    var _words = _features['words'] ;
+        _words = _words.includes( "@" ) ? _words.split( "@" ) : ( _words.length > 0 ? [ _words.trim() ] : [] );
+    var _proc = safe_int( _features['proc'], 0 ) ;
+    var _depth = safe_int( _features['depth'], 0 ) ;
+
+    var _isometric_circles_array = [] ;
+    _glob_inline_worker_run_flag = 1 ;
+
+    for( _w = 0 ; _w < _words.length ; _w++ )
+    {
+         // mobius map composition from input word
+         _map = new mobius_map( 1, 0, 0, 1 ) ; // always start with the neutral element: the identity map
+         for( _i = 0 ; _i < _words[_w].length ; _i++ )
+         _map = _map.composition( _mobius_seeds[ _words[_w][_i] ] );
+
+         if ( _isometric_circles_array[ "" + _words[_w] ] == null )
+         {
+              _isometric_circles_array[ "" + _words[_w] ] = [] ;
+              _isometric_circles_array[ "" + _words[_w] ].push( _map.get_isometric_circle() ) ;
+         }
+
+         for( _d = 0 ; _d < _depth ; _d++ )
+         {
+              _map = _map.composition( _map );
+              _isometric_circles_array[ "" + _words[_w] ].push( _map.get_isometric_circle().pack() ) ;
+              _total_counter++, _chunk_counter++ ;
+              if ( _glob_inline_worker_run_flag == 0 )
+              {
+                   self.postMessage( { id : "stop",
+                                       ret : { out_channel : _out_channel
+                                             }
+                                     } );
+                   break ;
+              }
+              else if ( _chunk_counter == CHUNK_SIZE )
+              {
+                  _chunk_counter = 0 ;
+                  self.postMessage( { id : "output",
+                                      ret : { out_channel : _out_channel
+                                              word : _words[_w],
+                                              isometrics : _isometric_circles_array[ "" + _words[_w] ].join( "#" )
+                                            }
+                                    } );
+                  _isometric_circles_array[ "" + _words[_w] ] = [] ;
+              }
+         }
+    }
+
+    if( _glob_inline_worker_run_flag != 0 )
+    {
+        self.postMessage( { id : "end",
+                            ret : { out_channel : _out_channel
+                                  }
+                          } );
+    }
+}

@@ -256,16 +256,16 @@
 <ul id="nav" ALIGN="left">
 <?php readmenu( $RETarray, -1, $HTMLcode );
 			$EXT_FILES = array();
-			$FOLDERS = scan_folder( "popups/", "", 0, 0, 0, 1 ) ;
+			$FOLDERS = scan_folder( "plugins/", "", 0, 0, 0, 1 ) ;
 			foreach( $FOLDERS AS $SUBSET_CHUNK )
 			{
 					$SUBSET = strtolower( $SUBSET_CHUNK['filename'] ) ;
 					if ( strcmp( $SUBSET, "forms" ) != 0 )
 					{
-							$SUPPORT_FILES = scan_folder( "popups/$SUBSET", "/^.*\.(support\.lib\.js)$/i", 0, 1, 1, 0 ) ;
+							$SUPPORT_FILES = scan_folder( "plugins/$SUBSET", "/^.*\.(support\.lib\.js)$/i", 0, 1, 1, 0 ) ;
 							foreach( $SUPPORT_FILES AS $CHUNK ) $EXT_FILES[] = $CHUNK['fullpath'] ;
 
-				      $SUBSETmenuCODE = MENUappendENTRIES( "popups/$SUBSET/", $SUBSET, $SUBSETarray, $N_FOUND );
+				      $SUBSETmenuCODE = MENUappendENTRIES( "plugins/$SUBSET/", $SUBSET, $SUBSETarray, $N_FOUND );
 				      if ( $N_FOUND > 0 ) $HTMLcode = str_replace( "%$SUBSET%", $SUBSETmenuCODE, $HTMLcode );
 				      else $HTMLcode = str_replace( "%$SUBSET%", "<a STYLE=\"color:gray;\">No gens registered</a>", $HTMLcode );
 					}

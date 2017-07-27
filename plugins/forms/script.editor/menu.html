@@ -1,0 +1,51 @@
+<nav id="primary_nav_wrap">
+<ul>
+<li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerNEW();">New</span></li>
+<li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerCLEAN();">Clean</span></li>
+<li><span ID="CIRCLESformsSCRIPTEDITORcopyBTN" data-clipboard-target="CIRCLESformsSCRIPTEDITORtextarea">Copy</span></li>
+<li><span ID="CIRCLESformsSCRIPTEDITORrecordBTNID" ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerLISTadd();">Record</span></li>
+<li><span ID="CIRCLESformsSCRIPTEDITORcodeBTN">Code</span>
+		<ul>
+		<li><span ID="CIRCLESformsSCRIPTEDITORcompileBTN" ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerCOMPILEprocess();">Compile</span></li>
+    <li><span>Selected files</span>
+        <ul>
+        <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerLISTmergeSELECTED();">Merge</span></li>
+        <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerLISTdeleteSELECTED();">Delete</span></li>
+        </ul>
+    </li>
+    <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerBREAKPOINTremove();">Remove break-point</span></li>
+		<li><span>Objects</span>
+        <ul>
+        <li><span>Collect</span>
+            <ul>
+            <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerCOLLECTIONprocess( CIRCLESformsSCRIPTEDITORmodulelabelCURRENT, YES );">from&nbsp;this&nbsp;entry&nbsp;only</span></li>
+            <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerCOLLECTIONprocess( null, YES );">from&nbsp;the&nbsp;whole&nbsp;project</span></li>
+            </ul>
+        </li>
+				<li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerDISPLAYcollectedOBJSlist();">Display</span></li>
+				<li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerERASEcollectedOBJS( CIRCLESformsSCRIPTEDITORproject_collectedobjsCURRENT, YES );">Erase</span></li>
+				</ul>
+		</li>
+		</ul>		
+</li>
+<li><span>Output</span>
+    <ul>
+    <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerOUTPUTclean();">Clean</span></li>
+    <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerOUTPUTsave();">Save</span></li>
+    </ul>
+</li>
+<li><span>I/O</span>
+    <ul>
+    <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORactivateLOAD();">Load&nbsp;files&nbsp;or&nbsp;projs</span></li>
+    <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerSAVEfile();">Save&nbsp;File</span></li>
+    <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerSAVEprojectZIPFILE();">Save&nbsp;Proj</span></li>
+    </ul>
+</li>
+<li><span>?</span>
+    <ul>
+    <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerBUILTIN();">Built-in&nbsp;data&nbsp;types</span></li>
+    <li><span ONCLICK="javascript:CIRCLESformsSCRIPTEDITORcodemanagerINFO();">Info</span></li>
+    </ul>
+</li>
+</ul>
+</nav>

@@ -7,15 +7,21 @@
 <lightblue>plugin release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>
 
-<lightblue>plugin set</lightblue>
-<white>plugin set embeddings general.purpose</white>
-<cadetblue>set up the plug-in reference and save it for further plugin-cmds</cadetblue>
+<lightblue>plugin available forms</lightblue>
+<cadetblue>return a list of all services available in the 'forms' subset, together with opening params</cadetblue>
 
 <lightblue>plugin current</lightblue>
 <cadetblue>return the current refs to the working plug-in</cadetblue>
 
+<lightblue>plugin list</lightblue>
+<cadetblue>return the list including popup ids to perform open|close operations</cadetblue>
+
 <lightblue>plugin open</lightblue>
 <cadetblue>open the mask for the current working plug-in</cadetblue>
+
+<lightblue>plugin set</lightblue>
+<white>plugin set embeddings general.purpose</white>
+<cadetblue>set up the plug-in reference and save it for further plugin-cmds</cadetblue>
 
 <lightblue>plugin send</lightblue>
 <cadetblue>send a remote control message to the selected plug-in</cadetblue>
