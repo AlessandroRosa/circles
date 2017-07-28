@@ -1,5 +1,0 @@
-"alpha"="Set the alpha parameter. Example : alpha 1"
-"beta"="Set the alpha parameter. Example : beta -i"
-"close"="close pop-up window"
-"move"="move pop-up window. Example: move LEFT|RIGHT TOP|BOTTOM"
-"params"="Set the both alpha and beta parameters. Example : params 1 -i (check the blank space between!)"
