@@ -15,7 +15,7 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn )
 		switch( _options[0].toLowerCase() )
 		{
 				case "/*anyaction*/":
-          return 1 ;
+        return 1 ;
 				break ;
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
@@ -26,7 +26,7 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn )
         case "get.point":
         $( "#CIRCLESformsDISCRETENESSLOCUSpickedCOMPLEXPT" ).val( _options[1] );
         CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPT( null, 1 ) ;
-          return 1 ;
+        return 1 ;
         break ;
 				case "move":
 				var _ret = move_div( _plugin_tmp_vars_array['forms']['discreteness.locus'], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
@@ -34,7 +34,7 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn )
 				break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
-          return 0 ;
+        return 0 ;
 				break ;
 		}
 

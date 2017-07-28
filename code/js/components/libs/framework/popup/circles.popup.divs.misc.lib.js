@@ -100,44 +100,15 @@ function circles_lib_popup_load()
 					}
        }
        
-       if ( _params.is_associative() )
-       {
-         _params = _params.asort() ;
-         var _keys = _params.keys_associative(), _start ;
-         for( var _k = 0 ; _k < _keys.length ; _k++ )
-         {
-  			 		 _start = _keys[_k].charCodeAt(0) ;
-  			 		 for( var _i = 97 ; _i <= _start ; _i++ )
-  			 		 {
-  						   if ( _params[ String.fromCharCode(_i) ] == -1 ||
-  							      _params[ String.fromCharCode(_i) ] == null ) _params[ String.fromCharCode(_i) ] = "" ;
-  					 }
-  			 }
-
-  			 var _tmp = [] ;
-         for( var _k = 97 ; _k <= 122 ; _k++ ) if ( _params[ String.fromCharCode(_k) ] != null ) _tmp.push( "'"+_params[ String.fromCharCode(_k) ]+"'" );
-         _params = _tmp.clone();
-
-     		 if ( _glob_persistent_vars['reloaddiv'] != null )
-     		 {
-   		 		 if ( $("#"+_glob_persistent_vars['reloaddiv'] ).is('.ui-resizable') )
-   		 		 {
-						 if ( $("#"+_glob_persistent_vars['reloaddiv'] ).resizable('instance') != undefined )
-						 $("#"+_glob_persistent_vars['reloaddiv']).resizable('destroy');
- 					 }
- 					 _glob_persistent_vars['reloaddiv'] = null ;
-  			 }
-       }
-
        var _popup_base_id = circles_lib_popup_clean_baseid( _base_id );
        var _main_opener_fn = "CIRCLES" + _subset + _popup_base_id + "main" ;
-       var _main_opener_cmd = _main_opener_fn + "('"+_base_id+"'"+( is_consistent_array( _params ) ? ", "+_params.join( "," ) : "" )+");" ;
+       var _main_opener_cmd = _main_opener_fn + "('"+_base_id+"'"+");" ;
        var _abs_folder_path = "plugins/"+_subset+"/"+_base_id+"/" ;
        var _rel_folder_path = "plugins/"+_subset+"/"+_base_id+"/" ;
        if ( _abs_folder_path.match( /[A-Za-z0-9\.\-\/]/g ).length != _abs_folder_path.length )
        {
-						circles_lib_log_add_entry( "Incorrect input syntax", LOG_ERROR ) ;
-            return NO ;
+					circles_lib_log_add_entry( "Incorrect input syntax", LOG_ERROR ) ;
+          return NO ;
 			 }
        
        var vars = { tip: "",
@@ -162,6 +133,7 @@ function circles_lib_popup_load()
           if ( !_load_failure )
           {
           		var _ret = 1, _ret_msg = "" ;
+              console.log( _main_opener_cmd );
 					    try{ eval( _main_opener_cmd ) ; }
 					    catch( _err )
 							{

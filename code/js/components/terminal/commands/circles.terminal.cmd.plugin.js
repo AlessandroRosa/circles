@@ -53,14 +53,12 @@ function circles_terminal_cmd_plugin()
                       break ;
                       case "var": _params_assoc_array['settings']['var'] = _p ; break ;
                       case "open":
+                      if ( _params_assoc_array['settings']['send.params'] == null ) _params_assoc_array['settings']['send.params'] = [] ;
+                      _params_assoc_array['settings']['send.params'].push( _p );
+                      break ;
                       case "set":
                       if ( _params_assoc_array['settings']['family'] == null ) _params_assoc_array['settings']['family'] = _p ;
                       else if ( _params_assoc_array['settings']['def'] == null ) _params_assoc_array['settings']['def'] = _p ;
-                      else
-                      {
-                        if ( _params_assoc_array['settings']['send.params'] == null ) _params_assoc_array['settings']['send.params'] = [] ;
-                        _params_assoc_array['settings']['send.params'].push( _p );
-                      }
                       break ;
                       case "send":
                       if ( _params_assoc_array['settings']['send.params'] == null ) _params_assoc_array['settings']['send.params'] = [] ;
@@ -96,10 +94,7 @@ function circles_terminal_cmd_plugin()
              		 case "available" :
                  var _settings = _params_assoc_array['settings'][ 'available' ] ;
                  var _subset = is_array( _settings ) ? safe_string( _settings[0], "" ) : "" ;
-                 if ( _subset.length == 0 )
-                 {
-                     _b_fail = YES, _error_str = "Missing input subset" ;
-                 }
+                 if ( _subset.length == 0 ) { _b_fail = YES, _error_str = "Missing input subset" ; }
                  else
                  {
 							       var vars = { tip: "",
@@ -115,7 +110,7 @@ function circles_terminal_cmd_plugin()
 										 		 break ;
 										 }
 							       var _rows = null, _crlf = "", _item, _archive = [] ;
-										 var _extract_entries = [ "caption", "subset", "baseid", "starting_params" ] ;
+										 var _extract_entries = [ "caption", "subset", "baseid" ] ;
 							       $.each( _result,
 							       				 function( _i, _data_chunk )
 							       				 {
@@ -150,22 +145,18 @@ function circles_terminal_cmd_plugin()
 		                      _row += "<white>"+( new String( "Opening id" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</white>" ;
 		                      _startINDEX++ ;
 		                      _row += "<lightblue>"+( new String( "Plug-in caption" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
-		                      _startINDEX++ ;
-		                      _row += "<snow>"+( new String( "Starting params" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</snow>" ;
 		                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                      var _subset, _base_id, _caption, _visible ;
 		                 $.each( _archive,
 		                         function( _i, _chunk )
 		                         {
-																_subset = _chunk['subset'], _base_id = _chunk['baseid'], _caption = _chunk['caption'], _starting_params = _chunk['starting_params'] ;
+																_subset = _chunk['subset'], _base_id = _chunk['baseid'], _caption = _chunk['caption'] ;
 		                         		_startINDEX = 0 ;
 															  _row  = "<snow>"+_subset.rpad( " ", _cols_width[_startINDEX] )+"</snow>" ;
 		                            _startINDEX++ ;
 															  _row += "<lightblue>"+_base_id.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
 		                            _startINDEX++ ;
 															  _row += "<white>"+_caption.rpad( " ", _cols_width[_startINDEX] )+"</white>" ;
-		                            _startINDEX++ ;
-		                            _row += "<lightblue>"+_starting_params.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
 		                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
 		                         }
 		                       );
@@ -180,7 +171,6 @@ function circles_terminal_cmd_plugin()
                           var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_]/, "" ) ;
                           var _options = [ "close" ] ;
                           var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null )" ;
-                          console.log( _dispatcher_fn );
                           var _output = null ;
                         	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
                         	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
@@ -237,6 +227,7 @@ function circles_terminal_cmd_plugin()
                         	try{ eval( "var _return_open = " + _open_cmd + ";" ) }
                         	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
                           circles_lib_output( _out_channel, _return_open ? DISPATCH_SUCCESS : DISPATCH_ERROR, ( _return_open ? "Success" : "Failure" )+" in opening "+_fam+" "+_def, _par_1, _cmd_tag );
+
                           if ( !_return_open )
                           circles_lib_output( _out_channel, DISPATCH_WARNING, "Check whether input '"+_def+"' could have been mispelled or '"+_fam+"' is not the correct category, or mandatory params are missing", _par_1, _cmd_tag );
                           else
@@ -245,6 +236,7 @@ function circles_terminal_cmd_plugin()
                             {
                               var _famLC = _json.fam.toLowerCase(), _defUC = _json.def.toUpperCase().replace( /[\.\_]/, "" ) ;
                               var _options = _params_assoc_array['settings']['send.params'] ;
+                              console.log( _options );
                               var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null )" ;
                               var _output = null ;
                               setTimeout( function(){

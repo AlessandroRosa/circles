@@ -46,7 +46,7 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _items_n = circles_lib_count_items( _items_array ) ;
     var CLOSE_FN = "CIRCLESformsDISCRETENESSLOCUSclose();" ;
-    var _run = YES, _subset = "forms"  ;
+    var _run = YES, _subset = "forms" ;
     var _min_dim_type = $( window ).height() < $( window ).width() ? 1 : 2 ;
     var _max_dim_type = $( window ).height() > $( window ).width() ? 1 : 2 ;
     var _dim = _max_dim_type == 1 ? $( window ).height() : $( window ).width();

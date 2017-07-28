@@ -17,7 +17,11 @@
 <cadetblue>return the list including popup ids to perform open|close operations</cadetblue>
 
 <lightblue>plugin open</lightblue>
+<cadetblue>simply open the mask for the current working plug-in</cadetblue>
+
+<lightblue>plugin open move right</lightblue>
 <cadetblue>open the mask for the current working plug-in</cadetblue>
+<cadetblue>and send it the 'move' event with 'right' parameter value</cadetblue>
 
 <lightblue>plugin set</lightblue>
 <white>plugin set embeddings general.purpose</white>
