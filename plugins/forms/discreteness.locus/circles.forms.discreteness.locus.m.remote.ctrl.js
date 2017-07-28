@@ -23,14 +23,22 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn )
         circles_lib_popup_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
         return 1 ;
         break ;
+				case "focus":
+        var _sub = "forms", _base_id = "discreteness.locus" ;
+        circles_lib_popup_focus( _base_id, _sub );
+        return 1;
+        break ;
         case "get.point":
         $( "#CIRCLESformsDISCRETENESSLOCUSpickedCOMPLEXPT" ).val( _options[1] );
         CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPT( null, 1 ) ;
+        var _c = parse_complex_from_string( _options[1] );
+        console.log( _c );
+        GLOB_PLUGIN_PARAMS_FILLER( _c );
         return 1 ;
         break ;
 				case "move":
 				var _ret = move_div( _plugin_tmp_vars_array['forms']['discreteness.locus'], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
-          return 1 ;
+        return 1 ;
 				break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;

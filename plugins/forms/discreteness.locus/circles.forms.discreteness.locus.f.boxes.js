@@ -181,11 +181,11 @@ function CIRCLESformsDISCRETENESSLOCUSupperBAR()
        HTMLcode += "<OPTION VALUE=\""+_DLOCUS_JORGENSEN+"@%mu%\">Jorgensen" ;
        HTMLcode += "</SELECT>" ;
        HTMLcode += "</td><td WIDTH=\"4\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 4 ], YES );\">Render</td>";
+       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformsDISCRETENESSLOCUSrenderBTN\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 4 ], YES );\">Render</td>";
        HTMLcode += "<td WIDTH=\"1\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(0);CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 8, 1, 64, 16, 32 ], YES );\">Redraw</td>";
+       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformsDISCRETENESSLOCUSredrawBTN\" ONCLICK=\"javascript:$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(0);CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 8, 1, 64, 16, 32 ], YES );\">Redraw</td>";
        HTMLcode += "<td WIDTH=\"1\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSreset();\">Reset</td>";
+       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformsDISCRETENESSLOCUSresetBTN\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSreset();\">Reset</td>";
 
        HTMLcode += "<td WIDTH=\"12\"></td>" ;
        HTMLcode += "<td ID=\"CIRCLESformsDISCRETENESSLOCUScheckboxCONTAINER\">" ;

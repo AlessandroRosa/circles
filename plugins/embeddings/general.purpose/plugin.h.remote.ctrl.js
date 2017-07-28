@@ -48,6 +48,11 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
           var _sub = "forms", _base_id = "general.purpose" ;
           circles_lib_popup_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
           break ;
+  				case "focus":
+          var _sub = "forms", _base_id = "general.purpose" ;
+          circles_lib_popup_focus( _base_id, _sub );
+          return 1;
+          break ;
   				case "full.group":
   				CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);
           return 1 ;

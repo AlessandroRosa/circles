@@ -34,6 +34,11 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn )
 				case "ifslastpt":
           return 1 ;
 				break ;
+				case "focus":
+        var _sub = "forms", _base_id = "jorgensen" ;
+        circles_lib_popup_focus( _base_id, _sub );
+        return 1;
+        break ;
         case "params":
         if ( _options[1] != null ) $("#PLUGIN_PARAM_ALPHA").val( _options[1] );
         if ( _options[2] != null ) $("#PLUGIN_PARAM_BETA").val( _options[2] );

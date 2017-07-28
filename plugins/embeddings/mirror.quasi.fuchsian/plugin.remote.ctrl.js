@@ -15,13 +15,18 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANremotectrl( _options, _return_fn )
 		switch( _options[0].toLowerCase() )
 		{
 				case "/*anyaction*/":
-          return 1 ;
+        return 1 ;
 				break ;
         case "close":
         var _sub = "embeddings", _base_id = "mirror.quasi.fuchsian" ;
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         circles_lib_popup_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
         return 1 ;
+        break ;
+				case "focus":
+        var _sub = "forms", _base_id = "mirror.quasi.fuchsian" ;
+        circles_lib_popup_focus( _base_id, _sub );
+        return 1;
         break ;
 				case "move":
 				var _ret = move_div( _plugin_tmp_vars_array[ GLOB_PLUGIN_SUBSET ][ GLOB_PLUGIN_BASE_ID ], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );

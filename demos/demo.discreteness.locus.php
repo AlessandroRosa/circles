@@ -36,16 +36,51 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms terminal" ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin close" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "console resize 450 450" ); _glob_terminal.exec( "console bottom right" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSembeddingCOMBO", time : 2.0, time_unit : "s",
                   action : "select", set_text : "Maskit T1,1", showlabel : true, desclabel : "Select the embedding Maskit T1,1" } );
+
+    _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSrenderBTN", time : 7.0, time_unit : "s",
+                  action : "click", set_text : null, showlabel : true, desclabel : "Render the embedding Maskit T1,1" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms terminal" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send focus" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set embeddings maskit.once" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin open" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms discreteness.locus" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send focus" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send get.point 1+1.73i" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set embeddings maskit.once" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send focus" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.run();
 </SCRIPT>

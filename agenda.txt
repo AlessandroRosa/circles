@@ -6,7 +6,8 @@ https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ APP -------------------------------------------------
-
+* [PLUGIN-S] add 'focus' event through remote ctrl method
+  as already made for 'discreteness.locus'
 ------------ DEMO ------------------------------------------------
 
 * aprire discreteness locus

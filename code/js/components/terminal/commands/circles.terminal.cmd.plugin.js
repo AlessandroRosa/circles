@@ -305,10 +305,13 @@ function circles_terminal_cmd_plugin()
                         var _output = null ;
                        	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
                        	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
+
+                        var _msg = _output ? "event '"+_options[0]+"' has been sent with success" : "Failure while sending event '"+_options[0]+"'";
+                        circles_lib_output( _out_channel, _output ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _par_1, _cmd_tag );
                      }
                      else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                   }
-                  circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing params specification after 'send' action", _par_1, _cmd_tag );
+                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing params specification after 'send' action", _par_1, _cmd_tag );
                   break ;
                   case "set":
                   if ( _plugin_tmp_vars_array['plugin_sel'] == null ) _plugin_tmp_vars_array['plugin_sel'] = [] ;
