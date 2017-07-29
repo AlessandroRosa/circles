@@ -24,7 +24,7 @@ function CIRCLESembeddingsEARLEremotectrl( _options, _return_fn )
         return 1 ;
         break ;
 				case "focus":
-        var _sub = "forms", _base_id = "earle" ;
+        var _sub = "embeddings", _base_id = "earle" ;
         circles_lib_popup_focus( _base_id, _sub );
         return 1;
         break ;

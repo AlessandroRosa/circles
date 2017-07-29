@@ -24,17 +24,18 @@ function CIRCLESembeddingsRILEYSLICEremotectrl( _options, _return_fn )
         return 1 ;
         break ;
 				case "focus":
-        var _sub = "forms", _base_id = "riley.slice" ;
+        var _sub = "embeddings", _base_id = "riley.slice" ;
         circles_lib_popup_focus( _base_id, _sub );
         return 1;
         break ;
 				case "move":
-				var _ret = move_div( _plugin_tmp_vars_array[ GLOB_PLUGIN_SUBSET ][ GLOB_PLUGIN_BASE_ID ], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+        var _sub = "embeddings", _base_id = "riley.slice" ;
+				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id ], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
         return 1 ;
 				break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
-          return 0 ;
+        return 0 ;
 				break ;
 		}
 

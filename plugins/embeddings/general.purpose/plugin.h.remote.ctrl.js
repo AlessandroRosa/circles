@@ -16,25 +16,25 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
     {
       switch( _options[0].toLowerCase() )
   		{
-  				case "/*anyaction*/":
-        return 1 ;
-  				break ;
-  				case "add.mobius.map":
-  				if ( _options[1] != null ) $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) );
-  				if ( _options[2] != null ) $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
-  				if ( _options[3] != null ) $( "#PLUGIN_PARAM_C" ).val( _options[3].replaceAll( [ ",", ";" ], "" ) );
-  				if ( _options[4] != null ) $( "#PLUGIN_PARAM_D" ).val( _options[4].replaceAll( [ ",", ";" ], "" ) );
-  				CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
-          return 1 ;
-  				break ;
-  				case "bomb":
-  				CIRCLESembeddingsGENERALPURPOSE_BOMB();
-          return 1 ;
-  				break ;
-  				case "capture.seeds":
-  				CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
-          return 1 ;
-  				break ;
+  			 case "/*anyaction*/":
+         return 1 ;
+  			 break ;
+  			 case "add.mobius.map":
+  			 if ( _options[1] != null ) $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) );
+  			 if ( _options[2] != null ) $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
+  			 if ( _options[3] != null ) $( "#PLUGIN_PARAM_C" ).val( _options[3].replaceAll( [ ",", ";" ], "" ) );
+  			 if ( _options[4] != null ) $( "#PLUGIN_PARAM_D" ).val( _options[4].replaceAll( [ ",", ";" ], "" ) );
+  			 CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
+         return 1 ;
+  			 break ;
+  			 case "bomb":
+  			 CIRCLESembeddingsGENERALPURPOSE_BOMB();
+         return 1 ;
+  			 break ;
+  			 case "capture.seeds":
+  			 CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
+         return 1 ;
+  			 break ;
   				case "capture.gens":
   				CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
           return 1 ;
@@ -49,7 +49,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
           circles_lib_popup_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
           break ;
   				case "focus":
-          var _sub = "forms", _base_id = "general.purpose" ;
+          var _sub = "embeddings", _base_id = "general.purpose" ;
           circles_lib_popup_focus( _base_id, _sub );
           return 1;
           break ;
@@ -62,7 +62,8 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
           return 1 ;
   				break ;
   				case "move":
-  				var _ret = move_div( _plugin_tmp_vars_array[ GLOB_PLUGIN_SUBSET ][ GLOB_PLUGIN_BASE_ID ], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+          var _sub = "embeddings", _base_id = "general.purpose" ;
+  				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id ], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
           return _ret ;
   				break ;
   				case "new.mobius.map":

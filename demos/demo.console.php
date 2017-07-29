@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href="http://alessandrorosa.altervista.org/demo_n/demo_n.css">
-<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="http://alessandrorosa.altervista.org/demo_n/demo_n.js"></SCRIPT>
+<link rel="stylesheet" type="text/css" href="../demo_n/demo_n.css">
+<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="../demo_n/demo_n.js"></SCRIPT>
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript" defer>
 var _demon = new demo_n();
     _demon.add( { ctrl_id : "alertYESbtn", time : 1.5, time_unit : "s",
@@ -7,7 +7,7 @@ var _demon = new demo_n();
 
     _demon.add( { pre_fn : function()
                   {
-                     $( "<div ID=\"presentation_div\" CLASS=\"general_rounded_corners\" STYLE=\"position:absolute;z-index:5;font-size:14pt;font-family:arial;width:380px;height:50px;text-align:center;color:white;\"></div>" ).appendTo("body");
+                     $( "<div ID=\"presentation_div\" CLASS=\"general_rounded_corners\" STYLE=\"position:absolute;z-index:2000;font-size:14pt;font-family:arial;width:340px;height:auto;padding:6px;text-align:center;color:white;\"></div>" ).appendTo("body");
                      $( "#presentation_div" ).css( "background-color", "#9AD2FB" ) ;
                      $( "#presentation_div" ).html( "CIRCLES DEMO #3<br>Console commands" ) ;
                      $( "#presentation_div" ).show() ;

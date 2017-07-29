@@ -39,6 +39,11 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn )
         circles_lib_popup_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
           return 1 ;
         break ;
+				case "focus":
+        var _sub = "forms", _base_id = "general.options" ;
+        circles_lib_popup_focus( _base_id, _sub );
+        return 1;
+        break ;
 				case "ifslastpt":
 				if ( CIRCLESformsGENERALOPTIONStabindex == 1 )
 				{
