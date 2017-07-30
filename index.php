@@ -106,36 +106,18 @@ circles_lib_statusbar_load( "vert", "left", "top", NO, 10, 100 );
 </SCRIPT>
 <?php if ( array_key_exists( "demo", $_GET ) )
 {
+    $DEMO_IDX = intval( $_GET['demo'] ) ; if ( is_nan( $DEMO_IDX ) ) $DEMO_IDX = 0 ;
     switch( $_GET['demo'] )
     {
-        case 1:
-        @include( "demos/demo.basic.maskit.param.php" );
-        break ;
-        case 2:
-        @include( "demos/demo.random.maskit.param.php" );
-        break ;
-        case 3:
-        @include( "demos/demo.console.php" );
-        break ;
-        case 4:
-        @include( "demos/demo.console.conjugation.php" );
-        break ;
-        case 5:
-        @include( "demos/demo.fuchsian.group.php" );
-        break ;
-        case 6:
-        @include( "demos/demo.modular.group.php" );
-        break ;
-        case 7:
-        @include( "demos/demo.sasaki.group.php" );
-        break ;
-        case 8:
-        @include( "demos/demo.discreteness.locus.php" );
-        break ;
-        case 0:
-        default:
-        @include( "demos/demo.test.php" );
-        break ;
+      case 1: @include( "demos/$DEMO_IDX.demo.basic.maskit.param.php" ); break ;
+      case 2: @include( "demos/$DEMO_IDX.demo.random.maskit.param.php" ); break ;
+      case 3: @include( "demos/$DEMO_IDX.demo.console.php" ); break ;
+      case 4: @include( "demos/$DEMO_IDX.demo.console.conjugation.php" ); break ;
+      case 5: @include( "demos/$DEMO_IDX.demo.fuchsian.group.php" ); break ;
+      case 6: @include( "demos/$DEMO_IDX.demo.modular.group.php" ); break ;
+      case 7: @include( "demos/$DEMO_IDX.demo.sasaki.group.php" ); break ;
+      case 8: @include( "demos/$DEMO_IDX.demo.discreteness.locus.php" ); break ;
+      default: break ;
     }
 }
 ?>

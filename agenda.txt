@@ -6,6 +6,7 @@ https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ APP -------------------------------------------------
+* plug-ins : fill all .info files with events and descriptions
 ------------ DEMO ------------------------------------------------
 
 * aprire discreteness locus
