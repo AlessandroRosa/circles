@@ -79,13 +79,17 @@ var _demon = new demo_n();
                       GLOB_PLUGIN_WIZARD_STEP(1.1,YES);
           						circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
                 } } );
-                
-                
+
     _demon.add( { ctrl_id : "STATUSBARrenderBTN", time : 2, time_unit : "s",
                   action : "click", set_value : -1, showlabel : false, desclabel : "" } );
                 
     _demon.add( { ctrl_id : "alertYESbtn", time : 2, time_unit : "s",
                   action : "click", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { pre_fn : function() { $( "#presentation_div" ).html( "END OF DEMO #2" ) ; },
+                  ctrl_id : "presentation_div", time : 2, time_unit : "s",
+                  action : "show", set_value : null, showlabel : false, desclabel : ""
+                } );
 
     _demon.run();
 </SCRIPT>        
