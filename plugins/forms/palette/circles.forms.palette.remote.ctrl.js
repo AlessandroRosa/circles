@@ -5,9 +5,9 @@ function CIRCLESformsPALETTEREMOTE_REMOTE_CTRL_KEYWORDS_INIT()
 
 function CIRCLESformsPALETTEREMOTEremotectrl( _options, _return_fn )
 {
-		if ( !is_array( _options ) && typeof _return_fn === "function" )
+		if ( !is_array( _options ) )
 		{
-			 _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
+       if ( typeof _return_fn === "function" ) _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
 			 return 0 ;
 		}
 
@@ -29,7 +29,7 @@ function CIRCLESformsPALETTEREMOTEremotectrl( _options, _return_fn )
         return 1;
         break ;
 				case "move":
-				var _ret = move_div( _plugin_tmp_vars_array[ GLOB_PLUGIN_SUBSET ][ GLOB_PLUGIN_BASE_ID ], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
+				var _ret = move_div( _plugin_tmp_vars_array[ GLOB_PLUGIN_SUBSET ][ GLOB_PLUGIN_BASE_ID ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
         return 1 ;
 				break ;
 				default:

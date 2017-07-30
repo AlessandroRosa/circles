@@ -5,9 +5,9 @@ function CIRCLESembeddingsGENERALPURPOSE_REMOTE_CTRL_KEYWORDS_INIT()
 
 function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
 {
-		if ( !is_array( _options ) && typeof _return_fn === "function" )
+		if ( !is_array( _options ) )
 		{
-			 _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
+       if ( typeof _return_fn === "function" ) _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
 			 return 0 ;
 		}
 
@@ -63,7 +63,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
   				break ;
   				case "move":
           var _sub = "embeddings", _base_id = "general.purpose" ;
-  				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id ], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+  				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
           return _ret ;
   				break ;
   				case "new.mobius.map":

@@ -91,11 +91,6 @@ function circles_lib_js_manager_repo_code( _input_code )
 																		break ;
 																}
 														}
-														
-														console.log( "-------------------------" ) ;
-														console.log( _subset_label ) ;
-														console.log( _input_code ) ;
-														console.log( "-------------------------" ) ;
 												}
 											) ;
 						}

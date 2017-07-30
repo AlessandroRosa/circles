@@ -5,9 +5,9 @@ function CIRCLEStoolsFZ_REMOTE_CTRL_KEYWORDS_INIT()
 
 function CIRCLEStoolsFZremotectrl( _options, _return_fn )
 {
-		if ( !is_array( _options ) && typeof _return_fn === "function" )
+		if ( !is_array( _options ) )
 		{
-			 _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
+       if ( typeof _return_fn === "function" ) _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
 			 return 0 ;
 		}
 
@@ -30,7 +30,7 @@ function CIRCLEStoolsFZremotectrl( _options, _return_fn )
         break ;
 				case "move":
         var _sub = "forms", _base_id = "f.z" ;
-				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id ], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
+				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
         return 1 ;
 				break ;
 				default:

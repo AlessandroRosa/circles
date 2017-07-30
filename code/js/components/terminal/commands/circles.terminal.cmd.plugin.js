@@ -236,7 +236,6 @@ function circles_terminal_cmd_plugin()
                             {
                               var _famLC = _json.fam.toLowerCase(), _defUC = _json.def.toUpperCase().replace( /[\.\_]/, "" ) ;
                               var _options = _params_assoc_array['settings']['send.params'] ;
-                              console.log( _options );
                               var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null )" ;
                               var _output = null ;
                               setTimeout( function(){
@@ -260,7 +259,6 @@ function circles_terminal_cmd_plugin()
                   {
                     var _json = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                     var _path = "plugins/" + _json.fam + "/" + _json.def + "/remotecmds.info" ;
-                    console.log( _path );
                     var jqxhr = $.get( _path, function() {
                     })
                       .done(function( _data ) {

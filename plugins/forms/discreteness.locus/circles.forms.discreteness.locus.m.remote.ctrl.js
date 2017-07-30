@@ -5,9 +5,9 @@ function CIRCLESformsDISCRETENESSLOCUS_REMOTE_CTRL_KEYWORDS_INIT()
 
 function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn )
 {
-		if ( !is_array( _options ) && typeof _return_fn === "function" )
+		if ( !is_array( _options ) )
 		{
-			 _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
+       if ( typeof _return_fn === "function" ) _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
 			 return 0 ;
 		}
 
@@ -31,13 +31,11 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn )
         case "get.point":
         $( "#CIRCLESformsDISCRETENESSLOCUSpickedCOMPLEXPT" ).val( _options[1] );
         CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPT( null, 1 ) ;
-        var _c = parse_complex_from_string( _options[1] );
-        console.log( _c );
-        GLOB_PLUGIN_PARAMS_FILLER( _c );
+        GLOB_PLUGIN_PARAMS_FILLER( parse_complex_from_string( _options[1] ) );
         return 1 ;
         break ;
 				case "move":
-				var _ret = move_div( _plugin_tmp_vars_array['forms']['discreteness.locus'], _options[1] != null ? _options[1].toLowerCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
+				var _ret = move_div( _plugin_tmp_vars_array['forms']['discreteness.locus'], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
         return 1 ;
 				break ;
 				default:

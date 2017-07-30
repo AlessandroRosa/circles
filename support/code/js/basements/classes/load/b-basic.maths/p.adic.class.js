@@ -118,7 +118,6 @@ p_adic.prototype.ary_convert = function( _n, _base )
     _n = Math.abs( _n );
     var _n_decs = ( "" + _n ).indexOf( "." ) != -1 ? ( ( ( ( "" + _n ).split(".") )[1] ).length ) : 0 ;
     var _int_n = ~~_n, _dec_n = _n - _int_n ;
-    console.log( _int_n, _dec_n );
     _out += ( _int_n > 0 ) ? this.change_base( Math.abs( _int_n ), _base ) : "0" ;
     if ( _dec_n > 0 ) _out += "." + this.change_base( _dec_n, _base, 1 );
     _out = ( _is_neg ? "-" : "" ) + _out ;

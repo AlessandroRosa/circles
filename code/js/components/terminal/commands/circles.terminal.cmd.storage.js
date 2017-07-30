@@ -662,7 +662,6 @@ function circles_terminal_cmd_storage()
     											                                $.each( _storageref,
     											                                				function( _i, _dependency )
     											                                				{
-                                                                      console.log( "IN#1" );
                                                                       _size = _all ? 1 : circles_lib_storage_parse_dependencies_syntax( _dependency, "size" ) ;
     																																	if ( _size > 0 )
     																							                    {
@@ -710,7 +709,6 @@ function circles_terminal_cmd_storage()
 													                             $.each( _storageref,
 											                                				function( _i, _dependency )
 											                                				{
-                                                                      console.log( "IN#2" );
 																								                  _exists = circles_lib_storage_parse_dependencies_syntax( _dependency, "exists" ) ;
 				  																												if ( _exists )
 																							                    {

@@ -23,8 +23,6 @@ function CIRCLESembeddingsMASKITONCE_EVENTS( ctrl_id, event )
 {
 	  if ( event.stopPropagation )      event.stopPropagation();
 	  if ( event.cancelBubble != null ) event.cancelBubble = true;
-    console.log( "IN#2", ctrl_id, event.keyCode );
-
     switch( event.keyCode )
 		{
 		   case 13: // return

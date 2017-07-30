@@ -1,8 +1,8 @@
 function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn )
 {
-		if ( !is_array( _options ) && typeof _return_fn === "function" )
+		if ( !is_array( _options ) )
 		{
-			 _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
+       if ( typeof _return_fn === "function" ) _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
 			 return 0 ;
 		}
 

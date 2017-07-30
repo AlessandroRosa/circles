@@ -133,7 +133,6 @@ function circles_lib_popup_load()
           if ( !_load_failure )
           {
           		var _ret = 1, _ret_msg = "" ;
-              console.log( _main_opener_cmd );
 					    try{ eval( _main_opener_cmd ) ; }
 					    catch( _err )
 							{

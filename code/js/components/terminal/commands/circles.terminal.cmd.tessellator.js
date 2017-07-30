@@ -97,7 +97,6 @@ function circles_terminal_cmd_tessellator()
                        {
                             var _sec = circles_lib_math_parse_formula( _p );
                             _params_assoc_array['sector'] = safe_float( _sec, 0 ).roundTo( 6 ) ;
-                            console.log( _params_assoc_array['sector'] );
                        }
                        else
                        {
@@ -153,7 +152,6 @@ function circles_terminal_cmd_tessellator()
                      }
                      else if ( Math.abs( _params_assoc_array['sector'] ) > CIRCLES_TWO_PI && _tessellation.strcmp( "radial" ) )
                      {
-                          console.log( _params_assoc_array['sector'], CIRCLES_TWO_PI );
                           circles_lib_output( _out_channel, DISPATCH_INFO, "Input sector amplitude ("+_params_assoc_array['sector']+") exceeding radians range (2PI)", _par_1, _cmd_tag );
                           _params_assoc_array['sector'] = rad( _params_assoc_array['sector'] );
                           circles_lib_output( _out_channel, DISPATCH_INFO, "Assumed to be in degrees and converted to "+_params_assoc_array['sector']+" radians", _par_1, _cmd_tag );

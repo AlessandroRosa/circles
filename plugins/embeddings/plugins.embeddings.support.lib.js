@@ -98,7 +98,6 @@ function GLOB_PLUGIN_PARAMS_FILLER()
     var _popup_obj = circles_lib_popup_find_wnd( "embeddings", POPUP_SEARCH_BY_SUBSET, NO ) ;
     var _subset = is_array( _popup_obj ) ? safe_string( _popup_obj[8], "" ).trim() : "" ;
     var _base_id = is_array( _popup_obj ) ? safe_string( _popup_obj[12], "" ).trim() : "" ;
-    console.log( _popup_obj );
     if ( _base_id.length > 0 )
     {
         var _filler_fn = null ;
