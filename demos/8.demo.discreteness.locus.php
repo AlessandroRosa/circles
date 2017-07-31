@@ -15,23 +15,44 @@ var _demon = new demo_n();
                   action : "fadein", set_value : { to_x : "center", to_y : "center", speed : "slow" }, showlabel : false, desclabel : ""
                 } );
 
-    _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
+    _demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
                   action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
                 } );
 
-    _demon.add( { post_fn : function() { circles_lib_popup_load('forms','terminal',YES,0,YES); circles_lib_popup_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 3, time_unit : "s",
-                  action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).html( "I'm opening the Terminal Console<br/>to input settings for the configuration to render" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : 100 }, showlabel : false, desclabel : ""
+                } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "new silent" ); },
-                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+    _demon.add( { ctrl_id : "presentation_div", time : 1.0, time_unit : "s",
+                  action : "show", set_value : "fast", showlabel : false, desclabel : ""
+                } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "depth 18" ); },
-                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+    _demon.add( { ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
+                  action : "click", set_value : -1, showlabel : false, desclabel : "",
+                  post_fn : function() { circles_lib_popup_load('forms','terminal',YES,0,YES); circles_lib_popup_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); }
+                }
+              );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms triggers" ); },
+    _demon.add( { ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "",
+                  post_fn : function() { _glob_terminal.exec( "new silent" ); }
+                } );
+
+    _demon.add( { ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "",
+                  post_fn : function() { _glob_terminal.exec( "depth 18" ); }
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( "Open the Triggers form to boost up the rendering" ) ;
+                  },
+                  post_fn : function() { _glob_terminal.exec( "plugin set forms triggers" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -40,8 +61,12 @@ var _demon = new demo_n();
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { ctrl_id : "CIRCLESformsTRIGGERScheckbox1", time : 3, time_unit : "s",
-                  action : "click", set_value : -1, showlabel : true, desclabel : "Boosting the commutator option",
+                  action : "click", set_value : -1, showlabel : true, desclabel : "Boosting up the commutator option",
                   post_fn : function(){ _glob_triggers_table['gens_set_01'][4] = 1 ; }
+                } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
+                  action : "hide", set_value : "fast", showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms discreteness.locus" ); },
@@ -56,6 +81,16 @@ var _demon = new demo_n();
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#49D10F" ) ;
+                     $( "#presentation_div" ).html( "Now I'll compute the discreteness locus, pick up a value from its boundary and<br>put it as parameter into the Maskit embedding T1,1 mask" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 3, time_unit : "s",
+                  action : "move", set_value : { to_x : $(window).width() - 410, to_y : 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).fadeIn( "fast" ) ; }
+                } );
+
     _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSembeddingCOMBO", time : 2.0, time_unit : "s",
                   action : "select", set_text : "Maskit T1,1", showlabel : true, desclabel : "Select the embedding Maskit T1,1" } );
 
@@ -65,6 +100,10 @@ var _demon = new demo_n();
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms terminal" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send focus" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
@@ -82,6 +121,10 @@ var _demon = new demo_n();
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms triggers" ); _glob_terminal.exec( "plugin send close" ); },
+                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 1.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms discreteness.locus" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
@@ -91,7 +134,7 @@ var _demon = new demo_n();
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send get.point 0.09+1.85i" ); },
-                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
+                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 3.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : true, desclabel : "The parameter is displayed over\nthe diagram and input into the plug-in mask." } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send close" ); },
@@ -113,10 +156,6 @@ var _demon = new demo_n();
     _demon.add( { ctrl_id : "PLUGINinitBTN", time : 2.0, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Push 'Init' for group initialization" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms triggers" ); _glob_terminal.exec( "plugin send close" ); },
-                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 1.0, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms terminal" ); _glob_terminal.exec( "plugin send close" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
@@ -134,9 +173,13 @@ var _demon = new demo_n();
     _demon.add( { ctrl_id : "alertYESbtn", time : 2, time_unit : "s",
                   action : "click", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { pre_fn : function() { $( "#presentation_div" ).html( "END OF DEMO #8" ) ; },
+    _demon.add( { pre_fn : function()
+                  {
+                    $( "#presentation_div" ).css( "background-color", "#9AD2FB" ) ;
+                    $( "#presentation_div" ).html( "END OF DEMO #8" ) ;
+                  },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
-                  action : "show", set_value : null, showlabel : false, desclabel : ""
+                  action : "show", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
