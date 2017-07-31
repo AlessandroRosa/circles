@@ -24,11 +24,8 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).html( "I'm opening the Terminal Console<br/>to input settings for the configuration to render" ) ;
                   },
                   ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
-                  action : "move", set_value : { to_x : 40, to_y : 100 }, showlabel : false, desclabel : ""
-                } );
-
-    _demon.add( { ctrl_id : "presentation_div", time : 1.0, time_unit : "s",
-                  action : "show", set_value : "fast", showlabel : false, desclabel : ""
+                  action : "move", set_value : { to_x : 40, to_y : 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
     _demon.add( { ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",

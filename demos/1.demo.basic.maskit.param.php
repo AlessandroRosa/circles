@@ -9,7 +9,7 @@ var _demon = new demo_n();
                   {
                      $( "<div ID=\"presentation_div\" CLASS=\"general_rounded_corners\" STYLE=\"position:absolute;z-index:2000;font-size:14pt;font-family:arial;width:340px;height:auto;padding:6px;text-align:center;color:white;\"></div>" ).appendTo("body");
                      $( "#presentation_div" ).css( "background-color", "#9AD2FB" ) ;
-                     $( "#presentation_div" ).html( "CIRCLES DEMO #1<br>Deterministic IFS example" ) ;
+                     $( "#presentation_div" ).html( "CIRCLES DEMO #1<br>A simple example on<br>deterministic IFS" ) ;
                   },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
                   action : "fadein", set_value : { to_x : "center", to_y : "center", speed : "slow" }, showlabel : false, desclabel : ""
@@ -17,6 +17,16 @@ var _demon = new demo_n();
 
     _demon.add( { ctrl_id : "presentation_div", time : 3, time_unit : "s",
                   action : "hide", set_value : null, showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( "I'll call the Maskit T1,1 form, input the parameter \mu<br>and render the related limit set" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 300 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
     _demon.add( { ctrl_id : "plugin_maskitonce", time : 2, time_unit : "s",
@@ -35,6 +45,10 @@ var _demon = new demo_n();
                   action : "keypress", set_value : _str[_i], showlabel : true, desclabel : "Writing down the parameter for the group"
                 } );
                 
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
     _demon.add( { ctrl_id : "STATUSBARdepthEDIT", time : 1.5, time_unit : "s",
                   action : "keydel", set_value : "", showlabel : true, desclabel : "Deleting the old rendering depth"
                 } );
