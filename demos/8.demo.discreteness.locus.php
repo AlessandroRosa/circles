@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href="../demo_n/demo_n.css">
-<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="../demo_n/demo_n.js"></SCRIPT>
+<link rel="stylesheet" type="text/css" href="http://alessandrorosa.altervista.org/demo_n/demo_n.css">
+<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="http://alessandrorosa.altervista.org/demo_n/demo_n.js"></SCRIPT>
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript" defer>
 var _demon = new demo_n();
     _demon.add( { ctrl_id : "alertYESbtn", time : 2, time_unit : "s",
