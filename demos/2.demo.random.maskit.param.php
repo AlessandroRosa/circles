@@ -10,7 +10,6 @@ var _demon = new demo_n();
                      $( "<div ID=\"presentation_div\" CLASS=\"general_rounded_corners\" STYLE=\"position:absolute;z-index:5;font-size:14pt;font-family:arial;width:340px;height:50px;text-align:center;color:white;\"></div>" ).appendTo("body");
                      $( "#presentation_div" ).css( "background-color", "#9AD2FB" ) ;
                      $( "#presentation_div" ).html( "CIRCLES DEMO #2<br>Random IFS example" ) ;
-                     $( "#presentation_div" ).show() ;
                   },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
                   action : "fadein", set_value : { to_x : "center", to_y : "center", speed : "slow" }, showlabel : false, desclabel : ""
