@@ -4,6 +4,7 @@
 "capture.generators"="capture generators into the mask from current group configuration"
 "clean"="clean input controls"
 "close"="close pop-up window"
+"focus"="set the focus to the pop-up window"
 "full.group"="compute the full group from the input generators. That is, given A and B gens, you'll have the input generators A,a,B,b finally"
 "generate.group"="generate the group in terms of Mobius Maps from the input generators"
 "move"="move pop-up window. Example: move LEFT|RIGHT TOP|BOTTOM"

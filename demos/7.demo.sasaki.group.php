@@ -13,7 +13,7 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).show() ;
                   },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
-                  action : "move", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""
+                  action : "fadein", set_value : { to_x : "center", to_y : "center", speed : "slow" }, showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
