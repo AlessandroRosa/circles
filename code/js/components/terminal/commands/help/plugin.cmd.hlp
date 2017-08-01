@@ -23,6 +23,9 @@
 <cadetblue>open the mask for the current working plug-in</cadetblue>
 <cadetblue>and send it the 'move' event with 'right' parameter value</cadetblue>
 
+<lightblue>plugin remotecmds</lightblue>
+<cadetblue>return the text list of the available remote cmds for the selected plug-in</cadetblue>
+
 <lightblue>plugin set</lightblue>
 <white>plugin set embeddings general.purpose</white>
 <cadetblue>set up the plug-in reference and save it for further plugin-cmds</cadetblue>

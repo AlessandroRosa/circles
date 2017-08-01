@@ -16,7 +16,17 @@ var _demon = new demo_n();
                 } );
 
     _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
-                  action : "hide", set_value : null, showlabel : false, desclabel : ""
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( "We'll generate a group, then we'll show how to compute a conjugation and render it again." ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "move", set_value : { to_x : $(window).width() - 500, to_y : $(window).height() - 130 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
     _demon.add( { ctrl_id : "MENU_PROCESS_RANDOM", time : 3, time_unit : "s",
@@ -31,6 +41,10 @@ var _demon = new demo_n();
     _demon.add( { ctrl_id : "CIRCLESformsTRIGGERScheckbox1", time : 3, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Boosting the commutator option",
                   post_fn : function(){ _glob_triggers_table['gens_set_01'][4] = 1 ; }
+                } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { ctrl_id : "plugin_maskitonce", time : 2, time_unit : "s",
@@ -78,8 +92,21 @@ var _demon = new demo_n();
                       GLOB_PLUGIN_WIZARD_STEP(1.1,YES);
           						circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
                 } } );
-                
-                
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( "Now we'll render the limit set of the group and compute the conjugation" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 3, time_unit : "s",
+                  action : "fadein", set_value : { to_x : $(window).width() - 300, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
     _demon.add( { ctrl_id : "STATUSBARrenderBTN", time : 2, time_unit : "s",
                   action : "click", set_value : -1, showlabel : false, desclabel : "" } );
                 
@@ -105,5 +132,8 @@ var _demon = new demo_n();
                   action : "show", set_value : null, showlabel : false, desclabel : ""
                 } );
 
+    _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
     _demon.run();
 </SCRIPT>        

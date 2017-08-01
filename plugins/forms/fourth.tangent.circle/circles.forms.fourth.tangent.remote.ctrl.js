@@ -15,7 +15,7 @@ function CIRCLESformsFOURTHTANGENTremotectrl( _options, _return_fn )
 		switch( _options[0].toLowerCase() )
 		{
 				case "/*anyaction*/":
-          return 1 ;
+        return 1 ;
 				break ;
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();

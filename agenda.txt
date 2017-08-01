@@ -6,14 +6,11 @@ https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ APP -------------------------------------------------
-* plug-ins : fill all .info files with events and descriptions
+* general.options form :
+  test form and fill .info file with events and descriptions
 ------------ DEMO ------------------------------------------------
-
-* aprire discreteness locus
-* selezionare Maskit T1,1
-* render (aspettare qualche secondo)
-* disegnare il punto 1.00+1.7347 tramite il remotectrl 'get.point'
-
+* all demos shall include more divs with descriptions of the stages,
+  as made for discreteness locus demo
 ------------ SCRIPT EDITOR ------------------------
 
   >> define the priority order for libs to be processed

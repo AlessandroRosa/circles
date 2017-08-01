@@ -76,5 +76,8 @@ var _demon = new demo_n();
                   action : "show", set_value : null, showlabel : false, desclabel : ""
                 } );
 
+    _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
     _demon.run();
 </SCRIPT>        

@@ -36,7 +36,8 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn )
         circles_lib_popup_focus( _base_id, _sub );
         return 1;
         break ;
-				case "ifslastpt":
+				case "move":
+				var _ret = move_div( _plugin_tmp_vars_array[ GLOB_PLUGIN_SUBSET ][ GLOB_PLUGIN_BASE_ID ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
         return 1 ;
 				break ;
         case "params":
@@ -44,10 +45,6 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn )
         if ( _options[2] != null ) $("#PLUGIN_PARAM_BETA").val( _options[2] );
         return 1 ;
         break ;
-				case "move":
-				var _ret = move_div( _plugin_tmp_vars_array[ GLOB_PLUGIN_SUBSET ][ GLOB_PLUGIN_BASE_ID ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
-        return 1 ;
-				break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
         return 0 ;

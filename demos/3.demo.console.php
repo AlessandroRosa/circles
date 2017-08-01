@@ -16,7 +16,17 @@ var _demon = new demo_n();
                 } );
 
     _demon.add( { ctrl_id : "presentation_div", time : 3, time_unit : "s",
-                  action : "hide", set_value : null, showlabel : false, desclabel : ""
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( "We're are going to generate<br/>a group of Mobius transformations and<br>illustrate some console commands." ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
     _demon.add( { ctrl_id : "plugin_maskitonce", time : 2, time_unit : "s",
@@ -26,6 +36,7 @@ var _demon = new demo_n();
                     circles_lib_popup_load('embeddings','maskit.once','1','0','1');
                     circles_lib_menu_entries_update();
                   } } );
+
     _demon.add( { ctrl_id : "PLUGIN_PARAM_MU", time : 1.5, time_unit : "s",
                   action : "focus", set_value : "", showlabel : true, desclabel : "Focus on the parameter box" } );
 
@@ -85,5 +96,8 @@ var _demon = new demo_n();
                   action : "show", set_value : null, showlabel : false, desclabel : ""
                 } );
 
+    _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
     _demon.run();
 </SCRIPT>        

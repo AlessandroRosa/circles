@@ -21,6 +21,7 @@ var _demon = new demo_n();
 
     _demon.add( { pre_fn : function()
                   {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
                      $( "#presentation_div" ).html( "I'm opening the Terminal Console<br/>to input settings for the configuration to render" ) ;
                   },
                   ctrl_id : "presentation_div", time : 0.5, time_unit : "s",

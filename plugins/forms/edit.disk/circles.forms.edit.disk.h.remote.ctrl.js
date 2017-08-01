@@ -15,13 +15,13 @@ function CIRCLESformsEDITDISKremotectrl( _options, _return_fn )
 		switch( _options[0].toLowerCase() )
 		{
 				case "/*anyaction*/":
-          return 1 ;
+        return 1 ;
 				break ;
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "forms", _base_id = "edit.disk" ;
         circles_lib_popup_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
-          return 1 ;
+        return 1 ;
         break ;
 				case "focus":
         var _sub = "forms", _base_id = "edit.disk" ;
@@ -34,7 +34,7 @@ function CIRCLESformsEDITDISKremotectrl( _options, _return_fn )
 				break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
-          return 0 ;
+        return 0 ;
 				break ;
 		}
 

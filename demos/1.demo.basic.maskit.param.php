@@ -16,7 +16,7 @@ var _demon = new demo_n();
                 } );
 
     _demon.add( { ctrl_id : "presentation_div", time : 3, time_unit : "s",
-                  action : "hide", set_value : null, showlabel : false, desclabel : ""
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { pre_fn : function()
@@ -25,7 +25,7 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).html( "I'll call the Maskit T1,1 form, input the parameter \mu<br>and render the related limit set" ) ;
                   },
                   ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
-                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 300 }, showlabel : false, desclabel : "",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 

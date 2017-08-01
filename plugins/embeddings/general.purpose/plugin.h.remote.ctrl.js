@@ -35,58 +35,58 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
   			 CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
          return 1 ;
   			 break ;
-  				case "capture.gens":
-  				CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
-          return 1 ;
-  				break ;
-  				case "clean":
-  				CIRCLESembeddingsGENERALPURPOSE_CLEAN();
-          return 1 ;
-  				break ;
-          case "close":
-          GLOB_PLUGIN_DESTROY_POPUP_VARS();
-          var _sub = "forms", _base_id = "general.purpose" ;
-          circles_lib_popup_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
-          break ;
-  				case "focus":
-          var _sub = "embeddings", _base_id = "general.purpose" ;
-          circles_lib_popup_focus( _base_id, _sub );
-          return 1;
-          break ;
-  				case "full.group":
-  				CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);
-          return 1 ;
-  				break ;
-  				case "generate.group":
-  				CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO);
-          return 1 ;
-  				break ;
-  				case "move":
-          var _sub = "embeddings", _base_id = "general.purpose" ;
-  				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
-          return _ret ;
-  				break ;
-  				case "new.mobius.map":
-  				CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_NEW,YES);
-          return 1 ;
-  				break ;
-  				case "refresh":
-  				CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);
-          return 1 ;
-  				break ;
-          case "vars.list":
-          var _v = [ "gx_n" ] ;
-          var _output = [] ;
-              _output.push( "General Purpose Plug-in --- Internal variables\n" ) ;
-              _output.push( "Each parameter shall be mentioned in the form g<generator-index>_<parameter-index>" ) ;
-              _output.push( "<generator-index> shall be strictly positive, i.e., > 0" ) ;
-              _output.push( "<parameter-index> shall range from 1 to 4, bounds included" ) ;
-          return _output.join( "\n" ) ;
-          break ;
-  				default:
-  				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
-          return 0 ;
-  				break ;
+  			 case "capture.gens":
+  			 CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
+         return 1 ;
+  			 break ;
+  			 case "clean":
+  			 CIRCLESembeddingsGENERALPURPOSE_CLEAN();
+         return 1 ;
+  			 break ;
+         case "close":
+         GLOB_PLUGIN_DESTROY_POPUP_VARS();
+         var _sub = "forms", _base_id = "general.purpose" ;
+         circles_lib_popup_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
+         break ;
+  			 case "focus":
+         var _sub = "embeddings", _base_id = "general.purpose" ;
+         circles_lib_popup_focus( _base_id, _sub );
+         return 1;
+         break ;
+  			 case "full.group":
+  			 CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);
+         return 1 ;
+  			 break ;
+  			 case "generate.group":
+  			 CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO);
+         return 1 ;
+  			 break ;
+  			 case "move":
+         var _sub = "embeddings", _base_id = "general.purpose" ;
+  			 var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+         return _ret ;
+  			 break ;
+  			 case "new.mobius.map":
+  			 CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_NEW,YES);
+         return 1 ;
+  			 break ;
+  			 case "refresh":
+  			 CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);
+         return 1 ;
+  			 break ;
+         case "vars.list":
+         var _v = [ "gx_n" ] ;
+         var _output = [] ;
+             _output.push( "General Purpose Plug-in --- Internal variables\n" ) ;
+             _output.push( "Each parameter shall be mentioned in the form g<generator-index>_<parameter-index>" ) ;
+             _output.push( "<generator-index> shall be strictly positive, i.e., > 0" ) ;
+             _output.push( "<parameter-index> shall range from 1 to 4, bounds included" ) ;
+         return _output.join( "\n" ) ;
+         break ;
+  			 default:
+  			 _out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
+         return 0 ;
+  			 break ;
   		}
     }
     else return 0 ;

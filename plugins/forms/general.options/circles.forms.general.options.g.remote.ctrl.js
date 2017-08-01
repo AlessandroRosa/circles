@@ -9,7 +9,7 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn )
 		var _out_msg = "" ;
 		switch( _options[0].toLowerCase() )
 		{
-				case "activateifs":
+				case "activate.ifs":
 				if ( CIRCLESformsGENERALOPTIONStabindex == 1 )
 				{
 					_out_msg = "<green>IFS random params have been activated with success</green>" ;
@@ -44,7 +44,7 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn )
         circles_lib_popup_focus( _base_id, _sub );
         return 1;
         break ;
-				case "ifslastpt":
+				case "ifs.last.pt":
 				if ( CIRCLESformsGENERALOPTIONStabindex == 1 )
 				{
 						if ( is_string( _options[1] ) )
@@ -61,14 +61,13 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn )
            return 0 ;
         }
 				break ;
-				case "ifstime":
+				case "ifs.region":
 				if ( CIRCLESformsGENERALOPTIONStabindex == 1 )
 				{
 						if ( is_string( _options[1] ) )
 						{
-							 $( "#CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeEDIT" ).val( Math.max( 1, safe_int( _options[1], 0 ) ) );
-							 CIRCLESformsGENERALOPTIONSeventHANDLER( "CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeEDIT", { keyCode : 13 } ) ;
-               return 1 ;
+								$("#CIRCLESgeneraloptionsDENSITYWEIGHTcombo option").each( function() { if( $(this).text().stricmp( _options[1] ) ) $(this).attr('selected', 'selected'); });
+                return 1 ;
 						}
             else return 0 ;
 				}
@@ -78,13 +77,14 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn )
           return 0 ;
         }
 				break ;
-				case "ifsregion":
+				case "ifs.time":
 				if ( CIRCLESformsGENERALOPTIONStabindex == 1 )
 				{
 						if ( is_string( _options[1] ) )
 						{
-								$("#CIRCLESgeneraloptionsDENSITYWEIGHTcombo option").each( function() { if( $(this).text().stricmp( _options[1] ) ) $(this).attr('selected', 'selected'); });
-                return 1 ;
+							 $( "#CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeEDIT" ).val( Math.max( 1, safe_int( _options[1], 0 ) ) );
+							 CIRCLESformsGENERALOPTIONSeventHANDLER( "CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeEDIT", { keyCode : 13 } ) ;
+               return 1 ;
 						}
             else return 0 ;
 				}

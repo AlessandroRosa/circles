@@ -1,3 +1,7 @@
+"activate.ifs"=""
 "close"="close pop-up window"
 "focus"="set the focus to the pop-up window"
+"ifs.last.pt"=""
+"ifs.region"=""
+"ifs.time"=""
 "move"="move pop-up window. Example: move LEFT|RIGHT TOP|BOTTOM"

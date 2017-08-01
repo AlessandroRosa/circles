@@ -28,7 +28,7 @@ function circles_terminal_cmd_plugin()
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "close", "current", "html", "help", "list", "remotectrl", "open", "release", "run", "set", "send", "silent", "var" );
+    				 _local_cmds_params_array.push( "close", "current", "html", "help", "list", "remotecmds", "open", "release", "run", "set", "send", "silent", "var" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -37,7 +37,7 @@ function circles_terminal_cmd_plugin()
               if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "available", "close", "current", "list", "remotectrl", "open", "set", "send", "var", "varslist" ) ) _params_assoc_array['action'] = _p.toLowerCase();
+              else if ( _p.is_one_of_i( "available", "close", "current", "list", "remotecmds", "open", "set", "send", "var", "varslist" ) ) _params_assoc_array['action'] = _p.toLowerCase();
               else if ( _p.is_one_of_i( "silent" ) ) _params_assoc_array['settings'].push( _p ) ;
               else
               {
@@ -254,11 +254,11 @@ function circles_terminal_cmd_plugin()
                   case "release":
                   circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
-                  case "remotectrl":
+                  case "remotecmds":
                   if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
                     var _json = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
-                    var _path = "plugins/" + _json.fam + "/" + _json.def + "/remotecmds.info" ;
+                    var _path = "plugins/" + _json.fam + "/" + _json.def + "/remote.cmds.info" ;
                     var jqxhr = $.get( _path, function() {
                     })
                       .done(function( _data ) {
