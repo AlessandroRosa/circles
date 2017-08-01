@@ -1,6 +1,6 @@
 function CIRCLEStoolsRAWPOINTSLISTclose()
 {
-		circles_lib_popup_dispatcher_unicast_message( CIRCLEStoolsRAWPOINTSLISTuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+		circles_lib_plugin_dispatcher_unicast_message( CIRCLEStoolsRAWPOINTSLISTuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
 		return YES ;
 }
 
@@ -33,10 +33,10 @@ function CIRCLEStoolsRAWPOINTSLISTmain( _base_id, _move )
     CIRCLEStoolsRAWPOINTSLISTuniqueid = _base_id ;
     _move = safe_int( _move, YES );
     var WIDTH = 340, HEIGHT = "auto", _run = YES, _subset = "tools" ;
-    var _div_id = CIRCLEStoolsRAWPOINTSLISTdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLEStoolsRAWPOINTSLISTdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLEStoolsRAWPOINTSLISTclose();" ;
 	  var HTMLcode = "<table ID=\"CIRCLEStoolsRAWPOINTSLISTmasterTABLE\" WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_popup_caption_code( YES, CIRCLEStoolsRAWPOINTSLISTcaption, 5, 1, CLOSE_FN,
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLEStoolsRAWPOINTSLISTcaption, 5, 1, CLOSE_FN,
 																				 WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
 																				 "", null, "" );
         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
@@ -109,8 +109,8 @@ function CIRCLEStoolsRAWPOINTSLISTmain( _base_id, _move )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'tools', OPEN, _div_id, CIRCLEStoolsRAWPOINTSLISTcaption, CLOSE_FN,
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'tools', OPEN, _div_id, CIRCLEStoolsRAWPOINTSLISTcaption, CLOSE_FN,
                       [ "CIRCLEStoolsRAWPOINTSLISTnormalize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLEStoolsRAWPOINTSLISTminimize", _div_id ],
                       [ "CIRCLEStoolsRAWPOINTSLISTmaximize", _div_id ],

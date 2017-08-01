@@ -190,7 +190,7 @@ window.afterResizeHandler = function()
 		      _glob_custom_div.style.left = ( getViewportExtents()[0] - ( _w + 10 ) ) + "px" ;
 		      _glob_custom_div.style.top = ( getViewportExtents()[1] - ( _h + 10 ) ) + "px" ;
 		
-			    circles_lib_popup_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL );
+			    circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL );
 		   }
 		}
 }

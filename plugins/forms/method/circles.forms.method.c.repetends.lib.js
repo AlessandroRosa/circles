@@ -304,7 +304,7 @@ function CIRCLESmethodMANAGERrepetendsLIST()
     {
         HTMLcode += "<tr><td ALIGN=\"center\" COLSPAN=\""+( _len > 0 ? 6 : 1 )+"\" STYLE=\"color:"+get_color_tag_value( "gray" )+";font-size:12pt;\" ALIGN=\"center\">The repetends list is empty</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-        HTMLcode += "<tr><td CLASS=\"link\" COLSPAN=\""+( _len > 0 ? 6 : 1 )+"\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:lightblue;\" ONCLICK=\"javascript:circles_lib_popup_load('forms','method',NO,0,_glob_method,null);\">Reload</td></tr>" ;
+        HTMLcode += "<tr><td CLASS=\"link\" COLSPAN=\""+( _len > 0 ? 6 : 1 )+"\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:lightblue;\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','method',NO,0,_glob_method,null);\">Reload</td></tr>" ;
     }
 
     HTMLcode += "</table>" ;

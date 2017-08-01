@@ -6,10 +6,10 @@ function CIRCLESformsTERMINALCOMMENTmain( _base_id, _move )
      _move = safe_int( _move, YES );
      var CLOSE_FN = "CIRCLESformsTERMINALCOMMENTclose();" ;
      var WIDTH = $(window).width() / 2 - 100, HEIGHT = 250, _subset = "forms" ;
-     var _div_id = CIRCLESformsTERMINALCOMMENTdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+     var _div_id = CIRCLESformsTERMINALCOMMENTdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
 
 		 var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-         HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsTERMINALCOMMENTcaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "balloon/balloon.icon.01.16x16.png" );
+         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsTERMINALCOMMENTcaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "balloon/balloon.icon.01.16x16.png" );
          HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
 		 		 HTMLcode += "<tr><td>Write the comment to the code below</td></tr>" ;
 		 		 HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
@@ -37,8 +37,8 @@ function CIRCLESformsTERMINALCOMMENTmain( _base_id, _move )
      if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
      _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-     var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-     circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsTERMINALCOMMENTcaption, CLOSE_FN );
+     var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsTERMINALCOMMENTcaption, CLOSE_FN );
      if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );
      
      $("#CIRCLEScommentTEXTAREA").bind( "keyup", function() { $("#CIRCLEScommentSAVEbtn").css( "color", DEFAULT_COLOR_STD ); } );

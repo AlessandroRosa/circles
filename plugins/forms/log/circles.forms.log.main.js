@@ -1,6 +1,6 @@
 function CIRCLESformsLOGclose()
 {
-    circles_lib_popup_dispatcher_unicast_message( "log", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+    circles_lib_plugin_dispatcher_unicast_message( "log", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
 		return YES ;
 }
 
@@ -42,9 +42,9 @@ function CIRCLESformsLOGmain( _base_id, _move )
     _move = safe_int( _move, YES ) ;
     var WIDTH = Math.floor( Math.min( 370, $( window ).width() / 2 ) ), HEIGHT = $( window ).height() - 120 ; // menu height
     var _subset = "forms" ;
-    var _div_id = CIRCLESformsLOGdiv_id = circles_lib_popup_build_divid( _subset, _base_id ), CLOSE_FN = "CIRCLESformsLOGclose()" ;
+    var _div_id = CIRCLESformsLOGdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ), CLOSE_FN = "CIRCLESformsLOGclose()" ;
     var HTMLcode = "<table WIDTH=\"100%\">" ;
-    HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsLOGcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
+    HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsLOGcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
 																		            "", "", "CIRCLESformsLOG" );
     HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
     HTMLcode += "<tr><td><table>" ;
@@ -66,8 +66,8 @@ function CIRCLESformsLOGmain( _base_id, _move )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsLOGcaption, CLOSE_FN,
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsLOGcaption, CLOSE_FN,
                       [ "CIRCLESformsLOGnormalize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLESformsLOGminimize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLESformsLOGmaximize", _div_id, WIDTH, HEIGHT ] );

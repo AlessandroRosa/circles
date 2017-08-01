@@ -1,4 +1,4 @@
-function CIRCLESformsSVGEDITORclose() { circles_lib_popup_dispatcher_unicast_message( "svgeditor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); return YES ; }
+function CIRCLESformsSVGEDITORclose() { circles_lib_plugin_dispatcher_unicast_message( "svgeditor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); return YES ; }
 
 function CIRCLESformsSVGEDITORmain( _base_id, _move )
 {
@@ -9,10 +9,10 @@ function CIRCLESformsSVGEDITORmain( _base_id, _move )
     var _viewport_dims = getViewportExtents();
     var WIDTH = _run ? Math.floor( _viewport_dims[0] * 0.7 ) : 350, HEIGHT = _run ? _viewport_dims[1] - 70 : "auto" ;
     var _plane_label = circles_lib_plane_get_def( _svg_editor_coords_ref ), _subset = "forms" ;
-    var _div_id = CIRCLESformsSVGEDITORdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLESformsSVGEDITORdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLESformsSVGEDITORclose();", _click_fn = "$('#terminal_div').click();" ;
     var HTMLcode = "<table ID=\"wnd_container_"+_div_id+"\" BORDER=\"0\" WIDTH=\"100%\" STYLE=\"background-color:white;\">" ;
-    HTMLcode += circles_lib_popup_caption_code( _run, CIRCLESformsSVGEDITORcaption, 3, YES, CLOSE_FN,
+    HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsSVGEDITORcaption, 3, YES, CLOSE_FN,
 																		 WIDTH, HEIGHT, arguments.callee.name,
 																		 _base_id, _div_id, _subset, "cmd.prompt/cmd.prompt.icon.01.16x16.png", _click_fn );
 
@@ -166,8 +166,8 @@ function CIRCLESformsSVGEDITORmain( _base_id, _move )
     GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsSVGEDITORcaption, CLOSE_FN );
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsSVGEDITORcaption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div_id, "LEFT", "TOP" );
 
     $('#CIRCLESformsSVGEDITORtextarea').css( "font-size", "8pt" );

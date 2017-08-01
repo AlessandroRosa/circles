@@ -1,6 +1,6 @@
 function CIRCLESformsFOURTHTANGENTCIRCLEclose()
 {
-		 circles_lib_popup_dispatcher_unicast_message( "fourthtangent", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+		 circles_lib_plugin_dispatcher_unicast_message( "fourthtangent", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
      return YES ;
 }
 
@@ -18,10 +18,10 @@ function CIRCLESformsFOURTHTANGENTCIRCLEmain( _base_id, _move )
         var _check_group = circles_lib_symbol_check_group( _items_array );
         var _items_error = circles_lib_items_check_data_coherence(), _subset = "forms" ;
         var CLOSE_FN = "CIRCLESformsFOURTHTANGENTCIRCLEclose()" ;
-        var _div_id = CIRCLESformsFOURTHTANGENTCIRCLEdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+        var _div_id = CIRCLESformsFOURTHTANGENTCIRCLEdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
         var WIDTH = 400, HEIGHT = "auto" ;
         var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-        HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsFOURTHTANGENTCIRCLEcaption + " - " + _dest_ref, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsFOURTHTANGENTCIRCLEcaption + " - " + _dest_ref, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
         HTMLcode += "<tr><td VALIGN=\"top\">" ;
         HTMLcode += "<table>" ;
     
@@ -149,9 +149,9 @@ function CIRCLESformsFOURTHTANGENTCIRCLEmain( _base_id, _move )
         HTMLcode += "<td WIDTH=\"10\"></td>" ;
         if ( _glob_method != METHOD_ALGEBRAIC )
         {
-             HTMLcode += "<td ID=\"FOURTHTANGENTinitBTN\" "+( ( _items_n == 0 || _glob_method == METHOD_NONE ) ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);circles_lib_items_init();circles_lib_popup_load('forms','fourth.tangent.circle');\"" )+">Init</td>";
+             HTMLcode += "<td ID=\"FOURTHTANGENTinitBTN\" "+( ( _items_n == 0 || _glob_method == METHOD_NONE ) ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);circles_lib_items_init();circles_lib_plugin_load('forms','fourth.tangent.circle');\"" )+">Init</td>";
              HTMLcode += "<td WIDTH=\"10\"></td>" ;
-             HTMLcode += "<td "+( ( _items_n == 0 || _glob_method == METHOD_NONE ) ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_alphabet_autoconfig_all_symbols(YES,NO,NO);circles_lib_popup_load('forms','fourth.tangent.circle');\"" )+">Set symbols</td>" ;
+             HTMLcode += "<td "+( ( _items_n == 0 || _glob_method == METHOD_NONE ) ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_alphabet_autoconfig_all_symbols(YES,NO,NO);circles_lib_plugin_load('forms','fourth.tangent.circle');\"" )+">Set symbols</td>" ;
              HTMLcode += "<td WIDTH=\"10\"></td>" ;
              HTMLcode += "<td ID=\"FOURTHTANGENTsymbolsBTN\" "+( ( _items_n == 0 || _glob_method == METHOD_NONE ) ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_symbol_zplane_display(null,null,null,YES,YES);CIRCLESformsFOURTHTANGENTCIRCLEgatherSELECTIONS();\"" )+">"+( _glob_show_symbols_zplane ? "Hide seeds" : "Show seeds" )+"</td>" ;
         }
@@ -159,7 +159,7 @@ function CIRCLESformsFOURTHTANGENTCIRCLEmain( _base_id, _move )
         HTMLcode += "<td WIDTH=\"10\"></td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsFOURTHTANGENTCIRCLEcleanCANVAS( YES, YES );\">Clean canvas</td>" ;
         HTMLcode += "<td WIDTH=\"10\"></td>" ;
-        HTMLcode += "<td "+( _items_n == 0 ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','seeds.list');\"" )+">List</td>" ;
+        HTMLcode += "<td "+( _items_n == 0 ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','seeds.list');\"" )+">List</td>" ;
 
         HTMLcode += "</tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
@@ -194,8 +194,8 @@ function CIRCLESformsFOURTHTANGENTCIRCLEmain( _base_id, _move )
         GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-        var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-        circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsFOURTHTANGENTCIRCLEcaption, CLOSE_FN );
+        var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+        circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsFOURTHTANGENTCIRCLEcaption, CLOSE_FN );
         if ( _move && _div != null ) move_div( _div.id, "RIGHT", "TOP" );
     }
     else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "This service is available only if at least 3 circles have been generated", _glob_app );

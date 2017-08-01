@@ -216,7 +216,7 @@ function circles_terminal_cmd_storage()
 																					 else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<red>Can't copy : " + _ERR_33_04 + "</red>", _par_1, _cmd_tag );
 									                         break ;
 									                         case "farey":
-			                                     if ( circles_lib_popup_exists( 'discreteness.locus', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+			                                     if ( circles_lib_plugin_exists( 'discreteness.locus', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
 			                                     {
 			                                          var _ret_chunk = CIRCLESformsDISCRETENESSLOCUSfareyCOPY( NO, YES );
 			                                          var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
@@ -249,7 +249,7 @@ function circles_terminal_cmd_storage()
 																			}
 																	}
 																);
-		                    circles_lib_popup_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
+		                    circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     }
                     break ;
                     case "create":
@@ -688,7 +688,7 @@ function circles_terminal_cmd_storage()
     																														) ;
     																									  }
     					          circles_lib_terminal_cmd_ask_yes_no( _question_array, _out_channel );
-                        circles_lib_popup_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
+                        circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     }
                     break ;
                     case "remove":
@@ -735,7 +735,7 @@ function circles_terminal_cmd_storage()
 																									     );
 																									}
 					          circles_lib_terminal_cmd_ask_yes_no( _question_array, _out_channel );
-                    circles_lib_popup_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
+                    circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     break ;
                     case "reset":
                     var _prompt_question = "Confirm to reset the storage space ?"  ;
@@ -753,7 +753,7 @@ function circles_terminal_cmd_storage()
                                                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<green>The new keys are</green> <snow>"+_new_keys.join( "</snow><green>,</green><snow>" )+"</snow>", _par_1, _cmd_tag );
 																									  }
 					          circles_lib_terminal_cmd_ask_yes_no( _question_array, _out_channel );
-                    circles_lib_popup_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
+                    circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     break ;
                     case "restore":
                     var _ret = 0, _size = 0 ;
@@ -799,7 +799,7 @@ function circles_terminal_cmd_storage()
                     						                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't restore data: the storage space includes no dictionary", _par_1, _cmd_tag );
                     						                         break ;
                     						                         case "farey":
-                                                         if ( circles_lib_popup_exists( 'discreteness.locus', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+                                                         if ( circles_lib_plugin_exists( 'discreteness.locus', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
                                                          {
                                                               var _ret_chunk = CIRCLESformsDISCRETENESSLOCUSfareyRESTORE( NO, YES );
                                                               var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
@@ -833,7 +833,7 @@ function circles_terminal_cmd_storage()
                     												  );
                                                   }
 					          circles_lib_terminal_cmd_ask_yes_no( _question_array, _out_channel );
-                    circles_lib_popup_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
+                    circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     break ;
                     case "search":
                     var _ret = 0, _size = 0 ;

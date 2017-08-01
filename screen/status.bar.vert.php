@@ -183,7 +183,7 @@
     </table>
     </td>
     <td WIDTH="2"></td>
-    <td WIDTH="6" ONCLICK="javascript:circles_lib_popup_hide_all();" TITLE="Hide all pop-ups" CLASS="status_bar_hide_all_popups"></td>
+    <td WIDTH="6" ONCLICK="javascript:circles_lib_plugin_hide_all();" TITLE="Hide all pop-ups" CLASS="status_bar_hide_all_popups"></td>
 </tr>
 <tr><td HEIGHT="2"></td></tr>
 </table>

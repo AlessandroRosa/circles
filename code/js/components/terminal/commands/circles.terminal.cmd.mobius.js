@@ -991,7 +991,7 @@ function circles_terminal_cmd_mobius()
                       else if ( _diff < _n_queue )
                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Just "+_n_queue+" entr"+(_n_queue==1?"y":"ies")+" in the queue have been saved into the storage subset '"+_subset+"'", _par_1, _cmd_tag );
                       
-                      circles_lib_popup_dispatcher_unicast_message('storage.space','forms',POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS);
+                      circles_lib_plugin_dispatcher_unicast_message('storage.space','forms',POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS);
                   }
                   else if ( !is_array( _glob_storage[ _subset ] ) )
                   circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid storage subset '"+_subset+"'", _par_1, _cmd_tag );

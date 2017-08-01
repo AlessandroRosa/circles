@@ -33,7 +33,7 @@ var _demon = new demo_n();
                   action : "click", set_value : -1, showlabel : true, desclabel : "Calling the 'Maskit embedding' form",
                   post_fn : function()
                   {
-                    circles_lib_popup_load('embeddings','maskit.once','1','0','1');
+                    circles_lib_plugin_load('embeddings','maskit.once','1','0','1');
                     circles_lib_menu_entries_update();
                   } } );
     _demon.add( { ctrl_id : "PLUGIN_PARAM_MU", time : 1.5, time_unit : "s",

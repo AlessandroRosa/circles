@@ -191,7 +191,7 @@ function CIRCLESembeddingsGRANDMAPARABOLICmain( _base_id, _move, _restore )
     GLOB_PLUGIN_BASE_ID = _clean_base_id, GLOB_PLUGIN_SUBSET = _subset ;
 
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_popup_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'grandma.parabolic', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsGRANDMAPARABOLIC_",
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'grandma.parabolic', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsGRANDMAPARABOLIC_",
 																								[ "CIRCLESembeddingsGRANDMAPARABOLIC_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGRANDMAPARABOLIC_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGRANDMAPARABOLIC_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
@@ -317,8 +317,8 @@ function CIRCLESembeddingsGRANDMAPARABOLICmain( _base_id, _move, _restore )
                      
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-    var _div = circles_lib_popup_create( _base_id, _div_id, 'embeddings', WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGRANDMAPARABOLIC_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMAPARABOLIC_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMAPARABOLIC_MAXIMIZE", _div_id ] );
+    var _div = circles_lib_plugin_create( _base_id, _div_id, 'embeddings', WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGRANDMAPARABOLIC_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMAPARABOLIC_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMAPARABOLIC_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )
 		{
 				if ( is_string( _move ) )
@@ -353,7 +353,7 @@ function CIRCLESembeddingsGRANDMAPARABOLICmain( _base_id, _move, _restore )
 
 function CIRCLESembeddingsGRANDMAPARABOLIC_CALL_METHOD( fn )
 {
-    if ( CIRCLESembeddingsGRANDMAPARABOLIC_param != 0 ) circles_lib_popup_load('forms','method', YES, 1, _glob_method, fn );
+    if ( CIRCLESembeddingsGRANDMAPARABOLIC_param != 0 ) circles_lib_plugin_load('forms','method', YES, 1, _glob_method, fn );
     else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Please, apply a solution first.", 'PLUGIN_OUTMSG' ) ;
 }
 function CIRCLESembeddingsGRANDMAPARABOLIC_MAXIMIZE( _div_id, WIDTH, HEIGHT )

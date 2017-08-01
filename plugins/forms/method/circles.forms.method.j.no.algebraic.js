@@ -92,7 +92,7 @@ function CIRCLESmethodMANAGERrepetendsPANEL()
       HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
       HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;color:"+get_color_tag_value( "gray" )+";\">The method '"+circles_lib_method_get_def( _glob_method )+"'<br>or the process '"+circles_lib_process_get_def( _glob_process )+"'<br>does not support repetends management</td></tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-      HTMLcode += "<tr><td CLASS=\"link\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:#8FBAC8;\" ONCLICK=\"javascript:circles_lib_popup_load('forms','method',NO,0,_glob_method,null);\">Reload</td></tr>" ;
+      HTMLcode += "<tr><td CLASS=\"link\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:#8FBAC8;\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','method',NO,0,_glob_method,null);\">Reload</td></tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
 		}
       
@@ -115,15 +115,15 @@ function CIRCLESformsMETHODmanagerNOALGEBRAIC( new_method, caller_fn )
        HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
        HTMLcode += "<tr>";
        HTMLcode += "<td WIDTH=\"5\"></td>" ;
-       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_popup_load('forms','seeds.list');\">List</td>" ;
+       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','seeds.list');\">List</td>" ;
        HTMLcode += "<td WIDTH=\"10\"></td>";
-       HTMLcode += "<td ID=\"ALGEBRAICinitBTN\" CLASS=\"link\" ONCLICK=\"javascript:$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);circles_lib_items_init();circles_lib_popup_load('forms','method',YES,0,"+new_method+" );\">Init</td>";
+       HTMLcode += "<td ID=\"ALGEBRAICinitBTN\" CLASS=\"link\" ONCLICK=\"javascript:$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);circles_lib_items_init();circles_lib_plugin_load('forms','method',YES,0,"+new_method+" );\">Init</td>";
        HTMLcode += "<td WIDTH=\"15\"></td>";
-       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_alphabet_autoconfig_all_symbols(YES,NO,NO);circles_lib_popup_load('forms','method',YES,0,"+new_method+");\">Set symbols</td>" ;
+       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_alphabet_autoconfig_all_symbols(YES,NO,NO);circles_lib_plugin_load('forms','method',YES,0,"+new_method+");\">Set symbols</td>" ;
        HTMLcode += "<td WIDTH=\"15\"></td>";
        HTMLcode += "<td ID=\"ALGEBRAICrenderBTN\" "+( !_glob_worker_lock ? " CLASS=\"link\" ONCLICK=\"javascript:circles_lib_method_set( _glob_method );circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_glob_target_plane,YES,YES,CHECK);\"" : " CLASS=\"linkdead\"" )+">Render</td>";
        HTMLcode += "<td WIDTH=\"10\"></td>";
-       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_popup_load('forms','help.items');\">Help</td>";
+       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','help.items');\">Help</td>";
        HTMLcode += "<td WIDTH=\"10\"></td>";
        if ( caller_fn.length > 0 )
        HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:"+caller_fn+";\">Back</td>";
@@ -143,13 +143,13 @@ function CIRCLESformsMETHODmanagerNOALGEBRAIC( new_method, caller_fn )
        HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
        HTMLcode += "<tr>";
        HTMLcode += "<td WIDTH=\"5\"></td>";
-       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_popup_load('forms','seeds.list');\">List</td>" ;
+       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','seeds.list');\">List</td>" ;
        HTMLcode += "<td WIDTH=\"15\"></td>" ;
-       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_popup_load('terminal',NO);\">Add circle</td>";
+       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_load('terminal',NO);\">Add circle</td>";
        HTMLcode += "<td WIDTH=\"15\"></td>";
-       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_popup_load('terminal',YES);\">Add map</td>";
+       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_load('terminal',YES);\">Add map</td>";
        HTMLcode += "<td WIDTH=\"15\"></td>";
-       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_popup_load('forms','help.items');\">Help</td>";
+       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','help.items');\">Help</td>";
        HTMLcode += "</tr>";
        HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
        HTMLcode += "</table>" ;

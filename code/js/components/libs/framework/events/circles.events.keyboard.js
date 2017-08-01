@@ -365,7 +365,7 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
 		            break ;
 		            case 66: // key 'B'
 								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
-		            else if ( _alt_pressed ) circles_lib_popup_load('forms','terminal',YES,1);
+		            else if ( _alt_pressed ) circles_lib_plugin_load('forms','terminal',YES,1);
 		            break ;
 		            case 67: // key 'C'
 		            if ( _glob_disk_sel_index != UNDET || safe_size( _glob_zplane_selected_items_array, 0 ) > 0 )
@@ -407,7 +407,7 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
                         if ( _glob_popup_mask == 0 ) // if it is 1, no action is performed cause windows remains on top
                         {
                             // if the pop-up window is displayed, update it
-                            circles_lib_popup_reload_basic_forms( _inserted_id );
+                            circles_lib_plugin_reload_basic_forms( _inserted_id );
                             _glob_disk_sel_index = _inserted_id ;
                         }
                      }
@@ -415,11 +415,11 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
                 break ;
 		            case 68: // key 'D'
 		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
-		            else if ( _alt_pressed ) circles_lib_popup_load('forms','dictionary');
+		            else if ( _alt_pressed ) circles_lib_plugin_load('forms','dictionary');
 		            break ;
 		            case 69: // key 'E'
 		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
-		            else if ( _alt_pressed ) circles_lib_popup_load('forms','edit.disk');
+		            else if ( _alt_pressed ) circles_lib_plugin_load('forms','edit.disk');
 		            break ;
 		            case 70: // key 'F'
 		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
@@ -433,12 +433,12 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
 		            break ;
 		            case 71: // key 'G'
 							  if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
-		            else if ( _shift_pressed ) circles_lib_popup_load('forms','edit.disk',NO,ITEM_TYPE_CIRCLE);
-		            else if ( _alt_pressed ) circles_lib_popup_load('forms','tiny.rendering');
+		            else if ( _shift_pressed ) circles_lib_plugin_load('forms','edit.disk',NO,ITEM_TYPE_CIRCLE);
+		            else if ( _alt_pressed ) circles_lib_plugin_load('forms','tiny.rendering');
 		            break ;
 		            case 72: // key 'H'
 		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
-		            else circles_lib_popup_load('forms','help.items');
+		            else circles_lib_plugin_load('forms','help.items');
 		            break ;
 		            case 73: // key 'I'
 								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
@@ -446,18 +446,18 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
 		            break ;
 		            case 74: // key 'J'
 		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
-		            else circles_lib_popup_load('forms','automaton');
+		            else circles_lib_plugin_load('forms','automaton');
 		            break ;
 		            case 76: // key 'L'
 		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
-		            else circles_lib_popup_load('forms','seeds.list');
+		            else circles_lib_plugin_load('forms','seeds.list');
 		            break ;
 		            case 77: // key 'M'
 		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
 		            else 
 								{
-										if ( _shift_pressed ) circles_lib_popup_load('forms','edit.disk',NO,ITEM_TYPE_MOBIUS);
-				            if ( _alt_pressed ) circles_lib_popup_load('forms','method',NO,_glob_method,0);
+										if ( _shift_pressed ) circles_lib_plugin_load('forms','edit.disk',NO,ITEM_TYPE_MOBIUS);
+				            if ( _alt_pressed ) circles_lib_plugin_load('forms','method',NO,_glob_method,0);
 								}
 		            break ;
 		            case 78: // key 'N'
@@ -478,7 +478,7 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
 		            break ;
 		            case 84: // key 'T'
 								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
-		            else if ( _alt_pressed ) circles_lib_popup_load('forms','terminal',YES,0);
+		            else if ( _alt_pressed ) circles_lib_plugin_load('forms','terminal',YES,0);
 		            break ;
 		            case 85: // key 'U'
 								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );

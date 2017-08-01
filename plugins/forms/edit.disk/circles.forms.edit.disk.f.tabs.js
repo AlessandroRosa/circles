@@ -524,9 +524,9 @@ function CIRCLESformsEDITDISKpropertiesCODE( _index, _items_switch )
       HTMLcode += "<tr>" ;
       HTMLcode += "<td "+( ( !_b_exists || bISNULL ) ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmarklimitset("+_index+", _glob_zplane_rendering_canvas_placeholder );\"" )+">Mark fixed points</td>" ;
       HTMLcode += "<td WIDTH=\"10\"></td>" ;
-      HTMLcode += "<td "+( _index == UNDET ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','edit.disk',NO,"+_index+");\"")+">Edit</td>" ;
+      HTMLcode += "<td "+( _index == UNDET ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,"+_index+");\"")+">Edit</td>" ;
       HTMLcode += "<td WIDTH=\"10\"></td>" ;
-      HTMLcode += "<td "+( _index == UNDET ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','watch.formula',NO,"+_index+");\"")+">Watch formula</td>" ;
+      HTMLcode += "<td "+( _index == UNDET ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','watch.formula',NO,"+_index+");\"")+">Watch formula</td>" ;
       HTMLcode += "</tr>" ;
       HTMLcode += "</table>" ;
       HTMLcode += "</td>" ;

@@ -1,6 +1,6 @@
 function CIRCLESformsEPSEDITORclose()
 {
-		circles_lib_popup_dispatcher_unicast_message( "epseditor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+		circles_lib_plugin_dispatcher_unicast_message( "epseditor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
     return YES ;
 }
 
@@ -33,10 +33,10 @@ function CIRCLESformsEPSEDITORmain( _base_id, _move )
     var _from = 0, _to = CIRCLESformsEPSEDITOR_max_entries_per_page ;
     var _viewport_dims = getViewportExtents(), _subset = "forms" ;
     var WIDTH = Math.max( safe_int( _viewport_dims[0] * 0.45, 560 ), 560 ), HEIGHT = safe_int( _viewport_dims[1] - 70, 450 );
-    var _div_id = CIRCLESformsEPSEDITORdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLESformsEPSEDITORdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLESformsEPSEDITORclose();" ;
     var HTMLcode = "<table ID=\"wnd_container_"+_div_id+"\" WIDTH=\"100%\" STYLE=\"background-color:white;\">" ;
-    HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsEPSEDITORcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "e.ps/e.ps.icon.01.16x16.png", "" );
+    HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsEPSEDITORcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "e.ps/e.ps.icon.01.16x16.png", "" );
 
     HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\" ID=\"CIRCLESformsEPSEDITORbuttonsBAR\" WIDTH=\"99%\">" ;
@@ -119,8 +119,8 @@ function CIRCLESformsEPSEDITORmain( _base_id, _move )
     GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsEPSEDITORcaption, CLOSE_FN );
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsEPSEDITORcaption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div_id, "LEFT", "TOP" );
 
     $("#CIRCLESformsEPSEDITORtextarea" ).bind( "click focus keydown",

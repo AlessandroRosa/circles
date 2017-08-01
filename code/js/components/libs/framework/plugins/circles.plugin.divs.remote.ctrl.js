@@ -1,4 +1,4 @@
-/* POPUP OBJ FIELDS MAP
+/* PLUGIN OBJ FIELDS MAP
    0 : unique id        1 : div id             2 : caption             3 : status
    4 : visible          5 : height             6 : focus flag          7 : caption class
    8 : subset           9: calling fn (name)  10 : calling fn (params) 11: array of additional fns in the context menu

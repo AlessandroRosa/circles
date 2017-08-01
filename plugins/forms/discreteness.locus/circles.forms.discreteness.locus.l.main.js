@@ -1,7 +1,7 @@
 function CIRCLESformsDISCRETENESSLOCUShelp() { circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "This form implements David Wright's application of Farey fractions", _glob_app ); }
 function CIRCLESformsDISCRETENESSLOCUSclose()
 {
-	circles_lib_popup_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+	circles_lib_plugin_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
   return YES ;
 }
 
@@ -51,11 +51,11 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
     var _max_dim_type = $( window ).height() > $( window ).width() ? 1 : 2 ;
     var _dim = _max_dim_type == 1 ? $( window ).height() : $( window ).width();
     var WIDTH = safe_int( _dim * 0.6, 400 ), HEIGHT = $( window ).height() - 70 ;
-    var _div_id = CIRCLESformsDISCRETENESSLOCUSdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLESformsDISCRETENESSLOCUSdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var _help_fn = "CIRCLESformsDISCRETENESSLOCUShelp();" ;
     _glob_current_tab['dlocus'] = 0 ;
     var HTMLcode = "<table ID=\"CIRCLESformsDISCRETENESSLOCUSmasterTABLE\" WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_popup_caption_code( _run, CIRCLESformsDISCRETENESSLOCUScaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name,
+        HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsDISCRETENESSLOCUScaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name,
                     _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png", "", _help_fn, "CIRCLESformsDISCRETENESSLOCUS" );
 
     HTMLcode += "<tr><td VALIGN=\"top\">" + CIRCLESformsDISCRETENESSLOCUSupperMENU() + "</td></tr>";
@@ -169,8 +169,8 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsDISCRETENESSLOCUScaption, "",
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsDISCRETENESSLOCUScaption, "",
                       [ "CIRCLESformsDISCRETENESSLOCUSnormalize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLESformsDISCRETENESSLOCUSminimize", _div_id ],
                       [ "CIRCLESformsDISCRETENESSLOCUSmaximize", _div_id ],
@@ -217,8 +217,8 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
       if ( CIRCLESformsDISCRETENESSLOCUSwork_layer != null )
       {
         CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( _div_id, YES ) ;
-        circles_lib_popup_dragstart_override_fn = function() { $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).offset( $( "#CIRCLESdlocusdiagramCANVAS" ).offset() ); };
-        circles_lib_popup_drag_override_fn = function() { $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).offset( $( "#CIRCLESdlocusdiagramCANVAS" ).offset() ); };
+        circles_lib_plugin_dragstart_override_fn = function() { $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).offset( $( "#CIRCLESdlocusdiagramCANVAS" ).offset() ); };
+        circles_lib_plugin_drag_override_fn = function() { $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).offset( $( "#CIRCLESdlocusdiagramCANVAS" ).offset() ); };
         POPUPlibMOVEendOVERRIDEfn = function() { $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).offset( $( "#CIRCLESdlocusdiagramCANVAS" ).offset() ); };
    	  }
     }
@@ -296,7 +296,7 @@ function CIRCLESformsDISCRETENESSLOCUSstopresize( _new_width, _new_height )
     CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( _options, YES );
 
     $( "[id^=CIRCLESformsDISCRETENESSLOCUS_TAB_]" ).height( _new_height - 134 );
-		circles_lib_popup_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_FOCUS );
+		circles_lib_plugin_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_FOCUS );
 
     CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX_CLICK(NO);
     CIRCLESformsDISCRETENESSLOCUSinitZOOMproc(NO);
@@ -807,7 +807,7 @@ function CIRCLESformsDISCRETENESSLOCUSfareyCOPY( _question, _silent )
              _new_n_farey = safe_size( _glob_storage["farey"], 0 );
              if ( _new_n_farey == _old_n_farey )
              {
-                  circles_lib_popup_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
+                  circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                   _ret_id = RET_OK ;
                   _ret_msg = "The current Farey sequence has been properly copied into 'farey' subset of storage space" ;
                   if ( !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _ret_msg, "CIRCLESformsDLOCUSoutMSG" ) ;
@@ -863,7 +863,7 @@ function CIRCLESformsDISCRETENESSLOCUScopyCOMBOonchange()
           {
 							 if ( _glob_storage['complex'] != null ) _glob_storage['complex'] = [] ;
 							 _glob_storage['complex'] = CIRCLESformsDISCRETENESSLOCUScomplex_pts_array.clone();
-               circles_lib_popup_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
+               circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
 					}
 					else
 					{
@@ -877,7 +877,7 @@ function CIRCLESformsDISCRETENESSLOCUScopyCOMBOonchange()
           {
 							 if ( _glob_storage['farey'] != null ) _glob_storage['farey'] = [] ;
 							 _glob_storage['farey'] = CIRCLESformsDISCRETENESSLOCUSpq_fracs_array.clone();
-               circles_lib_popup_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
+               circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
 					}
 					else
 					{
@@ -892,14 +892,14 @@ function CIRCLESformsDISCRETENESSLOCUScopyCOMBOonchange()
           {
 							 if ( _glob_storage['complex'] != null ) _glob_storage['complex'] = [] ;
 							 _glob_storage['complex'] = CIRCLESformsDISCRETENESSLOCUScomplex_pts_array.clone();
-               circles_lib_popup_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
+               circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
 					}
 
           if ( _mask & 2 )
           {
 							 if ( _glob_storage['farey'] != null ) _glob_storage['farey'] = [] ;
 							 _glob_storage['farey'] = CIRCLESformsDISCRETENESSLOCUSpq_fracs_array.clone();
-               circles_lib_popup_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
+               circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
 					}
 
 					if ( _mask != ( 1 | 2 ) )

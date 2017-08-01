@@ -157,7 +157,7 @@ function CIRCLESembeddingsEARLE_OUTPUT( MM_01, MM_02, _init )
         {
             $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
             $("#PLUGIN_CONTAINER_PARAMS").html( GLOB_PLUGIN_GENS_TABLE_SHOW() );
-            circles_lib_popup_dispatcher_unicast_message( 'dictionary', 'forms', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
+            circles_lib_plugin_dispatcher_unicast_message( 'dictionary', 'forms', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
         }
         else
         {

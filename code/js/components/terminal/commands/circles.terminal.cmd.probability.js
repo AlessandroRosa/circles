@@ -519,7 +519,7 @@ function circles_terminal_cmd_probability()
                                 {
                                     _glob_rnd_probability_array = _input_rnd_array.clone();
                                     circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The probability table has been changed with success", _par_1, _cmd_tag );
-                                    if ( circles_lib_popup_is_visible( "method" ) ) circles_lib_popup_dispatcher_unicast_message( 'method', 'forms', 3.31 ) ;
+                                    if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( 'method', 'forms', 3.31 ) ;
                                 }
                                 else
                                 {

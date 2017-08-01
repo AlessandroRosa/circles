@@ -243,8 +243,8 @@ function Z_PLANE_work_canvas_ondblclick( obj, event )
 			  _glob_screencircles_sel_array.push( _items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle );
 
         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
-				circles_lib_popup_dispatcher_unicast_message( 'edit.disk', "forms", 1 );
-        if ( circles_lib_popup_exists( 'edit.disk', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_popup_load('forms','edit.disk', NO, _glob_disk_sel_index );
+				circles_lib_plugin_dispatcher_unicast_message( 'edit.disk', "forms", 1 );
+        if ( circles_lib_plugin_exists( 'edit.disk', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_plugin_load('forms','edit.disk', NO, _glob_disk_sel_index );
     }
     else
     {
@@ -308,7 +308,7 @@ function Z_PLANE_work_canvas_onmouseup( obj, event )
          if ( _glob_popup_mask == 0 ) // if it is 1, no action is performed cause windows remains on top
          {
              // if the pop-up window is displayed, update it
-             circles_lib_popup_reload_basic_forms( _last_index );
+             circles_lib_plugin_reload_basic_forms( _last_index );
              _glob_disk_sel_index = _last_index ;
          }
 

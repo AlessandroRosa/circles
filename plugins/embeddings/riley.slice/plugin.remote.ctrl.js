@@ -20,12 +20,12 @@ function CIRCLESembeddingsRILEYSLICEremotectrl( _options, _return_fn )
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "embeddings", _base_id = "riley.slice" ;
-        circles_lib_popup_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
+        circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
         return 1 ;
         break ;
 				case "focus":
         var _sub = "embeddings", _base_id = "riley.slice" ;
-        circles_lib_popup_focus( _base_id, _sub );
+        circles_lib_plugin_focus( _base_id, _sub );
         return 1;
         break ;
 				case "move":

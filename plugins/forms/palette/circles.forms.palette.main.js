@@ -1,4 +1,4 @@
-function CIRCLESformsPALETTEclose() { circles_lib_popup_dispatcher_unicast_message( "palette", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); return YES ; }
+function CIRCLESformsPALETTEclose() { circles_lib_plugin_dispatcher_unicast_message( "palette", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); return YES ; }
 
 function CIRCLESformsPALETTEmain( _base_id, _move )
 {
@@ -12,9 +12,9 @@ function CIRCLESformsPALETTEmain( _base_id, _move )
 
   var CLOSE_FN = "CIRCLESformsPALETTEclose();", _subset = "forms" ;
 	var WIDTH = 300, HEIGHT = "auto" ;
-  var _div_id = CIRCLESformsPALETTEdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+  var _div_id = CIRCLESformsPALETTEdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
   var HTMLcode = "<table WIDTH=\""+WIDTH+"\">";
-      HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsPALETTEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "palette/palette.icon.01.16x16.png" );
+      HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsPALETTEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "palette/palette.icon.01.16x16.png" );
       HTMLcode += "<tr>" ;
       HTMLcode += "<td VALIGN=\"top\">" ;
 
@@ -194,8 +194,8 @@ function CIRCLESformsPALETTEmain( _base_id, _move )
       if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
       _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-      var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-      circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsPALETTEcaption );
+      var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+      circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsPALETTEcaption );
       if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );
 }
 

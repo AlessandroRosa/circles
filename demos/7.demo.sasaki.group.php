@@ -27,7 +27,7 @@ var _demon = new demo_n();
                   post_fn : function() { circles_lib_process_set(PROCESS_RANDOM);_glob_fixedpt_io=FIXEDPOINTS_IO_INPUT;circles_lib_menu_entries_update(); }
               } );
 
-    _demon.add( { post_fn : function() { circles_lib_popup_load('forms','triggers',YES); },
+    _demon.add( { post_fn : function() { circles_lib_plugin_load('forms','triggers',YES); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Opening the 'Triggers' form" } );
 
@@ -36,7 +36,7 @@ var _demon = new demo_n();
                   post_fn : function(){ _glob_triggers_table['gens_set_01'][4] = 1 ; }
                 } );
                 
-    _demon.add( { post_fn : function() { circles_lib_popup_load('embeddings','general.purpose',YES,0,YES); },
+    _demon.add( { post_fn : function() { circles_lib_plugin_load('embeddings','general.purpose',YES,0,YES); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 3, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Opening the General Purpose mask" } );
 

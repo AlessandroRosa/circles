@@ -8,12 +8,12 @@ function CIRCLESformsEDITDISKwatchFORMULAask( _item_index )
        {
           alert_plug_label( ALERT_YES, "Continue" );
           alert_plug_label( ALERT_NO, "No, stay here" );
-          alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_popup_load('forms','watch.formula',YES,'"+_item_index+"', 0 )" );
+          alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_plugin_load('forms','watch.formula',YES,'"+_item_index+"', 0 )" );
           alert_plug_fn( ALERT_NO, "alertCLOSE();" );
           alert_set_btns_width( "90px" );
           circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNO, _QUESTION_07, _glob_app );
        }
-       else circles_lib_popup_load('forms','watch.formula', YES, _item_index, 0 );
+       else circles_lib_plugin_load('forms','watch.formula', YES, _item_index, 0 );
     }
 }
 
@@ -31,7 +31,7 @@ function CIRCLESformsEDITDISKask( _item_index, _items_switch )
        {
           alert_plug_label( ALERT_YES, "Continue" );
           alert_plug_label( ALERT_NO, "No, stay here" );
-          alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_popup_load('forms','edit.disk',NO,"+_item_index+","+_items_switch+",_glob_persistent_vars['tmp_arg'])" );
+          alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_plugin_load('forms','edit.disk',NO,"+_item_index+","+_items_switch+",_glob_persistent_vars['tmp_arg'])" );
           alert_plug_fn( ALERT_NO, "alertCLOSE();" );
           alert_set_btns_width( "90px" );
           circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNO, _QUESTION_07, _glob_app );
@@ -40,7 +40,7 @@ function CIRCLESformsEDITDISKask( _item_index, _items_switch )
        {
           $("#CIRCLESeditPANELpreviousBTN").attr( "class", ( _item_index > 0 && _item_index <= ( _items_n - 1 ) ) ? "link" : "linkdead" );
           $("#CIRCLESeditPANELnextBTN").attr( "class", (_item_index >= 0 && _item_index < ( _items_n - 1 ) ) ? "link" : "linkdead" );
-          if ( _item_index >= 0 && _item_index <= ( _items_n - 1 ) ) circles_lib_popup_load('forms','edit.disk',NO,_item_index,_items_switch,_options );
+          if ( _item_index >= 0 && _item_index <= ( _items_n - 1 ) ) circles_lib_plugin_load('forms','edit.disk',NO,_item_index,_items_switch,_options );
           else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "This item index is out of current range.", 'CIRCLESformsEDITDISKoutMSG', 3000, YES ) ;
        }
     }
@@ -86,12 +86,12 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     var MOBIUSparamD = _mm_exists ? _mm.get_d() : new complex( 0.0, 0.0 );
 
     var WIDTH = 500, HEIGHT = "auto", _subset = "forms" ;                     
-    var _div_id = CIRCLESformsEDITDISKdiv_id = circles_lib_popup_build_divid( _subset, _base_id ) ;
+    var _div_id = CIRCLESformsEDITDISKdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
     var CLOSE_FN = "CIRCLESformsEDITDISKclose();" ;
     var _caption = _items_switch == ITEMS_SWITCH_SEEDS ? CIRCLESformsEDITDISKcaption01 : CIRCLESformsEDITDISKcaption02 ;
     _caption += " - index #" + _item_index + ( ( symbol.length > 0 ) ? " - Symbol : " + symbol : "" ) ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-        HTMLcode += circles_lib_popup_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
+        HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
 
     if ( _items_n > 0 )
     {
@@ -105,7 +105,7 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
         HTMLcode += "<td>Pick</td>" ;
         HTMLcode += "<td WIDTH=\"3\"></td>" ;
         HTMLcode += "<td>" ;
-        HTMLcode += "<SELECT ID=\"CIRCLESseedsCOMBO\" ONCHANGE=\"javascript:circles_lib_popup_load('forms','edit.disk', NO, this.options[this.selectedIndex].value, "+_items_switch+" );\">" ;
+        HTMLcode += "<SELECT ID=\"CIRCLESseedsCOMBO\" ONCHANGE=\"javascript:circles_lib_plugin_load('forms','edit.disk', NO, this.options[this.selectedIndex].value, "+_items_switch+" );\">" ;
         HTMLcode += "<OPTION VALUE=\"\">" ;
                  
         var SELECTED, _candidate_item_obj, _candidate_symbol ;
@@ -142,13 +142,13 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
         HTMLcode += "<td WIDTH=\"1\"></td>" ;
         if ( symbol.isAlpha() && _items_n > 0 )
         {
-            HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:var last_id = CIRCLESformsEDITDISKcreate_inverse_element(null,'"+_item_index+"');if ( last_id != "+UNDET+" ) circles_lib_popup_load('forms','edit.disk',NO,last_id);\">Create inverse</td>" ;
+            HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:var last_id = CIRCLESformsEDITDISKcreate_inverse_element(null,'"+_item_index+"');if ( last_id != "+UNDET+" ) circles_lib_plugin_load('forms','edit.disk',NO,last_id);\">Create inverse</td>" ;
             HTMLcode += "<td WIDTH=\"2\"></td>" ;
         }
 
-        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','seeds.list', NO,"+_item_index+");\">List</td>" ;
+        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','seeds.list', NO,"+_item_index+");\">List</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
-        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','help.items');\">Help</td>" ;
+        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','help.items');\">Help</td>" ;
         HTMLcode += "<td WIDTH=\"20\"></td>" ;
 
         HTMLcode += "</tr>" ;
@@ -293,7 +293,7 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td WIDTH=\"70\">Map</td>" ;
     HTMLcode += "<td WIDTH=\"11\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','mobius.maps.properties',NO,"+_item_index+");\">Properties</td>";
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','mobius.maps.properties',NO,"+_item_index+");\">Properties</td>";
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsEDITDISKwatchFORMULAask("+_item_index+");\">Watch formula</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
@@ -312,11 +312,11 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td WIDTH=\"70\">Group</td>" ;
     HTMLcode += "<td WIDTH=\"11\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_alphabet_autoconfig_all_symbols(YES,NO,NO);circles_lib_popup_load('forms','seeds.list',NO,"+_item_index+");\">Set symbols</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_alphabet_autoconfig_all_symbols(YES,NO,NO);circles_lib_plugin_load('forms','seeds.list',NO,"+_item_index+");\">Set symbols</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>";
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_items_init_wrapper_fn(null,_glob_init_mask,YES,NO);\" ID=\"EDITDISKinitBTN\">Init</td>";
     HTMLcode += "<td WIDTH=\"2\"></td>";
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_items_to_init=NO;$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);circles_lib_popup_load('forms','edit.disk',NO,"+_item_index+");\">Fix</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_items_to_init=NO;$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);circles_lib_plugin_load('forms','edit.disk',NO,"+_item_index+");\">Fix</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_items_group_test();\">Check</td>" ;
     HTMLcode += "</tr>" ;
@@ -331,10 +331,10 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
     tabberAutomatic( CIRCLESEDITtabberOptions, "CIRCLESEDIT" );
 
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div_id, "RIGHT", "TOP" );
 
     $("#CIRCLESEDITmainDIV").get(0).tabber.tabShow( _glob_current_tab['editdisk'] );

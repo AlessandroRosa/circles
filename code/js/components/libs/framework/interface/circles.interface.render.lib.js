@@ -149,7 +149,7 @@ function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _out_c
         _glob_zplaneBOTTOM = _new_right_bottom.y ;
         
 		    circles_lib_coordinates_set_core( null, null, Z_PLANE, YES, YES ) ;
-		    circles_lib_popup_dispatcher_unicast_message( "coordinates", "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
+		    circles_lib_plugin_dispatcher_unicast_message( "coordinates", "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
         var _ret_chunk = circles_lib_canvas_render_zplane(null,null,null,_clean,YES,_render,NO,YES,_out_channel);
 	      var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 	      var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "25Unknown error" ;

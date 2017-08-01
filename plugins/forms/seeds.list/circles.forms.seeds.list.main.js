@@ -21,7 +21,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
     _selected_index = safe_int( _selected_index, UNDET );
     if ( _selected_index != UNDET ) _glob_disk_sel_index = _selected_index ;
     var _subset = "forms" ;
-    var _div_id = CIRCLESformsSEEDSLISTdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLESformsSEEDSLISTdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLESformsSEEDSLISTclose();" ;
     if ( _items_n > 0 )
     {
@@ -54,7 +54,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
          var dims = getViewportExtents();
          var WIDTH = 650, HEIGHT = "auto" ;
          var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-             HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsSEEDSLISTcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "info/info.icon.01.16x16.png" );
+             HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsSEEDSLISTcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "info/info.icon.01.16x16.png" );
              HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
              HTMLcode += "<tr>" ;
              HTMLcode += "<td STYLE=\"padding-left:5px;\">"+( "Found <b>"+_items_n+"</b> "+( _items_n == 1 ? "entry" : "entries" ) )+"</td>" ;
@@ -151,7 +151,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
                   // ACTIONS
                   _glob_zplane_rendering_canvas_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
-                  HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_zplane_selected_items_array.flush();_glob_zplane_selected_items_array.push("+i+");_glob_disk_sel_index="+i+";circles_lib_canvas_render_zplane(_glob_zplane_rendering_canvas_placeholder,zplane_sm,null,YES,YES,YES,NO,YES);circles_lib_popup_load('forms','edit.disk',NO,"+i+",ITEMS_SWITCH_SEEDS);\">Edit</td>" ;
+                  HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_zplane_selected_items_array.flush();_glob_zplane_selected_items_array.push("+i+");_glob_disk_sel_index="+i+";circles_lib_canvas_render_zplane(_glob_zplane_rendering_canvas_placeholder,zplane_sm,null,YES,YES,YES,NO,YES);circles_lib_plugin_load('forms','edit.disk',NO,"+i+",ITEMS_SWITCH_SEEDS);\">Edit</td>" ;
                   HTMLcode += "<td WIDTH=\"1\"></td>" ;
                   HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:event.stopPropagation();_glob_zplane_selected_items_array.flush();_glob_zplane_selected_items_array.push("+i+");_glob_disk_sel_index="+i+";circles_lib_canvas_render_zplane(null,zplane_sm,null,YES,YES,YES,NO,YES);\">Select</td>" ;
                   HTMLcode += "<td WIDTH=\"1\"></td>" ;
@@ -218,7 +218,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
     {
         var WIDTH = 370, HEIGHT = "auto" ;
         var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-            HTMLcode += circles_lib_popup_caption_code( NO, CIRCLESformsSEEDSLISTcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id );
+            HTMLcode += circles_lib_plugin_caption_code( NO, CIRCLESformsSEEDSLISTcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id );
             HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
             HTMLcode += "<tr><td ALIGN=\"center\">"+( "Found <b>"+_items_n+"</b> Entr"+( _items_n == 1 ? "y" : "ies" ) )+"</td></tr>" ;
             HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
@@ -230,9 +230,9 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
                 HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
                 HTMLcode += "<tr>" ;
                 HTMLcode += "<td WIDTH=\"1\"></td>" ;
-                HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','edit.disk',NO,ITEM_TYPE_MOBIUS);\">Add map</td>" ;
+                HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,ITEM_TYPE_MOBIUS);\">Add map</td>" ;
                 HTMLcode += "<td WIDTH=\"1\"></td>" ;
-                HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','edit.disk',NO,ITEM_TYPE_CIRCLE);\">Add circle</td>" ;
+                HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,ITEM_TYPE_CIRCLE);\">Add circle</td>" ;
                 HTMLcode += "</tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"3\"></td><tr>" ;
                 HTMLcode += "</table>" ;
@@ -247,7 +247,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
     GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsSEEDSLISTcaption, CLOSE_FN );
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsSEEDSLISTcaption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div.id, "CENTER", "TOP" );
 }

@@ -68,7 +68,7 @@ function circles_lib_coords_confirm_zoom( _plane_type, _canvas_role, _question, 
     
     circles_lib_coordinates_set_core( null, null, _plane_type, YES, YES );
     circles_lib_coords_pickupyours_close_proc( YES, _question, _silent );
-    circles_lib_popup_reload_basic_forms();
+    circles_lib_plugin_reload_basic_forms();
 }
 
 function circles_lib_coords_pickupyours_open_proc( _plane_type )

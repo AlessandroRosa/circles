@@ -25,7 +25,7 @@ function CIRCLESformsGENERALPURPOSEdispatcher()
 		       case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
 		       var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
 		       var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
-		       circles_lib_popup_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
+		       circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
 		       break ;
 		       default: break ;
 			 }
@@ -71,13 +71,13 @@ function CIRCLESgeneralpurposeFORM( _subset, _base_id, _move, _w, _h, _caption, 
     _caption = safe_string( _caption, 'General Purpose' );
     _word_wrap = safe_int( _word_wrap, NO ), _resizable = safe_int( _resizable, NO );
     var WIDTH = safe_int( _w, 350 ), HEIGHT = safe_int( _h, "auto" );
-    var _div_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = circles_lib_plugin_build_divid( _subset, _base_id );
     if ( $("#" + _div_id).resizable('instance') != undefined ) $("#" + _div_id).resizable('destroy');
-    if ( circles_lib_popup_exists( _base_id, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_popup_destroy_wnd( _div_id );
+    if ( circles_lib_plugin_exists( _base_id, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_plugin_destroy_wnd( _div_id );
 
     var CLOSE_FN = "CIRCLESgeneralpurposeFORMclose();", _subset = "forms" ;
     var HTMLcode =  "<table ID=\"POPUPgeneralpurposesMASTERTABLE\" WIDTH=\"99%\">" ;
-        HTMLcode += circles_lib_popup_caption_code( YES, _caption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "info/info.icon.01.16x16.png" );
+        HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "info/info.icon.01.16x16.png" );
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
         HTMLcode += "<tr><td VALIGN=\"top\"><DIV ID=\"CIRCLESgeneralpurposeDIV\" STYLE=\"position:relative;"+( _word_wrap ? "word-wrap:break-word;" : "" )+"background-color:"+_bkcolor+";padding:6px;width:"+( WIDTH - 10 )+"px;height:"+(_h-7)+"px;overflow:auto;\" CLASS=\"general_rounded_corners\">"+_html_code+"</DIV></td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
@@ -86,8 +86,8 @@ function CIRCLESgeneralpurposeFORM( _subset, _base_id, _move, _w, _h, _caption, 
         HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
         HEIGHT += 58 ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, "forms", WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( YES, _base_id, arguments.callee.name, "", _subset, OPEN, _div_id, _caption, CLOSE_FN,
+    var _div = circles_lib_plugin_create( _base_id, _div_id, "forms", WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( YES, _base_id, arguments.callee.name, "", _subset, OPEN, _div_id, _caption, CLOSE_FN,
                       [ "CIRCLESgeneralpurposeFORMnormalize", _div_id, _w, _h ],
                       [ "CIRCLESgeneralpurposeFORMminimize", _div_id, _w, _h ],
                       [ "CIRCLESgeneralpurposeFORMmaximize", _div_id, _w, _h ] );

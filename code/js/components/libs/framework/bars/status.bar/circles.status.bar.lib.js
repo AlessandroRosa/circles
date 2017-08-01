@@ -30,7 +30,7 @@ function CIRCLESbarsSTATUSBARdispatcher() // keep this fn name due to std naming
         case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
         var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
 		    var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
-		    circles_lib_popup_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
+		    circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
 		    break ;
         default: break ;
      }
@@ -43,7 +43,7 @@ function circles_lib_statusbar_log_icon_show( _show )
 	 $( "#STATUSBARextras" ).html( _show ? "<IMG TITLE=\"Detected run-time errors\" SRC=\""+_glob_path_to_img+"/icons/error/error.01.20x20.png\">" : "" );
 	 $( "#STATUSBARextras" ).css( "cursor", _show ? "pointer" : "default" ) ;
 	 $( "#STATUSBARotherAPPENDIX" ).html( _show ? "<SUB>("+safe_size( _glob_app_log, 0 )+")</SUB>" : "" ) ;
-	 if ( _show ) $( "#STATUSBARextras" ).bind( "mousedown", function(){ circles_lib_popup_load( 'forms', 'log' ) ; } ) ;
+	 if ( _show ) $( "#STATUSBARextras" ).bind( "mousedown", function(){ circles_lib_plugin_load( 'forms', 'log' ) ; } ) ;
 	 else $( "#STATUSBARextras" ).unbind( "mousedown" ) ;
 }
 
@@ -122,7 +122,7 @@ function circles_lib_statusbar_load( _orientation, _xloc, _yloc, _show, _xpos, _
        circles_lib_statusbar_set_output_stream( _glob_output_channel );
        circles_lib_statusbar_dropdown_zoom_populate();
        
-       circles_lib_popup_register( null, "CIRCLESbarsSTATUSBARdiv", "", OPEN, SHOW, "", "bars", "status.bar", NO ) ;
+       circles_lib_plugin_register( null, "CIRCLESbarsSTATUSBARdiv", "", OPEN, SHOW, "", "bars", "status.bar", NO ) ;
        
        if ( typeof _callback_fn === "function" ) _callback_fn.call( this ) ;
        return YES ;
@@ -187,9 +187,9 @@ function circles_lib_statusbar_update_list_icon()
 {
    var _len = safe_size( _glob_popups_array, 0 );
    $("#STATUSBARpopuplist").bind( "mouseover", _len > 0 ? function() { this.style.cursor = 'pointer' ; } : function() {} );
-   $("#STATUSBARpopuplist").bind( "mousedown", _len > 0 ? function() { circles_lib_popup_show_list( YES ); } : function() {} );
+   $("#STATUSBARpopuplist").bind( "mousedown", _len > 0 ? function() { circles_lib_plugin_show_list( YES ); } : function() {} );
    $("#STATUSBARpopuplist").html( _len > 0 ? "<IMG TITLE=\"Pop-ups List\" SRC=\""+_glob_path_to_img+"icons/menu/menu.icon.01.20x20.png\">" : "" );
-   if ( _len == 0 ) circles_lib_popup_show_list( HIDE );
+   if ( _len == 0 ) circles_lib_plugin_show_list( HIDE );
 }
 
 function circles_lib_statusbar_set_config_icon( _e )

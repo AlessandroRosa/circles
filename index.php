@@ -101,7 +101,7 @@ _tmp_array.flush();
 alert_set_imgfolder_path( _glob_path_to_img );
 <?php @include( $PATH_TO_CIRCLES."screen/forms.list.php" ); ?>
 CIRCLESobjectsINIT(0);
-circles_lib_popup_remotectrl_send( YES, 'tools', "general.options", 1, 2, 3, 4, 5, 6 );
+circles_lib_plugin_remotectrl_send( YES, 'tools', "general.options", 1, 2, 3, 4, 5, 6 );
 circles_lib_statusbar_load( "vert", "left", "top", NO, 10, 100 );
 </SCRIPT>
 <?php if ( array_key_exists( "demo", $_GET ) )

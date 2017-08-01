@@ -20,7 +20,7 @@ function circles_lib_canvas_after_process_main()
          _next_rendering_time = _hh + ":" + _mm + ":" + _ss;
          var HTMLcode = "<table WIDTH=\""+_DIV_W+"\">" ;
          HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-         HTMLcode += "<tr><td ALIGN=\"center\" VALIGN=\"middle\"><IMG CLASS=\"label\" ONCLICK=\"javascript:circles_lib_popup_load('forms','general.options',YES,1);\" TITLE=\"Scheduled Rendering is on\" SRC=\""+_glob_path_to_img+"icons/clock/clock.48x48.png\"></td></tr>" ;
+         HTMLcode += "<tr><td ALIGN=\"center\" VALIGN=\"middle\"><IMG CLASS=\"label\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','general.options',YES,1);\" TITLE=\"Scheduled Rendering is on\" SRC=\""+_glob_path_to_img+"icons/clock/clock.48x48.png\"></td></tr>" ;
          HTMLcode += "<tr><td STYLE=\"font-size:7pt;\" ALIGN=\"center\">Last run on "+current_time()+"</td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
          HTMLcode += "<tr><td STYLE=\"font-size:7pt;\" ALIGN=\"center\">Next render scheduled at</td></tr>" ;
@@ -120,8 +120,8 @@ function circles_lib_canvas_after_process_main()
 		 $.each( _popups_msg,
 		 				 function( _i, _chunk )
 		 				 {
-								 if ( circles_lib_popup_exists( _chunk[1], POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
-								 circles_lib_popup_dispatcher_unicast_message( _chunk[1], _chunk[0], _chunk[2] );
+								 if ( circles_lib_plugin_exists( _chunk[1], POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+								 circles_lib_plugin_dispatcher_unicast_message( _chunk[1], _chunk[0], _chunk[2] );
 						 }
 		 			 ) ;
 

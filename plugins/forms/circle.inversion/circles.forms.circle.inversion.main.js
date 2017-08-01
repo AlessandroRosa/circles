@@ -10,9 +10,9 @@ function CIRCLESformsCIRCLEINVERSIONmain( _base_id, _move )
     var _items_n = circles_lib_count_itemms(_items_array);
     var _run = _items_n > 0, _subset = "forms" ;
     var WIDTH = 400, HEIGHT = 300 ;
-    var _div_id = CIRCLESformsCIRCLEINVERSIONdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLESformsCIRCLEINVERSIONdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-        HTMLcode += circles_lib_popup_caption_code( _run, CIRCLESformsCIRCLEINVERSIONcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
+        HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsCIRCLEINVERSIONcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
 
     HTMLcode += "<tr>" ;
     HTMLcode += "<td VALIGN=\"top\">" ;

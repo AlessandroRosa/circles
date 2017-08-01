@@ -2,7 +2,7 @@ function CIRCLESformsAUTOMATONclose()
 {
 		if ( !CIRCLESformsAUTOMATONpending )
 		{
-		    circles_lib_popup_dispatcher_unicast_message( "automaton", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+		    circles_lib_plugin_dispatcher_unicast_message( "automaton", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
 				return YES ;
 		}
 		else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "There are pending entries needing to be filled and saved", _glob_app );		
@@ -49,9 +49,9 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
     var CLOSE_FN = "CIRCLESformsAUTOMATONclose()" ;
     var WIDTH = Math.max( 500, $(window).width() * 0.38 ), HEIGHT = "auto" ;
     var _subset = "forms" ;
-    var _div_id = CIRCLESformsAUTOMATONdiv_id = circles_lib_popup_build_divid( _subset, _base_id ) ;
+    var _div_id = CIRCLESformsAUTOMATONdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
     var HTMLcode = "<table WIDTH=\"100%\" BORDER=\"0\">" ;
-        HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsAUTOMATONcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsAUTOMATONcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
 																				 "", "", "CIRCLESformsAUTOMATON" );
         HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
 				HTMLcode += "<tr>" ;
@@ -82,8 +82,8 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
     GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsAUTOMATONcaption, CLOSE_FN,
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsAUTOMATONcaption, CLOSE_FN,
                       [ "CIRCLESformsAUTOMATONnormalize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLESformsAUTOMATONminimize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLESformsAUTOMATONmaximize", _div_id, WIDTH, HEIGHT ] );
@@ -108,7 +108,7 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
     $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });
 
     CIRCLESformsAUTOMATONtablePULLOUT( YES );
-    circles_lib_popup_dispatcher_unicast_message( 'dictionary', "forms", 2.1 );
+    circles_lib_plugin_dispatcher_unicast_message( 'dictionary', "forms", 2.1 );
     $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESformsAUTOMATONload ) } ;
 }
 

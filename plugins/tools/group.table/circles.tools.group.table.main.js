@@ -1,6 +1,6 @@
 function CIRCLEStoolsGROUPTABLEclose()
 {
-		circles_lib_popup_dispatcher_unicast_message( CIRCLEStoolsGROUPTABLEuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+		circles_lib_plugin_dispatcher_unicast_message( CIRCLEStoolsGROUPTABLEuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
 		return YES ;
 }
 
@@ -40,9 +40,9 @@ function CIRCLEStoolsGROUPTABLEmain( _base_id, _move )
 		var _items_n = _glob_items_switch == ITEMS_SWITCH_SEEDS ? circles_lib_count_seeds() : circles_lib_count_gens();
     var WIDTH = Math.max( Math.min( $(window).width(), _items_n * 140 ), 480 ), HEIGHT = 180 ;
     var CLOSE_FN = "CIRCLEStoolsGROUPTABLEclose();", _run = YES, _subset = "tools" ;
-    var _div_id = CIRCLEStoolsGROUPTABLEdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLEStoolsGROUPTABLEdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
 	  var HTMLcode = "<table ID=\"CIRCLEStoolsGROUPTABLEmasterTABLE\" WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_popup_caption_code( YES, CIRCLEStoolsGROUPTABLEcaption, 5, 1, CLOSE_FN,
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLEStoolsGROUPTABLEcaption, 5, 1, CLOSE_FN,
 																				 WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
 																				 "", null, "" );
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
@@ -84,8 +84,8 @@ function CIRCLEStoolsGROUPTABLEmain( _base_id, _move )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'tools', OPEN, _div_id, CIRCLEStoolsGROUPTABLEcaption, CLOSE_FN,
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'tools', OPEN, _div_id, CIRCLEStoolsGROUPTABLEcaption, CLOSE_FN,
                       [ "CIRCLEStoolsGROUPTABLEnormalize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLEStoolsGROUPTABLEminimize", _div_id ],
                       [ "CIRCLEStoolsGROUPTABLEmaximize", _div_id ],

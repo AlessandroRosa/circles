@@ -28,7 +28,7 @@ function CIRCLESformsAUTOMATONdispatcher()
 		       if ( _sw < $( "#"+_div_id ).width() )
 		       {
 		         		var _resize_fns = [ "CIRCLESformsAUTOMATONmaximize", _div_id, "", "" ] ; 
-				        circles_lib_popup_maximize( _div_id, _resize_fns.join( "|" ) ) ;
+				        circles_lib_plugin_maximize( _div_id, _resize_fns.join( "|" ) ) ;
 					 }
            break ;
            case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
@@ -44,19 +44,19 @@ function CIRCLESformsAUTOMATONdispatcher()
            if ( $("#" + CIRCLESformsAUTOMATONdiv_id).resizable('instance') != undefined )
            $("#" + CIRCLESformsAUTOMATONdiv_id).resizable('destroy');
 
-          circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
+          circles_lib_plugin_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
            break ;
 		          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
 		          var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
 		          var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
-		          circles_lib_popup_load( _subset, _base_id, NO ) ;
+		          circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		          break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
 		       var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
 		       var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
-		       circles_lib_popup_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
+		       circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
 		       break ;
            default:
            break ;

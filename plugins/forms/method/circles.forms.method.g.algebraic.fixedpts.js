@@ -630,7 +630,7 @@ function CIRCLESformsMETHODfixedpointsLIST( _short )
            _html_code += "<tr><td HEIGHT=\"12\"></td></tr>" ;
            _html_code += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;color:"+DEFAULT_COLOR_INFO_FOR_TEXT+";\" ALIGN=\"center\">The fixed points list is empty</td></tr>" ;
            _html_code += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-           _html_code += "<tr><td CLASS=\"link\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:lightblue;\" ONCLICK=\"javascript:_glob_process=PROCESS_RANDOM;_glob_fixedpt_io=FIXEDPOINTS_IO_INPUT;circles_lib_popup_load('forms','method',NO,3,_glob_method,null);\">Reload or fill it</td></tr>" ;
+           _html_code += "<tr><td CLASS=\"link\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:lightblue;\" ONCLICK=\"javascript:_glob_process=PROCESS_RANDOM;_glob_fixedpt_io=FIXEDPOINTS_IO_INPUT;circles_lib_plugin_load('forms','method',NO,3,_glob_method,null);\">Reload or fill it</td></tr>" ;
            _html_code += "<tr><td HEIGHT=\"12\"></td></tr>" ;
            _html_code += "</table>" ;
         }

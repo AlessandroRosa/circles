@@ -1,6 +1,6 @@
 function CIRCLESformsBIPclose()
 {
-    circles_lib_popup_dispatcher_unicast_message( "bip", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+    circles_lib_plugin_dispatcher_unicast_message( "bip", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
     return YES ;
 }
 
@@ -9,7 +9,7 @@ function CIRCLESformsBIPhelp()
     var _msg = "&lsquo;Bip&rsquo; is the acronym of &lsquo;Batch Image Processing&rsquo;" + _glob_crlf.repeat(2) ;
         _msg += "The goal is to draw the Z-plane or the W-plane inside a new area with arbitrary cartesian coordinates and logical extents, larger than screen size, for example into pix being 2000x2000 pixels." + _glob_crlf.repeat(2) ;
         _msg += "The pile of layered contents for the bip box can be managed by" ;
-        _msg += " analogue actions in the W-plane layers pile, available <A HREF=\"#\" ONCLICK=\"javascript:alertCLOSE();circles_lib_popup_load('forms','general.options',YES,3);return false;\">at this link</A>" + _glob_crlf.repeat(2) ;
+        _msg += " analogue actions in the W-plane layers pile, available <A HREF=\"#\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','general.options',YES,3);return false;\">at this link</A>" + _glob_crlf.repeat(2) ;
         _msg += "Any action in the W-plane will be mirrored to the bip box, when renderings are redirected to the latter environment." ;
     circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app );
 }
@@ -43,7 +43,7 @@ function CIRCLESformsBIPmain( _base_id, _move )
       
    var CLOSE_FN = "CIRCLESformsBIPclose();" ;
    var WIDTH = Math.max( Math.min( safe_int( _glob_bip_canvas.get_width(), 0 ), 400 ), 400 ) + 20, HEIGHT = "auto", _subset = "forms" ;
-   var _div_id = CIRCLESformsBIPdiv_id = circles_lib_popup_build_divid( _subset, _base_id ) ;
+   var _div_id = CIRCLESformsBIPdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
    var _run = _items_n > 0 ;
    var _properties = CIRCLESformsBIPproperties() ;
 	 var _src_canvas_rect = new rect();
@@ -56,7 +56,7 @@ function CIRCLESformsBIPmain( _base_id, _move )
 	 
    var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESrepetendsCURRENTkey\" VALUE=\"\">" ;
    HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
-   HTMLcode += circles_lib_popup_caption_code( _run, CIRCLESformsBIPcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png", null, "CIRCLESformsBIPhelp()" );
+   HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsBIPcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png", null, "CIRCLESformsBIPhelp()" );
    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
    HTMLcode += "<tr><td HEIGHT=\"18\" ID=\"CIRCLESformsBIPoutputMSG\" ALIGN=\"center\"></td></tr>" ;
    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
@@ -133,8 +133,8 @@ function CIRCLESformsBIPmain( _base_id, _move )
    GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
    if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
    _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-   var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-   circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsBIPcaption, CLOSE_FN );
+   var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+   circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsBIPcaption, CLOSE_FN );
    if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );
    CIRCLESformsBIPcoordsMANAGER( _glob_bip_original_plane_coords );
           

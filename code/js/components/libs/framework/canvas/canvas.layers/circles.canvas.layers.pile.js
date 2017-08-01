@@ -25,7 +25,7 @@ function circles_lib_canvas_layer_create( _init_properties_array )
     else
     {
        var _div_id = "CANVAS"+_plane_def+"_"+_role_def+"_DIV" ;
-       var _div = circles_lib_popup_create( '', _div_id, '', null, null, "", "layer_canvas" );
+       var _div = circles_lib_plugin_create( '', _div_id, '', null, null, "", "layer_canvas" );
        if ( _div == null ) return null ;
        else
        {

@@ -1,6 +1,6 @@
 function CIRCLEStoolsFUNDAMENTALREGIONclose()
 {
-		circles_lib_popup_dispatcher_unicast_message( CIRCLEStoolsFUNDAMENTALREGIONuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+		circles_lib_plugin_dispatcher_unicast_message( CIRCLEStoolsFUNDAMENTALREGIONuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
 		return YES ;
 }
 
@@ -46,10 +46,10 @@ function CIRCLEStoolsFUNDAMENTALREGIONmain( _base_id, _move )
     var _dim = _max_dim_type == 1 ? $( window ).height() : $( window ).width();
     var WIDTH = safe_int( _dim * 0.6, 400 ), HEIGHT = $( window ).height() - 134 ;
     var _run = YES, _subset = "tools" ;
-    var _div_id = CIRCLEStoolsFUNDAMENTALREGIONdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLEStoolsFUNDAMENTALREGIONdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLEStoolsFUNDAMENTALREGIONclose();" ;
 	  var HTMLcode = "<table ID=\"CIRCLEStoolsFUNDAMENTALREGIONmasterTABLE\" WIDTH=\"100%\" HEIGHT=\"100%\">" ;
-        HTMLcode += circles_lib_popup_caption_code( YES, CIRCLEStoolsFUNDAMENTALREGIONcaption, 5, 1, CLOSE_FN,
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLEStoolsFUNDAMENTALREGIONcaption, 5, 1, CLOSE_FN,
 																				 WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
 																				 "", null, "" );
         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
@@ -86,8 +86,8 @@ function CIRCLEStoolsFUNDAMENTALREGIONmain( _base_id, _move )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'tools', OPEN, _div_id, CIRCLEStoolsFUNDAMENTALREGIONcaption, CLOSE_FN,
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'tools', OPEN, _div_id, CIRCLEStoolsFUNDAMENTALREGIONcaption, CLOSE_FN,
                       [ "CIRCLEStoolsFUNDAMENTALREGIONnormalize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLEStoolsFUNDAMENTALREGIONminimize", _div_id ],
                       [ "CIRCLEStoolsFUNDAMENTALREGIONmaximize", _div_id ],
@@ -144,8 +144,8 @@ function CIRCLEStoolsFUNDAMENTALREGIONmain( _base_id, _move )
 		         CIRCLEStoolsFUNDAMENTALREGIONwork_layer.innerHTML = "<CANVAS ID=\"CIRCLESfundamentalregionworklayerCANVAS\" WIDTH=\""+_canvas_w+"\" HEIGHT=\""+_canvas_w+"\" STYLE=\"width:"+_canvas_w+"px;height:"+_canvas_h+"px;background-color:transparent;\"></CANVAS>" ;
 		         $( "#CIRCLEStoolsFUNDAMENTALREGIONworkLAYER" ).offset( $( "#CIRCLESfundamentalregiondiagramCANVAS" ).offset() );
 		          
-		         circles_lib_popup_dragstart_override_fn = function() { $( "#CIRCLEStoolsFUNDAMENTALREGIONworkLAYER" ).offset( $( "#CIRCLESfundamentalregiondiagramCANVAS" ).offset() ); };
-		         circles_lib_popup_drag_override_fn = function() { $( "#CIRCLEStoolsFUNDAMENTALREGIONworkLAYER" ).offset( $( "#CIRCLESfundamentalregiondiagramCANVAS" ).offset() ); };
+		         circles_lib_plugin_dragstart_override_fn = function() { $( "#CIRCLEStoolsFUNDAMENTALREGIONworkLAYER" ).offset( $( "#CIRCLESfundamentalregiondiagramCANVAS" ).offset() ); };
+		         circles_lib_plugin_drag_override_fn = function() { $( "#CIRCLEStoolsFUNDAMENTALREGIONworkLAYER" ).offset( $( "#CIRCLESfundamentalregiondiagramCANVAS" ).offset() ); };
 		         POPUPlibMOVEendOVERRIDEfn = function() { $( "#CIRCLEStoolsFUNDAMENTALREGIONworkLAYER" ).offset( $( "#CIRCLESfundamentalregiondiagramCANVAS" ).offset() ); };
 				}
      }
@@ -174,7 +174,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONstopresize( _new_width, _new_height )
     CIRCLEStoolsFUNDAMENTALREGIONdrawCANVAS( _options, YES );
     $( "[id^=CIRCLEStoolsFUNDAMENTALREGION_TAB_]" ).width( _new_width - 10 );
     $( "[id^=CIRCLEStoolsFUNDAMENTALREGION_TAB_]" ).height( _new_height - 88 );
-		circles_lib_popup_dispatcher_unicast_message( "fundamentalregion", "tools", POPUP_DISPATCHER_UNICAST_EVENT_FOCUS );
+		circles_lib_plugin_dispatcher_unicast_message( "fundamentalregion", "tools", POPUP_DISPATCHER_UNICAST_EVENT_FOCUS );
 		CIRCLEStoolsFUNDAMENTALREGIONparamsCONTAINERresize( _new_width );
 }
 

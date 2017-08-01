@@ -4,7 +4,7 @@ function CIRCLESformsGENERALOPTIONSredirectCOMBOonchange()
 {
     _glob_target_plane = $( "#CIRCLESplaneredirectCOMBO option:selected" ).val() ;
     if ( _glob_target_plane == BIP_BOX && !_glob_bip_use )
-    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Bip box redirection requires to set bip flag on: <A HREF=\"#\" ONCLICK=\"javascript:circles_lib_popup_load('forms','bip');alertCLOSE();return false;\">open the &lsquo;Bip box&rsquo; form here</A>.", "CIRCLESformsGENERALOPTIONSoutputBOX" ) ;
+    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Bip box redirection requires to set bip flag on: <A HREF=\"#\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','bip');alertCLOSE();return false;\">open the &lsquo;Bip box&rsquo; form here</A>.", "CIRCLESformsGENERALOPTIONSoutputBOX" ) ;
 }
 
 function CIRCLESformsGENERALOPTIONSifsrandomOPTIONSmanager()
@@ -110,7 +110,7 @@ function CIRCLESformsGENERALOPTIONSlayersDELETE( _plane_type, _i )
           var _question = "Do you want to remove layer '" + _layer.get_role_def() + "' from the " + _layer.get_plane_def() + " layers list ?" ;
           var _reload_option = _plane_type == Z_PLANE ? 2 : 3 ;
 
-          alert_plug_fn( ALERT_YES, "circles_lib_canvas_layer_delete( "+_plane_type+", "+_i+" );alertCLOSE();circles_lib_canvas_layer_pile_build("+_plane_type+");circles_lib_popup_load('forms','general.options', NO, "+_reload_option+" );" );
+          alert_plug_fn( ALERT_YES, "circles_lib_canvas_layer_delete( "+_plane_type+", "+_i+" );alertCLOSE();circles_lib_canvas_layer_pile_build("+_plane_type+");circles_lib_plugin_load('forms','general.options', NO, "+_reload_option+" );" );
           alert_plug_fn( ALERT_NO, "alertCLOSE();" );
           circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, _question, _glob_app );
 
@@ -185,7 +185,7 @@ function CIRCLESformsGENERALOPTIONSlayersCREATE( _plane_type )
        else
        {
           var _reload_option = _plane_type == Z_PLANE ? 2 : 3 ;
-          alert_plug_fn( ALERT_SUCCESS, "alertCLOSE();circles_lib_popup_load('forms','general.options', NO, "+_reload_option+" );", _glob_app );
+          alert_plug_fn( ALERT_SUCCESS, "alertCLOSE();circles_lib_plugin_load('forms','general.options', NO, "+_reload_option+" );", _glob_app );
           circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The layer with symbol '"+_role_def+"' has been created with success in the "+_plane_def+" layers list.", _glob_app );
        }
     }
@@ -213,7 +213,7 @@ function CIRCLESformsGENERALOPTIONSlayersSWAP( _plane_type, _layer_pos_index1, _
     }
 
     var _reload_option = _plane_type == Z_PLANE ? 2 : 3 ;
-    circles_lib_popup_load('forms','general.options', NO, _reload_option );
+    circles_lib_plugin_load('forms','general.options', NO, _reload_option );
     return YES ;
 }
 
@@ -754,7 +754,7 @@ function CIRCLESformsGENERALOPTIONSreset( _question, _silent, _out_channel )
         $("#CIRCLESgeneraloptionsSETTINGSaccuracyEDIT").val( _glob_accuracy );
         $("#CIRCLESgeneraloptionsSETTINGSticksEDIT").val( _glob_ticks_count );
 
-        circles_lib_popup_load('forms','general.options', NO, 0 );
+        circles_lib_plugin_load('forms','general.options', NO, 0 );
         circles_lib_canvas_layer_pile_clean_per_plane( Z_PLANE, UNDET, YES, _out_channel );
         circles_lib_canvas_layer_pile_clean_per_plane( W_PLANE, UNDET, YES, _out_channel );
           

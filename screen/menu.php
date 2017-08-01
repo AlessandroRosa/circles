@@ -202,7 +202,7 @@
 		                  $PARAMS_STR = implode( ",", $PARAMS_ARRAY ) ;
 		                  
                       $HTMLcode .= "<li ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"
-                                        ONCLICK=\"javascript:".(strlen($APPEND_EXEC_PRE_OPEN)>0?"$APPEND_EXEC_PRE_OPEN;":"")."circles_lib_popup_load($PARAMS_STR);circles_lib_menu_entries_update();\" ID=\"plugin_$APPEND_BASEID_CLEAN\"><a>$APPEND_CAPTION</a></li>
+                                        ONCLICK=\"javascript:".(strlen($APPEND_EXEC_PRE_OPEN)>0?"$APPEND_EXEC_PRE_OPEN;":"")."circles_lib_plugin_load($PARAMS_STR);circles_lib_menu_entries_update();\" ID=\"plugin_$APPEND_BASEID_CLEAN\"><a>$APPEND_CAPTION</a></li>
                                     <SCRIPT LANGUAGE=\"javascript\" TYPE=\"text/javascript\">_tmp_array['$APPEND_BASEID_CLEAN']='$APPEND_FOLDER';</SCRIPT>" ;
                   }
                   else MENUappendDEEPdown( $SUBSET, $NODE, $HTMLcode );
@@ -239,7 +239,7 @@
                   $PARAMS_STR = implode( ",", $PARAMS_ARRAY ) ;
 		                  
                   $HTMLcode .= "<li ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"
-                                    ONCLICK=\"javascript:".(strlen($APPEND_EXEC_PRE_OPEN)>0?"$APPEND_EXEC_PRE_OPEN;":"")."circles_lib_popup_load($PARAMS_STR);circles_lib_menu_entries_update();\" ID=\"plugin_$APPEND_BASEID_CLEAN\"><a>$APPEND_CAPTION</a></li>" ;
+                                    ONCLICK=\"javascript:".(strlen($APPEND_EXEC_PRE_OPEN)>0?"$APPEND_EXEC_PRE_OPEN;":"")."circles_lib_plugin_load($PARAMS_STR);circles_lib_menu_entries_update();\" ID=\"plugin_$APPEND_BASEID_CLEAN\"><a>$APPEND_CAPTION</a></li>" ;
                   $HTMLcode .= "<SCRIPT LANGUAGE=\"javascript\" TYPE=\"text/javascript\">_tmp_array['$APPEND_BASEID_CLEAN']='$APPEND_FOLDER';</SCRIPT>" ;
               }
               else if ( $BASE == 0 )

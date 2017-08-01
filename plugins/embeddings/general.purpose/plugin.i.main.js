@@ -73,7 +73,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     GLOB_PLUGIN_BASE_ID = _clean_base_id, GLOB_PLUGIN_SUBSET = _subset ;
 
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_popup_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'general.purpose', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsGENERALPURPOSE_",
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'general.purpose', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsGENERALPURPOSE_",
 																								[ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
@@ -411,8 +411,8 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
                      
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-    var _div = circles_lib_popup_create( _base_id, _div_id, 'embeddings', WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id ] );
+    var _div = circles_lib_plugin_create( _base_id, _div_id, 'embeddings', WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )
 		{
 				if ( is_string( _move ) )
@@ -741,7 +741,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
                 GLOB_PLUGIN_WIZARD_STEP(1);
               	circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "The group has been generated with success. Now render it !", 'PLUGIN_OUTMSG' ) ;
                 CIRCLESembeddingsGENERALPURPOSE_GENS_REGISTER();
-        			  circles_lib_popup_dispatcher_unicast_message( 'dictionary', 'forms', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
+        			  circles_lib_plugin_dispatcher_unicast_message( 'dictionary', 'forms', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
                 $("[id$=initBTN]").css( "color", DEFAULT_COLOR_STD );
                 $("[id$=renderBTN]").css( "color", DEFAULT_COLOR_ERROR );
             }
@@ -755,7 +755,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 		}
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_CALL_METHOD( fn ) { circles_lib_popup_load('forms','method', YES, 0, _glob_method, fn ); }
+function CIRCLESembeddingsGENERALPURPOSE_CALL_METHOD( fn ) { circles_lib_plugin_load('forms','method', YES, 0, _glob_method, fn ); }
 
 function CIRCLESembeddingsGENERALPURPOSE_PARSE( a_formula, b_formula, c_formula, d_formula )
 {

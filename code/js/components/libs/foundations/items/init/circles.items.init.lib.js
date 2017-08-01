@@ -174,7 +174,7 @@ function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_ma
           if ( _check_group != GROUP_TEST_ERR_OK )
           {
              var errMSG = circles_lib_symbol_get_err_def( _check_group, _out_channel );
-             if ( circles_lib_popup_exists( 'seeds.list', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+             if ( circles_lib_plugin_exists( 'seeds.list', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
              {
                 if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, errMSG, _glob_app );
                 return [ RET_ERROR, errMSG ];
@@ -292,11 +292,11 @@ function circles_lib_items_init( _index, _question, _silent, _init_mask, _report
        _glob_alphabet = circles_lib_alphabet_get();
        if ( _ret_id == RET_OK )
        {
-          if ( circles_lib_popup_is_visible( "method" ) ) circles_lib_popup_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
-          if ( circles_lib_popup_is_visible( "method" ) ) circles_lib_popup_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
+          if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
+          if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
        }
 
-       circles_lib_popup_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
+       circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
        return [ _ret_id, ( _report_text.length > 0 ? _report_text + _glob_crlf : "" ) + _ret_msg ] ;
     }
 }

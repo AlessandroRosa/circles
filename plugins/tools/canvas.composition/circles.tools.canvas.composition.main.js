@@ -1,6 +1,6 @@
 function CIRCLEStoolsCANVASCOMPOSITIONclose()
 {
-		circles_lib_popup_dispatcher_unicast_message( CIRCLEStoolsCANVASCOMPOSITIONuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+		circles_lib_plugin_dispatcher_unicast_message( CIRCLEStoolsCANVASCOMPOSITIONuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
 		return YES ;
 }
 
@@ -42,10 +42,10 @@ function CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, _move )
     var _dim = _max_dim_type == 1 ? $( window ).height() : $( window ).width();
     var _dim = Math.min( $(window).width() - 130, $(window).height() - 130 ) ;
     var WIDTH = _dim, HEIGHT = _dim, _run = YES, _subset = "tools" ;
-    var _div_id = CIRCLEStoolsCANVASCOMPOSITIONdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLEStoolsCANVASCOMPOSITIONdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLEStoolsCANVASCOMPOSITIONclose();" ;
 	  var HTMLcode = "<table ID=\"CIRCLEStoolsCANVASCOMPOSITIONmasterTABLE\" WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_popup_caption_code( YES, CIRCLEStoolsCANVASCOMPOSITIONcaption, 5, 1, CLOSE_FN,
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLEStoolsCANVASCOMPOSITIONcaption, 5, 1, CLOSE_FN,
 																				 WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
 																				 "", null, "" );
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
@@ -165,8 +165,8 @@ function CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, _move )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'tools', OPEN, _div_id, CIRCLEStoolsCANVASCOMPOSITIONcaption, CLOSE_FN,
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'tools', OPEN, _div_id, CIRCLEStoolsCANVASCOMPOSITIONcaption, CLOSE_FN,
                       [ "CIRCLEStoolsCANVASCOMPOSITIONnormalize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLEStoolsCANVASCOMPOSITIONminimize", _div_id ],
                       [ "CIRCLEStoolsCANVASCOMPOSITIONmaximize", _div_id ],

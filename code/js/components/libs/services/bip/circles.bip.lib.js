@@ -1,14 +1,14 @@
 function circles_lib_bip_activate( bACTIVATE )
 {
     _glob_persistent_vars['old_target_plane'] = _glob_target_plane ;
-		_glob_target_plane = bACTIVATE ? BIP_BOX : ( circles_lib_popup_exists( "discreteness.locus", POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ? D_LOCUS : W_PLANE ) ;
+		_glob_target_plane = bACTIVATE ? BIP_BOX : ( circles_lib_plugin_exists( "discreteness.locus", POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ? D_LOCUS : W_PLANE ) ;
     bACTIVATE ? circles_lib_statusbar_set_config_icon( CONFIG_BIPBOX ) : circles_lib_statusbar_set_config_icon( CONFIG_STD );
 
-    if ( circles_lib_popup_exists( "general.options", POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
-    circles_lib_popup_dispatcher_unicast_message( "general.options", "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS, 1 );
+    if ( circles_lib_plugin_exists( "general.options", POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+    circles_lib_plugin_dispatcher_unicast_message( "general.options", "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS, 1 );
 
-    if ( circles_lib_popup_exists( "discreteness.locus", POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
-    circles_lib_popup_dispatcher_unicast_message( "discreteness.locus", "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
+    if ( circles_lib_plugin_exists( "discreteness.locus", POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+    circles_lib_plugin_dispatcher_unicast_message( "discreteness.locus", "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
 }
 
 function circles_lib_bip_apply_settings( _out_channel, _question, _silent, _update,

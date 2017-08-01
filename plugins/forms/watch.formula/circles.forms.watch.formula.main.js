@@ -20,11 +20,11 @@ function CIRCLESformsWATCHFORMULAmain( _base_id, _move, index, _items_switch )
           var D = ITEM.map.get_d();  var D_formula = circles_lib_math_parse_formula( D.formula() );
 
           var WIDTH = 400, HEIGHT = "auto", _subset = "forms" ;
-          var _div_id = CIRCLESformsWATCHFORMULAdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+          var _div_id = CIRCLESformsWATCHFORMULAdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
           var _caption = CIRCLESformsWATCHFORMULAcaption + " ( Symbol "+_symbol+" )" ;
           var CLOSE_FN = "CIRCLESformsWATCHFORMULAclose();" ;
           var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-              HTMLcode += circles_lib_popup_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
+              HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
               HTMLcode += "<tr>" ;
               HTMLcode += "<td VALIGN=\"top\">" ;
               HTMLcode += "<table ALIGN=\"center\">" ;
@@ -60,9 +60,9 @@ function CIRCLESformsWATCHFORMULAmain( _base_id, _move, index, _items_switch )
           HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
           HTMLcode += "<tr>" ;
           HTMLcode += "<td WIDTH=\"5\"></td>" ;
-          HTMLcode += "<td CLASS=\"link\" VALUE=\"List\" ONCLICK=\"javascript:circles_lib_popup_load('forms','seeds.list',NO,"+index+");\"></td>" ;
+          HTMLcode += "<td CLASS=\"link\" VALUE=\"List\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','seeds.list',NO,"+index+");\"></td>" ;
           HTMLcode += "<td WIDTH=\"5\"></td>" ;
-          HTMLcode += "<td CLASS=\"link\" VALUE=\"Edit\" ONCLICK=\"javascript:circles_lib_popup_load('forms','edit.disk',NO,"+index+");\"></td>" ;
+          HTMLcode += "<td CLASS=\"link\" VALUE=\"Edit\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,"+index+");\"></td>" ;
           HTMLcode += "</tr>" ;
           HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
           HTMLcode += "</table>" ;
@@ -76,9 +76,9 @@ function CIRCLESformsWATCHFORMULAmain( _base_id, _move, index, _items_switch )
           if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
           _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-          var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+          var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
           if ( _move && _div != null ) move_div( _div.id, "CENTER", "TOP" );
-          circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
+          circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
        }
     }
     else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Coordinates are not consistent with archived data", _glob_app );

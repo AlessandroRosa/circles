@@ -1,6 +1,6 @@
 function CIRCLESformsTINYRENDERINGclose( _REF_ID )
 {
-   circles_lib_popup_dispatcher_unicast_message( "tinyrendering", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE, _REF_ID );
+   circles_lib_plugin_dispatcher_unicast_message( "tinyrendering", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE, _REF_ID );
    return YES ;
 }
 
@@ -23,11 +23,11 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        _glob_tinyrender_code_array[unixtime_ms+""] = _plain_code ;
        var _REF_ID = CIRCLESformsTINYRENDERINGref_id = unixtime_ms, CLOSE_FN = "CIRCLESformsTINYRENDERINGclose("+_REF_ID+");" ;
        var CANVAS_SIZE = 160, WIDTH = $( window ).width() * 0.5, HEIGHT = "auto", _subset = "forms" ;
-       var _div_id = CIRCLESformsTINYRENDERINGdiv_id = circles_lib_popup_build_divid( _subset, _base_id ) + _REF_ID ;
+       var _div_id = CIRCLESformsTINYRENDERINGdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) + _REF_ID ;
 
        var HTMLcode = "<INPUT TYPE=\"hidden\" ID=\"POPUPrenderingREF\" VALUE=\""+_REF_ID+"\">"
        HTMLcode += "<table WIDTH=\"100%\">" ;
-       HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsTINYRENDERINGcaption, 3, YES, CLOSE_FN, "auto", HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "" );
+       HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsTINYRENDERINGcaption, 3, YES, CLOSE_FN, "auto", HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "" );
        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
        HTMLcode += "<tr>" ;
        HTMLcode += "<td VALIGN=\"top\">" ;
@@ -74,7 +74,7 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
        HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn05"+_REF_ID+"\" ONCLICK=\"javascript:CIRCLESformsTINYRENDERINGpdf('"+_div_id+"','"+_REF_ID+"');\">PDF</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn08"+_REF_ID+"\" ONCLICK=\"javascript:circles_lib_popup_load('forms','tiny.rendering', NO, '"+_REF_ID+"', YES );\">Clone me</td>" ;
+       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn08"+_REF_ID+"\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','tiny.rendering', NO, '"+_REF_ID+"', YES );\">Clone me</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
        HTMLcode += "<td CLASS=\"general_rounded_corners\" WIDTH=\"80\" STYLE=\"padding:5px;background-color:#FAFAFA;\" ID=\"CANVASwarningsSTATUS"+_REF_ID+"\" ALIGN=\"center\"></td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
@@ -91,7 +91,7 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        HTMLcode += "<table>" ;
        HTMLcode += "<tr>" ;
        HTMLcode += "<td WIDTH=\"2\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn07"+_REF_ID+"\" ONCLICK=\"javascript:circles_lib_popup_load('forms','tiny.rendering', NO, '', NO );\">New</td>" ;
+       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn07"+_REF_ID+"\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','tiny.rendering', NO, '', NO );\">New</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
        HTMLcode += "<td CLASS=\"link_rounded\" id=\"clipboard_code"+_REF_ID+"\" data-clipboard-target=\"CANVASscripttextarea"+_REF_ID+"\">Code into clipboard</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
@@ -114,8 +114,8 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-       var _div = circles_lib_popup_create( _base_id, _div_id, "forms", WIDTH, HEIGHT, HTMLcode );
-       circles_lib_popup_activate( YES, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsTINYRENDERINGcaption );
+       var _div = circles_lib_plugin_create( _base_id, _div_id, "forms", WIDTH, HEIGHT, HTMLcode );
+       circles_lib_plugin_activate( YES, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsTINYRENDERINGcaption );
        if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );
               
        tabberAutomatic( CIRCLESformsTINYRENDERINGtabberOptions, "CIRCLESformsTINYRENDERING"+_REF_ID );

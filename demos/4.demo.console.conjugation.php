@@ -34,7 +34,7 @@ var _demon = new demo_n();
                   post_fn : function() { circles_lib_process_set(PROCESS_RANDOM);_glob_fixedpt_io=FIXEDPOINTS_IO_INPUT;circles_lib_menu_entries_update(); }
               } );
 
-    _demon.add( { post_fn : function() { circles_lib_popup_load('forms','triggers',YES); },
+    _demon.add( { post_fn : function() { circles_lib_plugin_load('forms','triggers',YES); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Opening the 'Triggers' form" } );
 
@@ -51,7 +51,7 @@ var _demon = new demo_n();
                   action : "click", set_value : -1, showlabel : true, desclabel : "Calling the 'Maskit punctured once' form",
                   post_fn : function()
                   {
-                    circles_lib_popup_load('embeddings','maskit.once','1','0','1');
+                    circles_lib_plugin_load('embeddings','maskit.once','1','0','1');
                     circles_lib_menu_entries_update();
                   }
                 } );
@@ -113,11 +113,11 @@ var _demon = new demo_n();
     _demon.add( { ctrl_id : "alertYESbtn", time : 18, time_unit : "s",
                   action : "click", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { circles_lib_popup_load('forms','terminal',YES,0,YES); circles_lib_popup_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); },
+    _demon.add( { post_fn : function() { circles_lib_plugin_load('forms','terminal',YES,0,YES); circles_lib_plugin_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "dg conjugate map:D1toH apply init" ); circles_lib_popup_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'LEFT', '' ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "dg conjugate map:D1toH apply init" ); circles_lib_plugin_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'LEFT', '' ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : true, desclabel : "Conjugating the input group" } );
 

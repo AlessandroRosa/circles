@@ -22,7 +22,7 @@ function CIRCLESformsDICTIONARYdispatcher()
 		            if ( _sw < $( "#"+_div_id ).width() )
 		            {
 		            		var _resize_fns = [ "CIRCLESformsDICTIONARYmaximize", _div_id, "", "" ] ; 
-				            circles_lib_popup_maximize( _div_id, _resize_fns.join( "|" ) ) ;
+				            circles_lib_plugin_maximize( _div_id, _resize_fns.join( "|" ) ) ;
 								}
                 break ;
                 case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
@@ -33,20 +33,20 @@ function CIRCLESformsDICTIONARYdispatcher()
 					 			case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
 					 			break ;
 					 			case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
-								if ( circles_lib_popup_exists( CIRCLESformsDICTIONARYbaseid, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
-								circles_lib_popup_activate( NO, "dictionary", "forms", CLOSE, "POPUPdictionaryinputformDIV", '', "" );
+								if ( circles_lib_plugin_exists( CIRCLESformsDICTIONARYbaseid, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+								circles_lib_plugin_activate( NO, "dictionary", "forms", CLOSE, "POPUPdictionaryinputformDIV", '', "" );
 						    if ( $("#" + CIRCLESformsDICTIONARYdiv_id).resizable('instance') != undefined )
                 $("#" + CIRCLESformsDICTIONARYdiv_id).resizable('destroy');
 
-                circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
+                circles_lib_plugin_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
 					 			break ;
 		          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
 		          var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
 		          var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
-		          circles_lib_popup_load( _subset, _base_id, NO ) ;
+		          circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		          break ;
 								case 1.1: // reload main dialog
-								circles_lib_popup_load('forms','dictionary');
+								circles_lib_plugin_load('forms','dictionary');
 								break ;
                 case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
                 var _dict_size = _glob_dict_processor.sliced_dict_size();
@@ -58,7 +58,7 @@ function CIRCLESformsDICTIONARYdispatcher()
 		          case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
 		          var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
 		          var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
-		          circles_lib_popup_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
+		          circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
 		          break ;
 							case 2.1: // reload alphabet combo
 							var _combo_code = CIRCLESformsDICTIONARYgetALPHABETcomboCODE( '' );

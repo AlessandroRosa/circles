@@ -196,7 +196,7 @@ function circles_terminal_cmd_console()
                        break ;
 								       default:
                        if ( _params_assoc_array['x'].length > 0 || _params_assoc_array['y'].length > 0 )
-                       move_div( circles_lib_popup_build_divid( "forms", "terminal" ) + _glob_terminal_form_suffix, _params_assoc_array['x'], _params_assoc_array['y'] );
+                       move_div( circles_lib_plugin_build_divid( "forms", "terminal" ) + _glob_terminal_form_suffix, _params_assoc_array['x'], _params_assoc_array['y'] );
                        else circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to apply command 'console'.\nMissing action specification", _par_1, _cmd_tag );
                        break ;
                    }

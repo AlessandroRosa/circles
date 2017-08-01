@@ -112,7 +112,7 @@ function CIRCLEStoolsRAWPOINTSLISTcopyintoSTORAGE()
             $( "#CIRCLEStoolsRAWPOINTSLISTlogCONTAINER" ).html( CIRCLEStoolsRAWPOINTSLISTreport.join( "<br>" ) );
             
             _glob_storage['points'] = CIRCLEStoolsRAWPOINTSLISTpoints.clone();
-            if ( !_errors_exist ) circles_lib_popup_dispatcher_unicast_message( 'storage.space', "forms", 1 );
+            if ( !_errors_exist ) circles_lib_plugin_dispatcher_unicast_message( 'storage.space', "forms", 1 );
 
             var _msg = !_errors_exist ? "Points have been copied into storage subset with success" : "Encountered errors during the storage process" ;
             if ( _errors_exist ) _msg += " (open log for details)" ;

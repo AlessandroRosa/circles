@@ -21,12 +21,12 @@ function CIRCLESformsCIRCLEINVERSIONdispatcher()
               case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
               break ;
               case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
-          circles_lib_popup_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
+          circles_lib_plugin_activate( NO, GLOB_PLUGIN_BASE_ID, '', '', GLOB_PLUGIN_SUBSET, CLOSE, GLOB_PLUGIN_DIV_ID,'' );
               break ;
 		          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
 		          var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
 		          var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
-		          circles_lib_popup_load( _subset, _base_id, NO ) ;
+		          circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		          break ;
               case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
 	            CIRCLESformsDISCRETENESSLOCUSdrawBOUNDARY( YES );
@@ -34,7 +34,7 @@ function CIRCLESformsCIRCLEINVERSIONdispatcher()
 		          case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
 		          var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
 		          var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
-		          circles_lib_popup_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
+		          circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
 		          break ;
               default: break ;
 					 }

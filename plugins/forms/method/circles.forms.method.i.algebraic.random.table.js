@@ -9,11 +9,11 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
 			  var WIDTH = Math.max( 430, _sch_n * 68 ), HEIGHT = "auto" ;
 				var tryouts = 100, _subset = "forms"  ;
 				var _graph_html_code = CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelGRAPH( _glob_probabilityRNGmethod, _sch_n, tryouts, WIDTH - 10 );
-        var _div_id = circles_lib_popup_build_divid( 'forms', CIRCLESformsMETHODbaseid );
+        var _div_id = circles_lib_plugin_build_divid( 'forms', CIRCLESformsMETHODbaseid );
 				var _caller_fn = arguments.callee.name.toString() + "( "+_move+" )";
 	      var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
 	          HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
-	          HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsMETHODcaption, 1, YES, "", WIDTH, HEIGHT, _caller_fn, 'method.probability.distribution', _div_id, _subset, "tools/tools.01.16x16.png", "" );
+	          HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsMETHODcaption, 1, YES, "", WIDTH, HEIGHT, _caller_fn, 'method.probability.distribution', _div_id, _subset, "tools/tools.01.16x16.png", "" );
 						HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
             HTMLcode += "<tr><td VALIGN=\"top\" ID=\"METHODprobabilityGRAPHtable\" ALIGN=\"center\"><table>" ;
 	          HTMLcode += "<tr><td VALIGN=\"top\" ALIGN=\"center\">Statistics from last rendering</td></tr>" ;
@@ -96,7 +96,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
 			HTMLcode += "</table>" ;
       HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
 
-      var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+      var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
       if ( _div != null )
       {
          var _x_tag = "LEFT", _y_tag = "TOP" ; // or whatever default tags have been already set in previous implementations
@@ -108,7 +108,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
             _y_tag = _glob_popup_divs_rec_positions_array[_div.id][1].toUpperCase();
          }
 
-         circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsMETHODcaption );
+         circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsMETHODcaption );
          var _animate = _move & POPUP_REC_POSITION ? NO : YES ;
          if ( _move & POPUP_MOVE ) move_div( _div.id, _x_tag, _y_tag, null, null, _animate );
       }
@@ -131,7 +131,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY( _move )
       var _caption = "Rnd probability simulation" ;
       var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
       HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
-      HTMLcode += circles_lib_popup_caption_code( YES, _caption, 1, YES, "", WIDTH, HEIGHT, "", 'method.probability.model', _div_id, "tools/tools.01.16x16.png", "" );
+      HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, "", WIDTH, HEIGHT, "", 'method.probability.model', _div_id, "tools/tools.01.16x16.png", "" );
 			HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
       HTMLcode += "<tr><td STYLE=\"padding-left:5px;\" VALIGN=\"top\">Simulation - Applying random number generator: <b>" + _RNG_def + "</b></td></tr>" ;
 			HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
@@ -141,11 +141,11 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY( _move )
 
       HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
 
-      var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+      var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
       if ( _move && _div != null )
       {
           move_div( _div.id, "LEFT", "TOP" );
-          circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, _caption );
+          circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, _caption );
       }
 		}
 		else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't display the random generator graph: no gens available.", 'PROCESSrandomPROBABILITYoutput' ) ;

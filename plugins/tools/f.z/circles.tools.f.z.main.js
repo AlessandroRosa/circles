@@ -1,6 +1,6 @@
 function CIRCLEStoolsFZclose()
 {
-		circles_lib_popup_dispatcher_unicast_message( CIRCLEStoolsFZuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+		circles_lib_plugin_dispatcher_unicast_message( CIRCLEStoolsFZuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
 		return YES ;
 }
 
@@ -38,12 +38,12 @@ function CIRCLEStoolsFZmain( _base_id, _move )
     CIRCLEStoolsFZuniqueid = _base_id ;
     _move = safe_int( _move, YES );
     var WIDTH = 450, HEIGHT = "auto", _run = YES, _subset = "tools" ;
-    var _div_id = CIRCLEStoolsFZdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLEStoolsFZdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLEStoolsFZclose();" ;
     var _n_screen_pts = _glob_rec_canvas_entities_array.size_associative() ;
     CIRCLEStoolsFZformula = safe_string( _glob_volatile_settings['f.z.formula'], "" );
 	  var HTMLcode = "<table ID=\"CIRCLEStoolsFZmasterTABLE\" WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_popup_caption_code( YES, CIRCLEStoolsFZcaption, 5, 1, CLOSE_FN,
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLEStoolsFZcaption, 5, 1, CLOSE_FN,
 																				 WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
 																				 "", _n_screen_pts > 0 ? "CIRCLEStoolsFZhelp()" : "", "" );
         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
@@ -116,8 +116,8 @@ function CIRCLEStoolsFZmain( _base_id, _move )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, 'tools', OPEN, _div_id, CIRCLEStoolsFZcaption, CLOSE_FN,
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'tools', OPEN, _div_id, CIRCLEStoolsFZcaption, CLOSE_FN,
                       [ "CIRCLEStoolsFZnormalize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLEStoolsFZminimize", _div_id ],
                       [ "CIRCLEStoolsFZmaximize", _div_id ],

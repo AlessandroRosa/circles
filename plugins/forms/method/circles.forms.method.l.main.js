@@ -35,13 +35,13 @@ function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _call
     new_method_str = circles_lib_method_get_def( _glob_method );
       
     var WIDTH = _items_n > 0 ? 550 : 420, HEIGHT = $(window).height() * 0.82, _subset = "forms"  ;
-    var _div_id = CIRCLESformsMETHODdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLESformsMETHODdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     if ( _caller_fn.length == 0 ) _caller_fn = arguments.callee.name.toString() + "( " + _base_id + ", " + _move + ", " + _glob_method + ")" ;
     var CLOSE_FN = "CIRCLESformsMETHODclose();" ;
     var CLICK_FN = "" ;
     var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
         HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
-        HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsMETHODcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _caller_fn, _base_id, _div_id, _subset, "tools/tools.01.16x16.png", CLICK_FN );
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsMETHODcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _caller_fn, _base_id, _div_id, _subset, "tools/tools.01.16x16.png", CLICK_FN );
         HTMLcode += "<tr><td VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F2F2F2;\"><table>" ;
         HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
         HTMLcode += "<tr><td WIDTH=\"5\"></td><td>Items are switched to <b>"+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" )+"</b></td></tr>" ;
@@ -71,10 +71,10 @@ function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _call
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
     if ( _div != null )
     {
-        circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsMETHODcaption );
+        circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsMETHODcaption );
         CIRCLESformsMETHODctrls( _new_method );
         if ( _move ) move_div( _div.id, "LEFT", "TOP" );
         // fill tab with boxes and fill through all stored repetends (if any)

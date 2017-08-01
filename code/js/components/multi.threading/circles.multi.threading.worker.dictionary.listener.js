@@ -30,8 +30,8 @@ function CIRCLESmultithreadingADDdictionaryLISTENER()
             _glob_dict_processor.sliced_dictionary = is_array( msg.dict ) ? ( msg.dict.is_multidimensional() ? msg.dict.clone() : msg.dict.dismember( CIRCLESformsDICTIONARYmax_entries_per_page ).clone() ) : [] ;
             _glob_original_dict = _glob_dict_processor.sliced_dictionary ;
             
-		        if ( circles_lib_popup_exists( err_caller_id, POPUP_SEARCH_BY_CAPTION ) != UNFOUND )
-						circles_lib_popup_dispatcher_unicast_message( 'dictionary', "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
+		        if ( circles_lib_plugin_exists( err_caller_id, POPUP_SEARCH_BY_CAPTION ) != UNFOUND )
+						circles_lib_plugin_dispatcher_unicast_message( 'dictionary', "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
 
             $('[id$=renderBTN]').css('color',DEFAULT_COLOR_STD);
             $("[id$=renderBTN]").filter( function(){ return !this.id.start_with( "PLUGIN" ) } ).attr( "class", "link_rounded" );

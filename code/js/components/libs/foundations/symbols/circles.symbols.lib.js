@@ -130,7 +130,7 @@ function circles_lib_symbol_get_err_def( _ret, _out_channel )
        default: MSG = "31Unknown error" ; break ;
     }
 
-    if ( _ret != GROUP_TEST_ERR_OK && _out_channel == OUTPUT_SCREEN ) MSG += _glob_crlf + "Open the <a href=\"#\" ONCLICK=\"javascript:alertCLOSE();circles_lib_popup_load('forms','seeds.list',NO,"+UNDET+");\">circles list</a> to set it" ;
+    if ( _ret != GROUP_TEST_ERR_OK && _out_channel == OUTPUT_SCREEN ) MSG += _glob_crlf + "Open the <a href=\"#\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','seeds.list',NO,"+UNDET+");\">circles list</a> to set it" ;
     return MSG ;
 }
 
@@ -200,7 +200,7 @@ function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent
               _items_array[_index_02].original_word = _items_array[_index_02].symbol = _sym_01.trim();
               _items_array[_index_02].inverse_symbol = _inverse_sym_01.trim();
 
-              if ( _caller == 1 ) circles_lib_popup_load('forms','seeds.list');
+              if ( _caller == 1 ) circles_lib_plugin_load('forms','seeds.list');
               return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
            }
            else
@@ -265,7 +265,7 @@ function circles_lib_symbol_remove( _items_array, a, _caller, _b_inverse, _quest
              else _items_array[ a[i] ].original_word = _items_array[ a[i] ].symbol = "" ;
           }
 
-          if ( _caller == 1 ) circles_lib_popup_load('forms','seeds.list');
+          if ( _caller == 1 ) circles_lib_plugin_load('forms','seeds.list');
        }
     }
     else return NO ;

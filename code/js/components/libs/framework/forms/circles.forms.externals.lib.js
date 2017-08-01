@@ -25,9 +25,9 @@ function circles_lib_forms_adjust_position( _div_id )
 
 function circles_lib_forms_show_panel( bSHOW, _div_id ) // hide / show purposes
 {
-    circles_lib_popup_set_property( _div_id, bSHOW , POPUP_SEARCH_BY_VISIBLE );
+    circles_lib_plugin_set_property( _div_id, bSHOW , POPUP_SEARCH_BY_VISIBLE );
     var _id = !_div_id.start_with( "#" ) ? "#" + _div_id : _div_id ;
     bSHOW ? $( _id ).slideDown("slow") : $( _id ).slideUp("fast" );
-    var _ret = circles_lib_popup_get_list();
+    var _ret = circles_lib_plugin_get_list();
     $("#POPUPDIVSarrayDIV").html( _ret[0].replaceAll( "%imgpath%", _glob_path_to_img ) );
 }

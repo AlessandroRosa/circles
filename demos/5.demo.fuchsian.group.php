@@ -19,7 +19,7 @@ var _demon = new demo_n();
                   action : "hide", set_value : null, showlabel : false, desclabel : ""
                 } );
 
-    _demon.add( { post_fn : function() { circles_lib_popup_load('forms','terminal',YES,0,YES); circles_lib_popup_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); },
+    _demon.add( { post_fn : function() { circles_lib_plugin_load('forms','terminal',YES,0,YES); circles_lib_plugin_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 3, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
 
@@ -59,7 +59,7 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { circles_lib_popup_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'LEFT', '' ); },
+    _demon.add( { post_fn : function() { circles_lib_plugin_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'LEFT', '' ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 3, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
 

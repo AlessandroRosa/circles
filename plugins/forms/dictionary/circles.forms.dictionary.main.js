@@ -1,7 +1,7 @@
 function CIRCLESformsDICTIONARYinfo() { circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "Words reading direction goes from right to left", _glob_app + " - Info - Dictionary" ); }
 function CIRCLESformsDICTIONARYclose()
 {
-		circles_lib_popup_dispatcher_unicast_message( "dictionary", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+		circles_lib_plugin_dispatcher_unicast_message( "dictionary", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
     return YES ;
 }
 
@@ -72,9 +72,9 @@ function CIRCLESformsDICTIONARYmain( _base_id, _move )
         var WIDTH = _items_n > 0 ? safe_int( _viewport_width * 0.55, 450 ) : 450, HEIGHT = _items_n > 0 ? $(window).height() - 80 : 100, PALETTEcontainerWIDTH = 150 ;
         var CLOSE_FN = "CIRCLESformsDICTIONARYclose();" ;      
         var _caption = CIRCLESformsDICTIONARYcaption01, _subset = "forms" ;
-        var _div_id = CIRCLESformsDICTIONARYdiv_id = circles_lib_popup_build_divid( _subset, _base_id ) ;
+        var _div_id = CIRCLESformsDICTIONARYdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
         var HTMLcode = "<table WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_popup_caption_code( _run, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "abc/abc.icon.01.16x16.png", "", "CIRCLESformsDICTIONARYinfo()" );
+        HTMLcode += circles_lib_plugin_caption_code( _run, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "abc/abc.icon.01.16x16.png", "", "CIRCLESformsDICTIONARYinfo()" );
         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td VALIGN=\"top\" ID=\"CIRCLESformsDICTIONARYalphabetFORMcontainerUPPER\">" ;
@@ -162,7 +162,7 @@ function CIRCLESformsDICTIONARYmain( _base_id, _move )
         HTMLcode += "</tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
 
-        _glob_using_automaton = circles_lib_popup_check_property( "automaton", YES, POPUP_SEARCH_BY_VISIBLE ) ;
+        _glob_using_automaton = circles_lib_plugin_check_property( "automaton", YES, POPUP_SEARCH_BY_VISIBLE ) ;
 
         if ( !_glob_using_automaton )
         {
@@ -320,8 +320,8 @@ function CIRCLESformsDICTIONARYmain( _base_id, _move )
         GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-        var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-        circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, _caption, CLOSE_FN,
+        var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+        circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, _caption, CLOSE_FN,
                               [ "CIRCLESformsDICTIONARYnormalize", _div_id, WIDTH, HEIGHT ],
                               [ "CIRCLESformsDICTIONARYminimize", _div_id ],
                               [ "CIRCLESformsDICTIONARYmaximize", _div_id ] );
@@ -401,7 +401,7 @@ function CIRCLESformsDICTIONARYactionsIMPORTform()
      var _div_id = "POPUPdictionaryinputformDIV" ;
      var WIDTH = 340, HEIGHT = 450, boxHEIGHT = HEIGHT - 110 ;
      var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-         HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsDICTIONARYcaption02, 1, YES, "", WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "book/book.icon.16x16.png", "", "" );
+         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsDICTIONARYcaption02, 1, YES, "", WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "book/book.icon.16x16.png", "", "" );
          HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
 
          HTMLcode += "<tr>" ;
@@ -439,8 +439,8 @@ function CIRCLESformsDICTIONARYactionsIMPORTform()
 
          HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
                      
-         var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-         circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsDICTIONARYcaption02 );
+         var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+         circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsDICTIONARYcaption02 );
          if ( _div != null ) move_div( _div.id, "RIGHT", "TOP" );
 
          var _linenumbers_residual_height = boxHEIGHT - 15 ;
@@ -465,7 +465,7 @@ function CIRCLESformsDICTIONARYactionsCRASHSTRINGform()
      var _div_id = "POPUPdictionaryinputformDIV" ;
      var WIDTH = 340, HEIGHT = 450, boxHEIGHT = HEIGHT - 140 ;
      var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-         HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsDICTIONARYcaption03, 1, YES, "", WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "book/book.icon.16x16.png", "", "" );
+         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsDICTIONARYcaption03, 1, YES, "", WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "book/book.icon.16x16.png", "", "" );
          HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
 
          HTMLcode += "<tr>" ;
@@ -515,8 +515,8 @@ function CIRCLESformsDICTIONARYactionsCRASHSTRINGform()
 
          HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
                      
-         var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-         circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsDICTIONARYcaption03 );
+         var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+         circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsDICTIONARYcaption03 );
          if ( _div != null ) move_div( _div.id, "RIGHT", "TOP" );
 
          var _linenumbers_residual_height = boxHEIGHT - 15 ;

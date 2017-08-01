@@ -1,6 +1,6 @@
 function CIRCLESformsGENERALOPTIONSclose()
 {
-	  circles_lib_popup_dispatcher_unicast_message( "generaloptions", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+	  circles_lib_plugin_dispatcher_unicast_message( "generaloptions", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
     return YES ;
 }
 
@@ -40,7 +40,7 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
     else if ( _tab_index == 6 ) HEIGHT = 200 ;
     else HEIGHT = "auto" ;
 
-    var _div_id = CIRCLESformsGENERALOPTIONSdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLESformsGENERALOPTIONSdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var _caption = CIRCLESformsGENERALOPTIONScaption ;
     switch( _tab_index )
     {
@@ -54,7 +54,7 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
     }
 
      var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ALIGN=\"center\" ID=\"GENERALoptionsMASTERtable\">" ;
-         HTMLcode += circles_lib_popup_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "tools/tools.01.16x16.png" );
+         HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "tools/tools.01.16x16.png" );
          HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"18\" ID=\"CIRCLESformsGENERALOPTIONSoutputBOX\" ALIGN=\"center\"></td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
@@ -95,7 +95,7 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
      HTMLcode += "<td>Show tab</td>" ;
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
      HTMLcode += "<td>" ;
-     HTMLcode += "<SELECT ID=\"GENERALOPTIONStabsCOMBO\" ONCHANGE=\"javascript:circles_lib_popup_load('forms','general.options', NO, this.options[this.selectedIndex].value );\">" ;
+     HTMLcode += "<SELECT ID=\"GENERALOPTIONStabsCOMBO\" ONCHANGE=\"javascript:circles_lib_plugin_load('forms','general.options', NO, this.options[this.selectedIndex].value );\">" ;
      HTMLcode += "<OPTION "+( _tab_index == 1 ? "SELECTED" : "" )+" VALUE=\"1\">Basics" ;
      HTMLcode += "<OPTION "+( _tab_index == 2 ? "SELECTED" : "" )+" VALUE=\"2\">Z-plane" ;
      HTMLcode += "<OPTION "+( _tab_index == 3 ? "SELECTED" : "" )+" VALUE=\"3\">W-plane" ;
@@ -105,7 +105,7 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
      HTMLcode += "</SELECT>" ;
      HTMLcode += "</td>" ;
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
-     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','general.options', NO, $('#GENERALOPTIONStabsCOMBO option:selected').val() );\">Reload</td>" ;
+     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','general.options', NO, $('#GENERALOPTIONStabsCOMBO option:selected').val() );\">Reload</td>" ;
      HTMLcode += "<td WIDTH=\"20\"></td>" ;
      if ( _tab_index.is_one_of( 4, 5 ) )
      {
@@ -140,8 +140,8 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-     circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
      if ( _move && _div != null ) move_div( _div.id, "CENTER", "TOP" );
         
      if ( _tab_index == 2 )

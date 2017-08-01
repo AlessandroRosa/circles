@@ -1,4 +1,4 @@
-function CIRCLESformsTANGENTCIRCLEclose() { return circles_lib_popup_dispatcher_unicast_message( "tangentcircle", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
+function CIRCLESformsTANGENTCIRCLEclose() { return circles_lib_plugin_dispatcher_unicast_message( "tangentcircle", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 
 function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
 {
@@ -13,7 +13,7 @@ function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _items_n = circles_lib_count_items( _items_array ) ;
     var _subset = "forms";
-    var _div_id = CIRCLESformsTANGENTCIRCLEdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+    var _div_id = CIRCLESformsTANGENTCIRCLEdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLESformsTANGENTCIRCLEclose();";
     if ( _items_n > 0 )
     {
@@ -24,7 +24,7 @@ function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
         var _fontcolor = _glob_method == METHOD_NONE ? DEFAULT_EDIT_COLOR_DISABLED : DEFAULT_COLOR_STD ;
         var _candidate_item, _candidate_symbol ;
         var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-              HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsTANGENTCIRCLEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
+              HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsTANGENTCIRCLEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
               HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
               HTMLcode += "<tr>" ;
               HTMLcode += "<td VALIGN=\"top\">" ;
@@ -68,11 +68,11 @@ function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
                   HTMLcode += "<tr>" ;
                   HTMLcode += "<td "+( ( _items_n == 0 || _glob_method == METHOD_NONE ) ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsTANGENTCIRCLEsetSYMBOLS();\"" )+">Set symbols</td>" ;
                   HTMLcode += "<td WIDTH=\"10\"></td>" ;
-                  HTMLcode += "<td ID=\"CONSTRUCTTANGENTinitBTN\" "+( ( _items_n == 0 || _glob_method == METHOD_NONE ) ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);circles_lib_items_init();circles_lib_popup_load('forms','construct.tangent.circle');\"" )+">Init</td>";
+                  HTMLcode += "<td ID=\"CONSTRUCTTANGENTinitBTN\" "+( ( _items_n == 0 || _glob_method == METHOD_NONE ) ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);circles_lib_items_init();circles_lib_plugin_load('forms','construct.tangent.circle');\"" )+">Init</td>";
                   HTMLcode += "<td WIDTH=\"10\"></td>" ;
                   HTMLcode += "<td ID=\"CONSTRUCTTANGENTsymbolsBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_symbol_zplane_display(null,null,null,YES,YES,YES);\">"+( _glob_show_symbols_zplane ? "Hide seeds" : "Show seeds" )+"</td>" ;
                   HTMLcode += "<td WIDTH=\"10\"></td>" ;
-                  HTMLcode += "<td "+( _items_n == 0 ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','seeds.list');\"" )+">List</td>" ;
+                  HTMLcode += "<td "+( _items_n == 0 ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','seeds.list');\"" )+">List</td>" ;
                   HTMLcode += "</tr>" ;
                   HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
                   HTMLcode += "</table>" ;
@@ -87,7 +87,7 @@ function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
       {
           var WIDTH = 360, HEIGHT = "auto" ;
           var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-              HTMLcode += circles_lib_popup_caption_code( NO, CIRCLESformsTANGENTCIRCLEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id );
+              HTMLcode += circles_lib_plugin_caption_code( NO, CIRCLESformsTANGENTCIRCLEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id );
               HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
               HTMLcode += "<tr>" ;
               HTMLcode += "<td ALIGN=\"center\" STYLE=\"font-size:12pt;color:"+DEFAULT_COLOR_ERROR+";\">Service unavailable because<br>"+_ERR_33_01+"</td>" ;
@@ -101,7 +101,7 @@ function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
       GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
       if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
       _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-      var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-      circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsTANGENTCIRCLEcaption, CLOSE_FN );
+      var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+      circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsTANGENTCIRCLEcaption, CLOSE_FN );
       if ( _move && _div != null ) move_div( _div.id, "RIGHT", "TOP" );
 }

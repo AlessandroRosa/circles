@@ -223,7 +223,7 @@ function circles_terminal_cmd_plugin()
                       if ( _json != null ) { _fam = _json.fam, _def = _json.def ; }
                       if ( _fam.length > 0 && _def.length > 0 )
                       {
-                        	var _open_cmd = "circles_lib_popup_load( '"+_fam+"', '"+_def+"' );" ;
+                        	var _open_cmd = "circles_lib_plugin_load( '"+_fam+"', '"+_def+"' );" ;
                         	try{ eval( "var _return_open = " + _open_cmd + ";" ) }
                         	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
                           circles_lib_output( _out_channel, _return_open ? DISPATCH_SUCCESS : DISPATCH_ERROR, ( _return_open ? "Success" : "Failure" )+" in opening "+_fam+" "+_def, _par_1, _cmd_tag );

@@ -1,6 +1,6 @@
 function CIRCLESformsSCRIPTEDITORclose()
 {
-    circles_lib_popup_dispatcher_unicast_message( "script.editor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+    circles_lib_plugin_dispatcher_unicast_message( "script.editor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
 		return YES ;
 }
 
@@ -43,10 +43,10 @@ function CIRCLESformsSCRIPTEDITORmain( _base_id, _move )
     var TOP = 40 ;
     var WIDTH = Math.floor( $( window ).width() * 0.85 ), HEIGHT = $( window ).height() - ( TOP + 15 ) ;
     var _subset = "forms" ;
-    var _div_id = CIRCLESformsSCRIPTEDITORdiv_id = circles_lib_popup_build_divid( _subset, _base_id ), CLOSE_FN = "CIRCLESformsSCRIPTEDITORclose()" ;
+    var _div_id = CIRCLESformsSCRIPTEDITORdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ), CLOSE_FN = "CIRCLESformsSCRIPTEDITORclose()" ;
 		CIRCLESformsSCRIPTEDITORdims = [ WIDTH, HEIGHT ] ;    
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" BORDER=\"0\" HEIGHT=\""+HEIGHT+"\">" ;
-    HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsSCRIPTEDITORcaption, 3, YES, CLOSE_FN, "100%", HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
+    HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsSCRIPTEDITORcaption, 3, YES, CLOSE_FN, "100%", HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
 																		            "", "", "CIRCLESformsSCRIPTEDITOR",
 													                      [ "CIRCLESformsSCRIPTEDITORnormalize", _div_id, WIDTH, HEIGHT ],
 													                      [ "CIRCLESformsSCRIPTEDITORminimize", _div_id, WIDTH, HEIGHT ],
@@ -104,8 +104,8 @@ function CIRCLESformsSCRIPTEDITORmain( _base_id, _move )
     GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode, null, null, null, TOP );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsSCRIPTEDITORcaption, CLOSE_FN,
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode, null, null, null, TOP );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsSCRIPTEDITORcaption, CLOSE_FN,
 					                      [ "CIRCLESformsSCRIPTEDITORnormalize", _div_id, WIDTH, HEIGHT ],
 					                      [ "CIRCLESformsSCRIPTEDITORminimize", _div_id, WIDTH, HEIGHT ],
 					                      [ "CIRCLESformsSCRIPTEDITORmaximize", _div_id, WIDTH, HEIGHT ] );

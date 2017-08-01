@@ -91,7 +91,7 @@ function CIRCLESformsFOURTHTANGENTCIRCLEgatherSELECTIONS()
                 HTMLcode += "<td WIDTH=\"15\"></td>" ;
                 HTMLcode += "<td VALIGN=\"top\" STYLE=\"padding:6px;background-color:#A0A0A0;\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_screendisk_mark("+X+","+Y+","+RADIUS+");\">Mark circle</td>" ;
                 HTMLcode += "<td WIDTH=\"1\"></td>" ;
-                HTMLcode += "<td VALIGN=\"top\" STYLE=\"padding:6px;background-color:#A0A0A0;\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_screendisk_add_from_coords("+X+","+Y+","+RADIUS+");circles_lib_popup_load('forms','fourth.tangent.circle');\">Add circle</td>" ;
+                HTMLcode += "<td VALIGN=\"top\" STYLE=\"padding:6px;background-color:#A0A0A0;\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_screendisk_add_from_coords("+X+","+Y+","+RADIUS+");circles_lib_plugin_load('forms','fourth.tangent.circle');\">Add circle</td>" ;
                 HTMLcode += "</tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"7\"></td></tr>" ;
             }

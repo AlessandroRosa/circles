@@ -19,7 +19,7 @@ var _demon = new demo_n();
                   action : "hide", set_value : null, showlabel : false, desclabel : ""
                 } );
 
-    _demon.add( { post_fn : function() { circles_lib_popup_load('embeddings','general.purpose',YES,0,YES); },
+    _demon.add( { post_fn : function() { circles_lib_plugin_load('embeddings','general.purpose',YES,0,YES); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 3, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Opening the General Purpose mask" } );
 

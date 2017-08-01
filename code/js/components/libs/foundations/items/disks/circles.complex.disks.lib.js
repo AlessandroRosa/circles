@@ -69,7 +69,7 @@ function circles_lib_complexdisk_remove_all( _items_array, _question, _silent, _
            if ( _ret_id )
            {
               circles_lib_reset_coords();
-              if ( _out_channel == OUTPUT_SCREEN ) circles_lib_popup_reload_basic_forms();
+              if ( _out_channel == OUTPUT_SCREEN ) circles_lib_plugin_reload_basic_forms();
               _glob_disk_sel_index = UNDET, _glob_items_to_init = NO ;
               $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
               var _msg = "All disks have been removed with success" ;
@@ -339,10 +339,10 @@ function circles_lib_complexdisk_remove( _items_array, _question, _silent, _forc
           var _last_index = _n_disks_after - 1 ;
           if ( _last_index >= 0 && _out_channel == OUTPUT_SCREEN )
           {
-             if ( circles_lib_popup_exists( 'edit.disk', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
-             circles_lib_popup_load('forms','edit.disk', NO, _last_index );
+             if ( circles_lib_plugin_exists( 'edit.disk', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+             circles_lib_plugin_load('forms','edit.disk', NO, _last_index );
           }
-          else if ( _n_disks == 0 ) circles_lib_popup_activate( NO, "edit.disk", "", "", "forms", CLOSE, "POPUPeditdiskDIV", "" );
+          else if ( _n_disks == 0 ) circles_lib_plugin_activate( NO, "edit.disk", "", "", "forms", CLOSE, "POPUPeditdiskDIV", "" );
 
           var _success = _n_disks_before > _n_disks_after ? YES : NO ;
           var _n_removed = safe_size( _removed_symbols_array, 0 ), _msg = "" ;

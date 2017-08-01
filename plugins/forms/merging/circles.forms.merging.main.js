@@ -12,10 +12,10 @@ function CIRCLESformsMERGINGmain( _base_id, _move, _plane_type )
          var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
          var _n_layers = safe_size( _layers_array, 0 );
          var WIDTH = 260, HEIGHT = "auto", _subset = "forms" ;
-         var _div_id = CIRCLESformsMERGINGdiv_id = circles_lib_popup_build_divid( _subset, _base_id ) ;
+         var _div_id = CIRCLESformsMERGINGdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
          var CLOSE_FN = "CIRCLESformsMERGINGclose()" ;
          var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-             HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsMERGINGcaption + " - " + _plane_def, 1,
+             HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsMERGINGcaption + " - " + _plane_def, 1,
 						 																	YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name,
 																							_base_id, _div_id, _subset );
              HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
@@ -26,7 +26,7 @@ function CIRCLESformsMERGINGmain( _base_id, _move, _plane_type )
           var _tab_index = _plane_type == Z_PLANE ? 2 : 3 ;
           var _render_cmd = "CIRCLESformsMERGINGrender( "+_plane_type+", "+_n_layers+" )" ;
 
-              HTMLcode += "<tr><td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#FFEBB8;color:#505050;padding:6px;\"><A HREF=\"#\" ONCLICK=\"javascript:if($('#POPUPgeneraloptionsDIV').resizable('instance')!=undefined){$('#POPUPgeneraloptionsDIV').resizable('destroy');}circles_lib_popup_load('forms','general.options',YES,"+_tab_index+");return false;\">If you don't want transparency to be set as default background color, just open the '"+_plane_def+"' tab in the general options and change the backmost layer color</A></td></tr>" ;
+              HTMLcode += "<tr><td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#FFEBB8;color:#505050;padding:6px;\"><A HREF=\"#\" ONCLICK=\"javascript:if($('#POPUPgeneraloptionsDIV').resizable('instance')!=undefined){$('#POPUPgeneraloptionsDIV').resizable('destroy');}circles_lib_plugin_load('forms','general.options',YES,"+_tab_index+");return false;\">If you don't want transparency to be set as default background color, just open the '"+_plane_def+"' tab in the general options and change the backmost layer color</A></td></tr>" ;
               HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
               HTMLcode += "<tr>" ;
               HTMLcode += "<td VALIGN=\"top\">" ;
@@ -72,8 +72,8 @@ function CIRCLESformsMERGINGmain( _base_id, _move, _plane_type )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-          var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-          circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsMERGINGcaption + " - " + _plane_def, CLOSE_FN );
+          var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+          circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsMERGINGcaption + " - " + _plane_def, CLOSE_FN );
           if ( _move && _div != null ) move_div( _div.id, _plane_type == Z_PLANE ? "RIGHT" : "LEFT", "TOP" );
      }
 }

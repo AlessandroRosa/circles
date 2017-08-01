@@ -34,7 +34,7 @@ function GLOB_PLUGIN_PARAMS_ALL_COMPILED( _query_expr )
 function GLOB_PLUGIN_OPEN_METHOD_FORM( _fn_name )
 {
     _fn_name = safe_string( _fn_name, "" );
-    if ( circles_lib_method_check() ) circles_lib_popup_load('forms','method', YES, 0, _glob_method, _fn_name );
+    if ( circles_lib_method_check() ) circles_lib_plugin_load('forms','method', YES, 0, _glob_method, _fn_name );
     else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_00_01, _glob_app );
 }
 
@@ -95,7 +95,7 @@ function GLOB_PLUGIN_PARAMS_FILLER()
 {
     _init = safe_int( arguments[1], NO );
     var _index_ref = safe_string( _plugin_main_ref, "" );
-    var _popup_obj = circles_lib_popup_find_wnd( "embeddings", POPUP_SEARCH_BY_SUBSET, NO ) ;
+    var _popup_obj = circles_lib_plugin_find_wnd( "embeddings", POPUP_SEARCH_BY_SUBSET, NO ) ;
     var _subset = is_array( _popup_obj ) ? safe_string( _popup_obj[8], "" ).trim() : "" ;
     var _base_id = is_array( _popup_obj ) ? safe_string( _popup_obj[12], "" ).trim() : "" ;
     if ( _base_id.length > 0 )
@@ -182,7 +182,7 @@ function GLOB_PLUGIN_WIZARD_STEP( _step_index, _init_items, _clean, _target_plan
     {
        _glob_alphabet.flush();
        GLOB_PLUGIN_GENS_SHOW( YES );
-       circles_lib_popup_dispatcher_unicast_message( 'alphabet.colorization', 'tools', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
+       circles_lib_plugin_dispatcher_unicast_message( 'alphabet.colorization', 'tools', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
        circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES );
        if ( _init_items )
        {
@@ -392,9 +392,9 @@ function GLOB_PLUGIN_GENS_TABLE_SHOW()
           HTMLcode += "<tr>" ;
           HTMLcode += "<td "+( _n_fixed_points == 0 ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_fixedpoints_draw("+i+", _glob_zplane_rendering_canvas_placeholder );\"" )+">Mark Fixed Points</td>" ;
           HTMLcode += "<td WIDTH=\"15\"></td>" ;
-          HTMLcode += "<td "+( i == UNDET ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','edit.disk',NO,"+i+");\"" )+">Edit</td>" ;
+          HTMLcode += "<td "+( i == UNDET ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,"+i+");\"" )+">Edit</td>" ;
           HTMLcode += "<td WIDTH=\"15\"></td>" ;
-          HTMLcode += "<td "+( i == UNDET ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','watch.formula',NO,"+i+");\"" )+">Watch formula</td>" ;
+          HTMLcode += "<td "+( i == UNDET ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','watch.formula',NO,"+i+");\"" )+">Watch formula</td>" ;
           HTMLcode += "<td WIDTH=\"5\"></td>" ;
           HTMLcode += "</tr>" ;
           HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;

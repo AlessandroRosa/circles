@@ -16,8 +16,8 @@ function CIRCLESformsSEEDSLISTgeneratorsPANELask()
     if ( _glob_to_save == NO )
     {
        var YES_CMD = "circles_lib_items_init_wrapper_fn(null,YES,NO,_glob_init_mask);" ;
-       if ( circles_lib_popup_exists( 'edit.disk', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_popup_load('forms','edit.disk', NO,_glob_disk_sel_index );
-       else if ( circles_lib_popup_exists( 'seeds.list', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_popup_load('forms','seeds.list', NO, _glob_disk_sel_index );
+       if ( circles_lib_plugin_exists( 'edit.disk', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_plugin_load('forms','edit.disk', NO,_glob_disk_sel_index );
+       else if ( circles_lib_plugin_exists( 'seeds.list', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_plugin_load('forms','seeds.list', NO, _glob_disk_sel_index );
        alert_plug_label( ALERT_YES, "Init" );
        alert_plug_fn( ALERT_YES, "alertCLOSE();"+YES_CMD );
        alert_plug_fn( ALERT_NO, "alertCLOSE();" );
@@ -48,7 +48,7 @@ function CIRCLESformsSEEDSLISTbarHTMLCODE( _selected_index, _index )
         HTMLcode += "<td WIDTH=\"1\"></td>" ;
         HTMLcode += "<td ID=\"LISTinitBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_items_init_wrapper_fn(null,YES,NO,_glob_init_mask,OUTPUT_SCREEN);\">Init</td>" ;
         HTMLcode += "<td WIDTH=\"1\"></td>" ;
-        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','help.items');\">Help</td>" ;
+        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','help.items');\">Help</td>" ;
         HTMLcode += "<td WIDTH=\"25\"></td>" ;
         HTMLcode += "<td WIDTH=\"35\">Seeds</td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:var go = circles_lib_symbol_shift(null,YES);if (go){_glob_items_to_init=YES;$('[id$=initBTN]').css('color',COLOR_ERROR) ;CIRCLESformsSEEDSLISTmain(CIRCLESformsSEEDSLISTbaseid);circles_lib_canvas_render_zplane(null,null,null,YES,YES,YES,NO,YES,OUTPUT_SCREEN);}\">Shift forward</td>" ;
@@ -88,11 +88,11 @@ function CIRCLESformsSEEDSLISTbarHTMLCODE( _selected_index, _index )
         HTMLcode += "<td WIDTH=\"15\"></td>" ;
     }
     HTMLcode += "<td WIDTH=\"40\">Extras</td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','edit.disk',NO,ITEM_TYPE_CIRCLE);\">Add circle</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,ITEM_TYPE_CIRCLE);\">Add circle</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','edit.disk',NO,ITEM_TYPE_MOBIUS);\">Add map</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,ITEM_TYPE_MOBIUS);\">Add map</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_coordinates_zoomtofit(Z_PLANE,YES);circles_lib_popup_load('forms','coordinates',NO,Z_PLANE);\">Zoom to fit</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_coordinates_zoomtofit(Z_PLANE,YES);circles_lib_plugin_load('forms','coordinates',NO,Z_PLANE);\">Zoom to fit</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_colors_colorize( _glob_items_switch, NO );\">Colorize</td>" ;
     HTMLcode += "</tr>" ;

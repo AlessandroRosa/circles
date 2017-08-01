@@ -4,7 +4,7 @@ function CIRCLESformsTANGENTCIRCLEsetSYMBOLS()
     var _ret_id = safe_int( _ret_chunk[0], RET_ERROR );
     var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
     if ( _ret_id == RET_ERROR ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
-    else circles_lib_popup_load('forms','construct.tangent.circle');
+    else circles_lib_plugin_load('forms','construct.tangent.circle');
 }
 
 function CIRCLESformsTANGENTCIRCLEprocess( X, Y )

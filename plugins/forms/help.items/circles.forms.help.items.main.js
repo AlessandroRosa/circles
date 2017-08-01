@@ -10,11 +10,11 @@ function CIRCLESformsHELPITEMSmain( _base_id, _move, _items_switch )
     var _err_mask_whole = 0 ; // keeps track of which errors have been found
     var WIDTH = 320, HEIGHT = "auto", _subset = "forms" ;
     var CLOSE_FN = "CIRCLESformsHELPITEMSclose()" ;
-    var _div_id = CIRCLESformsHELPITEMSdiv_id = circles_lib_popup_build_divid( _subset, _base_id ) ;
+    var _div_id = CIRCLESformsHELPITEMSdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
     var _caption = _items_switch == ITEMS_SWITCH_SEEDS ? CIRCLESformsHELPITEMScaption01 : CIRCLESformsHELPITEMScaption02 ;
     var _are_seeds_switched = _items_switch == ITEMS_SWITCH_SEEDS ? YES : NO ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-        HTMLcode += circles_lib_popup_caption_code( _items_n > 0 ? YES : NO, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "aid/aid.16x16.png" );
+        HTMLcode += circles_lib_plugin_caption_code( _items_n > 0 ? YES : NO, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "aid/aid.16x16.png" );
         HTMLcode += "<tr>" ;
         HTMLcode += "<td VALIGN=\"top\" ALIGN=\"center\" WIDTH=\"100%\" ALIGN=\"center\">" ;
         HTMLcode += "<table ALIGN=\"center\" WIDTH=\""+WIDTH+"\">" ;
@@ -89,7 +89,7 @@ function CIRCLESformsHELPITEMSmain( _base_id, _move, _items_switch )
                 HTMLcode += "<td WIDTH=\"5\"></td>" ;
                 HTMLcode += _err_mask & 32 ? FAILcode : OKcode ;
                 HTMLcode += "<td WIDTH=\"10\"></td>" ;
-                HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','edit.disk', NO, "+i+");\">Edit</td>" ;
+                HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk', NO, "+i+");\">Edit</td>" ;
                 HTMLcode += "<td WIDTH=\"1\"></td>" ;
 
                 if ( _err_mask & 16 || _err_mask & 32 || _err_mask & 64 )
@@ -169,8 +169,8 @@ function CIRCLESformsHELPITEMSmain( _base_id, _move, _items_switch )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div.id, "CENTER", "TOP" );
 }
 
@@ -181,9 +181,9 @@ function CIRCLESformsHELPGENERATORSbarHTMLCODE( _err_mask_whole )
         HTMLcode += "<table>" ;
         HTMLcode += "<tr>";
         HTMLcode += "<td WIDTH=\"5\"></td>";
-        HTMLcode += "<td WIDTH=\"50\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','edit.disk',NO,ITEM_TYPE_CIRCLE);\">Add circle</td>";
+        HTMLcode += "<td WIDTH=\"50\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,ITEM_TYPE_CIRCLE);\">Add circle</td>";
         HTMLcode += "<td WIDTH=\"1\"></td>";
-        HTMLcode += "<td WIDTH=\"50\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_popup_load('forms','edit.disk',NO,ITEM_TYPE_MOBIUS);\">Add map</td>";
+        HTMLcode += "<td WIDTH=\"50\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,ITEM_TYPE_MOBIUS);\">Add map</td>";
     if ( _err_mask_whole & 8 || _err_mask_whole & 16 )
     {
         HTMLcode += "<td WIDTH=\"1\"></td>";
@@ -192,7 +192,7 @@ function CIRCLESformsHELPGENERATORSbarHTMLCODE( _err_mask_whole )
     else HTMLcode += "<td COLSPAN=\"4\"></td>" ;
 
     HTMLcode += "<td WIDTH=\"1\"></td>";
-    HTMLcode += "<td CLASS=\"link_rounded\" "+( _glob_method == METHOD_NONE ? "DISABLED" : "" )+" ONCLICK=\"javascript:circles_lib_popup_load('forms','seeds.list');\">List</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" "+( _glob_method == METHOD_NONE ? "DISABLED" : "" )+" ONCLICK=\"javascript:circles_lib_plugin_load('forms','seeds.list');\">List</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;

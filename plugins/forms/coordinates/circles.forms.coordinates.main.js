@@ -1,6 +1,6 @@
 function CIRCLESformsCOORDINATESclose()
 {
-		circles_lib_popup_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
+		circles_lib_plugin_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
 		return YES ;
 }
 
@@ -80,10 +80,10 @@ function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
 
     var CLOSE_FN = "CIRCLESformsCOORDINATESclose();" ;
     var ONACTIVATEFN = "CIRCLESformsCOORDINATESfillINTOedits( "+_plane_type+" );" ;
-    var _div_id = CIRCLESformsCOORDINATESdiv_id = circles_lib_popup_build_divid( _subset, _base_id ) ;
+    var _div_id = CIRCLESformsCOORDINATESdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
     var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
         HTMLcode += "<table WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsCOORDINATEScaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "lens/lens.icon.01.16x16.png", ONACTIVATEFN );
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsCOORDINATEScaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "lens/lens.icon.01.16x16.png", ONACTIVATEFN );
 
     var _left_up = _corners_array['lu'], _right_down = _corners_array['rd'] ;
     var LEFT = _left_up.x, TOP = _left_up.y, RIGHT = _right_down.x, BOTTOM = _right_down.y ;
@@ -195,8 +195,8 @@ function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsCOORDINATEScaption, CLOSE_FN );
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsCOORDINATEScaption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div.id, _plane_type == Z_PLANE ? "RIGHT" : "LEFT", "TOP" );
 }
 

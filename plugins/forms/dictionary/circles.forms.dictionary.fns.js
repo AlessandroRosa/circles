@@ -347,8 +347,8 @@ function CIRCLESformsDICTIONARYinputformIMPORT( _action, _silent )
                      {
                          _glob_original_dict = _action == 1 ? _input_dict_array.clone() : _glob_original_dict.push( _input_dict_array );
    		                   CIRCLESformsDICTIONARYapply();
-                         if ( circles_lib_popup_exists( 'dictionary', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
-												 circles_lib_popup_dispatcher_unicast_message( 'storage.space', "forms", 4 );
+                         if ( circles_lib_plugin_exists( 'dictionary', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+												 circles_lib_plugin_dispatcher_unicast_message( 'storage.space', "forms", 4 );
                      }
                  }
                  else
@@ -642,8 +642,8 @@ function CIRCLESformsDICTIONARYdeleteASK( WORD, PAGENUM, INDEX, _out_channel )
 
 function CIRCLESformsDICTIONARYtrackorbitVIAterminal()
 {
-    if ( circles_lib_popup_exists( "POPUPterminalDIV" + _glob_terminal_form_suffix, POPUP_SEARCH_BY_DIV_ID ) == UNFOUND )
-		circles_lib_popup_load('forms','terminal',YES,0,YES,370,240);
+    if ( circles_lib_plugin_exists( "POPUPterminalDIV" + _glob_terminal_form_suffix, POPUP_SEARCH_BY_DIV_ID ) == UNFOUND )
+		circles_lib_plugin_load('forms','terminal',YES,0,YES,370,240);
     
 		if ( _glob_terminal != null ) _glob_terminal.exec( "word track orbit startpt:(0,0) w:"+CIRCLESformsDICTIONARYgetWORD()+" connect",0 );
 }
@@ -736,7 +736,7 @@ function CIRCLESformsDICTIONARYcopyPAGE( PAGE_NUM )
              if ( _check )
              {
                   circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "All words ("+safe_size(_chunk,0)+") of page " + ( PAGE_NUM + 1 ) + " have been copied into storage space with success", _glob_app );
-                  circles_lib_popup_dispatcher_unicast_message( 'storage.space', "forms", 1 );
+                  circles_lib_plugin_dispatcher_unicast_message( 'storage.space', "forms", 1 );
              }
              else
              circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Storage destination error: can't perform copy of page " + ( PAGE_NUM + 1 ), _glob_app );
@@ -759,7 +759,7 @@ function CIRCLESformsDICTIONARYcopyDICT()
          if ( _check )
          {
              circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "All words in the dictionary have been copied into storage space with success", _glob_app );
-             circles_lib_popup_dispatcher_unicast_message( 'storage.space', "forms", 1 );
+             circles_lib_plugin_dispatcher_unicast_message( 'storage.space', "forms", 1 );
          }
          else
          circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Storage destination error: can't perform copy of the whole dictionary", _glob_app );
@@ -780,7 +780,7 @@ function CIRCLESformsDICTIONARYrestoreDICT()
          if ( _check )
          {
              circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "All words in the dictionary have been restored from storage space to current dictionary with success", _glob_app );
-             circles_lib_popup_dispatcher_unicast_message( 'storage.space', "forms", 1 );
+             circles_lib_plugin_dispatcher_unicast_message( 'storage.space', "forms", 1 );
          }
          else
          circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Storage destination error: can't perform dictionary restoration", _glob_app );

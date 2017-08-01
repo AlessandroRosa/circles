@@ -338,8 +338,8 @@ function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, 
             var discreteness_locus_right_down_pt = new point( RIGHT, BOTTOM );
             dlocus_sm.set_coords_corners( discreteness_locus_left_up_pt, discreteness_locus_right_down_pt );
 
-            if ( circles_lib_popup_exists( 'discreteness.locus', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
-            circles_lib_popup_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
+            if ( circles_lib_plugin_exists( 'discreteness.locus', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+            circles_lib_plugin_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
         }
 
        var _msg = "Coords set up with success !" ;
@@ -623,7 +623,7 @@ function circles_lib_coordinates_zoom_in_disk( _render, _index, _question, _sile
                  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
                  if ( _ret_id == RET_OK )
                  {
-                    circles_lib_popup_reload_basic_forms( _index );
+                    circles_lib_plugin_reload_basic_forms( _index );
                     var _msg = "Zoom-in performed with success" ;
                     if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app );
                     return [ RET_OK, _msg ] ;

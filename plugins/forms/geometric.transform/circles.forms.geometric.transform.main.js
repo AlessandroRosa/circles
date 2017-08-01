@@ -13,9 +13,9 @@ function CIRCLESformsGEOMETRICTRANSFORMmain( _base_id, _move )
     if ( _items_n > 0 )
     {
          var WIDTH = 350, HEIGHT = "auto" ;
-         var _div_id = CIRCLESformsGEOMETRICTRANSFORMdiv_id = circles_lib_popup_build_divid( _subset, _base_id );
+         var _div_id = CIRCLESformsGEOMETRICTRANSFORMdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
          var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-         HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsGEOMETRICTRANSFORMcaption+" - " + _dest_ref, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
+         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsGEOMETRICTRANSFORMcaption+" - " + _dest_ref, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
          HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
          HTMLcode += "<tr><td STYLE=\"padding:6px;background-color:#F0F0F0;\" ALIGN=\"right\" CLASS=\"general_rounded_corners\">"+( "Found <b>"+_items_n+"</b> "+( _items_n == 1 ? "entry" : "entries" ) )+"</td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
@@ -54,7 +54,7 @@ function CIRCLESformsGEOMETRICTRANSFORMmain( _base_id, _move )
               HTMLcode += "<td WIDTH=\"5\"></td>" ;
               HTMLcode += "<td>"+bIN+_symbol+bOUT+"</td>" ;
               HTMLcode += "<td WIDTH=\"15\"></td>" ;
-              HTMLcode += "<td CLASS=\"link_rounded_smaller\" ONCLICK=\"javascript:circles_lib_popup_load('forms','edit.disk',NO,"+i+");\">Info</td>" ;
+              HTMLcode += "<td CLASS=\"link_rounded_smaller\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,"+i+");\">Info</td>" ;
               HTMLcode += "<td WIDTH=\"5\"></td>" ;
               HTMLcode += "<td CLASS=\"link_rounded_smaller\" ONCLICK=\"javascript:CIRCLESformsGEOMETRICTRANSFORMselectDISK( "+i+" );\">View</td>" ;
               HTMLcode += "<td WIDTH=\"15\"></td>" ;
@@ -130,7 +130,7 @@ function CIRCLESformsGEOMETRICTRANSFORMmain( _base_id, _move )
          var WIDTH = 370, HEIGHT = "auto" ;
          var _div_id = "POPUPgeometrictransformDIV" ;
          var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-             HTMLcode += circles_lib_popup_caption_code( YES, CIRCLESformsGEOMETRICTRANSFORMcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id );
+             HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsGEOMETRICTRANSFORMcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id );
              HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
              HTMLcode += "<tr><td STYLE=\"color:red;font-size:14pt;\" ALIGN=\"center\">"+_ERR_33_01+"</td></tr>" ;          
              HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
@@ -142,12 +142,12 @@ function CIRCLESformsGEOMETRICTRANSFORMmain( _base_id, _move )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_popup_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
     if ( _move && _div != null )
     {
         _div.style.width = WIDTH + "px" ;
         move_div( _div_id, "RIGHT", "TOP" );
-        circles_lib_popup_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsGEOMETRICTRANSFORMcaption, CLOSE_FN );
+        circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsGEOMETRICTRANSFORMcaption, CLOSE_FN );
     }
 }
 

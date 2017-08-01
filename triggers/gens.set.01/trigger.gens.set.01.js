@@ -45,7 +45,7 @@ function trigger_gens_set_01( _silent, _out_channel )
 	             var _seed_probability = ( 1.0 - _commutator_probability * 2.0 ) / safe_size( _alphabet, 1 );
 	             $.each( _alphabet, function( _i, _letter ) { _glob_rnd_probability_array.push( _seed_probability ); } );
 	             _glob_rnd_probability_array.push( _commutator_probability, _commutator_probability );
-	             if ( circles_lib_popup_is_visible( "terminal" ) )
+	             if ( circles_lib_plugin_is_visible( "terminal" ) )
 	             {
 									_glob_terminal.echo( "Current random probabilities table is empty" );
 									_glob_terminal.echo( "Attempting to its default generation" );

@@ -155,7 +155,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                 HTMLcode += "<table>" ;
                 HTMLcode += "<tr><td STYLE=\"padding-left:6px;color:"+DEFAULT_COLOR_ERROR+";\">Computation errors while assigning probabilities to random process</td></tr>";
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:alertCLOSE();circles_lib_popup_load('forms','method',YES,0,_glob_method);\">Open the method panel</td></tr>";
+                HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','method',YES,0,_glob_method);\">Open the method panel</td></tr>";
                 HTMLcode += "</table>" ;
                 HTMLcode += "</td>" ;
                 HTMLcode += "</tr>" ;
@@ -173,7 +173,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                 HTMLcode += "<table>" ;
                 HTMLcode += "<tr><td STYLE=\"padding-left:6px;color:"+DEFAULT_COLOR_ERROR+";\">Syntax errors detected in repetends definitions</td></tr>";
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:alertCLOSE();circles_lib_popup_load('forms','method',YES,0,_glob_method);\">Open the method panel</td></tr>";
+                HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','method',YES,0,_glob_method);\">Open the method panel</td></tr>";
                 HTMLcode += "</table>" ;
                 HTMLcode += "</td>" ;
                 HTMLcode += "</tr>" ;
