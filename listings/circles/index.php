@@ -1,6 +1,6 @@
 <?php $PATH_TO_ROOT = "../../../" ; ?>
 <?php $PATH_TO_APP = "../../" ; ?>
-<?php $PATH_TO_IMG = $PATH_TO_ROOT."img/" ; ?>
+<?php $PATH_TO_IMG = $PATH_TO_APP."support/img/" ; ?>
 <?php $NOBAR = ( array_key_exists( "nb", $_GET ) ) ? intval( $_GET['nb'] ) : 0 ; ?>
 <?php $folder = $_GET['folder'] ; ?>
 <?php $displayW = intval( $_GET['w'] ); $displayH = intval( $_GET['h'] );
@@ -9,7 +9,7 @@
 ?>
 <?php $lockat = intval( $_GET['lockat'] ) ; if ( is_nan( $lockat ) ) $lockat = 2 ; ?>
 <?php @include( $PATH_TO_APP."support/code/phpcode/fns/fns.php" ) ; ?>
-<?php load_src_code_dir( $PATH_TO_APP."code/phpcode/objs/", "php", $ERRCODE ) ; ?>
+<?php load_src_code_dir( $PATH_TO_APP."support/code/phpcode/objs/", "php", $ERRCODE ) ; ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <?php @include( $PATH_TO_APP."meta/meta.tags.php" ); ?>

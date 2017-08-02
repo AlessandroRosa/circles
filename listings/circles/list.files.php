@@ -1,7 +1,7 @@
 <?php $CONTENTS = scan_folder( "$folder", "/.txt/i" ) ;
       $N = count( $CONTENTS );
       $COLS = floor( ( $displayW - 250 ) / 244 ) ; // minus the folder list div width, divided by each experiment pix box width
-      $INIPATH = $PATH_TO_ROOT."listings/circles/$folder/folder.ini" ;
+      $INIPATH = $PATH_TO_APP."listings/circles/$folder/folder.ini" ;
       $LABEL = file_exists( $INIPATH ) ? get_params_ini( "FOLDER", "label", $INIPATH ) : "(Unknown ref)" ;
       $SUB_LABEL_1 = file_exists( $INIPATH ) ? get_params_ini( "FOLDER", "sub.label.1", $INIPATH ) : "" ;
       $NOTES = file_exists( $INIPATH ) ? get_params_ini( "FOLDER", "notes", $INIPATH ) : "(Unknown ref)" ;
@@ -115,7 +115,7 @@
       }
       else if ( $N == 0 && $folder )
       {
-           $SUB_CONTENTS = scan_folder( $PATH_TO_ROOT."listings/$folder", "", "/.txt/i", 1 ) ;
+           $SUB_CONTENTS = scan_folder( $PATH_TO_APP."listings/$folder", "", "/.txt/i", 1 ) ;
            $SUB_N = count( $SUB_CONTENTS );
            ?>
            <table cellpadding=0 cellspacing=0 valign="top" BORDER="0" WIDTH="100%">

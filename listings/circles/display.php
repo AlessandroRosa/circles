@@ -18,7 +18,27 @@
 <?php @include( $PATH_TO_ROOT."meta/meta.tags.php" ); ?>
 <?php @include( $PATH_TO_APP."support/code/phpcode/fns/fns.php" ) ; ?>
 <?php load_src_code_dir( $PATH_TO_APP."support/code/js/basements/", "js", $ERRCODE ) ; ?>
-<?php load_src_code_dir( $PATH_TO_APP."support/code/js/ctrls/zero.clipboard/", "js", $ERRCODE ) ; ?>
+<SCRIPT LANGUAGE="javascript" TYPE="text/javascript">
+// A simple function to copy a string to clipboard. See https://github.com/lgarron/clipboard.js for a full solution.
+var copyToClipboard = (function() {
+  var _dataString = null;
+  document.addEventListener("copy", function(e){
+    if (_dataString !== null) {
+      try {
+        e.clipboardData.setData("text/plain", _dataString);
+        e.preventDefault();
+      } finally {
+        _dataString = null;
+      }
+    }
+  });
+  return function(data) {
+    _dataString = data;
+    document.execCommand("copy");
+    alert( "This listing has been successfully copied into the Clipboard !" );
+  };
+})();
+</SCRIPT>
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript">
 var UNDEF = -1 ;
 var _display_w = $( window ).width();
@@ -231,7 +251,7 @@ $( "#LOADINGdiv" ).css( "left", ( _display_w - $( "#LOADINGdiv" ).width() ) / 2 
     <tr>
     <td VALIGN="top">
         <div STYLE="position:relative;height:500px;overflow:auto;font-size:10pt;padding:4px;background-color:#353535;word-wrap:break-word;"
-             ID="CODEcontainer" CLASS="roundedcorners_shadow"><pre STYLE="font-size:8pt;color:lime;"><?php echo ( file_exists( "$DIRNAME/$CODEFILE" ) ) ? file_get_contents( "$DIRNAME/$CODEFILE" ) : "File code not found" ; ?></pre></div>
+             ID="CODEcontainer" CLASS="roundedcorners_shadow"><pre STYLE="font-size:8pt;color:lime;"><DIV ID="srcode_div"><?php echo ( file_exists( "$DIRNAME/$CODEFILE" ) ) ? file_get_contents( "$DIRNAME/$CODEFILE" ) : "File code not found" ; ?></DIV></pre></div>
     </td>
     </tr>
     <tr><td HEIGHT="5"></td></tr>
@@ -241,7 +261,7 @@ $( "#LOADINGdiv" ).css( "left", ( _display_w - $( "#LOADINGdiv" ).width() ) / 2 
         <tr>
             <td CLASS="link" ALIGN="right" ONCLICK="javascript:SAVEtoFILE();">Save this code into a file</td>
             <td WIDTH="25"></td>
-            <td CLASS="link" ONMOUSEOVER="javascript:this.style.cursor='pointer';" ALIGN="right" id="clip_copy" data-clipboard-target="CODEcontainer">Copy this code into clipboard</td>
+            <td CLASS="link" ONMOUSEOVER="javascript:this.style.cursor='pointer';" ALIGN="right" ONCLICK="javascript:copyToClipboard($('#srcode_div').html());">Copy this code into clipboard</td>
             <td WIDTH="25"></td>
         </tr>
         </table>
@@ -328,7 +348,6 @@ $('#MASTERTABLE').show();
 </SCRIPT>
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript">
 var pageDIMS = getViewportExtents() ;
-var clip = new ZeroClipboard( $('#clip_copy').get(0), { moviePath: "<?php echo $PATH_TO_ROOT ; ?>code/js/ctrls/zero.clipboard/ZeroClipboard.swf" } );
 
 var DIVexamplesLIST = $( "#DIVexamplesLIST" ).get(0);
 if ( DIVexamplesLIST != null ) DIVexamplesLIST.style.height = ( parseInt( pageDIMS[1], 10 ) - 100 ) + "px" ; 
