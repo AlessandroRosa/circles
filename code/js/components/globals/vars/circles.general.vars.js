@@ -41,8 +41,6 @@ var _glob_ctrl_key = NO ;
 var _glob_esc_key = NO ;
 var _glob_shift_key = NO ;
 
-var _glob_zeroclipboard_ctrl = null ;
-
 var _glob_benchmark_start_microtime = 0 ;
 var _glob_benchmark_end_microtime = 0 ;
 var _glob_benchmark_operations = 0 ;

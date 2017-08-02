@@ -6,11 +6,6 @@ circles_lib_statusbar_set_config_icon( CONFIG_STD );
 circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES );
 circles_lib_storage_reset();
 
-_zeroclipboard_env_path_to_swf = "support/code/js/ctrls/zero.clipboard/" ;
-_zeroclipboard_env_swf_file = "ZeroClipboard.swf" ;
-_zeroclipboard_env_enabled = check_file_exists( _zeroclipboard_env_path_to_swf + _zeroclipboard_env_swf_file ) ? YES : NO ;
-zeroclipboardINIT();
-
 _glob_redraw_pass_counter = is_64bits_architecture() ? 12 : 6 ;
 
 _glob_zplane_grid_canvas_placeholder = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );

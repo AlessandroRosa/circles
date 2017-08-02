@@ -55,7 +55,7 @@ function CIRCLESformsEPSEDITORmain( _base_id, _move )
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:$('#CIRCLESformsEPSEDITORtextarea').get(0).select();\">Select All</td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"eps_copy\" data-clipboard-target=\"CIRCLESformsEPSEDITORtextarea\">Copy</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"eps_copy\" ONCLICK=\"javascript:copy_to_clipboard($('#CIRCLESformsEPSEDITORtextarea').val());\">Copy</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -131,10 +131,7 @@ function CIRCLESformsEPSEDITORmain( _base_id, _move )
                                                   $("#EPSeditorROW" ).html( _xy[ 1 ] + 1 );
                                               }
                                              );
-
-    zeroclipboardSETUP( "eps_copy", "CIRCLESformsEPSEDITORtextarea", "CIRCLESepseditorOUTPUT" );
     CIRCLESformsEPSEDITORpagespanel();
-
     $("#"+_div_id).resizable( { resize: function (event, ui)
                                 {
                                 	   if ( event.stopPropagation )      event.stopPropagation();

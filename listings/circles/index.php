@@ -1,13 +1,14 @@
 <?php $PATH_TO_ROOT = "../../../" ; ?>
 <?php $PATH_TO_APP = "../../" ; ?>
 <?php $PATH_TO_IMG = $PATH_TO_APP."support/img/" ; ?>
-<?php $NOBAR = ( array_key_exists( "nb", $_GET ) ) ? intval( $_GET['nb'] ) : 0 ; ?>
+<?php $NOBAR = array_key_exists( "nb", $_GET ) ? intval( $_GET['nb'] ) : 0 ; ?>
 <?php $folder = $_GET['folder'] ; ?>
-<?php $displayW = intval( $_GET['w'] ); $displayH = intval( $_GET['h'] );
+<?php $displayW = array_key_exists( "w", $_GET ) ? intval( $_GET['w'] ) : 0 ;
+      $displayH = array_key_exists( "h", $_GET ) ? intval( $_GET['h'] ) : 0 ;
       if ( is_nan( $displayW ) ) $displayW = 0 ;
       if ( is_nan( $displayH ) ) $displayH = 0 ;
 ?>
-<?php $lockat = intval( $_GET['lockat'] ) ; if ( is_nan( $lockat ) ) $lockat = 2 ; ?>
+<?php $lockat = array_key_exists( "lockat", $_GET ) ? intval( $_GET['lockat'] ) : 2 ; if ( is_nan( $lockat ) ) $lockat = 2 ; ?>
 <?php @include( $PATH_TO_APP."support/code/phpcode/fns/fns.php" ) ; ?>
 <?php load_src_code_dir( $PATH_TO_APP."support/code/phpcode/objs/", "php", $ERRCODE ) ; ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -24,8 +25,8 @@ var _display_h = <?php echo $displayH ; ?>;
 if ( _display_w == 0 || _display_h == 0 )
 {
      var dimsARRAY = getViewportExtents(), _display_w = dimsARRAY[0], _display_h = dimsARRAY[1] ;
-     var _GET_w = $_GET( "w" ), _GET_w = $_GET( "h" ), _GET_w = $_GET( "folder" ) ;
-     window.location.href = "?folder=" + _GET_w + "&w=" + _display_w + "&h=" + _display_h ;
+     var _GET_w = $_GET( "w" ), _GET_h = $_GET( "h" ), _GET_folder = $_GET( "folder" ) ;
+     window.location.href = "?folder=" + _GET_folder + "&w=" + _display_w + "&h=" + _display_h ;
 }
 </SCRIPT>
 <STYLE TYPE="text/css">
@@ -150,7 +151,7 @@ $( "#LOADINGdiv" ).css( "left", ( _display_w - $( "#LOADINGdiv" ).width() ) / 2 
                 <tr><td STYLE="font-size:8pt;color:blue;">
                     Coded by Alessandro Rosa - 
                   <SCRIPT LANGUAGE="javascript" TYPE="text/javascript">
-                  var m = new Array( "zan", "dor", "_", "z", "z", "@", "ya", "hoo", ".", "it" );
+                  var m = new Array( "alessandro", ".a.", "rosa", "@", "gm", "ai", "l.", "c", "o", "m" );
                   document.write( "<a href=\"mailto:" );
                   document.write( m.join( "" ) );
                   document.write( "\">E-mail me</a>" );

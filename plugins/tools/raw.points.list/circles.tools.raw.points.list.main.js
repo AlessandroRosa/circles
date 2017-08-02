@@ -49,7 +49,7 @@ function CIRCLEStoolsRAWPOINTSLISTmain( _base_id, _move )
         HTMLcode += "<td WIDTH=\"12\"></td>" ;
         HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:CIRCLEStoolsRAWPOINTSLISTsaveTEXT();\">Save</td>" ;
         HTMLcode += "<td WIDTH=\"12\"></td>" ;
-        HTMLcode += "<td CLASS=\"link\" ID=\"rawpoints_copy\" data-clipboard-target=\"CIRCLEStoolsRAWPOINTSLISTtextarea\">Copy</td>" ;
+        HTMLcode += "<td CLASS=\"link\" ID=\"rawpoints_copy\" ONCLICK=\"javascript:copy_to_clipboard('CIRCLEStoolsRAWPOINTSLISTtextarea');\">Copy</td>" ;
         HTMLcode += "<td WIDTH=\"12\"></td>" ;
         HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:CIRCLEStoolsRAWPOINTSLISTcopyintoSTORAGE();\">Storage</td>" ;
         HTMLcode += "<td WIDTH=\"12\"></td>" ;
@@ -116,7 +116,5 @@ function CIRCLEStoolsRAWPOINTSLISTmain( _base_id, _move )
                       [ "CIRCLEStoolsRAWPOINTSLISTmaximize", _div_id ],
                       _run ? "popup_caption_bk_enabled" : "popup_caption_bk_alert" );
     if ( _move && _div != null ) move_div( _div_id, "RIGHT", "TOP" );
-
-    zeroclipboardSETUP( "rawpoints_copy", "CIRCLEStoolsRAWPOINTSLISTtextarea", "CIRCLEStoolsRAWPOINTSLISToutputBOX" );
     $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLEStoolsRAWPOINTSLISTload ) } ;
 }

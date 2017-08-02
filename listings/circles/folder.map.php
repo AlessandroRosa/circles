@@ -3,11 +3,11 @@
 					 if ( $LOCKlevelAT == 0 ) $LOCKlevelAT = 1 ;
            $HTMLcode = "" ;
            
-           $GET_FOLDER = $_GET['folder'] ;
+           $GET_FOLDER = array_key_exists( "folder", $_GET ) ? $_GET['folder'] : "" ;
            $GET_FOLDER_ARRAY = explode( "/", $GET_FOLDER );
            $COUNT_GET_FOLDER = count( $GET_FOLDER_ARRAY );
-           $LAST_ITEM_GET_FOLDER = $GET_FOLDER_ARRAY[$COUNT_GET_FOLDER-1] ;
-           $LAST_ITEM_GET_PARENT = $GET_FOLDER_ARRAY[$COUNT_GET_FOLDER-2] ;
+           $LAST_ITEM_GET_FOLDER = $COUNT_GET_FOLDER - 1 >= 0 ? $GET_FOLDER_ARRAY[$COUNT_GET_FOLDER-1] : 0 ;
+           $LAST_ITEM_GET_PARENT = $COUNT_GET_FOLDER - 2 >= 0 ? $GET_FOLDER_ARRAY[$COUNT_GET_FOLDER-2] : 0 ;
 
            $FILES = scandir( "$FOLDERroot" );
            $FILES_COUNT = count( $FILES );
@@ -33,7 +33,7 @@
                                   $candidateFOLDER = str_replace( "//", "/", $candidateFOLDER );
                                   $candidatePARENTarray = explode( "/", $candidateFOLDER );
                                   $CPA = count( $candidatePARENTarray ) ;
-                                  $candidatePARENT = $candidatePARENTarray[ count( $candidatePARENTarray ) - 2 ] ;
+                                  $candidatePARENT = $CPA >= 2 ? $candidatePARENTarray[ $CPA - 2 ] : "//" ;
                                   $candidateFOLDER = str_replace( "//", "/", $candidateFOLDER );
                                   $IS_DIR = ( is_dir( "$candidateFOLDER" ) ) ? 1 : 0 ;
                                   

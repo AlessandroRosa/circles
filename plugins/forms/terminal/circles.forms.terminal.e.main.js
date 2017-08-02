@@ -213,7 +213,7 @@ function CIRCLESformsTERMINALgetHTML( _div_id, _is_popup, _input_w, _input_h, _s
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:"+_click_fn+";_glob_terminal_run_code_from=RUN_CODE_FROM_TERMINAL;circles_lib_batch_compiler_run('CIRCLESbatchcompilerTEXT"+_suffix+"','CIRCLESdebugDIV"+_suffix+"',['CIRCLESbatchcompilerWARNINGSlabel"+_suffix+"','CIRCLESbatchcompilerERRORSlabel"+_suffix+"','CIRCLESbatchcompilerOKlabel"+_suffix+"'],YES,YES);\">Run</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ID=\"batch_copy"+_suffix+"\" data-clipboard-target=\"CIRCLESbatchcompilerTEXT"+_suffix+"\">Copy</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ID=\"batch_copy"+_suffix+"\" ONCLICK=\"javascript:copy_to_clipboard('CIRCLESbatchcompilerTEXT"+_suffix+"');\">Copy</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:"+_click_fn+";$('#customloader').val('');$('#customloader').trigger('click');\">Load</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
@@ -249,11 +249,11 @@ function CIRCLESformsTERMINALgetHTML( _div_id, _is_popup, _input_w, _input_h, _s
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_terminal_run_code_from=RUN_CODE_FROM_OUTER_SRC;circles_lib_batch_compiler_run('CIRCLESbatchcompilerTEXT"+_suffix+"','CIRCLESdebugDIV"+_suffix+"',['"+"CIRCLESbatchcompilerWARNINGSlabel"+_suffix+"','"+"CIRCLESbatchcompilerERRORSlabel"+_suffix+"','"+"CIRCLESbatchcompilerOKlabel"+_suffix+"'],YES,YES);\">Run</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsTERMINALbatchcompilerCLEANdebug( YES, NO,'"+_suffix+"');\">Clean debug</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsTERMINALbatchcompilerCLEANdebug(YES,NO,'"+_suffix+"');\">Clean debug</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"debug_copy"+_suffix+"\" data-clipboard-target=\"debugtextareahidden"+_suffix+"\">Copy</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"debug_copy"+_suffix+"\" ONCLICK=\"javascript:copy_to_clipboard('debugtextareahidden"+_suffix+"');\">Copy</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsTERMINALbatchcompilerCLEANall( YES, NO, '"+_suffix+"');\">Clean all</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsTERMINALbatchcompilerCLEANall(YES,NO,'"+_suffix+"');\">Clean all</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
     HTMLcode += "<td ID=\"CIRCLESTERMINAL_TAB_03_BAR_PURGE_BTN"+_suffix+"\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsTERMINALpurgeCMDS("+_suffix+",2);\" STYLE=\"display:none;\">Purge</td>" ;
     HTMLcode += "" ;
@@ -423,12 +423,9 @@ function CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix )
                                                     $("#BATCHscriptROW"+_suffix ).html( _xy[ 1 ] + 1 );
                                                  }
                                                );
-    
-    zeroclipboardSETUP( "batch_copy"+_suffix, "CIRCLESbatchcompilerTEXT"+_suffix, "BATCHscriptOUTPUT" + _suffix );
-      
+
     circles_lib_statusbar_set_output_stream( OUTPUT_TERMINAL );
     if ( safe_size( _glob_terminal_codelist, "" ).length > 0 ) $("#CIRCLESbatchcompilerTEXT"+_suffix ).val( _glob_terminal_codelist );
-          
     $("#"+CIRCLESformsTERMINALdiv_id+_suffix).resizable({ resize: function( event, ui ) { CIRCLESformsTERMINALresize( ui.size.width, ui.size.height, _suffix ); } });
     $("#"+CIRCLESformsTERMINALdiv_id+_suffix).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });
 }

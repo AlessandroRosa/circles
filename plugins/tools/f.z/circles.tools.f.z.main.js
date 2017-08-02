@@ -123,9 +123,6 @@ function CIRCLEStoolsFZmain( _base_id, _move )
                       [ "CIRCLEStoolsFZmaximize", _div_id ],
                       _run ? "popup_caption_bk_enabled" : "popup_caption_bk_alert" );
     if ( _move && _div != null ) move_div( _div_id, "RIGHT", "TOP" );
-
-    zeroclipboardSETUP( "rawpoints_copy", "CIRCLEStoolsFZtextarea", "CIRCLEStoolsFZoutputBOX" );
     $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLEStoolsFZload ) } ;
-
     $( "#popup_floating_box" ).hide();    
 }

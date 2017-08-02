@@ -52,7 +52,7 @@ function CIRCLESformsLOGmain( _base_id, _move )
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsLOGclean();\">Clean log</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"log_copy\" data-clipboard-target=\"CIRCLESformsLOGdivLIST\">Copy log</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"log_copy\" ONCLICK=\"javascript:copy_to_clipboard($('#CIRCLESformsLOGdivLIST').html());\">Copy log</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td ID=\"CIRCLESlogOUTPUTbox\"></td>" ;
     HTMLcode += "</tr>" ;
@@ -91,7 +91,6 @@ function CIRCLESformsLOGmain( _base_id, _move )
       $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });
 
     CIRCLESformsLOGlist();
-    zeroclipboardSETUP( "log_copy", "CIRCLESformsLOGdivLIST", "CIRCLESlogOUTPUTbox" );
 }
 
 function CIRCLESformsLOGstartresize( _new_width, _new_height ) {}
@@ -131,20 +130,11 @@ function CIRCLESformsLOGlist()
                 {
                    switch( _log_chunk[2] )
                    {
-                      case LOG_SUCCESS:
-                      _textcolor = DEFAULT_COLOR_GO ;
-                      break ;
-                      case LOG_ERROR:
-                      _textcolor = DEFAULT_COLOR_ERROR ;
-                      break ;
-                      case LOG_WARNING:
-                      _textcolor = DEFAULT_COLOR_WARNING ;
-                      break ;
-                      default:
-                      _textcolor = DEFAULT_EDIT_COLOR_DISABLED ;
-                      break ;
+                      case LOG_SUCCESS: _textcolor = DEFAULT_COLOR_GO ; break ;
+                      case LOG_ERROR: _textcolor = DEFAULT_COLOR_ERROR ; break ;
+                      case LOG_WARNING: _textcolor = DEFAULT_COLOR_WARNING ; break ;
+                      default: _textcolor = DEFAULT_EDIT_COLOR_DISABLED ; break ;
                    }
-                        
                    // keep the ending CRLF for clipboard copy
                    HTMLcode += "<tr><td WIDTH=\"5\"></td><td STYLE=\"color:white;\" VALIGN=\"top\">"+_log_chunk[0]+"</td><td WIDTH=\"10\"></td><td VALIGN=\"top\" STYLE=\"color:"+_textcolor+";\">"+_log_chunk[1]+"</td></tr>" + _glob_crlf ;
                 }

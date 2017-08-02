@@ -93,9 +93,9 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        HTMLcode += "<td WIDTH=\"2\"></td>" ;
        HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn07"+_REF_ID+"\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','tiny.rendering', NO, '', NO );\">New</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" id=\"clipboard_code"+_REF_ID+"\" data-clipboard-target=\"CANVASscripttextarea"+_REF_ID+"\">Code into clipboard</td>" ;
+       HTMLcode += "<td CLASS=\"link_rounded\" id=\"clipboard_code"+_REF_ID+"\" ONCLICK=\"javascript:copy_to_clipboard('CANVASscripttextarea"+_REF_ID+"');\">Code into clipboard</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" id=\"clipboard_debug"+_REF_ID+"\" data-clipboard-target=\"CANVASdebugdiv"+_REF_ID+"\">Debug into clipboard</td>" ;
+       HTMLcode += "<td CLASS=\"link_rounded\" id=\"clipboard_debug"+_REF_ID+"\" ONCLICK=\"javascript:copy_to_clipboard('CANVASdebugdiv"+_REF_ID+"');\">Debug into clipboard</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
        HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn06"+_REF_ID+"\" ONCLICK=\"javascript:CIRCLESformsTINYRENDERINGcopyCANVAS('"+_div_id+"','"+_REF_ID+"', YES );\">Copy from W-plane</td>" ;
        HTMLcode += "<td WIDTH=\"15\"></td>" ;
@@ -130,28 +130,12 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        $( "#CANVASscripttextarea"+_REF_ID ).height( _tabber_h - 10 - 24 ) ;
        $( "#CANVASscriptdiv"+_REF_ID ).height( $( "#CANVASscriptdiv"+_REF_ID ).height() - 10 );
        $("#CANVASrendering" + _REF_ID ).get(0).set_type( BIP_BOX ) ;
-       CIRCLESformsTINYRENDERINGclipboardSETUP( 0, _REF_ID ) ;
    }
    else
    {
        var _msg = "Missing or corrupted component 'code' cmd to support tiny rendering service" ;
        circles_lib_log_add_entry( _msg, LOG_ERROR );
        circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
-   }
-}
-
-function CIRCLESformsTINYRENDERINGclipboardSETUP( _src, _REF_ID )
-{
-   _src = safe_int( _src, 0 );
-   switch( _src )
-   {
-       case 0:
-    	 zeroclipboardSETUP( "clipboard_code"+_REF_ID, "CANVASscripttextarea"+_REF_ID, "CIRCLEStinyrenderingOUTPUT" + _REF_ID );
-       break ;
-       case 1:
-    	 zeroclipboardSETUP( "clipboard_debug"+_REF_ID, "CANVASdebugdiv"+_REF_ID, "CIRCLEStinyrenderingOUTPUT" + _REF_ID );
-       break ;
-       default: break ;
    }
 }
 

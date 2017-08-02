@@ -203,13 +203,6 @@ function CIRCLESformsSCRIPTEDITORmain( _base_id, _move )
         circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, "No break-point can be set: please, select a module first", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
     });
 
-    zeroclipboardSETUP( "CIRCLESformsSCRIPTEDITORcopyBTN", "CIRCLESformsSCRIPTEDITORtextareaHIDDEN", "",
-											  function()
-												{
-														$( "#CIRCLESformsSCRIPTEDITORtextareaHIDDEN" ).html( CIRCLESformsSCRIPTEDITORcodemirrorOBJ.getValue() ) ;
-														circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_MULTICOLOR, "<gray>Code of module</gray> <white>"+CIRCLESformsSCRIPTEDITORmodulelabelCURRENT+"</white> <gray>has been copied into clipboard</gray>", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
-												}
-											);
 		CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay() ;
 		$( "#CIRCLESformsSCRIPTEDITORlistCOMBOcontainer").html( CIRCLESformsSCRIPTEDITORcodemanagerLISTprojectsCOMBO() );
 		CIRCLESformsSCRIPTEDITORcodemanagerSETloadACTION(1) ;
