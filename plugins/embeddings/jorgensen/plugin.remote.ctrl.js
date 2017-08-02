@@ -3,7 +3,7 @@ function CIRCLESembeddingsJORGENSEN_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn )
+function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn, _out_channel )
 {
 		if ( !is_array( _options ) )
 		{
@@ -37,7 +37,8 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn )
         return 1;
         break ;
 				case "move":
-				var _ret = move_div( _plugin_tmp_vars_array[ GLOB_PLUGIN_SUBSET ][ GLOB_PLUGIN_BASE_ID ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+        var _sub = "embeddings", _base_id = "jorgensen" ;
+				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
         return 1 ;
 				break ;
         case "params":

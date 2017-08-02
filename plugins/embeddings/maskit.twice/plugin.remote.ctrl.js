@@ -3,7 +3,7 @@ function CIRCLESembeddingsMASKITTWICE_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESembeddingsMASKITTWICEremotectrl( _options, _return_fn )
+function CIRCLESembeddingsMASKITTWICEremotectrl( _options, _return_fn, _out_channel )
 {
 		if ( !is_array( _options ) )
 		{

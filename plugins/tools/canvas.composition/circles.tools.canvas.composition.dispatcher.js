@@ -58,7 +58,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONdispatcher()
 			}
 }
 
-function CIRCLEStoolsCANVASCOMPOSITIONremotectrl( _options, _return_fn )
+function CIRCLEStoolsCANVASCOMPOSITIONremotectrl( _options, _return_fn, _out_channel )
 {
 		if ( !is_array( _options ) && typeof _return_fn === "function" )
 		{

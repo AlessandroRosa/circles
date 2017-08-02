@@ -9,11 +9,11 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
 		if ( is_string( _tab_index ) )
 		{
 				if ( _tab_index.isAlpha() )
-				switch( _tab_index.toLowerCase() )
+				switch( _tab_index.toLowerCase().replace( /[\.|\_\-]/, "" ) )
 				{
 						case "basics": _tab_index = 1 ; break ;
-						case "z-plane": case "zplane": _tab_index = 2 ; break ;
-						case "w-plane": case "wplane": _tab_index = 3 ; break ;
+						case "z-plane": _tab_index = 2 ; break ;
+						case "w-plane": _tab_index = 3 ; break ;
 						case "options": _tab_index = 4 ; break ;
 						case "extras": _tab_index = 5 ; break ;
 						case "export": _tab_index = 6 ; break ;
@@ -24,10 +24,10 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
 
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _items_n = circles_lib_count_items( _items_array ) ;
+    _move = safe_int( _move, YES );
 
     CIRCLESformsGENERALOPTIONSbaseid = safe_string( _base_id, "" ) ;
     var this_fn_name = arguments.callee.name + "('"+_base_id+"', "+_move+","+_tab_index+")" ;
-    _move = safe_int( _move, YES );
     CIRCLESformsGENERALOPTIONStabindex = _tab_index = Math.max( 1, safe_int( _tab_index, 1 ) ) ;
     if ( _glob_smpr == 0 ) _glob_smpr = 120 ;
 
@@ -63,24 +63,12 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
 
      switch( _tab_index )
      {
-        case 1:
-        HTMLcode += CIRCLESformsGENERALOPTIONSbasicsTAB();
-        break ;
-        case 2:
-        HTMLcode += CIRCLESformsGENERALOPTIONSzplanelayersTAB( this_fn_name );
-        break ;
-        case 3:
-        HTMLcode += CIRCLESformsGENERALOPTIONSwplanelayersTAB( this_fn_name );
-        break ;
-        case 4:
-        HTMLcode += CIRCLESformsGENERALOPTIONScolorsTAB();
-        break ;
-        case 5:
-        HTMLcode += CIRCLESformsGENERALOPTIONSextrasTAB();
-        break ;
-        case 6:
-        HTMLcode += CIRCLESformsGENERALOPTIONSexportTAB();
-        break ;
+        case 1: HTMLcode += CIRCLESformsGENERALOPTIONSbasicsTAB(); break ;
+        case 2: HTMLcode += CIRCLESformsGENERALOPTIONSzplanelayersTAB( this_fn_name ); break ;
+        case 3: HTMLcode += CIRCLESformsGENERALOPTIONSwplanelayersTAB( this_fn_name ); break ;
+        case 4: HTMLcode += CIRCLESformsGENERALOPTIONScolorsTAB(); break ;
+        case 5: HTMLcode += CIRCLESformsGENERALOPTIONSextrasTAB(); break ;
+        case 6: HTMLcode += CIRCLESformsGENERALOPTIONSexportTAB(); break ;
         default: break ;
      }
 
@@ -178,7 +166,8 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
 
 function CIRCLESformsGENERALOPTIONSresize( _w, _h )
 {
-    $( "#GENERALoptionsMASTERtable" ).width( _w - 1 );
-    $( "#GENERALOPTIONSlayerslistCONTAINER" ).height( _h - 114 );
+    _w = safe_int(_w,450), _h = safe_int(_h,300);
+    $( "#GENERALoptionsMASTERtable" ).width( _w );
+    $( "#GENERALOPTIONSlayerslistCONTAINER" ).height( _h );
     $( "[id$=_thumbnail]" ).css( "display", _w >= 340 ? "block" : "none" );
 }

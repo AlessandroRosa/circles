@@ -107,7 +107,7 @@ function circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, a
         else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing opening params specifications", _glob_app );
 				break ;
 				default:
-				var _fn = "CIRCLES"+_subset+( _base_id.replaceAll( [ ".", "_" ], "" ).toUpperCase() )+"remotectrl( _options, _return_fn )" ;
+				var _fn = "CIRCLES"+_subset+( _base_id.replaceAll( [ ".", "_" ], "" ).toUpperCase() )+"remotectrl( _options, _return_fn, _out_channel )" ;
 				try{ eval( _fn ) ; } catch( _err ){ circles_lib_error_obj_handler( _err ); }
 				break ;
 		}

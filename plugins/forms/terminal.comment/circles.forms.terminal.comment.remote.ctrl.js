@@ -3,7 +3,7 @@ function CIRCLESformsTERMINALCOMMENT_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESformsTERMINALCOMMENTremotectrl( _options, _return_fn )
+function CIRCLESformsTERMINALCOMMENTremotectrl( _options, _return_fn, _out_channel )
 {
 		if ( !is_array( _options ) )
 		{

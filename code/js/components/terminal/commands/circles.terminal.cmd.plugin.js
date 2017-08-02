@@ -292,24 +292,29 @@ function circles_terminal_cmd_plugin()
                   else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: please, set it first", _par_1, _cmd_tag );
                   break ;
                   case "send":
-                  if ( is_array( _params_assoc_array['settings']['send.params'] ) )
+                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                   {
-                     var _src = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
-                     if ( _src != null )
-                     {
-                        var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_]/, "" ) ;
-                        var _options = _params_assoc_array['settings']['send.params'] ;
-                        var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null )" ;
-                        var _output = null ;
-                       	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
-                       	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
+                    if ( is_array( _params_assoc_array['settings']['send.params'] ) )
+                    {
+                       var _src = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
+                       if ( _src != null )
+                       {
+                          var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_]/, "" ) ;
+                          var _options = _params_assoc_array['settings']['send.params'] ;
+                          var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null )" ;
+                          var _output = null ;
+                         	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
+                         	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
 
-                        var _msg = _output ? "event '"+_options[0]+"' has been sent with success" : "Failure while sending event '"+_options[0]+"'";
-                        circles_lib_output( _out_channel, _output ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _par_1, _cmd_tag );
-                     }
-                     else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+console.log( _output );
+                          var _msg = _output ? "event '"+_options[0]+"' has been sent with success" : "Failure while sending event '"+_options[0]+"'";
+                          circles_lib_output( _out_channel, _output ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _par_1, _cmd_tag );
+                       }
+                       else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                    }
+                    else circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing params specification after 'send' action", _par_1, _cmd_tag );
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing params specification after 'send' action", _par_1, _cmd_tag );
+                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot send event to Plug-in: please, set it first", _par_1, _cmd_tag );
                   break ;
                   case "set":
                   if ( _plugin_tmp_vars_array['plugin_sel'] == null ) _plugin_tmp_vars_array['plugin_sel'] = [] ;

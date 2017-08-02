@@ -3,7 +3,7 @@ function CIRCLESembeddingsRILEYSLICE_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESembeddingsRILEYSLICEremotectrl( _options, _return_fn )
+function CIRCLESembeddingsRILEYSLICEremotectrl( _options, _return_fn, _out_channel )
 {
 		if ( !is_array( _options ) )
 		{

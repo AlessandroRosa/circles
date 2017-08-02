@@ -3,7 +3,7 @@ function CIRCLESformsCOORDINATES_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESformsCOORDINATESremotectrl( _options, _return_fn )
+function CIRCLESformsCOORDINATESremotectrl( _options, _return_fn, _out_channel )
 {
 		if ( !is_array( _options ) )
 		{
@@ -29,7 +29,8 @@ function CIRCLESformsCOORDINATESremotectrl( _options, _return_fn )
         return 1;
         break ;
 				case "move":
-				var _ret = move_div( _plugin_tmp_vars_array[ GLOB_PLUGIN_SUBSET ][ GLOB_PLUGIN_BASE_ID ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
+        var _sub = "forms", _base_id = "coordinates" ;
+				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
         return 1 ;
 				break ;
 				default:

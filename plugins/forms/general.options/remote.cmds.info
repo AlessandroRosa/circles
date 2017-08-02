@@ -5,3 +5,4 @@
 "ifs.region"=""
 "ifs.time"=""
 "move"="move pop-up window. Example: move LEFT|RIGHT TOP|BOTTOM"
+"tab"="Display one of the tabs: 'basics', 'zplane', 'wplane', 'colors', 'extras'. Example tab 'basics'"

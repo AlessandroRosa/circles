@@ -3,7 +3,7 @@ function CIRCLESembeddingsGENERALPURPOSE_REMOTE_CTRL_KEYWORDS_INIT()
     CIRCLESembeddingsGENERALPURPOSEremotectrl_keywords = [ "capture.gens", "capture.seeds" ] ;
 }
 
-function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn )
+function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _out_channel )
 {
 		if ( !is_array( _options ) )
 		{

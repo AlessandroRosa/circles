@@ -7,6 +7,20 @@
    14 : rect obj for popup wnd pos and extents
 */
 
+function circles_lib_set_caption_text( _base_id, _subset, _caption_text )
+{
+    _caption_text = safe_string( _caption_text, "" ).trim();
+    _base_id = _base_id.replace( /[\.|\_|\-]/g, "" );
+    if ( _caption_text.length == 0 ) return 0 ;
+    var _caption_id = "PLUGIN"+_subset.toLowerCase()+_base_id.toLowerCase()+"CAPTION" ;
+    if ( $("#"+_caption_id).get(0) != null )
+    {
+       $("#"+_caption_id).html( _caption_text );
+       return 1 ;
+    }
+    else return -1 ;
+}
+
 function circles_lib_plugin_caption_code( _run, _title, _colspan, _arrows,
 					                               _append_fns_at_close, _width, _height, _caller_fn,
 				                                 _base_id, _div_id, _subset, _iconpath, _click_fn,
@@ -59,7 +73,7 @@ function circles_lib_plugin_caption_code( _run, _title, _colspan, _arrows,
     }
     else HTMLcode += "<td WIDTH=\"3\"></td>" ;
 
-    HTMLcode += "<td " ;
+    HTMLcode += "<td ID=\"PLUGIN"+(_subset.toLowerCase()+_clean_base_id.toLowerCase())+"CAPTION\" " ;
     HTMLcode += " ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"" ;
     if ( safe_size( _click_fn, 0 ) > 0 ) HTMLcode += " ONCLICK=\"javascript:"+_click_fn+";\"" ;
     HTMLcode += " ONMOUSEDOWN=\"javascript:$('#"+_div_id+"').draggable('enable');\"" ;

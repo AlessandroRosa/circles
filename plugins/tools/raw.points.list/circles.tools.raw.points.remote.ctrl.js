@@ -3,7 +3,7 @@ function CIRCLEStoolsRAWPOINTS_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLEStoolsRAWPOINTSremotectrl( _options, _return_fn )
+function CIRCLEStoolsRAWPOINTSremotectrl( _options, _return_fn, _out_channel )
 {
 		if ( !is_array( _options ) )
 		{

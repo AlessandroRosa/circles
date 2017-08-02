@@ -1,4 +1,4 @@
-function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn )
+function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _out_channel )
 {
 		if ( !is_array( _options ) )
 		{
@@ -94,6 +94,76 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn )
           return 0 ;
         }
 				break ;
+				case "move":
+        var _subset = "forms", _base_id = "general.options" ;
+				var _ret = move_div( _plugin_tmp_vars_array[ _subset ][ _base_id.replace( /[\.\_]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
+        return 1 ;
+				break ;
+        case "tab":
+        var _subset = "forms", _base_id = "general.options" ;
+        var _tabname = _options[1] != null ? _options[1].toLowerCase() : "basics" ;
+            _tabname = _tabname.replace( /[\.|\_\-]/, "" );
+        var HTMLcode = "", WIDTH = 450, HEIGHT = 0 ;
+
+        switch( _tabname )
+        {
+          case "basics":
+          WIDTH = 430, HEIGHT = 384 ;
+          HTMLcode = CIRCLESformsGENERALOPTIONSbasicsTAB();
+          circles_lib_set_caption_text( _base_id, _subset, "General Options - basics" );
+
+          if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
+          break ;
+          case "zplane":
+          HEIGHT = Math.max( $(window).height() - 90, 260 ) ;
+          var this_fn_name = "CIRCLESformsGENERALOPTIONSmain('general.options', 1, 2)" ;
+          HTMLcode = CIRCLESformsGENERALOPTIONSzplanelayersTAB( this_fn_name );
+          circles_lib_set_caption_text( _base_id, _subset, "General Options - Z-plane" );
+          CIRCLESformsGENERALOPTIONSresize( WIDTH - 20, HEIGHT );
+
+          if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
+
+          CIRCLESformsGENERALOPTIONSlayersINITsliders( Z_PLANE );
+          CIRCLESformsGENERALOPTIONSlayersINITcanvasTHUMBNAILS( Z_PLANE );
+          break ;
+          case "wplane":
+          WIDTH = 450, HEIGHT = Math.max( $(window).height() - 90, 260 ) ;
+          var this_fn_name = "CIRCLESformsGENERALOPTIONSmain('general.options', 1, 3)" ;
+          HTMLcode = CIRCLESformsGENERALOPTIONSwplanelayersTAB( this_fn_name );
+          circles_lib_set_caption_text( _base_id, _subset, "General Options - W-plane" );
+          CIRCLESformsGENERALOPTIONSresize( WIDTH - 20, HEIGHT );
+
+          if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
+
+          CIRCLESformsGENERALOPTIONSlayersINITsliders( W_PLANE );
+          CIRCLESformsGENERALOPTIONSlayersINITcanvasTHUMBNAILS( W_PLANE );
+          break ;
+          case "colors":
+          WIDTH = 430, HEIGHT = 280 ;
+          CIRCLESformsGENERALOPTIONSresize( WIDTH, HEIGHT );
+          HTMLcode = CIRCLESformsGENERALOPTIONScolorsTAB();
+          circles_lib_set_caption_text( _base_id, _subset, "General Options - Colors" );
+          if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
+          break ;
+          case "extras":
+          WIDTH = 430, HEIGHT = 346 ;
+          CIRCLESformsGENERALOPTIONSresize( WIDTH, HEIGHT );
+          HTMLcode = CIRCLESformsGENERALOPTIONSextrasTAB();
+          circles_lib_set_caption_text( _base_id, _subset, "General Options - Extras" );
+          if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
+          break ;
+          case "export":
+          WIDTH = 430, HEIGHT = 200 ;
+          CIRCLESformsGENERALOPTIONSresize( WIDTH, HEIGHT );
+          HTMLcode = CIRCLESformsGENERALOPTIONSexportTAB();
+          circles_lib_set_caption_text( _base_id, _subset, "General Options - Export" );
+          if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
+          break ;
+          default: break ;
+        }
+
+        return 1 ;
+        break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
         return 0 ;

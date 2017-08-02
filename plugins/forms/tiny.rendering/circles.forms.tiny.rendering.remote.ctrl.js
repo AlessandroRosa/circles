@@ -3,7 +3,7 @@ function CIRCLESformsTINYRENDERING_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESformsTINYRENDERINGremotectrl( _options, _return_fn )
+function CIRCLESformsTINYRENDERINGremotectrl( _options, _return_fn, _out_channel )
 {
 		if ( !is_array( _options ) )
 		{
