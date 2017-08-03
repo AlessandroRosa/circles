@@ -192,27 +192,31 @@ function circles_lib_canvas_after_process_figures( _filter_array, _b_clean, _pla
 
                     switch( _class )
                     {
+                        case FIGURE_CLASS_REGION:
+                        circles_lib_draw_rect( _canvas_context, _mapper, _obj,
+                                   _draw, _drawcolor, _fill, _fillcolor, _linewidth, YES, _opacity, 0 );
+                        break ;
                         case FIGURE_CLASS_POINT:
                         circles_lib_draw_point( _canvas_context, _mapper, _obj.x, _obj.y,
-                                          _draw, _drawcolor, _fill, _fillcolor, _glob_pt_border, _glob_pt_radius, _opacity, _properties_mask );
+                                   _draw, _drawcolor, _fill, _fillcolor, _glob_pt_border, _glob_pt_radius, _opacity, _properties_mask );
                         break ;
                         case FIGURE_CLASS_LINE:
                         circles_lib_draw_polyline( _canvas_context, _mapper, _obj,
-                                             _drawcolor, _fillcolor, _linewidth, _close, _opacity, UNDET, _properties_mask, YES );
+                                   _drawcolor, _fillcolor, _linewidth, _close, _opacity, UNDET, _properties_mask, YES );
                         break ;
                         case FIGURE_CLASS_RECT:
                         if ( _border_radius )
                         circles_lib_draw_rounded_rect( _canvas_context, _mapper,
-                                                _obj, _draw, _drawcolor, _fill, _fillcolor,
-                                                _linewidth, _border_radius, YES, _opacity, _properties_mask );
+                                   _obj, _draw, _drawcolor, _fill, _fillcolor,
+                                   _linewidth, _border_radius, YES, _opacity, _properties_mask );
                         else
                         circles_lib_draw_rect( _canvas_context, _mapper, _obj, _draw, _drawcolor, _fill, _fillcolor, _linewidth, YES, _opacity, _properties_mask );
                         break ;
                         case FIGURE_CLASS_CIRCLE:
                         circles_lib_draw_complex_disk( _canvas_context, _mapper,
-                                                _obj.center.x, _obj.center.y, _obj.radius,
-                                                _draw, _drawcolor, _fill, _fillcolor,
-                                                _linewidth, _opacity, null, null, "", _properties_mask );
+                                   _obj.center.x, _obj.center.y, _obj.radius,
+                                   _draw, _drawcolor, _fill, _fillcolor,
+                                   _linewidth, _opacity, null, null, "", _properties_mask );
                         break ;
 								        default: break ;
                     }

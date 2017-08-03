@@ -25,20 +25,23 @@ function circles_terminal_cmd_region()
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['props'] = [] ;
+         _params_assoc_array['roundto'] = _glob_accuracy ;
          _params_assoc_array['syntax'] = [] ;
          _params_assoc_array['syntax']['coords'] = [] ;
          _params_assoc_array['syntax']['inequality'] = [] ;
          _params_assoc_array['settings'] = [] ;
+         _params_assoc_array['settings']['label'] = "" ;
+         _params_assoc_array['settings']['rec'] = NO ;
+         _params_assoc_array['settings']['storagesubset'] = "regions" ;
          _params_assoc_array['settings']['xsyntax'] = [] ;
          _params_assoc_array['settings']['ysyntax'] = [] ;
-         _params_assoc_array['roundto'] = _glob_accuracy ;
-         
+
 				 var _labels = [ "x1", "y1", "x2", "y2" ], _got_it = [] ;
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "release", "clean", "x", "y", "<", ">", "zplane", "wplane", "html", "help" );
+    				 _local_cmds_params_array.push( "release", "clean", "x", "y", "<", ">", "zplane", "wplane", "html", "help", "rec" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
          var _p, _layer ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -63,6 +66,7 @@ function circles_terminal_cmd_region()
                    
                    _params_assoc_array['roundto'] = _p ;
               }
+              else if ( _p.stricmp( "rec" ) ) _params_assoc_array['settings']['rec'] = YES ;
               else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
               else if ( _p.is_one_of_i( "clean" ) ) _params_assoc_array['props'].push( "clean" ) ;
               else if ( ( _layer = circles_lib_canvas_layer_find( _params_assoc_array['props']['planeval'], FIND_LAYER_BY_ROLE_DEF, _p ) ) != null )
@@ -337,10 +341,7 @@ function circles_terminal_cmd_region()
                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Found coord y syntax", _par_1, _cmd_tag );
                        var _ret_chunk = circles_terminal_cmd_region_check_syntax( _params_assoc_array['settings']['ysyntax'] ) ;
                        var _ret_id = _ret_chunk[0], _ret_mask = _ret_chunk[1] ;
-                       if ( !_ret_id )
-                       {
-                            _b_fail = YES, _error_str = "Detected invalid coord y syntax: process aborted" ;
-                       }
+                       if ( !_ret_id ) { _b_fail = YES, _error_str = "Detected invalid coord y syntax: process aborted" ; }
                        else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Coord x syntax has been validated with success</lime>", _par_1, _cmd_tag );
                   }
 
@@ -378,18 +379,10 @@ function circles_terminal_cmd_region()
                        _rect_region = new rect( _params_assoc_array['syntax']['coords'], _RECT_ORIENTATION_CARTESIAN );
                        _rect_region.correct();
                        var _area = _rect_region.area() ;
-                       if ( _area == 0 )
-                       {
-                            _b_fail = YES, _error_str = "Input rect region is of zero area: process aborted" ;
-                       }
-                       else
-                       {
-													 circles_lib_draw_rect( _context, _mapper, _rect_region,
-													 									_draw, _drawcolor,
-																						_fill, _fillcolor,
-																						_draw ? _linewidth : 0, YES,
-																						_opacity, 0 ) ;
-                       }                    
+                       if ( _area == 0 ) { _b_fail = YES, _error_str = "Input rect region is of zero area: process aborted" ; }
+                       else circles_lib_draw_rect( _context, _mapper, _rect_region,
+													 	   	_draw, _drawcolor, _fill, _fillcolor,
+																_draw ? _linewidth : 0, YES, _opacity, 0 ) ;
                   }
                   else if ( _x_syntax_flag || _y_syntax_flag )
                   {
@@ -415,26 +408,50 @@ function circles_terminal_cmd_region()
                        _rect_region.correct();
 
                        var _area = _rect_region.area() ;
-                       if ( _area == 0 )
-                       {
-                            _b_fail = YES, _error_str = "Input rect region is of zero area: process aborted" ;
-                       }
-                       else
-                       {
-													 circles_lib_draw_rect( _context, _mapper, _rect_region,
-													 									_draw, _drawcolor,
-																						_fill, _fillcolor,
-																						_draw ? _linewidth : 0, YES,
-																						_opacity, 0 ) ;
-                       }
+                       if ( _area == 0 ) { _b_fail = YES, _error_str = "Input rect region is of zero area: process aborted" ; }
+                       else circles_lib_draw_rect( _context, _mapper, _rect_region,
+					 									_draw, _drawcolor, _fill, _fillcolor,
+														_draw ? _linewidth : 0, YES, _opacity, 0 ) ;
 									}
-                  else
+                  else { _b_fail = YES, _error_str = "Missing input reference plane: process aborted" ; }
+
+                  if ( _params_assoc_array['settings']['rec'] == YES )
                   {
-                      _b_fail = YES, _error_str = "Missing input reference plane: process aborted" ;
+                     var _rec_chunk = [];
+                     _rec_chunk['class'] = FIGURE_CLASS_REGION ;
+                     _rec_chunk['draw'] = _fill ;
+                     _rec_chunk['drawcolor'] = _drawcolor ;
+                     _rec_chunk['enabled'] = YES ;
+                     _rec_chunk['fill'] = _fill ;
+                     _rec_chunk['fillcolor'] = _fillcolor ;
+                     _rec_chunk['label'] = _params_assoc_array['settings']['label'] ;
+                     _rec_chunk['linewidth'] = _linewidth ;
+                     _rec_chunk['myhash'] = "rec" + _glob_figures_array.length ;
+                     _rec_chunk['obj'] = _rect_region ;
+                     _rec_chunk['opacity'] = _opacity ;
+                     _rec_chunk['plane'] = _params_assoc_array['props']['planeval'] ;
+                     _glob_figures_array.push( _rec_chunk );
+
+                     var _subset = _params_assoc_array['settings']['storagesubset'] ;
+                     if ( !is_array( _glob_storage[_subset] ) )
+                     {
+                        _glob_storage[_subset] = [] ;
+                        var _msg = "Storage space <white>'"+_subset+"'</white> has been created with success" ;
+                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                     }
+
+                     if ( is_array( _glob_storage[_subset] ) )
+                     {
+                        _glob_storage[_subset].push( _rec_chunk );
+                        var _default_space = _subset == "regions" ? 1 : 0 ;
+                        var _msg = "<green>Region "+( _rec_chunk['label'].length > 0 ? "'"+_rec_chunk['label']+"' " : "" )+"has been recorded into "+(_default_space?"default ":"")+"'"+_subset+"' storage space</green>" ;
+                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                     }
+                     else circles_lib_output( _out_channel, DISPATCH_WARNING, "Storage space '"+_subset+"' does not exist", _par_1, _cmd_tag );
                   }
                   break ;
 		              case "release":
-		              circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release on 2015-07-28", _par_1, _cmd_tag );
+		              circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
 		              break ;
 		              default: break ;
 		         }

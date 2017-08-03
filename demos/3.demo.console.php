@@ -100,14 +100,16 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                      $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
-                     $( "#presentation_div" ).html( "We can paint cyan a given region for highlight" ) ;
+                     var _code = "We can paint cyan a given region<br>" ;
+                         _code += "<SPAN STYLE=\"font-size:10pt;\">(to highlight some portions of the plane, for example)</SPAN>"
+                     $( "#presentation_div" ).html( _code ) ;
                   },
-                  ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
-                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
+                  ctrl_id : "presentation_div", time : 3, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 110 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "region zplane yellow cyan 0,2,1,0 opaq:0.2" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "region zplane yellow cyan 0,2,1,0 opaq:0.2 rec" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -118,16 +120,24 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                      $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
-                     var _code = "Or draw some lines<br>emanating from the origin, on the Z-plane<br>" ;
-                         _code += "<SPAN STYLE=\"font-size:10pt;\">Lines will be recorded for them to be<br>persistent on the screen</SPAN>"
+                     var _code = "Or you can draw some lines<br>emanating from the origin,<br>on the Z-plane<br>" ;
+                         _code += "<SPAN STYLE=\"font-size:10pt;\">(Lines will be recorded for them to be persistent<br>on the screen)</SPAN>"
                      $( "#presentation_div" ).html( _code ) ;
                   },
                   ctrl_id : "presentation_div", time : 3, time_unit : "s",
-                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 140 }, showlabel : false, desclabel : "",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 120 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "line (0,0) (1,2) drawcolor blue zplane rec" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "line (0,0) (-1.5,1.7) drawcolor pink zplane rec" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "line (0,0) (-1.7,1.5) drawcolor black zplane rec" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -152,7 +162,7 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).css( "background-color", "#73BCE0" ) ;
                      $( "#presentation_div" ).html( "Get the bounding coordinates<br>for the Z-plane" ) ;
                   },
-                  ctrl_id : "presentation_div", time : 2.5, time_unit : "s",
+                  ctrl_id : "presentation_div", time : 3, time_unit : "s",
                   action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
@@ -170,7 +180,7 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).css( "background-color", "#73BCE0" ) ;
                      $( "#presentation_div" ).html( "What's the alphabet related to the current group in action ?" ) ;
                   },
-                  ctrl_id : "presentation_div", time : 2.5, time_unit : "s",
+                  ctrl_id : "presentation_div", time : 3, time_unit : "s",
                   action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
@@ -188,7 +198,7 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).css( "background-color", "#428BAF" ) ;
                      $( "#presentation_div" ).html( "So we select a Mobius map generator<br>through its label" ) ;
                   },
-                  ctrl_id : "presentation_div", time : 2.0, time_unit : "s",
+                  ctrl_id : "presentation_div", time : 3.0, time_unit : "s",
                   action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
@@ -196,9 +206,9 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                      $( "#presentation_div" ).css( "background-color", "#428BAF" ) ;
-                     $( "#presentation_div" ).html( "Select the Mobius map labelled 'A'" ) ;
+                     $( "#presentation_div" ).html( "Select the Mobius map<br>labelled as 'A'" ) ;
                   },
-                  ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
+                  ctrl_id : "presentation_div", time : 2.0, time_unit : "s",
                   action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
@@ -210,9 +220,9 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                      $( "#presentation_div" ).css( "background-color", "#428BAF" ) ;
-                     $( "#presentation_div" ).html( "Select its inverse Mobius map labelled 'a'" ) ;
+                     $( "#presentation_div" ).html( "Select its inverse Mobius map<br>labelled as 'a'" ) ;
                   },
-                  ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
+                  ctrl_id : "presentation_div", time : 2.0, time_unit : "s",
                   action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
