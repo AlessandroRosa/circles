@@ -110,7 +110,7 @@ circles_lib_statusbar_load( "vert", "left", "top", NO, 10, 100 );
     switch( $_GET['demo'] )
     {
       case 1: @include( "demos/$DEMO_IDX.demo.basic.maskit.param.php" ); break ;
-      case 2: @include( "demos/$DEMO_IDX.demo.random.maskit.param.php" ); break ;
+      case 2: @include( "demos/$DEMO_IDX.demo.random.jorgensen.php" ); break ;
       case 3: @include( "demos/$DEMO_IDX.demo.console.php" ); break ;
       case 4: @include( "demos/$DEMO_IDX.demo.console.conjugation.php" ); break ;
       case 5: @include( "demos/$DEMO_IDX.demo.fuchsian.group.php" ); break ;
