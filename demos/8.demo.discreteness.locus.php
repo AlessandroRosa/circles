@@ -9,6 +9,7 @@ var _demon = new demo_n();
                   {
                      $( "<div ID=\"presentation_div\" CLASS=\"general_rounded_corners\" STYLE=\"position:absolute;z-index:2000;font-size:14pt;font-family:arial;width:340px;height:auto;padding:6px;text-align:center;color:white;\"></div>" ).appendTo("body");
                      $( "#presentation_div" ).css( "background-color", "#9AD2FB" ) ;
+                     $( "#presentation_div" ).height( "auto" ) ;
                      $( "#presentation_div" ).html( "CIRCLES DEMO #8<br/>Working with the discreteness locus<br/>for Maskit embedding T1,1" ) ;
                   },
                   ctrl_id : "presentation_div", time : 3, time_unit : "s",

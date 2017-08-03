@@ -9,6 +9,7 @@ var _demon = new demo_n();
                   {
                      $( "<div ID=\"presentation_div\" CLASS=\"general_rounded_corners\" STYLE=\"position:absolute;z-index:2000;font-size:14pt;font-family:arial;width:340px;height:auto;padding:6px;text-align:center;color:white;\"></div>" ).appendTo("body");
                      $( "#presentation_div" ).css( "background-color", "#9AD2FB" ) ;
+                     $( "#presentation_div" ).height( "auto" ) ;
                      $( "#presentation_div" ).html( "CIRCLES DEMO #5<br>Fuchsian group" ) ;
                   },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
@@ -73,7 +74,7 @@ var _demon = new demo_n();
 
     _demon.add( { pre_fn : function() { $( "#presentation_div" ).html( "END OF DEMO #5" ) ; },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
-                  action : "show", set_value : null, showlabel : false, desclabel : ""
+                  action : "show", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
