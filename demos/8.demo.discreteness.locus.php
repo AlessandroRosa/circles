@@ -175,7 +175,7 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                     $( "#presentation_div" ).css( "background-color", "#9AD2FB" ) ;
-                    $( "#presentation_div" ).html( "END OF DEMO #8" ) ;
+                    $( "#presentation_div" ).html( "END OF DEMO #8<br>Wishes of a peaceful day !" ) ;
                   },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
                   action : "show", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""

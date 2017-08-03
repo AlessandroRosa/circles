@@ -36,6 +36,9 @@
 <white>plugin open</white>
 <white>plugin send get.point 1-0.3i</white>
 
+<lightblue>plugin target</lightblue>
+<white>alias of 'set' action</white>
+
 <lightblue>plugin var</lightblue>
 <cadetblue>set var id and related value for the current working plug-in</cadetblue>
 <white>plugin var g1_1=1+i</white>

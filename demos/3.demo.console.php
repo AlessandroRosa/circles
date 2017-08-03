@@ -10,28 +10,28 @@ var _demon = new demo_n();
                      $( "<div ID=\"presentation_div\" CLASS=\"general_rounded_corners\" STYLE=\"position:absolute;z-index:2000;font-size:14pt;font-family:arial;width:340px;height:auto;padding:6px;text-align:center;color:white;\"></div>" ).appendTo("body");
                      $( "#presentation_div" ).css( "background-color", "#9AD2FB" ) ;
                      $( "#presentation_div" ).height( "auto" ) ;
-                     $( "#presentation_div" ).html( "CIRCLES DEMO #3<br>Console commands" ) ;
+                     $( "#presentation_div" ).html( "CIRCLES DEMO #3<br>Running some console commands" ) ;
                   },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
                   action : "fadein", set_value : { to_x : "center", to_y : "center", speed : "slow" }, showlabel : false, desclabel : ""
                 } );
 
-    _demon.add( { ctrl_id : "presentation_div", time : 3, time_unit : "s",
+    _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
                   action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { pre_fn : function()
                   {
                      $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
-                     $( "#presentation_div" ).html( "We're are going to generate<br/>a group of Mobius transformations and<br>illustrate some console commands." ) ;
+                     $( "#presentation_div" ).html( "We're are going to generate<br/>a group of Mobius maps and<br>illustrate some console commands." ) ;
                   },
                   ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
                   action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
-    _demon.add( { ctrl_id : "plugin_maskitonce", time : 2, time_unit : "s",
-                  action : "click", set_value : -1, showlabel : true, desclabel : "Calling the 'Maskit embedding' form",
+    _demon.add( { ctrl_id : "plugin_maskitonce", time : 1.5, time_unit : "s",
+                  action : "click", set_value : -1, showlabel : true, desclabel : "Calling the 'Maskit T1,1 embedding' form",
                   post_fn : function()
                   {
                     circles_lib_plugin_load('embeddings','maskit.once','1','0','1');
@@ -47,23 +47,6 @@ var _demon = new demo_n();
                   action : "keypress", set_value : _str[_i], showlabel : true, desclabel : "Writing down the parameter for the group"
                 } );
                 
-    _demon.add( { ctrl_id : "STATUSBARdepthEDIT", time : 1.5, time_unit : "s",
-                  action : "keydel", set_value : "", showlabel : true, desclabel : "Deleting the old rendering depth"
-                } );
-    _demon.add( { ctrl_id : "STATUSBARdepthEDIT", time : 1.5, time_unit : "s",
-                  action : "keypress", set_value : 10, showlabel : true, desclabel : "Set the new rendering depth to 10",
-                  post_fn : function()
-                  {
-                      var press = jQuery.Event("keypress");
-                      press.ctrlKey = false;
-                      press.altKey = false;
-                      press.keyCode = 13 ;
-                      press.stopPropagation = false 
-                      press.cancelBubble = true ;
-                      CIRCLESbarsSTATUSBAReventsKEYCODE( "STATUSBARdepthEDIT", press ) ;
-                  }
-                } );
-
     _demon.add( { ctrl_id : "PLUGIN_PARAM_MU", time : 1.5, time_unit : "s",
                   action : "focus", set_value : _str[_i], showlabel : true, desclabel : "Group initialization",
                   post_fn : function(){
@@ -77,27 +60,173 @@ var _demon = new demo_n();
                 } } );
 
     _demon.add( { post_fn : function() { circles_lib_plugin_load('forms','terminal',YES,0,YES); circles_lib_plugin_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2, time_unit : "s",
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
 
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set embeddings maskit.once" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin close" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
     _demon.add( { post_fn : function() { _glob_terminal.exec( "depth 9" ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : true, desclabel : "Setting the depth to 9" } );
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( "Get some info about the Mobius maps belonging to the group in action" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 2.5, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "info group" ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : true, desclabel : "Retrieving current group info" } );
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.2, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( "We can paint cyan a given region for highlight" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "region zplane yellow cyan 0,2,1,0 opaq:0.2" ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : true, desclabel : "Drawing a region on the z-plane" } );
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { pre_fn : function() { $( "#presentation_div" ).html( "END OF DEMO #3" ) ; },
-                  ctrl_id : "presentation_div", time : 2, time_unit : "s",
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     var _code = "Or draw some lines<br>emanating from the origin, on the Z-plane<br>" ;
+                         _code += "<SPAN STYLE=\"font-size:10pt;\">Lines will be recorded for them to be<br>persistent on the screen</SPAN>"
+                     $( "#presentation_div" ).html( _code ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 3, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 140 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "line (0,0) (1,2) drawcolor blue zplane rec" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "line (0,0) (-1,2) drawcolor red zplane rec" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "line (0,0) (-1,-2) drawcolor cyan zplane rec" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "line (0,0) (1,-2) drawcolor green zplane rec" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#73BCE0" ) ;
+                     $( "#presentation_div" ).html( "Get the bounding coordinates<br>for the Z-plane" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 2.5, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "coords zplane" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#73BCE0" ) ;
+                     $( "#presentation_div" ).html( "What's the alphabet related to the current group in action ?" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 2.5, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "alphabet" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#428BAF" ) ;
+                     $( "#presentation_div" ).html( "So we select a Mobius map generator<br>through its label" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 2.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#428BAF" ) ;
+                     $( "#presentation_div" ).html( "Select the Mobius map labelled 'A'" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "mobius select A" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#428BAF" ) ;
+                     $( "#presentation_div" ).html( "Select its inverse Mobius map labelled 'a'" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "mobius select a" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { pre_fn : function() { $( "#presentation_div" ).html( "END OF DEMO #3<br>Have a nice day !" ) ; },
+                  ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
                   action : "show", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""
                 } );
 
-    _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
                   action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
                 } );
     _demon.run();

@@ -28,7 +28,7 @@ function circles_terminal_cmd_line()
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "close", "draw", "mark", "unmark", "zplane", "wplane", "bip",
                                             "rec", "release", "html", "help" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         //circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
 				 _params_assoc_array['dump_operator_index'] = _dump_operator_index ;
@@ -52,7 +52,6 @@ function circles_terminal_cmd_line()
          _params_assoc_array['settings']['label'] = "" ;
          _params_assoc_array['settings']['params'] = [] ;
          _params_assoc_array['settings']['plane'] = NO_PLANE ;
-         _params_assoc_array['settings']['storagequeue'] = [] ;
          _params_assoc_array['settings']['storagesubset'] = "lines" ;
          var _p,  _b_cmd_open = NO ;
          // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
@@ -158,40 +157,40 @@ function circles_terminal_cmd_line()
                   default:
                   if ( _params_assoc_array['settings']['label'].length > 0 && _params_assoc_array['settings']['rec'] == NO )
                   {
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "Skipped label param. Mismatch setting: no rec param input", _par_1, _cmd_tag );
-                        if ( _glob_verbose ) circles_lib_output( _out_channel, DISPATCH_INFO, "Label param is useless if this figure is not going to be recorded", _par_1, _cmd_tag );
+                     circles_lib_output( _out_channel, DISPATCH_INFO, "Skipped label param. Mismatch setting: no rec param input", _par_1, _cmd_tag );
+                     if ( _glob_verbose ) circles_lib_output( _out_channel, DISPATCH_INFO, "Label param is useless if this figure is not going to be recorded", _par_1, _cmd_tag );
                   }
                   else if ( _params_assoc_array['settings']['plane'] == NO_PLANE )
                   {
-                        _b_fail = YES, _error_str = "Can't plot line: missing plane reference" ;
+                     _b_fail = YES, _error_str = "Can't plot line: missing plane reference" ;
                   }
                   else if ( _params_assoc_array['settings']['polyline'].length == 0 )
                   {
-                        _b_fail = YES, _error_str = "Can't plot line: missing coordinates" ;
+                     _b_fail = YES, _error_str = "Can't plot line: missing coordinates" ;
                   }
                   else if ( _params_assoc_array['settings']['polyline'].length == 1 )
                   {
-                        _b_fail = YES, _error_str = "Can't plot line: points must be at least 2" ;
+                     _b_fail = YES, _error_str = "Can't plot line: points must be at least 2" ;
                   }
                   else if ( _params_assoc_array['settings']['polyline'].length == 2 && _params_assoc_array['settings']['close'] )
                   {
-                        _params_assoc_array['settings']['close'] = NO ;
-                        circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Close param disabled because input points are just two", _par_1, _cmd_tag );
+                     _params_assoc_array['settings']['close'] = NO ;
+                     circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Close param disabled because input points are just two", _par_1, _cmd_tag );
                   }
           
                   // beware of some missing color param, so let's check'em deeper
                   if ( _params_assoc_array['settings']['drawcolor'] == null )
                   {
-                       _b_fail = YES, _error_str = "Missing draw color: this line won't be visible" ;
+                     _b_fail = YES, _error_str = "Missing 'drawcolor' attribute: this line won't be visible" ;
                   }
                   else
                   {
-                       var _drawcolor = _params_assoc_array['settings']['drawcolor'] ;
-                       var _draw = _drawcolor != null ? ( ( _drawcolor.length > 0 && !_drawcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
-                       if ( _draw == NO )
-                       {
-                            _b_fail = YES, _error_str = "Missing draw color: this line won't be visible" ;
-                       }
+                     var _drawcolor = _params_assoc_array['settings']['drawcolor'] ;
+                     var _draw = _drawcolor != null ? ( ( _drawcolor.length > 0 && !_drawcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
+                     if ( _draw == NO )
+                     {
+                        _b_fail = YES, _error_str = "Missing draw color: this line won't be visible" ;
+                     }
                   }
 
                   var _canvas_context, _mapper, _line_obj ;
@@ -204,56 +203,58 @@ function circles_terminal_cmd_line()
                   var _opacity = _params_assoc_array['settings']['opacity'] == null ? 1.0 : _params_assoc_array['settings']['opacity'] ;
                   switch( _params_assoc_array['settings']['plane'] )
                   {
-                      case Z_PLANE:
-                      _canvas_context = _glob_zplane_work_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
-                      _mapper = zplane_sm ;
-                      break ;
-                      case W_PLANE:
-                      _canvas_context = _glob_wplane_work_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
-                      _mapper = wplane_sm ;
-                      break ;
-                      case BIP_BOX:
-                      _canvas_context = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode );
-                      _mapper = bipbox_sm ;
-                      break ;
-							        default: break ;
+                     case Z_PLANE:
+                     _canvas_context = _glob_zplane_work_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                     _mapper = zplane_sm ;
+                     break ;
+                     case W_PLANE:
+                     _canvas_context = _glob_wplane_work_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                     _mapper = wplane_sm ;
+                     break ;
+                     case BIP_BOX:
+                     _canvas_context = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode );
+                     _mapper = bipbox_sm ;
+                     break ;
+							       default: break ;
                   }
                   
                   circles_lib_draw_polyline( _canvas_context, _mapper, _params_assoc_array['settings']['polyline'], _drawcolor, _fillcolor, _linewidth, _params_assoc_array['settings']['close'], _opacity, UNDET, _params_assoc_array['settings']['propertiesmask'], YES );
                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_get_def( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Line processed with success</green>", _par_1, _cmd_tag );
 
-                  if ( _params_assoc_array['settings']['rec'] == YES || _storage_queue_request )
+                  if ( _params_assoc_array['settings']['rec'] == YES )
                   {
-                       var _rec_chunk = [];
-                       _rec_chunk['class'] = FIGURE_CLASS_LINE ;
-                       _rec_chunk['obj'] = _params_assoc_array['settings']['polyline'].clone();
-                       _rec_chunk['plane'] = _params_assoc_array['settings']['plane'] ;
-                       _rec_chunk['draw'] = _draw ;
-                       _rec_chunk['fill'] = _fill ;
-                       _rec_chunk['drawcolor'] = _drawcolor ;
-                       _rec_chunk['fillcolor'] = _fillcolor ;
-                       _rec_chunk['opacity'] = _opacity ;
-                       _rec_chunk['linewidth'] = _linewidth ;
-                       _rec_chunk['enabled'] = YES ;
-                       _rec_chunk['label'] = _params_assoc_array['settings']['label'].length > 0 ? _params_assoc_array['settings']['label'] : "" ;
-                       _rec_chunk['close'] = _params_assoc_array['settings']['close'] ;
-                       _rec_chunk['myhash'] = "rec" + _glob_figures_array.length ;
-                       _rec_chunk_params_assoc_array['settings']['propertiesmask'] = _params_assoc_array['settings']['propertiesmask'] ;
-                       _glob_figures_array.push( _rec_chunk );
-        
-                       if ( _storage_queue_request )
-                       {
-                           var _subset = _params_assoc_array['settings']['storagesubset'] ;
-                           if ( is_array( _glob_storage[_subset] ) )
-                           {
-                               _glob_storage[_subset].push( _rec_chunk );
-                               var _msg = "<green>Line "+( _rec_chunk['label'].length > 0 ? "'"+_rec_chunk['label']+"'" : "" )+" has been copied into data storage space</green>" ;
-                               circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-                           }
-                           else circles_lib_output( _out_channel, DISPATCH_WARNING, "'"+_subset+"' does not refer to any valid storage space subset", _par_1, _cmd_tag );
-                       }
-        
-                       circles_lib_output( _out_channel, DISPATCH_INFO, "Line recorded", _par_1, _cmd_tag );
+                     var _rec_chunk = [];
+                     _rec_chunk['class'] = FIGURE_CLASS_LINE ;
+                     _rec_chunk['close'] = _params_assoc_array['settings']['close'] ;
+                     _rec_chunk['draw'] = _draw ;
+                     _rec_chunk['drawcolor'] = _drawcolor ;
+                     _rec_chunk['enabled'] = YES ;
+                     _rec_chunk['fill'] = _fill ;
+                     _rec_chunk['fillcolor'] = _fillcolor ;
+                     _rec_chunk['label'] = _params_assoc_array['settings']['label'] ;
+                     _rec_chunk['linewidth'] = _linewidth ;
+                     _rec_chunk['myhash'] = "rec" + _glob_figures_array.length ;
+                     _rec_chunk['obj'] = _params_assoc_array['settings']['polyline'].clone();
+                     _rec_chunk['opacity'] = _opacity ;
+                     _rec_chunk['plane'] = _params_assoc_array['settings']['plane'] ;
+                     _glob_figures_array.push( _rec_chunk );
+
+                     var _subset = _params_assoc_array['settings']['storagesubset'] ;
+                     if ( !is_array( _glob_storage[_subset] ) )
+                     {
+                        _glob_storage[_subset] = [] ;
+                        var _msg = "Storage space <white>'"+_subset+"'</white> has been created with success" ;
+                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                     }
+
+                     if ( is_array( _glob_storage[_subset] ) )
+                     {
+                        _glob_storage[_subset].push( _rec_chunk );
+                        var _default_space = _subset == "lines" ? 1 : 0 ;
+                        var _msg = "<green>Line "+( _rec_chunk['label'].length > 0 ? "'"+_rec_chunk['label']+"' " : "" )+"has been recorded into "+(_default_space?"default ":"")+"'"+_subset+"' storage space</green>" ;
+                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                     }
+                     else circles_lib_output( _out_channel, DISPATCH_WARNING, "Storage space '"+_subset+"' does not exist", _par_1, _cmd_tag );
                   }
                   break ;
              }

@@ -72,7 +72,7 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { pre_fn : function() { $( "#presentation_div" ).html( "END OF DEMO #5" ) ; },
+    _demon.add( { pre_fn : function() { $( "#presentation_div" ).html( "END OF DEMO #5<br>Wishes of a joyful life !" ) ; },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
                   action : "show", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""
                 } );

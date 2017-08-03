@@ -37,7 +37,7 @@ function circles_terminal_cmd_plugin()
               if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "available", "close", "current", "list", "remotecmds", "open", "set", "send", "var", "varslist" ) ) _params_assoc_array['action'] = _p.toLowerCase();
+              else if ( _p.is_one_of_i( "available", "close", "current", "list", "remotecmds", "open", "set", "send", "target", "var", "varslist" ) ) _params_assoc_array['action'] = _p.toLowerCase();
               else if ( _p.is_one_of_i( "silent" ) ) _params_assoc_array['settings'].push( _p ) ;
               else
               {
@@ -317,6 +317,7 @@ console.log( _output );
                   else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot send event to Plug-in: please, set it first", _par_1, _cmd_tag );
                   break ;
                   case "set":
+                  case "target":
                   if ( _plugin_tmp_vars_array['plugin_sel'] == null ) _plugin_tmp_vars_array['plugin_sel'] = [] ;
                   var _fam = _params_assoc_array['settings']['family'] != null ? _params_assoc_array['settings']['family'] : "" ;
                   var _def = _params_assoc_array['settings']['def'] != null ? _params_assoc_array['settings']['def'] : "" ;
@@ -327,7 +328,7 @@ console.log( _output );
 
                     _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] = { fam : _fam, def : _def } ;
                     _plugin_tmp_vars_array['plugin_sel']['packed_name'] = _famLC + "@" + _defLC ;
-                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Plug-in has been correctly set to <white>"+_params_assoc_array['settings']['family']+" "+_params_assoc_array['settings']['def']+"</white>", _par_1, _cmd_tag );
+                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Plug-in target has been correctly set to <white>"+_params_assoc_array['settings']['family']+" "+_params_assoc_array['settings']['def']+"</white>", _par_1, _cmd_tag );
                   }
                   else
                   {

@@ -20,7 +20,7 @@ function CIRCLESembeddingsEARLEremotectrl( _options, _return_fn, _out_channel )
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "embeddings", _base_id = "earle" ;
-        circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
+        circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_]/g, '' ) ] );
         return 1 ;
         break ;
 				case "focus":

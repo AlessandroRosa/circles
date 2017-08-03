@@ -20,7 +20,7 @@ function CIRCLESformsANTIHOMOGRAPHYremotectrl( _options, _return_fn, _out_channe
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "forms", _base_id = "anti.homography" ;
-        circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[_sub][_base_id] );
+        circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_]/g, '' ) ] );
         return 1 ;
         break ;
 				case "focus":

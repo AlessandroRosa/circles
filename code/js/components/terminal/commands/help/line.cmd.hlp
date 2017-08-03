@@ -17,16 +17,14 @@
 <cadetblue>If mentioned, record this line for further display after renderings</cadetblue>
 
 <lightblue>line (0,0) (1,2) drawcolor blue zplane</lightblue>
-<cadetblue>draw a segment in the Z-plane in blue</cadetblue>
+<cadetblue>draw a segment on the Z-plane in blue</cadetblue>
 
-<lightblue>line (0,0) (1,2) drawcolor blue zplane storagein</lightblue>
-<cadetblue>draw a segment in the Z-plane in blue and save it into the default storage space</cadetblue>
-
-<lightblue>line (0,0) (1,2) drawcolor blue zplane storagein storagesubset:lines</lightblue>
-<cadetblue>same as above, but the line is saved into the 'figures' storage space (if existing)</cadetblue>
+<lightblue>line (0,0) (1,2) drawcolor blue zplane rec storagesubset:lines</lightblue>
+<cadetblue>same as above, but the line is recorded into the 'lines' storage space (if existing)</cadetblue>
+<white>same as above, but the line is recorded into the 'lines' storage space (if existing)</white>
 
 <lightblue>line (0,0) (1,2) (0.4,-0.4) drawcolor blue fillcolor cyan zplane $line1 rec</lightblue>
-<cadetblue>draw a broken line in the Z-plane in blue, close it and paint the interior in cyan, recorded as $line1</cadetblue>
+<cadetblue>draw a broken line on the Z-plane in blue, close it and paint the interior in cyan, recorded as $line1</cadetblue>
 
 <lightblue>line (0,0) (1,2) (1,-2) drawcolor blue zplane fillcolor yellow close rec</lightblue>
 <cadetblue>one more example</cadetblue>

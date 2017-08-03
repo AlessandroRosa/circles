@@ -6,8 +6,9 @@ https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ APP -------------------------------------------------
-* general.options form :
-  test form and fill .info file with events and descriptions
+* line / region cmd : 'rec' params does not work (run demo 3)
+* fix clean cmd
+
 ------------ DEMO ------------------------------------------------
 * all demos shall include more divs with descriptions of the stages,
   as made for discreteness locus demo

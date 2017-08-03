@@ -131,7 +131,7 @@ var _demon = new demo_n();
     _demon.add( { ctrl_id : "alertYESbtn", time : 2, time_unit : "s",
                   action : "click", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { pre_fn : function() { $( "#presentation_div" ).html( "END OF DEMO #1" ) ; },
+    _demon.add( { pre_fn : function() { $( "#presentation_div" ).html( "END OF DEMO #1<br>Pull your negative thoughts away !" ) ; },
                   ctrl_id : "presentation_div", time : 2, time_unit : "s",
                   action : "show", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""
                 } );
