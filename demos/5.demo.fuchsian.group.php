@@ -16,13 +16,39 @@ var _demon = new demo_n();
                   action : "fadein", set_value : { to_x : "center", to_y : "center", speed : "slow" }, showlabel : false, desclabel : ""
                 } );
 
-    _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
-                  action : "hide", set_value : null, showlabel : false, desclabel : ""
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).height( "auto" ) ;
+                     $( "#presentation_div" ).html( "Very roughly, a group is Fuchsian when its limit set is a circle" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 4, time_unit : "s",
+                  action : "move", set_value : { to_x : "left", to_y : "center" }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).height( "auto" ) ;
+                     $( "#presentation_div" ).html( "I'll do everything<br>through console commands" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 3, time_unit : "s",
+                  action : "move", set_value : { to_x : "left", to_y : "center" }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
     _demon.add( { post_fn : function() { circles_lib_plugin_load('forms','terminal',YES,0,YES); circles_lib_plugin_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 3, time_unit : "s",
-                  action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
+                  action : "click", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "new silent" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
@@ -40,9 +66,35 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).height( "auto" ) ;
+                     $( "#presentation_div" ).html( "Setting up a regular distribution of 4 generator circles with same size" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 3, time_unit : "s",
+                  action : "move", set_value : { to_x : "left", to_y :$(window).height() - 70 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
     _demon.add( { post_fn : function() { _glob_terminal.exec( "tessellator radial startcenter:(1.1334,0) radius:0.8 sector:2*pi rotationcenter:(0,0) circles:4" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).height( "auto" ) ;
+                     $( "#presentation_div" ).html( "I'm filling all graphic settings for the final rendering" ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 3, time_unit : "s",
+                  action : "move", set_value : { to_x : "left", to_y : $(window).height()-70 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "palette on" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
@@ -60,13 +112,35 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
     _demon.add( { post_fn : function() { circles_lib_plugin_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'LEFT', '' ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 3, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
 
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).height( "auto" ) ;
+                     var _html = "Now I'm ready for group initialization" ;
+                         _html += "<br>that is, when Mobius maps are computed"
+                         _html += "<br>(from circles or from parameter values)"
+                     $( "#presentation_div" ).html( _html ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 4, time_unit : "s",
+                  action : "move", set_value : { to_x : $(window).width()-490, to_y : 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
     _demon.add( { post_fn : function() { _glob_terminal.exec( "init auto" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "refresh wplane silent clean" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",
