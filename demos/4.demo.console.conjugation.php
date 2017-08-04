@@ -155,7 +155,7 @@ var _demon = new demo_n();
 
     _demon.add( { post_fn : function() { circles_lib_plugin_load('forms','terminal',YES,0,YES); circles_lib_plugin_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2, time_unit : "s",
-                  action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
+                  action : "click", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { pre_fn : function()
                   {
@@ -176,7 +176,7 @@ var _demon = new demo_n();
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "dg conjugate map:D1toH apply init" ); circles_lib_plugin_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'LEFT', '' ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 4.5, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : true, desclabel : "Conjugating the input group" } );
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { pre_fn : function()
                   {
