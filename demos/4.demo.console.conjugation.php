@@ -165,7 +165,7 @@ var _demon = new demo_n();
                          _html += "<br>a Mobius transformation, mapping the unit disk to the upper half-plane (D1toH)" ;
                      $( "#presentation_div" ).html( _html ) ;
                   },
-                  ctrl_id : "presentation_div", time : 3, time_unit : "s",
+                  ctrl_id : "presentation_div", time : 4, time_unit : "s",
                   action : "fadein", set_value : { to_x : $(window).width() - 400, to_y : "center" }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
