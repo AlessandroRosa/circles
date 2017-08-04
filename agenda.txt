@@ -6,10 +6,9 @@ https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ APP -------------------------------------------------
-* fix clean cmd
 ------------ DEMO ------------------------------------------------
 * all demos shall include more divs with descriptions of the stages,
-  as made for discreteness locus demo
+  as made for discreteness locus demo (last worked : #4)
 ------------ SCRIPT EDITOR ------------------------
 
   >> define the priority order for libs to be processed

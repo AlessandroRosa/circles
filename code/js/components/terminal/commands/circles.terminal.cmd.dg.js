@@ -19,8 +19,8 @@ function circles_terminal_cmd_dg()
      var _sd_n = circles_lib_count_seeds();
      var _begin_flag = 0 ;
      var _fn_ret_val = null ;
-     var _conjugation_service_cat = [ "apply", "init", "record", "refresh", "render" ] ;
-     var _subgroup_service_cat = [ "info", "init", "record", "refresh", "render", "show" ] ;
+     var _conjugation_service_cat = [ "apply", "init", "rec", "refresh", "render" ] ;
+     var _subgroup_service_cat = [ "info", "init", "rec", "refresh", "render", "show" ] ;
      
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
@@ -45,7 +45,7 @@ function circles_terminal_cmd_dg()
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "call", "clean", "conjugate", "delete", "info", "init", "help", "html",
                                             "inversion", "isometric", "release",
-                                            "list", "record", "refresh", "render",
+                                            "list", "rec", "refresh", "render",
                                             "save", "short", "show", "subgroup", "wplane", "zplane" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
          var _p ;
@@ -99,7 +99,7 @@ function circles_terminal_cmd_dg()
                   _begin_flag = 0 ;
              }
              else if ( _params_assoc_array['action'].stricmp( "conjugate" ) &&
-                       _p.is_one_of_i( "apply", "init", "record", "refresh", "render" ) )
+                       _p.is_one_of_i( "apply", "init", "rec", "refresh", "render" ) )
              {
                    _begin_flag = 0 ;
                    _params_assoc_array['service'].push( _p.toLowerCase() );
@@ -111,13 +111,13 @@ function circles_terminal_cmd_dg()
                    }
              }
              else if ( _params_assoc_array['action'].stricmp( "subgroup" ) &&
-                       ( _p.is_one_of_i( "info", "init", "record", "refresh", "render", "show" ) ||
+                       ( _p.is_one_of_i( "info", "init", "rec", "refresh", "render", "show" ) ||
                          _p.testME( _glob_word_regex_pattern ) || circles_lib_repetends_check_syntax( null, _p )
                        )
                      )
              {
                    _begin_flag = 0 ;
-                   if ( _p.is_one_of_i( "init", "info", "record", "refresh", "render", "show" ) ) _params_assoc_array['service'].push( _p.toLowerCase() );
+                   if ( _p.is_one_of_i( "init", "info", "rec", "refresh", "render", "show" ) ) _params_assoc_array['service'].push( _p.toLowerCase() );
                    else if ( _p.testME( _glob_word_regex_pattern ) && circles_lib_word_check( _p, _glob_alphabet ) ) _params_assoc_array['words'].push( _p );
                    else if ( circles_lib_repetends_check_syntax( null, _p ) )
                    {
@@ -526,7 +526,7 @@ function circles_terminal_cmd_dg()
                                 circles_lib_terminal_html_display( _glob_terminal, _html );
                             }
 
-                            if ( _service_array.includes( "record" ) )
+                            if ( _service_array.includes( "rec" ) )
                             {
                                 var _def = _params_assoc_array['def'] != null ? new String( _params_assoc_array['def'] ) : "" ;
                                 if ( safe_size( _def, 0 ) == 0 ) _def = "Missing definition for group symbol" ;
@@ -727,7 +727,7 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
 
                if ( _service_array.includes( "init" ) ) _kg_cmd_init( _par_1, _out_channel, _cmd_tag );
 
-               if ( _service_array.includes( "record" ) )
+               if ( _service_array.includes( "rec" ) )
                {
                    var _def = _params_assoc_array['def'] != null ? new String( _params_assoc_array['def'] ) : "" ;
                    if ( safe_size( _def, 0 ) == 0 ) _def = "Missing definition for group symbol" ;

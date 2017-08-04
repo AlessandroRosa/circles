@@ -285,7 +285,7 @@ function circles_terminal_cmd_plot()
 				          switch( _action )
 							    {
 							        case "release":
-							        circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release on 2015-07-18", _par_1, _cmd_tag );
+							        circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
 							        break ;
 							        case "draw":
 							        var _mapper = null, _context = null, _drawcolor = "", _fillcolor = "" ;
