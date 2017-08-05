@@ -46,7 +46,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _out_c
          case "close":
          GLOB_PLUGIN_DESTROY_POPUP_VARS();
          var _sub = "forms", _base_id = "general.purpose" ;
-         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_]/g, '' ) ] );
+         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
          break ;
   			 case "focus":
          var _sub = "embeddings", _base_id = "general.purpose" ;
@@ -63,7 +63,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _out_c
   			 break ;
   			 case "move":
          var _sub = "embeddings", _base_id = "general.purpose" ;
-  			 var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+  			 var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
          return _ret ;
   			 break ;
   			 case "new.mobius.map":

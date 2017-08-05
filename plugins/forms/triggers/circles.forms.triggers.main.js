@@ -81,4 +81,6 @@ function CIRCLESformsTRIGGERSmain( _base_id, _move )
     var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsTRIGGERScaption );
     if ( _move && _div != null ) move_div( _div.id, "LEFT", "BOTTOM", WIDTH, HEIGHT );
+
+    CIRCLESformsTRIGGERSdispatcher();
 }

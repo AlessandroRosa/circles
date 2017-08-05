@@ -10,7 +10,8 @@
 function circles_lib_set_caption_text( _base_id, _subset, _caption_text )
 {
     _caption_text = safe_string( _caption_text, "" ).trim();
-    _base_id = _base_id.replace( /[\.|\_|\-]/g, "" );
+    _base_id = safe_string( _base_id.replace( /[\.\_\-]/g, "" ), "" );
+    _subset = safe_string( _subset.replace( /[\.\_\-]/g, "" ), "" );
     if ( _caption_text.length == 0 ) return 0 ;
     var _caption_id = "PLUGIN"+_subset.toLowerCase()+_base_id.toLowerCase()+"CAPTION" ;
     if ( $("#"+_caption_id).get(0) != null )
@@ -144,17 +145,17 @@ function circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, c
         _div.style.padding = "4px" ;
         _div.setAttribute( "class", _class );
 
-        $( "#" + _div_id ).prop( "opacity", DEFAULT_OPACITY );
-        $( "#" + _div_id ).css( "width", safe_int( WIDTH, 0 ) > 0 ? WIDTH + "px" : "auto" );
-        $( "#" + _div_id ).css( "height", safe_int( HEIGHT, 0 ) > 0 ? HEIGHT + "px" : "auto" );
-        $( "#" + _div_id ).css( "background-color", "white" );
-        $( "#" + _div_id ).css( "top", _top+"px" );
-        $( "#" + _div_id ).zIndex( _zIndex );
-        $( "#" + _div_id ).html( contents );
-        $( "#" + _div_id ).prop( "display", "none" );
+        $("#"+_div_id).prop( "opacity", DEFAULT_OPACITY );
+        $("#"+_div_id).css( "width", safe_int( WIDTH, 0 ) > 0 ? WIDTH + "px" : "auto" );
+        $("#"+_div_id).css( "height", safe_int( HEIGHT, 0 ) > 0 ? HEIGHT + "px" : "auto" );
+        $("#"+_div_id).css( "background-color", "white" );
+        $("#"+_div_id).css( "top", _top+"px" );
+        $("#"+_div_id).zIndex( _zIndex );
+        $("#"+_div_id).html( contents );
+        $("#"+_div_id).prop( "display", "none" );
 
         if ( _bind_events ) 
-        $( "#" + _div_id ).bind( 'mousedown focus',
+        $("#"+_div_id).bind( 'mousedown focus',
                                  function(e)
                                  {
                                     if ( e != null )
@@ -179,12 +180,12 @@ function circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, c
     return _div ;
 }
 
-function circles_lib_plugin_destroy_wnd( _id )
+function circles_lib_plugin_destroy_wnd( _div_id )
 {
-    var _ret_index = circles_lib_plugin_exists( _id, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_UNIQUE_ID );
+    var _ret_index = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID );
     if ( _ret_index != UNFOUND )
     {
-       var _popup_chunk = circles_lib_plugin_find_wnd( _id, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_UNIQUE_ID );
+       var _popup_chunk = circles_lib_plugin_find_wnd( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID );
        if ( !is_array( _popup_chunk ) ) return NO ;
        else
        {
@@ -217,7 +218,7 @@ function circles_lib_plugin_register( _calling_params, _div_id, _caption, _statu
     var _unique_id = safe_string( "POPUP"+unixtime(), POPUP_NO_ID ).trim();
     var _focused = 0 ;
 
-    if ( circles_lib_plugin_exists( _unique_id, POPUP_SEARCH_BY_UNIQUE_ID ) == UNFOUND || _allow_multiple_instances )
+    if ( circles_lib_plugin_find_index( _unique_id, POPUP_SEARCH_BY_UNIQUE_ID ) == UNFOUND || _allow_multiple_instances )
     _glob_popups_array.push( [ _unique_id, _div_id, _caption,
                                _status, _visible, 0, NO,
                                _caption_class, _subset,
@@ -253,84 +254,85 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
 
     if ( _div_id.start_with( "#" ) ) _div_id = _div_id.replaceAll( "#", "" ) ;
     var _fn = function() { circles_lib_plugin_destroy_wnd( _div_id ) } ;
-    _b_open ? $( "#" + _div_id ).slideDown("slow") : $( "#" + _div_id ).slideUp("fast", _fn );
+    _b_open ? $("#"+_div_id).slideDown("slow") : $("#"+_div_id).slideUp("fast", _fn );
 
     if ( !_b_open ) hideCOLORTABLE();
     else _glob_popup_sel_unique_id = _div_id ;
 
-    var _index = circles_lib_plugin_exists( _div_id, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_UNIQUE_ID, _caption );
+    var _index = circles_lib_plugin_find_index( _div_id, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_UNIQUE_ID, _caption );
     var _popup_obj = null ;
     if ( _b_open )
     {
-        if ( _index == UNFOUND || _allow_multiple_instances )
-        {
-           circles_lib_plugin_set_property_to_all_entries( 0, POPUP_SEARCH_BY_STATUS );
-           _popup_obj = circles_lib_plugin_register( _calling_params, _div_id, _caption, OPEN, SHOW, _caption_class, _subset, _base_id, _allow_multiple_instances );
-        }
-        else
-        {
-           _glob_popups_array[_index][2] = _caption ;
-           _glob_popups_array[_index][3] = OPEN ;
-           _glob_popups_array[_index][4] = SHOW ;
-           _popup_obj = _glob_popups_array[_index].clone() ;
-        }
+      if ( _index == UNFOUND || _allow_multiple_instances )
+      {
+        circles_lib_plugin_set_property_to_all_entries( 0, POPUP_SEARCH_BY_STATUS );
+        _popup_obj = circles_lib_plugin_register( _calling_params, _div_id, _caption, OPEN, SHOW, _caption_class, _subset, _base_id, _allow_multiple_instances );
+      }
+      else
+      {
+        _glob_popups_array[_index][2] = _caption ;
+        _glob_popups_array[_index][3] = OPEN ;
+        _glob_popups_array[_index][4] = SHOW ;
+        _popup_obj = _glob_popups_array[_index].clone() ;
+      }
     }
     else if ( _index != UNFOUND )
     {
-        _popup_obj = is_array( _glob_popups_array[_index] ) ? _glob_popups_array[_index].clone() : null ;
-        circles_lib_plugin_delete_from_archive( _index );
+      _popup_obj = is_array( _glob_popups_array[_index] ) ? _glob_popups_array[_index].clone() : null ;
+      circles_lib_plugin_delete_from_archive( _index );
     }
 
     var _unique_id = safe_string( is_array( _popup_obj ) ? _popup_obj[0] : POPUP_NO_ID, POPUP_NO_ID );
     circles_lib_statusbar_update_list_icon();
     if ( _b_open ) circles_lib_plugin_list_selection_render( YES, YES );
 
-    $( "#" + _div_id ).draggable(
+    $("#"+_div_id).draggable(
     {
         start: function() { circles_lib_plugin_dragstart_override_fn(); },
         drag: function() { circles_lib_plugin_drag_override_fn(); },
         stop: function()
               {
-                 var _left = $( "#" + _div_id ).css( "left" );
-                 var _top = $( "#" + _div_id ).css( "top" );
-                 var _width = $( "#" + _div_id ).width();
-                 var _height = $( "#" + _div_id ).height();
-                 _index = circles_lib_plugin_exists( _div_id, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_UNIQUE_ID, _caption );
+                 var _left = $("#"+_div_id).css( "left" );
+                 var _top = $("#"+_div_id).css( "top" );
+                 var _width = $("#"+_div_id).width();
+                 var _height = $("#"+_div_id).height();
+                 _index = circles_lib_plugin_find_index( _div_id, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_UNIQUE_ID, _caption );
                  _glob_popups_array[_index][14].width_height_constructor( _left, _top, _width, _height, _RECT_ORIENTATION_SCREEN );
                  circles_lib_plugin_dragstop_override_fn();
               }
     } );
 
-    $( "#" + _div_id ).draggable('disable');
+    $("#"+_div_id).draggable('disable');
 		if ( _b_open )
 		{
-				_glob_popup_sliderCTRLarray[_div_id] = new dhtmlxSlider( _div_id+"_sliderbox", 80, "ball", NO, 30, DEFAULT_MAX_OPACITY * 100.0, DEFAULT_MAX_OPACITY * 100.0, 1 );
-		    if ( _glob_popup_sliderCTRLarray[_div_id] != null )
-		    {
-            _glob_popup_sliderCTRLarray[_div_id].setImagePath( _glob_path_to_img + "ctrls/slider/" );
-		        _glob_popup_sliderCTRLarray[_div_id].init();
-		        _glob_popup_sliderCTRLarray[_div_id].attachEvent( "onSlideEnd", function() { circles_lib_extras_sliderctrl_set_wnd_opacity( _div_id+"_sliderbox", YES ) } );
-		    }
+			_glob_popup_sliderCTRLarray[_div_id] = new dhtmlxSlider( _div_id+"_sliderbox", 80, "ball", NO, 30, DEFAULT_MAX_OPACITY * 100.0, DEFAULT_MAX_OPACITY * 100.0, 1 );
+	    if ( _glob_popup_sliderCTRLarray[_div_id] != null )
+	    {
+        _glob_popup_sliderCTRLarray[_div_id].setImagePath( _glob_path_to_img + "ctrls/slider/" );
+        _glob_popup_sliderCTRLarray[_div_id].init();
+        _glob_popup_sliderCTRLarray[_div_id].attachEvent( "onSlideEnd", function() { circles_lib_extras_sliderctrl_set_wnd_opacity( _div_id+"_sliderbox", YES ) } );
+	    }
 		}
     else if ( !_b_open && _glob_popup_divs_rec_positions_array[ _div_id ] != null ) _glob_popup_divs_rec_positions_array.remove_key( _div_id );
 
     // bind events
-    if ( $( "#" + _div_id ).get(0) != null && _b_open )
+    if ( $("#"+_div_id).get(0) != null && _b_open )
     {
-  	    $( "#" + _div_id ).get(0).onmousedown = function( event )   { POPUPSDIVonmousedown( _unique_id, this.id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
-  	    $( "#" + _div_id ).get(0).onmouseup = function( event )     { POPUPSDIVonmouseup( _unique_id, this.id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
-  	    $( "#" + _div_id ).get(0).oncontextmenu = function( event ) { return POPUPSDIVoncontextmenu( _unique_id, this.id, event ); }
+  	  $("#"+_div_id).get(0).onmousedown = function( event )   { POPUPSDIVonmousedown( _unique_id, this.id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
+  	  $("#"+_div_id).get(0).onmouseup = function( event )     { POPUPSDIVonmouseup( _unique_id, this.id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
+  	  $("#"+_div_id).get(0).oncontextmenu = function( event ) { return POPUPSDIVoncontextmenu( _unique_id, this.id, event ); }
 		}
 
-    if ( !_b_open && $( "#" + _div_id + "_menu_div" ).get(0) != null ) circles_lib_plugin_destroy_wnd( _div_id + "_menu_div" );
-    var _n = circles_lib_plugin_match_count( _base_id, POPUP_SEARCH_BY_BASE_ID ) ;
+    if ( !_b_open && $( "#" + _div_id + "_menu_div" ).get(0) != null )
+    circles_lib_plugin_destroy_wnd( _div_id + "_menu_div" );
+    var _n = circles_lib_plugin_find_index( { base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID, 0 ) ;
     // de-allocates all functions associated to the pop-up
     // (if multiple instances have been init, then the removal process applies to the last instance)
     // (so that it always applies for all single instance pop-ups)
-    if ( !_b_open && _n == 0 )
+    if ( !_b_open && _n != UNFOUND )
     {
-        var PREFIX = "CIRCLES" + _subset.toLowerCase() + _base_id.toUpperCase();
-        for( var _v in window ) if ( _v.start_with( PREFIX ) ) { eval( "window." + _v + " = null ;" ); }
+      var PREFIX = "CIRCLES" + _subset.toLowerCase() + _base_id.toUpperCase();
+      for( var _v in window ) if ( _v.start_with( PREFIX ) ) { eval( "window." + _v + " = null ;" ); }
     }
 
     if ( !_b_open ) GLOB_PLUGIN_SUBSET = GLOB_PLUGIN_BASE_ID = "" ;

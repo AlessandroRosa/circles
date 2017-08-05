@@ -123,8 +123,8 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        if ( object_exists( _clone_ref_id ) ) CIRCLESformsTINYRENDERINGclonePOPUP( _clone_ref_id, _div_id, _REF_ID );
        else CIRCLESformsTINYRENDERINGcopyCANVAS( _div_id, _REF_ID, NO );
 
-       var _tabber_w = safe_int( $( "#" + _div_id ).width() - $( "#CANVASrendering" + _REF_ID ).width(), 0 ) ;
-       var _tabber_h = safe_int( $( "#" + _div_id ).height() - $( "#CANVASrendering" + _REF_ID ).height(), 0 ) ;
+       var _tabber_w = safe_int( $("#"+_div_id).width() - $( "#CANVASrendering" + _REF_ID ).width(), 0 ) ;
+       var _tabber_h = safe_int( $("#"+_div_id).height() - $( "#CANVASrendering" + _REF_ID ).height(), 0 ) ;
        $( "#CIRCLESformsTINYRENDERING"+_REF_ID+"mainDIV" ).width( _tabber_w - 12 ) ;
        $( "#CANVASscripttextarea"+_REF_ID ).width( _tabber_w - 10 - 16 ) ;
        $( "#CANVASscripttextarea"+_REF_ID ).height( _tabber_h - 10 - 24 ) ;

@@ -339,7 +339,7 @@ function circles_lib_complexdisk_remove( _items_array, _question, _silent, _forc
           var _last_index = _n_disks_after - 1 ;
           if ( _last_index >= 0 && _out_channel == OUTPUT_SCREEN )
           {
-             if ( circles_lib_plugin_exists( 'edit.disk', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+             if ( circles_lib_plugin_find_index( { base_id : 'edit.disk' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
              circles_lib_plugin_load('forms','edit.disk', NO, _last_index );
           }
           else if ( _n_disks == 0 ) circles_lib_plugin_activate( NO, "edit.disk", "", "", "forms", CLOSE, "POPUPeditdiskDIV", "" );

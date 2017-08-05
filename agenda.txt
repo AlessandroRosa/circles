@@ -7,8 +7,6 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ APP -------------------------------------------------
 ------------ DEMO ------------------------------------------------
-* all demos shall include more divs with descriptions of the stages,
-  as made for discreteness locus demo (last worked : #4)
 ------------ SCRIPT EDITOR ------------------------
 
   >> define the priority order for libs to be processed

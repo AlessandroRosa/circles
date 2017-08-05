@@ -73,7 +73,7 @@ function CIRCLESgeneralpurposeFORM( _subset, _base_id, _move, _w, _h, _caption, 
     var WIDTH = safe_int( _w, 350 ), HEIGHT = safe_int( _h, "auto" );
     var _div_id = circles_lib_plugin_build_divid( _subset, _base_id );
     if ( $("#" + _div_id).resizable('instance') != undefined ) $("#" + _div_id).resizable('destroy');
-    if ( circles_lib_plugin_exists( _base_id, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_plugin_destroy_wnd( _div_id );
+    if ( circles_lib_plugin_find_index( { base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_plugin_destroy_wnd( _div_id );
 
     var CLOSE_FN = "CIRCLESgeneralpurposeFORMclose();", _subset = "forms" ;
     var HTMLcode =  "<table ID=\"POPUPgeneralpurposesMASTERTABLE\" WIDTH=\"99%\">" ;
@@ -121,8 +121,8 @@ function CIRCLESgeneralpurposeRESIZE( _new_width, _new_height, _div_id )
     _new_height = safe_int( _new_height, UNDET );
 
     var _popup_div_id = _div_id ;
-    if ( _new_width == UNDET ) _new_width = $( "#" + _div_id ).width();
-    if ( _new_height == UNDET ) _new_height = $( "#" + _div_id ).height();
+    if ( _new_width == UNDET ) _new_width = $("#"+_div_id).width();
+    if ( _new_height == UNDET ) _new_height = $("#"+_div_id).height();
 
     var _extra_height = safe_int( $("#" + _div_id + "_caption").height(), 0 );
         _extra_height += safe_int( $("#" + _div_id + "_method").height(), 0 );

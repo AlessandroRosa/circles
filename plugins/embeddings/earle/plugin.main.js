@@ -237,7 +237,7 @@ function CIRCLESembeddingsEARLEmain( _base_id, _move, _restore )
 				}
 				else move_div( _div.id, "LEFT", "TOP" );
 		}
-    $( "#" + _div_id ).bind( "click", function() { GLOB_PLUGIN_FOCUS( _base_id ); } );
+    $("#"+_div_id).bind( "click", function() { GLOB_PLUGIN_FOCUS( _base_id ); } );
     if ( CIRCLESembeddingsEARLE_active )
     {
        CIRCLESembeddingsEARLE_INIT(NO,YES);
@@ -253,7 +253,7 @@ function CIRCLESembeddingsEARLEmain( _base_id, _move, _restore )
     TABINDEXorderSET( "#PLUGIN_PARAM_D", "#PLUGINSconfigCOMBO" );
     GLOB_PLUGIN_EVENT_PROPAGATION_MANAGEMENT( 1 );
 
-    var DROPDOWN = $( "#CIRCLESchoose"+_base_id.replace( /[\-\.\_]/, "" ).toLowerCase()+"canvasDROPDOWN" ).get(0) ;
+    var DROPDOWN = $( "#CIRCLESchoose"+_base_id.replace( /[\.\_\-]/g, "" ).toLowerCase()+"canvasDROPDOWN" ).get(0) ;
     if ( DROPDOWN != null ) DROPDOWN.options[0].text = "Preview canvas" ;
 }
 

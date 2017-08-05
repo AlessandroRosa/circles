@@ -302,7 +302,7 @@ function CIRCLESembeddingsMASKITTWICEmain( _base_id, _move, _restore )
 				else move_div( _div.id, "LEFT", "TOP" );
 		}
 
-    $( "#" + _div_id ).bind( "click", function() { GLOB_PLUGIN_FOCUS( _base_id ); } );
+    $("#"+_div_id).bind( "click", function() { GLOB_PLUGIN_FOCUS( _base_id ); } );
 
     if ( CIRCLESembeddingsMASKITTWICE_active )
     {
@@ -319,7 +319,7 @@ function CIRCLESembeddingsMASKITTWICEmain( _base_id, _move, _restore )
     TABINDEXorderSET( "#PLUGIN_PARAM_TAU_1", "#PLUGIN_PARAM_TAU_2", "#PLUGINSconfigCOMBO" );
     GLOB_PLUGIN_EVENT_PROPAGATION_MANAGEMENT( 1 );
 
-    var DROPDOWN = $( "#CIRCLESchoose"+_base_id.replace( /[\-\.\_]/, "" ).toUpperCase()+"canvasDROPDOWN" ).get(0) ;
+    var DROPDOWN = $( "#CIRCLESchoose"+_base_id.replace( /[\.\_\-]/g, "" ).toUpperCase()+"canvasDROPDOWN" ).get(0) ;
     if ( DROPDOWN != null ) DROPDOWN.options[0].text = "Preview canvas" ;
 }
 

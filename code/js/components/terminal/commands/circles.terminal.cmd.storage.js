@@ -216,7 +216,7 @@ function circles_terminal_cmd_storage()
 																					 else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<red>Can't copy : " + _ERR_33_04 + "</red>", _par_1, _cmd_tag );
 									                         break ;
 									                         case "farey":
-			                                     if ( circles_lib_plugin_exists( 'discreteness.locus', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+			                                     if ( circles_lib_plugin_find_index( { base_id : 'discreteness.locus' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
 			                                     {
 			                                          var _ret_chunk = CIRCLESformsDISCRETENESSLOCUSfareyCOPY( NO, YES );
 			                                          var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
@@ -799,7 +799,7 @@ function circles_terminal_cmd_storage()
                     						                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't restore data: the storage space includes no dictionary", _par_1, _cmd_tag );
                     						                         break ;
                     						                         case "farey":
-                                                         if ( circles_lib_plugin_exists( 'discreteness.locus', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+                                                         if ( circles_lib_plugin_find_index( { base_id : 'discreteness.locus' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
                                                          {
                                                               var _ret_chunk = CIRCLESformsDISCRETENESSLOCUSfareyRESTORE( NO, YES );
                                                               var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );

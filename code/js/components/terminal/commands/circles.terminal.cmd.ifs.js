@@ -83,7 +83,7 @@ function circles_terminal_cmd_ifs()
                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<white>On</white> <orange>flag does not apply to any of the acknowledged settings</orange>", _par_1, _cmd_tag );
                   _b_unfound = YES ;
                }
-               else if ( circles_lib_plugin_exists( "general.options", POPUP_SEARCH_BY_BASE_ID ) ) circles_lib_plugin_load( 'forms', 'general.options', NO, 1 ) ;
+               else if ( circles_lib_plugin_find_index( { base_id : "general.options" }, POPUP_SEARCH_BY_BASE_ID ) ) circles_lib_plugin_load( 'forms', 'general.options', NO, 1 ) ;
             }
             else if ( _p.strcmp( "off" ) )
             {
@@ -117,7 +117,7 @@ function circles_terminal_cmd_ifs()
                   circles_lib_output( _out_channel, DISPATCH_WARNING, "'Off' flag does not apply to any of the acknowledged settings", _par_1, _cmd_tag );
                   _b_unfound = YES ;
                }
-               else if ( circles_lib_plugin_exists( "general.options", POPUP_SEARCH_BY_BASE_ID ) ) circles_lib_plugin_load( 'forms', 'general.options', NO, 1 ) ;
+               else if ( circles_lib_plugin_find_index( { base_id : "general.options" }, POPUP_SEARCH_BY_BASE_ID ) ) circles_lib_plugin_load( 'forms', 'general.options', NO, 1 ) ;
             }
             else if ( _p.testME( _glob_positive_integer_regex_pattern ) )
             {
@@ -130,7 +130,7 @@ function circles_terminal_cmd_ifs()
                       circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Detected and set "+_p+" minute"+(_p==1?"":"")+" for time interval between two successive renderings", _par_1, _cmd_tag );
                       circles_lib_output( _out_channel, DISPATCH_INFO, "This setting will take effect after the next rendering", _par_1, _cmd_tag );
                       _b_unfound = NO ;
-                      if ( circles_lib_plugin_exists( "general.options", POPUP_SEARCH_BY_BASE_ID ) ) circles_lib_plugin_load( 'forms', 'general.options', NO, 1 ) ;
+                      if ( circles_lib_plugin_find_index( { base_id : "general.options" }, POPUP_SEARCH_BY_BASE_ID ) ) circles_lib_plugin_load( 'forms', 'general.options', NO, 1 ) ;
                   }
                   else
                   {

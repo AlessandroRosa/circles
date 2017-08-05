@@ -21,9 +21,9 @@ function circles_lib_plugin_remotectrl_send()
     if ( _n_args == 0 || _base_id.length == 0 ) return [ RET_ERROR, "Insufficient input params for activating the remote control" ] ;
     else
     {
-    	 var _popup_obj_ref = circles_lib_plugin_find_wnd( _base_id, POPUP_SEARCH_BY_BASE_ID, YES ) ;
+    	 var _popup_obj_ref = circles_lib_plugin_find_wnd( { base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID, YES ) ;
     	 if ( _popup_obj_ref == null ) return [ RET_ERROR, "Please, open the window before activating the remote control" ] ;
-    	 var _popup_index = circles_lib_plugin_exists( _base_id, POPUP_SEARCH_BY_BASE_ID, YES ) ;
+    	 var _popup_index = circles_lib_plugin_find_index( { base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID, YES ) ;
        var _msg_id = _unicast_flag ? "POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL" : "POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL" ;
        var _prefix = "CIRCLES" + _subset.toLowerCase() + _base_id.replaceAll( [ "." ], "" ).toUpperCase() ;
        var _call_fn = _prefix + "dispatcher( " + _msg_id + ", " + _popup_index + ", " ;
@@ -37,7 +37,8 @@ function circles_lib_plugin_remotectrl_send()
 
 function circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments )
 {
-    var _action = safe_string( arguments[4], "" ), _options = [] ;
+    _subset = safe_string( _subset, "" ), _base_id = safe_string( _base_id, "" ) ;
+    var _action = safe_string( arguments[4], "" ).trim(), _options = [] ;
     // gathering input options
     for( var _a = 4 ; _a <= arguments.length - 2 ; _a++ ) _options.push( arguments[_a] ) ;
     var _return_fn = arguments[ arguments.length - 1 ] ;
@@ -46,7 +47,7 @@ function circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, a
     {
 				case "commands":
 				var _commands = null ;
-				var _cmd = "_commands = CIRCLES"+_subset.toLowerCase()+( _base_id.replaceAll( [ ".", "_" ], "" ).toUpperCase() )+"remotectrlCOMMANDS" ;
+				var _cmd = "_commands = " + "CIRCLES"+_subset.toLowerCase()+( _base_id.replaceAll( [ ".", "_" ], "" ).toUpperCase() )+"remotectrlCOMMANDS" ;
 				try{ eval( _cmd ) ; }
 				catch( _err ){ circles_lib_error_obj_handler( _err ); _return_fn.call( this, "Commands have not been registered for '"+ _base_id.replaceAll( [ ".", "_" ], " " ) + "' service" ); }
 				if ( _commands != null )

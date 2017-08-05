@@ -15,100 +15,40 @@ function circles_lib_plugin_delete_from_archive( _index )
     else if ( _size > 1 && _index >= 0 ) _glob_popups_array.remove( _index, _index );
 }
 
-function circles_lib_plugin_exists( _obj, _datatype_mask, _offset )
+function circles_lib_plugin_find_index( _json, _datatype_mask, _offset )
 {
     var _array = _glob_popups_array, _len = safe_size( _array, 0 ), _ret = UNFOUND ;
     _datatype_mask = safe_int( _datatype_mask, POPUP_SEARCH_BY_UNIQUE_ID );
     _offset = Math.min( Math.max( safe_int( _offset, 0 ), 0 ), _len - 1 );
-    if ( _datatype_mask == POPUP_SEARCH_BY_UNIQUE_ID ) _obj = _obj.replaceAll( [ "." ], "" ).toUpperCase() ;
+    if ( _datatype_mask &= POPUP_SEARCH_BY_UNIQUE_ID && _json.unique_id != null )
+    _json.unique_id = _json.unique_id.replaceAll( /[\.\_\-]/g, "" ).toUpperCase() ;
+
+    var _tmp_mask = 0 ;
     for( var _i = _offset ; _i < _len ; _i++ )
     {
        if ( is_array( _array[_i] ) )
        {
-          if ( ( _datatype_mask & POPUP_SEARCH_BY_UNIQUE_ID && _array[_i][0].includes_i( _obj ) ) ||
-               ( _datatype_mask & POPUP_SEARCH_BY_DIV_ID && _array[_i][1].includes_i( _obj ) ) ||
-               ( _datatype_mask & POPUP_SEARCH_BY_CAPTION && _array[_i][2].includes_i( _obj ) ) ||
-               ( _datatype_mask & POPUP_SEARCH_BY_SUBSET && _array[_i][8].includes_i( _obj ) ) ||
-               ( _datatype_mask & POPUP_SEARCH_BY_BASE_ID && _array[_i][12].includes_i( _obj ) )
-             )
+          _tmp_mask = ( _datatype_mask & POPUP_SEARCH_BY_UNIQUE_ID ) && _array[_i][0].includes_i( _json.unique_id ? _json.unique_id : "" ) ? POPUP_SEARCH_BY_UNIQUE_ID : 0 ;
+          _tmp_mask |= ( _datatype_mask & POPUP_SEARCH_BY_DIV_ID ) && _array[_i][1].includes_i( _json.div_id ? _json.div_id : "" ) ? POPUP_SEARCH_BY_DIV_ID : 0 ;
+          _tmp_mask |= ( _datatype_mask & POPUP_SEARCH_BY_CAPTION ) && _array[_i][2].includes_i( _json.caption ? _json.caption : "" ) ? POPUP_SEARCH_BY_CAPTION : 0 ;
+          _tmp_mask |= ( _datatype_mask & POPUP_SEARCH_BY_SUBSET ) && _array[_i][8].includes_i( _json.subset ? _json.subset : "" ) ? POPUP_SEARCH_BY_SUBSET : 0 ;
+          _tmp_mask |= ( _datatype_mask & POPUP_SEARCH_BY_BASE_ID ) && _array[_i][12].includes_i( _json.base_id ? _json.base_id : "" ) ? POPUP_SEARCH_BY_BASE_ID : 0 ;
+          if ( _datatype_mask == _tmp_mask )
           {
              _ret = _i ;
              break ;
           }
        }
     }
-      
     return _ret ;
 }
 
-function circles_lib_plugin_find_wnd( _prop_value, _datatype_mask, _by_ref, _offset )
+function circles_lib_plugin_find_wnd( _json, _datatype_mask, _by_ref, _offset )
 {
     _by_ref = safe_int( _by_ref, NO );
     var _array = _glob_popups_array, _len = safe_size( _array, 0 ), _ret = null ;
     _datatype_mask = safe_int( _datatype_mask, POPUP_SEARCH_BY_UNIQUE_ID );
     _offset = Math.min( Math.max( safe_int( _offset, 0 ), 0 ), _len - 1 );
-    for( var _i = _offset ; _i < _len ; _i++ )
-    {
-        if ( is_array( _array[_i] ) )
-        {
-            if ( ( _datatype_mask & POPUP_SEARCH_BY_UNIQUE_ID && _array[_i][0].includes( _prop_value ) ) ||
-                 ( _datatype_mask & POPUP_SEARCH_BY_DIV_ID && _array[_i][1].includes( _prop_value ) ) ||
-                 ( _datatype_mask & POPUP_SEARCH_BY_CAPTION && _array[_i][2].includes( _prop_value ) ) ||
-                 ( _datatype_mask & POPUP_SEARCH_BY_SUBSET && _array[_i][8].includes_i( _prop_value ) ) ||
-                 ( _datatype_mask & POPUP_SEARCH_BY_BASE_ID && _array[_i][12].includes( _prop_value ) )
-               )
-            {
-                _ret = _by_ref ? _array[_i] : _array[_i].clone() ;
-                break ;
-            }
-        }
-    }
-      
-    return _ret ;
-}
-
-function circles_lib_plugin_find_offset( _prop_value, _datatype_mask, _start_offset )
-{
-    var _array = _glob_popups_array, _len = safe_size( _array, 0 ), _ret = UNFOUND ;
-    _datatype_mask = safe_int( _datatype_mask, POPUP_SEARCH_BY_UNIQUE_ID );
-    _start_offset = Math.min( Math.max( safe_int( _start_offset, 0 ), 0 ), _len - 1 );
-    for( var _i = _start_offset ; _i < _len ; _i++ )
-    {
-        if ( is_array( _array[_i] ) )
-        {
-            if ( ( _datatype_mask & POPUP_SEARCH_BY_UNIQUE_ID && _array[_i][0].includes( _prop_value ) ) ||
-                 ( _datatype_mask & POPUP_SEARCH_BY_DIV_ID && _array[_i][1].includes( _prop_value ) ) ||
-                 ( _datatype_mask & POPUP_SEARCH_BY_CAPTION && _array[_i][2].includes( _prop_value ) ) ||
-                 ( _datatype_mask & POPUP_SEARCH_BY_SUBSET && _array[_i][8].includes_i( _prop_value ) ) ||
-                 ( _datatype_mask & POPUP_SEARCH_BY_BASE_ID && _array[_i][12].includes( _prop_value ) )
-               )
-            {
-                _ret = _i ;
-                break ;
-            }
-        }
-    }
-
-    return _ret ;
-}
-
-function circles_lib_plugin_match_count( _obj, _datatype_mask )
-{
-    var _array = _glob_popups_array, _len = safe_size( _array, 0 ), _ret = null, _count = 0 ;
-    _datatype_mask = safe_int( _datatype_mask, POPUP_SEARCH_BY_UNIQUE_ID );
-    for( var _i = 0 ; _i < _len ; _i++ )
-    {
-       if ( is_array( _array[_i] ) )
-       {
-          if ( ( _datatype_mask == POPUP_SEARCH_BY_UNIQUE_ID && _array[_i][0].includes( _obj ) ) ||
-               ( _datatype_mask == POPUP_SEARCH_BY_DIV_ID && _array[_i][1].includes( _obj ) ) ||
-               ( _datatype_mask == POPUP_SEARCH_BY_CAPTION && _array[_i][2].includes( _obj ) ) ||
-               ( _datatype_mask == POPUP_SEARCH_BY_SUBSET && _array[_i][8].includes_i( _obj ) ) ||
-               ( _datatype_mask == POPUP_SEARCH_BY_BASE_ID && _array[_i][12].includes( _obj ) )
-             )
-          _count++ ;
-       }
-    }
-
-    return _count ;
+    _ret = circles_lib_plugin_find_index( _json, _datatype_mask, _offset ) ;
+    return _ret != UNFOUND ? ( _by_ref ? _array[_i] : _array[_i].clone() ) : null ;
 }

@@ -168,7 +168,7 @@ function circles_terminal_cmd_plugin()
                       var _src = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                       if ( _src != null )
                       {
-                          var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_]/, "" ) ;
+                          var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_\-]/g, "" ) ;
                           var _options = [ "close" ] ;
                           var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null )" ;
                           var _output = null ;
@@ -234,7 +234,7 @@ function circles_terminal_cmd_plugin()
                           {
                             if ( _json != null )
                             {
-                              var _famLC = _json.fam.toLowerCase(), _defUC = _json.def.toUpperCase().replace( /[\.\_]/, "" ) ;
+                              var _famLC = _json.fam.toLowerCase(), _defUC = _json.def.toUpperCase().replace( /[\.\_\-]/g, "" ) ;
                               var _options = _params_assoc_array['settings']['send.params'] ;
                               var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null )" ;
                               var _output = null ;
@@ -299,14 +299,12 @@ function circles_terminal_cmd_plugin()
                        var _src = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                        if ( _src != null )
                        {
-                          var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_]/, "" ) ;
+                          var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_\-]/g, "" ) ;
                           var _options = _params_assoc_array['settings']['send.params'] ;
                           var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null )" ;
                           var _output = null ;
                          	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
                          	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
-
-console.log( _output );
                           var _msg = _output ? "event '"+_options[0]+"' has been sent with success" : "Failure while sending event '"+_options[0]+"'";
                           circles_lib_output( _out_channel, _output ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _par_1, _cmd_tag );
                        }
@@ -344,7 +342,7 @@ console.log( _output );
                       var _src = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                       if ( _src != null )
                       {
-                          var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_]/, "" ) ;
+                          var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_\-]/g, "" ) ;
                           var _options = [ "vars.list" ] ;
                           var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null )" ;
                           var _output = null ;

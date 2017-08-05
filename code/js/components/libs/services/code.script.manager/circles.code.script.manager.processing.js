@@ -60,7 +60,7 @@ function circles_lib_js_manager_detect_vars( _code )
     														 var _response = 1 ;
     														 try{ eval( _expr ) } catch( _err ) { _response = 0 ; _errors.push( _err ); } ;
     				                     if ( _response ) _vars.push( [ "var", _match_var_id,
-																 																_t1.constructor.name.toLowerCase().replace( /\_|\./, " " ),
+																 																_t1.constructor.name.toLowerCase().replace( /[\.\_\-]/g, " " ),
 																																_params.replace( /\(|\)/, "" )
 																															] ) ;
     												 }

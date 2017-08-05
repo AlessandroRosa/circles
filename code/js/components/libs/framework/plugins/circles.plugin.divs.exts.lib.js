@@ -53,10 +53,10 @@ function circles_lib_plugin_get_wnd_from_pos( _x, _y )
     return is_array( _popup_ref ) ? _popup_ref.clone() : null ;
 }
 
-function circles_lib_plugin_is_visible( _form_title )
+function circles_lib_plugin_is_visible( _base_id, _subset )
 {
-    _form_title = safe_string( _form_title, "" );
-    var _main_opener_fn = "CIRCLESforms" + _form_title.replaceAll( [ "." ], "").toUpperCase() + "main" ;
+    _base_id = safe_string( _base_id, "" ).trim(), _subset = safe_string( _subset, "forms" ).trim();
+    var _main_opener_fn = "CIRCLES" + _subset.toLowerCase() + _base_id.replace( /[\.\-\_]/g, "" ).toUpperCase() + "main" ;
     return typeof _main_opener_fn === "function" ;
 }
 
@@ -76,7 +76,7 @@ function circles_lib_plugin_reload_basic_forms( _param_01 )
     _param_01 = safe_int( _param_01, UNDET );
     var _base_ids = [ "edit.disk", "seeds.list", "geometric.transform", "coordinates", "method", "panel.manager" ] ;
     for( var _p = 0 ; _p < _base_ids.length ; _p++ )
-    if ( circles_lib_plugin_exists( _base_ids[_p], POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+    if ( circles_lib_plugin_find_index( { base_id : _base_ids[_p] }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
 		circles_lib_plugin_load('forms',_base_ids[_p], NO, _param_01 );
 }
 
@@ -110,8 +110,7 @@ function circles_lib_plugin_hide_all()
 
 function circles_lib_plugin_close_all()
 {
-    var _array = _glob_popups_array ;
-    var _len = safe_size( _array, 0 );
+    var _array = _glob_popups_array, _len = safe_size( _array, 0 );
     if ( _len > 0 )
     {
         var _unique_id, _caption, _status, _visible, _height, _candidate_close_fn, _subset, _div_id ;
@@ -392,7 +391,7 @@ function circles_lib_plugin_add_contextmenu_entry( _base_id, _menu_label_entry, 
 		_menu_label_entry = safe_string( _menu_label_entry, "" );
 		_fn_name = safe_string( _fn_name, "" ) ;
     if ( !is_array( _fn_args_array ) ) _fn_args_array = [] ;
-		var _entry_array_ref = circles_lib_plugin_find_wnd( _base_id, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_UNIQUE_ID, YES ) ;
+		var _entry_array_ref = circles_lib_plugin_find_wnd( { base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID, YES ) ;
 		var _context_menu_entry_array = _entry_array_ref[11] ;
 		if ( is_array( _context_menu_entry_array ) && _menu_label_entry.length > 0 && _fn_name.length > 0 )
 		{

@@ -19,7 +19,7 @@ function CIRCLESbarsSTATUSBARdispatcher() // keep this fn name due to std naming
         var _sw = $(window).width(), _sh = $(window).height() ;
         var _div_id = _glob_popups_array[ POPUP_INDEX ][1] ;
         var _crossing_borders = circles_lib_forms_adjust_position( _div_id ) ;
-        if( !_crossing_borders ) $( "#" + _div_id ).css( "left", _sw - $( "#"+_div_id ).width() - 5 );
+        if( !_crossing_borders ) $("#"+_div_id).css( "left", _sw - $( "#"+_div_id ).width() - 5 );
         break ;
         case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
         break ;

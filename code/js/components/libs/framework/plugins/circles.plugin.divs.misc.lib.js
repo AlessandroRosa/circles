@@ -9,10 +9,10 @@
 
 function circles_lib_plugin_clean_baseid( _id ) { return safe_string( _id, "" ).replaceAll( [ "_", ".", " " ], "" ).toUpperCase(); }
 function circles_lib_plugin_build_divid( _subset, _base_id ) { return "CIRCLES"+( safe_string( _subset, "forms" ) )+( safe_string( _base_id, "" ).replaceAll( [ "_", ".", " " ], "" ).toUpperCase() )+"popupWND" ; }
-function circles_lib_plugin_focus_wnd_from_inner_ctrl_id( _ctrl_id, _subset )
+function circles_lib_plugin_focus_wnd_from_inner_ctrl_id( _ctrl_id, _base_id, _subset )
 {
     if ( $("#"+circles_lib_plugin_get_wnd_from_inner_ctrl_id( _ctrl_id ) ).length > 0 )
-    circles_lib_plugin_focus( _popup_id, subset );
+    circles_lib_plugin_focus( _based_id, subset );
 }
 
 function circles_lib_plugin_get_wnd_from_inner_ctrl_id( _ctrl_id )
@@ -36,7 +36,7 @@ function circles_lib_plugin_get_wnd_from_inner_ctrl_id( _ctrl_id )
                      circles_lib_plugin_get_datamask_from_property( _parent_id ) == POPUP_SEARCH_BY_DIV_ID )
                 {
                    _b_found = YES ;
-                   _popup_obj = circles_lib_plugin_find_wnd( _parent_id, POPUP_SEARCH_BY_DIV_ID, NO ) ;
+                   _popup_obj = circles_lib_plugin_find_wnd( { div_id : _parent_id }, POPUP_SEARCH_BY_DIV_ID, NO ) ;
                    break ;
                 }
                 else _ctrl = _parent_node.parentNode ;

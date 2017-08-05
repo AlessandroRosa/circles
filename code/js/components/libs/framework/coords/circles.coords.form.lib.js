@@ -338,7 +338,7 @@ function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, 
             var discreteness_locus_right_down_pt = new point( RIGHT, BOTTOM );
             dlocus_sm.set_coords_corners( discreteness_locus_left_up_pt, discreteness_locus_right_down_pt );
 
-            if ( circles_lib_plugin_exists( 'discreteness.locus', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+            if ( circles_lib_plugin_find_index( { base_id : 'discreteness.locus' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
             circles_lib_plugin_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
         }
 

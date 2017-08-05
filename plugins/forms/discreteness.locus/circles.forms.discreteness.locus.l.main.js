@@ -267,7 +267,7 @@ function CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( _div_id, _create, _sh
 
     $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).width( _canvas_w );
     $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).height( _canvas_h );
-    $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).css( "z-index", safe_int( $( "#" + _div_id ).css( "z-index" ), 1 ) + 1 ) ;
+    $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).css( "z-index", safe_int( $("#"+_div_id).css( "z-index" ), 1 ) + 1 ) ;
     if ( _create ) $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).html( "<CANVAS ID=\"CIRCLESdlocusworklayerCANVAS\" WIDTH=\""+_canvas_w+"\" HEIGHT=\""+_canvas_w+"\" STYLE=\"width:"+_canvas_w+"px;height:"+_canvas_h+"px;background-color:transparent;\"></CANVAS>" ) ;
     else
     {

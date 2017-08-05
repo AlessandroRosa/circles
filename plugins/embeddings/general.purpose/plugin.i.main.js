@@ -431,10 +431,10 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     $( "#PLUGINregisteredvarsLABEL" ).css( "color", _n_vars == 0 ? "#909090" : DEFAULT_COLOR_STD );
 
     $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESembeddingsGENERALPURPOSE_LOADgroup ) } ;
-    $( "#" + _div_id ).bind( "click", function() { GLOB_PLUGIN_FOCUS( _base_id ); } );
+    $("#"+_div_id).bind( "click", function() { GLOB_PLUGIN_FOCUS( _base_id ); } );
     GLOB_PLUGIN_EVENT_PROPAGATION_MANAGEMENT( 1 );
 
-    var DROPDOWN = $( "#CIRCLESchoose"+_base_id.replace( /[\-\.\_]/, "" ).toUpperCase()+"canvasDROPDOWN" ).get(0) ;
+    var DROPDOWN = $( "#CIRCLESchoose"+_base_id.replace( /[\.\_\-]/g, "" ).toUpperCase()+"canvasDROPDOWN" ).get(0) ;
     if ( DROPDOWN != null ) DROPDOWN.options[0].text = "Preview canvas" ;
 
     if ( _plugin_tmp_vars_array['plugin_sel'] != null )

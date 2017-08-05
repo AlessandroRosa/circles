@@ -347,7 +347,7 @@ function CIRCLESformsDICTIONARYinputformIMPORT( _action, _silent )
                      {
                          _glob_original_dict = _action == 1 ? _input_dict_array.clone() : _glob_original_dict.push( _input_dict_array );
    		                   CIRCLESformsDICTIONARYapply();
-                         if ( circles_lib_plugin_exists( 'dictionary', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+                         if ( circles_lib_plugin_find_index( { base_id : 'dictionary' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
 												 circles_lib_plugin_dispatcher_unicast_message( 'storage.space', "forms", 4 );
                      }
                  }
@@ -642,9 +642,8 @@ function CIRCLESformsDICTIONARYdeleteASK( WORD, PAGENUM, INDEX, _out_channel )
 
 function CIRCLESformsDICTIONARYtrackorbitVIAterminal()
 {
-    if ( circles_lib_plugin_exists( "POPUPterminalDIV" + _glob_terminal_form_suffix, POPUP_SEARCH_BY_DIV_ID ) == UNFOUND )
+    if ( circles_lib_plugin_find_index( { div_id : "POPUPterminalDIV" + _glob_terminal_form_suffix }, POPUP_SEARCH_BY_DIV_ID ) == UNFOUND )
 		circles_lib_plugin_load('forms','terminal',YES,0,YES,370,240);
-    
 		if ( _glob_terminal != null ) _glob_terminal.exec( "word track orbit startpt:(0,0) w:"+CIRCLESformsDICTIONARYgetWORD()+" connect",0 );
 }
 

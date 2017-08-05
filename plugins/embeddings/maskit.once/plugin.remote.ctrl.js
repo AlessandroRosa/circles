@@ -19,7 +19,7 @@ function CIRCLESembeddingsMASKITONCEremotectrl( _options, _return_fn, _out_chann
 				break ;
         case "close":
         var _sub = "embeddings", _base_id = "maskit.once" ;
-        circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_]/g, '' ) ] );
+        circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         return 1 ;
         break ;
@@ -30,7 +30,7 @@ function CIRCLESembeddingsMASKITONCEremotectrl( _options, _return_fn, _out_chann
         break ;
 				case "move":
         var _sub = "embeddings", _base_id = "maskit.once" ;
-				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
         return 1 ;
 				break ;
 				default:

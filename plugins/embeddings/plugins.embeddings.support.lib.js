@@ -11,15 +11,15 @@ function GLOB_PLUGIN_DESTROY_POPUP_VARS()
 		return YES ;
 }
 
-function GLOB_PLUGIN_FOCUS( _base_id )
+function GLOB_PLUGIN_FOCUS( _base_id, _subset )
 {
-    _base_id = safe_string( _base_id, "" );
-    var _fn_name = "CIRCLESembeddings"+_base_id.replaceAll( [ "_", "." ], "" ).toUpperCase()+"dispatcher" ;
+    _base_id = safe_string( _base_id, "" ), _subset = safe_string( _subset, "embeddings" ).toLowerCase() ;
+    var _fn_name = "CIRCLES"+_subset+_base_id.replaceAll( [ "_", "." ], "" ).toUpperCase()+"dispatcher" ;
     if ( _base_id.length > 0 && function_exists( _fn_name ) )
     {
-        // dispatch notifications to pop-up
-        try{eval( _fn_name+"(POPUP_DISPATCHER_UNICAST_EVENT_FOCUS);" );}
-    		catch( _err ){ circles_lib_error_obj_handler( _err ); }
+      // dispatch notifications to pop-up
+      try{eval( _fn_name+"(POPUP_DISPATCHER_UNICAST_EVENT_FOCUS);" );}
+    	catch( _err ){ circles_lib_error_obj_handler( _err ); }
     }
 }
 
@@ -89,13 +89,13 @@ function GLOB_PLUGIN_ATTEMPT_TO_CLOSEST_INT( _n, accuracy )
 }
 
 function GLOB_PLUGIN_TOGGLE_GENS() { $("#PLUGIN_CONTAINER").slideToggle( "slow", function() { $("#PLUGIN_GENSTOGGLE_BTN").html( $("#PLUGIN_CONTAINER").css( "display" ) == "none" ? "Show panel" : "Hide panel" ); } ); }
-function GLOB_PLUGIN_FLUSH_PATTERNS()                        { _plugin_pattern_array.flush(); _plugin_additional_html_text = "" ; }
-function GLOB_PLUGIN_ADD_PATTERN( obj )                      { _plugin_pattern_array.push( obj ); }
+function GLOB_PLUGIN_FLUSH_PATTERNS() { _plugin_pattern_array.flush(); _plugin_additional_html_text = "" ; }
+function GLOB_PLUGIN_ADD_PATTERN( obj ) { _plugin_pattern_array.push( obj ); }
 function GLOB_PLUGIN_PARAMS_FILLER()
 {
     _init = safe_int( arguments[1], NO );
     var _index_ref = safe_string( _plugin_main_ref, "" );
-    var _popup_obj = circles_lib_plugin_find_wnd( "embeddings", POPUP_SEARCH_BY_SUBSET, NO ) ;
+    var _popup_obj = circles_lib_plugin_find_wnd( { subset : "embeddings" }, POPUP_SEARCH_BY_SUBSET, NO ) ;
     var _subset = is_array( _popup_obj ) ? safe_string( _popup_obj[8], "" ).trim() : "" ;
     var _base_id = is_array( _popup_obj ) ? safe_string( _popup_obj[12], "" ).trim() : "" ;
     if ( _base_id.length > 0 )
@@ -180,32 +180,32 @@ function GLOB_PLUGIN_WIZARD_STEP( _step_index, _init_items, _clean, _target_plan
     if ( _step_index == 0.1 ) return [ RET_OK, "Step " + _step_index + " performed with success" ] ;
     else if ( _step_index == 1.1 )
     {
-       _glob_alphabet.flush();
-       GLOB_PLUGIN_GENS_SHOW( YES );
-       circles_lib_plugin_dispatcher_unicast_message( 'alphabet.colorization', 'tools', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
-       circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES );
-       if ( _init_items )
-       {
-           _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, NO, YES, OUTPUT_SCREEN );
-           if ( _ret_chunk[0] != RET_OK )
-           {
-              circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
-              return _ret_chunk ;
-           }
-       }
-       _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, _clean, YES, YES, NO, YES, OUTPUT_SCREEN );
-       var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
-       var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
-       return [ RET_OK, _ret_id == 0 ? _ret_msg : "Step " + _step_index + " performed with success" ] ;
+      _glob_alphabet.flush();
+      GLOB_PLUGIN_GENS_SHOW( YES );
+      circles_lib_plugin_dispatcher_unicast_message( 'alphabet.colorization', 'tools', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
+      circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES );
+      if ( _init_items )
+      {
+        _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, NO, YES, OUTPUT_SCREEN );
+        if ( _ret_chunk[0] != RET_OK )
+        {
+          circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
+          return _ret_chunk ;
+        }
+      }
+      _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, _clean, YES, YES, NO, YES, OUTPUT_SCREEN );
+      var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
+      var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
+      return [ RET_OK, _ret_id == 0 ? _ret_msg : "Step " + _step_index + " performed with success" ] ;
     }
     else if ( _step_index == 2.1 )
     {
-       GLOB_PLUGIN_GENS_SHOW( YES );
-       _glob_dict_create = _glob_process == PROCESS_RANDOM ? NO : YES ;
-       var _ret_chunk_ask = circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_target_plane,YES,_clean,_init_items);
-       var _ret_id = _ret_chunk_ask != null ? safe_int( _ret_chunk_ask[0], 0 ) : 0 ;
-       var _ret_msg = _ret_chunk_ask != null ? _ret_chunk_ask[1] : _ERR_00_00 ;
-       return [ RET_OK, _ret_id == 0 ? _ret_msg : "Step " + _step_index + " performed with success" ] ;
+      GLOB_PLUGIN_GENS_SHOW( YES );
+      _glob_dict_create = _glob_process == PROCESS_RANDOM ? NO : YES ;
+      var _ret_chunk_ask = circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_target_plane,YES,_clean,_init_items);
+      var _ret_id = _ret_chunk_ask != null ? safe_int( _ret_chunk_ask[0], 0 ) : 0 ;
+      var _ret_msg = _ret_chunk_ask != null ? _ret_chunk_ask[1] : _ERR_00_00 ;
+      return [ RET_OK, _ret_id == 0 ? _ret_msg : "Step " + _step_index + " performed with success" ] ;
     }
 }
 
@@ -567,7 +567,7 @@ function GLOB_PLUGIN_PARAMS_COMBO_GET()
           $.each( _chunk_array, function( _i, _v ) { _v.start_with( "#" ) ? _ctrl_ids.push( _v ) : _ctrl_values.push( _v ); } );
           if ( _ctrl_ids.length > 0 && _ctrl_ids.length == _ctrl_values.length )
           		for( var _i = 0 ; _i < _ctrl_ids.length ; _i++ ) $( _ctrl_ids[_i] ).val( _ctrl_values[_i] );
-          else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Mismatch count while loading plugin config.", _glob_app );
+          else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Mismatch count while loading plugin config", _glob_app );
        }
     }
 }

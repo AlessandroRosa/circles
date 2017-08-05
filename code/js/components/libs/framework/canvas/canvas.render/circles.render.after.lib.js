@@ -117,11 +117,10 @@ function circles_lib_canvas_after_process_main()
      		 _popups_msg.push( [ 'forms', 'method', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ] ) ;
      		 _popups_msg.push( [ 'tools', 'f.z', POPUP_DISPATCHER_UNICAST_EVENT_RELOAD ] ) ;
 
-		 $.each( _popups_msg,
-		 				 function( _i, _chunk )
+		 $.each( _popups_msg, function( _i, _chunk )
 		 				 {
-								 if ( circles_lib_plugin_exists( _chunk[1], POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
-								 circles_lib_plugin_dispatcher_unicast_message( _chunk[1], _chunk[0], _chunk[2] );
+							 if ( circles_lib_plugin_find_index( { base_id : _chunk[1] }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+							 circles_lib_plugin_dispatcher_unicast_message( _chunk[1], _chunk[0], _chunk[2] );
 						 }
 		 			 ) ;
 

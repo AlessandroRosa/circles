@@ -22,7 +22,7 @@ function POPUPSDIVonmouseup( _unique_id, objid, event, _close_fns, _normalize_fn
         case 2: // mid btn
 	      break;
         case 3: // right btn
-        var _popup_rec = circles_lib_plugin_find_wnd( _unique_id, POPUP_SEARCH_BY_UNIQUE_ID, YES ) ;
+        var _popup_rec = circles_lib_plugin_find_wnd( { unique_id : _unique_id }, POPUP_SEARCH_BY_UNIQUE_ID, YES ) ;
         var _unique_id = is_array( _popup_rec ) ? _popup_rec[0] : "" ;
         var _div_id = is_array( _popup_rec ) ? _popup_rec[1] : "" ;
         var _popup_caption = is_array( _popup_rec ) ? _popup_rec[2] : "" ;
@@ -54,7 +54,7 @@ function POPUPSDIVonmouseup( _unique_id, objid, event, _close_fns, _normalize_fn
 			  		_contents += "<tr><td COLSPAN=\"5\" HEIGHT=\"1\" STYLE=\"background-color:#E0E0E0;\"></td></tr>" ;
 			  		_contents += "<tr><td HEIGHT=\"5\"></td></tr>" ;
 						_contents += "<tr><td WIDTH=\"3\"></td><td WIDTH=\"16\"><IMG TITLE=\"Screenshot\" SRC=\"%imgpath%icons/eye/eye.01.12x12.png\"></td><td WIDTH=\"3\"></td><td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_extras_capture_wnd_screenshot( '"+objid+"', 'circles.popup.screenshot.png' );circles_lib_plugin_destroy_wnd('"+objid+"_menu_div"+"');\">Screenshot</td></tr>" ;
-		var _entry_array_ref = circles_lib_plugin_find_wnd( _unique_id, POPUP_SEARCH_BY_UNIQUE_ID, YES ) ;
+		var _entry_array_ref = circles_lib_plugin_find_wnd( { unique_id : _unique_id }, POPUP_SEARCH_BY_UNIQUE_ID, YES ) ;
 		if ( is_array( _entry_array_ref ) )
 		{
 				 var _context_menu_entry_array = _entry_array_ref[11] ;

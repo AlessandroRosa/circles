@@ -18,7 +18,7 @@ function CIRCLESembeddingsJORGENSEN_TOGGLE_PREVIEW()
 function CIRCLESembeddingsJORGENSEN_RENDER_PREVIEW( _base_id, _plane_type )
 {
 		var _b_found = NO, _canvas ;
-    var CTRLbaseID = _base_id.replace( /[\-\.\_]/, "" ) ;
+    var CTRLbaseID = _base_id.replace( /[\.\_\-]/g, "" ) ;
 		if ( $( "#CIRCLESchoose"+CTRLbaseID+"canvasDROPDOWN" ).get(0) != null )
 		{
 				 var _key = $( "#CIRCLESchoose"+CTRLbaseID+"canvasDROPDOWN option:selected" ).val();

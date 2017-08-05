@@ -11,12 +11,12 @@ function circles_lib_plugin_dispatcher_unicast_message()
 {
 		if ( arguments.length > 0 )
 		{
-				var _base_id = arguments[0] ;
-				var _subset = safe_string( arguments[1], "" ).replace( /[\.\_]/, "" );
+				var _base_id = safe_string( arguments[0], "" ).replace( /[\.\_\-]/g, "" );
+				var _subset = safe_string( arguments[1], "" ).replace( /[\.\_\-]/g, "" );
 				var _message_id = safe_string( arguments[2], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN );
 				if ( _base_id.length > 0 && _message_id.length > 0 )
 				{
-					 var _popup_index = circles_lib_plugin_find_offset( _base_id, POPUP_SEARCH_BY_BASE_ID, 0 ) ;
+					 var _popup_index = circles_lib_plugin_find_index( { base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID, 0 ) ;
 					 _base_id = circles_lib_plugin_clean_baseid( _base_id ) ;
 					 var _dispatcher_cmd = "CIRCLES" + _subset.toLowerCase() + _base_id.toUpperCase() + "dispatcher" ;
 					 var _original_cmd = _dispatcher_cmd ;
@@ -28,7 +28,7 @@ function circles_lib_plugin_dispatcher_unicast_message()
 					 _dispatcher_cmd += ");" ;
            if ( function_exists( _original_cmd ) )
            {
-     			 	  try { return eval( _dispatcher_cmd ); }
+     			 	  try { window.eval( _dispatcher_cmd ) ; }
      				  catch( _err ) { circles_lib_error_obj_handler( _err ); }
            }
 				}
@@ -100,7 +100,6 @@ function circles_lib_plugin_list_selection_render( _b_update_list, _b_dispatch_f
 
             _glob_popups_array[_i][3] = _b_sel ? OPEN : CLOSE ;
             _glob_popups_array[_i][6] = _b_sel ? YES : NO ; // focus flag
-
             // dispatch notifications to all pop-ups here
             if ( _b_dispatch_focus_msg && _focus_flag != _glob_popups_array[_i][6] )
             {
@@ -124,7 +123,7 @@ function circles_lib_plugin_focus( _popup_id, _subset, _dispatch_msg, event )
         // dispatch notifications to all pop-ups here
     		_subset = safe_string( _subset, "forms" );
         _dispatch_msg = safe_int( _dispatch_msg, NO );
-        var _popup_obj = circles_lib_plugin_find_wnd( _popup_id, POPUP_SEARCH_BY_UNIQUE_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_DIV_ID, YES ) ;
+        var _popup_obj = circles_lib_plugin_find_wnd( { unique_id : _popup_id }, POPUP_SEARCH_BY_UNIQUE_ID, YES ) ;
         var _id_datamask = circles_lib_plugin_get_datamask_from_property( _popup_id ) ;
         var _unique_id = is_array( _popup_obj ) ? _popup_obj[0] : "" ;
         var _div_id = is_array( _popup_obj ) ? _popup_obj[1] : "" ;
@@ -144,18 +143,18 @@ function circles_lib_plugin_focus( _popup_id, _subset, _dispatch_msg, event )
         $( "#CIRCLESbarsSTATUSBARdiv" ).zIndex( $( "#CIRCLESbarsSTATUSBARdiv" ).zIndex() - 1 ) ;
         return is_array( _popup_obj ) ;
     }
-    else return circles_lib_plugin_find_wnd( _glob_popup_sel_unique_id, POPUP_SEARCH_BY_UNIQUE_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_DIV_ID, YES ) ;
+    else return circles_lib_plugin_find_wnd( { unique_id : _glob_popup_sel_unique_id }, POPUP_SEARCH_BY_UNIQUE_ID, YES ) ;
 }
 
-function circles_lib_plugin_blur( _popup_id, _subset, _dispatch_msg )
+function circles_lib_plugin_blur( _base_id, _subset, _dispatch_msg )
 {
-		_popup_id, _subset = safe_string( _subset, "forms" );
+		_base_id = safe_string( _base_id, "" ), _subset = safe_string( _subset, "forms" );
     _dispatch_msg = safe_int( _dispatch_msg, NO );
-    var _popup_obj = circles_lib_plugin_find_wnd( _popup_id, POPUP_SEARCH_BY_UNIQUE_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_DIV_ID, YES ) ;
+    var _popup_obj = circles_lib_plugin_find_wnd( { base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID, YES ) ;
     var _ret = false, _cmd_str ;
     if ( is_array( _popup_obj ) )
     {
-        var _base_id = _popup_obj[12] ;
+        _base_id = _popup_obj[12] ;
         if ( _popup_obj[6] )
         {
             try
@@ -164,7 +163,7 @@ function circles_lib_plugin_blur( _popup_id, _subset, _dispatch_msg )
                if ( _dispatch_msg )
                {
                    _popup_div_id = _popup_div_id.replace( /([0-9]{1,})/g, "" );
-                   _cmd_str = "CIRCLES"+_subset.toLowerCase()+_base_id.replaceAll( [ "_", "." ] ).toUpperCase()+"dispatcher( POPUP_DISPATCHER_UNICAST_EVENT_BLUR );" ;
+                   _cmd_str = "CIRCLES"+_subset.toLowerCase()+_base_id.replace( /[\.\_\-]/g, "" ).toUpperCase()+"dispatcher( POPUP_DISPATCHER_UNICAST_EVENT_BLUR );" ;
                    eval( _cmd_str );
                }
             }

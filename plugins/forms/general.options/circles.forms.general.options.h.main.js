@@ -9,7 +9,7 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
 		if ( is_string( _tab_index ) )
 		{
 				if ( _tab_index.isAlpha() )
-				switch( _tab_index.toLowerCase().replace( /[\.|\_\-]/, "" ) )
+				switch( _tab_index.toLowerCase().replace( /[\.\_\-]/g, "" ) )
 				{
 						case "basics": _tab_index = 1 ; break ;
 						case "z-plane": _tab_index = 2 ; break ;

@@ -28,7 +28,7 @@ function circles_lib_extras_canvas_dropdown( _ctrl_id )
     var _keys = _glob_available_curr_canvas_array.keys_associative(), _cnv_entry ;
     if ( is_consistent_array( _keys ) )
     {
-				_dropdown_code = "<SELECT ID=\"CIRCLESchoose"+_ctrl_id.replace( /[\-\.\_]/, "" ).toUpperCase()+"canvasDROPDOWN\">" ;
+				_dropdown_code = "<SELECT ID=\"CIRCLESchoose"+_ctrl_id.replace( /[\.\_\-]/g, "" ).toUpperCase()+"canvasDROPDOWN\">" ;
 				_dropdown_code += "<OPTION VALUE=\"\" SELECTED=\"selected\">" ;
 				_keys.work( function( _k )
 				{

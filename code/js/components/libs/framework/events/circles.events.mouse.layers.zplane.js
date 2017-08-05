@@ -244,7 +244,7 @@ function Z_PLANE_work_canvas_ondblclick( obj, event )
 
         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
 				circles_lib_plugin_dispatcher_unicast_message( 'edit.disk', "forms", 1 );
-        if ( circles_lib_plugin_exists( 'edit.disk', POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_plugin_load('forms','edit.disk', NO, _glob_disk_sel_index );
+        if ( circles_lib_plugin_find_index( { base_id : 'edit.disk' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_plugin_load('forms','edit.disk', NO, _glob_disk_sel_index );
     }
     else
     {

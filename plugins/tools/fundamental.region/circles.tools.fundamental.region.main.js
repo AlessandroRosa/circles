@@ -140,7 +140,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONmain( _base_id, _move )
 		
 		         $( "#CIRCLEStoolsFUNDAMENTALREGIONworkLAYER" ).width( _canvas_w );
 		         $( "#CIRCLEStoolsFUNDAMENTALREGIONworkLAYER" ).height( _canvas_h );
-		         CIRCLEStoolsFUNDAMENTALREGIONwork_layer.style.zIndex = safe_int( $( "#" + _div_id ).css( "z-index" ), 1 ) + 1 ;
+		         CIRCLEStoolsFUNDAMENTALREGIONwork_layer.style.zIndex = safe_int( $("#"+_div_id).css( "z-index" ), 1 ) + 1 ;
 		         CIRCLEStoolsFUNDAMENTALREGIONwork_layer.innerHTML = "<CANVAS ID=\"CIRCLESfundamentalregionworklayerCANVAS\" WIDTH=\""+_canvas_w+"\" HEIGHT=\""+_canvas_w+"\" STYLE=\"width:"+_canvas_w+"px;height:"+_canvas_h+"px;background-color:transparent;\"></CANVAS>" ;
 		         $( "#CIRCLEStoolsFUNDAMENTALREGIONworkLAYER" ).offset( $( "#CIRCLESfundamentalregiondiagramCANVAS" ).offset() );
 		          
