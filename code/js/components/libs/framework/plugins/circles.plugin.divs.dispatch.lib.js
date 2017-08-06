@@ -116,34 +116,32 @@ function circles_lib_plugin_list_selection_render( _b_update_list, _b_dispatch_f
     }
 }
 
-function circles_lib_plugin_focus( _popup_id, _subset, _dispatch_msg, event )
+function circles_lib_plugin_focus( _base_id, _subset, _dispatch_msg, event )
 {
-    if ( !_glob_popup_sel_unique_id.stricmp( _popup_id ) )
+ 		_base_id = safe_string( _base_id, "" );
+    if ( !_glob_popup_sel_unique_id.stricmp( _base_id ) )
     {
         // dispatch notifications to all pop-ups here
     		_subset = safe_string( _subset, "forms" );
         _dispatch_msg = safe_int( _dispatch_msg, NO );
-        var _popup_obj = circles_lib_plugin_find_wnd( { unique_id : _popup_id }, POPUP_SEARCH_BY_UNIQUE_ID, YES ) ;
-        var _id_datamask = circles_lib_plugin_get_datamask_from_property( _popup_id ) ;
+        var _popup_obj = circles_lib_plugin_find_wnd( { base_id : _base_id, subset : _subset }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET, YES ) ;
+        var _id_datamask = circles_lib_plugin_get_datamask_from_property( _base_id ) ;
         var _unique_id = is_array( _popup_obj ) ? _popup_obj[0] : "" ;
         var _div_id = is_array( _popup_obj ) ? _popup_obj[1] : "" ;
-        var _subset = is_array( _popup_obj ) ? _popup_obj[8] : "" ;
-        var _base_id = is_array( _popup_obj ) ? _popup_obj[12] : "" ;
-        
         _glob_last_focus_divid = _div_id ;
         
-        if ( _id_datamask == POPUP_SEARCH_BY_UNIQUE_ID ) _glob_popup_sel_unique_id = _unique_id ;
-        else if ( _id_datamask == POPUP_SEARCH_BY_BASE_ID ) _glob_popup_sel_unique_id = _base_id ;
-        else if ( _id_datamask == POPUP_SEARCH_BY_DIV_ID ) _glob_popup_sel_unique_id = _div_id ;
+        if ( _id_datamask & POPUP_SEARCH_BY_UNIQUE_ID ) _glob_popup_sel_unique_id = _unique_id ;
+        else if ( _id_datamask & POPUP_SEARCH_BY_BASE_ID ) _glob_popup_sel_unique_id = _base_id ;
+        else if ( _id_datamask & POPUP_SEARCH_BY_DIV_ID ) _glob_popup_sel_unique_id = _div_id ;
 
     		circles_lib_plugin_list_selection_render( YES, _dispatch_msg );
         circles_lib_plugin_dispatcher_unicast_message( _base_id, _subset, POPUP_DISPATCHER_UNICAST_EVENT_FOCUS ) ;
     		// ... and to other classes of popups
     		if ( _glob_last_focus_divid.strcmp( "CIRCLESbarsSTATUSBARdiv" ) )
         $( "#CIRCLESbarsSTATUSBARdiv" ).zIndex( $( "#CIRCLESbarsSTATUSBARdiv" ).zIndex() - 1 ) ;
-        return is_array( _popup_obj ) ;
+        return is_array( _popup_obj ) ? 1 : 0 ;
     }
-    else return circles_lib_plugin_find_wnd( { unique_id : _glob_popup_sel_unique_id }, POPUP_SEARCH_BY_UNIQUE_ID, YES ) ;
+    else return 0 ;
 }
 
 function circles_lib_plugin_blur( _base_id, _subset, _dispatch_msg )

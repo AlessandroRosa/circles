@@ -6,6 +6,63 @@ https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ APP -------------------------------------------------
+- check that all services inside each of this mask works properly.
+  (Remove each entry after all checkings)
+
+* EMBEDDINGS
+earle
+general.purpose
+grandma.4.alarm
+grandma.parabolic
+jorgensen
+maskit.once
+maskit.twice
+mirror.quasi.fuchsian
+riley.slice
+
+* FORMS
+anti.homography
+automaton
+benchmark
+bip
+circle.inversion
+coordinates
+dictionary
+discreteness.locus
+edit.disk
+eps.editor
+forms.txt
+fourth.tangent.circle
+general.options
+geometric.transform
+help.items
+intersection.points
+log
+merging
+method
+palette
+script.editor
+seeds.list
+storage.space
+svg.editor
+tangent.circle
+terminal
+terminal.comment
+terminal.filter
+tiny.rendering
+triggers
+watch.formula
+
+* TOOLS
+alphabet.colorization
+canvas.composition
+f.z
+fundamental.region
+group.table
+instructions.txt
+raw.points.list
+tools.txt
+
 ------------ DEMO ------------------------------------------------
 ------------ SCRIPT EDITOR ------------------------
 

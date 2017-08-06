@@ -155,27 +155,26 @@ function circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, c
         $("#"+_div_id).prop( "display", "none" );
 
         if ( _bind_events ) 
-        $("#"+_div_id).bind( 'mousedown focus',
-                                 function(e)
-                                 {
-                                    if ( e != null )
-                                    {
-                                       if ( e.originalEvent != null )
-                                       {
-                                          var _tag = safe_string( e.originalEvent.srcElement.tagName, "" ).toLowerCase();
-                                          var _type = safe_string( e.originalEvent.srcElement.type, "" ).toLowerCase();
-                                          if ( !_tag.is_one_of( "input", "select", "textarea" ) && !_type.is_one_of( "checkbox", "textarea" ) )
-                                          {
-                                             e.stopPropagation();
-                                             e.cancelBubble = true;
-                                             e.preventDefault();
-                                          }
+        $("#"+_div_id).bind( 'mousedown focus', function(e)
+        {
+          if ( e != null )
+          {
+             if ( e.originalEvent != null )
+             {
+                var _tag = safe_string( e.originalEvent.srcElement.tagName, "" ).toLowerCase();
+                var _type = safe_string( e.originalEvent.srcElement.type, "" ).toLowerCase();
+                if ( !_tag.is_one_of( "input", "select", "textarea" ) && !_type.is_one_of( "checkbox", "textarea" ) )
+                {
+                   e.stopPropagation();
+                   e.cancelBubble = true;
+                   e.preventDefault();
+                }
                                              
-                                          circles_lib_plugin_focus( _div_id, _subset, YES, e );
-                                       }
-                                    }
-                                 }
-                               );
+                circles_lib_plugin_focus( _base_id, _subset, YES, e );
+             }
+          }
+        }
+        );
     }
     return _div ;
 }
@@ -216,9 +215,9 @@ function circles_lib_plugin_register( _calling_params, _div_id, _caption, _statu
     _base_id = safe_string( _base_id, "" ).trim();
     _allow_multiple_instances = safe_int( _allow_multiple_instances, NO );
     var _unique_id = safe_string( "POPUP"+unixtime(), POPUP_NO_ID ).trim();
-    var _focused = 0 ;
+    var _focused = 0, _idx = circles_lib_plugin_find_index( _unique_id, POPUP_SEARCH_BY_UNIQUE_ID ) ;
 
-    if ( circles_lib_plugin_find_index( _unique_id, POPUP_SEARCH_BY_UNIQUE_ID ) == UNFOUND || _allow_multiple_instances )
+    if ( _idx == UNFOUND || _allow_multiple_instances )
     _glob_popups_array.push( [ _unique_id, _div_id, _caption,
                                _status, _visible, 0, NO,
                                _caption_class, _subset,
@@ -297,7 +296,7 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
                  var _width = $("#"+_div_id).width();
                  var _height = $("#"+_div_id).height();
                  _index = circles_lib_plugin_find_index( _div_id, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_UNIQUE_ID, _caption );
-                 _glob_popups_array[_index][14].width_height_constructor( _left, _top, _width, _height, _RECT_ORIENTATION_SCREEN );
+                 if ( _index != UNFOUND ) _glob_popups_array[_index][14].width_height_constructor( _left, _top, _width, _height, _RECT_ORIENTATION_SCREEN );
                  circles_lib_plugin_dragstop_override_fn();
               }
     } );

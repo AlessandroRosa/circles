@@ -239,7 +239,7 @@ function circles_lib_plugin_get_list( _fn_str, _html )
               _list += "<tr STYLE=\"background-color:"+( _status == OPEN ? "#476BAD" : "#EAEAEA" )+";\">" ;
               _list += "<td STYLE=\"padding:4px;color:"+( _status == OPEN ? "white" : "#B0B0B0" )+";\" " ;
               _list += "ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"" ;
-              _list += "ONCLICK=\"javascript:circles_lib_plugin_focus('"+_div_id+"','"+_subset+"',YES,event);\"" ;
+              _list += "ONCLICK=\"javascript:circles_lib_plugin_focus('"+_base_id+"','"+_subset+"',YES,event);\"" ;
               _list += ">"+_caption+"</td>" ;
               if ( _visible ) _list += "<td WIDTH=\"20\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_forms_show_panel(HIDE,'"+_div_id+"');\"><IMG SRC=\"%imgpath%icons/hide/hide.icon.01.16x16.png\"></td>" ;
               else _list += "<td WIDTH=\"20\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_forms_show_panel(SHOW,'"+_div_id+"');\"><IMG SRC=\"%imgpath%icons/eye/eye.01.16x16.png\"></td>" ;

@@ -382,7 +382,7 @@ function CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix )
                          function(e)
                          {
                             _glob_wnd_onkeyup_event_halt = YES ;
-                            circles_lib_plugin_focus( CIRCLESformsTERMINALdiv_id );
+                            circles_lib_plugin_focus( "terminal", "forms" );
                             if ( e.stopImmediatePropagation() ) e.stopImmediatePropagation() ;
                             if ( e.stopPropagation ) e.stopPropagation();
                             if ( e.cancelBubble ) e.cancelBubble = true;
@@ -397,7 +397,7 @@ function CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix )
     function( e )
     {
         _glob_wnd_onkeyup_event_halt = YES ;
-     		circles_lib_plugin_focus( CIRCLESformsTERMINALdiv_id );
+     		circles_lib_plugin_focus( "terminal", "forms" );
         if ( e.stopPropagation ) e.stopPropagation();
         if ( e.cancelBubble != null ) e.cancelBubble = true;
     } );

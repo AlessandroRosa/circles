@@ -8,7 +8,7 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                      $( "<div ID=\"presentation_div\" CLASS=\"general_rounded_corners\" STYLE=\"position:absolute;z-index:2000;font-size:14pt;font-family:arial;width:340px;height:auto;padding:6px;text-align:center;color:white;\"></div>" ).appendTo("body");
-                     $( "#presentation_div" ).css( "background-color", "#9AD2FB" ) ;
+                     $( "#presentation_div" ).css( "background-color", "#538BB4" ) ;
                      $( "#presentation_div" ).height( "auto" ) ;
                      $( "#presentation_div" ).html( "CIRCLES DEMO #8<br/>Working with the discreteness locus<br/>for Maskit embedding T1,1" ) ;
                   },
@@ -65,7 +65,7 @@ var _demon = new demo_n();
                 } );
 
     _demon.add( { ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
-                  action : "hide", set_value : "fast", showlabel : false, desclabel : ""
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
                 } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms discreteness.locus" ); },
@@ -83,15 +83,22 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                      $( "#presentation_div" ).css( "background-color", "#49D10F" ) ;
-                     $( "#presentation_div" ).html( "Now I'll compute the discreteness locus, pick up a value from its boundary and<br>put it as parameter into the Maskit embedding T1,1 mask" ) ;
+                     var _html = "Now I'll compute the discreteness locus,<br>" ;
+                         _html += "pick up a value from its boundary and<br>" ;
+                         _html += "put it as parameter into the Maskit embedding T1,1 mask" ;
+                     $( "#presentation_div" ).html( _html ) ;
                   },
-                  ctrl_id : "presentation_div", time : 3, time_unit : "s",
+                  ctrl_id : "presentation_div", time : 4, time_unit : "s",
                   action : "move", set_value : { to_x : $(window).width() - 410, to_y : 100 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).fadeIn( "fast" ) ; }
                 } );
 
     _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSembeddingCOMBO", time : 2.0, time_unit : "s",
                   action : "select", set_text : "Maskit T1,1", showlabel : true, desclabel : "Select the embedding Maskit T1,1" } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
 
     _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSrenderBTN", time : 7.0, time_unit : "s",
                   action : "click", set_text : null, showlabel : true, desclabel : "Render the discreteness locus\nfor the embedding Maskit T1,1" } );
@@ -152,12 +159,31 @@ var _demon = new demo_n();
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
+    _demon.add( { ctrl_id : "PLUGIN_PARAM_MU", time : 2.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : true, desclabel : "This value was brought from the<br>discreteness locus mask" } );
+
+    _demon.add( { pre_fn : function()
+                  {
+                    $( "#presentation_div" ).css( "background-color", "#538BB4" ) ;
+                    var _html = "When this value was picked from the discreteness locus mask," ;
+                        _html += "<br>it was also copied into the currently available plug-in (MASKIT T1,1)" ;
+                        _html += "<br>for further initialization" ;
+                    $( "#presentation_div" ).html( _html ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 7, time_unit : "s",
+                  action : "show", set_value : { to_x : "left", to_y : $(window).height() - 150 }, showlabel : false, desclabel : ""
+                } );
+
     _demon.add( { ctrl_id : "PLUGINinitBTN", time : 2.0, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Push 'Init' for group initialization" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms terminal" ); _glob_terminal.exec( "plugin send close" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms discreteness.locus" ); _glob_terminal.exec( "plugin send close" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 1.0, time_unit : "s",
@@ -174,10 +200,14 @@ var _demon = new demo_n();
 
     _demon.add( { pre_fn : function()
                   {
-                    $( "#presentation_div" ).css( "background-color", "#9AD2FB" ) ;
-                    $( "#presentation_div" ).html( "END OF DEMO #8<br>Wishes of a peaceful day !" ) ;
+                    $( "#presentation_div" ).css( "background-color", "#538BB4" ) ;
+                    var _html = "END OF DEMO #8<br>Wishes of a peaceful day !" ;
+                        _html += "<br><br><SPAN STYLE=\"font-size:11pt;\">To watch other demos" ;
+                        _html += "<br>change n at ?demo=n inside the URL bar" ;
+                        _html += "<br>where 1 <= n <= 8</SPAN>" ;
+                    $( "#presentation_div" ).html( _html ) ;
                   },
-                  ctrl_id : "presentation_div", time : 2, time_unit : "s",
+                  ctrl_id : "presentation_div", time : 7, time_unit : "s",
                   action : "show", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""
                 } );
 

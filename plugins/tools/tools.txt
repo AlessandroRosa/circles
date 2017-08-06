@@ -1,0 +1,8 @@
+alphabet.colorization
+canvas.composition
+f.z
+fundamental.region
+group.table
+instructions.txt
+raw.points.list
+tools.txt

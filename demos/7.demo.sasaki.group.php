@@ -8,7 +8,7 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                     $( "<div ID=\"presentation_div\" CLASS=\"general_rounded_corners\" STYLE=\"position:absolute;z-index:5;font-size:14pt;font-family:arial;width:340px;height:50px;text-align:center;color:white;\"></div>" ).appendTo("body");
-                    $( "#presentation_div" ).css( "background-color", "#9AD2FB" ) ;
+                    $( "#presentation_div" ).css( "background-color", "#538BB4" ) ;
                     $( "#presentation_div" ).height( "auto" ) ;
                     $( "#presentation_div" ).html( "CIRCLES DEMO #7<br>An example of Sasaki group<br>via 'General Purpose' mask" ) ;
                   },
@@ -205,8 +205,16 @@ var _demon = new demo_n();
     _demon.add( { ctrl_id : "alertYESbtn", time : 2, time_unit : "s",
                   action : "click", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { pre_fn : function() { $( "#presentation_div" ).html( "END OF DEMO #7<br>Be grateful to life!" ) ; },
-                  ctrl_id : "presentation_div", time : 2, time_unit : "s",
+    _demon.add( { pre_fn : function()
+                  {
+                    $( "#presentation_div" ).css( "background-color", "#538BB4" ) ;
+                    var _html = "END OF DEMO #7<br>be grateful to life !" ;
+                        _html += "<br><br><SPAN STYLE=\"font-size:11pt;\">To watch other demos" ;
+                        _html += "<br>change n at ?demo=n inside the URL bar" ;
+                        _html += "<br>where 1 <= n <= 8</SPAN>" ;
+                    $( "#presentation_div" ).html( _html ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 7, time_unit : "s",
                   action : "show", set_value : { to_x : "center", to_y : "center" }, showlabel : false, desclabel : ""
                 } );
 

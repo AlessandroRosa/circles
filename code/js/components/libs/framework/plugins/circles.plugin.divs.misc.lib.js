@@ -111,11 +111,8 @@ function circles_lib_plugin_load()
           return NO ;
 			 }
        
-       var vars = { tip: "",
-                    folder : _abs_folder_path,
-                    filter : "/[?.js]$/",
-									  exact : 0,
-                    search_params : "0,0,1,0" } ;
+       var vars = { tip: "", folder : _abs_folder_path, filter : "/[?.js]$/",
+									  exact : 0, search_params : "0,0,1,0" } ;
        var _result = get_filedata_from_folder( "support/code/phpcode/svc/svc.filelist.php", "POST", false, vars );
        if ( _result.length > 0 )
        {
