@@ -370,7 +370,14 @@ function circles_terminal_cmd_plugin()
                         {
                           if ( _plugin_tmp_vars_array[ 'plugin_sel' ] == null ) _plugin_tmp_vars_array[ 'plugin_sel' ] = [] ;
                           _plugin_tmp_vars_array[ 'plugin_sel' ][ _var_set[0] ] = _var_set[1] ;
-                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Plugin <white>" + _plugin_sel.fam + " " + _plugin_sel.def + "</white> : var <white>" + _var_set[0] + "</white> correctly set to <white>" + _var_set[1] + "</white>", _par_1, _cmd_tag );
+                          var _famLC = _plugin_sel.fam.toLowerCase(), _defUC = _plugin_sel.def.toUpperCase().replace( /[\.\_\-]/g, "" ) ;
+                          var _options = [ "update.params", _var_set[1] ] ;
+                          var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null )" ;
+                          var _output = null ;
+                        	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
+                        	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
+                          var _b_ok = _output ? DISPATCH_SUCCESS : DISPATCH_ERROR ;
+                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Plugin <white>" + _plugin_sel.fam + " " + _plugin_sel.def + "</white> : var <white>" + _var_set[0] + "</white> "+(_b_ok?"correctly":"not")+" set to <white>" + _var_set[1] + "</white>", _par_1, _cmd_tag );
                         }
                         else
                         {

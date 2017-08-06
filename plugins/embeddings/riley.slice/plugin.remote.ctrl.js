@@ -33,6 +33,11 @@ function CIRCLESembeddingsRILEYSLICEremotectrl( _options, _return_fn, _out_chann
 				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
         return 1 ;
 				break ;
+				case "update.params":
+        CIRCLESembeddingsRILEYSLICE_rho = _options[1] ;
+        $("#PLUGIN_PARAM_RHO").val( CIRCLESembeddingsRILEYSLICE_rho );
+        return 1 ;
+				break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
         return 0 ;

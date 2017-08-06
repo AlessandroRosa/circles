@@ -10,7 +10,7 @@
 
       $gens_files = glob( "$DIRNAME/$FILENAME.gens*.png" );
       $gens_filescount = count( $gens_files ) ;
-      $gens_exist = ( $gens_filescount == 0 || strlen( $gens_files ) == 0 ) ? 0 : 1 ;
+      $gens_exist = $gens_filescount == 0 ? 0 : 1 ;
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

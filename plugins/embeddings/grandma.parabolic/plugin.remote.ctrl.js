@@ -33,6 +33,13 @@ function CIRCLESembeddingsGRANDMAPARABOLICremotectrl( _options, _return_fn, _out
 				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
         return 1 ;
 				break ;
+				case "update.params":
+        CIRCLESembeddingsGRANDMAPARABOLIC_trA = _options[1] ;
+        $("#PLUGIN_PARAM_A").val( CIRCLESembeddingsGRANDMAPARABOLIC_trA );
+        CIRCLESembeddingsGRANDMAPARABOLIC_trB = _options[2] ;
+        $("#PLUGIN_PARAM_B").val( CIRCLESembeddingsGRANDMAPARABOLIC_trB );
+        return 1 ;
+				break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
         return 0 ;

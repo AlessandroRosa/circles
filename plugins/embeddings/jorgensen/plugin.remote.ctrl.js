@@ -46,6 +46,13 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn, _out_channe
         if ( _options[2] != null ) $("#PLUGIN_PARAM_BETA").val( _options[2] );
         return 1 ;
         break ;
+				case "update.params":
+        CIRCLESembeddingsJORGENSEN_alpha = _options[1] ;
+        $("#PLUGIN_PARAM_ALPHA").val( CIRCLESembeddingsJORGENSEN_alpha );
+        CIRCLESembeddingsJORGENSEN_beta = _options[2] ;
+        $("#PLUGIN_PARAM_BETA").val( CIRCLESembeddingsJORGENSEN_beta );
+        return 1 ;
+				break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
         return 0 ;

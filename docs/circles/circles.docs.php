@@ -1,12 +1,12 @@
 <?php $PATH_TO_ROOT = "../../" ; ?>
 <?php $PATH_TO_COMPLEX = $PATH_TO_ROOT ; ?>
 <?php $PATH_TO_CIRCLES = $PATH_TO_COMPLEX ; ?>
-<?php @include( $PATH_TO_COMPLEX."code/phpcode/fns/fns.php" ) ; ?>
-<?php load_src_code_dir( $PATH_TO_COMPLEX."code/phpcode/objs/", "php", $ERRCODE ) ; ?>
+<?php @include( $PATH_TO_COMPLEX."support/code/phpcode/fns/fns.php" ) ; ?>
+<?php load_src_code_dir( $PATH_TO_COMPLEX."support/code/phpcode/objs/", "php", $ERRCODE ) ; ?>
 <?php $lastreleasedate = get_params_ini( "DOCS", "lastreleasedate", $PATH_TO_CIRCLES."settings/circles.settings.ini" ) ; ?>
 <?php $title = get_params_ini( "MAIN", "title", $PATH_TO_CIRCLES."settings/circles.settings.ini" ) ; ?>
 <?php $subtitle = get_params_ini( "MAIN", "subtitle", $PATH_TO_CIRCLES."settings/circles.settings.ini" ) ; ?>
-<?php $anchor = trim( $_GET['a'] ) ; ?>
+<?php $anchor = array_key_exists( 'a', $_GET ) ? trim( $_GET['a'] ) : "" ; ?>
 <html>
 <title><?php echo $title ; ?> - Documentation</title>
 <head>
@@ -150,69 +150,28 @@ ol li
     <?php   switch( $anchor )
             {
                   case "":
-                  case "circles":
-                  @include( "text/intro.php" );
-                  break ;
-                  case "basicterminology":
-                  @include( "text/basic.terminology.php" );
-                  break ;
-                  case "gettingstarted":
-                  @include( "text/getting.started.php" );
-                  break ;
-                  case "interface":
-                  @include( "text/interface.php" );
-                  break ;
-                  case "ex01":
-                  @include( "text/ex01.php" );
-                  break ;
-                  case "ex02":
-                  @include( "text/ex02.php" );
-                  break ;
-                  case "ex03":
-                  @include( "text/ex03.php" );
-                  break ;
-                  case "ex04":
-                  @include( "text/ex04.php" );
-                  break ;
-                  case "ex05":
-                  @include( "text/ex05.php" );
-                  break ;
-                  case "ex06":
-                  @include( "text/ex06.php" );
-                  break ;
-                  case "ex07":
-                  @include( "text/ex07.php" );
-                  break ;
-                  case "ex08":
-                  @include( "text/ex08.php" );
-                  break ;
-                  case "layering":
-                  @include( "text/layering.php" );
-                  break ;
-                  case "toolsgeometric":
-                  @include( "text/tools.geometric.php" );
-                  break ;
-                  case "generals":
-                  @include( "text/generals.php" );
-                  break ;
-                  case "terminal":
-                  @include( "text/terminal.console.php" );
-                  break ;
-                  case "commandslist":
-                  @include( "text/commands.list.php" );
-                  break ;
-                  case "keyboardshortcuts":
-                  @include( "text/keyboard.shortcuts.php" );
-                  break ;
-                  case "pixformats":
-                  @include( "text/pixformats.php" );
-                  break ;
-                  case "listings":
-                  @include( "text/listings.php" );
-                  break ;
-                  case "externallinks":
-                  @include( "text/external.links.php" );
-                  break ;
+                  case "circles": @include( "text/intro.php" ); break ;
+                  case "basicterminology": @include( "text/basic.terminology.php" ); break ;
+                  case "gettingstarted": @include( "text/getting.started.php" ); break ;
+                  case "interface": @include( "text/interface.php" ); break ;
+                  case "ex01": @include( "text/ex01.php" ); break ;
+                  case "ex02": @include( "text/ex02.php" ); break ;
+                  case "ex03": @include( "text/ex03.php" ); break ;
+                  case "ex04": @include( "text/ex04.php" ); break ;
+                  case "ex05": @include( "text/ex05.php" ); break ;
+                  case "ex06": @include( "text/ex06.php" ); break ;
+                  case "ex07": @include( "text/ex07.php" ); break ;
+                  case "ex08": @include( "text/ex08.php" ); break ;
+                  case "layering": @include( "text/layering.php" ); break ;
+                  case "toolsgeometric": @include( "text/tools.geometric.php" ); break ;
+                  case "generals": @include( "text/generals.php" ); break ;
+                  case "terminal": @include( "text/terminal.console.php" ); break ;
+                  case "commandslist": @include( "text/commands.list.php" ); break ;
+                  case "keyboardshortcuts": @include( "text/keyboard.shortcuts.php" );
+                  break ; case "pixformats": @include( "text/pixformats.php" ); break ;
+                  case "listings": @include( "text/listings.php" ); break ;
+                  case "externallinks": @include( "text/external.links.php" ); break ;
+                  default: @include( "text/intro.php" ); break ;
             }
     ?>
     </DIV>
