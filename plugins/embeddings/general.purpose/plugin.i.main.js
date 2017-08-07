@@ -1,20 +1,3 @@
-function CIRCLESembeddingsGENERALPURPOSE_MINIMAXI_TOGGLE()
-{
-    var _curr = $( "#PLUGIN_MINIMAXI_BTN" ).html().toLowerCase();
-    var _next = _curr.stricmp( "maxi" ) ? "Mini" : "Maxi" ;
-    $( "#PLUGIN_MINIMAXI_BTN" ).html( _next ) ;
-    switch( _curr.toLowerCase() )
-    {
-        case "maxi":
-        $( "#PLUGIN_TABS_CONTAINER" ).show();
-        break ;
-        case "mini":
-        $( "#PLUGIN_TABS_CONTAINER" ).hide();
-        break ;
-        default: break ;
-    }
-}
-
 function CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id )
 {
     _plugin_main_ref = safe_string( _base_id + "", _plugin_main_ref ) ;
@@ -40,7 +23,7 @@ function CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id )
     CIRCLESembeddingsGENERALPURPOSE_PRESETS_INIT();
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_REGISTER_PARAMS()
+function CIRCLESembeddingsGENERALPURPOSE_RECORD_PARAMS()
 {
     var _index_ref = _plugin_last_ref ;
     var _ret_chunk = GLOB_PLUGIN_PARAMS_REGISTER( _index_ref, "#PLUGIN_PARAM_A", "#PLUGIN_PARAM_B", "#PLUGIN_PARAM_C", "#PLUGIN_PARAM_D",
@@ -87,16 +70,16 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     var _abs_folder_path = "plugins/"+_subset+"/"+_base_id+"/" ;
     var _rel_folder_path = "plugins/"+_subset+"/"+_base_id+"/" ;
     $.ajaxSetup( { async:false } );
-    $.get( _rel_folder_path + "menu.html", function( response ) { HTMLcode += response.replaceAll( "%indexref%", _index_ref ) ; } );
+    $.get( _rel_folder_path + "menu.html", function( response ) { HTMLcode += response.replaceAll( "%indexref%", "'"+_index_ref+"'" ) ; } );
     HTMLcode += "</td>" ;
 
     /*
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td STYLE=\"color:"+_init_btn_clr+";\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGENERALPURPOSE_REGISTER_PARAMS();\" ID=\"PLUGINinitBTN\">Init</td>" ;
+    HTMLcode += "<td STYLE=\"color:"+_init_btn_clr+";\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGENERALPURPOSE_RECORD_PARAMS();\" ID=\"PLUGINinitBTN\">Init</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
     HTMLcode += "<td STYLE=\"color:"+_draw_btn_clr+";\" CLASS=\"link\" ONCLICK=\"javascript:GLOB_PLUGIN_WIZARD_STEP(2.1);\" ID=\"PLUGINrenderBTN\">Render</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_REGISTER_PARAMS();\">Register</td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_RECORD_PARAMS();\">Register</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
     HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:$('#customloader').val('');$('#customloader').trigger('click');\">Load</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
@@ -105,8 +88,6 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:if ( circles_lib_method_check() ) CIRCLESembeddingsGENERALPURPOSE_CALL_METHOD('"+this_fn_name+"'); else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _ERR_00_01, 'PLUGIN_OUTMSG' ) ;\">Method</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
     HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_COMMENT();\">Comment</td>" ;
-    HTMLcode += "<td WIDTH=\"10\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ID=\"PLUGIN_MINIMAXI_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_MINIMAXI_TOGGLE();\">Mini</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
     HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:GLOB_PLUGIN_DISPLAY_INFOS('"+_plugin_main_ref+"');\">Info</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;

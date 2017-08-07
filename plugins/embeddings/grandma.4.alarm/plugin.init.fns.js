@@ -249,10 +249,10 @@ function CIRCLESembeddingsGRANDMA4ALARM_INIT( _skip_edit_acquisition, _calc )
        if ( is_string( CIRCLESembeddingsGRANDMA4ALARM_trAB ) )
        {
             var _BOLD = CIRCLESembeddingsGRANDMA4ALARM_param == 1 ? "font-weight:bold;" : "" ;
-            HTMLcode += "<tr><td WIDTH=\"3\"></td><td>1st Q solution</td><td WIDTH=\"5\"></td><td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN1stSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN2ndSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsGRANDMA4ALARM_COMP(1);CIRCLESembeddingsGRANDMA4ALARM_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGRANDMA4ALARM_REGISTER_PARAMS();\">Apply</td></tr>" ;
+            HTMLcode += "<tr><td WIDTH=\"3\"></td><td>1st Q solution</td><td WIDTH=\"5\"></td><td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN1stSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN2ndSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsGRANDMA4ALARM_COMP(1);CIRCLESembeddingsGRANDMA4ALARM_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGRANDMA4ALARM_RECORD_PARAMS();\">Apply</td></tr>" ;
 
             _BOLD = CIRCLESembeddingsGRANDMA4ALARM_param == 2 ? "font-weight:bold;" : "" ;
-            HTMLcode += "<tr><td WIDTH=\"3\"></td><td>2nd Q solution</td><td WIDTH=\"5\"></td><td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN2ndSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN1stSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsGRANDMA4ALARM_COMP(2);CIRCLESembeddingsGRANDMA4ALARM_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGRANDMA4ALARM_REGISTER_PARAMS();\">Apply</td></tr>" ;
+            HTMLcode += "<tr><td WIDTH=\"3\"></td><td>2nd Q solution</td><td WIDTH=\"5\"></td><td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN2ndSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN1stSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsGRANDMA4ALARM_COMP(2);CIRCLESembeddingsGRANDMA4ALARM_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGRANDMA4ALARM_RECORD_PARAMS();\">Apply</td></tr>" ;
        }
 
        HTMLcode += "</table>" ;

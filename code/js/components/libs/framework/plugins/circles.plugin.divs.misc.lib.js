@@ -255,6 +255,24 @@ function circles_lib_plugin_set_property_to_all_entries( _obj, _datatype_mask /*
     }
 }
 
+function circles_lib_plugin_toggle_preview( _base_id, _subset, _apply_fn_if_visible )
+{
+    _base_id = _base_id.replace( /[\.\_\-]/g, "" ).trim() ;
+    $( "#PLUGIN_PREVIEW" ).toggle( "slow", function()
+		{
+      circles_lib_plugin_render_preview( _base_id, _subset, Z_PLANE );
+			var _visible = $( "#PLUGIN_PREVIEW" ).is(":visible") ;
+			$( "#PLUGIN_TOGGLE_PREVIEW_BTN" ).html( _visible ? "Hide preview" : "Show preview" );
+			if ( _visible )
+			{
+				var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
+				var _canvas = $( "#CIRCLES"+_subset.toLowerCase()+_base_id.toUpperCase()+"_CANVAS" ).get(0) ;
+				_canvas.set_width( _plugin_width - 5 );
+        if ( typeof _apply_fn_if_visible === "function" ) _apply_fn_if_visible.apply();
+			}
+    } );
+}
+
 function circles_lib_plugin_render_preview( _clean_base_id, _subset, _plane_type )
 {
 		var _b_found = NO, _canvas ;

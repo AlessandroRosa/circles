@@ -102,7 +102,7 @@ function CIRCLESembeddingsGENERALPURPOSE_EVENTS( ctrl_id, event )
                if ( !_is_tab ) CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( CIRCLESembeddingsGENERALPURPOSEcurr_sel == UNDET ? CIRCLESembeddingsGENERALPURPOSE_ADD : CIRCLESembeddingsGENERALPURPOSE_UPDATE, YES );
                _glob_items_to_init = YES ;
                $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-               CIRCLESembeddingsGENERALPURPOSE_REGISTER_PARAMS();
+               CIRCLESembeddingsGENERALPURPOSE_RECORD_PARAMS();
             }
 				}
         else if ( ctrl_id.stricmp( "PLUGINvaridEDIT" ) ) $( "#PLUGINvarvalueEDIT" ).focus();

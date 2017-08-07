@@ -10,7 +10,6 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
   (Remove each entry after all checkings)
 
 * EMBEDDINGS
-earle
 general.purpose
 grandma.4.alarm
 grandma.parabolic

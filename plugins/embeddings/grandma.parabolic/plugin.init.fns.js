@@ -291,7 +291,7 @@ function CIRCLESembeddingsGRANDMAPARABOLIC_INIT( _skip_edit_acquisition, _calc )
                 _BOLD = CIRCLESembeddingsGRANDMAPARABOLIC_param == 1 ? "font-weight:bold;" : "" ;
                 HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
                 HTMLcode += "<tr><td WIDTH=\"3\"></td><td COLSPAN=\"3\">1st solution - Tr<sub>ab</sub> : "+CIRCLESembeddingsGRANDMAPARABOLIC_trAB_1.roundTo(PLUGINapproxPLACES).formula()+"</td><td WIDTH=\"5\"></td>" ;
-                HTMLcode += "    <td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN1stSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN2ndSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsGRANDMAPARABOLIC_COMP(1);CIRCLESembeddingsGRANDMAPARABOLIC_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGRANDMAPARABOLIC_REGISTER_PARAMS();\">Apply</td></tr>" ;
+                HTMLcode += "    <td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN1stSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN2ndSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsGRANDMAPARABOLIC_COMP(1);CIRCLESembeddingsGRANDMAPARABOLIC_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGRANDMAPARABOLIC_RECORD_PARAMS();\">Apply</td></tr>" ;
             }
             else HTMLcode += "<tr><td COLSPAN=\"3\" STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\">Tr<sub>ab</sub> (1st solution) : invalid output value</td></tr>" ;
 
@@ -300,7 +300,7 @@ function CIRCLESembeddingsGRANDMAPARABOLIC_INIT( _skip_edit_acquisition, _calc )
                 _BOLD = CIRCLESembeddingsGRANDMAPARABOLIC_param == 2 ? "font-weight:bold;" : "" ;
                 HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
                 HTMLcode += "<tr><td WIDTH=\"3\"></td><td COLSPAN=\"3\">2nd solution - Tr<sub>ab</sub> : "+CIRCLESembeddingsGRANDMAPARABOLIC_trAB_2.roundTo(PLUGINapproxPLACES).formula()+"</td><td WIDTH=\"5\"></td>" ;
-                HTMLcode += "    <td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN2ndSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN1stSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsGRANDMAPARABOLIC_COMP(2);CIRCLESembeddingsGRANDMAPARABOLIC_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGRANDMAPARABOLIC_REGISTER_PARAMS();\">Apply</td></tr>" ;
+                HTMLcode += "    <td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN2ndSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN1stSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsGRANDMAPARABOLIC_COMP(2);CIRCLESembeddingsGRANDMAPARABOLIC_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGRANDMAPARABOLIC_RECORD_PARAMS();\">Apply</td></tr>" ;
             }
             else HTMLcode += "<tr><td COLSPAN=\"3\" STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\">Tr<sub>ab</sub> (2nd solution) : invalid output value</td></tr>" ;
 

@@ -254,7 +254,7 @@ function CIRCLESembeddingsJORGENSEN_INIT( _skip_edit_acquisition, _calc )
             if ( is_complex( CIRCLESembeddingsJORGENSEN_alphabeta_1 ) )
             {
                  var _BOLD = CIRCLESembeddingsJORGENSEN_param == 1 ? "font-weight:bold;" : "" ;
-                 HTMLcode += "<tr><td WIDTH=\"3\"></td><td>1st solution - &alpha;&beta; : "+CIRCLESembeddingsJORGENSEN_alphabeta_1.roundTo(CIRCLESembeddingsJORGENSEN_APPROXplaces).formula()+"</td><td WIDTH=\"5\"></td><td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN1stSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN2ndSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsJORGENSEN_COMP(1);CIRCLESembeddingsJORGENSEN_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsJORGENSEN_REGISTER_PARAMS();\">Apply</td></tr>" ;
+                 HTMLcode += "<tr><td WIDTH=\"3\"></td><td>1st solution - &alpha;&beta; : "+CIRCLESembeddingsJORGENSEN_alphabeta_1.roundTo(CIRCLESembeddingsJORGENSEN_APPROXplaces).formula()+"</td><td WIDTH=\"5\"></td><td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN1stSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN2ndSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsJORGENSEN_COMP(1);CIRCLESembeddingsJORGENSEN_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsJORGENSEN_RECORD_PARAMS();\">Apply</td></tr>" ;
                  HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
             }
             else HTMLcode += "<tr><td COLSPAN=\"4\" STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\"><sub>&alpha;&beta;</sub> (1st solution) : invalid output value</td></tr>" ;
@@ -262,7 +262,7 @@ function CIRCLESembeddingsJORGENSEN_INIT( _skip_edit_acquisition, _calc )
             if ( is_complex( CIRCLESembeddingsJORGENSEN_alphabeta_2 ) )
             {
                  var _BOLD = CIRCLESembeddingsJORGENSEN_param == 2 ? "font-weight:bold;" : "" ;
-                 HTMLcode += "<tr><td WIDTH=\"3\"></td><td>2nd solution - &alpha;&beta; : "+CIRCLESembeddingsJORGENSEN_alphabeta_2.roundTo(CIRCLESembeddingsJORGENSEN_APPROXplaces).formula()+"</td><td WIDTH=\"5\"></td><td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN2ndSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN1stSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsJORGENSEN_COMP(2);CIRCLESembeddingsJORGENSEN_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsJORGENSEN_REGISTER_PARAMS();\">Apply</td></tr>" ;
+                 HTMLcode += "<tr><td WIDTH=\"3\"></td><td>2nd solution - &alpha;&beta; : "+CIRCLESembeddingsJORGENSEN_alphabeta_2.roundTo(CIRCLESembeddingsJORGENSEN_APPROXplaces).formula()+"</td><td WIDTH=\"5\"></td><td CLASS=\"link_rounded\" STYLE=\"width:45px;"+_BOLD+"\" ID=\"PLUGIN2ndSOLUTIONid\" ONCLICK=\"javascript:$('#PLUGIN1stSOLUTIONid').css('font-weight','');$(this).css('font-weight','bold');CIRCLESembeddingsJORGENSEN_COMP(2);CIRCLESembeddingsJORGENSEN_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsJORGENSEN_RECORD_PARAMS();\">Apply</td></tr>" ;
                  HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
             }
             else HTMLcode += "<tr><td COLSPAN=\"4\" STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\"><sub>&alpha;&beta;</sub> (2nd solution) : invalid output value</td></tr>" ;
