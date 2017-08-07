@@ -19,6 +19,7 @@ function circles_lib_extras_canvas_dropdown( _ctrl_id )
 {
 		_glob_available_curr_canvas_array = [] ;
     var _dropdown_code = "", _ctx ;
+    //scan the framework for currently available canvases
     $( "[id$=CANVAS]" ).each( function( _i, _canvas_obj )
   	{
   			_ctx = _canvas_obj.getContext( _glob_canvas_ctx_2D_mode ) ;
@@ -28,20 +29,17 @@ function circles_lib_extras_canvas_dropdown( _ctrl_id )
     var _keys = _glob_available_curr_canvas_array.keys_associative(), _cnv_entry ;
     if ( is_consistent_array( _keys ) )
     {
-				_dropdown_code = "<SELECT ID=\"CIRCLESchoose"+_ctrl_id.replace( /[\.\_\-]/g, "" ).toUpperCase()+"canvasDROPDOWN\">" ;
-				_dropdown_code += "<OPTION VALUE=\"\" SELECTED=\"selected\">" ;
-				_keys.work( function( _k )
+			_dropdown_code = "<SELECT ID=\"CIRCLESchoose"+_ctrl_id.replace( /[\.\_\-]/g, "" ).toUpperCase()+"canvasDROPDOWN\">" ;
+			_dropdown_code += "<OPTION VALUE=\"\" SELECTED=\"selected\">" ;
+			_keys.work( function( _k )
+			{
+				if ( _glob_available_curr_canvas_array[_k] != null )
 				{
-						if ( _glob_available_curr_canvas_array[_k] != null )
-						{
-								_cnv_entry = _glob_available_curr_canvas_array[_k] ;
-                if ( _cnv_entry[0].trim().length > 0 )
-								_dropdown_code += "<OPTION VALUE=\""+_cnv_entry[0]+"\">"+_cnv_entry[2] ;
-						}
+					_cnv_entry = _glob_available_curr_canvas_array[_k] ;
+          if ( _cnv_entry[0].trim().length > 0 ) _dropdown_code += "<OPTION VALUE=\""+_cnv_entry[0]+"\">"+_cnv_entry[2] ;
 				}
-				) ;
-				
-				_dropdown_code += "</SELECT>" ;
+			} ) ;
+  		_dropdown_code += "</SELECT>" ;
 		}
 		
 		return _dropdown_code ;

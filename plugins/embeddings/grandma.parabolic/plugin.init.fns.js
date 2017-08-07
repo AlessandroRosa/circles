@@ -106,9 +106,9 @@ function CIRCLESembeddingsGRANDMAPARABOLIC_PRESETS( _opcode, _init )
 
             if( $( "#CIRCLESembeddingsGRANDMAPARABOLIC_CANVAS" ).is( ":visible" ) )
             {
-                var _fn_str = "CIRCLESembeddingsGRANDMAPARABOLIC_RENDER_PREVIEW", _fn = null ;
+                var _fn_str = "circles_lib_plugin_render_preview", _fn = null ;
                 try{ eval( "_fn = " + _fn_str ) ; } catch( _err ){ circles_lib_error_obj_handler( _err ); }
-                if ( typeof _fn === "function" ) _fn.call( this, "GRANDMAPARABOLIC", Z_PLANE ) ;
+                if ( typeof _fn === "function" ) _fn.call( this, "grandma.parabolic", "embeddings", Z_PLANE ) ;
             }
             _glob_target_plane = W_PLANE ;
         }
@@ -166,7 +166,7 @@ function CIRCLESembeddingsGRANDMAPARABOLIC_COMP( _param, _init )
         CIRCLESembeddingsGRANDMAPARABOLIC_mm_02 = MM_02 ;
         CIRCLESembeddingsGRANDMAPARABOLIC_OUTPUT( MM_01, MM_02, trAB, z0, _init );
 
-        $("#PLUGINparamsBTN").attr('class', 'linkdead');
+        $("#PLUGINsetBTN").attr('class', 'linkdead');
         CIRCLESembeddingsGRANDMAPARABOLIC_active = _glob_dict_create = _glob_items_to_init = YES ;
         $('[id$=initBTN]').css('color',COLOR_ERROR) ;
     }

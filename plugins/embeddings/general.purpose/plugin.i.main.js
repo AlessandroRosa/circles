@@ -55,7 +55,7 @@ function CIRCLESembeddingsGENERALPURPOSE_REGISTER_PARAMS()
 function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 {
     _move = is_string( _move ) ? _move : safe_int( _move, YES ), _restore = safe_int( _restore, YES );
-    var _clean_base_id = _base_id.replaceAll( [ "_", "." ], "" ) ;
+    var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ) ;
     CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id );
 		_plugin_last_ref = _plugin_main_ref ;
     _glob_palette_use = NO ;
@@ -73,7 +73,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     GLOB_PLUGIN_BASE_ID = _clean_base_id, GLOB_PLUGIN_SUBSET = _subset ;
 
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'general.purpose', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsGENERALPURPOSE_",
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'general.purpose', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"GENERALPURPOSE_",
 																								[ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
@@ -131,9 +131,9 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>"+circles_lib_extras_canvas_dropdown( _base_id.toUpperCase() )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane Objs</td>" ;
 		HTMLcode += "<td WIDTH=\"3\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',W_PLANE);\" ID=\"PLUGINpreview_renderBTN\">Render W-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',W_PLANE);\" ID=\"PLUGINpreview_wplaneBTN\">Render W-plane Objs</td>" ;
 		HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -786,7 +786,7 @@ function CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE( _div_id, WIDTH, HEIGHT )
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
 		var _canvas = $( "#CIRCLESembeddingsGENERALPURPOSE_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsGENERALPURPOSE_RENDER_PREVIEW( "general.purpose" ) ;
+    circles_lib_plugin_render_preview( "general.purpose", "embeddings" ) ;
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_MINIMIZE( _div_id, WIDTH, HEIGHT )
@@ -799,5 +799,5 @@ function CIRCLESembeddingsGENERALPURPOSE_NORMALIZE( _div_id, WIDTH, HEIGHT )
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
 		var _canvas = $( "#CIRCLESembeddingsGENERALPURPOSE_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsGENERALPURPOSE_RENDER_PREVIEW( "general.purpose" ) ;
+    circles_lib_plugin_render_preview( "general.purpose", "embeddings" ) ;
 }

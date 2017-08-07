@@ -9,7 +9,7 @@ ALT + MINUS : decrement depth by one
 CTRL + SHIFT + A : Add circle
 CTRL + ALT + D : Open dictionary panel
 CTRL + E : Edit circle (current selection)
-CTRL + ALT + F : Render W-plane
+CTRL + ALT + F : Render W-plane Objs
 CTRL + ALT + I : Save W-plane into a file
 CTRL + K : open generators check panel
 CTRL + L : open seeds list panel

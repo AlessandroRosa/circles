@@ -1,5 +1,5 @@
-function CIRCLESembeddingsRILEYSLICE_TOGGLE_GENS() { $("#PLUGIN_CONTAINER").slideToggle( "slow", function() { $("#PLUGIN_GENSTOGGLE_BTN").html( $("#PLUGIN_CONTAINER").css( "display" ) == "none" ? "Show panel" : "Hide panel" ); } ); }
-function CIRCLESembeddingsRILEYSLICE_MINIMAXI_TOGGLE()
+function CIRCLESembeddingsRILEY_TOGGLE_GENS() { $("#PLUGIN_CONTAINER").slideToggle( "slow", function() { $("#PLUGIN_GENSTOGGLE_BTN").html( $("#PLUGIN_CONTAINER").css( "display" ) == "none" ? "Show panel" : "Hide panel" ); } ); }
+function CIRCLESembeddingsRILEY_MINIMAXI_TOGGLE()
 {
     var _curr = $( "#PLUGIN_MINIMAXI_BTN" ).html().toLowerCase();
     var _next = _curr.stricmp( "maxi" ) ? "Mini" : "Maxi" ;
@@ -20,7 +20,7 @@ function CIRCLESembeddingsRILEYSLICE_MINIMAXI_TOGGLE()
     }
 }
 
-function CIRCLESembeddingsRILEYSLICE_EVENTS( ctrl_id, event )
+function CIRCLESembeddingsRILEY_EVENTS( ctrl_id, event )
 {
 	  if ( event.stopPropagation )      event.stopPropagation();
 	  if ( event.cancelBubble != null ) event.cancelBubble = true;
@@ -32,14 +32,14 @@ function CIRCLESembeddingsRILEYSLICE_EVENTS( ctrl_id, event )
 				{
  					 if ( _plugin_step_index == 0 )
            {
-              CIRCLESembeddingsRILEYSLICE_INIT(NO,YES);
-     				  CIRCLESembeddingsRILEYSLICE_COMP();
+              CIRCLESembeddingsRILEY_INIT(NO,YES);
+     				  CIRCLESembeddingsRILEY_COMP();
            }
            if ( _plugin_step_index == 0 ) GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
-           else if ( _plugin_step_index == 0.1 ) { CIRCLESembeddingsRILEYSLICE_CONFIG(); GLOB_PLUGIN_WIZARD_STEP(1.1,YES); GLOB_PLUGIN_GENS_SHOW( YES ); }
+           else if ( _plugin_step_index == 0.1 ) { CIRCLESembeddingsRILEY_CONFIG(); GLOB_PLUGIN_WIZARD_STEP(1.1,YES); GLOB_PLUGIN_GENS_SHOW( YES ); }
            else if ( _plugin_step_index.is_one_of( 1.1, 2.1 ) )
            {
-              if ( _plugin_step_index == 1.1 ) CIRCLESembeddingsRILEYSLICE_REGISTER_PARAMS();
+              if ( _plugin_step_index == 1.1 ) CIRCLESembeddingsRILEY_REGISTER_PARAMS();
               GLOB_PLUGIN_WIZARD_STEP(2.1);
               GLOB_PLUGIN_GENS_SHOW( YES );
 					    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
@@ -54,7 +54,7 @@ function CIRCLESembeddingsRILEYSLICE_EVENTS( ctrl_id, event )
 		}
 }
 
-function CIRCLESembeddingsRILEYSLICE_PARAMS_FILL()
+function CIRCLESembeddingsRILEY_PARAMS_FILL()
 {
     var _entries = 0 ;
     if ( arguments[0] != null )
@@ -66,22 +66,22 @@ function CIRCLESembeddingsRILEYSLICE_PARAMS_FILL()
 
     if ( _entries == 1 )
     {
-        CIRCLESembeddingsRILEYSLICE_INIT(NO,YES);
+        CIRCLESembeddingsRILEY_INIT(NO,YES);
         GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
-        CIRCLESembeddingsRILEYSLICE_COMP();
-        CIRCLESembeddingsRILEYSLICE_CONFIG();
+        CIRCLESembeddingsRILEY_COMP();
+        CIRCLESembeddingsRILEY_CONFIG();
         GLOB_PLUGIN_WIZARD_STEP(1.1,YES);
     }
 }
 
-function CIRCLESembeddingsRILEYSLICE_PATTERNS()
+function CIRCLESembeddingsRILEY_PATTERNS()
 {
     GLOB_PLUGIN_FLUSH_PATTERNS();
     GLOB_PLUGIN_ADD_PATTERN( { symbol : 'a', a : "1", b : "2", c : "0", d : "1" } );
     GLOB_PLUGIN_ADD_PATTERN( { symbol : 'b', a : "1", b : "0", c : "&rho;", d : "1" } );
 }
 
-function CIRCLESembeddingsRILEYSLICE_TIPS()
+function CIRCLESembeddingsRILEY_TIPS()
 {
     var _index_ref = _plugin_main_ref + "";
     var _tips = [];
@@ -90,7 +90,7 @@ function CIRCLESembeddingsRILEYSLICE_TIPS()
     circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _tips.join( "<br>" ), _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] + " - Tips" );
 }
 
-function CIRCLESembeddingsRILEYSLICE_CONFIG( _base_id )
+function CIRCLESembeddingsRILEY_CONFIG( _base_id )
 {
     _plugin_main_ref = safe_string( _base_id + "", _plugin_main_ref ) ;
     var _index_ref = _plugin_main_ref + "";
@@ -101,8 +101,8 @@ function CIRCLESembeddingsRILEYSLICE_CONFIG( _base_id )
     _plugin_info_array[_index_ref] += _glob_crlf + "by David Mumford, Caroline Series, David Wright" ;
     _plugin_info_array[_index_ref] += _glob_crlf + "Cambridge Press, 2002" ;
     _plugin_info_array[_index_ref] += _glob_crlf + "Generators can be found at p. 258" ;
-    _plugin_vars_array[_index_ref] = { 'rho' : { formula : 'CIRCLESembeddingsRILEYSLICE_rho', label : 'CIRCLESembeddingsRILEYSLICE_rho_complex', type : 'complex', role : '', value : new complex( 0.0, 0.0 ) } }
-    _plugin_run_fn_array[_index_ref] = "CIRCLESembeddingsRILEYSLICE_PARSE( CIRCLESembeddingsRILEYSLICE_rho );CIRCLESembeddingsRILEYSLICE_COMP();" ;
+    _plugin_vars_array[_index_ref] = { 'rho' : { formula : 'CIRCLESembeddingsRILEY_rho', label : 'CIRCLESembeddingsRILEY_rho_complex', type : 'complex', role : '', value : new complex( 0.0, 0.0 ) } }
+    _plugin_run_fn_array[_index_ref] = "CIRCLESembeddingsRILEY_PARSE( CIRCLESembeddingsRILEY_rho );CIRCLESembeddingsRILEY_COMP();" ;
 
     _glob_submethod_desc = _plugin_definitions_array[_index_ref] ;
     _glob_submethod_desc = safe_string( _glob_submethod_desc, "" );
@@ -111,10 +111,10 @@ function CIRCLESembeddingsRILEYSLICE_CONFIG( _base_id )
 		circles_lib_drawentity_set( DRAWENTITY_PIXEL );
     circles_lib_method_set( METHOD_ALGEBRAIC );
     if ( _glob_depth <= 1 ) circles_lib_depth_set( 8, YES );
-    CIRCLESembeddingsRILEYSLICE_PRESETS_INIT();
+    CIRCLESembeddingsRILEY_PRESETS_INIT();
 }
 
-function CIRCLESembeddingsRILEYSLICE_REGISTER_PARAMS()
+function CIRCLESembeddingsRILEY_REGISTER_PARAMS()
 {
     var _index_ref = _plugin_last_ref;
     var _ret_chunk = GLOB_PLUGIN_PARAMS_REGISTER( _index_ref, "#PLUGIN_PARAM_RHO", $( "#PLUGIN_PARAM_RHO" ).val() );
@@ -126,18 +126,18 @@ function CIRCLESembeddingsRILEYSLICE_REGISTER_PARAMS()
     else if ( _ret_id == RET_ERROR ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, _ret_msg, 'PLUGIN_OUTMSG' ) ;
 }
 
-function CIRCLESembeddingsRILEYSLICEmain( _base_id, _move, _restore )
+function CIRCLESembeddingsRILEYmain( _base_id, _move, _restore )
 {
     _move = is_string( _move ) ? _move : safe_int( _move, YES ), _restore = safe_int( _restore, NO );
-    var _clean_base_id = _base_id.replaceAll( [ "_", "." ], "" ) ;
-    CIRCLESembeddingsRILEYSLICE_CONFIG( _base_id );
+    var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ) ;
+    CIRCLESembeddingsRILEY_CONFIG( _base_id );
     _plugin_last_ref = _plugin_main_ref ;
     _glob_palette_use = NO ;
     var _index_ref = _plugin_last_ref;
     var _items_n = circles_lib_count_items();
     var this_fn_name = arguments.callee.name + "(NO,"+_restore+")" ;
 
-    CIRCLESembeddingsRILEYSLICE_PATTERNS();
+    CIRCLESembeddingsRILEY_PATTERNS();
     if ( _restore )
     {
         GLOB_PLUGIN_VARS_PATTERN_RESTORE(_index_ref);
@@ -146,7 +146,7 @@ function CIRCLESembeddingsRILEYSLICEmain( _base_id, _move, _restore )
     else if ( _plugin_tmp_vars_array['embeddings@riley'] != null )
     {
       if ( _plugin_tmp_vars_array['embeddings@riley']['rho'] != null )
-      CIRCLESembeddingsRILEYSLICE_rho = _plugin_tmp_vars_array['embeddings@riley']['rho'] ;
+      CIRCLESembeddingsRILEY_rho = _plugin_tmp_vars_array['embeddings@riley']['rho'] ;
     }
 
     var SW = $(window).width(), SH = $(window).height();
@@ -158,10 +158,11 @@ function CIRCLESembeddingsRILEYSLICEmain( _base_id, _move, _restore )
 
     var WIDTH = 450, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'riley.slice', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsRILEYSLICE_",
-																								[ "CIRCLESembeddingsRILEYSLICE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
-																								[ "CIRCLESembeddingsRILEYSLICE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
-																								[ "CIRCLESembeddingsRILEYSLICE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name,
+                'riley', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"RILEY_",
+								[ "CIRCLESembeddingsRILEY_NORMALIZE", _div_id, WIDTH, HEIGHT ],
+								[ "CIRCLESembeddingsRILEY_MINIMIZE", _div_id, WIDTH, HEIGHT ],
+								[ "CIRCLESembeddingsRILEY_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td VALIGN=\"top\">" ;
@@ -190,9 +191,9 @@ function CIRCLESembeddingsRILEYSLICEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>"+circles_lib_extras_canvas_dropdown( _base_id.toUpperCase() )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane Objs</td>" ;
 		HTMLcode += "<td WIDTH=\"3\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',W_PLANE);\" ID=\"PLUGINpreview_renderBTN\">Render W-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',W_PLANE);\" ID=\"PLUGINpreview_wplaneBTN\">Render W-plane Objs</td>" ;
 		HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -210,9 +211,9 @@ function CIRCLESembeddingsRILEYSLICEmain( _base_id, _move, _restore )
     HTMLcode += "<tr>" ;
     HTMLcode += "<td>Presets</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td>"+CIRCLESembeddingsRILEYSLICE_PRESETS(1)+"</td>" ;
+    HTMLcode += "<td>"+CIRCLESembeddingsRILEY_PRESETS(1)+"</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsRILEYSLICE_PRESETS(2);\">Apply</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsRILEY_PRESETS(2);\">Apply</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -228,7 +229,7 @@ function CIRCLESembeddingsRILEYSLICEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td>Display</td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
-    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsRILEYSLICE_INIT(NO,YES);GLOB_PLUGIN_WIZARD_STEP(0.1,NO);CIRCLESembeddingsRILEYSLICE_COMP();CIRCLESembeddingsRILEYSLICE_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);\"><OPTION VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric<OPTION VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion</SELECT></td></tr></table></td>" ;
+    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsRILEY_INIT(NO,YES);GLOB_PLUGIN_WIZARD_STEP(0.1,NO);CIRCLESembeddingsRILEY_COMP();CIRCLESembeddingsRILEY_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsRILEY_PRESETS(2,YES);\"><OPTION VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric<OPTION VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion</SELECT></td></tr></table></td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td WIDTH=\"3\">circles</td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
@@ -246,7 +247,7 @@ function CIRCLESembeddingsRILEYSLICEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>&rho;</sub></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_RHO\" VALUE=\""+( CIRCLESembeddingsRILEYSLICE_rho != null ? CIRCLESembeddingsRILEYSLICE_rho : "0.0" )+"\" ONKEYUP=\"javascript:$('#PLUGINparamsBTN').attr('class','link');$('#PLUGINparamsBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsRILEYSLICE_EVENTS(this.id,event);\"></td>" ;
+    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_RHO\" VALUE=\""+( CIRCLESembeddingsRILEY_rho != null ? CIRCLESembeddingsRILEY_rho : "0.0" )+"\" ONKEYUP=\"javascript:$('#PLUGINsetBTN').attr('class','link');$('#PLUGINsetBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsRILEY_EVENTS(this.id,event);\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -265,7 +266,7 @@ function CIRCLESembeddingsRILEYSLICEmain( _base_id, _move, _restore )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_plugin_create( _base_id, _div_id, 'embeddings', WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsRILEYSLICE_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsRILEYSLICE_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsRILEYSLICE_MAXIMIZE", _div_id ] );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsRILEY_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsRILEY_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsRILEY_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )
 		{
 				if ( is_string( _move ) )
@@ -279,10 +280,10 @@ function CIRCLESembeddingsRILEYSLICEmain( _base_id, _move, _restore )
 
     $("#"+_div_id).bind( "click", function() { GLOB_PLUGIN_FOCUS( _base_id ); } );
 
-    if ( CIRCLESembeddingsRILEYSLICE_active )
+    if ( CIRCLESembeddingsRILEY_active )
     {
-        CIRCLESembeddingsRILEYSLICE_INIT(YES,NO);
-        CIRCLESembeddingsRILEYSLICE_COMP();
+        CIRCLESembeddingsRILEY_INIT(YES,NO);
+        CIRCLESembeddingsRILEY_COMP();
     }
     else
     {
@@ -298,24 +299,24 @@ function CIRCLESembeddingsRILEYSLICEmain( _base_id, _move, _restore )
     if ( DROPDOWN != null ) DROPDOWN.options[0].text = "Preview canvas" ;
 }
 
-function CIRCLESembeddingsRILEYSLICE_MAXIMIZE( _div_id, WIDTH, HEIGHT )
+function CIRCLESembeddingsRILEY_MAXIMIZE( _div_id, WIDTH, HEIGHT )
 {
 		var _visible = $( "#PLUGIN_PREVIEW" ).is(":visible") ;
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
-		var _canvas = $( "#CIRCLESembeddingsRILEYSLICE_CANVAS" ).get(0) ;
+		var _canvas = $( "#CIRCLESembeddingsRILEY_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsRILEYSLICE_RENDER_PREVIEW( "riley.slice" ) ;
+    circles_lib_plugin_render_preview( "riley", "embeddings" ) ;
 }
 
-function CIRCLESembeddingsRILEYSLICE_MINIMIZE( _div_id, WIDTH, HEIGHT )
+function CIRCLESembeddingsRILEY_MINIMIZE( _div_id, WIDTH, HEIGHT )
 {
 }
 
-function CIRCLESembeddingsRILEYSLICE_NORMALIZE( _div_id, WIDTH, HEIGHT )
+function CIRCLESembeddingsRILEY_NORMALIZE( _div_id, WIDTH, HEIGHT )
 {
 		var _visible = $( "#PLUGIN_PREVIEW" ).is(":visible") ;
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
-		var _canvas = $( "#CIRCLESembeddingsRILEYSLICE_CANVAS" ).get(0) ;
+		var _canvas = $( "#CIRCLESembeddingsRILEY_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsRILEYSLICE_RENDER_PREVIEW( "riley.slice" ) ;
+    circles_lib_plugin_render_preview( "riley", "embeddings" ) ;
 }

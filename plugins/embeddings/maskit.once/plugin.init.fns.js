@@ -73,9 +73,9 @@ function CIRCLESembeddingsMASKITONCE_PRESETS( _opcode, _init )
 
             if( $( "#CIRCLESembeddingsMASKITONCE_CANVAS" ).is( ":visible" ) )
             {
-                var _fn_str = "CIRCLESembeddingsMASKITONCE_RENDER_PREVIEW", _fn = null ;
+                var _fn_str = "circles_lib_plugin_render_preview", _fn = null ;
                 try{ eval( "_fn = " + _fn_str ) ; } catch( _err ){ circles_lib_error_obj_handler( _err ); }
-                if ( typeof _fn === "function" ) _fn.call( this, "MASKITONCE", Z_PLANE ) ;
+                if ( typeof _fn === "function" ) _fn.call( this, "maskit.once", "embeddings", Z_PLANE ) ;
             }
             _glob_target_plane = W_PLANE ;
         }
@@ -112,7 +112,7 @@ function CIRCLESembeddingsMASKITONCE_COMP( _init )
         var MM_02 = new mobius_map( MM_02_a, MM_02_b, MM_02_c, MM_02_d );
         CIRCLESembeddingsMASKITONCE_OUTPUT( MM_01, MM_02, _init );
           
-        $("#PLUGINparamsBTN").attr('class', 'linkdead');
+        $("#PLUGINsetBTN").attr('class', 'linkdead');
         _glob_items_to_init = YES ;
         $('[id$=initBTN]').css('color',COLOR_ERROR) ;
     }

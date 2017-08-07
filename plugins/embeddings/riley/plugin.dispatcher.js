@@ -1,4 +1,4 @@
-function CIRCLESembeddingsRILEYSLICEdispatcher()
+function CIRCLESembeddingsRILEYdispatcher()
 {
    /* INDEX <---> arguments mapping
       0: message ID : identifier related to the message sent to this dispatcher function

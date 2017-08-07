@@ -1,30 +1,30 @@
-function CIRCLESembeddingsRILEYSLICE_PRESETS_INIT()
+function CIRCLESembeddingsRILEY_PRESETS_INIT()
 {
-    CIRCLESembeddingsRILEYSLICE_PRESETSarray.push( [ "i", 1, [ -1.6, 1.6, 1.6, -1.6 ], "" ] );
-    CIRCLESembeddingsRILEYSLICE_PRESETSarray.push( [ "0.75+1.4i", 1, [ -1.6, 1.6, 1.6, -1.6 ], "" ] );
-    CIRCLESembeddingsRILEYSLICE_PRESETSarray.push( [ "1.7+i", 1, [ -1.6, 1.6, 1.6, -1.6 ], "" ] );
-    CIRCLESembeddingsRILEYSLICE_PRESETSarray.push( [ "2.75+0.44i", 1, [ -1.6, 1.6, 1.6, -1.6 ], "" ] );
-    CIRCLESembeddingsRILEYSLICE_PRESETSarray.push( [ "1.5+1.4i", 1, [ -1.1, 1.1, 1.1, -1.1 ], "" ] );
-    CIRCLESembeddingsRILEYSLICE_PRESETSarray.push( [ "1.7+0.535i", 1, [ -1.1, 1.1, 1.1, -1.1 ], "" ] );
-    CIRCLESembeddingsRILEYSLICE_PRESETSarray.push( [ "0.82+1.24i", 1, [ -1.1, 1.1, 1.1, -1.1 ], "" ] );
+    CIRCLESembeddingsRILEY_PRESETSarray.push( [ "i", 1, [ -1.6, 1.6, 1.6, -1.6 ], "" ] );
+    CIRCLESembeddingsRILEY_PRESETSarray.push( [ "0.75+1.4i", 1, [ -1.6, 1.6, 1.6, -1.6 ], "" ] );
+    CIRCLESembeddingsRILEY_PRESETSarray.push( [ "1.7+i", 1, [ -1.6, 1.6, 1.6, -1.6 ], "" ] );
+    CIRCLESembeddingsRILEY_PRESETSarray.push( [ "2.75+0.44i", 1, [ -1.6, 1.6, 1.6, -1.6 ], "" ] );
+    CIRCLESembeddingsRILEY_PRESETSarray.push( [ "1.5+1.4i", 1, [ -1.1, 1.1, 1.1, -1.1 ], "" ] );
+    CIRCLESembeddingsRILEY_PRESETSarray.push( [ "1.7+0.535i", 1, [ -1.1, 1.1, 1.1, -1.1 ], "" ] );
+    CIRCLESembeddingsRILEY_PRESETSarray.push( [ "0.82+1.24i", 1, [ -1.1, 1.1, 1.1, -1.1 ], "" ] );
 }
 
-function CIRCLESembeddingsRILEYSLICE_PRESETS( _opcode, _init )
+function CIRCLESembeddingsRILEY_PRESETS( _opcode, _init )
 {
 		_init = safe_int( _init, NO );
     _opcode = safe_float( _opcode, UNDET );
     switch( _opcode )
     {
         case 1: // display
-        var _html = "<SELECT ID=\"PLUGINpresetsCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsRILEYSLICE_PRESETS(2,YES);\">" ;
+        var _html = "<SELECT ID=\"PLUGINpresetsCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsRILEY_PRESETS(2,YES);\">" ;
             _html += "<OPTION VALUE=\""+UNDET+"\" SELECTED=\"selected\">" ;
-            $.each( CIRCLESembeddingsRILEYSLICE_PRESETSarray, function( _i, _v ) { _html += "<OPTION VALUE=\""+_i+"\">#" + ( _i + 1 ) + ( _v[3] != null ? " - " + _v[3] : "" ) } );
+            $.each( CIRCLESembeddingsRILEY_PRESETSarray, function( _i, _v ) { _html += "<OPTION VALUE=\""+_i+"\">#" + ( _i + 1 ) + ( _v[3] != null ? " - " + _v[3] : "" ) } );
             _html += "</SELECT>" ;
         return _html ;
         break ;
         case 2: // select
         var _index = $( "#PLUGINpresetsCOMBO" ).val();
-        var _chunk = CIRCLESembeddingsRILEYSLICE_PRESETSarray[_index] ;
+        var _chunk = CIRCLESembeddingsRILEY_PRESETSarray[_index] ;
         if ( _chunk != null )
         {
             $( "#PLUGIN_PARAM_RHO" ).val( _chunk[0] );
@@ -50,18 +50,18 @@ function CIRCLESembeddingsRILEYSLICE_PRESETS( _opcode, _init )
             _glob_zplaneBOTTOM = _glob_wplaneBOTTOM = _glob_bipBOTTOM = safe_float( _coords[3], -DEFAULT_PLANE_COORD );
             circles_lib_canvas_coords_acquire( ALL_PLANES );
 
-            CIRCLESembeddingsRILEYSLICE_INIT(NO,YES);
-					  CIRCLESembeddingsRILEYSLICE_COMP( _init );
-            CIRCLESembeddingsRILEYSLICE_CONFIG();
+            CIRCLESembeddingsRILEY_INIT(NO,YES);
+					  CIRCLESembeddingsRILEY_COMP( _init );
+            CIRCLESembeddingsRILEY_CONFIG();
             GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
             GLOB_PLUGIN_WIZARD_STEP(1.1,YES);
 				    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
 
-            if( $( "#CIRCLESembeddingsRILEYSLICE_CANVAS" ).is( ":visible" ) )
+            if( $( "#CIRCLESembeddingsRILEY_CANVAS" ).is( ":visible" ) )
             {
-                var _fn_str = "CIRCLESembeddingsRILEYSLICE_RENDER_PREVIEW", _fn = null ;
+                var _fn_str = "circles_lib_plugin_render_preview", _fn = null ;
                 try{ eval( "_fn = " + _fn_str ) ; } catch( _err ){ circles_lib_error_obj_handler( _err ); }
-                if ( typeof _fn === "function" ) _fn.call( this, "RILEYSLICE", Z_PLANE ) ;
+                if ( typeof _fn === "function" ) _fn.call( this, "riley", "embeddings", Z_PLANE ) ;
             }
             _glob_target_plane = W_PLANE ;
         }
@@ -73,10 +73,10 @@ function CIRCLESembeddingsRILEYSLICE_PRESETS( _opcode, _init )
     return null ;
 }
 
-function CIRCLESembeddingsRILEYSLICE_COMP( _init )
+function CIRCLESembeddingsRILEY_COMP( _init )
 {
 		_init = safe_int( _init, YES );
-    var _rho = CIRCLESembeddingsRILEYSLICE_rho_complex ;
+    var _rho = CIRCLESembeddingsRILEY_rho_complex ;
     if ( !is_complex( _rho ) ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "The input trace is not a complex formula.", 'PLUGIN_OUTMSG') ;
     else
     {
@@ -96,15 +96,15 @@ function CIRCLESembeddingsRILEYSLICE_COMP( _init )
           
         var MM_01 = new mobius_map( MM_01_a, MM_01_b, MM_01_c, MM_01_d );
         var MM_02 = new mobius_map( MM_02_a, MM_02_b, MM_02_c, MM_02_d );
-        CIRCLESembeddingsRILEYSLICE_OUTPUT( MM_01, MM_02, _init );
+        CIRCLESembeddingsRILEY_OUTPUT( MM_01, MM_02, _init );
           
-        $("#PLUGINparamsBTN").attr('class', 'linkdead');
-        CIRCLESembeddingsRILEYSLICE_active = _glob_dict_create = _glob_items_to_init = YES ;
+        $("#PLUGINsetBTN").attr('class', 'linkdead');
+        CIRCLESembeddingsRILEY_active = _glob_dict_create = _glob_items_to_init = YES ;
         $('[id$=initBTN]').css('color',COLOR_ERROR) ;
     }
 }
 
-function CIRCLESembeddingsRILEYSLICE_OUTPUT( MM_01, MM_02, _init )
+function CIRCLESembeddingsRILEY_OUTPUT( MM_01, MM_02, _init )
 {
 		_init = safe_int( _init, YES );
     var _mm01_trace_squared = MM_01.trace().pow( 2.0 ).radius();
@@ -165,16 +165,16 @@ function CIRCLESembeddingsRILEYSLICE_OUTPUT( MM_01, MM_02, _init )
     }
 }
 
-function CIRCLESembeddingsRILEYSLICE_INIT( _skip_edit_acquisition, _calc )
+function CIRCLESembeddingsRILEY_INIT( _skip_edit_acquisition, _calc )
 {
     _skip_edit_acquisition = safe_int( _skip_edit_acquisition, NO );
     _calc = safe_int( _calc, NO );
-    var CIRCLESembeddingsRILEYSLICE_rho_formula = !_skip_edit_acquisition ? ( $("#PLUGIN_PARAM_RHO").val().length > 0 ? $("#PLUGIN_PARAM_RHO").val() : CIRCLESembeddingsRILEYSLICE_rho ) : CIRCLESembeddingsRILEYSLICE_rho ;
+    var CIRCLESembeddingsRILEY_rho_formula = !_skip_edit_acquisition ? ( $("#PLUGIN_PARAM_RHO").val().length > 0 ? $("#PLUGIN_PARAM_RHO").val() : CIRCLESembeddingsRILEY_rho ) : CIRCLESembeddingsRILEY_rho ;
     _glob_init_mask = INIT_FROM_MAPS | INIT_PAIRED_ITEMS ;
-    CIRCLESembeddingsRILEYSLICE_PARSE( CIRCLESembeddingsRILEYSLICE_rho_formula );
+    CIRCLESembeddingsRILEY_PARSE( CIRCLESembeddingsRILEY_rho_formula );
 }
 
-function CIRCLESembeddingsRILEYSLICE_PARSE( _rho_formula )
+function CIRCLESembeddingsRILEY_PARSE( _rho_formula )
 {
     var _entries = $( "[id^=PLUGIN_PARAM_]" );
     $.each( _entries, function( _i, _id ) { $( _id ).val( $( _id ).val().replaceAll( ",", "." ) ); } );
@@ -186,12 +186,12 @@ function CIRCLESembeddingsRILEYSLICE_PARSE( _rho_formula )
     if ( $("#PLUGIN_PARAM_RHO").get(0) != null ) $("#PLUGIN_PARAM_RHO").val( _rho_formula );
 
     if ( _plugin_tmp_vars_array['embeddings@riley'] == null ) _plugin_tmp_vars_array['embeddings@riley'] = [] ;
-    _plugin_tmp_vars_array['embeddings@riley']['rho'] = CIRCLESembeddingsRILEYSLICE_rho ;
+    _plugin_tmp_vars_array['embeddings@riley']['rho'] = CIRCLESembeddingsRILEY_rho ;
 
-    CIRCLESembeddingsRILEYSLICE_rho = _rho_formula ;
-    CIRCLESembeddingsRILEYSLICE_rho_complex = circles_lib_math_parse_formula( CIRCLESembeddingsRILEYSLICE_rho + "" );
-    CIRCLESembeddingsRILEYSLICE_rho_complex = parse_complex_from_string( CIRCLESembeddingsRILEYSLICE_rho_complex + "" );
-	  if ( _plugin_vars_array[_index_ref]['rho']['value'] != null ) _plugin_vars_array[_index_ref]['rho']['value'] = CIRCLESembeddingsRILEYSLICE_rho_complex ;
+    CIRCLESembeddingsRILEY_rho = _rho_formula ;
+    CIRCLESembeddingsRILEY_rho_complex = circles_lib_math_parse_formula( CIRCLESembeddingsRILEY_rho + "" );
+    CIRCLESembeddingsRILEY_rho_complex = parse_complex_from_string( CIRCLESembeddingsRILEY_rho_complex + "" );
+	  if ( _plugin_vars_array[_index_ref]['rho']['value'] != null ) _plugin_vars_array[_index_ref]['rho']['value'] = CIRCLESembeddingsRILEY_rho_complex ;
 
     GLOB_PLUGIN_VARS_PATTERN_SAVE(_index_ref);
 }

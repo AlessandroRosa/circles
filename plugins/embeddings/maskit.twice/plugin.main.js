@@ -145,7 +145,7 @@ function CIRCLESembeddingsMASKITTWICE_REGISTER_PARAMS()
 function CIRCLESembeddingsMASKITTWICEmain( _base_id, _move, _restore )
 {
     _move = is_string( _move ) ? _move : safe_int( _move, YES ), _restore = safe_int( _restore, NO );
-    var _clean_base_id = _base_id.replaceAll( [ "_", "." ], "" ) ;
+    var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ) ;
     CIRCLESembeddingsMASKITTWICE_CONFIG( _base_id );
     _plugin_last_ref = _plugin_main_ref ;
     _glob_palette_use = NO ;
@@ -176,7 +176,7 @@ function CIRCLESembeddingsMASKITTWICEmain( _base_id, _move, _restore )
 
     var WIDTH = 470, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'maskit.twice', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsMASKITTWICE_",
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'maskit.twice', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"MASKITTWICE_",
 																								[ "CIRCLESembeddingsMASKITTWICE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsMASKITTWICE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsMASKITTWICE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
@@ -208,9 +208,9 @@ function CIRCLESembeddingsMASKITTWICEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>"+circles_lib_extras_canvas_dropdown( _base_id.toUpperCase() )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane Objs</td>" ;
 		HTMLcode += "<td WIDTH=\"3\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',W_PLANE);\" ID=\"PLUGINpreview_renderBTN\">Render W-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',W_PLANE);\" ID=\"PLUGINpreview_wplaneBTN\">Render W-plane Objs</td>" ;
 		HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -246,7 +246,7 @@ function CIRCLESembeddingsMASKITTWICEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td>Display</td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
-    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsMASKITTWICE_INIT(NO,YES);GLOB_PLUGIN_WIZARD_STEP(0.1,NO);CIRCLESembeddingsMASKITTWICE_COMP();CIRCLESembeddingsMASKITTWICE_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);\"><OPTION VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric<OPTION VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion</SELECT></td></tr></table></td>" ;
+    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsMASKITTWICE_INIT(NO,YES);GLOB_PLUGIN_WIZARD_STEP(0.1,NO);CIRCLESembeddingsMASKITTWICE_COMP();CIRCLESembeddingsMASKITTWICE_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsMASKITTWICE_PRESETS(2,YES);\"><OPTION VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric<OPTION VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion</SELECT></td></tr></table></td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td WIDTH=\"3\">circles</td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
@@ -265,13 +265,13 @@ function CIRCLESembeddingsMASKITTWICEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>&tau;<sub>1</sub></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_TAU_1\" VALUE=\""+( CIRCLESembeddingsMASKITTWICE_TAU_1 != null ? CIRCLESembeddingsMASKITTWICE_TAU_1 : "0.0" )+"\" ONKEYUP=\"javascript:$('#PLUGINparamsBTN').attr('class','link');$('#PLUGINparamsBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsMASKITTWICE_EVENTS(this.id,event);\"></td>" ;
+    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_TAU_1\" VALUE=\""+( CIRCLESembeddingsMASKITTWICE_TAU_1 != null ? CIRCLESembeddingsMASKITTWICE_TAU_1 : "0.0" )+"\" ONKEYUP=\"javascript:$('#PLUGINsetBTN').attr('class','link');$('#PLUGINsetBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsMASKITTWICE_EVENTS(this.id,event);\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>&tau;<sub>2</sub></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_TAU_2\" VALUE=\""+( CIRCLESembeddingsMASKITTWICE_TAU_2 != null ? CIRCLESembeddingsMASKITTWICE_TAU_2 : "0.0" )+"\" ONKEYUP=\"javascript:$('#PLUGINparamsBTN').attr('class','link');$('#PLUGINparamsBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsMASKITTWICE_EVENTS(this.id,event);\"></td>" ;
+    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_TAU_2\" VALUE=\""+( CIRCLESembeddingsMASKITTWICE_TAU_2 != null ? CIRCLESembeddingsMASKITTWICE_TAU_2 : "0.0" )+"\" ONKEYUP=\"javascript:$('#PLUGINsetBTN').attr('class','link');$('#PLUGINsetBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsMASKITTWICE_EVENTS(this.id,event);\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -336,7 +336,7 @@ function CIRCLESembeddingsMASKITTWICE_MAXIMIZE( _div_id, WIDTH, HEIGHT )
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
 		var _canvas = $( "#CIRCLESembeddingsMASKITTWICE_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsMASKITWICE_RENDER_PREVIEW( "maskit.twice" ) ;
+    circles_lib_plugin_render_preview( "maskit.twice" ) ;
 }
 
 function CIRCLESembeddingsMASKITTWICE_MINIMIZE( _div_id, WIDTH, HEIGHT )
@@ -349,5 +349,5 @@ function CIRCLESembeddingsMASKITTWICE_NORMALIZE( _div_id, WIDTH, HEIGHT )
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
 		var _canvas = $( "#CIRCLESembeddingsMASKITTWICE_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsMASKITWICE_RENDER_PREVIEW( "maskit.twice" ) ;
+    circles_lib_plugin_render_preview( "maskit.twice" ) ;
 }

@@ -148,7 +148,7 @@ function CIRCLESembeddingsJORGENSEN_REGISTER_PARAMS()
 function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
 {
     _move = is_string( _move ) ? _move : safe_int( _move, YES ), _restore = safe_int( _restore, NO );
-    var _clean_base_id = _base_id.replaceAll( [ "_", "." ], "" ) ;
+    var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ) ;
     CIRCLESembeddingsJORGENSEN_CONFIG( _base_id );
 		_plugin_last_ref = _plugin_main_ref ;
     _glob_palette_use = NO ;
@@ -182,7 +182,7 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
 
     var WIDTH = 450, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'jorgensen', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsJORGENSEN_",
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'jorgensen', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"JORGENSEN_",
 																								[ "CIRCLESembeddingsJORGENSEN_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsJORGENSEN_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsJORGENSEN_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
@@ -214,9 +214,9 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>"+circles_lib_extras_canvas_dropdown( _base_id.toUpperCase() )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane Objs</td>" ;
 		HTMLcode += "<td WIDTH=\"3\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',W_PLANE);\" ID=\"PLUGINpreview_renderBTN\">Render W-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',W_PLANE);\" ID=\"PLUGINpreview_wplaneBTN\">Render W-plane Objs</td>" ;
 		HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -252,7 +252,7 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td>Display</td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
-    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsJORGENSEN_INIT(NO,YES);GLOB_PLUGIN_WIZARD_STEP(0.1,NO);CIRCLESembeddingsJORGENSEN_COMP();CIRCLESembeddingsJORGENSEN_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);\"><OPTION VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric<OPTION VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion</SELECT></td></tr></table></td>" ;
+    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsJORGENSEN_INIT(NO,YES);GLOB_PLUGIN_WIZARD_STEP(0.1,NO);CIRCLESembeddingsJORGENSEN_COMP();CIRCLESembeddingsJORGENSEN_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsJORGENSEN_PRESETS(2,YES);\"><OPTION VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric<OPTION VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion</SELECT></td></tr></table></td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td WIDTH=\"3\">circles</td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
@@ -270,13 +270,13 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>&alpha;</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_ALPHA\" VALUE=\""+( CIRCLESembeddingsJORGENSEN_alpha != null ? CIRCLESembeddingsJORGENSEN_alpha : "0" )+"\" ONKEYUP=\"javascript:$('#PLUGINparamsBTN').attr('class','link');$('#PLUGINparamsBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsJORGENSEN_EVENTS(this.id,event);\"></td>" ;
+    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_ALPHA\" VALUE=\""+( CIRCLESembeddingsJORGENSEN_alpha != null ? CIRCLESembeddingsJORGENSEN_alpha : "0" )+"\" ONKEYUP=\"javascript:$('#PLUGINsetBTN').attr('class','link');$('#PLUGINsetBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsJORGENSEN_EVENTS(this.id,event);\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>&beta;</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_BETA\" VALUE=\""+( CIRCLESembeddingsJORGENSEN_beta != null? CIRCLESembeddingsJORGENSEN_beta : "0" )+"\" ONKEYUP=\"javascript:$('#PLUGINparamsBTN').attr('class','link');$('#PLUGINparamsBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsJORGENSEN_EVENTS(this.id,event);\"></td>" ;
+    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_BETA\" VALUE=\""+( CIRCLESembeddingsJORGENSEN_beta != null? CIRCLESembeddingsJORGENSEN_beta : "0" )+"\" ONKEYUP=\"javascript:$('#PLUGINsetBTN').attr('class','link');$('#PLUGINsetBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsJORGENSEN_EVENTS(this.id,event);\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -356,7 +356,7 @@ function CIRCLESembeddingsJORGENSEN_MAXIMIZE( _div_id, WIDTH, HEIGHT )
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
 		var _canvas = $( "#CIRCLESembeddingsJORGENSEN_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsJORGENSEN_RENDER_PREVIEW( "jorgensen" ) ;
+    circles_lib_plugin_render_preview( "jorgensen", "embeddings" ) ;
 }
 
 function CIRCLESembeddingsJORGENSEN_MINIMIZE( _div_id, WIDTH, HEIGHT )
@@ -369,5 +369,5 @@ function CIRCLESembeddingsJORGENSEN_NORMALIZE( _div_id, WIDTH, HEIGHT )
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
 		var _canvas = $( "#CIRCLESembeddingsJORGENSEN_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsJORGENSEN_RENDER_PREVIEW( "jorgensen" ) ;
+    circles_lib_plugin_render_preview( "jorgensen", "embeddings" ) ;
 }

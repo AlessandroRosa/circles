@@ -123,10 +123,9 @@ function CIRCLESembeddingsMASKITONCE_REGISTER_PARAMS()
 function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
 {
     _move = is_string( _move ) ? _move : safe_int( _move, YES ), _restore = safe_int( _restore, NO );
-    var _clean_base_id = _base_id.replaceAll( [ "_", "." ], "" ) ;
+    var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ).toLowerCase() ;
     CIRCLESembeddingsMASKITONCE_CONFIG( _base_id );
-		_plugin_last_ref = _plugin_main_ref ;
-    _glob_palette_use = NO ;
+		_plugin_last_ref = _plugin_main_ref, _glob_palette_use = NO ;
     var _index_ref = _plugin_last_ref, _items_n = circles_lib_count_items();
     var this_fn_name = arguments.callee.name + "(NO,"+_restore+")" ;
 
@@ -151,10 +150,11 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
 
     var WIDTH = 450, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'maskit.once', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsMASKITONCE_",
-																								[ "CIRCLESembeddingsMASKITONCE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
-																								[ "CIRCLESembeddingsMASKITONCE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
-																								[ "CIRCLESembeddingsMASKITONCE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name,
+                'maskit.once', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"MASKITONCE_",
+								[ "CIRCLES"+_subset+"MASKITONCE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
+								[ "CIRCLES"+_subset+"MASKITONCE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
+								[ "CIRCLES"+_subset+"MASKITONCE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td VALIGN=\"top\">" ;
@@ -184,11 +184,11 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>Target canvas</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td>"+circles_lib_extras_canvas_dropdown( _base_id.toUpperCase() )+"</td>" ;
+    HTMLcode += "<td>"+circles_lib_extras_canvas_dropdown( _clean_base_id.toUpperCase() )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id+"','"+_subset+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane Objs</td>" ;
 		HTMLcode += "<td WIDTH=\"3\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',W_PLANE);\" ID=\"PLUGINpreview_renderBTN\">Render W-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id+"','"+_subset+"',W_PLANE);\" ID=\"PLUGINpreview_wplaneBTN\">Render W-plane Objs</td>" ;
 		HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -224,7 +224,7 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td>Display</td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
-    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsMASKITONCE_INIT(NO,YES);GLOB_PLUGIN_WIZARD_STEP(0.1,NO);CIRCLESembeddingsMASKITONCE_COMP();CIRCLESembeddings"+_clean_base_id.toUpperCase()+"_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);\"><OPTION VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric<OPTION VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion</SELECT></td></tr></table></td>" ;
+    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsMASKITONCE_INIT(NO,YES);GLOB_PLUGIN_WIZARD_STEP(0.1,NO);CIRCLESembeddingsMASKITONCE_COMP();CIRCLESembeddings"+_clean_base_id.toUpperCase()+"_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsMASKITONCE_PRESETS(2,YES);\"><OPTION VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric<OPTION VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion</SELECT></td></tr></table></td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td WIDTH=\"3\">circles</td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
@@ -232,7 +232,7 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td ID=\"PLUGINparamsCOMBOcontainer\" VALIGN=\"top\">"+GLOB_PLUGIN_PARAMS_COMBO_CODE_GET(_index_ref)+"</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+_clean_base_id.toUpperCase()+"_TOGGLE_PREVIEW();\" ID=\"PLUGIN_TOGGLE_PREVIEW_BTN\">Show preview</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLES"+_subset+_clean_base_id.toUpperCase()+"_TOGGLE_PREVIEW();\" ID=\"PLUGIN_TOGGLE_PREVIEW_BTN\">Show preview</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -243,14 +243,14 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>&mu;</sub></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_MU\" VALUE=\""+( CIRCLESembeddingsMASKITONCE_mu != null ? CIRCLESembeddingsMASKITONCE_mu : "0.0" )+"\" ONKEYUP=\"javascript:$('#PLUGINparamsBTN').attr('class','link');$('#PLUGINparamsBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsMASKITONCE_EVENTS(this.id,event);\"></td>" ;
+    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_MU\" VALUE=\""+( CIRCLESembeddingsMASKITONCE_mu != null ? CIRCLESembeddingsMASKITONCE_mu : "0.0" )+"\" ONKEYUP=\"javascript:$('#PLUGINsetBTN').attr('class','link');$('#PLUGINsetBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsMASKITONCE_EVENTS(this.id,event);\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
     var _CANVAS_W = WIDTH - 10, _CANVAS_H = Math.floor( _CANVAS_W / 2 ) ;
-    HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\"><DIV ID=\"PLUGIN_PREVIEW\" STYLE=\"position:relative;height:auto;display:none;\"><table><tr><td VALIGN=\"top\" ALIGN=\"center\"><CANVAS CLASS=\"general_rounded_corners\" STYLE=\"border:1px solid #D0D0D0;width:"+_CANVAS_W+"px;height:"+_CANVAS_H+"px;\" WIDTH=\""+_CANVAS_W+"\" HEIGHT=\""+_CANVAS_H+"\" ID=\"CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_CANVAS\"></CANVAS></td></tr><tr><td HEIGHT=\"4\"></td></tr></table></DIV></td></tr>" ;
+    HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\"><DIV ID=\"PLUGIN_PREVIEW\" STYLE=\"position:relative;height:auto;display:none;\"><table><tr><td VALIGN=\"top\" ALIGN=\"center\"><CANVAS CLASS=\"general_rounded_corners\" STYLE=\"border:1px solid #D0D0D0;width:"+_CANVAS_W+"px;height:"+_CANVAS_H+"px;\" WIDTH=\""+_CANVAS_W+"\" HEIGHT=\""+_CANVAS_H+"\" ID=\"CIRCLES"+_subset+( _clean_base_id.toUpperCase() )+"_CANVAS\"></CANVAS></td></tr><tr><td HEIGHT=\"4\"></td></tr></table></DIV></td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\"><DIV ID=\"PLUGIN_CONTAINER\" STYLE=\"position:relative;height:auto;display:none;\"></DIV></td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
@@ -290,7 +290,7 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
     TABINDEXorderSET( "#PLUGIN_PARAM_MU", "#PLUGINSconfigCOMBO" );
     GLOB_PLUGIN_EVENT_PROPAGATION_MANAGEMENT( 1 );
 
-    var DROPDOWN = $( "#CIRCLESchoose"+_base_id.replace( /[\.\_\-]/g, "" ).toUpperCase()+"canvasDROPDOWN" ).get(0) ;
+    var DROPDOWN = $( "#CIRCLESchoose"+_clean_base_id.toLowerCase()+"canvasDROPDOWN" ).get(0) ;
     if ( DROPDOWN != null ) DROPDOWN.options[0].text = "Preview canvas" ;
 }
 
@@ -300,7 +300,7 @@ function CIRCLESembeddingsMASKITONCE_MAXIMIZE( _div_id, WIDTH, HEIGHT )
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
 		var _canvas = $( "#CIRCLESembeddingsMASKITONCE_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsMASKITONCE_RENDER_PREVIEW( "maskit.once" ) ;
+    circles_lib_plugin_render_preview( "maskit.once", "embeddings" ) ;
 }
 
 function CIRCLESembeddingsMASKITONCE_MINIMIZE( _div_id, WIDTH, HEIGHT )
@@ -313,5 +313,5 @@ function CIRCLESembeddingsMASKITONCE_NORMALIZE( _div_id, WIDTH, HEIGHT )
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
 		var _canvas = $( "#CIRCLESembeddingsMASKITONCE_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsMASKITONCE_RENDER_PREVIEW( "maskit.once" ) ;
+    circles_lib_plugin_render_preview( "maskit.once", "embeddings" ) ;
 }

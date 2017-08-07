@@ -57,9 +57,9 @@ function CIRCLESembeddingsMASKITTWICE_PRESETS( _opcode, _init )
 
             if( $( "#CIRCLESembeddingsMASKITTWICE_CANVAS" ).is( ":visible" ) )
             {
-                var _fn_str = "CIRCLESembeddingsMASKITTWICE_RENDER_PREVIEW", _fn = null ;
+                var _fn_str = "circles_lib_plugin_render_preview", _fn = null ;
                 try{ eval( "_fn = " + _fn_str ) ; } catch( _err ){ circles_lib_error_obj_handler( _err ); }
-                if ( typeof _fn === "function" ) _fn.call( this, "MASKITTWICE", Z_PLANE ) ;
+                if ( typeof _fn === "function" ) _fn.call( this, "maskit.twice", "embeddings", Z_PLANE ) ;
             }
             _glob_target_plane = W_PLANE ;
         }
@@ -96,7 +96,7 @@ function CIRCLESembeddingsMASKITTWICE_COMP( _init )
        var MM_03 = new mobius_map( MM_03_a, MM_03_b, MM_03_c, MM_03_d );
        CIRCLESembeddingsMASKITTWICE_OUTPUT( MM_01, MM_02, MM_03, _init );
           
-       $("#PLUGINparamsBTN").attr('class', 'linkdead');
+       $("#PLUGINsetBTN").attr('class', 'linkdead');
 	     _glob_items_to_init = YES ;
        $('[id$=initBTN]').css('color',COLOR_ERROR) ;
     }

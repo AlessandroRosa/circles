@@ -110,7 +110,7 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIAN_REGISTER_PARAMS()
 function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
 {
     _move = is_string( _move ) ? _move : safe_int( _move, YES ), _restore = safe_int( _restore, NO );
-    var _clean_base_id = _base_id.replaceAll( [ "_", "." ], "" ) ;
+    var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ) ;
     CIRCLESembeddingsMIRRORQUASIFUCHSIAN_CONFIG( _base_id );
 		_plugin_last_ref = _plugin_main_ref ;
     _glob_palette_use = NO ;
@@ -139,7 +139,7 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
 
     var WIDTH = 450, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'mirror.quasi.fuchsian', _div_id, 'embeddings', "plug/plug.icon.01.16x16.png", "", "", "CIRCLESembeddingsMIRRORQUASIFUCHSIAN_",
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'mirror.quasi.fuchsian', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"MIRRORQUASIFUCHSIAN_",
 																								[ "CIRCLESembeddingsMIRRORQUASIFUCHSIAN_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsMIRRORQUASIFUCHSIAN_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsMIRRORQUASIFUCHSIAN_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
@@ -170,9 +170,9 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>"+circles_lib_extras_canvas_dropdown( _base_id.toUpperCase() )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane Objs</td>" ;
 		HTMLcode += "<td WIDTH=\"3\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_RENDER_PREVIEW('"+_clean_base_id.toUpperCase()+"',W_PLANE);\" ID=\"PLUGINpreview_renderBTN\">Render W-plane</td>" ;
+		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',W_PLANE);\" ID=\"PLUGINpreview_wplaneBTN\">Render W-plane Objs</td>" ;
 		HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -208,7 +208,7 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td>Display</td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
-    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsMIRRORQUASIFUCHSIAN_INIT(NO,YES);GLOB_PLUGIN_WIZARD_STEP(0.1,NO);CIRCLESembeddingsMIRRORQUASIFUCHSIAN_COMP();CIRCLESembeddingsMIRRORQUASIFUCHSIAN_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);\"><OPTION VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric<OPTION VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion</SELECT></td></tr></table></td>" ;
+    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsMIRRORQUASIFUCHSIAN_INIT(NO,YES);GLOB_PLUGIN_WIZARD_STEP(0.1,NO);CIRCLESembeddingsMIRRORQUASIFUCHSIAN_COMP();CIRCLESembeddingsMIRRORQUASIFUCHSIAN_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsMIRRORQUASIFUCHSIAN_PRESETS(2,YES);\"><OPTION VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric<OPTION VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion</SELECT></td></tr></table></td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td WIDTH=\"3\">circles</td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
@@ -227,7 +227,7 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>&mu;</sub></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_TAU\" VALUE=\""+( CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau != null ? CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau : "0.0" )+"\" ONKEYUP=\"javascript:$('#PLUGINparamsBTN').attr('class','link');$('#PLUGINparamsBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsMIRRORQUASIFUCHSIAN_EVENTS(this.id,event);\"></td>" ;
+    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_TAU\" VALUE=\""+( CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau != null ? CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau : "0.0" )+"\" ONKEYUP=\"javascript:$('#PLUGINsetBTN').attr('class','link');$('#PLUGINsetBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsMIRRORQUASIFUCHSIAN_EVENTS(this.id,event);\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -286,7 +286,7 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIAN_MAXIMIZE( _div_id, WIDTH, HEIGHT )
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
 		var _canvas = $( "#CIRCLESembeddingsMIRRORQUASIFUCHSIAN_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsMIRRORQUASIFUCHSIAN_RENDER_PREVIEW( "mirror.quasi.fuchsian" ) ;
+    circles_lib_plugin_render_preview( "mirror.quasi.fuchsian", "embeddings" ) ;
 }
 
 function CIRCLESembeddingsMIRRORQUASIFUCHSIAN_MINIMIZE( _div_id, WIDTH, HEIGHT )
@@ -299,5 +299,5 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIAN_NORMALIZE( _div_id, WIDTH, HEIGHT 
 		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
 		var _canvas = $( "#CIRCLESembeddingsMIRRORQUASIFUCHSIAN_CANVAS" ).get(0) ;
 		_canvas.set_width( _plugin_width - 5 );
-    CIRCLESembeddingsMIRRORQUASIFUCHSIAN_RENDER_PREVIEW( "mirror.quasi.fuchsian" ) ;
+    circles_lib_plugin_render_preview( "mirror.quasi.fuchsian", "embeddings" ) ;
 }

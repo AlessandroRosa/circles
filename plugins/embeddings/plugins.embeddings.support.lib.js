@@ -14,7 +14,7 @@ function GLOB_PLUGIN_DESTROY_POPUP_VARS()
 function GLOB_PLUGIN_FOCUS( _base_id, _subset )
 {
     _base_id = safe_string( _base_id, "" ), _subset = safe_string( _subset, "embeddings" ).toLowerCase() ;
-    var _fn_name = "CIRCLES"+_subset+_base_id.replaceAll( [ "_", "." ], "" ).toUpperCase()+"dispatcher" ;
+    var _fn_name = "CIRCLES"+_subset+_base_id.replace( /[\.\_\-]/g, "" ).toUpperCase()+"dispatcher" ;
     if ( _base_id.length > 0 && function_exists( _fn_name ) )
     {
       // dispatch notifications to pop-up
@@ -101,7 +101,7 @@ function GLOB_PLUGIN_PARAMS_FILLER()
     if ( _base_id.length > 0 )
     {
         var _filler_fn = null ;
-        try{ eval( "_filler_fn = CIRCLES"+(_subset.toLowerCase())+(_base_id.replaceAll( [ "_", "." ], "" ).toUpperCase())+"_PARAMS_FILL ;" ) }
+        try{ eval( "_filler_fn = CIRCLES"+(_subset.toLowerCase())+(_base_id.replace( /[\.\_\-]/g, "" ).toUpperCase())+"_PARAMS_FILL ;" ) }
 				catch( _err ){ circles_lib_error_obj_handler( _err ); }
         if ( function_exists( _filler_fn ) )
         {
@@ -174,7 +174,7 @@ function GLOB_PLUGIN_WIZARD_STEP( _step_index, _init_items, _clean, _target_plan
     _plugin_step_index = _step_index ;
     _target_plane = safe_int( _target_plane, _glob_target_plane );
     
-    $('#PLUGINparamsBTN').css('color',_step_index==0?COLOR_ERROR : DEFAULT_COLOR_STD);
+    $('#PLUGINsetBTN').css('color',_step_index==0?COLOR_ERROR : DEFAULT_COLOR_STD);
     $('[id$=initBTN]').css('color',_step_index==0.1?COLOR_ERROR : DEFAULT_COLOR_STD);
     $('[id$=renderBTN]').css('color',_step_index==1.1?COLOR_ERROR : DEFAULT_COLOR_STD);
     if ( _step_index == 0.1 ) return [ RET_OK, "Step " + _step_index + " performed with success" ] ;

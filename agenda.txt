@@ -6,7 +6,7 @@ https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ APP -------------------------------------------------
-- check that all services inside each of this mask works properly.
+- check that all services inside each of these masks work properly.
   (Remove each entry after all checkings)
 
 * EMBEDDINGS
