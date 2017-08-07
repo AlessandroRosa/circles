@@ -215,6 +215,10 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
     HTMLcode += "<td>"+CIRCLESembeddingsJORGENSEN_PRESETS(1,NO)+"</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsJORGENSEN_PRESETS(2,NO);\">Apply</td>" ;
+    HTMLcode += "<td WIDTH=\"15\"></td>" ;
+    HTMLcode += "<td ID=\"PLUGINcomboLABEL\" VALIGN=\"top\" STYLE=\"display:"+( GLOB_PLUGIN_PARAMS_EXIST(_index_ref) ? "block" : "none" )+";\">Latest params</td>" ;
+    HTMLcode += "<td WIDTH=\"3\"></td>" ;
+    HTMLcode += "<td ID=\"PLUGINparamsCOMBOcontainer\" VALIGN=\"top\">"+GLOB_PLUGIN_PARAMS_COMBO_CODE_GET(_index_ref)+"</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -226,7 +230,7 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
     HTMLcode += "<td VALIGN=\"top\" COLSPAN=\"3\" HEIGHT=\"22\">" ;
     HTMLcode += "<table HEIGHT=\"22\">" ;
     HTMLcode += "<tr>" ;
-    HTMLcode += "<td>Enter any complex formula</td>" ;
+    HTMLcode += "<td>Enter complex formula</td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td>Display</td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
@@ -234,16 +238,13 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td WIDTH=\"3\">circles</td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
-    HTMLcode += "<td ID=\"PLUGINcomboLABEL\" VALIGN=\"top\" STYLE=\"display:"+( GLOB_PLUGIN_PARAMS_EXIST(_index_ref) ? "block" : "none" )+";\">Latest params</td>" ;
-    HTMLcode += "<td WIDTH=\"3\"></td>" ;
-    HTMLcode += "<td ID=\"PLUGINparamsCOMBOcontainer\" VALIGN=\"top\">"+GLOB_PLUGIN_PARAMS_COMBO_CODE_GET(_index_ref)+"</td>" ;
-    HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_toggle_preview('"+_base_id+"','"+_subset+"',function(){ CIRCLES"+_subset.toLowerCase()+_clean_base_id.toUpperCase()+"_PRESETS(2,YES); });\" ID=\"PLUGIN_TOGGLE_PREVIEW_BTN\">Show preview</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
     HTMLcode += "</tr>" ;
-    
+    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>&alpha;</td>" ;
@@ -321,7 +322,7 @@ function CIRCLESembeddingsJORGENSEN_SHOW_GENERATORS_PANEL( trAB )
             HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
             HTMLcode += "<tr><td>Current Trace : "+trAB.formula()+"</td></tr>" ;
             HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-            HTMLcode += "<tr><td VALIGN=\"top\">" + GLOB_PLUGIN_GENS_TABLE_SHOW() + "</td></tr>" ;
+            HTMLcode += "<tr><td VALIGN=\"top\">" + GLOB_PLUGIN_GENS_TABLE_SHOW('jorgensen') + "</td></tr>" ;
             HTMLcode += "</table>" ;
     
         $("#GENERATORS").html( HTMLcode );

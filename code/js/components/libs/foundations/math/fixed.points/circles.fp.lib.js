@@ -12,21 +12,20 @@ function circles_lib_fixedpoints_draw( index, _canvas, _silent, _out_channel )
     var _fp_array = _b_exists ? ITEM.map.fixed_points() : [] ;
     var _n_limitset = safe_size( _fp_array, 0 ) ;
     var null_map_flag = _b_exists ? ( is_mobius_map( ITEM.map ) ? NO : YES ) : YES ;
-    var _context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
 
     if ( !is_html_canvas( _canvas ) )
     {
-       var _msg = "No canvas available" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "No canvas available", _glob_app );
        return [ RET_ERROR, _msg ] ;
     }
     else if ( _n_limitset > 0 )
     {
+       var _context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
        var _fp1 = _n_limitset > 0 ? _fp_array[0] : null, _fp1_type = "" ;
        if ( is_complex( _fp1 ) )
        {
            if ( ITEM.map.is_sink_pt( _fp1 ) ) _fp1_type = circles_lib_fixedpoints_get_def( FIXEDPOINT_SINK );
-           else if ( ITEM.map.is_source_pt( _fp1 ) ) _fp1_type = "Z-plane" ;
+           else if ( ITEM.map.is_source_pt( _fp1 ) ) _fp1_type = circles_lib_fixedpoints_get_def( FIXEDPOINT_SOURCE ) ;
            else _fp1_type = circles_lib_fixedpoints_get_def( FIXEDPOINT_NEUTRAL );
        }
        else _fp1_type = "Undetermined" ;
@@ -35,8 +34,8 @@ function circles_lib_fixedpoints_draw( index, _canvas, _silent, _out_channel )
        if ( is_complex( _fp2 ) )
        {
            if ( ITEM.map.is_sink_pt( _fp2 ) ) _fp2_type = circles_lib_fixedpoints_get_def( FIXEDPOINT_SINK );
-           else if ( ITEM.map.is_source_pt( _fp2 ) ) _fp2_type = "Z-plane" ;
-           else  _fp2_type = circles_lib_fixedpoints_get_def( FIXEDPOINT_NEUTRAL );
+           else if ( ITEM.map.is_source_pt( _fp2 ) ) _fp2_type = circles_lib_fixedpoints_get_def( FIXEDPOINT_SOURCE ) ;
+           else _fp2_type = circles_lib_fixedpoints_get_def( FIXEDPOINT_NEUTRAL );
        }
        else _fp2_type = "Undetermined" ;
 

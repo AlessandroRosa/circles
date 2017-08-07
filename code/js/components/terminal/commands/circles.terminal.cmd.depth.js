@@ -72,16 +72,16 @@ function circles_terminal_cmd_depth()
    	            if ( _params_assoc_array['settings'].associative_key_exists('depth') )
    	            {
  			             circles_lib_depth_set( _params_assoc_array['settings']['depth'] );
- 			             circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Depth has been set to " + _params_assoc_array['settings']['depth'], _par_1, _cmd_tag );
+ 			             circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Rendering depth has been set to " + _params_assoc_array['settings']['depth'], _par_1, _cmd_tag );
    							}
-   							else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing input depth", _par_1, _cmd_tag );
+   							else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing input rendering depth", _par_1, _cmd_tag );
    	            break ;
             }
          }
      }
      else if ( _params.length == 0 )
      {
-     		 var _msg = "Current depth is " + circles_lib_depth_get() ;
+     		 var _msg = "Current rendering depth is " + circles_lib_depth_get() ;
 				 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
      }
      

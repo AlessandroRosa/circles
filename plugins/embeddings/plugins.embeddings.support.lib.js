@@ -275,10 +275,10 @@ function GLOB_PLUGIN_SEEDS_COMBO_SELECT()
     }
 }
 
-function GLOB_PLUGIN_GENS_TABLE_SHOW()
+function GLOB_PLUGIN_GENS_TABLE_SHOW( _base_id )
 {
-    var HTMLcode = "" ;
-    var _sd_n = circles_lib_count_seeds();
+    _base_id = _base_id.replace( /[\.\_\-]/g, "" );
+    var HTMLcode = "", _sd_n = circles_lib_count_seeds();
     if ( _sd_n > 0 )
     {
         var COLS = 4 ;
@@ -390,7 +390,7 @@ function GLOB_PLUGIN_GENS_TABLE_SHOW()
           HTMLcode += "<table>" ;
           HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
           HTMLcode += "<tr>" ;
-          HTMLcode += "<td "+( _n_fixed_points == 0 ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_fixedpoints_draw("+i+", _glob_zplane_rendering_canvas_placeholder );\"" )+">Mark Fixed Points</td>" ;
+          HTMLcode += "<td "+( _n_fixed_points == 0 ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_fixedpoints_draw("+i+", circles_lib_extras_canvas_dropdown_get_placeholder('"+_base_id+"') );\"" )+">Mark Fixed Points</td>" ;
           HTMLcode += "<td WIDTH=\"15\"></td>" ;
           HTMLcode += "<td "+( i == UNDET ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,"+i+");\"" )+">Edit</td>" ;
           HTMLcode += "<td WIDTH=\"15\"></td>" ;

@@ -286,10 +286,7 @@ function circles_lib_plugin_render_preview( _clean_base_id, _subset, _plane_type
 			if ( _entry != null )
 			{
 			  _plane_type = circles_lib_return_plane_type( _plane_type );
-			  if ( _plane_type != NO_PLANE )
-			  {
-				  _b_found = YES, _canvas = $( "#"+_key ).get(0)
-				}
+			  if ( _plane_type != NO_PLANE ) { _b_found = YES, _canvas = $( "#"+_key ).get(0) ; }
 			}
 		}
 

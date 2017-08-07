@@ -15,6 +15,17 @@ function circles_lib_extras_button_enable( _ctrl_id, _checkvar, _focus )
     }
 }
 
+function circles_lib_extras_canvas_dropdown_get_placeholder( _ctrl_id )
+{
+    var _dropdown_id = "CIRCLESchoose"+_ctrl_id.replace( /[\.\_\-]/g, "" ).toUpperCase()+"canvasDROPDOWN" ;
+    if ( $( "#"+_dropdown_id ).get(0) != null )
+    {
+       var _canvas_id = $( "#"+_dropdown_id + " option:selected" ).val() ;
+       return $( "#"+_canvas_id ).get(0) != null ? $( "#"+_canvas_id ).get(0) : null ;
+    }
+    else return null ;
+}
+
 function circles_lib_extras_canvas_dropdown( _ctrl_id )
 {
 		_glob_available_curr_canvas_array = [] ;
@@ -22,8 +33,8 @@ function circles_lib_extras_canvas_dropdown( _ctrl_id )
     //scan the framework for currently available canvases
     $( "[id$=CANVAS]" ).each( function( _i, _canvas_obj )
   	{
-  			_ctx = _canvas_obj.getContext( _glob_canvas_ctx_2D_mode ) ;
-  			_glob_available_curr_canvas_array[ _canvas_obj.id ] = [ _canvas_obj.id, _canvas_obj.complex_rect, _ctx.label, _ctx.plane_def ] ;
+ 			_ctx = _canvas_obj.getContext( _glob_canvas_ctx_2D_mode ) ;
+ 			_glob_available_curr_canvas_array[ _canvas_obj.id ] = [ _canvas_obj.id, _canvas_obj.complex_rect, _ctx.label, _ctx.plane_def ] ;
     } );
     
     var _keys = _glob_available_curr_canvas_array.keys_associative(), _cnv_entry ;

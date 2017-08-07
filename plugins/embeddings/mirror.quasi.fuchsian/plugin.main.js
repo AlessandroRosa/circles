@@ -171,6 +171,10 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
     HTMLcode += "<td>"+CIRCLESembeddingsMIRRORQUASIFUCHSIAN_PRESETS(1)+"</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsMIRRORQUASIFUCHSIAN_PRESETS(2);\">Apply</td>" ;
+    HTMLcode += "<td WIDTH=\"15\"></td>" ;
+    HTMLcode += "<td ID=\"PLUGINcomboLABEL\" VALIGN=\"top\" STYLE=\"display:"+( GLOB_PLUGIN_PARAMS_EXIST(_index_ref) ? "block" : "none" )+";\">Latest params</td>" ;
+    HTMLcode += "<td WIDTH=\"3\"></td>" ;
+    HTMLcode += "<td ID=\"PLUGINparamsCOMBOcontainer\" VALIGN=\"top\">"+GLOB_PLUGIN_PARAMS_COMBO_CODE_GET(_index_ref)+"</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -182,7 +186,7 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
     HTMLcode += "<td VALIGN=\"top\" COLSPAN=\"3\" HEIGHT=\"22\">" ;
     HTMLcode += "<table HEIGHT=\"22\">" ;
     HTMLcode += "<tr>" ;
-    HTMLcode += "<td>Enter any complex formula</td>" ;
+    HTMLcode += "<td>Enter complex formula</td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td>Display</td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
@@ -190,10 +194,6 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td WIDTH=\"3\">circles</td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
-    HTMLcode += "<td ID=\"PLUGINcomboLABEL\" VALIGN=\"top\" STYLE=\"display:"+( GLOB_PLUGIN_PARAMS_EXIST(_index_ref) ? "block" : "none" )+";\">Latest params</td>" ;
-    HTMLcode += "<td WIDTH=\"3\"></td>" ;
-    HTMLcode += "<td ID=\"PLUGINparamsCOMBOcontainer\" VALIGN=\"top\">"+GLOB_PLUGIN_PARAMS_COMBO_CODE_GET(_index_ref)+"</td>" ;
-    HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_toggle_preview('"+_base_id+"','"+_subset+"',function(){ CIRCLES"+_subset.toLowerCase()+_clean_base_id.toUpperCase()+"_PRESETS(2,YES); });\" ID=\"PLUGIN_TOGGLE_PREVIEW_BTN\">Show preview</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;

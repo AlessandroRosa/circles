@@ -213,7 +213,7 @@ function CIRCLESembeddingsJORGENSEN_OUTPUT( MM_01, MM_02, trAB, _init )
         if ( _ret_id == RET_OK )
         {
             $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
-            $("#PLUGIN_CONTAINER_PARAMS").html( GLOB_PLUGIN_GENS_TABLE_SHOW() );
+            $("#PLUGIN_CONTAINER_PARAMS").html( GLOB_PLUGIN_GENS_TABLE_SHOW('jorgensen') );
             circles_lib_plugin_dispatcher_unicast_message( 'dictionary', 'forms', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
         }
         else

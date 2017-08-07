@@ -7,17 +7,14 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ APP -------------------------------------------------
 - check that all services inside each of these masks work properly.
-  (Remove each entry after all checkings)
+  (Remove each entry after completing the checkings)
 
 * EMBEDDINGS
 general.purpose
 grandma.4.alarm
 grandma.parabolic
-jorgensen
-maskit.once
 maskit.twice
 mirror.quasi.fuchsian
-riley.slice
 
 * FORMS
 anti.homography

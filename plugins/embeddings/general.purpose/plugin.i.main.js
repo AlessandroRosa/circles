@@ -167,7 +167,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td COLSPAN=\"7\">Enter any complex formula in the boxes below</td>" ;
+    HTMLcode += "<td COLSPAN=\"7\">Enter complex formula in the boxes below</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
     HTMLcode += "<tr>" ;

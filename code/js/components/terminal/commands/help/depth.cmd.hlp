@@ -1,13 +1,13 @@
-<banana>Depth value management</banana>
+<banana>Rendering depth management</banana>
 <white>Type param /k to return all available keywords</white>
 
 <lightblue>usage</lightblue> <snow>depth %options% %values%</snow>
 
 <lightblue>depth</lightblue>
-<cadetblue>returns the current depth value</cadetblue>
+<cadetblue>returns the current rendering depth</cadetblue>
 
 <lightblue>depth set 9</lightblue>
-<cadetblue>set the current depth to 9</cadetblue>
+<cadetblue>set the rendering depth to 9</cadetblue>
 
 <lightblue>depth release</lightblue>
 <cadetblue>return the last release date of this cmd</cadetblue>
