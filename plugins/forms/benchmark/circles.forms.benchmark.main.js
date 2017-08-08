@@ -43,7 +43,7 @@ function CIRCLESformsBENCHMARKmain( _base_id, _move )
          else
          {
              HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
-             HTMLcode += "<tr><td WIDTH=\"5\"></td><td ALIGN=\"center\" STYLE=\"font-size:14pt;color:"+get_color_tag_value( "gray" )+";\">No process was run yet</td></tr>" ;
+             HTMLcode += "<tr><td WIDTH=\"5\"></td><td ALIGN=\"center\" STYLE=\"font-size:14pt;color:"+get_rgb_from_color_tag( "gray" )+";\">No process was run yet</td></tr>" ;
              HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
          }
 

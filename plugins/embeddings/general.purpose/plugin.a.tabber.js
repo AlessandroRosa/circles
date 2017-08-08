@@ -30,12 +30,9 @@ var CIRCLESGENERALPURPOSEtabberOptions = {
     var i = argsObj.index; /* Which tab was clicked (0 is the first tab) */
     var e = argsObj.event; /* Event object */
 
-    _glob_current_tab['editdisk'] = i ;
-
     switch( i )
     {
-          case 0:
-          break;
+          case 0: break;
           default: break ;
     }
 

@@ -85,7 +85,7 @@ var def_clrs_tags = [], def_clrs_tags_keys = [] ;
     def_clrs_tags['tag.success'] = "#3ED13E" ;
     def_clrs_tags['tag.warning'] = "#FFC600;" ;
 
-function get_color_tag_value( _colortag ) // return hex value (rgb)
+function get_rgb_from_color_tag( _colortag ) // return hex value (rgb)
 {
     _colortag = safe_string( _colortag, "" ).toLowerCase();
     if ( _colortag.one_in( "#", "," ) ) return "" ; // only tags, no rgb

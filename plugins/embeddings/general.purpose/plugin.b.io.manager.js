@@ -92,7 +92,11 @@ function CIRCLESembeddingsGENERALPURPOSE_LOADgroup( _filename, _file_contents )
     $("#PLUGIN_GENERATE_GROUP_BTN").css( "color", DEFAULT_COLOR_GO );
     CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, NO, YES );
     CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
-    CIRCLESembeddingsGENERALPURPOSE_COMMENT();
+
+    var _msg = "The generators have been correctly loaded." ;
+        _msg += "\nNow press the button below to generate the whole group." ;
+        _msg += "\n\nThen you can  render it." ;
+    alert_msg( ALERT_SUCCESS, _msg, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] + " - Tips", 440 );
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_SAVE_GROUP()
@@ -141,8 +145,7 @@ function CIRCLESembeddingsGENERALPURPOSE_SAVE_GROUP()
             
         CIRCLESembeddingsGENERALPURPOSEcomment = $( "#PLUGINcommentTEXTAREA" ).val();
         _out_stream.push( "comment=" + CIRCLESembeddingsGENERALPURPOSEcomment.replaceAll( [ _glob_crlf, CRLF_WIN, CRLF_NO_WIN ], "@@@" ) );
-        $.each( CIRCLESembeddingsGENERALPURPOSE_gens_container,
-                function( _i, _gen_chunk )
+        $.each( CIRCLESembeddingsGENERALPURPOSE_gens_container, function( _i, _gen_chunk )
                 {
                    _out_stream.push( "a"+_i+"=" + _gen_chunk[0] );
                    _out_stream.push( "b"+_i+"=" + _gen_chunk[1] );

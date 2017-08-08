@@ -52,7 +52,7 @@ function CIRCLESformsTANGENTCIRCLEprocess( X, Y )
                            N = is_array( RETarray ) ? RETarray['n'] : 0, INTERSECTsymbol = "" ;
                            switch( N )
                            {
-                               case 0: INTERSECTsymbol = "<SPAN STYLE=\"color:"+get_color_tag_value( "gray" )+";\">No intersection with circle '"+symbol+"'</SPAN>" ; break ;
+                               case 0: INTERSECTsymbol = "<SPAN STYLE=\"color:"+get_rgb_from_color_tag( "gray" )+";\">No intersection with circle '"+symbol+"'</SPAN>" ; break ;
                                case 1: INTERSECTsymbol = "<SPAN STYLE=\"color:lime;\">Tangent with circle '"+symbol+"'</SPAN>" ; break ;
                                case 2: INTERSECTsymbol = "<SPAN STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\">Secant with circle '"+symbol+"'</SPAN>" ; break ;
 												       default: break ;

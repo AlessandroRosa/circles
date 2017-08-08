@@ -22,7 +22,7 @@ function CIRCLESformsTERMINALCOMMENTmain( _base_id, _move )
          if ( !circles_lib_terminal_batch_script_exists() )
 		 		 HTMLcode += "<td STYLE=\"color:orange;\" ALIGN=\"center\">No code has been input yet</td><td WIDTH=\"50\"></td>" ;
          
-		 		 HTMLcode += "<td STYLE=\"padding-right:6px;color:"+get_color_tag_value( "gray" )+";\" ID=\"CIRCLEScommentSAVEbtn\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsTERMINALCOMMENTSAVE();\">Save comment</td>" ;
+		 		 HTMLcode += "<td STYLE=\"padding-right:6px;color:"+get_rgb_from_color_tag( "gray" )+";\" ID=\"CIRCLEScommentSAVEbtn\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsTERMINALCOMMENTSAVE();\">Save comment</td>" ;
 		 		 HTMLcode += "<td WIDTH=\"10\"></td>" ;
 		 		 HTMLcode += "</tr>" ;
 		 		 HTMLcode += "</table>" ;

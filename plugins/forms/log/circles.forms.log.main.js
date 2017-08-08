@@ -1,9 +1,4 @@
-function CIRCLESformsLOGclose()
-{
-    circles_lib_plugin_dispatcher_unicast_message( "log", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-		return YES ;
-}
-
+function CIRCLESformsLOGclose() { return circles_lib_plugin_dispatcher_unicast_message( "log", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsLOGmaximize()
 {
     var _full_width = safe_int( arguments[1], 0 );
@@ -136,7 +131,8 @@ function CIRCLESformsLOGlist()
                       default: _textcolor = DEFAULT_EDIT_COLOR_DISABLED ; break ;
                    }
                    // keep the ending CRLF for clipboard copy
-                   HTMLcode += "<tr><td WIDTH=\"5\"></td><td STYLE=\"color:white;\" VALIGN=\"top\">"+_log_chunk[0]+"</td><td WIDTH=\"10\"></td><td VALIGN=\"top\" STYLE=\"color:"+_textcolor+";\">"+_log_chunk[1]+"</td></tr>" + _glob_crlf ;
+                   HTMLcode += "<tr><td WIDTH=\"5\"></td><td STYLE=\"color:white;\" VALIGN=\"top\">"+_log_chunk[0]+"</td><td WIDTH=\"10\"></td><td VALIGN=\"top\" STYLE=\"color:"+_textcolor+";\">"+_log_chunk[1]+"</td></tr>" ;
+                   HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                 }
               ) ;
     }

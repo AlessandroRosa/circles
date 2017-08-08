@@ -46,7 +46,7 @@ function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*m
 			 			case DISPATCH_CRITICAL: case DISPATCH_ERROR: _color = "rederror" ; break ;
 			 			case DISPATCH_INFO: default: _color = "lightgray" ; break ;
 			 }
-			 _color = get_color_tag_value( _color ) ;
+			 _color = get_rgb_from_color_tag( _color ) ;
 			 circles_lib_extras_special_fx_msg( _ctrl_id, _out_msg_text, _color, _milliseconds_duration, _mutex ) ;
 		}
     

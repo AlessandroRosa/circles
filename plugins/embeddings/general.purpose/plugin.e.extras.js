@@ -1,9 +1,3 @@
-function CIRCLESembeddingsGENERALPURPOSE_COMMENT()
-{
-    $('#PLUGINcommentLABEL').html( CIRCLESembeddingsGENERALPURPOSEcomment.length > 0 ? 'Here\'s some comment' : 'Write some comment here below' );
-    CIRCLESembeddingsGENERALPURPOSEcomment = $( "#PLUGINcommentTEXTAREA" ).val();
-}
-
 function CIRCLESembeddingsGENERALPURPOSE_TIPS()
 {
     var _index_ref = _plugin_last_ref;

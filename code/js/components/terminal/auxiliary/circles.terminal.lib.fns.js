@@ -280,7 +280,7 @@ function circles_lib_terminal_standard_echo( _message, _return_msg )
 function circles_lib_terminal_info_echo( _message, _return_msg )
 {
     _return_msg = safe_int( _return_msg, NO );
-    _message = '[[;'+get_color_tag_value( 'lightgray' )+';]' + _message.replace(/\\$/, '&#92;') + ']' ;
+    _message = '[[;'+get_rgb_from_color_tag( 'lightgray' )+';]' + _message.replace(/\\$/, '&#92;') + ']' ;
 		if ( _return_msg ) return _message ;
     else if ( _glob_terminal != null ) _glob_terminal.echo( _message );
 }
@@ -288,7 +288,7 @@ function circles_lib_terminal_info_echo( _message, _return_msg )
 function circles_lib_terminal_error_echo( _message, _return_msg )
 {
     _return_msg = safe_int( _return_msg, NO );
-    _message = '[[;'+get_color_tag_value( 'rederror' )+';]' + _message.replace(/\\$/, '&#92;') + ']' ;
+    _message = '[[;'+get_rgb_from_color_tag( 'rederror' )+';]' + _message.replace(/\\$/, '&#92;') + ']' ;
 		if ( _return_msg ) return _message ;
     else if ( _glob_terminal != null ) _glob_terminal.echo( _message );
 }
@@ -296,7 +296,7 @@ function circles_lib_terminal_error_echo( _message, _return_msg )
 function circles_lib_terminal_success_echo( _message, _return_msg )
 {
     _return_msg = safe_int( _return_msg, NO );
-    _message = '[[;'+get_color_tag_value( 'greensuccess' )+';]' + _message.replace(/\\$/, '&#92;') + ']' ;
+    _message = '[[;'+get_rgb_from_color_tag( 'greensuccess' )+';]' + _message.replace(/\\$/, '&#92;') + ']' ;
 		if ( _return_msg ) return _message ;
     else if ( _glob_terminal != null ) _glob_terminal.echo( _message );
 }
@@ -304,7 +304,7 @@ function circles_lib_terminal_success_echo( _message, _return_msg )
 function circles_lib_terminal_warning_echo( _message, _return_msg )
 {
     _return_msg = safe_int( _return_msg, NO );
-    _message = '[[;'+get_color_tag_value( 'warning' )+';]' + _message.replace(/\\$/, '&#92;') + ']' ;
+    _message = '[[;'+get_rgb_from_color_tag( 'warning' )+';]' + _message.replace(/\\$/, '&#92;') + ']' ;
 		if ( _return_msg ) return _message ;
     else if ( _glob_terminal != null ) _glob_terminal.echo( _message );
 }

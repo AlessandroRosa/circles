@@ -1,6 +1,6 @@
 /*
 General purpose
-Just input the generators and have your Mobius maps group !
+Just input the generators and pull your Mobius maps group out !
 */
 new
 silent off

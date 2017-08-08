@@ -353,11 +353,11 @@ function CIRCLESformsSCRIPTEDITORcodemanagerBUILTIN()
           HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
       if ( safe_size( _array_ref, 0 ) > 0 )
       {
-          HTMLcode += "<tr><td WIDTH=\"8\"></td><td COLSPAN=\"3\" STYLE=\"font-size:12pt;color:"+get_color_tag_value( "white" )+";\">Built-in data types</td></tr>" ;
+          HTMLcode += "<tr><td WIDTH=\"8\"></td><td COLSPAN=\"3\" STYLE=\"font-size:12pt;color:"+get_rgb_from_color_tag( "white" )+";\">Built-in data types</td></tr>" ;
           HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
           HTMLcode += "<tr>" ;
-          HTMLcode += "<td WIDTH=\"8\"></td><td STYLE=\"color:"+get_color_tag_value( "lightblue" )+";\">Original data name</td>" ;
-          HTMLcode += "<td WIDTH=\"16\"></td><td STYLE=\"color:"+get_color_tag_value( "white" )+";\">Shortcut for editor</td>" ;
+          HTMLcode += "<td WIDTH=\"8\"></td><td STYLE=\"color:"+get_rgb_from_color_tag( "lightblue" )+";\">Original data name</td>" ;
+          HTMLcode += "<td WIDTH=\"16\"></td><td STYLE=\"color:"+get_rgb_from_color_tag( "white" )+";\">Shortcut for editor</td>" ;
           HTMLcode += "</tr>" ;
           HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
           var _original, _short ;
@@ -366,8 +366,8 @@ function CIRCLESformsSCRIPTEDITORcodemanagerBUILTIN()
                   {
                       _original = _data_type[0], _short = _data_type[1] ;
                       HTMLcode += "<tr>" ;
-                      HTMLcode += "<td WIDTH=\"8\"></td><td STYLE=\"color:"+get_color_tag_value( "lightblue" )+";\">"+_original+"</td>" ;
-                      HTMLcode += "<td WIDTH=\"16\"></td><td STYLE=\"color:"+get_color_tag_value( "white" )+";\">"+_short+"</td>" ;
+                      HTMLcode += "<td WIDTH=\"8\"></td><td STYLE=\"color:"+get_rgb_from_color_tag( "lightblue" )+";\">"+_original+"</td>" ;
+                      HTMLcode += "<td WIDTH=\"16\"></td><td STYLE=\"color:"+get_rgb_from_color_tag( "white" )+";\">"+_short+"</td>" ;
                       HTMLcode += "</tr>" ;
                       HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
                   }

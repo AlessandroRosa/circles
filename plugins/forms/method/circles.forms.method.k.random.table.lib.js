@@ -267,7 +267,7 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
     {
        HTMLcode = "<table WIDTH=\"100%\">" ;
        HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
-       HTMLcode += "<tr><td STYLE=\"color:"+get_color_tag_value( "gray" )+";font-size:12pt;\" ALIGN=\"center\">The probabilities manager is available<br>only when random process is chosen</td></tr>" ;
+       HTMLcode += "<tr><td STYLE=\"color:"+get_rgb_from_color_tag( "gray" )+";font-size:12pt;\" ALIGN=\"center\">The probabilities manager is available<br>only when random process is chosen</td></tr>" ;
        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
        HTMLcode += "<tr><td CLASS=\"link\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:#8FBAC8;\" ONCLICK=\"javascript:_glob_process=PROCESS_RANDOM;_glob_fixedpt_io=FIXEDPOINTS_IO_INPUT;circles_lib_plugin_load('forms','method',2,NO,_glob_method,null);CIRCLESmethodMANAGERrandomTABLEmultisliderINIT();circles_lib_menu_entries_update();\">Set process to random and Reload</td></tr>" ;
        HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;

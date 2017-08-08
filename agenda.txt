@@ -9,13 +9,6 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 - check that all services inside each of these masks work properly.
   (Remove each entry after completing the checkings)
 
-* EMBEDDINGS
-general.purpose
-grandma.4.alarm
-grandma.parabolic
-maskit.twice
-mirror.quasi.fuchsian
-
 * FORMS
 anti.homography
 automaton

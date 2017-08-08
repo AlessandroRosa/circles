@@ -90,7 +90,7 @@ function CIRCLESmethodMANAGERrepetendsPANEL()
     {
    		HTMLcode = "<table WIDTH=\"100%\">" ;
       HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
-      HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;color:"+get_color_tag_value( "gray" )+";\">The method '"+circles_lib_method_get_def( _glob_method )+"'<br>or the process '"+circles_lib_process_get_def( _glob_process )+"'<br>does not support repetends management</td></tr>" ;
+      HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;color:"+get_rgb_from_color_tag( "gray" )+";\">The method '"+circles_lib_method_get_def( _glob_method )+"'<br>or the process '"+circles_lib_process_get_def( _glob_process )+"'<br>does not support repetends management</td></tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
       HTMLcode += "<tr><td CLASS=\"link\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:#8FBAC8;\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','method',NO,0,_glob_method,null);\">Reload</td></tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;

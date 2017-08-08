@@ -158,7 +158,7 @@ function CIRCLESgenssetMANAGERshowGENStable( _silent )
 			HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
       var _text = !_set_exists ? "The gens set is empty" : "The gens set is available for 'algebraic' method exclusively" ;
       if ( !_set_exists ) _text += "<br><SPAN STYLE=\"color:darkgray;\">Try to fill it by inserting a new entry or to build the exact gens set</SPAN>"
-      HTMLcode += "<tr><td STYLE=\"color:"+get_color_tag_value( "gray" )+";font-size:12pt;\" ALIGN=\"center\">"+_text+"</td></tr>" ;
+      HTMLcode += "<tr><td STYLE=\"color:"+get_rgb_from_color_tag( "gray" )+";font-size:12pt;\" ALIGN=\"center\">"+_text+"</td></tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
    }
    return HTMLcode ;

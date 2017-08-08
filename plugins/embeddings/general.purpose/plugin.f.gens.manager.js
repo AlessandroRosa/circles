@@ -24,6 +24,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent )
                       CIRCLESembeddingsGENERALPURPOSE_c_formula.length == 0 && CIRCLESembeddingsGENERALPURPOSE_a_formula.length == 0 ) ? YES : confirm( "Do you want to clean all input boxes ?" );
         if ( _b_go )
         {
+           $("#CIRCLESGENERALPURPOSEmainDIV").get(0).tabber.tabShow(0);
            $("#PLUGIN_PARAM_A").val( "" );
            $("#PLUGIN_PARAM_B").val( "" );
            $("#PLUGIN_PARAM_C").val( "" );
@@ -37,16 +38,15 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent )
     var _IS_DUPLICATE = CIRCLESembeddingsGENERALPURPOSE_CHECK_DUPLICATE( CIRCLESembeddingsGENERALPURPOSE_a_formula, CIRCLESembeddingsGENERALPURPOSE_b_formula, CIRCLESembeddingsGENERALPURPOSE_c_formula, CIRCLESembeddingsGENERALPURPOSE_d_formula );
     if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_ADD && _IS_DUPLICATE )
     {
-				var _MSG = "", _index = CIRCLESembeddingsGENERALPURPOSE_FIND_INDEX( CIRCLESembeddingsGENERALPURPOSE_a_formula, CIRCLESembeddingsGENERALPURPOSE_b_formula, CIRCLESembeddingsGENERALPURPOSE_c_formula, CIRCLESembeddingsGENERALPURPOSE_d_formula );
-        if ( _index == CIRCLESembeddingsGENERALPURPOSEcurr_sel ) _MSG = "Update won't be performed: no modifications detected in this generator" ;
-        else
-        {
-           _MSG = "There exists already one generator with the same params in this list" ;
-			 	 	 _MSG += _glob_crlf + "Duplicates are not admitted in this candidate group" ;
-		    	 _MSG += _glob_crlf.repeat(2)+"This entry won't be inserted" ;
-        }
-
-				circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _MSG, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+			var _MSG = "", _index = CIRCLESembeddingsGENERALPURPOSE_FIND_INDEX( CIRCLESembeddingsGENERALPURPOSE_a_formula, CIRCLESembeddingsGENERALPURPOSE_b_formula, CIRCLESembeddingsGENERALPURPOSE_c_formula, CIRCLESembeddingsGENERALPURPOSE_d_formula );
+      if ( _index == CIRCLESembeddingsGENERALPURPOSEcurr_sel ) _MSG = "Update won't be performed: no modifications detected in this generator" ;
+      else
+      {
+         _MSG = "There exists already one generator including the same parameter values in this list." ;
+			 	 _MSG += _glob_crlf + "Duplicates will be not admitted into the current candidate group," ;
+		   	 _MSG += _glob_crlf.repeat(2)+"This entry won't be inserted !" ;
+      }
+			circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _MSG, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
 		}
 		else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSEcurr_sel == UNDET )
 				 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: missing reference index.", 'PLUGIN_OUTMSG' ) ;
@@ -428,7 +428,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( _resolve_formula, _restore, _
 		else if ( _N_GENS == 0 )
 		{
 				HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
-				HTMLcode += "<tr><td ALIGN=\"center\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:"+get_color_tag_value( "gray" )+";\">The input list is empty</td></tr>" ;
+				HTMLcode += "<tr><td ALIGN=\"center\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:"+get_rgb_from_color_tag("gray")+";\">The input list of generators<br>is empty</td></tr>" ;
 				HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
 		}
 
@@ -438,7 +438,6 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( _resolve_formula, _restore, _
 		HTMLcode += "</tr>" ;
 		HTMLcode += "</table>" ;
     HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
-
     $("#PLUGIN_LIST_CONTAINER").html( HTMLcode );
 }
 

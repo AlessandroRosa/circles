@@ -5,7 +5,7 @@ function CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id )
     _plugin_input_mode_mask_array[_index_ref] = 2 ; // FREE
     _plugin_method_array[_index_ref] = METHOD_ALGEBRAIC ;
     _plugin_definitions_array[_index_ref] = "General purpose" ;
-    _plugin_info_array[_index_ref] = "Just input the coefficients of gens and have your Mobius maps group !" ;
+    _plugin_info_array[_index_ref] = "Just input the coefficients of gens and pull your Mobius maps group out !" ;
     _plugin_run_fn_array[_index_ref] = "CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO);" ;
     _plugin_vars_array[_index_ref] = [] ;
 
@@ -87,7 +87,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
     HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:if ( circles_lib_method_check() ) CIRCLESembeddingsGENERALPURPOSE_CALL_METHOD('"+this_fn_name+"'); else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _ERR_00_01, 'PLUGIN_OUTMSG' ) ;\">Method</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_COMMENT();\">Comment</td>" ;
+    HTMLcode += "<td CLASS=\"link\">Comment</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
     HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:GLOB_PLUGIN_DISPLAY_INFOS('"+_plugin_main_ref+"');\">Info</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
@@ -156,12 +156,13 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "</tr>" ;
 
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
-    var _CANVAS_W = WIDTH - 44, _CANVAS_H = Math.floor( _CANVAS_W / 2 ) - 40 ;
+    var _CANVAS_W = WIDTH - 34, _CANVAS_H = Math.floor( _CANVAS_W / 2 ) - 60 ;
+    var TAB_H = _CANVAS_H + 20 ;
 
 		HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\" ID=\"PLUGIN_TABS_CONTAINER\">" ;
-    HTMLcode += "<div ID=\"CIRCLESGENERALPURPOSEmainDIV\" STYLE=\"position:relative;width:99%;height:"+(_CANVAS_H+16)+"px;\" VALIGN=\"top\" class=\"tabber\">" ;
+    HTMLcode += "<div ID=\"CIRCLESGENERALPURPOSEmainDIV\" STYLE=\"position:relative;width:99%;height:"+(TAB_H+12)+"px;\" VALIGN=\"top\" class=\"tabber\">" ;
 
-    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:99%;height:"+_CANVAS_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_01\">" ;
+    HTMLcode += "<DIV class=\"tabbertab\" STYLE=\"width:99%;height:"+TAB_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_01\">" ;
     HTMLcode += "<h2>Input form</h2>" ;
     HTMLcode += "<table>" ;
     HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
@@ -214,17 +215,17 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td COLSPAN=\"5\"><SPAN STYLE=\"color:blue;\">Note #1</SPAN> The four params can be entered in the same row and separated by comma. Then press enter.</td>" ;
+    HTMLcode += "<td COLSPAN=\"8\"><SPAN STYLE=\"color:blue;\">Note #1</SPAN> The four params can be entered in the same row and separated by comma. Then press 'enter': they'll be spread over the four boxes.</td>" ;
     HTMLcode += "</tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td COLSPAN=\"5\"><SPAN STYLE=\"color:blue;\">Note #2</SPAN> After entering the fourth param d, press enter to input the whole Mobius map</td>" ;
+    HTMLcode += "<td COLSPAN=\"8\"><SPAN STYLE=\"color:blue;\">Note #2</SPAN> After entering the fourth param d, press 'enter' to save the Mobius map.</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</DIV>" ;
 
-    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:99%;height:"+_CANVAS_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_02\">" ;
+    HTMLcode += "<DIV class=\"tabbertab\" STYLE=\"width:99%;height:"+TAB_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_02\">" ;
     HTMLcode += "<h2>Maps List</h2>" ;
     HTMLcode += "<table WIDTH=\"100%\">" ;
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
@@ -233,16 +234,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "</table>" ;
     HTMLcode += "</DIV>" ;
 
-    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:99%;height:"+_CANVAS_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_03\">" ;
-    HTMLcode += "<h2>Preview</h2>" ;
-    HTMLcode += "<table WIDTH=\"100%\">" ;
-    HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
-    HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\"><DIV ID=\"PLUGIN_PREVIEW\" STYLE=\"position:relative;height:auto;display:none;\"><table><tr><td VALIGN=\"top\" ALIGN=\"center\"><CANVAS CLASS=\"general_rounded_corners\" STYLE=\"border:1px solid #D0D0D0;width:"+_CANVAS_W+"px;height:"+_CANVAS_H+"px;\" WIDTH=\""+_CANVAS_W+"\" HEIGHT=\""+_CANVAS_H+"\" ID=\"CIRCLESembeddings"+( _clean_base_id.toUpperCase() )+"_CANVAS\"></CANVAS></td></tr><tr><td HEIGHT=\"4\"></td></tr></table></DIV></td></tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
-    HTMLcode += "</table>" ;
-    HTMLcode += "</DIV>" ;
-
-    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:99%;height:"+_CANVAS_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_04\">" ;
+    HTMLcode += "<DIV class=\"tabbertab\" STYLE=\"width:99%;height:"+TAB_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_03\">" ;
     HTMLcode += "<h2>Custom vars</h2>" ;
 		HTMLcode += "<table>" ;
 
@@ -324,15 +316,27 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 		HTMLcode += "</table>" ;
     HTMLcode += "</DIV>" ;
 
-    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:99%;height:"+_CANVAS_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_05\">" ;
+    HTMLcode += "<DIV class=\"tabbertab\" STYLE=\"width:99%;height:"+TAB_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_04\">" ;
     HTMLcode += "<h2>Comment</h2>" ;
-    HTMLcode += "<table>" ;
+    HTMLcode += "<table ALIGN=\"center\">" ;
     HTMLcode += "<tr><td ID=\"PLUGINcommentLABEL\" STYLE=\"padding-left:6px;\"></td></tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-    HTMLcode += "<tr><td>" ;
-    HTMLcode += "<TEXTAREA ID=\"PLUGINcommentTEXTAREA\" ALIGN=\"center\" STYLE=\"width:"+(WIDTH-30)+"px;height:50px;overflow:auto;\"></TEXTAREA>" ;
+    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+    HTMLcode += "<tr><td>Type comments about the working group here</td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+    HTMLcode += "<tr><td ALIGN=\"center\">" ;
+    HTMLcode += "<TEXTAREA ID=\"PLUGINcommentTEXTAREA\" ALIGN=\"center\" STYLE=\"width:"+(WIDTH-30)+"px;height:130px;overflow:auto;\"></TEXTAREA>" ;
     HTMLcode += "</td></tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+    HTMLcode += "<tr><td ALIGN=\"center\">Comments will be kept up when exporting the group into a file</td></tr>" ;
+    HTMLcode += "</table>" ;
+    HTMLcode += "</DIV>" ;
+
+    HTMLcode += "<DIV class=\"tabbertab\" STYLE=\"width:99%;height:"+TAB_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_05\">" ;
+    HTMLcode += "<h2>Preview</h2>" ;
+    HTMLcode += "<table WIDTH=\"100%\">" ;
+    HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
+    HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\" ALIGN=\"center\"><DIV ID=\"PLUGIN_PREVIEW\" STYLE=\"position:relative;height:auto;\" ALIGN=\"center\"><table ALIGN=\"center\"><tr><td VALIGN=\"top\" ALIGN=\"center\"><CANVAS CLASS=\"general_rounded_corners\" STYLE=\"border:1px solid #D0D0D0;width:"+_CANVAS_W+"px;height:"+_CANVAS_H+"px;\" WIDTH=\""+_CANVAS_W+"\" HEIGHT=\""+_CANVAS_H+"\" ID=\"CIRCLES"+_subset+(_clean_base_id.toUpperCase())+"_CANVAS\"></CANVAS></td></tr><tr><td HEIGHT=\"4\"></td></tr></table></DIV></td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</DIV>" ;
 
@@ -341,7 +345,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 		HTMLcode += "</tr>"
 
     HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-    HTMLcode += "<tr><td ALIGN=\"center\"><SPAN STYLE=\"color:red;\">Don't input inverse gens</SPAN>: they'll be automatically computed during the group generation</td></tr>" ;
+    HTMLcode += "<tr><td ALIGN=\"center\"><SPAN STYLE=\"color:red;\">Don't input inverse gens</SPAN>: they'll be computed and inserted while generating the group</td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
 
     HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
@@ -354,10 +358,8 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESembeddingsGENERALPURPOSE_ADD_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);\">Add</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESembeddingsGENERALPURPOSE_UPDATE_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_UPDATE,YES);\">Update</td>" ;
-    HTMLcode += "<td WIDTH=\"15\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"PLUGIN_SHOWHIDE_INPUTMASK_BTN\" ONCLICK=\"javascript:$('#PLUGIN_INPUT_MASK').toggle(400,function() { $('#PLUGIN_SHOWHIDE_INPUTMASK_BTN').html( $('#PLUGIN_INPUT_MASK').is(':visible') ? 'Hide input' : 'Show input' ); } );\" WIDTH=\"54\">Hide input</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"PLUGIN_FULLGROUP_LIST_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);\" WIDTH=\"64\">Full group</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"PLUGIN_WHOLEGROUP_LIST_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);\" WIDTH=\"90\">View whole group</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ID=\"PLUGIN_REFRESH_LIST_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);\">Refresh List</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
@@ -464,8 +466,7 @@ function CIRCLESembeddingsGENERALPURPOSE_CAPTURE( _items_switch )
         var _b_go = YES ;
         if ( safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 ) > 0 )
         {
-           var _question = "Another group, previously declared through this plug-in, had been already saved." + _glob_crlf ;
-               _question += "Old entries would be lost." + _glob_crlf.repeat(2) ;
+           var _question = "Another group, previously declared through this plug-in, had been already saved. Old entries would be lost." + _glob_crlf ;
                _question += "Do you want to replace it with the current "+_items_array_label+" set ?" ;
            if ( confirm( _question ) ) CIRCLESembeddingsGENERALPURPOSE_gens_container.flush();
            else _b_go = NO ;
@@ -493,6 +494,7 @@ function CIRCLESembeddingsGENERALPURPOSE_CAPTURE( _items_switch )
 
        		 circles_lib_output( OUTPUT_SPECIAL_FX, (_success_n == _items_n/2) ? DISPATCH_SUCCESS : DISPATCH_WARNING, _success_n + " of " + _items_n/2 + " entries have been correctly processed", 'PLUGIN_OUTMSG' ) ;
            CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, NO );
+           $("#CIRCLESGENERALPURPOSEmainDIV").get(0).tabber.tabShow(1);
         }
         else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Capturing has been aborted by user", 'PLUGIN_OUTMSG' ) ;
     }
@@ -717,7 +719,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
             if ( _ret_id == RET_OK )
             {
                 $("#PLUGIN_GENERATE_GROUP_BTN").css( "color", DEFAULT_COLOR_STD );
-                $("#PLUGIN_FULLGROUP_LIST_BTN").css( "color", DEFAULT_COLOR_STD );
+                $("#PLUGIN_WHOLEGROUP_LIST_BTN").css( "color", DEFAULT_COLOR_STD );
                 if ( $("#PLUGINrenderBTN").get(0) != null ) $("#PLUGINrenderBTN").get(0).setAttribute( "class", "link" );
                 GLOB_PLUGIN_WIZARD_STEP(1);
               	circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "The group has been generated with success. Now render it !", 'PLUGIN_OUTMSG' ) ;
