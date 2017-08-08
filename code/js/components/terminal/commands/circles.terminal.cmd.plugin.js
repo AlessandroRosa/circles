@@ -188,29 +188,28 @@ function circles_terminal_cmd_plugin()
                   else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in: please, set it first", _par_1, _cmd_tag );
                   break ;
                   case "list":
-                  var _cols_width = [ 14, 25, 30, 10 ], _startINDEX = 0 ;
-                 		  _row += "<lightgray>List of current open pop-up windows</lightgray>" ;
-                      _row += _glob_crlf + "<lightblue>"+( new String( "Subset" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
+                  var _cols_width = [ 9, 14, 25, 30 ], _startINDEX = 0, _row = "" ;
+                 		  _row = "<lightgray>Currently open pop-up windows</lightgray>" ;
+                      _row += _glob_crlf + "<snow>"+( new String( "Visible" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</snow>" ;
+                      _startINDEX++ ;
+                      _row += "<lightblue>"+( new String( "Subset" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
                       _startINDEX++ ;
                       _row += "<white>"+( new String( "Opening id" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</white>" ;
                       _startINDEX++ ;
                       _row += "<lightblue>"+( new String( "Popup caption" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
-                      _startINDEX++ ;
-                      _row += "<snow>"+( new String( "Visible" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</snow>" ;
                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                   var _subset, _base_id, _caption, _visible ;
-                  $.each( _glob_popups_array,
-                          function( _i, _chunk )
+                  $.each( _glob_popups_array, function( _i, _chunk )
                           {
                             _base_id = _chunk[12], _caption = _chunk[2], _visible = _chunk[4], _subset = _chunk[8] ;
                          		_startINDEX = 0 ;
-  												  _row  = "<lightblue>"+_subset.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
+                            _row = "<"+(_visible?"green":COLOR_ERROR)+">"+(_visible?"yes":"no").rpad( " ", _cols_width[_startINDEX] )+"</"+(_visible?"green":COLOR_ERROR)+">" ;
                             _startINDEX++ ;
-  												  _row  += "<white>"+_base_id.rpad( " ", _cols_width[_startINDEX] )+"</white>" ;
+  												  _row += "<lightblue>"+_subset.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
+                            _startINDEX++ ;
+  												  _row += "<white>"+_base_id.rpad( " ", _cols_width[_startINDEX] )+"</white>" ;
                             _startINDEX++ ;
                             _row += "<lightblue>"+_caption.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
-                            _startINDEX++ ;
-                            _row += "<"+(_visible?"green":COLOR_ERROR)+">"+(_visible?"yes":"no").rpad( " ", _cols_width[_startINDEX] )+"</"+(_visible?"green":COLOR_ERROR)+">" ;
                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                           }
                         );
@@ -319,7 +318,7 @@ function circles_terminal_cmd_plugin()
                   if ( _plugin_tmp_vars_array['plugin_sel'] == null ) _plugin_tmp_vars_array['plugin_sel'] = [] ;
                   var _fam = _params_assoc_array['settings']['family'] != null ? _params_assoc_array['settings']['family'] : "" ;
                   var _def = _params_assoc_array['settings']['def'] != null ? _params_assoc_array['settings']['def'] : "" ;
-                  if ( is_string( _fam ) && is_string( _def ) )
+                  if ( is_consistent_string( _fam ) && is_consistent_string( _def ) )
                   {
                     var _famLC = _fam.toLowerCase(), _famUC = _fam.toUpperCase();
                     var _defLC = _def.toLowerCase(), _defUC = _def.toUpperCase();
@@ -328,13 +327,7 @@ function circles_terminal_cmd_plugin()
                     _plugin_tmp_vars_array['plugin_sel']['packed_name'] = _famLC + "@" + _defLC ;
                     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Plug-in target has been correctly set to <white>"+_params_assoc_array['settings']['family']+" "+_params_assoc_array['settings']['def']+"</white>", _par_1, _cmd_tag );
                   }
-                  else
-                  {
-                    if ( !is_string( _fam ) )
-                    circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing Plug-in family specification", _par_1, _cmd_tag );
-                    if ( !is_string( _def ) )
-                    circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing Plug-in definition", _par_1, _cmd_tag );
-                  }
+                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot set plug-in: missing couple family specification / definition", _par_1, _cmd_tag );
                   break ;
                   case "varslist":
                   if ( _plugin_tmp_vars_array['plugin_sel'] != null )

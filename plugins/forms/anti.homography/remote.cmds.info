@@ -1,3 +1,5 @@
+"check"="check conjugation at num/denominator. Syntax: check <symbol> <position>. Example check a num"
 "close"="close pop-up window"
 "focus"="set the focus to the pop-up window"
 "move"="move pop-up window. Example: move LEFT|RIGHT TOP|BOTTOM"
+"uncheck"="uncheck conjugation at num/denominator. Syntax: uncheck <symbol> <position>. Example uncheck a num"

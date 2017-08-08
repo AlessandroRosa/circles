@@ -17,8 +17,8 @@ function CIRCLESformsANTIHOMOGRAPHYapply( _items_switch )
 		            function( _i, _item )
 		            {
 		               _mask = 0 ;
-		               _mask |= $( "#CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_1_" + _item.symbol ).prop( "checked" ) ? 1 : 0 ;
-		               _mask |= $( "#CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_2_" + _item.symbol ).prop( "checked" ) ? 2 : 0 ;
+		               _mask |= $( "#CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_num_" + _item.symbol ).prop( "checked" ) ? 1 : 0 ;
+		               _mask |= $( "#CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_den_" + _item.symbol ).prop( "checked" ) ? 2 : 0 ;
 									 _items_array[_i].map.set_anti_homography_mask( _mask );
                    _glob_items_anti_homography_mask_map[_item.symbol] = _mask ;
 		            }
@@ -42,20 +42,17 @@ function CIRCLESformsANTIHOMOGRAPHYlist( _items_switch, _update )
         if ( _items_switch.is_one_of( ITEMS_SWITCH_SEEDS, ITEMS_SWITCH_GENS ) )
         HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"color:#D4E0EA;font-size:16pt;\">Source : "+_items_label+"</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-        HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"color:#EAEAEA;font-size:16pt;\">No items have been</td></tr>" ;
-        HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"color:#EAEAEA;font-size:16pt;\">registered yet</td></tr>" ;
+        HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"color:#EAEAEA;font-size:16pt;\">No items have been<br>registered yet</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
     }
     else
     {
         var _num_cnt = 0, _den_cnt = 0 ;
-        $.each( _items_array,
-                function( _i, _item )
+        $.each( _items_array, function( _i, _item )
                 {
                     if ( _item.map.get_anti_homography_mask() & 1 ) _num_cnt++ ;
                     if ( _item.map.get_anti_homography_mask() & 2 ) _den_cnt++ ;
-                }
-              );
+                } );
 
         var _b_all_num = safe_size( _items_array, 0 ) == _num_cnt ? YES : NO ;
         var _b_all_den = safe_size( _items_array, 0 ) == _den_cnt ? YES : NO ;
@@ -65,26 +62,26 @@ function CIRCLESformsANTIHOMOGRAPHYlist( _items_switch, _update )
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td ALIGN=\"center\">Item</td>" ;
         HTMLcode += "<td WIDTH=\"25\"></td>" ;
-        HTMLcode += "<td ALIGN=\"center\" COLSPAN=\"3\">Check to apply complex conjugation to var z</td>" ;
+        HTMLcode += "<td ALIGN=\"center\" COLSPAN=\"3\">Check and apply complex conjugation to var z</td>" ;
         HTMLcode += "</tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td ALIGN=\"center\">Symbol</td>" ;
         HTMLcode += "<td WIDTH=\"25\"></td>" ;
-        HTMLcode += "<td ALIGN=\"center\">Z at numerator</td>" ;
+        HTMLcode += "<td ALIGN=\"center\" STYLE=\"color:lightblue;\">Z at numerator</td>" ;
         HTMLcode += "<td WIDTH=\"25\"></td>" ;
-        HTMLcode += "<td ALIGN=\"center\">Z at denominator</td>" ;
+        HTMLcode += "<td ALIGN=\"center\" STYLE=\"color:lightblue;\">Z at denominator</td>" ;
         HTMLcode += "<td WIDTH=\"25\"></td>" ;
         HTMLcode += "</tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td ALIGN=\"center\">All</td>" ;
         HTMLcode += "<td WIDTH=\"25\"></td>" ;
-        HTMLcode += "<td ALIGN=\"center\"><INPUT "+(_b_all_num?"CHECKED":"")+" ID=\"CIRCLESformsANTIHOMOGRAPHYcheckbox_all_1\" TYPE=\"checkbox\" ONCLICK=\"javascript:$('[id^=CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_1_]').prop('checked',this.checked?true:false);\"></td>" ;
+        HTMLcode += "<td ALIGN=\"center\"><INPUT "+(_b_all_num?"CHECKED":"")+" ID=\"CIRCLESformsANTIHOMOGRAPHYcheckbox_all_num\" TYPE=\"checkbox\" ONCLICK=\"javascript:$('[id^=CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_1_]').prop('checked',this.checked?true:false);\"></td>" ;
         HTMLcode += "<td WIDTH=\"25\"></td>" ;
-        HTMLcode += "<td ALIGN=\"center\"><INPUT "+(_b_all_den?"CHECKED":"")+" ID=\"CIRCLESformsANTIHOMOGRAPHYcheckbox_all_2\" TYPE=\"checkbox\" ONCLICK=\"javascript:$('[id^=CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_2_]').prop('checked',this.checked?true:false);\"></td>" ;
+        HTMLcode += "<td ALIGN=\"center\"><INPUT "+(_b_all_den?"CHECKED":"")+" ID=\"CIRCLESformsANTIHOMOGRAPHYcheckbox_all_den\" TYPE=\"checkbox\" ONCLICK=\"javascript:$('[id^=CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_2_]').prop('checked',this.checked?true:false);\"></td>" ;
         HTMLcode += "</tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
 
@@ -93,11 +90,11 @@ function CIRCLESformsANTIHOMOGRAPHYlist( _items_switch, _update )
                {
                   HTMLcode += "<tr>" ;
                   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-                  HTMLcode += "<td ALIGN=\"center\">"+_item.symbol+"</td>" ;
+                  HTMLcode += "<td ALIGN=\"center\" STYLE=\"color:yellow;\">"+_item.symbol+"</td>" ;
                   HTMLcode += "<td WIDTH=\"25\"></td>" ;
-                  HTMLcode += "<td ALIGN=\"center\"><INPUT ID=\"CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_1_"+_item.symbol+"\" TYPE=\"checkbox\" "+( _item.map.anti_homography_mask & 1 ? "CHECKED" : "" )+"></td>" ;
+                  HTMLcode += "<td ALIGN=\"center\"><INPUT ID=\"CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_num_"+_item.symbol+"\" TYPE=\"checkbox\" "+( _item.map.anti_homography_mask & 1 ? "CHECKED" : "" )+"></td>" ;
                   HTMLcode += "<td WIDTH=\"25\"></td>" ;
-                  HTMLcode += "<td ALIGN=\"center\"><INPUT ID=\"CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_2_"+_item.symbol+"\" TYPE=\"checkbox\" "+( _item.map.anti_homography_mask & 2 ? "CHECKED" : "" )+"></td>" ;
+                  HTMLcode += "<td ALIGN=\"center\"><INPUT ID=\"CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_den_"+_item.symbol+"\" TYPE=\"checkbox\" "+( _item.map.anti_homography_mask & 2 ? "CHECKED" : "" )+"></td>" ;
                   HTMLcode += "</tr>" ;
                   HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
                }
@@ -123,20 +120,22 @@ function CIRCLESformsANTIHOMOGRAPHYmain( _base_id, _move, _items_switch )
     var _div_id = CIRCLESformsANTIHOMOGRAPHYdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
     var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
         HTMLcode += "<table WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsANTIHOMOGRAPHYcaption + " - " + _caption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "lens/lens.icon.01.16x16.png", ONACTIVATEFN );
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsANTIHOMOGRAPHYcaption + " - " + _caption, 5, YES, CLOSE_FN,
+        WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "lens/lens.icon.01.16x16.png", ONACTIVATEFN );
 
-    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-    HTMLcode += "<tr><td STYLE=\"padding:5px;\">Check boxes to apply complex conjugation to var z</td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\"><table><tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td ALIGN=\"center\">Source</td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td><SELECT ID=\"CIRCLESformsANTIHOMOGRAPHYitemsCOMBO\" ONCHANGE=\"javascript:CIRCLESformsANTIHOMOGRAPHYlist($('#'+this.id+' option:selected').val(),YES);\"><OPTION VALUE=\""+ITEMS_SWITCH_SEEDS+"\" "+(_items_switch==ITEMS_SWITCH_SEEDS?"SELECTED=\"selected\"":"")+">Seeds<OPTION VALUE=\""+ITEMS_SWITCH_GENS+"\""+(_items_switch==ITEMS_SWITCH_GENS?"SELECTED=\"selected\"":"")+">Gens</SELECT></td>" ;
+    HTMLcode += "<td WIDTH=\"5\"></td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsANTIHOMOGRAPHYapply( $('#CIRCLESformsANTIHOMOGRAPHYitemsCOMBO option:selected').val() );\">Apply</td>" ;
+    HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "</tr></table></td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
     HTMLcode += "<tr>" ;
-    HTMLcode += "<td VALIGN=\"top\" ID=\"CIRCLESformsANTIHOMOGRAPHYformCONTAINER\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#343434;\">" ;
+    HTMLcode += "<td VALIGN=\"top\" ID=\"CIRCLESformsANTIHOMOGRAPHYformCONTAINER\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#454545;\">" ;
     HTMLcode += CIRCLESformsANTIHOMOGRAPHYlist(_items_switch) ;
     HTMLcode += "</td>" ;
     HTMLcode += "</tr>" ;
@@ -146,12 +145,8 @@ function CIRCLESformsANTIHOMOGRAPHYmain( _base_id, _move, _items_switch )
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td VALIGN=\"top\" CLASS=\"popup_buttons_bar\">" ;
-        HTMLcode += "<table>" ;
-        HTMLcode += "<tr>" ;
-        HTMLcode += "<td WIDTH=\"5\"></td>" ;
-        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsANTIHOMOGRAPHYapply( $('#CIRCLESformsANTIHOMOGRAPHYitemsCOMBO option:selected').val() );\">Apply</td>" ;
-        HTMLcode += "<td WIDTH=\"5\"></td>" ;
-        HTMLcode += "<td ID=\"CIRCLESformsANTIHOMOGRAPHYoutMSG\"></td>" ;
+        HTMLcode += "<table ALIGN=\"center\">" ;
+        HTMLcode += "<tr><td HEIGHT=\"22\" ALIGN=\"center\" ID=\"CIRCLESformsANTIHOMOGRAPHYoutMSG\"></td></tr>" ;
         HTMLcode += "</table>" ;
         HTMLcode += "</td>" ;
         HTMLcode += "</tr>" ;

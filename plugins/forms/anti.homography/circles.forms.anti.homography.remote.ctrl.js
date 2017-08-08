@@ -17,6 +17,12 @@ function CIRCLESformsANTIHOMOGRAPHYremotectrl( _options, _return_fn, _out_channe
 				case "/*anyaction*/":
         return 1 ;
 				break ;
+        case "check":
+        var _symbol = safe_string( _options[1], "" ) ;
+        var _position = safe_string( _options[2], "num" ) ;
+        var _ctrl_id = "CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_"+_position+"_"+_symbol ;
+        if ( $( "#"+_ctrl_id ).get(0) != null )$( "#"+_ctrl_id ).prop( "checked", true );
+				break ;
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "forms", _base_id = "anti.homography" ;
@@ -32,6 +38,12 @@ function CIRCLESformsANTIHOMOGRAPHYremotectrl( _options, _return_fn, _out_channe
         var _sub = "forms", _base_id = "anti.homography" ;
 				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
         return 1 ;
+				break ;
+        case "uncheck":
+        var _symbol = safe_string( _options[1], "" ) ;
+        var _position = safe_string( _options[2], "num" ) ;
+        var _ctrl_id = "CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_"+_position+"_"+_symbol ;
+        if ( $( "#"+_ctrl_id ).get(0) != null )$( "#"+_ctrl_id ).prop( "checked", false );
 				break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
