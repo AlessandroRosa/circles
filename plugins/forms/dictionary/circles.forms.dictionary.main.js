@@ -1,10 +1,5 @@
 function CIRCLESformsDICTIONARYinfo() { circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "Words reading direction goes from right to left", _glob_app + " - Info - Dictionary" ); }
-function CIRCLESformsDICTIONARYclose()
-{
-		circles_lib_plugin_dispatcher_unicast_message( "dictionary", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-    return YES ;
-}
-
+function CIRCLESformsDICTIONARYclose() { return circles_lib_plugin_dispatcher_unicast_message( "dictionary", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsDICTIONARYmaximize()
 {
     var _full_width = safe_int( arguments[1], 0 );

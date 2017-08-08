@@ -1,5 +1,4 @@
-function CIRCLESformsMETHODclose()     { return YES ; }
-
+function CIRCLESformsMETHODclose() { return circles_lib_plugin_dispatcher_unicast_message( "method", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _caller_fn )
 {
 		if ( is_string( _tab_index ) )

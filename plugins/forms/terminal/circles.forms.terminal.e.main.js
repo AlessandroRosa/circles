@@ -1,3 +1,4 @@
+function CIRCLESformsTERMINALclose( _suffix ) { return circles_lib_plugin_dispatcher_unicast_message( "terminal", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsTERMINALmaximize()
 {
     var _div_id = arguments[0] ;
@@ -27,12 +28,6 @@ function CIRCLESformsTERMINALnormalize()
     var _original_width = safe_int( arguments[2], 0 );
     var _original_height = safe_int( arguments[3], 0 );
     CIRCLESformsTERMINALresize( _original_width, _original_height, _suffix, OUTPUT_SCREEN );
-}
-
-function CIRCLESformsTERMINALclose( _suffix )
-{
-		circles_lib_plugin_dispatcher_unicast_message( "terminal", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-    return YES ;
 }
 
 function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _term_height )

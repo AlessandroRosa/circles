@@ -1,4 +1,4 @@
-function CIRCLESformsWATCHFORMULAclose() { return YES ; }
+function CIRCLESformsWATCHFORMULAclose() { return circles_lib_plugin_dispatcher_unicast_message( "watch.formula", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsWATCHFORMULAmain( _base_id, _move, index, _items_switch )
 {
     if ( is_string( index ) ) index = circles_lib_find_item_index_by_symbol( null, index ) ;

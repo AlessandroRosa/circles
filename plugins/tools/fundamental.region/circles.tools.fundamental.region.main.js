@@ -1,9 +1,4 @@
-function CIRCLEStoolsFUNDAMENTALREGIONclose()
-{
-		circles_lib_plugin_dispatcher_unicast_message( CIRCLEStoolsFUNDAMENTALREGIONuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-		return YES ;
-}
-
+function CIRCLEStoolsFUNDAMENTALREGIONclose() { return circles_lib_plugin_dispatcher_unicast_message( "fundamental.region", "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLEStoolsFUNDAMENTALREGIONmaximize()
 {
     var _full_width = safe_int( arguments[1], 0 );

@@ -1,5 +1,4 @@
-function CIRCLESformsTANGENTCIRCLEclose() { return circles_lib_plugin_dispatcher_unicast_message( "tangentcircle", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
-
+function CIRCLESformsTANGENTCIRCLEclose() { return circles_lib_plugin_dispatcher_unicast_message( "tangent.circle", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
 {
     CIRCLESformsTANGENTCIRCLEbaseid = safe_string( _base_id, "" ) ;

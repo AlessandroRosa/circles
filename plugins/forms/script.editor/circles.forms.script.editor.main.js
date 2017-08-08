@@ -1,9 +1,4 @@
-function CIRCLESformsSCRIPTEDITORclose()
-{
-    circles_lib_plugin_dispatcher_unicast_message( "script.editor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-		return YES ;
-}
-
+function CIRCLESformsSCRIPTEDITORclose() { return circles_lib_plugin_dispatcher_unicast_message( "script.editor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsSCRIPTEDITORmaximize()
 {
     var _full_width = safe_int( arguments[3], 0 );

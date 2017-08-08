@@ -1,5 +1,4 @@
-function CIRCLESformsBENCHMARKclose() { return YES ; }
-
+function CIRCLESformsBENCHMARKclose() { return circles_lib_plugin_dispatcher_unicast_message( "benchmark", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsBENCHMARKmain( _base_id, _move )
 {
      CIRCLESformsBENCHMARKbaseid = safe_string( _base_id, "" ) ;

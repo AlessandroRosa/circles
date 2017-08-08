@@ -1,5 +1,4 @@
-function CIRCLESformsSTORAGESPACEclose() { return YES ; }
-
+function CIRCLESformsSTORAGESPACEclose() { return circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsSTORAGESPACEmain( _base_id, _move )
 {
     _move = safe_int( _move, YES );

@@ -1,5 +1,4 @@
-function CIRCLESformsTRIGGERSclose() { return YES ; }
-
+function CIRCLESformsTRIGGERSclose() { return circles_lib_plugin_dispatcher_unicast_message( "triggers", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsTRIGGERSmain( _base_id, _move )
 {
     CIRCLESformsTRIGGERSbaseid = safe_string( _base_id, "" ) ;

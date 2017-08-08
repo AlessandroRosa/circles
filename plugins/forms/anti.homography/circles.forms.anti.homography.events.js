@@ -10,7 +10,6 @@ function CIRCLESformsANTIHOMOGRAPHYeventsHANDLER( _ctrl_id, _event )
     var _esc_pressed = _event.keyCode == 27 ? YES : NO ;
 		var _shift_pressed = _event.shiftKey ;
     var _return_pressed = _event.keyCode == 13 ? YES : NO ;
-
     var _param_01 = arguments[2], _param2 = arguments[3] ;
 
   	event.preventDefault();

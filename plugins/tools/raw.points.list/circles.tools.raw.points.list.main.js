@@ -1,9 +1,4 @@
-function CIRCLEStoolsRAWPOINTSLISTclose()
-{
-		circles_lib_plugin_dispatcher_unicast_message( CIRCLEStoolsRAWPOINTSLISTuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-		return YES ;
-}
-
+function CIRCLEStoolsRAWPOINTSLISTclose() { return circles_lib_plugin_dispatcher_unicast_message( "raw.points.list", "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLEStoolsRAWPOINTSLISTmaximize()
 {
     var _full_width = safe_int( arguments[1], 0 ), _full_height = safe_int( arguments[2], 0 );

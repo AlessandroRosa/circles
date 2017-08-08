@@ -1,9 +1,4 @@
-function CIRCLESformsFOURTHTANGENTCIRCLEclose()
-{
-		 circles_lib_plugin_dispatcher_unicast_message( "fourthtangent", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-     return YES ;
-}
-
+function CIRCLESformsFOURTHTANGENTCIRCLEclose() { return circles_lib_plugin_dispatcher_unicast_message( "fourth.tangent", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsFOURTHTANGENTCIRCLEmain( _base_id, _move )
 {
     CIRCLESformsFOURTHTANGENTCIRCLEbaseid = safe_string( _base_id, "" ) ;

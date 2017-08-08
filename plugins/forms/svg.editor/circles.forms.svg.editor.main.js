@@ -1,4 +1,4 @@
-function CIRCLESformsSVGEDITORclose() { circles_lib_plugin_dispatcher_unicast_message( "svgeditor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); return YES ; }
+function CIRCLESformsSVGEDITORclose() { circles_lib_plugin_dispatcher_unicast_message( "svg.editor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); return YES ; }
 
 function CIRCLESformsSVGEDITORmain( _base_id, _move )
 {

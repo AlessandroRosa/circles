@@ -1,5 +1,4 @@
-function CIRCLESformsTERMINALCOMMENTclose()    { return YES ; }
-
+function CIRCLESformsTERMINALCOMMENTclose()    { return circles_lib_plugin_dispatcher_unicast_message( "terminal.comment", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsTERMINALCOMMENTmain( _base_id, _move )
 {
     CIRCLESformsTERMINALCOMMENTbaseid = safe_string( _base_id, "" ) ;

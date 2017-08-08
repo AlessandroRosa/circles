@@ -1,9 +1,4 @@
-function CIRCLEStoolsCANVASCOMPOSITIONclose()
-{
-		circles_lib_plugin_dispatcher_unicast_message( CIRCLEStoolsCANVASCOMPOSITIONuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-		return YES ;
-}
-
+function CIRCLEStoolsCANVASCOMPOSITIONclose() { return circles_lib_plugin_dispatcher_unicast_message( "canvas.composition", "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLEStoolsCANVASCOMPOSITIONmaximize()
 {
     var _full_width = safe_int( arguments[1], 0 ), _full_height = safe_int( arguments[2], 0 );

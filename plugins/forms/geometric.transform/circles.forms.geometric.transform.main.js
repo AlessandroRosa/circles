@@ -1,5 +1,4 @@
-function CIRCLESformsGEOMETRICTRANSFORMclose() { return YES ; }
-
+function CIRCLESformsGEOMETRICTRANSFORMclose() { return circles_lib_plugin_dispatcher_unicast_message( "geometric.transform", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsGEOMETRICTRANSFORMmain( _base_id, _move )
 {
     CIRCLESformsGEOMETRICTRANSFORMbaseid = safe_string( _base_id, "" ) ;

@@ -28,11 +28,16 @@ function circles_lib_plugin_dispatcher_unicast_message()
 					 _dispatcher_cmd += ");" ;
            if ( function_exists( _original_cmd ) )
            {
+              var _ret = YES ;
      			 	  try { window.eval( _dispatcher_cmd ) ; }
-     				  catch( _err ) { circles_lib_error_obj_handler( _err ); }
+     				  catch( _err ) { _ret = NO ; circles_lib_error_obj_handler( _err ); }
+              return _ret ;
            }
+           else return NO ;
 				}
+        else return NO ;
 		}
+    else return NO ;
 }
 
 function circles_lib_plugin_dispatcher_multicast_message()
@@ -56,7 +61,8 @@ function circles_lib_plugin_dispatcher_multicast_message()
         	_dispatcher_cmd += ");" ;
           if ( function_exists( _original_cmd ) )
           {
-            try{ return eval( _dispatcher_cmd ); } catch( _err ) { circles_lib_error_obj_handler( _err ); }
+            try{ return eval( _dispatcher_cmd ); }
+            catch( _err ) { circles_lib_error_obj_handler( _err ); }
           }
         } );
     }

@@ -1,4 +1,4 @@
-function CIRCLESformsINTERSECTIONPOINTSclose() { return YES ; }
+function CIRCLESformsINTERSECTIONPOINTSclose() { return circles_lib_plugin_dispatcher_unicast_message( "intersection.points", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsINTERSECTIONPOINTSmain( _base_id, _move )
 {
     CIRCLESformsINTERSECTIONPOINTSbaseid = safe_string( _base_id, "" ) ;

@@ -1,14 +1,12 @@
-function CIRCLESformsSEEDSLISTclose() { return YES ; }
+function CIRCLESformsSEEDSLISTclose() { return circles_lib_plugin_dispatcher_unicast_message( "seeds.list", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsSEEDSLISTtoggleGENSlist()
 {
-		$('#CIRCLESformsSEEDSLISTdivLIST').toggle( 'slow',
-																							 function()
-																							 {
-																							 		var _closed = $('#CIRCLESformsSEEDSLISTdivLIST').css('display') == 'none' ;
-																							 		$('#LISTshowBTN').html( _closed ? 'Show' : 'Hide' ) ;
-																							 		$( "#"+CIRCLESformsSEEDSLISTdiv_id ).width( _closed ? 420 : 650 ) ;
-																							 }
-																						 );
+		$('#CIRCLESformsSEEDSLISTdivLIST').toggle( 'slow', function()
+			 {
+			  	var _closed = $('#CIRCLESformsSEEDSLISTdivLIST').css('display') == 'none' ;
+					$('#LISTshowBTN').html( _closed ? 'Show' : 'Hide' ) ;
+					$( "#"+CIRCLESformsSEEDSLISTdiv_id ).width( _closed ? 420 : 650 ) ;
+			 } );
 }
 
 function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_switch )

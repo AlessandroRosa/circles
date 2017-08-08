@@ -1,9 +1,5 @@
 function CIRCLESformsDISCRETENESSLOCUShelp() { circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "This form implements David Wright's application of Farey fractions", _glob_app ); }
-function CIRCLESformsDISCRETENESSLOCUSclose()
-{
-	circles_lib_plugin_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-  return YES ;
-}
+function CIRCLESformsDISCRETENESSLOCUSclose() { return circles_lib_plugin_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 
 function CIRCLESformsDISCRETENESSLOCUSmaximize()
 {

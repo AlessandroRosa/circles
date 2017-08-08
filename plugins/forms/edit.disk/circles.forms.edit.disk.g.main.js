@@ -1,4 +1,4 @@
-function CIRCLESformsEDITDISKclose() { return YES ; }
+function CIRCLESformsEDITDISKclose() { return circles_lib_plugin_dispatcher_unicast_message( 'edit.disk', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsEDITDISKwatchFORMULAask( _item_index )
 {
     _item_index = safe_int( _item_index, UNDET );

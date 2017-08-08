@@ -1,5 +1,4 @@
-function CIRCLESformsCIRCLEINVERSIONclose() { return YES ; }
-
+function CIRCLESformsCIRCLEINVERSIONclose() { return circles_lib_plugin_dispatcher_unicast_message( "circle.inversion", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsCIRCLEINVERSIONmain( _base_id, _move )
 {
     var CLOSE_FN = "CIRCLESformsCIRCLEINVERSIONclose();" ;

@@ -1,9 +1,4 @@
-function CIRCLESformsBIPclose()
-{
-    circles_lib_plugin_dispatcher_unicast_message( "bip", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-    return YES ;
-}
-
+function CIRCLESformsBIPclose() { return circles_lib_plugin_dispatcher_unicast_message( "bip", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsBIPhelp()
 {
     var _msg = "&lsquo;Bip&rsquo; is the acronym of &lsquo;Batch Image Processing&rsquo;" + _glob_crlf.repeat(2) ;

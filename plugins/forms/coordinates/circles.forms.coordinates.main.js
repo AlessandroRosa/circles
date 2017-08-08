@@ -1,9 +1,4 @@
-function CIRCLESformsCOORDINATESclose()
-{
-		circles_lib_plugin_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-		return YES ;
-}
-
+function CIRCLESformsCOORDINATESclose() { return circles_lib_plugin_dispatcher_unicast_message( 'coordinates', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsCOORDINATESform( _plane_type, _return_html, coords_array )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;

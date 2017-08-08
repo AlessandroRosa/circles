@@ -1,9 +1,4 @@
-function CIRCLESformsGENERALOPTIONSclose()
-{
-	  circles_lib_plugin_dispatcher_unicast_message( "generaloptions", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-    return YES ;
-}
-
+function CIRCLESformsGENERALOPTIONSclose() { return circles_lib_plugin_dispatcher_unicast_message( "general.options", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
 {
 		if ( is_string( _tab_index ) )

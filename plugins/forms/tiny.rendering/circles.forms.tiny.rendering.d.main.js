@@ -1,9 +1,4 @@
-function CIRCLESformsTINYRENDERINGclose( _REF_ID )
-{
-   circles_lib_plugin_dispatcher_unicast_message( "tinyrendering", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE, _REF_ID );
-   return YES ;
-}
-
+function CIRCLESformsTINYRENDERINGclose( _REF_ID ) { circles_lib_plugin_dispatcher_unicast_message( "tiny.rendering", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE, _REF_ID ); }
 function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_id )
 {
    CIRCLESformsTINYRENDERINGbaseid = safe_string( _base_id, "" ) ;

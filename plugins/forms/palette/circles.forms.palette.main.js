@@ -1,5 +1,4 @@
-function CIRCLESformsPALETTEclose() { circles_lib_plugin_dispatcher_unicast_message( "palette", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); return YES ; }
-
+function CIRCLESformsPALETTEclose() { return circles_lib_plugin_dispatcher_unicast_message( "palette", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); return YES ; }
 function CIRCLESformsPALETTEmain( _base_id, _move )
 {
     CIRCLESformsPALETTEbaseid = safe_string( _base_id, "" ) ;

@@ -241,7 +241,7 @@ laTeXpic.prototype.default_settings = function() { this.init( 640, 480, _latex_o
 laTeXpic.prototype.use_package = function()
 {
 		for( var _i = 0 ; _i < arguments.length ; _i++ )
-		this.packages.push( "\\usepackage{"+arguments[_i]+"}" ); ;
+		this.packages.push( "\\usepackage{"+arguments[_i]+"}" );
 }
 
 laTeXpic.prototype.comment = function( _comment_text, _return )

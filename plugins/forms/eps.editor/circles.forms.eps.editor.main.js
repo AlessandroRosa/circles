@@ -1,9 +1,4 @@
-function CIRCLESformsEPSEDITORclose()
-{
-		circles_lib_plugin_dispatcher_unicast_message( "epseditor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-    return YES ;
-}
-
+function CIRCLESformsEPSEDITORclose() { return circles_lib_plugin_dispatcher_unicast_message( "eps.editor", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsEPSEDITORresize( _new_width, _new_height, _out_channel )
 {
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );

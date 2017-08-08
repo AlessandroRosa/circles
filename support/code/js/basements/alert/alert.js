@@ -165,7 +165,7 @@ function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth,
     else BKCOLORclass = "alert_error" ;
 
     var _caption_colspan = 3 ;
-    if ( mode == -1 || ( mode & ALERT_NOICON ) == 0 ) _caption_colspan += 2 ; ;
+    if ( mode == -1 || ( mode & ALERT_NOICON ) == 0 ) _caption_colspan += 2 ;
       
     if ( ICONWIDTH == 0 ) ICONWIDTH = 48 ;
     ICONWIDTH += 16 ; 

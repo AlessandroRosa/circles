@@ -1,4 +1,4 @@
-function CIRCLESformsTERMINALFILTERclose() { return YES ; }
+function CIRCLESformsTERMINALFILTERclose() { return circles_lib_plugin_dispatcher_unicast_message( "terminal.filter", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsTERMINALFILTERmain( _base_id, _move )
 {
     CIRCLESformsTANGENTCIRCLEbaseid = safe_string( _base_id, "" ) ;

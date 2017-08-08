@@ -591,7 +591,7 @@ String.prototype.run_forward_up_to = function( _stopper, _offset, _include_stopp
 
 String.prototype.run_backward_up_to = function( _stopper, _from, _include_stopper, _stop_at_nth_match )
 {
-		_from = Math.max( 0, safe_int( _from, 0 ) ), _include_stopper = safe_int( _include_stopper, 0 ), _stop_at_nth_match = safe_int( _stop_at_nth_match, 1 ) ; ;
+		_from = Math.max( 0, safe_int( _from, 0 ) ), _include_stopper = safe_int( _include_stopper, 0 ), _stop_at_nth_match = safe_int( _stop_at_nth_match, 1 ) ;
 		var _str = "", _runner, _offset = 0, _ret_str = "", _cnt_match = 0 ;
 		var _b_is_regex = is_regex( _stopper ), _b_is_string = is_string( _stopper ) ;
     if ( _b_is_regex )

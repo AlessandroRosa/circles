@@ -1,5 +1,4 @@
-function CIRCLESformsMERGINGclose() { return YES ; }
-
+function CIRCLESformsMERGINGclose() { return circles_lib_plugin_dispatcher_unicast_message( "merging", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsMERGINGmain( _base_id, _move, _plane_type )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;

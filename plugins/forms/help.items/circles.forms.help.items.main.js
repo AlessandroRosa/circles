@@ -1,5 +1,4 @@
-function CIRCLESformsHELPITEMSclose() { return YES ; }
-
+function CIRCLESformsHELPITEMSclose() { return circles_lib_plugin_dispatcher_unicast_message( "help.items", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsHELPITEMSmain( _base_id, _move, _items_switch )
 {
     _move = safe_int( _move, YES );

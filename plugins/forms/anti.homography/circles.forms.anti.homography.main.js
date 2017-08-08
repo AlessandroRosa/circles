@@ -1,9 +1,4 @@
-function CIRCLESformsANTIHOMOGRAPHYclose()
-{
-		circles_lib_plugin_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-		return YES ;
-}
-
+function CIRCLESformsANTIHOMOGRAPHYclose() { return circles_lib_plugin_dispatcher_unicast_message( 'anti.homography', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsANTIHOMOGRAPHYapply( _items_switch )
 {
     _items_switch = safe_int( _items_switch, ITEMS_SWITCH_SEEDS ) ;

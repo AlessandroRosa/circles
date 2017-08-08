@@ -1,9 +1,4 @@
-function CIRCLEStoolsGROUPTABLEclose()
-{
-		circles_lib_plugin_dispatcher_unicast_message( CIRCLEStoolsGROUPTABLEuniqueid, "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-		return YES ;
-}
-
+function CIRCLEStoolsGROUPTABLEclose() { return circles_lib_plugin_dispatcher_unicast_message( "group.table", "tools", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLEStoolsGROUPTABLEmaximize()
 {
     var _full_width = safe_int( arguments[1], 0 ), _full_height = safe_int( arguments[2], 0 );
