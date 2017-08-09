@@ -15,8 +15,8 @@ function CIRCLESformsEPSEDITORdispatcher()
 					 {
                 case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
                 var _sw = $(window).width(), _sh = $(window).height() ;
-                var _div_id = _glob_popups_array[ POPUP_INDEX ][1] ;
-                var _suffix = _glob_popups_array[ POPUP_INDEX ][9] ;
+                var _div_id = _glob_popups_array[ _idx ][1] ;
+                var _suffix = _glob_popups_array[ _idx ][9] ;
                 $("#"+_div_id).height( _sh - 70 ) ;
                 circles_lib_forms_adjust_position( _div_id ) ;
 		            var _sw = $(window).width(), _sh = $(window).height() ;
@@ -33,8 +33,8 @@ function CIRCLESformsEPSEDITORdispatcher()
                 case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
                 break ;
 		          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-		          var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
-		          var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
+		          var _subset = _glob_popups_array[ _idx ][8] ;
+		          var _base_id = _glob_popups_array[ _idx ][12] ;
 		          circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		          break ;
               case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
@@ -51,8 +51,8 @@ function CIRCLESformsEPSEDITORdispatcher()
 		          CIRCLESformsEPSEDITORcomputePAGES(YES);
 							break ;
 		          case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
-		          var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
-		          var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
+		          var _subset = _glob_popups_array[ _idx ][8] ;
+		          var _base_id = _glob_popups_array[ _idx ][12] ;
 		          circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
 		          break ;
               default: break ;

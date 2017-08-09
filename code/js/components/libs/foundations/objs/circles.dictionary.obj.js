@@ -76,11 +76,11 @@ function dictionary()
     for( var ch = 97 ; ch <= 122 ; ch++ ) this.small_letters.push( String.fromCharCode( ch ) );
 
 		// default automaton fits for punctured tori (i.e. free groups with reduced words)
-		this.automaton_table[ "I" ] = [ "a", "b", "A", "B" ] ;
-		this.automaton_table[ "a" ] = [ "a", "b", "I", "B" ] ;
-		this.automaton_table[ "b" ] = [ "a", "b", "A", "I" ] ;
-		this.automaton_table[ "A" ] = [ "I", "b", "A", "B" ] ;
-		this.automaton_table[ "B" ] = [ "a", "I", "A", "B" ] ;
+		this.automaton_table[ "e" ] = [ "a", "b", "A", "B" ] ;
+		this.automaton_table[ "a" ] = [ "a", "b", "e", "B" ] ;
+		this.automaton_table[ "b" ] = [ "a", "b", "A", "e" ] ;
+		this.automaton_table[ "A" ] = [ "e", "b", "A", "B" ] ;
+		this.automaton_table[ "B" ] = [ "a", "e", "A", "B" ] ;
 }
 
 dictionary.prototype.error_log_flush = function()     { this.error_log = [] ; }
@@ -122,11 +122,11 @@ dictionary.prototype.reset = function()
     this.alphabet = [ "a", "b", "A", "B" ] ; // default alphabet fits for 2-gens groups
 
 		// default automaton is for punctured tori (i.e. free groups with reduced words)
-		this.automaton_table[ "I" ] = [ "a", "b", "A", "B" ] ;
-		this.automaton_table[ "a" ] = [ "a", "b", "I", "B" ] ;
-		this.automaton_table[ "b" ] = [ "a", "b", "A", "I" ] ;
-		this.automaton_table[ "A" ] = [ "I", "b", "A", "B" ] ;
-		this.automaton_table[ "B" ] = [ "a", "I", "A", "B" ] ;
+		this.automaton_table[ "e" ] = [ "a", "b", "A", "B" ] ;
+		this.automaton_table[ "a" ] = [ "a", "b", "e", "B" ] ;
+		this.automaton_table[ "b" ] = [ "a", "b", "A", "e" ] ;
+		this.automaton_table[ "A" ] = [ "e", "b", "A", "B" ] ;
+		this.automaton_table[ "B" ] = [ "a", "e", "A", "B" ] ;
 }
 
 dictionary.prototype.init_from_obj = function( dict_obj )
@@ -346,7 +346,7 @@ dictionary.prototype.automaton_punctured_torus = function( _n_gens )
 		{
 				_automaton[ _full[_j] ] = [] ;
 				for( _k = 0 ; _k < _full.length ; _k++ )
- 			  _automaton[ _full[_j] ].push( _full[_j].reverse().flipCase().strcmp( _full[_k] ) ? "I" : _full[_k] );
+ 			  _automaton[ _full[_j] ].push( _full[_j].reverse().flipCase().strcmp( _full[_k] ) ? "e" : _full[_k] );
 		}
 
 		return _automaton.clone();
@@ -381,12 +381,12 @@ dictionary.prototype.automaton_table_read = function( _alphabet, _automaton_tabl
 			  var _row, _state, _a, _j, _s ;
 				this.automaton_index_version = [] ;
 
-				this.automaton_index_version[ "I" ] = [] ;
-				if ( !is_array( this.automaton_table[ "I" ] ) ) this.automaton_table[ "I" ] = [] ;
+				this.automaton_index_version[ "e" ] = [] ;
+				if ( !is_array( this.automaton_table[ "e" ] ) ) this.automaton_table[ "e" ] = [] ;
 				for( _a = 0 ; _a < this.alphabet.length ; _a++ )
 				{
-						 this.automaton_table[ "I" ].push( this.alphabet[ _a ] );
-						 this.automaton_index_version[ "I" ].push( _a );
+						 this.automaton_table[ "e" ].push( this.alphabet[ _a ] );
+						 this.automaton_index_version[ "e" ].push( _a );
 				}
 
 			  for( _s = 0 ; _s < this.automaton_states.length ; _s++ )
@@ -425,8 +425,8 @@ dictionary.prototype.automaton_get_indexed_word_path = function( _input_word )
 		for( _w = 0 ; _w < _w_len ; _w++ )
 		{
 				_state = _input_word[_w] ;
-				_index_array.push( this.automaton_index_version[ _w == 0 ? "I" : _last_state ][ _alphabet_index_version[ _state ] ] );
-				_last_state = this.automaton_table[ _w == 0 ? "I" : _last_state ][ _alphabet_index_version[ _state ] ] ;
+				_index_array.push( this.automaton_index_version[ _w == 0 ? "e" : _last_state ][ _alphabet_index_version[ _state ] ] );
+				_last_state = this.automaton_table[ _w == 0 ? "e" : _last_state ][ _alphabet_index_version[ _state ] ] ;
 		}
 
 		return _index_array.clone();
@@ -492,7 +492,7 @@ dictionary.prototype.automaton_dict_generation = function( _alphabet, _max_level
          if ( this.automaton_table.size_associative() > 0 )
          {
              _alphabet = this.automaton_table.keys_associative();
-             _alphabet.delete_entry( "I" );
+             _alphabet.delete_entry( "e" );
              this.alphabet = _alphabet.clone();
          }
     }
@@ -535,7 +535,7 @@ dictionary.prototype.automaton_dict_generation = function( _alphabet, _max_level
              {
                  if ( this.running == 0 ) break inner_loop ;
 								 str1 = WORD + _alphabet[_a] ; // simply append symbol as in the standard formal construction for the new extended word
-                 if ( !( this.automaton_table[ ""+_state ][ _a ].strcmp( "I" ) ) )
+                 if ( !( this.automaton_table[ ""+_state ][ _a ].strcmp( "e" ) ) )
                  {
                      if ( str1.length <= _depth ) // record the last standard word and related state in the automaton
                      {

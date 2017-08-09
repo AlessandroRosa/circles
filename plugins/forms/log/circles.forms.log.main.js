@@ -62,10 +62,11 @@ function CIRCLESformsLOGmain( _base_id, _move )
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
     var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsLOGcaption, CLOSE_FN,
-                      [ "CIRCLESformsLOGnormalize", _div_id, WIDTH, HEIGHT ],
-                      [ "CIRCLESformsLOGminimize", _div_id, WIDTH, HEIGHT ],
-                      [ "CIRCLESformsLOGmaximize", _div_id, WIDTH, HEIGHT ] );
+    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments,
+               _subset, OPEN, _div_id, CIRCLESformsLOGcaption, CLOSE_FN,
+               [ "CIRCLESformsLOGnormalize", _div_id, WIDTH, HEIGHT ],
+               [ "CIRCLESformsLOGminimize", _div_id, WIDTH, HEIGHT ],
+               [ "CIRCLESformsLOGmaximize", _div_id, WIDTH, HEIGHT ] );
 
       if ( $("#"+_div_id ).resizable('instance') != undefined )
       $("#"+_div_id).resizable('destroy').resizable(

@@ -8,15 +8,15 @@ function CIRCLESformsDISCRETENESSLOCUSdispatcher()
   */
 	if ( arguments.length > 0 )
   {
-		var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN ), POPUP_INDEX = safe_int( arguments[1], 0 );
+		var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN ), _idx = safe_int( arguments[1], 0 );
     var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "discreteness.locus" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 )
     if ( _idx == UNFOUND ) return 0 ;
 		switch( MESSAGE_ID )
 		{
       case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
       var _sw = $(window).width(), _sh = $(window).height() ;
-      var _div_id = _glob_popups_array[ POPUP_INDEX ][1] ;
-      var _suffix = _glob_popups_array[ POPUP_INDEX ][9] ;
+      var _div_id = _glob_popups_array[ _idx ][1] ;
+      var _suffix = _glob_popups_array[ _idx ][9] ;
       $("#"+_div_id).height( _sh - 70 ) ;
       CIRCLESformsDISCRETENESSLOCUSresize( $("#"+_div_id).width(), _sh - 70 ) ;
       CIRCLESformsDISCRETENESSLOCUSstopresize( $("#"+_div_id).width(), _sh - 70 ) ;

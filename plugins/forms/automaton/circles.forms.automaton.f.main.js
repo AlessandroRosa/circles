@@ -7,8 +7,7 @@ function CIRCLESformsAUTOMATONclose()
 
 function CIRCLESformsAUTOMATONmaximize()
 {
-    var _full_width = safe_int( arguments[1], 0 );
-    var _full_height = safe_int( arguments[2], 0 );
+    var _full_width = safe_int( arguments[1], 0 ), _full_height = safe_int( arguments[2], 0 );
     CIRCLESformsAUTOMATONresize( _full_width, _full_height );
     CIRCLESformsAUTOMATONstopresize();
     if ( $( "#" + CIRCLESformsAUTOMATONdiv_id ).resizable( "option", "disabled" ) )
@@ -18,8 +17,7 @@ function CIRCLESformsAUTOMATONmaximize()
 function CIRCLESformsAUTOMATONminimize()
 {
     var _original_width = safe_int( arguments[1], 0 ), _original_height = safe_int( arguments[2], 0 );
-    var _min_width = safe_int( arguments[3], 0 );
-    var _min_height = safe_int( arguments[4], 0 );
+    var _min_width = safe_int( arguments[3], 0 ), _min_height = safe_int( arguments[4], 0 );
     CIRCLESformsAUTOMATONresize( _min_width, _min_height );
     CIRCLESformsAUTOMATONstopresize();
     if ( !( $( "#" + CIRCLESformsAUTOMATONdiv_id ).resizable( "option", "disabled" ) ) )
@@ -28,8 +26,7 @@ function CIRCLESformsAUTOMATONminimize()
 
 function CIRCLESformsAUTOMATONnormalize()
 {
-    var _original_width = safe_int( arguments[1], 0 );
-    var _original_height = safe_int( arguments[2], 0 );
+    var _original_width = safe_int( arguments[1], 0 ), _original_height = safe_int( arguments[2], 0 );
     CIRCLESformsAUTOMATONresize( _original_width, _original_height );
     CIRCLESformsAUTOMATONstopresize();
     if ( $( "#" + CIRCLESformsAUTOMATONdiv_id ).resizable( "option", "disabled" ) )
@@ -48,8 +45,9 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
     var _subset = "forms" ;
     var _div_id = CIRCLESformsAUTOMATONdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
     var HTMLcode = "<table WIDTH=\"100%\" BORDER=\"0\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsAUTOMATONcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
-																				 "", "", "CIRCLESformsAUTOMATON" );
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsAUTOMATONcaption, 3, YES,
+                    CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
+										"", "", "CIRCLESformsAUTOMATON" );
         HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
 				HTMLcode += "<tr>" ;
 		    HTMLcode += "<td>" ;
@@ -61,12 +59,7 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
 				HTMLcode += "</tr>" ;
  
 				HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
-        HTMLcode += "<tr><td VALIGN=\"top\">" ;
-
-        HTMLcode += CIRCLESformsAUTOMATONconstructorTABLE( _base_id, _subset );
-
-        HTMLcode += "</td>" ;
-        HTMLcode += "</td></tr>" ;
+        HTMLcode += "<tr><td VALIGN=\"top\">"+CIRCLESformsAUTOMATONconstructorTABLE( _base_id, _subset )+"</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
         HTMLcode += "<tr><td ALIGN=\"center\" ID=\"CIRCLESformsAUTOMATONlowerADVICE\" STYLE=\"font-size:12pt;color:#4EA0D2;\">This automaton will drive the dictionary generation<br>as long as this pop-up is open</td></tr>" ;
         HTMLcode += "<tr><td ALIGN=\"center\" ID=\"CIRCLESformsAUTOMATONhiddenADVICE\" STYLE=\"display:none;font-size:16pt;color:#F5A02A;\">Enlarge this window<br>to let controls reappear</td></tr>" ;
@@ -95,23 +88,22 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
     } );
     else
     {
-       $("#"+_div_id).resizable(
-       {
+      $("#"+_div_id).resizable(
+      {
 	      start: function( event, ui ) { CIRCLESformsAUTOMATONstartresize( ui.size.width, ui.size.height ) },
 	      resize: function( event, ui ) { CIRCLESformsAUTOMATONresize( ui.size.width, ui.size.height ); },
-	      stop: function( event, ui )   { CIRCLESformsAUTOMATONstopresize( ui.size.width, ui.size.height ) }
-       } );
+	      stop: function( event, ui ) { CIRCLESformsAUTOMATONstopresize( ui.size.width, ui.size.height ) }
+      } );
     }
     $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });
 
     CIRCLESformsAUTOMATONtablePULLOUT( YES );
-    circles_lib_plugin_dispatcher_unicast_message( 'dictionary', "forms", 2.1 );
+    circles_lib_plugin_dispatcher_unicast_message( 'dictionary', "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
     $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESformsAUTOMATONload ) } ;
 }
 
 function CIRCLESformsAUTOMATONstartresize( _new_width, _new_height ) { }
 function CIRCLESformsAUTOMATONstopresize( _new_width, _new_height ) { }
-
 function CIRCLESformsAUTOMATONresize( _new_width, _new_height )
 {
     var _hide_word = _new_width < 470 || _new_height < 102 ;

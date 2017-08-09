@@ -9,12 +9,12 @@ function CIRCLESformsSCRIPTEDITORdispatcher()
 			if ( arguments.length > 0 )
 			{
 					 var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN );
-					 var POPUP_INDEX = safe_int( arguments[1], 0 );
+					 var _idx = safe_int( arguments[1], 0 );
           var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "script.editor" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 )
 					 switch( MESSAGE_ID )
 					 {
                 case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
-			          var _div_id = _glob_popups_array[ POPUP_INDEX ][1] ;
+			          var _div_id = _glob_popups_array[ _idx ][1] ;
                 circles_lib_forms_adjust_position( _div_id ) ;
 		            var _sw = $(window).width(), _sh = $(window).height() ;
 		            if ( _sw < $( "#"+_div_id ).width() )

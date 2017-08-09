@@ -316,10 +316,11 @@ function CIRCLESformsDICTIONARYmain( _base_id, _move )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
         var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
-        circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, _caption, CLOSE_FN,
-                              [ "CIRCLESformsDICTIONARYnormalize", _div_id, WIDTH, HEIGHT ],
-                              [ "CIRCLESformsDICTIONARYminimize", _div_id ],
-                              [ "CIRCLESformsDICTIONARYmaximize", _div_id ] );
+        circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments,
+                   _subset, OPEN, _div.id, _caption, CLOSE_FN,
+                   [ "CIRCLESformsDICTIONARYnormalize", _div_id, WIDTH, HEIGHT ],
+                   [ "CIRCLESformsDICTIONARYminimize", _div_id, WIDTH, HEIGHT ],
+                   [ "CIRCLESformsDICTIONARYmaximize", _div_id, WIDTH, HEIGHT ] );
         if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );
 
 				if ( _items_n > 0 )

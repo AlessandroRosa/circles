@@ -1,19 +1,17 @@
 var _glob_using_automaton = NO ;
-
 var _glob_automatons_src_words_array = [] ;
 		_glob_automatons_src_words_array[ "2 gens punctured torus" ] = [ "a", "b", "A", "B" ] ;
 		_glob_automatons_src_words_array[ "2-order commutator" ] = [ "a", "b", "A", "B" ] ;
 
 var _glob_preset_automatons_array = [] ;
 _glob_preset_automatons_array[ "2 gens punctured torus" ] = [] ;
-_glob_preset_automatons_array[ "2-order commutator" ] = [] ;
-		
 _glob_preset_automatons_array[ "2 gens punctured torus" ][ "e" ] = [ "a", "b", "A", "B" ] ;
 _glob_preset_automatons_array[ "2 gens punctured torus" ][ "a" ] = [ "a", "b", "e", "B" ] ;
 _glob_preset_automatons_array[ "2 gens punctured torus" ][ "b" ] = [ "a", "b", "A", "e" ] ;
 _glob_preset_automatons_array[ "2 gens punctured torus" ][ "A" ] = [ "e", "b", "A", "B" ] ;
 _glob_preset_automatons_array[ "2 gens punctured torus" ][ "B" ] = [ "a", "e", "A", "B" ] ;
 		
+_glob_preset_automatons_array[ "2-order commutator" ] = [] ;
 _glob_preset_automatons_array[ "2-order commutator" ][ "e" ] = [ "a", "b", "A", "B" ] ;
 _glob_preset_automatons_array[ "2-order commutator" ][ "a" ] = [ "a", "ab", "e", "B" ] ;
 _glob_preset_automatons_array[ "2-order commutator" ][ "b" ] = [ "ba", "b", "bA", "e" ] ;

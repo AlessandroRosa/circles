@@ -6,8 +6,7 @@ function CIRCLESformsAUTOMATONload( _filename, _file_contents )
     {
     		 var _b_go = YES, _row_array ;
 				 CIRCLESformsAUTOMATONarray = [], CIRCLESformsAUTOMATONsrc_words_array = [] ;
-         $.each( _automaton_rows,
-         function( _i, _row )
+         $.each( _automaton_rows, function( _i, _row )
          {
          			_row_array = ( _row.includes( "@" ) && _row.count( "@" ) == 1 ) ? _row.split( "@" ) : null ;
          			if ( is_array( _row_array ) && _row_array[1].includes( "|" ) )
@@ -20,8 +19,7 @@ function CIRCLESformsAUTOMATONload( _filename, _file_contents )
 								_b_go = NO ;
 								return ;
 							}
-         }
-         );
+         } );
 
          if ( _b_go )
 				 {
@@ -69,7 +67,6 @@ function CIRCLESformsAUTOMATONsrcWORDdelete()
 					  CIRCLESformsAUTOMATONsrc_words_array.delete_entry( _word );
 			 		  CIRCLESformsAUTOMATONsrc_words_array.sort();
 				 }
-					 
 				 CIRCLESformsAUTOMATONsrcwordCOMBOcreate();
 		}
 		else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't delete word: missing input string", _glob_app );
@@ -84,8 +81,7 @@ function CIRCLESformsAUTOMATONsrcwordCOMBOcreate( _input_src_words )
 				 var HTMLcode = "<SELECT ID=\"CIRCLESformsAUTOMATONwordsCOMBO\" ONCHANGE=\"javascript:$('#CIRCLESformsAUTOMATONsrcWORD').val(this.value);\">" ;
 				 		 HTMLcode += "<OPTION VALUE=\"\">" ;
 				 _input_src_words = _input_src_words.unique();
-				 $.each( _input_src_words,
-				 				 function( _i, _word )
+				 $.each( _input_src_words, function( _i, _word )
 								 {
 								 		 _word = _word.trim();
 										 HTMLcode += "<OPTION VALUE=\""+_word+"\">" + _word ;
@@ -114,8 +110,7 @@ function CIRCLESformsAUTOMATONtableDESTROY()
 				 		 _msg += _glob_crlf + "(This operation is irreversible and the automaton table couldn't be recovered)" ;
 				 if ( confirm( _msg ) )
 				 {
-						 CIRCLESformsAUTOMATONsrc_words_array = [] ;
-				 		 CIRCLESformsAUTOMATONarray = [] ;
+						 CIRCLESformsAUTOMATONsrc_words_array = [], CIRCLESformsAUTOMATONarray = [] ;
 						 var _n_automaton = CIRCLESformsAUTOMATONarray.size_associative();
 						 $( "#CIRCLESformsAUTOMATONautomatonCOUNTER" ).html( _n_automaton + " entr" + ( _n_automaton == 1 ? "y" : "ies" ) );
 						 var _n_src_words = safe_size( CIRCLESformsAUTOMATONsrc_words_array, 0 );
@@ -127,10 +122,11 @@ function CIRCLESformsAUTOMATONtableDESTROY()
 		}
 }
 
-function CIRCLESformsAUTOMATONtableBUILD( _create_new_table )
+function CIRCLESformsAUTOMATONtableBUILD( _create_new_table, _silent )
 {
+    _silent = safe_int( _silent, NO );
     _create_new_table = safe_int( _create_new_table, YES ) ;
-		if ( _create_new_table ) CIRCLESformsAUTOMATONtableNEW();
+		if ( _create_new_table ) CIRCLESformsAUTOMATONtableNEW(_silent);
 		var _keys = CIRCLESformsAUTOMATONarray.keys_associative();
 		var _n_keys = safe_size( _keys, 0 );
 		if ( _n_keys > 0 ) $.each( _keys, function( _i, _key ) { CIRCLESformsAUTOMATONtableAPPENDENTRY( _key, _i, YES, YES ); if ( _key.toLowerCase() != "e" ) _glob_alphabet.push( _key ); } );
@@ -191,9 +187,8 @@ function CIRCLESformsAUTOMATONtableRESET( _silent )
 		var _b_go = ( !_silent && safe_size( CIRCLESformsAUTOMATONarray, 0 ) > 0 ) ? confirm( _msg ) : YES ;
 		if ( _b_go )
 		{
-				 CIRCLESformsAUTOMATONarray = [] ;
-    		 CIRCLESformsAUTOMATONsrc_words_array = [] ;
-    		 CIRCLESformsAUTOMATONname = "" ;
+			CIRCLESformsAUTOMATONarray = [], CIRCLESformsAUTOMATONsrc_words_array = [] ;
+    	CIRCLESformsAUTOMATONname = "" ;
 		}
 }
 
@@ -259,16 +254,17 @@ function CIRCLESformsAUTOMATONtableCHECK()
 		}
 }
 
-function CIRCLESformsAUTOMATONtableNEW()
+function CIRCLESformsAUTOMATONtableNEW( _silent )
 {
+    _silent = safe_int( _silent, NO );
 		var _n_src_words = safe_size( CIRCLESformsAUTOMATONsrc_words_array, 0 );
-		if ( _n_src_words > 0 )
+    var _b_go = ( _n_src_words > 0 && !_silent ) ? confirm( "Do you want to clean the current table ?" ) : YES ;
+		if ( _b_go )
 		{
         $( "#CIRCLESformsAUTOMATONautomatonNAME" ).val( "" );
-
         var HTMLcode = "<table CLASS=\"general_rounded_corners\" STYLE=\"padding:4px;background-color:#F0F0FE;\" ID=\"CIRCLESformsAUTOMATONmasterTABLE\" ALIGN=\"center\">" ;
 						HTMLcode += "<thead>" ;
-						HTMLcode += "<tr><td COLSPAN=\"14\" CLASS=\"general_rounded_corners\" STYLE=\"padding:8px;background-color:#E6EEF7;font-size:12pt;\" ALIGN=\"center\">Cayley table</td></tr>" ;
+						HTMLcode += "<tr><td COLSPAN=\"14\" CLASS=\"general_rounded_corners\" STYLE=\"padding:8px;background-color:#DAE2EB;font-size:12pt;\" ALIGN=\"center\">Cayley table</td></tr>" ;
 						HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
 						HTMLcode += "<tr>" ;
 						HTMLcode += "<td WIDTH=\"15\"></td>" ;
@@ -304,13 +300,11 @@ function CIRCLESformsAUTOMATONtableAPPENDENTRY( _key, _prog_num, _silent, _force
 		else if ( _w_sz > 0 )
 		{
 				var _single_letter_alphabet = [], _w_array ;
-				$.each( CIRCLESformsAUTOMATONsrc_words_array,
-								function( _i, _word )
+				$.each( CIRCLESformsAUTOMATONsrc_words_array, function( _i, _word )
 								{
 								 		_w_array = _word.split( "" );
 								 		$.each( _w_array, function( _j, _w ) { if ( !_single_letter_alphabet.includes( _w ) ) _single_letter_alphabet.push( _w ); } );
-								}
-					    );
+								} );
 		
 				if ( !_single_letter_alphabet.includes( "e" ) ) _single_letter_alphabet.push( "e" );
 				var _check_passed = circles_lib_word_check( _new_word, _single_letter_alphabet ) == YES ? YES : NO ;
@@ -351,7 +345,7 @@ function CIRCLESformsAUTOMATONtableAPPENDENTRY( _key, _prog_num, _silent, _force
 
 								var innerTABLEcode = $( "#CIRCLESformsAUTOMATONpanelCONTAINER" ).find( "div" ).contents().unwrap().end().end().html();
 								if ( _n_automaton > 10 )
-										innerTABLEcode = "<div ID=\"CIRCLESformsAUTOMATONpanelCONTAINERwrappingDIV\" STYLE=\"position:relative;width:100%;height:170px;overflow:auto;\">"+innerTABLEcode+"</div>" ;
+										innerTABLEcode = "<div ID=\"CIRCLESformsAUTOMATONpanelCONTAINERwrappingDIV\" STYLE=\"position:relative;width:100%;height:200px;overflow:auto;\">"+innerTABLEcode+"</div>" ;
 								$( "#CIRCLESformsAUTOMATONpanelCONTAINER" ).html( innerTABLEcode );
 								$( "#AUTOMATON_ENTRY_WORD_" + _n_automaton + "_" + 0 ).focus();
 								
@@ -369,12 +363,11 @@ function CIRCLESformsAUTOMATONtableDELETEENTRY( _row_index )
 		if ( _key.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing entry reference for deletion", _glob_app );
 		else
 		{
-				 var _msg = "Confirm to delete the entry announced by word '"+_key+"' ?" ;
-				 if ( confirm( _msg ) )
-				 {
-				 			CIRCLESformsAUTOMATONarray.remove_key( _key );
-				 			CIRCLESformsAUTOMATONtableBUILD(YES);
-				 }
+  		 if ( confirm( "Confirm to delete the entry announced by word '"+_key+"' ?" ) )
+			 {
+			 		CIRCLESformsAUTOMATONarray.remove_key(_key);
+			 		CIRCLESformsAUTOMATONtableBUILD(YES);
+			 }
 		}
 }
 
@@ -390,8 +383,7 @@ function CIRCLESformsAUTOMATONtableSAVEENTRY( _row_index )
 						_src_words_array.push( "e" ); // includes the identity element
 				$( "#AUTOMATON_ENTRY_OUTPUT_" + _row_index ).html( "" );
 				$( "#AUTOMATON_ENTRY_OUTPUT_" + _row_index ).css( "color", DEFAULT_COLOR_STD );
-				$.each( $( "[id^=AUTOMATON_ENTRY_WORD_" + _row_index + "_]" ),
-								function( _i, _chunk )
+				$.each( $( "[id^=AUTOMATON_ENTRY_WORD_" + _row_index + "_]" ), function( _i, _chunk )
 								{
 										_w = $( "#" + _chunk.id ).val(); // no entry shall include 'identity' symbols
 										_check_passed = safe_size( _w, 0 ) == 0 ? NO : circles_lib_word_check( _w, _src_words_array );
@@ -428,7 +420,6 @@ function CIRCLESformsAUTOMATONtableSAVEENTRY( _row_index )
 function CIRCLESformsAUTOMATONconstructorTABLE( _base_id, _subset )
 {
 		var HTMLcode = "<table WIDTH=\"100%\" BORDER=\"0\">" ;
-
 				HTMLcode += "<tr>" ;
 				HTMLcode += "<td CLASS=\"popup_buttons_bar\" ID=\"CIRCLESformsAUTOMATONwordBAR\">" ;
 				HTMLcode += "<table BORDER=\"0\">" ;
@@ -552,7 +543,7 @@ function CIRCLESformsAUTOMATONtablePULLOUT( _silent )
     {
         if ( !_silent )
         {
-            var _msg = "Can't pull out the automaton from current configuration." ;
+            var _msg = "Can't pull out the automaton from the current configuration." ;
             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
         }
         return NO ;
@@ -566,7 +557,7 @@ function CIRCLESformsAUTOMATONtablePULLOUT( _silent )
         for( var _k = 0 ; _k < _keys.length ; _k++ )
 			  if ( !_keys[ _k ].stricmp( "e" ) ) CIRCLESformsAUTOMATONsrc_words_array.push( _keys[ _k ] );
 
-        CIRCLESformsAUTOMATONtableBUILD(YES);
+        CIRCLESformsAUTOMATONtableBUILD(YES,_silent);
 
     		$( "#CIRCLESformsAUTOMATONautomatonNAME" ).val( "" );
     		var _n_automaton = CIRCLESformsAUTOMATONarray.size_associative();

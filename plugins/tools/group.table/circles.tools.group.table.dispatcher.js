@@ -16,7 +16,7 @@ function CIRCLEStoolsGROUPTABLEdispatcher()
                 case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
                 case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
                 case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
-                var _div_id = _glob_popups_array[ POPUP_INDEX ][1] ;
+                var _div_id = _glob_popups_array[ _idx ][1] ;
             		var _items_n = _glob_items_switch == ITEMS_SWITCH_SEEDS ? circles_lib_count_seeds() : circles_lib_count_gens();
                 var OLD_W = $("#"+_div_id).width() ;
                 var WIDTH = Math.max( Math.min( $(window).width(), _items_n * 140 ), OLD_W );
@@ -35,7 +35,7 @@ function CIRCLEStoolsGROUPTABLEdispatcher()
 		          circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		          break ;
               case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
-              var _div_id = _glob_popups_array[ POPUP_INDEX ][1] ;
+              var _div_id = _glob_popups_array[ _idx ][1] ;
               if ( $('#'+_div_id).resizable('instance') != undefined ) $("#"+_div_id).resizable('destroy');
 
               var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;

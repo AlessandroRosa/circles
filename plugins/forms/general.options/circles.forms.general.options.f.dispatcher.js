@@ -15,8 +15,8 @@ function CIRCLESformsGENERALOPTIONSdispatcher()
 			 {
           case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
           var _sw = $(window).width(), _sh = $(window).height() ;
-          var _div_id = _glob_popups_array[ POPUP_INDEX ][1] ;
-          var _suffix = _glob_popups_array[ POPUP_INDEX ][9] ;
+          var _div_id = _glob_popups_array[ _idx ][1] ;
+          var _suffix = _glob_popups_array[ _idx ][9] ;
           var _popup_height = $(window).height() - 90 ;
           if ( CIRCLESformsGENERALOPTIONStabindex.is_one_of( 2, 3 ) )
           {

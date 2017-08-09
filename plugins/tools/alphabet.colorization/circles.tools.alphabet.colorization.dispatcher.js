@@ -15,7 +15,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONdispatcher()
 					 {
                 case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
                 var _sw = $(window).width(), _sh = $(window).height() ;
-                var _div_id = _glob_popups_array[ POPUP_INDEX ][1] ;
+                var _div_id = _glob_popups_array[ _idx ][1] ;
                 var _popup_height = _sh - 90 ;
                 $("#"+_div_id).height( _popup_height ) ;
 

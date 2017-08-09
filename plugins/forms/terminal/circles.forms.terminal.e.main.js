@@ -74,7 +74,7 @@ function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _te
                       [ "CIRCLESformsTERMINALminimize", _div_id, _suffix, WIDTH, HEIGHT ],
                       [ "CIRCLESformsTERMINALmaximize", _div_id, _suffix, WIDTH, HEIGHT ] );
     _glob_popups_array.get_last().push( _suffix ) ;
-    var POPUP_INDEX = _glob_popups_array.length - 1 ;
+    var _idx = _glob_popups_array.length - 1 ;
     CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix );
     CIRCLESformsTERMINALresize( WIDTH, HEIGHT, _suffix );
     if ( _tab == 0 ) _glob_output_channel = OUTPUT_TERMINAL ;
@@ -124,7 +124,7 @@ function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _te
     $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESformsTERMINALlistingsLOAD ) } ;
 }
 
-function CIRCLESformsTERMINALgetHTML( _div_id, _is_popup, _input_w, _input_h, _suffix, POPUP_INDEX )
+function CIRCLESformsTERMINALgetHTML( _div_id, _is_popup, _input_w, _input_h, _suffix, _idx )
 {
     _is_popup = safe_int( _is_popup, YES );
     _input_w = safe_int( _input_w, 200 ), _input_h = safe_int( _input_h, 200 );
