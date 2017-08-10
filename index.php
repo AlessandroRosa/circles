@@ -117,6 +117,7 @@ circles_lib_statusbar_load( "vert", "left", "top", NO, 10, 100 );
       case 6: @include( "demos/$DEMO_IDX.demo.modular.group.php" ); break ;
       case 7: @include( "demos/$DEMO_IDX.demo.sasaki.group.php" ); break ;
       case 8: @include( "demos/$DEMO_IDX.demo.discreteness.locus.php" ); break ;
+      case 9: @include( "demos/$DEMO_IDX.demo.popups.interaction.php" ); break ;
       default: break ;
     }
 }

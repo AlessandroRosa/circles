@@ -39,8 +39,7 @@ function circles_lib_plugin_get_active_wnd()
 function circles_lib_plugin_get_wnd_from_pos( _x, _y )
 {
     var _zINDEX = 0, _rect, _popup_ref = null ;
-    $.each( _glob_popups_array,
-            function( _i, _popup )
+    $.each( _glob_popups_array, function( _i, _popup )
             {
                _rect = _popup[14] ;
                if ( is_rect( _rect ) && $( "#" + _popup[0] ).zIndex() > _zINDEX )
