@@ -14,9 +14,11 @@ var _glob_multithread_dict_create = 0 ;
 var _glob_multithread_drawentity = 0 ;
 var _glob_multithread_fz_formula = "" ;
 var _glob_multithread_last_pt = null ;
+var _glob_multithread_method = 0 ;
 var _glob_multithread_operations_counter = 0 ;
 var _glob_multithread_operations_mask = 0 ;
 var _glob_multithread_operations_runner = 0 ;
+var _glob_multithread_process = 0 ;
 var _glob_multithread_repetends_array = [] ;
 var _glob_multithread_rnd_probability_array = [];
 var _glob_multithread_rnd_proc_rng_method = 0 ;
@@ -98,6 +100,7 @@ self.addEventListener( 'message', function(e)
             importScripts( JS_FOLDER_COMPONENTS + "multi.threading/drawing.methods/algebraic/circles.methods.algebraic.fns.multi.thread.js" );
             importScripts( JS_FOLDER_COMPONENTS + "multi.threading/drawing.methods/algebraic/circles.methods.algebraic.dictionary.multi.thread.js" );
             importScripts( JS_FOLDER_COMPONENTS + "multi.threading/drawing.methods/algebraic/circles.methods.algebraic.breadthfirst.inputfp.js" );
+            importScripts( JS_FOLDER_COMPONENTS + "multi.threading/drawing.methods/algebraic/circles.methods.algebraic.indexsearch.inputfp.js" );
             importScripts( JS_FOLDER_COMPONENTS + "multi.threading/drawing.methods/algebraic/circles.methods.algebraic.random.inputfp.multi.thread.js" );
             break ;
          }
@@ -105,12 +108,8 @@ self.addEventListener( 'message', function(e)
          _glob_multithread_running = 1 ;
          _glob_multithread_operations_counter = _glob_multithread_operations_runner = 0 ;
          self.postMessage( { 'id' : 'init',
-                             'method' : method,
-                             'process' : process,
-                             'w' : w,
-                             'h' : h
-                           }
-                         );
+                             'method' : method, 'process' : process,
+                             'w' : w, 'h' : h } );
          break ;
          case "start" :
          var _config = data.config.split( "@" );
@@ -122,6 +121,8 @@ self.addEventListener( 'message', function(e)
          _glob_multithread_crash_words_packed = ( data.dict_init_settings.split( "@" ) )[4] ;
          _glob_multithread_canvas_size = data.canvas_size ;
          _glob_multithread_running = YES ;
+         _glob_multithread_method = safe_int( _config[0], METHOD_NONE );
+         _glob_multithread_process = safe_int( _config[1], PROCESS_BREADTHFIRST );
          _glob_multithread_construction_mode = safe_int( _config[2], CONSTRUCTION_TILING );
          _glob_multithread_dict_create = safe_int( data.dict_create, NO );
          _glob_multithread_operations_counter = _glob_multithread_operations_runner = 0 ;
@@ -164,10 +165,7 @@ self.addEventListener( 'message', function(e)
               for( var _i = 0 ; _i < _items_n ; _i++ ) _glob_multithread_rnd_probability_array.push( _p );
          }
 
-         var objs = { 'items' : _items_array,
-                      'palette' : _glob_palette_array
-                    } ;
-                       
+         var objs = { 'items' : _items_array, 'palette' : _glob_palette_array } ;
          var _packing_tmp = [];
          for( var _i = 0 ; _i < data.inputfixedpts.length ; _i++ ) _packing_tmp.push( data.inputfixedpts[_i].x + "@" + data.inputfixedpts[_i].y );
          _packing_tmp = _packing_tmp.unique();
@@ -192,6 +190,7 @@ self.addEventListener( 'message', function(e)
 
          var settings = { 'alphabet_packed' : data.alphabet_packed,
                           'config' : data.config,
+                          'construction_mode' : _glob_multithread_construction_mode,
                           'depth' : safe_int( data.depth, 1 ),
                           'dict_create' : _glob_multithread_dict_create,
                           'dict_init_settings_packed' : data.dict_init_settings,

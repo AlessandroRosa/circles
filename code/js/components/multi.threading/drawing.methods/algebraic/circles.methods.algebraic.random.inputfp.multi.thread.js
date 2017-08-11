@@ -110,8 +110,8 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
                        self.postMessage( { 'id': "draw",
                                            'obj': obj
                                          } );
-      								 pts_array.flush();
-                       circles_array.flush();
+      								 pts_array = [];
+                       circles_array = [];
                   }
 
                   if ( _repetends_depth_tmp <= 0 )

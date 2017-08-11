@@ -166,6 +166,7 @@ var MOUSE_PICK_POINTS_PROC_ID = 7 ;
 var MOUSE_PICK_LASTPT_PROC_ID = 8 ;
 var MOUSE_STATUSBAR_PROC_ID = 9 ;
 
+var MULTITHREADING_OBJ_WORKAREA_NONE = 0.0 ;
 var MULTITHREADING_OBJ_WORKAREA_RENDERING = 1.0 ;
 var MULTITHREADING_OBJ_WORKAREA_DICTIONARY = 2.0 ;
 var MULTITHREADING_OBJ_WORKAREA_CANVAS_REDRAWING = 3.0 ;
@@ -224,12 +225,13 @@ var POPUP_SEARCH_BY_BASE_ID = 128 ;
 var POPUP_SEARCH_BY_SUBSET = 256 ;
 
 var PROCESS_NONE = 0, PROCESS_BREADTHFIRST = 1;
-var PROCESS_RANDOM = 2 ;
+var PROCESS_RANDOM = 2, PROCESS_INDEXSEARCH = 3 ;
 
 var PROCESS_NONE_CMD_DEF = "none" ;
 var PROCESS_BREADTHFIRST_CMD_DEF = "breadthfirst" ;
 var PROCESS_FIXEDPOINTS_CMD_DEF = "fixedpoints" ;
 var PROCESS_RANDOM_CMD_DEF = "random" ;
+var PROCESS_INDEXSEARCH_CMD_DEF = "indexsearch" ;
 
 var RENDERING_LINE = "line" ;
 var RENDERING_RECT = "rect" ;
@@ -355,4 +357,5 @@ var _glob_plane_cmd_defs_array = [] ;
 var _glob_proc_defs_array = [] ;
     _glob_proc_defs_array[''+PROCESS_NONE] = "no process" ;
     _glob_proc_defs_array[''+PROCESS_BREADTHFIRST] = "breadth first" ;
+    _glob_proc_defs_array[''+PROCESS_INDEXSEARCH] = "index search" ;
     _glob_proc_defs_array[''+PROCESS_RANDOM] = "random" ;

@@ -69,7 +69,8 @@ function circles_lib_menu_entries_init()
     _glob_menu_entries_array.push( { id : "MENU_FIXEDPOINTS_IO_INPUT", cmp1 : "_glob_fixedpt_io", cmp2 : FIXEDPOINTS_IO_INPUT, toggleOn : "", toggleOff : "", mask : 1, operator : "==" } );
     _glob_menu_entries_array.push( { id : "MENU_ITEM_SEEDS", cmp1 : "_glob_items_switch", cmp2 : ITEMS_SWITCH_SEEDS, toggleOn : "", toggleOff : "", mask : 1, operator : "==" } );
     _glob_menu_entries_array.push( { id : "MENU_ITEM_GENS", cmp1 : "_glob_items_switch", cmp2 : ITEMS_SWITCH_GENS, toggleOn : "", toggleOff : "", mask : 1, operator : "==" } );
-    _glob_menu_entries_array.push( { id : "MENU_PROCESS_BREADTHFIRST", cmp1 : "_glob_process", cmp2 : PROCESS_BREADTHFIRST, toggleOn : "", toggleOff : "", mask : 1, operator : "==" } );
+    _glob_menu_entries_array.push( { id : "MENUPROCESS_BREADTHFIRST", cmp1 : "_glob_process", cmp2 : PROCESS_BREADTHFIRST, toggleOn : "", toggleOff : "", mask : 1, operator : "==" } );
+    _glob_menu_entries_array.push( { id : "MENU_PROCESS_INDEXSEARCH", cmp1 : "_glob_process", cmp2 : PROCESS_INDEXSEARCH, toggleOn : "", toggleOff : "", mask : 1, operator : "==" } );
     _glob_menu_entries_array.push( { id : "MENU_PROCESS_RANDOM", cmp1 : "_glob_process", cmp2 : PROCESS_RANDOM, toggleOn : "", toggleOff : "", mask : 1, operator : "==" } );
     _glob_menu_entries_array.push( { id : "MENU_NOFORMAT_EXPORT", cmp1 : "_glob_export_format", cmp2 : EXPORT_NONE, toggleOn : "", toggleOff : "", mask : 1, operator : "==" } );
     _glob_menu_entries_array.push( { id : "MENU_SVG_EXPORT", cmp1 : "_glob_export_format", cmp2 : EXPORT_SVG, toggleOn : "", toggleOff : "", mask : 1, operator : "==" } );

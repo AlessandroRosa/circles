@@ -13,6 +13,7 @@ function CIRCLESformsMETHODmanagerPROCESS( _b_switch, _process_type )
     switch( _process_type )
     {
         case PROCESS_BREADTHFIRST:
+        case PROCESS_INDEXSEARCH:
         break ;
         case PROCESS_RANDOM:
         $("#ALGEBRAICrandomCONTAINER").html( CIRCLESmethodMANAGERrandomTABLEbuild() );

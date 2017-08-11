@@ -53,31 +53,31 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
            var _len_array = [], _indexes_array = [] ;
            if ( _keys_len > 0 )
            {
-                  self.postMessage( { "id" : "update", "text" : "Resolving repetends" } );
-                  for( _k = 0 ; _k < _keys_len ; _k++ )
-                  {
-                  		_indexes_array[ _keys[_k] ] = 0 ;
-											for( _i = 0 ; _i < _glob_multithread_repetends_array[ _keys[_k] ].length ; _i++ )
-											_glob_multithread_repetends_array[ _keys[_k] ][_i] = circles_lib_repetends_resolve( _glob_multithread_repetends_array[ _keys[_k] ][_i] );
-								  }
+             self.postMessage( { "id" : "update", "text" : "Resolving repetends" } );
+             for( _k = 0 ; _k < _keys_len ; _k++ )
+             {
+             		_indexes_array[ _keys[_k] ] = 0 ;
+								for( _i = 0 ; _i < _glob_multithread_repetends_array[ _keys[_k] ].length ; _i++ )
+								_glob_multithread_repetends_array[ _keys[_k] ][_i] = circles_lib_repetends_resolve( _glob_multithread_repetends_array[ _keys[_k] ][_i] );
+						 }
 
-                  for( _k = 0 ; _k < _keys_len ; _k++ ) _len_array[ _keys[_k] ] = _glob_multithread_repetends_array[ _keys[_k] ].length ;
+             for( _k = 0 ; _k < _keys_len ; _k++ ) _len_array[ _keys[_k] ] = _glob_multithread_repetends_array[ _keys[_k] ].length ;
            }
               
            // configure repetends function handler
            var reps_apply_fn, _r, _last ;
            if ( _keys_len > 0 )
            reps_apply_fn = function( WORD )
-                              {
-                             		_last = WORD.lastchar();
-                             		if ( _glob_multithread_repetends_array[ _last ] != null )
-                             		{
-	                              		WORD += _glob_multithread_repetends_array[ _last ][ _indexes_array[ _last ] ] ;
-	                              		_indexes_array[ _last ] = _indexes_array[ _last ] + 1 ;
-	                              		_indexes_array[ _last ] = _indexes_array[ _last ] % _len_array[ _last ] ;
-																}
-                                return WORD ;
-                              } ;
+           {
+             _last = WORD.lastchar();
+             if ( _glob_multithread_repetends_array[ _last ] != null )
+             {
+	           		WORD += _glob_multithread_repetends_array[ _last ][ _indexes_array[ _last ] ] ;
+	           		_indexes_array[ _last ] = _indexes_array[ _last ] + 1 ;
+	           		_indexes_array[ _last ] = _indexes_array[ _last ] % _len_array[ _last ] ;
+						 }
+             return WORD ;
+           } ;
            else reps_apply_fn = function( WORD ) { return WORD ; } ;
 
               _glob_multithread_operations_runner = 0 ;
@@ -151,9 +151,9 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
                                                    } );
 
                                  _bunch_counter = 0 ;
-     														 pts_array.flush();
-                                 words_array.flush();
-                                 circles_array.flush();
+     														 pts_array = [];
+                                 words_array = [];
+                                 circles_array = [];
                              }
                         }
 

@@ -78,6 +78,10 @@ function CIRCLESalgebraicSTART( objs, settings )
         if ( fixedpoints_io == FIXEDPOINTS_IO_INPUT )
         CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs, settings );
         break ;
+        case PROCESS_INDEXSEARCH:
+        if ( fixedpoints_io == FIXEDPOINTS_IO_INPUT )
+        CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, settings );
+        break ;
         case PROCESS_RANDOM:
         if ( fixedpoints_io == FIXEDPOINTS_IO_INPUT )
         CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings );

@@ -10,7 +10,7 @@ var _demon = new demo_n();
                      $( "<div ID=\"presentation_div\" CLASS=\"general_rounded_corners\" STYLE=\"position:absolute;z-index:2000;font-size:14pt;font-family:arial;width:340px;height:auto;padding:6px;text-align:center;color:white;\"></div>" ).appendTo("body");
                      $( "#presentation_div" ).css( "background-color", "#538BB4" ) ;
                      $( "#presentation_div" ).height( "auto" ) ;
-                     $( "#presentation_div" ).html( "CIRCLES DEMO #8<br/>Working with the discreteness locus<br/>for Maskit embedding T1,1" ) ;
+                     $( "#presentation_div" ).html( "CIRCLES DEMO #<?php echo $GLOBALS["DEMO_IDX"]; ?><br/>Working with the discreteness locus<br/>for Maskit embedding T1,1" ) ;
                   },
                   ctrl_id : "presentation_div", time : 3, time_unit : "s",
                   action : "fadein", set_value : { to_x : "center", to_y : "center", speed : "slow" }, showlabel : false, desclabel : ""
@@ -204,7 +204,7 @@ var _demon = new demo_n();
                     var _html = "END OF DEMO #8<br>Wishes of a peaceful day !" ;
                         _html += "<br><br><SPAN STYLE=\"font-size:11pt;\">To watch other demos" ;
                         _html += "<br>change n at ?demo=n inside the URL bar" ;
-                        _html += "<br>where 1 <= n <= 8</SPAN>" ;
+                        _html += "<br>where 1 <= n <= <?php echo $GLOBALS['MAX_IDX']; ?></SPAN>" ;
                     $( "#presentation_div" ).html( _html ) ;
                   },
                   ctrl_id : "presentation_div", time : 7, time_unit : "s",

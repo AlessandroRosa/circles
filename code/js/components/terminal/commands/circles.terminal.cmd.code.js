@@ -285,6 +285,7 @@ function circles_terminal_cmd_code_3rd_step( _opt, _settings_array, _rows_of_cod
         case METHOD_ALGEBRAIC :
         var _str = "method " + circles_lib_method_get_def_for_cmds( _glob_method );
         if ( _glob_process == PROCESS_BREADTHFIRST ) _str += " breadthfirst" ;
+        else if ( _glob_process == PROCESS_INDEXSEARCH ) _str += " indexsearch" ;
         else if ( _glob_process == PROCESS_RANDOM ) _str += " random" ;
 	      _rows_of_code.push( _str );
 				break ;

@@ -34,9 +34,9 @@ function circles_terminal_cmd_method()
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( METHOD_ALGEBRAIC_CMD_DEF, METHOD_INVERSION_CMD_DEF, METHOD_NONE_CMD_DEF, PROCESS_BREADTHFIRST_CMD_DEF, PROCESS_RANDOM_CMD_DEF,
-						 															  "release", "reset", "none", "html", "help"
-																					);
+    				 _local_cmds_params_array.push( METHOD_ALGEBRAIC_CMD_DEF, METHOD_INVERSION_CMD_DEF,
+             METHOD_NONE_CMD_DEF, PROCESS_BREADTHFIRST_CMD_DEF, PROCESS_RANDOM_CMD_DEF, PROCESS_INDEXSEARCH_CMD_DEF,
+						 															  "release", "reset", "none", "html", "help" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -50,6 +50,7 @@ function circles_terminal_cmd_method()
               else if ( _p.stricmp( METHOD_INVERSION_CMD_DEF ) )     { _params_assoc_array['process_def'] = _p ; _params_assoc_array['method'] = METHOD_INVERSION ; }
               else if ( _p.stricmp( METHOD_ALGEBRAIC_CMD_DEF ) )     { _params_assoc_array['process_def'] = _p ; _params_assoc_array['method'] = METHOD_ALGEBRAIC ; }
               else if ( _p.stricmp( PROCESS_BREADTHFIRST_CMD_DEF ) ) { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_BREADTHFIRST ; }
+              else if ( _p.stricmp( PROCESS_INDEXSEARCH_CMD_DEF ) )  { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_INDEXSEARCH ; }
               else if ( _p.stricmp( PROCESS_RANDOM_CMD_DEF ) )       { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_RANDOM ; }
               else if ( _p.stricmp( "none" ) )
               {
@@ -112,12 +113,8 @@ function circles_terminal_cmd_method()
       		           else if ( _m == METHOD_ALGEBRAIC )
       		           {
                          if ( _pr == PROCESS_NONE ) _pr = PROCESS_BREADTHFIRST ;
-                         
-      		               if ( _pr.is_one_of( PROCESS_BREADTHFIRST, PROCESS_RANDOM ) ) circles_lib_process_set( _pr );
-      		               else
-      		               {
-      		                   _b_fail = YES, _error_str = "Invalid input process for 'algebraic' method" ;
-      		               }
+      		               if ( _pr.is_one_of( PROCESS_BREADTHFIRST, PROCESS_INDEXSEARCH, PROCESS_RANDOM ) ) circles_lib_process_set( _pr );
+      		               else { _b_fail = YES, _error_str = "Invalid input process for 'algebraic' method" ; }
       		               circles_lib_method_set( _m );
       		           }
       						}
