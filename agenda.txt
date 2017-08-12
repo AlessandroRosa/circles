@@ -36,7 +36,12 @@ tangent.circle
 terminal
 terminal.comment
 terminal.filter
+--------------
 tiny.rendering
+- preview in a new tab
+- rendering automatically switch to preview tab
+- fix errors
+--------------
 triggers
 watch.formula
 

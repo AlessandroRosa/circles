@@ -31,7 +31,7 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
          var G = new mobius_map( 1, 0, 0, 1 ), G_COMP = new mobius_map( 1, 0, 0, 1 ), G_COMP_CIRCLE ;
 				 var _fp = null, obj, _symbol ;
          var _bunch_pts_limit = _glob_multithread_bunch_limit ;
-         var INDEX = 0, _rnd = 0 ;
+         var INDEX = 0 ;
 
          for( var _i = 0 ; _i < _items_n ; _i++ ) _inverses[ _items_array[_i].symbol ] = _items_array[_i].inverse_symbol ;
 
@@ -72,7 +72,7 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
 		         }
 				 }
 				 
-         var _i_len = _input_fixed_pts.length, _p, _wm ;
+         var _i_len = _input_fixed_pts.length, _p, _wm, _r = 0 ;
          for( _p = 0 ; _p < _i_len ; _p++ )
          {
               INDEX = 0, _fp = _input_fixed_pts[_p] ;
@@ -82,11 +82,12 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
               {
                  if ( _repetends_depth_tmp <= 0 )
                  {
-                    INDEX = LUTarray[ _LUT_range * _rnd() | 0 ] ;
-                    _repetends_depth_tmp = _rnd() <= _repetends_threshold ? 0 : ( _rnd() * _repetends_depth ) | 0 ;
+                      INDEX = LUTarray[ _LUT_range * _rnd() | 0 ] ;
+                      _r = _rnd() ;
+                      _repetends_depth_tmp = _r <= _repetends_threshold ? 0 : ( _r * _repetends_depth ) | 0 ;
                  }
-  
-                 _repetends_depth_tmp-- ;
+                 else _repetends_depth_tmp-- ;
+
                  G = _items_array[INDEX] ;
          				 _fp = G.map.compute( _fp );
        					 G_COMP = G_COMP.composition( G.map );
@@ -117,12 +118,12 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
                   if ( _repetends_depth_tmp <= 0 )
                   {
                       INDEX = LUTarray[ _LUT_range * _rnd() | 0 ] ;
-                      _repetends_depth_tmp = _rnd() <= _repetends_threshold ? 0 : ( _rnd() * _repetends_depth ) | 0 ;
+                      _r = _rnd() ;
+                      _repetends_depth_tmp = _r <= _repetends_threshold ? 0 : ( _r * _repetends_depth ) | 0 ;
                   }
                   else _repetends_depth_tmp-- ;
 
                   G = _items_array[INDEX] ;
-
                   //if ( _inverses[ _symbol ] == G.symbol ) { _glob_multithread_operations_runner-- ; _symbol = G.symbol ; continue ; }
                   if ( _gens_symbols_map[ _symbol ].lastchar() == _inverses[ G.symbol ] ) { _glob_multithread_operations_runner -= 2 ; _symbol = G.symbol ; continue ; }
                   else _symbol = G.symbol ;

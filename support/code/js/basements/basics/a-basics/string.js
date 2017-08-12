@@ -296,6 +296,14 @@ String.prototype.includes = function( _input )
     return _b_found ;
 }
 
+String.prototype.includes_one_of = function( _input )
+{
+    // return true if ALL input arguments are included inside this array
+    var _test_array = is_array( _input ) ? _input : Array.prototype.slice.call(arguments, 0), _b_found = 0 ;
+    for( var _i = 0 ; _i < _test_array.length ; _i++ ) _b_found |= this.indexOf( _test_array[_i] ) != -1 ? 1 : 0 ;
+    return _b_found ;
+}
+
 String.prototype.not_includes = function( _input ) { return !this.includes( _input ) ; }
 
 String.prototype.includes_i = function( _input ) // case insensitive version

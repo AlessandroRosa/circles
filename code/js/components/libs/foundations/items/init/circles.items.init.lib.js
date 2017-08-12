@@ -286,7 +286,8 @@ function circles_lib_items_init( _index, _question, _silent, _init_mask, _report
 
        _glob_init_mask = _init_mask, _glob_items_to_init = _ret_id == RET_OK ? NO : YES ;
        _glob_dict_check = _glob_process == PROCESS_RANDOM ? SKIP : YES ;
-       _glob_dict_create = _glob_process != PROCESS_RANDOM ? ( _ret_id ? YES : NO ) : NO ;
+       _glob_dict_create = _glob_process == PROCESS_BREADTHFIRST ? ( _ret_id ? YES : NO ) : NO ;
+       if( _glob_process == PROCESS_INDEXSEARCH ) _glob_construction_mode = CONSTRUCTION_TILING ;
 
        $('[id$=initBTN]').css('color',_glob_items_to_init ?COLOR_ERROR:DEFAULT_COLOR_STD);
        _glob_alphabet = circles_lib_alphabet_get();
