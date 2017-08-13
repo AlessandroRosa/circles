@@ -39,7 +39,7 @@ function CIRCLESbarsSTATUSBAReventsMOUSE( _ctrl_id, _event )
 			 			 );
 				 
 			 circles_lib_plugin_deactivate_all( NO ) ;
-			 circles_lib_plugin_list_selection_render( YES, YES ) ;
+			 circles_lib_plugin_focus_render( YES, YES ) ;
 			 $( "#CIRCLESbarsSTATUSBARdiv" ).zIndex( zIndex + 1 ) ;
 			 _glob_last_focus_divid = "CIRCLESbarsSTATUSBARdiv" ;
 			 _glob_statusbarMOUSEprocSWITCH = MOUSE_STATUSBAR_PROC_ID ;

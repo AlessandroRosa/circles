@@ -23,10 +23,10 @@ function circles_lib_set_caption_text( _base_id, _subset, _caption_text )
 }
 
 function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrows,
-					                               _append_fns_at_close, _width, _height, _caller_fn,
-				                                 _base_id, _div_id, _subset, _iconpath, _click_fn,
-						                             _help_fn, _fns_group_label,
-						                             _normalize_fns, _minimize_fns, _maximize_fns )
+				 _append_fns_at_close, _width, _height, _caller_fn,
+				 _base_id, _div_id, _subset, _iconpath, _focus_fn,
+				 _help_fn, _fns_group_label,
+				 _normalize_fns, _minimize_fns, _maximize_fns )
 {
     _run = safe_int( _run, NO ), _div_id = safe_string( _div_id, "" );
     _iconpath = safe_string( _iconpath, "" );
@@ -41,7 +41,7 @@ function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrow
     
     _caption_colspan = safe_int( _caption_colspan, 1 ), _arrows = safe_int( _arrows, 1 );
     _caller_fn = safe_string( _caller_fn, "" );
-    _click_fn = safe_string( _click_fn, "" );
+    _focus_fn = safe_string( _focus_fn, "" );
     _append_fns_at_close = safe_string( _append_fns_at_close, "" );
     _help_fn = safe_string( _help_fn, "" );
 		_title = _title.length > 70 ? _title.substr( 0, 65 ) + "&nbsp;.." : _title ;
@@ -76,7 +76,10 @@ function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrow
 
     HTMLcode += "<td ID=\"PLUGIN"+(_subset.toLowerCase()+_clean_base_id.toLowerCase())+"CAPTION\" " ;
     HTMLcode += " ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"" ;
-    if ( safe_size( _click_fn, 0 ) > 0 ) HTMLcode += " ONCLICK=\"javascript:"+_click_fn+";\"" ;
+    if ( _focus_fn.not_includes( "circles_lib_plugin_focus" ) )
+    _focus_fn = "circles_lib_plugin_focus('"+_base_id+"','"+_subset+"','"+_div_id+"');" ;
+
+    HTMLcode += " ONCLICK=\"javascript:"+_focus_fn+";\"" ;
     HTMLcode += " ONMOUSEDOWN=\"javascript:$('#"+_div_id+"').draggable('enable');\"" ;
     HTMLcode += " ONMOUSEUP=\"javascript:$('#"+_div_id+"').draggable('disable');\"" ;
     HTMLcode += " ONDBLCLICK=\"javascript:circles_lib_plugin_normalize('"+_div_id+"', '"+( is_array( _normalize_fns ) ? _normalize_fns.join("|") : "" )+"');\"" ;
@@ -170,8 +173,7 @@ function circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, c
                    e.cancelBubble = true;
                    e.preventDefault();
                 }
-                                             
-                circles_lib_plugin_focus( _base_id, _subset, "", YES, e );
+                circles_lib_plugin_focus( _base_id, _subset, _div_id, YES, e );
              }
           }
         }
@@ -254,7 +256,6 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
     else _glob_popup_sel_unique_id = _div_id ;
 
     var _index = circles_lib_plugin_find_index( _div_id, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_UNIQUE_ID, _caption );
-    console.log( "ACTIVATE IDX", _index, _div_id );
     var _popup_obj = null ;
     if ( _b_open )
     {
@@ -279,7 +280,7 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
 
     var _unique_id = safe_string( is_array( _popup_obj ) ? _popup_obj[0] : POPUP_NO_ID, POPUP_NO_ID );
     circles_lib_statusbar_update_list_icon();
-    if ( _b_open ) circles_lib_plugin_list_selection_render( YES, YES );
+    if ( _b_open ) circles_lib_plugin_focus_render( YES, YES );
 
     $("#"+_div_id).draggable(
     {

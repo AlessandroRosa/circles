@@ -15,10 +15,10 @@ function circles_lib_plugin_build_divid( _subset, _base_id, ...args )
   return _id ;
 }
 
-function circles_lib_plugin_focus_wnd_from_inner_ctrl_id( _ctrl_id, _base_id, _subset )
+function circles_lib_plugin_focus_wnd_from_inner_ctrl_id( _ctrl_id, _base_id, _subset, _div_id )
 {
     if ( $("#"+circles_lib_plugin_get_wnd_from_inner_ctrl_id( _ctrl_id ) ).length > 0 )
-    circles_lib_plugin_focus( _based_id, subset );
+    circles_lib_plugin_focus( _based_id, subset, _div_id );
 }
 
 function circles_lib_plugin_get_wnd_from_inner_ctrl_id( _ctrl_id )
@@ -39,7 +39,7 @@ function circles_lib_plugin_get_wnd_from_inner_ctrl_id( _ctrl_id )
                 _parent_id = safe_string( _parent_node.id, "" ).trim();
                 _parent_tag = safe_string( _parent_node.tagName, "" ).trim() ;
                 if ( _parent_id.length > 0 && _parent_tag.length > 0 &&
-                     circles_lib_plugin_get_datamask_from_property( _parent_id ) == POPUP_SEARCH_BY_DIV_ID )
+                     circles_lib_plugin_get_datamask_from_value( _parent_id ) == POPUP_SEARCH_BY_DIV_ID )
                 {
                    _b_found = YES ;
                    _popup_obj = circles_lib_plugin_find_wnd( { div_id : _parent_id }, POPUP_SEARCH_BY_DIV_ID, NO ) ;
@@ -196,7 +196,7 @@ function circles_lib_plugin_set_property( _unique_id, _obj, _datatype_mask, _off
     }
 }
 
-function circles_lib_plugin_get_datamask_from_property( _prop_value, _offset )
+function circles_lib_plugin_get_datamask_from_value( _prop_value, _offset )
 {
     var _array = _glob_popups_array, _len = safe_size( _array, 0 ), _ret = UNFOUND ;
     _offset = Math.min( Math.max( safe_int( _offset, 0 ), 0 ), _len - 1 ) ;
@@ -212,7 +212,6 @@ function circles_lib_plugin_get_datamask_from_property( _prop_value, _offset )
           else if ( _array[_i][5] == _prop_value ) _ret = POPUP_SEARCH_BY_HEIGHT ;
           else if ( _array[_i][8] == _prop_value ) _ret = POPUP_SEARCH_BY_SUBSET ;
           else if ( _array[_i][12] == _prop_value ) _ret = POPUP_SEARCH_BY_BASE_ID ;
-             
           if ( _ret != UNFOUND ) return _ret ;
        }
     }

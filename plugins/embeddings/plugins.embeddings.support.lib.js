@@ -124,7 +124,7 @@ function GLOB_PLUGIN_EVENT_PROPAGATION_MANAGEMENT( _action )
         case 1:
         $( "#"+GLOB_PLUGIN_DIV_ID ).bind('focus keydown keyup keypress', function(e)
         {
-            _glob_wnd_onclick_event_halt = _glob_wnd_onkeyup_event_halt = YES ;
+           _glob_wnd_onclick_event_halt = _glob_wnd_onkeyup_event_halt = YES ;
         }
         );
         break ;

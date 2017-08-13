@@ -1,3 +1,4 @@
+function CIRCLESembeddingsMASKITONCEfocus() { circles_lib_plugin_dispatcher_unicast_message( "maskit.once", "embeddings", POPUP_DISPATCHER_UNICAST_EVENT_FOCUS ); }
 function CIRCLESembeddingsMASKITONCE_EVENTS( ctrl_id, event )
 {
 	  if ( event.stopPropagation )      event.stopPropagation();
@@ -125,11 +126,11 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
     
     var _div_id = GLOB_PLUGIN_DIV_ID, _subset = "embeddings" ;
     GLOB_PLUGIN_BASE_ID = _clean_base_id, GLOB_PLUGIN_SUBSET = _subset ;
-
+    var FOCUS_FN = "CIRCLES"+_subset+_clean_base_id.toUpperCase()+"focus();" ;
     var WIDTH = 450, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
     HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name,
-                'maskit.once', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"MASKITONCE_",
+                'maskit.once', _div_id, _subset, "plug/plug.icon.01.16x16.png", FOCUS_FN, "", "CIRCLES"+_subset+"MASKITONCE_",
 								[ "CIRCLES"+_subset+"MASKITONCE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 								[ "CIRCLES"+_subset+"MASKITONCE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 								[ "CIRCLES"+_subset+"MASKITONCE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );

@@ -265,7 +265,7 @@ function circles_lib_plugin_show_list( bSHOW )
     var _status_box = $("#" + _statusbar_popup_id ).get(0);
     if ( _status_box != null )
     {
-       var _ret_chunk = circles_lib_plugin_get_list( "circles_lib_plugin_list_selection_render( YES, YES )" );
+       var _ret_chunk = circles_lib_plugin_get_list( "circles_lib_plugin_focus_render( YES, YES )" );
        var _ret_html = is_array( _ret_chunk ) ? _ret_chunk[0] : "" ;
        var _ret_popups_n = is_array( _ret_chunk ) ? Math.max( 0, safe_int( _ret_chunk[1], 0 ) ) : "" ;
        if ( bSHOW && _ret_popups_n > 0 )

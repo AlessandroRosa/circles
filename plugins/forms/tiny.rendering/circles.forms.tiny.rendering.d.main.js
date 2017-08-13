@@ -1,5 +1,5 @@
-function CIRCLESformsTINYRENDERINGclose( _REF_ID ) { console.log( _REF_ID ); circles_lib_plugin_dispatcher_unicast_message( "tiny.rendering", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE, ""+_REF_ID ); }
-function CIRCLESformsTINYRENDERINGfocus( _REF_ID ) { console.log( _REF_ID ); circles_lib_plugin_dispatcher_unicast_message( "tiny.rendering", "forms", POPUP_DISPATCHER_UNICAST_EVENT_FOCUS, ""+_REF_ID ); }
+function CIRCLESformsTINYRENDERINGclose( _REF_ID ) { circles_lib_plugin_dispatcher_unicast_message( "tiny.rendering", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE, ""+_REF_ID ); }
+function CIRCLESformsTINYRENDERINGfocus( _REF_ID ) { circles_lib_plugin_dispatcher_unicast_message( "tiny.rendering", "forms", POPUP_DISPATCHER_UNICAST_EVENT_FOCUS, ""+_REF_ID ); }
 function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_id )
 {
    CIRCLESformsTINYRENDERINGbaseid = safe_string( _base_id, "" ) ;
@@ -20,14 +20,11 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        var _CANVAS_W = WIDTH - 16, _CANVAS_H = 160 ;
        var _div_id = CIRCLESformsTINYRENDERINGdiv_id = circles_lib_plugin_build_divid( _subset, _base_id, unixtime_ms ) ;
        var _REF_ID = unixtime_ms ;
-       console.log( _REF_ID );
        var CLOSE_FN = "CIRCLESformsTINYRENDERINGclose("+unixtime_ms+");" ;
        var FOCUS_FN = "CIRCLESformsTINYRENDERINGfocus("+unixtime_ms+");" ;
-       console.log( CLOSE_FN );
-
        var HTMLcode = "<table WIDTH=\"100%\">" ;
        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsTINYRENDERINGcaption, 3, YES, CLOSE_FN,
-                                                    "auto", HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "", FOCUS_FN );
+                   "auto", HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "", FOCUS_FN );
        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
        HTMLcode += "<tr>" ;
        HTMLcode += "<td VALIGN=\"top\">" ;
@@ -60,6 +57,22 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        HTMLcode += "</td>" ;
        HTMLcode += "</tr>" ;
        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+
+       HTMLcode += "<tr>" ;
+       HTMLcode += "<td VALIGN=\"top\" WIDTH=\"100%\" CLASS=\"popup_buttons_bar\">" ;
+       HTMLcode += "<table WIDTH=\"100%\">" ;
+       HTMLcode += "<tr>" ;
+       HTMLcode += "<td CLASS=\"general_rounded_corners\" HEIGHT=\"16\" STYLE=\"padding:5px;background-color:#FAFAFA;\" ID=\"CANVASwarningsSTATUS"+_REF_ID+"\" ALIGN=\"center\"></td>" ;
+       HTMLcode += "<td WIDTH=\"3\"></td>" ;
+       HTMLcode += "<td CLASS=\"general_rounded_corners\" HEIGHT=\"16\" STYLE=\"padding:5px;background-color:#FAFAFA;\" ID=\"CANVASerrorsSTATUS"+_REF_ID+"\" ALIGN=\"center\"></td>" ;
+       HTMLcode += "<td WIDTH=\"3\"></td>" ;
+       HTMLcode += "<td CLASS=\"general_rounded_corners\" HEIGHT=\"16\" STYLE=\"padding:5px;background-color:#FAFAFA;\" ID=\"CANVASokSTATUS"+_REF_ID+"\" ALIGN=\"center\"></td>" ;
+       HTMLcode += "</tr>" ;
+       HTMLcode += "</table>" ;
+       HTMLcode += "</td>" ;
+       HTMLcode += "</tr>" ;
+       HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
+
        HTMLcode += "<tr>" ;
        HTMLcode += "<td VALIGN=\"top\" WIDTH=\"100%\" CLASS=\"popup_buttons_bar\">" ;
        HTMLcode += "<table>" ;
@@ -77,13 +90,9 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
        HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn05"+_REF_ID+"\" ONCLICK=\"javascript:CIRCLESformsTINYRENDERINGpdf('"+_div_id+"','"+_REF_ID+"');\">PDF</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn08"+_REF_ID+"\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','tiny.rendering', NO, '"+_REF_ID+"', YES );\">Clone me</td>" ;
+       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn08"+_REF_ID+"\" ONCLICK=\"javascript:circles_lib_plugin_load('"+_subset+"','"+_base_id+"',NO,'"+_REF_ID+"',YES);\">Clone me</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"general_rounded_corners\" WIDTH=\"80\" STYLE=\"padding:5px;background-color:#FAFAFA;\" ID=\"CANVASwarningsSTATUS"+_REF_ID+"\" ALIGN=\"center\"></td>" ;
-       HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"general_rounded_corners\" WIDTH=\"80\" STYLE=\"padding:5px;background-color:#FAFAFA;\" ID=\"CANVASerrorsSTATUS"+_REF_ID+"\" ALIGN=\"center\"></td>" ;
-       HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"general_rounded_corners\" WIDTH=\"80\" STYLE=\"padding:5px;background-color:#FAFAFA;\" ID=\"CANVASokSTATUS"+_REF_ID+"\" ALIGN=\"center\"></td>" ;
+       HTMLcode += "<td WIDTH=\"110\" ID=\"CIRCLEStinyrenderingOUTPUT"+_REF_ID+"\"></td>" ;
        HTMLcode += "</tr>" ;
        HTMLcode += "</table>" ;
        HTMLcode += "</td>" ;
@@ -96,13 +105,11 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        HTMLcode += "<td WIDTH=\"2\"></td>" ;
        HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn07"+_REF_ID+"\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','tiny.rendering', NO, '', NO );\">New</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" id=\"clipboard_code"+_REF_ID+"\" ONCLICK=\"javascript:copy_to_clipboard('CANVASscripttextarea"+_REF_ID+"');\">Code into clipboard</td>" ;
+       HTMLcode += "<td CLASS=\"link_rounded\" id=\"clipboard_code"+_REF_ID+"\" WIDTH=\"100\" ONCLICK=\"javascript:copy_to_clipboard('CANVASscripttextarea"+_REF_ID+"');\">Script into clipboard</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" id=\"clipboard_debug"+_REF_ID+"\" ONCLICK=\"javascript:copy_to_clipboard('CANVASdebugdiv"+_REF_ID+"');\">Debug into clipboard</td>" ;
+       HTMLcode += "<td CLASS=\"link_rounded\" id=\"clipboard_debug"+_REF_ID+"\" WIDTH=\"100\" ONCLICK=\"javascript:copy_to_clipboard('CANVASdebugdiv"+_REF_ID+"');\">Debug into clipboard</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn06"+_REF_ID+"\" ONCLICK=\"javascript:CIRCLESformsTINYRENDERINGcopyCANVAS('"+_div_id+"','"+_REF_ID+"', YES );\">Copy from W-plane</td>" ;
-       HTMLcode += "<td WIDTH=\"15\"></td>" ;
-       HTMLcode += "<td WIDTH=\"120\" ID=\"CIRCLEStinyrenderingOUTPUT"+_REF_ID+"\"></td>" ;
+       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CANVASbtn06"+_REF_ID+"\" WIDTH=\"100\" ONCLICK=\"javascript:CIRCLESformsTINYRENDERINGcopyCANVAS('"+_div_id+"','"+_REF_ID+"', YES );\">Copy from W-plane</td>" ;
        HTMLcode += "</tr>" ;
        HTMLcode += "</table>" ;
        HTMLcode += "</td>" ;
@@ -148,31 +155,24 @@ function CIRCLESformsTINYRENDERINGcleanCODE( _div_id, _REF_ID, _silent )
     var _code = $( "#CANVASscripttextarea" + _REF_ID ).val().trim() ;
     if ( _code.length > 0 )
     {
-         var _msg = "Some code has been detected therein and so " ;
-             _msg += "this operation will overwrite all this text." + _glob_crlf ;
-             _msg += "Proceed ?" ;
-         var _b_go = _code.length > 0 ? ( _silent ? YES : confirm( _msg ) ) : YES ;
-         if ( _b_go ) $( "#CANVASscripttextarea" + _REF_ID ).val( "" );
+      var _msg = "Do you want to overwrite the existing code ?" ;
+      var _b_go = _code.length > 0 ? ( _silent ? YES : confirm( _msg ) ) : YES ;
+      if ( _b_go ) $( "#CANVASscripttextarea" + _REF_ID ).val( "" );
+      return _b_go ;
     }
+    else return YES ;
 }
 
 function CIRCLESformsTINYRENDERINGgetCODE( _div_id, _REF_ID, _silent )
 {
     _silent = safe_int( _silent, NO );
-    var _code = $( "#CANVASscripttextarea" + _REF_ID ).val().trim() ;
+    var _code = $( "#CANVASscripttextarea" + _REF_ID ).val().trim(), _b_set = NO ;
     var _settings_array = [] ;
         _settings_array['target_plane_type'] = "bip" ;
     var _plain_code = circles_terminal_cmd_code_assemble( null, _settings_array ) ;
-    if ( _plain_code.length > 0 )
-    {
-       var _msg = "The code has been elaborated from the current configuration and ready to be displayed" ;
-           _msg += " in the script box." ;
-           _msg += _glob_crlf + "However some code has been detected therein and so " ;
-           _msg += "this operation will overwrite all this text." + _glob_crlf ;
-           _msg += "Proceed ?" ;
-       var _b_go = _code.length > 0 ? ( _silent ? YES : confirm( _msg ) ) : YES ;
-       if ( _b_go ) $( "#CANVASscripttextarea" + _REF_ID ).val( _plain_code );
-    }
+    if ( _plain_code.length > 0 ) _b_set = CIRCLESformsTINYRENDERINGcleanCODE( _div_id, _REF_ID, _silent ) ;
+    else _b_set = YES ;
+    if ( _b_set ) $( "#CANVASscripttextarea" + _REF_ID ).val( _plain_code );
 }
 
 function CIRCLESformsTINYRENDERINGpdf( _div_id, _REF_ID )

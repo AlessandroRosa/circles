@@ -157,20 +157,46 @@ function dump( _obj, _level, _html )
 	return _output;
 }
 
-function copy_to_clipboard()
+function copy_to_clipboard( _element_id, _html, _silent )
 {
-  var _dataString = null;
-  document.addEventListener("copy", function(e){
-    if (_dataString !== null) {
-      try {
-        e.clipboardData.setData("text/plain", _dataString);
-        e.preventDefault();
-      } finally { _dataString = null; }
+  var element = $("#"+_element_id).get(0) ;
+  if ( _html == null ) _html = false ;
+  if ( _silent == null ) _silent = false ;
+
+  if ( element != null )
+  {
+    var _tag_name = $("#"+_element_id).prop( "tagName" ).toLowerCase(), _contents = "" ;
+    switch( _tag_name )
+    {
+      case "input":
+      case "textarea":
+      _contents = $("#"+_element_id).val() ;
+      break ;
+      default:
+      _contents = $("#"+_element_id).html() ;
+      if ( !_html )
+      {
+        _contents = _contents.replace( /(&nbsp;)/g, " " );
+        _contents = _contents.replace( /(<|&lt;)br\s*\/*(>|&gt;)/g, "\n" ) ;
+        _contents = _contents.replace( /(<|&lt;)br\s*\/*(>|&gt;)/g, "\n" ) ;
+        _contents = _contents.replace( /<(?:.|\n)*?>/gm,''); // strip out all tags
+      }
+      break ;
     }
-  });
-  return function(data) {
-    _dataString = data;
-    document.execCommand("copy");
-    alert( "This listing has been successfully copied into the Clipboard !" );
-  };
+
+    if ( _contents.length == 0 && !_silent ) alert( "Missing contents to copy into the clipboard" );
+    else
+    {
+      var $temp = $("<textarea>");
+      $("body").append($temp);
+      $temp.val( _contents ).select();
+      var _ret = 1 ;
+      try{ document.execCommand("copy"); }
+      catch( e ) { _ret = 0 ; }
+      $temp.remove();
+      if ( !_silent ) alert( "Contents have "+(_ret?"":"not ")+"been copied into clipboard" );
+      return _ret ;
+    }
+  }
+  else return 0 ;
 }

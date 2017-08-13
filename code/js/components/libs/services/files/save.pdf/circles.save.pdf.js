@@ -297,7 +297,7 @@ function circles_lib_files_pdf_save_report()
 		        default: break ;
 				}
 
-		var _generators_set_array = circles_gens_exists ? _glob_gens_set_model_array : null ;
+		var _generators_set_array = circles_lib_gens_set_exists ? _glob_gens_set_model_array : null ;
 		var _generators_set_packed = is_array( _generators_set_array ) ? _generators_set_array.join( "," ) : "" ;
 
     var _filename = _str + !( _str.toLowerCase().right(4).stricmp( ".pdf" ) ) ? ".pdf" : "" ;

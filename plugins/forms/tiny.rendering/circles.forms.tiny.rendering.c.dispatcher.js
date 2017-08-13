@@ -20,9 +20,11 @@ function CIRCLESformsTINYRENDERINGdispatcher()
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
            var _div_id = "CIRCLESformsTINYRENDERINGpopupWND"+arguments[1] ;
-           var _idx = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID, 0 )
+           var _idx = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID, 0 ) ;
            if ( _idx != UNFOUND )
            {
+              var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
+              circles_lib_plugin_focus( _base_id, _subset, _div_id ) ;
            }
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
