@@ -1,9 +1,9 @@
-function CIRCLESformsTINYRENDERINGclose( _REF_ID ) { circles_lib_plugin_dispatcher_unicast_message( "tiny.rendering", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE, _REF_ID ); }
+function CIRCLESformsTINYRENDERINGclose( _REF_ID ) { console.log( _REF_ID ); circles_lib_plugin_dispatcher_unicast_message( "tiny.rendering", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE, ""+_REF_ID ); }
+function CIRCLESformsTINYRENDERINGfocus( _REF_ID ) { console.log( _REF_ID ); circles_lib_plugin_dispatcher_unicast_message( "tiny.rendering", "forms", POPUP_DISPATCHER_UNICAST_EVENT_FOCUS, ""+_REF_ID ); }
 function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_id )
 {
    CIRCLESformsTINYRENDERINGbaseid = safe_string( _base_id, "" ) ;
-   _move = safe_int( _move, YES );
-   _show_code = safe_int( _show_code, YES );
+   _move = safe_int( _move, YES ), _show_code = safe_int( _show_code, YES );
    var _settings_array = [] ;
        _settings_array['target_plane_type'] = "bip" ;
    var _filename = "circles.terminal.cmd.code.js" ;
@@ -16,31 +16,39 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        var unixtime_ms = new Date().getTime();
        if ( !is_array( _glob_tinyrender_code_array ) ) _glob_tinyrender_code_array = [];
        _glob_tinyrender_code_array[unixtime_ms+""] = _plain_code ;
-       var _REF_ID = CIRCLESformsTINYRENDERINGref_id = unixtime_ms, CLOSE_FN = "CIRCLESformsTINYRENDERINGclose("+_REF_ID+");" ;
-       var CANVAS_SIZE = 160, WIDTH = $( window ).width() * 0.5, HEIGHT = "auto", _subset = "forms" ;
-       var _div_id = CIRCLESformsTINYRENDERINGdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) + _REF_ID ;
+       var WIDTH = $( window ).width() * 0.5, HEIGHT = "auto", _subset = "forms" ;
+       var _CANVAS_W = WIDTH - 16, _CANVAS_H = 160 ;
+       var _div_id = CIRCLESformsTINYRENDERINGdiv_id = circles_lib_plugin_build_divid( _subset, _base_id, unixtime_ms ) ;
+       var _REF_ID = unixtime_ms ;
+       console.log( _REF_ID );
+       var CLOSE_FN = "CIRCLESformsTINYRENDERINGclose("+unixtime_ms+");" ;
+       var FOCUS_FN = "CIRCLESformsTINYRENDERINGfocus("+unixtime_ms+");" ;
+       console.log( CLOSE_FN );
 
-       var HTMLcode = "<INPUT TYPE=\"hidden\" ID=\"POPUPrenderingREF\" VALUE=\""+_REF_ID+"\">"
-       HTMLcode += "<table WIDTH=\"100%\">" ;
-       HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsTINYRENDERINGcaption, 3, YES, CLOSE_FN, "auto", HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "" );
+       var HTMLcode = "<table WIDTH=\"100%\">" ;
+       HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsTINYRENDERINGcaption, 3, YES, CLOSE_FN,
+                                                    "auto", HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "", FOCUS_FN );
        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
        HTMLcode += "<tr>" ;
        HTMLcode += "<td VALIGN=\"top\">" ;
        HTMLcode += "<table WIDTH=\"100%\">" ;
        HTMLcode += "<tr>" ;
-       HTMLcode += "<td WIDTH=\"5\"></td>" ;
-       HTMLcode += "<td VALIGN=\"top\" STYLE=\"padding-top:20px;\" WIDTH=\""+CANVAS_SIZE+"\"><CANVAS ID=\"CANVASrendering"+_REF_ID+"\" WIDTH=\""+CANVAS_SIZE+"\" HEIGHT=\""+CANVAS_SIZE+"\" STYLE=\"border:1px dotted #C0C0C0;width:"+CANVAS_SIZE+"px;height:"+CANVAS_SIZE+"px;\"></CANVAS></td>" ;
-       HTMLcode += "<td WIDTH=\"5\"></td>" ;
        HTMLcode += "<td VALIGN=\"top\">" ;
-       HTMLcode += "<div id=\"CIRCLESformsTINYRENDERING"+_REF_ID+"mainDIV\" STYLE=\"width:100%;height:auto;\" class=\"tabber\">" ;
-       HTMLcode += "<div class=\"tabbertab\" VALIGN=\"top\" STYLE=\"width:auto;height:auto;\" ID=\"CIRCLESformsTINYRENDERING"+_REF_ID+"_TAB_01\">" ;
+       HTMLcode += "<div id=\"CIRCLESformsTINYRENDERING"+_REF_ID+"mainDIV\" STYLE=\"width:"+(WIDTH-12)+"px;height:auto;\" class=\"tabber\">" ;
+
+       HTMLcode += "<div class=\"tabbertab\" VALIGN=\"top\" STYLE=\"width:"+(WIDTH-12)+"px;height:auto;\" ID=\"CIRCLESformsTINYRENDERING"+_REF_ID+"_TAB_01\">" ;
        HTMLcode += "<h2>Script</h2>" ;
-       HTMLcode += "<TEXTAREA ID=\"CANVASscripttextarea"+_REF_ID+"\" STYLE=\"width:auto;height:"+(CANVAS_SIZE-15)+"px;overflow:auto;\" CLASS=\"scripttext\">"+_plain_code+"</TEXTAREA>" ;
+       HTMLcode += "<TEXTAREA ID=\"CANVASscripttextarea"+_REF_ID+"\" STYLE=\"width:"+(WIDTH-20)+"px;height:"+(_CANVAS_H-15)+"px;overflow:auto;\" CLASS=\"scripttext\">"+_plain_code+"</TEXTAREA>" ;
        HTMLcode += "</div>" ;
 
-       HTMLcode += "<div class=\"tabbertab\" VALIGN=\"top\" STYLE=\"width:auto;height:auto;\" ID=\"CIRCLESformsTINYRENDERING"+_REF_ID+"_TAB_02\">" ;
+       HTMLcode += "<div class=\"tabbertab\" VALIGN=\"top\" STYLE=\"width:"+(WIDTH-12)+"px;height:auto;\" ID=\"CIRCLESformsTINYRENDERING"+_REF_ID+"_TAB_02\">" ;
        HTMLcode += "<h2>Debug</h2>" ;
-       HTMLcode += "<DIV ID=\"CANVASdebugdiv"+_REF_ID+"\" STYLE=\"position:relative;width:auto;height:"+(CANVAS_SIZE-15)+"px;\" CLASS=\"scripttext\"></DIV>" ;
+       HTMLcode += "<DIV ID=\"CANVASdebugdiv"+_REF_ID+"\" STYLE=\"position:relative;width:"+_CANVAS_W+"px;height:"+(_CANVAS_H-15)+"px;\" CLASS=\"scripttext\"></DIV>" ;
+       HTMLcode += "</div>" ;
+
+       HTMLcode += "<div class=\"tabbertab\" VALIGN=\"top\" STYLE=\"width:"+(WIDTH-12)+"px;height:auto;\" ID=\"CIRCLESformsTINYRENDERING"+_REF_ID+"_TAB_03\">" ;
+       HTMLcode += "<h2>Preview</h2>" ;
+       HTMLcode += "<CANVAS ID=\"CANVASrendering"+_REF_ID+"\" WIDTH=\""+_CANVAS_W+"\" HEIGHT=\""+_CANVAS_H+"\" STYLE=\"border:1px dotted #C0C0C0;width:"+_CANVAS_W+"px;height:"+_CANVAS_H+"px;\"></CANVAS>" ;
        HTMLcode += "</div>" ;
 
        HTMLcode += "</div>" ;
@@ -106,8 +114,8 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        CIRCLESformsTINYRENDERINGtabberOptions['prefix'] = "CIRCLESformsTINYRENDERING" +_REF_ID ;
 
        GLOB_PLUGIN_BASE_ID = _base_id, GLOB_PLUGIN_SUBSET = _subset ;
-    if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
-    _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
+       if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
+       _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
        var _div = circles_lib_plugin_create( _base_id, _div_id, "forms", WIDTH, HEIGHT, HTMLcode );
        circles_lib_plugin_activate( YES, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsTINYRENDERINGcaption );

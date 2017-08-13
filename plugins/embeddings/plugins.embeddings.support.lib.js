@@ -11,7 +11,7 @@ function GLOB_PLUGIN_DESTROY_POPUP_VARS()
 		return YES ;
 }
 
-function GLOB_PLUGIN_FOCUS( _base_id, _subset )
+function GLOB_PLUGIN_FOCUS( _base_id, _subset, _div_id )
 {
     _base_id = safe_string( _base_id, "" ), _subset = safe_string( _subset, "embeddings" ).toLowerCase() ;
     var _fn_name = "CIRCLES"+_subset+_base_id.replace( /[\.\_\-]/g, "" ).toUpperCase()+"dispatcher" ;

@@ -7,8 +7,14 @@
    14 : rect obj for popup wnd pos and extents
 */
 
-function circles_lib_plugin_clean_baseid( _id ) { return safe_string( _id, "" ).replaceAll( [ "_", ".", " " ], "" ).toUpperCase(); }
-function circles_lib_plugin_build_divid( _subset, _base_id ) { return "CIRCLES"+( safe_string( _subset, "forms" ) )+( safe_string( _base_id, "" ).replaceAll( [ "_", ".", " " ], "" ).toUpperCase() )+"popupWND" ; }
+function circles_lib_plugin_clean_baseid( _id ) { return safe_string( _id, "" ).trim().replaceAll( [ "_", ".", " " ], "" ).toUpperCase(); }
+function circles_lib_plugin_build_divid( _subset, _base_id, ...args )
+{
+  var _id = "CIRCLES"+( safe_string( _subset, "forms" ) )+( safe_string( _base_id, "" ).replaceAll( [ "_", ".", " " ], "" ).toUpperCase() )+"popupWND" ;
+  for( var _a = 0 ; _a < args.length ; _a++ ) _id += args[_a] ;
+  return _id ;
+}
+
 function circles_lib_plugin_focus_wnd_from_inner_ctrl_id( _ctrl_id, _base_id, _subset )
 {
     if ( $("#"+circles_lib_plugin_get_wnd_from_inner_ctrl_id( _ctrl_id ) ).length > 0 )

@@ -22,7 +22,7 @@ function circles_lib_set_caption_text( _base_id, _subset, _caption_text )
     else return -1 ;
 }
 
-function circles_lib_plugin_caption_code( _run, _title, _colspan, _arrows,
+function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrows,
 					                               _append_fns_at_close, _width, _height, _caller_fn,
 				                                 _base_id, _div_id, _subset, _iconpath, _click_fn,
 						                             _help_fn, _fns_group_label,
@@ -39,7 +39,7 @@ function circles_lib_plugin_caption_code( _run, _title, _colspan, _arrows,
 
     _glob_popup_divs_rec_default_metrics_array[''+_div_id] = [ _width ] ;
     
-    _colspan = safe_int( _colspan, 1 ), _arrows = safe_int( _arrows, 1 );
+    _caption_colspan = safe_int( _caption_colspan, 1 ), _arrows = safe_int( _arrows, 1 );
     _caller_fn = safe_string( _caller_fn, "" );
     _click_fn = safe_string( _click_fn, "" );
     _append_fns_at_close = safe_string( _append_fns_at_close, "" );
@@ -63,7 +63,7 @@ function circles_lib_plugin_caption_code( _run, _title, _colspan, _arrows,
     _width -= 8 ;
     var HTMLcode = "" ;
     HTMLcode += "<tr>" ;
-    HTMLcode += "<td ID=\""+_div_id+"_caption_container\" COLSPAN=\""+_colspan+"\" VALIGN=\"top\" WIDTH=\"100%\" HEIGHT=\"22\">" ;
+    HTMLcode += "<td ID=\""+_div_id+"_caption_container\" COLSPAN=\""+_caption_colspan+"\" VALIGN=\"top\" WIDTH=\"100%\" HEIGHT=\"22\">" ;
     HTMLcode += "<table ID=\""+_div_id+"_caption\" WIDTH=\"100%\" HEIGHT=\"16\" CLASS=\""+( _run ? "popup_caption_bk_enabled" : "popup_caption_bk_alert" )+"\">" ;
     HTMLcode += "<tr>" ;
     if ( _iconpath.length > 0 )
@@ -111,7 +111,7 @@ function circles_lib_plugin_caption_code( _run, _title, _colspan, _arrows,
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
     HTMLcode += "<tr>" ;
-    HTMLcode += "<td VALIGN=\"top\" HEIGHT=\"16\" ID=\""+_div_id+"_method\" COLSPAN=\""+_colspan+"\" CLASS=\"popup_method\">" ;
+    HTMLcode += "<td VALIGN=\"top\" HEIGHT=\"16\" ID=\""+_div_id+"_method\" COLSPAN=\""+_caption_colspan+"\" CLASS=\"popup_method\">" ;
     HTMLcode += "<table HEIGHT=\"16\">" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
@@ -125,7 +125,8 @@ function circles_lib_plugin_caption_code( _run, _title, _colspan, _arrows,
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
     HTMLcode += "</tr>" ;
-    return HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
+    HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
+    return HTMLcode ;
 }
 
 function circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, contents, _class, _zIndex, _bind_events, _top )
@@ -170,7 +171,7 @@ function circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, c
                    e.preventDefault();
                 }
                                              
-                circles_lib_plugin_focus( _base_id, _subset, YES, e );
+                circles_lib_plugin_focus( _base_id, _subset, "", YES, e );
              }
           }
         }
@@ -179,20 +180,16 @@ function circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, c
     return _div ;
 }
 
-function circles_lib_plugin_destroy_wnd( _div_id )
+function circles_lib_plugin_destroy_wnd( _popup_id )
 {
-    var _ret_index = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID );
-    if ( _ret_index != UNFOUND )
-    {
-       var _popup_chunk = circles_lib_plugin_find_wnd( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID );
+       var _popup_chunk = circles_lib_plugin_find_wnd( { unique_id : _popup_id, div_id : _popup_id }, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_UNIQUE_ID );
        if ( !is_array( _popup_chunk ) ) return NO ;
        else
        {
-         var _div_id = safe_string( _popup_chunk[1], "" );
-         if ( !_div_id.start_with( "#" ) ) _div_id = "#" + _div_id ;
+         if ( !_popup_id.start_with( "#" ) ) _popup_id = "#" + _popup_id ;
          if ( $( _div_id ).get(0) != null )
          {
-            var _node_obj = $( _div_id ).get(0) != null ? document.body.removeChild( $( _div_id ).get(0) ) : NO ;
+            var _node_obj = $( _popup_id ).get(0) != null ? document.body.removeChild( $( _popup_id ).get(0) ) : NO ;
             if ( _node_obj == null ) return NO ;
             circles_lib_plugin_delete_from_archive( _ret_index );
             _glob_wnd_id = "", _glob_wnd = null ;
@@ -200,8 +197,6 @@ function circles_lib_plugin_destroy_wnd( _div_id )
          }
          else return NO ;
        }
-    }
-    else return NO ;
 }
 
 
@@ -232,8 +227,8 @@ function circles_lib_plugin_register( _calling_params, _div_id, _caption, _statu
 }
 
 function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _calling_fn, _calling_args,
-																		 _subset, _b_open, _div_id, _caption, _append_fns_at_close,
-					                           _normalize_fns, _minimize_fns, _maximize_fns, _caption_class )
+													 _subset, _b_open, _div_id, _caption, _append_fns_at_close,
+					                 _normalize_fns, _minimize_fns, _maximize_fns, _caption_class )
 {
 		var _tmp_args = [] ; for( var _a = 0 ; _a < _calling_args.length ; _a++ ) _tmp_args.push( _calling_args[_a] );
 				_calling_args = _tmp_args.work( function( _tok ) { return "'"+( ( new String( _tok ) ).addslashes() )+"'" ; } ) ;
@@ -243,7 +238,7 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
     if ( !_b_open ) _glob_popup_mask ^= 1;
     _allow_multiple_instances = safe_int( _allow_multiple_instances, NO );
     _base_id = safe_string( _base_id, "" ).trim();
-    _div_id = safe_string( _div_id, "popup_div" );
+    _div_id = safe_string( _div_id, "" );
     _caption = safe_string( _caption, "" ).trim();
     _append_fns_at_close = safe_string( _append_fns_at_close, "" ).trim();
     _subset = safe_string( _subset, "forms" ).trim();
@@ -251,7 +246,7 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
     var _close = ( !_b_open && _append_fns_at_close.length > 0 ) ? eval( _append_fns_at_close ) : YES ;
     if ( !_close ) return ;
 
-    if ( _div_id.start_with( "#" ) ) _div_id = _div_id.replaceAll( "#", "" ) ;
+    _div_id = _div_id.replaceAll( "#", "" ) ;
     var _fn = function() { circles_lib_plugin_destroy_wnd( _div_id ) } ;
     _b_open ? $("#"+_div_id).slideDown("slow") : $("#"+_div_id).slideUp("fast", _fn );
 
@@ -259,6 +254,7 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
     else _glob_popup_sel_unique_id = _div_id ;
 
     var _index = circles_lib_plugin_find_index( _div_id, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_UNIQUE_ID, _caption );
+    console.log( "ACTIVATE IDX", _index, _div_id );
     var _popup_obj = null ;
     if ( _b_open )
     {

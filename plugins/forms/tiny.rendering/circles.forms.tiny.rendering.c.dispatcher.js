@@ -9,8 +9,8 @@ function CIRCLESformsTINYRENDERINGdispatcher()
 		if ( arguments.length > 0 )
 		{
 			 var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN );
-       var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "tiny.rendering" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 )
-         if ( _idx == UNFOUND ) return 0 ;
+       var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "tiny.rendering" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 ) ;
+       if ( _idx == UNFOUND ) return 0 ;
 			 switch( MESSAGE_ID )
 			 {
            case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
@@ -19,18 +19,27 @@ function CIRCLESformsTINYRENDERINGdispatcher()
            case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
+           var _div_id = "CIRCLESformsTINYRENDERINGpopupWND"+arguments[1] ;
+           var _idx = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID, 0 )
+           if ( _idx != UNFOUND )
+           {
+           }
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
-				   CIRCLESformsTINYRENDERINGremove( arguments[1] );
-
-           var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
-           circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[ _idx ][1],'' );
+           var _div_id = "CIRCLESformsTINYRENDERINGpopupWND"+arguments[1] ;
+           var _idx = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID, 0 )
+           if ( _idx != UNFOUND )
+           {
+    				   CIRCLESformsTINYRENDERINGremove( arguments[1], arguments[2] );
+               var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
+               circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[ _idx ][1],'' );
+           }
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-              var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
-		          circles_lib_plugin_load( _subset, _base_id, NO ) ;
+           var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
+		       circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		       break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
            break ;

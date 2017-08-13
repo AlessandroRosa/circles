@@ -32,8 +32,8 @@ var CIRCLESformsTINYRENDERINGtabberOptions = {
 
     switch( i )
     {
-       case 0: CIRCLESformsTINYRENDERINGclipboardSETUP( i, CIRCLESformsTINYRENDERINGref_id ) ; break ;
-       case 1: CIRCLESformsTINYRENDERINGclipboardSETUP( i, CIRCLESformsTINYRENDERINGref_id ) ; break ;
+       case 0: break ;
+       case 1: break ;
        default: break ;
     }
 
