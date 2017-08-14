@@ -7,6 +7,8 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _out_channe
 		}
 
 		var _out_msg = "" ;
+    var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "general.options" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 ) ;
+    var _div_id = _idx != UNFOUND ? _glob_popup_array[_idx][1] : "" ;
 		switch( _options[0].toLowerCase() )
 		{
 				case "activate.ifs":
@@ -41,7 +43,7 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _out_channe
         break ;
 				case "focus":
         var _sub = "forms", _base_id = "general.options" ;
-        circles_lib_plugin_focus( _base_id, _sub );
+        circles_lib_plugin_focus( _div_id );
         return 1;
         break ;
 				case "ifs.last.pt":
@@ -104,13 +106,15 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _out_channe
         var _tabname = _options[1] != null ? _options[1].toLowerCase() : "basics" ;
             _tabname = _tabname.replace( /[\.\_\-]/g, "" );
         var HTMLcode = "", WIDTH = 450, HEIGHT = 0 ;
+        var _idx = circles_lib_plugin_find_index( { subset : 'forms', base_id : 'general.options' }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID ) ;
+        var _div_id = _idx != UNFOUND ? _glob_popups_array[_idx][1] : "" ;
 
         switch( _tabname )
         {
           case "basics":
           WIDTH = 430, HEIGHT = 384 ;
           HTMLcode = CIRCLESformsGENERALOPTIONSbasicsTAB();
-          circles_lib_set_caption_text( _base_id, _subset, "General Options - basics" );
+          circles_lib_set_caption_text( _div_id, "General Options - basics" );
 
           if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
           break ;
@@ -118,7 +122,7 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _out_channe
           HEIGHT = Math.max( $(window).height() - 90, 260 ) ;
           var this_fn_name = "CIRCLESformsGENERALOPTIONSmain('general.options', 1, 2)" ;
           HTMLcode = CIRCLESformsGENERALOPTIONSzplanelayersTAB( this_fn_name );
-          circles_lib_set_caption_text( _base_id, _subset, "General Options - Z-plane" );
+          circles_lib_set_caption_text( _div_id, "General Options - Z-plane" );
           CIRCLESformsGENERALOPTIONSresize( WIDTH - 20, HEIGHT );
 
           if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
@@ -130,7 +134,7 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _out_channe
           WIDTH = 450, HEIGHT = Math.max( $(window).height() - 90, 260 ) ;
           var this_fn_name = "CIRCLESformsGENERALOPTIONSmain('general.options', 1, 3)" ;
           HTMLcode = CIRCLESformsGENERALOPTIONSwplanelayersTAB( this_fn_name );
-          circles_lib_set_caption_text( _base_id, _subset, "General Options - W-plane" );
+          circles_lib_set_caption_text( _div_id, "General Options - W-plane" );
           CIRCLESformsGENERALOPTIONSresize( WIDTH - 20, HEIGHT );
 
           if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
@@ -142,21 +146,21 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _out_channe
           WIDTH = 430, HEIGHT = 280 ;
           CIRCLESformsGENERALOPTIONSresize( WIDTH, HEIGHT );
           HTMLcode = CIRCLESformsGENERALOPTIONScolorsTAB();
-          circles_lib_set_caption_text( _base_id, _subset, "General Options - Colors" );
+          circles_lib_set_caption_text( _div_id, "General Options - Colors" );
           if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
           break ;
           case "extras":
           WIDTH = 430, HEIGHT = 346 ;
           CIRCLESformsGENERALOPTIONSresize( WIDTH, HEIGHT );
           HTMLcode = CIRCLESformsGENERALOPTIONSextrasTAB();
-          circles_lib_set_caption_text( _base_id, _subset, "General Options - Extras" );
+          circles_lib_set_caption_text( _div_id, "General Options - Extras" );
           if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
           break ;
           case "export":
           WIDTH = 430, HEIGHT = 200 ;
           CIRCLESformsGENERALOPTIONSresize( WIDTH, HEIGHT );
           HTMLcode = CIRCLESformsGENERALOPTIONSexportTAB();
-          circles_lib_set_caption_text( _base_id, _subset, "General Options - Export" );
+          circles_lib_set_caption_text( _div_id, "General Options - Export" );
           if ( $("#GENERALOPTIONStabCONTAINER").get(0) != null ) $("#GENERALOPTIONStabCONTAINER").html( HTMLcode );
           break ;
           default: break ;

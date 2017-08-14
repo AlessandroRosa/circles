@@ -67,7 +67,7 @@ function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _te
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
-    var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+    var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
     var CLOSE_FN = "CIRCLESformsTERMINALclose("+_suffix+");" ;
     circles_lib_plugin_activate( YES, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN,
                       [ "CIRCLESformsTERMINALnormalize", _div_id, _suffix, WIDTH, HEIGHT ],
@@ -377,7 +377,7 @@ function CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix )
                          function(e)
                          {
                             _glob_wnd_onkeyup_event_halt = YES ;
-                            circles_lib_plugin_focus( "terminal", "forms" );
+                            circles_lib_plugin_focus( _div_id );
                             if ( e.stopImmediatePropagation() ) e.stopImmediatePropagation() ;
                             if ( e.stopPropagation ) e.stopPropagation();
                             if ( e.cancelBubble ) e.cancelBubble = true;
@@ -392,7 +392,7 @@ function CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix )
     function( e )
     {
         _glob_wnd_onkeyup_event_halt = YES ;
-     		circles_lib_plugin_focus( "terminal", "forms" );
+     		circles_lib_plugin_focus( _div_id );
         if ( e.stopPropagation ) e.stopPropagation();
         if ( e.cancelBubble != null ) e.cancelBubble = true;
     } );

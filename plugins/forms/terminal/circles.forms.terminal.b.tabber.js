@@ -26,28 +26,30 @@ var CIRCLESTERMINALtabberOptions = {
 
   'tabsmanager' : function( i )
   {
+      var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "terminal" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 ) ;
+      var _div_id = _idx != UNFOUND ? _glob_popup_array[_idx][1] : "" ;
       switch( i )
       {
-          case 0: // terminal console
-          _glob_output_channel = OUTPUT_TERMINAL ;
-        	circles_lib_statusbar_set_output_stream( _glob_output_channel );
-          setTimeout( function() { _glob_terminal.enable(); _glob_terminal.resize(); }, 10 );
-          circles_lib_plugin_focus( "terminal", "forms" );
-          break;
-          case 1: // batch compiler
-          _glob_terminal.disable();
-          _glob_output_channel = OUTPUT_SCRIPT ;
-          circles_lib_statusbar_set_output_stream( _glob_output_channel );
-          _glob_delayTICKincrement = 0.12 ;
-          setTimeout( function() { CIRCLESformsTERMINALbatchcompilerFOCUS( _glob_terminal_form_suffix ); }, 10 );
-          circles_lib_plugin_focus( "terminal", "forms" );
-          break;
-          case 2: // debug window
-          _glob_terminal.disable();
-          _glob_output_channel = OUTPUT_CONSOLE ;
-          circles_lib_plugin_focus( "terminal", "forms" );
-          break;
-		      default: break ;
+        case 0: // terminal console
+        _glob_output_channel = OUTPUT_TERMINAL ;
+       	circles_lib_statusbar_set_output_stream( _glob_output_channel );
+        setTimeout( function() { _glob_terminal.enable(); _glob_terminal.resize(); }, 10 );
+        circles_lib_plugin_focus( _div_id );
+        break;
+        case 1: // batch compiler
+        _glob_terminal.disable();
+        _glob_output_channel = OUTPUT_SCRIPT ;
+        circles_lib_statusbar_set_output_stream( _glob_output_channel );
+        _glob_delayTICKincrement = 0.12 ;
+        setTimeout( function() { CIRCLESformsTERMINALbatchcompilerFOCUS( _glob_terminal_form_suffix ); }, 10 );
+        circles_lib_plugin_focus( _div_id );
+        break;
+        case 2: // debug window
+        _glob_terminal.disable();
+        _glob_output_channel = OUTPUT_CONSOLE ;
+        circles_lib_plugin_focus( _div_id );
+        break;
+	      default: break ;
       }
   },
 

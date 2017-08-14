@@ -96,7 +96,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
 			HTMLcode += "</table>" ;
       HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
 
-      var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+      var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
       if ( _div != null )
       {
          var _x_tag = "LEFT", _y_tag = "TOP" ; // or whatever default tags have been already set in previous implementations
@@ -141,7 +141,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY( _move )
 
       HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
 
-      var _div = circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, HTMLcode );
+      var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
       if ( _move && _div != null )
       {
           move_div( _div.id, "LEFT", "TOP" );
@@ -228,10 +228,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONsaveGRAPH()
 {
     html2canvas( $('#METHODprobabilityGRAPHtable').get(0),
     {
-       onrendered: function(canvas)
-       {
-          circles_lib_files_pix_save( NO_PLANE, canvas, "random.distribution.png" );
-       }
+       onrendered: function(canvas) { circles_lib_files_pix_save( NO_PLANE, canvas, "random.distribution.png" ); }
     });
 }
 

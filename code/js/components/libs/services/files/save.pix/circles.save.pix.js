@@ -187,32 +187,27 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge
     else return eval( _save_fn );
 }
 
-function circles_lib_files_pix_save( _plane_type, _canvas, _filename, _out_channel )
+function circles_lib_files_pix_save( _plane_type, _canvas, _filename, _out_channel, _silent )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _silent = safe_int( _silent, NO ) ;
     if ( is_string( _canvas ) ) _canvas = $( "#"+_canvas ).get(0) ;
 		if ( is_html_canvas( _canvas ) )
     {
-        _canvas.toBlob(
-        function(blob, _filename)
-        {
-             saveAs( blob, _filename );
-        }, _filename );
-        
-        return [ RET_OK, "Saving the picture file: now wait for the dialog box to open" ];
+       _canvas.toBlob( function(blob, _filename) { saveAs( blob, _filename ); }, _filename );
+       return [ RET_OK, "Saving the picture file: now wait for the dialog box to open" ];
     }
     else
     {
-        var _msg = "Can't save the picture file: a canvas must be chosen first" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
-        return [ RET_ERROR, _msg ];
+       var _msg = "Can't save the picture file: a canvas must be chosen first" ;
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+       return [ RET_ERROR, _msg ];
     }
 }
 
 function circles_lib_files_pix_save_enable_radio_ctrls( _b_enable )
 {
-    var _max = 3, CTRLid, CTRL ;
+    var _max = 3, CTRLid ;
     for( var i = 1 ; i <= _max ; i++ )
     {
         CTRLid = "#CIRCLESsavePIXradio." + ( i < 10 ? "0" + i : i );

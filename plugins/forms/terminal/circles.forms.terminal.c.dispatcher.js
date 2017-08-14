@@ -15,8 +15,8 @@ function CIRCLESformsTERMINALdispatcher()
 		   {
            case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
            var _sw = $(window).width(), _sh = $(window).height() ;
-           var _div_id = _glob_popups_array[ _idx ][1] ;
-           var _suffix = _glob_popups_array[ _idx ][9] ;
+           var _div_id = _glob_popups_array[_idx][1] ;
+           var _suffix = _glob_popups_array[_idx][9] ;
            $( "[id^=wnd_container_POPUPterminalDIV"+_suffix+"]" ).height(_sh - 76 ) ;
            $("#CIRCLESTERMINAL"+_suffix+"_TAB_01").css( "height", $("#"+_div_id).height() - 76 );
            $("#CIRCLESTERMINAL"+_suffix+"_TAB_02").css( "height", $("#"+_div_id).height() - 76 );
@@ -33,34 +33,34 @@ function CIRCLESformsTERMINALdispatcher()
            _glob_wnd_onkeyup_event_halt = YES ;
            _glob_terminal_current_id = CIRCLESformsTERMINALdiv_id ;
            $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESformsTERMINALlistingsLOAD ) } ;
-           var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
+           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
            break ;
 		       case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-           var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
+           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
 		       circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		       break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
            _glob_wnd_onkeyup_event_halt = NO ;
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
-           var _div_id = _glob_popups_array[ _idx ][1] ;
+           var _div_id = _glob_popups_array[_idx][1] ;
            if ( $("#"+_div_id).resizable('instance') != undefined ) $("#" + _div_id).resizable('destroy');
            _glob_wnd_onkeyup_event_halt = NO ;
-           var _suffix = _glob_popups_array[ _idx ][9] ;
+           var _suffix = _glob_popups_array[_idx][9] ;
 			     if ( _glob_terminal_popup_active > 0 ) _glob_terminal_popup_active--;
 
 					 circles_lib_statusbar_set_output_stream( OUTPUT_SCREEN );
 					 CIRCLESformsTERMINALbatchcompilerCLOSE( _suffix );
 					 circles_lib_unload_cmd();
 
-           var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
-           circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[ _idx ][1],'' );
+           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+           circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
            break ;
 		       case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
-           var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
-		       circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
+           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+		       circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
 		       break ;
 		       default: break ;
 			 }

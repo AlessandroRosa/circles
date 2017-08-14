@@ -25,22 +25,22 @@ function CIRCLESformsLOGdispatcher()
               case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
               break ;
 		          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-              var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
+              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
 		          circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		          break ;
               case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
               if ( $("#" + CIRCLESformsLOGdiv_id).resizable('instance') != undefined )
               $("#" + CIRCLESformsLOGdiv_id).resizable('destroy');
 
-              var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
-              circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[ _idx ][1],'' );
+              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+              circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
               break ;
               case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
               CIRCLESformsLOGlist();
               break ;
 		          case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
-              var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
-		          circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
+              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+		          circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
 		          break ;
 			        default: break ;
 					 }

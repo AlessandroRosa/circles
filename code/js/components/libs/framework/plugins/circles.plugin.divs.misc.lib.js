@@ -18,7 +18,7 @@ function circles_lib_plugin_build_divid( _subset, _base_id, ...args )
 function circles_lib_plugin_focus_wnd_from_inner_ctrl_id( _ctrl_id, _base_id, _subset, _div_id )
 {
     if ( $("#"+circles_lib_plugin_get_wnd_from_inner_ctrl_id( _ctrl_id ) ).length > 0 )
-    circles_lib_plugin_focus( _based_id, subset, _div_id );
+    circles_lib_plugin_focus( _div_id );
 }
 
 function circles_lib_plugin_get_wnd_from_inner_ctrl_id( _ctrl_id )
@@ -215,7 +215,6 @@ function circles_lib_plugin_get_datamask_from_value( _prop_value, _offset )
           if ( _ret != UNFOUND ) return _ret ;
        }
     }
-    
     return _ret ;
 }
 

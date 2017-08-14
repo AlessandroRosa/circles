@@ -21,11 +21,7 @@ function CIRCLESformsTINYRENDERINGdispatcher()
            case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
            var _div_id = "CIRCLESformsTINYRENDERINGpopupWND"+arguments[1] ;
            var _idx = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID, 0 ) ;
-           if ( _idx != UNFOUND )
-           {
-              var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
-              circles_lib_plugin_focus( _base_id, _subset, _div_id ) ;
-           }
+           if ( _idx != UNFOUND ) circles_lib_plugin_focus( _div_id ) ;
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
            break ;
@@ -35,19 +31,19 @@ function CIRCLESformsTINYRENDERINGdispatcher()
            if ( _idx != UNFOUND )
            {
     				   CIRCLESformsTINYRENDERINGremove( arguments[1], arguments[2] );
-               var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
-               circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[ _idx ][1],'' );
+               var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+               circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
            }
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-           var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
+           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
 		       circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		       break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
-              var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
-		       circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
+              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+		       circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
 		       break ;
 	         default: break ;
 			}

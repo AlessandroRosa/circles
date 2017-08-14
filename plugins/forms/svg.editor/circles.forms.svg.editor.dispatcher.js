@@ -15,8 +15,8 @@ function CIRCLESformsSVGEDITORdispatcher()
 					 {
                 case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
                 var _sw = $(window).width(), _sh = $(window).height() ;
-                var _div_id = _glob_popups_array[ _idx ][1] ;
-                var _suffix = _glob_popups_array[ _idx ][9] ;
+                var _div_id = _glob_popups_array[_idx][1] ;
+                var _suffix = _glob_popups_array[_idx][9] ;
                 var _popup_height = $(window).height() - 90 ;
                 $("#"+_div_id).height( _popup_height ) ;
                 
@@ -42,11 +42,11 @@ function CIRCLESformsSVGEDITORdispatcher()
                 case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
 						    _glob_svg_canvas = null;
 
-              var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
-              circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[ _idx ][1],'' );
+              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+              circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
                 break ;
 		          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-              var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
+              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
 		          circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		          break ;
                 case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
@@ -55,8 +55,8 @@ function CIRCLESformsSVGEDITORdispatcher()
                 else CIRCLESformsSVGEDITORmain( 'svg.editor' ) ;
                 break ;
 			          case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
-              var _subset = _glob_popups_array[ _idx ][8], _base_id = _glob_popups_array[ _idx ][12] ;
-			          circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
+              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+			          circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
 			          break ;
 				        default: break ;
 					 }

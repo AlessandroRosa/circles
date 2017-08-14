@@ -30,7 +30,7 @@ function CIRCLESbarsSTATUSBARdispatcher() // keep this fn name due to std naming
         case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
         var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
 		    var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
-		    circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments ) ;
+		    circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
 		    break ;
         default: break ;
      }

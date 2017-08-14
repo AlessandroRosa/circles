@@ -122,23 +122,17 @@ function circles_lib_plugin_focus_render( _b_update_list, _b_dispatch_focus_msg 
     }
 }
 
-function circles_lib_plugin_focus( _base_id, _subset, _div_id, _dispatch_msg, event )
+function circles_lib_plugin_focus( _div_id, _dispatch_msg, event )
 {
- 		_base_id = safe_string( _base_id, "" ), _subset = safe_string( _subset, "" ), _div_id = safe_string( _div_id, "" );
-    if ( !_glob_popup_sel_unique_id.stricmp( _base_id ) && !_glob_popup_sel_unique_id.stricmp( _div_id ) )
+ 		_div_id = safe_string( _div_id, "" );
+    if ( !_glob_popup_sel_unique_id.stricmp( _div_id ) )
     {
       // dispatch notifications to all pop-ups here
-    	_subset = safe_string( _subset, "forms" );
       _dispatch_msg = safe_int( _dispatch_msg, NO );
-      var _popup_obj = null ;
-      if ( _div_id.length > 0 )
-      _popup_obj = circles_lib_plugin_find_wnd( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID, YES ) ;
-      else _popup_obj = circles_lib_plugin_find_wnd( { base_id : _base_id, subset : _subset }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET, YES ) ;
-
+      _glob_last_focus_divid = _div_id ;
+      var _popup_obj = _div_id.length > 0 ? circles_lib_plugin_find_wnd( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID, YES ) : null ;
       var _id_datamask = circles_lib_plugin_get_datamask_from_value( _div_id ) ;
       var _unique_id = is_array( _popup_obj ) ? _popup_obj[0] : "" ;
-      var _div_id = is_array( _popup_obj ) ? _popup_obj[1] : "" ;
-      _glob_last_focus_divid = _div_id ;
         
       if ( _id_datamask & POPUP_SEARCH_BY_UNIQUE_ID ) _glob_popup_sel_unique_id = _unique_id ;
       else if ( _id_datamask & POPUP_SEARCH_BY_BASE_ID ) _glob_popup_sel_unique_id = _base_id ;

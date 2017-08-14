@@ -7,13 +7,11 @@
    14 : rect obj for popup wnd pos and extents
 */
 
-function circles_lib_set_caption_text( _base_id, _subset, _caption_text )
+function circles_lib_set_caption_text( _div_id, _caption_text )
 {
     _caption_text = safe_string( _caption_text, "" ).trim();
-    _base_id = safe_string( _base_id.replace( /[\.\_\-]/g, "" ), "" );
-    _subset = safe_string( _subset.replace( /[\.\_\-]/g, "" ), "" );
     if ( _caption_text.length == 0 ) return 0 ;
-    var _caption_id = "PLUGIN"+_subset.toLowerCase()+_base_id.toLowerCase()+"CAPTION" ;
+    var _caption_id = "PLUGIN"+_div_id+"CAPTION" ;
     if ( $("#"+_caption_id).get(0) != null )
     {
        $("#"+_caption_id).html( _caption_text );
@@ -46,7 +44,7 @@ function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrow
     _help_fn = safe_string( _help_fn, "" );
 		_title = _title.length > 70 ? _title.substr( 0, 65 ) + "&nbsp;.." : _title ;
 
-		var _clean_base_id = safe_string( _base_id, "" ).replaceAll( [ "_", "." ], "" ).toUpperCase();
+		var _clean_base_id = safe_string( _base_id, "" ).replace( /[\.\_\-]/g, "" ).toUpperCase();
     var METHODstr = circles_lib_method_get_def( _glob_method );
     var _check_method = circles_lib_method_check();
     var _sub_method_desc = ( _glob_method == METHOD_ALGEBRAIC && _plugin_last_ref.length > 0 ) ? _plugin_definitions_array[_plugin_last_ref] : "" ;
@@ -74,10 +72,10 @@ function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrow
     }
     else HTMLcode += "<td WIDTH=\"3\"></td>" ;
 
-    HTMLcode += "<td ID=\"PLUGIN"+(_subset.toLowerCase()+_clean_base_id.toLowerCase())+"CAPTION\" " ;
+    HTMLcode += "<td ID=\"PLUGIN"+_div_id+"CAPTION\" " ;
     HTMLcode += " ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"" ;
     if ( _focus_fn.not_includes( "circles_lib_plugin_focus" ) )
-    _focus_fn = "circles_lib_plugin_focus('"+_base_id+"','"+_subset+"','"+_div_id+"');" ;
+    _focus_fn = "circles_lib_plugin_focus('"+_div_id+"');" ;
 
     HTMLcode += " ONCLICK=\"javascript:"+_focus_fn+";\"" ;
     HTMLcode += " ONMOUSEDOWN=\"javascript:$('#"+_div_id+"').draggable('enable');\"" ;
@@ -132,7 +130,7 @@ function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrow
     return HTMLcode ;
 }
 
-function circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, contents, _class, _zIndex, _bind_events, _top )
+function circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, contents, _class, _zIndex, _bind_events, _top )
 {
     _zIndex = safe_int( _zIndex, 10 ), _bind_events = safe_int( _bind_events, YES );
     _top = safe_int( _top, 100 ), _class = safe_string( _class, "popup_wnd" );
@@ -141,64 +139,63 @@ function circles_lib_plugin_create( _base_id, _div_id, _subset, WIDTH, HEIGHT, c
         _div = _div == null ? document.createElement("div") : _div ;
     if ( _div != null )
     {
-        _glob_wnd_id = _div_id, _glob_wnd = _div ;
-        document.body.appendChild( _div );
-        _div.id = _div_id ;
-        _div.style.filter = "alpha(opacity="+DEFAULT_OPACITY*100+");" ;
-        _div.style.position = "absolute" ;
-        _div.style.padding = "4px" ;
-        _div.setAttribute( "class", _class );
+      _glob_wnd_id = _div_id, _glob_wnd = _div ;
+      document.body.appendChild( _div );
+      _div.id = _div_id ;
+      _div.style.filter = "alpha(opacity="+DEFAULT_OPACITY*100+");" ;
+      _div.style.position = "absolute" ;
+      _div.style.padding = "4px" ;
+      _div.setAttribute( "class", _class );
 
-        $("#"+_div_id).prop( "opacity", DEFAULT_OPACITY );
-        $("#"+_div_id).css( "width", safe_int( WIDTH, 0 ) > 0 ? WIDTH + "px" : "auto" );
-        $("#"+_div_id).css( "height", safe_int( HEIGHT, 0 ) > 0 ? HEIGHT + "px" : "auto" );
-        $("#"+_div_id).css( "background-color", "white" );
-        $("#"+_div_id).css( "top", _top+"px" );
-        $("#"+_div_id).zIndex( _zIndex );
-        $("#"+_div_id).html( contents );
-        $("#"+_div_id).prop( "display", "none" );
+      $("#"+_div_id).prop( "opacity", DEFAULT_OPACITY );
+      $("#"+_div_id).css( "width", safe_int( WIDTH, 0 ) > 0 ? WIDTH + "px" : "auto" );
+      $("#"+_div_id).css( "height", safe_int( HEIGHT, 0 ) > 0 ? HEIGHT + "px" : "auto" );
+      $("#"+_div_id).css( "background-color", "white" );
+      $("#"+_div_id).css( "top", _top+"px" );
+      $("#"+_div_id).zIndex( _zIndex );
+      $("#"+_div_id).html( contents );
+      $("#"+_div_id).prop( "display", "none" );
 
-        if ( _bind_events ) 
-        $("#"+_div_id).bind( 'mousedown focus', function(e)
+      if ( _bind_events )
+      $("#"+_div_id).bind( 'mousedown focus', function(e)
+      {
+        if ( e != null )
         {
-          if ( e != null )
-          {
-             if ( e.originalEvent != null )
-             {
-                var _tag = safe_string( e.originalEvent.srcElement.tagName, "" ).toLowerCase();
-                var _type = safe_string( e.originalEvent.srcElement.type, "" ).toLowerCase();
-                if ( !_tag.is_one_of( "input", "select", "textarea" ) && !_type.is_one_of( "checkbox", "textarea" ) )
-                {
-                   e.stopPropagation();
-                   e.cancelBubble = true;
-                   e.preventDefault();
-                }
-                circles_lib_plugin_focus( _base_id, _subset, _div_id, YES, e );
-             }
-          }
+           if ( e.originalEvent != null )
+           {
+              var _tag = safe_string( e.originalEvent.srcElement.tagName, "" ).toLowerCase();
+              var _type = safe_string( e.originalEvent.srcElement.type, "" ).toLowerCase();
+              if ( !_tag.is_one_of( "input", "select", "textarea" ) && !_type.is_one_of( "checkbox", "textarea" ) )
+              {
+                e.stopPropagation();
+                e.cancelBubble = true;
+                e.preventDefault();
+              }
+              circles_lib_plugin_focus( _div_id, YES, e );
+           }
         }
-        );
+      } );
     }
     return _div ;
 }
 
 function circles_lib_plugin_destroy_wnd( _popup_id )
 {
-       var _popup_chunk = circles_lib_plugin_find_wnd( { unique_id : _popup_id, div_id : _popup_id }, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_UNIQUE_ID );
-       if ( !is_array( _popup_chunk ) ) return NO ;
-       else
-       {
-         if ( !_popup_id.start_with( "#" ) ) _popup_id = "#" + _popup_id ;
-         if ( $( _div_id ).get(0) != null )
-         {
-            var _node_obj = $( _popup_id ).get(0) != null ? document.body.removeChild( $( _popup_id ).get(0) ) : NO ;
-            if ( _node_obj == null ) return NO ;
-            circles_lib_plugin_delete_from_archive( _ret_index );
-            _glob_wnd_id = "", _glob_wnd = null ;
-            return YES ;
-         }
-         else return NO ;
-       }
+    var _popup_chunk = circles_lib_plugin_find_wnd( { unique_id : _popup_id, div_id : _popup_id }, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_UNIQUE_ID );
+    if ( !is_array( _popup_chunk ) ) return NO ;
+    else
+    {
+      if ( !_popup_id.start_with( "#" ) ) _popup_id = "#" + _popup_id ;
+      if ( $( _div_id ).get(0) != null )
+      {
+        var _node_obj = $( _popup_id ).get(0) != null ? document.body.removeChild( $( _popup_id ).get(0) ) : NO ;
+        if ( _node_obj == null ) return NO ;
+        circles_lib_plugin_delete_from_archive( _ret_index );
+        _glob_wnd_id = "", _glob_wnd = null ;
+        return YES ;
+      }
+      else return NO ;
+    }
 }
 
 

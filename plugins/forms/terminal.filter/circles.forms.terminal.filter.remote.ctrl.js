@@ -12,6 +12,8 @@ function CIRCLESformsTERMINALFILTERremotectrl( _options, _return_fn, _out_channe
 		}
 
 		var _out_msg = "" ;
+    var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "terminal.filter" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 ) ;
+    var _div_id = _idx != UNFOUND ? _glob_popup_array[_idx][1] : "" ;
 		switch( _options[0].toLowerCase() )
 		{
 				case "/*anyaction*/":
@@ -25,7 +27,7 @@ function CIRCLESformsTERMINALFILTERremotectrl( _options, _return_fn, _out_channe
         break ;
 				case "focus":
         var _sub = "forms", _base_id = "terminal.filter" ;
-        circles_lib_plugin_focus( _base_id, _sub );
+        circles_lib_plugin_focus( _div_id );
         return 1;
         break ;
 				case "move":

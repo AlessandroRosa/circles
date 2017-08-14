@@ -7,53 +7,27 @@
    14 : rect obj for popup wnd pos and extents
 */
 
-function circles_lib_plugin_remotectrl_send()
-{
-    var _n_args = arguments.length ;
-    var _unicast_flag = safe_int( arguments[0], NO );
-    var _options_array = arguments[1] ;
-    var _subset = is_array( _options_array ) ? safe_string( _options_array[0], "" ).trim().toLowerCase() : "" ;
-    var _base_id = is_array( _options_array ) ? safe_string( _options_array[1], "" ).trim().toLowerCase() : "" ;
-    var _cmd_id = is_array( _options_array ) ? safe_string( _options_array[2], "" ).trim().toLowerCase() : "" ;
-    var _add_args = is_array( _options_array ) ? ( _options_array.length > 3 ? _options_array.from_to( 3, _options_array.length ) : [] ) : [] ;
-    var _return_fn = arguments[2] ;
-    var _return_fn_exists = typeof( _return_fn ) === "function" ? YES : NO ;
-    if ( _n_args == 0 || _base_id.length == 0 ) return [ RET_ERROR, "Insufficient input params for activating the remote control" ] ;
-    else
-    {
-    	 var _popup_obj_ref = circles_lib_plugin_find_wnd( { base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID, YES ) ;
-    	 if ( _popup_obj_ref == null ) return [ RET_ERROR, "Please, open the window before activating the remote control" ] ;
-    	 var _popup_index = circles_lib_plugin_find_index( { base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID, YES ) ;
-       var _msg_id = _unicast_flag ? "POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL" : "POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL" ;
-       var _prefix = "CIRCLES" + _subset.toLowerCase() + _base_id.replaceAll( [ "." ], "" ).toUpperCase() ;
-       var _call_fn = _prefix + "dispatcher( " + _msg_id + ", " + _popup_index + ", " ;
-           _call_fn += _options_array.work( function( _item ) { return "'"+_item+"'" ; } ).join( "," ) ;
-           _call_fn += ", _return_fn );" ;
-       try { eval( _call_fn ); }
-       catch( _err ) { circles_lib_error_obj_handler( _err ); return [ RET_ERROR, "Please, open the window before activating the remote control" ] ; }
-       return [ RET_OK, "Remote control activated with success" ] ;
-    }
-}
-
-function circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, arguments )
+function circles_lib_plugin_remotectrl_dispatch_to_service( _div_id )
 {
     _subset = safe_string( _subset, "" ), _base_id = safe_string( _base_id, "" ) ;
+    var _idx = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID, 0 )
     var _action = safe_string( arguments[4], "" ).trim(), _options = [] ;
     // gathering input options
-    for( var _a = 4 ; _a <= arguments.length - 2 ; _a++ ) _options.push( arguments[_a] ) ;
+    for( var _a = 2 ; _a <= arguments.length ; _a++ ) _options.push( arguments[_a] ) ;
     var _return_fn = arguments[ arguments.length - 1 ] ;
-    var _caption = _base_id.replaceAll( [ ".", "_" ], " " ) ;
+    var _subset = _idx != UNFOUND ? _glob_popups_array[_idx][8] : "", _base_id = _idx != UNFOUND ? _glob_popups_array[_idx][12] : "" ;
+    var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ) ;
     switch( _action.toLowerCase() )
     {
 				case "commands":
 				var _commands = null ;
-				var _cmd = "_commands = " + "CIRCLES"+_subset.toLowerCase()+( _base_id.replaceAll( [ ".", "_" ], "" ).toUpperCase() )+"remotectrlCOMMANDS" ;
+				var _cmd = "_commands = " + "CIRCLES"+_subset.toLowerCase()+_clean_base_id.toUpperCase()+"remotectrlCOMMANDS" ;
 				try{ eval( _cmd ) ; }
-				catch( _err ){ circles_lib_error_obj_handler( _err ); _return_fn.call( this, "Commands have not been registered for '"+ _base_id.replaceAll( [ ".", "_" ], " " ) + "' service" ); }
+				catch( _err ){ circles_lib_error_obj_handler( _err ); _return_fn.call( this, "Commands have not been registered for '"+ _base_id.replaceAll( /[\.\_\-]/g, " " ) + "' service" ); }
 				if ( _commands != null )
 				{
 						var _cols_width = [ 20 ], _startINDEX = 0, _row ;
-       		  _row = "<lightgray>List of remote control actions for '"+_caption+"' service</lightgray>" ;
+       		  _row = "<lightgray>List of remote control actions for '"+_clean_base_id+"' service</lightgray>" ;
             _row += _glob_crlf + "<white>"+( new String( "Action" ) ).rpad( " ", _cols_width[_startINDEX] )+"</white>" ;
             _startINDEX++ ;
             _row += "<lightblue>Description</lightblue>" ;
@@ -61,8 +35,7 @@ function circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, a
             var _keys = [] ;
             for( var _k in _commands ) _keys.push( _k );
             _keys.sort();
-            $.each( _keys,
-            				function( _i, _k )
+            $.each( _keys, function( _i, _k )
             				{
 											_startINDEX = 0 ;
 						          _row = _glob_crlf + "<white>"+_k.rpad( " ", _cols_width[_startINDEX] )+"</white>" ;
@@ -74,13 +47,13 @@ function circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, a
 				}
 				else
 				{
-						var _cmd_list = "<red>Critical error: can't return the command list for '"+_caption+"' service</red>" ;
+						var _cmd_list = "<red>Critical error: can't return the command list for '"+_clean_base_id+"' service</red>" ;
 						_return_fn.call( this, _cmd_list );
 				}
 				break ;
 				case "open.params":
         var _params = null, _row = [] ;
-				try{ eval( "_params = CIRCLES"+_subset+( _base_id.replaceAll( [ ".", "_" ], "" ).toUpperCase() )+"openPARAMS;" ) ; }
+				try{ eval( "_params = CIRCLES"+_subset.toLowerCase()+_clean_base_id.toUpperCase()+"openPARAMS;" ) ; }
 				catch( _err ){ circles_lib_error_obj_handler( _err ); _return_fn.call( this, _err.message ) ; }
         if ( is_json( _params ) )
         {
@@ -108,7 +81,7 @@ function circles_lib_plugin_remotectrl_dispatch_to_service( _subset, _base_id, a
         else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing opening params specifications", _glob_app );
 				break ;
 				default:
-				var _fn = "CIRCLES"+_subset+( _base_id.replaceAll( [ ".", "_" ], "" ).toUpperCase() )+"remotectrl( _options, _return_fn, _out_channel )" ;
+				var _fn = "CIRCLES"+_subset.toUpperCase()+_clean_base_id.toUpperCase() )+"remotectrl( _options, _return_fn, _out_channel )" ;
 				try{ eval( _fn ) ; } catch( _err ){ circles_lib_error_obj_handler( _err ); }
 				break ;
 		}
