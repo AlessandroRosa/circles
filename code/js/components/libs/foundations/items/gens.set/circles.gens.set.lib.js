@@ -31,7 +31,6 @@ function circles_lib_gens_model_is_exact()
 						break ; 
 					}
 			 }
-					 
 			 return _b_go ;
 		}
 		else return NO ;

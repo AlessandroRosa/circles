@@ -20,27 +20,28 @@ function circles_terminal_cmd_probability()
      var _fn_ret_val = null ;
      var _params_assoc_array = [];
      var FULL_SUM = 1.0, _alphabet = circles_lib_gens_alphabet_exists() ;
+     var _decimals = 5 ;
 
 		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
-         _params_assoc_array['action'] = "" ;
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
-         _params_assoc_array['help'] = NO ;
-         _params_assoc_array['keywords'] = NO ;
-         _params_assoc_array['settings'] = [] ;
-         _params_assoc_array['settings']['rng'] = "" ;
-         _params_assoc_array['settings']['warmup'] = UNDET ;
-         _params_assoc_array['settings']['repsthreshold'] = UNDET ;
-         _params_assoc_array['settings']['repsdepth'] = UNDET ;
+       _params_assoc_array['action'] = "" ;
+       _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+       _params_assoc_array['help'] = NO ;
+       _params_assoc_array['keywords'] = NO ;
+       _params_assoc_array['settings'] = [] ;
+       _params_assoc_array['settings']['rng'] = "" ;
+       _params_assoc_array['settings']['warmup'] = UNDET ;
+       _params_assoc_array['settings']['repsthreshold'] = UNDET ;
+       _params_assoc_array['settings']['repsdepth'] = UNDET ;
 
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " );       _params_array.clean_from( "" );
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "clean", "default", "exact", "list", "set", "help",
-                                            "built-in", "uniform", "normal", "exponential", "poisson",
-                                            "gamma", "sine", "release", "html", "repsthreshold", "warmup", "repsdepth" );
+       var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+       _params_array.clean_from( " " );       _params_array.clean_from( "" );
+       // pre-scan for levenshtein correction
+    	 var _local_cmds_params_array = [];
+    			 _local_cmds_params_array.push( "clean", "default", "exact", "list", "set", "help",
+                                          "built-in", "uniform", "normal", "exponential", "poisson",
+                                          "gamma", "sine", "release", "html", "repsthreshold", "warmup", "repsdepth" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
          var _p ;
          params_loop:
@@ -89,50 +90,47 @@ function circles_terminal_cmd_probability()
               else if ( _p.is_one_of_i( "clean", "default", "exact", "list", "release", "set" ) ) _params_assoc_array['action'] = _p ;
               else if ( _p.testME( _glob_float_regex_pattern ) )
               {
+                   if ( _p.includes(".") )
+                   {
+                      if ( ( _p.split(".")[1] ).length > _decimals )
+                      circles_lib_output( _out_channel, DISPATCH_WARNING, "Probability "+_p+" will be rounded to default "+_decimals+" decimal"+(_decimals==1?"":"s"), _par_1, _cmd_tag );
+                   }
                    _p = Math.max( safe_float( _p, 0 ), 0 ) ;
-                   if ( _p >= 0 && _p < FULL_SUM )
+                   if ( _p > 0 && _p < FULL_SUM )
                    {
                        if ( !is_array( _params_assoc_array['settings']['probs'] ) ) _params_assoc_array['settings']['probs'] = [] ;
                        _params_assoc_array['settings']['probs'].push( _p ) ;
-                       circles_lib_output( _out_channel, DISPATCH_INFO, "Acquired probability value as " + _p, _par_1, _cmd_tag );
                    }
                    else
                    {
-                       _b_fail = YES, _error_str = "The input probability" + _p + " is not included in ]0, "+FULL_SUM+"[" ;
+                       _b_fail = YES, _error_str = "The input probability "+_p+" is illegal: it has to be included inside the open unit interval ]0, "+FULL_SUM+"[" ;
                    }
               }
               else if ( _p.testME( _glob_word_regex_pattern ) )
               {
-                   //if ( _alphabet.includes( _p ) )
-                   //{
                        var _lock = is_array( _params_assoc_array['settings']['options'] ) ? ( _params_assoc_array['settings']['options'].includes( "lock" ) ? YES : NO ) : NO ;
                        if ( _lock )
                        {
                           if ( !is_array( _params_assoc_array['settings']['lockedletters'] ) ) _params_assoc_array['settings']['lockedletters'] = [] ;
                           if ( _params_assoc_array['settings']['lockedletters'].includes( _p ) )
-                               circles_lib_output( _out_channel, DISPATCH_WARNING, "Word " + _p + " is already locked", _par_1, _cmd_tag );
+                               circles_lib_output( _out_channel, DISPATCH_WARNING, "Word "+_p+" is already locked", _par_1, _cmd_tag );
                           else
                           {
                              _params_assoc_array['settings']['lockedletters'].push( _p ) ;
-                             circles_lib_output( _out_channel, DISPATCH_INFO, "Word " + _p + " has been locked", _par_1, _cmd_tag );
+                             circles_lib_output( _out_channel, DISPATCH_INFO, "Word "+_p+" has been marked as 'locked'", _par_1, _cmd_tag );
                           }
                        }
                        else
                        {
                           if ( !is_array( _params_assoc_array['settings']['letters'] ) ) _params_assoc_array['settings']['letters'] = [] ;
                           if ( _params_assoc_array['settings']['letters'].includes( _p ) )
-                               circles_lib_output( _out_channel, DISPATCH_WARNING, "Word " + _p + " has been already acquired", _par_1, _cmd_tag );
+                               circles_lib_output( _out_channel, DISPATCH_WARNING, "Word "+_p+" has been already acquired", _par_1, _cmd_tag );
                           else
                           {
                              _params_assoc_array['settings']['letters'].push( _p ) ;
-                             circles_lib_output( _out_channel, DISPATCH_INFO, "Word " + _p + " has been acquired", _par_1, _cmd_tag );
+                             circles_lib_output( _out_channel, DISPATCH_INFO, "Word "+_p+" has been acquired", _par_1, _cmd_tag );
                           }
                        }
-                   //}
-                   //else
-                   //{
-                   //    _b_fail = YES, _error_str = "The input word '"+_p+"' does not match the current gens set alphabet: " + _alphabet.join( "," ) ;
-                   //}
               }
               else
               {
@@ -269,7 +267,7 @@ function circles_terminal_cmd_probability()
 														 {
 													 			 _sym = _ks[_i], _original = _vs[_i], _prob = _rs[_i] ;
                                  _sum += _prob ;
-                                 _html += "<tr><td STYLE=\"color:white;\">"+_sym+"</td><td WIDTH=\"15\"></td><td STYLE=\"color:yellow;\">"+_original+"</td><td WIDTH=\"10\"></td><td STYLE=\"color:lightblue;\">"+_prob.roundTo(3)+"</td><td WIDTH=\"15\"></td><td STYLE=\"color:white;\">"+(_prob*100.0).roundTo(3)+" %</td></tr>" ;
+                                 _html += "<tr><td STYLE=\"color:white;\">"+_sym+"</td><td WIDTH=\"15\"></td><td STYLE=\"color:yellow;\">"+_original+"</td><td WIDTH=\"10\"></td><td STYLE=\"color:lightblue;\">"+_prob.roundTo(_decimals)+"</td><td WIDTH=\"15\"></td><td STYLE=\"color:white;\">"+(_prob*100.0).roundTo(_decimals)+" %</td></tr>" ;
 														 }
 
                              _html += "<tr><td HEIGHT=\"2\"></td></tr>" ;
@@ -315,7 +313,7 @@ function circles_terminal_cmd_probability()
 														 }
 
  														 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
- 														 circles_lib_output( _out_channel, DISPATCH_INFO, "Repetends threshold is "+_glob_rnd_reps_threshold.roundTo(3)+" ("+(_glob_rnd_reps_threshold*100.0).roundTo(3)+"%)", _par_1, _cmd_tag );
+ 														 circles_lib_output( _out_channel, DISPATCH_INFO, "Repetends threshold is "+_glob_rnd_reps_threshold.roundTo(_decimals)+" ("+(_glob_rnd_reps_threshold*100.0).roundTo(_decimals)+"%)", _par_1, _cmd_tag );
  														 circles_lib_output( _out_channel, DISPATCH_INFO, "Repetends depth is " + _glob_rnd_reps_depth, _par_1, _cmd_tag );
 												}
                         break ;
@@ -327,55 +325,35 @@ function circles_terminal_cmd_probability()
                         if ( _params_assoc_array['settings']['warmup'] != UNDET )
                         {
                             _glob_rnd_reps_warmup = _params_assoc_array['settings']['warmup'] ;
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Warm-up set to " + _glob_rnd_reps_warmup.roundTo(3), _par_1, _cmd_tag );
+                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Warm-up set to " + _glob_rnd_reps_warmup.roundTo(_decimals), _par_1, _cmd_tag );
                         }
 
                         if ( _params_assoc_array['settings']['repsthreshold'] != UNDET )
                         {
                             _glob_rnd_reps_threshold = _params_assoc_array['settings']['repsthreshold'] ;
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Repetends threshold set to " + _glob_rnd_reps_threshold.roundTo(3), _par_1, _cmd_tag );
+                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Repetends threshold set to " + _glob_rnd_reps_threshold.roundTo(_decimals), _par_1, _cmd_tag );
                         }
 
                         if ( _params_assoc_array['settings']['repsdepth'] != UNDET )
                         {
                             _glob_rnd_reps_depth = _params_assoc_array['settings']['repsdepth'] ;
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Repetends depth set to " + _glob_rnd_reps_depth.roundTo(3), _par_1, _cmd_tag );
+                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Repetends depth set to " + _glob_rnd_reps_depth.roundTo(_decimals), _par_1, _cmd_tag );
                         }
 
                         if ( safe_size( _params_assoc_array['settings']['rng'], 0 ) > 0 )
                         {
 														switch( _params_assoc_array['settings']['rng'] )
 														{
-																case "built-in":
-																_glob_probabilityRNGmethod = RNG_BUILT_IN ;
-																break ;
-																case "uniform":
-																_glob_probabilityRNGmethod = RNG_UNIFORM ;
-																break ;
-																case "normal":
-																_glob_probabilityRNGmethod = RNG_NORMAL ;
-																break ;
-																case "exponential":
-																_glob_probabilityRNGmethod = RNG_EXPONENTIAL;
-																break ;
-																case "poisson":
-																_glob_probabilityRNGmethod = RNG_POISSON;
-																break ;
-																case "gamma":
-																_glob_probabilityRNGmethod = RNG_GAMMA;
-																break ;
-																case "mersenne":
-																_glob_probabilityRNGmethod = RNG_MERSENNE_TWISTER;
-																break ;
-																case "cmwc":
-																_glob_probabilityRNGmethod = RNG_COMPLEMENTARY_MULTIPLY_WITH_CARRY;
-																break ;
-                                case "marz":
-                                _glob_probabilityRNGmethod = RNG_MARSAGLIA_ZAMAN ;
-                                break ;
-																case "lcg":
-																_glob_probabilityRNGmethod = RNG_LINEAR_CONGRUENT;
-																break ;
+																case "built-in": _glob_probabilityRNGmethod = RNG_BUILT_IN ; break ;
+																case "uniform": _glob_probabilityRNGmethod = RNG_UNIFORM ; break ;
+																case "normal": _glob_probabilityRNGmethod = RNG_NORMAL ; break ;
+																case "exponential": _glob_probabilityRNGmethod = RNG_EXPONENTIAL; break ;
+																case "poisson": _glob_probabilityRNGmethod = RNG_POISSON; break ;
+																case "gamma": _glob_probabilityRNGmethod = RNG_GAMMA; break ;
+																case "mersenne": _glob_probabilityRNGmethod = RNG_MERSENNE_TWISTER; break ;
+																case "cmwc": _glob_probabilityRNGmethod = RNG_COMPLEMENTARY_MULTIPLY_WITH_CARRY; break ;
+                                case "marz": _glob_probabilityRNGmethod = RNG_MARSAGLIA_ZAMAN ; break ;
+																case "lcg": _glob_probabilityRNGmethod = RNG_LINEAR_CONGRUENT; break ;
 																default:
 																_glob_probabilityRNGmethod = RNG_BUILT_IN ;
                                 _params_assoc_array['settings']['rng'] = "built-in" ;
@@ -409,7 +387,7 @@ function circles_terminal_cmd_probability()
                         if ( _n_intersection > 0 )
                         {
                              circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning! Common entries ('"+_intersection_array.join(",")+"') in the entries to be set and to be locked.", _par_1, _cmd_tag );
-                             circles_lib_output( _out_channel, DISPATCH_INFO, "Operation has been aborted.", _par_1, _cmd_tag );
+                             circles_lib_output( _out_channel, DISPATCH_INFO, "Operation has been aborted", _par_1, _cmd_tag );
                         }
                         else if ( ( _n_locked + _n_letters ) == _n_alphabet && !_force )
                         {
@@ -426,28 +404,35 @@ function circles_terminal_cmd_probability()
                             if ( _force ) circles_lib_output( _out_channel, DISPATCH_INFO, "Detected 'force' param: attempting to build the probability table from input data ...", _par_1, _cmd_tag );
                             circles_lib_output( _out_channel, DISPATCH_INFO, "Probability table is being attempted to modification ...", _par_1, _cmd_tag );
                             if ( safe_size( _glob_rnd_probability_array, 0 ) == 0 )
-                            circles_lib_output( _out_channel, DISPATCH_INFO, "No stored probability table in memory: attempting to recover it from input params", _par_1, _cmd_tag );
+                            circles_lib_output( _out_channel, DISPATCH_INFO, "Missing probability table: attempting to recover it from input params", _par_1, _cmd_tag );
                             
                             var _input_rnd_array = is_consistent_array( _probabilities_array ) ? _probabilities_array.clone() : _glob_rnd_probability_array.clone() ;
                             if ( safe_size( _input_rnd_array, 0 ) == 0 )
                             {
-                                 _b_fail = YES, _error_str = "Missing input probabilities" ;
-                                 _glob_terminal_coderun_break = _glob_terminal_critical_halt = YES ;
+                              _b_fail = YES, _error_str = "Missing input probabilities" ;
+                              _glob_terminal_coderun_break = _glob_terminal_critical_halt = YES ;
                             }
                             else
                             {
-                                var _lock_sum = 0 ;
+                                var _lock_sum = 0, _lock_n = _locked_letters_arr.length ;
                                 if ( !_force )
                                 {
-                                    $.each( _probabilities_array, function( _i, _prob ) { _lock_sum += _prob ; } ) ;
-                                    $.each( _locked_letters_arr, function( _i, _letter ) { _lock_sum += _input_rnd_array[ _alphabet.indexOf( _letter ) ] ; } ) ;
+                                    //$.each( _probabilities_array, function( _i, _prob ) { _lock_sum += _prob ; } ) ;
+                                    $.each( _locked_letters_arr, function( _i, _letter ) { _lock_sum += _glob_rnd_probability_array[ _alphabet.indexOf( _letter ) ] ; } ) ;
                                 }
-                                var _residue = FULL_SUM - _lock_sum ;
+                                var _new_prob_sum = 0 ;
+                                _probabilities_array.work( function( _prob ){ _new_prob_sum += _prob ; } ) ;
+                                _new_prob_sum = _new_prob_sum.roundTo(_decimals);
+
+                                var _residue = FULL_SUM - _lock_sum -_new_prob_sum ;
+                                    _residue = _residue.roundTo(_decimals);
                                 var _rs = _input_rnd_array.clone() ;
+                                var _unlocked_n = _n_alphabet - _lock_n - _n_letters ;
+                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Resulting residue to recompute <white>"+_unlocked_n+"</white> unlocked value"+(_unlocked_n==1?"":"s")+" is <white>"+_residue+"</white>", _par_1, _cmd_tag );
                                 var _ks = _glob_gens_set_symbols_map_array.keys_associative();
                                 var _vs = _glob_gens_set_symbols_map_array.values_associative();
-                                circles_lib_output( _out_channel, DISPATCH_INFO, "Acquired " + _n_letters + " letter"+(_n_letters==1?"":"s"), _par_1, _cmd_tag );
-                                circles_lib_output( _out_channel, DISPATCH_INFO, "Acquired " + _n_probabilities + " probabilit"+(_n_letters==1?"y":"ies"), _par_1, _cmd_tag );
+                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Acquired "+_n_letters+" letter"+(_n_letters==1?"":"s")+" : <white>"+_letters_arr.join(", ")+"</white>", _par_1, _cmd_tag );
+                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Acquired "+_n_probabilities+" probabilit"+(_n_letters==1?"y":"ies")+" : <white>"+_probabilities_array.join(", ")+"</white>", _par_1, _cmd_tag );
                                 if ( _diff != 0 )
                                 {
                                    circles_lib_output( _out_channel, DISPATCH_WARNING, "Detected mismatch between input letters and probabilities", _par_1, _cmd_tag );
@@ -460,57 +445,80 @@ function circles_terminal_cmd_probability()
                                     _letter = _letters_arr[_m], _prob = _probabilities_array[_m], _index = _ks.indexOf( _letter );
                                     if ( _input_rnd_array[_m] == null )
                                     {
-                                      circles_lib_output( _out_channel, DISPATCH_WARNING, "Reference warning: gen '"+_letter+"' can't be associated to probability "+_prob.roundTo(3), _par_1, _cmd_tag );
+                                      circles_lib_output( _out_channel, DISPATCH_WARNING, "Reference warning: gen '"+_letter+"' can't be set to probability "+_prob.roundTo(_decimals), _par_1, _cmd_tag );
                                       break ;
                                     }
                                 }
     
                                 if ( _lock_sum > 0 )
                                 {
-                                    circles_lib_output( _out_channel, DISPATCH_INFO, "Redistributing the new probabilities to unlocked entries", _par_1, _cmd_tag );
                                     var _n_entries_to_change = _force ? _n_letters : ( safe_size( _alphabet, 0 ) - _n_letters - _n_locked ) ;
+                                    circles_lib_output( _out_channel, DISPATCH_INFO, "Re-distributing the new probabilities to "+_n_entries_to_change+" unlocked entr"+(_n_entries_to_change==1?"y":"ies"), _par_1, _cmd_tag );
                                     var _new_prob = _n_entries_to_change > 0 ? _residue / _n_entries_to_change : UNDET ;
-                                    if ( _new_prob != UNDET )
+                                    if ( _new_prob != UNDET && _n_entries_to_change > 0 )
                                     {
-                                        $.each( _alphabet,
-                                                function ( _i, _letter )
+                                        var _tmp_input = _input_rnd_array.clone();
+                                        $.each( _alphabet, function ( _i, _letter )
                                                 {
-                                                     if ( !( _letters_arr.includes( _letter ) ) && !( _locked_letters_arr.includes( _letter ) ) )
+                                                     _index = _vs.indexOf( _letter ) ;
+                                                     if ( !( _locked_letters_arr.includes( _letter ) ) )
                                                      {
-                                                         _index = _vs.indexOf( _letter );
-                                                         _input_rnd_array[_index] = _new_prob ;
-                                                         if ( _input_rnd_array[_index] == null )
-                                                             circles_lib_output( _out_channel, DISPATCH_WARNING, "Reference warning: gen '"+_letter+"' can't be re-associated to probability "+_new_prob.roundTo(3), _par_1, _cmd_tag );
-                                                         else
-                                                         {
+                                                        _input_rnd_array[_index] = _new_prob ;
+                                                        if ( !( _letters_arr.includes( _letter ) ) )
+                                                        {
+                                                          if ( _input_rnd_array[_index] == null )
+                                                          circles_lib_output( _out_channel, DISPATCH_WARNING, "Reference warning: gen '"+_letter+"' can't be reset to probability "+_new_prob.roundTo(_decimals), _par_1, _cmd_tag );
+                                                          else
+                                                          {
                                                             _input_rnd_array[_index] = _new_prob ;
-                                                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Gen '"+_letter+"' has been re-associated to probability "+_new_prob.roundTo(3), _par_1, _cmd_tag );
-                                                         }
+                                                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Gen '"+_letter+"' has been reset to probability "+_new_prob.roundTo(_decimals), _par_1, _cmd_tag );
+                                                          }
+                                                        }
+                                                        else
+                                                        {
+                                                          var _tmp_i = _letters_arr.indexOf( _letter ) ;
+                                                          var _prob = _tmp_i != -1 ? _tmp_input[_tmp_i] : 0.0 ;
+                                                          _input_rnd_array[_index] = _prob ;
+                                                        }
                                                      }
-                                                }
-                                              ) ;
+                                                     else
+                                                     {
+                                                        var _prob = _glob_rnd_probability_array[_index] ;
+                                                        _input_rnd_array[_index] = _prob ;
+                                                        circles_lib_output( _out_channel, DISPATCH_WARNING, "Gen '"+_letter+"' has been marked as 'locked' and its probability is kept up at "+_prob, _par_1, _cmd_tag );
+                                                     }
+                                                } ) ;
                                     }
+                                    else if ( _n_entries_to_change == 0 )
+                                    circles_lib_output( _out_channel, DISPATCH_WARNING, "No probabilities to change", _par_1, _cmd_tag );
                                     else
                                     {
-                                        _b_fail = YES, _error_str = "Final probabilities assignment has been aborted: invalid value" ;
+                                        _b_fail = YES, _error_str = "Final probabilities assignment has been aborted: invalid input value" ;
                                     }
                                 }
                             }
 
                             if ( !_b_fail )
                             {
-                                var _checksum = 0 ;
-                                $.each( _alphabet, function( _i, _letter ) { _checksum += _input_rnd_array[ _alphabet.indexOf( _letter ) ] ; } ) ;
+                                var _checksum = 0, _diff = 0 ;
+                                $.each( _alphabet, function( _i, _letter ) { _checksum += safe_float( _input_rnd_array[ _alphabet.indexOf( _letter ) ], 0 ) ; } ) ;
                                 // check final sum to 1.0: if so, apply changes, otherwise don't
-                                if ( Math.abs( _checksum - FULL_SUM ) < 0.06 )
+                                _diff = Math.abs( _checksum - FULL_SUM ) ;
+                                if ( _diff > 0 )
                                 {
                                     circles_lib_output( _out_channel, DISPATCH_INFO, "Applying final corrections to compensate decimals ...", _par_1, _cmd_tag );
-                                    // apply corrections to the last entry for compensating full sum
-                                    var _tmp_sum = 0 ;
-                                    for( var _i = 0 ; _i < _input_rnd_array.length - 1 ; _i++ ) _tmp_sum += _input_rnd_array[_i] ;
-                                    _input_rnd_array[ _input_rnd_array.length - 1 ] = FULL_SUM - _tmp_sum ;
+                                    var _gens_left = circles_lib_count_gens_set_model() - _input_rnd_array.length ;
+                                    // apply corrections to the remaining entries for compensating full sum
+                                    if ( _gens_left > 0 && _diff > 0 )
+                                    {
+                                        var _quot = _diff / _gens_left ;
+                                        for( var _g = 0 ; _g < _gens_left ; _g++ ) _input_rnd_array.push( _quot );
+                                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Fixing probability at <white>"+_quot.roundTo(_decimals)+"</white> for each of <white>"+_gens_left+"</white> remaining entr"+(_gens_left==1?"y":"ies"), _par_1, _cmd_tag );
+                                    }
 
-                                    // ... and check again
+                                    var _tmp_sum = 0 ;
+                                    for( var _i = 0 ; _i < _input_rnd_array.length ; _i++ ) _tmp_sum += _input_rnd_array[_i] ;
+                                    // ... and check it again
                                     _checksum = 0 ;
                                     $.each( _alphabet, function( _i, _letter ) { _checksum += _input_rnd_array[ _alphabet.indexOf( _letter ) ] ; } ) ;
                                 }
