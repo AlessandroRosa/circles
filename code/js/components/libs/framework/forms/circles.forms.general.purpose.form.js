@@ -82,11 +82,9 @@ function CIRCLESgeneralpurposeFORM( _subset, _base_id, _move, _w, _h, _caption, 
         HTMLcode += "<tr><td VALIGN=\"top\"><DIV ID=\"CIRCLESgeneralpurposeDIV\" STYLE=\"position:relative;"+( _word_wrap ? "word-wrap:break-word;" : "" )+"background-color:"+_bkcolor+";padding:6px;width:"+( WIDTH - 10 )+"px;height:"+(_h-7)+"px;overflow:auto;\" CLASS=\"general_rounded_corners\">"+_html_code+"</DIV></td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
         HTMLcode += "</table>" ;
-
         HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
-        HEIGHT += 58 ;
-
-    var _div = circles_lib_plugin_create( _base_id, _div_id, "forms", WIDTH, HEIGHT, HTMLcode );
+    HEIGHT += 58 ;
+    var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
     circles_lib_plugin_activate( YES, _base_id, arguments.callee.name, "", _subset, OPEN, _div_id, _caption, CLOSE_FN,
                       [ "CIRCLESgeneralpurposeFORMnormalize", _div_id, _w, _h ],
                       [ "CIRCLESgeneralpurposeFORMminimize", _div_id, _w, _h ],

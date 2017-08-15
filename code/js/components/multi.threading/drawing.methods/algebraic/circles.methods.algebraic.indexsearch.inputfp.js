@@ -23,7 +23,6 @@ function CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, 
               _input_fixed_pts.push( new complex( safe_float( _tmp_pt[0] ), safe_float( _tmp_pt[1] ) ) );
            }
 
-           var _rnd = Math.random ;
            var _drawentity = safe_int( settings['drawentity'], DRAWENTITY_ISOMETRIC_CIRCLE );
            var _depth = safe_int( settings['depth'], 1 );
            var _config = settings['config'].split( "@" );
@@ -35,14 +34,13 @@ function CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, 
            switch( _cs_mode )
            {
               case CONSTRUCTION_LIMITSET:
-              _n_entries = Math.pow( _items_array.length-1, _depth ) * _input_fixed_pts.length * _items_array.length ;
+              _n_entries = Math.pow( _items_array.length, _depth ) * _input_fixed_pts.length * _items_array.length ;
               break ;
               case CONSTRUCTION_TILING:
               default:
               for( var _d = 0 ; _d <= _depth ; _d++ ) // we compute the number of nodes per each branch / generator
-              _n_entries += Math.pow( _items_array.length-1, _d ) ;
+              _n_entries += _d == 0 ? _items_array.length : Math.pow( _items_array.length, _d ) ;
 
-              _n_entries *= _items_array.length ; // multiply for the number of generators
               _n_entries *= _input_fixed_pts.length ; // multiply for the number of input fixed points to start from
               break ;
            }
@@ -56,6 +54,7 @@ function CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, 
            var complex_circle = null, first_circle = _items_array[0].complex_circle ;
            var pts_array = [], words_array = [], circles_array = [] ;
            var _based_n_num = "", _proc_str = "", _v = 0, _abs_runner = 0 ;
+           /*
            var _commutator = "ABab", _based_n_commutator = "" ;
            for( var _c1 = 0 ; _c1 < _commutator.length ; _c1++ )
            {
@@ -64,6 +63,7 @@ function CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, 
                if ( _items_array[_cr2].symbol == _commutator[_c1] ) _based_n_commutator += _cr2+"" ;
              }
            }
+           */
 
            //console.log( "BASED-N COMMUTATOR", _based_n_commutator );
            var _crash_words = [] ;
@@ -77,50 +77,41 @@ function CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, 
              }
            }
            //console.log( "CRASH WORDS", _crash_words );
+function get_RL_path( _n, _digits_n, _depth )
+{
+  var _rem = 0, _quot = _n, _out = "" ;
+  while( true )
+  {
+      _rem = _quot % _digits_n ;
+      _quot = ( _quot / _digits_n ) >> 0 ;
+      if ( _quot < _digits_n && _depth <= 1 ) return "" + _rem + _out ;
+      _out = _rem + _out ;
+      _depth-- ;
+  }
+}
 
            self.postMessage( { "id" : "append", "text" : _n_entries + " operations" } );
            for( _p = 0 ; _p < _input_fixed_pts.length ; _p++ )
            {
               _fp = _input_fixed_pts[_p] ;
               self.postMessage( { "id" : "step", "text" : "Pass " + ( _p + 1 ) + " of " + _input_fixed_pts.length } );
-              var _word_runner = 0, _n_next = 0, _word ;
-              for( var _d = 0 ; _d <= _depth ; _d++ )
+              var _word_runner = 0, _n_depth = 0, _word ;
+              for( var _d = 1 ; _d <= _depth ; _d++ )
               {
-                  _n_next = _d == 0 ? _items_array.length : Math.pow( _items_array.length-1, _d ) * _items_array.length ;
-                  //console.log( "-------DEPTH", _d, "---- NEXT", _n_next, "--------" );
+                  _n_depth = _d == 0 ? _items_array.length : Math.pow( _items_array.length, _d ) ;
+                  //console.log( "-------DEPTH", _d, "---- STEPS", _n_depth, "--------" );
                   inner_while_loop:
-                  for( var _n = 0 ; _n < _n_next ; _n++, _abs_runner++ )
+                  for( var _n = 0 ; _n < _n_depth ; _n++, _abs_runner++ )
                   {
-                     _based_n_num = _n.toString( _items_array.length ) ;
-                     //console.log( "N", _n, "DEPTH", _d, "PRE BASED-N", _based_n_num, "LEN", _based_n_num.length, "PAD", _d+1 );
-                     _proc_str = _based_n_num.lpad( ( ( ( _n / _items_array.length ) >> 0 ) % _items_array.length ) +"", _d+1 );
-                     _proc_str = _proc_str.reverse();
-                     /*
-                     if ( _repetends_depth_tmp <= 0 )
-                     {
-                         var _r = (Math.random()*(_items_array.length+1)) | 0 ;
-                         _proc_str = ( _r >= _items_array.length ? _based_n_commutator : _r + "" ) + _proc_str ;
-                         _repetends_depth_tmp = _r <= _repetends_threshold ? 0 : ( _r * _repetends_depth ) | 0 ;
-                         console.log( _repetends_depth_tmp );
-                     }
-                     else _repetends_depth_tmp-- ;
-                     */
+                     _proc_str = get_RL_path( _n, _items_array.length, _d ) ;
+                     if ( _proc_str.includes_one_of( _crash_words ) ) continue ;
 
                      INDEX = safe_int( _proc_str[0], 0 ) ;
     			           G = _items_array[INDEX].map ;
 
-                     _word = INDEX + "" ;
                      for( _word_runner = 1 ; _word_runner < _proc_str.length ; _word_runner++ )
                      {
                        INDEX = safe_int( _proc_str[_word_runner], 0 ) ;
-                       _word += INDEX ;
-                     }
-
-                     if ( _word.includes_one_of( _crash_words ) ) continue ;
-                     for( _word_runner = 1 ; _word_runner < _proc_str.length ; _word_runner++ )
-                     {
-                       INDEX = safe_int( _proc_str[_word_runner], 0 ) ;
-                       _word += INDEX+"" ;
                        // GM = _items_array[INDEX].map ;
                        G = G.composition( _items_array[INDEX].map );
                        // reminder: if something goes wrong, uncomment this line
@@ -128,7 +119,7 @@ function CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, 
                        _fp = G.compute( _fp );
                      }
 
-                     //console.log( "N", _n, "RET BASED-N", _based_n_num+"", "PADDED", _proc_str+"", "WORD", _word );
+                     //console.log( _n, ">>", _proc_str, ">>", _tmp_word, ">>", _fp.output() );
                      complex_circle = _drawentity == DRAWENTITY_INVERSION_CIRCLE ? G.inversion_circle() : G.isometric_circle();
                      if( _current_region.is_pt_inside( _fp.real, _fp.imag ) )
                      {

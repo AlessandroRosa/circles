@@ -1,3 +1,4 @@
+function CIRCLESembeddingsGRANDMAPARABOLICclose() { return circles_lib_plugin_dispatcher_unicast_message( 'grandma.parabolic', "embeddings", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESembeddingsGRANDMAPARABOLIC_TIPS()
 {
     var _index_ref = _plugin_main_ref + "";
@@ -166,11 +167,13 @@ function CIRCLESembeddingsGRANDMAPARABOLICmain( _base_id, _move, _restore )
     var _draw_btn_clr = CELLgetCLR( "STATUSBARrenderBTN" );
 
     var _div_id = GLOB_PLUGIN_DIV_ID, _subset = "embeddings" ;
+    var CLOSE_FN = "CIRCLES"+_subset+_clean_base_id.toUpperCase()+"close();" ;
     var WIDTH = 450, HEIGHT = "auto" ;
     GLOB_PLUGIN_BASE_ID = _clean_base_id, GLOB_PLUGIN_SUBSET = _subset ;
 
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'grandma.parabolic', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"GRANDMAPARABOLIC_",
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN, WIDTH, HEIGHT,
+                this_fn_name, 'grandma.parabolic', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"GRANDMAPARABOLIC_",
 																								[ "CIRCLESembeddingsGRANDMAPARABOLIC_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGRANDMAPARABOLIC_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGRANDMAPARABOLIC_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
@@ -296,7 +299,7 @@ function CIRCLESembeddingsGRANDMAPARABOLICmain( _base_id, _move, _restore )
                      
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-    var _div = circles_lib_plugin_create( _base_id, _div_id, 'embeddings', WIDTH, HEIGHT, HTMLcode );
+    var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGRANDMAPARABOLIC_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMAPARABOLIC_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMAPARABOLIC_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )
 		{

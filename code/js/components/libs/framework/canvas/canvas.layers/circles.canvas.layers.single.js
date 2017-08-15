@@ -173,9 +173,7 @@ function circles_lib_canvas_layer_swap( _plane_type, _layer_index1, _layer_index
 
 function circles_lib_canvas_layer_show( _plane_type, _role, _b_show )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
-
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE ) ;
     var _canvas = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_INDEX, _role );
     // do not replace with jquery selector
     if ( is_html_canvas( _canvas ) ) $( "#"+_canvas.get_iddiv() ).get(0).style.display = _b_show ? "block" : "none" ;

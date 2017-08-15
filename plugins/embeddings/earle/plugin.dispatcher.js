@@ -26,7 +26,7 @@ function CIRCLESembeddingsEARLEdispatcher()
 		 			break ;
 		 			case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-          circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
+          circles_lib_plugin_activate(NO,_base_id,'','',_subset,CLOSE,_glob_popups_array[_idx][1],'');
 		 			break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;

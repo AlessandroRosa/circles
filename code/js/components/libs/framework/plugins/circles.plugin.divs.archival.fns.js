@@ -11,8 +11,8 @@ function circles_lib_plugin_delete_from_archive( _index )
 {
     _index = safe_int( _index, UNDET );
     var _size = safe_size( _glob_popups_array, 0 );
-    if ( _size == 1 ) _glob_popups_array = [];
-    else if ( _size > 1 && _index >= 0 ) _glob_popups_array.remove( _index, _index );
+    if ( _size > 1 && _index >= 0 ) _glob_popups_array.remove( _index, _index );
+    else if ( _size == 1 ) _glob_popups_array = [];
 }
 
 function circles_lib_plugin_find_index( _json, _datatype_mask, _offset )

@@ -1,3 +1,4 @@
+function CIRCLESembeddingsGENERALPURPOSEclose() { return circles_lib_plugin_dispatcher_unicast_message( 'general.purpose', "embeddings", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id )
 {
     _plugin_main_ref = safe_string( _base_id + "", _plugin_main_ref ) ;
@@ -52,11 +53,13 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     var _draw_btn_clr = CELLgetCLR( "STATUSBARrenderBTN" );
 
     var _div_id = GLOB_PLUGIN_DIV_ID, _subset = "embeddings" ;
+    var CLOSE_FN = "CIRCLES"+_subset+_clean_base_id.toUpperCase()+"close();" ;
     var WIDTH = 510, HEIGHT = "auto" ;
     GLOB_PLUGIN_BASE_ID = _clean_base_id, GLOB_PLUGIN_SUBSET = _subset ;
 
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name, 'general.purpose', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"GENERALPURPOSE_",
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN, WIDTH, HEIGHT,
+                this_fn_name, 'general.purpose', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"GENERALPURPOSE_",
 																								[ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );

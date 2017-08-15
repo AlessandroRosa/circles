@@ -161,43 +161,47 @@ function circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, contents, _class, _z
       {
         if ( e != null )
         {
-           if ( e.originalEvent != null )
-           {
-              var _tag = safe_string( e.originalEvent.srcElement.tagName, "" ).toLowerCase();
-              var _type = safe_string( e.originalEvent.srcElement.type, "" ).toLowerCase();
-              if ( !_tag.is_one_of( "input", "select", "textarea" ) && !_type.is_one_of( "checkbox", "textarea" ) )
-              {
-                e.stopPropagation();
-                e.cancelBubble = true;
-                e.preventDefault();
-              }
-              circles_lib_plugin_focus( _div_id, YES, e );
-           }
+          if ( e.originalEvent != null )
+          {
+            var _tag = safe_string( e.originalEvent.srcElement.tagName, "" ).toLowerCase();
+            var _type = safe_string( e.originalEvent.srcElement.type, "" ).toLowerCase();
+            if ( !_tag.is_one_of( "input", "select", "textarea" ) && !_type.is_one_of( "checkbox", "textarea" ) )
+            {
+              e.stopPropagation();
+              e.cancelBubble = true;
+              e.preventDefault();
+            }
+            circles_lib_plugin_focus( _div_id, YES, e );
+          }
         }
       } );
     }
     return _div ;
 }
 
-function circles_lib_plugin_destroy_wnd( _popup_id )
+function circles_lib_plugin_destroy_wnd( _div_id )
 {
-    var _popup_chunk = circles_lib_plugin_find_wnd( { unique_id : _popup_id, div_id : _popup_id }, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_UNIQUE_ID );
+    var _popup_chunk = circles_lib_plugin_find_wnd( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID );
     if ( !is_array( _popup_chunk ) ) return NO ;
     else
     {
-      if ( !_popup_id.start_with( "#" ) ) _popup_id = "#" + _popup_id ;
+      var _ret_index = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID ) ;
+      if ( !_div_id.start_with( "#" ) ) _div_id = "#" + _div_id ;
       if ( $( _div_id ).get(0) != null )
       {
-        var _node_obj = $( _popup_id ).get(0) != null ? document.body.removeChild( $( _popup_id ).get(0) ) : NO ;
+        var _node_obj = document.body.removeChild( $( _div_id ).get(0) ) ;
         if ( _node_obj == null ) return NO ;
-        circles_lib_plugin_delete_from_archive( _ret_index );
-        _glob_wnd_id = "", _glob_wnd = null ;
-        return YES ;
+        if ( _ret_index != UNFOUND )
+        {
+          circles_lib_plugin_delete_from_archive( _ret_index );
+          _glob_wnd_id = "", _glob_wnd = null ;
+          return YES ;
+        }
+        else return NO ;
       }
       else return NO ;
     }
 }
-
 
 function circles_lib_plugin_register( _calling_params, _div_id, _caption, _status, _visible, _caption_class, _subset, _base_id, _allow_multiple_instances )
 {
@@ -226,8 +230,8 @@ function circles_lib_plugin_register( _calling_params, _div_id, _caption, _statu
 }
 
 function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _calling_fn, _calling_args,
-													 _subset, _b_open, _div_id, _caption, _append_fns_at_close,
-					                 _normalize_fns, _minimize_fns, _maximize_fns, _caption_class )
+								_subset, _b_open, _div_id, _caption, _append_fns_at_close,
+					      _normalize_fns, _minimize_fns, _maximize_fns, _caption_class )
 {
 		var _tmp_args = [] ; for( var _a = 0 ; _a < _calling_args.length ; _a++ ) _tmp_args.push( _calling_args[_a] );
 				_calling_args = _tmp_args.work( function( _tok ) { return "'"+( ( new String( _tok ) ).addslashes() )+"'" ; } ) ;
@@ -252,7 +256,7 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
     if ( !_b_open ) hideCOLORTABLE();
     else _glob_popup_sel_unique_id = _div_id ;
 
-    var _index = circles_lib_plugin_find_index( _div_id, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_UNIQUE_ID, _caption );
+    var _index = circles_lib_plugin_find_index( _div_id, POPUP_SEARCH_BY_DIV_ID, _caption );
     var _popup_obj = null ;
     if ( _b_open )
     {
@@ -311,13 +315,13 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
     // bind events
     if ( $("#"+_div_id).get(0) != null && _b_open )
     {
-  	  $("#"+_div_id).get(0).onmousedown = function( event )   { POPUPSDIVonmousedown( _unique_id, this.id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
-  	  $("#"+_div_id).get(0).onmouseup = function( event )     { POPUPSDIVonmouseup( _unique_id, this.id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
+  	  $("#"+_div_id).get(0).onmousedown = function( event )   { POPUPSDIVonmousedown( _unique_id, _div_id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
+  	  $("#"+_div_id).get(0).onmouseup = function( event )     { POPUPSDIVonmouseup( _unique_id, _div_id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
   	  $("#"+_div_id).get(0).oncontextmenu = function( event ) { return POPUPSDIVoncontextmenu( _unique_id, this.id, event ); }
 		}
 
-    if ( !_b_open && $( "#" + _div_id + "_menu_div" ).get(0) != null )
-    circles_lib_plugin_destroy_wnd( _div_id + "_menu_div" );
+    if ( !_b_open && $( "#"+_div_id ).get(0) != null )
+    circles_lib_plugin_destroy_wnd( _div_id );
     var _n = circles_lib_plugin_find_index( { base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID, 0 ) ;
     // de-allocates all functions associated to the pop-up
     // (if multiple instances have been init, then the removal process applies to the last instance)

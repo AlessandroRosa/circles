@@ -21,11 +21,11 @@ function circles_lib_canvas_layer_create( _init_properties_array )
     var _visible = _init_properties_array[_startINDEX] ;
     		_startINDEX++ ;
     var _layer = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _role_def );
-    if ( _layer != null ) return UNDET ;
+    if ( _layer != null ) return null ;
     else
     {
        var _div_id = "CANVAS"+_plane_def+"_"+_role_def+"_DIV" ;
-       var _div = circles_lib_plugin_create( '', _div_id, '', null, null, "", "layer_canvas" );
+       var _div = circles_lib_plugin_create( _div_id, null, null, "", "layer_canvas" );
        if ( _div == null ) return null ;
        else
        {
@@ -76,7 +76,6 @@ function circles_lib_canvas_layer_create( _init_properties_array )
                  _glob_zplane_layers_pile_role_array.unique();
                  _glob_zplane_layers_pile_array.push( _new_layer );
                  _glob_zplane_topmost_canvas_placeholder = _new_layer ;
-
                  if ( function_exists( "circles_lib_statusbar_init" ) ) circles_lib_statusbar_init( NO ); // recomputes z-index
               }
               else if ( _plane_type == W_PLANE )
@@ -90,7 +89,6 @@ function circles_lib_canvas_layer_create( _init_properties_array )
               }
               else return null ;
           }
-
           return _div ;
        }
     }

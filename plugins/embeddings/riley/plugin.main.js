@@ -1,3 +1,4 @@
+function CIRCLESembeddingsRILEYclose() { circles_lib_plugin_dispatcher_unicast_message( "riley", "embeddings", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESembeddingsRILEY_EVENTS( ctrl_id, event )
 {
 	  if ( event.stopPropagation )      event.stopPropagation();
@@ -132,12 +133,13 @@ function CIRCLESembeddingsRILEYmain( _base_id, _move, _restore )
     var _draw_btn_clr = CELLgetCLR( "STATUSBARrenderBTN" );
 
     var _div_id = GLOB_PLUGIN_DIV_ID, _subset = "embeddings" ;
+    var CLOSE_FN = "CIRCLES"+_subset+_clean_base_id.toUpperCase()+"close();" ;
     GLOB_PLUGIN_BASE_ID = _clean_base_id, GLOB_PLUGIN_SUBSET = _subset ;
 
     var WIDTH = 450, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name,
-                'riley', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"RILEY_",
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN,
+                WIDTH, HEIGHT, this_fn_name, 'riley', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"RILEY_",
 								[ "CIRCLESembeddingsRILEY_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 								[ "CIRCLESembeddingsRILEY_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 								[ "CIRCLESembeddingsRILEY_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
@@ -244,7 +246,7 @@ function CIRCLESembeddingsRILEYmain( _base_id, _move, _restore )
                      
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
-    var _div = circles_lib_plugin_create( _base_id, _div_id, 'embeddings', WIDTH, HEIGHT, HTMLcode );
+    var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsRILEY_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsRILEY_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsRILEY_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )
 		{

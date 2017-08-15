@@ -73,6 +73,7 @@ function circles_lib_plugin_focus_render( _b_update_list, _b_dispatch_focus_msg 
 		_b_update_list = safe_int( _b_update_list, NO ), _b_dispatch_focus_msg = safe_int( _b_dispatch_focus_msg, YES ) ;
     var _array = _glob_popups_array, _len = safe_size( _array, 0 ), startINDEX ;
     var _unique_id, _div_id, _base_id, _subset, _caption_box, _caption_class, _status, _div, _b_sel, _focus_flag, _dispatch_cmd ;
+    console.log( _array.clone() );
     for( var _i = 0 ; _i < _len ; _i++ )
     {
       if ( is_array( _array[_i] ) )
@@ -109,8 +110,12 @@ function circles_lib_plugin_focus_render( _b_update_list, _b_dispatch_focus_msg 
         // dispatch notifications to all pop-ups here
         if ( _b_dispatch_focus_msg && _focus_flag != _glob_popups_array[_i][6] )
         {
-          _dispatch_cmd = "CIRCLES"+_subset.toLowerCase()+( _base_id.replaceAll( [ "_", "." ], "" ) ).toUpperCase()+"dispatcher('"+( _b_sel ? POPUP_DISPATCHER_UNICAST_EVENT_FOCUS : POPUP_DISPATCHER_UNICAST_EVENT_BLUR )+"',"+_i+")" ;
-          try { eval( _dispatch_cmd ); } catch( _err ) { circles_lib_error_obj_handler( _err ); }
+          _dispatch_cmd = "CIRCLES"+_subset.toLowerCase()+( _base_id.replace( /[\.\_\-]/g, "" ) ).toUpperCase()+"dispatcher" ;
+          if ( typeof _dispatch_cmd === "function" )
+          {
+            _dispatch_cmd += "('"+( _b_sel ? POPUP_DISPATCHER_UNICAST_EVENT_FOCUS : POPUP_DISPATCHER_UNICAST_EVENT_BLUR )+"',"+_i+")" ;
+            try { eval( _dispatch_cmd ); } catch( _err ) { circles_lib_error_obj_handler( _err ); }
+          }
         }
       }
     }

@@ -1,3 +1,4 @@
+function CIRCLESembeddingsEARLEclose() { circles_lib_plugin_dispatcher_unicast_message( "earle", "embeddings", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESembeddingsEARLE_TIPS()
 {
     var _index_ref = _plugin_main_ref + "";
@@ -82,12 +83,13 @@ function CIRCLESembeddingsEARLEmain( _base_id, _move, _restore )
     var _draw_btn_clr = CELLgetCLR( "STATUSBARrenderBTN" );
 
     var _div_id = GLOB_PLUGIN_DIV_ID, _subset = "embeddings" ;
+    var CLOSE_FN = "CIRCLES"+_subset+_clean_base_id.toUpperCase()+"close();" ;
     GLOB_PLUGIN_BASE_ID = _clean_base_id, GLOB_PLUGIN_SUBSET = _subset ;
 
     var WIDTH = 450, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, "GLOB_PLUGIN_DESTROY_POPUP_VARS();", WIDTH, HEIGHT, this_fn_name,
-								'earle', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"EARLE_",
+    HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN,
+                WIDTH, HEIGHT, this_fn_name, 'earle', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"EARLE_",
 								[ "CIRCLES"+_subset+"EARLE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 								[ "CIRCLES"+_subset+"EARLE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 								[ "CIRCLES"+_subset+"EARLE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
