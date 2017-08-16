@@ -5,9 +5,11 @@ https://en.wikipedia.org/wiki/Kleene_algebra
 https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
+------------ DEMO ------------------------------------------------
+* indexsearch (via terminal and maskit T1,1)
+* indexsearch (via terminal general.purpose, use a 6-generators group)
+
 ------------ APP -------------------------------------------------
-
-
 - check that all services inside each of these masks work properly.
   (Remove each entry after completing the checkings)
 
@@ -50,8 +52,6 @@ group.table
 instructions.txt
 raw.points.list
 tools.txt
-
------------- DEMO ------------------------------------------------
 
 ------------ SCRIPT EDITOR ------------------------
 

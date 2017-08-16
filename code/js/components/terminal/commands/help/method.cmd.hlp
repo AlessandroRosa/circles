@@ -5,7 +5,7 @@
 
 <lightblue>%action%</lightblue> <snow>reset</snow>
 <lightblue>%param%</lightblue> <snow>inversion | schottkygroups | algebraic | none</snow>
-<lightblue>%process%</lightblue> <snow>breadthfirst | depthfirstdistance | random</snow>
+<lightblue>%process%</lightblue> <snow>breadthfirst | indexsearch | random</snow>
 
 <lightblue>method reset</lightblue>
 <cadetblue>set both method and process to 'none'</cadetblue>

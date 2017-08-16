@@ -117,6 +117,7 @@ function circles_terminal_cmd_method()
       		               else { _b_fail = YES, _error_str = "Invalid input process for 'algebraic' method" ; }
       		               circles_lib_method_set( _m );
       		           }
+                     circles_lib_menu_entries_update();
       						}
                   break ;
              }
