@@ -89,7 +89,7 @@ function CIRCLESembeddingsMASKITTWICE_CONFIG( _base_id )
     var _index_ref = _plugin_main_ref + "";
     _plugin_input_mode_mask_array[_index_ref] = PLUGIN_INPUT_MODE_RIGID ;
     _plugin_method_array[_index_ref] = METHOD_ALGEBRAIC ; 
-    _plugin_definitions_array[_index_ref] = "Maskit slice - twice punctured torus" ;
+    _plugin_definitions_array[_index_ref] = "Maskit T2,2 - Twice punctured torus" ;
     _plugin_info_array[_index_ref] = "Refer to 'The Maskit embedding of the twice punctured torus'" ;
     _plugin_info_array[_index_ref] += _glob_crlf + "by Caroline Series" ;
     _plugin_info_array[_index_ref] += _glob_crlf + "Geometry & Topology 14 (2010), pp. 1941–1991" ;

@@ -56,7 +56,7 @@ function CIRCLESembeddingsMASKITONCE_CONFIG( _base_id )
     var _index_ref = _plugin_main_ref + "";
     _plugin_input_mode_mask_array[_index_ref] = PLUGIN_INPUT_MODE_RIGID ;
     _plugin_method_array[_index_ref] = METHOD_ALGEBRAIC ; 
-    _plugin_definitions_array[_index_ref] = "Maskit slice - once punctured torus" ;
+    _plugin_definitions_array[_index_ref] = "Maskit T1,1 - Once punctured torus" ;
     _plugin_info_array[_index_ref] = "Refer to 'Indra's Pearls'" ;
     _plugin_info_array[_index_ref] += _glob_crlf + "by David Mumford, Caroline Series, David Wright" ;
     _plugin_info_array[_index_ref] += _glob_crlf + "Cambridge Press, 2002" ;

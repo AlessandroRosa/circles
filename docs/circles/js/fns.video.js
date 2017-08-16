@@ -12,11 +12,11 @@ function reload_page( _question )
 
 function center_div( _div_id )
 {
-    if ( $( "#" + _div_id ).get(0) != null )
+    if ( $("#"+_div_id).get(0) != null )
     {
-        var divWIDTH = safe_int( $( "#" + _div_id ).width(), 0 ) ;
+        var divWIDTH = safe_int( $("#"+_div_id).width(), 0 ) ;
         var X = safe_int( ( ( getViewportExtents() )[0] - divWIDTH ) / 2, 0 ) ;
-        $( "#" + _div_id ).css( "left", X ) ;
+        $("#"+_div_id).css( "left", X ) ;
     }
 }
 
@@ -34,8 +34,8 @@ function move_div( _div_id, POS_X_STR, POS_Y_STR, DIVw, DIVh, _animate )
        
         var dimsARRAY = getViewportExtents() ;
         var PAGEwidth = dimsARRAY[0], PAGEheight = dimsARRAY[1] ;
-        var divWIDTH = ( DIVw > 0 ) ? DIVw : $( "#" + _div_id ).width();
-        var divHEIGHT = ( DIVh > 0 ) ? DIVh : $( "#" + _div_id ).height();
+        var divWIDTH = ( DIVw > 0 ) ? DIVw : $("#"+_div_id).width();
+        var divHEIGHT = ( DIVh > 0 ) ? DIVh : $("#"+_div_id).height();
         var X = 0, Y = 0, _menu_height = 48, _labels_height = 24 ;
             
         if ( POS_X_STR == "left" ) X = 4 ;

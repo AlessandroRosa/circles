@@ -82,11 +82,11 @@ function get_RL_path( _n, _digits_n, _depth )
   var _rem = 0, _quot = _n, _out = "" ;
   while( true )
   {
-      _rem = _quot % _digits_n ;
-      _quot = ( _quot / _digits_n ) >> 0 ;
-      if ( _quot < _digits_n && _depth <= 1 ) return "" + _rem + _out ;
-      _out = _rem + _out ;
-      _depth-- ;
+     _rem = _quot % _digits_n ;
+     _quot = ( _quot / _digits_n ) >> 0 ;
+     if ( _quot < _digits_n && _depth <= 1 ) return "" + _rem + _out ;
+     _out = _rem + "" + _out ;
+     _depth-- ;
   }
 }
 

@@ -46,8 +46,9 @@ function CIRCLESformsDISCRETENESSLOCUSdispatcher()
 			}
       break ;
       case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
+      var _div_id = _glob_popups_array[_idx][1] ;
       CIRCLESformsDISCRETENESSLOCUSunbindCANVASevents();
-      var _ret = circles_lib_plugin_blur( CIRCLESformsDISCRETENESSLOCUSbaseid, "forms", NO ) ;
+      var _ret = circles_lib_plugin_blur( _div_id, "forms", NO ) ;
       $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).css( "display", "none" );
       $( "#CIRCLESdlocusworklayerCANVAS" ).css( "display", "none" );
       CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX_CLICK(NO);

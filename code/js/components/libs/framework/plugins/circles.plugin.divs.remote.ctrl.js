@@ -42,8 +42,7 @@ function circles_lib_plugin_remotectrl_dispatch_to_service( _div_id )
 											_startINDEX++ ;
 						          _row += _commands[_k] ;
 						          _return_fn.call( this, _row );
-										}
-									) ;
+										} ) ;
 				}
 				else
 				{
@@ -58,8 +57,7 @@ function circles_lib_plugin_remotectrl_dispatch_to_service( _div_id )
         if ( is_json( _params ) )
         {
         		 var _keys_lev_1 = json_keys( _params ) ;
-             $.each( _keys_lev_1,
-             				 function( _j, _key_l1 )
+             $.each( _keys_lev_1, function( _j, _key_l1 )
              				 {
 	             				 		_row = [] ;
 	             				 		_row.push( "Param #"+(_j+1)+" <yellow>" + _key_l1 + "</yellow>" ) ;
@@ -75,8 +73,7 @@ function circles_lib_plugin_remotectrl_dispatch_to_service( _div_id )
 																);
 													_row.push( "----------------" ) ;
              				 		  _return_fn.call( this, _row.join( _glob_crlf ) );
-										 }
-						 			 ) ;
+										 } ) ;
         }
         else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing opening params specifications", _glob_app );
 				break ;

@@ -12,7 +12,7 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
   (Remove each entry after completing the checkings)
 
 * FORMS
-benchmark
+benchmark (export in .txt)
 bip
 circle.inversion
 coordinates
@@ -52,6 +52,7 @@ raw.points.list
 tools.txt
 
 ------------ DEMO ------------------------------------------------
+
 ------------ SCRIPT EDITOR ------------------------
 
   >> define the priority order for libs to be processed

@@ -315,8 +315,8 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
     // bind events
     if ( $("#"+_div_id).get(0) != null && _b_open )
     {
-  	  $("#"+_div_id).get(0).onmousedown = function( event )   { POPUPSDIVonmousedown( _unique_id, _div_id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
-  	  $("#"+_div_id).get(0).onmouseup = function( event )     { POPUPSDIVonmouseup( _unique_id, _div_id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
+  	  $("#"+_div_id).get(0).onmousedown = function( event )   { POPUPSDIVonmousedown( _div_id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
+  	  $("#"+_div_id).get(0).onmouseup = function( event )     { POPUPSDIVonmouseup( _div_id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
   	  $("#"+_div_id).get(0).oncontextmenu = function( event ) { return POPUPSDIVoncontextmenu( _unique_id, this.id, event ); }
 		}
 
