@@ -92,7 +92,7 @@ window.onkeyup = function( event )
              var _ret_chunk_ask = circles_lib_canvas_process_ask(NO,YES,W_PLANE,YES,YES,NO);
              var _ret_id = _ret_chunk_ask != null ? safe_int( _ret_chunk_ask[0], 0 ) : 0 ;
              var _ret_msg = _ret_chunk_ask != null ? _ret_chunk_ask[1] : _ERR_00_00 ;
-             if ( _ret_id == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg, _glob_app );
+             if ( _ret_id == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg, _glob_app_title );
           }
        }
     }
@@ -127,7 +127,7 @@ window.afterResizeHandler = function()
     circles_lib_menu_resize_top() ;
     if ( _glob_process_running_flag )
     {
-			 circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "A process is still running and the interface will be resized at its conclusion.", _glob_app );
+			 circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "A process is still running and the interface will be resized at its conclusion.", _glob_app_title );
 			 circles_lib_junctions_collection_create( 'after.render' );
 			 circles_lib_junctions_add_to_collection( 'after.render', '_window_resize_ext', 'YES' ) ;
 			 center_div( "PROGRESSbarDIV" );
@@ -243,7 +243,7 @@ window.onerror = function( message, url, linenumber, colnumber, error )
       if ( error != null ) _log_msg += "\nError " + error ;
       circles_lib_log_add_entry( _log_msg, LOG_WARNING );
 
-      var _caption = ( _glob_app != null && _glob_app != "undefined" ) ? _glob_app : "Circles" ;
+      var _caption = ( _glob_app_title != null && _glob_app_title != "undefined" ) ? _glob_app_title : "Circles" ;
       alert_msg( DISPATCH_CRITICAL, MSG, _caption, 450, "auto" );
       return false ;
 }

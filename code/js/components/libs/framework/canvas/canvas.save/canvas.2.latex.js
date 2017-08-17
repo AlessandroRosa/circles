@@ -22,7 +22,7 @@ function circles_lib_canvas_save_to_latex( _filename, _silent, _out_channel )
      else
      {
         var _msg = "Code is not available to save the LaTeX file" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
         else return [ 0, _msg ];
      }
 }

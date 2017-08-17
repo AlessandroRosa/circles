@@ -92,7 +92,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONcopy( _silent, _question )
         var _msg = "Can't perform the copy: invalid input data." ;
             _msg += _glob_crlf.repeat( 2 );
             _msg += "Try to reset, update entries as you will and then copy again." ;
-        circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
     }
     else
     {
@@ -121,7 +121,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONcopy( _silent, _question )
                   
              }
              
-             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Copy "+_direction+" has been performed with success.", _glob_app );
+             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Copy "+_direction+" has been performed with success.", _glob_app_title );
         }
     }
 }
@@ -139,7 +139,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONonselectCOLOR( case_id, _LETTER )
         default: break ;
 		}
 		
-		if ( _array_ref == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't match the color to letter: missing referenced data", _glob_app );
+		if ( _array_ref == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't match the color to letter: missing referenced data", _glob_app_title );
 		else
 		{
 				$( "#CIRCLEStoolsALPHABETCOLORIZATION_RESPONSE_" + _LETTER ).css( "color", DEFAULT_COLOR_SUCCESS );
@@ -156,7 +156,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONreset( _silent, _question )
     if ( _n_seeds == 0 )
     {
          var _msg = "Can't reset alphabet colorization: no seed has been registered yet" ;
-         if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_WARNING, _msg ] ;
     }
     else
@@ -188,7 +188,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONreset( _silent, _question )
 					   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "67Unknown error" ;
 				     if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
          }
-         circles_lib_output( OUTPUT_SCREEN, _count == _n_seeds ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app );
+         circles_lib_output( OUTPUT_SCREEN, _count == _n_seeds ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app_title );
     }
 }
 
@@ -199,7 +199,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONapply( _silent, _question )
     if ( _n_seeds == 0 )
     {
          var _msg = "Can't apply alphabet colorization: no seed has been registered yet" ;
-         if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_WARNING, _msg ] ;
     }
     else
@@ -236,6 +236,6 @@ function CIRCLEStoolsALPHABETCOLORIZATIONapply( _silent, _question )
 			      if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
          }
          
-         circles_lib_output( OUTPUT_SCREEN, _count != _n_seeds ? DISPATCH_WARNING : DISPATCH_SUCCESS, _msg, _glob_app )  ;
+         circles_lib_output( OUTPUT_SCREEN, _count != _n_seeds ? DISPATCH_WARNING : DISPATCH_SUCCESS, _msg, _glob_app_title )  ;
     }
 }

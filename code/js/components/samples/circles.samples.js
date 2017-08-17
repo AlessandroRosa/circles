@@ -455,7 +455,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
     }
 
     if ( _final_ret == RET_ERROR && _out_channel == OUTPUT_SCREEN && !_silent )
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg.join( _glob_crlf ), _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg.join( _glob_crlf ), _glob_app_title );
     else
     {
        circles_lib_menu_entries_update();

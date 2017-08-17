@@ -452,7 +452,7 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
     else
     {
         var _msg = "Can't build up the gens set: missing items declaration" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( _out_channel, DISPATCH_ERROR, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( _out_channel, DISPATCH_ERROR, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
 }

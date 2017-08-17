@@ -15,7 +15,7 @@ function circles_lib_fixedpoints_draw( index, _canvas, _silent, _out_channel )
 
     if ( !is_html_canvas( _canvas ) )
     {
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "No canvas available", _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "No canvas available", _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else if ( _n_limitset > 0 )
@@ -60,12 +60,12 @@ function circles_lib_fixedpoints_draw( index, _canvas, _silent, _out_channel )
        }
            
        var _msg = "Fixed points have been marked with success" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else
     {
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "No fixed points found for the selected Mobius map", _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "No fixed points found for the selected Mobius map", _glob_app_title );
        return [ RET_ERROR, "No fixed points found for the selected Mobius map" ] ;
     }
 }

@@ -6,7 +6,6 @@ https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ DEMO ------------------------------------------------
-* indexsearch (via terminal and maskit T1,1)
 * indexsearch (via terminal general.purpose, use a 6-generators group)
 
 ------------ APP -------------------------------------------------

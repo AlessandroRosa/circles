@@ -27,7 +27,7 @@ var CIRCLESTERMINALtabberOptions = {
   'tabsmanager' : function( i )
   {
       var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "terminal" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 ) ;
-      var _div_id = _idx != UNFOUND ? _glob_popup_array[_idx][1] : "" ;
+      var _div_id = _idx != UNFOUND ? _glob_popups_array[_idx][1] : "" ;
       switch( i )
       {
         case 0: // terminal console

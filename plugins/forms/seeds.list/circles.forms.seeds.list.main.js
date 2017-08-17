@@ -182,7 +182,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
                   HTMLcode += "<td VALIGN=\"top\" WIDTH=\"60\" ALIGN=\"center\" STYLE=\"color:#2BB95B;\">"+_mobius_map_class+"</td>" ;
                   HTMLcode += "<td WIDTH=\"1\"></td>" ;
                   if ( safe_size( _notes, 0 ) >= 0 )
-                  HTMLcode += "<td VALIGN=\"top\" STYLE=\"color:#2B6E9D;\" ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, '"+_notes+"', _glob_app );\"><IMG TITLE=\"Read notes\" SRC=\"%imgpath%icons/doc/doc.01.16x16.png\"></td>" ;
+                  HTMLcode += "<td VALIGN=\"top\" STYLE=\"color:#2B6E9D;\" ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, '"+_notes+"', _glob_app_title );\"><IMG TITLE=\"Read notes\" SRC=\"%imgpath%icons/doc/doc.01.16x16.png\"></td>" ;
                   else
                   HTMLcode += "<td></td>" ;
                   HTMLcode += "</tr>" ;

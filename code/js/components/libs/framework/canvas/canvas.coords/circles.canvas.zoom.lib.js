@@ -121,7 +121,7 @@ function circles_lib_canvas_coords_shift( _where, _plane_type, _silent, _render,
        }
 
        var _msg = "Can't zoom: coordinates are improper and they will be reset to default values" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
           

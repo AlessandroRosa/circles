@@ -230,6 +230,6 @@ function circles_lib_reset_vars( _reset_mask, _silent, _out_channel )
 		}
 
     var _reset_report = "The following components have been reset:" + _glob_crlf.repeat(2) + _reset_report_array.join( _glob_crlf );
-    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _reset_report, _glob_app );
+    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _reset_report, _glob_app_title );
     else return [ RET_OK, _reset_report ] ;
 }

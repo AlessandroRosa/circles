@@ -1,7 +1,7 @@
 function CIRCLESformsAUTOMATONload( _filename, _file_contents )
 {
     var _automaton_rows = ( _file_contents.includes( CRLF_WIN ) ) ? _file_contents.split( CRLF_WIN ) : ( _file_contents.includes( CRLF_NO_WIN ) ? _file_contents.split( CRLF_NO_WIN ) : null );
-    if ( _automaton_rows == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "'"+_filename+"' does not appear as a valid automaton data file.", _glob_app );
+    if ( _automaton_rows == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "'"+_filename+"' does not appear as a valid automaton data file.", _glob_app_title );
     else
     {
     		 var _b_go = YES, _row_array ;
@@ -29,7 +29,7 @@ function CIRCLESformsAUTOMATONload( _filename, _file_contents )
 							var _n_src_words = safe_size( CIRCLESformsAUTOMATONsrc_words_array, 0 );
 							$( "#CIRCLESformsAUTOMATONsrcwordsCOUNTER" ).html( _n_src_words + " symbol" + ( _n_src_words == 1 ? "" : "s" ) );
 				 }
-         else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "'"+_filename+"' does not appear as a valid automaton data file.", _glob_app );
+         else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "'"+_filename+"' does not appear as a valid automaton data file.", _glob_app_title );
 		}
 }
 
@@ -39,8 +39,7 @@ function CIRCLESformsAUTOMATONsrcWORDadd()
 		if ( _word.length > 0 )
 		{
 				 _word = _word.replaceAll( " ", "," ).split( "," );
-				 $.each( _word,
-				 function( _i, _w )
+				 $.each( _word, function( _i, _w )
 				 {
 				 		 _w = _w.trim();
 						 if ( !CIRCLESformsAUTOMATONsrc_words_array.includes( _w ) )
@@ -54,7 +53,7 @@ function CIRCLESformsAUTOMATONsrcWORDadd()
 				 if ( CIRCLESformsAUTOMATONsrc_words_array.not_includes( "e" ) ) CIRCLESformsAUTOMATONsrc_words_array.push( "e" );
 				 CIRCLESformsAUTOMATONsrcwordCOMBOcreate();
 		}
-		else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't add word: missing input string", _glob_app );
+		else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't add word: missing input string", _glob_app_title );
 }
 
 function CIRCLESformsAUTOMATONsrcWORDdelete()
@@ -69,7 +68,7 @@ function CIRCLESformsAUTOMATONsrcWORDdelete()
 				 }
 				 CIRCLESformsAUTOMATONsrcwordCOMBOcreate();
 		}
-		else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't delete word: missing input string", _glob_app );
+		else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't delete word: missing input string", _glob_app_title );
 }
 
 function CIRCLESformsAUTOMATONsrcwordCOMBOcreate( _input_src_words )
@@ -103,7 +102,7 @@ function CIRCLESformsAUTOMATONsrcwordCOMBOcreate( _input_src_words )
 function CIRCLESformsAUTOMATONtableDESTROY()
 {
 		var _n_automaton = CIRCLESformsAUTOMATONarray.size_associative();
-		if ( _n_automaton == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "The current automaton is already empty", _glob_app );
+		if ( _n_automaton == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "The current automaton is already empty", _glob_app_title );
 		else
 		{
 				 var _msg = "Confirm to destroy the current automaton ?" ;
@@ -143,16 +142,16 @@ function CIRCLESformsAUTOMATONtableCHECKprocessOUTPUT( _ret_chunk )
 		switch( _ret_chunk[0] )
 		{
 				case CIRCLESformsAUTOMATONerrorEMPTYtable:
-				circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: the current automaton table is empty", _glob_app );
+				circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: the current automaton table is empty", _glob_app_title );
 				break ;
 				case CIRCLESformsAUTOMATONerrorMISSINGsrcword:
-				circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: missing source word", _glob_app );
+				circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: missing source word", _glob_app_title );
 				break ;
 				case CIRCLESformsAUTOMATONerrorMISSINGidentity:
-				circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: missing source word including the symbol 'I', standing for 'Identity'.", _glob_app );
+				circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: missing source word including the symbol 'I', standing for 'Identity'.", _glob_app_title );
 				break ;
 				case NO:
-				circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The current automaton table is not consistent"+_glob_crlf+"the words '"+_ret_chunk.join( ", " )+"' have not been recorded as entries in the automaton table.", _glob_app );
+				circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The current automaton table is not consistent"+_glob_crlf+"the words '"+_ret_chunk.join( ", " )+"' have not been recorded as entries in the automaton table.", _glob_app_title );
 				break ;
         default: break ;
 		}
@@ -221,7 +220,7 @@ function CIRCLESformsAUTOMATONtableCHECK()
             ) ;
             
             if ( _symbols.has_duplicates() )
-            circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Found duplicate entries in the current automaton table", _glob_app );
+            circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Found duplicate entries in the current automaton table", _glob_app_title );
             else
             {
                 var _errors = [] ;
@@ -245,7 +244,7 @@ function CIRCLESformsAUTOMATONtableCHECK()
                 {
                     var _MSG = "Found "+_errors.length+" error"+( _errors.length == 1 ? "" : "s" ) + "\n\n"
                     _MSG += _errors.join( "\n\n" ) ;
-                    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _MSG, _glob_app );
+                    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _MSG, _glob_app_title );
                 }
             }
 
@@ -292,11 +291,11 @@ function CIRCLESformsAUTOMATONtableAPPENDENTRY( _key, _prog_num, _silent, _force
 		var _new_word = _input_key_exists ? _key : $( "#CIRCLESformsAUTOMATONtableNEWwordEDIT" ).val();
     var _n_src_words = safe_size( CIRCLESformsAUTOMATONsrc_words_array, 0 );
     var _w_sz = safe_size( _new_word, 0 );
-    if ( _n_src_words == 0 && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't append a new entry : missing source alphabet", _glob_app );
-    else if ( $( "#CIRCLESformsAUTOMATONpanelCONTAINER" ).html().length == 0 && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't append a new entry : please build a new Cayley table", _glob_app );
-    else if ( _w_sz == 0 && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't append a new entry : missing new input word", _glob_app );
-    else if ( !_force && CIRCLESformsAUTOMATONpending ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "There are pending entries needing to be filled and saved", _glob_app );
-    //else if ( _input_key_exists ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The entry '"+_key+"' already exists in the current Cayley table", _glob_app );
+    if ( _n_src_words == 0 && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't append a new entry : missing source alphabet", _glob_app_title );
+    else if ( $( "#CIRCLESformsAUTOMATONpanelCONTAINER" ).html().length == 0 && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't append a new entry : please build a new Cayley table", _glob_app_title );
+    else if ( _w_sz == 0 && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't append a new entry : missing new input word", _glob_app_title );
+    else if ( !_force && CIRCLESformsAUTOMATONpending ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "There are pending entries needing to be filled and saved", _glob_app_title );
+    //else if ( _input_key_exists ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The entry '"+_key+"' already exists in the current Cayley table", _glob_app_title );
 		else if ( _w_sz > 0 )
 		{
 				var _single_letter_alphabet = [], _w_array ;
@@ -353,14 +352,14 @@ function CIRCLESformsAUTOMATONtableAPPENDENTRY( _key, _prog_num, _silent, _force
 								$( "#CIRCLESformsAUTOMATONglobalSTATUS" ).html( _force ? "" : "<SPAN STYLE=\"color:orange;\">Pending</SPAN>" );
 						}
 				}
-				else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The word entry '"+_new_word+"' does not match the current automaton alphabet: " + CIRCLESformsAUTOMATONsrc_words_array.join( ", " ), _glob_app );
+				else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The word entry '"+_new_word+"' does not match the current automaton alphabet: " + CIRCLESformsAUTOMATONsrc_words_array.join( ", " ), _glob_app_title );
 		}
 }
 
 function CIRCLESformsAUTOMATONtableDELETEENTRY( _row_index )
 {
 		var _key = $( "#AUTOMATON_ENTRY_SYMBOL_" + _row_index ).html();
-		if ( _key.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing entry reference for deletion", _glob_app );
+		if ( _key.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing entry reference for deletion", _glob_app_title );
 		else
 		{
   		 if ( confirm( "Confirm to delete the entry announced by word '"+_key+"' ?" ) )
@@ -376,7 +375,7 @@ function CIRCLESformsAUTOMATONtableSAVEENTRY( _row_index )
 		var _w = "", _check_passed, _alphabet, _b_go = YES ;
 		var _key = $( "#AUTOMATON_ENTRY_SYMBOL_" + _row_index ).html(), _token = [] ;
 				_key = safe_string( _key, "" );
-		if ( _key.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing entry reference for deletion", _glob_app );
+		if ( _key.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing entry reference for deletion", _glob_app_title );
 		else
 		{
 				var _src_words_array = CIRCLESformsAUTOMATONsrc_words_array.clone();
@@ -511,9 +510,9 @@ function CIRCLESformsAUTOMATONsrcWORDextractFROMgroup()
 			 			 );
 
 		 	 if ( _input_src_words.length > 0 ) CIRCLESformsAUTOMATONsrcwordCOMBOcreate( _input_src_words );
-			 else circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "The current group includes no symbols yet.", _glob_app );
+			 else circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "The current group includes no symbols yet.", _glob_app_title );
 		}
-		else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't extract: no group has been declared yet", _glob_app );
+		else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't extract: no group has been declared yet", _glob_app_title );
 }
 
 function CIRCLESformsAUTOMATONtableLOADpreset()
@@ -544,7 +543,7 @@ function CIRCLESformsAUTOMATONtablePULLOUT( _silent )
         if ( !_silent )
         {
             var _msg = "Can't pull out the automaton from the current configuration." ;
-            circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+            circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         }
         return NO ;
     }
@@ -568,7 +567,7 @@ function CIRCLESformsAUTOMATONtablePULLOUT( _silent )
         if ( !_silent )
         {
             var _msg = "The automaton has been pulled out from current configuration with success." ;
-            circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+            circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         }
         return NO ;
     }
@@ -594,7 +593,7 @@ function CIRCLESformsAUTOMATONtableSET( _silent )
                 var _msg = _n_keys > 0 ? "The new automaton has been set up with success" : "Problems while setting up the new automaton" ;
                 if ( _n_keys == 0 ) _msg += _glob_crlf.repeat(2) + "No keys have been added" ;
                 else _msg += _glob_crlf.repeat(2) + _n_keys+ " key" + ( _n_keys == 1 ? " has" : "s have" ) + " been added." ;
-                circles_lib_output( OUTPUT_SCREEN, _n_keys > 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, _n_keys > 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app_title );
             }
             return _n_keys > 0 ? YES : NO ;
         }
@@ -603,7 +602,7 @@ function CIRCLESformsAUTOMATONtableSET( _silent )
             if ( !_silent )
             {
                 var _msg = "Can't set up the new automaton: it's not possible to erase the previous settings." ;
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
             }
             return NO ;
         }
@@ -626,7 +625,7 @@ function CIRCLESformsAUTOMATONtablePULLOUTask()
                  _msg += _glob_crlf.repeat(2) + "Confirm and proceed ?" ;
              alert_plug_fn( ALERT_YES, "alertCLOSE();CIRCLESformsAUTOMATONtablePULLOUT(NO);" );
              alert_plug_fn( ALERT_NO, "alertCLOSE();" );
-             circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, _msg, _glob_app, 480 );
+             circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, _msg, _glob_app_title, 480 );
          }
          else CIRCLESformsAUTOMATONtablePULLOUT(NO);
     }
@@ -634,7 +633,7 @@ function CIRCLESformsAUTOMATONtablePULLOUTask()
     {
          var _msg = "Can't pull out the automaton from current group configuration." ;
              _msg += _glob_crlf.repeat(2) + "Please load a preset or fill it manually." ;
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
     }
 }
 
@@ -647,12 +646,12 @@ function CIRCLESformsAUTOMATONtableSETask()
              _msg += _glob_crlf.repeat(2) + "Confirm and proceed ?" ;
          alert_plug_fn( ALERT_YES, "alertCLOSE();CIRCLESformsAUTOMATONtableSET(NO);" );
          alert_plug_fn( ALERT_NO, "alertCLOSE();" );
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, _msg, _glob_app );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, _msg, _glob_app_title );
     }
     else
     {
          var _msg = "Can't set it: the current automaton table is empty." ;
              _msg += _glob_crlf.repeat(2) + "Please load a preset or fill it manually." ;
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
     }
 }

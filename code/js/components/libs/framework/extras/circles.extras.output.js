@@ -52,7 +52,7 @@ function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*m
     
     if ( _out_channel_type & OUTPUT_SCREEN )
     {
-    		var _alert_type = 0, _caption = safe_string( arguments[3], _glob_app ) ;
+    		var _alert_type = 0, _caption = safe_string( arguments[3], _glob_app_title ) ;
     		if ( _out_msg_type & DISPATCH_SUCCESS ) _alert_type |= ALERT_SUCCESS ;
     		if ( _out_msg_type & DISPATCH_YESNO ) _alert_type |= ALERT_YESNO ;
 				if ( _out_msg_type & DISPATCH_YESNOCANCEL ) _alert_type |= ALERT_YESNOCANCEL ;
@@ -244,7 +244,7 @@ function circles_lib_dump_data_to_format( /* additional arguments will be proces
 
              doc.setFontSize( 14 );
              var _left = 10, _top = 15 ;
-             doc.text( _left, _top, _glob_app );
+             doc.text( _left, _top, _glob_app_title );
              doc.setFontSize( 8 );
              _top += 4 ;
              doc.text( _left, _top, _glob_appSUBTITLE );

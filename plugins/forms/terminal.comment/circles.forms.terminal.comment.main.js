@@ -56,7 +56,7 @@ function CIRCLESformsTERMINALCOMMENTSAVE( _question )
      else _glob_comment = _candidate_comment ;
 
      if ( _glob_comment.length > 0 )
-     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Comment has been saved with success.", _glob_app );
+     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Comment has been saved with success.", _glob_app_title );
      else
-     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Problems while saving the comment.\nPlease, try again.", _glob_app );
+     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Problems while saving the comment.\nPlease, try again.", _glob_app_title );
 }

@@ -40,22 +40,22 @@ function CIRCLESformsDICTIONARYeventsHANDLER( _event, _ctrl_id )
             var INDEX = safe_int( arguments[3], UNDET );
          	  if ( newWORD.length == 0 )
             {
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The new word is empty.", _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The new word is empty.", _glob_app_title );
                 newWORD = oldWORD ;
             }
-            else if ( newWORD == oldWORD ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The word remains the same."+_glob_crlf.repeat(2)+"No change.", _glob_app );
+            else if ( newWORD == oldWORD ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The word remains the same."+_glob_crlf.repeat(2)+"No change.", _glob_app_title );
             else
             {
                 var _ok = circles_lib_word_check( newWORD, _glob_alphabet );
                     _ok = _ok.is_one_of( CIRCLES_MISSING_INPUT, UNDET ) ? NO : YES ;
                 var _msg = _ok ? "The word '"+oldWORD+"' has been updated to '"+newWORD+"'" : "The new word '"+newWORD+"' doesn't match the current alphabet" ;
-                circles_lib_output( OUTPUT_SCREEN, _ok ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, _ok ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app_title );
                 if ( _ok )
                 {
                     var _MEM_CHUNK = _glob_original_dict[ _glob_dict_selected_page ][INDEX] ;
                     if ( _MEM_CHUNK != null ) // thus, there exists some dedicated memory space in memory for that index
                     _glob_original_dict[ _glob_dict_selected_page ][INDEX] = newWORD ;
-                    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Memory failure: can't store the new word '"+newWORD+"'.", _glob_app );
+                    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Memory failure: can't store the new word '"+newWORD+"'.", _glob_app_title );
                 }  
             }
                     

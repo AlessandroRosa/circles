@@ -214,5 +214,5 @@ function CIRCLESformsHELPGENERATORSdisplayERROR( _err_mask, _sep )
     if ( _err_mask & 32 ) _title += _sep + "* Generator circle is a point" ;
     if ( _err_mask & 64 ) _title += _sep + "* Generator is null" ;
      
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _title, _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _title, _glob_app_title );
 }

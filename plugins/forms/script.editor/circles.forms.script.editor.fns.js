@@ -6,7 +6,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerBREAKPOINTremove( _silent )
     var _mod_index = circles_lib_js_manager_find_module_index( _mod_label, _proj_label ) ;
     var _breakpoint_number = UNFOUND ;
     if ( _mod_index != UNFOUND ) _breakpoint_number = safe_int( _glob_js_code_projs_array[_proj_label][_mod_index][3], UNFOUND ) ;
-    if ( _breakpoint_number == UNFOUND ) alert_msg( ALERT_INFO, "No break-point set for this module", _glob_app );
+    if ( _breakpoint_number == UNFOUND ) alert_msg( ALERT_INFO, "No break-point set for this module", _glob_app_title );
     else
     {
         var _bGO = _silent ? YES : confirm( "Confirm to remove the break-point at line " + _breakpoint_number + " ?" ); 

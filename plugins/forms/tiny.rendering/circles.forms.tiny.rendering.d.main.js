@@ -145,7 +145,7 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
    {
        var _msg = "Missing or corrupted component 'code' cmd to support tiny rendering service" ;
        circles_lib_log_add_entry( _msg, LOG_ERROR );
-       circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+       circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
    }
 }
 
@@ -260,7 +260,7 @@ function CIRCLESformsTINYRENDERINGscriptSAVEFILE( _div_id, _REF_ID )
         var blob = new Blob( [ _code ], { type: 'plain/text', endings: 'native' } );
         saveAs( blob, _filename );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save code to a file: text is empty.", _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save code to a file: text is empty.", _glob_app_title );
 }
 
 function CIRCLESformsTINYRENDERINGremove( _div_id, _REF_ID )

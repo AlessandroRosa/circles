@@ -7,7 +7,7 @@ function CIRCLESembeddingsGENERALPURPOSE_TIPS()
         _tips.push( "- Mathematical functions available here for input params formulas:" );
         _tips.push( ( [ "abs","acos","arg","asin","atan","atan2","conj","cos","cosh","cot" ] ).join( ", " ) );
         _tips.push( ( [ "coth","csc","csch", "exp", "log","log10","sec","sech","sin","sinh", "tan","tanh" ] ).join( ", " ) );
-    alert_msg( ALERT_INFO, _tips.join( "<br>" ), _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] + " - Tips", 400 );
+    alert_msg( ALERT_INFO, _tips.join( "<br>" ), _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] + " - Tips", 400 );
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_DEFAULT( _initialize )

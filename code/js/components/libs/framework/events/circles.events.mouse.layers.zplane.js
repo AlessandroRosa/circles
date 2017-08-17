@@ -363,7 +363,7 @@ function Z_PLANE_work_canvas_onmouseup( obj, event )
                  HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
                  HTMLcode += "</table>" ;
 
-            circles_lib_output( OUTPUT_SCREEN, DISPATCH_YESNO | DISPATCH_QUESTION, HTMLcode, _glob_app + " - " + circles_lib_plane_get_def( Z_PLANE ) );
+            circles_lib_output( OUTPUT_SCREEN, DISPATCH_YESNO | DISPATCH_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_get_def( Z_PLANE ) );
 
              var screen_left_top_pt = zplane_sm.from_cartesian_to_client( _glob_zoomRECT.x1, _glob_zoomRECT.y1 );
              var screen_right_bottom_pt = zplane_sm.from_cartesian_to_client( _glob_zoomRECT.x2, _glob_zoomRECT.y2 );

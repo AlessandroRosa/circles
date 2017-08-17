@@ -25,7 +25,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONcustomBOMB( _question, _silent, _callme_af
 	   _question = safe_int( _question, YES );
 	   _silent = safe_int( _silent, NO );
      var _n_words = safe_size( CIRCLEStoolsFUNDAMENTALREGIONwords, 0 );
-     if ( _n_words == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "The words list is already empty", _glob_app );
+     if ( _n_words == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "The words list is already empty", _glob_app_title );
      else
      {
           var _b_go = _question ? confirm( "Do you want to erase all words from this list ?" ) : YES ;
@@ -35,14 +35,14 @@ function CIRCLEStoolsFUNDAMENTALREGIONcustomBOMB( _question, _silent, _callme_af
           {
                if ( typeof _callme_after_bomb === "function" ) _callme_after_bomb.call( this );
                var _msg = "The words list has been flushed away with success." ;
-               if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+               if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
                return [ RET_OK, _msg ] ;
           }
           else
           {
                if ( typeof _callme_after_bomb === "function" ) _callme_after_bomb.call( this );
                var _msg = "Problems while flushing the words list away." ;
-               if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+               if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
                return [ RET_ERROR, _msg ] ;
           }
      }
@@ -56,7 +56,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONcustomADD( _silent )
      if ( safe_size( _alphabet, 0 ) == 0 )
      {
           var _msg = "The current alphabet is empty."+_glob_crlf.repeat(2)+"Try to register some seeds first." ;
-     		  if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app );
+     		  if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
           return [ RET_ERROR, _msg ] ;
      }
      else if ( safe_size( _new_word, 0 ) > 0 )
@@ -85,7 +85,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONcustomADD( _silent )
           if ( safe_size( _out_errors, 0 ) == 0 ) return [ RET_OK, "success" ] ;
           else
           {
-         			 if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _out_errors.join( _glob_crlf ), _glob_app );
+         			 if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _out_errors.join( _glob_crlf ), _glob_app_title );
                return [ RET_ERROR, _out_errors.join( "@@@" ) ] ;
           }
 		 }
@@ -106,11 +106,11 @@ function CIRCLEStoolsFUNDAMENTALREGIONcustomDELETE( _word, _question, _silent, _
 					 		 var _new_size = safe_size( CIRCLEStoolsFUNDAMENTALREGIONwords, 0 );
 					 		 var _msg_id = _old_size == _new_size + 2 ? DISPATCH_SUCCESS : DISPATCH_WARNING ;
 					 		 var _msg = _old_size == _new_size + 2 ? "The word '"+_word+"' has been successfully deleted" : "Problems while deleting the word '"+_word+"'" ;
-					 		 circles_lib_output( OUTPUT_SCREEN, _msg_id, _msg, _glob_app );
+					 		 circles_lib_output( OUTPUT_SCREEN, _msg_id, _msg, _glob_app_title );
                if ( typeof _callme_after_bomb === "function" ) _callme_after_bomb.call( this );
 					} 
 		 }
-		 else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The words list does not include the entry '"+_word+"'.", _glob_app );
+		 else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The words list does not include the entry '"+_word+"'.", _glob_app_title );
 }
 
 function CIRCLEStoolsFUNDAMENTALREGIONcustomLIST( _request_id )

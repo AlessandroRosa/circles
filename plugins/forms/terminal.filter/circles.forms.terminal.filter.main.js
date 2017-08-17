@@ -45,7 +45,7 @@ function CIRCLESformsTERMINALFILTERmain( _base_id, _move )
     $("#CIRCLESfilterTEXTAREA").bind( "keyup", function() { $("#CIRCLESfilterTESTbtn").css( "color", DEFAULT_COLOR_STD ); $("#CIRCLESfilterSAVEbtn").css( "color", DEFAULT_COLOR_STD ); } );
 }
 
-function CIRCLESformsTERMINALFILTERTEST() { circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "Work in progress.", _glob_app ); }
+function CIRCLESformsTERMINALFILTERTEST() { circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "Work in progress.", _glob_app_title ); }
 
 function CIRCLESformsTERMINALFILTERSAVE( _question, _opcode )
 {
@@ -60,7 +60,7 @@ function CIRCLESformsTERMINALFILTERSAVE( _question, _opcode )
      else _glob_filter = _candidate_filter ;
 
      if ( _glob_filter.length > 0 )
-     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Filter has been saved with success.", _glob_app );
+     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Filter has been saved with success.", _glob_app_title );
      else
-     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Problems while saving the filter.\nPlease, try again.", _glob_app );
+     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Problems while saving the filter.\nPlease, try again.", _glob_app_title );
 }

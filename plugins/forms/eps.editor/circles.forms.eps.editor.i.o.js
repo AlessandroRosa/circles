@@ -1,7 +1,7 @@
 function CIRCLESformsEPSEDITORsavepage()
 {
     CIRCLESformsEPSEDITOR_current_page = safe_int( CIRCLESformsEPSEDITOR_current_page, UNDET );
-    if ( CIRCLESformsEPSEDITOR_current_page == UNDET ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid page specification", _glob_app );
+    if ( CIRCLESformsEPSEDITOR_current_page == UNDET ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid page specification", _glob_app_title );
     else
     {
          var _codelist_ref = _glob_js_e_ps_obj.get_codelist_ref();
@@ -15,7 +15,7 @@ function CIRCLESformsEPSEDITORsavepage()
          _before_code = _before_code.concat( _new_code, _after_code );
          _glob_js_e_ps_obj.eps_code = _before_code.clone();
          CIRCLESformsEPSEDITORcomputePAGES();
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Page "+( CIRCLESformsEPSEDITOR_current_page + 1 )+" has been save with success.", _glob_app );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Page "+( CIRCLESformsEPSEDITOR_current_page + 1 )+" has been save with success.", _glob_app_title );
     }
 }
 
@@ -31,5 +31,5 @@ function CIRCLESformsEPSEDITORsavefile()
          var blob = new Blob( [ _code ], { type: 'plain/text', endings: 'native' } );
          saveAs( blob, _filename );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save code to a file: text is empty.", _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save code to a file: text is empty.", _glob_app_title );
 }

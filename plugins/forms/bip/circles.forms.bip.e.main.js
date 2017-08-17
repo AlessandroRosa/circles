@@ -6,7 +6,7 @@ function CIRCLESformsBIPhelp()
         _msg += "The pile of layered contents for the bip box can be managed by" ;
         _msg += " analogue actions in the W-plane layers pile, available <A HREF=\"#\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','general.options',YES,3);return false;\">at this link</A>" + _glob_crlf.repeat(2) ;
         _msg += "Any action in the W-plane will be mirrored to the bip box, when renderings are redirected to the latter environment." ;
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app_title );
 }
 
 function CIRCLESformsBIPproperties()

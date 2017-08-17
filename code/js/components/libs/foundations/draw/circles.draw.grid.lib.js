@@ -341,7 +341,7 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
         var _errors = _sd_n == 0 ? "* No maps\n" : "" ;
         if ( _plane_type == NO_PLANE ) _errors += "* Missing plane reference" ;
         var _plane_def = circles_lib_plane_get_def( _plane_type );
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _errors, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _errors, _glob_app_title );
         return [ RET_ERROR, _errors ] ;
     }
 }

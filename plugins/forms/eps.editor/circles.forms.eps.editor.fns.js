@@ -105,5 +105,5 @@ function CIRCLESformsEPSEDITORsearch( _search_str )
           }
           else $( "#CIRCLESepseditorSEARCHoutput" ).html( "<SPAN STYLE=\"color:#909090;\">Found no matches</SPAN>" );
       }
-      else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Search strings must be 3 chars long at least.", _glob_app );
+      else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Search strings must be 3 chars long at least.", _glob_app_title );
 }

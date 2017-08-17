@@ -96,7 +96,7 @@ function CIRCLESembeddingsGENERALPURPOSE_LOADgroup( _filename, _file_contents )
     var _msg = "The generators have been correctly loaded." ;
         _msg += "\nNow press the button below to generate the whole group." ;
         _msg += "\n\nThen you can  render it." ;
-    alert_msg( ALERT_SUCCESS, _msg, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] + " - Tips", 440 );
+    alert_msg( ALERT_SUCCESS, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] + " - Tips", 440 );
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_SAVE_GROUP()

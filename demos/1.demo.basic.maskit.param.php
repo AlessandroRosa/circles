@@ -134,10 +134,10 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                     $( "#presentation_div" ).css( "background-color", "#538BB4" ) ;
-                    var _html = "END OF DEMO #1<br>Pull your negative thoughts away !" ;
+                    var _html = "END OF DEMO #<?php echo $DEMO_IDX ; ?><br>Pull your negative thoughts away !" ;
                         _html += "<br><br><SPAN STYLE=\"font-size:11pt;\">To watch other demos" ;
                         _html += "<br>change n at ?demo=n inside the URL bar" ;
-                        _html += "<br>where 1 <= n <= <?php echo $GLOBALS['MAX_IDX']; ?></SPAN>" ;
+                        _html += "<br>where 1 <= n <= <?php echo $GLOBALS['MAX_DEMO_IDX']; ?></SPAN>" ;
                     $( "#presentation_div" ).html( _html ) ;
                   },
                   ctrl_id : "presentation_div", time : 7, time_unit : "s",

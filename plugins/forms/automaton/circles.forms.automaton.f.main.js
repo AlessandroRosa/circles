@@ -2,7 +2,7 @@ function CIRCLESformsAUTOMATONclose()
 {
 		if ( !CIRCLESformsAUTOMATONpending )
 		    return circles_lib_plugin_dispatcher_unicast_message( "automaton", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
-		else return circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "There are pending entries needing to be filled and saved", _glob_app );
+		else return circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "There are pending entries needing to be filled and saved", _glob_app_title );
 }
 
 function CIRCLESformsAUTOMATONmaximize()

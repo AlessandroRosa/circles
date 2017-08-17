@@ -41,7 +41,7 @@ function CIRCLESmultithreadingSTOPworker( _silent )
     {
         alert_plug_label( ALERT_OK, "Close" ) ;
         alert_set_btns_width( 70 ) ;
-        circles_lib_output( OUTPUT_SCREEN, DISPATCH_HALT, "Current process has been stopped by user", _glob_app );
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_HALT, "Current process has been stopped by user", _glob_app_title );
     }
 
     var BTN = $( "#refreshWPLANEbtn" ).get(0);
@@ -116,7 +116,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
     if ( _workarea == MULTITHREADING_OBJ_WORKAREA_NONE )
     {
        var _msg = "This multi-tasking thread initialization has failed: missing workarea." ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else if ( _pre_check_ret < 0 )
@@ -125,7 +125,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
        if ( _pre_check_ret < 0 && _pre_check_ret >= -5 ) _msg = "Errors found in items data." + _glob_crlf + "Please, init them again and retry the rendering" ;
        else if ( _pre_check_ret == -6 ) _msg = "The current dictionary is empty." + _glob_crlf + "Please, check both symbols and dict filters, then try to build it again" ;
        else if ( _pre_check_ret == -7 ) _msg = "The automaton table is empty." ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
 		else if ( _workarea == MULTITHREADING_OBJ_WORKAREA_RENDERING ) // rendering
@@ -220,7 +220,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
            alert_plug_fn( ALERT_YES, "_glob_target_plane=W_PLANE;alertCLOSE();CIRCLESmultithreadingPROCESSrendering( null, wplane_sm, _glob_method, _glob_process, _glob_target_plane );" );
            alert_plug_fn( ALERT_NO, "_glob_target_plane=BIP_BOX;_glob_bip_use=YES;alertCLOSE();CIRCLESmultithreadingPROCESSrendering( null, bipbox_sm, _glob_method, _glob_process, _glob_target_plane );" );
            alert_plug_fn( ALERT_CANCEL, "alertCLOSE();" );
-           circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNOCANCEL, _MSG, _glob_app );
+           circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNOCANCEL, _MSG, _glob_app_title );
          }
             
          return [ RET_ERROR, _MSG ] ;

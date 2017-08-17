@@ -9,7 +9,7 @@ function CIRCLESformsWATCHFORMULAmain( _base_id, _move, index, _items_switch )
     if ( index != UNFOUND )
     {
        var ITEM = _items_array[index] ;
-       if ( !is_item_obj( ITEM ) ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Archive error.", _glob_app );
+       if ( !is_item_obj( ITEM ) ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Archive error.", _glob_app_title );
        else
        {
           var _symbol = ITEM.symbol.length > 0 ? ITEM.symbol : "< unknown >" ;
@@ -81,5 +81,5 @@ function CIRCLESformsWATCHFORMULAmain( _base_id, _move, index, _items_switch )
           circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
        }
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Coordinates are not consistent with archived data", _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Coordinates are not consistent with archived data", _glob_app_title );
 }

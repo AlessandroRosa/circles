@@ -118,8 +118,7 @@ function circles_terminal_cmd_plugin()
  												        _crlf = _data_chunk.includes( CRLF_WIN ) ? CRLF_WIN : CRLF_NO_WIN ;
 																_rows = _data_chunk.split( _crlf );
 																_item = [] ;
-																$.each( _rows,
-																				function( _r, _row )
+																$.each( _rows, function( _r, _row )
 																				{
 																						if ( _row.count( "=" ) == 1 ) // check syntax
 																						{
@@ -147,8 +146,7 @@ function circles_terminal_cmd_plugin()
 		                      _row += "<lightblue>"+( new String( "Plug-in caption" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
 		                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                      var _subset, _base_id, _caption, _visible ;
-		                 $.each( _archive,
-		                         function( _i, _chunk )
+		                 $.each( _archive, function( _i, _chunk )
 		                         {
 																_subset = _chunk['subset'], _base_id = _chunk['baseid'], _caption = _chunk['caption'] ;
 		                         		_startINDEX = 0 ;

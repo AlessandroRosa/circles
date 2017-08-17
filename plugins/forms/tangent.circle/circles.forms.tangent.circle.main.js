@@ -5,7 +5,7 @@ function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
     _move = safe_int( _move, YES );
     if ( _glob_method == METHOD_ALGEBRAIC )
     {
-        circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_05, _glob_app );
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_05, _glob_app_title );
         return ;
     }
       

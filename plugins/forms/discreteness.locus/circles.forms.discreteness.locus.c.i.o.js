@@ -173,7 +173,7 @@ function CIRCLESformsDISCRETENESSLOCUSsaveEPSask()
     alert_plug_fn( ALERT_YES, "var _eps_save_mask = CIRCLESformsDISCRETENESSLOCUSsaveEPSmaskGET();alertCLOSE();CIRCLESformsDISCRETENESSLOCUSsaveEPS( _eps_save_mask );" );
     alert_plug_fn( ALERT_NO, "alertCLOSE();" );
     alert_set_btns_width( "70px" );
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app_title );
 }
 
 function CIRCLESformsDISCRETENESSLOCUSsaveEPS( _save_mask )

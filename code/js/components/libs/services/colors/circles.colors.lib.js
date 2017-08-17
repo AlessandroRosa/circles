@@ -141,7 +141,7 @@ function circles_lib_colors_colorize( _items_array, _update, _silent, _out_chann
 
          if ( _update ) circles_lib_canvas_process_ask(NO,YES,Z_PLANE,YES,YES,CHECK);
          var _msg = "All items have been colorized with success" ;
-         if ( !_silent && _out_channel != OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( !_silent && _out_channel != OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_OK, _msg ] ;
     }
 }
@@ -168,7 +168,7 @@ function circles_lib_colors_decolorize( _items_array, _update, _silent, _out_cha
 
          if ( _update ) circles_lib_canvas_process_ask(NO,YES,Z_PLANE,YES,YES,CHECK);
          var _msg = "All items have been decolorized with success" ;
-         if ( !_silent && _out_channel != OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( !_silent && _out_channel != OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_OK, _msg ] ;
     }
 }
@@ -229,13 +229,13 @@ function circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, nSTEPS, _s
        }
 
        var _msg = "Colors palette has been resized to " + nSTEPS + " entr" + ( nSTEPS == 1 ? "y" : "ies" ) ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
 			 return [ RET_OK, tmpPALETTE, _msg ] ;
     }
     else
 		{
        var _msg = "Can't resize the colors palette : invalid input RGB colors" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
 	 		 return [ RET_ERROR, null, _msg ] ;
 		}
 }

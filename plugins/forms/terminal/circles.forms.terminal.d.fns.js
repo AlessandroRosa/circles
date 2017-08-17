@@ -81,7 +81,7 @@ function CIRCLESformsTERMINALextractCODE( _suffix )
          alert_plug_fn( ALERT_YES, "CIRCLESformsTERMINALbatchcompilerSAVEFILE('"+_suffix+"');alertCLOSE();" );
          alert_plug_fn( ALERT_NO, "circles_lib_terminal_exec( 'code', '', _glob_terminal, TERMINAL_SCRIPT_INPUT );alertCLOSE();" );
          alert_plug_fn( ALERT_CANCEL, "alertCLOSE();" );
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNOCANCEL, _MSG, _glob_app );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNOCANCEL, _MSG, _glob_app_title );
     }
     else circles_lib_terminal_exec( 'code', '', _glob_terminal, TERMINAL_SCRIPT_INPUT );
 }
@@ -134,7 +134,7 @@ function CIRCLESformsTERMINALbatchcompilerSAVEFILE( _suffix )
          var blob = new Blob( [ _code ], { type: 'plain/text', endings: 'native' });
          saveAs( blob, _filename );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save code to a file: text is empty.", _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save code to a file: text is empty.", _glob_app_title );
 }
 
 function CIRCLESformsTERMINALdebugSAVEFILE( _suffix )
@@ -158,7 +158,7 @@ function CIRCLESformsTERMINALdebugSAVEFILE( _suffix )
          else
          {
              var _msg = "Can't save debug report to a file: text is empty" ;
-             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          }
     }
 }
@@ -224,7 +224,7 @@ function CIRCLESformsTERMINALhistoryDISPLAYtoggle( _suffix, _silent, _out_channe
          else
          {
              var _msg = "Terminal cmds history is empty" ;
-             if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+             if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
              return [ RET_WARNING, _msg ] ;
          }
     }

@@ -18,9 +18,9 @@ function CIRCLESformsINTERSECTIONPOINTScorrectTANGENCYask( index1, index2 )
        alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_complexdisk_correct_tangency( "+index1+", "+index2+" )" );
        alert_plug_fn( ALERT_NO, "alertCLOSE();" );
        alert_set_btns_width( "70px" );
-       circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app );
+       circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app_title );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: elements need to be tagged first.", _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: elements need to be tagged first.", _glob_app_title );
 }
 
 function CIRCLESformsINTERSECTIONPOINTScopyPOINTS( packed_pts )
@@ -62,9 +62,9 @@ function CIRCLESformsINTERSECTIONPOINTScopyPOINTS( packed_pts )
 
             var _msg = _added + " intersection point"+(_added==1?"":"s")+" copied with success" ;
             if ( _duplicates > 0 ) _msg += _glob_crlf.repeat(2) + "Found " + _duplicates + " duplicate" + ( _duplicates == 1 ? "" : "s" );
-            circles_lib_output( OUTPUT_SCREEN, _added > 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app );
+            circles_lib_output( OUTPUT_SCREEN, _added > 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app_title );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Incomplete copy operation", _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Incomplete copy operation", _glob_app_title );
 }
 
 function CIRCLESformsINTERSECTIONPOINTScomboONCHANGE()
@@ -93,8 +93,8 @@ function CIRCLESformsINTERSECTIONPOINTScorrectTANGENTdisks()
     var _index1 = safe_int( $("#CIRCLEScombo1").val(), UNDET ), _index2 = safe_int( $("#CIRCLEScombo2").val(), UNDET );
     if ( _index1 != UNDET && _index2 != UNDET && ( _index1 != _index2 ) ) CIRCLESformsINTERSECTIONPOINTScorrectTANGENCYask( _index1, _index2 );
     else if ( _index1 != UNDET && _index2 != UNDET && ( _index1 == _index2 ) )
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: a same circle has been chosen.", _glob_app );
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't perform this operation: choose two circles first.", _glob_app );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: a same circle has been chosen.", _glob_app_title );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't perform this operation: choose two circles first.", _glob_app_title );
 }
 
 function CIRCLESformsINTERSECTIONPOINTSfind( _mark_points )
@@ -104,7 +104,7 @@ function CIRCLESformsINTERSECTIONPOINTSfind( _mark_points )
     var index1 = safe_int( $("#CIRCLEScombo1").val(), UNDET );
     var index2 = safe_int( $("#CIRCLEScombo2").val(), UNDET );
     var tolerance = Math.pow( 10, -_glob_accuracy );
-    if ( index1 == index2 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: the same circle has been selected.", _glob_app );
+    if ( index1 == index2 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: the same circle has been selected.", _glob_app_title );
     else if ( index1 != index2 )
     {
          var CIRCLE_01 = is_item_obj( _items_array[index1] ) ? _items_array[index1].complex_circle : null ;
@@ -252,6 +252,6 @@ function CIRCLESformsINTERSECTIONPOINTSfind( _mark_points )
                    }
               }
          }
-         else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Please, init the generator to complete this operation", _glob_app );
+         else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Please, init the generator to complete this operation", _glob_app_title );
     }
 }

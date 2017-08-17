@@ -13,7 +13,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONremotectrl( _options, _return_fn, _out_
 
 		var _out_msg = "" ;
     var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "alphabet.colorization" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 ) ;
-    var _div_id = _idx != UNFOUND ? _glob_popup_array[_idx][1] : "" ;
+    var _div_id = _idx != UNFOUND ? _glob_popups_array[_idx][1] : "" ;
 		switch( _options[0].toLowerCase() )
 		{
 				case "/*anyaction*/":

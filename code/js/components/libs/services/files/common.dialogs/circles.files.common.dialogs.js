@@ -6,7 +6,7 @@ function circles_lib_files_open_upload_dialog( _fn, _silent, _out_channel, _mult
     {
         var _msg = "Sorry, but you can't load file." + _glob_crlf ;
             _msg += "Missing loading handler." ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
     else if (window.File && window.FileReader && window.FileList && window.Blob)
@@ -28,7 +28,7 @@ function circles_lib_files_open_upload_dialog( _fn, _silent, _out_channel, _mult
     {
         var _msg = "Sorry, but you can't load file." + _glob_crlf ;
             _msg += "This browser does not support FILE READER API." ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
 }

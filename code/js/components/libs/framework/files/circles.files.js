@@ -38,7 +38,7 @@ function circles_lib_files_load_environment( _filename, _file_contents )
 {
     _file_contents = safe_string( _file_contents, "" );
     var _config_rows = _file_contents.includes( CRLF_WIN ) ? _file_contents.split( CRLF_WIN ) : ( _file_contents.includes( CRLF_NO_WIN ) ? _file_contents.split( CRLF_NO_WIN ) : null );
-    if ( _config_rows == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "'"+_filename+"' does not appear as a valid config file.", _glob_app );
+    if ( _config_rows == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "'"+_filename+"' does not appear as a valid config file.", _glob_app_title );
     else
     {
          // process file

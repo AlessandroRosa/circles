@@ -4,15 +4,15 @@ function CIRCLESformsMETHODfixedpointsRESOLVEword( _i, _question, _silent, _out_
     _i = safe_int( _i, UNDET ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     var _fp_n = circles_lib_count_fixed_points();
-    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The fixed points list is empty", _glob_app );
+    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The fixed points list is empty", _glob_app_title );
     else
     {
        var _chunk = _glob_input_fixed_pts_array[_i] ;
-       if ( _chunk == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid object reference", _glob_app );
+       if ( _chunk == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid object reference", _glob_app_title );
        else
        {
           var _word = _chunk[0] ;
-          if ( _word.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing word string", _glob_app );
+          if ( _word.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing word string", _glob_app_title );
           else
           {
              var _is_repetend = circles_lib_repetends_check_syntax( null, _word ) ? YES : NO ;
@@ -35,8 +35,8 @@ function CIRCLESformsMETHODfixedpointsFIGURES( _plane_type, _question, _silent, 
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _fp_n = circles_lib_count_fixed_points();
-    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The fixed points list is empty", _glob_app );
-    else if ( !_plane_type.is_one_of( Z_PLANE, W_PLANE ) ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing input plane reference", _glob_app );
+    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The fixed points list is empty", _glob_app_title );
+    else if ( !_plane_type.is_one_of( Z_PLANE, W_PLANE ) ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing input plane reference", _glob_app_title );
     else
     {
        var _b_go = confirm( "Fixed points will be converted into 'figure' objects for further managing. Confirm ?" );
@@ -45,7 +45,7 @@ function CIRCLESformsMETHODfixedpointsFIGURES( _plane_type, _question, _silent, 
           var _ret_chunk = circles_lib_fixedpoints_create_figures_from( UNDET, _plane_type, _out_channel );
           var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
           var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
-          circles_lib_output( OUTPUT_SCREEN, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _glob_app );
+          circles_lib_output( OUTPUT_SCREEN, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _glob_app_title );
        }
     }
 }
@@ -55,7 +55,7 @@ function CIRCLESformsMETHODfixedpointsSEEDS( _question, _silent, _out_channel )
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_array = _glob_seeds_array ;
     var _items_n = circles_lib_count_items( _items_array ), _fp_n = circles_lib_count_fixed_points();
-    if ( _items_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The fixed points list is empty", _glob_app );
+    if ( _items_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The fixed points list is empty", _glob_app_title );
     else
     {
        var _b_go = _fp_n > 0 ? confirm( "The default seeds words list will overwrite current settings. Confirm ?" ) : YES ;
@@ -65,7 +65,7 @@ function CIRCLESformsMETHODfixedpointsSEEDS( _question, _silent, _out_channel )
           var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
           var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
           if ( _ret_id == RET_OK ) CIRCLESformsMETHODfixedpointsLIST();
-          else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
+          else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
        }
     }
 }
@@ -75,7 +75,7 @@ function CIRCLESformsMETHODfixedpointsWORDSfromGENERATORSSET( _question, _silent
      _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
      _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
      var _gg_n = circles_lib_count_gens(), _fp_n = circles_lib_count_fixed_points();
-     if ( _gg_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The gens set is empty", _glob_app );
+     if ( _gg_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The gens set is empty", _glob_app_title );
      else
      {
         var _b_go = _fp_n > 0 ? confirm( "The gens set words list will overwrite current settings. Confirm ?" ) : YES ;
@@ -85,7 +85,7 @@ function CIRCLESformsMETHODfixedpointsWORDSfromGENERATORSSET( _question, _silent
             var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
             var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
             if ( _ret_id == RET_OK ) CIRCLESformsMETHODfixedpointsLIST();
-            else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
+            else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
         }
      }
 }
@@ -96,8 +96,8 @@ function CIRCLESformsMETHODfixedpointsCOMMUTATORS( _question, _silent, _out_chan
     var _items_array = _glob_seeds_array ;
     var _items_n = circles_lib_count_items( _items_array ) ;
     var _fp_n = circles_lib_count_fixed_points();
-    if ( _items_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't retrieve the commutators list: missing gens", _glob_app );
-    else if ( safe_size( _glob_alphabet ) == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't retrieve the commutators list: no alphabet available", _glob_app );
+    if ( _items_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't retrieve the commutators list: missing gens", _glob_app_title );
+    else if ( safe_size( _glob_alphabet ) == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't retrieve the commutators list: no alphabet available", _glob_app_title );
     else
     {
        var _b_go = _fp_n > 0 ? confirm( "The commutators words list will overwrite current settings. Confirm ?" ) : YES ;
@@ -107,7 +107,7 @@ function CIRCLESformsMETHODfixedpointsCOMMUTATORS( _question, _silent, _out_chan
           var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
           var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
           if ( _ret_id == RET_OK ) CIRCLESformsMETHODfixedpointsLIST();
-          else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
+          else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
        }
     }
 }
@@ -117,7 +117,7 @@ function CIRCLESformsMETHODfixedpointsBOMB( _question, _silent, _out_channel )
      _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
      _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
      var _fp_n = circles_lib_count_fixed_points();
-     if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The list of input fixed points is already empty", _glob_app );
+     if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The list of input fixed points is already empty", _glob_app_title );
      else
      {
           var _b_go = _question ? confirm( "Confirm to delete all entries of this list ?" ) : YES ;
@@ -127,7 +127,7 @@ function CIRCLESformsMETHODfixedpointsBOMB( _question, _silent, _out_channel )
               var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
               var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
               if ( _ret_id == RET_OK ) CIRCLESformsMETHODfixedpointsLIST();
-              else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
+              else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
           }
      }
 }
@@ -148,19 +148,19 @@ function CIRCLESformsMETHODfixedpointsADD( _opcode, _edit_id, _list_row_index, _
      if ( _opcode == 0 )
      {
          var _msg = "Missing operation code" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_MSG_ID_WARNING, _msg ] ;
      }
      else if ( _opcode == 2 && _glob_input_fixed_pts_array[ _list_row_index ] == null )
      {
          var _msg = "Missing element reference" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_MSG_ID_WARNING, _msg ] ;
      }
      else if ( ENTITY.length == 0 )
      {
          var _msg = "Missing input word" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_MSG_ID_WARNING, _msg ] ;
      }
      else
@@ -169,7 +169,7 @@ function CIRCLESformsMETHODfixedpointsADD( _opcode, _edit_id, _list_row_index, _
          var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
          var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
          if ( _ret_id == RET_OK ) CIRCLESformsMETHODfixedpointsLIST();
-         else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
+         else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
      }
 }
 
@@ -179,8 +179,8 @@ function CIRCLESformsMETHODfixedpointsDELETE( _index, _question, _silent, _out_c
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _fp_n = circles_lib_count_fixed_points();
-    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't delete: the list of input fixed points is already empty", _glob_app );
-    else if ( _index == UNDET ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't delete: invalid entry reference", _glob_app );
+    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't delete: the list of input fixed points is already empty", _glob_app_title );
+    else if ( _index == UNDET ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't delete: invalid entry reference", _glob_app_title );
     else
     {
         var _word = _glob_input_fixed_pts_array[_index][0] ;
@@ -191,7 +191,7 @@ function CIRCLESformsMETHODfixedpointsDELETE( _index, _question, _silent, _out_c
             var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
             var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
             if ( _ret_id == RET_OK ) CIRCLESformsMETHODfixedpointsLIST();
-            else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
+            else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
         }
     }
 }
@@ -202,7 +202,7 @@ function CIRCLESformsMETHODfixedpointsCONNECT( _plane_type, _clean, _showtext, _
     var _ret_chunk = circles_lib_fixedpoints_connect( _plane_type, _clean, _showtext, _out_channel )
     var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
     var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
-    if ( _ret_id != RET_OK ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
+    if ( _ret_id != RET_OK ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
 }
 
 function CIRCLESformsMETHODfixedpointsLOCALIZE( _i, _plane_type, _clean, _showtext, _question, _silent, _out_channel )
@@ -211,7 +211,7 @@ function CIRCLESformsMETHODfixedpointsLOCALIZE( _i, _plane_type, _clean, _showte
     var _ret_chunk = circles_lib_fixedpoints_locate( _i, _plane_type, _clean, _showtext, _out_channel );
     var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
     var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
-    if ( _ret_id != RET_OK ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
+    if ( _ret_id != RET_OK ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
 }
 
 function CIRCLESformsMETHODfixedpointsDELETEfixedPTS( _type, _question, _silent, _out_channel )
@@ -221,7 +221,7 @@ function CIRCLESformsMETHODfixedpointsDELETEfixedPTS( _type, _question, _silent,
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _def = circles_lib_fixedpoints_get_def(_type);
     var _fp_n = circles_lib_count_fixed_points();
-    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't remove "+_def+" fixed points: the list is empty.", _glob_app );
+    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't remove "+_def+" fixed points: the list is empty.", _glob_app_title );
     else
     {
         var _msg = "Do you confirm to remove all "+_def+" fixed points from this list ?" ;
@@ -240,12 +240,12 @@ function CIRCLESformsMETHODfixedpointsDELETEfixedPTS( _type, _question, _silent,
              }
 
              var _n_kept = circles_lib_count_fixed_points();
-             if ( _n_removed == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "No "+_def+" fixed points type have been removed", _glob_app );
+             if ( _n_removed == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "No "+_def+" fixed points type have been removed", _glob_app_title );
              else
              {
                  var _msg = _n_kept + " fixed point" + ( _n_kept == 1 ? "" : "s" ) + " ha" + ( _n_kept == 1 ? "s" : "ve" ) + " been kept" ;
                      _msg += _glob_crlf + _n_removed + " " + _def + " fixed point" + ( _n_removed == 1 ? "" : "s" ) + " ha" + ( _n_kept == 1 ? "s" : "ve" ) + " been removed" ;
-                 circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+                 circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
                  CIRCLESformsMETHODfixedpointsLIST();
              }
         }
@@ -259,7 +259,7 @@ function CIRCLESformsMETHODfixedpointsKEEPfixedPTS( _type, _question, _silent, _
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _def = circles_lib_fixedpoints_get_def(_type);
     var _fp_n = circles_lib_count_fixed_points();
-    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't keep "+_def+" fixed points: the list is empty.", _glob_app );
+    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't keep "+_def+" fixed points: the list is empty.", _glob_app_title );
     else
     {
          var _msg = "Do you confirm to keep all "+_def+" fixed points in this list ?" ;
@@ -278,12 +278,12 @@ function CIRCLESformsMETHODfixedpointsKEEPfixedPTS( _type, _question, _silent, _
             }
                
             var _n_kept = circles_lib_count_fixed_points();
-            if ( _n_kept == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "No "+_def+" fixed points type have been kept", _glob_app );
+            if ( _n_kept == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "No "+_def+" fixed points type have been kept", _glob_app_title );
             else
             {
                  var _msg = _n_kept + " " + _def + " fixed point" + ( _n_kept == 1 ? "" : "s" ) + " ha" + ( _n_kept == 1 ? "s" : "ve" ) + " been kept" ;
                  _msg += _glob_crlf + _n_removed + " fixed point" + ( _n_removed == 1 ? "" : "s" ) + " ha" + ( _n_kept == 1 ? "s" : "ve" ) + " been removed" ;
-                 circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+                 circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
                  CIRCLESformsMETHODfixedpointsLIST();
             }
          }
@@ -321,7 +321,7 @@ function CIRCLESformsMETHODfixedpointsDELETESELECTED( _question, _silent, _out_c
             CIRCLESformsMETHODfixedpointsLIST();
         }
     }
-    else if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing selected items to delete", _glob_app );
+    else if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing selected items to delete", _glob_app_title );
 }
 
 function CIRCLESformsMETHODfixedpointsKEEPSELECTED( _question, _silent, _out_channel )
@@ -360,7 +360,7 @@ function CIRCLESformsMETHODfixedpointsKEEPSELECTED( _question, _silent, _out_cha
             CIRCLESformsMETHODfixedpointsLIST();
         }
     }
-    else if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing selected items to keep", _glob_app );
+    else if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing selected items to keep", _glob_app_title );
 }
 
 function CIRCLESformsMETHODfixedpointsDELETEcombo( _index )

@@ -177,7 +177,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
     if ( _glob_items_to_init && !_silent )
     {
         var _msg = "Can't draw the W-plane."+_glob_crlf+"Please, init gens first" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
 
@@ -293,7 +293,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
                 _ret_msg = ( is_array( _ret_chunk ) || _ret_chunk == UNDEF ) ? _ret_chunk[1] : _ERR_00_00 ;
                 if ( _ret_id == 0 )
                 {
-                   if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
+                   if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
                    return _ret_chunk ;
                 }
             }
@@ -447,7 +447,7 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
                       _ret_msg = ( is_array( _ret_chunk ) || _ret_chunk == UNDEF ) ? _ret_chunk[1] : _ERR_00_00 ;
                       if ( _ret_id == 0 )
                       {
-                          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
+                          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
                           return _ret_chunk ;
                       }
                   }

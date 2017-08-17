@@ -54,7 +54,7 @@ function circles_lib_draw_all_screen_disks( _context, _mapper, _selected_items_a
         }
 
      	  var _msg = _errors == 0 ? "All disks drawn with success" : "Can't draw all screen disks: memory failure for item"+(_errors_array.length==1?"":"s")+" indexed at "+_errors_array.join( ", " );
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _errors == 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _errors == 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app_title );
         return [ _errors == 0 ? RET_OK : RET_ERROR, _msg ] ;
     }
     else if ( _items_n == 0 )
@@ -120,7 +120,7 @@ function circles_lib_draw_all_complex_disks( _context, _mapper, _selected_items_
           
         _glob_disk_sel_index = safe_size( _selected_items_array, 0 ) == 0 ? UNDET : _selected_items_array[0] ;
         var _msg = "Disks drawn with success" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
         return [ RET_OK, _msg ] ;
     }
     else if ( _items_n == 0 ) return [ RET_ERROR, "Missing input items" ] ;

@@ -120,13 +120,13 @@ function circles_lib_coordinates_shift( _where, _plane_type, _scalar_shift, _sil
             }
 
             var _msg = "Can't shift: input "+_plane_def+" coordinates are invalid and then reset to default values" ;
-            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app );
+            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
             return [ RET_ERROR, _msg ] ;
         }
     }
     else
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, SYSTEM_ERROR_08, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, SYSTEM_ERROR_08, _glob_app_title );
         return [ RET_ERROR, SYSTEM_ERROR_08 ] ;
     }
 }
@@ -183,7 +183,7 @@ function circles_lib_coordinates_zoomtofit( _plane_type, _render, _question, _si
 	      if ( ERR == 1 )      MSG = "Can't perform this operation."+_glob_crlf+"Circles shall be initialized first" ;
 	      else if ( ERR == 2 ) MSG = "Can't perform this operation."+_glob_crlf+_ERR_33_01 ;
 	      else if ( ERR == 3 ) MSG = "Can't perform this operation."+_glob_crlf+"It seems that no W-plane diagram has been processed yet" ;
-	      if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app );
+	      if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
 	      return [ RET_ERROR, MSG ] ;
     }
     else if ( ERR == 0 )
@@ -273,13 +273,13 @@ function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, 
     if ( LEFT > RIGHT )
     {
        var _msg = _plane_label+_glob_crlf+"Horizonthal coordinates are not consistent" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else if ( BOTTOM > TOP )
     {
        var _msg = _plane_label+_glob_crlf+"Vertical coordinates are not consistent" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else
@@ -343,7 +343,7 @@ function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, 
         }
 
        var _msg = "Coords set up with success !" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
        return [ RET_OK, _msg ] ;
     }
 }
@@ -625,7 +625,7 @@ function circles_lib_coordinates_zoom_in_disk( _render, _index, _question, _sile
                  {
                     circles_lib_plugin_reload_basic_forms( _index );
                     var _msg = "Zoom-in performed with success" ;
-                    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app );
+                    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
                     return [ RET_OK, _msg ] ;
                  }
                  else
@@ -637,27 +637,27 @@ function circles_lib_coordinates_zoom_in_disk( _render, _index, _question, _sile
              else
              {
                  var _msg = "Zoom-in: found memory leak" ;
-                 if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app );
+                 if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
                  return [ RET_ERROR, _msg ] ;
              }
           }
           else
           {
              var _msg = "Zoom-in halted by user" ;
-             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
              return [ RET_ERROR, _msg ] ;
           }
        }
        else
        {
           var _msg = "Zoom-in: missing item coords" ;
-          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
           return [ RET_ERROR, _msg ] ;
        }
     }
     else
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Coordinates are not consistent with archived data", _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Coordinates are not consistent with archived data", _glob_app_title );
         return [ RET_ERROR, "Coordinates are not consistent with archived data" ] ;
     }
 }

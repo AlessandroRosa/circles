@@ -16,7 +16,7 @@ function CIRCLESformsCOORDINATESalphabetCOMBOonchange()
           
 				if ( !is_item_obj( _glob_persistent_vars['CIRCLESformsCOORDINATESitemobj'] ) || _index == UNFOUND )
 				{
-		 		   circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Current symbol '"+_symbol+"' does not refer to any Mobius map.", _glob_app );
+		 		   circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Current symbol '"+_symbol+"' does not refer to any Mobius map.", _glob_app_title );
 		 		 	 CIRCLESformsCOORDINATESmapTRACERhandler( "toggleoff" ) ;
 				}
 				else
@@ -63,13 +63,13 @@ function CIRCLESformsCOORDINATESinputMANAGER( _plane_type, _render, _callback_fn
 		        if ( LEFT > RIGHT )
 		        {
 		            var _msg = _plane_label+_glob_crlf+"Horizonthal coordinates are not consistent" ;
-		            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+		            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
 		            return [ RET_ERROR, _msg ] ;
 		        }
 		        else if ( BOTTOM > TOP )
 		        {
 		            var _msg = _plane_label+_glob_crlf+"Vertical coordinates are not consistent" ;
-		            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+		            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
 		            return [ RET_ERROR, _msg ] ;
 		        }
 		        else

@@ -68,7 +68,7 @@ function circles_lib_interface_reset( _opt, _clean, _question, _silent, _out_cha
     
     circles_lib_menu_entries_update() ;
 
-    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _ret_id ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _glob_app );
+    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _ret_id ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _glob_app_title );
     return [ _ret_id, _ret_msg ] ;
 }
 

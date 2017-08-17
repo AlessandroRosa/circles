@@ -7,7 +7,7 @@ function circles_lib_files_pdf_header( doc, _page_no )
      doc.text( 130, 15, "Page "+_page_no+" - Document printed on " + now() )
      doc.setFontSize( 14 );
      var _left = 10, _top = 15 ;
-     doc.text( _left, _top, _glob_app );
+     doc.text( _left, _top, _glob_app_title );
      doc.setFontSize( 8 );
      _top += 4 ;
      doc.text( _left, _top, _glob_appSUBTITLE );
@@ -95,7 +95,7 @@ function circles_lib_files_pdf_save_ask( _fn, _silent, _out_channel )
      if ( !object_exists( _fn ) )
      {
          var _msg = "Missing parameters to save the PDF" ;
-         if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ] ;
      }
      else
@@ -119,7 +119,7 @@ function circles_lib_files_pdf_save_ask( _fn, _silent, _out_channel )
              alert_plug_fn( ALERT_NO, "alertCLOSE();" );
              alert_set_btns_width( "70px" );
              var ICON = _glob_path_to_img + "icons/pdf/pdf.icon.01.48x48.png" ;
-             alert_msg( ALERT_QUESTION | ALERT_YESNO, HTMLcode, _glob_app, 400, "auto", ICON );
+             alert_msg( ALERT_QUESTION | ALERT_YESNO, HTMLcode, _glob_app_title, 400, "auto", ICON );
          }
      }
 }
@@ -157,7 +157,7 @@ function circles_lib_files_pdf_save_text()
 
      doc.setFontSize( 14 );
      var _left = 10, _top = 15 ;
-     doc.text( _left, _top, _glob_app );
+     doc.text( _left, _top, _glob_app_title );
      doc.setFontSize( 8 );
      _top += 4 ;
      doc.text( _left, _top, _glob_appSUBTITLE );
@@ -315,7 +315,7 @@ function circles_lib_files_pdf_save_report()
 
     doc.setFontSize( 14 );
     var _left = 10, _top = 15 ;
-    doc.text( _left, _top, _glob_app );
+    doc.text( _left, _top, _glob_app_title );
     doc.setFontSize( 8 );
     doc.text( _left + 18, _top, _glob_appSUBTITLE );
 

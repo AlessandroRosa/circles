@@ -29,13 +29,13 @@ function circles_lib_files_pix_save( _plane_type, _filename, _merge, _silent, _o
         }, _filename );
 
         var _msg = "Diagram has been saved into a file with success" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
         return [ RET_OK, _msg ];
     }
     else
     {
         var _msg = "Can't save this pix: a layer must be chosen first" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
     }
 }
@@ -76,7 +76,7 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge
         else if ( _is_pdf ) _FMT = "PDF" ;
         var _msg = "Can't export to "+_FMT+" format: data are empty." ;
             _msg += _glob_crlf + "Please, rendering the picture again." ;
-        circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return NO ;
     }
 
@@ -92,7 +92,7 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge
     else
     {
          var _ext = _filename.includes( "." ) ? _filename.trim().split( "." ) : [];
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Unable to save: " + ( _ext.length > 0 ) ? "unknown format '"+_ext+"'" : "missing file format", _glob_app );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Unable to save: " + ( _ext.length > 0 ) ? "unknown format '"+_ext+"'" : "missing file format", _glob_app_title );
          return ;
     }
 
@@ -181,7 +181,7 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge
         alert_plug_fn( ALERT_YES, _save_fn+";alertCLOSE();" );
         alert_plug_fn( ALERT_NO, "alertCLOSE();" );
         alert_set_btns_width( "70px" );
-        alert_msg( ALERT_QUESTION | ALERT_YESNO, HTMLcode, _glob_app, 480 );
+        alert_msg( ALERT_QUESTION | ALERT_YESNO, HTMLcode, _glob_app_title, 480 );
         return YES ;
     }
     else return eval( _save_fn );
@@ -200,7 +200,7 @@ function circles_lib_files_pix_save( _plane_type, _canvas, _filename, _out_chann
     else
     {
        var _msg = "Can't save the picture file: a canvas must be chosen first" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ];
     }
 }
@@ -224,13 +224,13 @@ function circles_lib_files_pix_save_set_canvas( _plane_type, _role_index, _silen
     if ( _plane_type == NO_PLANE )
     {
          var _msg = "Can't save the pix: missing layer ref" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ];
     }
     else if ( _role_ref == ROLE_NONE )
     {
          var _msg = "Can't save the pix: missing layer ref" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ];
     }
     else

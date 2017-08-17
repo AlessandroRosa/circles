@@ -605,7 +605,7 @@ function circles_lib_canvas_layer_pile_clean_per_plane( _plane_type, _role, _sil
     else
     {
         var _msg = "Missing input plane type" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
 
@@ -621,13 +621,13 @@ function circles_lib_canvas_layer_pile_clean_per_plane( _plane_type, _role, _sil
          }
 
          var _msg = "Layers have been cleaned with success" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
          return [ RET_OK, _msg ] ;
     }
     else
     {
          var _msg = circles_lib_plane_get_def( _plane_type ) + " layers list is empty" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ] ;
     }
 }

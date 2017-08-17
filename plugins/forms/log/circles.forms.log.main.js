@@ -35,7 +35,7 @@ function CIRCLESformsLOGmain( _base_id, _move )
 {
     CIRCLESformsLOGbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES ) ;
-    var WIDTH = Math.floor( Math.min( 370, $( window ).width() / 2 ) ), HEIGHT = $( window ).height() - 120 ; // menu height
+    var WIDTH = Math.floor( Math.min( 420, $( window ).width() / 2 ) ), HEIGHT = $( window ).height() - 140 ; // menu height
     var _subset = "forms" ;
     var _div_id = CIRCLESformsLOGdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ), CLOSE_FN = "CIRCLESformsLOGclose()" ;
     var HTMLcode = "<table WIDTH=\"100%\">" ;
@@ -48,6 +48,8 @@ function CIRCLESformsLOGmain( _base_id, _move )
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsLOGclean();\">Clean log</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ID=\"log_copy\" ONCLICK=\"javascript:copy_to_clipboard($('#CIRCLESformsLOGdivLIST').html());\">Copy log</td>" ;
+    HTMLcode += "<td WIDTH=\"5\"></td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsLOGtableSAVE();\">Export log</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td ID=\"CIRCLESlogOUTPUTbox\"></td>" ;
     HTMLcode += "</tr>" ;
@@ -121,8 +123,7 @@ function CIRCLESformsLOGlist()
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
         HTMLcode += "<tr><td WIDTH=\"5\"></td><td STYLE=\"color:white;\" COLSPAN=\"3\">Displaying the last "+_last_entries_n+" entr"+(_last_entries_n==1?"y":"ies")+"</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-        $.each( _glob_app_log,
-                function( _i, _log_chunk )
+        $.each( _glob_app_log, function( _i, _log_chunk )
                 {
                    switch( _log_chunk[2] )
                    {
@@ -146,4 +147,24 @@ function CIRCLESformsLOGlist()
         
     HTMLcode += "</table>" ;
     $( "#CIRCLESformsLOGdivLIST" ).html( HTMLcode );
+}
+
+function CIRCLESformsLOGtableSAVE()
+{
+		switch( _ret_chunk[0] )
+		{
+				case YES:
+				var _out_array = [] ;
+						_out_array.push( _glob_app_title, _glob_app_subtitle, "", "Log", "" );
+            if ( _glob_app_log.length > 0 )
+            _out_array = _out_array.concat( _glob_app_log.from_to( 0, 50 ) ) ;
+            else _out_array.push( "Log is empty" ) ;
+				var _filename = "circles.log.txt" ;
+				var blob = new Blob( [ _out_array.join( _glob_crlf != null ? _glob_crlf : "\r\n" ) ], { type: 'plain/text', endings: 'native' });
+			  saveAs( blob, _filename );
+				break ;
+        default:
+        CIRCLESformsAUTOMATONtableCHECKprocessOUTPUT( _ret_chunk ) ;
+        break ;
+		}
 }

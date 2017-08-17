@@ -5,10 +5,13 @@
 <lightblue>%action%</lightblue> <snow>current | open | set | var</snow>
 
 <lightblue>plugin release</lightblue>
-<cadetblue>return the latest release date for this command</cadetblue>
+<cadetblue>return the latest release date for this cmd</cadetblue>
 
 <lightblue>plugin available forms</lightblue>
 <cadetblue>return a list of all services available in the 'forms' subset, together with opening params</cadetblue>
+
+<lightblue>plugin close</lightblue>
+<cadetblue>simply close the mask for the working plug-in</cadetblue>
 
 <lightblue>plugin current</lightblue>
 <cadetblue>return the current refs to the working plug-in</cadetblue>
@@ -24,14 +27,14 @@
 <cadetblue>and send it the 'move' event with 'right' parameter value</cadetblue>
 
 <lightblue>plugin remotecmds</lightblue>
-<cadetblue>return the text list of the available remote cmds for the selected plug-in</cadetblue>
+<cadetblue>return the text list of the available remote cmds for the working plug-in</cadetblue>
 
 <lightblue>plugin set</lightblue>
 <white>plugin set embeddings general.purpose</white>
-<cadetblue>set up the plug-in reference and save it for further plugin-cmds</cadetblue>
+<cadetblue>set up the plug-in reference and save it for further plugin cmds</cadetblue>
 
 <lightblue>plugin send</lightblue>
-<cadetblue>send a remote control message to the selected plug-in</cadetblue>
+<cadetblue>send a remote control message to the working plug-in</cadetblue>
 <white>plugin set forms discreteness.locus move left</white>
 <white>plugin open</white>
 <white>plugin send get.point 1-0.3i</white>

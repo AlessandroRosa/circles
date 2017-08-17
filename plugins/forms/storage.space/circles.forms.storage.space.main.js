@@ -85,7 +85,7 @@ function CIRCLESformsSTORAGESPACEpurge( _subset, _question, _silent, _out_channe
                 _ret_id = safe_int( _ret_id, RET_ERROR );
             var _elements = _glob_storage[_subset].size_recursive();
             if ( _elements == 0 ) $( "#CIRCLESformsSTORAGESPACElistCONTAINER" ).html( CIRCLESformsSTORAGESPACElist() );
-            if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, _elements > 0 ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _glob_app );
+            if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, _elements > 0 ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _glob_app_title );
             return _ret_id ;
         }
     }
@@ -114,17 +114,17 @@ function CIRCLESformsSTORAGESPACErestore( _subset, _question, _silent, _out_chan
                  case "seeds":
                  _glob_seeds_array = _glob_storage[_subset].clone();
                  if ( !_silent && _out_channel == OUTPUT_SCREEN )
-                 circles_lib_output( OUTPUT_SCREEN, _ret_id == RET_ERROR ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _glob_app );
+                 circles_lib_output( OUTPUT_SCREEN, _ret_id == RET_ERROR ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _glob_app_title );
                  break ;
                  case "gens":
                  _glob_gens_array = _glob_storage[_subset].clone();
                  if ( !_silent && _out_channel == OUTPUT_SCREEN )
-                 circles_lib_output( OUTPUT_SCREEN, _ret_id == RET_ERROR ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _glob_app );
+                 circles_lib_output( OUTPUT_SCREEN, _ret_id == RET_ERROR ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _glob_app_title );
                  break ;
-                 default: if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app ); break ;
+                 default: if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title ); break ;
               }
           }
-          else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't restore: the subset '"+_subset+"' of storage space is empty.", _glob_app );
+          else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't restore: the subset '"+_subset+"' of storage space is empty.", _glob_app_title );
           return _ret_id ;
        }
     }

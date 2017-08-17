@@ -41,10 +41,10 @@ function CIRCLESformsDICTIONARYalphabetADD( _letter )
               }
           }
           
-          if ( _warn ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _warn_array.join( _glob_crlf ), _glob_app );
+          if ( _warn ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _warn_array.join( _glob_crlf ), _glob_app_title );
 				}     			
      }
-     else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input letter must be of length one", _glob_app );
+     else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input letter must be of length one", _glob_app_title );
 }
 
 function CIRCLESformsDICTIONARYalphabetREMOVE( _letter, _all )
@@ -54,7 +54,7 @@ function CIRCLESformsDICTIONARYalphabetREMOVE( _letter, _all )
      if ( _letter.length == 0 && !_all ) _letter = $( "#CIRCLESformsDICTIONARYalphabetEDIT" ).val();
      var _alphabet_size = safe_size( _glob_alphabet, 0 );
      if ( _alphabet_size == 0 )
-     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't remove: the current alphabet is empty.", _glob_app );
+     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't remove: the current alphabet is empty.", _glob_app_title );
 		 else if ( _all )
      {
 		 		  var MSG = "Confirm to erase the whole alphabet ?" ;
@@ -65,7 +65,7 @@ function CIRCLESformsDICTIONARYalphabetREMOVE( _letter, _all )
      {
 				  var _letter = _letter.replaceAll( _glob_punctuation.concat( [ " " ] ), "," );
 				  if ( !_letter.testME( "^([A-Za-z\,]{1,})$" ) )
-				  circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input '"+_letter+"' includes invalid characters." + _glob_crlf + "Only letters and comma are allowed.", _glob_app );
+				  circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input '"+_letter+"' includes invalid characters." + _glob_crlf + "Only letters and comma are allowed.", _glob_app_title );
 				  else
 				  {
 				  		 var _count = _letter.split( "," ).length ;
@@ -83,11 +83,11 @@ function CIRCLESformsDICTIONARYalphabetREMOVE( _letter, _all )
 			                 _glob_alphabet.delete_entry( _letter );
 			                 $( "#CIRCLESformsDICTIONARYalphabetSYMBOL" ).html( ( safe_size( _glob_alphabet, 0 ) > 0 ? CIRCLESformsDICTIONARYgetALPHABETcomboCODE() : "<SPAN STYLE=\"color:#909090;\">None</SPAN>" ) );
 			             }
-			             else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The current dictionary does not include the letter '"+_letter+"'", _glob_app );
+			             else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The current dictionary does not include the letter '"+_letter+"'", _glob_app_title );
 			         }
 					}
      }
-     else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input letter must be of length one", _glob_app );
+     else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input letter must be of length one", _glob_app_title );
 
      if ( safe_size( _glob_alphabet, 0 ) == 0 )
      $( "#CIRCLESformsDICTIONARY" ).slideUp( "slow", function() {} );
@@ -102,7 +102,7 @@ function CIRCLESformsDICTIONARYperformACTIONask( _caller_id, _opcode, _action_id
     if ( _opcode == 0 )
     {
          _msg = "No action has been selected" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ] ;
     }
     else
@@ -151,7 +151,7 @@ function CIRCLESformsDICTIONARYperformACTIONask( _caller_id, _opcode, _action_id
          {
 						 alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_dict_run( '"+_caller_id+"', '"+_opcode+"', '"+_action_id+"', '"+_question+"', '"+_silent+"', '"+_out_channel+"' );" );
 		         alert_plug_fn( ALERT_NO, "alertCLOSE();" );
-		         circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, _msg, _glob_app );
+		         circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, _msg, _glob_app_title );
 				 }
 				 else circles_lib_dict_run( _caller_id, _opcode, _action_id, _question, _silent, _out_channel );
 		}
@@ -184,7 +184,7 @@ function CIRCLESformsDICTIONARYcrashstringsFORMimport( _action, _question, _sile
     {
         var _msg = "Action code "+_action+" is illegal" ;
             _msg += _glob_crlf + "This procedure has been halted" ;
-        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
     }
     else if ( _text.length > 0 )
     {
@@ -199,18 +199,18 @@ function CIRCLESformsDICTIONARYcrashstringsFORMimport( _action, _question, _sile
         {
              var _alert_msg = "Fail to "+( _action == 1 ? "import" : "append to" )+" crash words: " ;
                  _alert_msg += _glob_crlf + "no alphabet has been declared yet" ;
-             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _alert_msg, _glob_app );
+             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _alert_msg, _glob_app_title );
 				}
         else if ( !_legal_chars )
         {
              var _alert_msg = "Fail to "+( _action == 1 ? "import" : "append to" )+" crash words: " ;
                  _alert_msg += _glob_crlf + "the input may include illegal chars or words not matching the current alphabet" ;
-             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _alert_msg, _glob_app );
+             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _alert_msg, _glob_app_title );
         }
         else if ( safe_size( _crash_words_array, 0 ) == 0 )
         {
              var _alert_msg = "Fail to "+( _action == 1 ? "import" : "append to" )+" crash words: the input is empty" ;
-             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _alert_msg, _glob_app );
+             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _alert_msg, _glob_app_title );
         }
         else if ( _action == 3 && _text.length > 0 )
         {
@@ -261,7 +261,7 @@ function CIRCLESformsDICTIONARYcrashstringsFORMimport( _action, _question, _sile
                           var _alert_msg = _ERR_00_01 + _glob_crlf.repeat(2) + "Confirm to rebuild the dictionary ?" ;
                           alert_plug_fn( ALERT_YES, "alertCLOSE();CIRCLESformsDICTIONARYperformACTIONask(CIRCLESformsDICTIONARYbaseid,0.1,null,NO);" );
                           alert_plug_fn( ALERT_NO, "alertCLOSE();" );
-                          circles_lib_output( OUTPUT_SCREEN, ALERT_QUESTION | ALERT_YESNO, _alert_msg, _glob_app );
+                          circles_lib_output( OUTPUT_SCREEN, ALERT_QUESTION | ALERT_YESNO, _alert_msg, _glob_app_title );
                       }
                   }
                   else
@@ -270,14 +270,14 @@ function CIRCLESformsDICTIONARYcrashstringsFORMimport( _action, _question, _sile
                       if ( !_ret_length ) _alert_msg += _glob_crlf + "there's one empty entry inside" ;
                       else if ( !_ret_check ) _alert_msg += _glob_crlf + "the word '"+_word_error+"' does not match the current alphabet: "+_alphabet.join(",")+"" ;
                       else if ( _ret_includes && _action == 2 ) _alert_msg += _glob_crlf + "the current crash words set already includes the word '"+_word_error+"'" ;
-                      circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app );
+                      circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app_title );
                   }
              }
              else
              {
                   var _alert_msg = "Fail to import crash words: no alphabet available" ;
                       _alert_msg += _glob_crlf.repeat(2) + "Set up gens first" ;
-                  if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app );
+                  if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app_title );
              }
         }
      }
@@ -285,7 +285,7 @@ function CIRCLESformsDICTIONARYcrashstringsFORMimport( _action, _question, _sile
      {
         var _alert_option = _textbox != null ? DISPATCH_WARNING : DISPATCH_CRITICAL ;
         var _alert_msg = _textbox != null ? "Text box is not available: reload this app" : "The crash words set is empty" ;
-        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, _alert_option, _alert_msg, _glob_app );
+        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, _alert_option, _alert_msg, _glob_app_title );
      }
 }
 
@@ -294,7 +294,7 @@ function CIRCLESformsDICTIONARYinputformIMPORT( _action, _silent )
     /* ACTION 1: import, 2: append */
     _action = safe_int( _action, 1 ), _silent = safe_int( _silent, NO );
     var _text = $("#CIRCLESdictionaryINPUTtext").val();
-    if ( !( _action.is_one_of( 1, 2 ) ) ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Action code is illegal."+_glob_crlf+"This procedure has been halted.", _glob_app );
+    if ( !( _action.is_one_of( 1, 2 ) ) ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Action code is illegal."+_glob_crlf+"This procedure has been halted.", _glob_app_title );
     else if ( _text.length > 0 )
     {
         var _alphabet = circles_lib_alphabet_get(), _dict_size = circles_lib_count_dict();
@@ -307,12 +307,12 @@ function CIRCLESformsDICTIONARYinputformIMPORT( _action, _silent )
         {
              var _alert_msg = "Fail to "+( _action == 1 ? "import" : "append to" )+" dictionary: " ;
                  _alert_msg += "the input may include illegal chars or words not matching the current alphabet" ;
-             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app );
+             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app_title );
         }
         else if ( _dict_size == 0 )
         {
              var _alert_msg = "Fail to "+( _action == 1 ? "import" : "append to" )+" dictionary: the input is empty" ;
-             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app );
+             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app_title );
         }
         else
         {
@@ -357,14 +357,14 @@ function CIRCLESformsDICTIONARYinputformIMPORT( _action, _silent )
                          if ( !_ret_length ) _alert_msg += _glob_crlf + "there's one empty entry inside" ;
                          else if ( !_ret_check ) _alert_msg += _glob_crlf + "the word '"+_word_error+"' does not match the current alphabet: "+_alphabet.join(",")+"" ;
                          else if ( _ret_includes && _action == 2 ) _alert_msg += _glob_crlf + "the current dictionary already includes the word '"+_word_error+"'" ;
-                     if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app );
+                     if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app_title );
                  }
              }
              else
              {
                  var _alert_msg = "Fail to import dictionary: no alphabet available" ;
                      _alert_msg += _glob_crlf.repeat(2) + "Set up gens first" ;
-                 if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app );
+                 if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _alert_msg, _glob_app_title );
              }
         }
     }
@@ -372,7 +372,7 @@ function CIRCLESformsDICTIONARYinputformIMPORT( _action, _silent )
     {
         var _alert_option = _textbox != null ? DISPATCH_WARNING : DISPATCH_CRITICAL ;
         var _alert_msg = _textbox != null ? "Text box is not available: reload this app" : "The input dictionary is empty" ;
-        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, _alert_option, _alert_msg, _glob_app );
+        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, _alert_option, _alert_msg, _glob_app_title );
     }
 }
 
@@ -519,7 +519,7 @@ function CIRCLESformsDICTIONARYdisplayPAGE( PAGE_NUM, _selected_word, _silent )
     if ( PAGE_NUM < 0 || PAGE_NUM > ( CIRCLESformsDICTIONARYPAGES - 1 ) )
     {
         var _msg = "Sorry, page "+(PAGE_NUM+1)+" is out of range" ;
-        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
     }
     else if ( _glob_original_dict[PAGE_NUM] != null )
     {
@@ -582,7 +582,7 @@ function CIRCLESformsDICTIONARYdisplayPAGE( PAGE_NUM, _selected_word, _silent )
     else 
     {
         var _msg = "Sorry, page "+(PAGE_NUM+1)+" is not available due to a memory error." ;
-        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
     }
 }
 
@@ -608,7 +608,7 @@ function CIRCLESformsDICTIONARYapply()
         alert_set_btns_width( "70px" );
 		}
       
-		circles_lib_output( OUTPUT_SCREEN, _b_go ? ( DISPATCH_QUESTION | DISPATCH_YESNO ) : DISPATCH_ERROR, _msg, _glob_app );
+		circles_lib_output( OUTPUT_SCREEN, _b_go ? ( DISPATCH_QUESTION | DISPATCH_YESNO ) : DISPATCH_ERROR, _msg, _glob_app_title );
     return [ _b_go ? RET_OK : RET_ERROR, _msg ] ;
 }
 
@@ -621,7 +621,7 @@ function CIRCLESformsDICTIONARYdeleteASK( WORD, PAGENUM, INDEX, _out_channel )
         var _MSG = "" ;
 			  if ( WORD.length == 0 ) _MSG = "Can't delete: the input word is empty" ;
 			  else "Can't delete word '"+WORD+"': coordinates are inconsistent" ;
-        circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _MSG, _glob_app );
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _MSG, _glob_app_title );
         return [ RET_ERROR, _MSG ] ;
     }
     else
@@ -635,7 +635,7 @@ function CIRCLESformsDICTIONARYdeleteASK( WORD, PAGENUM, INDEX, _out_channel )
         alert_plug_fn( ALERT_YES, "alertCLOSE();var d=circles_lib_dict_delete_word('"+WORD+"',"+PAGENUM+","+INDEX+");if(d)CIRCLESformsDICTIONARYdisplayPAGE(_glob_dict_selected_page);" );
         alert_plug_fn( ALERT_NO, "alertCLOSE();" );
         alert_set_btns_width( "70px" );
-        circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app );
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app_title );
         return [ RET_OK, "Word deletion" ] ;
     }
 }
@@ -667,14 +667,14 @@ function CIRCLESformsDICTIONARYfindWORD( _word, _silent, _out_channel )
         else
         {
              var _msg = "The dictionary does not include the word '"+_word+"'" ;
-             if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+             if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
              return [ NO, _msg ] ;
         }
     }
     else
     {
         var _msg = "Can't find : please, input a word first" ;
-        circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ UNDET, _msg ] ;
     }
 }
@@ -688,14 +688,14 @@ function CIRCLESformsDICTIONARYappendWORD( _word, _out_channel )
     var _candidate_word_resolved = circles_lib_repetends_resolve( _word );
     var _alphabet = circles_lib_alphabet_get();
     if ( !circles_lib_word_check( _candidate_word_resolved, _alphabet ) )
-		circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't append word '"+_word+"' : it's not coherent to current alphabet ( "+_alphabet.join(", ")+" ).", _glob_app );
+		circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't append word '"+_word+"' : it's not coherent to current alphabet ( "+_alphabet.join(", ")+" ).", _glob_app_title );
     else
     {
         var _ret_chunk = _glob_original_dict.indexOf( _candidate_word_resolved );
         var _page_num = safe_int( _ret_chunk[0], 0 );
         var _index = safe_int( _ret_chunk[1], UNDET );
         if ( _index != UNDET )
-        circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The word '"+_word+"' is already in the current dictionary.", _glob_app );
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The word '"+_word+"' is already in the current dictionary.", _glob_app_title );
         else if ( _word.length > 0 )
     		{
     				var _pages = safe_size( _glob_original_dict, 1 );
@@ -705,11 +705,11 @@ function CIRCLESformsDICTIONARYappendWORD( _word, _out_channel )
     				{
     						_glob_original_dict[ _candidate_page ].push( _candidate_word_resolved );
     						CIRCLESformsDICTIONARYdisplayPAGE( CIRCLESformsDICTIONARYPAGES - 1, _candidate_word_resolved );
-    						circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "'" + _word + "' has been appended to page " + ( _candidate_page + 1 ) , _glob_app );
+    						circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "'" + _word + "' has been appended to page " + ( _candidate_page + 1 ) , _glob_app_title );
     				}
-    				else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't append word '"+_word+"' : page number is not coherent to current dictionary size.", _glob_app );
+    				else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't append word '"+_word+"' : page number is not coherent to current dictionary size.", _glob_app_title );
     		}
-        else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input word to append is empty.", _glob_app );
+        else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input word to append is empty.", _glob_app_title );
     }
 }
 
@@ -718,10 +718,10 @@ function CIRCLESformsDICTIONARYcopyPAGE( PAGE_NUM )
 		PAGE_NUM = safe_int( PAGE_NUM, _glob_dict_selected_page );
     // put all current page words into storage space
     if ( circles_lib_count_dict() == 0 )
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Current dictionary is empty: can't perform copy", _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Current dictionary is empty: can't perform copy", _glob_app_title );
     else if ( _glob_original_dict[ PAGE_NUM ][ CIRCLESformsDICTIONARYstart_index ] == null ||
               _glob_original_dict[ PAGE_NUM ][ CIRCLESformsDICTIONARYend_index - 1 ] == null )
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing refs: can't perform copy of page " + ( PAGE_NUM + 1 ), _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing refs: can't perform copy of page " + ( PAGE_NUM + 1 ), _glob_app_title );
     else
     {
         var _chunk = _glob_original_dict[ PAGE_NUM ].from_to( CIRCLESformsDICTIONARYstart_index, CIRCLESformsDICTIONARYend_index );
@@ -734,13 +734,13 @@ function CIRCLESformsDICTIONARYcopyPAGE( PAGE_NUM )
 
              if ( _check )
              {
-                  circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "All words ("+safe_size(_chunk,0)+") of page " + ( PAGE_NUM + 1 ) + " have been copied into storage space with success", _glob_app );
+                  circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "All words ("+safe_size(_chunk,0)+") of page " + ( PAGE_NUM + 1 ) + " have been copied into storage space with success", _glob_app_title );
                   circles_lib_plugin_dispatcher_unicast_message( 'storage.space', "forms", 1 );
              }
              else
-             circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Storage destination error: can't perform copy of page " + ( PAGE_NUM + 1 ), _glob_app );
+             circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Storage destination error: can't perform copy of page " + ( PAGE_NUM + 1 ), _glob_app_title );
         }
-        else circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Input archive error: can't perform copy of page " + ( PAGE_NUM + 1 ), _glob_app );
+        else circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Input archive error: can't perform copy of page " + ( PAGE_NUM + 1 ), _glob_app_title );
     }
 }
 
@@ -748,7 +748,7 @@ function CIRCLESformsDICTIONARYcopyDICT()
 {
     // put all current page words into storage space
     if ( circles_lib_count_dict() == 0 )
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Current dictionary is empty: can't perform copy of the whole dictionary", _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Current dictionary is empty: can't perform copy of the whole dictionary", _glob_app_title );
     else
     {
          _glob_storage['dict'] = _glob_original_dict.clone();
@@ -757,11 +757,11 @@ function CIRCLESformsDICTIONARYcopyDICT()
          _check &= _glob_storage['dict'].size_recursive() > 0 ;
          if ( _check )
          {
-             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "All words in the dictionary have been copied into storage space with success", _glob_app );
+             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "All words in the dictionary have been copied into storage space with success", _glob_app_title );
              circles_lib_plugin_dispatcher_unicast_message( 'storage.space', "forms", 1 );
          }
          else
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Storage destination error: can't perform copy of the whole dictionary", _glob_app );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Storage destination error: can't perform copy of the whole dictionary", _glob_app_title );
     }
 }
 
@@ -769,7 +769,7 @@ function CIRCLESformsDICTIONARYrestoreDICT()
 {
     if ( !is_array( _glob_storage['dict'] ) ) _glob_storage['dict'] = [] ;
     if ( _glob_storage['dict'].size_recursive() == 0 )
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "No dict has been saved into the storage space: can't perform restoration", _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "No dict has been saved into the storage space: can't perform restoration", _glob_app_title );
     else
     {
          _glob_original_dict = _glob_storage['dict'].clone();
@@ -778,11 +778,11 @@ function CIRCLESformsDICTIONARYrestoreDICT()
          _check &= _glob_original_dict.size_recursive() > 0 ;
          if ( _check )
          {
-             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "All words in the dictionary have been restored from storage space to current dictionary with success", _glob_app );
+             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "All words in the dictionary have been restored from storage space to current dictionary with success", _glob_app_title );
              circles_lib_plugin_dispatcher_unicast_message( 'storage.space', "forms", 1 );
          }
          else
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Storage destination error: can't perform dictionary restoration", _glob_app );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Storage destination error: can't perform dictionary restoration", _glob_app_title );
     }
 }
 
@@ -841,13 +841,13 @@ function CIRCLESformsDICTIONARYcomputeGRADIENT( PALETTEcontainerWIDTH, _silent, 
          
          hideCOLORTABLE();
 
-         if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_OK, _msg, _glob_app );
+         if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_OK, _msg, _glob_app_title );
          return [ RET_OK, _msg ] ;
     }
     else
     {
          var _msg = "Both colors shall be set for computing the gradient." ;
-         if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ] ;
     }
 }
@@ -891,7 +891,7 @@ function CIRCLESformsDICTIONARYload( _filename, _file_contents )
 	  }
 
 		var _msg = _new_words_counter +  " word"+( _new_words_counter == 1 ? "" : "s" )+" ha" +  ( _new_words_counter == 1 ? "s" : "ve" ) + " been imported into the dictionary" ;
-		circles_lib_output( OUTPUT_SCREEN, _new_words_counter == 0 ? DISPATCH_WARNING : DISPATCH_SUCCESS, _msg, _glob_app );
+		circles_lib_output( OUTPUT_SCREEN, _new_words_counter == 0 ? DISPATCH_WARNING : DISPATCH_SUCCESS, _msg, _glob_app_title );
 
 		if ( _new_words_counter > 0 )
 		{

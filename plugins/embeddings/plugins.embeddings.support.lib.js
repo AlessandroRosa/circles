@@ -35,7 +35,7 @@ function GLOB_PLUGIN_OPEN_METHOD_FORM( _fn_name )
 {
     _fn_name = safe_string( _fn_name, "" );
     if ( circles_lib_method_check() ) circles_lib_plugin_load('forms','method', YES, 0, _glob_method, _fn_name );
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_00_01, _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_00_01, _glob_app_title );
 }
 
 function GLOB_PLUGIN_DISPLAY_INFOS( _plugin_ref )
@@ -567,7 +567,7 @@ function GLOB_PLUGIN_PARAMS_COMBO_GET()
           $.each( _chunk_array, function( _i, _v ) { _v.start_with( "#" ) ? _ctrl_ids.push( _v ) : _ctrl_values.push( _v ); } );
           if ( _ctrl_ids.length > 0 && _ctrl_ids.length == _ctrl_values.length )
           		for( var _i = 0 ; _i < _ctrl_ids.length ; _i++ ) $( _ctrl_ids[_i] ).val( _ctrl_values[_i] );
-          else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Mismatch count while loading plugin config", _glob_app );
+          else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Mismatch count while loading plugin config", _glob_app_title );
        }
     }
 }

@@ -11,7 +11,7 @@ function CIRCLESformsEDITDISKwatchFORMULAask( _item_index )
           alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_plugin_load('forms','watch.formula',YES,'"+_item_index+"', 0 )" );
           alert_plug_fn( ALERT_NO, "alertCLOSE();" );
           alert_set_btns_width( "90px" );
-          circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNO, _QUESTION_07, _glob_app );
+          circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNO, _QUESTION_07, _glob_app_title );
        }
        else circles_lib_plugin_load('forms','watch.formula', YES, _item_index, 0 );
     }
@@ -34,7 +34,7 @@ function CIRCLESformsEDITDISKask( _item_index, _items_switch )
           alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_plugin_load('forms','edit.disk',NO,"+_item_index+","+_items_switch+",_glob_persistent_vars['tmp_arg'])" );
           alert_plug_fn( ALERT_NO, "alertCLOSE();" );
           alert_set_btns_width( "90px" );
-          circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNO, _QUESTION_07, _glob_app );
+          circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNO, _QUESTION_07, _glob_app_title );
        }
        else
        {

@@ -63,7 +63,7 @@ function CIRCLESformsMETHODmanagerALGEBRAICpanelBUILD( _new_method, caller_fn, W
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
       HTMLcode += "<td WIDTH=\"22\" HEIGHT=\"22\" ALIGN=\"center\" ID=\"ALGEBRAICgeneratorsSETsetupWARNINGicon\"></td>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
-      HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETreportBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _glob_gens_set_report, _glob_app );\">Report</td>" ;
+      HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETreportBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _glob_gens_set_report, _glob_app_title );\">Report</td>" ;
       HTMLcode += "<td WIDTH=\"1\"></td>" ;
       HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETrestoreBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERgeneratorRESTOREfromRANDOMprobs();\">Restore</td>" ;
       HTMLcode += "<td WIDTH=\"1\"></td>" ;

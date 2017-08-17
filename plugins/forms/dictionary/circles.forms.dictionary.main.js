@@ -1,4 +1,4 @@
-function CIRCLESformsDICTIONARYinfo() { circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "Words reading direction goes from right to left", _glob_app + " - Info - Dictionary" ); }
+function CIRCLESformsDICTIONARYinfo() { circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "Words reading direction goes from right to left", _glob_app_title + " - Info - Dictionary" ); }
 function CIRCLESformsDICTIONARYclose() { return circles_lib_plugin_dispatcher_unicast_message( "dictionary", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsDICTIONARYmaximize()
 {
@@ -41,7 +41,7 @@ function CIRCLESformsDICTIONARYmain( _base_id, _move )
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _items_n = circles_lib_count_items( _items_array ), _run = _items_n > 0 ;
     if ( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM )
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The dictionary is not available for random process.", _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The dictionary is not available for random process.", _glob_app_title );
     else if ( _items_n >= 0 )
     {
         var bGETsymbols = safe_size( _glob_alphabet, 0 ) == 0 ? 1 : 0 ;

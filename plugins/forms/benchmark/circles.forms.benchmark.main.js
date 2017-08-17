@@ -1,7 +1,7 @@
 function CIRCLESformsBENCHMARKclose() { return circles_lib_plugin_dispatcher_unicast_message( "benchmark", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsBENCHMARKmain( _base_id, _move )
 {
-     CIRCLESformsBENCHMARKbaseid = safe_string( _base_id, "" ) ;
+     CIRCLESformsBENCHMARKbaseid = safe_string( _base_id, "" ).trim() ;
      _move = safe_int( _move, YES );
      var _start_date = new Date( _glob_benchmark_start_microtime * 1000 );
      var _start_hh = _start_date.getHours();
@@ -37,6 +37,8 @@ function CIRCLESformsBENCHMARKmain( _base_id, _move )
               
              var _duration = _glob_benchmark_end_microtime - _glob_benchmark_start_microtime ;
              HTMLcode += "<tr><td WIDTH=\"5\"></td><td>Duration</td><td WIDTH=\"5\"></td><td>"+_duration.toFixed(3)+" secs</td></tr>" ;
+             HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+             HTMLcode += "<tr><td WIDTH=\"5\"></td><td COLSPAN=\"3\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsBENCHMARKtableSAVE();\">Export</td></tr>" ;
              HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
          }
          else
@@ -56,4 +58,41 @@ function CIRCLESformsBENCHMARKmain( _base_id, _move )
      var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
      circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsBENCHMARKcaption, CLOSE_FN );
      if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );
+}
+
+function CIRCLESformsBENCHMARKtableSAVE()
+{
+		switch( _ret_chunk[0] )
+		{
+				case YES:
+        var _start_date = new Date( _glob_benchmark_start_microtime * 1000 );
+        var _start_hh = _start_date.getHours();
+            if ( _start_hh < 10 ) _start_hh = "0" + _start_hh ;
+        var _start_mm = _start_date.getMinutes();
+            if ( _start_mm < 10 ) _start_mm = "0" + _start_mm ;
+        var _start_ss = _start_date.getSeconds();
+            if ( _start_ss < 10 ) _start_ss = "0" + _start_ss ;
+        var _end_date = new Date( _glob_benchmark_end_microtime * 1000 );
+        var _end_hh = _end_date.getHours();
+            if ( _end_hh < 10 ) _end_hh = "0" + _end_hh ;
+        var _end_mm = _end_date.getMinutes();
+            if ( _end_mm < 10 ) _end_mm = "0" + _end_mm ;
+        var _end_ss = _end_date.getSeconds();
+            if ( _end_ss < 10 ) _end_ss = "0" + _end_ss ;
+				var _out_array = [] ;
+						_out_array.push( _glob_app_title, _glob_app_subtitle, "", "Benchmark" );
+						_out_array.push( "Operations : " + _glob_benchmark_operations );
+						_out_array.push( "Start time : " + _start_hh+":"+_start_mm+":"+_start_ss );
+						_out_array.push( "End time : " + _end_hh+":"+_end_mm+":"+_end_ss );
+        var _duration = _glob_benchmark_end_microtime - _glob_benchmark_start_microtime ;
+						_out_array.push( "Duration : " + _duration.toFixed(3) + " secs" );
+
+				var _filename = "circles.benchmark.txt" ;
+				var blob = new Blob( [ _out_array.join( _glob_crlf != null ? _glob_crlf : "\r\n" ) ], { type: 'plain/text', endings: 'native' });
+			  saveAs( blob, _filename );
+				break ;
+        default:
+        CIRCLESformsAUTOMATONtableCHECKprocessOUTPUT( _ret_chunk ) ;
+        break ;
+		}
 }

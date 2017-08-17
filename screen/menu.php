@@ -87,6 +87,42 @@
                           case "%tools%":
                           $HTMLcode .= "$LABEL" ;
                           break ;
+                          case "%demos%":
+                          $DEMO_FILES_PATH = "demos" ;
+                          if ( file_exists( $DEMO_FILES_PATH ) )
+                          {
+                              $RESULTSarray = scan_folder( $DEMO_FILES_PATH, "/^.*\.(php)$/i", 0, 1, 1, 0 );
+                              $ONMOUSEOVER = "ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"" ;
+                              $ONCLICK = "ONCLICK=\"javascript:window.location.href='?demo=%demoidx%';\"" ;
+                              $HTMLcode .= "<li><a>Demos</a>
+                                            \n<ul>" ;
+
+                              $DEMO_ARCHIVE = array();
+                              foreach( $RESULTSarray AS $K => $CHUNK )
+                              {
+                                  $FILENAME = $CHUNK['filename'] ;
+                                  $TOKENS = explode( ".", $FILENAME );
+                                  $DEMO_IDX = $TOKENS[0] ;
+                                  array_pop( $TOKENS ); // remove .php suffix (last token)
+                                  array_shift( $TOKENS ); // remove index prefix (first token)
+                                  array_shift( $TOKENS ); // remove 'demo' prefix
+                                  $DEMO_NAME = implode( " ", $TOKENS ) ;
+                                  $DEMO_ARCHIVE[$DEMO_IDX] = array( "title" => ucfirst( $DEMO_NAME ), "filename" => $FILENAME ) ;
+                              }
+
+                              ksort( $DEMO_ARCHIVE );
+                              foreach( $DEMO_ARCHIVE AS $DEMO_IDX => $CHUNK )
+                              {
+                                  $DEMO_NAME = $CHUNK['title'] ;
+                                  $ROW = "<li $ONMOUSEOVER $ONCLICK ".( $MENUentryID ? " ID=\"$MENUentryID\"" : "")."><a ID=\"anchor_demo_%demoidx%\">#%demoidx% - $DEMO_NAME</a></li>\n" ;
+                                  $ROW = str_replace( "%demoidx%", $DEMO_IDX, $ROW );
+                                  $HTMLcode .= $ROW ;
+                              }
+
+                              $HTMLcode .= "</ul>\n
+                                            </li>\n" ;
+                          }
+                          break ;
                           default:
                           $ONMOUSEOVER = ( $CMD || $CMDONMOUSEOVER ) ? "ONMOUSEOVER=\"javascript:this.style.cursor='pointer';$CMDONMOUSEOVER\"" : "" ;
                           $ONCLICK = $CMD ? "ONCLICK=\"javascript:$CMD\"" : "" ;
@@ -277,6 +313,7 @@
 </div>
 <?php foreach( $EXT_FILES AS $EXT_FILE )
 			{
-		      if ( strlen( $EXT_FILE ) > 0 && file_exists( $EXT_FILE ) ) echo "<SCRIPT LANGUAGE=\"javascript\" TYPE=\"text/javascript\" SRC=\"$EXT_FILE\"></SCRIPT>" ;
+		      if ( strlen( $EXT_FILE ) > 0 && file_exists( $EXT_FILE ) )
+          echo "<SCRIPT LANGUAGE=\"javascript\" TYPE=\"text/javascript\" SRC=\"$EXT_FILE\"></SCRIPT>" ;
 			}
 ?>

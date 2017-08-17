@@ -13,7 +13,7 @@ function CIRCLEStoolsRAWPOINTSLISThelp()
         _msg.push( "Example #2: (0.2,-0.1)(1,1)" ) ;
         _msg.push( "Example (mixed): (0.2,-0.1)1,1" ) ;
         _msg = _msg.join( _glob_crlf );
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app_title );
 }
 
 function CIRCLEStoolsRAWPOINTSLISTload( _filename, _file_contents )
@@ -141,7 +141,7 @@ function CIRCLEStoolsRAWPOINTSLISTsaveTEXT()
         var blob = new Blob( _data, { type: 'plain/text', endings: 'native' });
         saveAs( blob, "circles.raw.points.txt" );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: the input text box is empty", _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: the input text box is empty", _glob_app_title );
 }
 
 function CIRCLEStoolsRAWPOINTSLISTdraw()
@@ -505,7 +505,7 @@ function CIRCLEStoolsRAWPOINTSLISTlatticeAPPLY( _lattice_type )
 									 CIRCLEStoolsRAWPOINTSLISTpoints = _lattice.clone() ;
 									 CIRCLEStoolsRAWPOINTSLISTlatticeFORM( HIDE ) ; 
 							}
-							else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't compute the required lattice: some input data are invalid", _glob_app );
+							else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't compute the required lattice: some input data are invalid", _glob_app_title );
          }
          else if ( _lattice_type == 2 ) // circ
          {
@@ -532,7 +532,7 @@ function CIRCLEStoolsRAWPOINTSLISTlatticeAPPLY( _lattice_type )
 									 CIRCLEStoolsRAWPOINTSLISTpoints = _lattice.clone() ;
 									 CIRCLEStoolsRAWPOINTSLISTlatticeFORM( HIDE ) ; 
 							}
-							else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't compute the required lattice: some input data are invalid", _glob_app );
+							else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't compute the required lattice: some input data are invalid", _glob_app_title );
          }
     }
 }

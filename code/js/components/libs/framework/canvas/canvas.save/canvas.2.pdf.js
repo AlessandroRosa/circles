@@ -24,7 +24,7 @@ function circles_lib_canvas_save_to_pdf( _canvas, _filename, _silent, _out_chann
 
              doc.setFontSize( 14 );
              var _left = 10, _top = 15 ;
-             doc.text( _left, _top, _glob_app );
+             doc.text( _left, _top, _glob_app_title );
              doc.setFontSize( 8 );
              _top += 4 ;
              doc.text( _left, _top, _glob_appSUBTITLE );
@@ -63,7 +63,7 @@ function circles_lib_canvas_save_to_pdf( _canvas, _filename, _silent, _out_chann
      else
      {
         var _msg = "Code is not available to save the PDF file" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
         else return [ 0, _msg ];
      }
 }

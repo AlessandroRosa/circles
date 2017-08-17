@@ -5,7 +5,7 @@ function CIRCLESembeddingsMASKITTWICE_TIPS()
     var _tips = [];
         _tips.push( "- For faster inputs, write one row with multiple params, separared by comma, and type enter." );
         _tips.push( "- Then press 'enter' multiple times to process along the init and rendering stages." );
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _tips.join( "<br>" ), _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] + " - Tips" );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _tips.join( "<br>" ), _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] + " - Tips" );
 }
 
 function CIRCLESembeddingsMASKITTWICE_EVENTS( ctrl_id, event )

@@ -46,7 +46,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent )
 			 	 _MSG += _glob_crlf + "Duplicates will be not admitted into the current candidate group," ;
 		   	 _MSG += _glob_crlf.repeat(2)+"This entry won't be inserted !" ;
       }
-			circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _MSG, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+			circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 		}
 		else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSEcurr_sel == UNDET )
 				 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: missing reference index.", 'PLUGIN_OUTMSG' ) ;
@@ -128,7 +128,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent )
         {
             var _msg = "Can't "+_opcode_str+" the generator: some entries have not been correctly parsed." ;
                 _msg += _glob_crlf.repeat(2) + "The input params might include invalid chars or unregistered vars." ;
-            circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+            circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
         }
 		}
 }

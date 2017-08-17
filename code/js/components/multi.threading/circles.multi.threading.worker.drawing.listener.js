@@ -171,35 +171,35 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
                 case 3.1:
                 case 3.2:
                 case 3.3:
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, err_text, _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, err_text, _glob_app_title );
                 break ;
                 case 4.1:
                 var MSG = "Coordinates are not consistent for rasterization" ;
                     if ( safe_int( msg.w, 0 ) == 0 ) MSG += "\n* Check width ;" ;
                     if ( safe_int( msg.h, 0 ) == 0 ) MSG += "\n* Check height ;" ;
                     if ( safe_int( msg.d, 0 ) == 0 ) MSG += "\n* Check density ;" ;
-                    circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, MSG, _glob_app );
+                    circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, MSG, _glob_app_title );
                 break ;
                 case 4.2:
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Please, input a word or make another choice for perfoming 'algebraic' method.", _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Please, input a word or make another choice for perfoming 'algebraic' method.", _glob_app_title );
                 break ;
                 case 4.3:
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "The input word does not match the current alphabet", _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "The input word does not match the current alphabet", _glob_app_title );
                 break ;
                 case 4.4:
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_03, _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_03, _glob_app_title );
                 break ;
                 case 4.5:
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't start: no sinks found", _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't start: no sinks found", _glob_app_title );
                 break ;
                 case 4.6:
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_04, _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_04, _glob_app_title );
                 break ;
                 case 4.7:
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_01, _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_01, _glob_app_title );
                 break ;
                 default:
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, err_text, _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, err_text, _glob_app_title );
                 break ;
 		        }
 

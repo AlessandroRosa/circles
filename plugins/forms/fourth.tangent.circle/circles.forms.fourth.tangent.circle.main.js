@@ -7,7 +7,7 @@ function CIRCLESformsFOURTHTANGENTCIRCLEmain( _base_id, _move )
     var _dest_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" ;
     var _category_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
     var _items_n = circles_lib_count_items( _items_array );
-    if ( _glob_method == METHOD_ALGEBRAIC ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_05, _glob_app );
+    if ( _glob_method == METHOD_ALGEBRAIC ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_05, _glob_app_title );
     else if ( _items_n >= 3 )
     {
         var _check_group = circles_lib_symbol_check_group( _items_array );
@@ -193,5 +193,5 @@ function CIRCLESformsFOURTHTANGENTCIRCLEmain( _base_id, _move )
         circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsFOURTHTANGENTCIRCLEcaption, CLOSE_FN );
         if ( _move && _div != null ) move_div( _div.id, "RIGHT", "TOP" );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "This service is available only if at least 3 circles have been generated", _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "This service is available only if at least 3 circles have been generated", _glob_app_title );
 }

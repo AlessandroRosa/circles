@@ -60,9 +60,9 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
     HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN, WIDTH, HEIGHT,
                 this_fn_name, 'general.purpose', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"GENERALPURPOSE_",
-																								[ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
-																								[ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
-																								[ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
+								[ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
+								[ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
+								[ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td VALIGN=\"top\">" ;
@@ -75,7 +75,6 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     $.ajaxSetup( { async:false } );
     $.get( _rel_folder_path + "menu.html", function( response ) { HTMLcode += response.replaceAll( "%indexref%", "'"+_index_ref+"'" ) ; } );
     HTMLcode += "</td>" ;
-
     /*
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td STYLE=\"color:"+_init_btn_clr+";\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_CONFIG();GLOB_PLUGIN_WIZARD_STEP(1.1,YES);CIRCLESembeddingsGENERALPURPOSE_RECORD_PARAMS();\" ID=\"PLUGINinitBTN\">Init</td>" ;
@@ -613,7 +612,7 @@ function CIRCLESembeddingsGENERALPURPOSE_MOBIUS_INFO( _index )
                _features_html += "<tr><td WIDTH=\"3\"></td><td STYLE=\"color:blue;\" VALIGN=\"top\">New classification</td><td WIDTH=\"5\"></td><td STYLE=\"color:#000098;\" VALIGN=\"top\">" + ( _copy_mm.classification( NO ) ) + "</td></tr>" ;
             }
             _features_html += "</table>" ;
-            circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _features_html, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+            circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _features_html, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
         }
         else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "The selected entry is not a consistent Mobius map", 'PLUGIN_OUTMSG' ) ;
     }
@@ -686,7 +685,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 										 if ( !is_complex(_C_COMPLEX ) ) _MSG += _glob_crlf+"Check param 'c'" ;
 										 if ( !is_complex(_D_COMPLEX ) ) _MSG += _glob_crlf+"Check param 'd'" ;
 										 _MSG += _glob_crlf+_glob_crlf + "Operation halted: can't generate the group" ;
-										 if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+										 if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 										 break ;
 									}
 							}
@@ -694,7 +693,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 							{
 									var _MSG = "Memory failure: parameters have not been correctly stored in element #"+(_i+1)+"" ;
 											_MSG += _glob_crlf+"Operation halted: can't generate the group" ;
-									if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+									if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 									break ;
 							}
 					 }
@@ -702,7 +701,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 					 {
 							 var _MSG = "Memory failure: one element has not been correctly stored" ;
 							 		 _MSG += _glob_crlf+"Operation halted: can't generate the group" ;
-							 if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+							 if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 							 break ;
 					 }
 				}

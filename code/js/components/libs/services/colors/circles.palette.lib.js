@@ -7,7 +7,7 @@ function circles_lib_palette_init( _silent, _out_channel )
     if ( !is_array( _glob_palette_array ) )
     {
       var _msg = "Can't compute the color gradient." + _glob_crlf + _ret_chunk + _glob_crlf + _ERR_00_05 ;
-      if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app );
+      if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
       return [ RET_ERROR, _msg ] ;
     }
     else if ( typeof CIRCLESformsPALETTEshow === "function" ) CIRCLESformsPALETTEshow();
@@ -27,13 +27,13 @@ function circles_lib_palette_destroy( _question, _silent, _out_channel )
           if ( safe_size( _glob_palette_array, 0 ) == 0 )
           {
              var _msg = "Palette has been correctly flushed away" ;
-             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app );
+             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
              return [ RET_OK, _msg ] ;
           }
           else
           {
              var _msg = "Memory error: can't flush this palette away" ;
-             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
              return [ RET_ERROR, _msg ] ;
           }
        }
@@ -41,7 +41,7 @@ function circles_lib_palette_destroy( _question, _silent, _out_channel )
     else
     {
        var _msg = "Palette is already empty" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app_title );
        return [ RET_IRRELEVANT, _msg ] ;
     }
 }
@@ -74,7 +74,7 @@ function circles_lib_palette_delete_interval( _range_str, _question, _silent, _o
                                 if ( _tok_to < 0 ) _msg += _glob_crlf + "* " + _tok_to + " is negative;" ;
                                 if ( _tok_from > _palette_size ) _msg += _glob_crlf + "* " + _tok_from + " is larger than palette size ("+_palette_size+");" ;
                                 if ( _tok_to > _palette_size ) _msg += _glob_crlf + "* " + _tok_to + " is larger than palette size ("+_palette_size+");" ;
-                            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+                            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
                             else return [ RET_ERROR, _msg ] ;
                         }
                         else if ( _tok_from >= _tok_to )
@@ -83,7 +83,7 @@ function circles_lib_palette_delete_interval( _range_str, _question, _silent, _o
                             if ( _tok_from > _tok_to ) _msg += _glob_crlf + "Candidate lower bound exceeds candidate upper bound: " + _tok ;
                             else if ( _tok_from == _tok_to ) _msg += _glob_crlf + "Candidate lower and bounds match" ;
                             
-                            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+                            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
                             return [ RET_ERROR, _msg ] ;
                         }
                         else _check_fns.push( function( _x ) { return ( _x >= _tok_from && _x <= _tok_to ) ? YES : NO ; } );
@@ -95,7 +95,7 @@ function circles_lib_palette_delete_interval( _range_str, _question, _silent, _o
                    else
                    {
                         var _msg = "Syntax error in range definition" ;
-                        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app );
+                        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
                         return [ RET_ERROR, _msg ] ;
                    }
               }
@@ -117,14 +117,14 @@ function circles_lib_palette_delete_interval( _range_str, _question, _silent, _o
               CIRCLESformsPALETTEshow();
               $("#CANVAScolorCELLgradientSTEPS").val( _glob_palette_array.length );
               _msg = "Items deleted from palette with success" ;
-              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app );
+              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
               return [ RET_OK, _msg ] ;
           }
      }
      else
      {
          var _msg = "Missing range for colors deletion" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_WARNING, _msg ] ;
      }
 }

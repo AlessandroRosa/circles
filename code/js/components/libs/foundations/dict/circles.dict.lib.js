@@ -50,7 +50,7 @@ function circles_lib_dict_run( _caller_id, _opcode, _action_id, _question, _sile
     else
     {
        var _msg = "Operation halted by user" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
 }

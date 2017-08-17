@@ -14,7 +14,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
     if ( _ret_id == RET_ERROR )
     {
        if ( !_silent && _out_channel == OUTPUT_SCREEN )
-       alert_msg( ALERT_ERROR, _ret_chunk[1] + ( is_array( _ret_chunk[2] ) ? " : " + _ret_chunk[2].join( ", " ) : "" ), _glob_app );
+       alert_msg( ALERT_ERROR, _ret_chunk[1] + ( is_array( _ret_chunk[2] ) ? " : " + _ret_chunk[2].join( ", " ) : "" ), _glob_app_title );
        return ;
     }
 
@@ -40,19 +40,19 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
          if ( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM && _sch_n != _rnd_table_size )
          {
             var _msg = "The gens set ("+_sch_n+" element"+( _sch_n == 1 ? "" : "s" )+") is not congruent with the random table ("+_rnd_table_size+" element"+( _rnd_table_size == 1 ? "" : "s" )+")." ;
-            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
             return [ RET_ERROR, _msg ];
          }
          else if ( _glob_method == METHOD_NONE && _plane_type == W_PLANE )
          {
             var _msg = "No method was chosen yet."+_glob_crlf+"Please choose one !" ;
-            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
             return [ RET_ERROR, _msg ];
          }
          else if ( _glob_depth == 0 )
          {
             var _msg = "Depth must be greater than zero" ;
-            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
             return [ RET_ERROR, _msg ];
          }
 
@@ -400,7 +400,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
               HTMLcode += "</table>" ;
               HTMLcode += "</td></tr><tr><td HEIGHT=\"5\"></td></tr></table>" ;
 
-              var CAPTION = _glob_app + " - " + _plane_type_label ;
+              var CAPTION = _glob_app_title + " - " + _plane_type_label ;
               alert_plug_label( ALERT_YES, "Render" );
               if ( _plane_type.is_one_of( Z_PLANE ) )
               alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_render_zplane( null, zplane_sm, '"+_selected_layers_array.join(',')+"', "+_b_clean+", YES, "+_render+", "+_question+", YES, "+_out_channel+" );" );
@@ -477,7 +477,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
      {
           if ( _out_channel == OUTPUT_SCREEN && !_silent )
           {
-             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_33_01, _glob_app );
+             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_33_01, _glob_app_title );
              return [ RET_ERROR, _ERR_33_01 ] ;
           }
           else
@@ -520,13 +520,13 @@ function circles_lib_canvas_render_process( canvas, mapper, _plane_type, _silent
      if ( !is_html_canvas( canvas ) )
      {
          var _msg = "Missing layer ref" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ] ;
      }
      else if ( _glob_items_to_init )
      {
      		 var _msg = "Can't draw: seeds need to be initialized again" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ] ;
      }
      else if ( _sd_n == 0 )
@@ -547,19 +547,19 @@ function circles_lib_canvas_render_process( canvas, mapper, _plane_type, _silent
          {
               _ret_chunk = circles_lib_items_group_return_msg( _err, _entries_n );
               var _ret_id = _ret_chunk[0], _ret_msg = safe_string( _ret_chunk[1], "20Unknown error" );
-              if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, _ret_id >= 0 ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _glob_app );
+              if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, _ret_id >= 0 ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _glob_app_title );
               return [ RET_ERROR, _msg ];
          }
          else if ( _check_group != GROUP_TEST_ERR_OK && _glob_method.is_one_of( METHOD_INVERSION, METHOD_ALGEBRAIC ) )
          {
               var _msg = circles_lib_symbol_get_err_def( _check_group, _out_channel );
-              if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app );
+              if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
               return [ RET_ERROR,_msg ];
          }
          else if ( _items_error != ITEM_ERR_NONE && _glob_method.is_one_of( METHOD_INVERSION, METHOD_ALGEBRAIC ) )
          {
               var errMSG = "There is at least one generator which has not been initialized or filled up" ;
-              if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, errMSG, _glob_app );
+              if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, errMSG, _glob_app_title );
               return [ RET_ERROR, errMSG ] ; 
          }
          else
@@ -572,7 +572,7 @@ function circles_lib_canvas_render_process( canvas, mapper, _plane_type, _silent
            else if ( _glob_worker_lock == 1 )
            {
              var _msg = "Only one process can be run at once" ;
-             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
              return [ RET_ERROR, _msg ] ;
            }
          }

@@ -15,8 +15,8 @@ function CIRCLESmethodMANAGERrepetendsSTORE( _question, _silent )
         }
 
         var _new_n = safe_int( _glob_repetends_array.size_associative(), 0 );
-        if ( _new_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "No repetends have been saved", _glob_app );
-        else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _new_n + " repetend" + ( _new_n == 1 ? " has " : " have" )+ " been saved", _glob_app );
+        if ( _new_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "No repetends have been saved", _glob_app_title );
+        else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _new_n + " repetend" + ( _new_n == 1 ? " has " : " have" )+ " been saved", _glob_app_title );
     }
 }
 
@@ -56,7 +56,7 @@ function CIRCLESmethodMANAGERrepetendsCHECK()
 function CIRCLESmethodMANAGERrepetendsSAVE()
 {
   	var _N_REPS = _glob_repetends_array.size_recursive(), GEN_CHUNK, _FOUND = NO ;
-    if ( _N_REPS == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: no repetends have been registered yet.", _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+    if ( _N_REPS == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: no repetends have been registered yet.", _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
     else
     {
         var _out_stream = [] ;
@@ -129,11 +129,11 @@ function CIRCLESmethodMANAGERrepetendsADD( _question, _i, _old_rep, _old_termina
                  _msg += _glob_crlf + "* western alphabet ;" ;
                  _msg += _glob_crlf + "* arabic numbers ;" ;
                  _msg += _glob_crlf + "* punctuations : [, ], * ;" ;
-             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+             circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         }
-        else if ( !_check_termination ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Error input repetend: invalid termination", _glob_app );
-        else if ( !circles_lib_word_check( _solved_rep, _glob_alphabet ) ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input repetend '"+_rep+"' does not match the current alphabet ("+_glob_alphabet.join(",")+")", _glob_app );
-        else if ( !circles_lib_word_check( _termination, _glob_alphabet ) ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input termination '"+_termination+"' does not match the current alphabet ("+_glob_alphabet.join(",")+")", _glob_app );
+        else if ( !_check_termination ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Error input repetend: invalid termination", _glob_app_title );
+        else if ( !circles_lib_word_check( _solved_rep, _glob_alphabet ) ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input repetend '"+_rep+"' does not match the current alphabet ("+_glob_alphabet.join(",")+")", _glob_app_title );
+        else if ( !circles_lib_word_check( _termination, _glob_alphabet ) ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The input termination '"+_termination+"' does not match the current alphabet ("+_glob_alphabet.join(",")+")", _glob_app_title );
         else
         {
             if ( _rep.includes( "*" ) )
@@ -147,7 +147,7 @@ function CIRCLESmethodMANAGERrepetendsADD( _question, _i, _old_rep, _old_termina
             if ( _exists )
             {
                 _msg = "The termination '"+_termination+"' already includes the repetend '"+_rep+"'." + _glob_crlf ;
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
             }
             else
             {
@@ -168,20 +168,20 @@ function CIRCLESmethodMANAGERrepetendsADD( _question, _i, _old_rep, _old_termina
 function CIRCLESmethodMANAGERrepetendsUPDATE( _question, _index, _old_value )
 {
     _question = safe_int( _question, YES ), _index = safe_int( _index, UNDET );
-    if ( _index == UNDET ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing entry reference to perform the update", _glob_app );
+    if ( _index == UNDET ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing entry reference to perform the update", _glob_app_title );
     else
     {
          var _new_value = $( "#ALGEBRAICrepetendWORD_" + _index ).val();
          var _termination = $( "#ALGEBRAICrepetendTERMINATION_" + _index ).val();
          var _check_rep = circles_lib_repetends_check_syntax( null, _new_value );
-         if ( !_check_rep ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't update: wrong repetend syntax for entry '"+_new_value+"'", _glob_app );
+         if ( !_check_rep ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't update: wrong repetend syntax for entry '"+_new_value+"'", _glob_app_title );
          else
          {
              var _b_go = _question ? confirm( "Confirm to update repetend '"+_old_value+"' with new value '"+_new_value+"' ?" ) : YES ;
              if ( _b_go )
              {
                  var _chunk = _glob_repetends_array[ _termination ] ;
-                 if ( _chunk == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid termination letter '"+_termination+"' to perform the update", _glob_app );
+                 if ( _chunk == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid termination letter '"+_termination+"' to perform the update", _glob_app_title );
                  else
                  {
                       var _b_found = NO ;
@@ -207,7 +207,7 @@ function CIRCLESmethodMANAGERrepetendsUPDATE( _question, _index, _old_value )
                                           $( "#ALGEBRAICrepetendTERMINATION_" + _index ).css( "background-color", "white" );
                                       }, 1000 );
                       }
-                      else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't find out the correct entry to update.", _glob_app );
+                      else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't find out the correct entry to update.", _glob_app_title );
                  }
              }
          }
@@ -218,12 +218,12 @@ function CIRCLESmethodMANAGERrepetendsDELETE( _question, _termination, _rep )
 {
     _question = safe_int( _question, YES ), _termination = safe_string( _termination, "" );
     _rep = safe_string( _rep, "" );
-    if ( _termination.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing input termination for performing deletion", _glob_app );
-    else if ( _termination.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing input repetend for performing deletion", _glob_app );
+    if ( _termination.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing input termination for performing deletion", _glob_app_title );
+    else if ( _termination.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing input repetend for performing deletion", _glob_app_title );
     else if ( !is_array( _glob_repetends_array[_termination] ) )
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid data type for termination '"+_termination+"'."+_glob_crlf+"Can't perform deletion", _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid data type for termination '"+_termination+"'."+_glob_crlf+"Can't perform deletion", _glob_app_title );
     else if ( !_glob_repetends_array[_termination].includes( _rep ) )
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Incoherent data reference: entry '"+_rep+"' is not listed among repetends with termination '"+_termination+"'."+_glob_crlf+"Can't perform deletion", _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Incoherent data reference: entry '"+_rep+"' is not listed among repetends with termination '"+_termination+"'."+_glob_crlf+"Can't perform deletion", _glob_app_title );
     else
     {
         var _b_go = _question ? confirm( "Attempting to delete repetend '"+_rep+"' for termination '"+_termination+"'."+_glob_crlf.repeat(2)+"Continue ?" ) : YES ;
@@ -235,7 +235,7 @@ function CIRCLESmethodMANAGERrepetendsDELETE( _question, _termination, _rep )
              
              var _removed = !_glob_repetends_array[ _termination ].includes( _rep ) ? YES : NO ;
              if ( _removed ) CIRCLESmethodMANAGERrepetendsLIST();
-             else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Deletion error", _glob_app );
+             else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Deletion error", _glob_app_title );
         }
     }
 }
@@ -338,7 +338,7 @@ function CIRCLESmethodMANAGERrepetendsHELPword()
         _text_array.push( _glob_crlf.repeat(2) );
         _text_array.push( "p.s.: 'RLE' stands for the old-fashioned expression 'run length encoding'" );
     var _text = _text_array.join( _glob_crlf );
-    alert_msg( ALERT_HELP, _text, _glob_app, 540, 300 );
+    alert_msg( ALERT_HELP, _text, _glob_app_title, 540, 300 );
 }
 
 function CIRCLESmethodMANAGERrepetendsLOAD( _filename, _file_contents )
@@ -369,6 +369,6 @@ function CIRCLESmethodMANAGERrepetendsLOAD( _filename, _file_contents )
            var _msg = "No repetends table has been loaded." ;
                _msg += _glob_crlf.repeat( 2 ) + "Try checking file contents for syntax error:" ;
                _msg += _glob_crlf + "each entry shall be announced in this format : 'termination@repetend'" ;
-           circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+           circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
       }
 }

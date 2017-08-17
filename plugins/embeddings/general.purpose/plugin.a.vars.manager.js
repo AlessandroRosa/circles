@@ -26,7 +26,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( _question, _silent )
         var _msg = "Can't set on the var params:" + _glob_crlf ;
         if ( _var_id.length == 0 ) _msg += _glob_crlf + "- missing var name;" ;
         if ( _varvalue.length == 0 ) _msg += _glob_crlf + "- missing var value;" ;
-        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
         return NO ;
     }
     else
@@ -53,25 +53,25 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( _question, _silent )
              var _msg = "The candidate var name '" + _var_id + "' does not match the correct pattern. So check" + _glob_crlf ;
                  _msg += _glob_crlf + "* that var name starts with '_', for example : _a ;" ;
                  _msg += _glob_crlf + "* to use alphanumeric chars + underscore only ;" ;
-             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
              return NO ;
         }
         else if ( _illegals.includes_i( _var_id.replaceAll( "_", "" ) ) )
         {
              var _msg = "The candidate var name '" + _var_id + "' is a reserved keyword" ;
-             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
              return NO ;
         }
         else if ( _varvalue.includes( _var_id ) )
         {
              var _msg = "Detected cyclic reference of var"+_glob_crlf+_glob_crlf+" '"+_var_id+"'"+_glob_crlf+_glob_crlf+"inside input value"+_glob_crlf+_glob_crlf+"'"+_varvalue+"'" ;
-             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
              return NO ;
         }
         else if ( !_var_id.testME( _glob_varname_regex_pattern ) )
         {
              var _msg = "The candidate var name '" + _var_id + "' includes invalid chars" ;
-             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+             if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
              return NO ;
         }
 
@@ -80,7 +80,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( _question, _silent )
 
         if ( !is_complex( _v_complex ) )
         {
-            if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "The input var is not a complex formula.", _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+            if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "The input var is not a complex formula.", _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
             return NO ;
         }
 
@@ -146,12 +146,12 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_LIST()
             _html_code = "</td></tr>" ;
         }
         _html_code += "</table>" ;
-        circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _html_code, _glob_app + " - Vars list" );
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _html_code, _glob_app_title + " - Vars list" );
     }
     else
     {
         _html_code += "<table><tr><td ALIGN=\"center\">The vars list is empty</td></tr></table>" ;
-        circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _html_code, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _html_code, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
     }
 }
 
@@ -167,7 +167,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_REGISTER()
 
         if ( !is_complex( _v_complex ) )
         {
-            if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "The input var is not a complex formula.", _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+            if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "The input var is not a complex formula.", _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
             return NO ;
         }
         else
@@ -186,7 +186,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_REGISTER()
             $("#PLUGINrecordedvaluesCOMBOcontainer").html( _combo_code );
         }
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing or incomplete input vars data.", _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing or incomplete input vars data.", _glob_app_title );
     
 }
 
@@ -208,17 +208,17 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_DELETE( _question, _silent )
              var _new_size = _plugin_rec_var_vals[''+_var].size_recursive();
              if ( _new_size == _old_size - 1 )
              {
-                if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The value '"+_val+"' of var '"+_var+"' has been removed with success.", _glob_app );
+                if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The value '"+_val+"' of var '"+_var+"' has been removed with success.", _glob_app_title );
                 var _combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_VALS_RECORD_COMBO_BUILD();
                 $("#PLUGINrecordedvaluesCOMBOcontainer").html( _combo_code );
                 $("#PLUGINvaridEDIT").val( "" );
                 $("#PLUGINvarvalueEDIT").val( "" );
              }
-             else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Problems while removing the value '"+_val+"' of var '"+_var+"'.", _glob_app );
+             else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Problems while removing the value '"+_val+"' of var '"+_var+"'.", _glob_app_title );
           }
        }
     }
-    else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Please, select one entry to be removed.", _glob_app );
+    else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Please, select one entry to be removed.", _glob_app_title );
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB( _question, _silent )
@@ -234,10 +234,10 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB( _question, _silent )
 			   {
 						circles_lib_output( OUTPUT_SCREEN, safe_size( _keys, 0 ) == 0 ? DISPATCH_SUCCESS : DISPATCH_ERROR,
 											 safe_size( _keys, 0 ) == 0 ? "All user-defined vars have been deleted" : "Problems while deleting user-defined vars",
-											 _glob_app );				 
+											 _glob_app_title );				 
 				 }
 			}
-			else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "No used-defined vars declared yet", _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+			else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "No used-defined vars declared yet", _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
     }
 }
 
@@ -258,7 +258,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DELETE( _question, _silent )
         var _msg = "Can't delete var params:" + _glob_crlf ;
         if ( _var_id.length == 0 ) _msg += _glob_crlf + "missing var name;" ;
         if ( _varvalue.length == 0 ) _msg += _glob_crlf + "missing var value;" ;
-        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+        if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
         return [ RET_WARNING, _msg ] ;
     }
     else
@@ -268,7 +268,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DELETE( _question, _silent )
             _plugin_user_vars.remove_key( _var_id );
             var _deleted = _plugin_user_vars[ _var_id ] == null ? YES : NO ;
             var _msg = _deleted ? "Var '"+_var_id+"' deleted with success" : "Fail to delete var '"+_var_id+"'" ;
-            if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, _deleted ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+            if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, _deleted ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
             if ( _deleted ) CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
             return [ _deleted ? RET_OK : RET_ERROR, _msg ] ;
         }
@@ -352,7 +352,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_COMPUTE( _param_id )
         _html_code += "<tr><td HEIGHT=\"5\"></td></tr>" ;
         _html_code += "</table>" ;
 
-        circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _html_code, _glob_app + " - Compute param '"+_param_id+"'" );
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _html_code, _glob_app_title + " - Compute param '"+_param_id+"'" );
     }
 }
 
@@ -381,9 +381,9 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_WATCH( _param_id )
                 );
        }
        _html_code += "</table>" ;
-       circles_lib_output( OUTPUT_SCREEN, _n_extracted == 0 ? DISPATCH_WARNING : DISPATCH_INFO, _html_code, _glob_app + " - Extracted vars from param '"+_param_id+"'" );
+       circles_lib_output( OUTPUT_SCREEN, _n_extracted == 0 ? DISPATCH_WARNING : DISPATCH_INFO, _html_code, _glob_app_title + " - Extracted vars from param '"+_param_id+"'" );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Param '"+_param_id+"' does not include any user-defined var.", _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Param '"+_param_id+"' does not include any user-defined var.", _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE_COMBO_BUILD()
@@ -463,7 +463,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( _section )
         default: break ;
     }
 
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app + " - " + _plugin_definitions_array[_plugin_last_ref] );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_VAR_EXPORT()

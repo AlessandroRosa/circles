@@ -167,7 +167,7 @@ function CIRCLESformsEPSEDITORopenPAGE( _page, _max_page )
     var _code_size = safe_size( _codelist_ref, 0 );
     var _page = safe_int( _page, 0 ) - 1;
     if ( _page < 0 || _page > ( _max_page - 1 ) && _code_size > 0 )
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid input page number: it shall range from 1 to " + ( _max_page ), _glob_app );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid input page number: it shall range from 1 to " + ( _max_page ), _glob_app_title );
     else if ( _code_size > 0 )
     {
          CIRCLESformsEPSEDITOR_current_page = _page ;

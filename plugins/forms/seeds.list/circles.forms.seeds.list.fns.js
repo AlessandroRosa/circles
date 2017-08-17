@@ -22,9 +22,9 @@ function CIRCLESformsSEEDSLISTgeneratorsPANELask()
        alert_plug_fn( ALERT_YES, "alertCLOSE();"+YES_CMD );
        alert_plug_fn( ALERT_NO, "alertCLOSE();" );
        alert_set_btns_width( "90px" );
-       circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNO, _QUESTION_28, _glob_app );
+       circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNO, _QUESTION_28, _glob_app_title );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _QUESTION_06, _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _QUESTION_06, _glob_app_title );
 }
 
 function CIRCLESformsSEEDSLISTbarHTMLCODE( _selected_index, _index )

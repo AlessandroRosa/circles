@@ -73,20 +73,20 @@ function circles_lib_complexdisk_remove_all( _items_array, _question, _silent, _
               _glob_disk_sel_index = UNDET, _glob_items_to_init = NO ;
               $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
               var _msg = "All disks have been removed with success" ;
-              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app );
+              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
               return [ RET_OK, _msg ];
            }
            else
            {
               var _msg = "Problems in coords reset while removing the disks" ;
-              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
               return [ RET_ERROR, _msg ];
            }
        }
     }
     else
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Missing input circles to remove", _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Missing input circles to remove", _glob_app_title );
         return [ RET_ERROR, "Missing input circles to remove" ];
     }
 }
@@ -279,13 +279,13 @@ function circles_lib_complexdisk_remove( _items_array, _question, _silent, _forc
     else if ( circles_lib_count_seeds() == 0 )
     {
     	 var _msg = "The figures list is empty" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ];
     }
     else if ( _i == UNDET )
     {
     	 var _msg = "Select (double click on) a circle for deletion" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ];
     }
     else
@@ -353,7 +353,7 @@ function circles_lib_complexdisk_remove( _items_array, _question, _silent, _forc
 						 _msg += "Disk"+( _n_removed == 1 ? "" : "s" )+" '"+_removed_symbols_array.join( ", " )+"' "+( _n_removed == 1 ? "has" : "have" )+" been removed with success from " + ( _item_type == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" );
 					}
 					else _msg += "Can't remove disk"+( _n_removed == 1 ? "" : "s" )+" '"+_removed_symbols_array.join( ", " )+"'" ;
-          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _success ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _glob_app );
+          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _success ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _glob_app_title );
           return [ _success ? RET_OK : RET_ERROR, _msg ];
        }
     }

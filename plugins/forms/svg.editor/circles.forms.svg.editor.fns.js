@@ -19,7 +19,7 @@ function CIRCLESformsSVGEDITORdisplayPAGE( _page, _silent )
 {
 			_page = Math.max( 1, safe_int( _page, 1 ) ) - 1, _silent = safe_int( _silent, NO );
  			if ( ( _page < 0 || _page >= CIRCLESformsSVGEDITORpagesCOUNT ) && !_silent )
-			circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Wrong page number at " + ( _page + 1 ) + _glob_crlf.repeat(2) + "Pages range from 1 to " + CIRCLESformsSVGEDITORpagesCOUNT, _glob_app );
+			circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Wrong page number at " + ( _page + 1 ) + _glob_crlf.repeat(2) + "Pages range from 1 to " + CIRCLESformsSVGEDITORpagesCOUNT, _glob_app_title );
  			else if ( _page >= 0 && _page < CIRCLESformsSVGEDITORpagesCOUNT )
  			{
 					$( "#CIRCLESformsSVGEDITORcurrentPAGE" ).val( _page + 1 );
@@ -61,7 +61,7 @@ function CIRCLESformsSVGEDITORcanvasREF( _canvas_ref )
 
 function CIRCLESformsSVGEDITORsaveCODE()
 {
-     if( _svg_editor_updated ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Be careful !"+_glob_crlf+"Changes have not been updated yet, so they won't be saved to a file.", _glob_app );
+     if( _svg_editor_updated ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Be careful !"+_glob_crlf+"Changes have not been updated yet, so they won't be saved to a file.", _glob_app_title );
      var _integrity_array = CIRCLESformsSVGEDITORcodeINTEGRITY();
      var _plane_label = circles_lib_plane_get_def( _svg_editor_coords_ref ).toLowerCase().replaceAll( [ ".", "-" ], "" );
      var _fn = "circles_lib_canvas_save_to_svg( '"+_plane_label+".svg' )" ;
@@ -90,7 +90,7 @@ function CIRCLESformsSVGEDITORupdateSVGcode()
      if ( !_b_abort )
      {
           var _new_lines = $('#CIRCLESformsSVGEDITORtextarea').val().trim();
-          if ( _new_lines.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't update SVG code: the new text code is empty.", _glob_app );
+          if ( _new_lines.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't update SVG code: the new text code is empty.", _glob_app_title );
           else
           {
               var _collection_array = [];
@@ -112,11 +112,11 @@ function CIRCLESformsSVGEDITORupdateSVGcode()
     					if ( is_array( _post_chunk ) ) _glob_export_code_array = _glob_export_code_array.concat( _post_chunk );
               CIRCLESformsSVGEDITORupdated(0);
               CIRCLESformsSVGEDITORupdateCOUNTboxes();
-              circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "SVG code has been updated.", _glob_app );
+              circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "SVG code has been updated.", _glob_app_title );
           }
      }
-     else if ( _n_lines == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't update SVG code: code is empty.", _glob_app );
-     else if ( _n_line == UNDET ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Can't update SVG code: memory failure.", _glob_app );
+     else if ( _n_lines == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't update SVG code: code is empty.", _glob_app_title );
+     else if ( _n_line == UNDET ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Can't update SVG code: memory failure.", _glob_app_title );
 }
 
 function CIRCLESformsSVGEDITORcheckSVGcode( _silent )
@@ -129,12 +129,12 @@ function CIRCLESformsSVGEDITORcheckSVGcode( _silent )
           var _integrity_ret_flag = _integrity_collection_array != null ? _integrity_collection_array[0] : 0 ;
           var _integrity_ret_msg = _integrity_collection_array != null ? _integrity_collection_array[1] : new String( "" );
           var _msg = _integrity_ret_flag == 0 ? "SVG code has been checked" : "SVG code has been checked and updated after the following corrections:\n" + ( ( _integrity_ret_msg.length > 0 ) ? _integrity_ret_msg : "" );
-          if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, _integrity_ret_flag == 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app );
+          if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, _integrity_ret_flag == 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app_title );
           // found errors, display corrected code
           if ( _integrity_ret_flag != 0 ) $('#CIRCLESformsSVGEDITORtextarea').val( _glob_export_code_array );
           CIRCLESformsSVGEDITORupdateCOUNTboxes();
      }
-     else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The editor is empty: no code to update."+_glob_crlf+"Display lines first.", _glob_app );
+     else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The editor is empty: no code to update."+_glob_crlf+"Display lines first.", _glob_app_title );
 }
 
 function CIRCLESformsSVGEDITORreset()
@@ -170,7 +170,7 @@ function CIRCLESformsSVGEDITORrenderPAGE()
          // the selected text will be scanned and interpreted
          // resulting figures will be drawn upon the freedraw canvas
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't render: code is empty.", _glob_app );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't render: code is empty.", _glob_app_title );
 }
 
 function CIRCLESformsSVGEDITORload( _filename, _file_contents )

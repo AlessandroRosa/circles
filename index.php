@@ -10,6 +10,7 @@
 <?php $title = get_params_ini( "MAIN", "title", $PATH_TO_INI ); ?>
 <?php $subtitle = get_params_ini( "MAIN", "subtitle", $PATH_TO_INI ); ?>
 <?php $lastreleasedate = get_params_ini( "MAIN", "lastreleasedate", $PATH_TO_INI ); ?>
+<?php $MAX_DEMO_IDX = 10 ; ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -40,7 +41,8 @@ var _tmp_array = [];
 <?php load_src_code_dir( $PATH_TO_CIRCLES."code/js/components/globals/defaults/", "js", $ERRCODE, 1 ); ?>
 <?php load_src_code_dir( $PATH_TO_CIRCLES."code/js/components/globals/defs/", "js", $ERRCODE, 1 ); ?>
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript">
-_glob_app = "Circles" ;
+_glob_app_title = "Circles" ;
+_glob_app_subtitle = "<?php echo $subtitle ; ?>" ;
 _glob_path_to_root = "<?php echo $PATH_TO_ROOT ; ?>" ;
 </SCRIPT>
 </head>
@@ -105,20 +107,22 @@ circles_lib_statusbar_load( "vert", "left", "top", NO, 10, 100 );
 </SCRIPT>
 <?php if ( array_key_exists( "demo", $_GET ) )
 {
-    $DEMO_IDX = intval( $_GET['demo'] ) ; if ( is_nan( $DEMO_IDX ) ) $DEMO_IDX = 0 ;
-    $MAX_IDX = 9 ;
-    switch( $DEMO_IDX )
+    $DEMO_IDX = intval( $_GET['demo'] ); if ( is_nan( $DEMO_IDX ) || $DEMO_IDX < 0 ) $DEMO_IDX = 0 ;
+    $DEMO_FILES_PATH = "demos" ;
+    if ( file_exists( $DEMO_FILES_PATH ) )
     {
-      case 1: @include( "demos/$DEMO_IDX.demo.basic.maskit.param.php" ); break ;
-      case 2: @include( "demos/$DEMO_IDX.demo.random.jorgensen.php" ); break ;
-      case 3: @include( "demos/$DEMO_IDX.demo.console.php" ); break ;
-      case 4: @include( "demos/$DEMO_IDX.demo.console.conjugation.php" ); break ;
-      case 5: @include( "demos/$DEMO_IDX.demo.fuchsian.group.php" ); break ;
-      case 6: @include( "demos/$DEMO_IDX.demo.modular.group.php" ); break ;
-      case 7: @include( "demos/$DEMO_IDX.demo.sasaki.group.php" ); break ;
-      case 8: @include( "demos/$DEMO_IDX.demo.discreteness.locus.php" ); break ;
-      case 9: @include( "demos/$DEMO_IDX.demo.popups.interaction.php" ); break ;
-      default: break ;
+        $RESULTSarray = scan_folder( $DEMO_FILES_PATH, "/^.*\.(php)$/i", 0, 1, 1, 0 );
+        $DEMO_ARCHIVE = array();
+        foreach( $RESULTSarray AS $K => $CHUNK )
+        {
+          $FILENAME = $CHUNK['filename'] ;
+          $TOKENS = explode( ".", $FILENAME );
+          if ( $TOKENS[0] == $DEMO_IDX )
+          {
+            @include( "demos/$FILENAME" );
+            break ;
+          }
+        }
     }
 }
 ?>

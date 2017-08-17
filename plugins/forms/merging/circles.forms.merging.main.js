@@ -4,7 +4,7 @@ function CIRCLESformsMERGINGmain( _base_id, _move, _plane_type )
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     CIRCLESformsMERGINGbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES );
-    if ( _plane_type == NO_PLANE ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing plane ref", _glob_app );
+    if ( _plane_type == NO_PLANE ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing plane ref", _glob_app_title );
     else
     {
          var _plane_def = circles_lib_plane_get_def( _plane_type );
@@ -116,6 +116,6 @@ function CIRCLESformsMERGINGrender( _plane_type, _n_layers )
          else if ( _plane_type == W_PLANE )
          circles_lib_canvas_process_ask( YES, NO, _plane_type, YES, YES, CHECK, _plane_type == Z_PLANE ? _glob_zplane_merging_array.clone() : _glob_wplane_merging_array.clone(), OUTPUT_SCREEN );
          else
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid target of merging action." + _glob_crlf + "Please, switch to different options from &lsquo;general&rsquo; options form", _glob_app );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid target of merging action." + _glob_crlf + "Please, switch to different options from &lsquo;general&rsquo; options form", _glob_app_title );
      }
 }

@@ -27,7 +27,7 @@ function circles_lib_draw_orbit_from_word( _context, _mapper, _items_array,
     _drawentity = safe_int( _drawentity, DRAWENTITY_POINT );
     if ( _glob_persistent_vars['sd_n'] == 0 )
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _ERR_33_01, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _ERR_33_01, _glob_app_title );
         return [ RET_ERROR, _ERR_33_01, null ];
     }
     else if ( _glob_persistent_vars['word_len'] > 0 )
@@ -49,7 +49,7 @@ function circles_lib_draw_orbit_from_word( _context, _mapper, _items_array,
     else
     {
         var _msg = "Can't draw the orbit: please type a word" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
         return [ RET_ERROR, _msg, null ] ;
     }
 }
@@ -73,19 +73,19 @@ function circles_lib_draw_word_circlewise( _context, _mapper, _items_array, _cle
         if ( circles_lib_count_seeds() == 0 )
         _MSG += _glob_crlf + "* Missing input seeds: no Mobius map have been registered yet" ;
         
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title );
         return [ RET_ERROR, _MSG, null ] ;
     }
     else if ( _b_check_word == NO )
     {
         var _MSG = "The input word does not match the current alphabet" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title );
         return [ RET_ERROR, _MSG, null ] ;
     }
     else if ( _b_check_word.is_one_of( UNDET, CIRCLES_MISSING_INPUT ) )
     {
         var _MSG = "Word check failure: missing word or alphabet" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title );
         return [ RET_ERROR, _MSG, null ] ;
     }
     else if ( _b_check_word == YES && is_html_canvas( _context.canvas ) && _mapper != null )
@@ -136,7 +136,7 @@ function circles_lib_draw_word_circlewise( _context, _mapper, _items_array, _cle
     }
     else
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_26_00, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_26_00, _glob_app_title );
         return [ RET_ERROR, _ERR_26_00, null ];
     }
 }
@@ -162,11 +162,11 @@ function circles_lib_draw_word_pointwise( _context, _mapper, _items_array, _clea
         if ( circles_lib_count_seeds() == 0 )
         _MSG += _glob_crlf + "* Missing input seeds: no Mobius map have been registered yet" ;
         
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title );
         return [ RET_ERROR, _MSG, null ] ;
     }
-    else if ( _b_check_word == NO && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "The input word does not match the current alphabet.", _glob_app );
-    else if ( _b_check_word.is_one_of( UNDET, CIRCLES_MISSING_INPUT ) && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Word check failure: missing input word or alphabet.", _glob_app );
+    else if ( _b_check_word == NO && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "The input word does not match the current alphabet.", _glob_app_title );
+    else if ( _b_check_word.is_one_of( UNDET, CIRCLES_MISSING_INPUT ) && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, "Word check failure: missing input word or alphabet.", _glob_app_title );
     else
     {
         if ( _clean ) circles_lib_canvas_clean( _context.canvas );
@@ -221,19 +221,19 @@ function circles_lib_draw_word_inversion( _context, _mapper, _items_array, _clea
         if ( circles_lib_count_seeds() == 0 )
         _MSG += _glob_crlf + "* Missing input seeds: no Mobius map have been registered yet" ;
         
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title );
         return [ RET_ERROR, _MSG, null ] ;
     }
     else if ( _b_check_word == NO )
     {
         var _MSG = "The input word does not match the current alphabet" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title );
         return [ RET_ERROR, _MSG, null ] ;
     }
     else if ( _b_check_word.is_one_of( UNDET, CIRCLES_MISSING_INPUT ) )
     {
         var _MSG = "Word check failure: missing word or alphabet" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title );
         return [ RET_ERROR, _MSG, null ] ;
     }
     else if ( _b_check_word == YES && is_html_canvas( _context.canvas ) && _mapper != null )
@@ -280,7 +280,7 @@ function circles_lib_draw_word_inversion( _context, _mapper, _items_array, _clea
     }
     else
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_26_00, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_26_00, _glob_app_title );
         return [ RET_ERROR, _ERR_26_00, null ];     
     }
 }

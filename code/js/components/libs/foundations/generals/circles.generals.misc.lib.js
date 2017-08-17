@@ -59,7 +59,7 @@ function circles_lib_samples_load( i, _silent )
   {
     var _msg = "Missing or corrupted component to open this sample" ;
     circles_lib_log_add_entry( _msg, LOG_ERROR ) ;
-    if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app );
+    if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
   }
     
   return _ret ;

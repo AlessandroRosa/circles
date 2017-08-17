@@ -1,4 +1,4 @@
-function CIRCLESformsDISCRETENESSLOCUShelp() { circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "This form implements David Wright's application of Farey fractions", _glob_app ); }
+function CIRCLESformsDISCRETENESSLOCUShelp() { circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, "This form implements David Wright's application of Farey fractions", _glob_app_title ); }
 function CIRCLESformsDISCRETENESSLOCUSclose() { return circles_lib_plugin_dispatcher_unicast_message( 'discreteness.locus', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 
 function CIRCLESformsDISCRETENESSLOCUSmaximize()
@@ -903,7 +903,7 @@ function CIRCLESformsDISCRETENESSLOCUScopyCOMBOonchange()
 							 var _msg = "Storage space copy report" + _glob_crlf ;
 							 		 _msg += "* Discreteness locus points have "+( _mask & 1 ? "" : "not" )+" been copied into storage space" ;
 							 		 _msg += "* Farey sequence have "+( _mask & 2 ? "" : "not" )+" been copied into storage space" ;
-							 circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+							 circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
 					}
           break ;
           default: break ;

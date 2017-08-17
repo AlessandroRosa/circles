@@ -10,7 +10,7 @@ function CIRCLESformsMETHODeventsHANDLER( _ctrl_id, _event )
 		if( _return_pressed )  // return key code
 		{
 				_event.preventDefault();
-        if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+        if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 				else if ( _ctrl_id.includes( "DICTIONARYPANELoptionsEDIT" ) ) CIRCLESformsDICTIONARYperformACTIONask(CIRCLESformsDICTIONARYbaseid, _param1, _param2, YES );
 		    else if ( _ctrl_id.start_with( "ALGEBRAICnewGENERATOR_" ) )
 		    {

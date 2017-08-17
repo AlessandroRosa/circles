@@ -75,7 +75,7 @@ function circles_lib_plugin_remotectrl_dispatch_to_service( _div_id )
              				 		  _return_fn.call( this, _row.join( _glob_crlf ) );
 										 } ) ;
         }
-        else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing opening params specifications", _glob_app );
+        else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing opening params specifications", _glob_app_title );
 				break ;
 				default:
 				var _fn = "CIRCLES"+_subset.toUpperCase()+_clean_base_id.toUpperCase()+"remotectrl( _options, _return_fn, _out_channel )" ;

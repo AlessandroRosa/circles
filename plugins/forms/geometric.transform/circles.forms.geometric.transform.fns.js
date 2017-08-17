@@ -15,8 +15,8 @@ function CIRCLESformsGEOMETRICTRANSFORMshift( _question, _silent, _out_channel )
            
         for( var i = 0 ; i < _items_n ; i++ ) if ( $("#CIRCLESLISTtransformLABELcheckbox_" + i ).is( ":checked" ) ) ENTRIESarray.push( i );
                    
-        if ( ENTRIESarray.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_00_06, _glob_app );
-        else if ( SHIFTx == 0.0 && SHIFTy == 0.0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_00_07, _glob_app );
+        if ( ENTRIESarray.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_00_06, _glob_app_title );
+        else if ( SHIFTx == 0.0 && SHIFTy == 0.0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_00_07, _glob_app_title );
         else
         {
             var MSG = _items_n == 1 ? _QUESTION_18_01 : _QUESTION_18_02 ;
@@ -67,8 +67,8 @@ function CIRCLESformsGEOMETRICTRANSFORMrotate( _question, _silent, _out_channel 
         var ROTATEangleRAD = radians( ROTATEangleDEC ), _ctrl_id, _checkbox;
         for( var i = 0 ; i < _items_n ; i++ ) if ( $("#CIRCLESLISTtransformLABELcheckbox_" + i ).is( ":checked" ) ) ENTRIESarray.push( i );
 
-        if ( safe_size( ENTRIESarray, 0 ) == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_00_08, _glob_app );
-        else if ( ROTATEangleDEC == 0.0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_00_09, _glob_app );
+        if ( safe_size( ENTRIESarray, 0 ) == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_00_08, _glob_app_title );
+        else if ( ROTATEangleDEC == 0.0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_00_09, _glob_app_title );
         else
         {
             var MSG = _items_n == 1 ? _QUESTION_18_03 : _QUESTION_18_04 ;

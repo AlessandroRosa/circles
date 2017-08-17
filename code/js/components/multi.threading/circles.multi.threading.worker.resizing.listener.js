@@ -27,7 +27,7 @@ function CIRCLESmultithreadingADDresizingLISTENER()
 		        switch( err_no )
 		        {
                 default:
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, err_text, _glob_app );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, err_text, _glob_app_title );
                 break ;
 		        }
 		        break ;

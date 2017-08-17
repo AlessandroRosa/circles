@@ -16,7 +16,7 @@ function CIRCLESmultithreadingADDdictionaryLISTENER()
             var err_caller_id = msg.callerid ;
 		        _glob_original_dict = _glob_dict_processor.sliced_dictionary = msg.dict.clone();
 		        SPLASH( "", HIDE );
-            circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, err_text, _glob_app );
+            circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, err_text, _glob_app_title );
             $('[id$=renderBTN]').css('color',DEFAULT_COLOR_STD);
             $("[id$=renderBTN]").filter( function(){ return !this.id.start_with( "PLUGIN" ) } ).attr( "class", "link_rounded" );
 		        break ;

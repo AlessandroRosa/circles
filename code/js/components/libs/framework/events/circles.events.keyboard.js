@@ -68,7 +68,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
                       _msg += "<tr><td>"+CIRCLES_WARNING_LABEL_02+"</td></tr>" ;
                       _msg += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:_glob_process_running_flag=NO;CIRCLESmultithreadingPOSTMESSAGEworker( 'stop' );_glob_to_save=NO;\">Click here to force process to stop</td></tr>" ;
                       _msg += "<table>" ;
-                  circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, _msg, _glob_app );
+                  circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, _msg, _glob_app_title );
               }
          }
 		     else
@@ -104,7 +104,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 		      var _n_disks = safe_size( _glob_zplane_selected_items_array, 0 );
 					var _question = "Confirm to remove the selected disk"+( _n_disks != 1 ? "s" : "" )+"? " ;
               _question += _glob_crlf + "This operation is irreversible and items can't be resumed" ;
-		      if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+		      if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 					else if ( confirm( _question ) )
 		      {
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -139,7 +139,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 
 		if( _event.keyCode == 9 && _sel_length > 0 ) // tab key
 		{
-					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -155,7 +155,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 		}
 		else if( _event.keyCode == 37 && _sel_length > 0 ) // left arrow key
 		{
-					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -180,7 +180,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 		}
 		else if( _event.keyCode == 39 && _sel_length > 0 ) // right arrow key
 		{
-					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -205,7 +205,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 		}
 		else if( _event.keyCode == 38 && _sel_length > 0 ) // up arrow key
 		{
-					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -230,7 +230,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 		}
 		else if( _event.keyCode == 40 && _sel_length > 0 ) // down arrow key
 		{
-					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -255,7 +255,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 		}
 		else if( _event.keyCode == 187 && _sel_length > 0 && !_alt_pressed ) // plus arrow key
 		{
-					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -280,7 +280,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 		}
 		else if( _event.keyCode == 189 && _sel_length > 0 && !_alt_pressed ) // minus arrow key
 		{
-					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+					if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -339,7 +339,7 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
       {
 				   if( _event.keyCode == 9 && _glob_disk_sel_index != UNDET && _sd_n > 0 ) // tab key
 				   {
-							if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+							if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 							else
 							{
                   if ( _glob_zplane_rendering_canvas_placeholder.get_role_id() != ROLE_RENDERING )
@@ -358,13 +358,13 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
 					switch( _event.keyCode )
 		      {
 		            case 65: // key 'A' // select all isometric disks
-							  if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+							  if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
                 else circles_lib_complexdisk_select_all();
             	  _event.preventDefault(); // prevent standard behavior of selecting all elements in the viewport
                 return NO ;
 		            break ;
 		            case 66: // key 'B'
-								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else if ( _alt_pressed ) circles_lib_plugin_load('forms','terminal',YES,1);
 		            break ;
 		            case 67: // key 'C'
@@ -414,46 +414,46 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
                 }
                 break ;
 		            case 68: // key 'D'
-		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else if ( _alt_pressed ) circles_lib_plugin_load('forms','dictionary');
 		            break ;
 		            case 69: // key 'E'
-		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else if ( _alt_pressed ) circles_lib_plugin_load('forms','edit.disk');
 		            break ;
 		            case 70: // key 'F'
-		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else if ( _alt_pressed )
                 {
                      var _ret_chunk_ask = circles_lib_canvas_process_ask(NO,YES,W_PLANE,YES,YES,CHECK);
                      var _ret_id = _ret_chunk_ask != null ? safe_int( _ret_chunk_ask[0], 0 ) : 0 ;
                      var _ret_msg = _ret_chunk_ask != null ? _ret_chunk_ask[1] : _ERR_00_00 ;
-                     if ( _ret_id == 0 ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_ERROR, _ret_msg, _glob_app );
+                     if ( _ret_id == 0 ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_ERROR, _ret_msg, _glob_app_title );
                 }
 		            break ;
 		            case 71: // key 'G'
-							  if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+							  if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else if ( _shift_pressed ) circles_lib_plugin_load('forms','edit.disk',NO,ITEM_TYPE_CIRCLE);
 		            else if ( _alt_pressed ) circles_lib_plugin_load('forms','tiny.rendering');
 		            break ;
 		            case 72: // key 'H'
-		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else circles_lib_plugin_load('forms','help.items');
 		            break ;
 		            case 73: // key 'I'
-								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else if ( _alt_pressed ) circles_lib_files_pix_save_ask( W_PLANE, _glob_wplane_rendering_canvas_placeholder, 'wplane.png' );
 		            break ;
 		            case 74: // key 'J'
-		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else circles_lib_plugin_load('forms','automaton');
 		            break ;
 		            case 76: // key 'L'
-		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else circles_lib_plugin_load('forms','seeds.list');
 		            break ;
 		            case 77: // key 'M'
-		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else 
 								{
 										if ( _shift_pressed ) circles_lib_plugin_load('forms','edit.disk',NO,ITEM_TYPE_MOBIUS);
@@ -461,33 +461,33 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
 								}
 		            break ;
 		            case 78: // key 'N'
-		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else if ( _alt_pressed )
                 {
                      var _ret_chunk = circles_lib_config_create_new_main();
                 }
 		            break ;
 		            case 82: // key 'R'
-		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+		            if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else if ( _alt_pressed )
                      var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCRIPT_EDITOR );
 		            break ;
 		            case 83: // key 'S'
-								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else if ( _alt_pressed ) circles_lib_files_pix_save_ask( Z_PLANE, _glob_zplane_rendering_canvas_placeholder, 'zplane.png' );
 		            break ;
 		            case 84: // key 'T'
-								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else if ( _alt_pressed ) circles_lib_plugin_load('forms','terminal',YES,0);
 		            break ;
 		            case 85: // key 'U'
-								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+								if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		            else circles_lib_items_unselect();
 		            break ;
                 default:
                 if ( _glob_disk_sel_index != UNDET && _sd_n > 0 )
   					    {
-                    if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+                    if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
   									else
   									{
                         $("body").css('cursor', "move");
@@ -508,7 +508,7 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
 					switch( _event.keyCode )
 				  {
 				      case 73: // 'I'
-				      if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+				      if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		          else
 							{
                    var _build_gens_set_opt = _plugin_last_ref != 0 ? IF_ANY : NO ;
@@ -521,7 +521,7 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
                    if ( _ret_chunk[0] != RET_OK ) circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
                    var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] + "" : "" ;
-                   if ( _ret_id != YES ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, _ret_msg, _glob_app );
+                   if ( _ret_id != YES ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, _ret_msg, _glob_app_title );
                    else _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCRIPT_EDITOR );
                    if ( _ret_chunk[0] != RET_OK ) circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
 							}
@@ -531,7 +531,7 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
 							_glob_to_save = YES;
 				      break ;
 							case 187: // key '+'
-				      if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+				      if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		          else
 		          {
 						       _glob_depth = Math.max(1,safe_int(_glob_depth,0)+1);
@@ -539,7 +539,7 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
 							}
 				      break ;
 				      case 189: // key '-'
-				      if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app );
+				      if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 		          else
 		          {
 						       _glob_depth = Math.max(1,safe_int(_glob_depth,2)-1);

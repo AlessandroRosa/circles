@@ -100,7 +100,7 @@ function circles_lib_symbol_shift( _items_array, _fwd, _question, _silent, _out_
        else
        {
            var MSG = "Symbols permutation aborted by user" ;
-           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app );
+           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
            return [ RET_ERROR, MSG ] ;
        }
     }
@@ -108,7 +108,7 @@ function circles_lib_symbol_shift( _items_array, _fwd, _question, _silent, _out_
     {
        var MSG = "Can't perform cyclic permutation of group symbols" + _glob_crlf ;
            MSG += _sd_n == 1 ? "The group includes one only element" : "The group is empty" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
        return [ RET_ERROR, MSG ] ;
     }
 }
@@ -162,24 +162,24 @@ function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent
 		if ( !_test )
 		{
 				var _ret_msg = "Input items set is not a valid container" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg, _glob_app_title );
         return [ RET_ERROR, _ret_msg ] ;
 		}
     else if ( _items_n == 0 )
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_01, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_01, _glob_app_title );
         return [ RET_ERROR, _ERR_33_01 ] ;
     }
     else if ( _count_checked == 0 )
     {
         var _msg = "No selected entries to swap" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
     else if ( _count_checked != 2 )
     {
         var _msg = "Select just 2 entries to swap symbols" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
     else if ( _count_checked == 2 )
@@ -206,21 +206,21 @@ function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent
            else
            {
            	  var _msg = "Can't swap symbols.\n\nCoordinates are not consistent with archived data" ;
-              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app );
+              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
               return [ RET_ERROR, _msg ] ;
            }
         }
         else
         {
            var _msg = "Swap halted by user" ;
-           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
            return [ RET_ERROR, _msg ] ;
         }
     }
     else
     {
         var _msg = "An unknown exception has been caught" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
 }
@@ -346,7 +346,7 @@ function circles_lib_symbol_zplane_display( _items_array, _canvas, _symbol, _b_i
     }
     else
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_00_04, _glob_app );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_00_04, _glob_app_title );
         return [ RET_ERROR, _ERR_00_04 ];
     }
 }

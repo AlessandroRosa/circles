@@ -3,7 +3,7 @@ function CIRCLESformsTANGENTCIRCLEsetSYMBOLS()
     var _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols(NO,YES,NO);
     var _ret_id = safe_int( _ret_chunk[0], RET_ERROR );
     var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
-    if ( _ret_id == RET_ERROR ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app );
+    if ( _ret_id == RET_ERROR ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
     else circles_lib_plugin_load('forms','construct.tangent.circle');
 }
 
