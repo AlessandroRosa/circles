@@ -1,6 +1,6 @@
 var _glob_show_grid_zplane = YES, _glob_show_grid_wplane = YES ;
 var zplane_sm = null, wplane_sm = null, bipbox_sm = null, dlocus_sm = null ;
-var _glob_zoomRECT = null, _glob_zoomSTARTpt = null, _glob_zoomENDpt = null ;
+var _glob_zoom_rect = null, _glob_zoomSTARTpt = null, _glob_zoomENDpt = null ;
 
 var _glob_zplaneLEFT = -DEFAULT_PLANE_COORD ;
 var _glob_zplaneRIGHT = DEFAULT_PLANE_COORD ;

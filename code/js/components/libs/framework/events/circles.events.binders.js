@@ -46,10 +46,9 @@ function circles_lib_events_bind_to_zplane( canvas )
 								  if (event.stopPropagation)    event.stopPropagation();
 								  if (event.cancelBubble!=null) event.cancelBubble = true;
 							}
-
               if ( _glob_play_inversion == NO )
               {
-                  if ( _glob_src_canvas_mode == ZPLANE_CANVAS_CIRCLESDRAW_MODE )
+                  //if ( _glob_src_canvas_mode == ZPLANE_CANVAS_CIRCLESDRAW_MODE )
                   Z_PLANE_work_layer_onmousedown( this, event );
               }
          }

@@ -1,5 +1,6 @@
 function W_PLANE_work_canvas_onmouseover( obj, event )
 {
+    _glob_canvas_obj_ref = obj ;
 		if ( _glob_wplane_canvas_timerID == null ) circles_lib_canvas_wplane_start_timer();
     if ( _glob_wplaneMOUSEprocSWITCH == MOUSE_ZOOM_PROC_ID )
 		$( "#"+_glob_wplane_work_canvas_placeholder.id ).css('cursor','zoom-in');
@@ -33,7 +34,6 @@ function W_PLANE_work_canvas_onmousedown( obj, event )
     _glob_canvas_obj_ref = obj ;
     _glob_coords_array = circles_lib_events_get_mouse_pos_rel( obj, event );
     _glob_mouse_x = _glob_coords_array["x"], _glob_mouse_y = _glob_coords_array["y"] ;
-
     switch( event.which )
     {
        case 1: // left btn
@@ -55,9 +55,9 @@ function W_PLANE_work_canvas_onmousedown( obj, event )
     }
     else if ( _glob_wplaneMOUSEprocSWITCH == MOUSE_ZOOM_PROC_ID )
     {
-	     if ( !is_rect( _glob_zoomRECT ) )
+	     if ( !is_rect( _glob_zoom_rect ) )
 	     {
-	        _glob_zoomRECT = new rect();
+	        _glob_zoom_rect = new rect();
 	        _glob_zoomSTARTpt = wplane_sm.from_client_to_cartesian( _glob_mouse_x, _glob_mouse_y );
 	        $("#ZOOMINGREGIONlabel").html( "2. Finally, release the mouse button as the zoom region fits as desired" );
 	     }
@@ -103,14 +103,14 @@ function W_PLANE_work_canvas_onmousemove( obj, event )
 
     if ( _glob_wplaneMOUSEprocSWITCH == MOUSE_ZOOM_PROC_ID )
     {
-       if ( is_rect( _glob_zoomRECT ) )
+       if ( is_rect( _glob_zoom_rect ) )
        {
           _glob_zoomENDpt = wplane_sm.from_client_to_cartesian( _glob_mouse_x, _glob_mouse_y );
-          _glob_zoomRECT.x1 = _glob_zoomSTARTpt.x ;   _glob_zoomRECT.y1 = _glob_zoomSTARTpt.y ;
-          _glob_zoomRECT.x2 = _glob_zoomENDpt.x ;     _glob_zoomRECT.y2 = _glob_zoomENDpt.y ;
+          _glob_zoom_rect.x1 = _glob_zoomSTARTpt.x ;   _glob_zoom_rect.y1 = _glob_zoomSTARTpt.y ;
+          _glob_zoom_rect.x2 = _glob_zoomENDpt.x ;     _glob_zoom_rect.y2 = _glob_zoomENDpt.y ;
           // zoom region shall be a square
-          _mouse_event_dx = _glob_zoomRECT.width();      _mouse_event_zoom_rect_sign_x = _glob_zoomENDpt.x < _glob_zoomSTARTpt.x ? -1 : 1 ;
-          _mouse_event_dy = _glob_zoomRECT.height();     _mouse_event_zoom_rect_sign_y = _glob_zoomENDpt.y > _glob_zoomSTARTpt.y ? 1 : -1 ;
+          _mouse_event_dx = _glob_zoom_rect.width();      _mouse_event_zoom_rect_sign_x = _glob_zoomENDpt.x < _glob_zoomSTARTpt.x ? -1 : 1 ;
+          _mouse_event_dy = _glob_zoom_rect.height();     _mouse_event_zoom_rect_sign_y = _glob_zoomENDpt.y > _glob_zoomSTARTpt.y ? 1 : -1 ;
           if ( _glob_interface_index == INTERFACE_EXTEND_NONE )
           _mouse_event_zoom_rect_side_x = _mouse_event_zoom_rect_side_y = Math.max( _mouse_event_dx, _mouse_event_dy );
           else
@@ -121,14 +121,14 @@ function W_PLANE_work_canvas_onmousemove( obj, event )
           // correction
           if ( _mouse_event_dx != _mouse_event_dy )
           {
-             _glob_zoomRECT.x2 = _glob_zoomRECT.x1 + _mouse_event_zoom_rect_side_x * _mouse_event_zoom_rect_sign_x ;
-             _glob_zoomRECT.y2 = _glob_zoomRECT.y1 + _mouse_event_zoom_rect_side_y * _mouse_event_zoom_rect_sign_y ;
+             _glob_zoom_rect.x2 = _glob_zoom_rect.x1 + _mouse_event_zoom_rect_side_x * _mouse_event_zoom_rect_sign_x ;
+             _glob_zoom_rect.y2 = _glob_zoom_rect.y1 + _mouse_event_zoom_rect_side_y * _mouse_event_zoom_rect_sign_y ;
           }
                        
-          _glob_zoomRECT.correct();
+          _glob_zoom_rect.correct();
           circles_lib_canvas_clean( obj );
           _mouse_event_context = obj.getContext( _glob_canvas_ctx_2D_mode );
-          circles_lib_draw_polyline( _mouse_event_context, wplane_sm, _glob_zoomRECT.corners(), "lime", "", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
+          circles_lib_draw_polyline( _mouse_event_context, wplane_sm, _glob_zoom_rect.corners(), "lime", "", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
        }
     }
 }
@@ -144,14 +144,14 @@ function W_PLANE_work_canvas_onmouseup( obj, event )
 
     if ( _glob_wplaneMOUSEprocSWITCH == MOUSE_ZOOM_PROC_ID )
     {
-       if ( is_rect( _glob_zoomRECT ) )
+       if ( is_rect( _glob_zoom_rect ) )
        {
            _glob_zoomENDpt = wplane_sm.from_client_to_cartesian( _glob_mouse_x, _glob_mouse_y );
-           _glob_zoomRECT.x1 = _glob_zoomSTARTpt.x ;   _glob_zoomRECT.y1 = _glob_zoomSTARTpt.y ;
-           _glob_zoomRECT.x2 = _glob_zoomENDpt.x ;     _glob_zoomRECT.y2 = _glob_zoomENDpt.y ;
+           _glob_zoom_rect.x1 = _glob_zoomSTARTpt.x ;   _glob_zoom_rect.y1 = _glob_zoomSTARTpt.y ;
+           _glob_zoom_rect.x2 = _glob_zoomENDpt.x ;     _glob_zoom_rect.y2 = _glob_zoomENDpt.y ;
            // zoom region shall be a square
-           _mouse_event_dx = _glob_zoomRECT.width();    _mouse_event_zoom_rect_sign_x = _glob_zoomENDpt.x < _glob_zoomSTARTpt.x ? -1 : 1 ;
-           _mouse_event_dy = _glob_zoomRECT.height();   _mouse_event_zoom_rect_sign_y = _glob_zoomENDpt.y > _glob_zoomSTARTpt.y ? 1 : -1 ;
+           _mouse_event_dx = _glob_zoom_rect.width();    _mouse_event_zoom_rect_sign_x = _glob_zoomENDpt.x < _glob_zoomSTARTpt.x ? -1 : 1 ;
+           _mouse_event_dy = _glob_zoom_rect.height();   _mouse_event_zoom_rect_sign_y = _glob_zoomENDpt.y > _glob_zoomSTARTpt.y ? 1 : -1 ;
 
            if ( _glob_interface_index == INTERFACE_EXTEND_NONE )
            _mouse_event_zoom_rect_side_x = _mouse_event_zoom_rect_side_y = Math.max( _mouse_event_dx, _mouse_event_dy );
@@ -163,13 +163,13 @@ function W_PLANE_work_canvas_onmouseup( obj, event )
            // correction
            if ( _mouse_event_dx != _mouse_event_dy )
            {
-              _glob_zoomRECT.x2 = _glob_zoomRECT.x1 + _mouse_event_zoom_rect_side_x * _mouse_event_zoom_rect_sign_x ;
-              _glob_zoomRECT.y2 = _glob_zoomRECT.y1 + _mouse_event_zoom_rect_side_y * _mouse_event_zoom_rect_sign_y ;
+              _glob_zoom_rect.x2 = _glob_zoom_rect.x1 + _mouse_event_zoom_rect_side_x * _mouse_event_zoom_rect_sign_x ;
+              _glob_zoom_rect.y2 = _glob_zoom_rect.y1 + _mouse_event_zoom_rect_side_y * _mouse_event_zoom_rect_sign_y ;
            }
                     
            circles_lib_canvas_clean( obj );
            _mouse_event_context = obj.getContext( _glob_canvas_ctx_2D_mode );
-           circles_lib_draw_polyline( _mouse_event_context, wplane_sm, _glob_zoomRECT.corners(), "lime", "", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
+           circles_lib_draw_polyline( _mouse_event_context, wplane_sm, _glob_zoom_rect.corners(), "lime", "", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
 
            alert_plug_label( ALERT_YES, "Yes" );
            alert_plug_label( ALERT_NO, "No" );
@@ -201,8 +201,8 @@ function W_PLANE_work_canvas_onmouseup( obj, event )
            HTMLcode += "</table>" ;
 
            alert_msg( ALERT_YESNO | ALERT_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_get_def( W_PLANE ), 430 );
-           var screen_left_top_pt = wplane_sm.from_cartesian_to_client( _glob_zoomRECT.x1, _glob_zoomRECT.y1 );
-           var screen_right_bottom_pt = wplane_sm.from_cartesian_to_client( _glob_zoomRECT.x2, _glob_zoomRECT.y2 );
+           var screen_left_top_pt = wplane_sm.from_cartesian_to_client( _glob_zoom_rect.x1, _glob_zoom_rect.y1 );
+           var screen_right_bottom_pt = wplane_sm.from_cartesian_to_client( _glob_zoom_rect.x2, _glob_zoom_rect.y2 );
            circles_lib_canvas_blowup( _glob_wplane_rendering_canvas_placeholder,
                                $('#ZOOMthumbCANVAS').get(0),
                                screen_left_top_pt.x, screen_left_top_pt.y,

@@ -41,10 +41,10 @@ function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*m
    		 var _mutex = arguments[5] ;
    		 switch( _out_msg_type )
    		 {
-			 			case DISPATCH_WARNING: _color = "orange" ; break ;
-			 			case DISPATCH_SUCCESS: _color = "greensuccess" ; break ;
-			 			case DISPATCH_CRITICAL: case DISPATCH_ERROR: _color = "rederror" ; break ;
-			 			case DISPATCH_INFO: default: _color = "lightgray" ; break ;
+		 			case DISPATCH_WARNING: _color = "orange" ; break ;
+		 			case DISPATCH_SUCCESS: _color = "greensuccess" ; break ;
+		 			case DISPATCH_CRITICAL: case DISPATCH_ERROR: _color = "rederror" ; break ;
+		 			case DISPATCH_INFO: default: _color = "lightgray" ; break ;
 			 }
 			 _color = get_rgb_from_color_tag( _color ) ;
 			 circles_lib_extras_special_fx_msg( _ctrl_id, _out_msg_text, _color, _milliseconds_duration, _mutex ) ;
@@ -168,20 +168,16 @@ function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*m
        }
 
        if ( is_string( _out_msg_text ) ) _out_msg_text = [ _out_msg_text ] ;
-       else if ( _out_msg_text.output ) // it's an object, endowed with a method for retrieving internal data
-       {
-            _out_msg_text = [ _out_msg_text.output() ] ;
-       }
-       
-       $.each( _out_msg_text,
-       				 function( _i, _msg )
+       // it's an object, endowed with a method for retrieving internal data
+       else if ( _out_msg_text.output ) _out_msg_text = [ _out_msg_text.output() ] ;
+
+       $.each( _out_msg_text, function( _i, _msg )
        				 {
                    if ( _msg.length > 0 )
                    {
     									 _msg = "<lightblue>"+( ( ( _i == 0 && _showtime_at_firstrow_only ) || !_showtime_at_firstrow_only ) ? current_time() : ( new String( "&nbsp;" ) ).repeat(14) )+"</lightblue>&nbsp;&nbsp;" + _msg ;
     									 _msg = circles_lib_colors_decode_tags( _msg ) ;
                    }
-						       
                    $( "#" + _output_ctrl_id ).append( "<div>"+_msg+"</div>" );
 							 }
 			 			 ) ;
