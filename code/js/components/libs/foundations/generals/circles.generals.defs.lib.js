@@ -14,7 +14,7 @@ function circles_lib_return_plane_type( _plane_def, _set_target )
     {
 				if ( _plane_def.isAlpha() )
 				{	
-						_plane_def = _plane_def.replaceAll( [ "_", "-", " " ], "" ).toLowerCase();
+						_plane_def = _plane_def.replace( /[\_\-\.\s+]/, "" ).toLowerCase();
 		        switch( _plane_def )
 						{
 								case "zplane": _plane_def = Z_PLANE ; break ;
