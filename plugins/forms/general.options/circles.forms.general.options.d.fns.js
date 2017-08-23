@@ -233,7 +233,7 @@ function CIRCLESformsGENERALOPTIONSlayersREFRESH( _plane_type, _layer_role_index
 
 function CIRCLESformsGENERALOPTIONSlayersCLEANentry( _plane_type, _layer_role_index, _reloader_fn )
 {
-    var _render_fn = _plane_type == Z_PLANE ? "circles_lib_canvas_render_zplane(null,null,["+_layer_role_index+"],YES,NO,NO,NO,YES,OUTPUT_SCREEN);" : "circles_lib_canvas_render_wplane(null,null,["+_layer_role_index+"],YES,NO,NO,YES,NO,YES);" ;
+    var _render_fn = _plane_type == Z_PLANE ? "circles_lib_canvas_render_zplane(null,null,["+_layer_role_index+"],YES,NO,NO,NO,YES,YES,OUTPUT_SCREEN);" : "circles_lib_canvas_render_wplane(null,null,["+_layer_role_index+"],YES,NO,NO,YES,NO,YES);" ;
     try{ eval( _render_fn ) ; }
 		catch( _err ) { circles_lib_error_obj_handler( _err, _linebreak_cmd, OUTPUT_SCRIPT_EDITOR ) ; }
     CIRCLESformsGENERALOPTIONSreloadLIST( _plane_type, _layer_role_index, _reloader_fn );
@@ -628,7 +628,7 @@ function CIRCLESformsGENERALOPTIONSdisksfillOPTIONSask( _question, _silent, _out
              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, MSG, _glob_app_title ) ;
              else
              {
-                var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+                var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
    						  var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
    						  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                 return _ret_id ? [ 1, "Disk fill option set up with success" ] : _ret_chunk ;
@@ -681,7 +681,7 @@ function CIRCLESformsGENERALOPTIONSdisksdrawOPTIONSask( _question, _silent, _out
 
             MSG = "The disk draw option was set "+( _glob_wplane_disk_draw ? "on" : "off" )+" for all items" ;
             if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, MSG, _glob_app_title ) ;
-            return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+            return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
          }
          else return [ RET_IRRELEVANT, "Operation halted by user" ] ;
     }
@@ -758,7 +758,7 @@ function CIRCLESformsGENERALOPTIONSreset( _question, _silent, _out_channel )
         circles_lib_canvas_layer_pile_clean_per_plane( Z_PLANE, UNDET, YES, _out_channel );
         circles_lib_canvas_layer_pile_clean_per_plane( W_PLANE, UNDET, YES, _out_channel );
           
-        var _ret_chunk_zplane= circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+        var _ret_chunk_zplane= circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
         var _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, YES, YES, NO, YES, _out_channel );
 
         var _final_ret = YES ;

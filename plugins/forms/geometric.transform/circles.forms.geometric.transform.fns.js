@@ -43,7 +43,7 @@ function CIRCLESformsGEOMETRICTRANSFORMshift( _question, _silent, _out_channel )
                 
                if ( circles_lib_count_seeds() > 0 )
                {
-		               var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+		               var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
 					         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 					         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "7Unknown error" ;
 					         if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
@@ -110,7 +110,7 @@ function CIRCLESformsGEOMETRICTRANSFORMrotate( _question, _silent, _out_channel 
 					         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 					         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "8Unknown error" ;
 					         if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
-                   var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+                   var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
 								 }
             }
         }

@@ -1,4 +1,4 @@
-function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_rendering, _question, _silent, _out_channel )
+function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_rendering, _question, _silent, _b_reset_coords, _out_channel )
 {
 		circles_lib_menu_entries_update() ;
 		if ( _glob_interface_index == INTERFACE_EXTEND_WPLANE ) return [ RET_IRRELEVANT, "Z-plane rendering skipped for extended interface" ] ;
@@ -13,6 +13,7 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
     
     _b_clean = safe_int( _b_clean, NO );
     _b_render_bk = safe_int( _b_render_bk, YES ), _b_rendering = safe_int( _b_rendering, YES );
+    _b_reset_coords = safe_int( _b_reset_coords, YES );
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     
@@ -36,15 +37,13 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
     _work_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( Z_PLANE, "work" ) ? circles_lib_canvas_get_target( Z_PLANE, "work" ) : _glob_zplane_work_canvas_placeholder ) ;
 
     _glob_apply_dashed_border = YES ;
-    circles_lib_reset_coords();
-      
+    if ( _b_reset_coords ) circles_lib_reset_coords();
     if ( _b_clean )
     {
         if ( _selected_layers_array != null )
         {
          		var _layer, _tmp_canvas ;
-            $.each( _selected_layers_array,
-                    function( _i, _layer_role_index )
+            $.each( _selected_layers_array, function( _i, _layer_role_index )
                     {
                        _layer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, _layer_role_index );
                        if ( _layer != null )

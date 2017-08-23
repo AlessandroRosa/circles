@@ -8,7 +8,7 @@ if ( is_canvas_supported() && is_multithreading_compatible() )
         _cmd += "circles_lib_canvas_layer_pile_init(ALL_PLANES,"+_glob_canvas_width+",YES);";
         _cmd += "circles_lib_recalc_screen_disks_coords( zplane_sm );";
         _cmd += "circles_lib_masterdiv_display(1);";
-        _cmd += "circles_lib_canvas_render_zplane(null,null,null,YES,YES,YES,NO,YES,OUTPUT_SCREEN);" ;
+        _cmd += "circles_lib_canvas_render_zplane(null,null,null,YES,YES,YES,NO,YES,YES,OUTPUT_SCREEN);" ;
         _cmd += "circles_lib_canvas_render_wplane(null,null,null,YES,YES,NO,YES,NO,YES,OUTPUT_SCREEN);" ;
         _cmd += "CIRCLESgetMETRICS();circles_lib_statusbar_init();circles_lib_menu_entries_update();_window_resize_ext();" ;
     alert_plug_fn( ALERT_YES, "alertCLOSE();" + _cmd );

@@ -90,7 +90,7 @@ function CIRCLESformsTANGENTCIRCLEselection()
     circles_lib_helper_div_remove();
     if ( CIRCLEScombo01.selectedIndex > 0 ) _glob_zplane_selected_items_array.push( SEL1 );
     if ( _glob_zplane_selected_items_array.length > 0 )
-    var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES,OUTPUT_SCREEN );
+    var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCREEN );
     var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
     var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "17Unknown error" ;
     if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );

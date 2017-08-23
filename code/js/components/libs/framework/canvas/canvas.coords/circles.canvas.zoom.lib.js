@@ -9,7 +9,7 @@ function circles_lib_canvas_coords_reset( _plane_type, _render, _out_channel )
          _glob_zplaneRIGHT = DEFAULT_PLANE_COORD ;
          _glob_zplaneTOP = DEFAULT_PLANE_COORD ;
          _glob_zplaneBOTTOM = -DEFAULT_PLANE_COORD ;
-         return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, NO, YES, _out_channel );
+         return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, NO, YES, YES, _out_channel );
          break ;
          case W_PLANE:
          _glob_wplaneLEFT = -DEFAULT_PLANE_COORD ;
@@ -127,7 +127,7 @@ function circles_lib_canvas_coords_shift( _where, _plane_type, _silent, _render,
           
     if ( _render && _plane_type.is_one_of( Z_PLANE ) )
     {
-       var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, NO, YES, _out_channel );
+       var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, NO, YES, YES, _out_channel );
        var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
        return [ _ret_id ? RET_OK : RET_ERROR, _ret_id ? "Z-plane coordinates shifted with success. Now rendering in action" : _ret_msg ] ;
@@ -189,7 +189,7 @@ function circles_lib_canvas_zoom( _plane_type, _mode /* 1: ZOOM IN, 2: ZOOM OUT 
     {
         case Z_PLANE:
         _glob_zplaneLEFT = LEFT, _glob_zplaneRIGHT = RIGHT, _glob_zplaneTOP = TOP, _glob_zplaneBOTTOM = BOTTOM ;
-        if ( _render ) return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, _question, _silent, _out_channel );
+        if ( _render ) return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, _question, _silent, YES, _out_channel );
         break ;
         case W_PLANE:
         _glob_wplaneLEFT = LEFT, _glob_wplaneRIGHT = RIGHT, _glob_wplaneTOP = TOP, _glob_wplaneBOTTOM = BOTTOM ;

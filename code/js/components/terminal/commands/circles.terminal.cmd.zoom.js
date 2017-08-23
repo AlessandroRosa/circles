@@ -328,7 +328,7 @@ function circles_terminal_cmd_zoom()
              }
 
              _ret_chunk = function_exists( "CIRCLESformsCOORDINATESinputMANAGER" ) ? CIRCLESformsCOORDINATESinputMANAGER( _plane_type, _render, null,
-													ZOOM_SET_NEW_COORDS, new complex( _center_pt.x, _center_pt.y ), _viewport_width, NO, YES, _out_channel ) : null ;
+													ZOOM_SET_COORDS, new complex( _center_pt.x, _center_pt.y ), _viewport_width, NO, YES, _out_channel ) : null ;
              if ( is_array( _ret_chunk ) )
              {
                _ret_id = safe_int( _ret_chunk[0], NO ), _ret_msg = _ret_chunk[1] ;

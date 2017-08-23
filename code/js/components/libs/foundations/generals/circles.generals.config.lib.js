@@ -24,7 +24,7 @@ function circles_lib_config_create_new_proc( _reset_mask, _drop_additional_figur
     if ( _clean && _items_n > 0 )
     {
 		    _ret_chunk_zplane = circles_lib_coordinates_reset_core( Z_PLANE, YES, _question, _silent, _out_channel );
-        _ret_chunk_zplane = circles_lib_canvas_render_zplane( null, zplane_sm, null, _clean, YES, NO, _question, _silent, _out_channel );
+        _ret_chunk_zplane = circles_lib_canvas_render_zplane( null, zplane_sm, null, _clean, YES, NO, _question, _silent, YES, _out_channel );
         _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, _clean, YES, NO, YES, _question, _silent, _out_channel );
 		    _ret_chunk_wplane = circles_lib_coordinates_reset_core( W_PLANE, YES, _question, _silent, _out_channel );
 		    if ( _ret_chunk_zplane[0] != RET_IRRELEVANT )

@@ -253,18 +253,22 @@ function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, 
     {
        case Z_PLANE:
        LEFT = _glob_zplaneLEFT, TOP = _glob_zplaneTOP, RIGHT = _glob_zplaneRIGHT, BOTTOM = _glob_zplaneBOTTOM ;
+       zplane_sm.set_coords_corners( new point( LEFT, TOP ), new point( RIGHT, BOTTOM ) );
        if ( !is_screen_mapper( _mapper ) ) _mapper = zplane_sm.copy() ;
        break ;
        case W_PLANE:
        LEFT = _glob_wplaneLEFT, TOP = _glob_wplaneTOP, RIGHT = _glob_wplaneRIGHT, BOTTOM = _glob_wplaneBOTTOM ;
+       wplane_sm.set_coords_corners( new point( LEFT, TOP ), new point( RIGHT, BOTTOM ) );
        if ( !is_screen_mapper( _mapper ) ) _mapper = wplane_sm.copy() ;
        break ;
        case BIP_BOX:
        LEFT = _glob_bipLEFT, TOP = _glob_bipTOP, RIGHT = _glob_bipRIGHT, BOTTOM = _glob_bipBOTTOM ;
+       bipbox_sm.set_coords_corners( new point( LEFT, TOP ), new point( RIGHT, BOTTOM ) );
        if ( !is_screen_mapper( _mapper ) ) _mapper = bipbox_sm.copy() ;
        break ;
        case D_LOCUS:
        LEFT = _glob_dlocusLEFT, TOP = _glob_dlocusTOP, RIGHT = _glob_dlocusRIGHT, BOTTOM = _glob_dlocusBOTTOM ;
+       dlocus_sm.set_coords_corners( new point( LEFT, TOP ), new point( RIGHT, BOTTOM ) );
        if ( !is_screen_mapper( _mapper ) ) _mapper = dlocus_sm.copy() ;
        break ;
        default: break ;
@@ -304,19 +308,15 @@ function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, 
                  _items_array[i].screen_circle.radius = screen_radius ;
              }
           }
-                   
-          if ( circles_lib_count_items() > 0 )
+
+          if ( _render )
           {
-              if ( _render )
-              {
-                  var _ret_chunk = circles_lib_canvas_render_zplane( _canvas, _mapper, null, YES, YES, _render, !_silent, _silent, _out_channel );
-                  _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
-                  _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
-                  return [ _ret_id, _ret_id == RET_OK ? "Coords set up and rendered with success" : "Problems while rendering new coords" ] ;
-              }
-              else return [ RET_OK, "Coords set up and rendered with success" ] ;
+             var _ret_chunk = circles_lib_canvas_render_zplane( _canvas, _mapper, null, YES, YES, _render, !_silent, _silent, NO, _out_channel );
+             _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
+             _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
+             return [ _ret_id, _ret_id == RET_OK ? "Coords set up and rendered with success" : "Problems while rendering new coords" ] ;
           }
-          else return [ RET_ERROR, "Insufficient conditions to render Z-plane coords :"+_glob_crlf+" try checking both the seeds consistence and render flag" ] ;
+          else return [ RET_OK, "Coords set up and rendered with success" ] ;
         }
         else if ( _plane_type.is_one_of( W_PLANE, ALL_PLANES ) )
         {
@@ -389,8 +389,8 @@ function circles_lib_coordinates_reset_core( _plane_type, _render, _question, _s
            }
         }
                     
-        if ( circles_lib_count_items() > 0 && _render )
-        return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, _question, _silent, _out_channel );
+        if ( _render )
+        return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, _question, _silent, NO, _out_channel );
         else return [ RET_ERROR, "Insufficient conditions to render the Z-plane: try checking seeds consistence and render flag" ] ;
     }
     else if ( _plane_type.is_one_of( W_PLANE, ALL_PLANES ) )
@@ -618,7 +618,7 @@ function circles_lib_coordinates_zoom_in_disk( _render, _index, _question, _sile
                  circles_lib_helper_div_remove();
                  _glob_zplane_selected_items_array.push( i );
                  _glob_disk_sel_index = i ;
-                 var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, NO, YES, _out_channel );
+                 var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, NO, YES, NO, _out_channel );
                  var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
                  if ( _ret_id == RET_OK )

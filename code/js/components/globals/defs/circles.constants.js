@@ -286,7 +286,7 @@ var TERMINAL_TRANSFER_FROM_OPERATOR = "<<" ;
 
 var TERMINAL_SCRIPT_INPUT = 1 ;
 
-var ZOOM_GET_COORDS = 0, ZOOM_SET_NEW_COORDS = 1 ;
+var ZOOM_PULL_COORDS = 0, ZOOM_SET_COORDS = 1 ;
 
 // defs at last, in order to let the system load all above entries first
 

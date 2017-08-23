@@ -22,7 +22,7 @@ function CIRCLESformsCOORDINATESalphabetCOMBOonchange()
 				else
         {
            _glob_persistent_vars['CIRCLESformsCOORDINATESmobiusmap'] = _glob_persistent_vars['CIRCLESformsCOORDINATESitemobj'].map ;
-           var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
+           var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCREEN );
            var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
         }
@@ -33,25 +33,25 @@ function CIRCLESformsCOORDINATESinputMANAGER( _plane_type, _render, _callback_fn
 {
 		_plane_type = circles_lib_return_plane_type( _plane_type ), _render = safe_int( _render, YES );
     _callback_fn = safe_string( _callback_fn, "" );
-    _input_type = safe_int( _input_type, ZOOM_GET_COORDS );
+    _input_type = safe_int( _input_type, ZOOM_PULL_COORDS );
 		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _plane_label = circles_lib_plane_get_def( _plane_type );
-    var MSG = "Confirm to set coordinates for the " + _plane_label + "? " ;
+    var MSG = "Confirm to set these coordinates for the " + _plane_label + "? " ;
     var _b_go = !_question ? YES : confirm( MSG );
     if ( _b_go )
     {
 				var LEFT = 0, TOP = 0, RIGHT = 0, BOTTOM = 0 ;
         if ( _glob_interface_index == INTERFACE_EXTEND_NONE )
         {
-		        if ( _input_type == ZOOM_GET_COORDS )
+		        if ( _input_type == ZOOM_PULL_COORDS )
 		        {
 		            LEFT = safe_float( $("#PLANEleft").val(), 0 );
 		            TOP = safe_float( $("#PLANEtop").val(), 0 );
 		            RIGHT = safe_float( $("#PLANEright").val(), 0 );
 		            BOTTOM = safe_float( $("#PLANEbottom").val(), 0 );
 		        }
-		        else if ( _input_type == ZOOM_SET_NEW_COORDS )
+		        else if ( _input_type == ZOOM_SET_COORDS )
 		        {
 		            var _half_side = _side / 2.0 ;
 		            LEFT = _center.real - _half_side ; 
@@ -96,7 +96,7 @@ function CIRCLESformsCOORDINATESinputMANAGER( _plane_type, _render, _callback_fn
 		            }
 		
 		            var _ret_chunk = circles_lib_coordinates_set_core( null, null, _plane_type, _silent, _render, _out_channel );
-		            if ( _callback_fn.length > 0 ) eval( _callback_fn );
+		            if ( typeof _callback_fn === "function" ) eval( _callback_fn );
 		            return _ret_chunk ;
 		        }
 				}

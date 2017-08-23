@@ -362,7 +362,7 @@ function circles_terminal_cmd_tessellator()
                               {
                                   if ( _params_assoc_array['plane'] == Z_PLANE )
                                   {
-                                  	 var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+                                  	 var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
 																     var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 																	   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "36Unknown error" ;
 																	   if ( _ret_id == RET_ERROR )

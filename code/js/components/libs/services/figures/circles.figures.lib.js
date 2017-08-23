@@ -672,7 +672,7 @@ function circles_lib_figures_action( _out_channel, _action, _index_vals_array, _
 
     if ( _refresh )
     {
-        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
         if ( _ret_id == RET_OK )

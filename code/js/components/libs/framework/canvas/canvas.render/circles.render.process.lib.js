@@ -403,7 +403,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
               var CAPTION = _glob_app_title + " - " + _plane_type_label ;
               alert_plug_label( ALERT_YES, "Render" );
               if ( _plane_type.is_one_of( Z_PLANE ) )
-              alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_render_zplane( null, zplane_sm, '"+_selected_layers_array.join(',')+"', "+_b_clean+", YES, "+_render+", "+_question+", YES, "+_out_channel+" );" );
+              alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_render_zplane( null, zplane_sm, '"+_selected_layers_array.join(',')+"', "+_b_clean+", YES, "+_render+", "+_question+", YES, YES, "+_out_channel+" );" );
               else if ( _plane_type.is_one_of( W_PLANE ) )
               {
                  alert_plug_label( ALERT_NO, ( _items_error != ITEM_ERR_NONE || _check_group != GROUP_TEST_ERR_OK || _repetends_fail_error ||

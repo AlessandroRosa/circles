@@ -327,7 +327,7 @@ function circles_lib_canvas_layer_refresh( _plane_type, _layer_role_index, _bkco
     {
          _layers_pile_ref[ _layer_pos_index ].getContext( _glob_canvas_ctx_2D_mode ).backgroundColor = _bkcolor ;
          $( "#" + _layer.get_idcanvas() ).css( {'background-color': _bkcolor } );
-         return _plane_type == Z_PLANE ? circles_lib_canvas_render_zplane( null, _sm, [ _layer_role_index ], YES, NO, YES, NO, YES, _out_channel ) : circles_lib_canvas_render_wplane( null, _sm, [ _layer_role_index ], YES, YES, YES, YES, NO, YES, _out_channel );
+         return _plane_type == Z_PLANE ? circles_lib_canvas_render_zplane( null, _sm, [ _layer_role_index ], YES, NO, YES, NO, YES, YES, _out_channel ) : circles_lib_canvas_render_wplane( null, _sm, [ _layer_role_index ], YES, YES, YES, YES, NO, YES, _out_channel );
     }
     else return [ RET_ERROR, "missing plane ref" ] ;
 }

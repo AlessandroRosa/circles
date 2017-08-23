@@ -92,7 +92,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 				    	_glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID ;
               if ( _glob_app_run && circles_lib_count_seeds() > 0 && _sel_length > 0 )
               {
-                  var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCRIPT_EDITOR );
+                  var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCRIPT_EDITOR );
                   circles_lib_canvas_update_icons_bar( "CANVASzplaneBAR" );
                   circles_lib_statusbar_update_elements();
               }
@@ -403,7 +403,7 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
                         */
                         circles_lib_canvas_clean( _glob_zplane_rendering_canvas_placeholder );
                         $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-                        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCRIPT_EDITOR );
+                        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCRIPT_EDITOR );
                         if ( _glob_popup_mask == 0 ) // if it is 1, no action is performed cause windows remains on top
                         {
                             // if the pop-up window is displayed, update it

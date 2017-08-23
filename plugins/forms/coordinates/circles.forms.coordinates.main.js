@@ -122,7 +122,7 @@ function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
     }
 
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformsCOORDINATESsetcoordsBTN\" ONCLICK=\"javascript:CIRCLESformsCOORDINATESinputMANAGER( "+_plane_type+", "+_render+", '"+REFRESH_FN+"', ZOOM_GET_COORDS, null, null, "+_question+", "+_silent+" );\">Set coords</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformsCOORDINATESsetcoordsBTN\" ONCLICK=\"javascript:CIRCLESformsCOORDINATESinputMANAGER( "+_plane_type+", "+_render+", '"+REFRESH_FN+"', ZOOM_PULL_COORDS, null, null, "+_question+", YES );\">Set coords</td>" ;
     if ( _plane_type == W_PLANE )
     {
         HTMLcode += "<td WIDTH=\"1\"></td>" ;

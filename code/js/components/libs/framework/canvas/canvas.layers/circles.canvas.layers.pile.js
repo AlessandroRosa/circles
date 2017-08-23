@@ -209,7 +209,7 @@ function circles_lib_canvas_layer_pile_resize_to_default( _set_default_coords, _
 
     if ( _render )
     {
-       var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+       var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
        var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
        if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
@@ -475,7 +475,7 @@ function circles_lib_canvas_layer_pile_resize( _plane_type, _width_percentage, _
 
      if ( _render )
      {
-         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
          var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
          var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
          if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );

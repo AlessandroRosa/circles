@@ -34,7 +34,7 @@ function circles_lib_complexdisk_correct_tangency( _items_array, _index1, _index
            }
         }
         
-        _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+        _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
         if ( _ret_chunk[0] != RET_OK )
         {
            circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
@@ -60,7 +60,7 @@ function circles_lib_complexdisk_remove_all( _items_array, _question, _silent, _
        if ( _b_go )
        {
            _items_array.flush();
-           var _ret_chunk_zplane= circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+           var _ret_chunk_zplane= circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
            var _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, YES, YES, NO, YES, _out_channel );
            var _ret_chunk_zplane = circles_lib_coordinates_reset_core( Z_PLANE, YES, _question, _silent, _out_channel );
            var _ret_chunk_wplane = circles_lib_coordinates_reset_core( W_PLANE, YES, _question, _silent, _out_channel );
@@ -99,7 +99,7 @@ function circles_lib_complexdisk_select_all( _out_channel )
     circles_lib_helper_div_remove();
     for( var _i = 0 ; _i < _items_n ; _i++ ) _glob_zplane_selected_items_array.push( _i );
     circles_lib_canvas_clean( _glob_zplane_rendering_canvas_placeholder );
-    return circles_lib_canvas_render_zplane( null, zplane_sm, _glob_zplane_selected_items_array, YES, YES, YES, NO, YES, _out_channel );
+    return circles_lib_canvas_render_zplane( null, zplane_sm, _glob_zplane_selected_items_array, YES, YES, YES, NO, YES, YES, _out_channel );
 }
 
 function circles_lib_complexdisk_shift( where, _plane_type )
@@ -162,7 +162,7 @@ function circles_lib_complexdisk_addfrom_screendisk( X, Y, RADIUS, _out_channel 
 
     if ( circles_lib_count_items() > 0 )
     {
-       _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel);
+       _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel);
        if ( _ret_chunk[0] != RET_OK )
        {
           circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
@@ -329,7 +329,7 @@ function circles_lib_complexdisk_remove( _items_array, _question, _silent, _forc
           }
           circles_lib_items_switch_to( _item_type, YES, _out_channel );
           _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-          _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+          _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
           if ( _ret_chunk[0] != RET_OK )
           {
              circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );

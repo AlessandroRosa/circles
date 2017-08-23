@@ -61,7 +61,7 @@ function circles_lib_draw_all_screen_disks( _context, _mapper, _selected_items_a
     {
        var _ret_chunk = [] ;
        if ( _canvas.get_type() == Z_PLANE )
-       return _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+       return _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
        else if ( _canvas.get_type() == W_PLANE )
        return _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, YES, YES, NO, YES, _out_channel );
     }

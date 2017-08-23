@@ -156,5 +156,5 @@ function CIRCLESformsGEOMETRICTRANSFORMselectDISK( index )
     _glob_zplane_selected_items_array.push( index );
     _glob_disk_sel_index = index ;
     circles_lib_helper_div_remove();
-    return circles_lib_canvas_render_zplane( null, zplane_sm, null,YES,YES,YES,NO,YES,OUTPUT_SCREEN);
+    return circles_lib_canvas_render_zplane( null, zplane_sm, null,YES,YES,YES,NO,YES,YES,OUTPUT_SCREEN);
 }

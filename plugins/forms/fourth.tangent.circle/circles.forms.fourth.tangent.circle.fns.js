@@ -8,7 +8,7 @@ function CIRCLESformsFOURTHTANGENTCIRCLEcleanCANVAS( _question, _silent, _out_ch
       var CIRCLEScombo01 = $("#CIRCLEScombo01").prop( "selectedIndex", 0 );
       var CIRCLEScombo02 = $("#CIRCLEScombo02").prop( "selectedIndex", 0 );
       var CIRCLEScombo03 = $("#CIRCLEScombo03").prop( "selectedIndex", 0 );
-      var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, _question, _silent, _out_channel );
+      var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, _question, _silent, YES, _out_channel );
       var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
       var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] + "" : "" ;
       return _ret_id ? [ 1, "Canvas has been cleaned with success" ] : _ret_chunk ;

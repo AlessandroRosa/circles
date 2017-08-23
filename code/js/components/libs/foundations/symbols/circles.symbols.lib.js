@@ -201,7 +201,7 @@ function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent
               _items_array[_index_02].inverse_symbol = _inverse_sym_01.trim();
 
               if ( _caller == 1 ) circles_lib_plugin_load('forms','seeds.list');
-              return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+              return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
            }
            else
            {
@@ -290,7 +290,7 @@ function circles_lib_symbol_zplane_display( _items_array, _canvas, _symbol, _b_i
         CELLsetCONTENTS('[id$=symbolsBTN]', _glob_show_symbols_zplane ? "Hide symbols" : "Show symbols" );
     
         if ( _refresh_zplane && !( arguments.callee.caller.callername(1).strcmp( "circles_lib_canvas_render_zplane" ) ) ) // prevent looping in any case
-        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
 		    var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 		    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "32Unknown error" ;
         if ( _ret_id == RET_ERROR )

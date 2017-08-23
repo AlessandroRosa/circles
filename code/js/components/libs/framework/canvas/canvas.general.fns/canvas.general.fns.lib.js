@@ -48,7 +48,7 @@ function circles_lib_refresh_main_canvases( _out_channel )
 {
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _final_ret = YES ;
-    var _ret_chunk_zplane = circles_lib_canvas_render_zplane( null, zplane_sm, null, NO, YES, YES, YES, YES, _out_channel );
+    var _ret_chunk_zplane = circles_lib_canvas_render_zplane( null, zplane_sm, null, NO, YES, YES, YES, YES, YES, _out_channel );
     var _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, NO, YES, NO, YES, NO, YES, _out_channel );
     if ( _ret_chunk_zplane[0] != RET_IRRELEVANT )
     _final_ret &= _ret_chunk_zplane != null ? _ret_chunk_zplane[0] : 0 ;
@@ -94,7 +94,7 @@ function circles_lib_canvas_plane_refresh( _plane_type, _question, _out_channel 
         {
 					 if ( _glob_interface_index == INTERFACE_EXTEND_NONE )
            {
-               var _ret_chunk = circles_lib_canvas_render_zplane(null,null,null,YES,NO,NO,NO,YES,_out_channel);
+               var _ret_chunk = circles_lib_canvas_render_zplane(null,null,null,YES,NO,NO,NO,YES,YES,_out_channel);
                var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
                if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );

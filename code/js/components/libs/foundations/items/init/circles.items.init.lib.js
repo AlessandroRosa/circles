@@ -54,7 +54,7 @@ function circles_lib_items_unselect( _question, _silent, _out_channel )
 			       _glob_disk_sel_index = UNDET ;
 	        	 _glob_zplane_selected_items_array.flush();
              circles_lib_helper_div_remove();
-						 _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+						 _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
              if ( safe_int( _ret_chunk[ 0 ], 0 ) == RET_ERROR ) return _ret_chunk ;
 					}
 

@@ -340,7 +340,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                    _glob_zplane_selected_items_array.flush();
                    _glob_zplane_selected_items_array.push( _item_index );
                    circles_lib_helper_div_remove();
-                   var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+                   var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
                    if ( _ret_chunk[0] != RET_OK )
                    {
                       circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
@@ -388,7 +388,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                 _glob_init_mask = INIT_FROM_DISKS | ( circles_lib_method_get() == METHOD_ALGEBRAIC ? INIT_PAIRED_ITEMS : INIT_SINGLE_ITEMS ) ;
                 circles_lib_menu_entries_update();
 								circles_lib_plugin_load('forms','edit.disk',NO,_item_index,_items_switch,_options);
-								circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
+								circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCREEN );
                 $('[id$=initBTN]').css('color',COLOR_ERROR) ;
 		            _glob_to_save = NO, _glob_items_to_init = YES ;
 		            $("#CIRCLESformsEDITDISKapplyBTN").css( "color", "black" );

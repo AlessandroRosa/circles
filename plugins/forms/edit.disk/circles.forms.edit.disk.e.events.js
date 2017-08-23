@@ -18,11 +18,11 @@ function CIRCLESformsEDITDISKeventsHANDLER( _ctrl_id, _event )
                           "THREEPOINTSpt3x", "THREEPOINTSpt3y" ) )
     {
         CIRCLESformsEDITDISKdisk_from_3points();
-        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, YES, NO, OUTPUT_SCREEN );
+        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
     }
     else if ( _ctrl_id.one_in( "CIRCLEselectedALPHA", "CIRCLEselectedBETA", "CIRCLEselectedGAMMA" ) )
     {
         CIRCLESformsEDITDISKdisk_from_equation();
-        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, YES, NO, OUTPUT_SCREEN );
+        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
     }
 }

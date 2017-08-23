@@ -438,7 +438,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
     }
 
     var new_method_str = circles_lib_method_get_def( _glob_method );
-    _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, _silent, _out_channel );
+    _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, _silent, YES, _out_channel );
     if ( _ret_chunk[0] != RET_IRRELEVANT )
     {
        _final_ret &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;

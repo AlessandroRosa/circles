@@ -21,7 +21,7 @@ function circles_lib_screendisk_add_from_coords( X, Y, RADIUS, _out_channel )
     _glob_zplane_selected_items_array.push( LASTindex );
     circles_lib_helper_div_remove();
     if ( circles_lib_count_items() > 0 )
-    var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel);
+    var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel);
     var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
     var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "23Unknown error" ;
     if ( _ret_id == RET_ERROR ) return _ret_chunk ;

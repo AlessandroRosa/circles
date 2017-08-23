@@ -715,7 +715,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "64Unknown error" ;
         if ( _ret_id == RET_OK )
         {
-            _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _glob_output_channel );
+            _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _glob_output_channel );
             _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
             _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "65Unknown error" ;
             if ( _ret_id == RET_OK )

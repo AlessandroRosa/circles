@@ -16,21 +16,17 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
   (Remove each entry after completing the checkings)
 
 * FORMS
-coordinates ('set coords' btn does not work)
-
 bip
 circle.inversion
 dictionary
 discreteness.locus
 edit.disk
 eps.editor
-forms.txt
 fourth.tangent.circle
 general.options
 geometric.transform
 help.items
 intersection.points
-log
 merging
 method
 palette

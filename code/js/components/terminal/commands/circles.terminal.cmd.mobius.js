@@ -652,7 +652,7 @@ function circles_terminal_cmd_mobius()
                         
                         if ( _glob_zplane_selected_items_array.length > 0 )
                         {
-                            var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+                            var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
 		  										  var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
 														var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
                             if ( _ret_id ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't find the required map(s)", _par_1, _cmd_tag );

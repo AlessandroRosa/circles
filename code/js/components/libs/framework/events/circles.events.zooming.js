@@ -6,7 +6,7 @@ function circles_lib_coords_pickupyours_close_proc( _redraw, _question, _silent 
    {
      var _ret_chunk = null ;
      if ( _glob_target_plane.is_one_of( Z_PLANE, ALL_PLANES ) && circles_lib_count_items() > 0 )
-     _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, _question, _silent, OUTPUT_SCREEN );
+     _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, _question, _silent, YES, OUTPUT_SCREEN );
      else if ( _glob_target_plane.is_one_of( W_PLANE, ALL_PLANES ) )
      _ret_chunk_ask = circles_lib_canvas_process_ask(_question,_silent,W_PLANE,YES,YES,CHECK);
 
@@ -17,7 +17,7 @@ function circles_lib_coords_pickupyours_close_proc( _redraw, _question, _silent 
    {
      if ( _glob_target_plane.is_one_of( Z_PLANE, ALL_PLANES ) )
      {
-       _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, [ ROLE_WORK ], YES, YES, YES, _question, _silent, OUTPUT_SCREEN );
+       _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, [ ROLE_WORK ], YES, YES, YES, _question, _silent, YES, OUTPUT_SCREEN );
        var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 			 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "1Unknown error" ;
 			 if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );

@@ -397,7 +397,7 @@ function circles_terminal_cmd_symbol()
                                 if ( _auto )
                                 {
                                      _glob_show_symbols_zplane = NO ;
-                                     var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+                                     var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
                                      var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
                                      var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Shifting symbols: memory failure" ;
                                      if ( _ret_id )
@@ -432,7 +432,7 @@ function circles_terminal_cmd_symbol()
                   circles_lib_menu_entries_update();
                   if ( _sd_n > 0 )
                   {
-                      var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+                      var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
                       var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
                       var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Shifting symbols: memory failure" ;
                       if ( _ret_id )

@@ -38,7 +38,7 @@ function CIRCLESformsTANGENTCIRCLEdispatcher()
 						            if ( confirm( _msg ) )
 						            {
 						                _glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID;
-						                var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES,OUTPUT_SCREEN );
+						                var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCREEN );
 									          var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 										        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "18Unknown error" ;
 										        if ( _ret_id == RET_ERROR )
@@ -60,7 +60,7 @@ function CIRCLESformsTANGENTCIRCLEdispatcher()
 						    else
 						    {
                     _glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID;
-						        circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES,OUTPUT_SCREEN );
+						        circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCREEN );
 					          var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 						        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "19Unknown error" ;
 						        if ( _ret_id == RET_ERROR )
