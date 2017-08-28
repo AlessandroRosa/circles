@@ -549,13 +549,13 @@ function unlinkRecursive( $dir, $deleteFolder, $bREPORT = false, &$_glob_counter
                 echo "<tr>
                           <td STYLE=\"padding-top:1px;\"
                               WIDTH=\"10\" ALIGN=\"center\"><IMG SRC=\"img/icons/bullets/bullet.blue.20x20.png\"></td>
-                          <td WIDTH=\"6\"></td>
+                          <td WIDTH=\"5\"></td>
                           <td STYLE=\"font-size:8pt;
                                       font-family:arial;\">Cartella</td>
-                          <td WIDTH=\"6\"></td>
+                          <td WIDTH=\"5\"></td>
                           <td STYLE=\"font-size:8pt;
                                       font-family:arial;\">$dir</td>
-                          <td WIDTH=\"6\"></td>
+                          <td WIDTH=\"5\"></td>
                           <td STYLE=\"font-size:8pt;
                                       font-family:arial;\">eliminata</td>
                       </tr>

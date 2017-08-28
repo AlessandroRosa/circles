@@ -236,6 +236,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelGRAPHconstruct( _graph_wi
 {
 		_n_intervals = safe_int( _n_intervals, 0 );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+    console.log( _items_array );
     var HTMLcode = "" ;
 		if ( _n_intervals == 0 )
     {

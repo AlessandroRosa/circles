@@ -252,7 +252,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
     						}
              }
 
-             if ( _glob_bip_use )
+             if (_glob_bip_use)
              {
                 HTMLcode += "<tr><td>Bip activated : <b>Yes</b></td></tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
@@ -387,9 +387,11 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                     HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Please, fix problems first</td></tr>" ;
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                  }
+                 /*
                  else if ( !_HALT )
                  {
                  }
+                 */
              }
              else
              {
@@ -402,6 +404,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
 
               var CAPTION = _glob_app_title + " - " + _plane_type_label ;
               alert_plug_label( ALERT_YES, "Render" );
+
               if ( _plane_type.is_one_of( Z_PLANE ) )
               alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_render_zplane( null, zplane_sm, '"+_selected_layers_array.join(',')+"', "+_b_clean+", YES, "+_render+", "+_question+", YES, YES, "+_out_channel+" );" );
               else if ( _plane_type.is_one_of( W_PLANE ) )
@@ -410,7 +413,6 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
    																				   ( !_rnd_sum_check && _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM ) ) ? "Close" : "No" );
                  alert_plug_label( ALERT_CANCEL, "Init but no render" );
                  alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_render_wplane( null, wplane_sm, '"+_selected_layers_array.join(',')+"', "+_b_clean+", YES, "+_render+", "+_b_init_items+", "+_question+", YES, "+_out_channel+" );" );
-                 alert_plug_fn( ALERT_CANCEL, "alertCLOSE();" );
               }
               else if ( _plane_type == BIP_BOX )
               alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, '"+_selected_layers_array.join(',')+"', "+_b_clean+", YES, "+_render+", "+_b_init_items+", "+_question+", YES, "+_out_channel+" );" );
@@ -421,6 +423,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
 
               if ( _HALT ) alert_plug_label( ALERT_YES, "Don't care !" );
               
+              alert_plug_fn( ALERT_CANCEL, "alertCLOSE();" );
               alert_plug_fn( ALERT_NO, "alertCLOSE();" );
               alert_set_btns_width( _plane_type.is_one_of( Z_PLANE ) ? 60 : 110 );
               alert_msg( _mode, HTMLcode, CAPTION, DIV_WIDTH, '', ICON );

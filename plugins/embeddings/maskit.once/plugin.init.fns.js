@@ -34,9 +34,9 @@ function CIRCLESembeddingsMASKITONCE_PRESETS( _opcode, _init )
     {
         case 1: // display
         var _html = "<SELECT ID=\"PLUGINpresetsCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsMASKITONCE_PRESETS(2,YES);\">" ;
-            _html += "<OPTION VALUE=\""+UNDET+"\" SELECTED=\"selected\">" ;
-            $.each( CIRCLESembeddingsMASKITONCE_PRESETSarray, function( _i, _v ) { _html += "<OPTION VALUE=\""+_i+"\">#" + ( _i + 1 ) + ( _v[3] != null ? " - " + _v[3] : "" ) } );
-            _html += "</SELECT>" ;
+        _html += "<OPTION VALUE=\""+UNDET+"\" SELECTED=\"selected\">" ;
+        $.each( CIRCLESembeddingsMASKITONCE_PRESETSarray, function( _i, _v ) { _html += "<OPTION VALUE=\""+_i+"\">#" + ( _i + 1 ) + ( _v[3] != null ? " - " + _v[3] : "" ) } );
+        _html += "</SELECT>" ;
         return _html ;
         break ;
         case 2: // select
@@ -54,9 +54,8 @@ function CIRCLESembeddingsMASKITONCE_PRESETS( _opcode, _init )
             }
             else
                _coords = circles_lib_interface_recalc_bounding_coords( INTERFACE_INPUT_HEIGHT,
-                                                    _glob_wplaneLEFT, safe_float( _coords[1], DEFAULT_PLANE_COORD ),
-                                                    _glob_wplaneRIGHT, safe_float( _coords[3], -DEFAULT_PLANE_COORD )
-                                                   ) ;
+                         _glob_wplaneLEFT, safe_float( _coords[1], DEFAULT_PLANE_COORD ),
+                         _glob_wplaneRIGHT, safe_float( _coords[3], -DEFAULT_PLANE_COORD ) ) ;
 
             _glob_zplaneLEFT = _glob_wplaneLEFT = _glob_bipLEFT = safe_float( _coords[0], -DEFAULT_PLANE_COORD );
             _glob_zplaneTOP = _glob_wplaneTOP = _glob_bipTOP = safe_float( _coords[1], DEFAULT_PLANE_COORD );

@@ -68,7 +68,7 @@ function CIRCLESformsEPSEDITORmain( _base_id, _move )
     HTMLcode += "<td WIDTH=\"35\" STYLE=\"text-align:center;\"ID=\"CIRCLESepseditorPAGEto\">"+_to+"</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td>of</td>" ;
-    HTMLcode += "<td WIDTH=\"6\"></td>" ;
+    HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>"+safe_size( _codelist_ref, 0 )+"</td>" ;
     HTMLcode += "</td></tr>" ;
     HTMLcode += "</table>" ;

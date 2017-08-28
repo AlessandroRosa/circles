@@ -555,13 +555,13 @@ function circles_terminal_cmd_storage()
 						                                          if ( _i % _html_columns == 0 ) _html += "<tr>" ;
 						                                          _html += "<td>"+_item+"</td>" ;
 						                                          if ( _i % _html_columns == ( _html_columns - 1 ) ) _html += "</tr>" ;
-						                                          else _html += "<td WIDTH=\"6\"></td>" ;
+						                                          else _html += "<td WIDTH=\"5\"></td>" ;
 						                                          break ;
 						                                          case "farey":
 						                                          if ( _i % _html_columns == 0 ) _html += "<tr>" ;
 						                                          _html += "<td>"+( is_array( _item ) ? _item.join( "/" ) : _item.output() )+"</td>" ;
 						                                          if ( _i % _html_columns == ( _html_columns - 1 ) ) _html += "</tr>" ;
-						                                          else _html += "<td WIDTH=\"6\"></td>" ;
+						                                          else _html += "<td WIDTH=\"5\"></td>" ;
 						                                          break ;
 						                                          case "figures":
 						                                          _row = _CIRCLESfigure_display_list_item( _i, _item, _params_assoc_array );

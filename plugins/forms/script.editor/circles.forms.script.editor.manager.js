@@ -71,13 +71,13 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay()
     HTMLcode = "<table WIDTH=\"100%\" BORDER=\"0\">" ;
     HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\"><table>" ;
-    HTMLcode += "<tr><td WIDTH=\"6\"></td>" ;
+    HTMLcode += "<tr><td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td STYLE=\"color:white;\">"+( _n_projs > 0 ? _n_projs+" project"+(_n_projs==1?"":"s") : "" )+"</td><td WIDTH=\"4\"></td><td ID=\"CIRCLESformsSCRIPTEDITORlistCOMBOcontainer\">"+CIRCLESformsSCRIPTEDITORcodemanagerLISTprojectsCOMBO()+"</td>" ;
     HTMLcode += "</tr>" ;
 		HTMLcode += "</table></td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\" ALIGN=\"right\"><table>" ;
-    HTMLcode += "<tr><td WIDTH=\"6\"></td>" ;
+    HTMLcode += "<tr><td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Add new project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerADDproject();\" SRC=\""+_glob_path_to_img+"icons/plus/plus.icon.01.16x16.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"4\"></td>" ;
     HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Remove project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerREMOVEproject();\" SRC=\""+_glob_path_to_img+"icons/minus/minus.icon.01.16x16.png\"></td>" ;
@@ -94,7 +94,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay()
     HTMLcode += "<td WIDTH=\"8\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-    HTMLcode += "<tr><td WIDTH=\"6\"></td><td COLSPAN=\"11\" ID=\"CIRCLESformsSCRIPTEDITORprojectCONTAINER\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"5\"></td><td COLSPAN=\"11\" ID=\"CIRCLESformsSCRIPTEDITORprojectCONTAINER\"></td></tr>" ;
 		HTMLcode += "</table></td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
     if ( _n_entries > 0 )
@@ -102,13 +102,13 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay()
         var ICONSIZE = "12x12", ICONside = 12 ;
 				var _all_selected = circles_lib_js_manager_scripts_all_modules_selected( CIRCLESformsSCRIPTEDITORprojectlabelCURRENT ) ;
         HTMLcode += "<tr>" ;
-        HTMLcode += "<td ><table><tr><td WIDTH=\"6\"></td>" ;
+        HTMLcode += "<td ><table><tr><td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td ID=\"CIRCLESformsSCRIPTEDITORprojectlabel\" STYLE=\"color:white;\">Project <SPAN STYLE=\"color:lightblue;\">"+CIRCLESformsSCRIPTEDITORprojectlabelCURRENT+"</SPAN> includes "+_n_entries+" entr"+(_n_entries==1?"y":"ies")+"</td>" ;
         HTMLcode += "</tr></td></table>" ;
         HTMLcode += "</tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
         HTMLcode += "<tr><td VALIGN=\"top\"><table>" ;
-        HTMLcode += "<tr><td WIDTH=\"6\"></td>" ;
+        HTMLcode += "<tr><td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td COLSPAN=\"12\" STYLE=\"color:yellow;\">Code compiling queue</td>" ;
         HTMLcode += "<td ALIGN=\"center\"><INPUT TYPE=\"checkbox\" "+(_all_selected?"CHECKED":"")+" ID=\"CIRCLESformsSCRIPTEDITORallCHECKBOX\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerLISTselectALL(this.checked);\"></td>" ;
         HTMLcode += "<td></td><td COLSPAN=\"2\" STYLE=\"color:white;\" ALIGN=\"center\">All</td>" ;
@@ -129,7 +129,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay()
                     		else _out_file = _chunk[0] ;
                     		var _pending = ( _chunk[0] == CIRCLESformsSCRIPTEDITORmodulelabelCURRENT && CIRCLESformsSCRIPTEDITORstatusCURRENT == PENDING ) ? 1 : 0 ;
                         HTMLcode += "<tr>" ;
-                        HTMLcode += "<td WIDTH=\"6\"></td>" ;
+                        HTMLcode += "<td WIDTH=\"5\"></td>" ;
                         HTMLcode += "<td VALIGN=\"top\" STYLE=\"color:#D6E6F1;width:110px;\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerLISTshowCODE("+_i+");\" ID=\"CIRCLESformsSCRIPTEDITORcodelistENTRY"+_i+"\">"+_out_file+"</td>" ;
                         HTMLcode += "<td WIDTH=\"5\"></td>" ;
                         HTMLcode += "<td VALIGN=\"top\" WIDTH=\""+ICONside+"\"><IMG CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerLISTrename("+_i+",0,'"+ICONSIZE+"');\" ID=\"CIRCLESformsSCRIPTEDITORrenameICON"+_i+"\" TITLE=\"Rename\" SRC=\"%root%img/icons/abc/abc.icon.01."+ICONSIZE+".png\"></td>" ;
@@ -145,7 +145,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay()
                         HTMLcode += "<td VALIGN=\"top\" WIDTH=\""+ICONside+"\" ALIGN=\"center\"><INPUT ID=\"CIRCLESformsSCRIPTEDITORcodeCHECKBOX"+_i+"\" TYPE=\"checkbox\" "+(_chunk[2]?"CHECKED":"")+" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerCOMPILEflag( this.checked?YES:NO, "+_i+" );\"></td>" ;
                         HTMLcode += "<td WIDTH=\"4\"></td>" ;
                         HTMLcode += "<td VALIGN=\"top\" WIDTH=\""+ICONside+"\" ALIGN=\"center\" ID=\"CIRCLESformsSCRIPTEDITORstatus"+_i+"\">"+(_pending?"<IMG SRC=\""+_glob_path_to_img+"icons/unchecked/unchecked.icon.01.16x16.png\">":"")+"</td>" ;
-                        HTMLcode += "<td WIDTH=\"6\"></td>" ;
+                        HTMLcode += "<td WIDTH=\"5\"></td>" ;
                         HTMLcode += "</tr>" ;
                     }
                 }

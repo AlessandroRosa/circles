@@ -168,7 +168,7 @@ function circles_terminal_cmd_grid()
                            else
                            {
                                _glob_ticks_count = _ticks ;
-                               if ( _glob_bip_use ) _glob_bip_ticks = _ticks ;
+                               if (_glob_bip_use) _glob_bip_ticks = _ticks ;
                                if ( _glob_terminal_autorefresh )
                                {
                                    var _params = "" ;

@@ -87,11 +87,11 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSPupdatePLEATINGrayORBITlist( _cu
         if ( _n_pts > 15 ) HTMLcode += "<DIV STYLE=\"position:relative;width:100%;height:"+( TAB_HEIGHT - 90 )+"px;overflow:auto;\">" ;
         HTMLcode += "<table WIDTH=\"100%\">" ;
         HTMLcode += "<tr>" ;
-        HTMLcode += "<td WIDTH=\"30\">Prog</td><td WIDTH=\"6\"></td>" ;
-        HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Real</td><td WIDTH=\"6\"></td>" ;
-        HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Imag</td><td WIDTH=\"6\"></td>" ;
-        HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Dist from prev point</td><td WIDTH=\"6\"></td>" ;
-        HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Orbit behavior</td><td WIDTH=\"6\"></td>" ;
+        HTMLcode += "<td WIDTH=\"30\">Prog</td><td WIDTH=\"5\"></td>" ;
+        HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Real</td><td WIDTH=\"5\"></td>" ;
+        HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Imag</td><td WIDTH=\"5\"></td>" ;
+        HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Dist from prev point</td><td WIDTH=\"5\"></td>" ;
+        HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Orbit behavior</td><td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td COLSPAN=\"5\" ALIGN=\"center\">Group actions</td>" ;
         HTMLcode += "<td></td>" ;
         HTMLcode += "</tr>" ;
@@ -104,11 +104,11 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSPupdatePLEATINGrayORBITlist( _cu
                     if ( _i == 0 ) _cusp_value = _complex_pt.formula();
                     _curr_dist_from_prev_pt = _i == 0 ? "0" : _complex_pt.distance( _pl_ray_orbit[_i-1] );
                     HTMLcode += "<tr STYLE=\"background-color:"+ENTRYbkCOLOR[_i%safe_size(ENTRYbkCOLOR,1)]+";\">" ;
-										HTMLcode += "<td WIDTH=\"30\" ALIGN=\"right\">"+( _i + 1 )+")</td><td WIDTH=\"6\"></td>" ;
-										HTMLcode += "<td WIDTH=\"90\" ALIGN=\"right\">"+_complex_pt.real+"</td><td WIDTH=\"6\"></td>" ;
-										HTMLcode += "<td WIDTH=\"90\" ALIGN=\"right\">"+_complex_pt.imag+"</td><td WIDTH=\"6\"></td>" ;
-										HTMLcode += "<td WIDTH=\"90\" ALIGN=\"right\">"+_curr_dist_from_prev_pt+"</td><td WIDTH=\"6\"></td>" ;
-										HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">"+( _i == 0 ? "" : ( _curr_dist_from_prev_pt < _prev_dist_from_prev_pt ? "convergent" : "divergent" ) )+"</td><td WIDTH=\"6\"></td>" ;
+										HTMLcode += "<td WIDTH=\"30\" ALIGN=\"right\">"+( _i + 1 )+")</td><td WIDTH=\"5\"></td>" ;
+										HTMLcode += "<td WIDTH=\"90\" ALIGN=\"right\">"+_complex_pt.real+"</td><td WIDTH=\"5\"></td>" ;
+										HTMLcode += "<td WIDTH=\"90\" ALIGN=\"right\">"+_complex_pt.imag+"</td><td WIDTH=\"5\"></td>" ;
+										HTMLcode += "<td WIDTH=\"90\" ALIGN=\"right\">"+_curr_dist_from_prev_pt+"</td><td WIDTH=\"5\"></td>" ;
+										HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">"+( _i == 0 ? "" : ( _curr_dist_from_prev_pt < _prev_dist_from_prev_pt ? "convergent" : "divergent" ) )+"</td><td WIDTH=\"5\"></td>" ;
                     HTMLcode += "<td WIDTH=\"40\" CLASS=\""+( CIRCLESformsDISCRETENESSLOCUSplugin_pick ? "link_rounded" : "link_rounded_dead" )+"\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSinitGROUP( '"+_complex_pt.formula()+"' );\">Init</td><td WIDTH=\"2\"></td>" ;
                     HTMLcode += "<td WIDTH=\"40\" CLASS=\""+( CIRCLESformsDISCRETENESSLOCUSplugin_pick ? "link_rounded" : "link_rounded_dead" )+"\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPT(null,3,'"+_complex_pt.formula()+"');\">Plot</td><td WIDTH=\"2\"></td>" ;
                     HTMLcode += "<td WIDTH=\"40\" CLASS=\""+( CIRCLESformsDISCRETENESSLOCUSplugin_pick ? "link_rounded" : "link_rounded_dead" )+"\" ONCLICK=\"javascript:circles_lib_items_switch_to(_glob_items_switch,YES);circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_glob_target_plane,YES,YES,CHECK);\">Render</td>" ;
@@ -153,11 +153,11 @@ function CIRCLESformsDISCRETENESSLOCUSlistBOUNDARYtoken( _k_index )
              if ( _n_pts > 15 ) HTMLcode += "<DIV STYLE=\"position:relative;width:100%;height:"+( TAB_HEIGHT - 90 )+"px;overflow:auto;\">" ;
                  HTMLcode += "<table ALIGN=\"center\" WIDTH=\"100%\">" ;
                  HTMLcode += "<tr>" ;
-                 HTMLcode += "<td WIDTH=\"30\">Abs Prog</td><td WIDTH=\"6\"></td>" ;
-                 HTMLcode += "<td WIDTH=\"30\">Rel Prog</td><td WIDTH=\"6\"></td>" ;
-                 HTMLcode += "<td WIDTH=\"50\">Farey p/q</td><td WIDTH=\"6\"></td>" ;
-                 HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Real</td><td WIDTH=\"6\"></td>" ;
-                 HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Imag</td><td WIDTH=\"6\"></td>" ;
+                 HTMLcode += "<td WIDTH=\"30\">Abs Prog</td><td WIDTH=\"5\"></td>" ;
+                 HTMLcode += "<td WIDTH=\"30\">Rel Prog</td><td WIDTH=\"5\"></td>" ;
+                 HTMLcode += "<td WIDTH=\"50\">Farey p/q</td><td WIDTH=\"5\"></td>" ;
+                 HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Real</td><td WIDTH=\"5\"></td>" ;
+                 HTMLcode += "<td WIDTH=\"90\" ALIGN=\"center\">Imag</td><td WIDTH=\"5\"></td>" ;
                  HTMLcode += "<td COLSPAN=\"5\" ALIGN=\"center\">Actions</td>" ;
                  HTMLcode += "<td></td>" ;
                  HTMLcode += "</tr>" ;
@@ -166,11 +166,11 @@ function CIRCLESformsDISCRETENESSLOCUSlistBOUNDARYtoken( _k_index )
                      function( _i, _complex_pt )
                      {
                           HTMLcode += "<tr STYLE=\"background-color:"+ENTRYbkCOLOR[_i%safe_size(ENTRYbkCOLOR,1)]+";\">" ;
-                          HTMLcode += "<td>"+( _n_previous_elements + _i + 1 )+")</td><td WIDTH=\"6\"></td>" ;
-                          HTMLcode += "<td>"+( _i + 1 )+")</td><td WIDTH=\"6\"></td>" ;
-                          HTMLcode += "<td WIDTH=\"50\">"+( CIRCLESformsDISCRETENESSLOCUSpq_fracs_array[ _n_previous_elements + _i ].output() )+"</td><td WIDTH=\"6\"></td>" ;
-                          HTMLcode += "<td WIDTH=\"90\" ALIGN=\"right\">"+_complex_pt.real+"</td><td WIDTH=\"6\"></td>" ;
-                          HTMLcode += "<td WIDTH=\"90\" ALIGN=\"right\">"+_complex_pt.imag+"</td><td WIDTH=\"6\"></td>" ;
+                          HTMLcode += "<td>"+( _n_previous_elements + _i + 1 )+")</td><td WIDTH=\"5\"></td>" ;
+                          HTMLcode += "<td>"+( _i + 1 )+")</td><td WIDTH=\"5\"></td>" ;
+                          HTMLcode += "<td WIDTH=\"50\">"+( CIRCLESformsDISCRETENESSLOCUSpq_fracs_array[ _n_previous_elements + _i ].output() )+"</td><td WIDTH=\"5\"></td>" ;
+                          HTMLcode += "<td WIDTH=\"90\" ALIGN=\"right\">"+_complex_pt.real+"</td><td WIDTH=\"5\"></td>" ;
+                          HTMLcode += "<td WIDTH=\"90\" ALIGN=\"right\">"+_complex_pt.imag+"</td><td WIDTH=\"5\"></td>" ;
                           HTMLcode += "<td WIDTH=\"40\" CLASS=\""+( CIRCLESformsDISCRETENESSLOCUSplugin_pick ? "link_rounded" : "link_rounded_dead" )+"\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSinitGROUP( '"+_complex_pt.formula()+"' );\">Init</td><td WIDTH=\"2\"></td>" ;
                           HTMLcode += "<td WIDTH=\"40\" CLASS=\""+( CIRCLESformsDISCRETENESSLOCUSplugin_pick ? "link_rounded" : "link_rounded_dead" )+"\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPT(null,3,'"+_complex_pt.formula()+"');\">Plot</td><td WIDTH=\"2\"></td>" ;
                           HTMLcode += "<td WIDTH=\"40\" CLASS=\""+( CIRCLESformsDISCRETENESSLOCUSplugin_pick ? "link_rounded" : "link_rounded_dead" )+"\" ONCLICK=\"javascript:circles_lib_items_switch_to(_glob_items_switch,YES);circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_glob_target_plane,YES,YES,CHECK);\">Render</td>" ;

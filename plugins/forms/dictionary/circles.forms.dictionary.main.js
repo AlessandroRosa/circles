@@ -89,7 +89,7 @@ function CIRCLESformsDICTIONARYmain( _base_id, _move )
         HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESdictionaryFORMalphabetBTN1\" ONCLICK=\"javascript:CIRCLESformsDICTIONARYalphabetADD();\">Add</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESdictionaryFORMalphabetBTN2\" ONCLICK=\"javascript:CIRCLESformsDICTIONARYalphabetREMOVE();\">Remove</td>" ;
-        HTMLcode += "<td WIDTH=\"6\"></td>" ;
+        HTMLcode += "<td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESdictionaryFORMalphabetBTN3\" ONCLICK=\"javascript:CIRCLESformsDICTIONARYalphabetREMOVE('',YES);\">Erase alphabet</td>" ;
         HTMLcode += "</tr>" ;
         HTMLcode += "</table>" ;

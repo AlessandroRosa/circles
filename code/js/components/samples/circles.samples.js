@@ -2,7 +2,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
 {
 		_silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_n = circles_lib_count_items();
-    if ( _glob_bip_use )
+    if (_glob_bip_use)
     {
         var _msg = "BIP flag is still on.\n" ;
         _msg += "Confirm to switch it off and draw this sample on the screen ?" ;

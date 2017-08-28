@@ -41,7 +41,7 @@ function CIRCLESformsSVGEDITORmain( _base_id, _move )
         HTMLcode += "<td CLASS=\"link_rounded\" STYLE=\"width:30px;\" ONCLICK=\"javascript:CIRCLESformsSVGEDITORrenderPAGE();\">Page</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" STYLE=\"width:30px;\" ONCLICK=\"javascript:CIRCLESformsSVGEDITORrenderSVG();\">SVG</td>" ;
-        HTMLcode += "<td WIDTH=\"6\"></td>" ;
+        HTMLcode += "<td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" STYLE=\"width:30px;\" ONCLICK=\"javascript:CIRCLESformsSVGEDITORcheckSVGcode();\">Check</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:$('#customloader').val('');$('#customloader').trigger('click');\">Load</td>" ;

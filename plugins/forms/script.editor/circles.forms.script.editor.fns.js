@@ -53,9 +53,9 @@ function CIRCLESformsSCRIPTEDITORlibsDOCSscan( _terms )
 				 var HEIGHT = $( "#CIRCLESformsSCRIPTEDITORrightboxLOWER" ).height();
 				 var HTMLcode = "<table WIDTH=\""+(WIDTH-40)+"\">" ;
 				 		 HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-				 		 HTMLcode += "<tr><td WIDTH=\"6\"></td><td STYLE=\"color:yellow;\">Found "+_found_n+" result"+(_found_n==1?"":"s")+" matching search data</td></tr>" ;
+				 		 HTMLcode += "<tr><td WIDTH=\"5\"></td><td STYLE=\"color:yellow;\">Found "+_found_n+" result"+(_found_n==1?"":"s")+" matching search data</td></tr>" ;
 				 		 HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-				 		 HTMLcode += "<tr><td WIDTH=\"6\"></td><td VALIGN=\"top\"><DIV STYLE=\"width:"+WIDTH+"px;height:"+(HEIGHT-34)+"px;overflow:auto;\">";
+				 		 HTMLcode += "<tr><td WIDTH=\"5\"></td><td VALIGN=\"top\"><DIV STYLE=\"width:"+WIDTH+"px;height:"+(HEIGHT-34)+"px;overflow:auto;\">";
 						 HTMLcode += "<table>" ;
 						 var _data_chunk, _tmp_fn, _tmp_args, _tmp_dox ;
 						 for( var _i = 0 ; _i < _found_n ; _i++ )

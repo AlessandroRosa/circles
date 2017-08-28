@@ -50,8 +50,9 @@ function CIRCLESembeddingsMASKITONCE_TIPS()
     circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _tips.join( "<br>" ), _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] + " - Tips" );
 }
 
-function CIRCLESembeddingsMASKITONCE_CONFIG( _base_id )
+function CIRCLESembeddingsMASKITONCE_CONFIG( _base_id, _init )
 {
+    _init = safe_int( _init, NO );
     _plugin_main_ref = safe_string( _base_id + "", _plugin_main_ref ) ;
     var _index_ref = _plugin_main_ref + "";
     _plugin_input_mode_mask_array[_index_ref] = PLUGIN_INPUT_MODE_RIGID ;
@@ -71,7 +72,7 @@ function CIRCLESembeddingsMASKITONCE_CONFIG( _base_id )
 		circles_lib_drawentity_set( DRAWENTITY_PIXEL );
     circles_lib_method_set( METHOD_ALGEBRAIC );
     if ( _glob_depth <= 1 ) circles_lib_depth_set( 8, YES );
-    CIRCLESembeddingsMASKITONCE_PRESETS_INIT();
+    if ( _init ) CIRCLESembeddingsMASKITONCE_PRESETS_INIT();
 }
 
 function CIRCLESembeddingsMASKITONCE_PARAMS_FILL()
@@ -104,7 +105,7 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
 {
     _move = is_string( _move ) ? _move : safe_int( _move, YES ), _restore = safe_int( _restore, NO );
     var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ).toLowerCase() ;
-    CIRCLESembeddingsMASKITONCE_CONFIG( _base_id );
+    CIRCLESembeddingsMASKITONCE_CONFIG( _base_id, YES );
 		_plugin_last_ref = _plugin_main_ref, _glob_palette_use = NO ;
     var _index_ref = _plugin_last_ref, _items_n = circles_lib_count_items();
     var this_fn_name = arguments.callee.name + "(NO,"+_restore+")" ;

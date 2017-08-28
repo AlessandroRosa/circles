@@ -22,7 +22,7 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
                 default: _pixel_size = 1 ; break ;
             }
             
-            var _bip_area = _plane_type.is_one_of( BIP_BOX ) ? ( _glob_bip_canvas.getContext() != null ? _glob_bip_canvas.getContext().area() : 0 ) : 0 ;
+            var _bip_area = _plane_type.is_one_of( BIP_BOX ) ? ( _glob_bip_canvas.getContext(_glob_canvas_ctx_2D_mode) != null ? _glob_bip_canvas.getContext(_glob_canvas_ctx_2D_mode).area() : 0 ) : 0 ;
             var _canvas_area = _canvas.area(), _ratio = _plane_type.is_one_of( BIP_BOX ) ? _bip_area / _canvas_area : 1 ;
 					  _mapper.set_client_rect( new rect( 0, 0, _canvas.get_width(), _canvas.get_height() ) );
             _mapper.set_display_rect( new rect( 0, 0, _canvas.get_width(), _canvas.get_height() ) );

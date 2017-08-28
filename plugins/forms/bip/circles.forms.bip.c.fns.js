@@ -12,12 +12,21 @@ function CIRCLESformsBIPcanvasREALDIMS()
         
         var _bip_realdims_canvas = $( "#CIRCLESbiprealdimsCANVAS" ).get(0) ;
         if ( is_html_canvas( _bip_realdims_canvas ) ) circles_lib_canvas_copy( _bip_canvas, _bip_realdims_canvas ) ;
-        else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Critical failure while displaying the read dims bip box", 'CIRCLESformsBIPoutputMSG' ) ;
+        else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Critical failure while displaying the read dims bip box", 'CIRCLESformsBIPoutputMSG', 3000 ) ;
     }
-    else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Missing BIP box data", "CIRCLESformsBIPoutputMSG" ) ;
+    else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Missing BIP box data", "CIRCLESformsBIPoutputMSG", 3000 ) ;
 }
 
-function CIRCLESformsBIPlistSETTINGS( _silent, _out_channel )
+function CIRCLESformsBIPtips( _silent, _out_channel )
+{
+    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    var _msg = "Open menu entry : SETTINGS >> GENERAL >> OPTIONS >> Z-PLANE | W-PLANE" ;
+        _msg += "<br>to select what canvas to render" ;
+    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg, "CIRCLESformsBIPoutputMSG", 5000 ) ;
+    return [ RET_OK, _msg ];
+}
+
+function CIRCLESformsBIPreviewSETTINGS( _silent, _out_channel )
 {
     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     if ( is_html_canvas( _glob_bip_canvas ) )
@@ -70,13 +79,13 @@ function CIRCLESformsBIPlistSETTINGS( _silent, _out_channel )
             default: _msg += _glob_crlf + "Export to unknown option" ; break ;
         }
 
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg, "CIRCLESformsBIPoutputMSG" ) ;
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg.replace( /\n/g, "<br>" ), "CIRCLESformsBIPoutputMSG", 8000 ) ;
         return [ RET_OK, _msg ];
     }
     else
     {
         var _msg = "Memory failure" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, _msg, "CIRCLESformsBIPoutputMSG" ) ;
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, _msg, "CIRCLESformsBIPoutputMSG", 1500 ) ;
         return [ RET_ERROR, _msg ];
     }
 }
@@ -126,19 +135,14 @@ function CIRCLESformsBIPticksGEToptimal()
 function CIRCLESformsBIPcolorBTNS( _alert )
 {
     _alert = safe_int( _alert, NO );
-    if ( _glob_bip_use )
+  	$('[id$=initBTN]').css('color',_alert?COLOR_ERROR:DEFAULT_COLOR_STD);
+    if (_glob_bip_use)
     {
-				$('[id$=initBTN]').css('color',_alert?COLOR_ERROR:DEFAULT_COLOR_STD);
-
         if ( _glob_bip_original_plane_data.is_one_of( Z_PLANE, W_PLANE ) )
         $('[id$=renderBTN]').css('color',_alert?COLOR_ERROR:DEFAULT_COLOR_STD);
         else $('[id$=renderBTN]').css('color',DEFAULT_COLOR_STD);
     }
-    else
-    {
-				$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
-				$('[id$=renderBTN]').css('color',DEFAULT_COLOR_STD);
-		}
+    else $('[id$=renderBTN]').css('color',_alert?COLOR_ERROR:DEFAULT_COLOR_STD);
 }
 
 function CIRCLESformsBIPcalculatePIXELside( _update )
@@ -186,7 +190,10 @@ function CIRCLESformsBIPcanvasmirrorSHOW( bSHOW, _silent, _out_channel )
 function CIRCLESformsBIPbuttons( _b_enable )
 {
     $("#CIRCLESbipLISTbtn").attr( "class", _glob_bip_use ? "link_rounded" : "link_rounded_dead" );
-    $("#CIRCLESbipLISTbtn").bind( "click", _glob_bip_use ? function() { CIRCLESformsBIPlistSETTINGS() } : function() {} );
+    $("#CIRCLESbipLISTbtn").bind( "click", _glob_bip_use ? function() { CIRCLESformsBIPreviewSETTINGS() } : function() {} );
+
+    $("#CIRCLESbipTIPSbtn").attr( "class", _glob_bip_use ? "link_rounded" : "link_rounded_dead" );
+    $("#CIRCLESbipTIPSbtn").bind( "click", _glob_bip_use ? function() { CIRCLESformsBIPtips() } : function() {} );
 
     $("#BIPinitBTN").attr( "class", _glob_bip_use ? "link_rounded" : "link_rounded_dead" );
     $("#BIPinitBTN").bind( "click", _glob_bip_use ? function() { _glob_items_to_init=NO;$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);CIRCLESformsBIPtrigger(1,YES,NO,YES);circles_lib_items_init(null,NO,YES); } : function() {} );
@@ -241,11 +248,9 @@ function CIRCLESformsBIPcoordsMANAGER( _diagram_type, _compute )
 
 function CIRCLESformsBIPsavePIX()
 {
-    var _canvas_w = safe_int( _glob_bip_canvas.get_width(), 0 );
-    var _canvas_h = safe_int( _glob_bip_canvas.get_height(), 0 );
+    var _canvas_w = safe_int( _glob_bip_canvas.get_width(), 0 ), _canvas_h = safe_int( _glob_bip_canvas.get_height(), 0 );
     var _aspect_ratio = _canvas_w / _canvas_h ;
     var _bip_thumb_canvas_w = 200, _bip_thumb_canvas_h = Math.ceil( _bip_thumb_canvas_w / _aspect_ratio );
-    
     var HTMLcode = "<table>" ;
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
         HTMLcode += "<tr><td VALIGN=\"top\">Confirm to save this pix ?</td>" ;

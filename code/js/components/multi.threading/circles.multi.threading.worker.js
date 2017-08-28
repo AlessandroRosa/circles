@@ -21,8 +21,7 @@ function CIRCLESmultithreadingPROCESSrendering( canvas, mapper, method, _process
 		if ( _working_plane > 0 )
     return CIRCLESmultithreadingINITworker( [ MULTITHREADING_OBJ_WORKAREA_RENDERING,
                                             [ method, _process, _fixedpts_io, _working_plane, canvas, mapper ],
-                                            _silent, _out_channel
-                                            ] );
+                                            _silent, _out_channel ] );
     else return [ RET_ERROR, "It's impossible to start-up the rendering process: no plane selected yet" ] ;
 }
 

@@ -1,7 +1,6 @@
 function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
 {
-     var _items_array = objs['items'] ;
-     var _items_n = safe_size( _items_array, 0 );
+     var _items_array = objs['items'], _items_n = safe_size( _items_array, 0 );
      if ( _items_n > 0 )
      {
          var _gens_model = settings['gens_model'] ;

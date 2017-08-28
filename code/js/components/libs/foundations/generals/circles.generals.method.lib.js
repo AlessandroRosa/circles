@@ -1,7 +1,7 @@
-function circles_lib_process_get()	 { return safe_int( _glob_process, PROCESS_NONE ); }
+function circles_lib_process_get() { return safe_int( _glob_process, PROCESS_NONE ); }
 function circles_lib_process_set( _process ) { _glob_process = safe_int( _process, PROCESS_NONE ); }
 function circles_lib_method_check() { return _glob_method.is_one_of( METHOD_INVERSION, METHOD_ALGEBRAIC ) ? YES : NO ; }
-function circles_lib_method_get()	   { return safe_int( _glob_method, METHOD_NONE ); }
+function circles_lib_method_get() { return safe_int( _glob_method, METHOD_NONE ); }
 function circles_lib_method_guess( _items_array )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
@@ -29,7 +29,6 @@ function circles_lib_method_guess( _items_array )
           }
           else return [ RET_ERROR, METHOD_NONE ] ;
        }
-       
        return [ RET_OK, _count_inv > 0 ? METHOD_ALGEBRAIC : METHOD_INVERSION ] ;
     }
 }

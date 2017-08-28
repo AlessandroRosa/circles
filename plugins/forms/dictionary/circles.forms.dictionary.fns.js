@@ -397,7 +397,7 @@ function CIRCLESformsDICTIONARYactionTABLECODE()
         HTMLcode += "<td>Filter</td>" ;
         HTMLcode += "<td WIDTH=\"3\"></td>" ;
         HTMLcode += "<td><SELECT ONCHANGE=\"javascript:CIRCLESformsDICTIONARYfilterCOMBOchange();\" ID=\"CIRCLESformsDICTIONARYfilterCOMBO\"><OPTION VALUE=\"0\"><OPTION VALUE=\"1\">length<OPTION VALUE=\"2\">starting with<OPTION VALUE=\"3\">include<OPTION VALUE=\"4\">ending with</SELECT></td>" ;
-        HTMLcode += "<td WIDTH=\"6\"></td>" ;
+        HTMLcode += "<td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td ID=\"CIRCLESformsDICTIONARYactionCTRLcontainer\"></td>" ;
         HTMLcode += "</tr>" ;
         HTMLcode += "</table>" ;

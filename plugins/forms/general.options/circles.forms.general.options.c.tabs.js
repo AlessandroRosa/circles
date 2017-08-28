@@ -414,7 +414,7 @@ function CIRCLESformsGENERALOPTIONSextrasTAB()
           HTMLcode += "<td WIDTH=\"10\"></td>" ;
           HTMLcode += "<td WIDTH=\"100\">Grid ticks</td>" ;
           HTMLcode += "<td WIDTH=\"5\"></td>" ;
-          HTMLcode += "<td><INPUT ID=\"CIRCLESgeneraloptionsSETTINGSticksEDIT\" STYLE=\"width:40px;text-align:center;\" TYPE=\"edit\" VALUE=\""+_glob_ticks_count+"\" ONCHANGE=\"javascript:_glob_ticks_count=safe_int(this.value,8);this.value=_glob_ticks_count}; if ( _glob_bip_use ) _glob_bip_ticks = _glob_ticks_count ;this.value=_glob_ticks_count;\" ONKEYUP=\"javascript:_glob_ticks_count=safe_int(this.value,8);CIRCLESformsGENERALOPTIONSeventHANDLER( this.id, event );\"></td>" ;
+          HTMLcode += "<td><INPUT ID=\"CIRCLESgeneraloptionsSETTINGSticksEDIT\" STYLE=\"width:40px;text-align:center;\" TYPE=\"edit\" VALUE=\""+_glob_ticks_count+"\" ONCHANGE=\"javascript:_glob_ticks_count=safe_int(this.value,8);this.value=_glob_ticks_count}; if (_glob_bip_use) _glob_bip_ticks = _glob_ticks_count ;this.value=_glob_ticks_count;\" ONKEYUP=\"javascript:_glob_ticks_count=safe_int(this.value,8);CIRCLESformsGENERALOPTIONSeventHANDLER( this.id, event );\"></td>" ;
           HTMLcode += "</tr>" ;
           HTMLcode += "</table>" ;
           HTMLcode += "</td>" ;

@@ -37,7 +37,7 @@ function CIRCLESformsBIPmain( _base_id, _move )
    circles_lib_bip_mapper_init();
       
    var CLOSE_FN = "CIRCLESformsBIPclose();" ;
-   var WIDTH = Math.max( Math.min( safe_int( _glob_bip_canvas.get_width(), 0 ), 400 ), 400 ) + 20, HEIGHT = "auto", _subset = "forms" ;
+   var WIDTH = Math.max( Math.min( safe_int( _glob_bip_canvas.get_width(), 0 ), 450 ), 450 ) + 20, HEIGHT = "auto", _subset = "forms" ;
    var _div_id = CIRCLESformsBIPdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
    var _run = _items_n > 0 ;
    var _properties = CIRCLESformsBIPproperties() ;
@@ -53,7 +53,7 @@ function CIRCLESformsBIPmain( _base_id, _move )
    HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
    HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsBIPcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png", null, "CIRCLESformsBIPhelp()" );
    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-   HTMLcode += "<tr><td HEIGHT=\"18\" ID=\"CIRCLESformsBIPoutputMSG\" ALIGN=\"center\"></td></tr>" ;
+   HTMLcode += "<tr><td HEIGHT=\"18\" ID=\"CIRCLESformsBIPoutputMSG\"></td></tr>" ;
    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
    HTMLcode += "<tr><td VALIGN=\"top\">" ;
 
@@ -75,7 +75,7 @@ function CIRCLESformsBIPmain( _base_id, _move )
 
    HTMLcode += "</DIV>" ;
    HTMLcode += "</td></tr>" ;
-   HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+   HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
 
    HTMLcode += "<tr>" ;
    HTMLcode += "<td VALIGN=\"top\" ALIGN=\"center\" WIDTH=\"100%\">" ;
@@ -83,7 +83,15 @@ function CIRCLESformsBIPmain( _base_id, _move )
    HTMLcode += "<table WIDTH=\"100%\">" ;
    HTMLcode += "<tr><td HEIGHT=\"3\"></td><tr>" ;
    HTMLcode += "<tr>" ;
-   HTMLcode += "<td STYLE=\"margin:5px;background-color:#F6F6F6;\" CLASS=\"general_rounded_corners\"><CANVAS ALIGN=\"center\" WIDTH=\""+_preview_canvas_w+"\" HEIGHT=\""+_preview_canvas_h+"\" STYLE=\"background-color:white;width:"+_preview_canvas_w+"px;height:"+_preview_canvas_h+"px;\" CLASS=\"general_rounded_corners\" ID=\"copy_bip_canvas\"></CANVAS></td>" ;
+   HTMLcode += "<td STYLE=\"margin:5px;background-color:#F6F6F6;\" CLASS=\"general_rounded_corners\" ALIGN=\"center\">" ;
+   HTMLcode += "<table><tr>" ;
+   HTMLcode += "<td VALIGN=\"top\">BIP box<br>Preview</td>" ;
+   HTMLcode += "<td WIDTH=\"8\"></td>" ;
+   HTMLcode += "<td VALIGN=\"top\"><CANVAS ALIGN=\"center\" WIDTH=\""+_preview_canvas_w+"\" HEIGHT=\""+_preview_canvas_h+"\" STYLE=\"background-color:white;width:"+_preview_canvas_w+"px;height:"+_preview_canvas_h+"px;\" CLASS=\"general_rounded_corners\" ID=\"copy_bip_canvas\"></CANVAS></td>" ;
+   HTMLcode += "<td WIDTH=\"8\"></td>" ;
+   HTMLcode += "<td ID=\"CIRCLESformsBIPpreviewLABEL\" VALIGN=\"top\" STYLE=\"color:blue;\">Results displayed<br>here after rendering</td>" ;
+   HTMLcode += "</tr></table>" ;
+   HTMLcode += "</td>" ;
    HTMLcode += "<td WIDTH=\"1\"></td>" ;
    HTMLcode += "<td VALIGN=\"top\" STYLE=\"padding:5px;background-color:#F2F2F2;\" CLASS=\"general_rounded_corners\" ID=\"CIRCLESformsBIPcanvasMETRICS\">"+CIRCLESbipFORMcanvasMETRICShtml(YES)+"</td>" ;
    HTMLcode += "<tr>" ;
@@ -92,29 +100,31 @@ function CIRCLESformsBIPmain( _base_id, _move )
    HTMLcode += "</table>" ;
    HTMLcode += "</DIV>" ;
    HTMLcode += "</td></tr>" ;
-   HTMLcode += "<tr><td HEIGHT=\"3\"></td><tr>" ;
+   HTMLcode += "<tr><td HEIGHT=\"1\"></td><tr>" ;
 
    HTMLcode += "<tr>" ;
    HTMLcode += "<td VALIGN=\"top\" CLASS=\"popup_buttons_bar\">" ;
    HTMLcode += "<table>" ;
    HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
    HTMLcode += "<tr>" ;
-   HTMLcode += "<td WIDTH=\"6\"></td>" ;
+   HTMLcode += "<td WIDTH=\"5\"></td>" ;
    HTMLcode += "<td ID=\"BIPinitBTN\" "+( _glob_bip_use ? "CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_items_to_init=NO;$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);CIRCLESformsBIPtrigger(1,YES,NO,YES);circles_lib_items_init(null,NO,YES);\" " : "CLASS=\"linkdead\"" )+">Init</td>" ;
-   HTMLcode += "<td WIDTH=\"6\"></td>" ;
+   HTMLcode += "<td WIDTH=\"5\"></td>" ;
    HTMLcode += "<td WIDTH=\"12\" STYLE=\"padding-top:1px;\"><IMG SRC=\"%imgpath%icons/arrows/double/blue/double.arrow.blue.12x12.png\"></td>" ;
-   HTMLcode += "<td WIDTH=\"6\"></td>" ;
+   HTMLcode += "<td WIDTH=\"5\"></td>" ;
    HTMLcode += "<td ID=\"BIPrenderBTN\" "+( _glob_bip_use ? "CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsBIPcanvasmirrorSHOW(HIDE);CIRCLESformsBIPtrigger(1,YES,YES,NO);\" " : "CLASS=\"linkdead\"" )+">Render</td>" ;
-   HTMLcode += "<td WIDTH=\"6\"></td>" ;
+   HTMLcode += "<td WIDTH=\"5\"></td>" ;
    HTMLcode += "<td WIDTH=\"12\" STYLE=\"padding-top:1px;\"><IMG SRC=\"%imgpath%icons/arrows/double/blue/double.arrow.blue.12x12.png\"></td>" ;
-   HTMLcode += "<td WIDTH=\"6\"></td>" ;
+   HTMLcode += "<td WIDTH=\"5\"></td>" ;
    HTMLcode += "<td ID=\"BIPsaveBTN\" "+( _glob_bip_use ? "CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsBIPsavePIX();\" " : "CLASS=\"linkdead\"" )+">Save</td>" ;
    HTMLcode += "<td WIDTH=\"40\"></td>" ;
    HTMLcode += "<td ID=\"BIPpreviewBTN\" "+( _glob_bip_use ? "CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsBIPcanvasmirrorSHOW(SHOW);CIRCLESbipFORMcanvasMETRICShtml(NO);\" " : "CLASS=\"linkdead\"" )+">Preview</td>" ;
-   HTMLcode += "<td WIDTH=\"6\"></td>" ;
+   HTMLcode += "<td WIDTH=\"5\"></td>" ;
    HTMLcode += "<td ID=\"BIPrealdimsBTN\" "+( _glob_bip_use ? "CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsBIPcanvasREALDIMS();\" " : "CLASS=\"linkdead\"" )+">Real dims</td>" ;
-   HTMLcode += "<td WIDTH=\"6\"></td>" ;
-   HTMLcode += "<td ID=\"CIRCLESbipLISTbtn\" "+( _glob_bip_use ? "CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsBIPlistSETTINGS();\" " : "CLASS=\"linkdead\"" )+">Review settings</td>" ;
+   HTMLcode += "<td WIDTH=\"5\"></td>" ;
+   HTMLcode += "<td ID=\"CIRCLESbipLISTbtn\" "+( _glob_bip_use ? "CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsBIPreviewSETTINGS();\" " : "CLASS=\"linkdead\"" )+">Review settings</td>" ;
+   HTMLcode += "<td WIDTH=\"5\"></td>" ;
+   HTMLcode += "<td ID=\"CIRCLESbipTIPSbtn\" "+( _glob_bip_use ? "CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsBIPtips();\" " : "CLASS=\"linkdead\"" )+">Tips</td>" ;
    HTMLcode += "<td WIDTH=\"5\"></td>" ;
    HTMLcode += "</tr>" ;
    HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
@@ -155,7 +165,7 @@ function CIRCLESbipFORMtabMAINhtml( _show_entries_array, _return_html )
 	   HTMLcode += "<td WIDTH=\"5\"></td>" ;
 	   HTMLcode += "<td>Activate Batch Image Processing</td>" ;
 	   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-	   HTMLcode += "<td><INPUT TYPE=\"checkbox\" "+( _glob_bip_use ? "CHECKED" : "" )+" ONCLICK=\"javascript:_glob_bip_use=(this.checked)?YES:NO;circles_lib_bip_activate( _glob_bip_use );CIRCLESformsBIPbuttons( _glob_bip_use );CIRCLESformsBIPcolorBTNS( YES );\"></td>" ;
+	   HTMLcode += "<td><INPUT TYPE=\"checkbox\" "+( _glob_bip_use ? "CHECKED" : "" )+" ONCLICK=\"javascript:_glob_bip_use=(this.checked)?YES:NO;circles_lib_bip_activate(_glob_bip_use);CIRCLESformsBIPbuttons(_glob_bip_use);CIRCLESformsBIPcolorBTNS( YES );\"></td>" ;
 	   HTMLcode += "</tr>" ;
 	   HTMLcode += "</table>" ;
 	   HTMLcode += "</td>" ;
@@ -224,10 +234,11 @@ function CIRCLESbipFORMtabMAINhtml( _show_entries_array, _return_html )
      HTMLcode += "<table>" ;
      HTMLcode += "<tr>" ;
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
-     HTMLcode += "<td>... and then export the current rendering into this format</td>" ;
+     HTMLcode += "<td>export the current rendering into this format</td>" ;
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
      HTMLcode += "<td><SELECT ID=\"BIPexportCOMBO\" ONCHANGE=\"javascript:_glob_export_format=$('#BIPexportCOMBO').val();$('[id$=exportCOMBO]').val(this.selectedIndex);\">" ;
      HTMLcode += "<OPTION VALUE=\""+EXPORT_NONE+"\" "+( _glob_export_format == EXPORT_NONE ? "SELECTED=\"selected\"" : "" )+">None" ;
+     HTMLcode += "<OPTION VALUE=\""+EXPORT_PNG+"\" "+( _glob_export_format == EXPORT_PNG ? "SELECTED=\"selected\"" : "" )+">LaTeX" ;
      HTMLcode += "<OPTION VALUE=\""+EXPORT_EPS+"\" "+( _glob_export_format == EXPORT_EPS ? "SELECTED=\"selected\"" : "" )+">EPS" ;
      HTMLcode += "<OPTION VALUE=\""+EXPORT_PS+"\" "+( _glob_export_format == EXPORT_PS ? "SELECTED=\"selected\"" : "" )+">PS" ;
      HTMLcode += "<OPTION VALUE=\""+EXPORT_SVG+"\" "+( _glob_export_format == EXPORT_SVG ? "SELECTED=\"selected\"" : "" )+">SVG" ;
@@ -358,7 +369,7 @@ function CIRCLESbipFORMcanvasMETRICShtml( _return_html )
 	var _bip_w = _bip_canvas.get_width(), _bip_h = _bip_canvas.get_height();
 		
    _return_html = safe_int( _return_html, YES );
-   var HTMLcode  = "<table>" ;
+   var HTMLcode  = "<table ALIGN=\"center\">" ;
    HTMLcode += "<tr><td>Coords rect</td></tr>" ;
    HTMLcode += "<tr><td HEIGHT=\"4\"></td><tr>" ;
    HTMLcode += "<tr><td VALIGN=\"top\">"+_bip_coords_rect.output("html").replaceAll( [ "x1", "y1", "x2", "y2" ], [ "left", "top", "right", "bottom" ] );+"</td></tr>" ;

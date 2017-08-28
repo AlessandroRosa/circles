@@ -344,7 +344,7 @@ function CIRCLESformsDISCRETENESSLOCUScuspBOX()
        HTMLcode += "<tr>";
        HTMLcode += "<td WIDTH=\"10\"></td>" ;
        HTMLcode += "<td>Cusp</td>" ;
-       HTMLcode += "<td WIDTH=\"6\"></td>" ;
+       HTMLcode += "<td WIDTH=\"5\"></td>" ;
        HTMLcode += "<td>p/q fraction</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
        HTMLcode += "<td><INPUT ID=\"CIRCLESformsDISCRETENESSLOCUScuspFRAC\" TYPE=\"edit\" STYLE=\"width:80px;text-align:center;\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER( event, this.id );\"></td>" ;

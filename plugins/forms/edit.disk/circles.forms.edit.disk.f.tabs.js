@@ -40,11 +40,11 @@ function CIRCLESformsEDITDISKcoordinatesCODE( _index, _items_switch )
     HTMLcode += "<td>Shift disk</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
     HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('up');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.up.16x16.png\"></td>" ;
-    HTMLcode += "<td WIDTH=\"6\"></td>" ;
+    HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('down');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.down.16x16.png\"></td>" ;
-    HTMLcode += "<td WIDTH=\"6\"></td>" ;
+    HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('left');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.left.16x16.png\"></td>" ;
-    HTMLcode += "<td WIDTH=\"6\"></td>" ;
+    HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('right');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.right.16x16.png\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
