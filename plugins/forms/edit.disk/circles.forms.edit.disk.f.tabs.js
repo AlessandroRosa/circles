@@ -17,19 +17,19 @@ function CIRCLESformsEDITDISKcoordinatesCODE( _index, _items_switch )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td WIDTH=\"55\">Center (x)</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedCENTERx\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" TYPE=\"edit\" ONKEYUP=\"javascript:_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:120px;\" VALUE=\""+complex_center_pt.x+"\"></td>" ;
+    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedCENTERx\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" TYPE=\"edit\" ONKEYUP=\"javascript:_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:110px;\" VALUE=\""+complex_center_pt.x+"\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td WIDTH=\"55\">Center (y)</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedCENTERy\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" TYPE=\"edit\" ONKEYUP=\"javascript:_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:120px;\" VALUE=\""+complex_center_pt.y+"\"></td>" ;
+    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedCENTERy\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" TYPE=\"edit\" ONKEYUP=\"javascript:_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:110px;\" VALUE=\""+complex_center_pt.y+"\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td WIDTH=\"55\">Radius</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedCENTERradius\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" TYPE=\"edit\" ONKEYUP=\"javascript:_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:120px;\" VALUE=\""+complex_radius+"\"></td>" ;
+    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedCENTERradius\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" TYPE=\"edit\" ONKEYUP=\"javascript:_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:110px;\" VALUE=\""+complex_radius+"\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
     HTMLcode += "<tr>" ;
@@ -51,126 +51,6 @@ function CIRCLESformsEDITDISKcoordinatesCODE( _index, _items_switch )
     HTMLcode += "</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-    HTMLcode += "</table>" ;
-    return HTMLcode ;
-}
-
-function CIRCLESformsEDITDISKequationCODE( _index, _items_switch )
-{
-    _index = safe_int( _index, UNDET );
-    if ( _index < UNDET ) _index = UNDET ; // no way for candidate negative indexes
-    var _items_array = circles_lib_items_set( _items_switch ) ;
-    var ALPHA = 0.0, BETA = 0.0, GAMMA = 0.0 ;
-    if ( _index != UNDET )
-    {
-        var ITEM = _items_array[_index] ;
-        var complex_circle = is_item_obj( ITEM ) ? ITEM.complex_circle : null ;
-        var coeffsARRAY = is_circle( complex_circle ) ? complex_circle.equation( DEFAULT_MAX_ACCURACY ) : [] ;
-        if ( safe_size( coeffsARRAY, 0 ) > 0 )
-        {
-            ALPHA = coeffsARRAY[0], BETA = coeffsARRAY[1], GAMMA = coeffsARRAY[2] ;
-        }
-    }
-
-    var HTMLcode =  "<table>" ;
-    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td COLSPAN=\"3\">Retrieve circle from equation: x<sup>2</sup>+y<sup>2</sup>+&alpha;x+&beta;y+&gamma;</td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td>&alpha;</td>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedALPHA\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');CIRCLESformsEDITDISKeventsHANDLER( this.id, event, 0, 0 );\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" TYPE=\"edit\" STYLE=\"width:120px;\" VALUE=\""+ALPHA+"\"></td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td>&beta;</td>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedBETA\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');CIRCLESformsEDITDISKeventsHANDLER( this.id, event, 0, 0 );\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" TYPE=\"edit\" STYLE=\"width:120px;\" VALUE=\""+BETA+"\"></td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td>&gamma;</td>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedGAMMA\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');CIRCLESformsEDITDISKeventsHANDLER( this.id, event, 0, 0 );\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" TYPE=\"edit\" STYLE=\"width:120px;\" VALUE=\""+GAMMA+"\"></td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"5\"></td><tr>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td COLSPAN=\"3\">" ;
-    HTMLcode += "<table>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');CIRCLESformsEDITDISKdisk_from_equation();\">Compute Center and Radius</td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "</table>" ;
-    HTMLcode += "</td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-    HTMLcode += "</table>" ;
-    return HTMLcode ;
-}
-
-function CIRCLESformsEDITDISKthreepointsCODE( _items_switch )
-{
-    _items_switch = safe_int( _items_switch, ITEMS_SWITCH_SEEDS );
-    var HTMLcode =  "<table>" ;
-    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td COLSPAN=\"10\">Input 3 points and get the circle</td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td>PT<sub>1</sub></td>" ;
-    HTMLcode += "<td WIDTH=\"15\"></td>" ;
-    HTMLcode += "<td>x</td>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"THREEPOINTSpt1x\" TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsEDITDISKeventsHANDLER( this.id, event, 0, 0 );\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" STYLE=\"width:120px;\" VALUE=\"\"></td>" ;
-    HTMLcode += "<td WIDTH=\"15\"></td>" ;
-    HTMLcode += "<td>y</td>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"THREEPOINTSpt1y\" TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsEDITDISKeventsHANDLER( this.id, event, 0, 0 );\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" STYLE=\"width:120px;\" VALUE=\"\"></td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td>PT<sub>2</sub></td>" ;
-    HTMLcode += "<td WIDTH=\"15\"></td>" ;
-    HTMLcode += "<td>x</td>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"THREEPOINTSpt2x\" TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsEDITDISKeventsHANDLER( this.id, event, 0, 0 );\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" STYLE=\"width:120px;\" VALUE=\"\"></td>" ;
-    HTMLcode += "<td WIDTH=\"15\"></td>" ;
-    HTMLcode += "<td>y</td>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"THREEPOINTSpt2y\" TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsEDITDISKeventsHANDLER( this.id, event, 0, 0 );\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" STYLE=\"width:120px;\" VALUE=\"\"></td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td>PT<sub>3</sub></td>" ;
-    HTMLcode += "<td WIDTH=\"15\"></td>" ;
-    HTMLcode += "<td>x</td>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"THREEPOINTSpt3x\" TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsEDITDISKeventsHANDLER( this.id, event, 0, 0 );\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" STYLE=\"width:120px;\" VALUE=\"\"></td>" ;
-    HTMLcode += "<td WIDTH=\"15\"></td>" ;
-    HTMLcode += "<td>y</td>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"THREEPOINTSpt3y\" TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsEDITDISKeventsHANDLER( this.id, event, 0, 0 );\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" STYLE=\"width:120px;\" VALUE=\"\"></td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"5\"></td><tr>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td COLSPAN=\"9\">" ;
-    HTMLcode += "<table>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsEDITDISKdisk_from_3points();\">Compute Center and Radius</td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "</table>" ;
-    HTMLcode += "</td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
     HTMLcode += "</table>" ;
     return HTMLcode ;
 }
@@ -282,11 +162,11 @@ function CIRCLESformsEDITDISKmobiusmapCODE( _index, _items_switch )
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td WIDTH=\"25\" ID=\"CIRCLEselectedREALsymbolA\">"+( PARAMSinputTYPEmask & 1 ? "Radius" : "Real" )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamAreal\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:130px;\" VALUE=\""+( PARAMSinputTYPEmask & 1 ? MOBIUSparamA.radius().sci_to_dec() : MOBIUSparamA.real.sci_to_dec() )+"\"></td>" ;
+    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamAreal\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:110px;\" VALUE=\""+( PARAMSinputTYPEmask & 1 ? MOBIUSparamA.radius().sci_to_dec() : MOBIUSparamA.real.sci_to_dec() )+"\"></td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td WIDTH=\"25\" ID=\"CIRCLEselectedIMAGsymbolA\">"+( PARAMSinputTYPEmask & 1 ? "Angle" : "Imag" )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamAimag\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:130px;\" VALUE=\""+( PARAMSinputTYPEmask & 1 ? MOBIUSparamA.angle().sci_to_dec() : MOBIUSparamA.imag.sci_to_dec() )+"\"></td>" ;
+    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamAimag\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\" ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:110px;\" VALUE=\""+( PARAMSinputTYPEmask & 1 ? MOBIUSparamA.angle().sci_to_dec() : MOBIUSparamA.imag.sci_to_dec() )+"\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td><INPUT ONCLICK=\"javascript:CIRCLESformsEDITDISKswitchMOBIUSparams('A',1);_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);\" NAME=\"CIRCLEselectedMOBIUSMAPparamAradio\" ID=\"CIRCLEselectedMOBIUSMAPparamAorthoRADIO_01\" TYPE=\"radio\" "+( PARAMSinputTYPEmask & 1 ? "" : "CHECKED" )+"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
@@ -300,11 +180,11 @@ function CIRCLESformsEDITDISKmobiusmapCODE( _index, _items_switch )
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td WIDTH=\"25\" ID=\"CIRCLEselectedREALsymbolB\">"+( PARAMSinputTYPEmask & 2 ? "Radius" : "Real" )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamBreal\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:130px;\" VALUE=\""+( PARAMSinputTYPEmask & 2 ? MOBIUSparamB.radius().sci_to_dec() : MOBIUSparamB.real.sci_to_dec() )+"\"></td>" ;
+    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamBreal\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:110px;\" VALUE=\""+( PARAMSinputTYPEmask & 2 ? MOBIUSparamB.radius().sci_to_dec() : MOBIUSparamB.real.sci_to_dec() )+"\"></td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td WIDTH=\"25\" ID=\"CIRCLEselectedIMAGsymbolB\">"+( PARAMSinputTYPEmask & 2 ? "Angle" : "Imag" )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamBimag\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:130px;\" VALUE=\""+( PARAMSinputTYPEmask & 2 ? MOBIUSparamB.angle().sci_to_dec() : MOBIUSparamB.imag.sci_to_dec() )+"\"></td>" ;
+    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamBimag\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:110px;\" VALUE=\""+( PARAMSinputTYPEmask & 2 ? MOBIUSparamB.angle().sci_to_dec() : MOBIUSparamB.imag.sci_to_dec() )+"\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td><INPUT ONCLICK=\"javascript:CIRCLESformsEDITDISKswitchMOBIUSparams('B',1);_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);\" NAME=\"CIRCLEselectedMOBIUSMAPparamBradio\" ID=\"CIRCLEselectedMOBIUSMAPparamBorthoRADIO_01\" TYPE=\"radio\" "+( PARAMSinputTYPEmask & 2 ? "" : "CHECKED" )+"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
@@ -318,11 +198,11 @@ function CIRCLESformsEDITDISKmobiusmapCODE( _index, _items_switch )
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td WIDTH=\"25\" ID=\"CIRCLEselectedREALsymbolC\">"+( PARAMSinputTYPEmask & 4 ? "Radius" : "Real" )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamCreal\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:130px;\" VALUE=\""+( PARAMSinputTYPEmask & 4 ? MOBIUSparamC.radius().sci_to_dec() : MOBIUSparamC.real.sci_to_dec() )+"\"></td>" ;
+    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamCreal\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:110px;\" VALUE=\""+( PARAMSinputTYPEmask & 4 ? MOBIUSparamC.radius().sci_to_dec() : MOBIUSparamC.real.sci_to_dec() )+"\"></td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td WIDTH=\"25\" ID=\"CIRCLEselectedIMAGsymbolC\">"+( PARAMSinputTYPEmask & 4 ? "Angle" : "Imag" )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamCimag\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:130px;\" VALUE=\""+( PARAMSinputTYPEmask & 4 ? MOBIUSparamC.angle().sci_to_dec() : MOBIUSparamC.imag.sci_to_dec() )+"\"></td>" ;
+    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamCimag\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:110px;\" VALUE=\""+( PARAMSinputTYPEmask & 4 ? MOBIUSparamC.angle().sci_to_dec() : MOBIUSparamC.imag.sci_to_dec() )+"\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td><INPUT ONCLICK=\"javascript:CIRCLESformsEDITDISKswitchMOBIUSparams('C',1);_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);\" NAME=\"CIRCLEselectedMOBIUSMAPparamCradio\" ID=\"CIRCLEselectedMOBIUSMAPparamCorthoRADIO_01\" TYPE=\"radio\" "+( PARAMSinputTYPEmask & 4 ? "" : "CHECKED" )+"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
@@ -336,11 +216,11 @@ function CIRCLESformsEDITDISKmobiusmapCODE( _index, _items_switch )
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td WIDTH=\"25\" ID=\"CIRCLEselectedREALsymbolD\">"+( PARAMSinputTYPEmask & 8 ? "Radius" : "Real" )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamDreal\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:130px;\" VALUE=\""+( PARAMSinputTYPEmask & 8 ? MOBIUSparamD.radius().sci_to_dec() : MOBIUSparamD.real.sci_to_dec() )+"\"></td>" ;
+    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamDreal\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:110px;\" VALUE=\""+( PARAMSinputTYPEmask & 8 ? MOBIUSparamD.radius().sci_to_dec() : MOBIUSparamD.real.sci_to_dec() )+"\"></td>" ;
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
     HTMLcode += "<td WIDTH=\"25\" ID=\"CIRCLEselectedIMAGsymbolD\">"+( PARAMSinputTYPEmask & 8 ? "Angle" : "Imag" )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamDimag\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:130px;\" VALUE=\""+( PARAMSinputTYPEmask & 8 ? MOBIUSparamD.radius().sci_to_dec() : MOBIUSparamD.imag.sci_to_dec() )+"\"></td>" ;
+    HTMLcode += "<td><INPUT ID=\"CIRCLEselectedMOBIUSMAPparamDimag\" TYPE=\"edit\" ONBLUR=\"javascript:this.value=this.value.replaceAll(',','.');\"  ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,0);CIRCLESformsEDITDISKeventsHANDLER( this.id, event, "+_index+", 0 );\" STYLE=\"width:110px;\" VALUE=\""+( PARAMSinputTYPEmask & 8 ? MOBIUSparamD.radius().sci_to_dec() : MOBIUSparamD.imag.sci_to_dec() )+"\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td><INPUT ONCLICK=\"javascript:CIRCLESformsEDITDISKswitchMOBIUSparams('D',1);_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);\" NAME=\"CIRCLEselectedMOBIUSMAPparamDradio\" ID=\"CIRCLEselectedMOBIUSMAPparamDorthoRADIO_01\" TYPE=\"radio\" "+( PARAMSinputTYPEmask & 8 ? "" : "CHECKED" )+"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;

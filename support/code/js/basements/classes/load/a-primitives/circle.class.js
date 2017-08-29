@@ -439,52 +439,6 @@ function circle_from_equation( _alpha, _beta, _gamma, _fix_it )
     return new circle( new point( center_x, center_y ), radius ) ;
 }
 
-function circle_from_triplet( A, B, C, _accuracy, _fix_it ) // A, B, C are points
-{
-    _fix_it = safe_int( _fix_it, 0 );
-    if ( _fix_it != 0 && _fix_it != 1 ) _fix_it = 0 ;
-    _accuracy = safe_int( _accuracy, _CIRCLE_OBJ_MAX_ACCURACY ) ;
-    var approx_zero = Math.pow( 2, -_accuracy ) ;
-
-    // if all points match, no circle
-    if ( !is_point( A ) || !is_point( B ) || !is_point( C ) ) return null ;
-    else if ( A.is_equal_to( B ) || B.is_equal_to( C ) || A.is_equal_to( C )  ) return null ;
-    else if ( A.x == B.x && B.x == C.x ) // points are colinear (horizonthal)
-    {
-       var radius = approx_zero ;
-       var center = new point( B.x >= 0 ? B.x + radius : B.x - radius, B.y );
-       var _new_circle = new circle( center, radius );
-       if ( _fix_it ) _new_circle.fixer();
-       return _new_circle ;
-    }
-    else if ( A.y == B.y && B.y == C.y ) // points are colinear (vertical)
-    {
-       var radius = approx_zero ;
-       var center = new point( B.x, B.y >= 0 ? B.y + radius : B.y - radius );
-       var _new_circle = new circle( center, radius );
-       if ( _fix_it ) _new_circle.fixer();
-       return _new_circle ;
-    }
-    else
-    {
-       var den1 = B.x - A.x ;      if ( den1 == 0 ) den1 = approx_zero ;
-       var den2 = C.x - B.x ;      if ( den2 == 0 ) den2 = approx_zero ;
-       var m_r = ( B.y - A.y ) / den1 ; // slope of the chord r intersecting A and B      
-       var m_t = ( C.y - B.y ) / den2 ; // slope of the chord t intersecting B and C
-       var switch_line = B.y - A.y != 0 ? 1 : 2 ;
-       var mid_point = switch_line == 1 ? new point ( ( A.x + B.x ) / 2.0, ( A.y + B.y ) / 2.0 ) : new point ( ( B.x + C.x ) / 2.0, ( B.y + C.y ) / 2.0 ) ; 
-       var m_r_m_t = m_r - m_t ;       if ( m_r_m_t == 0 ) m_r_m_t = approx_zero ;
-       var c_x = ( ( m_r * m_t ) * ( C.y - A.y ) + m_r * ( B.x + C.x ) - m_t * ( A.x + B.x ) ) / ( 2.0 * m_r_m_t ) ;
-       var slope_perp = -1.0 / ( switch_line == 1 ? m_r : m_t ) ;
-       var c_y = slope_perp * ( c_x - mid_point.x ) + mid_point.y ;       
-       var center = new point( c_x, c_y );
-       var radius = center.distance( B );
-       var _new_circle = new circle( center, radius );
-       if ( _fix_it ) _new_circle.fixer();
-       return _new_circle ;
-    }
-}
-
 function find_4th_tangent_circle( C1, C2, C3, conf, _accuracy ) // C1, C2, C3 are the generator circles
 {
     _accuracy = safe_float( _accuracy, _CIRCLE_OBJ_MAX_ACCURACY );

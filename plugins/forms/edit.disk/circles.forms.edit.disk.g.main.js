@@ -85,7 +85,7 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     var MOBIUSparamC = _mm_exists ? _mm.get_c() : new complex( 0.0, 0.0 );
     var MOBIUSparamD = _mm_exists ? _mm.get_d() : new complex( 0.0, 0.0 );
 
-    var WIDTH = 500, HEIGHT = "auto", _subset = "forms" ;                     
+    var WIDTH = 450, HEIGHT = "auto", _subset = "forms" ;
     var _div_id = CIRCLESformsEDITDISKdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
     var CLOSE_FN = "CIRCLESformsEDITDISKclose();" ;
     var _caption = _items_switch == ITEMS_SWITCH_SEEDS ? CIRCLESformsEDITDISKcaption01 : CIRCLESformsEDITDISKcaption02 ;
@@ -163,31 +163,21 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     HTMLcode += "<td VALIGN=\"top\">" ;
                          
     var _tab_width = WIDTH - 10 ;
-    HTMLcode += "<div id=\"CIRCLESEDITmainDIV\" STYLE=\"width:"+_tab_width+"px;height:138px;\" class=\"tabber\">" ;
+    HTMLcode += "<div id=\"CIRCLESEDITmainDIV\" STYLE=\"width:"+_tab_width+"px;height:128px;\" class=\"tabber\">" ;
 
-    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:"+_tab_width+"px;height:130px;\" VALIGN=\"top\" ID=\"CIRCLESEDIT_TAB_01\">" ;
+    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:"+_tab_width+"px;height:120px;\" VALIGN=\"top\" ID=\"CIRCLESEDIT_TAB_01\">" ;
     HTMLcode += "<h2>Coordinates</h2>" ;
     HTMLcode += CIRCLESformsEDITDISKcoordinatesCODE(_item_index);
     HTMLcode += "</div>" ;
 
-    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:"+_tab_width+"px;height:130px;\" VALIGN=\"top\" ID=\"CIRCLESEDIT_TAB_02\">" ;
-    HTMLcode += "<h2>Equation</h2>" ;
-    HTMLcode += CIRCLESformsEDITDISKequationCODE(_item_index);
-    HTMLcode += "</div>" ;
-
-    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:"+_tab_width+"px;height:130px;\" VALIGN=\"top\" ID=\"CIRCLESEDIT_TAB_03\">" ;
-    HTMLcode += "<h2>Three points</h2>" ;
-    HTMLcode += CIRCLESformsEDITDISKthreepointsCODE(_item_index);
-    HTMLcode += "</div>" ;
-
-    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:"+_tab_width+"px;height:130px;\" VALIGN=\"top\" ID=\"CIRCLESEDIT_TAB_03\">" ;
-    HTMLcode += "<h2>Graphix</h2>" ;
-    HTMLcode += CIRCLESformsEDITDISKgraphixCODE(_item_index);
-    HTMLcode += "</div>" ;
-
-    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:"+_tab_width+"px;height:130px;\" VALIGN=\"top\" ID=\"CIRCLESEDIT_TAB_03\">" ;
+    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:"+_tab_width+"px;height:120px;\" VALIGN=\"top\" ID=\"CIRCLESEDIT_TAB_02\">" ;
     HTMLcode += "<h2>Map parameters</h2>" ;
     HTMLcode += CIRCLESformsEDITDISKmobiusmapCODE(_item_index);
+    HTMLcode += "</div>" ;
+
+    HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:"+_tab_width+"px;height:120px;\" VALIGN=\"top\" ID=\"CIRCLESEDIT_TAB_03\">" ;
+    HTMLcode += "<h2>Graphix</h2>" ;
+    HTMLcode += CIRCLESformsEDITDISKgraphixCODE(_item_index);
     HTMLcode += "</div>" ;
 
     HTMLcode += "</div>" ;
@@ -265,25 +255,22 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     HTMLcode += "</td>" ;
     HTMLcode += "</tr>" ;
 
-    if ( _glob_method != METHOD_ALGEBRAIC )
-    {
-        HTMLcode += "<tr>" ;
-        HTMLcode += "<td VALIGN=\"top\">" ;
-        HTMLcode += "<DIV CLASS=\"general_rounded_corners\" STYLE=\"position:relative;display:none;height:auto;background-color:#F7F7F7;\"\" ID=\"CIRCLESeditBARDIV_2\">" ;
-        HTMLcode += "<table>" ;
-        HTMLcode += "<tr>" ;
-        HTMLcode += "<td WIDTH=\"5\"></td>" ;
-        HTMLcode += "<td WIDTH=\"70\">Zoom</td>" ;
-        HTMLcode += "<td WIDTH=\"11\"></td>" ;
-        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_coordinates_zoom_in_disk( YES, "+_item_index+");\">Zoom</td>" ;
-        HTMLcode += "<td WIDTH=\"2\"></td>" ;
-        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_coordinates_zoomtofit( Z_PLANE, YES );\">Zoom to fit</td>" ;
-        HTMLcode += "</tr>" ;
-        HTMLcode += "</table>" ;
-        HTMLcode += "</DIV>" ;
-        HTMLcode += "</td>" ;
-        HTMLcode += "</tr>" ;
-    }
+    HTMLcode += "<tr>" ;
+    HTMLcode += "<td VALIGN=\"top\">" ;
+    HTMLcode += "<DIV CLASS=\"general_rounded_corners\" STYLE=\"position:relative;display:none;height:auto;background-color:#F7F7F7;\"\" ID=\"CIRCLESeditBARDIV_2\">" ;
+    HTMLcode += "<table>" ;
+    HTMLcode += "<tr>" ;
+    HTMLcode += "<td WIDTH=\"5\"></td>" ;
+    HTMLcode += "<td WIDTH=\"70\">Zoom</td>" ;
+    HTMLcode += "<td WIDTH=\"11\"></td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_coordinates_zoom_in_disk( YES, "+_item_index+");\">Zoom</td>" ;
+    HTMLcode += "<td WIDTH=\"2\"></td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_coordinates_zoomtofit( Z_PLANE, YES );\">Zoom to fit</td>" ;
+    HTMLcode += "</tr>" ;
+    HTMLcode += "</table>" ;
+    HTMLcode += "</DIV>" ;
+    HTMLcode += "</td>" ;
+    HTMLcode += "</tr>" ;
 
     HTMLcode += "<tr>" ;
     HTMLcode += "<td VALIGN=\"top\">" ;

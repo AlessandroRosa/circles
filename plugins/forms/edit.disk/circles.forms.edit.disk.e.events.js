@@ -13,16 +13,9 @@ function CIRCLESformsEDITDISKeventsHANDLER( _ctrl_id, _event )
     var _param_01 = arguments[2], _param2 = arguments[3] ;
 
   	event.preventDefault();
-    if ( _ctrl_id.one_in( "THREEPOINTSpt1x", "THREEPOINTSpt1y",
-                          "THREEPOINTSpt2x", "THREEPOINTSpt2y",
-                          "THREEPOINTSpt3x", "THREEPOINTSpt3y" ) )
-    {
-        CIRCLESformsEDITDISKdisk_from_3points();
-        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
-    }
-    else if ( _ctrl_id.one_in( "CIRCLEselectedALPHA", "CIRCLEselectedBETA", "CIRCLEselectedGAMMA" ) )
+    if ( _ctrl_id.one_in( "CIRCLEselectedALPHA", "CIRCLEselectedBETA", "CIRCLEselectedGAMMA" ) )
     {
         CIRCLESformsEDITDISKdisk_from_equation();
-        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
+        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCREEN );
     }
 }

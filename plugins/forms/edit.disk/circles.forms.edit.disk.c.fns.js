@@ -74,30 +74,6 @@ function CIRCLESformsEDITDISKdisk_from_equation()
     }
 }
 
-function CIRCLESformsEDITDISKdisk_from_3points()
-{
-    var PT1x = safe_float( $("#THREEPOINTSpt1x").val(), 0.0 );
-    var PT1y = safe_float( $("#THREEPOINTSpt1y").val(), 0.0 );
-    var PT2x = safe_float( $("#THREEPOINTSpt2x").val(), 0.0 );
-    var PT2y = safe_float( $("#THREEPOINTSpt2y").val(), 0.0 );
-    var PT3x = safe_float( $("#THREEPOINTSpt3x").val(), 0.0 );
-    var PT3y = safe_float( $("#THREEPOINTSpt3y").val(), 0.0 );
-    var A = new point( PT1x, PT1y ), B = new point( PT2x, PT2y ), C = new point( PT3x, PT3y );
-    var circle = circle_from_triplet( A, B, C, _glob_accuracy, YES );
-    if ( is_circle( circle ) )
-    {
-        $("#CIRCLEselectedCENTERx").val( circle.center.x );
-        $("#CIRCLEselectedCENTERy").val( circle.center.y );
-        $("#CIRCLEselectedCENTERradius").val( circle.radius );
-            
-        _glob_to_save = _glob_items_to_init = YES ;
-        $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-        circles_lib_extras_button_enable( 'APPLYchangesBTN', _glob_to_save, 0 );
-    }
-    else
-    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't compute circle: check the three points coordinates.", "CIRCLESformsEDITDISKoutMSG" ) ;
-}
-
 function CIRCLESformsEDITDISKbtnbarSHOW( _sel_id )
 {
     _sel_id = safe_int( _sel_id, 0 );

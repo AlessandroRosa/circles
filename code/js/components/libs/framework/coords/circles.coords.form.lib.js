@@ -570,6 +570,7 @@ function circles_lib_coordinates_zoom_in_disk( _render, _index, _question, _sile
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     if ( _index != UNDET )
     {
+       var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
        var _item_obj = _items_array[_index] ;
        var _symbol = is_item_obj( _item_obj ) ? _item_obj.symbol : "" ;
        if ( _symbol.length > 0 )

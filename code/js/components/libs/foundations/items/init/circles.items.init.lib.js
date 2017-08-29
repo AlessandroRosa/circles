@@ -658,7 +658,7 @@ function circles_lib_items_group_consistence_test()
        for( i = 0 ; i < _items_n ; i++ )
        {
           ITEM = _items_array[ i ] ;
-          if ( !is_item_obj( ITEM ) ) return GROUP_TEST_ERR_INCONSISTENT_ITEM ;
+          if ( !is_item_obj( ITEM ) ) return GROUP_TEST_ERR_INCONSISTENT_ITEM_OBJ ;
           _symbol = safe_string( ITEM.symbol, "" ), _inv_symbol = safe_string( ITEM.inverse_symbol, "" ) ;
           INV_ITEM = circles_lib_find_item_obj_by_symbol( _items_array, _inv_symbol );
           if ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) && !is_item_obj( INV_ITEM ) )
@@ -686,7 +686,7 @@ function circles_lib_items_group_return_msg( RET, _entries_n )
     else if ( RET == GROUP_TEST_ERR_UNPAIRED_GROUP_ITEMS ) MSG += "Group consistence failure: group does not include an even number of elements ( currently " + _entries_n + " )" ;
     else if ( RET == GROUP_TEST_ERR_MISSING_INVERSE_ITEM ) MSG += "Group consistence failure: at least one entry does not include its inverse" ;
     else if ( RET == GROUP_TEST_ERR_MISSING_ITEM_SYMBOL ) MSG += "Group consistence failure: at least one missing symbol" ;
-    else if ( RET == GROUP_TEST_ERR_INCONSISTENT_ITEM ) MSG += "Group consistence failure: at least one seed has not been correctly generated" ;
+    else if ( RET == GROUP_TEST_ERR_INCONSISTENT_ITEM_OBJ ) MSG += "Group consistence failure: at least one seed has not been correctly generated" ;
     else if ( RET == GROUP_TEST_ERR_INCONSISTENT_ITEM_MEMBERS ) MSG += "Group consistence failure: at least one element does not include proper data" ;
     else if ( RET == GROUP_TEST_ERR_OK ) MSG += "Group consistence test has been passed with success !" ;
     else if ( RET == GROUP_TEST_ERR_UNDET ) MSG += "Group consistence failure: unknown error" ;
