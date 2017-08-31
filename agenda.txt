@@ -16,10 +16,8 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
   (Remove each entry after completing the checkings)
 
 * FORMS
-circle.inversion
 dictionary
 discreteness.locus
-edit.disk
 eps.editor
 fourth.tangent.circle
 general.options
@@ -30,7 +28,6 @@ merging
 method
 palette
 script.editor
-seeds.list
 storage.space
 svg.editor
 tangent.circle
@@ -46,9 +43,7 @@ canvas.composition
 f.z
 fundamental.region
 group.table
-instructions.txt
 raw.points.list
-tools.txt
 
 ------------ SCRIPT EDITOR ------------------------
 

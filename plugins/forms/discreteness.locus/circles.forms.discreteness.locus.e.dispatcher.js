@@ -66,6 +66,9 @@ function CIRCLESformsDISCRETENESSLOCUSdispatcher()
         if ( $( "#CIRCLESdlocusworklayerCANVAS" ).get(0) != null ) document.body.removeChild( $( "#CIRCLESdlocusworklayerCANVAS" ).get(0) );
 			}
 			if ( _glob_target_plane == D_LOCUS ) _glob_target_plane = _glob_persistent_vars['old_target_plane'] ;
+      if ( _glob_storage['dlocus_selected_pts'] == null ) _glob_storage['dlocus_selected_pts'] = [] ;
+      if ( is_array( _glob_storage['dlocus_selected_pts'] ) )
+      _glob_storage['dlocus_selected_pts'] = CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array.clone();
 
       var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
       circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
@@ -81,7 +84,7 @@ function CIRCLESformsDISCRETENESSLOCUSdispatcher()
 			break ;
 		  case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
       _glob_target_plane = D_LOCUS ;
-              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+      var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
 		  circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
 		  break ;
       default: break ;

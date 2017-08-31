@@ -81,9 +81,9 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
               {
                  if ( _repetends_depth_tmp <= 0 )
                  {
-                      INDEX = LUTarray[ _LUT_range * _rnd() | 0 ] ;
-                      _r = _rnd() ;
-                      _repetends_depth_tmp = _r <= _repetends_threshold ? 0 : ( _r * _repetends_depth ) | 0 ;
+                    _r = _rnd() ;
+                    INDEX = LUTarray[ ( _LUT_range * _r ) | 0 ] ;
+                    _repetends_depth_tmp = _r <= _repetends_threshold ? 0 : ( _r * _repetends_depth ) | 0 ;
                  }
                  else _repetends_depth_tmp-- ;
 

@@ -1,8 +1,7 @@
 function CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX_CLICK( _check )
 {
    _check = safe_int( _check, UNDET );
- 	 CIRCLESformsDISCRETENESSLOCUSplugin_pick = _check == UNDET ? !CIRCLESformsDISCRETENESSLOCUSplugin_pick : _check ;
-	 $('#CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX').prop( "checked", CIRCLESformsDISCRETENESSLOCUSplugin_pick ? true : false );
+ 	 CIRCLESformsDISCRETENESSLOCUSplugin_pick = $('#CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX').prop( "checked" ) ;
    $('#CIRCLESformsDISCRETENESSLOCUSbuttonBARpickerICON').prop( "src", _glob_path_to_img + ( "icons/picker/picker.icon."+( CIRCLESformsDISCRETENESSLOCUSplugin_pick ? "02" : "00" )+".20x20.png" ) );
    if ( _check == YES ) CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( CIRCLESformsDISCRETENESSLOCUSdiv_id, NO, YES ) ;
    CIRCLESformsDISCRETENESSLOCUScanvas_mouse_proc_switch = _check ? MOUSE_PICK_POINTS_PROC_ID : MOUSE_NO_PROC_ID ;
@@ -214,9 +213,8 @@ function CIRCLESformsDISCRETENESSLOCUS_WORK_canvas_onmousedown( obj, event )
     
     if ( CIRCLESformsDISCRETENESSLOCUSrect.includes_pt( _glob_mouse_x, _glob_mouse_y ) )
     {
-       var _record_selected_pts = $( "#CIRCLESformsDISCRETENESSLOCUSrecordselectedptsCHECKBOX" ).prop( "checked" ) ? YES : NO ;
            _mouse_event_curr_pt = dlocus_sm.from_client_to_cartesian( CIRCLESformsDISCRETENESSLOCUSplugin_pick ? _glob_mouse_x + 1 : _glob_mouse_x,
-                                                                        CIRCLESformsDISCRETENESSLOCUSplugin_pick ? _glob_mouse_y + 14 : _glob_mouse_y - 4 );
+                                                                      CIRCLESformsDISCRETENESSLOCUSplugin_pick ? _glob_mouse_y + 14 : _glob_mouse_y - 4 );
        var _tr = new complex( _mouse_event_curr_pt.x, _mouse_event_curr_pt.y );
        $( "#CIRCLESformsDISCRETENESSLOCUScuspVALUE" ).val( _tr.formula() );
        if ( CIRCLESformsDISCRETENESSLOCUScanvas_mouse_proc_switch == MOUSE_PICK_POINTS_PROC_ID )
@@ -227,7 +225,8 @@ function CIRCLESformsDISCRETENESSLOCUS_WORK_canvas_onmousedown( obj, event )
 
        var _chunk_selection = $( "#CIRCLESformsDISCRETENESSLOCUSembeddingCOMBO option:selected" ).val();
        var _init_mode = _chunk_selection.includes( "@" ) ? safe_int( ( _chunk_selection.split( "@" ) )[0], _DLOCUS_NONE ) : _DLOCUS_NONE ;
-       if ( _record_selected_pts && !CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array.test( function( _c ) { return _c.is_equal_to( _tr ) } ) )
+       var _b_collected = CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array.length == 0 ? 0 : CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array.test( function( _c ) { return _c.is_equal_to( _tr ) ; } ) ;
+       if ( !_b_collected )
        {
           CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array.push( _tr );
           CIRCLESformsDISCRETENESSLOCUSselectionlistUPDATE();

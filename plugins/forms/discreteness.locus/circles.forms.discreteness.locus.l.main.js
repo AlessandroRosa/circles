@@ -37,6 +37,10 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
 {
 		_glob_persistent_vars['old_target_plane'] = _glob_target_plane ;
 		_glob_target_plane = D_LOCUS ;
+    if ( is_array( _glob_storage['dlocus_selected_pts'] ) )
+    CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array = _glob_storage['dlocus_selected_pts'].clone();
+
+
     CIRCLESformsDISCRETENESSLOCUSbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -436,8 +440,8 @@ function CIRCLESformsDISCRETENESSLOCUSreset( _question )
         
         CIRCLESformsDISCRETENESSLOCUScanvas_mouse_proc_switch = MOUSE_NO_PROC_ID ;
 		    CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( CIRCLESformsDISCRETENESSLOCUSdiv_id, NO ) ;
-				CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX_CLICK( NO ) ;
-				CIRCLESformsDISCRETENESSLOCUSinitZOOMproc( NO ) ;
+				CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX_CLICK(NO) ;
+				CIRCLESformsDISCRETENESSLOCUSinitZOOMproc(NO) ;
 
         CIRCLESformsDISCRETENESSLOCUSdisplayBOUNDARYcoords();
         
@@ -483,7 +487,7 @@ function CIRCLESformsDISCRETENESSLOCUScustomPARAMSset( _silent )
         CIRCLESformsDISCRETENESSLOCUStr_ABab = _custom_params[_startINDEX] ;
             _startINDEX++ ;
         CIRCLESformsDISCRETENESSLOCUSeq_solution = _custom_params[_startINDEX] ;
-        circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Params have been set up with success", "CIRCLESformsDLOCUSoutMSG" ) ;
+        circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Params have been set up with success", "CIRCLESformsDLOCUSoutMSG" ) ;
         return YES ;
     }
     else
@@ -733,10 +737,7 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSPupdateTEXT( _text, _pq_word, _f
              _eq_solution = parse_complex_from_string( _eq_solution + "" );
     
          var _pl_ray_orbit = _tmp_discreteness_locus.pleating_positive_ray( _pq_farey, _ret_trace,
-                                                                 _eq_solution,
-                                                                 _pl_rays_max_steps,
-                                                                 _bounding_rect, null,
-                                                                 _pl_rays_keepgoing, _pl_rays_correction );
+                             _eq_solution, _pl_rays_max_steps, _bounding_rect, null, _pl_rays_keepgoing, _pl_rays_correction );
          if ( safe_size( _pl_ray_orbit, 0 ) > 0 )
          CIRCLESformsDISCRETENESSLOCUScomputeCUSPupdatePLEATINGrayORBITlist( $( "#CIRCLESformsDISCRETENESSLOCUScuspFRAC" ).val(), _pl_ray_orbit );
     }

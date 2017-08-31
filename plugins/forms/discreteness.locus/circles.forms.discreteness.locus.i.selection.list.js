@@ -51,6 +51,7 @@ function CIRCLESformsDISCRETENESSLOCUSselectionlistBOMB( _silent )
 
 function CIRCLESformsDISCRETENESSLOCUSselectionlistAPPLY( _pt_index )
 {
+    _pt_index = safe_int( _pt_index, 0 );
     if ( CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array[ _pt_index ] != null )
     {
        var _pt = CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array[ _pt_index ] ;
@@ -92,22 +93,22 @@ function CIRCLESformsDISCRETENESSLOCUSselectionlistUPDATE()
     if ( _size > 0 )
     {
         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-        HTMLcode += "<tr><td ALIGN=\"center\" COLSPAN=\"9\">This list includes "+_size+" entr"+( _size == 1 ? "y" : "ies" )+"</td></tr>" ;
+        HTMLcode += "<tr><td ALIGN=\"center\" COLSPAN=\"9\" STYLE=\"font-size:11pt;\">The list of recorded points includes "+_size+" entr"+( _size == 1 ? "y" : "ies" )+"</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-        HTMLcode += "<tr><td ALIGN=\"right\" COLSPAN=\"9\" CLASS=\"link_rounded\" ONCLICK=\"javasript:CIRCLESformsDISCRETENESSLOCUSselectionlistBOMB();\">Delete all entries</td></tr>" ;
+        HTMLcode += "<tr><td ALIGN=\"right\" COLSPAN=\"9\" CLASS=\"link_rounded\" STYLE=\"font-size:11pt;\" ONCLICK=\"javasript:CIRCLESformsDISCRETENESSLOCUSselectionlistBOMB();\">Delete all entries</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
         $.each( CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array,
                 function( _i, complex_pt )
                 {
                    HTMLcode += "<tr>" ;
                    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-                   HTMLcode += "<td>"+( _i + 1 )+")</td>" ;
-                   HTMLcode += "<td WIDTH=\"8\"></td>" ;
-                   HTMLcode += "<td>"+( is_complex( complex_pt ) ? complex_pt.formula() : "<SPAN STYLE=\"color:#F7F7F7;\">invalid point coords</SPAN>" )+"</td>" ;
+                   HTMLcode += "<td STYLE=\"font-size:11pt;\">"+( _i + 1 )+")</td>" ;
+                   HTMLcode += "<td WIDTH=\"14\"></td>" ;
+                   HTMLcode += "<td STYLE=\"font-size:11pt;\">"+( is_complex( complex_pt ) ? complex_pt.formula() : "<SPAN STYLE=\"color:#F7F7F7;\">invalid point coords</SPAN>" )+"</td>" ;
                    HTMLcode += "<td WIDTH=\"15\"></td>" ;
-                   HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSselectionlistAPPLY( "+_i+" )\">Apply</td>" ;
-                   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-                   HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSselectionlistDELETE( "+_i+" )\">Delete</td>" ;
+                   HTMLcode += "<td CLASS=\"link_rounded\" STYLE=\"font-size:11pt;width:60px;\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSselectionlistAPPLY("+_i+");\">Apply</td>" ;
+                   HTMLcode += "<td WIDTH=\"8\"></td>" ;
+                   HTMLcode += "<td CLASS=\"link_rounded\" STYLE=\"font-size:11pt;width:60px;\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSselectionlistDELETE("+_i+");\">Delete</td>" ;
                    HTMLcode += "<td WIDTH=\"5\"></td>" ;
                    HTMLcode += "</tr>" ;
                    HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
@@ -118,9 +119,10 @@ function CIRCLESformsDISCRETENESSLOCUSselectionlistUPDATE()
     {
         HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
         HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:14pt;color:#C0C0C0;\">The list of selected points<br>is empty now</td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-        HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(4);\" ALIGN=\"center\" STYLE=\"font-size:14pt;color:#D0D0D0;\">Check if the record option has been flagged</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
+        HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(4);\" ALIGN=\"center\" STYLE=\"font-size:14pt;color:#D0D0D0;\">Click here to switch to the <SPAN STYLE=\"color:#6FABDC;\">Tuning tab</SPAN></td></tr>";
+        HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(4);\" ALIGN=\"center\" STYLE=\"font-size:14pt;color:#D0D0D0;\">and check if the <SPAN STYLE=\"color:#6FABDC;\">record selected points</SPAN> option</td></tr>" ;
+        HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(4);\" ALIGN=\"center\" STYLE=\"font-size:14pt;color:#D0D0D0;\">and check if the has been flagged</td></tr>" ;
     }
 
     HTMLcode += "</table>" ;

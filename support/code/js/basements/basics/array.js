@@ -405,7 +405,7 @@ if ( !Array.prototype.test )
   Array.prototype.test = function()
   {
       var _is_fn = typeof arguments[0] === "function" ? 1 : 0 ;
-		  var _tester = arguments[0] ;			if ( !_is_fn ) return 0 ;
+		  var _tester = arguments[0] ; if ( !_is_fn ) return 0 ;
 		  var _ref = arguments[1] == null ? this : arguments[1], _b_ok = 1 ;
 			for ( var _property in _ref )
       {
