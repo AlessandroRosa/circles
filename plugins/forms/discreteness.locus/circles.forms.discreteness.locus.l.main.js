@@ -39,8 +39,6 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
 		_glob_target_plane = D_LOCUS ;
     if ( is_array( _glob_storage['dlocus_selected_pts'] ) )
     CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array = _glob_storage['dlocus_selected_pts'].clone();
-
-
     CIRCLESformsDISCRETENESSLOCUSbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -95,7 +93,7 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
     HTMLcode += "</div>" ;
 
     HTMLcode += "<div class=\"tabbertab\" VALIGN=\"top\" STYLE=\"width:auto;height:auto;\" ID=\"CIRCLESformsDISCRETENESSLOCUS_TAB_03\">" ;
-    HTMLcode += "<h2>Selection list</h2>" ;
+    HTMLcode += "<h2>Recorded points</h2>" ;
     HTMLcode += CIRCLESformsDISCRETENESSLOCUSselectionlistBOX();
     HTMLcode += "</div>" ;
      
@@ -134,9 +132,13 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
     HTMLcode += CIRCLESformsDISCRETENESSLOCUStuningsBOX();
     HTMLcode += "</div>" ;
 
-    HTMLcode += "<div class=\"tabbertab\" VALIGN=\"top\" STYLE=\"width:auto;height:auto;\" ID=\"CIRCLESformsDISCRETENESSLOCUS_TAB_06\">" ;
-    HTMLcode += "<h2>Coords</h2>" ;
-    HTMLcode += CIRCLESformsDISCRETENESSLOCUScoordsBOX();
+    HTMLcode += "<div class=\"tabbertab\" VALIGN=\"top\" STYLE=\"width:auto;height:auto;\" ID=\"CIRCLESformsDISCRETENESSLOCUS_TAB_07\">" ;
+    HTMLcode += "<h2>Benchmark</h2>" ;
+    HTMLcode += "<table ALIGN=\"center\" WIDTH=\"100%\">" ;
+    HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"10\"></td><td ID=\"CIRCLESformsDISCRETENESSLOCUSbenchmarkCONTAINER\" STYLE=\"font-size:16pt;color:#D0D0D0;\">This tab includes the benchmarking data after the last discreteness locus computation</td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
+    HTMLcode += "</table>" ;
     HTMLcode += "</div>" ;
 
     HTMLcode += "<div class=\"tabbertab\" VALIGN=\"top\" STYLE=\"width:auto;height:auto;\" ID=\"CIRCLESformsDISCRETENESSLOCUS_TAB_07\">" ;
@@ -144,15 +146,6 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
     HTMLcode += "<table ALIGN=\"center\" WIDTH=\"100%\">" ;
     HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
     HTMLcode += "<tr><td ALIGN=\"center\" ID=\"CIRCLESformsDISCRETENESSLOCUSmiscCONTAINER\" STYLE=\"font-size:16pt;color:gray;\">This box could include contents<br>of different type,<br>depending on current panel settings</td></tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
-    HTMLcode += "</table>" ;
-    HTMLcode += "</div>" ;
-
-    HTMLcode += "<div class=\"tabbertab\" VALIGN=\"top\" STYLE=\"width:auto;height:auto;\" ID=\"CIRCLESformsDISCRETENESSLOCUS_TAB_07\">" ;
-    HTMLcode += "<h2>Benchmark</h2>" ;
-    HTMLcode += "<table ALIGN=\"center\" WIDTH=\"100%\">" ;
-    HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-    HTMLcode += "<tr><td WIDTH=\"10\"></td><td ID=\"CIRCLESformsDISCRETENESSLOCUSbenchmarkCONTAINER\" STYLE=\"font-size:16pt;color:#D0D0D0;\">This tab includes the benchmarking data after the last discreteness locus computation</td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</div>" ;
@@ -443,8 +436,6 @@ function CIRCLESformsDISCRETENESSLOCUSreset( _question )
 				CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX_CLICK(NO) ;
 				CIRCLESformsDISCRETENESSLOCUSinitZOOMproc(NO) ;
 
-        CIRCLESformsDISCRETENESSLOCUSdisplayBOUNDARYcoords();
-        
         circles_lib_canvas_clean( $( "#CIRCLESdlocusdiagramCANVAS" ).get(0) );
         if ( _glob_target_plane == D_LOCUS )
 				circles_lib_dlocus_mapper_init( _canvas_w, _canvas_h, YES );
@@ -754,14 +745,6 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSPupdateTEXT( _text, _pq_word, _f
         if ( _ret_init == NO && _out_channel == OUTPUT_TERMINAL )
         circles_lib_terminal_warning_echo( "Can't init: no plug-in activated yet" );
     }
-}
-
-function CIRCLESformsDISCRETENESSLOCUSdisplayBOUNDARYcoords()
-{
-    $( "#CIRCLESformsDISCRETENESSLOCUSregionCOORDSleft" ).html( _glob_dlocusLEFT );
-    $( "#CIRCLESformsDISCRETENESSLOCUSregionCOORDSright" ).html( _glob_dlocusRIGHT );
-    $( "#CIRCLESformsDISCRETENESSLOCUSregionCOORDStop" ).html( _glob_dlocusTOP );
-    $( "#CIRCLESformsDISCRETENESSLOCUSregionCOORDSbottom" ).html( _glob_dlocusBOTTOM );
 }
 
 function CIRCLESformsDISCRETENESSLOCUScuspCOMBO()

@@ -96,21 +96,19 @@ farey.prototype.read_fraction = function()
 {
 		if ( arguments.length == 2 )
 		{
-         this.p = safe_int( arguments[0], 0 ), this.q = safe_int( arguments[1], 0 );
+        this.p = safe_int( arguments[0], 0 ), this.q = safe_int( arguments[1], 0 );
 		}
 		else if ( arguments.length == 1 )
 		{
 		    var _frac = arguments[0] ;
-        if ( is_string( _frac ) ) _frac = safe_float( _frac, 0 );
-
 				if ( is_fraction( _frac ) || is_farey( _frac ) )
 		    {
 		         this.p = safe_int( _frac.p, 0 ), this.q = safe_int( _frac.q, 0 );
 		    }
-		    else if ( is_number( _frac ) )
+		    else if ( /^([0-9\-\+]{1,})[\/]([0-9\-\+]{1,})$/.test( _frac ) )
 		    {
-						 var _f = this.get_fraction_from_decimal( _frac );
-						 this.p = _f.p, this.q = _f.q ;
+		         var _arr = _frac.split( "/" );
+		         this.p = safe_int( _arr[0], 0 ), this.q = safe_int( _arr[1], 0 );
 		    }
 		    else if ( is_array( _frac ) )
 		    {
@@ -120,10 +118,16 @@ farey.prototype.read_fraction = function()
 		         }
 		         else this.p = this.q = 0 ;
 		    }
-		    else if ( /^([0-9\-\+]{1,})[\/]([0-9\-\+]{1,})$/.test( _frac ) )
+        else if ( is_string( _frac ) )
+        {
+             _frac = safe_float( _frac, 0 );
+						 var _f = this.get_fraction_from_decimal( _frac );
+						 this.p = _f.p, this.q = _f.q ;
+        }
+        if ( is_number( _frac ) )
 		    {
-		         var _arr = _frac.split( "/" );
-		         this.p = safe_int( _arr[0], 0 ), this.q = safe_int( _arr[1], 0 );
+						 var _f = this.get_fraction_from_decimal( _frac );
+						 this.p = _f.p, this.q = _f.q ;
 		    }
 		}
     else this.p = this.q = 0 ;
@@ -155,8 +159,8 @@ farey.prototype.is_infinity = function() { return ( is_infinity( this.p ) && !is
 farey.prototype.is_limit_to_zero = function() { return ( !is_infinity( this.p ) && is_infinity( this.q ) ) ? 1 : 0 ; }
 
 farey.prototype.indet = function()    { this.p = 0, this.q = 0 ; }
-farey.prototype.zero = function()     { this.p = 0, this.q = 1 ; }
-farey.prototype.unit = function()     { this.p = 1, this.q = 1 ; }
+farey.prototype.zero = function() { this.p = 0, this.q = 1 ; }
+farey.prototype.unit = function() { this.p = 1, this.q = 1 ; }
 farey.prototype.infinity = function() { this.p = 1, this.q = 0 ; }
 
 farey.prototype.match_signature = function( _f2 ) { return ( this.p == _f2.p && this.q == _f2.q ) ; }
@@ -177,7 +181,7 @@ farey.prototype.output = function( _format, _separator )
 farey.prototype.is_neighbor = function( _f2 )   { return is_farey( _f2 ) ? ( ( Math.abs( _f2.p * this.q - this.p * _f2.q ) == 1 ) ? 1 : 0 ) : 0 ; }
 farey.prototype.is_equal_to = function( _f2 )   { return is_farey( _f2 ) ? ( this.p / this.q == _f2.p / _f2.q ) : 0 ; }
 farey.prototype.is_not_equal_to = function( _f2 ) { return is_farey( _f2 ) ? ( this.p / this.q != _f2.p / _f2.q ) : 0 ; }
-farey.prototype.is_lesser = function( _f2 )     { return is_farey( _f2 ) ? ( this.p / this.q < _f2.p / _f2.q ) : 0 ;  }
+farey.prototype.is_lesser = function( _f2 ) { return is_farey( _f2 ) ? ( this.p / this.q < _f2.p / _f2.q ) : 0 ;  }
 farey.prototype.is_lesser_eq = function( _f2 )  { return is_farey( _f2 ) ? ( this.p / this.q <= _f2.p / _f2.q ) : 0 ; }
 farey.prototype.is_greater = function( _f2 )    { return is_farey( _f2 ) ? ( this.p / this.q > _f2.p / _f2.q ) : 0 ;  }
 farey.prototype.is_greater_eq = function( _f2 ) { return is_farey( _f2 ) ? ( this.p / this.q >= _f2.p / _f2.q ) : 0 ; }
@@ -202,7 +206,7 @@ farey.prototype.is_contiguous = function( _c, _d, _order )
     else return 0 ;
 }
 
-farey.prototype.ratio = function()         { return ( !isNaN( this.p ) && !isNaN( this.q ) && this.q != 0 ) ? this.p / this.q : "error" ; }
+farey.prototype.ratio = function() { return ( !isNaN( this.p ) && !isNaN( this.q ) && this.q != 0 ) ? this.p / this.q : "error" ; }
 farey.prototype.distance = function( _f2 ) { return Math.abs( this.ratio() - _f2.ratio() ) ; }
 farey.prototype.clone = function()       { return new farey( this.p, this.q ) ; }
 farey.prototype.copy = function( _f2 )   { if ( is_farey( _f2 ) ) { this.p = _f2.p, this.q = _f2.q ; return false ; } else { return true ; } }
@@ -210,8 +214,8 @@ farey.prototype.set = function( _p, _q ) { this.p = safe_int( _p, 0 ), this.q = 
 farey.prototype.sum = function( _f2 )    { return new farey( this.p + _f2.p, this.q + _f2.q ) ; }
 farey.prototype.median = function( _f2 ) { return this.sum( _f2 ) ; } // alias of sum
 farey.prototype.sub = function( _f2 )   { return new farey( this.p - _f2.p, this.q - _f2.q ) ; }
-farey.prototype.get_num = function()     { return this.p ; }
-farey.prototype.get_den = function()     { return this.q ; }
+farey.prototype.get_num = function() { return this.p ; }
+farey.prototype.get_den = function() { return this.q ; }
 farey.prototype.set_num = function( _p ) { this.p = safe_int( _p, 0 ) ; }
 farey.prototype.set_den = function( _q )  { this.q = safe_int( _q, 0 ) ; }
 farey.prototype.get_absolute = function() { return new farey( Math.abs( this.p ), Math.abs( this.q ) ) ; }
@@ -290,7 +294,7 @@ farey.prototype.farey_sequence = function( _max_sequence_order, _start_frac, _en
     var _abs_end_farey = _end_farey.get_absolute() ;
 		_max_sequence_order = safe_int( _max_sequence_order, 1 ) ;
     var _farey = [] ;
-    
+
     if ( _positive_start && _positive_end )
     		 _farey = this.farey_seq_sub( _max_sequence_order, _end_farey ) ;
     else if ( !_positive_start && _positive_end )
@@ -311,7 +315,7 @@ farey.prototype.farey_sequence = function( _max_sequence_order, _start_frac, _en
        _farey = _farey.work( function( _frac ) { return [ -_frac[0], _frac[1] ] } ).reverse() ;
        _glob_array_recursive_run = _tmp ;
     }
-		
+
     var _tmp = _glob_array_recursive_run ;
     _glob_array_recursive_run = 0 ;
     // filters and finally reset index from 0 to n
@@ -338,7 +342,7 @@ farey.prototype.farey_seq_sub = function( _order, _end_farey )
 
 			 if ( ( _p2 / _q2 ) >= _end_farey.ratio() ) break ;
 		}
-    
+
     return _farey.clone();
 }
 
@@ -361,7 +365,7 @@ farey.prototype.path = function( _farey_input, _approx, _max_steps )
 			 {
 		 		  _left_bound = new farey( 1, 1 ), _right_bound = new farey( 1, 0 ) ;
 			 }
-				 
+
 			 if ( _left_bound != null && _right_bound != null )
 			 {
 					  var _cnt = 0 ;
@@ -380,11 +384,11 @@ farey.prototype.path = function( _farey_input, _approx, _max_steps )
 									 _left_bound = _median ;
 									 _path.push( [ "right", _median, _left_bound, _right_bound ] );
 								}
-										
+
 								if ( _find_what.distance( _median ) <= _approx ) break ;
 								_cnt++ ;
 						}
-							
+
 						return _path ;
 			 }
 			 else return null ;
@@ -411,12 +415,12 @@ farey.prototype.next_term_params = function( _pq, _sequence_order, _input_seq, _
 							 if (  _input_seq[_i][0] / _input_seq[_i][1] > _pq.ratio() )
 							 {
 					 			 _index = _i ;
-								 break ;									 
-							 } 
+								 break ;
+							 }
 						}
 			 }
 			 else if ( _input_seq[_index+1] != null ) return [_index+1, new farey(_input_seq[_index+1][0],_input_seq[_index+1][1])] ;
-				 
+
        if ( _index == -1 ) return [ -1, null ] ;
        _index++ ;
        _ret_farey = _input_seq[ _index ] != null ? new farey( _input_seq[ _index ][0], _input_seq[ _index ][1] ) : null ;
@@ -444,12 +448,12 @@ farey.prototype.prev_term_params = function( _pq, _sequence_order, _input_seq )
 						 if (  _input_seq[_i][0] / _input_seq[_i][1] > _pq.ratio() )
 						 {
 					 			 _index = _i ;
-								 break ;									 
+								 break ;
 						 }
 					}
 			 }
 			 else if ( _input_seq[_index-1] != null ) return [_index-1, new farey(_input_seq[_index+1][0],_input_seq[_index+1][1])] ;
-				 
+
        if ( _index == -1 ) return [ -1, null ] ;
        _index-- ;
        _ret_farey = _input_seq[ _index ] != null ? new farey( _input_seq[ _index ][0], _input_seq[ _index ][1] ) : null ;
@@ -485,7 +489,7 @@ farey.prototype.continued_frac_html = function( _color )
 						FRAC_CONTAINER_TEMPLATE += "<tr><td VALIGN=\"middle\"\">%den%</td></tr>" ;
 						FRAC_CONTAINER_TEMPLATE += "</table>" ;
 				var _out = FRAC_CONTAINER_TEMPLATE, _conv, _tmp ;
-				
+
 				for( var _k = 0 ; _k < _convergents.length ; _k++ )
 				{
 						_conv = _convergents[_k] ;
@@ -498,7 +502,7 @@ farey.prototype.continued_frac_html = function( _color )
 				       _out = _tmp ;
 						}
 				}
-				
+
 				return _out ;
 		}
 		else return "" ;

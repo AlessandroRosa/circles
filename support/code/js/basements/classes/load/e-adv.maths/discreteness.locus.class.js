@@ -99,7 +99,7 @@ function discreteness_locus()
     this.pq_newton_z1 = 0 ;
     this.pq_newton_step = 0 ;
 
-    this.discreteness_locus_presets = new Array();
+    this.discreteness_locus_presets = [];
     /* index     role
 		   0				 starting trace
 		   1         trace a
@@ -169,39 +169,39 @@ discreteness_locus.prototype.get_preset = function( _init_mode )
 }
 
 discreteness_locus.prototype.set_pleating_rays_max_iterate = function( _m ) { this.pleating_ray_max_steps = _m ;   }
-discreteness_locus.prototype.get_pleating_rays_max_iterate = function()     { return this.pleating_ray_max_steps ; }
+discreteness_locus.prototype.get_pleating_rays_max_iterate = function() { return this.pleating_ray_max_steps ; }
 
 discreteness_locus.prototype.set_pleating_rays_step_rate = function( _sr ) { this.pleating_ray_step_rate = _sr ; }
-discreteness_locus.prototype.get_pleating_rays_step_rate = function()     { return this.pleating_ray_step_rate ; }
+discreteness_locus.prototype.get_pleating_rays_step_rate = function() { return this.pleating_ray_step_rate ; }
 
 discreteness_locus.prototype.set_pleating_rays_threshold_accuracy = function( _a ) { _a = Math.abs( _a ) ; this.pleating_ray_threshold_accuracy = _a > 1 ? Math.pow( 10, _a ) : _a ; }
-discreteness_locus.prototype.get_pleating_rays_threshold_accuracy = function()     { return this.pleating_ray_threshold_accuracy ; }
+discreteness_locus.prototype.get_pleating_rays_threshold_accuracy = function() { return this.pleating_ray_threshold_accuracy ; }
 
 discreteness_locus.prototype.set_pleating_rays_forward_factor = function( _f ) { this.pleating_ray_forward_factor = _f ;   }
-discreteness_locus.prototype.get_pleating_rays_forward_factor = function()     { return this.pleating_ray_forward_factor ; }
+discreteness_locus.prototype.get_pleating_rays_forward_factor = function() { return this.pleating_ray_forward_factor ; }
 
 discreteness_locus.prototype.set_pleating_rays_backward_factor = function( _f ) { this.pleating_ray_backward_factor = _f ;   }
-discreteness_locus.prototype.get_pleating_rays_backward_factor = function()     { return this.pleating_ray_backward_factor ; }
+discreteness_locus.prototype.get_pleating_rays_backward_factor = function() { return this.pleating_ray_backward_factor ; }
 
 discreteness_locus.prototype.set_trace_fix_op = function( _op ) { this.trace_fix_op = _op ;  }
-discreteness_locus.prototype.get_trace_fix_op = function()      { return this.trace_fix_op ; }
+discreteness_locus.prototype.get_trace_fix_op = function() { return this.trace_fix_op ; }
 
 discreteness_locus.prototype.set_starting_pt = function( _mu ) { this.starting_pt = _mu ; }
-discreteness_locus.prototype.get_starting_pt = function()      { return this.starting_pt ; }
+discreteness_locus.prototype.get_starting_pt = function() { return this.starting_pt ; }
 
 discreteness_locus.prototype.set_commutator_trace = function( _tr_comm ) { this.commutator_trace = _tr_comm ; }
-discreteness_locus.prototype.get_commutator_trace = function()           { return this.commutator_trace ; }
+discreteness_locus.prototype.get_commutator_trace = function() { return this.commutator_trace ; }
 
 discreteness_locus.prototype.set_eq_solution = function( _eq_sol ) { this.eq_solution = _eq_sol ; }
-discreteness_locus.prototype.get_eq_solution = function()          { return this.eq_solution ; }
+discreteness_locus.prototype.get_eq_solution = function() { return this.eq_solution ; }
 
 discreteness_locus.prototype.set_max_iterate = function( _steps ) { this.max_iterate = Math.max( 0, _steps ) ; }
-discreteness_locus.prototype.get_max_iterate = function()         { return this.max_iterate ; }
+discreteness_locus.prototype.get_max_iterate = function() { return this.max_iterate ; }
 
 discreteness_locus.prototype.set_accuracy = function( accuracy ) { accuracy = Math.abs( accuracy ) ; this.accuracy = accuracy > 1 ? Math.pow( 10, -accuracy ) : accuracy ; }
-discreteness_locus.prototype.get_accuracy = function()           { return this.accuracy ; }
+discreteness_locus.prototype.get_accuracy = function() { return this.accuracy ; }
 
-discreteness_locus.prototype.get_init_mode = function()          { return this.init_mode ; }
+discreteness_locus.prototype.get_init_mode = function() { return this.init_mode ; }
 discreteness_locus.prototype.set_init_mode = function( _init_mode )
 {
     this.init_mode = safe_float( _init_mode, _DLOCUS_NONE );
@@ -233,7 +233,7 @@ discreteness_locus.prototype.set_init_mode = function( _init_mode )
 discreteness_locus.prototype.set_custom_params = function()
 {
     if ( is_array( arguments[0] ) ) arguments = arguments[0] ;
-    this.custom_params = new Array() ;
+    this.custom_params = [] ;
     for( var _i = 0 ; _i < arguments.length ; _i++ ) this.custom_params.push( new complex( arguments[_i].real, arguments[_i].imag ) );
 }
 
@@ -655,8 +655,7 @@ discreteness_locus.prototype.pq_equation = function( _pq, _param_01, eq_solution
              {
                this.traces = this.init( _param_01 ) ;
                return this.pq_trace_polynomial( _pq, this.traces[0], this.traces[1], this.traces[2] ).sub( eq_solution ) ;
-             }
-           ) ;
+             } ) ;
 }
 
 discreteness_locus.prototype.pq_numerical_derivative = function( _func, _pq, _z0 )
@@ -681,7 +680,7 @@ discreteness_locus.prototype.pq_newton = function( _func, _pq, _z0 )
 
 discreteness_locus.prototype.pq_boundary = function( _den, _input_seq, _start_farey, _end_farey, _callback_fn )
 {
-    var _boundary = new Array() ;
+    var _boundary = [] ;
 		var _start_pq = is_array( _start_farey ) ? _ext_farey_return( _start_farey ) : ( _start_farey instanceof farey ? _start_farey : this.farey_seq_start ) ;
 				this.farey_seq_start = _start_pq ;
 		var _end_pq = is_array( _end_farey ) ? _ext_farey_return( _end_farey ) : ( _end_farey instanceof farey ? _end_farey : this.farey_seq_end ) ;
@@ -716,11 +715,10 @@ discreteness_locus.prototype.fix_discreteness_locus_pt = function( _pq_frac, _pt
 
 discreteness_locus.prototype.pleating_positive_ray = function( _pq, _ray_start_pt, _step_start, _max_steps, _bounding_rect, _callback_fn, _correct, _keep_going )
 {
-    _correct = safe_int( _correct, 0 );
-    _keep_going = safe_int( _keep_going, 0 );
+    _correct = safe_int( _correct, 0 ), _keep_going = safe_int( _keep_going, 0 );
 		if ( !( _step_start instanceof complex ) ) _step_start = new complex( 2.0, 0 ) ;
 		if ( !( _step_rate instanceof complex ) ) _step_rate = new complex( 0.1, 0 ) ;
-		var _ray_pts_array = [], _func, _ray_pt = _ray_start_pt, _new_ray_pt ;
+		var _ray_pts_array = [], _ray_pt = _ray_start_pt, _new_ray_pt, _func ;
 		var _steps = safe_int( _max_steps, this.get_pleating_rays_max_iterate() ), _counter = 0 ;
 		var _threshold_accuracy = this.get_pleating_rays_threshold_accuracy(), _dist ;
 		var _step_rate = this.get_pleating_rays_step_rate(), _go = 1 ;
@@ -732,22 +730,19 @@ discreteness_locus.prototype.pleating_positive_ray = function( _pq, _ray_start_p
 				_dist = _new_ray_pt.distance( _ray_pt ) ;
         if ( _correct && _dist > _step_rate )
         {
-					  _ray_pts_array = _ray_pts_array.get_last();
+					  _ray_pts_array.push( _ray_pts_array.get_last() );
 						_step_rate *= this.pleating_ray_backward_factor ;
 						_step_start = _step_start.sub( _step_rate );
 				}
 				if ( !_go || _counter > _steps || ( _dist > _step_rate && _keep_going ) ) break ;
-
 				if ( _dist < _threshold_accuracy ) _step_rate *= this.pleating_ray_forward_factor ;
 				else if ( _dist > _threshold_accuracy ) _step_rate *= this.pleating_ray_backward_factor ;
 				_step_start = _step_start.add( _step_rate );
 				_counter++ ;
 				_ray_pt = _new_ray_pt ;
 				_ray_pts_array.push( _ray_pt );
-
-				_go = ( _bounding_rect != null ) ? ( _bounding_rect.is_pt_inside( _ray_pt.real, _ray_pt.imag ) ? 1 : 0 ) : 1 ;
+				_go = _bounding_rect != null ? ( _bounding_rect.is_pt_inside( _ray_pt.real, _ray_pt.imag ) ? 1 : 0 ) : 1 ;
 		}
-		
 		return _ray_pts_array ;
 }
 
@@ -769,22 +764,19 @@ discreteness_locus.prototype.pleating_negative_ray = function( _pq, _ray_start_p
 				_dist = _new_ray_pt.distance( _ray_pt ) ;
         if ( _correct && _dist > _step_rate )
         {
-					  _ray_pts_array = _ray_pts_array.get_last();
+					  _ray_pts_array.push( _ray_pts_array.get_last() );
 						_step_rate *= this.pleating_ray_backward_factor ;
 						_step_start = _step_start.sub( _step_rate );
 				}
 				if ( !_go || _counter > _steps || ( _dist > _step_rate && _keep_going ) ) break ;
-
 				if ( _dist < _threshold_accuracy ) _step_rate *= this.pleating_ray_forward_factor ;
 				else if ( _dist > _threshold_accuracy ) _step_rate *= this.pleating_ray_backward_factor ;
 				_step_start = _step_start.sub( _step_rate );
 				_counter++ ;
 				_ray_pt = _new_ray_pt ;
 				_ray_pts_array.push( _ray_pt );
-
-				_go = ( _bounding_rect != null ) ? ( _bounding_rect.is_pt_inside( _ray_pt.real, _ray_pt.imag ) ? 1 : 0 ) : 1 ;
+				_go = _bounding_rect != null ? ( _bounding_rect.is_pt_inside( _ray_pt.real, _ray_pt.imag ) ? 1 : 0 ) : 1 ;
 		}
-		
 		return _ray_pts_array ;
 }
 
@@ -796,7 +788,6 @@ discreteness_locus.prototype.pq_cusp = function( _pq, _seq, _order, _start_frac,
         var _den = _pq.q, _pq_str = _pq.output();
         if ( _seq == null ) _seq = _pq.farey_sequence( _order == 0 ? _den : _order, _start_frac, _end_frac, _callback_fn ) ;
         else if ( _seq.length == 0 ) _seq = _pq.farey_sequence( _order == 0 ? _den : _order, _start_frac, _end_frac, _callback_fn ) ;
-
         var _boundary = this.pq_boundary( _order == 0 ? _den : _order, _seq, _start_frac, _end_frac, _callback_fn );
 				var _cusp = _boundary[''+_pq_str] ;
         if ( _cusp == null )
@@ -812,10 +803,8 @@ discreteness_locus.prototype.pq_cusp = function( _pq, _seq, _order, _start_frac,
                    _min_dist = _dist ;
                 }
             }
-             
             if ( _closest_frac.length > 0 ) _cusp = _boundary[''+_closest_frac] ;
         }
-         
         return _cusp ;
     }
     else return null ;

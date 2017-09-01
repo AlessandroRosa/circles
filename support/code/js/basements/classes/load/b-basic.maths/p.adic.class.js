@@ -54,7 +54,7 @@ function p_adic( _n, _base )
 p_adic.prototype.output = function() { return this.expansion ; }
 p_adic.prototype.reverse_str = function( _str ) { return is_string( _str ) ? _str.split('').reverse().join('') : _str ; }
 p_adic.prototype.set_max_digits = function( _s ) { this.max_digits = _s ; }
-p_adic.prototype.get_max_digits = function()     { return this.max_digits ; }
+p_adic.prototype.get_max_digits = function() { return this.max_digits ; }
 p_adic.prototype.set_base = function( _base ) { this.base = safe_int( Math.min( Math.max( 2, Math.abs( _base ) ), this.alphabet.length ), 10 ) ; }
 p_adic.prototype.get_base = function() { return this.base ; }
 p_adic.prototype.gcd = function( _p, _q ) // greatest common divisor

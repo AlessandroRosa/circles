@@ -1,4 +1,4 @@
-function circles_lib_alphabet_get_cap_symbols()      { return is_array( _glob_alphabet ) ? _glob_alphabet.filtering( function( _v ) { return _v.isAlphaUpper(); } ).purge(0).sort() : []; }
+function circles_lib_alphabet_get_cap_symbols() { return is_array( _glob_alphabet ) ? _glob_alphabet.filtering( function( _v ) { return _v.isAlphaUpper(); } ).purge(0).sort() : []; }
 function circles_lib_alphabet_get_small_symbols()    { return is_array( _glob_alphabet ) ? _glob_alphabet.filtering( function( _v ) { return _v.isAlphaLower(); } ).purge(0).sort() : []; }
 function circles_lib_alphabet_count_cap_symbols()    { return safe_size( circles_lib_alphabet_get_cap_symbols(), 0 ); }
 function circles_lib_alphabet_count_small_symbols() { return safe_size( circles_lib_alphabet_get_small_symbols(), 0 ); }

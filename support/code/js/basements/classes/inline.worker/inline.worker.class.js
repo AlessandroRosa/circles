@@ -40,4 +40,4 @@ inline_worker.prototype.init_vars = function( _vars_array )
 }
 
 inline_worker.prototype.terminate = function() { this.worker.postMessage( { id : "stop" } ); this.worker.terminate(); }
-inline_worker.prototype.stop = function()      { this.worker.postMessage( { id : "stop" } ); this.worker.terminate(); }
+inline_worker.prototype.stop = function() { this.worker.postMessage( { id : "stop" } ); this.worker.terminate(); }

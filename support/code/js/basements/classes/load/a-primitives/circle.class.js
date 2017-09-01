@@ -138,7 +138,7 @@ circle.prototype.fixer = function( _max )
 
 circle.prototype.get_representative_pts = function() { return [ this.center, this.center.shift( this.radius, 0, 0 ) ] ; }
 circle.prototype.copy = function()            { return new circle( this.center, this.radius, this.draw, this.fill, this.drawcolor, this.fillcolor, this.linewidth, this.notes ); }
-circle.prototype.is_null = function()         { return ( ( this.center.is_null() || !this.center.is_consistent() ) && this.radius == 0 ) ? 1 : 0 ; }
+circle.prototype.is_null = function() { return ( ( this.center.is_null() || !this.center.is_consistent() ) && this.radius == 0 ) ? 1 : 0 ; }
 circle.prototype.is_point = function()        { return this.radius == 0 ? 1 : 0 ; }
 circle.prototype.is_equal_to = function( C )  { return ( C.center.is_equal_to( this.center ) && this.radius == C.radius ) ? 1 : 0 ; }
 circle.prototype.get_notes = function()       { return this.notes ; }
@@ -147,7 +147,7 @@ circle.prototype.diameter = function()        { return 2.0 * this.radius ; }
 circle.prototype.circumference = function()   { return 2.0 * Math.PI * this.radius ; }
 circle.prototype.arc = function( rad )        { return ( this.circumference() / ( 2.0 * Math.PI ) * rad ) ; }
 circle.prototype.area = function()            { return Math.PI * this.radius * this.radius ; }
-circle.prototype.get_curvature = function()      { return this.radius == 0 ? 0 : ( 1.0 / this.radius ) ; }
+circle.prototype.get_curvature = function() { return this.radius == 0 ? 0 : ( 1.0 / this.radius ) ; }
 circle.prototype.set_curvature = function( c )   { this.radius = c == 0 ? 0 : ( 1.0 / c ) ; }
 circle.prototype.rotate = function( center_pt, rot_rad ) { this.center = this.center.rotate( center_pt, rot_rad ); }
 circle.prototype.move = function( _move_x, _move_y )
@@ -172,7 +172,7 @@ circle.prototype.is_boundary_point = function( pt, _tolerance )
 
 circle.prototype.is_secant = function( C2 )       { return ( this.center.distance( C1.center ) < ( this.radius + C2.radius ) ) ? 1 : 0 ; }
 circle.prototype.is_intersecting = function( C2 ) { return ( this.center.distance( C1.center ) > ( this.radius + C2.radius ) ) ? 0 : 1 ; }
-circle.prototype.is_tangent = function( C2 )      { return ( this.center.distance( C1.center ) == ( this.radius + C2.radius ) ) ? 1 : 0 ; }
+circle.prototype.is_tangent = function( C2 ) { return ( this.center.distance( C1.center ) == ( this.radius + C2.radius ) ) ? 1 : 0 ; }
 circle.prototype.is_internally_tangent = function( C2 )
 {
     var dX = this.center.x - C2.center.x ;
@@ -189,7 +189,7 @@ circle.prototype.is_internally_tangent = function( C2 )
     return ( ( dX*dX + dY*dY ) == dR*dR ) ? 1 : 0 ;
 }
 
-circle.prototype.write = function()      { document.write( this.output() ) ; }
+circle.prototype.write = function() { document.write( this.output() ) ; }
 circle.prototype.fulloutput = function() { return ( this.output() + " Draw : " + this.draw + "/" + this.drawcolor + " Fill : " + this.fill + "/" + this.fillcolor ) ; }
 circle.prototype.pack = function()       { return this.center.x + "@" + this.center.y + "@" + this.radius ; }
 circle.prototype.unpack = function( _packed_input )

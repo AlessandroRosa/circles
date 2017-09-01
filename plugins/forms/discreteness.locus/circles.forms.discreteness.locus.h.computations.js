@@ -10,15 +10,22 @@ function CIRCLESformsDISCRETENESSLOCUSbenchmark()
 		var _diff_secs = ( _e_time - _s_time ) / 1000 ;
 		var _n_complex_pts = safe_size( CIRCLESformsDISCRETENESSLOCUScomplex_pts_array, "Invalid" );
 		var _n_screen_pts = safe_size( CIRCLESformsDISCRETENESSLOCUSscreen_locus_pts_array, "Invalid" );
+    var _embedding = $("#CIRCLESformsDISCRETENESSLOCUSembeddingCOMBO option:selected").text();
 
 		var HTMLcode = "<table>" ;
 				HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-				HTMLcode += "<tr><td STYLE=\"color:#6485A8;\" COLSPAN=\"3\">Current locus tracing features</td></tr>" ;
-				HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
+				HTMLcode += "<tr><td STYLE=\"color:#6485A8;font-size:11pt;\" COLSPAN=\"3\">Rendering the discreness locus for <SPAN STYLE=\"color:#325376;\">"+_embedding+"</SPAN> embedding</td></tr>" ;
+				HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
 				HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:#545454;\">Rendering time</td><td WIDTH=\"5\"></td><td STYLE=\"font-size:10pt;color:#89AACD;\">"+_diff_secs+" second"+( _diff_secs == 1 ? "" : "s" )+"</td></tr>" ;
 				HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
 				HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:#545454;\">Errors</td><td WIDTH=\"5\"></td><td STYLE=\"font-size:10pt;color:#89AACD;\">"+_errors+"</td></tr>" ;
 				HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
+				HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:#545454;\">Input complex points</td><td WIDTH=\"5\"></td><td STYLE=\"font-size:10pt;color:#89AACD;\">"+_n_complex_pts+"</td></tr>" ;
+				HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
+				HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:#545454;\">Output screen points</td><td WIDTH=\"5\"></td><td STYLE=\"font-size:10pt;color:#89AACD;\">"+_n_screen_pts+"</td></tr>" ;
+				HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+				HTMLcode += "<tr><td COLSPAN=\"3\">Coordinates</td></tr>" ;
+				HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
 				HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:#545454;\">Max left</td><td WIDTH=\"5\"></td><td STYLE=\"font-size:10pt;color:#89AACD;\">"+_left+"</td></tr>" ;
 				HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
 				HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:#545454;\">Max right</td><td WIDTH=\"5\"></td><td STYLE=\"font-size:10pt;color:#89AACD;\">"+_right+"</td></tr>" ;
@@ -26,10 +33,6 @@ function CIRCLESformsDISCRETENESSLOCUSbenchmark()
 				HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:#545454;\">Max top</td><td WIDTH=\"5\"></td><td STYLE=\"font-size:10pt;color:#89AACD;\">"+_top+"</td></tr>" ;
 				HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
 				HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:#545454;\">Max bottom</td><td WIDTH=\"5\"></td><td STYLE=\"font-size:10pt;color:#89AACD;\">"+_bottom+"</td></tr>" ;
-				HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-				HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:#545454;\">Input complex points</td><td WIDTH=\"5\"></td><td STYLE=\"font-size:10pt;color:#89AACD;\">"+_n_complex_pts+"</td></tr>" ;
-				HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-				HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:#545454;\">Output screen points</td><td WIDTH=\"5\"></td><td STYLE=\"font-size:10pt;color:#89AACD;\">"+_n_screen_pts+"</td></tr>" ;
 				HTMLcode += "</table>" ;
 
 		$( "#CIRCLESformsDISCRETENESSLOCUSbenchmarkCONTAINER" ).html( HTMLcode );
@@ -43,7 +46,7 @@ function CIRCLESformsDISCRETENESSLOCUSgetFAREYFRACS()
     var _farey_end = new farey();
         _farey_end.read_fraction( $( "#CIRCLESformsDISCRETENESSLOCUSendFRAC" ).val() );
         _farey_end.self_reduce(); $( "#CIRCLESformsDISCRETENESSLOCUSendFRAC" ).val( _farey_end.output() );
-    return ( [ _farey_start, _farey_end ] ).clone();
+    return ( [ _farey_start, _farey_end ] );
 }
 
 function CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARYstop() { _glob_inline_worker.stop(); SPLASHanimated( "", NO ); }
@@ -371,7 +374,6 @@ function CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARYend( _adapt_view )
 	      circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsDLOCUSoutMSG" ) ;
     }
 
-    CIRCLESformsDISCRETENESSLOCUSdisplayBOUNDARYcoords();
  		CIRCLESformsDISCRETENESSLOCUSbenchmarkTABLE['end_time'] = unixtime() ;
     CIRCLESformsDISCRETENESSLOCUSbenchmark();
 

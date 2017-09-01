@@ -12,20 +12,20 @@ if ( typeof safe_int != "function" ) function safe_int( _val, _set_if_nan ) { _v
 if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) { _val = parseFloat( _val ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
 
 if ( !Array.reset_index ) { Array.prototype.reset_index = function() { return this.filter(function(){return true;}) ; } }
-if ( !Array.flush )          { Array.prototype.flush = function() { while( this.length > 0 ) this.pop(); } }
+if ( !Array.flush ) { Array.prototype.flush = function() { while( this.length > 0 ) this.pop(); } }
 if ( !Array.has_duplicates ) { Array.prototype.has_duplicates = function() { return this.length != this.unique().length ? 1 : 0 ; } }
-if ( !Array.left )           { Array.prototype.left = function( n )  { return this.subset( n ); } }
-if ( !Array.trunc )          { Array.prototype.trunc = function( n ) { return this.left( n ); } }
+if ( !Array.left ) { Array.prototype.left = function( n )  { return this.subset( n ); } }
+if ( !Array.trunc ) { Array.prototype.trunc = function( n ) { return this.left( n ); } }
 if ( !Array.from_to )        { Array.prototype.from_to = function( _from_index, _to_index ) { return arguments.length == 1 ? this.slice( _from_index, this.length ) : this.slice( _from_index, _to_index + 1 ); } }
-if ( !Array.get_first )      { Array.prototype.get_first = function() { return this.length > 0 ? this[0] : null ; } }
+if ( !Array.get_first ) { Array.prototype.get_first = function() { return this.length > 0 ? this[0] : null ; } }
 if ( !Array.get_last )       { Array.prototype.get_last = function() { return this.length > 0 ? this[ this.length - 1 ] : null ; } }
-if ( !Array.pop_first )      { Array.prototype.pop_first = function() { var _out = this[0] ; this.slice( 1, this.length - 1 ) ; return _out ; } }
-if ( !Array.tail )           { Array.prototype.tail = function( _n ) { return this.slice( -_n ) ; } }
+if ( !Array.pop_first ) { Array.prototype.pop_first = function() { var _out = this[0] ; this.slice( 1, this.length - 1 ) ; return _out ; } }
+if ( !Array.tail ) { Array.prototype.tail = function( _n ) { return this.slice( -_n ) ; } }
 if ( !Array.push_safe )  { Array.prototype.push_safe = function( obj )    { if ( this.indexOf( obj ) == -1 ) this.push( obj ) ; } }
 if ( !Array.push_first ) { Array.prototype.push_first = function( _item ) { return ( new Array( _item ) ).concat( this ) ; } }
-if ( !Array.get_central )    { Array.prototype.get_central = function()      { var _n = this.length ; return _n % 2 == 1 ? this[ Math.floor( _n / 2 ) ] : null ; } }
-if ( !Array.right )          { Array.prototype.right = function( n ) { return this.subset( -n ); } }
-if ( !Array.slide_back )     { Array.prototype.slide_back = function() { return ( this.slice(1) ).concat( this.slice( 0,1 ) ) ; } }
+if ( !Array.get_central )    { Array.prototype.get_central = function() { var _n = this.length ; return _n % 2 == 1 ? this[ Math.floor( _n / 2 ) ] : null ; } }
+if ( !Array.right ) { Array.prototype.right = function( n ) { return this.subset( -n ); } }
+if ( !Array.slide_back ) { Array.prototype.slide_back = function() { return ( this.slice(1) ).concat( this.slice( 0,1 ) ) ; } }
 if ( !Array.slide_forward )  { Array.prototype.slide_forward = function() { return ( this.slice(this.length-1).concat( this.slice(0,this.length-1) ) ) ; } }
 
 // methods for associative arrays

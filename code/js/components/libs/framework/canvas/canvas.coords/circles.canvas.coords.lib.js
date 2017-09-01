@@ -39,7 +39,7 @@ function circles_lib_canvas_coords_correct_aspectratio( _plane_type )
     //    then recalculates global vars
     _plane_type = safe_int( _plane_type, NO_PLANE );
     var _layers_array = null, _coords = null ;
-    if ( _plane_type == Z_PLANE )      { _layers_array = _glob_zplane_layers_pile_array ; _coords = [ _glob_zplaneLEFT, _glob_zplaneTOP, _glob_zplaneRIGHT, _glob_zplaneBOTTOM ] ; }
+    if ( _plane_type == Z_PLANE ) { _layers_array = _glob_zplane_layers_pile_array ; _coords = [ _glob_zplaneLEFT, _glob_zplaneTOP, _glob_zplaneRIGHT, _glob_zplaneBOTTOM ] ; }
     else if ( _plane_type == W_PLANE ) { _layers_array = _glob_wplane_layers_pile_array ; _coords = [ _glob_wplaneLEFT, _glob_wplaneTOP, _glob_wplaneRIGHT, _glob_wplaneBOTTOM ] ; }
 
     // the bottom layer, just to return coords and size

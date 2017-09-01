@@ -137,13 +137,13 @@ fraction.prototype.read_fraction = function( _frac )
 fraction.prototype.match_signature = function( _f2 ) { return ( this.p == _f2.p && this.q == _f2.q ) ; }
 fraction.prototype.is_indeterminate = function() { return ( this.p == 0 && this.q == 0 ) ? 1 : 0 ; }
 fraction.prototype.array = function()       { return [ this.p,  this.q ] ; }
-fraction.prototype.output = function()      { return this.p + "/" + this.q ; }
+fraction.prototype.output = function() { return this.p + "/" + this.q ; }
 fraction.prototype.ratio = function()       { return this.p / this.q ; }
 fraction.prototype.clone = function()       { return new fraction( this.p, this.q ) ; }
 fraction.prototype.copy = function( _f2 )   { if ( is_fraction( _f2 ) ) { this.p = _f2.p, this.q = _f2.q ; } }
 fraction.prototype.set = function( _p, _q ) { this.p = _p, this.q = _q ;  }
-fraction.prototype.get_num = function()     { return this.p ; }
-fraction.prototype.get_den = function()     { return this.q ; }
+fraction.prototype.get_num = function() { return this.p ; }
+fraction.prototype.get_den = function() { return this.q ; }
 fraction.prototype.set_num = function( _p ) { this.p = safe_int( _p, 0 ) ; }
 fraction.prototype.set_den = function( _q ) { this.q = safe_int( _q, 0 ) ; }
 
@@ -188,7 +188,7 @@ fraction.prototype.reduce = function()
 
 fraction.prototype.is_equal_to = function( _f2 )   { return ( ( this.p * _f2.q - _f2.p * this.q ) == 0 ) ? 1 : 0 ; }
 fraction.prototype.is_not_equal_to = function( _f2 )  { return ( ( this.p * _f2.q - _f2.p * this.q ) != 0 ) ? 1 : 0 ; }
-fraction.prototype.is_lesser = function( _f2 )     { return ( ( this.p * _f2.q - _f2.p * this.q ) < 0 ) ? 1 : 0 ; }
+fraction.prototype.is_lesser = function( _f2 ) { return ( ( this.p * _f2.q - _f2.p * this.q ) < 0 ) ? 1 : 0 ; }
 fraction.prototype.is_lesser_eq = function( _f2 )  { return ( ( this.p * _f2.q - _f2.p * this.q ) <= 0 ) ? 1 : 0 ; }
 fraction.prototype.is_greater = function( _f2 )    { return ( ( this.p * _f2.q - _f2.p * this.q ) > 0 ) ? 1 : 0 ; }
 fraction.prototype.is_greater_eq = function( _f2 ) { return ( ( this.p * _f2.q - _f2.p * this.q ) >= 0 ) ? 1 : 0 ; }

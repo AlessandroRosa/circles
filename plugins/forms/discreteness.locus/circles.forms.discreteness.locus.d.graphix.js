@@ -32,8 +32,7 @@ function CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( _options_array, _silent )
 		            _canvas_sm.set_client_rect( CIRCLESformsDISCRETENESSLOCUSrect );
 		            _canvas_sm.set_display_rect( CIRCLESformsDISCRETENESSLOCUSrect );
 		            _options_array = _options_array.unique();
-								$.each( _options_array,
-		                    function( _i, _option )
+								$.each( _options_array, function( _i, _option )
 		                    {
 	                    		_option = safe_int( _option, 0 );
 	                        if ( _option == 1 ) circles_lib_grid_draw( _out_canvas, _canvas_sm, D_LOCUS, YES, $( "#CIRCLESformsDISCRETENESSLOCUSticks" ).val(), OUTPUT_SCREEN );
@@ -44,8 +43,7 @@ function CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( _options_array, _silent )
 	                        if ( _option == 32 ) CIRCLESformsDISCRETENESSLOCUSselectionlistDRAW();
 	                        if ( _option == 64 ) CIRCLESformsDISCRETENESSLOCUSdrawBOUNDARY( _out_canvas, YES, _silent );
 	                        if ( _option == 128 ) CIRCLESformsDISCRETENESSLOCUSviewportcoordsFIT();
-		                    }
-		                  );
+		                    } );
 						}
 						
 						if ( _glob_target_plane == BIP_BOX ) bipbox_sm = dlocus_sm.copy();
@@ -63,13 +61,11 @@ function CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( _options_array, _silent )
 								var _row_height = _font_size * 1.5 ;
 								var X = 0, Y = ( _ctx.get_height() - TEXT.count( "\n" ) * _row_height ) / 2.0 ;
 								TEXT = TEXT.replaceAll( [ CRLF_WIN, CRLF_NO_WIN ], _glob_crlf ).split( _glob_crlf );
-								$.each( TEXT,
-												function( _i, _tok )
+								$.each( TEXT, function( _i, _tok )
 												{
 														circles_lib_draw_text( _ctx, null, 0, Y, _tok, _textcolor, _font_style, _shift_x, _shift_y, NO, _glob_opacity, 0, "center" ) ;
 														Y += Math.ceil( _row_height ) ;			
-												}
-											) ;
+												} ) ;
 						}
         }
     }
@@ -90,7 +86,6 @@ function CIRCLESformsDISCRETENESSLOCUSzoom( _zoom_direction )
     _glob_dlocusRIGHT = _rect.get_right();
     _glob_dlocusBOTTOM = _rect.get_top();
 
-		CIRCLESformsDISCRETENESSLOCUSdisplayBOUNDARYcoords();
 		$( "#CIRCLESformsDISCRETENESSLOCUSfixregionCHECKBOX" ).prop( "checked", true );
     dlocus_sm.set_coords_rect( _rect );
     CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 8, 1, 64, 16, 32 ] );

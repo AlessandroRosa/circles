@@ -164,33 +164,33 @@ complex.prototype.r = function() { return this.real ; }
 complex.prototype.i = function() { return this.imag ; }
 
 // define constants
-complex.prototype.zero = function()      { return new complex(0.0,0.0) ; }
+complex.prototype.zero = function() { return new complex(0.0,0.0) ; }
 complex.prototype.origin = function()    { return new complex(0.0,0.0) ; }
 complex.prototype.real_unit = function() { return new complex(1.0,0.0) ; }
 complex.prototype.imag_unit = function() { return new complex(0.0,1.0) ; }
 
 complex.prototype.angle = function()            { return Math.atan2( this.imag, this.real ); } // returns in radians from -PI to +PI
-complex.prototype.angle2PI = function()         { return Math.PI * 2.0 - Math.atan2( this.imag, this.real ); } // returns in radians from 0 to + 2PI
+complex.prototype.angle2PI = function() { return Math.PI * 2.0 - Math.atan2( this.imag, this.real ); } // returns in radians from 0 to + 2PI
 complex.prototype.arg = function()         			{ return this.angle() ; } // alias of angle
 complex.prototype.arg2PI = function()      			{ return this.angle2PI() ; } // alias of angle2PI
-complex.prototype.argument = function()         { return this.angle() ; } // alias of angle
-complex.prototype.argument2PI = function()      { return this.angle2PI() ; } // alias of angle2PI
+complex.prototype.argument = function() { return this.angle() ; } // alias of angle
+complex.prototype.argument2PI = function() { return this.angle2PI() ; } // alias of angle2PI
 complex.prototype.conj = function()        			{ return new complex( this.real, -this.imag ); }
 complex.prototype.conj_x = function()      			{ return new complex( -this.real, this.imag ); }
-complex.prototype.opposite = function()         { return new complex( -this.real, -this.imag ); }
-complex.prototype.distance = function( z )      { return Math.sqrt( Math.pow( this.real - z.real, 2.0 ) + Math.pow( this.imag - z.imag, 2.0 ) ) ; }
+complex.prototype.opposite = function() { return new complex( -this.real, -this.imag ); }
+complex.prototype.distance = function( z ) { return Math.sqrt( Math.pow( this.real - z.real, 2.0 ) + Math.pow( this.imag - z.imag, 2.0 ) ) ; }
 complex.prototype.frompolar = function( r, th ) { return new complex( r * Math.cos(th), r * Math.sin(th) ) ; }
 complex.prototype.polar = function() 						{ return { 'radius' : this.radius(), 'arg' : this.arg2PI() } ; }
 complex.prototype.inv = function()              { return ( new complex( 1.0, 0.0 ) ).div( this ) ; }
 complex.prototype.norm = function()             { return ( this.real * this.real + this.imag * this.imag ) ; }
-complex.prototype.radius = function()           { return Math.sqrt( this.norm() ) ;	}
+complex.prototype.radius = function() { return Math.sqrt( this.norm() ) ;	}
 complex.prototype.abs = function()           		{ return this.radius() ; }
 complex.prototype.infinity_complex = function() { return new complex( Infinity, Infinity ) ; }
 
-complex.prototype.is_real = function()         { return ( this.imag == 0 ) ? 1 : 0 ; }
+complex.prototype.is_real = function() { return ( this.imag == 0 ) ? 1 : 0 ; }
 complex.prototype.is_imaginary = function()    { return ( this.real == 0 && this.imag != 0 ) ? 1 : 0 ; }
-complex.prototype.is_complex = function()      { return ( this.real != 0 && this.imag != 0 ) ? 1 : 0 ; }
-complex.prototype.is_zero = function()         { return ( this.real == 0 && this.imag == 0 ) ? 1 : 0 ; }
+complex.prototype.is_complex = function() { return ( this.real != 0 && this.imag != 0 ) ? 1 : 0 ; }
+complex.prototype.is_zero = function() { return ( this.real == 0 && this.imag == 0 ) ? 1 : 0 ; }
 complex.prototype.is_real_unit = function()    { return ( this.real == 1 && this.imag == 0 ) ? 1 : 0 ; }
 complex.prototype.is_imag_unit = function()    { return ( this.real == 0 && this.imag == 1 ) ? 1 : 0 ; }
 complex.prototype.is_complex_unit = function() { return ( this.radius() == 1 && this.argument() != 0 ) ? 1 : 0 ; }
@@ -198,13 +198,13 @@ complex.prototype.is_gaussian_int = function() { return ( this.real == safe_int(
 complex.prototype.is_finite = function()			 { return is_infinity( this.real ) || is_infinity( this.imag ) ? 0 : 1 ; }
 complex.prototype.is_infinity_complex = function() { return !this.is_finite() ; }
 
-complex.prototype.set_real = function( r )      { this.real = r ; }
-complex.prototype.set_imag = function( i )      { this.imag = i ; }
+complex.prototype.set_real = function( r ) { this.real = r ; }
+complex.prototype.set_imag = function( i ) { this.imag = i ; }
 complex.prototype.set_coords = function( r, i ) { this.real = r, this.imag = i ; }
 
 complex.prototype.is_equal_to = function( _z, _tolerance )  { _tolerance = safe_float( _tolerance, 0 ) ; return this.distance( _z ) <= _tolerance ? 1 : 0 ; }
 complex.prototype.is_not_equal_to = function( _z, _tolerance )  { _tolerance = safe_float( _tolerance, 0 ) ; return this.distance( _z ) <= _tolerance ? 0 : 1 ; }
-complex.prototype.isNaN = function()           { return ( isNaN( this.r() ) || isNaN( this.i() ) ) ? 1 : 0 ; }
+complex.prototype.isNaN = function() { return ( isNaN( this.r() ) || isNaN( this.i() ) ) ? 1 : 0 ; }
 
 complex.prototype.add = function( a2 )
 {
@@ -249,7 +249,7 @@ complex.prototype.pow = function( exponent )
 }
 complex.prototype.sqrt = function()		{	return this.pow( new complex( 0.5, 0.0 ) ) ; }
 // Neperian (natural) Logarithm
-complex.prototype.ln = function()     { return new complex( Math.log( this.radius() ), this.angle() ) ; }
+complex.prototype.ln = function() { return new complex( Math.log( this.radius() ), this.angle() ) ; }
 // Base 10 Logarithm
 complex.prototype.log = function()		{ return ( this.ln() ).div( ( new complex( 10.0, 0.0 ) ).ln() ) ; }
 complex.prototype.exp = function()    { return new complex( Math.exp( this.real ) * Math.cos( this.imag ), Math.exp( this.real ) * Math.sin( this.imag ) ) ; }

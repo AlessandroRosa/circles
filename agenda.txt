@@ -9,6 +9,8 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 * indexsearch (via terminal general.purpose, use a 6-generators group)
 
 ------------ APP -------------------------------------------------
+- discreteness locus : fix pleating rays calculations
+
 - srcptset terminal cmd:
   * build point set according to input params
 
@@ -34,7 +36,6 @@ tangent.circle
 terminal
 terminal.comment
 terminal.filter
-triggers
 watch.formula
 
 * TOOLS

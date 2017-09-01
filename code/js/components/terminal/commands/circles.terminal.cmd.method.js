@@ -47,8 +47,8 @@ function circles_terminal_cmd_method()
               else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.stricmp( "reset" ) ) _params_assoc_array['reset'] = YES ;
-              else if ( _p.stricmp( METHOD_INVERSION_CMD_DEF ) )     { _params_assoc_array['process_def'] = _p ; _params_assoc_array['method'] = METHOD_INVERSION ; }
-              else if ( _p.stricmp( METHOD_ALGEBRAIC_CMD_DEF ) )     { _params_assoc_array['process_def'] = _p ; _params_assoc_array['method'] = METHOD_ALGEBRAIC ; }
+              else if ( _p.stricmp( METHOD_INVERSION_CMD_DEF ) ) { _params_assoc_array['process_def'] = _p ; _params_assoc_array['method'] = METHOD_INVERSION ; }
+              else if ( _p.stricmp( METHOD_ALGEBRAIC_CMD_DEF ) ) { _params_assoc_array['process_def'] = _p ; _params_assoc_array['method'] = METHOD_ALGEBRAIC ; }
               else if ( _p.stricmp( PROCESS_BREADTHFIRST_CMD_DEF ) ) { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_BREADTHFIRST ; }
               else if ( _p.stricmp( PROCESS_INDEXSEARCH_CMD_DEF ) )  { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_INDEXSEARCH ; }
               else if ( _p.stricmp( PROCESS_RANDOM_CMD_DEF ) )       { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_RANDOM ; }

@@ -83,7 +83,7 @@ jseps.prototype.init = function( _language_level, _encapsulated, _author, _bb_bo
 }
 
 jseps.prototype.get_codelist_ref = function() { return this.eps_code ; }
-jseps.prototype.get_codelist = function()     { return this.eps_code.slice(0) ; }
+jseps.prototype.get_codelist = function() { return this.eps_code.slice(0) ; }
 
 jseps.prototype.close = function() { this.comment( "%%end of file" ); }
 

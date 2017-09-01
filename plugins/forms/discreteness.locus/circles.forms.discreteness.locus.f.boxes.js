@@ -69,32 +69,6 @@ function CIRCLESformsDISCRETENESSLOCUSfareyBOX()
     return HTMLcode ;
 }
 
-function CIRCLESformsDISCRETENESSLOCUScoordsBOX()
-{
-    var HTMLcode  = "<table>" ;
-				HTMLcode += "<tr>" ;
-				
-				HTMLcode += "<td VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F6F6F6;padding:4px;\">" ;
-				HTMLcode += "<table>" ;
-        HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td COLSPAN=\"3\">Locus coords</td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Left</td><td WIDTH=\"5\"></td><td ID=\"CIRCLESformsDISCRETENESSLOCUSregionCOORDSleft\"></td><td WIDTH=\"3\"></td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Right</td><td WIDTH=\"5\"></td><td ID=\"CIRCLESformsDISCRETENESSLOCUSregionCOORDSright\"></td><td WIDTH=\"3\"></td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Top</td><td WIDTH=\"5\"></td><td ID=\"CIRCLESformsDISCRETENESSLOCUSregionCOORDStop\"></td><td WIDTH=\"3\"></td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Bottom</td><td WIDTH=\"5\"></td><td ID=\"CIRCLESformsDISCRETENESSLOCUSregionCOORDSbottom\"></td><td WIDTH=\"3\"></td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-        HTMLcode += "</table>" ;
-				HTMLcode += "</td>" ;
-
-				HTMLcode += "</tr>" ;
-        HTMLcode += "</table>" ;
-    return HTMLcode ;
-}
-
 function CIRCLESformsDISCRETENESSLOCUStuningsBOX()
 {
     var HTMLcode = "<table WIDTH=\"100%\" BORDER=\"0\" ID=\"CIRCLESformsDISCRETENESSLOCUStuningsBOXcontainer\">";
@@ -103,7 +77,7 @@ function CIRCLESformsDISCRETENESSLOCUStuningsBOX()
         HTMLcode += "<td VALIGN=\"top\" COLSPAN=\"3\">" ;
         HTMLcode += "<table>" ;
         HTMLcode += "<tr>" ;
-        HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F8F8F8;padding:4px;\" VALIGN=\"top\">"+CIRCLESformsDISCRETENESSLOCUSmainBOX()+"</td>" ;
+        HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F4F4F4;padding:4px;\" VALIGN=\"top\">"+CIRCLESformsDISCRETENESSLOCUSmainBOX()+"</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
         HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F8F8F8;padding:4px;\" VALIGN=\"top\">"+CIRCLESformsDISCRETENESSLOCUSpleatingraysBOX()+"</td>" ;
         HTMLcode += "</tr>"
@@ -152,7 +126,7 @@ function CIRCLESformsDISCRETENESSLOCUSupperMENU()
         HTMLcode += "<td WIDTH=\"10\"></td>" ;
         HTMLcode += "<td WIDTH=\"25\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSsaveCONFIG();\" ID=\"CIRCLESformsDISCRETENESSLOCUSsaveBTN\">Save</td>" ;
         HTMLcode += "<td WIDTH=\"10\"></td>" ;
-        HTMLcode += "<td WIDTH=\"80\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSsquareresize();\" ID=\"CIRCLESformsDISCRETENESSLOCUSsquareresizeBTN\">Square diagram</td>" ;
+        HTMLcode += "<td WIDTH=\"80\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSsquareresize();$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(0);CIRCLESformsDISCRETENESSLOCUSdrawCANVAS([8,1,64,16,32],YES);\" ID=\"CIRCLESformsDISCRETENESSLOCUSsquareresizeBTN\">Square diagram</td>" ;
         HTMLcode += "<td WIDTH=\"25\"></td>" ;
         HTMLcode += "<td ID=\"CIRCLESformsDLOCUSoutMSG\"></td>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
@@ -183,7 +157,7 @@ function CIRCLESformsDISCRETENESSLOCUSupperBAR()
        HTMLcode += "</td><td WIDTH=\"4\"></td>" ;
        HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformsDISCRETENESSLOCUSrenderBTN\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 4 ], YES );\">Render</td>";
        HTMLcode += "<td WIDTH=\"1\"></td>" ;
-       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformsDISCRETENESSLOCUSredrawBTN\" ONCLICK=\"javascript:$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(0);CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 8, 1, 64, 16, 32 ], YES );\">Redraw</td>";
+       HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformsDISCRETENESSLOCUSredrawBTN\" ONCLICK=\"javascript:$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(0);CIRCLESformsDISCRETENESSLOCUSdrawCANVAS([8,1,64,16,32],YES);\">Redraw</td>";
        HTMLcode += "<td WIDTH=\"1\"></td>" ;
        HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformsDISCRETENESSLOCUSresetBTN\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSreset();\">Reset</td>";
 
@@ -193,7 +167,7 @@ function CIRCLESformsDISCRETENESSLOCUSupperBAR()
        HTMLcode += "<tr>" ;
        HTMLcode += "<td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSfixregionCHECKBOX\"></td>";
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td>Fix region</td>";
+       HTMLcode += "<td>Fix region coords</td>";
        HTMLcode += "</tr>" ;
        HTMLcode += "</table>" ;
        HTMLcode += "</td>" ;
@@ -237,60 +211,61 @@ function CIRCLESformsDISCRETENESSLOCUSupperBAR()
 function CIRCLESformsDISCRETENESSLOCUSmainBOX()
 {
     var _tmp_discreteness_locus = new discreteness_locus();
-    var HTMLcode = "<table>" ;
-        HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Ticks (axes)</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\"16\" ID=\"CIRCLESformsDISCRETENESSLOCUSticks\" STYLE=\"width:32px;text-align:center;\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Clipboard copy</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSclipboardcopyCHECKBOX\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Input into plug-ins</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX_CLICK();\" CHECKED></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Adapt view coords</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSrescaleCHECKBOX\" CHECKED></td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Display fractions</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSfracsCHECKBOX_CLICK();CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" ID=\"CIRCLESformsDISCRETENESSLOCUSdisplayfracsCHECKBOX\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>at every steps</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" STYLE=\"width:40px;text-align:center;color:#C0C0C0;\" VALUE=\"30\" ID=\"CIRCLESformsDISCRETENESSLOCUSdisplayfracstepsEDIT\"></td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Show arrows</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSarrowsCHECKBOX_CLICK();\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowsCHECKBOX\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>at every steps</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" STYLE=\"width:40px;text-align:center;color:#C0C0C0;\" DISABLED VALUE=\"20\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowstepsEDIT\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>arrow head size</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" STYLE=\"width:40px;text-align:center;color:#C0C0C0;\" DISABLED VALUE=\"10\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowheadsizeEDIT\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>arrow line size</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" STYLE=\"width:40px;text-align:center;color:#C0C0C0;\" DISABLED VALUE=\"2\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowlinewidth\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Draw shaft</td><td WIDTH=\"3\"></td><td><INPUT DISABLED CHECKED TYPE=\"checkbox\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSarrowsCHECKBOX_CLICK();CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowsdrawshaftCHECKBOX\"></td></tr>" ;
-
-        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-        HTMLcode += "<td>Arrow color</td>" ;
-        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-        HTMLcode += "<td>" ;
-        HTMLcode += "<table>" ;
-        HTMLcode += "<tr>" ;
-        HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"height:16px;width:16px;text-align:center;background-color:"+CIRCLESformsDISCRETENESSLOCUSarrow_color+";\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowcolor\">"+( CIRCLESformsDISCRETENESSLOCUSarrow_color.length == 0 ? "none" : "" )+"</td>";
-        HTMLcode += "<td WIDTH=\"5\"></td>";
-        HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
-        HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'CIRCLESformsDISCRETENESSLOCUSarrowcolorICON', 'CIRCLESformsDISCRETENESSLOCUSarrowcolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
-        HTMLcode += "</tr>" ;
-        HTMLcode += "</table>" ;
-        HTMLcode += "</td>" ;
-        HTMLcode += "</tr>" ;
-
-        HTMLcode += "</table>" ;
+    var HTMLcode = "<table BORDER=\"0\" WIDTH=\"200\">" ;
+    HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td COLSPAN=\"3\" STYLE=\"font-size:11pt;\">General options</td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Ticks (axes)</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\"16\" ID=\"CIRCLESformsDISCRETENESSLOCUSticks\" STYLE=\"width:32px;text-align:center;\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Clipboard copy</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSclipboardcopyCHECKBOX\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Input into plug-ins</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX_CLICK();\" CHECKED></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Adapt view coords</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSrescaleCHECKBOX\" CHECKED></td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Display fractions</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSfracsCHECKBOX_CLICK();CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" ID=\"CIRCLESformsDISCRETENESSLOCUSdisplayfracsCHECKBOX\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>at every steps</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" STYLE=\"width:40px;text-align:center;color:#C0C0C0;\" VALUE=\"30\" ID=\"CIRCLESformsDISCRETENESSLOCUSdisplayfracstepsEDIT\"></td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Show arrows</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSarrowsCHECKBOX_CLICK();\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowsCHECKBOX\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>at every steps</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" STYLE=\"width:40px;text-align:center;color:#C0C0C0;\" DISABLED VALUE=\"20\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowstepsEDIT\"></td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Arrow head size</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" STYLE=\"width:40px;text-align:center;color:#C0C0C0;\" DISABLED VALUE=\"10\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowheadsizeEDIT\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Arrow line size</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" STYLE=\"width:40px;text-align:center;color:#C0C0C0;\" DISABLED VALUE=\"2\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowlinewidth\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Draw shaft</td><td WIDTH=\"3\"></td><td><INPUT DISABLED CHECKED TYPE=\"checkbox\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSarrowsCHECKBOX_CLICK();CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowsdrawshaftCHECKBOX\"></td></tr>" ;
+    HTMLcode += "<td WIDTH=\"3\"></td>" ;
+    HTMLcode += "<td>Arrow color</td>" ;
+    HTMLcode += "<td WIDTH=\"3\"></td>" ;
+    HTMLcode += "<td>" ;
+    HTMLcode += "<table>" ;
+    HTMLcode += "<tr>" ;
+    HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"height:16px;width:16px;text-align:center;background-color:"+CIRCLESformsDISCRETENESSLOCUSarrow_color+";\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowcolor\">"+( CIRCLESformsDISCRETENESSLOCUSarrow_color.length == 0 ? "none" : "" )+"</td>";
+    HTMLcode += "<td WIDTH=\"5\"></td>";
+    HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
+    HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'CIRCLESformsDISCRETENESSLOCUSarrowcolorICON', 'CIRCLESformsDISCRETENESSLOCUSarrowcolor' );\"";
+    HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
+    HTMLcode += "</tr>" ;
+    HTMLcode += "</table>" ;
+    HTMLcode += "</td>" ;
+    HTMLcode += "</tr>" ;
+    HTMLcode += "</table>" ;
     return HTMLcode ;
 }
 
 function CIRCLESformsDISCRETENESSLOCUSpleatingraysBOX()
 {
     var _tmp_discreteness_locus = new discreteness_locus();
-    var HTMLcode = "<table>" ;
-
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td COLSPAN=\"3\">Pleating rays</td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Display</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysCHECKBOX\" ONCLICK=\"javascript:$('[id^=CIRCLESformsDISCRETENESSLOCUSpleatingraysEDIT]').prop('disabled',!this.checked);if(!this.checked)$('#CIRCLESformsDISCRETENESSLOCUSpleatingrayspositiveCHECKBOX,CIRCLESformsDISCRETENESSLOCUSpleatingraysnegativeCHECKBOX').prop('checked',false);\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Positive rays</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingrayspositiveCHECKBOX\"></td></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Negative rays</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysnegativeCHECKBOX\"></td></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Correction</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingrayscorrectionCHECKBOX\"></td></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Keep goin' up to max steps</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingrayskeepgoingCHECKBOX\"></td></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Max steps per each ray</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\""+( _tmp_discreteness_locus.get_pleating_rays_max_iterate() )+"\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITmaxsteps\" STYLE=\"width:60px;text-align:center;\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Step rate</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\""+( _tmp_discreteness_locus.get_pleating_rays_step_rate() )+"\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITsteprate\" STYLE=\"width:60px;text-align:center;\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Accuracy</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\""+( _tmp_discreteness_locus.get_pleating_rays_threshold_accuracy() )+"\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITaccuracy\" STYLE=\"width:60px;text-align:center;\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Acceleration factor</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\""+( _tmp_discreteness_locus.get_pleating_rays_forward_factor() )+"\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITforwardfactor\" STYLE=\"width:60px;text-align:center;\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Deceleration factor</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\""+( _tmp_discreteness_locus.get_pleating_rays_backward_factor() )+"\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITbackwardfactor\" STYLE=\"width:60px;text-align:center;\"></td></tr>" ;
-
-        HTMLcode += "</table>" ;
+    var HTMLcode = "<table WIDTH=\"230\">" ;
+    HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td COLSPAN=\"3\" STYLE=\"font-size:11pt;\">Pleating rays</td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Display</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysCHECKBOX\" ONCLICK=\"javascript:$('[id^=CIRCLESformsDISCRETENESSLOCUSpleatingraysEDIT]').prop('disabled',!this.checked);if(!this.checked)$('#CIRCLESformsDISCRETENESSLOCUSpleatingrayspositiveCHECKBOX,CIRCLESformsDISCRETENESSLOCUSpleatingraysnegativeCHECKBOX').prop('checked',false);\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Positive rays</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingrayspositiveCHECKBOX\"></td></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Negative rays</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysnegativeCHECKBOX\"></td></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Correction</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingrayscorrectionCHECKBOX\"></td></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Keep goin' up to max steps</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingrayskeepgoingCHECKBOX\"></td></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Max steps per each ray</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\""+( _tmp_discreteness_locus.get_pleating_rays_max_iterate() )+"\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITmaxsteps\" STYLE=\"width:60px;text-align:center;\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Step rate</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\""+( _tmp_discreteness_locus.get_pleating_rays_step_rate() )+"\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITsteprate\" STYLE=\"width:60px;text-align:center;\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Accuracy</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\""+( _tmp_discreteness_locus.get_pleating_rays_threshold_accuracy() )+"\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITaccuracy\" STYLE=\"width:60px;text-align:center;\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Acceleration factor</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\""+( _tmp_discreteness_locus.get_pleating_rays_forward_factor() )+"\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITforwardfactor\" STYLE=\"width:60px;text-align:center;\"></td></tr>" ;
+    HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Deceleration factor</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\""+( _tmp_discreteness_locus.get_pleating_rays_backward_factor() )+"\" ID=\"CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITbackwardfactor\" STYLE=\"width:60px;text-align:center;\"></td></tr>" ;
+    HTMLcode += "</table>" ;
     return HTMLcode ;
 }
 

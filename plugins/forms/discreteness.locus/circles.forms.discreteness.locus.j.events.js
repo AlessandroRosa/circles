@@ -52,7 +52,7 @@ function CIRCLESformsDISCRETENESSLOCUSunbindCANVASevents()
      _diagram_layer_canvas.onmouseup = function( event )   {}
      _diagram_layer_canvas.onmousedown = function( event ) {}
      _diagram_layer_canvas.onmousemove = function( event ) {}
-     _diagram_layer_canvas.onclick = function( event )     {}
+     _diagram_layer_canvas.onclick = function( event ) {}
      _diagram_layer_canvas.ondblclick = function( event ) {}
    }
 
@@ -124,8 +124,7 @@ function CIRCLESformsDISCRETENESSLOCUSeventsHANDLER( _event, _ctrl_id )
            "CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITsteprate",
            "CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITaccuracy",
            "CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITforwardfactor",
-           "CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITbackwardfactor" ) )
-             CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 4 ], YES );
+           "CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITbackwardfactor" ) ) CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 4 ], YES );
       else if ( _ctrl_id.is_one_of( "CIRCLESformsDISCRETENESSLOCUSarrowstepsEDIT",
            "CIRCLESformsDISCRETENESSLOCUSarrowheadsizeEDIT",
            "CIRCLESformsDISCRETENESSLOCUSarrowsdrawshaftCHECKBOX",
@@ -229,6 +228,8 @@ function CIRCLESformsDISCRETENESSLOCUS_WORK_canvas_onmousedown( obj, event )
        if ( !_b_collected )
        {
           CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array.push( _tr );
+          if ( _glob_storage['dlocus_selected_pts'] == null ) _glob_storage['dlocus_selected_pts'] = [] ;
+          if ( is_array( _glob_storage['dlocus_selected_pts'] ) ) _glob_storage['dlocus_selected_pts'].push( _tr ) ;
           CIRCLESformsDISCRETENESSLOCUSselectionlistUPDATE();
        }
             
@@ -350,7 +351,6 @@ function CIRCLESformsDISCRETENESSLOCUS_WORK_canvas_onmouseup( obj, event )
            circles_lib_canvas_clean( obj );
            $( "#CIRCLESformsDISCRETENESSLOCUSfixregionCHECKBOX" ).prop( "checked", true );
            CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [8, 1, 64, 16, 32], YES );
-           CIRCLESformsDISCRETENESSLOCUSdisplayBOUNDARYcoords();
            CIRCLESformsDISCRETENESSLOCUSinitZOOMproc(NO) ;
        }
 

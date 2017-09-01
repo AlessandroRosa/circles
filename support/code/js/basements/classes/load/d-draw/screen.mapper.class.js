@@ -115,7 +115,7 @@ screen_mapper.prototype.write = function( _separator )
    this.display_rect.write() ;
 }
 
-screen_mapper.prototype.get_error = function()          { return this.error_mask ; }
+screen_mapper.prototype.get_error = function() { return this.error_mask ; }
 screen_mapper.prototype.output = function()             { return "Label: " + this.label + "\nLeft top: " + this.lu.output( "std", SCREEN_MAPPER_MAX_ACCURACY ) + "\nRight bottom: " + this.rd.output( "std", SCREEN_MAPPER_MAX_ACCURACY ) + "\nCoords Rect: " + this.coords_rect.output( "std", SCREEN_MAPPER_MAX_ACCURACY ) + "\nClient rect: " + this.client_rect.output( "std", SCREEN_MAPPER_MAX_ACCURACY ) + "\nDisplay rect: " + this.display_rect.output( "std", SCREEN_MAPPER_MAX_ACCURACY ); }
 screen_mapper.prototype.roundVal = function( _n )       { return Math.round( _n * Math.pow( 10, this.accuracy ) ) / Math.pow( 10, this.accuracy ); /*return parseFloat( _n.toPrecision( this.accuracy ) ) ;*/ }
 screen_mapper.prototype.get_accuracy = function()       { return this.accuracy ; }
@@ -136,7 +136,7 @@ screen_mapper.prototype.set_coords_corners = function( left_up_pt, right_down_pt
 	 }
 }
 
-screen_mapper.prototype.get_coords_rect = function()          { return this.coords_rect.copy() ; }
+screen_mapper.prototype.get_coords_rect = function() { return this.coords_rect.copy() ; }
 screen_mapper.prototype.set_coords_rect = function( _rect )
 {
    if ( _rect instanceof rect )
@@ -160,7 +160,7 @@ screen_mapper.prototype.set_client_rect = function( _cr )
 screen_mapper.prototype.get_client_rect = function()       { return this.client_rect.copy() ;  }
 
 screen_mapper.prototype.set_display_rect = function( _dr ) { this.display_rect.from_rect( _dr ) ; }
-screen_mapper.prototype.get_display_rect = function()      { return this.display_rect.copy() ; }
+screen_mapper.prototype.get_display_rect = function() { return this.display_rect.copy() ; }
 
 // From Client -> Display -> Cartesian
 screen_mapper.prototype.from_client_to_cartesian = function( x, y ) { return this.display_to_cartesian( this.client_to_display( new point( x, y ) ) ); }

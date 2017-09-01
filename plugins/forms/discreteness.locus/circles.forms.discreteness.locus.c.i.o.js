@@ -22,10 +22,10 @@ function CIRCLESformsDISCRETENESSLOCUSsaveCONFIG()
 		_out_stream.push( "fareystart=" + $( "#CIRCLESformsDISCRETENESSLOCUSstartFRAC" ).val() );
 		_out_stream.push( "fareyend=" + $( "#CIRCLESformsDISCRETENESSLOCUSendFRAC" ).val() );
     
-    _out_stream.push( "locusleft=" + $( "#CIRCLESformsDISCRETENESSLOCUSregionCOORDSleft" ).html() );
-    _out_stream.push( "locustop=" + $( "#CIRCLESformsDISCRETENESSLOCUSregionCOORDStop" ).html() );
-    _out_stream.push( "locusright=" + $( "#CIRCLESformsDISCRETENESSLOCUSregionCOORDSright" ).html() );
-    _out_stream.push( "locusbottom=" + $( "#CIRCLESformsDISCRETENESSLOCUSregionCOORDSbottom" ).html() );
+    _out_stream.push( "locusleft=" + _glob_dlocusLEFT );
+    _out_stream.push( "locustop=" + _glob_dlocusTOP );
+    _out_stream.push( "locusright=" + _glob_dlocusRIGHT );
+    _out_stream.push( "locusbottom=" + _glob_dlocusBOTTOM );
 
     _out_stream.push( "ticks=" + safe_int( $( "#CIRCLESformsDISCRETENESSLOCUSticks" ).val(), 16 ) );
     _out_stream.push( "displayfracs=" + ( $( "#CIRCLESformsDISCRETENESSLOCUSdisplayfracsCHECKBOX" ).prop( "checked" ) ? "1" : "0" ) );
@@ -229,7 +229,7 @@ function CIRCLESformsDISCRETENESSLOCUSsaveEPS( _save_mask )
 
 			 if ( safe_size( CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array, 0 ) > 0 && ( _save_mask & 4 ) )
 			 {
-					 _glob_js_e_ps_obj.comment( "Exporting the selected points" );
+					 _glob_js_e_ps_obj.comment( "Exporting the recorded points" );
 					 $.each( CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array, function( _i, _pt ) { if ( _i > 0 ) _glob_js_e_ps_obj.point( _pt.x, _pt.y, _POINT_2D_CLS_EUCLIDEAN_ENV, DEFAULT_PT_BORDER, _glob_pt_border_color, DEFAULT_PT_INTERIOR_COLOR, "" ); } );
 			 }
 
@@ -288,7 +288,7 @@ function CIRCLESformsDISCRETENESSLOCUSsaveLATEX( _save_mask )
 
 			 if ( safe_size( CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array, 0 ) > 0 && ( _save_mask & 4 ) )
 			 {
-					 _glob_js_latex_obj.comment( "Exporting the selected points" );
+					 _glob_js_latex_obj.comment( "Exporting the recorded points" );
 					 $.each( CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array, function( _i, _pt ) { if ( _i > 0 ) _glob_js_latex_obj.point( _pt.x, _pt.y, _POINT_2D_CLS_EUCLIDEAN_ENV, DEFAULT_PT_BORDER, YES, DEFAULT_PT_INTERIOR_COLOR ); } );
 			 }
 

@@ -318,7 +318,7 @@ function circles_lib_canvas_layer_refresh( _plane_type, _layer_role_index, _bkco
     _plane_type = safe_int( _plane_type, Z_PLANE );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _sm = null, _layers_pile_ref ;
-    if ( _plane_type == Z_PLANE )      { _sm = zplane_sm ; _layers_pile_ref = _glob_zplane_layers_pile_array ; }
+    if ( _plane_type == Z_PLANE ) { _sm = zplane_sm ; _layers_pile_ref = _glob_zplane_layers_pile_array ; }
     else if ( _plane_type == W_PLANE ) { _sm = wplane_sm ; _layers_pile_ref = _glob_wplane_layers_pile_array ; }
 
     var _layer_pos_index = circles_lib_canvas_layer_find_pos_index( _plane_type, FIND_LAYER_BY_ROLE_INDEX, _layer_role_index );

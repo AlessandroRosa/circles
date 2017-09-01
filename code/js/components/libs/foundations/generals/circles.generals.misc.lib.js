@@ -36,10 +36,10 @@ function circles_lib_count_items( _items_array, _safe_count )
 function circles_lib_count_gens_set_model()   { return safe_size( _glob_gens_set_model_array, 0 ); }
 function circles_lib_count_rnd_probabilities(){ return safe_size( _glob_rnd_probability_array, 0 ); }
 function circles_lib_count_repetends()        { return safe_size( _glob_repetends_array, 0 ); }
-function circles_lib_count_fixed_points()     { return safe_size( _glob_input_fixed_pts_array, 0 ); }
-function circles_lib_count_figures()          { return safe_size( _glob_figures_array, 0 ); }
-function circles_lib_count_alphabet()         { return safe_size( _glob_alphabet, 0 ); }
-function circles_lib_count_palette()          { return safe_size( _glob_palette_array, 0 ); }
+function circles_lib_count_fixed_points() { return safe_size( _glob_input_fixed_pts_array, 0 ); }
+function circles_lib_count_figures() { return safe_size( _glob_figures_array, 0 ); }
+function circles_lib_count_alphabet() { return safe_size( _glob_alphabet, 0 ); }
+function circles_lib_count_palette() { return safe_size( _glob_palette_array, 0 ); }
 function circles_lib_count_dict() 				    {	return is_array( _glob_original_dict ) ? _glob_original_dict.size_recursive() : 0 ; }
 
 // OUTPUT SELECTOR FNS
@@ -83,9 +83,9 @@ function circles_lib_depth_set( _d, _force_dict )
     else $("[id$=depthEDIT]").val( 1 );
 }
 
-function circles_lib_config_options_get()         { return [ _glob_method, _glob_process, _glob_construction_mode, _glob_fixedpt_io ]; }
+function circles_lib_config_options_get() { return [ _glob_method, _glob_process, _glob_construction_mode, _glob_fixedpt_io ]; }
 function circles_lib_masterdiv_display( _b_show ) { _b_show ? $("#MASTERdiv").show() : $("#MASTERdiv").hide(); }
-function circles_lib_construction_mode_get()      { return _glob_construction_mode ; }
+function circles_lib_construction_mode_get() { return _glob_construction_mode ; }
 function circles_lib_construction_mode_set( _cm )
 {
     _cm = safe_int( _cm, CONSTRUCTION_TILING );

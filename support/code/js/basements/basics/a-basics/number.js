@@ -18,7 +18,7 @@ if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) 
 
 Number.prototype.clean_round_off = function( _accuracy ) { return safe_float( this.toPrecision( _accuracy - 1 ), 0 ) ; }
 Number.prototype.getString = function() { return this + "" + '' ; }
-Number.prototype.intME = function()     { return ~~this ; }
+Number.prototype.intME = function() { return ~~this ; }
 Number.prototype.floatME = function()   { return safe_float( this, 0 ); }
 Number.prototype.tolerate = function( _cmp_value, _error ) { return Math.abs( this - _cmp_value ) <= _error ? 1 : 0 ; }
 Number.prototype.getDecimals = function() { return this - ~~this ; }
