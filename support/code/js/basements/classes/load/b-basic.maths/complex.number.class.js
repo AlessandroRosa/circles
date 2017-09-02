@@ -59,6 +59,7 @@ if ( typeof frompolar != "function" ) function frompolar( r, theta ) { return ar
 function complex( r, i ) { this.real = safe_float( r, 0 ), this.imag = safe_float( i, 0 ) ; this.customclass = arguments.callee.name ; }
 complex.prototype.init_from_obj = function( _c2 ) { if ( is_complex( _c2 ) ) { this.real = _c2.real, this.imag = _c2.imag } ; }
 complex.prototype.copy = function() { return new complex( this.real, this.imag ) ; }
+complex.prototype.clone = function() { return new complex( this.real, this.imag ) ; }
 complex.prototype.clean_round_off = function( _accuracy, _self )
 {
 		_self = safe_int( _self, 0 );

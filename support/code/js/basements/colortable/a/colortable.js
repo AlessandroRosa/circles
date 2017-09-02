@@ -1,12 +1,18 @@
 var COLORTABLE_GRADIENT_ORIENTATION_HORZ = 1 ;
 var COLORTABLE_GRADIENT_ORIENTATION_VERT = 2 ;
+var COLORTABLE_COLOR_HEX_RED = "#FF0000" ;
+var COLORTABLE_COLOR_HEX_ORANGE = "#FFA500" ;
+var COLORTABLE_COLOR_HEX_YELLOW = "#FFFF00" ;
+var COLORTABLE_COLOR_HEX_GREEN = "#00FF00" ;
+var COLORTABLE_COLOR_HEX_BLUE = "#0000FF" ;
+var COLORTABLE_COLOR_HEX_VIOLET = "#7F00FF" ;
 
 function colortable( _var_name )
 {
     // _var_name is the variable name of the object color table
     // i.e. var _the_var_name = new colortable( '_the_var_name' );
     
-    this.rgb_hex_array = new Array();
+    this.rgb_hex_array = [];
     this.rgb_hex_array.push( "#000000" ) ;
     this.rgb_hex_array.push( "#FF0000" ) ;
     this.rgb_hex_array.push( "#00FF00" ) ;
@@ -25,7 +31,7 @@ function colortable( _var_name )
     this.rgb_hex_array.push( "#F0F0F0" ) ;
     this.rgb_hex_array.push( "#FFFFFF" ) ;
 
-    this.IDS_ARRAY = new Array();
+    this.IDS_ARRAY = [];
     this.IDS_ARRAY.push( "CMY@C@M@Y" ) ;
     this.IDS_ARRAY.push( "HLS@H@L@S" ) ;
     this.IDS_ARRAY.push( "HSI@H@S@I" ) ;
@@ -87,53 +93,19 @@ colortable.prototype.selectCOLOR = function( rgb_hex, r, g, b )
     if ( typeof this.onselectcolor_fn === "function" ) this.onselectcolor_fn.call( null );
 }
 
-colortable.prototype.setHANDLERonselectcolor = function( _fn )
-{
-    this.onselectcolor_fn = _fn ;
-}
-
-colortable.prototype.setCONTAINERid = function( ctrlid )
-{
-    this.containerID = ctrlid ;
-}
-
-colortable.prototype.setRETURNctrlID = function( ctrlid )
-{
-    this.returnCTRLid = ctrlid ;
-}
-
-colortable.prototype.set_interface_mode = function( im )
-{
-    this.interface_mode = im ;
-}
-
-colortable.prototype.get_interface_mode = function()
-{
-    return this.interface_mode ;
-}
-
-colortable.prototype.get_selected_rgb_hex = function()
-{
-    return this.selected_rgb_hex ;
-}
+colortable.prototype.setHANDLERonselectcolor = function( _fn ) { this.onselectcolor_fn = _fn ; }
+colortable.prototype.setCONTAINERid = function( ctrlid ) { this.containerID = ctrlid ; }
+colortable.prototype.setRETURNctrlID = function( ctrlid ) { this.returnCTRLid = ctrlid ; }
+colortable.prototype.set_interface_mode = function( im ) { this.interface_mode = im ; }
+colortable.prototype.get_interface_mode = function() { return this.interface_mode ; }
+colortable.prototype.get_selected_rgb_hex = function() { return this.selected_rgb_hex ; }
 
 colortable.prototype.get_rgb_dec_from_hex = function( rgbhex )
 {
     rgbhex = rgbhex.replace( "#", "" );
-    var r_hex = rgbhex.substr( 0, 2 );
-    var g_hex = rgbhex.substr( 2, 2 );
-    var b_hex = rgbhex.substr( 4, 2 );
-
-    var r_dec = parseInt( r_hex, 16 );
-    var g_dec = parseInt( g_hex, 16 );
-    var b_dec = parseInt( b_hex, 16 );
-    
-    var rgb_array = new Array();
-        rgb_array.push( r_dec ) ;
-        rgb_array.push( g_dec ) ;
-        rgb_array.push( b_dec ) ;
-        
-    return rgb_array ;
+    var r_hex = rgbhex.substr( 0, 2 ), g_hex = rgbhex.substr( 2, 2 ), b_hex = rgbhex.substr( 4, 2 );
+    var r_dec = parseInt( r_hex, 16 ), g_dec = parseInt( g_hex, 16 ), b_dec = parseInt( b_hex, 16 );
+    return [ r_dec, g_dec, b_dec ] ;
 }
 
 colortable.prototype.d2h = function(d) { var hD="0123456789ABCDEF" ; var h = hD.substr(d&15,1);while(d>15) {d>>=4;h=hD.substr(d&15,1)+h;} return h ; }
@@ -147,7 +119,7 @@ colortable.prototype.custom_select_triplet = function( CTRLid, rgb_hex )
          var rgb_array = this.get_rgb_dec_from_hex( rgb_hex ), i, c, CTRLoutID, CTRLoutID;
          for( i = 0 ; i < rgb_array.length ; i++ )
          {
-             c = parseInt( rgb_array[i], 10 ) ;        if ( isNaN( c ) ) c = 0 ;
+             c = parseInt( rgb_array[i], 10 ) ; if ( isNaN( c ) ) c = 0 ;
              if ( c > 0 )
              {
                   CTRLoutID = "" ;
@@ -216,6 +188,45 @@ colortable.prototype.custom_mix_components = function()
 
      var custom_rgb_out = document.getElementById( "custom_rgb_out" );
      if ( custom_rgb_out != null ) custom_rgb_out.innerHTML = r + "," + g + "," + b ;
+}
+
+colortable.prototype.render_gradient_array = function( rgbhex_min, rgbhex_max, _steps )
+{
+     var RGB_MIN_ARRAY = this.get_rgb_dec_from_hex( rgbhex_min ) ;
+     var RGB_MAX_ARRAY = this.get_rgb_dec_from_hex( rgbhex_max ) ;
+     var r_min = RGB_MIN_ARRAY[0], r_max = RGB_MAX_ARRAY[0] ;
+     var g_min = RGB_MIN_ARRAY[1], g_max = RGB_MAX_ARRAY[1] ;
+     var b_min = RGB_MIN_ARRAY[2], b_max = RGB_MAX_ARRAY[2] ;
+     var n_steps = _steps != null ? _steps : this.gradient_steps ;
+     var r_step = ( r_max - r_min ) / n_steps ;
+     var g_step = ( g_max - g_min ) / n_steps ;
+     var b_step = ( b_max - b_min ) / n_steps ;
+     var Rnew, Gnew, Bnew, Rhex, Ghex, Bhex, RGB_HEX, _ret_array = [] ;
+     for( var i = 0 ; i <= n_steps ; i++ )
+     {
+        Rnew = r_min + ( i * r_step ) ; Rnew = parseInt( Rnew, 10 ); r = Math.max( Rnew, 0 ); Rnew = Math.min( Rnew, 255 );
+        Gnew = g_min + ( i * g_step ) ; Gnew = parseInt( Gnew, 10 ); g = Math.max( Gnew, 0 ); Gnew = Math.min( Gnew, 255 );
+        Bnew = b_min + ( i * b_step ) ; Bnew = parseInt( Bnew, 10 ); b = Math.max( Bnew, 0 ); Bnew = Math.min( Bnew, 255 );
+        Rhex = this.d2h( Rnew ) ;     if ( Rhex.length == 1 ) Rhex = "0" + Rhex ;
+        Ghex = this.d2h( Gnew ) ;     if ( Ghex.length == 1 ) Ghex = "0" + Ghex ;
+        Bhex = this.d2h( Bnew ) ;     if ( Bhex.length == 1 ) Bhex = "0" + Bhex ;
+        RGB_HEX = "#" + Rhex + "" + Ghex + "" + Bhex ;
+        _ret_array.push( RGB_HEX );
+     }
+     return _ret_array ;
+}
+
+colortable.prototype.render_spectrum_array = function( _steps )
+{
+    if ( _steps == null ) _steps = 15 ;
+    _steps /= 6 ; _steps = parseInt( _steps, 10 ); if ( _steps <= 0 ) _steps = 15 ;
+    var _spectrum = [] ;
+    _spectrum = _spectrum.concat( this.render_gradient_array( COLORTABLE_COLOR_HEX_RED, COLORTABLE_COLOR_HEX_ORANGE, _steps ) );
+    _spectrum = _spectrum.concat( this.render_gradient_array( COLORTABLE_COLOR_HEX_ORANGE, COLORTABLE_COLOR_HEX_YELLOW, _steps ) );
+    _spectrum = _spectrum.concat( this.render_gradient_array( COLORTABLE_COLOR_HEX_YELLOW, COLORTABLE_COLOR_HEX_GREEN, _steps ) );
+    _spectrum = _spectrum.concat( this.render_gradient_array( COLORTABLE_COLOR_HEX_GREEN, COLORTABLE_COLOR_HEX_BLUE, _steps ) );
+    _spectrum = _spectrum.concat( this.render_gradient_array( COLORTABLE_COLOR_HEX_BLUE, COLORTABLE_COLOR_HEX_VIOLET, _steps ) );
+    return _spectrum ;
 }
 
 colortable.prototype.render_gradient_code = function( rgbhex_min, rgbhex_max, orientation )

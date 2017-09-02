@@ -53,8 +53,6 @@ function farey()
 		{
 				case 1:
 		    var _frac = arguments[0] ;
-        if ( is_string( _frac ) ) _frac = safe_float( _frac, 0 );
-
 				if ( is_fraction( _frac ) || is_farey( _frac ) )
 		    {
 		         this.p = safe_int( _frac.p, 0 ), this.q = safe_int( _frac.q, 0 );
@@ -75,6 +73,7 @@ function farey()
 		         }
 		         else this.p = this.q = 0 ;
 		    }
+		    else if ( /^([0-9\.]{1,})$/.test( _frac ) ) this.get_fraction_from_decimal( _frac, 1 );
 		    else if ( /^([0-9\-\+]{1,})[\/]([0-9\-\+]{1,})$/.test( _frac ) )
 		    {
 		         var _arr = _frac.split( "/" );
@@ -173,6 +172,7 @@ farey.prototype.output = function( _format, _separator )
    {
       case "std": return this.p + _separator + this.q ; break ;
       case "html": return "<table><tr><td>" + this.p + "</td></tr><tr><td>" + this.q + "</td></tr></table>" ; break ;
+      case "pq": return [ this.p, this.q ] ; break ;
       default: return this.p + _separator + this.q ; break ;
    }
 }

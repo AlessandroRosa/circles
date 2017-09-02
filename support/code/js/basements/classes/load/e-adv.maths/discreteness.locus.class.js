@@ -716,8 +716,6 @@ discreteness_locus.prototype.fix_discreteness_locus_pt = function( _pq_frac, _pt
 discreteness_locus.prototype.pleating_positive_ray = function( _pq, _ray_start_pt, _step_start, _max_steps, _bounding_rect, _callback_fn, _correct, _keep_going )
 {
     _correct = safe_int( _correct, 0 ), _keep_going = safe_int( _keep_going, 0 );
-		if ( !( _step_start instanceof complex ) ) _step_start = new complex( 2.0, 0 ) ;
-		if ( !( _step_rate instanceof complex ) ) _step_rate = new complex( 0.1, 0 ) ;
 		var _ray_pts_array = [], _ray_pt = _ray_start_pt, _new_ray_pt, _func ;
 		var _steps = safe_int( _max_steps, this.get_pleating_rays_max_iterate() ), _counter = 0 ;
 		var _threshold_accuracy = this.get_pleating_rays_threshold_accuracy(), _dist ;
@@ -750,8 +748,6 @@ discreteness_locus.prototype.pleating_negative_ray = function( _pq, _ray_start_p
 {
     _correct = safe_int( _correct, 0 );
     _keep_going = safe_int( _keep_going, 0 );
-		if ( !( _step_start instanceof complex ) ) _step_start = new complex( 2.0, 0 ) ;
-		if ( !( _step_rate instanceof complex ) ) _step_rate = new complex( 0.1, 0 ) ;
 		var _ray_pts_array = [], _func, _ray_pt = _ray_start_pt, _new_ray_pt ;
 		var _steps = safe_int( _max_steps, this.get_pleating_rays_max_iterate() ), _counter = 0 ;
 		var _threshold_accuracy = this.get_pleating_rays_threshold_accuracy(), _dist ;

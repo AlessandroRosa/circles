@@ -7,6 +7,8 @@ function CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( _options_array, _silent )
     var _out_canvas = $( "#" + _canvas_id ).get(0);
     var _canvas_sm = _glob_target_plane == BIP_BOX ? bipbox_sm.copy() : dlocus_sm.copy() ;
     var _diagram_canvas = $( "#CIRCLESdlocusdiagramCANVAS" ).get(0);
+    if ( _glob_target_plane.is_not_one_of( D_LOCUS, BIP_BOX ) ) _glob_target_plane = D_LOCUS ;
+
 		if ( is_html_canvas( _out_canvas ) && is_html_canvas( _diagram_canvas ) )
     {
         var _canvas_w = safe_int( _out_canvas.get_width(), 0 ), _canvas_h = safe_int( _out_canvas.get_height(), 0 );
@@ -329,8 +331,15 @@ function CIRCLESformsDISCRETENESSLOCUSplotRAYS()
     var _canvas_sm = dlocus_sm.copy() ;
     var _canvas = $( "#" + _canvas_id ).get(0);
     var _context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
-		$.each( CIRCLESformsDISCRETENESSLOCUSpleating_rays_pts_array,
-						function( _i, _ray_chunk ) { circles_lib_draw_polyline( _context, _canvas_sm, _ray_chunk, _glob_default_pleating_ray_clr, "", 1, NO, DEFAULT_MAX_OPACITY, UNDET, 0, YES ); }
+    var _spectrum = CIRCLESformsDISCRETENESSLOCUSspectrumARRAY ;
+    var _spectrum_len = _spectrum.length ;
+    var _n_rays = CIRCLESformsDISCRETENESSLOCUSpleating_rays_pts_array.length ;
+    var _coloring = $("#CIRCLESformsDISCRETENESSLOCUScoloringCHECKBOX").prop("checked")?1:0, _clr ;
+		$.each( CIRCLESformsDISCRETENESSLOCUSpleating_rays_pts_array, function( _i, _ray_chunk )
+            {
+              _clr = _coloring ? _spectrum[ Math.floor( _i / _n_rays * _spectrum_len ) ] : _glob_default_pleating_ray_clr ;
+              circles_lib_draw_polyline( _context, _canvas_sm, _ray_chunk, _clr, "", 1, NO, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
+            }
 					);
 }
 

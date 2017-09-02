@@ -33,6 +33,7 @@ var CIRCLESformsDISCRETENESSLOCUSwork_layer_canvas = null ;
 var CIRCLESformsDISCRETENESSLOCUScaption = "Discreteness locus" ;
 var CIRCLESformsDISCRETENESSLOCUSdiv_id = "" ;
 var CIRCLESformsDISCRETENESSLOCUSbaseid = "" ;
+var CIRCLESformsDISCRETENESSLOCUSspectrumARRAY = ( new colortable() ).render_spectrum_array(255).clone() ;
 
 var CIRCLESformsDISCRETENESSLOCUSremotectrlCOMMANDS = { } ; // json entry key : desc string (with color tags)
 var CIRCLESformsDISCRETENESSLOCUSopenPARAMS = { 'move' : { 'desc' : 'move the popup to the input position', 'values' : 'yes|no|left,top,right,bottom' }

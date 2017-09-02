@@ -113,6 +113,7 @@ point.prototype.get_notes = function() { return this.notes ; }
 point.prototype.get_angle = function() { return Math.atan2( this.x, this.y ) > 0 ? Math.PI * 2.0 - Math.atan2( this.x, this.y ) : 0.0 ; } // returns in radians from 0 to + 2PI
 
 point.prototype.copy = function() { return new point( this.x, this.y, this.color, this.notes ) ; }
+point.prototype.clone = function() { return new point( this.x, this.y, this.color, this.notes ) ; }
 point.prototype.acquire_from_coords = function( _x, _y ) { this.x = _x, this.y = _y ; }
 point.prototype.acquire_from_point = function( _pt ) { if ( is_point( _pt ) ) { this.x = _pt.x, this.y = _pt.y ; } }
 point.prototype.is_consistent = function() { return ( isNaN( this.x ) || isNaN( this.y ) ) ? 0 : 1 ; }

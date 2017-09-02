@@ -50,7 +50,6 @@ function fraction()
 		{
 				case 1:
 		    var _frac = arguments[0] ;
-        if ( is_string( _frac ) ) _frac = safe_float( _frac, 0 );
 
 				if ( is_fraction( _frac ) )
 				{
@@ -64,17 +63,22 @@ function fraction()
 		         }
 		         else this.get_fraction_from_decimal( _frac, 1 );
 		    }
-				else if ( !isNaN( arguments[0] ) )
-				{
-					  var _f = this.get_fraction_from_decimal( arguments[0] );
-					  this.p = _f.p, this.q = _f.q ;
-				}
+		    else if ( is_array( _frac ) )
+		    {
+		         if ( _frac.length == 2 )
+		         {
+		              this.p = safe_int( _frac[0], 0 ), this.q = safe_int( _frac[1], 0 );
+		         }
+		         else this.p = this.q = 0 ;
+		    }
+		    else if ( /^([0-9\.]{1,})$/.test( _frac ) ) this.get_fraction_from_decimal( _frac, 1 );
+		    else if ( /^([0-9\-\+]{1,})[\/]([0-9\-\+]{1,})$/.test( _frac ) )
+		    {
+		         var _arr = _frac.split( "/" );
+		         this.p = safe_int( _arr[0], 0 ), this.q = safe_int( _arr[1], 0 );
+		    }
 				break ;
-				case 2:
-				this.p = safe_int( arguments[0], 0 ) ;
-				this.q = safe_int( arguments[1], 0 ) ;
-		    this.seq_array = new Array();
-				break ;
+				case 2: this.p = safe_int( arguments[0], 0 ), this.q = safe_int( arguments[1], 0 ); break ;
 				default: this.p = this.q = 0 ; break ;
 		}
 
@@ -137,7 +141,18 @@ fraction.prototype.read_fraction = function( _frac )
 fraction.prototype.match_signature = function( _f2 ) { return ( this.p == _f2.p && this.q == _f2.q ) ; }
 fraction.prototype.is_indeterminate = function() { return ( this.p == 0 && this.q == 0 ) ? 1 : 0 ; }
 fraction.prototype.array = function()       { return [ this.p,  this.q ] ; }
-fraction.prototype.output = function() { return this.p + "/" + this.q ; }
+fraction.prototype.output = function( _format, _separator )
+{
+   _format = safe_string( _format, "std" ), _separator = safe_string( _separator, "/" );
+   switch( _format )
+   {
+      case "std": return this.p + _separator + this.q ; break ;
+      case "html": return "<table><tr><td>" + this.p + "</td></tr><tr><td>" + this.q + "</td></tr></table>" ; break ;
+      case "pq": return [ this.p, this.q ] ; break ;
+      default: return this.p + _separator + this.q ; break ;
+   }
+}
+
 fraction.prototype.ratio = function()       { return this.p / this.q ; }
 fraction.prototype.clone = function()       { return new fraction( this.p, this.q ) ; }
 fraction.prototype.copy = function( _f2 )   { if ( is_fraction( _f2 ) ) { this.p = _f2.p, this.q = _f2.q ; } }
