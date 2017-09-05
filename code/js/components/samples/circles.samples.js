@@ -48,7 +48,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
 
         _glob_seeds_array.flush();
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 0.038 ), 0.865 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
-        _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.4, -0.2 ), 0.4 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
+        _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.4, -0.2 ), 0.4 ), null, "B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.4, -0.2 ), 0.4 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.0, 0.497 ), 0.402 ), null, "D", 0, NO, circles_lib_alphabet_get_color_from_symbol('D'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
 
@@ -67,11 +67,10 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         case METHOD_INVERSION+0.2:
         if ( _glob_interface_index == INTERFACE_EXTEND_NONE )
         {
-		        _glob_zplaneLEFT = -1.4, _glob_zplaneTOP = 1.4 ;
-		        _glob_zplaneRIGHT = 1.4, _glob_zplaneBOTTOM = -1.4 ;
-		
-		        _glob_bipLEFT = _glob_wplaneLEFT = -1.4, _glob_bipTOP = _glob_wplaneTOP = 1.4 ;
-		        _glob_bipRIGHT = _glob_wplaneRIGHT = 1.4, _glob_bipBOTTOM = _glob_wplaneBOTTOM = -1.4 ;
+	        _glob_bipLEFT = _glob_wplaneLEFT = _glob_zplaneLEFT = -1.4 ;
+          _glob_bipTOP = _glob_wplaneTOP = _glob_zplaneTOP = 1.4 ;
+	        _glob_bipRIGHT = _glob_wplaneRIGHT = _glob_zplaneRIGHT = 1.4 ;
+          _glob_bipBOTTOM = _glob_wplaneBOTTOM = _glob_zplaneBOTTOM = -1.4 ;
         }
 
         _glob_show_grid_wplane = YES ;
@@ -463,11 +462,11 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
        {
           if ( is_array( _ret_chunk ) )
           {
-              if ( _ret_msg.length > 0 && is_array( _ret_msg ) ) _ret_msg = _ret_msg.push_first( "Loading sample ..." );
-              var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
-              var _ret_msg = _ret_msg.length > 0 ? _ret_msg.join( _glob_crlf ) : _ERR_00_00 ;
-              if ( _ret_id ) circles_lib_terminal_multicolor_echo( _ret_msg );
-              else circles_lib_terminal_error_echo( _ret_msg );
+             if ( _ret_msg.length > 0 && is_array( _ret_msg ) ) _ret_msg = _ret_msg.push_first( "Loading sample ..." );
+             var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
+             var _ret_msg = _ret_msg.length > 0 ? _ret_msg.join( _glob_crlf ) : _ERR_00_00 ;
+             if ( _ret_id ) circles_lib_terminal_multicolor_echo( _ret_msg );
+             else circles_lib_terminal_error_echo( _ret_msg );
           }
        }
     }

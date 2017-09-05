@@ -640,7 +640,7 @@ function circles_lib_items_group_test( _silent, _out_channel ) // main function
     var _ret_id = safe_int( _ret_chunk['ret'], UNDET ), _entries_n = safe_int( _ret_chunk['n'], 0 );
         _ret_chunk = circles_lib_items_group_return_msg( _ret_id, _entries_n );
         _ret_id = _ret_chunk[0] ;
-    var _ret_msg = safe_string( _ret_chunk[1], "22Unknown error" );
+    var _ret_msg = safe_string( _ret_chunk[1], "Unknown error" );
     if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, _ret_id >= 0 ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _glob_app_title );
     return [ _ret_id, _ret_msg ]
 }
@@ -651,7 +651,7 @@ function circles_lib_items_group_consistence_test()
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var RET = GROUP_TEST_ERR_OK, _items_n = circles_lib_count_items( _items_array );
     if ( _items_n == 0 ) RET = GROUP_TEST_ERR_EMPTY_GROUP ;
-    else if ( _items_n % 2 == 1 ) RET = GROUP_TEST_ERR_UNPAIRED_GROUP_ITEMS ;
+    else if ( _items_n % 2 == 1 && _glob_method == METHOD_ALGEBRAIC ) RET = GROUP_TEST_ERR_UNPAIRED_GROUP_ITEMS ;
     else 
     {
     	 var ITEM, INV_ITEM, _symbol, _inv_symbol, _i ;
@@ -661,7 +661,7 @@ function circles_lib_items_group_consistence_test()
           if ( !is_item_obj( ITEM ) ) return GROUP_TEST_ERR_INCONSISTENT_ITEM_OBJ ;
           _symbol = safe_string( ITEM.symbol, "" ), _inv_symbol = safe_string( ITEM.inverse_symbol, "" ) ;
           INV_ITEM = circles_lib_find_item_obj_by_symbol( _items_array, _inv_symbol );
-          if ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) && !is_item_obj( INV_ITEM ) )
+          if ( _glob_method == METHOD_ALGEBRAIC && !is_item_obj( INV_ITEM ) )
           {
              RET = GROUP_TEST_ERR_MISSING_INVERSE_ITEM ;
              break ;
@@ -671,10 +671,13 @@ function circles_lib_items_group_consistence_test()
              RET = GROUP_TEST_ERR_INCONSISTENT_ITEM_MEMBERS ;
              break ;
           }
-          else if ( _symbol.length == 0 ) RET = GROUP_TEST_ERR_MISSING_ITEM_SYMBOL ;
+          else if ( _symbol.length == 0 )
+          {
+             RET = GROUP_TEST_ERR_MISSING_ITEM_SYMBOL ;
+             break ;
+          }
        }
     }
-
     return { ret : RET, n : _items_n } ;
 }
 
@@ -683,7 +686,7 @@ function circles_lib_items_group_return_msg( RET, _entries_n )
     RET = safe_int( RET, GROUP_TEST_ERR_UNDET );
     var MSG = "" ;
     if ( RET == GROUP_TEST_ERR_EMPTY_GROUP ) MSG += _ERR_00_02 ;
-    else if ( RET == GROUP_TEST_ERR_UNPAIRED_GROUP_ITEMS ) MSG += "Group consistence failure: group does not include an even number of elements ( currently " + _entries_n + " )" ;
+    else if ( RET == GROUP_TEST_ERR_UNPAIRED_GROUP_ITEMS ) MSG += "Group consistence failure: this group does not include an even number of elements ( currently " + _entries_n + " )" ;
     else if ( RET == GROUP_TEST_ERR_MISSING_INVERSE_ITEM ) MSG += "Group consistence failure: at least one entry does not include its inverse" ;
     else if ( RET == GROUP_TEST_ERR_MISSING_ITEM_SYMBOL ) MSG += "Group consistence failure: at least one missing symbol" ;
     else if ( RET == GROUP_TEST_ERR_INCONSISTENT_ITEM_OBJ ) MSG += "Group consistence failure: at least one seed has not been correctly generated" ;

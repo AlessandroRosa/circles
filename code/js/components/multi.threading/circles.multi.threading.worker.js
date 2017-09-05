@@ -2,16 +2,14 @@ function CIRCLESmultithreadingPROCESSdictionary( _options_chunk, _silent, _out_c
 {
     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     return CIRCLESmultithreadingINITworker( [ MULTITHREADING_OBJ_WORKAREA_DICTIONARY,
-                                              _options_chunk, _silent, _out_channel
-                                            ] );
+                                              _options_chunk, _silent, _out_channel ] );
 }
 
 function CIRCLESmultithreadingPROCESSwindowresize( _options_chunk, _silent, _out_channel )
 {
     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     return CIRCLESmultithreadingINITworker( [ MULTITHREADING_OBJ_WORKAREA_CANVAS_REDRAWING,
-                                            _options_chunk, _silent, _out_channel
-                                            ] );
+                                            _options_chunk, _silent, _out_channel ] );
 }
 
 function CIRCLESmultithreadingPROCESSrendering( canvas, mapper, method, _process, _fixedpts_io, _working_plane, _silent, _out_channel )
@@ -147,10 +145,9 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
            _startINDEX++ ;
   		 var _working_plane = safe_int( _options_chunk[ _startINDEX ], _glob_target_plane );
            _startINDEX++ ;
-  		 var _canvas = _options_chunk[ _startINDEX ];     if ( !is_html_canvas( _canvas ) ) _canvas = _glob_wplane_rendering_canvas_placeholder ;
+  		 var _canvas = _options_chunk[ _startINDEX ]; if ( !is_html_canvas( _canvas ) ) _canvas = _glob_wplane_rendering_canvas_placeholder ;
            _startINDEX++ ;
   		 var _mapper = _options_chunk[ _startINDEX ];
-       
  			 var _depth = safe_int( _glob_depth, 1 );
  			 
  			 if ( _glob_process == PROCESS_BREADTHFIRST &&
@@ -215,7 +212,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
          {
            alert_set_btns_width( 70 );
            alert_plug_label( ALERT_YES, "W-plane" );
-           alert_plug_label( ALERT_NO, "Bip plane" );
+           alert_plug_label( ALERT_NO, "BIP-plane" );
            alert_plug_fn( ALERT_YES, "_glob_target_plane=W_PLANE;alertCLOSE();CIRCLESmultithreadingPROCESSrendering( null, wplane_sm, _glob_method, _glob_process, _glob_target_plane );" );
            alert_plug_fn( ALERT_NO, "_glob_target_plane=BIP_BOX;_glob_bip_use=YES;alertCLOSE();CIRCLESmultithreadingPROCESSrendering( null, bipbox_sm, _glob_method, _glob_process, _glob_target_plane );" );
            alert_plug_fn( ALERT_CANCEL, "alertCLOSE();" );
@@ -285,7 +282,6 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
          }
          
          clearTimeout( _glob_scheduled_rendering_timer );
-         
          // init anti-homography masks
          var _anti_homography_mask_keys = _glob_items_anti_homography_mask_map.keys_associative(), _mask, _mm_index ;
          if ( is_array( _anti_homography_mask_keys ) )

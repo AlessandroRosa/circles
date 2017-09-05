@@ -47,11 +47,10 @@ function circles_lib_samples_load( i, _silent )
 {
   _silent = safe_int( _silent, YES );
   $.ajaxSetup( {async:false} );
-  _filename = "code/js/components/samples/circles.samples.js" ;
-  var _ret = NO ;
+  var _filename = "code/js/components/samples/circles.samples.js", _ret = NO ;
   if ( check_file_exists( _filename ) )
   {
-    $.getScript( _filename ).done( function() { _ret = YES ; } ).fail( function(){ circles_lib_log_add_entry( 'Can\'t load samples component', LOG_ERROR ) ; } );
+    $.getScript( _filename ).done( function() { _ret = YES ; } ).fail( function(){ circles_lib_log_add_entry( "Can't load samples component", LOG_ERROR ) ; } );
     CIRCLESsamplesOPEN( i, _silent );
     window.CIRCLESsamplesOPEN = null ;
   }

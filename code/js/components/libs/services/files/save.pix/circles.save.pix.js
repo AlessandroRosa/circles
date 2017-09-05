@@ -158,11 +158,14 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge
                               _index = safe_int( _index, UNDET );
                           var _layer_for_merging = _layers_array[ _index ] ;
                           if ( _layer_for_merging != null )
-                               HTMLcode += "<tr><td>The layer selected for merging is "+_layer_for_merging.label+"</td></tr>" ;                          
+                          {
+                            if ( _layer_for_merging.label != null )
+                            HTMLcode += "<tr><td>The selected layer for merging is "+_layer_for_merging.label+"</td></tr>" ;
+                          }
                           else
                           {
-                               HTMLcode += "<tr><td>The layer selected for merging is unknown</td></tr>" ;
-                               HTMLcode += "<tr><td>Please, uncheck the above option, choose the correct layer and check merge again</td></tr>" ;
+                            HTMLcode += "<tr><td>The selected layer for merging is unknown</td></tr>" ;
+                            HTMLcode += "<tr><td>Please, uncheck the above option, choose the correct layer and check merge again</td></tr>" ;
                           }
                       }
                   }
@@ -170,7 +173,7 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge
         }
 
     HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-    HTMLcode += "<tr><td>Confirm to save "+( _merge ? "it all" : "this layer" )+" into a pix ?</td></tr>" ;
+    HTMLcode += "<tr><td>Confirm to save "+( _merge ? "it all" : "this layer" )+" into one pix ?</td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
     HTMLcode += "</table>" ;
 
@@ -185,24 +188,6 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge
         return YES ;
     }
     else return eval( _save_fn );
-}
-
-function circles_lib_files_pix_save( _plane_type, _canvas, _filename, _out_channel, _silent )
-{
-    _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _silent = safe_int( _silent, NO ) ;
-    if ( is_string( _canvas ) ) _canvas = $( "#"+_canvas ).get(0) ;
-		if ( is_html_canvas( _canvas ) )
-    {
-       _canvas.toBlob( function(blob, _filename) { saveAs( blob, _filename ); }, _filename );
-       return [ RET_OK, "Saving the picture file: now wait for the dialog box to open" ];
-    }
-    else
-    {
-       var _msg = "Can't save the picture file: a canvas must be chosen first" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
-       return [ RET_ERROR, _msg ];
-    }
 }
 
 function circles_lib_files_pix_save_enable_radio_ctrls( _b_enable )

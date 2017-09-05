@@ -58,6 +58,7 @@ function circles_lib_canvas_layer_create( _init_properties_array )
 
               _new_layer.set_width( _grid_w ) ;
               _new_layer.set_height( _grid_h ) ;
+              _new_layer.zIndex = safe_int( _div.style.zIndex, 0 ) ;
               _new_layer.getContext(_glob_canvas_ctx_2D_mode).idcanvas = _canvas_id ;
         	    _new_layer.getContext(_glob_canvas_ctx_2D_mode).iddiv = _div_id ;
         		  _new_layer.getContext(_glob_canvas_ctx_2D_mode).type = _plane_type ;
@@ -157,8 +158,7 @@ function circles_lib_canvas_layer_pile_resize_to_default( _set_default_coords, _
     var _w, _h ;
     var resize_pile_fn = function( _plane_type, _ref_array )
     {
-        $.each( _ref_array,
-                function( _index, _layer )
+        $.each( _ref_array, function( _index, _layer )
                 {
                     $( "#" + _layer.get_iddiv() ).css( "left", _plane_type == Z_PLANE ? _z_pile_left : _w_pile_left );
                     $( "#" + _layer.get_iddiv() ).css( "top", _plane_type == W_PLANE ? _w_pile_top : _z_pile_top );
@@ -340,8 +340,7 @@ function circles_lib_canvas_layer_pile_resize( _plane_type, _width_percentage, _
     var _w_pile_left = $("#WPLANElayers_pile").position().left ;
     var _w_pile_top = $("#WPLANElayers_pile").position().top ;
     var _w, _h ;
-    $.each( _main_ref_array,
-            function( _index, _layer )
+    $.each( _main_ref_array, function( _index, _layer )
             {
                 $( "#" + _layer.get_iddiv() ).css( "left", _plane_type == Z_PLANE ? _z_pile_left : _w_pile_left );
                 $( "#" + _layer.get_iddiv() ).css( "top", _plane_type == W_PLANE ? _w_pile_top : _z_pile_top );
@@ -366,8 +365,7 @@ function circles_lib_canvas_layer_pile_resize( _plane_type, _width_percentage, _
     var _w_pile_top = $( "#" + _grid_zplane_canvas_id ).offset().top ;
     var _w, _h ;
 
-    $.each( _other_ref_array,
-            function( _index, _layer )
+    $.each( _other_ref_array, function( _index, _layer )
             {
                 $( "#" + _layer.get_iddiv() ).css( "left", _plane_type == Z_PLANE ? _w_pile_left : _z_pile_left );
                 $( "#" + _layer.get_iddiv() ).css( "top", _plane_type == W_PLANE ? _z_pile_top : _w_pile_top );
@@ -404,9 +402,7 @@ function circles_lib_canvas_layer_pile_resize( _plane_type, _width_percentage, _
           zplane_sm.set_client_rect( client_rect );
           zplane_sm.set_display_rect( display_rect );
           zplane_sm.accuracy = DEFAULT_MAX_ACCURACY ;
-
           //
-
           _extent_x = _glob_wplaneRIGHT - _glob_wplaneLEFT ;
           _extent_y = _glob_wplaneTOP - _glob_wplaneBOTTOM ;
           _center.x = ( _glob_wplaneRIGHT + _glob_wplaneLEFT ) / 2.0 ;
@@ -653,8 +649,7 @@ function circles_lib_canvas_layer_pile_build_dropdown( _dropdown_id, _onchangeco
     {
          var _layers_pile = circles_lib_canvas_layer_pile_get( _plane_type ), _ctx, _chunk ;
          var HTMLcode = "<SELECT ID=\""+_dropdown_id+"\" "+( _onchangecode.length > 0 ? "ONCHANGE=\"javascript:"+_onchangecode+"\"" : "" )+">" ;
-         $.each( _layers_pile,
-                 function( _i, _layer )
+         $.each( _layers_pile, function( _i, _layer )
                  {
                     _ctx = _layer.getContext( _glob_canvas_ctx_2D_mode );
                     _chunk = [ _ctx.idcanvas, _ctx.type, _ctx.role_def ] ;

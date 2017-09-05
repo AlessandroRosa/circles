@@ -8,8 +8,7 @@ function CIRCLESdrawPROCESSbyINVERSIONcountOPERATIONS()
 
 function CIRCLESdrawPROCESSbyINVERSION( objs, settings )
 {
-    _glob_multithread_running = 1 ;
-    _glob_to_save = YES;
+    _glob_to_save = _glob_multithread_running = YES ;
     _glob_multithread_operations_runner = 0 ;
 
     var _benchmark_start = microtime(1);
@@ -24,6 +23,7 @@ function CIRCLESdrawPROCESSbyINVERSION( objs, settings )
     var dict = is_array( settings['input_dict'] ) ? settings['input_dict'] : settings['input_dict'].split( "@" );
  	  var _current_rect = new rect( settings.left_up_pt.x, settings.left_up_pt.y, settings.right_down_pt.x, settings.right_down_pt.y, _RECT_ORIENTATION_CARTESIAN, "" );
 
+    if ( _glob_original_dict.length == 0 ) _glob_multithread_dict_create = 1 ;
     if ( _glob_multithread_dict_create )
     {
 			 self.postMessage( { "id" : "update", "text" : "Params changed: re-computing dictionary" } );

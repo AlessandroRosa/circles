@@ -1,8 +1,7 @@
+function circles_lib_canvas_layer_mastertable_resize( _percentage ) { _glob_masterdiv_width_percentage = _percentage; $( "[id$=WORKAREAWIDTHcombo]" ).val( _percentage ); $(window).trigger('resize'); }
 function circles_lib_canvas_layer_delete( _plane_type, _index )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
-
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     var _layers_array = null, _layers_role_array = null ;
     if ( _plane_type == Z_PLANE )
     {
@@ -31,9 +30,7 @@ function circles_lib_canvas_layer_delete( _plane_type, _index )
 
 function circles_lib_canvas_layer_update( _plane_type, _pos_index, _field_name, _field_value )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
-
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     var _layers_array = null ;
     if ( _plane_type == Z_PLANE ) _layers_array = _glob_zplane_layers_pile_array ;
     else if ( _plane_type == W_PLANE ) _layers_array = _glob_wplane_layers_pile_array ;
@@ -117,9 +114,7 @@ function circles_lib_canvas_layer_find( _plane_type, _field_search_index, _field
 
 function circles_lib_canvas_layer_find_pos_index( _plane_type, _field_search_index, _field_value )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
-
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     // return zero-based index
     var _array_scan = _plane_type == Z_PLANE ? _glob_zplane_layers_pile_array : ( _plane_type == W_PLANE ? _glob_wplane_layers_pile_array : null );
     var _array_length = safe_size( _array_scan, 0 );
@@ -156,9 +151,7 @@ function circles_lib_canvas_layer_find_pos_index( _plane_type, _field_search_ind
 
 function circles_lib_canvas_layer_swap( _plane_type, _layer_index1, _layer_index2 )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
-
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     var _layers_role_array = null ;
     if ( _plane_type == Z_PLANE ) _layers_role_array = _glob_zplane_layers_pile_role_array ;
     else if ( _plane_type == W_PLANE ) _layers_role_array = _glob_wplane_layers_pile_role_array ;
@@ -167,7 +160,8 @@ function circles_lib_canvas_layer_swap( _plane_type, _layer_index1, _layer_index
     var _L1 = _layers_role_array[_layer_index1] ;
     _layers_role_array[_layer_index1] = _layers_role_array[_layer_index2] ;
     _layers_role_array[_layer_index2] = _L1 ;
-
+    //swap z-indexes via destructuring assignment
+    [ _layers_role_array[_layer_index1].zIndex, _layers_role_array[_layer_index2].zIndex ] = [ _layers_role_array[_layer_index2].zIndex, _layers_role_array[_layer_index1].zIndex ] ;
     return YES ;
 }
 
@@ -213,31 +207,26 @@ function circles_lib_canvas_layer_init( _base_container_id, _recalc_coords, _div
     }
 }
 
-function circles_lib_canvas_layer_mastertable_resize( _percentage ) { _glob_masterdiv_width_percentage = _percentage; $( "[id$=WORKAREAWIDTHcombo]" ).val( _percentage ); $(window).trigger('resize'); }
 function circles_lib_canvas_layer_with_max_role_get( _plane_type )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
-
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
     var _L = safe_size( _layers_array, 0 ), _role = 0, _canvas ;
     for( var i = 0 ; i < _L ; i++ )
     {
-       _canvas = _layers_array[i] ;
-       if ( is_html_canvas( _canvas ) )
-       {
-            if ( _role == ROLE_NONE || safe_float( _canvas.get_role_id(), ROLE_NONE ) > _role )
-            _role = safe_float( _canvas.get_role_id(), ROLE_NONE );
-       }
+      _canvas = _layers_array[i] ;
+      if ( is_html_canvas( _canvas ) )
+      {
+        if ( _role == ROLE_NONE || safe_float( _canvas.get_role_id(), ROLE_NONE ) > _role )
+        _role = safe_float( _canvas.get_role_id(), ROLE_NONE );
+      }
     }
-
     return _role ;
 }
 
 function circles_lib_canvas_layer_with_min_role_get( _plane_type )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
     var _L = safe_size( _layers_array, 0 ), _role = 0, _canvas ;
     for( var i = 0 ; i < _L ; i++ )
@@ -255,8 +244,7 @@ function circles_lib_canvas_layer_with_min_role_get( _plane_type )
 
 function circles_lib_canvas_layer_bottom_get( _plane_type )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
     var _L = safe_size( _layers_array, 0 ), _canvas, _div_id, _div, _z_index ;
     var _min = 0, _ret_canvas_id = "", _ret_canvas_role = 0 ;
@@ -280,8 +268,7 @@ function circles_lib_canvas_layer_bottom_get( _plane_type )
 
 function circles_lib_canvas_layer_get_topmost( _plane_type )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
     var _L = safe_size( _layers_array, 0 ), _layer, _div_id, _div, _z_index ;
     var _max = 0, _ret_div_id = "", _ret_canvas_id = "", _ret_canvas_role = 0 ;
@@ -306,16 +293,14 @@ function circles_lib_canvas_layer_get_topmost( _plane_type )
 
 function circles_lib_canvas_layer_explain_role( _plane_type, _role )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     var _canvas = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_INDEX, _role );
     return is_html_canvas( _canvas ) ? _canvas.get_role_def() : "unfound layer" ;
 }
 
 function circles_lib_canvas_layer_refresh( _plane_type, _layer_role_index, _bkcolor, _out_channel )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _sm = null, _layers_pile_ref ;
     if ( _plane_type == Z_PLANE ) { _sm = zplane_sm ; _layers_pile_ref = _glob_zplane_layers_pile_array ; }
@@ -334,8 +319,7 @@ function circles_lib_canvas_layer_refresh( _plane_type, _layer_role_index, _bkco
 
 function circles_lib_canvas_layer_set_opacity( _plane_type, _role, _opacity )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type, NO ) ;
-    _plane_type = safe_int( _plane_type, Z_PLANE );
+    _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     var _layer = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_INDEX, _role );
     if ( _layer != null )
     {
@@ -348,8 +332,7 @@ function circles_lib_canvas_layer_set_opacity( _plane_type, _role, _opacity )
 
 function circles_lib_canvas_layer_copy( _src_canvas_id, _copy_canvas_id, _limit_width, _limit_height )
 {
-    _limit_width = safe_int( _limit_width, UNDET );
-    _limit_height = safe_int( _limit_height, UNDET );
+    _limit_width = safe_int( _limit_width, UNDET ), _limit_height = safe_int( _limit_height, UNDET );
     var _src_canvas = $("#"+_src_canvas_id ).get(0);
     var _copy_canvas = $("#"+_copy_canvas_id ).get(0);
     if ( _src_canvas_id != null && is_html_canvas( _copy_canvas ) )

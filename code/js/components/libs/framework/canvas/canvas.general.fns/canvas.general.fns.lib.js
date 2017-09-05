@@ -16,7 +16,6 @@ function circles_lib_canvas_get_topmost( _plane_type )
             }
         }
     }
-
     return _ret_canvas ;
 }
 
@@ -204,24 +203,24 @@ function circles_lib_canvas_blowup( _src_canvas, _dest_canvas, srcX, srcY, srcWI
     else return NO ;
 }
 
-// merge fns
+// merge canvas
 function circles_lib_canvas_merge_all_per_plane( _plane_type, _layer_ref_index )
 {
     _plane_type = safe_int( _plane_type, NO_PLANE ), _layer_ref_index = safe_int( _layer_ref_index, 0 );
     var _canvas_array = [], _layers_array_ref = circles_lib_canvas_layer_pile_get( _plane_type );
-    var _canvas_w = 0, _canvas_h = 0, _bk_color = "transparent" ;
+    var _canvas_w = 0, _canvas_h = 0, _bk_color = "transparent", _idcanvas ;
+    _layers_array_ref.sort( function( l1, l2 ){ return l1.zIndex - l2.zIndex ; } );
     $.each( _layers_array_ref, function( _i, _chunk )
     {
-         var _idcanvas = _chunk.get_idcanvas() ;
-         if ( $( "#" + _idcanvas ).get(0) != null )
-         {
-             _canvas_w = $( "#"+_idcanvas ).get(0).get_width() ;
-             _canvas_h = $( "#"+_idcanvas ).get(0).get_height() ;
-             _canvas_array.push( $( "#"+_idcanvas ).get(0) );
-             if ( _layer_ref_index == _i ) _bk_color = $( "#"+_idcanvas ).get(0).get_backgroundcolor() ;
-         }
-    }
-    );
+       _idcanvas = _chunk.get_idcanvas() ;
+       if ( $( "#" + _idcanvas ).get(0) != null )
+       {
+          _canvas_w = $( "#"+_idcanvas ).get(0).get_width() ;
+          _canvas_h = $( "#"+_idcanvas ).get(0).get_height() ;
+          _canvas_array.push( $( "#"+_idcanvas ).get(0) );
+          if ( _layer_ref_index == _i ) _bk_color = $( "#"+_idcanvas ).get(0).get_backgroundcolor() ;
+       }
+    } );
 
     if ( safe_size( _canvas_array, 0 ) > 0 )
     {

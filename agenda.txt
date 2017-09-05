@@ -23,7 +23,6 @@ general.options
 geometric.transform
 help.items
 intersection.points
-merging
 method
 palette
 script.editor
