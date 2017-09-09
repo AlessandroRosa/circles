@@ -100,7 +100,6 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
                     
                     for( _p = 0 ; _p < _input_fixed_pts.length ; _p++ )
                     {
-                        _fp = _input_fixed_pts[_p] ;
                         self.postMessage( { "id" : "step", "text" : "Pass " + ( _p + 1 ) + " of " + _input_fixed_pts.length } );
                         _glob_multithread_operations_runner = 0 ;
                         for( i = 0 ; i < _dict_size ; i++ )
@@ -110,17 +109,23 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
     												 WORD = _glob_multithread_dictionary_obj.sliced_dict_read_runner();
                              if ( WORD.length == _depth && _keys_len > 0 ) WORD = reps_apply_fn( WORD );
 
+                             _fp = _input_fixed_pts[_p] ;
                              _glob_multithread_operations_runner++ ;
-                             INDEX = _glob_multithread_symbols_index_array[ WORD[0] ] ;
-			                       G = _items_array[INDEX].map ;
-                             for( runner = 1 ; runner < WORD.length ; runner++ )
+                             for( runner = 0 ; runner < WORD.length ; runner++ )
                              {
-                                  INDEX = _glob_multithread_symbols_index_array[ WORD[runner] ] ;
-                                  // GM = _items_array[INDEX].map ;
-		                              G = G.composition( _items_array[INDEX].map );
-		                              // reminder: if something goes wrong, uncomment this line
-		                              // complex_circle = G.isometric_circle();
-                                  _fp = G.compute( _fp );
+                                 INDEX = _glob_multithread_symbols_index_array[ WORD[runner] ] ;
+                                 switch( _drawentity )
+                                 {
+                                    case DRAWENTITY_PIXEL:
+                                    G = _items_array[INDEX].map ;
+                                    _fp = G.compute( _fp );
+                                    break ;
+                                    case DRAWENTITY_ISOMETRIC_CIRCLE:
+                                    case DRAWENTITY_INVERSION_CIRCLE:
+                                    G = G.composition( _items_array[INDEX].map );
+                                    break ;
+                                    default: break ;
+                                 }
                              }
                              
                              complex_circle = _drawentity == DRAWENTITY_INVERSION_CIRCLE ? G.inversion_circle() : G.isometric_circle();

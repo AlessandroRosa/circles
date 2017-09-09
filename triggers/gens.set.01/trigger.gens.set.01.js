@@ -21,7 +21,7 @@ function trigger_gens_set_01( _silent, _out_channel )
         {
             // destroy previous settings
             circles_lib_gens_set_bomb();
-            if ( circles_lib_depth_get() < 15 ) circles_lib_depth_set( is_64bits_architecture() ? 18 : 15 );
+            if ( circles_lib_depth_get() < 21 ) circles_lib_depth_set( is_64bits_architecture() ? 24 : 21 );
             circles_lib_process_set( PROCESS_RANDOM );
             circles_lib_method_set( METHOD_ALGEBRAIC );
             _glob_fixedpt_io = FIXEDPOINTS_IO_INPUT ;

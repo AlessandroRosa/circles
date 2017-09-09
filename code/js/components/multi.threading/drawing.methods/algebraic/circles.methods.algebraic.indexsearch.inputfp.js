@@ -88,7 +88,6 @@ function get_RL_path( _n, _digits_n, _depth )
            self.postMessage( { "id" : "append", "text" : _n_entries + " operations" } );
            for( _p = 0 ; _p < _input_fixed_pts.length ; _p++ )
            {
-              _fp = _input_fixed_pts[_p] ;
               self.postMessage( { "id" : "step", "text" : "Pass " + ( _p + 1 ) + " of " + _input_fixed_pts.length } );
               var _word_runner = 0, _n_depth = _n_entries, _word, _d = 1, _n_gens = _items_array.length ;
 
@@ -98,10 +97,8 @@ function get_RL_path( _n, _digits_n, _depth )
                      _proc_str = get_RL_path( _n, _n_gens, _d ) ;
                      if ( _n == _depths_index_array[_d-1] ) _d++ ;
                      if ( _proc_str.includes_one_of( _crash_words ) ) continue ;
+                     _fp = _input_fixed_pts[_p] ;
                      //console.log( _n, "|", _d-1, "|", _proc_str );
-
-                     //INDEX = safe_int( _proc_str[0], 0 ) ;
-    			           //G = _items_array[INDEX].map ;
 
                      for( _word_runner = 0 ; _word_runner < _proc_str.length ; _word_runner++ )
                      {
@@ -118,11 +115,8 @@ function get_RL_path( _n, _digits_n, _depth )
                           break ;
                           default: break ;
                        }
-                       //reminder: if something goes wrong, uncomment this line
-                       //complex_circle = G.isometric_circle();
                      }
 
-                     //console.log( _n, ">>", _proc_str, ">>", _tmp_word, ">>", _fp.output() );
                      complex_circle = _drawentity == DRAWENTITY_INVERSION_CIRCLE ? G.inversion_circle() : G.isometric_circle();
                      if( _current_region.is_pt_inside( _fp.real, _fp.imag ) )
                      {
