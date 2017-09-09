@@ -31,16 +31,21 @@ function CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, 
            var _construction_mode_def = circles_lib_construction_mode_get_def( safe_int( _config[2], CONSTRUCTION_NONE ) );
            var _fixedpoints_io_def = circles_lib_fixedpoints_io_get_def( safe_int( _config[3], FIXEDPOINTS_IO_NONE ) );
            var _n_entries = 0 ;
+           var _depths_index_array = [] ;
            switch( _cs_mode )
            {
               case CONSTRUCTION_LIMITSET:
-              _n_entries = Math.pow( _items_array.length, _depth ) * _input_fixed_pts.length * _items_array.length ;
+              _n_entries = Math.pow( _items_array.length, _depth ) * _input_fixed_pts.length ;
               break ;
               case CONSTRUCTION_TILING:
               default:
-              for( var _d = 0 ; _d <= _depth ; _d++ ) // we compute the number of nodes per each branch / generator
-              _n_entries += _d == 0 ? _items_array.length : Math.pow( _items_array.length, _d ) ;
-
+              var _inc = 0 ;
+              for( var _d = 1 ; _d <= _depth ; _d++ ) // we compute the number of nodes per each branch / generator
+              {
+                _inc = Math.pow( _items_array.length, _d ) ;
+                _n_entries += _inc ;
+                _depths_index_array.push( _inc );
+              }
               _n_entries *= _input_fixed_pts.length ; // multiply for the number of input fixed points to start from
               break ;
            }
@@ -54,17 +59,6 @@ function CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, 
            var complex_circle = null, first_circle = _items_array[0].complex_circle ;
            var pts_array = [], words_array = [], circles_array = [] ;
            var _based_n_num = "", _proc_str = "", _v = 0, _abs_runner = 0 ;
-           /*
-           var _commutator = "ABab", _based_n_commutator = "" ;
-           for( var _c1 = 0 ; _c1 < _commutator.length ; _c1++ )
-           {
-             for( var _cr2 = 0 ; _cr2 < _items_array.length ; _cr2++ )
-             {
-               if ( _items_array[_cr2].symbol == _commutator[_c1] ) _based_n_commutator += _cr2+"" ;
-             }
-           }
-           */
-
            //console.log( "BASED-N COMMUTATOR", _based_n_commutator );
            var _crash_words = [] ;
            for( var _cr1 = 0 ; _cr1 < _items_array.length ; _cr1++ )
@@ -90,33 +84,42 @@ function get_RL_path( _n, _digits_n, _depth )
   }
 }
 
+//console.log( _depths_index_array );
            self.postMessage( { "id" : "append", "text" : _n_entries + " operations" } );
            for( _p = 0 ; _p < _input_fixed_pts.length ; _p++ )
            {
               _fp = _input_fixed_pts[_p] ;
               self.postMessage( { "id" : "step", "text" : "Pass " + ( _p + 1 ) + " of " + _input_fixed_pts.length } );
-              var _word_runner = 0, _n_depth = 0, _word ;
-              for( var _d = 1 ; _d <= _depth ; _d++ )
-              {
-                  _n_depth = _d == 0 ? _items_array.length : Math.pow( _items_array.length, _d ) ;
-                  //console.log( "-------DEPTH", _d, "---- STEPS", _n_depth, "--------" );
+              var _word_runner = 0, _n_depth = _n_entries, _word, _d = 1, _n_gens = _items_array.length ;
+
                   inner_while_loop:
-                  for( var _n = 0 ; _n < _n_depth ; _n++, _abs_runner++ )
+                  for( var _n = _n_depth ; _n >= 0 ; _n-- )
                   {
-                     _proc_str = get_RL_path( _n, _items_array.length, _d ) ;
+                     _proc_str = get_RL_path( _n, _n_gens, _d ) ;
+                     if ( _n == _depths_index_array[_d-1] ) _d++ ;
                      if ( _proc_str.includes_one_of( _crash_words ) ) continue ;
+                     //console.log( _n, "|", _d-1, "|", _proc_str );
 
-                     INDEX = safe_int( _proc_str[0], 0 ) ;
-    			           G = _items_array[INDEX].map ;
+                     //INDEX = safe_int( _proc_str[0], 0 ) ;
+    			           //G = _items_array[INDEX].map ;
 
-                     for( _word_runner = 1 ; _word_runner < _proc_str.length ; _word_runner++ )
+                     for( _word_runner = 0 ; _word_runner < _proc_str.length ; _word_runner++ )
                      {
                        INDEX = safe_int( _proc_str[_word_runner], 0 ) ;
-                       // GM = _items_array[INDEX].map ;
-                       G = G.composition( _items_array[INDEX].map );
-                       // reminder: if something goes wrong, uncomment this line
-                       // complex_circle = G.isometric_circle();
-                       _fp = G.compute( _fp );
+                       switch( _drawentity )
+                       {
+                          case DRAWENTITY_PIXEL:
+                          G = _items_array[INDEX].map ;
+                          _fp = G.compute( _fp );
+                          break ;
+                          case DRAWENTITY_ISOMETRIC_CIRCLE:
+                          case DRAWENTITY_INVERSION_CIRCLE:
+                          G = G.composition( _items_array[INDEX].map );
+                          break ;
+                          default: break ;
+                       }
+                       //reminder: if something goes wrong, uncomment this line
+                       //complex_circle = G.isometric_circle();
                      }
 
                      //console.log( _n, ">>", _proc_str, ">>", _tmp_word, ">>", _fp.output() );
@@ -139,7 +142,7 @@ function get_RL_path( _n, _digits_n, _depth )
                                 'words_array' : words_array,
                                 'draw_fn_id' : 2.2,
                                 'counter' : _glob_multithread_operations_counter,
-                                'runner' : _abs_runner } ;
+                                'runner' : _n_entries - _n } ;
                         self.postMessage( { 'id' : "draw", 'obj' : obj } );
                         _bunch_counter = 0 ;
         								pts_array = [];
@@ -147,13 +150,12 @@ function get_RL_path( _n, _digits_n, _depth )
                         circles_array = [];
                      }
                   }
-              }
 
               obj = { 'circles_array' : circles_array,
                       'pts_array' : pts_array,
                       'words_array' : words_array,
                       'draw_fn_id' : 2.2,
-                      'counter' : 0, 'runner' : _abs_runner } ;
+                      'counter' : 0, 'runner' : _n_entries - _n } ;
               self.postMessage( { 'id' : "draw", 'obj' : obj } );
            }
 
