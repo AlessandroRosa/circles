@@ -58,7 +58,7 @@ function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
     CIRCLESformsCOORDINATESbaseid = safe_string( _base_id, "" ) ;
     CIRCLESformsCOORDINATESplane_type = _plane_type ;
     _move = safe_int( _move, YES );
-    var WIDTH = 280, HEIGHT = _glob_interface_index == INTERFACE_EXTEND_NONE ? 216 : 140 ;
+    var WIDTH = _plane_type == Z_PLANE ? 280 : 330, HEIGHT = _glob_interface_index == INTERFACE_EXTEND_NONE ? 216 : 140 ;
 		var _label = "", _corners_array = null, _subset = "forms" ;
 
     switch( _plane_type )
@@ -69,6 +69,14 @@ function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
       case D_LOCUS: _label = "Discreteness locus", _corners_array = dlocus_sm.get_coords_corners(); break ;
       default: _label = "Z-plane", _corners_array = zplane_sm.get_coords_corners(), HEIGHT += 32 ; break ;
     }
+
+    var _render = _plane_type == Z_PLANE ? YES : NO, _question = _plane_type == Z_PLANE ? NO : YES, _silent = YES ;
+    var _render_cmd = "" ;
+    if ( _plane_type == Z_PLANE )
+    _render_cmd = "if("+_render+")$('#CIRCLESformsCOORDINATESsetcoordsBTN').trigger('click');" ;
+    else
+    _render_cmd = "$('#CIRCLESformsCOORDINATESsetcoordsBTN,#CIRCLESformCOORDSrenderBTN').css('color','red');" ;
+
 
     if ( !is_point( _corners_array['lu'] ) || !is_point( _corners_array['rd'] ) )
     _corners_array = { 'lu' : new point( 0, 0 ), 'rd' : new point( 0, 0 ) } ;
@@ -86,47 +94,44 @@ function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
     HTMLcode += "<tr><td STYLE=\"padding-left:3px;color:#454545;\">"+_label+"</td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-
-
     HTMLcode += "<tr>" ;
     HTMLcode += "<td VALIGN=\"top\" ID=\"CIRCLESformsCOORDINATESformCONTAINER\">" ;
     HTMLcode += CIRCLESformsCOORDINATESform( _plane_type, YES, [ LEFT, TOP, RIGHT, BOTTOM, WIDTH, HEIGHT ] ) ;
     HTMLcode += "</td>" ;
     HTMLcode += "</tr>" ;
-
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td VALIGN=\"top\" CLASS=\"popup_buttons_bar\">" ;
     HTMLcode += "<table>" ;
     HTMLcode += "<tr>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('top',"+_plane_type+",null);\"><IMG TITLE=\"Shift to the top\" SRC=\"%imgpath%icons/bullets/bullet.up.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('top',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the top\" SRC=\"%imgpath%icons/bullets/bullet.up.16x16.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('bottom',"+_plane_type+",null);\"><IMG TITLE=\"Shift to the bottom\" SRC=\"%imgpath%icons/bullets/bullet.down.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('bottom',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the bottom\" SRC=\"%imgpath%icons/bullets/bullet.down.16x16.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('left',"+_plane_type+",null);\"><IMG TITLE=\"Shift to the left\" SRC=\"%imgpath%icons/bullets/bullet.left.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('left',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the left\" SRC=\"%imgpath%icons/bullets/bullet.left.16x16.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('right',"+_plane_type+",null);\"><IMG TITLE=\"Shift to the right\" SRC=\"%imgpath%icons/bullets/bullet.right.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('right',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the right\" SRC=\"%imgpath%icons/bullets/bullet.right.16x16.png\"></td>" ;
 
     if ( _plane_type.is_one_of( Z_PLANE, W_PLANE, BIP_BOX ) )
     {
         HTMLcode += "<td WIDTH=\"15\"></td>" ;
-        HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ONCLICK=\"javascript:circles_lib_coordinates_zoom_in_plane();\"><IMG TITLE=\"Zoom in\" SRC=\"%imgpath%icons/zoom.in/zoom.in.icon.01.16x16.png\"></td>" ;
+        HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ONCLICK=\"javascript:circles_lib_coordinates_zoom_in_plane();"+_render_cmd+"\"><IMG TITLE=\"Zoom in\" SRC=\"%imgpath%icons/zoom.in/zoom.in.icon.01.16x16.png\"></td>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
-        HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ONCLICK=\"javascript:circles_lib_coordinates_zoom_out_plane();\"><IMG TITLE=\"Zoom out\" SRC=\"%imgpath%icons/zoom.out/zoom.out.icon.01.16x16.png\"></td>" ;
+        HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ONCLICK=\"javascript:circles_lib_coordinates_zoom_out_plane();"+_render_cmd+"\"><IMG TITLE=\"Zoom out\" SRC=\"%imgpath%icons/zoom.out/zoom.out.icon.01.16x16.png\"></td>" ;
 
 		    if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) )
 		    {
 		        HTMLcode += "<td WIDTH=\"5\"></td>" ;
-		        HTMLcode += "<td ONCLICK=\"javascript:circles_lib_coords_pickupyours_open_proc( "+_plane_type+" );\"><IMG CLASS=\"link\" TITLE=\"Pick up your coordinates\" SRC=\"support/img/icons/lens/lens.icon.01.16x16.png\"></td>" ;
+		        HTMLcode += "<td ONCLICK=\"javascript:circles_lib_coords_pickupyours_open_proc("+_plane_type+");\"><IMG CLASS=\"link\" TITLE=\"Pick up your coordinates\" SRC=\"support/img/icons/lens/lens.icon.01.16x16.png\"></td>" ;
 		    }
     }
 
     HTMLcode += "<td WIDTH=\"15\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformsCOORDINATESsetcoordsBTN\" ONCLICK=\"javascript:CIRCLESformsCOORDINATESinputMANAGER( "+_plane_type+", "+_render+", '"+REFRESH_FN+"', ZOOM_PULL_COORDS, null, null, "+_question+", YES );\">Set coords</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformsCOORDINATESsetcoordsBTN\" ONCLICK=\"javascript:CIRCLESformsCOORDINATESinputMANAGER("+_plane_type+","+_render+",'"+REFRESH_FN+"',ZOOM_PULL_COORDS,null,null,"+_question+",YES);\">Set coords</td>" ;
     if ( _plane_type == W_PLANE )
     {
         HTMLcode += "<td WIDTH=\"1\"></td>" ;
-    	  HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformCOORDSrenderBTN\" ONCLICK=\"javascript:circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_glob_target_plane,YES,YES,CHECK);\">Render</td>" ;
+    	  HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESformCOORDSrenderBTN\" ONCLICK=\"javascript:circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_glob_target_plane,YES,YES,CHECK);\">Render W-plane</td>" ;
 		}
 
     HTMLcode += "</table>" ;
@@ -148,15 +153,14 @@ function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
 		        case W_PLANE: REFRESH_FN = "circles_lib_canvas_process_ask(YES,NO,"+W_PLANE+",YES,YES,CHECK);" ; break ;
             default: break ;
 		    }
-		
-		    var _render = _plane_type == Z_PLANE ? YES : NO, _question = _plane_type == Z_PLANE ? NO : YES, _silent = YES ;
+
 		    if ( _plane_type.is_one_of( Z_PLANE, W_PLANE, BIP_BOX, D_LOCUS ) )
 		    {
 		        HTMLcode += "<td WIDTH=\"5\"></td>" ;
 		        HTMLcode += "<td>Presets</td>" ;
 		        HTMLcode += "<td WIDTH=\"5\"></td>" ;
 		        HTMLcode += "<td>" ;
-		        HTMLcode += "<SELECT ONCHANGE=\"javascript:CIRCLESformsCOORDINATESpresetsCOMBO( this.value, "+_plane_type+", "+_render+", '"+REFRESH_FN+"', "+_question+", "+_silent+" );\">" ;
+		        HTMLcode += "<SELECT ONCHANGE=\"javascript:CIRCLESformsCOORDINATESpresetsCOMBO( this.value, "+_plane_type+", "+_render+", '"+REFRESH_FN+"', "+_question+", "+_silent+" );"+_render_cmd+"\">" ;
 		        HTMLcode += "<OPTION VALUE=\"0\">" ;
 		        if ( _plane_type.is_one_of( Z_PLANE, W_PLANE, BIP_BOX ) )
 		        {
@@ -218,14 +222,13 @@ function CIRCLESformsCOORDINATESpresetsCOMBO( _selection, _plane_type, _render, 
         $("#PLANEtop").val( 2 );
         $("#PLANEbottom").val( 0 );
         break ;
-        case 3: // Maskit slice
+        case 4: // Earle slice
         $("#PLANEleft").val( 0 );
         $("#PLANEright").val( 1 );
         $("#PLANEtop").val( 1 );
         $("#PLANEbottom").val( 0 );
         break ;
-        default:
-        break ;
+        default: break ;
     }
 }
 

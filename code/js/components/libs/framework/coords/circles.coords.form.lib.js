@@ -467,8 +467,8 @@ function circles_lib_coordinates_zoom_out_plane( _plane_type )
 
     var dX = Math.abs( RIGHT - LEFT ), dY = Math.abs( TOP - BOTTOM );
     var midX = ( LEFT + RIGHT ) / 2.0, midY = ( TOP + BOTTOM ) / 2.0 ;
-    var LEFT = midX - ( dX / 4.0 ), RIGHT = midX + ( dX / 4.0 );
-    var TOP = midY + ( dY / 4.0 ), BOTTOM = midY - ( dY / 4.0 );
+    LEFT = midX - dX, RIGHT = midX + dX ;
+    TOP = midY + dY, BOTTOM = midY - dY ;
 
     if ( _form_panel_src )
     {
@@ -532,8 +532,8 @@ function circles_lib_coordinates_zoom_in_plane( _plane_type )
 
     var dX = Math.abs( RIGHT - LEFT ), dY = Math.abs( TOP - BOTTOM );
     var midX = ( LEFT + RIGHT ) / 2.0, midY = ( TOP + BOTTOM ) / 2.0 ;
-    var LEFT = midX - ( dX / 4.0 ), RIGHT = midX + ( dX / 4.0 );
-    var TOP = midY + ( dY / 4.0 ), BOTTOM = midY - ( dY / 4.0 );
+    LEFT = midX - ( dX / 4.0 ), RIGHT = midX + ( dX / 4.0 );
+    TOP = midY + ( dY / 4.0 ), BOTTOM = midY - ( dY / 4.0 );
 
     if ( _form_panel_src )
     {
@@ -624,7 +624,7 @@ function circles_lib_coordinates_zoom_in_disk( _render, _index, _question, _sile
                  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
                  if ( _ret_id == RET_OK )
                  {
-                    circles_lib_plugin_reload_basic_forms( _index );
+                    circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
                     var _msg = "Zoom-in performed with success" ;
                     if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
                     return [ RET_OK, _msg ] ;

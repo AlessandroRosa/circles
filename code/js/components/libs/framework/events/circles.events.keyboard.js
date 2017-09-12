@@ -407,7 +407,7 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
                         if ( _glob_popup_mask == 0 ) // if it is 1, no action is performed cause windows remains on top
                         {
                             // if the pop-up window is displayed, update it
-                            circles_lib_plugin_reload_basic_forms( _inserted_id );
+                            circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
                             _glob_disk_sel_index = _inserted_id ;
                         }
                      }

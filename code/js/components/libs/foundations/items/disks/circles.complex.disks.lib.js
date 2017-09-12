@@ -69,7 +69,7 @@ function circles_lib_complexdisk_remove_all( _items_array, _question, _silent, _
            if ( _ret_id )
            {
               circles_lib_reset_coords();
-              if ( _out_channel == OUTPUT_SCREEN ) circles_lib_plugin_reload_basic_forms();
+              if ( _out_channel == OUTPUT_SCREEN ) circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
               _glob_disk_sel_index = UNDET, _glob_items_to_init = NO ;
               $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
               var _msg = "All disks have been removed with success" ;
