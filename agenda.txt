@@ -9,6 +9,9 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 * indexsearch (via terminal general.purpose, use a 6-generators group)
 
 ------------ APP -------------------------------------------------
+- draw 3 circles, init, check why 'force
+  fixing' option is required b4 rendering
+
 - srcptset terminal cmd:
   * build point set according to input params
 
@@ -18,7 +21,6 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 * FORMS
 dictionary
 eps.editor
-fourth.tangent.circle
 general.options
 geometric.transform
 help.items
@@ -28,10 +30,7 @@ palette
 script.editor
 storage.space
 svg.editor
-tangent.circle
 terminal
-terminal.comment
-terminal.filter
 watch.formula
 
 * TOOLS
@@ -118,8 +117,6 @@ raw.points.list
   http://www.html5rocks.com/en/tutorials/three/intro/
   http://www.howtojs.org/getting-started-with-three-js-part-1/
   http://code.tutsplus.com/tutorials/webgl-with-threejs-basics--net-35688
-
-* my revisitation of 'depthfirst' algorithm to reduce computation loads of the word/mobius map
 
 * Is it possible to draw the 3d model of Riemann surface related to the input generators ?
 

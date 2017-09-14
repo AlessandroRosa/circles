@@ -168,6 +168,7 @@ function circles_lib_alphabet_autoconfig_all_symbols( _question, _silent, _force
                    }
                }
 
+               circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
                var _msg = "All symbols have been successfully set up" ;
                if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
                return [ RET_OK, _msg ];
