@@ -56,12 +56,10 @@ function circles_terminal_cmd_storage()
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "add", "datatypes", "keys", "list", "long", "reset", "restore", "purge", "exists",
 						 																"remove", "copy", "size", "screen", "search", "subkeys", "release", "html", "help",
-						 																"check", "complex", "farey", "fraction", "line", "point", "rect", "string"
-																					);
+						 																"check", "complex", "farey", "fraction", "line", "point", "rect", "string" );
          _local_cmds_params_array = _local_cmds_params_array.concat( _glob_storage.keys_associative() );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
-         var _p ;
-         var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
+         var _p, _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
               _p = _params_array[_i].trim() ;
@@ -437,26 +435,28 @@ function circles_terminal_cmd_storage()
 										}
                     break ;
                     case "keys":
-                    var _keys = _glob_storage.keys_associative(), _out, _subkey_syntax, _subkeys, _n_subkeys ;
+                    var _keys = _glob_storage.keys_associative(), _out, _keys_size, _subkey_syntax, _subkeys, _n_subkeys, _key_size ;
                     var _n_keys = safe_size( _keys, 0 );
                     if ( !is_array( _keys ) ) _keys = [ "<orange>unknown</orange" ] ;
                     else if ( safe_size( _keys, 0 ) == 0 ) _keys = [ "<orange>no registered subsets</orange" ] ;
                     else
                     {
-												_out = [] ;
-		                    $.each( _keys,
-		                    			  function( _i, _subkey )
-		                    			  {
-																 		_subkey_syntax = _subkey ;
-																 		_subkeys = circles_lib_storage_parse_dependencies_syntax( _subkey_syntax, "subkeys" ) ;
-																 		_n_subkeys = safe_size( _subkeys, 0 ) ;
-																 		_out.push( "<snow>"+_subkey+"</snow>("+( _n_subkeys == 0 ? "<gray>"+_n_subkeys+"</gray>" : "<green>"+_n_subkeys+"</green>" )+")" );
-																}
-															);
+											_out = [], _keys_size = [] ;
+	                    $.each( _keys, function( _i, _subkey )
+	                    			  {
+														 		_subkey_syntax = _subkey ;
+														 		_subkeys = circles_lib_storage_parse_dependencies_syntax( _subkey_syntax, "subkeys" ) ;
+                                _key_size = safe_size( _glob_storage[ _subkey ], 0 ) ;
+														 		_n_subkeys = safe_size( _subkeys, 0 ) ;
+                                _keys_size.push( "<snow>"+_subkey+"</snow>("+( _key_size == 0 ? "<gray>"+_key_size+"</gray>" : "<green>"+_key_size+"</green>" )+")" );
+  													 		_out.push( "<snow>"+_subkey+"</snow>("+( _n_subkeys == 0 ? "<gray>"+_n_subkeys+"</gray>" : "<green>"+_n_subkeys+"</green>" )+")" );
+															} );
 
 											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Found "+_n_keys+" storage subset"+(_n_keys==1?"":"s")+"</lightblue>", _par_1, _cmd_tag );
-											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>Subkeys count are reported in parentheses per each main key</yellow>", _par_1, _cmd_tag );
-											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>"+_n_keys+"</snow> <lightblue>subkey"+( _n_keys == 1 ? "" : "s" )+" :</lightblue> "+_out.join( ", " ), _par_1, _cmd_tag );
+											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>Keys and size are reported in parentheses per each entry</yellow>", _par_1, _cmd_tag );
+											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>"+_n_keys+"</snow> <lightblue>key"+( _n_keys == 1 ? "" : "s" )+" :</lightblue> "+_keys_size.join( ", " ), _par_1, _cmd_tag );
+											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>Subkeys amount is reported in parentheses per each entry</yellow>", _par_1, _cmd_tag );
+											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>subkey"+( _n_keys == 1 ? "" : "s" )+" :</lightblue> "+_out.join( ", " ), _par_1, _cmd_tag );
 										}
                     break ;
                     case "list":

@@ -10,6 +10,9 @@ function circles_lib_get_complexdisk_from_screen( _mapper, _screen_circle )
 
 function circles_lib_complexdisk_correct_tangency( _items_array, _index1, _index2, _out_channel )
 {
+    if ( !is_array( _items_array ) )
+    _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
@@ -22,26 +25,26 @@ function circles_lib_complexdisk_correct_tangency( _items_array, _index1, _index
     else if ( is_circle( C1 ) && is_circle( C2 ) )
     {
         var _corrected_circle1 = circle_correct_to_tangency( C1, C2, alwayexternal );
-        MM_1.complex_circle = _corrected_circle1 ;
-        var _init_mask = _glob_init_mask & INIT_CALC_CIRCLES, _ret_chunk = null ;
-        if ( circles_lib_method_check() )
+        if ( is_circle( _corrected_circle1 ) )
         {
-           _ret_chunk = circles_lib_items_init( null, NO, YES, _init_mask, NO, YES, _out_channel );
-           if ( _ret_chunk[0] != RET_OK )
-           {
-              circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
-              return NO ;
-           }
+          MM_1.complex_circle = _corrected_circle1 ;
+          var _init_mask = _glob_init_mask & INIT_CALC_CIRCLES, _ret_chunk = null ;
+          if ( circles_lib_method_check() )
+          {
+             _ret_chunk = circles_lib_items_init( null, NO, YES, _init_mask, NO, YES, _out_channel );
+             if ( _ret_chunk[0] != RET_OK ) circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
+          }
+
+          _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+          if ( _ret_chunk[0] != RET_OK )
+          {
+             circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
+             return NO ;
+          }
+          CIRCLESformsINTERSECTIONPOINTSfind();
+          return YES ;
         }
-        
-        _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
-        if ( _ret_chunk[0] != RET_OK )
-        {
-           circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
-           return NO ;
-        }
-        CIRCLESformsINTERSECTIONPOINTSfind();
-        return YES ;
+        else return NO ;
     }
     else return NO ;
 }

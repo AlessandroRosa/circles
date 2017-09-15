@@ -19,12 +19,12 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
   (Remove each entry after completing the checkings)
 
 * FORMS
+intersection.points (correct to tangency does not preserve radius)
 dictionary
 eps.editor
 general.options
 geometric.transform
 help.items
-intersection.points
 method
 palette
 script.editor

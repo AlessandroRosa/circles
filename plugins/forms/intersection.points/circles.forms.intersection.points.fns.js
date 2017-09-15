@@ -15,7 +15,7 @@ function CIRCLESformsINTERSECTIONPOINTScorrectTANGENCYask( index1, index2 )
     
        alert_plug_label( ALERT_YES, "Yes" );
        alert_plug_label( ALERT_NO, "No" );
-       alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_complexdisk_correct_tangency( "+index1+", "+index2+" )" );
+       alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_complexdisk_correct_tangency( null, "+index1+", "+index2+" )" );
        alert_plug_fn( ALERT_NO, "alertCLOSE();" );
        alert_set_btns_width( "70px" );
        circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app_title );
@@ -32,6 +32,7 @@ function CIRCLESformsINTERSECTIONPOINTScopyPOINTS( packed_pts )
            if ( _pts_array.length >= 2 ) _out_pts_array.push( new point( safe_float( _pts_array[0], 0 ), safe_float( _pts_array[1], 0 ) ) );
            if ( _pts_array.length == 4 ) _out_pts_array.push( new point( safe_float( _pts_array[2], 0 ), safe_float( _pts_array[3], 0 ) ) );
            var _added = 0, _duplicates = 0 ;
+           if ( !is_array( _glob_storage['points'] ) ) _glob_storage['points'] = [] ;
 
            $.each( _out_pts_array,
                    function( _i, _pt )
@@ -53,14 +54,14 @@ function CIRCLESformsINTERSECTIONPOINTScopyPOINTS( packed_pts )
                            _tmp_chunk['myhash'] = "rec" + ( _i + 1 );
                            _tmp_chunk['label'] = "" ;
                            _tmp_chunk['propertiesmask'] = 0 ;
-                           _glob_storage['figures'].push( _tmp_chunk );
+                           _glob_storage['points'].push( _tmp_chunk );
                            _added++ ;
                        }
                        else _duplicates++ ;
                    }
                  );
 
-            var _msg = _added + " intersection point"+(_added==1?"":"s")+" copied with success" ;
+            var _msg = _added + " intersection point"+(_added==1?"":"s")+" copied with success into storage container" ;
             if ( _duplicates > 0 ) _msg += _glob_crlf.repeat(2) + "Found " + _duplicates + " duplicate" + ( _duplicates == 1 ? "" : "s" );
             circles_lib_output( OUTPUT_SCREEN, _added > 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app_title );
     }
@@ -90,7 +91,7 @@ function CIRCLESformsINTERSECTIONPOINTScomboONCHANGE()
 
 function CIRCLESformsINTERSECTIONPOINTScorrectTANGENTdisks()
 {
-    var _index1 = safe_int( $("#CIRCLEScombo1").val(), UNDET ), _index2 = safe_int( $("#CIRCLEScombo2").val(), UNDET );
+    var _index1 = safe_int( $("#CIRCLEScombo1 option:selected").val(), UNDET ), _index2 = safe_int( $("#CIRCLEScombo2 option:selected").val(), UNDET );
     if ( _index1 != UNDET && _index2 != UNDET && ( _index1 != _index2 ) ) CIRCLESformsINTERSECTIONPOINTScorrectTANGENCYask( _index1, _index2 );
     else if ( _index1 != UNDET && _index2 != UNDET && ( _index1 == _index2 ) )
          circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: a same circle has been chosen.", _glob_app_title );
@@ -206,7 +207,7 @@ function CIRCLESformsINTERSECTIONPOINTSfind( _mark_points )
                   HTMLcode += "<tr>" ;
                   HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"30\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTSfind(YES);\">Find</td>" ;
                   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-                  HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"30\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTScorrectTANGENTdisks();\">Correct</td>" ;
+                  HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"80\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTScorrectTANGENTdisks();\">Correct to Tangency</td>" ;
                   HTMLcode += "<td WIDTH=\"5\"></td>" ;
                   HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"30\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTScopyPOINTS( '"+store_pts.join( "@" )+"' );\">Copy</td>" ;
                   HTMLcode += "<td WIDTH=\"5\"></td>" ;
