@@ -104,6 +104,10 @@ function CIRCLESformsINTERSECTIONPOINTSmain( _base_id, _move )
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_coordinates_zoomtofit( Z_PLANE, YES );\">Zoom to fit</td>" ;
+        HTMLcode += "<td WIDTH=\"5\"></td>";
+        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_items_init_wrapper_fn(null,YES,NO,_glob_init_mask,OUTPUT_SCREEN);\" ID=\"INTERSECTIONPOINTSinitBTN\" STYLE=\"color:"+(_glob_items_to_init?"red":"black")+";\">Init</td>";
+        HTMLcode += "<td WIDTH=\"5\"></td>";
+        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_set_target_plane(W_PLANE,YES);circles_lib_items_switch_to(_glob_items_switch,YES);circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_glob_target_plane,YES,YES,CHECK);\" ID=\"INTERSECTIONPOINTSrenderBTN\" STYLE=\"color:"+(_glob_items_to_init?"red":"black")+";\">Render</td>";
         HTMLcode += "</tr>" ;
         HTMLcode += "</table>" ;
         HTMLcode += "</td>" ;

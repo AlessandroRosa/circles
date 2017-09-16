@@ -18,8 +18,12 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 - check that all services inside each of these masks work properly.
   (Remove each entry after completing the checkings)
 
+- intersection points : need method to move a secant disk 
+                        to a new position, so that it turns into
+                        tangent
+
 * FORMS
-intersection.points (correct to tangency does not preserve radius)
+intersection.points
 dictionary
 eps.editor
 general.options

@@ -89,7 +89,7 @@ function CIRCLESformsINTERSECTIONPOINTScomboONCHANGE()
     if ( index1 != UNDET && index2 != UNDET ) CIRCLESformsINTERSECTIONPOINTSfind( YES );
 }
 
-function CIRCLESformsINTERSECTIONPOINTScorrectTANGENTdisks()
+function CIRCLESformsINTERSECTIONPOINTSresizeTANGENTdisks()
 {
     var _index1 = safe_int( $("#CIRCLEScombo1 option:selected").val(), UNDET ), _index2 = safe_int( $("#CIRCLEScombo2 option:selected").val(), UNDET );
     if ( _index1 != UNDET && _index2 != UNDET && ( _index1 != _index2 ) ) CIRCLESformsINTERSECTIONPOINTScorrectTANGENCYask( _index1, _index2 );
@@ -207,9 +207,9 @@ function CIRCLESformsINTERSECTIONPOINTSfind( _mark_points )
                   HTMLcode += "<tr>" ;
                   HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"30\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTSfind(YES);\">Find</td>" ;
                   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-                  HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"80\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTScorrectTANGENTdisks();\">Correct to Tangency</td>" ;
+                  HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"80\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTSresizeTANGENTdisks();\">Resize to Tangency</td>" ;
                   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-                  HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"30\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTScopyPOINTS( '"+store_pts.join( "@" )+"' );\">Copy</td>" ;
+                  HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"30\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTScopyPOINTS('"+store_pts.join( "@" )+"');\">Copy</td>" ;
                   HTMLcode += "<td WIDTH=\"5\"></td>" ;
                   HTMLcode += "</tr>" ;
                   HTMLcode += "</table>" ;

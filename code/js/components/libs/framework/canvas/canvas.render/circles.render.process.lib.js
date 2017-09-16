@@ -231,7 +231,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                 {
                    HTMLcode += "<tr><td STYLE=\"padding-left:6px;color:"+DEFAULT_COLOR_ERROR+";\">Generators still need to be initialized</td></tr>" ;
                    HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                   HTMLcode += "<tr><td STYLE=\"padding-left:6px;\" CLASS=\"link\" ONCLICK=\"javascript:_glob_items_to_init=NO;$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);circles_lib_items_init(null,NO,YES);alertCLOSE();circles_lib_canvas_process_ask("+_question+","+_silent+","+_plane_type+","+_render+","+_b_clean+","+_b_init_items+",'"+_selected_layers_array.join(',')+"');\">Force fixing</td></tr>" ;
+                   HTMLcode += "<tr><td STYLE=\"padding-left:6px;\" CLASS=\"link\" ONCLICK=\"javascript:alertCLOSE();_glob_items_to_init=NO;$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);circles_lib_items_init(null,NO,YES);circles_lib_canvas_process_ask("+_question+","+_silent+","+_plane_type+","+_render+","+_b_clean+","+_b_init_items+",'"+_selected_layers_array.join(',')+"');\">Force fixing</td></tr>" ;
                 }
     
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
@@ -337,7 +337,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                      if ( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_NONE )
                      {
                          HTMLcode += "<tr><td HEIGHT=\"15\"></td></tr>" ;
-                         HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Can't run the construction</td></tr>" ;
+                         HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Can't run this configuration</td></tr>" ;
                          HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                          HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Missing process reference</td></tr>" ;
                          HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
@@ -382,7 +382,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
 										)
                  {
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                    HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Can't run the construction</td></tr>" ;
+                    HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Can't run this configuration</td></tr>" ;
                     HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
                     HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Please, fix problems first</td></tr>" ;
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
