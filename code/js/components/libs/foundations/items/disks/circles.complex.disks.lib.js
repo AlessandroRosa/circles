@@ -24,14 +24,20 @@ function circles_lib_complexdisk_move_tangency( _items_array, _index1, _index2, 
     if ( !_test ) return [ RET_ERROR, "Invalid input items container", UNDET ] ;
     else if ( is_circle( C1 ) && is_circle( C2 ) )
     {
+        if ( C1.center.x > C2.center.x )
+        {
+          [ _items_array[_index1], _items_array[_index2] ] = [ _items_array[_index2], _items_array[_index1] ] ;
+          [ C1, C2 ] = [ C2, C1 ] ;
+        }
+
         var _corrected_circle1 = circle_move_to_tangency( C1, C2, alwayexternal );
         if ( is_circle( _corrected_circle1 ) )
         {
-          MM_1.complex_circle = _corrected_circle1 ;
-          var _init_mask = _glob_init_mask & INIT_CALC_CIRCLES, _ret_chunk = null ;
+          _items_array[_index1].complex_circle = _corrected_circle1 ;
+          var _ret_chunk = null ;
           if ( circles_lib_method_check() )
           {
-             _ret_chunk = circles_lib_items_init( null, NO, YES, _init_mask, NO, YES, _out_channel );
+             _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, NO, YES, _out_channel );
              if ( _ret_chunk[0] != RET_OK ) circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
           }
 
@@ -64,14 +70,20 @@ function circles_lib_complexdisk_resize_tangency( _items_array, _index1, _index2
     if ( !_test ) return [ RET_ERROR, "Invalid input items container", UNDET ] ;
     else if ( is_circle( C1 ) && is_circle( C2 ) )
     {
+        if ( C1.center.x > C2.center.x )
+        {
+          [ _items_array[_index1], _items_array[_index2] ] = [ _items_array[_index2], _items_array[_index1] ] ;
+          [ C1, C2 ] = [ C2, C1 ] ;
+        }
+
         var _corrected_circle1 = circle_resize_to_tangency( C1, C2, alwayexternal );
         if ( is_circle( _corrected_circle1 ) )
         {
-          MM_1.complex_circle = _corrected_circle1 ;
-          var _init_mask = _glob_init_mask & INIT_CALC_CIRCLES, _ret_chunk = null ;
+          _items_array[_index1].complex_circle = _corrected_circle1 ;
+          var _ret_chunk = null ;
           if ( circles_lib_method_check() )
           {
-             _ret_chunk = circles_lib_items_init( null, NO, YES, _init_mask, NO, YES, _out_channel );
+             _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, NO, YES, _out_channel );
              if ( _ret_chunk[0] != RET_OK ) circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
           }
 

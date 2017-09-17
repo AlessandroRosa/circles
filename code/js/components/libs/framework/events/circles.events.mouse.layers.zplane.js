@@ -20,30 +20,30 @@ function Z_PLANE_work_layer_onmousedown( obj, event )
     _glob_mouse_x = _glob_coords_array["x"], _glob_mouse_y = _glob_coords_array["y"] ;
     switch( event.which )
     {
-        case 1: // left btn
-        break;
-        case 2: // mid btn
-	      break;
-        case 3: // right btn
-        _glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID ;
-	      circles_lib_canvas_update_icons_bar( "CANVASzplaneBAR" );
-	      circles_lib_statusbar_update_elements();
-	      circles_lib_reset_coords();
-	      event.preventDefault();
-	      return false ;
-        break;
-        default: break ;
+      case 1: // left btn
+      break;
+      case 2: // mid btn
+      break;
+      case 3: // right btn
+      _glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID ;
+      circles_lib_canvas_update_icons_bar( "CANVASzplaneBAR" );
+      circles_lib_statusbar_update_elements();
+      circles_lib_reset_coords();
+      event.preventDefault();
+      return false ;
+      break;
+      default: break ;
     }
        
 		EVENTSstopDISPATCHING( event );
     if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_ZOOM_PROC_ID )
     {
-        if ( !is_rect( _glob_zoom_rect ) )
-        {
-           _glob_zoom_rect = new rect();
-           _glob_zoomSTARTpt = zplane_sm.from_client_to_cartesian( _glob_mouse_x, _glob_mouse_y );
-           $("#ZOOMINGREGIONlabel").html( "2. Finally, release the mouse button as the zoom region fits as desired" );
-        }
+      if ( !is_rect( _glob_zoom_rect ) )
+      {
+        _glob_zoom_rect = new rect();
+        _glob_zoomSTARTpt = zplane_sm.from_client_to_cartesian( _glob_mouse_x, _glob_mouse_y );
+        $("#ZOOMINGREGIONlabel").html( "2. Finally, release the mouse button as the zoom region fits as desired" );
+      }
     }
     else if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_TANGENTCIRCLE_PROC_ID )
     {
@@ -464,7 +464,7 @@ function Z_PLANE_work_canvas_onmouseout( obj, event )
     _rect.width_height_constructor( _bound_rect.left, _bound_rect.top, _bound_rect.width, _bound_rect.height );
     _glob_coords_array = circles_lib_events_get_mouse_pos_abs( event );
     _glob_mouse_x = _glob_coords_array["x"], _glob_mouse_y = _glob_coords_array["y"] ;
-    if ( _glob_zplane_canvas_timerID != null && !_rect.includes_pt( _glob_mouse_x, _glob_mouse_y ) )
+    if ( !_rect.includes_pt( _glob_mouse_x, _glob_mouse_y ) )
     {
          circles_lib_canvas_zplane_stop_timer();
          circles_lib_canvas_zplane_hide_bar();

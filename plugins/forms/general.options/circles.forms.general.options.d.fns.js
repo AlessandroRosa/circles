@@ -600,32 +600,24 @@ function CIRCLESformsGENERALOPTIONSdisksfillOPTIONSask( _question, _silent, _out
              _warning_msg += _glob_crlf + "Therefore all items won't be visible." + _glob_crlf ;
          }
 
-         var MSG = _warning_msg + "Confirm to automatically set each disk fill option "+( _glob_wplane_disk_fill ? "on" : "off" )+"? " ;
+         var MSG = _warning_msg + "Confirm to automatically set each 'disk fill' option "+( _glob_wplane_disk_fill ? "on" : "off" )+"? " ;
          var _b_go = !_question ? YES : confirm( MSG );
          if ( _b_go )
          {
              for( var _i = 0 ; _i < _sd_n ; _i++ )
              if ( _glob_seeds_array[_i].complex_circle != null ) _glob_seeds_array[_i].complex_circle.fill = _glob_wplane_disk_fill ;
 
-             MSG = "<table>" ;
-             MSG += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-             MSG += "<tr><td>The disk fill option was set "+( _glob_wplane_disk_fill ? "on" : "off" )+" for all items</td></tr>" ;
-             MSG += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-             if ( _glob_palette_use == 0 )
+             MSG = "The 'disk fill' option was set "+( _glob_wplane_disk_fill ? "on" : "off" )+" for all items" ;
+             MSG += "Confirm to apply the current palette or the original fill color for each seed ?" ;
+             if ( _out_channel == OUTPUT_SCREEN && !_silent && !_glob_palette_use )
              {
-                 MSG += "<tr><td COLSPAN=\"3\">Confirm to apply the current palette or the original fill color for each seed ?</td></tr>" ;
-                 MSG += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-                 MSG += "<tr>" ;
-                 MSG += "<td ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:$('#CIRCLEScheckboxPALETTEuse').prop('checked',YES);_glob_palette_use=YES;alertCLOSE();\">Apply palette</td>" ;
-                 MSG += "<td WIDTH=\"25\"></td>" ;
-                 MSG += "<td ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:$('#CIRCLEScheckboxPALETTEuse').prop('checked',NO);_glob_palette_use=NO;alertCLOSE();\">Do not apply palette</td>" ;
-                 MSG += "</tr>" ;
+                 alert_plug_label( ALERT_YES, "Apply" );
+                 alert_plug_label( ALERT_NO, "Don't" );
+                 alert_plug_fn( ALERT_YES, "alertCLOSE();$('#CIRCLEScheckboxPALETTEuse').prop('checked',YES);_glob_palette_use=YES;" );
+                 alert_plug_fn( ALERT_NO, "alertCLOSE();$('#CIRCLEScheckboxPALETTEuse').prop('checked',NO);_glob_palette_use=NO;" )
+                 alert_set_btns_width( "70px" );
+                 alert_msg( ALERT_YESNO | ALERT_QUESTION, MSG, _glob_app_title + " - " + circles_lib_plane_get_def( W_PLANE ) );
              }
-              
-             MSG += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-             MSG += "</table>" ;
-              
-             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, MSG, _glob_app_title ) ;
              else
              {
                 var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );

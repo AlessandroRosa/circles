@@ -13,7 +13,7 @@ if ( is_canvas_supported() && is_multithreading_compatible() )
         _cmd += "CIRCLESgetMETRICS();circles_lib_statusbar_init();circles_lib_menu_entries_update();_window_resize_ext();" ;
     alert_plug_fn( ALERT_YES, "alertCLOSE();" + _cmd );
     alert_plug_fn( ALERT_NO, "window.open( _glob_path_to_circles + 'docs/circles.docs.php', 'CIRCLESdocsWND', '' );" );
-    alert_msg( ALERT_YESNO | ALERT_NOICON | ALERT_NOCAPTION, circles_lib_splash_screen_code(), _glob_app_title, _sw > 780 ? 780 : _sw - 30, 0, null, 0, 100 );
+    alert_msg( ALERT_YESNO | ALERT_NOICON | ALERT_NOCAPTION, circles_lib_splash_screen_code(), _glob_app_title, _sw > 690 ? 690 : _sw - 30, 0, null, 0, 100 );
 }
 else
 {

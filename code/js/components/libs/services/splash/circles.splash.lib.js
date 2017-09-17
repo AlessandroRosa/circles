@@ -21,42 +21,39 @@ function circles_lib_splash_screen_code()
     splashHTMLcode += "<tr><td STYLE=\"font-size:12pt;\" ALIGN=\"center\">Last release date : "+_glob_appLASTreleaseDATE+"</td></tr>" ;
     splashHTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
 
-    splashHTMLcode += "<tr><td STYLE=\"font-size:12pt;\" ALIGN=\"center\">Coded by Alessandro Rosa</td></tr>" ;
+    splashHTMLcode += "<tr><td STYLE=\"font-size:12pt;\" ALIGN=\"center\">Coded by Alessandro Rosa - <a STYLE=\"color:blue;\" HREF=\"mailto:"+mail1+"@"+mail2+"."+mail3+"\">Contact me</a></td></tr>" ;
     splashHTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
     splashHTMLcode += "<tr>" ;
     splashHTMLcode += "<td VALIGN=\"top\" COLSPAN=\"3\" ALIGN=\"center\">" ;
-    splashHTMLcode += "<table ALIGN=\"center\" BORDER=\"1\">" ;
+    splashHTMLcode += "<table ALIGN=\"center\" BORDER=\"0\">" ;
 
     splashHTMLcode += "<tr>" ;
-    splashHTMLcode += "<td WIDTH=\"32\" VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"padding:6px;"+( isCHROME() ? "background-color:#D5E6F7;" : "" )+"\"><IMG SRC=\"%imgpath%icons/browsers/chrome/chrome.icon.01.32x32.png\"></td>" ;
+    splashHTMLcode += "<td WIDTH=\"32\" VALIGN=\"top\" ALIGN=\"center\" CLASS=\"general_rounded_corners\" STYLE=\"padding:6px;"+( isCHROME() ? "background-color:#D5E6F7;" : "" )+"\"><IMG SRC=\"%imgpath%icons/browsers/chrome/chrome.icon.01.32x32.png\"></td>" ;
     splashHTMLcode += "<td WIDTH=\"20\"></td>" ;
-    splashHTMLcode += "<td WIDTH=\"32\" VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"padding:6px;"+( isFIREFOX() ? "background-color:#D5E6F7;" : "" )+"\"><IMG SRC=\"%imgpath%icons/browsers/firefox/firefox.icon.01.32x32.png\"></td>" ;
+    splashHTMLcode += "<td WIDTH=\"32\" VALIGN=\"top\" ALIGN=\"center\" CLASS=\"general_rounded_corners\" STYLE=\"padding:6px;"+( isFIREFOX() ? "background-color:#D5E6F7;" : "" )+"\"><IMG SRC=\"%imgpath%icons/browsers/firefox/firefox.icon.01.32x32.png\"></td>" ;
     splashHTMLcode += "<td WIDTH=\"20\"></td>" ;
-    splashHTMLcode += "<td WIDTH=\"32\" VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"padding:6px;"+( isIE() ? "background-color:#D5E6F7;" : "" )+"\"><IMG SRC=\"%imgpath%icons/browsers/ie/ie.icon.01.32x32.png\"></td>" ;
+    splashHTMLcode += "<td WIDTH=\"32\" VALIGN=\"top\" ALIGN=\"center\" CLASS=\"general_rounded_corners\" STYLE=\"padding:6px;"+( isIE() ? "background-color:#D5E6F7;" : "" )+"\"><IMG SRC=\"%imgpath%icons/browsers/ie/ie.icon.01.32x32.png\"></td>" ;
     splashHTMLcode += "</tr>" ;
     splashHTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
     splashHTMLcode += "<tr><td COLSPAN=\"5\" ALIGN=\"center\">Detected "+get_bits_system_architecture()+"-bits system architecture</td></tr>" ;
     splashHTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-    splashHTMLcode += "<tr><td COLSPAN=\"5\" STYLE=\""+( _glob_multithreading_compatible ? "" : "color:#EE0000;" )+"\" ALIGN=\"center\">"+( _glob_multithreading_compatible ? "Your" : "Sorry, but your" )+" browser "+( _glob_multithreading_compatible ? "supports" : "does not support" )+" multi-threading</td></tr>" ;
-
-    if ( _demos_list.length > 0 )
-    {
-        splashHTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-        splashHTMLcode += "<tr><td VALIGN=\"top\" COLSPAN=\"5\"><table>" ;
-        splashHTMLcode += "<tr><td>Select a demo</td><td WIDTH=\"6\"></td>";
-        splashHTMLcode += "<td><SELECT ONCHANGE=\"javascript:var idx=this.value;window.location.href='?demo='+idx;\"><OPTION VALUE=\"0\" SELECTED=\"selected\">";
-        _demos_list.forEach( function( _demo_chunk ){ splashHTMLcode += "<OPTION VALUE=\""+_demo_chunk[0]+"\">"+_demo_chunk[1] ; } );
-        splashHTMLcode += "</SELECT></td>";
-        splashHTMLcode += "</table></td></tr>" ;
-    }
-
+    splashHTMLcode += "<tr><td COLSPAN=\"5\" STYLE=\""+( _glob_multithreading_compatible ? "color:#1FB954;" : "color:#EE0000;" )+"\" ALIGN=\"center\">"+( _glob_multithreading_compatible ? "Your" : "Sorry, but your" )+" browser "+( _glob_multithreading_compatible ? "supports" : "does not support" )+" multi-threading</td></tr>" ;
     if ( !_glob_multithreading_compatible )
     {
        splashHTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
        splashHTMLcode += "<tr><td COLSPAN=\"5\" ALIGN=\"center\">Sorry, this app requires multi-threading featured browser</td></tr>" ;
     }
-    splashHTMLcode += "<tr><td HEIGHT=\"30\"></td></tr>" ;
-    splashHTMLcode += "<tr><td COLSPAN=\"5\" ALIGN=\"center\">Contact <a HREF=\"mailto:"+mail1+"@"+mail2+"."+mail3+"\">me</a></td></tr>" ;
+
+    if ( _demos_list.length > 0 )
+    {
+       splashHTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+       splashHTMLcode += "<tr><td VALIGN=\"top\" COLSPAN=\"5\"><table>" ;
+       splashHTMLcode += "<tr><td STYLE=\"font-size:12pt;\">Select a demo</td><td WIDTH=\"6\"></td>";
+       splashHTMLcode += "<td><SELECT STYLE=\"font-size:12pt;height:auto;\" ONCHANGE=\"javascript:var idx=this.value;window.location.href='?demo='+idx;\"><OPTION VALUE=\"0\" SELECTED=\"selected\">";
+       _demos_list.forEach( function( _demo_chunk ){ splashHTMLcode += "<OPTION VALUE=\""+_demo_chunk[0]+"\">"+_demo_chunk[1] ; } );
+       splashHTMLcode += "</SELECT></td>";
+       splashHTMLcode += "</table></td></tr>" ;
+    }
     splashHTMLcode += "</table>" ;
     splashHTMLcode += "</td>" ;
     splashHTMLcode += "</tr>" ;

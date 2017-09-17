@@ -134,7 +134,6 @@ function circles_lib_canvas_zplane_manage_timer( _index )
    		    var _pos = $( "#ZPLANElayers_pile" ).offset();
    			  $("#CANVASzplaneBAR").css( "left", ( _pos.left + 3 ) + "px" );
    			  $("#CANVASzplaneBAR").css( "top", ( _pos.top + 4 ) + "px" );
-    			$("#CANVASzplaneBAR").width( 240 );
     			$("#CANVASzplaneBAR").fadeIn( "slow" );
           circles_lib_canvas_zplane_stop_timer();
           break ;
@@ -155,7 +154,6 @@ function circles_lib_canvas_wplane_manage_timer( _index )
     		  var _pos = $( "#WPLANElayers_pile" ).offset();
     			$("#CANVASwplaneBAR").css( "left", ( _pos.left + 3 ) + "px" );
     			$("#CANVASwplaneBAR").css( "top", ( _pos.top + 4 ) + "px" );
-    			$("#CANVASwplaneBAR").width( 240 );
     			$("#CANVASwplaneBAR").fadeIn( "slow" );
           circles_lib_canvas_wplane_stop_timer();
           break ;

@@ -20,9 +20,9 @@ function CIRCLEStoolsALPHABETCOLORIZATIONlist( case_id, _self_fill_container )
  		HTMLcode += "<td WIDTH=\"5\"></td>" ;
  		HTMLcode += "<td><SELECT ID=\"CIRCLEStoolsALPHABETCOLORIZATIONlettercaseCOMBO\" ONCHANGE=\"javascript:CIRCLEStoolsALPHABETCOLORIZATIONcomboHANDLER();CIRCLEStoolsALPHABETCOLORIZATIONlist( $('#'+this.id).val(), YES );\"><OPTION "+( case_id == 0 ? "SELECTED=\"selected\"" : "" )+" VALUE=\"0\"><OPTION "+( case_id == 1 ? "SELECTED=\"selected\"" : "" )+" VALUE=\"1\">Lower</OPTION><OPTION "+( case_id == 2 ? "SELECTED=\"selected\"" : "" )+" VALUE=\"2\">Upper</OPTION></SELECT></td>" ;
  		HTMLcode += "<td WIDTH=\"10\"></td>" ;
- 		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLEStoolsALPHABETCOLORIZATIONapply( NO, YES );\">Apply</td>" ;
+ 		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLEStoolsALPHABETCOLORIZATIONapply(NO,YES);\">Apply</td>" ;
  		HTMLcode += "<td WIDTH=\"1\"></td>" ;
- 		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLEStoolsALPHABETCOLORIZATIONreset( NO, YES );\">Reset</td>" ;
+ 		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLEStoolsALPHABETCOLORIZATIONreset(NO,YES);\">Reset</td>" ;
  		HTMLcode += "<td WIDTH=\"10\"></td>" ;
  		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLEStoolsALPHABETCOLORIZATIONcopy();\">Copy to</td>" ;
  		HTMLcode += "<td WIDTH=\"5\"></td>" ;
@@ -34,9 +34,9 @@ function CIRCLEStoolsALPHABETCOLORIZATIONlist( case_id, _self_fill_container )
 
 		if ( !is_array( _array_ref ) )
 		{
-				 HTMLcode += "<tr><td HEIGHT=\"20\"></td></tr>" ;
-				 HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;color:"+DEFAULT_COLOR_ERROR+";\">Missing referencing seeds data</td></tr>" ;
-				 HTMLcode += "<tr><td HEIGHT=\"20\"></td></tr>" ;
+			 HTMLcode += "<tr><td HEIGHT=\"20\"></td></tr>" ;
+			 HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;color:"+DEFAULT_COLOR_ERROR+";\">Missing referencing seeds data</td></tr>" ;
+			 HTMLcode += "<tr><td HEIGHT=\"20\"></td></tr>" ;
 		}
 		else
 		{

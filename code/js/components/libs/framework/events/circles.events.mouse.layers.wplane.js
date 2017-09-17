@@ -20,8 +20,7 @@ function W_PLANE_work_canvas_onmouseout( obj, event )
     _rect.width_height_constructor( _bound_rect.left, _bound_rect.top, _bound_rect.width, _bound_rect.height );
     _glob_coords_array = circles_lib_events_get_mouse_pos_abs( event );
     _glob_mouse_x = _glob_coords_array["x"], _glob_mouse_y = _glob_coords_array["y"] ;
-
-    if ( _glob_wplane_canvas_timerID != null && !_rect.is_pt_inside( _glob_mouse_x, _glob_mouse_y ) )
+    if ( !_rect.is_pt_inside( _glob_mouse_x, _glob_mouse_y ) )
     {
        circles_lib_canvas_wplane_stop_timer();
        circles_lib_canvas_wplane_hide_bar();

@@ -8,14 +8,14 @@ function CIRCLESformsINTERSECTIONPOINTSresizeTANGENCYask( index1, index2 )
     {
        var MSG  = "<table>" ;
            MSG += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-           MSG += "<tr><td>This operation corrects radius, so that\ncircle "+_symbol_1+" will be tangent to circle " + _symbol_2 + "</td></tr>" ;
+           MSG += "<tr><td>The radius will be resized so that the circle "+_symbol_1+" will be tangent to circle " + _symbol_2 + "</td></tr>" ;
            MSG += "<tr><td HEIGHT=\"15\"></td></tr>" ;
            MSG += "<tr><td>Proceed ?</td></tr>" ;
            MSG += "</table>" ;
     
        alert_plug_label( ALERT_YES, "Yes" );
        alert_plug_label( ALERT_NO, "No" );
-       alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_complexdisk_resize_tangency( null, "+index1+", "+index2+" );CIRCLESformsINTERSECTIONPOINTSfind();" );
+       alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_complexdisk_resize_tangency( null, "+index1+", "+index2+" );circles_lib_items_unselect(NO,YES);" );
        alert_plug_fn( ALERT_NO, "alertCLOSE();" );
        alert_set_btns_width( "70px" );
        circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app_title );
@@ -33,14 +33,14 @@ function CIRCLESformsINTERSECTIONPOINTSmoveTANGENCYask( index1, index2 )
     {
        var MSG  = "<table>" ;
            MSG += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-           MSG += "<tr><td>This operation shift the disk, so that\ncircle "+_symbol_1+" will be tangent to circle " + _symbol_2 + "</td></tr>" ;
+           MSG += "<tr><td>The circle "+_symbol_1+" will be moved so that it will be tangent to circle " + _symbol_2 + "</td></tr>" ;
            MSG += "<tr><td HEIGHT=\"15\"></td></tr>" ;
            MSG += "<tr><td>Proceed ?</td></tr>" ;
            MSG += "</table>" ;
 
        alert_plug_label( ALERT_YES, "Yes" );
        alert_plug_label( ALERT_NO, "No" );
-       alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_complexdisk_move_tangency( null, "+index1+", "+index2+" );CIRCLESformsINTERSECTIONPOINTSfind();" );
+       alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_complexdisk_move_tangency( null, "+index1+", "+index2+" );circles_lib_items_unselect(NO,YES);" );
        alert_plug_fn( ALERT_NO, "alertCLOSE();" );
        alert_set_btns_width( "70px" );
        circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app_title );
@@ -139,6 +139,7 @@ function CIRCLESformsINTERSECTIONPOINTSfind( _mark_points )
     var index1 = safe_int( $("#CIRCLEScombo1").val(), UNDET );
     var index2 = safe_int( $("#CIRCLEScombo2").val(), UNDET );
     var tolerance = Math.pow( 10, -_glob_accuracy );
+
     if ( index1 == index2 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: the same circle has been selected.", _glob_app_title );
     else if ( index1 != index2 )
     {

@@ -9,21 +9,13 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 * indexsearch (via terminal general.purpose, use a 6-generators group)
 
 ------------ APP -------------------------------------------------
-- draw 3 circles, init, check why 'force
-  fixing' option is required b4 rendering
-
 - srcptset terminal cmd:
   * build point set according to input params
 
 - check that all services inside each of these masks work properly.
   (Remove each entry after completing the checkings)
 
-- intersection points : need method to move a secant disk 
-                        to a new position, so that it turns into
-                        tangent
-
 * FORMS
-intersection.points
 dictionary
 eps.editor
 general.options
