@@ -182,7 +182,7 @@ function GLOB_PLUGIN_WIZARD_STEP( _step_index, _init_items, _clean, _target_plan
     {
       _glob_alphabet.flush();
       GLOB_PLUGIN_GENS_SHOW( YES );
-      circles_lib_plugin_dispatcher_unicast_message( 'alphabet.colorization', 'tools', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
+      circles_lib_plugin_dispatcher_unicast_message( 'alphabet.colorization', 'tools', POPUP_DISPATCHER_UNICAST_EVENT_UPDATE );
       circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES );
       if ( _init_items )
       {

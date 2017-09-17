@@ -26,8 +26,11 @@ function CIRCLESformsEPSEDITORdispatcher()
 				            circles_lib_plugin_maximize( _div_id, _resize_fns.join( "|" ) ) ;
 								}
                 break ;
-                case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
-                break ;
+      case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
+      case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
+      var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+      CIRCLESformsEPSEDITORmain( _base_id, NO ) ;
+      break ;
                 case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
                 break ;
                 case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
@@ -50,6 +53,7 @@ function CIRCLESformsEPSEDITORdispatcher()
 		          CIRCLESformsEPSEDITORpagespanel();
 		          CIRCLESformsEPSEDITORcomputePAGES(YES);
 							break ;
+              case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:
 		          case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
 		          var _subset = _glob_popups_array[_idx][8] ;
 		          var _base_id = _glob_popups_array[_idx][12] ;

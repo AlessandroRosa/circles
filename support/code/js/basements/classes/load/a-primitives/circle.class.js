@@ -359,12 +359,27 @@ function read_circle()
     else return null ;
 }
 
-function circle_correct_to_tangency( C1, C2, alwayexternal )
+function circle_move_to_tangency( C1, C2 )
+{
+    var _dist = C1.center.distance( C2.center ), _diff = 0 ;
+    if ( _dist > C1.radius && _dist > C2.radius )
+    {
+      var _d1 = _dist - C1.radius, _d2 = _dist - C2.radius ;
+      _diff = _dist - _d1 - _d2 ;
+    }
+    else if ( _dist > C1.radius && _dist < C2.radius ) _diff = C2.radius - _dist + C1.radius ;
+    else _diff = C1.radius - _dist + C2.radius ;
+    if ( _diff == 0 ) _diff = C1.radius ;
+    var _slope = C1.center.slope( C2.center );
+    C1.center.shift( -Math.cos( _slope ) * _diff, -Math.sin( _slope ) * _diff );
+    return C1 ;
+}
+
+function circle_resize_to_tangency( C1, C2, alwayexternal )
 {
     var C1_coeffs = C1.equation(), C2_coeffs = C2.equation();
     var _alpha_1 = C1_coeffs['alpha'], _beta_1 = C1_coeffs['beta'], _gamma_1 = C1_coeffs['gamma'] ;
     var _alpha_2 = C2_coeffs['alpha'], _beta_2 = C2_coeffs['beta'], _gamma_2 = C2_coeffs['gamma'] ;
-      
     // intersecting the two circle equations, we get
     // (_alpha_1-_alpha_2)x + (_beta_1-_beta_2)y + (_gamma_1-gamma_2) = 0 ;
       
@@ -437,158 +452,4 @@ function circle_from_equation( _alpha, _beta, _gamma, _fix_it )
     var center_x = -_alpha / 2.0, center_y = -_beta / 2.0 ;
     var radius = Math.sqrt( center_x * center_x + center_y * center_y - _gamma ) ;
     return new circle( new point( center_x, center_y ), radius ) ;
-}
-
-function find_4th_tangent_circle( C1, C2, C3, conf, _accuracy ) // C1, C2, C3 are the generator circles
-{
-    _accuracy = safe_float( _accuracy, _CIRCLE_OBJ_MAX_ACCURACY );
-    // Complex Descartes Theorem
-    var b1 = C1.get_curvature(), z1 = new complex( C1.center.x, C1.center.y ) ;
-    var b2 = C2.get_curvature(), z2 = new complex( C2.center.x, C2.center.y ) ;
-    var b3 = C3.get_curvature(), z3 = new complex( C3.center.x, C3.center.y ) ;
-    // the result will be stored into a circle object C4
-
-    // Descartes theorem to compute the curvature of C4
-    var RETarray = find_4th_tangent_circle_radius( C1.radius, C2.radius, C3.radius, conf, _accuracy ) ;
-    var r4_1 = RETarray[0] ;        if ( r4_1 == 0 ) r4_1 = Math.pow( 2, _accuracy );
-    var r4_2 = RETarray[1] ;        if ( r4_2 == 0 ) r4_2 = Math.pow( 2, _accuracy );
-      
-    if ( !is_array( RETarray ) ) return null ;
-      
-    var b4_1 = 1 / r4_1, b4_2 = 1 / r4_2 ;
-      
-    var RET_1_ARRAY = find_4th_tangent_circle_coefficients( C1, C2, C3, b4_1 );
-    var RET_2_ARRAY = find_4th_tangent_circle_coefficients( C1, C2, C3, b4_2 );
-      
-    // finally we have this quadratic equation : A*z_4^2 + B*z_4^2 + C = 0
-    var A = RET_1_ARRAY['_A'] ;
-    var B = RET_1_ARRAY['_B'] ;
-    var C = RET_1_ARRAY['_C'] ;
-    var _delta = B.mul(B).sub( A.mul( C ).mul( 4.0 ) );
-      
-    // B.opposite() means -B in complex arithmetics
-    var _s1 = ( B.opposite().sub( _delta.sqrt() ) ).div( A.mul( 2.0 ) ) ;
-    var _s2 = ( B.opposite().add( _delta.sqrt() ) ).div( A.mul( 2.0 ) ) ;
-      
-    var A = RET_2_ARRAY['_A'] ;
-    var B = RET_2_ARRAY['_B'] ;
-    var C = RET_2_ARRAY['_C'] ;
-    var _delta = B.mul(B).sub( A.mul( C ).mul( 4.0 ) );
-      
-    // B.opposite() means -B
-    var _s3 = ( B.opposite().sub( _delta.sqrt() ) ).div( A.mul( 2.0 ) ) ;
-    var _s4 = ( B.opposite().add( _delta.sqrt() ) ).div( A.mul( 2.0 ) ) ;
-
-    var C4_1 = new circle( new point( _s1.real, _s1.imag ), r4_1 );
-    var C4_2 = new circle( new point( _s2.real, _s2.imag ), r4_1 );
-    var C4_3 = new circle( new point( _s3.real, _s3.imag ), r4_2 );
-    var C4_4 = new circle( new point( _s4.real, _s4.imag ), r4_2 );
-      
-    var out_array = new Array() ;
-    if ( r4_1 > 0 ) { out_array.push( C4_1 ) ; out_array.push( C4_2 ) ; }
-    if ( r4_2 > 0 ) { out_array.push( C4_3 ) ; out_array.push( C4_4 ) ; }
-    return out_array ;      
-}
-
-function find_4th_tangent_circle_radius( r1, r2, r3, conf, _accuracy )
-{
-    conf = safe_int( conf, 0 ) ;
-    _accuracy = safe_float( _accuracy, _CIRCLE_OBJ_MAX_ACCURACY );
-    // conf = 2 when circles 1 and 2 are tangent to a line
-    // conf = 1 when circles 1 and 2 are tangent to and inside circle 3
-    // conf = 0 in all other cases
-    r1 = safe_float( r1, 0 ), r2 = safe_float( r2, 0 ), r3 = safe_float( r3, 0 );
-    if ( conf == 0 )
-    {
-        var prod = r1*r2*r3 ;      if ( prod == 0 ) prod = Math.pow( 2, -_accuracy );
-        var sum01 = r1+r2+r3 ;
-        var sum02 = r1*r2+r2*r3+r1*r3 ;
-          
-        var _den1 = sum02 + 2.0*Math.sqrt(prod*sum01) ;
-        var r4_1 = prod / _den1 ; // interior
-        if ( _den1 == 0 ) r4_1 = Math.pow( 2, -_accuracy );
-
-        var _den2 = sum02 - 2.0*Math.sqrt(prod*sum01) ;
-        var r4_2 = -prod / _den2 ; // exterior
-        if ( _den2 == 0 ) r4_2 = Math.pow( 2, -_accuracy );
-        return [ r4_1, r4_2 ] ; 
-    }
-    else if ( conf == 1 )
-    {
-        var prod = r1*r2*r3 ;      if ( prod == 0 ) prod = Math.pow( 2, -_accuracy );
-        var _den1 = r1*r3+r2*r3-r1*r2 + 2.0*Math.sqrt(prod*(r3-r1-r2) ) ;
-        var r4_1 = prod / _den1 ; // interior
-        if ( _den1 == 0 ) r4_1 = Math.pow( 2, -_accuracy );
-
-        var _den2 = r1*r3+r2*r3-r1*r2 - 2.0*Math.sqrt(prod*(r3-r1-r2) ) ;
-        var r4_2 = prod / _den2 ; // exterior
-        if ( _den2 == 0 ) r4_2 = Math.pow( 2, -_accuracy );
-        return [ r4_1, r4_2 ] ; 
-    }
-    else if ( conf == 2 )
-    {
-        var prod = r1*r2 ;      if ( prod == 0 ) prod = Math.pow( 2, -_accuracy );
-        var sum = r1 + r2 ;
-
-        var _den1 = sum + 2.0*Math.sqrt(prod) ;
-        var r4_1 = prod / _den1 ; // interior
-        if ( _den1 == 0 ) r4_1 = Math.pow( 2, -_accuracy );
-
-        var _den2 = sum - 2.0*Math.sqrt(prod) ;
-        var r4_2 = prod / _den2 ; // exterior
-        if ( _den2 == 0 ) r4_2 = Math.pow( 2, -_accuracy );
-
-        return [ r4_1, r4_2 ] ; 
-    }
-    else return null ;
-
-    return RETarray ;
-}
-
-function find_4th_tangent_circle_coefficients( C1, C2, C3, b4 )
-{
-    // casting the variables to use complex arithmetics
-    var b1 = new complex( C1.get_curvature(), 0.0 ), z1 = new complex( C1.center.x, C1.center.y ) ;
-    var b2 = new complex( C2.get_curvature(), 0.0 ), z2 = new complex( C2.center.x, C2.center.y ) ;
-    var b3 = new complex( C3.get_curvature(), 0.0 ), z3 = new complex( C3.center.x, C3.center.y ) ;
-        b4 = new complex( b4, 0.0 );
-          
-    /* using the complex descartes theorem
-    the unknown variable is then z4
-    Descartes complex theorem
-    (1) \sum_{j=1}^4 b_jz_j = 1/2( \sum_{j=1}^4 b_jz_j )^2
-    which becomes
-    2) 2*\sum_{j=1}^4 b_jz_j = (\sum_{j=1}^4 b_jz_j )^2
-    as we expand THE RIGHT MEMBER of (1), we can arrange terms into a 4x4 matrix,
-    including a sub 3x3 matrix C with only constant values
-    (i.e. b_jz_j with 1 <= j <= 3 ); moreover the 4th row and column have the unknown z4
-    in linear and quadratic terms
-    */
-      
-    // sum of the coefficients in the 3x3 matrix A, row after row
-    // first the diagonal terms
-    var C = b1.mul(b1).mul(z1).mul(z1) ;
-        C = C.add( b2.mul(b2).mul(z2).mul(z2) ) ;
-        C = C.add( b3.mul(b3).mul(z3).mul(z3) ) ;
-    // then antipodal terms
-       C = C.add( b1.mul(b2).mul(z1).mul(z2).mul(2.0) ) ;
-       C = C.add( b1.mul(b3).mul(z1).mul(z3).mul(2.0) );
-       C = C.add( b2.mul(b3).mul(z2).mul(z3).mul(2.0) );
-    // end of matrix A
-
-    // linear coefficients lie in the 4th row and 4th and can be grouped as follows
-    var B = b1.mul(b4).mul(z1).mul(2.0) ;
-        B = B.add( b2.mul(b4).mul(z2).mul(2.0) ) ;
-        B = B.add( b3.mul(b4).mul(z3).mul(2.0) ) ;
-          
-    // quadratic coefficient
-    var A = b4.mul(b4);
-    // now we expand the LEFT MEMBER and we obtain a change in C and in A, as follows
-      
-    C = C.sub( b1.mul(b1).mul(z1).mul(z1).mul(2.0) ) ;
-    C = C.sub( b2.mul(b2).mul(z2).mul(z2).mul(2.0) ) ;
-    C = C.sub( b3.mul(b3).mul(z3).mul(z3).mul(2.0) ) ;
-      
-    A = A.sub( b4.mul( b4 ).mul(2.0) ) ;
-    return { _A : A, _B : B, _C : C } ;
 }

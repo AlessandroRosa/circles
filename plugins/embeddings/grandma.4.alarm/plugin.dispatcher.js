@@ -11,12 +11,17 @@ function CIRCLESembeddingsGRANDMA4ALARMdispatcher()
 			 var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN );
        var _idx = circles_lib_plugin_find_index( { subset : "embeddings", base_id : "grandma.4.alarm" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 )
          if ( _idx == UNFOUND ) return 0 ;
-			 switch( MESSAGE_ID )
+			 switch( MESSAGE_ID )_
 			 {
           case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
 	        circles_lib_forms_adjust_position( _glob_popups_array[_idx][1] ) ;
 	        var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width(), _sw = $(window).width()
 			    if ( _sw < _plugin_width ) circles_lib_plugin_maximize( _glob_popups_array[_idx][1] );
+          break ;
+          case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
+          case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
+          var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+          CIRCLESembeddingsGRANDMA4ALARMmain( _base_id, NO );
           break ;
 		 			case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
           GLOB_PLUGIN_EVENT_PROPAGATION_MANAGEMENT( 1 );
@@ -28,15 +33,10 @@ function CIRCLESembeddingsGRANDMA4ALARMdispatcher()
           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
           circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
 		 			break ;
-          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-          var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-          circles_lib_plugin_load( _subset, _base_id, NO ) ;
-          break ;
+          case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:
           case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
           circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
-          break ;
-          case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:
           break ;
           default: break ;
 			 }

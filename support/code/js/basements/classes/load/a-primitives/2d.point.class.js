@@ -270,6 +270,7 @@ point.prototype.opposite = function() { return new point( -this.x, -this.y ) ; }
 point.prototype.antipodal = function( _center ) { return is_point( _center ) ? this.shift( -_center.x, -_center.y, 0 ).opposite().shift( _center.x, _center.y, 0 ) : null ; }
 point.prototype.infinity_pt = function() { return new point( Infinity, Infinity ) ; }
 point.prototype.origin = function() { return new point( 0, 0 ) ; }
+point.prototype.slope = function( _pt ) { return is_point( _pt ) ? ( ( _pt.y - this.y ) / ( _pt.x - this.x ) ) : null ; }
 
 // EXTERNAL FUNCTIONS
 function read_2D_point()

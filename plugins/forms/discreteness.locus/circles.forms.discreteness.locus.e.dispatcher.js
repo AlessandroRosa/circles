@@ -29,9 +29,12 @@ function CIRCLESformsDISCRETENESSLOCUSdispatcher()
          circles_lib_plugin_maximize( _div_id, _resize_fns.join( "|" ) ) ;
 			}
       break ;
+      case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
       case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
+      var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+      CIRCLESformsDISCRETENESSLOCUSmain( _base_id, NO ) ;
       _glob_target_plane = D_LOCUS ;
-			break ;
+      break ;
       case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
       _glob_target_plane = D_LOCUS ;
       CIRCLESformsDISCRETENESSLOCUSbindCANVASevents();
@@ -75,13 +78,14 @@ function CIRCLESformsDISCRETENESSLOCUSdispatcher()
       break ;
 		  case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
       _glob_target_plane = D_LOCUS ;
-              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+      var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
 		  circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		  break ;
       case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
       _glob_target_plane = D_LOCUS ;
 			CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 2, 8, 1, 64 ], YES ) ;
 			break ;
+      case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:
 		  case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
       _glob_target_plane = D_LOCUS ;
       var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;

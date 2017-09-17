@@ -8,7 +8,7 @@ function circles_lib_get_complexdisk_from_screen( _mapper, _screen_circle )
     return new circle( complex_center_pt, complex_radius, _screen_circle.draw, _screen_circle.fill, _screen_circle.drawcolor, _screen_circle.fillcolor, _screen_circle.linewidth, _screen_circle.notes );
 }
 
-function circles_lib_complexdisk_correct_tangency( _items_array, _index1, _index2, _out_channel )
+function circles_lib_complexdisk_move_tangency( _items_array, _index1, _index2, _out_channel )
 {
     if ( !is_array( _items_array ) )
     _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -24,7 +24,7 @@ function circles_lib_complexdisk_correct_tangency( _items_array, _index1, _index
     if ( !_test ) return [ RET_ERROR, "Invalid input items container", UNDET ] ;
     else if ( is_circle( C1 ) && is_circle( C2 ) )
     {
-        var _corrected_circle1 = circle_correct_to_tangency( C1, C2, alwayexternal );
+        var _corrected_circle1 = circle_move_to_tangency( C1, C2, alwayexternal );
         if ( is_circle( _corrected_circle1 ) )
         {
           MM_1.complex_circle = _corrected_circle1 ;
@@ -41,7 +41,46 @@ function circles_lib_complexdisk_correct_tangency( _items_array, _index1, _index
              circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
              return NO ;
           }
-          CIRCLESformsINTERSECTIONPOINTSfind();
+          return YES ;
+        }
+        else return NO ;
+    }
+    else return NO ;
+}
+
+function circles_lib_complexdisk_resize_tangency( _items_array, _index1, _index2, _out_channel )
+{
+    if ( !is_array( _items_array ) )
+    _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+
+		_items_array = circles_lib_items_set( _items_array ) ;
+    var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _index1 = safe_int( _index1, UNDET ), _index2 = safe_int( _index2, UNDET );
+    var alwayexternal = $("#CORRECTtangencyCHECKBOX1").prop( "checked" ) ? YES : NO ;
+    var MM_1 = _items_array[_index1], MM_2 = _items_array[_index2] ;
+    var C1 = is_item_obj( MM_1 ) ? MM_1.complex_circle : null ;
+    var C2 = is_item_obj( MM_2 ) ? MM_2.complex_circle : null ;
+    if ( !_test ) return [ RET_ERROR, "Invalid input items container", UNDET ] ;
+    else if ( is_circle( C1 ) && is_circle( C2 ) )
+    {
+        var _corrected_circle1 = circle_resize_to_tangency( C1, C2, alwayexternal );
+        if ( is_circle( _corrected_circle1 ) )
+        {
+          MM_1.complex_circle = _corrected_circle1 ;
+          var _init_mask = _glob_init_mask & INIT_CALC_CIRCLES, _ret_chunk = null ;
+          if ( circles_lib_method_check() )
+          {
+             _ret_chunk = circles_lib_items_init( null, NO, YES, _init_mask, NO, YES, _out_channel );
+             if ( _ret_chunk[0] != RET_OK ) circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
+          }
+
+          _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+          if ( _ret_chunk[0] != RET_OK )
+          {
+             circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
+             return NO ;
+          }
           return YES ;
         }
         else return NO ;
@@ -343,7 +382,7 @@ function circles_lib_complexdisk_remove( _items_array, _question, _silent, _forc
           if ( _last_index >= 0 && _out_channel == OUTPUT_SCREEN )
           {
              if ( circles_lib_plugin_find_index( { base_id : 'edit.disk' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
-             circles_lib_plugin_load('forms','edit.disk', NO, _last_index );
+             circles_lib_plugin_dispatcher_unicast_message( 'edit.disk', "forms", POPUP_DISPATCHER_UNICAST_EVENT_UPDATE );
           }
           else if ( _n_disks == 0 ) circles_lib_plugin_activate( NO, "edit.disk", "", "", "forms", CLOSE, "POPUPeditdiskDIV", "" );
 

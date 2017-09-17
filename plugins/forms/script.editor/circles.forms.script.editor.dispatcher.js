@@ -23,18 +23,17 @@ function CIRCLESformsSCRIPTEDITORdispatcher()
 				            circles_lib_plugin_maximize( _div_id, _resize_fns.join( "|" ) ) ;
 								}
 								break ;
-                case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
-                CIRCLESformsSCRIPTEDITORlist();
-                break ;
+      case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
+      case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
+      var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+      CIRCLESformsSCRIPTEDITORmain( _base_id, NO ) ;
+      CIRCLESformsSCRIPTEDITORlist();
+      break ;
                 case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
                 CIRCLESformsSCRIPTEDITORlist();
                 break ;
                 case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
                 break ;
-			          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-			          circles_lib_plugin_load( _subset, _base_id, NO ) ;
-			          break ;
                 case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
                 if ( $("#" + CIRCLESformsSCRIPTEDITORdiv_id).resizable('instance') != undefined )
                 $("#" + CIRCLESformsSCRIPTEDITORdiv_id).resizable('destroy');
@@ -45,6 +44,7 @@ function CIRCLESformsSCRIPTEDITORdispatcher()
                 case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
                 CIRCLESformsSCRIPTEDITORlist();
                 break ;
+           case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:
 			          case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
               var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
 			          circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;

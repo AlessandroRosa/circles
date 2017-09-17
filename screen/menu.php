@@ -56,6 +56,7 @@
 <?php function readmenu( $baseARRAY, $LEVEL, &$HTMLcode )
       {
           $_n = count( $baseARRAY );    $baseLEVEL = $LEVEL ;
+          $DEMOSarray = array();
           if ( $_n > 0 )
           {
               $bOPEN = 0 ;
@@ -113,6 +114,7 @@
                               ksort( $DEMO_ARCHIVE );
                               foreach( $DEMO_ARCHIVE AS $DEMO_IDX => $CHUNK )
                               {
+                                  $DEMOSarray[$DEMO_IDX] = $CHUNK['title'] ;
                                   $DEMO_NAME = $CHUNK['title'] ;
                                   $ROW = "<li $ONMOUSEOVER $ONCLICK ".( $MENUentryID ? " ID=\"$MENUentryID\"" : "")."><a ID=\"anchor_demo_%demoidx%\">#%demoidx% - $DEMO_NAME</a></li>\n" ;
                                   $ROW = str_replace( "%demoidx%", $DEMO_IDX, $ROW );
@@ -156,6 +158,22 @@
                   $bOPEN = 0 ;
                   $HTMLcode .= "</ul>" ;
               }
+          }
+
+          if ( count( $DEMOSarray ) > 0 )
+          {
+              ?>
+              <SCRIPT LANGUAGE="javascript" TYPE="text/javascript">
+              <?php
+              foreach( $DEMOSarray AS $IDX => $TITLE )
+              {
+              ?>
+              _demos_list.push( [ "<?php echo $IDX ; ?>", "<?php echo $TITLE ; ?>" ] );
+              <?php
+              }
+              ?>
+              </SCRIPT>
+              <?php
           }
       }
 ?>
@@ -202,11 +220,8 @@
                                         "base" => 1,
                                         "folder" => $FOLDER,
                                         "mainfolder" => $APPENDfilepath,
-                                        "exec_pre_open" => "$APPEND_EXEC_PRE_OPEN"
-																			);
-                              
+                                        "exec_pre_open" => "$APPEND_EXEC_PRE_OPEN" );
                         $APPENDarray[] = $CHUNK ;
-
                         if ( $APPEND_GROUP ) $tmpAPPENDarray["$APPEND_SUBSET"]["$APPEND_GROUP"]["$APPEND_BASEID"] = $CHUNK ;
                         else $tmpAPPENDarray["$APPEND_SUBSET"]["$APPEND_BASEID"] = $CHUNK ;
                    }

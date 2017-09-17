@@ -16,7 +16,10 @@ function CIRCLESformsANTIHOMOGRAPHYdispatcher()
           case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
           circles_lib_forms_adjust_position( CIRCLESformsANTIHOMOGRAPHYdiv_id ) ;
           break ;
+          case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
           case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
+          var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+          CIRCLESformsANTIHOMOGRAPHYmain( _base_id, NO ) ;
           CIRCLESformsANTIHOMOGRAPHYlist( _glob_items_switch, YES ) ;
           break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
@@ -27,15 +30,11 @@ function CIRCLESformsANTIHOMOGRAPHYdispatcher()
           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
           circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
           break ;
-          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-          var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-          circles_lib_plugin_load( _subset, _base_id, NO ) ;
-          break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
           CIRCLESformsANTIHOMOGRAPHYlist( _glob_items_switch, YES ) ;
 					break ;
 			    case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
-              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+          var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
 			    circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
 			    break ;
 	        default: break ;

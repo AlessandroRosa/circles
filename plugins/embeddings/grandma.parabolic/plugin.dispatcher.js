@@ -18,6 +18,11 @@ function CIRCLESembeddingsGRANDMAPARABOLICdispatcher()
 	        var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width(), _sw = $(window).width()
 			    if ( _sw < _plugin_width ) circles_lib_plugin_maximize( _glob_popups_array[_idx][1] );
           break ;
+          case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
+          case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
+          var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+          CIRCLESembeddingsGRANDMAPARABOLICmain( _base_id, NO );
+          break ;
 		 			case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
           GLOB_PLUGIN_EVENT_PROPAGATION_MANAGEMENT( 1 );
 		 			break ;
@@ -28,15 +33,10 @@ function CIRCLESembeddingsGRANDMAPARABOLICdispatcher()
           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
           circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
 		 			break ;
-          case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-          var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-          circles_lib_plugin_load( _subset, _base_id, NO ) ;
-          break ;
+          case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:
           case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
           circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
-          break ;
-          case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:
           break ;
           default: break ;
 			 }

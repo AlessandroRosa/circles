@@ -27,7 +27,10 @@ function CIRCLESformsTERMINALdispatcher()
 																			 _suffix ) ;
            circles_lib_forms_adjust_position( _div_id ) ;
            break ;
+           case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
            case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
+           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+           CIRCLESformsTERMINALmain( _base_id, NO ) ;
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
            _glob_wnd_onkeyup_event_halt = YES ;
@@ -35,10 +38,6 @@ function CIRCLESformsTERMINALdispatcher()
            $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESformsTERMINALlistingsLOAD ) } ;
            var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
            break ;
-		       case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-		       circles_lib_plugin_load( _subset, _base_id, NO ) ;
-		       break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
            _glob_wnd_onkeyup_event_halt = NO ;
            break ;
@@ -58,6 +57,7 @@ function CIRCLESformsTERMINALdispatcher()
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
            break ;
+           case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:
 		       case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
            var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
 		       circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;

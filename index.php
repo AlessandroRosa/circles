@@ -44,6 +44,7 @@ var _tmp_array = [];
 _glob_app_title = "Circles" ;
 _glob_app_subtitle = "<?php echo $subtitle ; ?>" ;
 _glob_path_to_root = "<?php echo $PATH_TO_ROOT ; ?>" ;
+var _demos_list = [] ;
 </SCRIPT>
 </head>
 <body ONLOAD="javascript:$('#alertYESbtn').focus();" STYLE="overflow:hidden;">
@@ -75,9 +76,7 @@ _glob_path_to_root = "<?php echo $PATH_TO_ROOT ; ?>" ;
                                 $PATH_TO_CIRCLES."code/js/components/globals/",
                                 $PATH_TO_CIRCLES."code/js/components/libs/on.demand/",
                                 $PATH_TO_CIRCLES."code/js/components/terminal/commands/",
-                                $PATH_TO_CIRCLES."code/js/components/samples/"
-                              )
-                       ); ?>
+                                $PATH_TO_CIRCLES."code/js/components/samples/" ) ); ?>
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript">
 var LANG = $_GET( "lang" );      if ( LANG == null || LANG == "undefined" || LANG.length == 0 ) LANG = "en" ;
 var _filename = _glob_path_to_circles + "code/js/components/langs/" + LANG + "/circles.lang.js" ;
@@ -107,23 +106,23 @@ circles_lib_statusbar_load( "vert", "left", "top", NO, 10, 100 );
 </SCRIPT>
 <?php if ( array_key_exists( "demo", $_GET ) )
 {
-    $DEMO_IDX = intval( $_GET['demo'] ); if ( is_nan( $DEMO_IDX ) || $DEMO_IDX < 0 ) $DEMO_IDX = 0 ;
-    $DEMO_FILES_PATH = "demos" ;
-    if ( file_exists( $DEMO_FILES_PATH ) )
+  $DEMO_IDX = intval( $_GET['demo'] ); if ( is_nan( $DEMO_IDX ) || $DEMO_IDX < 0 ) $DEMO_IDX = 0 ;
+  $DEMO_FILES_PATH = "demos" ;
+  if ( file_exists( $DEMO_FILES_PATH ) )
+  {
+    $RESULTSarray = scan_folder( $DEMO_FILES_PATH, "/^.*\.(php)$/i", 0, 1, 1, 0 );
+    $DEMO_ARCHIVE = array();
+    foreach( $RESULTSarray AS $K => $CHUNK )
     {
-        $RESULTSarray = scan_folder( $DEMO_FILES_PATH, "/^.*\.(php)$/i", 0, 1, 1, 0 );
-        $DEMO_ARCHIVE = array();
-        foreach( $RESULTSarray AS $K => $CHUNK )
-        {
-          $FILENAME = $CHUNK['filename'] ;
-          $TOKENS = explode( ".", $FILENAME );
-          if ( $TOKENS[0] == $DEMO_IDX )
-          {
-            @include( "demos/$FILENAME" );
-            break ;
-          }
-        }
+      $FILENAME = $CHUNK['filename'] ;
+      $TOKENS = explode( ".", $FILENAME );
+      if ( $TOKENS[0] == $DEMO_IDX )
+      {
+        @include( "demos/$FILENAME" );
+        break ;
+      }
     }
+  }
 }
 ?>
 <?php load_src_code_dir( $PATH_TO_CIRCLES."code/js/init/", "js", $ERRCODE ); ?>

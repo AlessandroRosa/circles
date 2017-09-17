@@ -1,4 +1,4 @@
-function CIRCLESformsINTERSECTIONPOINTScorrectTANGENCYask( index1, index2 )
+function CIRCLESformsINTERSECTIONPOINTSresizeTANGENCYask( index1, index2 )
 {
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     index1 = safe_int( index1, UNDET ), index2 = safe_int( index2, UNDET );
@@ -15,7 +15,32 @@ function CIRCLESformsINTERSECTIONPOINTScorrectTANGENCYask( index1, index2 )
     
        alert_plug_label( ALERT_YES, "Yes" );
        alert_plug_label( ALERT_NO, "No" );
-       alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_complexdisk_correct_tangency( null, "+index1+", "+index2+" )" );
+       alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_complexdisk_resize_tangency( null, "+index1+", "+index2+" );CIRCLESformsINTERSECTIONPOINTSfind();" );
+       alert_plug_fn( ALERT_NO, "alertCLOSE();" );
+       alert_set_btns_width( "70px" );
+       circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app_title );
+    }
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: elements need to be tagged first.", _glob_app_title );
+}
+
+function CIRCLESformsINTERSECTIONPOINTSmoveTANGENCYask( index1, index2 )
+{
+    var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+    index1 = safe_int( index1, UNDET ), index2 = safe_int( index2, UNDET );
+    var _item_obj_1 = _items_array[index1], _item_obj_2 = _items_array[index2] ;
+    var _symbol_1 = is_item_obj( _item_obj_1 ) ? safe_string( _item_obj_1.symbol, "" ) : "", _symbol_2 = is_item_obj( _item_obj_2 ) ? safe_string( _item_obj_2.symbol, "" ) : "" ;
+    if ( _symbol_2.length > 0 && _symbol_2.length > 0 )
+    {
+       var MSG  = "<table>" ;
+           MSG += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+           MSG += "<tr><td>This operation shift the disk, so that\ncircle "+_symbol_1+" will be tangent to circle " + _symbol_2 + "</td></tr>" ;
+           MSG += "<tr><td HEIGHT=\"15\"></td></tr>" ;
+           MSG += "<tr><td>Proceed ?</td></tr>" ;
+           MSG += "</table>" ;
+
+       alert_plug_label( ALERT_YES, "Yes" );
+       alert_plug_label( ALERT_NO, "No" );
+       alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_complexdisk_move_tangency( null, "+index1+", "+index2+" );CIRCLESformsINTERSECTIONPOINTSfind();" );
        alert_plug_fn( ALERT_NO, "alertCLOSE();" );
        alert_set_btns_width( "70px" );
        circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app_title );
@@ -92,7 +117,16 @@ function CIRCLESformsINTERSECTIONPOINTScomboONCHANGE()
 function CIRCLESformsINTERSECTIONPOINTSresizeTANGENTdisks()
 {
     var _index1 = safe_int( $("#CIRCLEScombo1 option:selected").val(), UNDET ), _index2 = safe_int( $("#CIRCLEScombo2 option:selected").val(), UNDET );
-    if ( _index1 != UNDET && _index2 != UNDET && ( _index1 != _index2 ) ) CIRCLESformsINTERSECTIONPOINTScorrectTANGENCYask( _index1, _index2 );
+    if ( _index1 != UNDET && _index2 != UNDET && ( _index1 != _index2 ) ) CIRCLESformsINTERSECTIONPOINTSresizeTANGENCYask( _index1, _index2 );
+    else if ( _index1 != UNDET && _index2 != UNDET && ( _index1 == _index2 ) )
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: a same circle has been chosen.", _glob_app_title );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't perform this operation: choose two circles first.", _glob_app_title );
+}
+
+function CIRCLESformsINTERSECTIONPOINTSmoveTANGENTdisks()
+{
+    var _index1 = safe_int( $("#CIRCLEScombo1 option:selected").val(), UNDET ), _index2 = safe_int( $("#CIRCLEScombo2 option:selected").val(), UNDET );
+    if ( _index1 != UNDET && _index2 != UNDET && ( _index1 != _index2 ) ) CIRCLESformsINTERSECTIONPOINTSmoveTANGENCYask( _index1, _index2 );
     else if ( _index1 != UNDET && _index2 != UNDET && ( _index1 == _index2 ) )
          circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: a same circle has been chosen.", _glob_app_title );
     else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't perform this operation: choose two circles first.", _glob_app_title );
@@ -206,6 +240,8 @@ function CIRCLESformsINTERSECTIONPOINTSfind( _mark_points )
                   HTMLcode += "<table>" ;
                   HTMLcode += "<tr>" ;
                   HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"30\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTSfind(YES);\">Find</td>" ;
+                  HTMLcode += "<td WIDTH=\"5\"></td>" ;
+                  HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"80\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTSmoveTANGENTdisks();\">Move to Tangency</td>" ;
                   HTMLcode += "<td WIDTH=\"5\"></td>" ;
                   HTMLcode += "<td HEIGHT=\"18\" WIDTH=\"80\" ALIGN=\"center\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"cursor:pointer;background-color:#BECDCD;padding:4px;\" ONCLICK=\"javascript:CIRCLESformsINTERSECTIONPOINTSresizeTANGENTdisks();\">Resize to Tangency</td>" ;
                   HTMLcode += "<td WIDTH=\"5\"></td>" ;

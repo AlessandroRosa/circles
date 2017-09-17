@@ -33,6 +33,7 @@ function circles_lib_config_create_new_proc( _reset_mask, _drop_additional_figur
 		    _final_ret &= _ret_chunk_wplane != null ? _ret_chunk_wplane[0] : 0 ;
     }
     else _final_ret = 1 ;
+    circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
 
     if ( _drop_additional_figures ) _glob_figures_array.flush();
     return [ _final_ret, _final_ret ? "New config set up with success " + ( !_silent && _reset_filter.length > 0 ? "('"+_reset_filter+"')" : "" ) : "Fail to set a new config" ] ;
