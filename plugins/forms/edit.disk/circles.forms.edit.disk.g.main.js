@@ -1,5 +1,5 @@
 function CIRCLESformsEDITDISKclose() { return circles_lib_plugin_dispatcher_unicast_message( 'edit.disk', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
-function CIRCLESformsEDITDISKwatchFORMULAask( _item_index )
+function CIRCLESformsEDITDISKwatchformulaASK( _item_index )
 {
     _item_index = safe_int( _item_index, UNDET );
     if ( _item_index != UNDET )
@@ -148,7 +148,7 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
 
         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','seeds.list', NO,"+_item_index+");\">List</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
-        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','help.items');\">Help</td>" ;
+        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','check.items');\">Help</td>" ;
         HTMLcode += "<td WIDTH=\"20\"></td>" ;
 
         HTMLcode += "</tr>" ;
@@ -282,7 +282,7 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     HTMLcode += "<td WIDTH=\"11\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','mobius.maps.properties',NO,"+_item_index+");\">Properties</td>";
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsEDITDISKwatchFORMULAask("+_item_index+");\">Watch formula</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsEDITDISKwatchformulaASK("+_item_index+");\">Watch formula</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_disk_sel_index="+_item_index+";circles_lib_forms_play_inversion(YES,YES);\" ID=\"PLAYINVERSIONbtn\">Play inversion</td>" ;
     HTMLcode += "</tr>" ;

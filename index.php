@@ -52,7 +52,7 @@ var _demos_list = [] ;
       $LOADINGdivSUBTITLE = $subtitle ;
       $LOADINGdivRELEASEDATE = $lastreleasedate ;
       $LOADINGdivMESSAGE = "Loading the framework ..." ;
-      $WAITimgPATH = "support/img/wait/wait.animated.gif" ;
+      $WAITimgPATH = $PATH_TO_SUPPORT."img/wait/wait.animated.gif" ;
       @include( $PATH_TO_SUPPORT."code/phpcode/divs/loading.php" ); ?>
 <?php load_src_code_dir( $PATH_TO_CIRCLES."code/phpcode/panels/", "php", $ERRCODE ); ?>
 <DIV ID="MASTERdiv" STYLE="position:absolute;left:0px;top:0px;display:none;width:100%;" ALIGN="left">

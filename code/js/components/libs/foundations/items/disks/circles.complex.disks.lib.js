@@ -153,7 +153,7 @@ function circles_lib_complexdisk_select_all( _out_channel )
     circles_lib_helper_div_remove();
     for( var _i = 0 ; _i < _items_n ; _i++ ) _glob_zplane_selected_items_array.push( _i );
     circles_lib_canvas_clean( _glob_zplane_rendering_canvas_placeholder );
-    return circles_lib_canvas_render_zplane( null, zplane_sm, _glob_zplane_selected_items_array, YES, YES, YES, NO, YES, YES, _out_channel );
+    return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
 }
 
 function circles_lib_complexdisk_shift( where, _plane_type )
@@ -192,8 +192,7 @@ function circles_lib_complexdisk_addfrom_screendisk( X, Y, RADIUS, _out_channel 
     var _complex_circle = new circle( pt, _complex_radius );
     var _mm = circles_lib_items_create_from_disk( null, _complex_circle );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-    _items_array.push( new item_obj( _mm, _complex_circle, null, "", 0,
-                                     YES, _glob_draw_seed_color, NO, _glob_fill_seed_color,
+    _items_array.push( new item_obj( _mm, _complex_circle, null, "", 0, YES, _glob_draw_seed_color, NO, _glob_fill_seed_color,
                                      "", 1, ITEM_TYPE_CIRCLE ) );
 
     var LASTindex = circles_lib_count_items() - 1, _ret_chunk ;
@@ -212,7 +211,7 @@ function circles_lib_complexdisk_addfrom_screendisk( X, Y, RADIUS, _out_channel 
            return NO ;
         }
 		}
-    circles_lib_alphabet_autoconfig_all_symbols( NO, YES, NO, _out_channel );
+    circles_lib_alphabet_autoconfig_all_symbols( NO, YES, NO, YES, _out_channel );
 
     if ( circles_lib_count_items() > 0 )
     {

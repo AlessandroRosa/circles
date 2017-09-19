@@ -343,7 +343,7 @@ function circles_terminal_cmd_symbol()
            break ;
                   case "init":
                   var _auto = _params_assoc_array['auto'] ;
-                  var _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( !_glob_terminal_silent, _glob_terminal_silent, _auto, _out_channel ); 
+                  var _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( !_glob_terminal_silent, _glob_terminal_silent, _auto, YES, _out_channel );
                   var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
                   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Symbols setting proc: memory failure" ;
                   if ( _ret_id == 1 ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );

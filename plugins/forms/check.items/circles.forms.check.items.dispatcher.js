@@ -1,4 +1,4 @@
-function CIRCLESformsHELPITEMSdispatcher()
+function CIRCLESformsCHECKITEMSdispatcher()
 {
       /* INDEX <---> arguments mapping
          0: message ID : identifier related to the message sent to this dispatcher function
@@ -9,7 +9,7 @@ function CIRCLESformsHELPITEMSdispatcher()
 			if ( arguments.length > 0 )
 			{
 					 var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN );
-          var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "help.items" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 )
+          var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "check.items" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 )
          if ( _idx == UNFOUND ) return 0 ;
 					 switch( MESSAGE_ID )
 					 {
@@ -20,7 +20,7 @@ function CIRCLESformsHELPITEMSdispatcher()
       case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
       case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
       var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-      CIRCLESformsHELPITEMSmain( _base_id, NO ) ;
+      CIRCLESformsCHECKITEMSmain( _base_id, NO ) ;
       break ;
               case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
               break ;

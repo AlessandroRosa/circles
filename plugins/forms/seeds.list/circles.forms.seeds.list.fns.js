@@ -48,7 +48,7 @@ function CIRCLESformsSEEDSLISTbarHTMLCODE( _selected_index, _index )
         HTMLcode += "<td WIDTH=\"1\"></td>" ;
         HTMLcode += "<td ID=\"LISTinitBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_items_init_wrapper_fn(null,YES,NO,_glob_init_mask,OUTPUT_SCREEN);\">Init</td>" ;
         HTMLcode += "<td WIDTH=\"1\"></td>" ;
-        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','help.items');\">Help</td>" ;
+        HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','check.items');\">Help</td>" ;
         HTMLcode += "<td WIDTH=\"25\"></td>" ;
         HTMLcode += "<td WIDTH=\"35\">Seeds</td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:var go = circles_lib_symbol_shift(null,YES);if (go){_glob_items_to_init=YES;$('[id$=initBTN]').css('color',COLOR_ERROR) ;CIRCLESformsSEEDSLISTmain(CIRCLESformsSEEDSLISTbaseid);circles_lib_canvas_render_zplane(null,null,null,YES,YES,YES,NO,YES,YES,OUTPUT_SCREEN);}\">Shift forward</td>" ;

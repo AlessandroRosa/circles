@@ -20,14 +20,11 @@ dictionary
 eps.editor
 general.options
 geometric.transform
-help.items
 method
 palette
 script.editor
-storage.space
 svg.editor
 terminal
-watch.formula
 
 * TOOLS
 alphabet.colorization

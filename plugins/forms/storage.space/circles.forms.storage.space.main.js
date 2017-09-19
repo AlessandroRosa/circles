@@ -25,7 +25,16 @@ function CIRCLESformsSTORAGESPACEmain( _base_id, _move )
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsSTORAGESPACEcaption, CLOSE_FN );
-    if ( _move && _div != null ) move_div( _div.id, "LEFT", "MIDDLE" );
+    if ( _move && _div != null )
+		{
+				if ( is_string( _move ) )
+				{
+						_move = _move.replace( /[\|\;\:]/, "," );
+						_move = _move.includes( "," ) ? _move.split( "," ) : [ _move, "TOP" ];
+						move_div( _div.id, _move[0], _move[1] );
+				}
+				else move_div( _div.id, "LEFT", "TOP" );
+		}
 }
 
 function CIRCLESformsSTORAGESPACElist()
@@ -33,10 +42,10 @@ function CIRCLESformsSTORAGESPACElist()
     var HTMLcode = "", _keys = _glob_storage.keys_associative(), _n_keys = safe_size( _keys, 0 );
     		HTMLcode += "<table WIDTH=\"100%\">" ;
 		 		HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-    		HTMLcode += "<tr><td VALIGN=\"top\">The storage space includes "+_n_keys+" entr"+( _n_keys == 1 ? "y" : "ies" )+"</td></tr>" ;
+    		HTMLcode += "<tr><td VALIGN=\"top\" ALIGN=\"center\" STYLE=\"font-size:14pt;color:#545454;\">The storage space includes "+_n_keys+" entr"+( _n_keys == 1 ? "y" : "ies" )+"</td></tr>" ;
 		 		HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
 				HTMLcode += "<tr><td VALIGN=\"top\">" ;
-        if ( _n_keys > 6 ) HTMLcode += "<DIV STYLE=\"position:relative;width:100%;height:240px;overflow:auto;\">" ;
+        if ( _n_keys > 6 ) HTMLcode += "<DIV STYLE=\"position:relative;width:100%;height:290px;overflow:auto;\">" ;
 		 		HTMLcode += "<table>" ;
 		 		HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
         HTMLcode += "<tr><td WIDTH=\"5\"></td><td STYLE=\"color:#ADB8D4;font-size:14pt;\">Subset</td><td WIDTH=\"5\"></td><td STYLE=\"color:#ADB8D4;font-size:14pt;\">Elements</td></tr>" ;

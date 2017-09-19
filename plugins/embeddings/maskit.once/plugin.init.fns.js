@@ -94,8 +94,6 @@ function CIRCLESembeddingsMASKITONCE_COMP( _init )
     else
     {
         if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
-        if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
-
         var _unit = new complex( 1, 0 ), _zero = new complex( 0, 0 ), _imag = new complex( 0, 1 );
         var MM_01_a = _mu.mul( _imag.mul(-1) );
         var MM_01_b = _imag.mul(-1);
@@ -179,8 +177,7 @@ function CIRCLESembeddingsMASKITONCE_OUTPUT( MM_01, MM_02, _init )
 
 function CIRCLESembeddingsMASKITONCE_INIT( _skip_edit_acquisition, _calc )
 {
-    _skip_edit_acquisition = safe_int( _skip_edit_acquisition, NO );
-    _calc = safe_int( _calc, NO );
+    _skip_edit_acquisition = safe_int( _skip_edit_acquisition, NO ), _calc = safe_int( _calc, NO );
     var CIRCLESembeddingsMASKITONCE_mu_formula = !_skip_edit_acquisition ? ( $("#PLUGIN_PARAM_MU").val().length > 0 ? $("#PLUGIN_PARAM_MU").val() : CIRCLESembeddingsMASKITONCE_mu ) : CIRCLESembeddingsMASKITONCE_mu ;
     _glob_init_mask = INIT_FROM_MAPS | INIT_PAIRED_ITEMS ;
     CIRCLESembeddingsMASKITONCE_PARSE( CIRCLESembeddingsMASKITONCE_mu_formula );

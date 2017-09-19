@@ -347,7 +347,7 @@ function circles_terminal_cmd_tessellator()
                               var _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _out_channel );
                               circles_lib_recalc_screen_disks_coords( zplane_sm );
                               if ( _glob_method.is_one_of( METHOD_INVERSION ) )
-                              circles_lib_alphabet_autoconfig_all_symbols( NO, YES, NO, _out_channel );
+                              circles_lib_alphabet_autoconfig_all_symbols( NO, YES, NO, YES, _out_channel );
                               else 
                               {
                                    circles_lib_output( _out_channel, DISPATCH_WARNING, "Current method requires symbols to be manually set", _par_1, _cmd_tag );

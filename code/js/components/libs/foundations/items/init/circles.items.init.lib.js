@@ -239,7 +239,7 @@ function circles_lib_items_init( _index, _question, _silent, _init_mask, _report
        var _ret_chunk = null ;
        if ( _init_mask & INIT_SYMBOLS || _init_mask & INIT_AUTO_RECOGNITION )
        {
-          _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( _question, _glob_terminal_silent, YES, _out_channel );
+          //_ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( _question, _glob_terminal_silent, YES, NO, _out_channel );
     		  if ( _ret_chunk[0] == RET_ERROR ) return _ret_chunk ;
        }
         
@@ -297,7 +297,7 @@ function circles_lib_items_init( _index, _question, _silent, _init_mask, _report
           if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
        }
 
-       circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
+       //circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
        return [ _ret_id, ( _report_text.length > 0 ? _report_text + _glob_crlf : "" ) + _ret_msg ] ;
     }
 }
@@ -402,7 +402,7 @@ function circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, 
                if ( _failure_mask ) return [ RET_ERROR, "Inconsistent item symbols ("+_symbol+","+_inv_symbol+","+_candidate_inv_symbol+") pair at index #"+_i ] ;
 
                _failure_mask = ( !_paired_disk_required && _symbol.length == 0 ) ? YES : NO ;
-               if ( _failure_mask ) return [ RET_ERROR, "Inconsistent item symbol at index #"+_i+"\n\nSet up the symbols <SPAN STYLE=\"cursor:pointer;font-weight:bold;color:blue;\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','edit.disk',NO,UNDET,ITEMS_SWITCH_SEEDS);\">manually</SPAN> or click <SPAN STYLE=\"cursor:pointer;font-weight:bold;color:blue;\" ONCLICK=\"javascript:alertCLOSE();circles_lib_alphabet_autoconfig_all_symbols(!_glob_terminal_silent,_glob_terminal_silent,NO,OUTPUT_SCREEN);\">here</SPAN> for &lsquo;auto-config&rsquo;" ] ;
+               if ( _failure_mask ) return [ RET_ERROR, "Inconsistent item symbol at index #"+_i+"\n\nSet up the symbols <SPAN STYLE=\"cursor:pointer;font-weight:bold;color:blue;\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','edit.disk',NO,UNDET,ITEMS_SWITCH_SEEDS);\">manually</SPAN> or click <SPAN STYLE=\"cursor:pointer;font-weight:bold;color:blue;\" ONCLICK=\"javascript:alertCLOSE();circles_lib_alphabet_autoconfig_all_symbols(!_glob_terminal_silent,_glob_terminal_silent,NO,YES,OUTPUT_SCREEN);\">here</SPAN> for &lsquo;auto-config&rsquo;" ] ;
 
                _final_inverse_symbol = _paired_disk_required ? ( _inv_symbol.strcmp( _candidate_inv_symbol ) ? _inv_symbol : _candidate_inv_symbol ) : "" ;
                _index_inverse = _paired_disk_required ? circles_lib_find_item_index_by_symbol( _items_array, _final_inverse_symbol ) : UNDET ;
@@ -566,7 +566,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
                            _inv_symbol = circles_lib_word_inverse_get( _symbol );
                            _items_array[_i].inverse_symbol = _inv_symbol ;
                            _index_inverse = circles_lib_find_item_index_by_symbol( _items_array, _inv_symbol );
-                           if ( _index_inverse == UNFOUND && _init_mask & INIT_PAIRED_ITEMS )
+                           if ( _index_inverse == UNFOUND && ( _init_mask & INIT_PAIRED_ITEMS ) )
                            {
                                // if not existing, a new inverse generator is attempted to creation
                                if ( _report ) _report_array.push( "<lightblue>Initialization/connection between items '"+_symbol+"' <--> '"+_inv_symbol+"'</lightblue>" );

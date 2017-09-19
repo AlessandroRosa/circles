@@ -46,7 +46,7 @@ function move_div( _div_id, POS_X_STR, POS_Y_STR, DIVw, DIVh, _animate )
         else X = safe_int( POS_X_STR, 0 );
 
         if ( POS_Y_STR == "top" ) Y = _menu_height ;
-        else if ( POS_Y_STR == "center" ) Y = safe_int( ( PAGEheight - divHEIGHT ) / 2, 0 ) ;
+        else if ( POS_Y_STR == "middle" ) Y = safe_int( ( PAGEheight - divHEIGHT ) / 2, 0 ) ;
         else if ( POS_Y_STR == "bottom" ) Y = safe_int( ( PAGEheight - divHEIGHT ), 0 ) - 15 ;
         else Y = safe_int( POS_Y_STR, 0 );
                 

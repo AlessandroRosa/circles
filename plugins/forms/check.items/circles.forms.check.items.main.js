@@ -1,16 +1,16 @@
-function CIRCLESformsHELPITEMSclose() { return circles_lib_plugin_dispatcher_unicast_message( "help.items", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
-function CIRCLESformsHELPITEMSmain( _base_id, _move, _items_switch )
+function CIRCLESformsCHECKITEMSclose() { return circles_lib_plugin_dispatcher_unicast_message( "check.items", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
+function CIRCLESformsCHECKITEMSmain( _base_id, _move, _items_switch )
 {
     _move = safe_int( _move, YES );
     var _chunk = circles_lib_items_set( _items_switch, YES ) ;
     var _items_n = _chunk['count'], _items_array = _chunk['array'], _caption = _chunk['label'], _items_switch = _chunk['switch'] ;
-    CIRCLESformsHELPITEMSbaseid = safe_string( _base_id, "" ) ;
+    CIRCLESformsCHECKITEMSbaseid = safe_string( _base_id, "" ) ;
 
     var _err_mask_whole = 0 ; // keeps track of which errors have been found
     var WIDTH = 320, HEIGHT = "auto", _subset = "forms" ;
-    var CLOSE_FN = "CIRCLESformsHELPITEMSclose()" ;
-    var _div_id = CIRCLESformsHELPITEMSdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
-    var _caption = _items_switch == ITEMS_SWITCH_SEEDS ? CIRCLESformsHELPITEMScaption01 : CIRCLESformsHELPITEMScaption02 ;
+    var CLOSE_FN = "CIRCLESformsCHECKITEMSclose()" ;
+    var _div_id = CIRCLESformsCHECKITEMSdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
+    var _caption = _items_switch == ITEMS_SWITCH_SEEDS ? CIRCLESformsCHECKITEMScaption01 : CIRCLESformsCHECKITEMScaption02 ;
     var _are_seeds_switched = _items_switch == ITEMS_SWITCH_SEEDS ? YES : NO ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
         HTMLcode += circles_lib_plugin_caption_code( _items_n > 0 ? YES : NO, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "aid/aid.16x16.png" );
@@ -92,7 +92,7 @@ function CIRCLESformsHELPITEMSmain( _base_id, _move, _items_switch )
                 HTMLcode += "<td WIDTH=\"1\"></td>" ;
 
                 if ( _err_mask & 16 || _err_mask & 32 || _err_mask & 64 )
-                HTMLcode += "<td "+( _glob_method == METHOD_NONE ? "CLASS=\"linkdead\"" : "CLASS=\"link\" ONCLICK=\"javascript:circles_lib_items_init_wrapper_fn("+i+",_glob_init_mask,YES,NO);CIRCLESformsHELPITEMSmain(CIRCLESformsHELPITEMSbaseid);\"" )+">Init</td>" ;
+                HTMLcode += "<td "+( _glob_method == METHOD_NONE ? "CLASS=\"linkdead\"" : "CLASS=\"link\" ONCLICK=\"javascript:circles_lib_items_init_wrapper_fn("+i+",_glob_init_mask,YES,NO);CIRCLESformsCHECKITEMSmain(CIRCLESformsCHECKITEMSbaseid);\"" )+">Init</td>" ;
                 else HTMLcode += "<td COLSPAN=\"3\"></td>" ;
 
                 HTMLcode += "<td WIDTH=\"1\"></td>" ;
@@ -139,7 +139,7 @@ function CIRCLESformsHELPITEMSmain( _base_id, _move, _items_switch )
             {
               HTMLcode += "<td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\">Some circles need to be re-computed</td>" ;
               HTMLcode += "<td WIDTH=\"10\"></td>" ;
-              HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:if ( confirm( _QUESTION_20_03 ) ) { circles_lib_items_init_group_from_maps( YES, NO );circles_lib_canvas_render_zplane(_glob_zplane_rendering_canvas_placeholder,zplane_sm,null,YES,YES,YES,NO,YES);CIRCLESformsHELPITEMSmain(CIRCLESformsHELPITEMSbaseid);}\">Create circles</td>" ;
+              HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:if ( confirm( _QUESTION_20_03 ) ) { circles_lib_items_init_group_from_maps( YES, NO );circles_lib_canvas_render_zplane(_glob_zplane_rendering_canvas_placeholder,zplane_sm,null,YES,YES,YES,NO,YES);CIRCLESformsCHECKITEMSmain(CIRCLESformsCHECKITEMSbaseid);}\">Create circles</td>" ;
             }
             HTMLcode += "</tr>" ;
             HTMLcode += "</table>" ;
@@ -186,7 +186,7 @@ function CIRCLESformsHELPGENERATORSbarHTMLCODE( _err_mask_whole )
     if ( _err_mask_whole & 8 || _err_mask_whole & 16 )
     {
         HTMLcode += "<td WIDTH=\"1\"></td>";
-        HTMLcode += "<td ID=\"HELPinitBTN\" CLASS=\"link_rounded\" "+( _glob_method == METHOD_NONE ? "DISABLED" : "" )+" ONCLICK=\"javascript:circles_lib_items_init_wrapper_fn(null,_glob_init_mask,YES,NO);CIRCLESformsHELPITEMSmain(CIRCLESformsHELPITEMSbaseid);\">Init</td>" ;
+        HTMLcode += "<td ID=\"HELPinitBTN\" CLASS=\"link_rounded\" "+( _glob_method == METHOD_NONE ? "DISABLED" : "" )+" ONCLICK=\"javascript:circles_lib_items_init_wrapper_fn(null,_glob_init_mask,YES,NO);CIRCLESformsCHECKITEMSmain(CIRCLESformsCHECKITEMSbaseid);\">Init</td>" ;
     }
     else HTMLcode += "<td COLSPAN=\"4\"></td>" ;
 

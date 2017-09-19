@@ -43,11 +43,11 @@
     <td ROWSPAN="8" WIDTH="25"></td>
 </tr>
 <tr><td HEIGHT="6"></td></tr>
-<tr><td ALIGN="center"><?php echo $LOADINGdivSUBTITLE ; ?></td></tr>
+<tr><td ALIGN="center" STYLE="font-size:11pt;"><?php echo $LOADINGdivSUBTITLE ; ?></td></tr>
 <tr><td HEIGHT="12"></td></tr>
-<tr><td ALIGN="center">Last release date : <?php echo $LOADINGdivRELEASEDATE ; ?></td></tr>
+<tr><td ALIGN="center" STYLE="font-size:11pt;">Last release date : <?php echo $LOADINGdivRELEASEDATE ; ?></td></tr>
 <tr><td HEIGHT="24"></td></tr>
-<tr><td ALIGN="center"><?php echo $LOADINGdivMESSAGE ; ?></td></tr>
+<tr><td ALIGN="center" STYLE="font-size:11pt;"><?php echo $LOADINGdivMESSAGE ; ?></td></tr>
 <tr><td HEIGHT="24" COLSPAN="5"></td></tr>
 </table>
 </div>

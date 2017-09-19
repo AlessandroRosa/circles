@@ -20,8 +20,7 @@ function CIRCLESembeddingsMASKITONCEdispatcher()
           break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
           case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
-          var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-          CIRCLESembeddingsMASKITONCEmain( _base_id, NO );
+          //don't call MAIN function
           break ;
 		 			case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
           GLOB_PLUGIN_EVENT_PROPAGATION_MANAGEMENT( 1 );

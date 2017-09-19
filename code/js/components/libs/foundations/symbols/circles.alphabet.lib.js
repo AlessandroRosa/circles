@@ -76,10 +76,10 @@ function circles_lib_alphabet_suggest_inverse_symbol( _input_symbol )
     return _input_symbol.length > 0 ? safe_string( circles_lib_word_inverse_get( _input_symbol ), "" ) : "" ;
 }
 
-function circles_lib_alphabet_autoconfig_all_symbols( _question, _silent, _force, _out_channel )
+function circles_lib_alphabet_autoconfig_all_symbols( _question, _silent, _force, _init_maps, _out_channel )
 {
 		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _force = safe_int( _force, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _init_maps = safe_int( _init_maps, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _items_n = circles_lib_count_items(_items_array);
     if ( _glob_method == METHOD_NONE )
@@ -168,7 +168,7 @@ function circles_lib_alphabet_autoconfig_all_symbols( _question, _silent, _force
                    }
                }
 
-               circles_lib_items_init(null,NO,YES);
+               if ( _init_maps ) circles_lib_items_init(null,NO,YES);
                circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
                var _msg = "All symbols have been successfully set up" ;
                if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );

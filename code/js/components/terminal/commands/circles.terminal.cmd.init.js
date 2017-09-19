@@ -179,7 +179,7 @@ function circles_terminal_cmd_init()
                 {
                     if ( safe_size( _params_assoc_array['settings']['symbols'], 0 ) > 0 )
                     {
-                       _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( !_glob_terminal_silent, _glob_terminal_silent, YES, _out_channel );
+                       _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( !_glob_terminal_silent, _glob_terminal_silent, YES, YES, _out_channel );
                        _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                        _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure" ;
                        if ( _ret_id ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg.strip_tags(), _par_1, _cmd_tag );

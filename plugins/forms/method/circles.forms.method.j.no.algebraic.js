@@ -123,7 +123,7 @@ function CIRCLESformsMETHODmanagerNOALGEBRAIC( new_method, caller_fn )
        HTMLcode += "<td WIDTH=\"15\"></td>";
        HTMLcode += "<td ID=\"ALGEBRAICrenderBTN\" "+( !_glob_worker_lock ? " CLASS=\"link\" ONCLICK=\"javascript:circles_lib_method_set( _glob_method );circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_glob_target_plane,YES,YES,CHECK);\"" : " CLASS=\"linkdead\"" )+">Render</td>";
        HTMLcode += "<td WIDTH=\"10\"></td>";
-       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','help.items');\">Help</td>";
+       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','check.items');\">Help</td>";
        HTMLcode += "<td WIDTH=\"10\"></td>";
        if ( caller_fn.length > 0 )
        HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:"+caller_fn+";\">Back</td>";
@@ -149,7 +149,7 @@ function CIRCLESformsMETHODmanagerNOALGEBRAIC( new_method, caller_fn )
        HTMLcode += "<td WIDTH=\"15\"></td>";
        HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_load('terminal',YES);\">Add map</td>";
        HTMLcode += "<td WIDTH=\"15\"></td>";
-       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','help.items');\">Help</td>";
+       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','check.items');\">Help</td>";
        HTMLcode += "</tr>";
        HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
        HTMLcode += "</table>" ;

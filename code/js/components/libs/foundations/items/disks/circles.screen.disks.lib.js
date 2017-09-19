@@ -37,7 +37,7 @@ function circles_lib_screendisk_add_from_coords( X, Y, RADIUS, _out_channel )
          return _ret_chunk ;
        }
     }
-    circles_lib_alphabet_autoconfig_all_symbols(NO,YES,NO,_out_channel);
+    circles_lib_alphabet_autoconfig_all_symbols(NO,YES,NO,YES,_out_channel);
     circles_lib_plugin_load('forms','construct.tangent.circle');
     return [ RET_OK, "Screen disk has been added with success" ] ;
 }
