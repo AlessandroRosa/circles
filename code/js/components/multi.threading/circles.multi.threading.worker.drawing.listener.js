@@ -234,6 +234,15 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
 						_glob_last_method = _glob_method ;
             $('[id$=renderBTN]').css('color',DEFAULT_COLOR_STD);
             $("[id$=renderBTN]").filter( function(){ return !this.id.start_with( "PLUGIN" ) } ).attr( "class", "link_rounded" );
+
+            if ( circles_lib_plugin_is_visible( "general.options", "forms" ) )
+            {
+              if ( CIRCLESformsGENERALOPTIONStabindex == 3 )
+              {
+                if($('#POPUPgeneraloptionsDIV').resizable('instance')!=undefined) $('#POPUPgeneraloptionsDIV').resizable('destroy');
+                circles_lib_plugin_load('forms','general.options',NO,3);
+              }
+            }
 		        break ;
 		        case "init":
             circles_lib_progressbar_set_value( 'progressbar', 0, YES );

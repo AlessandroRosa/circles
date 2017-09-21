@@ -128,8 +128,7 @@ function circles_lib_colors_colorize( _items_array, _update, _silent, _out_chann
     else
     {
          var _color = "" ;
-         $.each( _items_array,
-                 function( _i, _item )
+         $.each( _items_array, function( _i, _item )
                  {
                      _color = circles_lib_alphabet_get_color_from_symbol( _item.symbol ) ;
                      if ( _item.complex_circle.draw ) _items_array[_i].complex_circle.drawcolor = _color ;
@@ -156,8 +155,7 @@ function circles_lib_colors_decolorize( _items_array, _update, _silent, _out_cha
     else
     {
          var _color = "" ;
-         $.each( _items_array,
-                 function( _i, _item )
+         $.each( _items_array, function( _i, _item )
                  {
                      if ( _item.complex_circle.draw ) _items_array[_i].complex_circle.drawcolor = DEFAULT_DRAW_SEED_COLOR ;
                      if ( _item.screen_circle.draw ) _items_array[_i].screen_circle.drawcolor = DEFAULT_DRAW_SEED_COLOR ;
@@ -176,8 +174,7 @@ function circles_lib_colors_decolorize( _items_array, _update, _silent, _out_cha
 function circles_lib_colors_decode_tags( _data )
 {
     var _color ;
-		$.each( def_clrs_tags_keys,
-            function( _i, _key )
+		$.each( def_clrs_tags_keys, function( _i, _key )
             {
                 _color = def_clrs_tags['tag.'+_key] ;
                 _data = _data.replaceAll( "color:"+_key, "color:"+_color, YES ) ;

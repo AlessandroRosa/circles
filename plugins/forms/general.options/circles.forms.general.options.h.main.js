@@ -29,7 +29,7 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
     _glob_current_tab['generaloptions'] = _tab_index ;
     var WIDTH = 450, HEIGHT = 0, CLOSE_FN = "CIRCLESformsGENERALOPTIONSclose();", _subset = "forms" ;
     if ( _tab_index == 1 ) { WIDTH = 430, HEIGHT = 384 ; }
-    else if ( _tab_index.is_one_of( 2, 3 ) ) { HEIGHT = Math.max( $(window).height() - 90, 260 ) ; }
+    else if ( _tab_index.is_one_of( 2, 3 ) ) HEIGHT = 500 ;
     else if ( _tab_index == 4 ) { WIDTH = 400, HEIGHT = 300 ; }
     else if ( _tab_index == 5 ) HEIGHT = 346 ;
     else if ( _tab_index == 6 ) HEIGHT = 200 ;
@@ -39,13 +39,13 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
     var _caption = CIRCLESformsGENERALOPTIONScaption ;
     switch( _tab_index )
     {
-        case 1: _caption += " - Basics" ; break ;
-        case 2: _caption += " - Z-plane" ; break ;
-        case 3: _caption += " - W-plane" ; break ;
-        case 4: _caption += " - Colors" ; break ;
-        case 5: _caption += " - Extras" ; break ;
-        case 6: _caption += " - Export" ; break ;
-        default: break ;
+       case 1: _caption += " - Basics" ; break ;
+       case 2: _caption += " - Z-plane" ; break ;
+       case 3: _caption += " - W-plane" ; break ;
+       case 4: _caption += " - Colors" ; break ;
+       case 5: _caption += " - Extras" ; break ;
+       case 6: _caption += " - Export" ; break ;
+       default: break ;
     }
 
      var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ALIGN=\"center\" ID=\"GENERALoptionsMASTERtable\">" ;
@@ -53,6 +53,54 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
          HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"18\" ID=\"CIRCLESformsGENERALOPTIONSoutputBOX\" ALIGN=\"center\"></td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
+
+         HTMLcode += "<tr>" ;
+         HTMLcode += "<td VALIGN=\"top\" CLASS=\"popup_buttons_bar\">" ;
+         HTMLcode += "<table>" ;
+         HTMLcode += "<tr>" ;
+         HTMLcode += "<td WIDTH=\"5\"></td>" ;
+         HTMLcode += "<td>Show tab</td>" ;
+         HTMLcode += "<td WIDTH=\"5\"></td>" ;
+         HTMLcode += "<td>" ;
+         HTMLcode += "<SELECT ID=\"GENERALOPTIONStabsCOMBO\" ONCHANGE=\"javascript:circles_lib_plugin_load('forms','general.options', NO, this.options[this.selectedIndex].value );\">" ;
+         HTMLcode += "<OPTION "+( _tab_index == 1 ? "SELECTED" : "" )+" VALUE=\"1\">Basics" ;
+         HTMLcode += "<OPTION "+( _tab_index == 2 ? "SELECTED" : "" )+" VALUE=\"2\">Z-plane" ;
+         HTMLcode += "<OPTION "+( _tab_index == 3 ? "SELECTED" : "" )+" VALUE=\"3\">W-plane" ;
+         HTMLcode += "<OPTION "+( _tab_index == 4 ? "SELECTED" : "" )+" VALUE=\"4\">Colors" ;
+         HTMLcode += "<OPTION "+( _tab_index == 5 ? "SELECTED" : "" )+" VALUE=\"5\">Extras" ;
+         HTMLcode += "<OPTION "+( _tab_index == 6 ? "SELECTED" : "" )+" VALUE=\"6\">Export" ;
+         HTMLcode += "</SELECT>" ;
+         HTMLcode += "</td>" ;
+         HTMLcode += "<td WIDTH=\"5\"></td>" ;
+         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','general.options', NO, $('#GENERALOPTIONStabsCOMBO option:selected').val() );\">Reload</td>" ;
+         HTMLcode += "<td WIDTH=\"20\"></td>" ;
+         if ( _tab_index.is_one_of( 4, 5 ) )
+         {
+             HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsGENERALOPTIONSapply();\">Apply changes</td>" ;
+             HTMLcode += "<td WIDTH=\"1\"></td>" ;
+         }
+         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsGENERALOPTIONSreset();\">Default settings</td>" ;
+         HTMLcode += "<td WIDTH=\"1\"></td>" ;
+
+         var _plane_type = NO_PLANE ;
+         switch( _tab_index )
+         {
+             case 1:
+             case 4:
+             case 5:
+             case 6: _plane_type = _glob_target_plane ; break ;
+             case 2: _plane_type = Z_PLANE ; break ;
+             case 3: _plane_type = W_PLANE ; break ;
+             default: _plane_type = W_PLANE ; break ;
+         }
+
+         HTMLcode += "<td WIDTH=\"25\" CLASS=\"link_rounded\" ALIGN=\"center\" ID=\"GENERALOPTIONSrenderBTN\" ONCLICK=\"javascript:circles_lib_items_switch_to(_glob_items_switch,YES);circles_lib_canvas_process_ask(YES,NO,_glob_target_plane,YES,YES,CHECK);\">Render</td>" ;
+
+         HTMLcode += "</tr>" ;
+         HTMLcode += "</table>" ;
+         HTMLcode += "</td>" ;
+         HTMLcode += "</tr>" ;
+
          HTMLcode += "<tr>" ;
          HTMLcode += "<td VALIGN=\"top\" ID=\"GENERALOPTIONStabCONTAINER\">" ;
 
@@ -70,52 +118,6 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
      HTMLcode += "</td>" ;
      HTMLcode += "</tr>" ;
      HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-     HTMLcode += "<tr>" ;
-     HTMLcode += "<td VALIGN=\"top\" CLASS=\"popup_buttons_bar\">" ;
-     HTMLcode += "<table>" ;
-     HTMLcode += "<tr>" ;
-     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-     HTMLcode += "<td>Show tab</td>" ;
-     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-     HTMLcode += "<td>" ;
-     HTMLcode += "<SELECT ID=\"GENERALOPTIONStabsCOMBO\" ONCHANGE=\"javascript:circles_lib_plugin_load('forms','general.options', NO, this.options[this.selectedIndex].value );\">" ;
-     HTMLcode += "<OPTION "+( _tab_index == 1 ? "SELECTED" : "" )+" VALUE=\"1\">Basics" ;
-     HTMLcode += "<OPTION "+( _tab_index == 2 ? "SELECTED" : "" )+" VALUE=\"2\">Z-plane" ;
-     HTMLcode += "<OPTION "+( _tab_index == 3 ? "SELECTED" : "" )+" VALUE=\"3\">W-plane" ;
-     HTMLcode += "<OPTION "+( _tab_index == 4 ? "SELECTED" : "" )+" VALUE=\"4\">Colors" ;
-     HTMLcode += "<OPTION "+( _tab_index == 5 ? "SELECTED" : "" )+" VALUE=\"5\">Extras" ;
-     HTMLcode += "<OPTION "+( _tab_index == 6 ? "SELECTED" : "" )+" VALUE=\"6\">Export" ;
-     HTMLcode += "</SELECT>" ;
-     HTMLcode += "</td>" ;
-     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','general.options', NO, $('#GENERALOPTIONStabsCOMBO option:selected').val() );\">Reload</td>" ;
-     HTMLcode += "<td WIDTH=\"20\"></td>" ;
-     if ( _tab_index.is_one_of( 4, 5 ) )
-     {
-         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsGENERALOPTIONSapply();\">Apply changes</td>" ;
-         HTMLcode += "<td WIDTH=\"1\"></td>" ;
-     }
-     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsGENERALOPTIONSreset();\">Default settings</td>" ;
-     HTMLcode += "<td WIDTH=\"1\"></td>" ;
-     
-     var _plane_type = NO_PLANE ;
-     switch( _tab_index )
-     {
-         case 1:
-         case 4:
-         case 5:
-         case 6: _plane_type = _glob_target_plane ; break ;
-         case 2: _plane_type = Z_PLANE ; break ;
-         case 3: _plane_type = W_PLANE ; break ;
-         default: _plane_type = W_PLANE ; break ;
-     }
-     
-     HTMLcode += "<td WIDTH=\"25\" CLASS=\"link_rounded\" ALIGN=\"center\" ID=\"GENERALOPTIONSrenderBTN\" ONCLICK=\"javascript:circles_lib_items_switch_to(_glob_items_switch,YES);circles_lib_canvas_process_ask(YES,NO,_glob_target_plane,YES,YES,CHECK);\">Render</td>" ;
-
-     HTMLcode += "</tr>" ;
-     HTMLcode += "</table>" ;
-     HTMLcode += "</td>" ;
-     HTMLcode += "</tr>" ;
      HTMLcode += "</table>" ;
      HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
                      

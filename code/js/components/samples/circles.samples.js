@@ -474,7 +474,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
 
 function CIRCLESsamplesCTRLmanager()
 {
-    $("#CIRCLEScheckboxWORDSdisplay").prop( "checked", _glob_show_symbols_zplane ? YES : NO );
+    $("#CIRCLEScheckboxSYMBOLSdisplayZPLANE").prop( "checked", _glob_show_symbols_zplane ? YES : NO );
     $("#CIRCLEScheckboxPALETTEuse").prop( "checked", _glob_palette_use ? YES : NO );
     $("#CIRCLEScheckboxDISKSfill").prop( "checked", _glob_wplane_disk_fill ? YES : NO );
 }

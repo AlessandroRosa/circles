@@ -18,7 +18,6 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 * FORMS
 dictionary
 eps.editor
-general.options
 geometric.transform
 method
 palette

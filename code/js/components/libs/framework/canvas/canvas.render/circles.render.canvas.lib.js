@@ -141,6 +141,15 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
        case EXPORT_NONE: default: break ;
    }
 
+   if ( _items_n > 0 && circles_lib_plugin_is_visible( "general.options", "forms" ) )
+   {
+      if ( CIRCLESformsGENERALOPTIONStabindex == 2 )
+      {
+         if($('#POPUPgeneraloptionsDIV').resizable('instance')!=undefined) $('#POPUPgeneraloptionsDIV').resizable('destroy');
+         circles_lib_plugin_load('forms','general.options',NO,2);
+      }
+   }
+
    return [ RET_OK, "Z-plane rendered with success" ] ;
 }
 
@@ -313,7 +322,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
         }
     }
 
-    return [ RET_OK, "W-plane rendered with success" ] ;
+   return [ RET_OK, "W-plane rendered with success" ] ;
 }
 
 function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, _b_clean, _b_render_bk, _b_rendering, _b_init_items, _question, _silent, _out_channel )

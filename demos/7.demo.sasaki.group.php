@@ -114,7 +114,7 @@ var _demon = new demo_n();
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
-    _demon.add( { post_fn : function(){ $("#CIRCLESGENERALPURPOSEmainDIV").get(0).tabber.tabShow(3) ; },
+    _demon.add( { post_fn : function(){ $("#CIRCLESGENERALPURPOSEmainDIV").get(0).tabber.tabShow(2) ; },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2, time_unit : "s",
                   action : "nothing", set_value : "0", showlabel : false, desclabel : "" } );
 

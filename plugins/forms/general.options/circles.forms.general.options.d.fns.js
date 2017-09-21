@@ -287,7 +287,7 @@ function CIRCLESformsGENERALOPTIONSlayersLIST( _plane_type, _reloader_fn )
            _layer = _layers[_layer_pos_index] ;
            if ( _layer == null ) { _err_count++ ; continue ; }
            HTMLcode += "<tr>" ;
-           HTMLcode += "<td VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:"+( _plane_type == Z_PLANE ? "#E5EEFB" : "#D5DEEB" )+";\">" ;
+           HTMLcode += "<td VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"border:1px solid "+( _plane_type == Z_PLANE ? "#E5EEFB" : "#D5DEEB" )+";\">" ;
            HTMLcode += "<table WIDTH=\"100%\">" ;
 
            _defaultcanvas = _layers[_i].is_defaultcanvas() ;
@@ -342,7 +342,7 @@ function CIRCLESformsGENERALOPTIONSlayersLIST( _plane_type, _reloader_fn )
            HTMLcode += "<td VALIGN=\"top\">" ;
            HTMLcode += "<table>" ;
            HTMLcode += "<tr>" ;
-           var _bk = _layer.get_backgroundcolor() ;
+           var _bk = _layer.get_backgroundcolor().trim() ;
            HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"height:18px;width:30px;text-align:center;background-color:"+_bk+";\" ID=\""+_layer_bkcolor_id+"\">"+( _bk.length == 0 ? "none" : "" )+"</td>";
            HTMLcode += "</tr>" ;
            HTMLcode += "</table>" ;

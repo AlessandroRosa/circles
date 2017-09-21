@@ -187,9 +187,9 @@ function CIRCLESformsGENERALOPTIONSbasicsTAB()
 
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"10\"></td>" ;
-        HTMLcode += "<td>Display words string</td>" ;
+        HTMLcode += "<td>Show symbols (Z-plane)</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
-        HTMLcode += "<td><INPUT TYPE=\"checkbox\" "+( _glob_show_symbols_zplane ? "CHECKED" : "" )+" ID=\"CIRCLEScheckboxWORDSdisplay\" ONCLICK=\"javascript:_glob_show_symbols_zplane=(this.checked)?1:0;\"></td>" ;
+        HTMLcode += "<td><INPUT TYPE=\"checkbox\" "+( _glob_show_symbols_zplane ? "CHECKED" : "" )+" ID=\"CIRCLEScheckboxSYMBOLSdisplayZPLANE\" ONCLICK=\"javascript:_glob_show_symbols_zplane=(this.checked)?1:0;\"></td>" ;
         HTMLcode += "<td WIDTH=\"10\"></td>" ;
         HTMLcode += "<td VALIGN=\"top\">" ;
         HTMLcode += "<table>" ;
@@ -344,7 +344,6 @@ function CIRCLESformsGENERALOPTIONSexportTAB()
 {
       var HTMLcode  = "<table>" ;
           HTMLcode += "<tr><td HEIGHT=\"3\"></td><tr>" ;
-
           HTMLcode += "<tr><td STYLE=\"padding-left:10px;\"><b>SVG options</b></td><tr>" ;
           HTMLcode += "<tr><td HEIGHT=\"3\"></td><tr>" ;
           HTMLcode += "<tr>" ;

@@ -46,17 +46,23 @@ function circles_lib_plugin_get_wnd_from_pos( _x, _y )
                {
                    if ( _rect.includes( _x, _y ) ) _popup_ref = _popup ;
                }
-            }
-          ) ;
-          
+            } ) ;
     return is_array( _popup_ref ) ? _popup_ref.clone() : null ;
 }
 
 function circles_lib_plugin_is_visible( _base_id, _subset )
 {
     _base_id = safe_string( _base_id, "" ).trim(), _subset = safe_string( _subset, "forms" ).trim();
-    var _main_opener_fn = "CIRCLES" + _subset.toLowerCase() + _base_id.replace( /[\.\-\_]/g, "" ).toUpperCase() + "main" ;
-    return typeof _main_opener_fn === "function" ;
+    var _b_visible = 0 ;
+    $.each( _glob_popups_array, function( _i, _popup )
+            {
+               if ( _base_id == _popup[12] && _subset == _popup[8] )
+               {
+                  _b_visible = 1 ;
+                  return false ;
+               }
+            } ) ;
+    return _b_visible ;
 }
 
 function circles_lib_plugin_move_wnd( _div_id, _X_TAG, _Y_TAG )
