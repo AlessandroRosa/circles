@@ -10,7 +10,7 @@ function CIRCLESformsPALETTEmain( _base_id, _move )
 	      _glob_palette_end_rgb = _palette_end_clr ;
 
   var CLOSE_FN = "CIRCLESformsPALETTEclose();", _subset = "forms" ;
-	var WIDTH = 300, HEIGHT = "auto" ;
+	var WIDTH = 350, HEIGHT = "auto" ;
   var _div_id = CIRCLESformsPALETTEdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
   var HTMLcode = "<table WIDTH=\""+WIDTH+"\">";
       HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsPALETTEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "palette/palette.icon.01.16x16.png" );
@@ -36,9 +36,9 @@ function CIRCLESformsPALETTEmain( _base_id, _move )
       HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CANVAScolorCELLICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
       HTMLcode += "<td></td>";
       HTMLcode += "<td WIDTH=\"15\"></td>";
-      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsPALETTEaddCOLOR();\">Add this</td>";
+      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsPALETTEaddCOLOR();\">Add it</td>";
       HTMLcode += "<td WIDTH=\"10\"></td>";
-      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsPALETTEupdateCOLOR();\">Change this</td>";
+      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsPALETTEupdateCOLOR();\">Change it</td>";
       HTMLcode += "</tr>";
       HTMLcode += "</table>" ;
 
@@ -176,7 +176,9 @@ function CIRCLESformsPALETTEmain( _base_id, _move )
       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsPALETTEappend();\">Append gradient</td>";
       HTMLcode += "<td WIDTH=\"5\"></td>";
       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsPALETTEpreviewAPPEND(NO,YES);\">Preview gradient</td>";
-      HTMLcode += "<td WIDTH=\"15\"></td>";
+      HTMLcode += "<td WIDTH=\"25\"></td>";
+      HTMLcode += "<td ID=\"PALETTEinitBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:ircles_lib_items_init_wrapper_fn(null,YES,NO,_glob_init_mask,OUTPUT_SCREEN);\">Init</td>";
+      HTMLcode += "<td WIDTH=\"5\"></td>";
       HTMLcode += "<td ID=\"PALETTErenderBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_method_set( _glob_method );circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_glob_target_plane,YES,YES,CHECK);\">Render</td>";
       HTMLcode += "</tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;

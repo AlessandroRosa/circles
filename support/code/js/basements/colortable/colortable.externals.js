@@ -29,7 +29,7 @@ function getViewportExtents()
     return [ intW, intH ];
 }
 
-function displayCOLORTABLE( inputCTRLid, inputCOLORid, _on_select_color_fn, _on_show_table_fn )
+function displayCOLORTABLE( _inputCTRLid, inputCOLORid, _on_select_color_fn, _on_show_table_fn )
 {
     var _pos_chunk = $( "#" + _inputCTRLid ).offset();
     var top = safe_int( _pos_chunk['top'], 0 ) + $(window).scrollTop() ;

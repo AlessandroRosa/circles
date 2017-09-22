@@ -78,15 +78,15 @@ function CIRCLESformsPALETTEdisplayTABLE( divwidth )
          if ( i % COLS == 0 ) HTMLcode += "<tr>" ;
          HTMLcode += "<td VALIGN=\"top\">" ;
          HTMLcode += "<table>" ;
-         HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_palette_delete_entry('"+i+"');\" ALIGN=\"center\"><SPAN STYLE=\"font-size:7pt;\">"+( i+1 )+"</SPAN><td></tr>" ;
+         HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_palette_delete_entry('"+i+"');\" ALIGN=\"center\"><SPAN STYLE=\"font-size:10pt;\">"+( i+1 )+"</SPAN><td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
          HTMLcode += "<tr><td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ONCLICK=\"javascript:_glob_palette_index_selection="+i+";$('#CANVAScolorCELL').css( 'background-color', '"+CLR+"' );\" TITLE=\""+CLR+"\" STYLE=\"height:14px;width:14px;background-color:"+CLR+";\" CLASS=\"general_rounded_corners\"></td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
-         HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_palette_delete_entry('"+i+"');\" ALIGN=\"center\"><IMG SRC=\"%imgpath%icons/delete/delete.icon.12x12.png\"><td></tr>" ;
+         HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_palette_delete_entry('"+i+"');\" ALIGN=\"center\"><IMG SRC=\"%imgpath%icons/delete/delete.icon.20x20.png\"><td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
          HTMLcode += "</table>" ;
          HTMLcode += "</td>" ;
-         HTMLcode += ( i % COLS == ( N - 1 ) ) ? "</tr><tr><td HEIGHT=\"3\"></td></tr>" : "<td WIDTH=\"2\"><td>" ;
+         HTMLcode += ( i % COLS == ( N - 1 ) ) ? "</tr><tr><td HEIGHT=\"3\"></td></tr>" : "<td WIDTH=\"6\"><td>" ;
      }
 
      HTMLcode += "</table>" ;
@@ -121,7 +121,7 @@ function CIRCLESformsPALETTEcomputeGRADIENTpre( _silent, _out_channel )
      if ( _ret_id == RET_ERROR ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg + _glob_crlf + "Can't compute the color gradient." + _glob_crlf + _ERR_00_05, _glob_app_title );
      else CIRCLESformsPALETTEshow();
 
-     $("#CANVASpaletteLABEL_01").html( _glob_palette_steps > _glob_depth ? "<span STYLE=\"color:orange;\">exceeding current depth ("+_glob_depth+")</span>" : "X" );
+     $("#CANVASpaletteLABEL_01").html( _glob_palette_steps > _glob_depth ? "<span STYLE=\"color:red;\">exceeding current depth : "+_glob_depth+"</span>" : "" );
 }
 
 function CIRCLESformsPALETTEswapCOLORS()
@@ -146,26 +146,35 @@ function CIRCLESformsPALETTEpreviewAPPEND( _question, _silent, _out_channel )
          STEPS = 10, $("#CANVAScolorCELLgradientSTEPS").val( STEPS );
      }
 
-     var appendPALETTEarray = circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, STEPS, _silent, _out_channel );
-     var HTMLcode = "<table ALIGN=\"center\">" ;
-     var CLR, COLS = 12 ;
-     for( var i = 0 ; i < STEPS ; i++ )
+     var GRADIENTdataCHUNK = circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, STEPS, _silent, _out_channel );
+     var _ret_id = GRADIENTdataCHUNK[0], _ret_palette_array = GRADIENTdataCHUNK[1], _ret_msg = GRADIENTdataCHUNK[2] ;
+     if ( !_ret_id ) alert_msg( ALERT, _ret_msg, GLOBALpathTOroot );
+     else
      {
-         CLR = appendPALETTEarray[i] ;
-         if ( i % COLS == 0 ) HTMLcode += "<tr>" ;
+         var HTMLcode = "" ;
+         if ( STEPS > 40 ) HTMLcode += "<DIV ALIGN=\"center\" STYLE=\"position:relative;width:300px;height:110px;padding:3px;overflow:auto;\">" ;
+         HTMLcode += "<table ALIGN=\"center\">" ;
+         var CLR, COLS = 10 ;
+         for( var i = 0 ; i < STEPS ; i++ )
+         {
+             CLR = _ret_palette_array[i] ;
+             if ( i % COLS == 0 ) HTMLcode += "<tr>" ;
 
-         HTMLcode += "<td VALIGN=\"top\">" ;
-         HTMLcode += "<table>" ;
-         HTMLcode += "<tr><td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ONCLICK=\"javascript:_glob_palette_index_selection="+i+";$('#CANVAScolorCELL').css( 'background-color', '"+CLR+"' );\" TITLE=\""+CLR+"\" STYLE=\"height:16px;width:16px;background-color:"+CLR+";\" CLASS=\"general_rounded_corners\"></td></tr>" ;
-         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+             HTMLcode += "<td VALIGN=\"top\">" ;
+             HTMLcode += "<table>" ;
+             HTMLcode += "<tr><td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ONCLICK=\"javascript:_glob_palette_index_selection="+i+";$('#CANVAScolorCELL').css( 'background-color', '"+CLR+"' );\" TITLE=\""+CLR+"\" STYLE=\"height:16px;width:16px;background-color:"+CLR+";\" CLASS=\"general_rounded_corners\"></td></tr>" ;
+             HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+             HTMLcode += "</table>" ;
+             HTMLcode += "</td>" ;
+             HTMLcode += ( i % COLS == ( STEPS - 1 ) ) ? "</tr><tr><td HEIGHT=\"4\"></td></tr>" : "<td WIDTH=\"3\"><td>" ;
+         }
+
          HTMLcode += "</table>" ;
-         HTMLcode += "</td>" ;
-         HTMLcode += ( i % COLS == ( STEPS - 1 ) ) ? "</tr><tr><td HEIGHT=\"3\"></td></tr>" : "<td WIDTH=\"2\"><td>" ;
-     }
+         if ( STEPS > 40 ) HTMLcode += "</DIV>" ;
 
-     HTMLcode += "</table>" ;
-     $("#CIRCLESpaletteGRADIENTpreview").html( HTMLcode );
-     $("#CIRCLESpaletteGRADIENTpreview").slideDown( "slow" );
+         $("#CIRCLESpaletteGRADIENTpreview").html( HTMLcode );
+         $("#CIRCLESpaletteGRADIENTpreview").slideDown( "slow" );
+     }
 }
 
 function CIRCLESformsPALETTEappend( _question, _silent, _out_channel )

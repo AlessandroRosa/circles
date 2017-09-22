@@ -20,7 +20,6 @@ dictionary
 eps.editor
 geometric.transform
 method
-palette
 script.editor
 svg.editor
 terminal
