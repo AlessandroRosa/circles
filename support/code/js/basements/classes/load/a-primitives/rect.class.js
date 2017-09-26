@@ -40,7 +40,7 @@ if ( typeof is_number != "function" ) function is_number( _obj ) { return ( type
 if ( typeof is_rational != "function" ) function is_rational( _obj ) { return is_number( _obj ) ? !is_integer( _obj ) : 0 ; }
 if ( typeof is_string != "function" ) function is_string( _obj ) { return ( typeof _obj == "string" || _obj instanceof String ) ; }
 
-if ( typeof is_point != "function" ) function is_point( _obj )   { return _obj instanceof point ? 1 : 0 ; }
+if ( typeof is_point != "function" ) function is_point( _obj ) { return _obj instanceof point ? 1 : 0 ; }
 if ( typeof is_rect != "function" ) function is_rect( _r ) 		   { return _r instanceof rect ? 1 : 0 ; }
 if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ).trim() ; }
 if ( typeof safe_int != "function" ) function safe_int( _val, _set_if_nan ) { _val = parseInt( _val, 10 ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
@@ -182,11 +182,11 @@ rect.prototype.get_aspect_ratio = function() { return this.aspect_ratio ; }
 rect.prototype.get_orientation = function() { return this.orientation ; }
 rect.prototype.get_left = function()       { return this.x1 ; }
 rect.prototype.get_right = function() { return this.x2 ; }
-rect.prototype.get_top = function()        { return this.orientation == _RECT_ORIENTATION_SCREEN ? this.y2 : this.y1 ; }
+rect.prototype.get_top = function() { return this.orientation == _RECT_ORIENTATION_SCREEN ? this.y2 : this.y1 ; }
 rect.prototype.get_bottom = function() { return this.orientation == _RECT_ORIENTATION_SCREEN ? this.y1 : this.y2 ; }
 
 rect.prototype.copy = function() { return new rect( this.x1, this.y1, this.x2, this.y2, this.orientation, this.notes ); }
-rect.prototype.width = function()        { this.w = Math.abs( this.x2 - this.x1 ) ; return this.w ; } // subsequent calls can be skipped by calling this.w member
+rect.prototype.width = function() { this.w = Math.abs( this.x2 - this.x1 ) ; return this.w ; } // subsequent calls can be skipped by calling this.w member
 rect.prototype.height = function()       { this.h = Math.abs( this.y1 - this.y2 ) ; return this.h ; } // subsequent calls can be skipped by calling this.h member
 rect.prototype.area = function() { return this.width() * this.height() ; }
 rect.prototype.perimeter = function()    { return ( 2.0 * this.width() + 2.0 * this.height() ) ; }
@@ -194,7 +194,7 @@ rect.prototype.diagonal = function() { return Math.sqrt( this.width() * this.wid
 rect.prototype.offset = function( _w, _h )  { return new rect( this.x1 + _w, this.y1 + _h, this.x2 + _w, this.y2 + _h, this.orientation, this.notes ) ; }
 rect.prototype.center = function() { return { 'x' : ( this.x1 + this.x2 ) / 2.0, 'y' : ( this.y1 + this.y2 ) / 2.0 } ; }
 rect.prototype.center_pt = function() { return new point( ( this.x1 + this.x2 ) / 2.0, ( this.y1 + this.y2 ) / 2.0 ) ; }
-rect.prototype.stretch_left = function( _w )   { return new rect( this.x1 - _w, this.y1, this.x2, this.y2, this.orientation, this.notes ) ; }
+rect.prototype.stretch_left = function( _w ) { return new rect( this.x1 - _w, this.y1, this.x2, this.y2, this.orientation, this.notes ) ; }
 rect.prototype.stretch_top = function( _h )    { return new rect( this.x1, this.y1 + _h, this.x2, this.y2, this.orientation, this.notes ) ; }
 rect.prototype.stretch_right = function( _w )  { return new rect( this.x1, this.y1, this.x2 + _w, this.y2, this.orientation, this.notes ) ; }
 rect.prototype.stretch_bottom = function( _h ) { return new rect( this.x1, this.y1, this.x2, this.y2 - _h, this.orientation, this.notes ) ; }

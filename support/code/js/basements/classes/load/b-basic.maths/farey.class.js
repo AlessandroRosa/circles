@@ -178,8 +178,8 @@ farey.prototype.output = function( _format, _separator )
 }
 
 // check members
-farey.prototype.is_neighbor = function( _f2 )   { return is_farey( _f2 ) ? ( ( Math.abs( _f2.p * this.q - this.p * _f2.q ) == 1 ) ? 1 : 0 ) : 0 ; }
-farey.prototype.is_equal_to = function( _f2 )   { return is_farey( _f2 ) ? ( this.p / this.q == _f2.p / _f2.q ) : 0 ; }
+farey.prototype.is_neighbor = function( _f2 ) { return is_farey( _f2 ) ? ( ( Math.abs( _f2.p * this.q - this.p * _f2.q ) == 1 ) ? 1 : 0 ) : 0 ; }
+farey.prototype.is_equal_to = function( _f2 ) { return is_farey( _f2 ) ? ( this.p / this.q == _f2.p / _f2.q ) : 0 ; }
 farey.prototype.is_not_equal_to = function( _f2 ) { return is_farey( _f2 ) ? ( this.p / this.q != _f2.p / _f2.q ) : 0 ; }
 farey.prototype.is_lesser = function( _f2 ) { return is_farey( _f2 ) ? ( this.p / this.q < _f2.p / _f2.q ) : 0 ;  }
 farey.prototype.is_lesser_eq = function( _f2 )  { return is_farey( _f2 ) ? ( this.p / this.q <= _f2.p / _f2.q ) : 0 ; }
@@ -209,11 +209,11 @@ farey.prototype.is_contiguous = function( _c, _d, _order )
 farey.prototype.ratio = function() { return ( !isNaN( this.p ) && !isNaN( this.q ) && this.q != 0 ) ? this.p / this.q : "error" ; }
 farey.prototype.distance = function( _f2 ) { return Math.abs( this.ratio() - _f2.ratio() ) ; }
 farey.prototype.clone = function()       { return new farey( this.p, this.q ) ; }
-farey.prototype.copy = function( _f2 )   { if ( is_farey( _f2 ) ) { this.p = _f2.p, this.q = _f2.q ; return false ; } else { return true ; } }
+farey.prototype.copy = function( _f2 ) { if ( is_farey( _f2 ) ) { this.p = _f2.p, this.q = _f2.q ; return false ; } else { return true ; } }
 farey.prototype.set = function( _p, _q ) { this.p = safe_int( _p, 0 ), this.q = safe_int( _q, 0 ) ; }
 farey.prototype.sum = function( _f2 )    { return new farey( this.p + _f2.p, this.q + _f2.q ) ; }
 farey.prototype.median = function( _f2 ) { return this.sum( _f2 ) ; } // alias of sum
-farey.prototype.sub = function( _f2 )   { return new farey( this.p - _f2.p, this.q - _f2.q ) ; }
+farey.prototype.sub = function( _f2 ) { return new farey( this.p - _f2.p, this.q - _f2.q ) ; }
 farey.prototype.get_num = function() { return this.p ; }
 farey.prototype.get_den = function() { return this.q ; }
 farey.prototype.set_num = function( _p ) { this.p = safe_int( _p, 0 ) ; }

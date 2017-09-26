@@ -175,7 +175,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, _move )
       {
 	      start: function( event, ui ) { CIRCLEStoolsCANVASCOMPOSITIONstartresize( ui.size.width, ui.size.height ) },
 	      resize: function( event, ui ) { CIRCLEStoolsCANVASCOMPOSITIONresize( ui.size.width, ui.size.height ); },
-	      stop: function( event, ui )   { CIRCLEStoolsCANVASCOMPOSITIONstopresize( ui.size.width, ui.size.height ) }
+	      stop: function( event, ui ) { CIRCLEStoolsCANVASCOMPOSITIONstopresize( ui.size.width, ui.size.height ) }
       } );
       else
       {
@@ -183,7 +183,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, _move )
         {
   	      start: function( event, ui ) { CIRCLEStoolsCANVASCOMPOSITIONstartresize( ui.size.width, ui.size.height ) },
   	      resize: function( event, ui ) { CIRCLEStoolsCANVASCOMPOSITIONresize( ui.size.width, ui.size.height ); },
-  	      stop: function( event, ui )   { CIRCLEStoolsCANVASCOMPOSITIONstopresize( ui.size.width, ui.size.height ) }
+  	      stop: function( event, ui ) { CIRCLEStoolsCANVASCOMPOSITIONstopresize( ui.size.width, ui.size.height ) }
         } );
       }
       $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });

@@ -128,7 +128,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY( _move )
 			var _graph_html_code = CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelGRAPH( _glob_probabilityRNGmethod, _sch_n, tryouts, WIDTH - 10 );
 
 			var _div_id = "POPUPrandomprobabilityprocessrunDIV" ;
-      var _caption = "Rnd probability simulation" ;
+      var _caption = "Random probability simulation" ;
       var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
       HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
       HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, "", WIDTH, HEIGHT, "", 'method.probability.model', _div_id, "tools/tools.01.16x16.png", "" );
@@ -137,6 +137,8 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY( _move )
 			HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
       HTMLcode += "<tr><td VALIGN=\"top\">" + _graph_html_code + "</td></tr>" ;
 			HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
+ 			HTMLcode += "<tr><td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_items_switch=ITEMS_SWITCH_GENS;CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY();\">Simulate again</td></tr>" ;
+			HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
       HTMLcode += "</table>" ;
 
       HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
@@ -144,8 +146,8 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY( _move )
       var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
       if ( _move && _div != null )
       {
-          move_div( _div.id, "LEFT", "TOP" );
-          circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, _caption );
+          move_div( _div_id, "LEFT", "TOP" );
+          circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, "forms", OPEN, _div_id, _caption );
       }
 		}
 		else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't display the random generator graph: no gens available.", 'PROCESSrandomPROBABILITYoutput' ) ;
@@ -221,6 +223,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelGRAPH( _method_index, _n_
     for( _i = 0 ; _i < _n_intervals ; _i++ ) _max_value = Math.max( _input_heights_array[_i], _max_value );
     for( _i = 0 ; _i < _n_intervals ; _i++ ) _input_heights_array[_i] = Math.ceil( _input_heights_array[_i] / _max_value * _max_height );
 
+    _glob_items_switch = ITEMS_SWITCH_GENS ;
 		return CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelGRAPHconstruct( _graph_width, _max_height, _n_intervals, _input_heights_array );
 }
 
@@ -242,6 +245,14 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelGRAPHconstruct( _graph_wi
    		 HTMLcode = "<table ALIGN=\"center\" STYLE=\"border-collapse:collapse;height:"+(_max_height+40)+"px;width:"+_graph_width+"px;\">" ;
        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
        HTMLcode += "<tr><td ALIGN=\"center\">Can't render this graph because no rendering has been performed yet</td></tr>" ;
+       HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+       HTMLcode += "</table>" ;
+    }
+		else if ( _items_array.length == 0 )
+    {
+   		 HTMLcode = "<table ALIGN=\"center\" STYLE=\"border-collapse:collapse;height:"+(_max_height+40)+"px;width:"+_graph_width+"px;\">" ;
+       HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+       HTMLcode += "<tr><td ALIGN=\"center\">Can't render this graph because items have been initialized</td></tr>" ;
        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
        HTMLcode += "</table>" ;
     }

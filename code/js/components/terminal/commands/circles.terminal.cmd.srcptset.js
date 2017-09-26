@@ -232,9 +232,7 @@ function circles_terminal_cmd_srcptset()
                }
                break ;
                case "plane":
-               var _plane = _params_assoc_array['plane'] ;
-               var _plane_def = circles_lib_return_plane_type( _plane ) ;
-               console.log( _plane, _plane_def );
+               var _plane = _params_assoc_array['plane'], _plane_def = circles_lib_return_plane_type( _plane ) ;
                if ( _glob_storage['srcptset'] == null )
                circles_lib_output( _out_channel, DISPATCH_WARNING, "Cannot set the plane '"+_plane_def+"', because no initialization has been made.", _par_1, _cmd_tag );
                else if ( _plane.length == 0 || _plane_def == 0 )

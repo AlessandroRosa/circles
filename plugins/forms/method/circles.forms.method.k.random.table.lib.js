@@ -320,7 +320,7 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_rnd_probability_array=CIRCLESmethodMANAGERrandomTABLEoptimize(YES);\">Optimize</td>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
-			HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY();\">Simulate</td>" ;
+			HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_items_switch=ITEMS_SWITCH_GENS;CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY();\">Simulate</td>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
 		  HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY();\">Last distribution</td>" ;
       HTMLcode += "</tr>" ;
@@ -447,7 +447,7 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
             HTMLcode += "<td WIDTH=\"12\"></td>" ;
             HTMLcode += "<td></td>" ;
             HTMLcode += "<td WIDTH=\"2\"></td>" ;
-            HTMLcode += "<td><INPUT TYPE=\"checkbox\" ID=\"PROCrndPROBABILITY_CHECKBOX_"+_i+"\" ONCLICK=\"javascript:$('#PROCrndPROBABILITY_EDIT_"+_i+"').prop('disabled', this.checked);CIRCLESmethodMANAGERrandomTABLElockallCHECK();\"></td>" ;
+            HTMLcode += "<td><INPUT TYPE=\"checkbox\" ID=\"PROCrndPROBABILITY_CHECKBOX_"+_i+"\" ONCLICK=\"javascript:$('#PROCrndPROBABILITY_EDIT_"+_i+"').prop('disabled',this.checked);$('#PROCrndPROBABILITY_EDIT_"+_i+"').css('color',this.checked?'#C0C0C0':'black');$('#PROCrndPROBABILITY_EDIT_"+_i+"').css('background-color',this.checked?'#F4F4F4':'white');CIRCLESmethodMANAGERrandomTABLElockallCHECK();\"></td>" ;
             HTMLcode += "</tr>" ;
             HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
             HTMLcode += "<tr STYLE=\"color:#AEAEDF;\">" ;
@@ -456,7 +456,7 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
             HTMLcode += "<td WIDTH=\"2\"></td>" ;
             HTMLcode += "<td ID=\"PROCrndPROBABILITY_LABEL_"+_i+"\" STYLE=\"padding-left:5px;\">"+_sum.clean_round_off(_glob_accuracy)+"</td>" ;
             HTMLcode += "<td WIDTH=\"2\"></td>" ;
-            HTMLcode += "<td>originally with symbol <b>"+( _glob_gens_set_model_array[_i] )+"</b></td>" ;
+            HTMLcode += "<td>originally tagged as <b>"+( _glob_gens_set_model_array[_i] )+"</b></td>" ;
             HTMLcode += "</tr>" ;
             HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
          }

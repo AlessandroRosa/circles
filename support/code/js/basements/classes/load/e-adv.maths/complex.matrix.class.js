@@ -137,7 +137,7 @@ function complex_matrix()
 }
 
 complex_matrix.prototype.get_stream = function() { return this.stream_lines.clone() ; }
-complex_matrix.prototype.get_log = function()        { return this.err_log.clone() ; }
+complex_matrix.prototype.get_log = function() { return this.err_log.clone() ; }
 complex_matrix.prototype.copy = function() { var _cm = new complex_matrix( this.rows, this.cols ) ; _cm.grid = this.grid.clone() ; return _cm ; }
 complex_matrix.prototype.size = function() { return safe_int( this.rows * this.cols, 0 ) ; }
 complex_matrix.prototype.count_rows = function() { return safe_int( this.rows, 0 ) ; }
@@ -311,7 +311,7 @@ complex_matrix.prototype.delete_col = function( _i, _overwrite )
 complex_matrix.prototype.is_binary_matrix = function() { return this.is_boolean_matrix(); }
 complex_matrix.prototype.is_singular_matrix = function() { return this.det().radius() == 0 ? 1 : 0 ; }
 complex_matrix.prototype.is_logical_matrix = function() { return this.is_boolean_matrix() ; }
-complex_matrix.prototype.is_consistent_matrix = function()   { return ( ( this.rows + this.cols ) % 2 == 0 ) ; }
+complex_matrix.prototype.is_consistent_matrix = function() { return ( ( this.rows + this.cols ) % 2 == 0 ) ; }
 complex_matrix.prototype.is_row_matrix = function() { return ( this.rows == 1 && this.cols == 0 ) ? 1 : 0 ; }
 complex_matrix.prototype.is_column_matrix = function()       { return ( this.rows == 0 && this.cols == 1 ) ? 1 : 0 ; }
 complex_matrix.prototype.is_rectangular_matrix = function()  { return this.rows != this.cols ? 1 : 0 ; }
@@ -325,7 +325,7 @@ complex_matrix.prototype.is_hermitian_matrix = function() { return this.is_equal
 complex_matrix.prototype.is_antihermitian_matrix = function() { return this.get_negative_matrix().is_equal_to( this.get_adjoint_matrix() ) ? 1 : 0 ; }
 complex_matrix.prototype.is_involutive_matrix = function()    { return this.pow( 2 ).is_equal_to( this.get_identity_matrix() ) ? 1 : 0 ; }
 complex_matrix.prototype.is_orthogonal_matrix = function()    { return this.mul( this.get_transpose_matrix() ).is_equal_to( this.get_identity_matrix() ) ? 1 : 0 ; }
-complex_matrix.prototype.is_normal_matrix = function()        { return this.mul( this.get_transpose_matrix() ).is_equal_to( this.get_transpose_matrix().mul( this ) ) ? 1 : 0 ; }
+complex_matrix.prototype.is_normal_matrix = function() { return this.mul( this.get_transpose_matrix() ).is_equal_to( this.get_transpose_matrix().mul( this ) ) ? 1 : 0 ; }
 complex_matrix.prototype.is_zero_matrix = function()
 {
     var _b_ok = 1, _r ;
@@ -1718,8 +1718,8 @@ complex_matrix.prototype.inner_product = function( _m2 )       { return this.dot
 complex_matrix.prototype.scalar_product = function( _m2 ) { return this.dot_product( _m2 ); }
 complex_matrix.prototype.parallel_product = function( _m2 )    { return this.mul( _m2 ); }
 complex_matrix.prototype.elementwise_product = function( _m2 ) { return this.hadamard_product( _m2 ); }
-complex_matrix.prototype.entrywise_product = function( _m2 )   { return this.hadamard_product( _m2 ); }
-complex_matrix.prototype.pointwise_product = function( _m2 )   { return this.hadamard_product( _m2 ); }
+complex_matrix.prototype.entrywise_product = function( _m2 ) { return this.hadamard_product( _m2 ); }
+complex_matrix.prototype.pointwise_product = function( _m2 ) { return this.hadamard_product( _m2 ); }
 complex_matrix.prototype.schur_product = function( _m2 )       { return this.hadamard_product( _m2 ); }
 
 // -- END -- ALIASES

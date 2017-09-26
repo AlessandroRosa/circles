@@ -49,7 +49,7 @@ function CIRCLESformsDISCRETENESSLOCUSunbindCANVASevents()
    {
      _diagram_layer_canvas.onmouseover = function( event ) {}
      _diagram_layer_canvas.onmouseout = function( event ) {}
-     _diagram_layer_canvas.onmouseup = function( event )   {}
+     _diagram_layer_canvas.onmouseup = function( event ) {}
      _diagram_layer_canvas.onmousedown = function( event ) {}
      _diagram_layer_canvas.onmousemove = function( event ) {}
      _diagram_layer_canvas.onclick = function( event ) {}
@@ -60,7 +60,7 @@ function CIRCLESformsDISCRETENESSLOCUSunbindCANVASevents()
    if ( is_html_canvas( _work_layer_canvas ) && _glob_target_plane == D_LOCUS && _work_layer_canvas != null )
    {
      _work_layer_canvas.onmouseout = function( event ) {}
-     _work_layer_canvas.onmouseup = function( event )   {}
+     _work_layer_canvas.onmouseup = function( event ) {}
      _work_layer_canvas.onmousedown = function( event ) {}
      _work_layer_canvas.onmousemove = function( event ) {}
      _work_layer_canvas.onmouseover = function( event ) {}

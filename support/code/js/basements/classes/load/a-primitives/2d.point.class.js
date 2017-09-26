@@ -27,7 +27,7 @@ if ( typeof is_number != "function" ) function is_number( _obj ) { return ( type
 if ( typeof is_rational != "function" ) function is_rational( _obj ) { return is_number( _obj ) ? !is_integer( _obj ) : 0 ; }
 if ( typeof is_string != "function" ) function is_string( _obj ) { return ( typeof _obj == "string" || _obj instanceof String ) ; }
 
-if ( typeof is_point != "function" ) function is_point( _obj )   { return _obj instanceof point ? 1 : 0 ; }
+if ( typeof is_point != "function" ) function is_point( _obj ) { return _obj instanceof point ? 1 : 0 ; }
 if ( typeof is_infinity != "function" ) function is_infinity( _n ) { return _n == Infinity || _n == -Infinity ? 1 : 0 ; }
 if ( typeof is_positive_infinity != "function" ) function is_positive_infinity( _n ) { return _n == Infinity ? 1 : 0 ; }
 if ( typeof is_negative_infinity != "function" ) function is_negative_infinity( _n ) { return _n == -Infinity ? 1 : 0 ; }

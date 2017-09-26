@@ -3,8 +3,8 @@ var HTML_CANVAS_ELEMENT_2D_MODE = "2d" ;
 HTMLCanvasElement.prototype.set_dims = function( _w, _h ) { this.set_width( _w ); this.set_height( _h ) ; }
 HTMLCanvasElement.prototype.get_dims = function() { return [ safe_int( this.width, 0 ), safe_int( this.height, 0 ) ]; }
 HTMLCanvasElement.prototype.set_width = function( _w )    { this.style.width = safe_int( _w, 0 ) + "px" ; this.width = _w ; }
-HTMLCanvasElement.prototype.set_height = function( _h )   { this.style.height = safe_int( _h, 0 ) + "px" ; this.height = _h ; }
-HTMLCanvasElement.prototype.get_width = function()        { return safe_int( this.style.width, 0 ); }
+HTMLCanvasElement.prototype.set_height = function( _h ) { this.style.height = safe_int( _h, 0 ) + "px" ; this.height = _h ; }
+HTMLCanvasElement.prototype.get_width = function() { return safe_int( this.style.width, 0 ); }
 HTMLCanvasElement.prototype.get_height = function()       { return safe_int( this.style.height, 0 ); }
 HTMLCanvasElement.prototype.aspect_ratio = function() { return this.get_width() / this.get_height(); }
 HTMLCanvasElement.prototype.area = function()             { return this.get_width() * this.get_height(); }
@@ -15,7 +15,7 @@ HTMLCanvasElement.prototype.diagonal = function()
 }
 
 HTMLCanvasElement.prototype.square_it = function( _side ) { this.set_width( _side );  this.set_height( _side ); }
-HTMLCanvasElement.prototype.resize = function( _w, _h )   { this.set_width( _w );  this.set_height( _h ); }
+HTMLCanvasElement.prototype.resize = function( _w, _h ) { this.set_width( _w );  this.set_height( _h ); }
 HTMLCanvasElement.prototype.clean = function( _color )
 {
     _color = safe_string( _color, "transparent" );
@@ -33,11 +33,11 @@ HTMLCanvasElement.prototype.clean = function( _color )
 HTMLCanvasElement.prototype.is_visible = function() { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).visible ; }
 
 HTMLCanvasElement.prototype.get_type = function()            { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).type ; }
-HTMLCanvasElement.prototype.get_idcanvas = function()        { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).idcanvas ; }
+HTMLCanvasElement.prototype.get_idcanvas = function() { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).idcanvas ; }
 HTMLCanvasElement.prototype.get_iddiv = function() { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).iddiv ; }
 HTMLCanvasElement.prototype.get_type = function()            { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).type ; }
 HTMLCanvasElement.prototype.get_role_id = function() { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).role ; }
-HTMLCanvasElement.prototype.get_role_def = function()        { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).role_def ; }
+HTMLCanvasElement.prototype.get_role_def = function() { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).role_def ; }
 HTMLCanvasElement.prototype.get_label = function() { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).label ; }
 HTMLCanvasElement.prototype.get_plane_def = function()       { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).plane_def ; }
 HTMLCanvasElement.prototype.is_defaultcanvas = function()    { return this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).defaultcanvas ; }
@@ -49,7 +49,7 @@ HTMLCanvasElement.prototype.set_idcanvas = function( _id ) { this.getContext(HTM
 HTMLCanvasElement.prototype.set_iddiv = function( _id )            { this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).iddiv = _id ; }
 HTMLCanvasElement.prototype.set_type = function( _t )              { this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).type = _t ; }
 HTMLCanvasElement.prototype.set_role_id = function( _id ) { this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).role = _id ; }
-HTMLCanvasElement.prototype.set_role_def = function( _def )        { this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).role_def = _def ; }
+HTMLCanvasElement.prototype.set_role_def = function( _def ) { this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).role_def = _def ; }
 HTMLCanvasElement.prototype.set_label = function( _l )             { this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).label = _l ; }
 HTMLCanvasElement.prototype.set_plane_def = function( _def )       { this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).plane_def = _def ; }
 HTMLCanvasElement.prototype.set_defaultcanvas = function( _dc )    { this.getContext(HTML_CANVAS_ELEMENT_2D_MODE).defaultcanvas = _dc ? 1 : 0 ; }

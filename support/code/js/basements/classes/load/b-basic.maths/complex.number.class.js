@@ -398,7 +398,7 @@ complex.prototype.actg = function()
 	  return numerator.div( denominator ) ;
 }
 
-complex.prototype.asec = function()   { return this.acos().inv() ; }
+complex.prototype.asec = function() { return this.acos().inv() ; }
 complex.prototype.acosec = function() { return this.asin().inv() ; }
 // Inverse Hyperbolic
 complex.prototype.asinh = function()  { return ( _CONSTANT_COMPLEX_I.mul(this).asin() ).div( _CONSTANT_COMPLEX_I ); }
@@ -415,7 +415,7 @@ complex.prototype.actgh = function()
     return this.acos().div( asin_iz );
 }
 
-complex.prototype.asech = function()   { return this.acosh().inv() ; }
+complex.prototype.asech = function() { return this.acosh().inv() ; }
 complex.prototype.acosech = function() { return this.asinh().inv() ; }
 
 // Miscellaneous
@@ -431,7 +431,7 @@ complex.prototype.rotate = function( center, angle /*radians*/ )
 // stereographic projection
 // from the Riemann sphere (diameter 1, center at the origin) to the complex plane
 // u,v,w are coordinates over the sphere
-complex.prototype.inverse_stereographic = function( u, v, w )   { return new complex( u / ( 1 - w ), v / ( 1 - w ) ) ; }
+complex.prototype.inverse_stereographic = function( u, v, w ) { return new complex( u / ( 1 - w ), v / ( 1 - w ) ) ; }
 // from the complex plane to the Riemann sphere
 complex.prototype.sphere = function()
 {

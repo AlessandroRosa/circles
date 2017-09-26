@@ -16,7 +16,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONbindCANVASevents()
     if ( is_html_canvas( _work_layer_canvas ) )
     {
          _work_layer_canvas.onmouseout = function( event ) { FUNDAMENTAL_REGION_WORK_canvas_onmouseout( _work_layer_canvas, event ); }
-         _work_layer_canvas.onmouseup = function( event )   { FUNDAMENTAL_REGION_WORK_canvas_onmouseup( _work_layer_canvas, event ); }
+         _work_layer_canvas.onmouseup = function( event ) { FUNDAMENTAL_REGION_WORK_canvas_onmouseup( _work_layer_canvas, event ); }
          _work_layer_canvas.onmousedown = function( event ) { FUNDAMENTAL_REGION_WORK_canvas_onmousedown( _work_layer_canvas, event ); }
          _work_layer_canvas.onmousemove = function( event ) { FUNDAMENTAL_REGION_WORK_canvas_onmousemove( _work_layer_canvas, event ); }
          _work_layer_canvas.onmouseover = function( event ) { FUNDAMENTAL_REGION_WORK_canvas_onmouseover( _work_layer_canvas, event ); }

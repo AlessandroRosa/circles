@@ -155,7 +155,7 @@ fraction.prototype.output = function( _format, _separator )
 
 fraction.prototype.ratio = function()       { return this.p / this.q ; }
 fraction.prototype.clone = function()       { return new fraction( this.p, this.q ) ; }
-fraction.prototype.copy = function( _f2 )   { if ( is_fraction( _f2 ) ) { this.p = _f2.p, this.q = _f2.q ; } }
+fraction.prototype.copy = function( _f2 ) { if ( is_fraction( _f2 ) ) { this.p = _f2.p, this.q = _f2.q ; } }
 fraction.prototype.set = function( _p, _q ) { this.p = _p, this.q = _q ;  }
 fraction.prototype.get_num = function() { return this.p ; }
 fraction.prototype.get_den = function() { return this.q ; }
@@ -201,7 +201,7 @@ fraction.prototype.reduce = function()
     return _gcd == 0 ? new fraction( Infinity, Infinity ) : new fraction( this.p / _gcd, this.q / _gcd ) ;
 }
 
-fraction.prototype.is_equal_to = function( _f2 )   { return ( ( this.p * _f2.q - _f2.p * this.q ) == 0 ) ? 1 : 0 ; }
+fraction.prototype.is_equal_to = function( _f2 ) { return ( ( this.p * _f2.q - _f2.p * this.q ) == 0 ) ? 1 : 0 ; }
 fraction.prototype.is_not_equal_to = function( _f2 )  { return ( ( this.p * _f2.q - _f2.p * this.q ) != 0 ) ? 1 : 0 ; }
 fraction.prototype.is_lesser = function( _f2 ) { return ( ( this.p * _f2.q - _f2.p * this.q ) < 0 ) ? 1 : 0 ; }
 fraction.prototype.is_lesser_eq = function( _f2 )  { return ( ( this.p * _f2.q - _f2.p * this.q ) <= 0 ) ? 1 : 0 ; }

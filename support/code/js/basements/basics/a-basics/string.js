@@ -546,7 +546,7 @@ String.prototype.set_char_at = function( _index , _chr )
 }
 String.prototype.urlencode = function()       { return encodeURIComponent( encodeURIComponent( this ) ) ; }
 String.prototype.urldecode = function()       { return decodeURIComponent( decodeURIComponent( this ) ) ; }
-String.prototype.omits = function( _input )   { return !this.includes( _input ); }
+String.prototype.omits = function( _input ) { return !this.includes( _input ); }
 String.prototype.omits_i = function( _input ) { return !this.includes_i( _input ); }
 
 // case sensitive string comparison

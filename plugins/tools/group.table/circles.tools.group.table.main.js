@@ -99,7 +99,7 @@ function CIRCLEStoolsGROUPTABLEmain( _base_id, _move )
   		    handles: 'e, w',
   				start: function( event, ui ) { CIRCLEStoolsGROUPTABLEstartresize( ui.size.width, ui.size.height ) },
   	      resize: function( event, ui ) { CIRCLEStoolsGROUPTABLEresize( ui.size.width, ui.size.height ); },
-  	      stop: function( event, ui )   { CIRCLEStoolsGROUPTABLEstopresize( ui.size.width, ui.size.height ) }
+  	      stop: function( event, ui ) { CIRCLEStoolsGROUPTABLEstopresize( ui.size.width, ui.size.height ) }
       } );
       else
       {
@@ -112,7 +112,7 @@ function CIRCLEStoolsGROUPTABLEmain( _base_id, _move )
   		    handles: 'e, w',
   				start: function( event, ui ) { CIRCLEStoolsGROUPTABLEstartresize( ui.size.width, ui.size.height ) },
   	      resize: function( event, ui ) { CIRCLEStoolsGROUPTABLEresize( ui.size.width, ui.size.height ); },
-  	      stop: function( event, ui )   { CIRCLEStoolsGROUPTABLEstopresize( ui.size.width, ui.size.height ) }
+  	      stop: function( event, ui ) { CIRCLEStoolsGROUPTABLEstopresize( ui.size.width, ui.size.height ) }
         } );
       }
       $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });

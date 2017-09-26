@@ -33,14 +33,14 @@ function circles_lib_count_items( _items_array, _safe_count )
   return ( _test && _safe_count ) ? safe_size( _items_array, 0 ) : _cnt ;
 }
 
-function circles_lib_count_gens_set_model()   { return safe_size( _glob_gens_set_model_array, 0 ); }
+function circles_lib_count_gens_set_model() { return safe_size( _glob_gens_set_model_array, 0 ); }
 function circles_lib_count_rnd_probabilities(){ return safe_size( _glob_rnd_probability_array, 0 ); }
-function circles_lib_count_repetends()        { return safe_size( _glob_repetends_array, 0 ); }
+function circles_lib_count_repetends() { return safe_size( _glob_repetends_array, 0 ); }
 function circles_lib_count_fixed_points() { return safe_size( _glob_input_fixed_pts_array, 0 ); }
 function circles_lib_count_figures() { return safe_size( _glob_figures_array, 0 ); }
 function circles_lib_count_alphabet() { return safe_size( _glob_alphabet, 0 ); }
 function circles_lib_count_palette() { return safe_size( _glob_palette_array, 0 ); }
-function circles_lib_count_dict() 				    {	return is_array( _glob_original_dict ) ? _glob_original_dict.size_recursive() : 0 ; }
+function circles_lib_count_dict() {	return is_array( _glob_original_dict ) ? _glob_original_dict.size_recursive() : 0 ; }
 
 // OUTPUT SELECTOR FNS
 function circles_lib_samples_load( i, _silent )

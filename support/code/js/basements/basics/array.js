@@ -16,7 +16,7 @@ if ( !Array.flush ) { Array.prototype.flush = function() { while( this.length > 
 if ( !Array.has_duplicates ) { Array.prototype.has_duplicates = function() { return this.length != this.unique().length ? 1 : 0 ; } }
 if ( !Array.left ) { Array.prototype.left = function( n )  { return this.subset( n ); } }
 if ( !Array.trunc ) { Array.prototype.trunc = function( n ) { return this.left( n ); } }
-if ( !Array.from_to )        { Array.prototype.from_to = function( _from_index, _to_index ) { return arguments.length == 1 ? this.slice( _from_index, this.length ) : this.slice( _from_index, _to_index + 1 ); } }
+if ( !Array.from_to ) { Array.prototype.from_to = function( _from_index, _to_index ) { return arguments.length == 1 ? this.slice( _from_index, this.length ) : this.slice( _from_index, _to_index + 1 ); } }
 if ( !Array.get_first ) { Array.prototype.get_first = function() { return this.length > 0 ? this[0] : null ; } }
 if ( !Array.get_last )       { Array.prototype.get_last = function() { return this.length > 0 ? this[ this.length - 1 ] : null ; } }
 if ( !Array.pop_first ) { Array.prototype.pop_first = function() { var _out = this[0] ; this.slice( 1, this.length - 1 ) ; return _out ; } }

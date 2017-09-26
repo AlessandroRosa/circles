@@ -159,15 +159,15 @@ dictionary.prototype.stop = function()                		 { this.running = 0 ; }
 dictionary.prototype.start = function()                		 { this.running = 1 ; }
 dictionary.prototype.add_word = function( w )              { this.dictionary_array.push( w ); }
 dictionary.prototype.get_word = function( i )              { return this.dictionary_array[i] ; }
-dictionary.prototype.set_repetition = function( r )        { this.repetition = r ; }
+dictionary.prototype.set_repetition = function( r ) { this.repetition = r ; }
 dictionary.prototype.get_repetition = function() { return this.repetition ; }
 dictionary.prototype.put_dictionary = function( _dict )    { if ( is_array( _dict ) ) this.sliced_dictionary = _dict.clone(); }
 dictionary.prototype.get_dictionary = function() { return this.sliced_dictionary.clone(); }
 dictionary.prototype.set_process = function( p ) { this.process = safe_int( p, _DICTIONARY_NONE_PROCESS ) ; }
 dictionary.prototype.get_process = function()              { return this.process ; }
-dictionary.prototype.set_word_type = function( wt )        { this.word_type = wt ; }
+dictionary.prototype.set_word_type = function( wt ) { this.word_type = wt ; }
 dictionary.prototype.get_word_type = function()            { return this.word_type ; }
-dictionary.prototype.set_max_depth = function( _d )        { this.max_depth = Math.max( 0, safe_int( _d, 0 ) ) ; }
+dictionary.prototype.set_max_depth = function( _d ) { this.max_depth = Math.max( 0, safe_int( _d, 0 ) ) ; }
 dictionary.prototype.get_max_depth = function()            { return this.max_depth ; }
 dictionary.prototype.get_crash_words = function() { return this.crash_words_array.clone(); }
 dictionary.prototype.set_crash_words = function( _cs_array )
@@ -179,7 +179,7 @@ dictionary.prototype.set_crash_words = function( _cs_array )
 dictionary.prototype.set_construction_mode = function( cm ) { this.construction_mode = cm ; }
 dictionary.prototype.get_construction_mode = function() { return this.construction_mode ; }
 dictionary.prototype.get_dictionary = function()             { return this.dictionary_array.clone(); }
-dictionary.prototype.get_dictionary_size = function()        { return this.dictionary_array.length ; }
+dictionary.prototype.get_dictionary_size = function() { return this.dictionary_array.length ; }
 dictionary.prototype.get_alphabet = function()               { return this.alphabet.clone(); }
 dictionary.prototype.set_alphabet = function( _alphabet, _compute_inv_symbol )
 {
@@ -223,7 +223,7 @@ dictionary.prototype.alphabet_check = function( _word )
     }
 }
 
-dictionary.prototype.flush_crash_words = function()   { this.crash_words_array = [] ; }
+dictionary.prototype.flush_crash_words = function() { this.crash_words_array = [] ; }
 dictionary.prototype.add_crash_word = function( _crash_word )
 {
     if ( is_string( _crash_word ) )

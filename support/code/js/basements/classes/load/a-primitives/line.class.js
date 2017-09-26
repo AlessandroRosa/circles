@@ -76,12 +76,12 @@ line.prototype.set_coords = function( startX, startY, endX, endY, linewidth, dra
 }
 
 line.prototype.set_start_pt = function( _pt ) { if ( is_point( _pt ) ) { this.start_pt.x = _pt.x, this.start_pt.y = _pt.y ; } }
-line.prototype.set_end_pt = function( _pt )   { if ( is_point( _pt ) ) { this.end_pt.x = _pt.x, this.end_pt.y = _pt.y ; } }
+line.prototype.set_end_pt = function( _pt ) { if ( is_point( _pt ) ) { this.end_pt.x = _pt.x, this.end_pt.y = _pt.y ; } }
 line.prototype.get_start_pt = function() { return this.start_pt ; }
-line.prototype.get_end_pt = function()   { return this.end_pt ; }
+line.prototype.get_end_pt = function() { return this.end_pt ; }
 line.prototype.get_both_end_pts = function() { return [ this.start_pt, this.end_pt ]; }
 line.prototype.get_error = function() { return this.error ; }
-line.prototype.copy = function()   { return new line( this.start_pt.x, this.start_pt.y, this.end_pt.x, this.end_pt.y, this.linewidth, this.drawcolor ); }
+line.prototype.copy = function() { return new line( this.start_pt.x, this.start_pt.y, this.end_pt.x, this.end_pt.y, this.linewidth, this.drawcolor ); }
 line.prototype.is_parallel_to = function() { return !this.intersect_test.apply( this, arguments ) ; }
 line.prototype.is_equal_to = function( L2 ) { return is_line( L2 ) ? ( ( this.start_pt.is_equal_to( L2.start_pt ) && this.end_pt.is_equal_to( L2.end_pt ) ) ? 1 : 0 ) : 0 ; }
 line.prototype.roundTo = function( _round_digits )

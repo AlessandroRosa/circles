@@ -84,7 +84,7 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
     {
       start: function( event, ui ) { CIRCLESformsAUTOMATONstartresize( ui.size.width, ui.size.height ) },
       resize: function( event, ui ) { CIRCLESformsAUTOMATONresize( ui.size.width, ui.size.height ); },
-      stop: function( event, ui )   { CIRCLESformsAUTOMATONstopresize( ui.size.width, ui.size.height ) }
+      stop: function( event, ui ) { CIRCLESformsAUTOMATONstopresize( ui.size.width, ui.size.height ) }
     } );
     else
     {

@@ -55,7 +55,7 @@ var _ALERT_RESET_PROPS = { text_fontsize : ALERT_TEXT_FONTSIZE,
 
 function alert_get_btns_width() { return ALERT_BTN_WIDTH ; }
 function alert_get_btns_height() { return ALERT_BTN_HEIGHT ; }
-function alert_get_value()   { return ALERT_RET_VALUE ; }
+function alert_get_value() { return ALERT_RET_VALUE ; }
 function alert_set_btns_width( _w ) { ALERT_BTN_WIDTH = ( _w == null || _w == "undefined" ) ? "auto" : ( _w + "" ).replaceAll( [ "px", "pt" ], "" ) ; }
 function alert_set_btns_height( _h ) { ALERT_BTN_HEIGHT = ( _h == null || _h == "undefined" ) ? "auto" : ( _h + "" ).replaceAll( [ "px", "pt" ], "" ) ; }
 function alert_set_imgfolder_path( path ) { ALERT_IMGFOLDER_PATH = path ; }

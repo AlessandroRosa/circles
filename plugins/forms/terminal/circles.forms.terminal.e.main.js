@@ -106,7 +106,7 @@ function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _te
       {
          start: function( event, ui ) { CIRCLESformsTERMINALstartresize( ui.size.width, ui.size.height ) },
          resize: function( event, ui ) { CIRCLESformsTERMINALresize( ui.size.width, ui.size.height, _suffix, OUTPUT_SCREEN ); },
-         stop: function( event, ui )   { CIRCLESformsTERMINALstopresize( ui.size.width, ui.size.height ) }
+         stop: function( event, ui ) { CIRCLESformsTERMINALstopresize( ui.size.width, ui.size.height ) }
       } );
       else
       {
@@ -114,7 +114,7 @@ function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _te
         {
            start: function( event, ui ) { CIRCLESformsTERMINALstartresize( ui.size.width, ui.size.height ) },
            resize: function( event, ui ) { CIRCLESformsTERMINALresize( ui.size.width, ui.size.height, _suffix, OUTPUT_SCREEN ); },
-           stop: function( event, ui )   { CIRCLESformsTERMINALstopresize( ui.size.width, ui.size.height ) }
+           stop: function( event, ui ) { CIRCLESformsTERMINALstopresize( ui.size.width, ui.size.height ) }
         } );
       }
       $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });

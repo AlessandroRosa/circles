@@ -102,7 +102,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONmain( _base_id, _move )
       {
 	      start: function( event, ui ) { CIRCLEStoolsFUNDAMENTALREGIONstartresize( ui.size.width, ui.size.height ) },
 	      resize: function( event, ui ) { CIRCLEStoolsFUNDAMENTALREGIONresize( ui.size.width, ui.size.height ); },
-	      stop: function( event, ui )   { CIRCLEStoolsFUNDAMENTALREGIONstopresize( ui.size.width, ui.size.height ) }
+	      stop: function( event, ui ) { CIRCLEStoolsFUNDAMENTALREGIONstopresize( ui.size.width, ui.size.height ) }
       } );
       else
       {
@@ -110,7 +110,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONmain( _base_id, _move )
         {
   	      start: function( event, ui ) { CIRCLEStoolsFUNDAMENTALREGIONstartresize( ui.size.width, ui.size.height ) },
   	      resize: function( event, ui ) { CIRCLEStoolsFUNDAMENTALREGIONresize( ui.size.width, ui.size.height ); },
-  	      stop: function( event, ui )   { CIRCLEStoolsFUNDAMENTALREGIONstopresize( ui.size.width, ui.size.height ) }
+  	      stop: function( event, ui ) { CIRCLEStoolsFUNDAMENTALREGIONstopresize( ui.size.width, ui.size.height ) }
         } );
       }
       $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });

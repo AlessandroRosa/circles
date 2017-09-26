@@ -16,10 +16,17 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
   (Remove each entry after completing the checkings)
 
 * FORMS
+method
+> as one switches from 'input points' tab to 'Random IFS table',
+  the probability table is displayed in its entirety.
+> inserire un flag : display statistics table after rendering
+  (why does method form close ?)
+> statistics after rendering display seeds not gens
+  
+
 dictionary
 eps.editor
 geometric.transform
-method
 script.editor
 svg.editor
 terminal

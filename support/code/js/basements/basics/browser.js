@@ -22,6 +22,6 @@ function isCHROME()
              navUSERAGENT.indexOf( "chrome" ) == -1 ) ? 0 : 1 ;
 }
 
-function getBROWSER()   { return navigator.appName.toLowerCase() ;   }
+function getBROWSER() { return navigator.appName.toLowerCase() ;   }
 function getUSERAGENT() { return navigator.userAgent.toLowerCase() ; }
 function getPLATFORM()  { return navigator.platform.toLowerCase() ;  }
