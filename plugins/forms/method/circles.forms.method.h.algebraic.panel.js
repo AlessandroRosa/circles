@@ -122,7 +122,7 @@ function CIRCLESformsMETHODmanagerALGEBRAICpanelBUILD( _new_method, caller_fn, W
       HTMLcode += "</div>" ;
 
       HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:"+(WIDTH-20)+"px;\" VALIGN=\"top\" ID=\"CIRCLESMETHOD_TAB_03\">" ;
-      HTMLcode += "<h2>Random table</h2>" ;
+      HTMLcode += "<h2>Random IFS table</h2>" ;
       HTMLcode += "<table WIDTH=\"100%\">" ;
       HTMLcode += "<tr>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;

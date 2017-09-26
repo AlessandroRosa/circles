@@ -38,19 +38,28 @@ var ALERT_ERROR = 8192 ;
 var ALERT_HALT = 16384 ;
 
 var ALERT_RET_VALUE = 0 ;
-
-var ALERT_FONTSIZE = 8 ;
-var ALERT_DEFAULT_WIDTH = 460 ;
-var ALERT_DEFAULT_ZINDEX = 4000 ;
-var ALERT_BTNS_WIDTH = "auto" ;
-var ALERT_DEFAULT_BTNS_HEIGHT = "26" ;
 var ALERT_CURRENT_DISPLAY_FLAG = 0 ;
 
-function alert_get_btns_width() { return ALERT_BTNS_WIDTH ; }
-function alert_get_value()   { return ALERT_RET_VALUE ; }
-function alert_set_btns_width( _w ) { ALERT_BTNS_WIDTH = ( _w == null || _w == "undefined" ) ? "auto" : ( _w + "" ).replaceAll( [ "px", "pt" ], "" ) ; }
+var ALERT_TEXT_FONTSIZE = 8 ;
+var ALERT_BTN_FONTSIZE = 8 ;
+var ALERT_DEFAULT_WIDTH = 460 ;
+var ALERT_DEFAULT_ZINDEX = 4000 ;
+var ALERT_BTN_WIDTH = "auto" ;
+var ALERT_BTN_HEIGHT = "26" ;
 
+var _ALERT_RESET_PROPS = { text_fontsize : ALERT_TEXT_FONTSIZE,
+                           btn_fontsize : ALERT_BTN_FONTSIZE,
+                           default_w : ALERT_DEFAULT_WIDTH,
+                           default_zindex : ALERT_DEFAULT_ZINDEX,
+                           btn_w : ALERT_BTN_WIDTH, btn_h : ALERT_BTN_HEIGHT } ;
+
+function alert_get_btns_width() { return ALERT_BTN_WIDTH ; }
+function alert_get_btns_height() { return ALERT_BTN_HEIGHT ; }
+function alert_get_value()   { return ALERT_RET_VALUE ; }
+function alert_set_btns_width( _w ) { ALERT_BTN_WIDTH = ( _w == null || _w == "undefined" ) ? "auto" : ( _w + "" ).replaceAll( [ "px", "pt" ], "" ) ; }
+function alert_set_btns_height( _h ) { ALERT_BTN_HEIGHT = ( _h == null || _h == "undefined" ) ? "auto" : ( _h + "" ).replaceAll( [ "px", "pt" ], "" ) ; }
 function alert_set_imgfolder_path( path ) { ALERT_IMGFOLDER_PATH = path ; }
+function alert_set_fontsize( fntsize ) { ALERT_BTN_FONTSIZE = fntsize ; }
 
 function alert_plug_label( labelid, label )
 {
@@ -121,7 +130,7 @@ function alert_reset_fn()
     ALERT_YESNO_FN = "" ;
     ALERT_YESNOCANCEL_FN = "" ;
     ALERT_OKCANCEL_FN = "" ;
-    ALERT_BTNS_WIDTH = "auto" ;
+    ALERT_BTN_WIDTH = "auto" ;
 }
 
 function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth, TOP )
@@ -135,7 +144,7 @@ function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth,
     mode = safe_int( mode, ALERT_SUCCESS );
     candidateW = safe_int( candidateW, 0 ), candidateH = safe_int( candidateH, 0 );
       
-    ALERT_FONTSIZE = $(window).width() > 1100 ? 13 : 8 ;
+    ALERT_TEXT_FONTSIZE = $(window).width() > 1100 ? 13 : 8 ;
     ALERT_DEFAULT_WIDTH = $(window).width() > 1100 ? 520 : 420 ;
     var W = candidateW > 0 ? candidateW : ALERT_DEFAULT_WIDTH, H = ( candidateH > 0 ) ? candidateH : "auto" ;
     if ( is_string( MSG ) )
@@ -202,12 +211,12 @@ function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth,
     }
     else HTMLcode += "<td COLSPAN=\"2\" WIDTH=\"0\"></td>" ;
 
-    if ( H == "auto" ) HTMLcode += "<td VALIGN=\"top\" STYLE=\"font-size:"+safe_int(ALERT_FONTSIZE,8)+"pt;\">"+MSG+"</td>" ;
+    if ( H == "auto" ) HTMLcode += "<td VALIGN=\"top\" STYLE=\"font-size:"+safe_int(ALERT_TEXT_FONTSIZE,8)+"pt;\">"+MSG+"</td>" ;
     else
     {
         var CONTENTS_WIDTH = W - ICONWIDTH - 12 ;
         HTMLcode += "<td VALIGN=\"top\" WIDTH=\""+CONTENTS_WIDTH+"\" HEIGHT=\""+( ( H == "auto" ) ? H : ( H - EXTRAheight ) )+"\">" ;
-        HTMLcode += "<DIV STYLE=\"position:relative;font-size:"+safe_int(ALERT_FONTSIZE,8)+"pt;width:"+( CONTENTS_WIDTH > 0 ? CONTENTS_WIDTH + "px" : "98%" )+";height:"+( ( H - EXTRAheight ) + "px" )+";overflow:auto;padding:2px;\">"+MSG+"</DIV>" ;
+        HTMLcode += "<DIV STYLE=\"position:relative;font-size:"+safe_int(ALERT_TEXT_FONTSIZE,8)+"pt;width:"+( CONTENTS_WIDTH > 0 ? CONTENTS_WIDTH + "px" : "98%" )+";height:"+( ( H - EXTRAheight ) + "px" )+";overflow:auto;padding:2px;\">"+MSG+"</DIV>" ;
         HTMLcode += "</td>" ;
     }
           
@@ -232,35 +241,35 @@ function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth,
        ICONindex = ( ICONindex < 10 ) ? "0" + ICONindex : ICONindex ;
 
        ALERTICON = "<IMG SRC=\"%imgpath%icons/bad/bad."+ICONindex+"."+ALERTiconSIZE+".png\">" ;
-       ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_ERROR;"+ALERT_OK_FN+";\"></td></tr>" ;
+       ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_ERROR;"+ALERT_OK_FN+";\"></td></tr>" ;
     }
     else if ( mode & ALERT_HALT )
     {
        if ( ALERT_OK_FN.length == 0 ) ALERT_OK_FN += "alertCLOSE();" ;
 
        ALERTICON = "<IMG SRC=\"%imgpath%icons/halt/halt.icon.01."+ALERTiconSIZE+".png\">" ;
-       ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_HALT;"+ALERT_OK_FN+";\"></td></tr>" ;
+       ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_HALT;"+ALERT_OK_FN+";\"></td></tr>" ;
     }
     else if ( mode & ALERT_CRITICAL )
     {
        if ( ALERT_OK_FN.length == 0 ) ALERT_OK_FN += "alertCLOSE();" ;
 
        ALERTICON = "<IMG SRC=\"%imgpath%icons/stop/stop.icon."+ALERTiconSIZE+".png\">" ;
-       ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_CRITICAL;"+ALERT_OK_FN+";\"></td></tr>" ;
+       ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_CRITICAL;"+ALERT_OK_FN+";\"></td></tr>" ;
     }
     else if ( mode & ALERT_HELP )
     {
        if ( ALERT_OK_FN.length == 0 ) ALERT_OK_FN += "alertCLOSE();" ;
 
        ALERTICON = "<IMG SRC=\"%imgpath%icons/help/help.icon.01."+ALERTiconSIZE+".png\">" ;
-       ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_HELP;"+ALERT_OK_FN+";\"></td></tr>" ;
+       ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_HELP;"+ALERT_OK_FN+";\"></td></tr>" ;
     }
     else if ( mode & ALERT_INFO )
     {
        if ( ALERT_OK_FN.length == 0 ) ALERT_OK_FN += "alertCLOSE();" ;
 
        ALERTICON = "<IMG SRC=\"%imgpath%icons/info/info.icon.01."+ALERTiconSIZE+".png\">" ;
-       ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_INFO;"+ALERT_OK_FN+";\"></td></tr>" ;
+       ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_INFO;"+ALERT_OK_FN+";\"></td></tr>" ;
     }
     else
     {
@@ -272,14 +281,14 @@ function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth,
            {
                var ALERTiconSIZE = "64x64" ;
                ALERTICON = "<IMG SRC=\"%imgpath%icons/exclamation/exclamation.01.icon."+ALERTiconSIZE+".png\">" ;
-               ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_WARNING;"+ALERT_OK_FN+";\"></td></tr>" ;
+               ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\"Close\" STYLE=\"width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_WARNING;"+ALERT_OK_FN+";\"></td></tr>" ;
            }
            else if ( mode & ALERT_SUCCESS )
            {
                var ICONindex = randomFromTo( 2, 3 ) ;
                ICONindex = ( ICONindex < 10 ) ? "0" + ICONindex : ICONindex ;
                ALERTICON = "<IMG SRC=\"%imgpath%icons/ok/ok."+ICONindex+"."+ALERTiconSIZE+".png\">" ;
-               ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\""+ALERT_OK_LABEL+"\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_OK;"+ALERT_OK_FN+";\"></td></tr>" ;
+               ALERTBTNS = "<tr><td ALIGN=\"center\"><INPUT ID=\"alertDEFAULTbtn\" ALIGN=\"center\" TYPE=\"button\" CLASS=\"alert_btn\" VALUE=\""+ALERT_OK_LABEL+"\" STYLE=\"width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_OK;"+ALERT_OK_FN+";\"></td></tr>" ;
            }
                   
            if ( mode & ALERT_NOBUTTON ) ALERTBTNS = "" ;
@@ -296,33 +305,33 @@ function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth,
     if ( mode & ALERT_YESNO )
     {
        ALERTBTNS = "<tr>" ;
-       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_YES_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertYESbtn\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_YES;"+( ( ALERT_YES_FN.length > 0 ) ? ALERT_YES_FN + ";" : "" )+"\"></td>" ;
+       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_YES_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertYESbtn\" STYLE=\"font-size:"+ALERT_BTN_FONTSIZE+";width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_YES;"+( ALERT_YES_FN.length > 0 ? ALERT_YES_FN + ";" : "" )+"\"></td>" ;
        ALERTBTNS += "<td WIDTH=\"40\"></td>" ;
-       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_NO_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertNObtn\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_NO;"+( ( ALERT_NO_FN.length > 0 ) ? ALERT_NO_FN + ";" : "" )+"\"></td>" ;
+       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_NO_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertNObtn\" STYLE=\"font-size:"+ALERT_BTN_FONTSIZE+";width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_NO;"+( ( ALERT_NO_FN.length > 0 ) ? ALERT_NO_FN + ";" : "" )+"\"></td>" ;
        ALERTBTNS += "</tr>" ;
     }
     else if ( mode & ALERT_YESNOCANCEL )
     {
        ALERTBTNS = "<tr>" ;
-       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_YES_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertYESbtn\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_YES;"+( ( ALERT_YES_FN.length > 0 ) ? ALERT_YES_FN + ";" : "" )+"\"></td>" ;
+       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_YES_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertYESbtn\" STYLE=\"font-size:"+ALERT_BTN_FONTSIZE+";width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_YES;"+( ALERT_YES_FN.length > 0 ? ALERT_YES_FN + ";" : "" )+"\"></td>" ;
        ALERTBTNS += "<td WIDTH=\"40\"></td>" ;
-       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_NO_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertNObtn\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_NO;"+( ( ALERT_NO_FN.length > 0 ) ? ALERT_NO_FN + ";" : "" )+"\"></td>" ;
+       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_NO_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertNObtn\" STYLE=\"font-size:"+ALERT_BTN_FONTSIZE+";width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_NO;"+( ( ALERT_NO_FN.length > 0 ) ? ALERT_NO_FN + ";" : "" )+"\"></td>" ;
        ALERTBTNS += "<td WIDTH=\"40\"></td>" ;
-       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_CANCEL_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertCANCELbtn\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_CANCEL;"+( ( ALERT_CANCEL_FN.length > 0 ) ? ALERT_CANCEL_FN + ";" : "" )+"\"></td>" ;
+       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_CANCEL_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertCANCELbtn\" STYLE=\"font-size:"+ALERT_BTN_FONTSIZE+";width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=ALERT_CANCEL;"+( ALERT_CANCEL_FN.length > 0 ? ALERT_CANCEL_FN + ";" : "" )+"\"></td>" ;
        ALERTBTNS += "</tr>" ;
     }
     else if ( mode & ALERT_OKCANCEL )
     {
        ALERTBTNS = "<tr>" ;
-       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_OK_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertOKbtn\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=1;"+ALERT_OK_FN+";\"></td>" ;
+       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_OK_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertOKbtn\" STYLE=\"font-size:"+ALERT_BTN_FONTSIZE+";width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=1;"+ALERT_OK_FN+";\"></td>" ;
        ALERTBTNS += "<td WIDTH=\"40\"></td>" ;
-       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_CANCEL_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertDEFAULTbtn\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=-1;"+( ( ALERT_CANCEL_FN.length > 0 ) ? ALERT_CANCEL_FN + ";" : "" )+"\"></td>" ;
+       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_CANCEL_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertDEFAULTbtn\" STYLE=\"font-size:"+ALERT_BTN_FONTSIZE+";width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=-1;"+( ALERT_CANCEL_FN.length > 0 ? ALERT_CANCEL_FN + ";" : "" )+"\"></td>" ;
        ALERTBTNS += "</tr>" ;
     }
     else
     {
        ALERTBTNS = "<tr>" ;
-       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_OK_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertDEFAULTbtn\" STYLE=\"width:"+ALERT_BTNS_WIDTH+"px;height:"+ALERT_DEFAULT_BTNS_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=1;"+( ( ALERT_OK_FN.length > 0 ) ? ALERT_OK_FN + ";" : "" )+"\"></td>" ;
+       ALERTBTNS += "<td ALIGN=\"center\"><INPUT VALUE=\""+ALERT_OK_LABEL+"\" TYPE=\"button\" CLASS=\"alert_btn\" ID=\"alertDEFAULTbtn\" STYLE=\"font-size:"+ALERT_BTN_FONTSIZE+";width:"+ALERT_BTN_WIDTH+"px;height:"+ALERT_BTN_HEIGHT+"px;\" ONCLICK=\"javascript:ALERT_RET_VALUE=1;"+( ALERT_OK_FN.length > 0 ? ALERT_OK_FN + ";" : "" )+"\"></td>" ;
        ALERTBTNS += "</tr>" ;
     }
           
@@ -341,6 +350,14 @@ function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth,
     else if ( mode & ALERT_YESNO && $( "#alertYESbtn" ).get(0) != null ) alertBTNfocus( "YES" ) ;
     else if ( mode & ALERT_YESNOCANCEL && $( "#alertYESbtn" ).get(0) != null ) alertBTNfocus( "YES" ) ;
     else if ( mode & ALERT_OKCANCEL && $( "#alertOKbtn" ).get(0) != null ) alertBTNfocus( "OK" ) ;
+
+    //reset to default properties
+    ALERT_TEXT_FONTSIZE = _ALERT_RESET_PROPS.text_fontsize ;
+    ALERT_BTN_FONTSIZE = _ALERT_RESET_PROPS.btn_fontsize ;
+    ALERT_DEFAULT_WIDTH = _ALERT_RESET_PROPS.default_w ;
+    ALERT_DEFAULT_ZINDEX = _ALERT_RESET_PROPS.default_zindex ;
+    ALERT_BTN_WIDTH = _ALERT_RESET_PROPS.btn_w ;
+    ALERT_BTN_HEIGHT = _ALERT_RESET_PROPS.btn_h ;
 }
 
 function alertBTNfocus( BTN_ID )

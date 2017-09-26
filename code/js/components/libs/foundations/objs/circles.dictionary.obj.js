@@ -11,7 +11,6 @@ if ( typeof UNDEF !== "number" ) var UNDEF = -1 ;
 
 if ( typeof is_array != "function" ) function is_array( _a ) { return _a instanceof Array ? 1 : 0 ; }
 if ( typeof is_string != "function" ) { function is_string( _obj ) { return ( typeof _obj == "string" || _obj instanceof String ) ; } }
-
 if ( typeof safe_int != "function" )
 {
     function safe_int( _val, _set_if_nan )

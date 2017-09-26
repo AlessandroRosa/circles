@@ -16,8 +16,8 @@ function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _call
 				}
 				else _tab_index = safe_int( _tab_index, 0 );
 		}
-		else _tab_index = safe_int( _tab_index, 0 );
-
+    else if ( !is_number( _tab_index ) ) _tab_index = safe_int( _tab_index, 0 );
+console.log( arguments.callee.caller );
     CIRCLESformsMETHODbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES );
     _new_method = safe_int( _new_method, METHOD_NONE );

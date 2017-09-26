@@ -67,7 +67,7 @@ function CIRCLESmethodMANAGERrandomtableCOMBOsave()
     {
         _glob_random_table_store.push( _pack );
         var _ret = CIRCLESmethodMANAGERrandomtableCOMBOcreate();
-				circles_lib_output( OUTPUT_SPECIAL_FX, _ret ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret ? "Random table saved with success" : "Can't save: current random table is empty", 'PROCESSrandomPROBABILITYoutput' ) ;
+				circles_lib_output( OUTPUT_SPECIAL_FX, _ret ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret ? "Random IFS table saved with success" : "Can't save: current random table is empty", 'PROCESSrandomPROBABILITYoutput' ) ;
     }
     else if ( _glob_rnd_probability_array.length == 0 )
 		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't save: current random table is empty", 'PROCESSrandomPROBABILITYoutput' ) ;
