@@ -144,7 +144,7 @@ function CIRCLESformsBIPmain( _base_id, _move )
    CIRCLESformsBIPcoordsMANAGER( _glob_bip_original_plane_coords );
           
    tabberAutomatic( CIRCLESBIPtabberOptions, "CIRCLESBIP" );
-   clrtable.setHANDLERonselectcolor( function() { CIRCLESformsBIPcolorBTNS( YES ); } );
+   clrtable.setHANDLERonselectcolor( function() { CIRCLESformsBIPcolorBTNS(YES); } );
 }
 
 function CIRCLESbipFORMtabMAINhtml( _show_entries_array, _return_html )
@@ -165,7 +165,7 @@ function CIRCLESbipFORMtabMAINhtml( _show_entries_array, _return_html )
 	   HTMLcode += "<td WIDTH=\"5\"></td>" ;
 	   HTMLcode += "<td>Activate Batch Image Processing</td>" ;
 	   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-	   HTMLcode += "<td><INPUT TYPE=\"checkbox\" "+( _glob_bip_use ? "CHECKED" : "" )+" ONCLICK=\"javascript:_glob_bip_use=(this.checked)?YES:NO;circles_lib_bip_activate(_glob_bip_use);CIRCLESformsBIPbuttons(_glob_bip_use);CIRCLESformsBIPcolorBTNS( YES );\"></td>" ;
+	   HTMLcode += "<td><INPUT TYPE=\"checkbox\" "+( _glob_bip_use ? "CHECKED" : "" )+" ONCLICK=\"javascript:_glob_bip_use=(this.checked)?YES:NO;circles_lib_bip_activate(_glob_bip_use);CIRCLESformsBIPbuttons(_glob_bip_use);CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
 	   HTMLcode += "</tr>" ;
 	   HTMLcode += "</table>" ;
 	   HTMLcode += "</td>" ;
@@ -182,15 +182,15 @@ function CIRCLESbipFORMtabMAINhtml( _show_entries_array, _return_html )
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
 	   HTMLcode += "<td WIDTH=\"120\">Pick up data from</td>" ;
 	   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-	   HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_data == Z_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESapplytoRADIO\" ID=\"CIRCLESapplytoRADIO_01\" ONCLICK=\"javascript:_glob_bip_original_plane_data = Z_PLANE;CIRCLESformsBIPcolorBTNS( YES );\"></td>" ;
+	   HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_data == Z_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESapplytoRADIO\" ID=\"CIRCLESapplytoRADIO_01\" ONCLICK=\"javascript:_glob_bip_original_plane_data = Z_PLANE;CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
 	   HTMLcode += "<td WIDTH=\"5\"></td>" ;
 	   HTMLcode += "<td>Z-plane</td>" ;
 	   HTMLcode += "<td WIDTH=\"15\"></td>" ;
-	   HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_data == W_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESapplytoRADIO\" ID=\"CIRCLESapplytoRADIO_02\" ONCLICK=\"javascript:_glob_bip_original_plane_data = W_PLANE;CIRCLESformsBIPcolorBTNS( YES );\"></td>" ;
+	   HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_data == W_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESapplytoRADIO\" ID=\"CIRCLESapplytoRADIO_02\" ONCLICK=\"javascript:_glob_bip_original_plane_data = W_PLANE;CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
 	   HTMLcode += "<td WIDTH=\"5\"></td>" ;
 	   HTMLcode += "<td>W-plane</td>" ;
      HTMLcode += "<td WIDTH=\"15\"></td>" ;
-     HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_data == D_LOCUS ? "CHECKED" : "" )+" NAME=\"CIRCLESdiagramRADIO\" ID=\"CIRCLESapplytoRADIO_03\" ONCLICK=\"javascript:_glob_bip_original_plane_data = D_LOCUS;CIRCLESformsBIPcolorBTNS( YES );\"></td>" ;
+     HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_data == D_LOCUS ? "CHECKED" : "" )+" NAME=\"CIRCLESdiagramRADIO\" ID=\"CIRCLESapplytoRADIO_03\" ONCLICK=\"javascript:_glob_bip_original_plane_data = D_LOCUS;CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
      HTMLcode += "<td>Discreteness locus</td>" ;
 	   HTMLcode += "</tr>" ;
@@ -209,15 +209,15 @@ function CIRCLESbipFORMtabMAINhtml( _show_entries_array, _return_html )
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
      HTMLcode += "<td WIDTH=\"120\">Pick up coords from</td>" ;
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
-     HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_coords == Z_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESdiagramRADIO\" ID=\"CIRCLESdiagramRADIO_01\" ONCLICK=\"javascript:CIRCLESformsBIPcoordsMANAGER(Z_PLANE);CIRCLESformsBIPcolorBTNS( YES );\"></td>" ;
+     HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_coords == Z_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESdiagramRADIO\" ID=\"CIRCLESdiagramRADIO_01\" ONCLICK=\"javascript:CIRCLESformsBIPcoordsMANAGER(Z_PLANE);CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
      HTMLcode += "<td>Z-plane</td>" ;
      HTMLcode += "<td WIDTH=\"15\"></td>" ;
-     HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_coords == W_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESdiagramRADIO\" ID=\"CIRCLESdiagramRADIO_02\" ONCLICK=\"javascript:CIRCLESformsBIPcoordsMANAGER(W_PLANE);CIRCLESformsBIPcolorBTNS( YES );\"></td>" ;
+     HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_coords == W_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESdiagramRADIO\" ID=\"CIRCLESdiagramRADIO_02\" ONCLICK=\"javascript:CIRCLESformsBIPcoordsMANAGER(W_PLANE);CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
      HTMLcode += "<td>W-plane</td>" ;
      HTMLcode += "<td WIDTH=\"15\"></td>" ;
-     HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_coords == BIP_BOX ? "CHECKED" : "" )+" NAME=\"CIRCLESdiagramRADIO\" ID=\"CIRCLESdiagramRADIO_04\" ONCLICK=\"javascript:$('#CIRCLESBIPmainDIV').get(0).tabber.tabShow(1);CIRCLESformsBIPcoordsMANAGER(BIP_BOX);CIRCLESformsBIPcolorBTNS( YES );\"></td>" ;
+     HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_coords == BIP_BOX ? "CHECKED" : "" )+" NAME=\"CIRCLESdiagramRADIO\" ID=\"CIRCLESdiagramRADIO_04\" ONCLICK=\"javascript:$('#CIRCLESBIPmainDIV').get(0).tabber.tabShow(1);CIRCLESformsBIPcoordsMANAGER(BIP_BOX);CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
      HTMLcode += "<td>User-defined</td>" ;
      HTMLcode += "</tr>" ;
@@ -297,19 +297,19 @@ function CIRCLESbipFORMtabPROPERTIEShtml( _properties, _return_html )
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
       HTMLcode += "<td>Shorter side</td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
-      HTMLcode += "<td><INPUT ID=\"BIPcanvasSHORTERSIDEpixels\" TYPE=\"edit\" STYLE=\"text-align:center;width:36px;\" VALUE=\""+_glob_bip_shorterside_pixels+"\" ONKEYUP=\"javascript:CIRCLESformsBIPcolorBTNS( YES );\"></td>" ;
+      HTMLcode += "<td><INPUT ID=\"BIPcanvasSHORTERSIDEpixels\" TYPE=\"edit\" STYLE=\"text-align:center;width:36px;\" VALUE=\""+_glob_bip_shorterside_pixels+"\" ONKEYUP=\"javascript:CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
       HTMLcode += "<td WIDTH=\"15\"></td>" ;
       HTMLcode += "<td>Pixel size</td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
-      HTMLcode += "<td><INPUT ID=\"BIPcanvasPIXELsize\" TYPE=\"edit\" STYLE=\"text-align:center;width:24px;\" VALUE=\""+_glob_bip_pixel_size+"\" ONKEYUP=\"javascript:CIRCLESformsBIPcolorBTNS( YES );_glob_bip_pixel_size=Math.max(1,safe_int(this.value,1));\"></td>" ;
+      HTMLcode += "<td><INPUT ID=\"BIPcanvasPIXELsize\" TYPE=\"edit\" STYLE=\"text-align:center;width:24px;\" VALUE=\""+_glob_bip_pixel_size+"\" ONKEYUP=\"javascript:CIRCLESformsBIPcolorBTNS(YES);_glob_bip_pixel_size=Math.max(1,safe_int(this.value,1));\"></td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsBIPcalculatePIXELside(YES);\">Recalc</td>" ;
       HTMLcode += "<td WIDTH=\"10\"></td>" ;
       HTMLcode += "<td>Grid ticks</td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
-      HTMLcode += "<td><INPUT ID=\"BIPcanvasTICKS\" ONKEYUP=\"javascript:_glob_bip_ticks=safe_int(this.value,DEFAULT_TICKS); if( _glob_bip_ticks <= 0 ){ _glob_bip_ticks = DEFAULT_TICKS;this.value=_glob_bip_ticks;};CIRCLESformsBIPcolorBTNS( YES );\" TYPE=\"edit\" STYLE=\"width:22px;text-align:center;\" VALUE=\""+_glob_bip_ticks+"\"></td>" ;
+      HTMLcode += "<td><INPUT ID=\"BIPcanvasTICKS\" ONKEYUP=\"javascript:_glob_bip_ticks=safe_int(this.value,DEFAULT_TICKS); if( _glob_bip_ticks <= 0 ){ _glob_bip_ticks = DEFAULT_TICKS;this.value=_glob_bip_ticks;};CIRCLESformsBIPcolorBTNS(YES);\" TYPE=\"edit\" STYLE=\"width:22px;text-align:center;\" VALUE=\""+_glob_bip_ticks+"\"></td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
-      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:$('#BIPcanvasTICKS').val(CIRCLESformsBIPticksGEToptimal());CIRCLESformsBIPcolorBTNS( YES );\">Optimize</td>" ;
+      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:$('#BIPcanvasTICKS').val(CIRCLESformsBIPticksGEToptimal());CIRCLESformsBIPcolorBTNS(YES);\">Optimize</td>" ;
       HTMLcode += "</tr>" ;
       HTMLcode += "</table>" ;
       HTMLcode += "</td>" ;
@@ -327,11 +327,11 @@ function CIRCLESbipFORMtabPROPERTIEShtml( _properties, _return_html )
       HTMLcode += "<td WIDTH=\"10\"></td>" ;
       HTMLcode += "<td>X</td>" ;
       HTMLcode += "<td WIDTH=\"2\"></td>" ;
-      HTMLcode += "<td><INPUT ID=\"BIPcanvasCENTERx\" ONKEYUP=\"javascript:_glob_bip_original_plane_coords=BIP_BOX;$('#CIRCLESdiagramRADIO_04').attr('checked',YES);CIRCLESformsBIPcolorBTNS( YES );\" TYPE=\"edit\" STYLE=\"width:130px;\" VALUE=\""+_center_x+"\"></td>" ;
+      HTMLcode += "<td><INPUT ID=\"BIPcanvasCENTERx\" ONKEYUP=\"javascript:_glob_bip_original_plane_coords=BIP_BOX;$('#CIRCLESdiagramRADIO_04').attr('checked',YES);CIRCLESformsBIPcolorBTNS(YES);\" TYPE=\"edit\" STYLE=\"width:130px;\" VALUE=\""+_center_x+"\"></td>" ;
       HTMLcode += "<td WIDTH=\"20\"></td>" ;
       HTMLcode += "<td>Y</td>" ;
       HTMLcode += "<td WIDTH=\"2\"></td>" ;
-      HTMLcode += "<td><INPUT ID=\"BIPcanvasCENTERy\" ONKEYUP=\"javascript:_glob_bip_original_plane_coords=BIP_BOX;$('#CIRCLESdiagramRADIO_04').attr('checked',YES);CIRCLESformsBIPcolorBTNS( YES );\" TYPE=\"edit\" STYLE=\"width:130px;\" VALUE=\""+_center_y+"\"></td>" ;
+      HTMLcode += "<td><INPUT ID=\"BIPcanvasCENTERy\" ONKEYUP=\"javascript:_glob_bip_original_plane_coords=BIP_BOX;$('#CIRCLESdiagramRADIO_04').attr('checked',YES);CIRCLESformsBIPcolorBTNS(YES);\" TYPE=\"edit\" STYLE=\"width:130px;\" VALUE=\""+_center_y+"\"></td>" ;
       HTMLcode += "</tr>" ;
       HTMLcode += "</table>" ;
       HTMLcode += "</td>" ;
@@ -345,11 +345,11 @@ function CIRCLESbipFORMtabPROPERTIEShtml( _properties, _return_html )
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
       HTMLcode += "<td>Width</td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
-      HTMLcode += "<td><INPUT ID=\"BIPcanvasEXTENTx\" ONKEYUP=\"javascript:_glob_bip_original_plane_coords=BIP_BOX;$('#CIRCLESdiagramRADIO_04').attr('checked',YES);CIRCLESformsBIPcolorBTNS( YES );\" TYPE=\"edit\" STYLE=\"width:130px;\" VALUE=\""+_x_extent+"\"></td>" ;
+      HTMLcode += "<td><INPUT ID=\"BIPcanvasEXTENTx\" ONKEYUP=\"javascript:_glob_bip_original_plane_coords=BIP_BOX;$('#CIRCLESdiagramRADIO_04').attr('checked',YES);CIRCLESformsBIPcolorBTNS(YES);\" TYPE=\"edit\" STYLE=\"width:130px;\" VALUE=\""+_x_extent+"\"></td>" ;
       HTMLcode += "<td WIDTH=\"20\"></td>" ;
       HTMLcode += "<td>Height</td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
-      HTMLcode += "<td><INPUT ID=\"BIPcanvasEXTENTy\" ONKEYUP=\"javascript:_glob_bip_original_plane_coords=BIP_BOX;$('#CIRCLESdiagramRADIO_04').attr('checked',YES);CIRCLESformsBIPcolorBTNS( YES );\" TYPE=\"edit\" STYLE=\"width:130px;\" VALUE=\""+_y_extent+"\"></td>" ;
+      HTMLcode += "<td><INPUT ID=\"BIPcanvasEXTENTy\" ONKEYUP=\"javascript:_glob_bip_original_plane_coords=BIP_BOX;$('#CIRCLESdiagramRADIO_04').attr('checked',YES);CIRCLESformsBIPcolorBTNS(YES);\" TYPE=\"edit\" STYLE=\"width:130px;\" VALUE=\""+_y_extent+"\"></td>" ;
       HTMLcode += "</tr>" ;
       HTMLcode += "</table>" ;
       HTMLcode += "</td>" ;

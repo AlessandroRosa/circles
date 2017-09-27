@@ -169,7 +169,7 @@ function circles_lib_canvas_layer_pile_resize_to_default( _set_default_coords, _
                     _h = _plane_type == Z_PLANE ? _panel_left_height : _panel_right_height ;
                     $( "#" + _layer.get_idcanvas() ).get(0).set_width( _w );
                     $( "#" + _layer.get_idcanvas() ).get(0).set_height( _h );
-                    $( "#" + _layer.get_idcanvas() ).get(0).set_visible( YES );
+                    $( "#" + _layer.get_idcanvas() ).get(0).set_visible(YES);
 
                     $( "#" + _layer.get_iddiv() ).width( _w );
                     $( "#" + _layer.get_iddiv() ).height( _h );

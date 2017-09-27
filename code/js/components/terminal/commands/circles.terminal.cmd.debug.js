@@ -84,7 +84,7 @@ function circles_terminal_cmd_debug()
               var _action = _params_assoc_array['action'], _html = _params_assoc_array['html'] ;
               switch( _action.toLowerCase() )
               {
-                  case "clean": CIRCLESformsTERMINALbatchcompilerCLEANdebug( YES ); break ;
+                  case "clean": CIRCLESformsTERMINALbatchcompilerCLEANdebug(YES); break ;
                   case "release":
                   circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;

@@ -201,7 +201,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONstopresize( _new_width, _new_height )
     $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).set_width( _side );
     $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).set_height( _side );
 
-		CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER( YES );
+		CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER(YES);
 }
 
 function CIRCLEStoolsCANVASCOMPOSITIONresize( _new_width, _new_height )
@@ -209,5 +209,5 @@ function CIRCLEStoolsCANVASCOMPOSITIONresize( _new_width, _new_height )
     var _side = Math.min( $("#"+CIRCLEStoolsCANVASCOMPOSITIONdiv_id).width() - 180, $("#"+CIRCLEStoolsCANVASCOMPOSITIONdiv_id).height() - 100 );
     $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).set_width( _side );
     $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).set_height( _side );
-		CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER( YES );
+		CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER(YES);
 }

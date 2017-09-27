@@ -16,7 +16,7 @@ function circles_lib_items_copy_to_storage_space( _item_type, _question, _silent
     
 		var _items_n = circles_lib_count_items( _items_array );
     var _symbol = _item_type == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
-    var _storage_ref = _item_type == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" ;
+    var _storage_ref = _item_type == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
     if ( _items_n > 0 )
     {
        var _q = _item_type == ITEMS_SWITCH_SEEDS ? _QUESTION_18_05 : _QUESTION_18_06 ;
@@ -129,7 +129,7 @@ function circles_lib_items_switch_to( _switch_to_val, _silent, _out_channel )
     else _switch_to_val = safe_int( _switch_to_val, ITEMS_SWITCH_SEEDS );
     if ( !_switch_to_val.is_one_of( ITEMS_SWITCH_SEEDS, ITEMS_SWITCH_GENS ) ) _switch_to_val = ITEMS_SWITCH_SEEDS ;
 
-    _glob_items_switch = safe_int( _switch_to_val, ITEM_NONE );
+    _glob_items_switch = safe_int( _switch_to_val, ITEMS_SWITCH_SEEDS );
     var _zplane_items_desc = circles_lib_items_get_def();
     var _ret_msg = "Switch to "+_zplane_items_desc+" (items)" ;
     if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title + " - Items init" );

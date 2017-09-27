@@ -143,7 +143,7 @@ function circles_terminal_cmd_gensset()
                    else if ( _ret == REPETEND_TEST_ERR_EMPTY_GROUP )
                    {
                        _b_fail = YES ;
-                       _report.push( "The "+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" )+" list is empty, together with the alphabet" );
+                       _report.push( "The "+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" )+" list is empty, together with the alphabet" );
                        _report.push( "You must input the Mobius maps first" );
                        _report.push( "Can't add the input word '"+_gen_symbol+"' to the gens list" );
                    }

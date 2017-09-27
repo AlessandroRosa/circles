@@ -53,7 +53,7 @@ function CIRCLESformsDICTIONARYdispatcher()
                 var _dict_size = _glob_dict_processor.sliced_dict_size();
                 CIRCLESformsDICTIONARYmax_entries_per_page = Math.min( 500, 200 * Math.log10( _dict_size ) );
 	        			_glob_original_dict = _glob_dict_processor.sliced_dict_resize( CIRCLESformsDICTIONARYmax_entries_per_page, YES );
-						    $( "#PAGING_CONTAINER" ).html( CIRCLESformsDICTIONARYpagingPROCESS( 0 ) );
+						    $( "#PAGING_CONTAINER" ).html( CIRCLESformsDICTIONARYpagingPROCESS(0) );
 								CIRCLESformsDICTIONARYdisplayPAGE(0, "");
 								break ;
 		          case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
@@ -69,7 +69,7 @@ function CIRCLESformsDICTIONARYdispatcher()
 							_glob_dict_processor.sliced_dictionary_upper_bound = CIRCLESformsDICTIONARYmax_entries_per_page ;
 							break ;
 							case 4.0:
-	            $("#PAGING_CONTAINER").html( CIRCLESformsDICTIONARYpagingPROCESS( 0 ) );
+	            $("#PAGING_CONTAINER").html( CIRCLESformsDICTIONARYpagingPROCESS(0) );
 							CIRCLESformsDICTIONARYdisplayPAGE(0, "");
 							break ;
 							case 5.0:

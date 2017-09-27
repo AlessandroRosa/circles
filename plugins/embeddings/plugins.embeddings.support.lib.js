@@ -181,7 +181,7 @@ function GLOB_PLUGIN_WIZARD_STEP( _step_index, _init_items, _clean, _target_plan
     else if ( _step_index == 1.1 )
     {
       _glob_alphabet.flush();
-      GLOB_PLUGIN_GENS_SHOW( YES );
+      GLOB_PLUGIN_GENS_SHOW(YES);
       circles_lib_plugin_dispatcher_unicast_message( 'alphabet.colorization', 'tools', POPUP_DISPATCHER_UNICAST_EVENT_UPDATE );
       circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES );
       if ( _init_items )
@@ -200,7 +200,7 @@ function GLOB_PLUGIN_WIZARD_STEP( _step_index, _init_items, _clean, _target_plan
     }
     else if ( _step_index == 2.1 )
     {
-      GLOB_PLUGIN_GENS_SHOW( YES );
+      GLOB_PLUGIN_GENS_SHOW(YES);
       _glob_dict_create = _glob_process == PROCESS_RANDOM ? NO : YES ;
       var _ret_chunk_ask = circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_target_plane,YES,_clean,_init_items);
       var _ret_id = _ret_chunk_ask != null ? safe_int( _ret_chunk_ask[0], 0 ) : 0 ;

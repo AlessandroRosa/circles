@@ -325,7 +325,7 @@ function circles_terminal_cmd_config()
                                   case "items":
                                   _outlabel = "Selected items options" ;
                                   var _out_array = [];
-                                  if ( _glob_items_switch == ITEM_NONE ) _out_array.push( "no options" );
+                                  if ( _glob_items_switch == ITEM_SWITCH_TO_NONE ) _out_array.push( "no options" );
                                   else
                                   {
                                       if ( _glob_items_switch == ITEMS_SWITCH_SEEDS ) _out_array.push( "seeds" );
@@ -664,7 +664,7 @@ function circles_terminal_cmd_config()
                             }
                             else
                             {
-                                _glob_items_switch = ITEM_NONE ;
+                                _glob_items_switch = ITEM_SWITCH_TO_NONE ;
                                 if ( _value.strcmp( "seeds" ) ) _glob_items_switch |= ITEMS_SWITCH_SEEDS ;
                                 else if ( _value.strcmp( "gens" ) ) _glob_items_switch |= ITEMS_SWITCH_GENS ;
   

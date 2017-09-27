@@ -217,16 +217,16 @@ function CIRCLESformsCOORDINATESpresetsCOMBO( _selection, _plane_type, _render, 
         $("#PLANEbottom").val( -1 );
         break ;
         case 3: // Maskit slice
-        $("#PLANEleft").val( 0 );
+        $("#PLANEleft").val(0);
         $("#PLANEright").val( 2 );
         $("#PLANEtop").val( 2 );
-        $("#PLANEbottom").val( 0 );
+        $("#PLANEbottom").val(0);
         break ;
         case 4: // Earle slice
-        $("#PLANEleft").val( 0 );
+        $("#PLANEleft").val(0);
         $("#PLANEright").val( 1 );
         $("#PLANEtop").val( 1 );
-        $("#PLANEbottom").val( 0 );
+        $("#PLANEbottom").val(0);
         break ;
         default: break ;
     }

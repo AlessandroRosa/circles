@@ -77,7 +77,7 @@ function circles_terminal_cmd_doctor()
                 circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 default:
-                var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" ;
+                var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
                 var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Performing doctor's scan on</lightblue> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
 

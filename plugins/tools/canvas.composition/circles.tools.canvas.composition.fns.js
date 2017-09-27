@@ -83,7 +83,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONcompositionDELETE( _question, _silent )
 				CIRCLEStoolsCANVASCOMPOSITIONlayersARRAY = [] ;
 				if ( safe_size( CIRCLEStoolsCANVASCOMPOSITIONlayersARRAY, 0 ) == 0 )
 				{
-						CIRCLEStoolsCANVASCOMPOSITIONcompositionCLEAN( YES ) ;
+						CIRCLEStoolsCANVASCOMPOSITIONcompositionCLEAN(YES) ;
 						CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUupdate();
 				    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Layers composition has been deleted with success", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 				}
@@ -118,7 +118,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUswapup( _silent )
                    _layers_array.swap( _sel_index - 1, _sel_index );
                    CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUupdate();
                    CIRCLEStoolsCANVASCOMPOSITIONcompositionCLEAN( NO ) ;
-                   CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER( YES ) ;
+                   CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER(YES) ;
               }
          }
     }
@@ -142,7 +142,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUswapdown( _silent )
                    _layers_array.swap( _sel_index, _sel_index - 1 );
                    CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUupdate();
                    CIRCLEStoolsCANVASCOMPOSITIONcompositionCLEAN( NO ) ;
-                   CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER( YES ) ;
+                   CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER(YES) ;
               }
          }
     }

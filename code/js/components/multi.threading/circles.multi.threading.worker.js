@@ -133,7 +133,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
        _startINDEX = 0 ;
        circles_lib_progressbar_div_show_element( "PROGRESSbarDIVcloseICON", YES );
        circles_lib_progressbar_div_show_element( "PROGRESSBARdivEXTRAS", YES );
-       circles_lib_progressbar_div_show( YES );
+       circles_lib_progressbar_div_show(YES);
 
        var PROGRESSbarDIVappend = $( "#PROGRESSbarDIVappend" ).get(0);
        var _canvas_w = 0, _canvas_h = 0 ;

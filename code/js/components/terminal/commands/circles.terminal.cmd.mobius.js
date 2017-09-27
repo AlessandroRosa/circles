@@ -196,7 +196,7 @@ function circles_terminal_cmd_mobius()
          var _action = _params_assoc_array['settings']['action'] ;
          var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
 		     var _items_n = circles_lib_count_items( _items_array );
-         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" ;
+         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
          var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
          var _round_to = _params_assoc_array['roundto'] ;
          var _mm = new mobius_map( _params_assoc_array['a'], _params_assoc_array['b'], _params_assoc_array['c'], _params_assoc_array['d'] );
@@ -764,10 +764,10 @@ function circles_terminal_cmd_mobius()
                     break ;
                     case "list" :
                     var _html = _params_assoc_array['html'] ;
-                    if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "The "+( (  _glob_items_switch == ITEMS_SWITCH_SEEDS ) ? "seeds" : "gens" )+" maps list is empty", _par_1, _cmd_tag );
+                    if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "The "+( (  _glob_items_switch == ITEMS_SWITCH_SEEDS ) ? "Seeds" : "Gens" )+" maps list is empty", _par_1, _cmd_tag );
                     else if ( _sd_n > 0 && is_array( _items_array ) )
                     {
-                        circles_lib_output( _out_channel, DISPATCH_STANDARD, "Retrieving the "+( (  _glob_items_switch == ITEMS_SWITCH_SEEDS ) ? "seeds" : "gens" )+" ..", _par_1, _cmd_tag );
+                        circles_lib_output( _out_channel, DISPATCH_STANDARD, "Retrieving the "+( (  _glob_items_switch == ITEMS_SWITCH_SEEDS ) ? "Seeds" : "Gens" )+" ..", _par_1, _cmd_tag );
                         var _out_file_txt = "Seeds list" ;
                     		var ITEM, _row, _exists, _print, _n_display ;
                         for( var _i = 0 ; _i < _sd_n ; _i++ )

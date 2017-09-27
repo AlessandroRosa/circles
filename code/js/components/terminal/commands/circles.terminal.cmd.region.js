@@ -303,7 +303,7 @@ function circles_terminal_cmd_region()
                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>Begin to process data</snow>", _par_1, _cmd_tag );
                   if ( safe_size( _got_it, 0 ) > 0 )
                   {
-                  		_params_assoc_array['props']['left_top_flag'] = _got_it.includes( 0 ) && _got_it.includes( 1 ) ? YES : NO ;
+                  		_params_assoc_array['props']['left_top_flag'] = _got_it.includes(0) && _got_it.includes( 1 ) ? YES : NO ;
                    		_params_assoc_array['props']['right_bottom_flag'] = _got_it.includes( 2 ) && _got_it.includes( 3 ) ? YES : NO ;
                       if ( _params_assoc_array['props']['left_top_flag'] )
     									{

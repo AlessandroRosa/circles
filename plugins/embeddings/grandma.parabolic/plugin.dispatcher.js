@@ -26,7 +26,7 @@ function CIRCLESembeddingsGRANDMAPARABOLICdispatcher()
           GLOB_PLUGIN_EVENT_PROPAGATION_MANAGEMENT( 1 );
 		 			break ;
 		 			case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
-          GLOB_PLUGIN_EVENT_PROPAGATION_MANAGEMENT( 0 );
+          GLOB_PLUGIN_EVENT_PROPAGATION_MANAGEMENT(0);
 		 			break ;
 		 			case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;

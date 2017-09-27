@@ -1,6 +1,6 @@
 circles_lib_menu_entries_init();
 circles_lib_menu_entries_update();
-circles_lib_palette_init( YES );
+circles_lib_palette_init(YES);
 circles_lib_statusbar_set_output_stream();
 circles_lib_statusbar_set_config_icon( CONFIG_STD );
 circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES );

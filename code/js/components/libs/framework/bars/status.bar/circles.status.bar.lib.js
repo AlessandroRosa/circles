@@ -187,7 +187,7 @@ function circles_lib_statusbar_update_list_icon()
 {
    var _len = safe_size( _glob_popups_array, 0 );
    $("#STATUSBARpopuplist").bind( "mouseover", _len > 0 ? function() { this.style.cursor = 'pointer' ; } : function() {} );
-   $("#STATUSBARpopuplist").bind( "mousedown", _len > 0 ? function() { circles_lib_plugin_show_list( YES ); } : function() {} );
+   $("#STATUSBARpopuplist").bind( "mousedown", _len > 0 ? function() { circles_lib_plugin_show_list(YES); } : function() {} );
    $("#STATUSBARpopuplist").html( _len > 0 ? "<IMG TITLE=\"Pop-ups List\" SRC=\""+_glob_path_to_img+"icons/menu/menu.icon.01.20x20.png\">" : "" );
    if ( _len == 0 ) circles_lib_plugin_show_list( HIDE );
 }

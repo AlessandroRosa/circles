@@ -120,7 +120,7 @@ function circles_terminal_cmd_alphabet()
      		var _symbols_array = _params_assoc_array['symbol'] ;
         var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
 	      var _items_n = circles_lib_count_items( _items_array );
-        var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" ;
+        var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
         var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
         switch( _action )
         {

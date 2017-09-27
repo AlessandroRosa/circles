@@ -16,7 +16,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
 	          HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsMETHODcaption, 1, YES, "", WIDTH, HEIGHT, _caller_fn, 'method.probability.distribution', _div_id, _subset, "tools/tools.01.16x16.png", "" );
 						HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
             HTMLcode += "<tr><td VALIGN=\"top\" ID=\"METHODprobabilityGRAPHtable\" ALIGN=\"center\"><table>" ;
-	          HTMLcode += "<tr><td VALIGN=\"top\" ALIGN=\"center\">Statistics from last rendering</td></tr>" ;
+	          HTMLcode += "<tr><td VALIGN=\"top\" ALIGN=\"center\">Statistics about the last rendering</td></tr>" ;
 						HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
 				if ( !_probabilities_exist )
 				{
@@ -42,7 +42,8 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
                 _performed_operations += _probability_distribution_array[_p] ;
             }
 
-            var _items_array = _glob_seeds_array ;
+            var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+            if ( !is_array( _items_array ) ) _items_array = _glob_seeds_array ;
 						var _symbols_array = [], _items_n = circles_lib_count_items( _items_array );
 						for( _m = 0 ; _m < _items_n ; _m++ ) _symbols_array.push( _items_array[_m].symbol );
 
@@ -89,6 +90,8 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
          HTMLcode += "<tr>" ;
          HTMLcode += "<td WIDTH=\"5\"></td>" ;
          HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODprobabilityDISTRIBUTIONsaveGRAPH();\">Save Graph</td>" ;
+         HTMLcode += "<td WIDTH=\"5\"></td>" ;
+         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODmain('method',NO,2);\">Back to Method plug-in</td>" ;
          HTMLcode += "</tr>" ;
          HTMLcode += "</table>" ;
          HTMLcode += "</td></tr>" ;
@@ -210,7 +213,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelGRAPH( _method_index, _n_
 
   	var _min = 0, _max = 0, _x = 0, _interval_index = 0, _i ;
   	var _input_heights_array = [] ;
-  	for( _i = 0 ; _i < _n_intervals ; _i++ ) _input_heights_array.push( 0 );
+  	for( _i = 0 ; _i < _n_intervals ; _i++ ) _input_heights_array.push(0);
 		for( _i = 0 ; _i < tryouts ; _i++ )
 		{
 			 _x = _rnd();

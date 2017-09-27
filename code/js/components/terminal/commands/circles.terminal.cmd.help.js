@@ -102,7 +102,7 @@ function circles_terminal_cmd_help()
          else if ( _params_assoc_array['exec'].length > 0 )
          {
               if ( !( _params_assoc_array['exec'].includes( "/h" ) ) ) _params_assoc_array['exec'].push( "/h" );
-              _params_assoc_array['exec'].sort_adv( YES );
+              _params_assoc_array['exec'].sort_adv(YES);
               var _cmd = ( _params_assoc_array['exec'].join( " " ) );
               circles_lib_terminal_interpreter( _cmd, _glob_terminal, _out_channel );
          }

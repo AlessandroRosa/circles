@@ -626,7 +626,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 		if ( _N_GENS == 0 ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't generate the group: the gens list is empty", 'PLUGIN_OUTMSG' ) ;
 		else
 		{
-        if ( _glob_method == METHOD_NONE ) { circles_lib_config_create_new_main( YES ); circles_lib_method_set( _plugin_method_array[ _index_ref ] ); }
+        if ( _glob_method == METHOD_NONE ) { circles_lib_config_create_new_main(YES); circles_lib_method_set( _plugin_method_array[ _index_ref ] ); }
    	    if ( is_array( _glob_gens_array ) ) _glob_gens_array.flush();
         if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
         if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();

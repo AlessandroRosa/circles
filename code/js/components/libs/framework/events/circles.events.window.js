@@ -8,7 +8,7 @@ window.onresize = function( event )
 			$( "#ALERTdivCOVER" ).width( _sw );
 			$( "#ALERTdivCOVER" ).height( _sh );
 
-			if ( $( "#ALERTdivMODAL" ).get( 0 ) != null )
+			if ( $( "#ALERTdivMODAL" ).get(0) != null )
       {
          var _threshold = 630 ;
 				 $( "#ALERTdivMODAL" ).width( Math.min( _sw, _threshold ) ) ;

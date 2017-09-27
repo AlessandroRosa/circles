@@ -114,7 +114,7 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSP()
     else if ( _order == 0 ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Order must be greater than zero", "CIRCLESformsDLOCUSoutMSG" ) ;
     else
     {
-				if ( CIRCLESformsDISCRETENESSLOCUScustomPARAMSset( YES ) )
+				if ( CIRCLESformsDISCRETENESSLOCUScustomPARAMSset(YES) )
 				{
         		CIRCLESformsDISCRETENESSLOCUSbenchmarkTABLE['start_time'] = unixtime() ;
 						var _pq_farey_for_cusp = new farey( _pq_for_cusp );
@@ -256,7 +256,7 @@ function CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARY( _canvas, _screen_rect )
 
         $( "#CIRCLESformsDISCRETENESSLOCUSendFRAC" ).html( _farey_fracts[1].output() );
 				
-				if ( CIRCLESformsDISCRETENESSLOCUScustomPARAMSset( YES ) )
+				if ( CIRCLESformsDISCRETENESSLOCUScustomPARAMSset(YES) )
 				{
         		CIRCLESformsDISCRETENESSLOCUSbenchmarkTABLE['start_time'] = unixtime() ;
             CIRCLESformsDISCRETENESSLOCUStrace_fix_op = safe_int( CIRCLESformsDISCRETENESSLOCUStrace_fix_op, _DLOCUS_TRACE_FIX_DEFAULT_OP );

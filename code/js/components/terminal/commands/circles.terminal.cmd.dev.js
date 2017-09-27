@@ -86,7 +86,7 @@ function circles_terminal_cmd_dev()
                     circles_lib_files_load_default_datatypes();
                     circles_lib_output( _out_channel, DISPATCH_INFO, "Currently registered datatypes", _par_1, _cmd_tag );
                     circles_lib_output( _out_channel, DISPATCH_INFO, "\n", _par_1, _cmd_tag );
-                    var _datatypes = circles_lib_datatype_get_table( YES ), _notes_rows, _keys ;
+                    var _datatypes = circles_lib_datatype_get_table(YES), _notes_rows, _keys ;
                     var _columns = [], _out, _keys, _startINDEX = 0 ;
                         _columns.push( [ "Datatype", 12, "white" ] );
                         _columns.push( [ "Constructor", 40, "lightblue" ] );

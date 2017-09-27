@@ -67,12 +67,12 @@ function CIRCLESembeddingsGRANDMAPARABOLIC_EVENTS( ctrl_id, event )
               }
 
               if ( _plugin_step_index == 0 ) GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
-              else if ( _plugin_step_index == 0.1 ) { CIRCLESembeddingsGRANDMAPARABOLIC_CONFIG(); GLOB_PLUGIN_WIZARD_STEP(1.1,YES); GLOB_PLUGIN_GENS_SHOW( YES ); }
+              else if ( _plugin_step_index == 0.1 ) { CIRCLESembeddingsGRANDMAPARABOLIC_CONFIG(); GLOB_PLUGIN_WIZARD_STEP(1.1,YES); GLOB_PLUGIN_GENS_SHOW(YES); }
               else if ( _plugin_step_index.is_one_of( 1.1, 2.1 ) )
               {
                   if ( _plugin_step_index == 1.1 ) CIRCLESembeddingsGRANDMAPARABOLIC_RECORD_PARAMS();
                   GLOB_PLUGIN_WIZARD_STEP(2.1);
-                  GLOB_PLUGIN_GENS_SHOW( YES );
+                  GLOB_PLUGIN_GENS_SHOW(YES);
 									circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
               }
            }

@@ -17,7 +17,7 @@
     <tr><td HEIGHT="4"></td></tr>
     <tr>
         <td WIDTH="3"></td>
-        <td WIDTH="auto" ID="PROGRESSbarDIVtext" STYLE="font-size:7pt;color:#849BB1;">Progress bar</td>
+        <td WIDTH="auto" ID="PROGRESSbarDIVtext" STYLE="font-size:7pt;color:#3181C6;">Progress bar</td>
         <td WIDTH="10"></td>
         <td WIDTH="auto" ID="PROGRESSbarDIVstep" STYLE="font-size:7pt;color:#4B86C1;"></td>
         <td WIDTH="10"></td>

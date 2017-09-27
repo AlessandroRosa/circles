@@ -46,14 +46,9 @@ RC4.getStringBytes = function(string)
         output = output.concat(bytes.reverse());
     }
     return output;
-};
+}
 
-RC4.prototype._swap = function(i, j)
-{
-    var tmp = this.s[i];
-    this.s[i] = this.s[j];
-    this.s[j] = tmp;
-};
+RC4.prototype._swap = function(i, j) { [ this.s[j], this.s[i] ] = [ this.s[i], this.s[j] ] ; }
 
 /**
  * Mix additional entropy into this generator.
@@ -69,7 +64,7 @@ RC4.prototype.mix = function(seed)
         j %= 256;
         this._swap(i, j);
     }
-};
+}
 
 /**
  * @returns {number} The next byte of output from the generator.
@@ -80,7 +75,7 @@ RC4.prototype.next = function()
     this.j = (this.j + this.s[this.i]) % 256;
     this._swap(this.i, this.j);
     return this.s[(this.s[this.i] + this.s[this.j]) % 256];
-};
+}
 
 /**
  * Create a new random number generator with optional seed. If the
@@ -108,7 +103,7 @@ function RNG(seed)
 /**
  * @returns {number} Uniform random number between 0 and 255.
  */
-RNG.prototype.nextByte = function() { return this._state.next(); };
+RNG.prototype.nextByte = function() { return this._state.next(); }
 
 /**
  * @returns {number} Uniform random number between 0 and 1.
@@ -123,7 +118,7 @@ RNG.prototype.uniform = function()
         output += this.nextByte();
     }
     return output / (Math.pow(2, BYTES * 8) - 1);
-};
+}
 
 /**
  * Produce a random integer within [n, m).
@@ -140,7 +135,7 @@ RNG.prototype.random = function(n, m)
         n = 0;
     }
     return n + Math.floor(this.uniform() * (m - n));
-};
+}
 
 /**
  * Generates numbers using this.uniform() with the Box-Muller transform.
@@ -161,13 +156,13 @@ RNG.prototype.normal = function()
         this._normal = Math.sqrt(-2 * Math.log(x)) * Math.sin(2 * Math.PI * y);
         return Math.sqrt(-2 * Math.log(x)) * Math.cos(2 * Math.PI * y);
     }
-};
+}
 
 /**
  * Generates numbers using this.uniform().
  * @returns {number} Number from the exponential distribution, lambda = 1.
  */
-RNG.prototype.exponential = function() { return -Math.log(this.uniform() || Math.pow(2, -53)); };
+RNG.prototype.exponential = function() { return -Math.log(this.uniform() || Math.pow(2, -53)); }
 
 /**
  * Generates numbers using this.uniform() and Knuth's method.
@@ -183,9 +178,9 @@ RNG.prototype.poisson = function(mean)
         p *= this.uniform();
     } while (p > L);
     return k - 1;
-};
+}
 
-RNG.prototype.sin = function() { return Math.pow( Math.sin( this.uniform() * Math.PI / 2 ), 2 ) ; };
+RNG.prototype.sin = function() { return Math.pow( Math.sin( this.uniform() * Math.PI / 2 ), 2 ) ; }
 
 /**
  * Generates numbers using this.uniform(), this.normal(),
@@ -210,7 +205,7 @@ RNG.prototype.gamma = function(a) {
     } else {
         return d * v;
     }
-};
+}
 
 /**
  * Linear congruential generator
@@ -251,7 +246,7 @@ RNG.roller = function(expr, rng)
         }
         return total;
     };
-};
+}
 
 /* Provide a pre-made generator instance. */
 RNG.$ = new RNG();

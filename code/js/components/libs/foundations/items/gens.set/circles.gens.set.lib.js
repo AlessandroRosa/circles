@@ -444,6 +444,7 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
                _glob_gens_set_to_init = NO ;
                var _b_ok = safe_size( _glob_gens_array, 0 ) > 0 ? YES : NO ;
                var _msg = _b_ok ? "Gens set has been built up with success" : "Fail to build up the gens set" ;
+               _glob_items_switch = ITEMS_SWITCH_GENS ;
                if ( !_silent ) circles_lib_output( _out_channel, _b_ok ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg );
                return [ RET_OK, _msg ] ;
             }

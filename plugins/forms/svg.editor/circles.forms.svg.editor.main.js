@@ -190,12 +190,12 @@ function CIRCLESformsSVGEDITORmain( _base_id, _move )
        CIRCLESformsSVGEDITORcanvasREF( _glob_svg_canvas.get_type() );
     }
 
-    if ( $('#CIRCLESformsSVGEDITORtextarea').get( 0 ) != null )
+    if ( $('#CIRCLESformsSVGEDITORtextarea').get(0) != null )
     {
         if ( _glob_export_code_array.length > 0 )
         {
         		CIRCLESformsSVGEDITORdisplayPAGE( 0, YES ) ;
-            //CIRCLESformsSVGEDITORcheckSVGcode( YES );
+            //CIRCLESformsSVGEDITORcheckSVGcode(YES);
             CIRCLESformsSVGEDITORrenderSVG();
         }
     }

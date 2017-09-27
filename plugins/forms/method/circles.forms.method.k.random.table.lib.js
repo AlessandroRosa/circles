@@ -98,7 +98,7 @@ function CIRCLESmethodMANAGERrandomtableCOMBOselect()
         if ( _unpacked.length > 0 )
         {
             _glob_rnd_probability_array = _glob_random_table_store.clone();
-            CIRCLESmethodMANAGERrandomTABLEbuild( YES );
+            CIRCLESmethodMANAGERrandomTABLEbuild(YES);
         }
     }
     else if ( _sel_entry.length > 0 && !_sel_entry.includes( "@" ) )
@@ -162,7 +162,7 @@ function CIRCLESmethodMANAGERsetVALUESfromMULTISLIDER( _input_array )
                $( "#PROCrndPROBABILITY_LABEL_" + _i ).html( _sum.clean_round_off(_glob_accuracy) );
             } );
 
-    CIRCLESmethodMANAGERrandomTABLEcheck( YES );
+    CIRCLESmethodMANAGERrandomTABLEcheck(YES);
 }
 
 function CIRCLESmethodMANAGERsetVALUEStoMULTISLIDER()
@@ -298,8 +298,11 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
       HTMLcode += "<table>" ;
       HTMLcode += "<tr>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
-      HTMLcode += "<td>RNG</td>" ;
-      HTMLcode += "<td WIDTH=\"2\"></td>" ;
+      HTMLcode += "<td COLSPAN=\"7\">Random Generator Engine</td>" ;
+      HTMLcode += "</tr>" ;
+      HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
+      HTMLcode += "<tr>" ;
+      HTMLcode += "<td WIDTH=\"5\"></td>" ;
       HTMLcode += "<td>" ;
       HTMLcode += "<SELECT ID=\"RNGcombo\" ONCHANGE=\"javascript:_glob_probabilityRNGmethod=this.options[this.selectedIndex].value\">" ;
 			HTMLcode += "<OPTION "+( _glob_probabilityRNGmethod == RNG_BUILT_IN ? "SELECTED=\"selected\"" : "" )+" VALUE=\""+RNG_BUILT_IN+"\">Standard" ;
@@ -315,27 +318,26 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
 			HTMLcode += "<OPTION "+( _glob_probabilityRNGmethod == RNG_SINE ? "SELECTED=\"selected\"" : "" )+" VALUE=\""+RNG_SINE+"\">Sine" ;
       HTMLcode += "</SELECT>" ;
       HTMLcode += "</td>" ;
-      HTMLcode += "<td WIDTH=\"15\"></td>" ;
+      HTMLcode += "<td WIDTH=\"8\"></td>" ;
       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrandomTABLEuniformDISTRIBUTION();\">Uniform</td>" ;
-      HTMLcode += "<td WIDTH=\"5\"></td>" ;
+      HTMLcode += "<td WIDTH=\"2\"></td>" ;
       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_rnd_probability_array=CIRCLESmethodMANAGERrandomTABLEoptimize(YES);\">Optimize</td>" ;
-      HTMLcode += "<td WIDTH=\"5\"></td>" ;
+      HTMLcode += "<td WIDTH=\"2\"></td>" ;
 			HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_items_switch=ITEMS_SWITCH_GENS;CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY();\">Simulate</td>" ;
-      HTMLcode += "<td WIDTH=\"5\"></td>" ;
+      HTMLcode += "<td WIDTH=\"2\"></td>" ;
 		  HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY();\">Last distribution</td>" ;
       HTMLcode += "</tr>" ;
       HTMLcode += "</table>" ;
       HTMLcode += "</td>" ;
       HTMLcode += "</tr>" ;
+      HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
 
-      HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
       if ( _sch_n > 0 )
       {
          HTMLcode += "<tr><td VALIGN=\"top\" COLSPAN=\"8\">" ;
          HTMLcode += "<table><tr>" ;
-         HTMLcode += "<td WIDTH=\"5\"></td>" ;
-         HTMLcode += "<td STYLE=\"padding-top:6px;\">Tune' em</td>" ;
          HTMLcode += "<td WIDTH=\"3\"></td>" ;
+         HTMLcode += "<td STYLE=\"padding-top:6px;\">Tune Probs</td>" ;
          HTMLcode += "<td><div STYLE=\"position:relative;\" class=\"slide\" id=\"multislider1\"></div></td>" ;
          HTMLcode += "</tr></table>" ;
          HTMLcode += "</td></tr>" ;
@@ -370,10 +372,9 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
       var _word, _candidate_probability, _gen_word, _bulk_of_fns, _out_val ;
 			var _original_bulk_of_fns = "if(this.value.length==0){this.value='0';CIRCLESmethodMANAGERrandomTABLEautocalc();}" ;
           _original_bulk_of_fns += "if(this.value.length!=0)CIRCLESmethodMANAGERrandomTABLEautocalc(%index%,"+_sch_n+");" ;
-          _original_bulk_of_fns += "CIRCLESmethodMANAGERrandomTABLEsave();";
-          _original_bulk_of_fns += "CIRCLESmethodMANAGERrandomTABLEcheck();";
+          _original_bulk_of_fns += "CIRCLESmethodMANAGERrandomTABLEsave();CIRCLESmethodMANAGERrandomTABLEcheck();";
           _original_bulk_of_fns += "$('[id$=renderBTN]').css('color',COLOR_ERROR);CIRCLESmethodMANAGERsetVALUEStoMULTISLIDER();" ;
-			if ( _sch_n > 4 )
+			if ( _sch_n > 6 )
 			HTMLcode += "<div ID=\"CIRCLESformsMETHODrandomtableDIV\" STYLE=\"position:relative;width:100%;height:160px;overflow:auto;padding:2px;\">" ;
 		  HTMLcode += "<table WIDTH=\"100%\">" ;
 
@@ -404,7 +405,7 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
 			HTMLcode += "</table>" ;
 
       HTMLcode += "</td>" ;
-      HTMLcode += "<td>Lock all</td>";
+      HTMLcode += "<td>Lock all probabilities</td>";
       HTMLcode += "<td WIDTH=\"2\"></td>" ;
       HTMLcode += "<td><INPUT ID=\"PROCrndCHECKBOXall\" TYPE=\"checkbox\" ONCLICK=\"javascript:$('[id^=PROCrndPROBABILITY_CHECKBOX_]').prop('checked',this.checked);$('[id^=PROCrndPROBABILITY_EDIT_]').prop('disabled', this.checked);\"></td>" ;
       HTMLcode += "</tr>" ;
@@ -450,9 +451,9 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
             HTMLcode += "<td><INPUT TYPE=\"checkbox\" ID=\"PROCrndPROBABILITY_CHECKBOX_"+_i+"\" ONCLICK=\"javascript:$('#PROCrndPROBABILITY_EDIT_"+_i+"').prop('disabled',this.checked);$('#PROCrndPROBABILITY_EDIT_"+_i+"').css('color',this.checked?'#C0C0C0':'black');$('#PROCrndPROBABILITY_EDIT_"+_i+"').css('background-color',this.checked?'#F4F4F4':'white');CIRCLESmethodMANAGERrandomTABLElockallCHECK();\"></td>" ;
             HTMLcode += "</tr>" ;
             HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
-            HTMLcode += "<tr STYLE=\"color:#AEAEDF;\">" ;
+            HTMLcode += "<tr STYLE=\"color:#5A82B3;\">" ;
             HTMLcode += "<td COLSPAN=\"2\"></td>" ;
-            HTMLcode += "<td STYLE=\"\">"+( _i < _sch_n - 1 ? "Partial sum" : "Final sum" )+"</td>" ;
+            HTMLcode += "<td>"+( _i < _sch_n - 1 ? "Partial sum" : "Final sum" )+"</td>" ;
             HTMLcode += "<td WIDTH=\"2\"></td>" ;
             HTMLcode += "<td ID=\"PROCrndPROBABILITY_LABEL_"+_i+"\" STYLE=\"padding-left:5px;\">"+_sum.clean_round_off(_glob_accuracy)+"</td>" ;
             HTMLcode += "<td WIDTH=\"2\"></td>" ;

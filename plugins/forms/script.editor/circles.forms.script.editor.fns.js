@@ -298,7 +298,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTdeleteCODE( _index, _silent, _up
 						{
 								if ( _update_list ) CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay();
 								if ( _entry_label.strcmp( CIRCLESformsSCRIPTEDITORmodulelabelCURRENT ) )
-								CIRCLESformsSCRIPTEDITORcodemanagerCLEAN( YES ) ;
+								CIRCLESformsSCRIPTEDITORcodemanagerCLEAN(YES) ;
 								return YES ;
 						}
 						else return NO ;

@@ -359,7 +359,7 @@ function CIRCLESgenssetMANAGERgensEXACT( _question, _silent, _out_channel )
    var _items_n = circles_lib_count_items( _items_array ), _sch_n = circles_lib_count_gens_set_model();
    if ( _items_n == 0 )
    {
-       var _msg = "Can't build the exact gens set."+_glob_crlf+"The "+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" )+" list is empty" ;
+       var _msg = "Can't build the exact gens set."+_glob_crlf+"The "+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" )+" list is empty" ;
        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
    }
@@ -437,7 +437,7 @@ function CIRCLESgenssetMANAGERgensADD( _row_index, _inverse, _question, _silent 
 								  _glob_gens_set_to_init = _glob_items_to_init = YES;
                   CIRCLESgenssetMANAGERiconSETUP(YES);
                   $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-                  $( "#ALGEBRAICnewGENERATORStable" ).html( CIRCLESgenssetMANAGERshowGENStable( YES ) );
+                  $( "#ALGEBRAICnewGENERATORStable" ).html( CIRCLESgenssetMANAGERshowGENStable(YES) );
 							}
 					}
 					break ;

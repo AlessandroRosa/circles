@@ -128,7 +128,7 @@ function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _out_c
 		
 	                $( "#" + _layer.get_iddiv() ).width( _new_client_w ) ;
 	                $( "#" + _layer.get_idcanvas() ).get(0).set_width( _new_client_w ) ;
-                  $( "#" + _layer.get_idcanvas() ).get(0).set_visible( YES );
+                  $( "#" + _layer.get_idcanvas() ).get(0).set_visible(YES);
 		            } );
 		            
 		    var _coords_rect = zplane_sm.get_coords_rect();
@@ -188,7 +188,7 @@ function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _out_c
 		
 	                $( "#" + _layer.get_iddiv() ).width( _new_client_w ) ;
 	                $( "#" + _layer.get_idcanvas() ).get(0).set_width( _new_client_w ) ;
-                  $( "#" + _layer.get_idcanvas() ).get(0).set_visible( YES );
+                  $( "#" + _layer.get_idcanvas() ).get(0).set_visible(YES);
 		            } );
 		            
 		    var _coords_rect = wplane_sm.get_coords_rect();

@@ -3,7 +3,7 @@ function CIRCLESformsGEOMETRICTRANSFORMshift( _question, _silent, _out_channel )
 {
 		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-	  var _dest_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" ;
+	  var _dest_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
 	  var _category_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
 	  var _items_n = circles_lib_count_items( _items_array ), _subset = "forms", ENTRIESarray = [] ;
     if ( _items_n > 0 )
@@ -57,7 +57,7 @@ function CIRCLESformsGEOMETRICTRANSFORMrotate( _question, _silent, _out_channel 
 {
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-	  var _dest_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" ;
+	  var _dest_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
 	  var _category_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
 	  var _items_n = circles_lib_count_items( _items_array ), _subset = "forms", ENTRIESarray = [] ;
     if ( _items_n > 0 )

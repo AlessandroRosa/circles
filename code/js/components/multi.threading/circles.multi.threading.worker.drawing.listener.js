@@ -223,7 +223,7 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
 				        default: break ;
             }
             
-            circles_lib_progressbar_div_show( 0 );
+            circles_lib_progressbar_div_show(0);
             circles_lib_progressbar_div_write_label( "Finish" );
             
             _glob_original_dict = _glob_dict_processor.sliced_dictionary = msg.dict.clone();

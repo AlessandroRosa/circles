@@ -629,7 +629,7 @@ rect.prototype.halves = function()
 
 rect.prototype.swap = function( _t1, _t2 )
 {
-    var _tmp = _t1, _t1 = _t2, _t2 = _tmp ;
+    [ _t2, _t1 ] = [ _t1, _t2 ] ;
     return { 't1' : _t1, 't2' : _t2 } ;
 }
 

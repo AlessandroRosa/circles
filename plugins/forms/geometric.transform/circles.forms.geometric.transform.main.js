@@ -4,7 +4,7 @@ function CIRCLESformsGEOMETRICTRANSFORMmain( _base_id, _move )
     CIRCLESformsGEOMETRICTRANSFORMbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-	  var _dest_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" ;
+	  var _dest_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
 	  var _category_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
 	  var _items_n = circles_lib_count_items( _items_array ), _subset = "forms" ;
     var _run = _items_n > 0 ? YES : NO ;

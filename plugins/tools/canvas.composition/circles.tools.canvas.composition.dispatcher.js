@@ -26,7 +26,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONdispatcher()
 						  var _side = _dim - 180 ;
               $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).set_width( _side );
               $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).set_height( _side );
-							CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER( YES );
+							CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER(YES);
 
               circles_lib_forms_adjust_position( _div_id ) ;
               break ;

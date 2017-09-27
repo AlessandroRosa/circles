@@ -19,8 +19,7 @@ function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _call
     else if ( !is_number( _tab_index ) ) _tab_index = safe_int( _tab_index, 0 );
 
     CIRCLESformsMETHODbaseid = safe_string( _base_id, "" ) ;
-    _move = safe_int( _move, YES );
-    _new_method = safe_int( _new_method, METHOD_NONE );
+    _move = safe_int( _move, YES ), _new_method = safe_int( _new_method, METHOD_NONE );
     CIRCLESformsMETHODtabindex = _tab_index = safe_int( _tab_index, 0 );
     _caller_fn = safe_string( _caller_fn, "" );
     _glob_current_tab['method'] = _tab_index ;
@@ -36,14 +35,13 @@ function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _call
     var WIDTH = _items_n > 0 ? 550 : 420, HEIGHT = $(window).height() * 0.82, _subset = "forms"  ;
     var _div_id = CIRCLESformsMETHODdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     if ( _caller_fn.length == 0 ) _caller_fn = arguments.callee.name.toString() + "( " + _base_id + ", " + _move + ", " + _glob_method + ")" ;
-    var CLOSE_FN = "CIRCLESformsMETHODclose();" ;
-    var CLICK_FN = "" ;
+    var CLOSE_FN = "CIRCLESformsMETHODclose();", CLICK_FN = "" ;
     var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
         HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsMETHODcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _caller_fn, _base_id, _div_id, _subset, "tools/tools.01.16x16.png", CLICK_FN );
         HTMLcode += "<tr><td VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F2F2F2;\"><table>" ;
         HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"5\"></td><td>Items are switched to <b>"+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" )+"</b></td></tr>" ;
+        HTMLcode += "<tr><td WIDTH=\"5\"></td><td>Items are switched to <b>"+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" )+"</b> mode</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
         HTMLcode += "</table></td></tr>" ;
         HTMLcode += "<tr>" ;

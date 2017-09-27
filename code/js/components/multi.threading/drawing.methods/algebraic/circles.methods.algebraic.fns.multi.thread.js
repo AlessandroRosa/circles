@@ -53,7 +53,7 @@ function CIRCLESmultithreadingRNGfunctionGET( probability_rng_method )
 function CIRCLESalgebraicPROCESSrandomPROBABILITY( _probability_array, _LUT_length )
 {
     var LUT = [];
-    for( var _l = 0 ; _l < _LUT_length ; _l++ ) LUT.push( 0 );
+    for( var _l = 0 ; _l < _LUT_length ; _l++ ) LUT.push(0);
 
     var _runner = 0, _extent, _p, _e ;
     for( _p = 0 ; _p < _probability_array.length ; _p++ )

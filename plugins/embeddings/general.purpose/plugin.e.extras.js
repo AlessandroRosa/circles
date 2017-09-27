@@ -51,7 +51,7 @@ function CIRCLESembeddingsGENERALPURPOSE_BOMB( _question, _silent )
         var _question = "Confirm to delete all gens ?" + _glob_crlf + "(All data will be definitely lost)" ;
         if ( !_question ? YES : confirm( _question ) )
         {
-            CIRCLESembeddingsGENERALPURPOSE_DEFAULT( YES );
+            CIRCLESembeddingsGENERALPURPOSE_DEFAULT(YES);
             var _ok = safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 ) == 0 ? YES : NO ;
             var _msg = _ok ? "All gens have been deleted with success" : "Failure in deleting all gens" ;
 					  circles_lib_output( OUTPUT_SPECIAL_FX, _ok ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, 'PLUGIN_OUTMSG' ) ;

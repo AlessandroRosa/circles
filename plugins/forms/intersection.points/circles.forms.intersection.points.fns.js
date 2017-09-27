@@ -111,7 +111,7 @@ function CIRCLESformsINTERSECTIONPOINTScomboONCHANGE()
     var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "12Unknown error" ;
     if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
 
-    if ( index1 != UNDET && index2 != UNDET ) CIRCLESformsINTERSECTIONPOINTSfind( YES );
+    if ( index1 != UNDET && index2 != UNDET ) CIRCLESformsINTERSECTIONPOINTSfind(YES);
 }
 
 function CIRCLESformsINTERSECTIONPOINTSresizeTANGENTdisks()

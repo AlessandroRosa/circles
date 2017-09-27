@@ -589,9 +589,10 @@ function CIRCLESformsMETHODfixedpointsSORTcircularPATH()
 
     _radians_array = _radians_array.sort( function( a, b ) { return b - a ; } );
 
+    var _rad, _pos ;
     while( _radians_array.length > 0 )
     {
-        var _rad = _radians_array[0], _pos ;
+        _rad = _radians_array[0] ;
         for( _i = 0 ; _i < _original_pts.length ; _i++ )
         {
             if ( _original_pts[_i][1] == _rad )
@@ -656,8 +657,7 @@ function CIRCLESformsMETHODfixedpointsLIST( _short )
            _html_code += "<td ALIGN=\"center\"><INPUT TYPE=\"checkbox\" ID=\"FIXEDPOINTScheckboxALL\" ONCLICK=\"javascript:$( '[id^=FIXEDPOINTScheckboxENTRY_]' ).prop( 'checked', this.checked );\"></td>" ;
            _html_code += "</tr>" ;
            _html_code += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-           $.each( _glob_input_fixed_pts_array,
-                   function( _i, _val )
+           $.each( _glob_input_fixed_pts_array, function( _i, _val )
                    {
                       if ( is_array( _val ) )
                       {
@@ -684,30 +684,30 @@ function CIRCLESformsMETHODfixedpointsLIST( _short )
                           if ( !_short )
                           {
                              _html_code += "<td WIDTH=\"3\"></td>" ;
-                             _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" STYLE=\"font-size:7pt;color:#0080DC;\" ONCLICK=\"javascript:CIRCLESformsMETHODvalDISPLAY('"+_i+"','"+_trace+"','Trace');\">display</td>" ;
+                             _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" STYLE=\"color:#0080DC;\" ONCLICK=\"javascript:CIRCLESformsMETHODvalDISPLAY('"+_i+"','"+_trace+"','Trace');\">display</td>" ;
                              _html_code += "<td WIDTH=\"3\"></td>" ;
-                             _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" STYLE=\"font-size:7pt;color:#0080DC;\" ONCLICK=\"javascript:CIRCLESformsMETHODvalDISPLAY('"+_i+"','"+_val[1].x+"i"+_val[1].y+"','Fixed point');\">display</td>" ;
+                             _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" STYLE=\"color:#0080DC;\" ONCLICK=\"javascript:CIRCLESformsMETHODvalDISPLAY('"+_i+"','"+_val[1].x+"i"+_val[1].y+"','Fixed point');\">display</td>" ;
                           }
                           _html_code += "<td WIDTH=\"8\"></td>" ;
-                          _html_code += "<td VALIGN=\"middle\" STYLE=\"font-size:7pt;\">"+_type_def+"</td>" ;
+                          _html_code += "<td VALIGN=\"middle\" STYLE=\"color:#3181C6;\">"+_type_def+"</td>" ;
                           _html_code += "<td WIDTH=\"4\"></td>" ;
-                          _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCALIZE("+_i+",Z_PLANE);\"><IMG TITLE=\"Localize on the Z-plane\" SRC=\"support/img/icons/target/target.icon.01.12x12.png\"></td>" ;
+                          _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCALIZE("+_i+",Z_PLANE);\"><IMG TITLE=\"Localize on the Z-plane\" SRC=\"support/img/icons/target/target.icon.01.20x20.png\"></td>" ;
                           _html_code += "<td WIDTH=\"3\"></td>" ;
-                          _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCALIZE("+_i+",W_PLANE);\"><IMG TITLE=\"Localize on the W-plane\" SRC=\"support/img/icons/target/target.icon.02.12x12.png\"></td>" ;
+                          _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCALIZE("+_i+",W_PLANE);\"><IMG TITLE=\"Localize on the W-plane\" SRC=\"support/img/icons/target/target.icon.02.20x20.png\"></td>" ;
                           _html_code += "<td WIDTH=\"3\"></td>" ;
-                          _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsDELETE("+_i+");\"><IMG TITLE=\"Delete\" SRC=\"support/img/icons/delete/delete.icon.12x12.png\"></td>" ;
+                          _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsDELETE("+_i+");\"><IMG TITLE=\"Delete\" SRC=\"support/img/icons/delete/delete.icon.20x20.png\"></td>" ;
                           _html_code += "<td WIDTH=\"3\"></td>" ;
-                          _html_code += "<td VALIGN=\"middle\" WIDTH=\"12\">"+( ( _is_repetend || _is_pqword || _is_word ) ? "<IMG CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsRESOLVEword("+_i+");\" TITLE=\"Resolve repetend '"+_val[0]+"'\" SRC=\"support/img/icons/binoculars/binoculars.icon.01.16x16.png\">" : "" )+"</td>" ;
+                          _html_code += "<td VALIGN=\"middle\" WIDTH=\"12\">"+( ( _is_repetend || _is_pqword || _is_word ) ? "<IMG CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsRESOLVEword("+_i+");\" TITLE=\"Resolve repetend '"+_val[0]+"'\" SRC=\"support/img/icons/binoculars/binoculars.icon.01.20x20.png\">" : "" )+"</td>" ;
                           _html_code += "<td WIDTH=\"8\"></td>" ;
                           _html_code += "<td ALIGN=\"center\"><INPUT TYPE=\"checkbox\" ID=\"FIXEDPOINTScheckboxENTRY_"+_i+"\" ONCLICK=\"javascript:if(!this.checked)$( '#FIXEDPOINTScheckboxALL' ).prop( 'checked', false );\"></td>" ;
                           _html_code += "<td WIDTH=\"8\"></td>" ;
                           if ( _i > 0 && _i < _fp_n )
-                             _html_code += "<td WIDTH=\"16\" ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:_glob_input_fixed_pts_array.swap( "+(_i-1)+", "+(_i)+" );CIRCLESformsMETHODfixedpointsLIST( "+_short+" )\"><IMG TITLE=\"Swap up\" SRC=\"support/img/icons/arrows/single/arrow.up.01.16x16.png\"></td>" ;
+                             _html_code += "<td WIDTH=\"16\" ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:_glob_input_fixed_pts_array.swap( "+(_i-1)+", "+(_i)+" );CIRCLESformsMETHODfixedpointsLIST( "+_short+" )\"><IMG TITLE=\"Swap up\" SRC=\"support/img/icons/arrows/single/arrow.up.01.20x20.png\"></td>" ;
                           else _html_code += "<td WIDTH=\"16\"></td>" ;
 
                                     _html_code += "<td WIDTH=\"8\"></td>" ;
                                 if ( _i >= 0 && _i < _fp_n - 1 )
-                                    _html_code += "<td WIDTH=\"16\" ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:_glob_input_fixed_pts_array.swap( "+(_i)+", "+(_i+1)+" );CIRCLESformsMETHODfixedpointsLIST( "+_short+" )\"><IMG TITLE=\"Swap down\" SRC=\"support/img/icons/arrows/single/arrow.down.01.16x16.png\"></td>" ;
+                                    _html_code += "<td WIDTH=\"16\" ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:_glob_input_fixed_pts_array.swap( "+(_i)+", "+(_i+1)+" );CIRCLESformsMETHODfixedpointsLIST( "+_short+" )\"><IMG TITLE=\"Swap down\" SRC=\"support/img/icons/arrows/single/arrow.down.01.20x20.png\"></td>" ;
                                 else _html_code += "<td WIDTH=\"16\"></td>" ;
                                 
                                 _html_code += "</tr>" ;

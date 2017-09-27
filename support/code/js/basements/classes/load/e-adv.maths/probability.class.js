@@ -153,7 +153,7 @@ probability.prototype.compute_probability = function( _input_string, _each_entry
 
    if ( _input_string.length - 1 == 0 )
    {
-        _ch = _input_string.charAt( 0 );
+        _ch = _input_string.charAt(0);
         if ( this.probabilities[ "symb." + _ch ] != null ) _p *= this.probabilities[ "symb." + _ch ] ;
    }
    else

@@ -956,7 +956,7 @@ if ( !Array.prototype.permute ) // yields an multi-dimensional array including a
         var _objects_list = this.clone();
         var _n = _objects_list.length, _results = [] ;
         var _p = [], _i = 0, _j = 0, _tmp ;
-        for( _i = 0 ; _i <= _n ; _i++ ) _p.push( 0 );
+        for( _i = 0 ; _i <= _n ; _i++ ) _p.push(0);
         _i = 1 ;
         _results.push( _objects_list.clone() );
         while( _i < _n )

@@ -227,7 +227,7 @@ function circles_terminal_cmd_disk()
          var _action = _params_assoc_array['settings']['action'] ;
          var _storage_queue_request = _params_assoc_array['settings']['params'].includes_i( "storagein" ) ? YES : NO ;
          var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" ;
+         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
          var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
 		     var _items_n = circles_lib_count_items( _items_array );
          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
@@ -1226,7 +1226,7 @@ function circles_terminal_cmd_disk()
                         {
                            _b_fail = YES ;
                            _error_str = "The following symbols ("+_report.join( ", " )+") do not refer to registered items or just disks on the Z-plane" ;
-                           if ( _report.includes( 0 ) && _index_count_tmp > 0 )
+                           if ( _report.includes(0) && _index_count_tmp > 0 )
                            _error_str += _glob_crlf + "Input indexes are 1-based, hence index 0 is not permitted" ;
                         }
                         else
@@ -1239,7 +1239,7 @@ function circles_terminal_cmd_disk()
                                var _disk_1 = _item_1.complex_circle, _disk_2 = _item_2.complex_circle ;
                                var _mm = new mobius_map();
                                    _mm.init_inversion_from_two_circles( _disk_1, _disk_2 );
-                               var _mm_params = _mm.get_params( YES );
+                               var _mm_params = _mm.get_params(YES);
 
                                var _msg = "The resulting Mobius map is" + _glob_crlf ;
                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );

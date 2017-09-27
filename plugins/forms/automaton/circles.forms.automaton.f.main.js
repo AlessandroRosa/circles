@@ -97,7 +97,7 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
     }
     $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });
 
-    CIRCLESformsAUTOMATONtablePULLOUT( YES );
+    CIRCLESformsAUTOMATONtablePULLOUT(YES);
     circles_lib_plugin_dispatcher_unicast_message( 'dictionary', "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
     $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESformsAUTOMATONload ) } ;
 }

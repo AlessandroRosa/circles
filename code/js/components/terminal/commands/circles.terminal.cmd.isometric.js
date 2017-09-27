@@ -144,7 +144,7 @@ function circles_terminal_cmd_isometric()
              var _action = _params_assoc_array['action'] ;
              var _round_to = _params_assoc_array['roundto'] ;
              var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-             var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" ;
+             var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
              var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
     		     var _items_n = circles_lib_count_items( _items_array );
              var _selection_indexes_array = [] ;
@@ -201,7 +201,7 @@ function circles_terminal_cmd_isometric()
 
                            circles_lib_output( _out_channel, DISPATCH_INFO, "Mobius map composition from word '" + _word + "'", _par_1, _cmd_tag );
                            _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _out_channel );
-                           var _isometric_cc = _mm.isometric_circle( YES );
+                           var _isometric_cc = _mm.isometric_circle(YES);
                            circles_lib_output( _out_channel, DISPATCH_INFO, "Resulting isometric circle " + _glob_crlf + _isometric_cc.output( "", _round_to ), _par_1, _cmd_tag );
                            if ( _draw && _params_assoc_array['plane'] == NO_PLANE )
                            {
@@ -264,8 +264,8 @@ function circles_terminal_cmd_isometric()
                             _symbol = ITEM.symbol, _inv_symbol = ITEM.inverse_symbol ;
                             if ( is_item_obj( ITEM ) && _index != UNFOUND && _inverse_index != UNFOUND )
                             {
-                                 _isometric_cc = ITEM.map.isometric_circle( YES );
-                                 _inv_isometric_cc = ITEM_INV.map.isometric_circle( YES );
+                                 _isometric_cc = ITEM.map.isometric_circle(YES);
+                                 _inv_isometric_cc = ITEM_INV.map.isometric_circle(YES);
                                  if ( !_isometric_cc.is_equal_to( _inv_isometric_cc ) )
                                  _report.push( "<red>" + _symbol + "<--->" + _inv_symbol + "</red>" );
 

@@ -140,7 +140,7 @@ function circles_terminal_cmd_frm()
                  default:
                  var _n_frm = safe_size( _params_assoc_array['frm'], 0 );
 		             var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-		             var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" ;
+		             var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
 		             var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
                  if ( _n_frm == 0 )
                  {

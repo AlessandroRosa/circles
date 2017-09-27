@@ -23,7 +23,7 @@ function CIRCLESformsAUTOMATONload( _filename, _file_contents )
 
          if ( _b_go )
 				 {
-		 				  CIRCLESformsAUTOMATONtableBUILD( YES );
+		 				  CIRCLESformsAUTOMATONtableBUILD(YES);
 							var _n_automaton = CIRCLESformsAUTOMATONarray.size_associative();
 							$( "#CIRCLESformsAUTOMATONautomatonCOUNTER" ).html( _n_automaton + " entr" + ( _n_automaton == 1 ? "y" : "ies" ) );
 							var _n_src_words = safe_size( CIRCLESformsAUTOMATONsrc_words_array, 0 );

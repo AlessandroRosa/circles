@@ -38,7 +38,7 @@ function CIRCLESformsCOORDINATESdispatcher()
           break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
           CIRCLESformsCOORDINATESform( CIRCLESformsCOORDINATESplane_type, NO, [] ) ;
-			    CIRCLESformsDISCRETENESSLOCUSdrawBOUNDARY( YES );
+			    CIRCLESformsDISCRETENESSLOCUSdrawBOUNDARY(YES);
 					break ;
 			    case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
               var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;

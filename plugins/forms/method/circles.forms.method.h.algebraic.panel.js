@@ -16,10 +16,11 @@ function CIRCLESformsMETHODmanagerPROCESS( _b_switch, _process_type )
         case PROCESS_INDEXSEARCH:
         break ;
         case PROCESS_RANDOM:
-        $("#ALGEBRAICrandomCONTAINER").html( CIRCLESmethodMANAGERrandomTABLEbuild() );
+        CIRCLESmethodMANAGERrandomTABLEbuild(YES);
         CIRCLESmethodMANAGERrandomTABLEfill();
    	    CIRCLESmethodMANAGERrandomTABLEsave();
  		 	  CIRCLESmethodMANAGERrandomTABLEcheck();
+        CIRCLESmethodMANAGERrandomTABLEmultisliderINIT();
         break ;
         default: break ;
     }

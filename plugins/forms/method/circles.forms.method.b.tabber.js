@@ -43,7 +43,7 @@ var CIRCLESMETHODtabberOptions = {
        CIRCLESgenssetMANAGERreload();
        break ;
        case 2: // random table - tab
-       CIRCLESmethodMANAGERrandomTABLEbuild( YES );
+       CIRCLESmethodMANAGERrandomTABLEbuild(YES);
        CIRCLESmethodMANAGERrandomTABLEmultisliderINIT();
        break;
        case 3: // fixed points table - tab

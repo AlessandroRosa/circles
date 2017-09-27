@@ -36,7 +36,7 @@ function trigger_gens_set_01( _silent, _out_channel )
             $.each( _alphabet, function( _i, _symbol ) { _glob_gens_set_model_array.push( _symbol ); } );
             _glob_gens_set_model_array.push( _commutator_word );
             _glob_gens_set_model_array.push( circles_lib_word_inverse_get( _commutator_word ) );
-            circles_lib_gens_set_initflag_set( YES );
+            circles_lib_gens_set_initflag_set(YES);
             
             // fill the gens set random table
             if ( safe_size( _glob_rnd_probability_array, 0 ) == 0 )
