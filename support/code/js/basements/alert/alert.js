@@ -143,7 +143,7 @@ function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth,
 
     mode = safe_int( mode, ALERT_SUCCESS );
     candidateW = safe_int( candidateW, 0 ), candidateH = safe_int( candidateH, 0 );
-      
+
     ALERT_TEXT_FONTSIZE = $(window).width() > 1100 ? 13 : 8 ;
     ALERT_DEFAULT_WIDTH = $(window).width() > 1100 ? 520 : 420 ;
     var W = candidateW > 0 ? candidateW : ALERT_DEFAULT_WIDTH, H = ( candidateH > 0 ) ? candidateH : "auto" ;

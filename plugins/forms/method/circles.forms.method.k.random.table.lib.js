@@ -171,14 +171,12 @@ function CIRCLESmethodMANAGERsetVALUEStoMULTISLIDER()
     $( "[id^=PROCrndPROBABILITY_EDIT_]" ).each( function( _index, _element ) { _tmp.push( _element.value * 100 ); } );
     var _input_values = _tmp.from_to( 0, _tmp.length - 1 );
     var _out_values = [];
-    $.each( _input_values,
-            function( _i, _v )
+    $.each( _input_values, function( _i, _v )
             {
                 if ( _i == 0 ) _out_values.push( _v );
                 else _out_values.push( _out_values[_i-1] + _v )
             }
     );
-
     MULTISLIDERctrlACTIVATE( "multislider1", _out_values );
 }
 
@@ -214,7 +212,7 @@ function CIRCLESmethodMANAGERrandomTABLEmultisliderINIT()
     {
        var _init_array = _glob_rnd_probability_array.clone();
        $.each( _init_array, function( _i, _val ) { if ( _i > 0 ) _init_array[_i] += _init_array[_i-1] ; } );
-       $.each( _init_array, function( _i, _val ) { _init_array[_i] *= 100.0 ; } );
+       $.each( _init_array, function( _i, _val ) { _init_array[_i] *= 100.0 ; _init_array[_i] = Math.min(_init_array[_i],100) ; } );
        var _out_array = [];
        $.each( _init_array, function( _i, _val ) { if ( _i < ( _init_array.length - 1 ) ) _out_array.push( _init_array[_i] ); } );
        MULTISLIDERctrlACTIVATE( "multislider1", _out_array );
@@ -319,13 +317,11 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
       HTMLcode += "</SELECT>" ;
       HTMLcode += "</td>" ;
       HTMLcode += "<td WIDTH=\"8\"></td>" ;
-      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrandomTABLEuniformDISTRIBUTION();\">Uniform</td>" ;
-      HTMLcode += "<td WIDTH=\"2\"></td>" ;
-      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_rnd_probability_array=CIRCLESmethodMANAGERrandomTABLEoptimize(YES);\">Optimize</td>" ;
+      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrandomTABLEuniformDISTRIBUTION();CIRCLESmethodMANAGERrandomTABLEsave();CIRCLESmethodMANAGERrandomTABLEmultisliderINIT();\">Uniform</td>" ;
       HTMLcode += "<td WIDTH=\"2\"></td>" ;
 			HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_items_switch=ITEMS_SWITCH_GENS;CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY();\">Simulate</td>" ;
       HTMLcode += "<td WIDTH=\"2\"></td>" ;
-		  HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY();\">Last distribution</td>" ;
+		  HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY();CIRCLESmethodMANAGERrandomTABLEsave();\">Last distribution</td>" ;
       HTMLcode += "</tr>" ;
       HTMLcode += "</table>" ;
       HTMLcode += "</td>" ;
@@ -531,50 +527,4 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
     }
 
     return HTMLcode ;
-}
-
-function CIRCLESmethodMANAGERrandomTABLEoptimize( _fill )
-{
-    _fill = safe_int( _fill, NO );
-    var _items_array = _glob_seeds_array ;
-    var _items_n = circles_lib_count_items( _items_array ) ;
-    var _probs_array = [], _det = null, _denominator = 0;
-    var _edit, _checkbox, ITEM;
-    // compute denominator
-    for( var _i = 0 ; _i < _items_n ; _i++ )
-    {
-       ITEM = _items_array[_i] ;
-       if ( is_item_obj( ITEM ) )
-       {
-          _det = is_mobius_map( ITEM.map ) ? ITEM.map.det() : new complex( 0, 0 );
-          _denominator += _det.norm();
-       }
-    }
-
-    for( _i = 0 ; _i < _items_n ; _i++ )
-    {
-       ITEM = _items_array[_i] ;
-       if ( is_item_obj( ITEM ) )
-       {
-          _det = is_mobius_map( ITEM.map ) ? ITEM.map.det() : new complex( 0, 0 );
-          _probs_array.push( _denominator != 0 ? _det.norm() / _denominator : ( 1.0 / _items_n ) );
-       }
-    }
-
-		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Optimization has been completed with success", 'PROCESSrandomPROBABILITYoutput' ) ;
-    
-    if ( _fill )
-    {
-       for( _i = 0 ; _i < _items_n ; _i++ )
-       {
-         _edit = $("#PROCrndPROBABILITY_EDIT_" + _i ).get(0);
-         _checkbox = $("#PROCrndPROBABILITY_CHECKBOX_" + _i ).get(0);
-         if ( _edit != null && _checkbox != null )
-         {
-              if ( !_checkbox.checked ) _edit.value = _probs_array[_i] ;
-         }
-       }
-    }
-
-    return _probs_array ;
 }
