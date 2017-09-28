@@ -93,8 +93,7 @@ function CIRCLESformsMETHODfixedpointsWORDSfromGENERATORSSET( _question, _silent
 function CIRCLESformsMETHODfixedpointsCOMMUTATORS( _question, _silent, _out_channel )
 {
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
-    var _items_array = _glob_seeds_array ;
-    var _items_n = circles_lib_count_items( _items_array ) ;
+    var _items_array = _glob_seeds_array, _items_n = circles_lib_count_items( _items_array ) ;
     var _fp_n = circles_lib_count_fixed_points();
     if ( _items_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't retrieve the commutators list: missing gens", _glob_app_title );
     else if ( safe_size( _glob_alphabet ) == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't retrieve the commutators list: no alphabet available", _glob_app_title );
@@ -184,7 +183,7 @@ function CIRCLESformsMETHODfixedpointsDELETE( _index, _question, _silent, _out_c
     else
     {
         var _word = _glob_input_fixed_pts_array[_index][0] ;
-        var _b_go = _question ? confirm( "Confirm to delete the entry '"+_word+"' of this list ?" ) : YES ;
+        var _b_go = _question ? confirm( "Confirm to delete the entry word '"+_word+"' of this list ?" ) : YES ;
         if ( _b_go )
         {
             var _ret_chunk = circles_lib_fixedpoints_delete( _index, _out_channel );
@@ -205,13 +204,27 @@ function CIRCLESformsMETHODfixedpointsCONNECT( _plane_type, _clean, _showtext, _
     if ( _ret_id != RET_OK ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
 }
 
-function CIRCLESformsMETHODfixedpointsLOCALIZE( _i, _plane_type, _clean, _showtext, _question, _silent, _out_channel )
+function CIRCLESformsMETHODfixedpointsLOCATE( _i, _plane_type, _clean, _showtext, _question, _silent, _out_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     var _ret_chunk = circles_lib_fixedpoints_locate( _i, _plane_type, _clean, _showtext, _out_channel );
     var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
     var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
+    var _fp_coords = _ret_chunk[2];
+    console.log( _fp_coords );
     if ( _ret_id != RET_OK ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
+    if ( is_consistent_array( _fp_coords ) )
+    {
+       var _html_code = "Fixed points<br>" ;
+       _fp_coords.forEach( function( _pt, _i )
+       {
+          console.log( _i, _pt );
+          _html_code += _pt.output() + "<br>" ;
+       } ) ;
+
+       $( "#ALGEBRAICfixedpointsLISTwork" + _i ).html( _html_code ).fadeIn( "slow" );
+    }
+    else $( "#ALGEBRAICfixedpointsLISTwork" + _i ).html( "<SPAN STYLE=\"color:red;\">No fixed points found</SPAN>" ).fadeIn( "slow" );
 }
 
 function CIRCLESformsMETHODfixedpointsDELETEfixedPTS( _type, _question, _silent, _out_channel )
@@ -301,8 +314,7 @@ function CIRCLESformsMETHODfixedpointsDELETESELECTED( _question, _silent, _out_c
         var _b_go = _question ? confirm( "Do you confirm the deletion of "+_n_sel+" selected item"+( _n_sel == 1 ? "" : "s" )+" ?" ) : YES ;
         if ( _b_go )
         {
-            $.each( _selected_array,
-                    function( _i, _checkbox )
+            $.each( _selected_array, function( _i, _checkbox )
                     {
                         var _index = safe_int( _checkbox.id.replaceAll( "FIXEDPOINTScheckboxENTRY_", "" ), UNDET );
                         var _hash = $( "#ALGEBRAICfixedpointsHASH" + _index ).val();
@@ -321,7 +333,7 @@ function CIRCLESformsMETHODfixedpointsDELETESELECTED( _question, _silent, _out_c
             CIRCLESformsMETHODfixedpointsLIST();
         }
     }
-    else if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing selected items to delete", _glob_app_title );
+    else if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "No selected entries to delete", _glob_app_title );
 }
 
 function CIRCLESformsMETHODfixedpointsKEEPSELECTED( _question, _silent, _out_channel )
@@ -360,7 +372,7 @@ function CIRCLESformsMETHODfixedpointsKEEPSELECTED( _question, _silent, _out_cha
             CIRCLESformsMETHODfixedpointsLIST();
         }
     }
-    else if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing selected items to keep", _glob_app_title );
+    else if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "No selected entries to keep up", _glob_app_title );
 }
 
 function CIRCLESformsMETHODfixedpointsDELETEcombo( _index )
@@ -413,15 +425,15 @@ function CIRCLESformsMETHODfixedpointsCONNECTcombo( _index )
     }
 }
 
-function CIRCLESformsMETHODfixedpointsLOCALIZEcombo( _index )
+function CIRCLESformsMETHODfixedpointsLOCATEcombo( _index )
 {
     _index = safe_int( _index, 0 );
     var _clean = $( "#ALGEBRAICfixedpointsCLEANcheckbox" ).is( ":checked" ) ? YES : NO ;
     var _showtext = $( "#ALGEBRAICfixedpointsSHOWTEXTcheckbox" ).is( ":checked" ) ? YES : NO ;
     switch( _index )
     {
-        case 1: CIRCLESformsMETHODfixedpointsLOCALIZE(UNDET,Z_PLANE,_clean,_showtext); break ;
-        case 2: CIRCLESformsMETHODfixedpointsLOCALIZE(UNDET,W_PLANE,_clean,_showtext); break ;
+        case 1: CIRCLESformsMETHODfixedpointsLOCATE(UNDET,Z_PLANE,_clean,_showtext); break ;
+        case 2: CIRCLESformsMETHODfixedpointsLOCATE(UNDET,W_PLANE,_clean,_showtext); break ;
         default: break ;
     }
 }
@@ -465,7 +477,7 @@ function CIRCLESformsMETHODfixedpointsBUTTONBAR1( _mask )
         _html_code += "<tr><td VALIGN=\"top\" ALIGN=\"right\" CLASS=\"general_rounded_corners\" STYLE=\"padding:5px;background-color:#E8E8E8;\">" ;
         _html_code += "<table ALIGN=\"right\">" ;
         _html_code += "<tr>" ;
-        _html_code += "<td>Keep</td>" ;
+        _html_code += "<td>Keep up</td>" ;
         _html_code += "<td WIDTH=\"3\"></td>" ;
         _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsKEEPcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsKEEPcombo( this.value );\">" ;
         _html_code += "<OPTION VALUE=\"0\"></OPTION>" ;
@@ -543,16 +555,16 @@ function CIRCLESformsMETHODfixedpointsBUTTONBAR2()
         _html_code += "<td WIDTH=\"3\"></td>" ;
         _html_code += "<td>Show text</td>" ;
         _html_code += "<td WIDTH=\"3\"></td>" ;
-        _html_code += "<td><INPUT TYPE=\"checkbox\" ID=\"ALGEBRAICfixedpointsSHOWTEXTcheckbox\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCALIZEcombo( $('#ALGEBRAICfixedpointsLOCALIZEcombo').val() );CIRCLESformsMETHODfixedpointsCONNECTcombo( $('#ALGEBRAICfixedpointsCONNECTcombo').val() );\"></td>" ;
+        _html_code += "<td><INPUT TYPE=\"checkbox\" ID=\"ALGEBRAICfixedpointsSHOWTEXTcheckbox\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCATEcombo( $('#ALGEBRAICfixedpointsLOCATEcombo').val() );CIRCLESformsMETHODfixedpointsCONNECTcombo( $('#ALGEBRAICfixedpointsCONNECTcombo').val() );\"></td>" ;
         _html_code += "<td WIDTH=\"25\"></td>" ;
         _html_code += "<td WIDTH=\"3\"></td>" ;
         _html_code += "<td>Clean</td>" ;
         _html_code += "<td WIDTH=\"3\"></td>" ;
-        _html_code += "<td><INPUT TYPE=\"checkbox\" ID=\"ALGEBRAICfixedpointsCLEANcheckbox\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCALIZEcombo( $('#ALGEBRAICfixedpointsLOCALIZEcombo').val() );CIRCLESformsMETHODfixedpointsCONNECTcombo( $('#ALGEBRAICfixedpointsCONNECTcombo').val() );\"></td>" ;
+        _html_code += "<td><INPUT TYPE=\"checkbox\" ID=\"ALGEBRAICfixedpointsCLEANcheckbox\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCATEcombo( $('#ALGEBRAICfixedpointsLOCATEcombo').val() );CIRCLESformsMETHODfixedpointsCONNECTcombo( $('#ALGEBRAICfixedpointsCONNECTcombo').val() );\"></td>" ;
         _html_code += "<td WIDTH=\"25\"></td>" ;
         _html_code += "<td>Localize</td>" ;
         _html_code += "<td WIDTH=\"3\"></td>" ;
-        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsLOCALIZEcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsLOCALIZEcombo( this.value );\">" ;
+        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsLOCATEcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsLOCATEcombo( this.value );\">" ;
         _html_code += "<OPTION VALUE=\"0\"></OPTION>" ;
         _html_code += "<OPTION VALUE=\"1\">All / Z-plane</OPTION>" ;
         _html_code += "<OPTION VALUE=\"2\">All / W-plane</OPTION>" ;
@@ -566,7 +578,7 @@ function CIRCLESformsMETHODfixedpointsBUTTONBAR2()
         _html_code += "<OPTION VALUE=\"2\">All / W-plane</OPTION>" ;
         _html_code += "</SELECT></td>" ;
         _html_code += "<td WIDTH=\"15\"></td>" ;
-        _html_code += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCALIZEcombo( $('#ALGEBRAICfixedpointsLOCALIZEcombo').val() );CIRCLESformsMETHODfixedpointsCONNECTcombo( $('#ALGEBRAICfixedpointsCONNECTcombo').val() );\">Draw</td>" ;
+        _html_code += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCATEcombo( $('#ALGEBRAICfixedpointsLOCATEcombo').val() );CIRCLESformsMETHODfixedpointsCONNECTcombo( $('#ALGEBRAICfixedpointsCONNECTcombo').val() );\">Draw</td>" ;
         _html_code += "</tr>" ;
         _html_code += "</table>" ;
         _html_code += "</td></tr>" ;
@@ -622,7 +634,7 @@ function CIRCLESformsMETHODfixedpointsLIST( _short )
         _html_code += CIRCLESformsMETHODfixedpointsBUTTONBAR1( _fp_n == 0 ? 1 : 0 );
         _html_code += "<tr><td HEIGHT=\"1\"></td></tr>" ;
         _html_code += "<tr><td VALIGN=\"top\">" ;
-        if ( _fp_n > 8 ) _html_code += "<DIV STYLE=\"position:relative;width:auto;height:150px;overflow:auto;padding:2px;\">" ;
+        if ( _fp_n > 8 ) _html_code += "<DIV STYLE=\"position:relative;width:auto;height:250px;overflow:auto;padding:2px;\">" ;
         if ( _fp_n == 0 )
         {
            _html_code = "<table WIDTH=\"100%\" ALIGN=\"center\">" ;
@@ -691,9 +703,9 @@ function CIRCLESformsMETHODfixedpointsLIST( _short )
                           _html_code += "<td WIDTH=\"8\"></td>" ;
                           _html_code += "<td VALIGN=\"middle\" STYLE=\"color:#3181C6;\">"+_type_def+"</td>" ;
                           _html_code += "<td WIDTH=\"4\"></td>" ;
-                          _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCALIZE("+_i+",Z_PLANE);\"><IMG TITLE=\"Localize on the Z-plane\" SRC=\"support/img/icons/target/target.icon.01.20x20.png\"></td>" ;
+                          _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCATE("+_i+",Z_PLANE);\"><IMG TITLE=\"Localize on the Z-plane\" SRC=\"support/img/icons/target/target.icon.01.20x20.png\"></td>" ;
                           _html_code += "<td WIDTH=\"3\"></td>" ;
-                          _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCALIZE("+_i+",W_PLANE);\"><IMG TITLE=\"Localize on the W-plane\" SRC=\"support/img/icons/target/target.icon.02.20x20.png\"></td>" ;
+                          _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLOCATE("+_i+",W_PLANE);\"><IMG TITLE=\"Localize on the W-plane\" SRC=\"support/img/icons/target/target.icon.02.20x20.png\"></td>" ;
                           _html_code += "<td WIDTH=\"3\"></td>" ;
                           _html_code += "<td VALIGN=\"middle\" CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsDELETE("+_i+");\"><IMG TITLE=\"Delete\" SRC=\"support/img/icons/delete/delete.icon.20x20.png\"></td>" ;
                           _html_code += "<td WIDTH=\"3\"></td>" ;
@@ -705,15 +717,15 @@ function CIRCLESformsMETHODfixedpointsLIST( _short )
                              _html_code += "<td WIDTH=\"16\" ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:_glob_input_fixed_pts_array.swap( "+(_i-1)+", "+(_i)+" );CIRCLESformsMETHODfixedpointsLIST( "+_short+" )\"><IMG TITLE=\"Swap up\" SRC=\"support/img/icons/arrows/single/arrow.up.01.20x20.png\"></td>" ;
                           else _html_code += "<td WIDTH=\"16\"></td>" ;
 
-                                    _html_code += "<td WIDTH=\"8\"></td>" ;
-                                if ( _i >= 0 && _i < _fp_n - 1 )
-                                    _html_code += "<td WIDTH=\"16\" ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:_glob_input_fixed_pts_array.swap( "+(_i)+", "+(_i+1)+" );CIRCLESformsMETHODfixedpointsLIST( "+_short+" )\"><IMG TITLE=\"Swap down\" SRC=\"support/img/icons/arrows/single/arrow.down.01.20x20.png\"></td>" ;
-                                else _html_code += "<td WIDTH=\"16\"></td>" ;
+                          _html_code += "<td WIDTH=\"8\"></td>" ;
+                          if ( _i >= 0 && _i < _fp_n - 1 )
+                          _html_code += "<td WIDTH=\"16\" ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:_glob_input_fixed_pts_array.swap( "+(_i)+", "+(_i+1)+" );CIRCLESformsMETHODfixedpointsLIST( "+_short+" )\"><IMG TITLE=\"Swap down\" SRC=\"support/img/icons/arrows/single/arrow.down.01.20x20.png\"></td>" ;
+                          else _html_code += "<td WIDTH=\"16\"></td>" ;
                                 
-                                _html_code += "</tr>" ;
-                                _html_code += "<tr><td HEIGHT=\"1\"></td></tr>" ;
-                                _html_code += "<tr><td COLSPAN=\"4\"></td><td COLSPAN=\"16\" ID=\"ALGEBRAICfixedpointsLISTwork"+_i+"\" STYLE=\"display:none;\"></td></tr>" ;
-                                _html_code += "<tr><td HEIGHT=\"1\"></td></tr>" ;
+                          _html_code += "</tr>" ;
+                          _html_code += "<tr><td HEIGHT=\"1\"></td></tr>" ;
+                          _html_code += "<tr><td COLSPAN=\"4\"></td><td COLSPAN=\"16\" ID=\"ALGEBRAICfixedpointsLISTwork"+_i+"\" STYLE=\"display:none;\"></td></tr>" ;
+                          _html_code += "<tr><td HEIGHT=\"1\"></td></tr>" ;
                       }
                       else _html_code += "<tr><td>Invalid entry #"+ ( _i + 1 ) + "</td></tr>" ;
                    }

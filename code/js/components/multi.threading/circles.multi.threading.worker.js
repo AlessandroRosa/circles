@@ -251,7 +251,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
          var inputfixedpts = [], _fp_n = circles_lib_count_fixed_points();
          if ( _glob_use_last_pt )
          {
-            if ( _fp_n == 0 ) // default filling of the array through the fixed points of the seeds
+            if ( _fp_n == 0 ) // default array population through the fixed points of the seeds
             {
               var GM, _fp_array, _type ;
               for( var _z = 0 ; _z < _items_n ; _z++ )
