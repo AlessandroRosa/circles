@@ -137,7 +137,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
 
        var PROGRESSbarDIVappend = $( "#PROGRESSbarDIVappend" ).get(0);
        var _canvas_w = 0, _canvas_h = 0 ;
-  		 var _method = safe_int( _options_chunk[ _startINDEX ], METHOD_NONE );
+  		 var _method = safe_int( _options_chunk[ _startINDEX ], _glob_method );
            _startINDEX++ ;
   		 var _process = safe_int( _options_chunk[ _startINDEX ], PROCESS_NONE );
            _startINDEX++ ;

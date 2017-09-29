@@ -214,7 +214,7 @@ function circles_terminal_cmd_probability()
                                _glob_rnd_reps_threshold = DEFAULT_RND_REPS_THRESHOLD ;
                                _glob_rnd_reps_depth = DEFAULT_RND_REPS_DEPTH ;
                                _glob_items_to_init=YES;$('[id$=initBTN]').css('color',COLOR_ERROR) ;
-                               circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Random gens set to 'built-in'", _par_1, _cmd_tag );
+                               circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Random generators set to 'built-in'", _par_1, _cmd_tag );
                             }
 
                             if ( _items_n > 0 )
@@ -252,7 +252,7 @@ function circles_terminal_cmd_probability()
 												else
 												{
 														 if ( _gens_set_exists )
-											 			 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Detected gens set with </lightgray><snow>"+_items_n+"</snow> <lightgray>entr"+(_items_n==1?"y":"ies")+"</lightgray>", _par_1, _cmd_tag );
+											 			 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Detected generators set with </lightgray><snow>"+_items_n+"</snow> <lightgray>entr"+(_items_n==1?"y":"ies")+"</lightgray>", _par_1, _cmd_tag );
 														 
                              var _ks = _glob_gens_set_symbols_map_array.keys_associative();
                              var _vs = _glob_gens_set_symbols_map_array.values_associative();
@@ -391,7 +391,7 @@ function circles_terminal_cmd_probability()
                         }
                         else if ( ( _n_locked + _n_letters ) == _n_alphabet && !_force )
                         {
-                             circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning! No settings will be applied: all symbols in the gens set have been locked or set as candidates for changes", _par_1, _cmd_tag );
+                             circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning! No settings will be applied: all symbols in the generators set have been locked or set as candidates for changes", _par_1, _cmd_tag );
                              circles_lib_output( _out_channel, DISPATCH_INFO, "At least one entry shall be left free for probabilities management", _par_1, _cmd_tag );
                              circles_lib_output( _out_channel, DISPATCH_INFO, "Use 'force' param to skip this warning", _par_1, _cmd_tag );
                         }
@@ -543,7 +543,7 @@ function circles_terminal_cmd_probability()
                         var _sch_n = circles_lib_count_gens_set_model(), _pp_n = safe_size( _params_assoc_array['settings']['probs'], 0 );
 												if ( _sch_n == 0 )
 												{
-           									circles_lib_output( _out_channel, DISPATCH_INFO, "Missing gens set: attempting default generation", _par_1, _cmd_tag );
+           									circles_lib_output( _out_channel, DISPATCH_INFO, "Missing generators set: attempting default generation", _par_1, _cmd_tag );
                             var _ret_chunk = circles_lib_gens_set_build( _out_channel, YES, YES, NO, YES );
           									var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
           									var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure : unknown response" ;

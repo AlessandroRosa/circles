@@ -19,7 +19,7 @@ function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _call
     else if ( !is_number( _tab_index ) ) _tab_index = safe_int( _tab_index, 0 );
 
     CIRCLESformsMETHODbaseid = safe_string( _base_id, "" ) ;
-    _move = safe_int( _move, YES ), _new_method = safe_int( _new_method, METHOD_NONE );
+    _move = safe_int( _move, YES ), _new_method = safe_int( _new_method, _glob_method );
     CIRCLESformsMETHODtabindex = _tab_index = safe_int( _tab_index, 0 );
     _caller_fn = safe_string( _caller_fn, "" );
     _glob_current_tab['method'] = _tab_index ;
@@ -107,7 +107,7 @@ function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _call
 
 function CIRCLESformsMETHODctrls( _new_method )
 {
-    var _new_method = safe_int( _new_method, METHOD_NONE );
+    var _new_method = safe_int( _new_method, _glob_method );
     if ( _new_method == METHOD_ALGEBRAIC ) $("#CIRCLEScheckboxKLEINIANfill").prop( "checked", NO );
     circles_lib_extras_htmlctrl_enable( "CIRCLEScheckboxKLEINIANfill", _new_method != METHOD_ALGEBRAIC ) ;
 }

@@ -166,7 +166,7 @@ function circles_terminal_cmd_gensset()
                    else if ( circles_lib_gens_set_find_entry( _gen_symbol ) )
                    {
                        _b_fail = YES ;
-                       _report.push( "The input word '"+_gen_symbol+"' is already included in the gens set" );
+                       _report.push( "The input word '"+_gen_symbol+"' is already included in the generators set" );
                    }
                    else
                    {
@@ -261,14 +261,14 @@ function circles_terminal_cmd_gensset()
 
                                 var _mm = new mobius_map( _mobius_params_array );
                                 if ( circles_lib_find_item_index_by_map( _glob_seeds_array, _mm ) != UNFOUND )
-                                     circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't add entry '"+_map_tag+"': found duplicate Mobius map in the gens set", _par_1, _cmd_tag );
+                                     circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't add entry '"+_map_tag+"': found duplicate Mobius map in the generators set", _par_1, _cmd_tag );
                                 else
                                 {
                                   var _symbol_lowercase = circles_lib_alphabet_suggest_symbol( _glob_seeds_array, SMALL_LETTER );
                                   var _symbol_uppercase = _symbol_lowercase.toUpperCase();
                                   var _inverse_mm = _mm.inv();
                                   var _array_ref = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-                                  var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seeds" : "gens set" ;
+                                  var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seeds" : "generators set" ;
 
                                   var _CC_01 = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
                                   var screen_CC_01 = circles_lib_complex_to_screen_disk( _CC_01, zplane_sm, _glob_draw_seed_color );
@@ -333,7 +333,7 @@ function circles_terminal_cmd_gensset()
                                      }
                                   } );
 
-                          var _msg = _added + " entr" + ( ( _added == 1 ) ? "y" : "ies" ) + " added to the gens set" ;
+                          var _msg = _added + " entr" + ( ( _added == 1 ) ? "y" : "ies" ) + " added to the generators set" ;
                           circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                           if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( 'method', 'forms', 3.21 ) ;
                           if ( _params_assoc_array["copy"] )
@@ -363,7 +363,7 @@ function circles_terminal_cmd_gensset()
                  var _sch_n = circles_lib_count_gens_set_model();
                  if ( _sch_n == 0 )
                  {
-                   var _msg = ( _force ? " (force)" : "" ) + " The gens set has been flushed away with success" ;
+                   var _msg = ( _force ? " (force)" : "" ) + " The generators set has been flushed away with success" ;
                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
 							     if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
 							  	 {
@@ -374,7 +374,7 @@ function circles_terminal_cmd_gensset()
                  }
                  else
                  {
-                   var _msg = "Can't flush the gens set away: memory failure" ;
+                   var _msg = "Can't flush the generators set away: memory failure" ;
                    circles_lib_output( _out_channel, DISPATCH_ERROR, _msg, _par_1, _cmd_tag );
                  }
                }
@@ -394,7 +394,7 @@ function circles_terminal_cmd_gensset()
 			                   		circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                       }
                }
-               else circles_lib_output( _out_channel, DISPATCH_INFO, "The gens set has been already flushed away", _par_1, _cmd_tag );
+               else circles_lib_output( _out_channel, DISPATCH_INFO, "The generators set has been already flushed away", _par_1, _cmd_tag );
                break ;
                case "exact":
                var _exact_fn = function()
@@ -402,7 +402,7 @@ function circles_terminal_cmd_gensset()
                    var _ret = circles_lib_gens_model_create_exact( _out_channel );
                    if ( !_ret )
                    {
-                      _b_fail = YES, _error_str = "The "+(  _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seed" : "generator" )+", indexed at "+_i+", has no symbol.\nGens set construction aborted" ;
+                      _b_fail = YES, _error_str = "The "+(  _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seed" : "generator" )+", indexed at "+_i+", has no symbol.\nGenerators set construction aborted" ;
                       return 0 ;
                    }
                    else return _ret ;
@@ -415,13 +415,13 @@ function circles_terminal_cmd_gensset()
                    if ( _sch_n > 0 )
                    {
 								     	 var _q_params_array = [], _ret, _i ;
-										   	   _q_params_array['prepromptquestion'] = "There exists already a gens set initialized" ;
+										   	   _q_params_array['prepromptquestion'] = "There exists already a generators set initialized" ;
 							     		 		 _q_params_array['promptquestion'] = "Confirm to overwrite it ?" ;
 											   	 _q_params_array['yes_fn'] = function()
 																											 {
 										                                      _ret = _exact_fn();
 										                                      for( _i = 0 ; _i < _question_counter ; _i++ ) _glob_terminal_out_stream.pop();
-										                                      _msg = "The gens set has been built with success:" ;
+										                                      _msg = "The generators set has been built with success:" ;
 										                                      _msg += _glob_crlf + _sch_n + " new entr" + ( ( _sch_n == 1 ) ? "y" : "ies" );
 										                                      circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
 																											 }
@@ -434,7 +434,7 @@ function circles_terminal_cmd_gensset()
                       _b_go = _ret_id ;
                       if ( _b_go )
                       {
-												 var _msg = "The gens set has been built with success." + _glob_crlf ;
+												 var _msg = "The generators set has been built with success." + _glob_crlf ;
 	                           _msg += _sch_n + " new entr" + ( ( _sch_n == 1 ) ? "y" : "ies" );
 	                       circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                          if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( 'method', 'forms', 3.21 ) ;
@@ -444,7 +444,7 @@ function circles_terminal_cmd_gensset()
                }
                else
                {
-                  _b_fail = YES, _error_str = "Can't construct the gens set: " + _ERR_33_01 ;
+                  _b_fail = YES, _error_str = "Can't construct the generators set: " + _ERR_33_01 ;
                }
                break ;
                case "init":
@@ -463,16 +463,16 @@ function circles_terminal_cmd_gensset()
                }
                else
                {
-                   _b_fail = YES, _error_str = "Missing gens set to construct" ;
+                   _b_fail = YES, _error_str = "Missing generators set to construct" ;
                }
                break ;
                case "list" :
                var _html = _params_assoc_array['html'] ;
                var _set_n = circles_lib_count_gens_set_model(), _gg_n = circles_lib_count_gens();
                if ( _set_n > 0 && _gg_n == 0 )
-               circles_lib_output( _out_channel, DISPATCH_WARNING, "The gens set must be initialized", _par_1, _cmd_tag );
+               circles_lib_output( _out_channel, DISPATCH_WARNING, "The generators set must be initialized", _par_1, _cmd_tag );
 							 if ( _gg_n == 0 )
-						 	 circles_lib_output( _out_channel, DISPATCH_INFO, "The gens set is empty", _par_1, _cmd_tag );
+						 	 circles_lib_output( _out_channel, DISPATCH_INFO, "The generators set is empty", _par_1, _cmd_tag );
                else if ( _gg_n > 0 )
                {
                    circles_lib_output( _out_channel, DISPATCH_STANDARD, "Returning the gens list of maps ...", _par_1, _cmd_tag );
@@ -512,7 +512,7 @@ function circles_terminal_cmd_gensset()
 											var _PROBS_EXIST = is_array( _rs ) ? ( safe_size( _rs, 0 ) > 0 ? YES : NO ) : NO ;
                       var _items_str = "" ;
                       if ( _glob_items_switch == ITEMS_SWITCH_SEEDS ) _items_str = "seeds set" ;
-                      else if ( _glob_items_switch == ITEMS_SWITCH_GENS ) _items_str = "gens set" ;
+                      else if ( _glob_items_switch == ITEMS_SWITCH_GENS ) _items_str = "generators set" ;
                       var _row = "<lightblue>Current workarea </lightblue><snow>"+_items_str+"</snow>" ;
                       if ( _PROBS_EXIST )
                       {
@@ -520,7 +520,7 @@ function circles_terminal_cmd_gensset()
 		                      _row += _glob_crlf + "<khaki>Use 'probability' cmd for random values management</khaki>" ;
 											}
 
-                      _row += _glob_crlf.repeat( 2 ) + "<white>The current gens set model is</white>" ;
+                      _row += _glob_crlf.repeat( 2 ) + "<white>The current generators set model is</white>" ;
                       _row += _glob_crlf + ( new String( "N." ) ).rpad( " ", 5 );
                       _row += "<lightblue>"+( new String( "New symbol" ) ).rpad( " ", 16 )+"</lightblue>";
                       _row += "<lightblue>"+( new String( "Source word" ) ).rpad( " ", 20 )+"</lightblue>";
@@ -555,7 +555,7 @@ function circles_terminal_cmd_gensset()
                            }
                       }
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "The gens set is empty", _par_1, _cmd_tag );
+                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "The generators set is empty", _par_1, _cmd_tag );
                   break ;
                   case "release":
                   circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
@@ -621,7 +621,7 @@ function circles_terminal_cmd_gensset()
      if ( _glob_gens_set_to_init && !_params_assoc_array['action'].is_one_of_i( "bomb" ) )
      {
          circles_lib_output( _out_channel, DISPATCH_WARNING, "", _par_1, _cmd_tag );
-         circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning !"+_glob_crlf+"The gens set needs to be init", _par_1, _cmd_tag );
+         circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning !"+_glob_crlf+"The generators set needs to be init", _par_1, _cmd_tag );
      }
 
      if ( _b_fail )

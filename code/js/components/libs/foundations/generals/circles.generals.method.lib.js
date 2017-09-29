@@ -7,8 +7,8 @@ function circles_lib_method_guess( _items_array )
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } )
     var _items_n = _test ? circles_lib_count_items( _items_array ) : 0 ;
-    if ( !_test ) return [ RET_ERROR, METHOD_NONE ] ;
-    else if ( _items_n <= 0 ) return [ RET_IRRELEVANT, METHOD_NONE ] ;
+    if ( !_test ) return [ RET_ERROR, _glob_method ] ;
+    else if ( _items_n <= 0 ) return [ RET_IRRELEVANT, _glob_method ] ;
     else if ( _items_n > 0 )
     {
        var _mm_01, _mm_02, _i, _k, _count_inv = 0 ;
@@ -27,7 +27,7 @@ function circles_lib_method_guess( _items_array )
                }
             }
           }
-          else return [ RET_ERROR, METHOD_NONE ] ;
+          else return [ RET_ERROR, _glob_method ] ;
        }
        return [ RET_OK, _count_inv > 0 ? METHOD_ALGEBRAIC : METHOD_INVERSION ] ;
     }
@@ -35,9 +35,8 @@ function circles_lib_method_guess( _items_array )
 
 function circles_lib_method_set( _new_method )
 {
-    _new_method = safe_int( _new_method, METHOD_NONE );
+    _glob_method = _new_method = safe_int( _new_method, _glob_method );
     if ( _glob_dict_check != SKIP ) _glob_dict_create = _new_method != _glob_last_method ? YES : NO ;
-    _glob_method = _new_method ;
     if ( $( "#STATUSBARcounting_entity_leftLABEL" ).get(0) != null )
     {
         $( "#STATUSBARcounting_entity_leftLABEL" ).html( _glob_process == PROCESS_RANDOM ? "2<sup>^</sup>" : "Depth" );

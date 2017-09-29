@@ -30,13 +30,13 @@ function trigger_gens_set_01( _silent, _out_channel )
             circles_lib_menu_entries_update();
             // get alphabet
             var _alphabet = circles_lib_alphabet_get();
-            // fill the gens set
+            // fill the generators set
             var _commutator_word = circles_lib_word_commutator_get( _alphabet[0], _glob_seeds_array );
             $.each( _alphabet, function( _i, _symbol ) { _glob_gens_set_model_array.push( _symbol ); } );
             _glob_gens_set_model_array.push( _commutator_word );
             _glob_gens_set_model_array.push( circles_lib_word_inverse_get( _commutator_word ) );
             circles_lib_gens_set_initflag_set(YES);
-            // fill the gens set random table
+            // fill the generators set random table
             if ( safe_size( _glob_rnd_probability_array, 0 ) == 0 )
             {
 	             var _commutator_probability = 0.029 ;

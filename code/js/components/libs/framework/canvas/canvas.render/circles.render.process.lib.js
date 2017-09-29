@@ -39,7 +39,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
          var _rnd_table_size = circles_lib_count_rnd_probabilities(), _sch_n = circles_lib_count_gens_set_model();
          if ( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM && _sch_n != _rnd_table_size )
          {
-            var _msg = "The gens set ("+_sch_n+" element"+( _sch_n == 1 ? "" : "s" )+") is not congruent with the random table ("+_rnd_table_size+" element"+( _rnd_table_size == 1 ? "" : "s" )+")." ;
+            var _msg = "The generators set ("+_sch_n+" element"+( _sch_n == 1 ? "" : "s" )+") is not congruent with the random table ("+_rnd_table_size+" element"+( _rnd_table_size == 1 ? "" : "s" )+")." ;
             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
             return [ RET_ERROR, _msg ];
          }

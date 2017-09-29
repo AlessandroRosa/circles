@@ -34,7 +34,7 @@ function circles_lib_terminal_put_item_in( _obj, _symbol, _method, _op_mask, _bo
 		
     _bool_return = safe_int( _bool_return, NO );
 		_symbol = safe_string( _symbol, circles_lib_alphabet_suggest_symbol() );
-    _method = safe_int( _method, METHOD_NONE );
+    _method = safe_int( _method, _glob_method );
 		var _item = new item_obj() ;
  	  if ( _op_mask & 1 ) _obj = _obj.inv();
     if ( _op_mask & 2 ) _glob_items_switch = ITEMS_SWITCH_SEEDS ;

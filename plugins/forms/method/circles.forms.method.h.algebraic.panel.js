@@ -50,7 +50,7 @@ function CIRCLESformsMETHODmanagerALGEBRAICpanelBUILD( _new_method, caller_fn, W
       HTMLcode += "</div>" ;
 
       HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:"+(WIDTH-20)+"px;\" VALIGN=\"top\" ID=\"CIRCLESMETHOD_TAB_02\">" ;
-      HTMLcode += "<h2>Gens set</h2>" ;
+      HTMLcode += "<h2>Generators set</h2>" ;
       HTMLcode += "<table WIDTH=\"100%\">" ;
       HTMLcode += "<tr><td VALIGN=\"top\" ID=\"ALGEBRAICgeneratorsPANELcontainer\"></td></tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
@@ -102,6 +102,8 @@ function CIRCLESformsMETHODmanagerALGEBRAICpanelBUILD( _new_method, caller_fn, W
           }
  		  HTMLcode += "</SELECT>" ;
  		  HTMLcode += "</td>" ;
+      HTMLcode += "<td WIDTH=\"5\"></td>" ;
+      HTMLcode += "<td ID=\"ALGEBRAICgeneratorsBUILDmodelsBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERgensMODELScombo();\">Build</td>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
       HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETcomboCONTAINER\"></td>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;

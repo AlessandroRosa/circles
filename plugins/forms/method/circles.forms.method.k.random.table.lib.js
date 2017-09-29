@@ -226,14 +226,13 @@ function CIRCLESmethodMANAGERrandomMODELScombo()
     var _gs_n = circles_lib_count_gens_set_model();
     if ( _chunk_index > 0 )
     {
-       var _chunk = _glob_presets['rnd'][_chunk_index-1] ;
-       var _chunk_length = safe_size( _chunk, 0 );
+       var _chunk = _glob_presets['rnd'][_chunk_index-1], _chunk_length = safe_size( _chunk, 0 );
        if ( _chunk_length == 0 )
-			 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "The selected preset is empty", 'PROCESSrandomPROBABILITYoutput' ) ;
+			 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "The selected preset option is empty", 'PROCESSrandomPROBABILITYoutput' ) ;
        else if ( _gs_n == 0 )
-			 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Cannot set up the selected preset because the gens set is empty.", 'PROCESSrandomPROBABILITYoutput' ) ;
+			 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Cannot set up the selected preset because the generators set is empty.", 'PROCESSrandomPROBABILITYoutput' ) ;
        else if ( _gs_n != _chunk_length - 1 )
-			 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "The number of probabilities in the selected preset is not equal to the cardinality of the gens set.", 'PROCESSrandomPROBABILITYoutput' ) ;
+			 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "The number of probabilities in the selected preset is not equal to the cardinality of the generators set.", 'PROCESSrandomPROBABILITYoutput' ) ;
        else if ( _chunk_length > 0 && _gs_n == _chunk_length - 1 )
        {
           var _rnd_n = circles_lib_count_rnd_probabilities(), _b_go = _rnd_n == 0 ? YES : confirm( "Do you want to overwrite the current random table ?" );
@@ -267,7 +266,7 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
        HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
        HTMLcode += "<tr><td STYLE=\"color:"+get_rgb_from_color_tag( "gray" )+";font-size:12pt;\" ALIGN=\"center\">The probabilities manager is available<br>only when random process is chosen</td></tr>" ;
        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-       HTMLcode += "<tr><td CLASS=\"link\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:#8FBAC8;\" ONCLICK=\"javascript:_glob_process=PROCESS_RANDOM;_glob_fixedpt_io=FIXEDPOINTS_IO_INPUT;circles_lib_plugin_load('forms','method',2,NO,_glob_method,null);CIRCLESmethodMANAGERrandomTABLEmultisliderINIT();circles_lib_menu_entries_update();\">Set process to random and Reload</td></tr>" ;
+       HTMLcode += "<tr><td CLASS=\"link\" ALIGN=\"center\" STYLE=\"font-size:12pt;color:#8FBAC8;\" ONCLICK=\"javascript:_glob_process=PROCESS_RANDOM;_glob_fixedpt_io=FIXEDPOINTS_IO_INPUT;circles_lib_plugin_load('forms','method',NO,2,_glob_method,null);CIRCLESmethodMANAGERrandomTABLEmultisliderINIT();circles_lib_menu_entries_update();\">Click here to set process to random and reload</td></tr>" ;
        HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
        HTMLcode += "</table>" ;
        $("#ALGEBRAICrandomCONTAINER").show();
@@ -475,7 +474,7 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
     else
     {
         HTMLcode += "<tr><td HEIGHT=\"20\"></td></tr>" ;
-        HTMLcode += "<tr><td STYLE=\"font-size:12pt;color:"+DEFAULT_COLOR_INFO_FOR_TEXT+";\" ALIGN=\"center\">The gens set has not been initialized yet</td></tr>" ;
+        HTMLcode += "<tr><td STYLE=\"font-size:12pt;color:"+DEFAULT_COLOR_INFO_FOR_TEXT+";\" ALIGN=\"center\">The generators set has not been initialized yet</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
         HTMLcode += "<tr><td STYLE=\"font-size:12pt;color:"+DEFAULT_COLOR_INFO_FOR_TEXT+";\" ALIGN=\"center\">The probability table is currently empty</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;

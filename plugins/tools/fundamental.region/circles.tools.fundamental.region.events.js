@@ -143,7 +143,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONitemsCOMBOonchange()
 				 		 HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
 				 		 HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;color:#C0C0C0;\">The words list is empty then.</td></tr>" ;
 				 		 HTMLcode += "<tr><td HEIGHT=\"16\"></td></tr>" ;
-				 		 HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;color:#C0C0C0;\">The gens set includes no elements</td></tr>" ;
+				 		 HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;color:#C0C0C0;\">The generators set includes no elements</td></tr>" ;
 				 		 HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
 				}
 	 		  HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;

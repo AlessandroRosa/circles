@@ -14,7 +14,7 @@ var CIRCLESembeddingsGENERALPURPOSE_DELETE = 3, CIRCLESembeddingsGENERALPURPOSE_
 var CIRCLESembeddingsGENERALPURPOSEremotectrlCOMMANDS = { "add.mobius.map" : "<lightblue>Add a new mobius map</lightblue> <yellow>Example: addmobius 1 2+i 0 1</yellow>",
 																													"bomb" : "<lightblue>delete the current list of mobius maps</lightblue>",
 																													"capture.seeds" : "<lightblue>the seeds set is copied into this plug-in</lightblue>",
-																													"capture.gens" : "<lightblue>the gens set is copied into this plug-in</lightblue>",
+																													"capture.gens" : "<lightblue>the generators set is copied into this plug-in</lightblue>",
 																													"generate.group" : "<lightblue>generate the group from the current input mobius maps</lightblue>",
 																													"full.group" : "<lightblue>show the whole group, including the inverse maps</lightblue>",
 																													"hidelist" : "<lightblue>hide the container including the list of mobius maps</lightblue>",

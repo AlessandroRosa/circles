@@ -418,7 +418,7 @@ function circles_lib_files_pdf_save_report()
       if ( _generators_set_packed.length > 0 )
       {
          _top += 3 ;
-         doc.text( _left, _top, "Gens set : " + _generators_set_packed );
+         doc.text( _left, _top, "Generators set : " + _generators_set_packed );
       }
 
       var _items_n = circles_lib_count_items();

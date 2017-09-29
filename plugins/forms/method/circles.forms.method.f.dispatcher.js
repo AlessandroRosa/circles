@@ -23,7 +23,7 @@ function CIRCLESformsMETHODdispatcher()
           break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
           $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESmethodMANAGERrepetendsLOAD ) } ;
-          if ( CIRCLESformsMETHODtabindex == 1 ) // gens set
+          //if ( CIRCLESformsMETHODtabindex == 1 ) // generators set
           //CIRCLESgenssetMANAGERreload() ;
           break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:

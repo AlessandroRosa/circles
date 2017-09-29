@@ -183,10 +183,10 @@ function circles_terminal_cmd_bomb()
                                    }
                               }
   
-                              if ( _bomb_mask.match_bit_mask( 128, 16 ) ) // gens set model
+                              if ( _bomb_mask.match_bit_mask( 128, 16 ) ) // generators set model
                               {
                                    var _sch_n = circles_lib_count_gens_set_model();
-                                   if ( _sch_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb gens set: the list is empty", _par_1, _cmd_tag );
+                                   if ( _sch_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb generators set: the list is empty", _par_1, _cmd_tag );
                                    else
                                    {
                                        if ( is_array( _glob_gens_set_model_array ) )
@@ -194,14 +194,14 @@ function circles_terminal_cmd_bomb()
 																					 _glob_gens_set_model_array.flush();
 		                                       circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Gens model has been bombed with success", _par_1, _cmd_tag );
 																			 }
-                                       else circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Gens set is of invalid type", _par_1, _cmd_tag );
+                                       else circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Generators set is of invalid type", _par_1, _cmd_tag );
 
                                        if ( is_array( _glob_gens_set_symbols_map_array ) )
                                        {
 																					 _glob_gens_set_symbols_map_array.flush() ;
-		                                       circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Gens set map has been bombed with success", _par_1, _cmd_tag );
+		                                       circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Generators set map has been bombed with success", _par_1, _cmd_tag );
 																			 }
-                                       else circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Gens set map is of invalid type", _par_1, _cmd_tag );
+                                       else circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Generators set map is of invalid type", _par_1, _cmd_tag );
                                    }
                               }
 

@@ -1,4 +1,4 @@
-function circles_lib_word_inverse_get( _w ) { return safe_string( _w, "" ).trim().flipCase().reverse(); }
+function circles_lib_word_inverse_get( _w ) { return safe_string( _w, "" ).trim().flipCase(); }
 function circles_lib_word_check( _input_word, _alphabet )
 {
     if ( safe_string( _input_word, 0 ) == 0 ) return CIRCLES_MISSING_INPUT ;

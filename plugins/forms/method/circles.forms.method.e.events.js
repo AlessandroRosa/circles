@@ -24,8 +24,6 @@ function CIRCLESformsMETHODeventsHANDLER( _ctrl_id, _event )
 
             if ( _is_new )
             {
-            		// function CIRCLESgenssetMANAGERgensADD( _row_index, _inverse, _question, _silent )
-            		// function CIRCLESgenssetMANAGERgensUPDATE( _row_index, _question, _silent )
                 if ( _param1 == 0 ) CIRCLESgenssetMANAGERgensADD( _param2, _param3, _param4, _param5 );
     		        else if ( _param1 == 1 ) CIRCLESgenssetMANAGERgensUPDATE( _param2, _param3, _param4 );
                 if ( !_glob_gens_set_to_init )

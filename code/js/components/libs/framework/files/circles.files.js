@@ -106,7 +106,7 @@ function circles_lib_files_load_environment( _filename, _file_contents )
                                 _glob_smpr = safe_int( _val, 0 );
                                 break ;
                                 case "method":
-                                circles_lib_method_set( safe_int( _val, METHOD_NONE ) );
+                                circles_lib_method_set( safe_int( _val, _glob_method ) );
                                 break ;
                                 case "orbit_palette_start":
                                 _glob_orbit_rgb_start = safe_string( _val, "rgb( 255, 192, 0 )" );

@@ -14,7 +14,7 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
          var _drawentity = safe_int( settings['drawentity'], DRAWENTITY_ISOMETRIC_CIRCLE );
          var _depth = safe_int( settings['depth'], 1 );
          var _config = settings['config'].split( "@" );
-         var _method_def = circles_lib_method_get_def( safe_int( _config[0], METHOD_NONE ) );
+         var _method_def = circles_lib_method_get_def( safe_int( _config[0], _glob_method ) );
          var _process_def = circles_lib_process_get_def( safe_int( _config[1], PROCESS_NONE ) );
          var _construction_mode_def = circles_lib_construction_mode_get_def( safe_int( _config[2], CONSTRUCTION_NONE ) );
          var _fixedpoints_io_def = circles_lib_fixedpoints_io_get_def( safe_int( _config[3], FIXEDPOINTS_IO_NONE ) );

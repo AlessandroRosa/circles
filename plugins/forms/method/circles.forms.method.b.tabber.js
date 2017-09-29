@@ -38,7 +38,7 @@ var CIRCLESMETHODtabberOptions = {
        CIRCLESmethodMANAGERrepetendsPANEL();
        $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESmethodMANAGERrepetendsLOAD ) } ;
        break ;
-       case 1: // gens set - tab
+       case 1: // generators set - tab
        if ( circles_lib_gens_set_initflag_get() && circles_lib_count_gens_set_model() > 0 ) CIRCLESgenssetMANAGERiconSETUP(YES);
        CIRCLESgenssetMANAGERreload();
        break ;

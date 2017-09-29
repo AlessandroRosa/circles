@@ -333,7 +333,7 @@ if ( !Array.prototype.find_it )
     Array.prototype.find_it = function()
     {
 	      var _is_fn = typeof arguments[0] === "function" ? 1 : 0, _ret = 0 ;
-			  var _tester = arguments[0] ;			if ( _tester == null ) return null ;
+			  var _tester = arguments[0] ; if ( _tester == null ) return null ;
 			  var _ref = arguments[1] == null ? this : arguments[1] ;
 				for ( var _property in _ref )
         {
@@ -352,7 +352,7 @@ if ( !Array.prototype.find_it )
              }
         }
         
-        return _ret ;
+        return _ret ? 1 : 0 ;
     }
 }
 

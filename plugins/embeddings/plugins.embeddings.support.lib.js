@@ -43,7 +43,7 @@ function GLOB_PLUGIN_DISPLAY_INFOS( _plugin_ref )
     var _index_ref = _plugin_ref ;
 		var _def = safe_string( _plugin_definitions_array[_index_ref], "none" );
 		var _info = safe_string( _plugin_info_array[_index_ref], "none" );
-		var _method = safe_int( _plugin_method_array[_index_ref], METHOD_NONE );
+		var _method = safe_int( _plugin_method_array[_index_ref], _glob_method );
 		var _method_str = circles_lib_method_get_def( _glob_method );
 		var HTMLcode = "<table>" ;
 		HTMLcode += "<tr><td HEIGHT=\"15\"></td></tr>" ;

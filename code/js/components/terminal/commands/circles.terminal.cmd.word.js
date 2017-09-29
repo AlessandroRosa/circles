@@ -701,7 +701,7 @@ function circles_terminal_cmd_word()
                                            _added += 2 ;
                                            _glob_gens_set_to_init = YES ;
                                       }
-                                      else circles_lib_output( _out_channel, DISPATCH_WARNING, "The word '"+_word+"' or '"+circles_lib_word_inverse_get(_word )+"' is already included in the gens set", _par_1, _cmd_tag );
+                                      else circles_lib_output( _out_channel, DISPATCH_WARNING, "The word '"+_word+"' or '"+circles_lib_word_inverse_get(_word )+"' is already included in the generators set", _par_1, _cmd_tag );
                                   }
                                   else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to compute generator from word '"+_input_word+"'", _par_1, _cmd_tag );
                               } );
@@ -709,15 +709,15 @@ function circles_terminal_cmd_word()
                         var _gg_n = circles_lib_count_gens(), _sch_n = circles_lib_count_gens_set_model();
                         if ( _gg_n > 0 && _added > 0 )
                         {
-                             circles_lib_output( _out_channel, DISPATCH_INFO, _added + " gen"+(_added!=1?'s':'')+" ha"+(_added!=1?'ve':'s')+" been added to the gens set", _par_1, _cmd_tag );
-                             circles_lib_output( _out_channel, DISPATCH_INFO, "The gens set includes " + _sch_n + " elements now", _par_1, _cmd_tag );
+                             circles_lib_output( _out_channel, DISPATCH_INFO, _added + " gen"+(_added!=1?'s':'')+" ha"+(_added!=1?'ve':'s')+" been added to the generators set", _par_1, _cmd_tag );
+                             circles_lib_output( _out_channel, DISPATCH_INFO, "The generators set includes " + _sch_n + " elements now", _par_1, _cmd_tag );
                              if ( _glob_gens_set_to_init )
                              {
                                  circles_lib_output( _out_channel, DISPATCH_WARNING, "", _par_1, _cmd_tag );
-                                 circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning !"+_glob_crlf+"The gens set needs to be init", _par_1, _cmd_tag );
+                                 circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning !"+_glob_crlf+"The generators set needs to be init", _par_1, _cmd_tag );
                              }
                         }
-                        else if ( _added == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "No gen has been added: the gens set is empty", _par_1, _cmd_tag );
+                        else if ( _added == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "No gen has been added: the generators set is empty", _par_1, _cmd_tag );
                   }
              }
              break ;

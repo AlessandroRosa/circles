@@ -96,7 +96,7 @@ function circles_terminal_cmd_print()
           						    }
                       }
     
-          		        // scan inside the gens set
+          		        // scan inside the generators set
                       var _gg_n = circles_lib_count_gens();
           		        if ( _gg_n > 0 )
           		        {
@@ -104,7 +104,7 @@ function circles_terminal_cmd_print()
           						    for( var _i = 0 ; _i < _vars_array.length ; _i++ )
           						    {
           						        _var_id = _vars_array[_i] ;
-          						        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "scanning for '<white>"+_var_id+"</white>' inside the <lightblue>gens set</lightblue>", _par_1, _cmd_tag );
+          						        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "scanning for '<white>"+_var_id+"</white>' inside the <lightblue>generators set</lightblue>", _par_1, _cmd_tag );
           				            for( var _m = 0 ; _m < _gg_n ; _m++  )
           				            {
           				                if ( _glob_gens_array[_m].symbol.strcmp( _var_id ) )
