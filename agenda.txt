@@ -15,8 +15,13 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 - check that all services inside each of these masks work properly.
   (Remove each entry after completing the checkings)
 
+- report all remote ctrl params, for all forms, in read.me.txt file
+  inside each form folder
+
 * FORMS
 method
+> insert a checkbox, over the tab, to skip confirmations or not
+> test repetends services
 > test all functionalities inside tabs
 
 dictionary

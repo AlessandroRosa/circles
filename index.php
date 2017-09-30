@@ -10,7 +10,30 @@
 <?php $title = get_params_ini( "MAIN", "title", $PATH_TO_INI ); ?>
 <?php $subtitle = get_params_ini( "MAIN", "subtitle", $PATH_TO_INI ); ?>
 <?php $lastreleasedate = get_params_ini( "MAIN", "lastreleasedate", $PATH_TO_INI ); ?>
-<?php $MAX_DEMO_IDX = 10 ; ?>
+<?php $MAX_DEMO_IDX = 0 ;
+      if ( array_key_exists( "demo", $_GET ) )
+      {
+        $DEMO_IDX = intval( $_GET['demo'] ); if ( is_nan( $DEMO_IDX ) || $DEMO_IDX < 0 ) $DEMO_IDX = 0 ;
+        $DEMO_FILES_PATH = "demos" ;
+        if ( file_exists( $DEMO_FILES_PATH ) )
+        {
+          $RESULTSarray = scan_folder( $DEMO_FILES_PATH, "/^.*\.(php)$/i", 0, 1, 1, 0 );
+          $DEMO_ARCHIVE = array();
+          $DEMO_FILENAME = "" ;
+          foreach( $RESULTSarray AS $K => $CHUNK )
+          {
+            $FILENAME = $CHUNK['filename'] ;
+            $TOKENS = explode( ".", $FILENAME );
+            $MAX_DEMO_IDX = max( $MAX_DEMO_IDX, $TOKENS[0] );
+            if ( $TOKENS[0] == $DEMO_IDX )
+            {
+              $DEMO_FILENAME = "demos/$FILENAME" ;
+              break ;
+            }
+          }
+        }
+      }
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -104,27 +127,7 @@ alert_set_imgfolder_path( _glob_path_to_img );
 CIRCLESobjectsINIT(0);
 circles_lib_statusbar_load( "vert", "left", "top", NO, 10, 100 );
 </SCRIPT>
-<?php if ( array_key_exists( "demo", $_GET ) )
-{
-  $DEMO_IDX = intval( $_GET['demo'] ); if ( is_nan( $DEMO_IDX ) || $DEMO_IDX < 0 ) $DEMO_IDX = 0 ;
-  $DEMO_FILES_PATH = "demos" ;
-  if ( file_exists( $DEMO_FILES_PATH ) )
-  {
-    $RESULTSarray = scan_folder( $DEMO_FILES_PATH, "/^.*\.(php)$/i", 0, 1, 1, 0 );
-    $DEMO_ARCHIVE = array();
-    foreach( $RESULTSarray AS $K => $CHUNK )
-    {
-      $FILENAME = $CHUNK['filename'] ;
-      $TOKENS = explode( ".", $FILENAME );
-      if ( $TOKENS[0] == $DEMO_IDX )
-      {
-        @include( "demos/$FILENAME" );
-        break ;
-      }
-    }
-  }
-}
-?>
+<?php if ( strlen( $DEMO_FILENAME ) ) @include( "demos/$FILENAME" ); ?>
 <?php load_src_code_dir( $PATH_TO_CIRCLES."code/js/init/", "js", $ERRCODE ); ?>
 <?php @include( $PATH_TO_CIRCLES."triggers/triggers.init.php" ); ?>
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript">

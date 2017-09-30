@@ -127,8 +127,7 @@ function circles_terminal_cmd_plugin()
 																								{
 																										if ( _row.toLowerCase().start_with( _ee ) )
 																										_item[""+_ee] = ( _row.split( "=" ) )[1];
-																								}
-																								) ;
+																								} ) ;
 																						}
 																				}
 																		  ) ;
@@ -238,8 +237,7 @@ function circles_terminal_cmd_plugin()
                               setTimeout( function(){
                                 try{ eval( "_output = " + _dispatcher_fn + ";" ) }
                                	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
-                              },
-                              1200 );
+                              }, 700 );
                             }
                             else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                           }
