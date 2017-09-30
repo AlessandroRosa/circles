@@ -49,7 +49,7 @@ function CIRCLESgenssetMANAGERgeneratorRESTOREfromRANDOMprobs( _question, _silen
                 
            if ( _n_restored > 0 )
            {
-              CIRCLESgenssetMANAGERgensSETUP( _question, _silent );
+              CIRCLESgenssetMANAGERgensSETUP( _question & CIRCLESformsMETHODskipconfirm?0:1, _silent );
               CIRCLESgenssetMANAGERreload();
               CIRCLESformsMETHODalgebraicCHANGEtab( 2 );
            }
@@ -370,7 +370,7 @@ function CIRCLESgenssetMANAGERgensEXACT( _question, _silent, _out_channel )
        {
            circles_lib_gens_model_create_exact( _out_channel );
            CIRCLESgenssetMANAGERreload();
-           CIRCLESgenssetMANAGERgensSETUP( _question, _silent );
+           CIRCLESgenssetMANAGERgensSETUP( _question && CIRCLESformsMETHODskipconfirm?0:1, _silent );
            var _msg = "The exact generators set has been built with success" ;
 					 if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
            return [ RET_ERROR, _msg ] ;
@@ -594,9 +594,10 @@ function CIRCLESgenssetMANAGERgensBOMB( _b_switch, _question, _silent )
 	 var _entries_n = CIRCLESgenssetMANAGERcountCANDIDATEentries();
    if ( _entries_n > 0 )
    {
-       var _question = "The generators set includes " + _entries_n + " gen" + ( _entries_n == 1 ? "" : "s" ) + "" ;
-           _question += "\nConfirm to delete them all ?" ;
-       var _b_go = !_question ? YES : confirm( _question );
+       var _q = "The generators set includes " + _entries_n + " gen" + ( _entries_n == 1 ? "" : "s" ) + "." ;
+           _q += "\n\nConfirm to delete them all ?" ;
+           _q += "\n(Deletions could not be recovered)" ;
+       var _b_go = !_question ? YES : confirm( _q );
        if ( _b_go )
        {
            circles_lib_gens_set_bomb();

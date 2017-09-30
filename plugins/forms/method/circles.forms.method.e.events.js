@@ -32,7 +32,7 @@ function CIRCLESformsMETHODeventsHANDLER( _ctrl_id, _event )
                     $('[id$=initBTN]').css('color',COLOR_ERROR) ;
         		    	  CIRCLESgenssetMANAGERiconSETUP(YES);
                 }
-                else CIRCLESgenssetMANAGERgensSETUP( YES, YES ) ;
+                else CIRCLESgenssetMANAGERgensSETUP( YES && CIRCLESformsMETHODskipconfirm?0:1, YES ) ;
             }
 		    }
         else if ( _ctrl_id.stricmp( "ALGEBRAICfixedpointsINPUTedit" ) )

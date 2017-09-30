@@ -66,13 +66,13 @@ function CIRCLESformsMETHODmanagerALGEBRAICpanelBUILD( _new_method, caller_fn, W
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
       HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETreportBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _glob_gens_set_report, _glob_app_title );\">Report</td>" ;
       HTMLcode += "<td WIDTH=\"1\"></td>" ;
-      HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETrestoreBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERgeneratorRESTOREfromRANDOMprobs();\">Restore</td>" ;
+      HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETrestoreBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERgeneratorRESTOREfromRANDOMprobs(CIRCLESformsMETHODskipconfirm?0:1);\">Restore</td>" ;
       HTMLcode += "<td WIDTH=\"1\"></td>" ;
       HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETreloadBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERreload();\">Reload</td>" ;
       HTMLcode += "<td WIDTH=\"1\"></td>" ;
       HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETsortBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERgensSORT();\">Sort</td>" ;
       HTMLcode += "<td WIDTH=\"1\"></td>" ;
-      HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETflushBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERgensBOMB();\">Bomb</td>" ;
+      HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETflushBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERgensBOMB(YES,CIRCLESformsMETHODskipconfirm?0:1);\">Bomb</td>" ;
       HTMLcode += "<td WIDTH=\"1\"></td>" ;
       HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETsaveBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERgensSAVE();\">Save</td>" ;
 			HTMLcode += "</tr>" ;

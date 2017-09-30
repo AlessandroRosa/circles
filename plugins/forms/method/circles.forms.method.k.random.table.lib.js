@@ -219,8 +219,9 @@ function CIRCLESmethodMANAGERrandomTABLEmultisliderINIT()
     }
 }
 
-function CIRCLESmethodMANAGERrandomMODELScombo()
+function CIRCLESmethodMANAGERrandomMODELScombo( _question )
 {
+    _question = safe_int( _question, 0 ) ;
     var _chunk_index = $( "#ALGEBRAICrndPRESETScombo" ).val();
         _chunk_index = safe_int( _chunk_index, 0 );
     var _gs_n = circles_lib_count_gens_set_model();
@@ -235,7 +236,8 @@ function CIRCLESmethodMANAGERrandomMODELScombo()
 			 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "The number of probabilities in the selected preset is not equal to the cardinality of the generators set.", 'PROCESSrandomPROBABILITYoutput' ) ;
        else if ( _chunk_length > 0 && _gs_n == _chunk_length - 1 )
        {
-          var _rnd_n = circles_lib_count_rnd_probabilities(), _b_go = _rnd_n == 0 ? YES : confirm( "Do you want to overwrite the current random table ?" );
+          var _rnd_n = circles_lib_count_rnd_probabilities() ;
+          var _b_go = _rnd_n == 0 || !_question ? YES : confirm( "Do you want to overwrite the current random table ?" );
           if ( _b_go )
           {
              _glob_rnd_probability_array.flush();
@@ -382,7 +384,7 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
  		  HTMLcode += "<td>Models</td>" ;
  		  HTMLcode += "<td WIDTH=\"3\"></td>" ;
  		  HTMLcode += "<td>" ;
- 		  HTMLcode += "<SELECT ID=\"ALGEBRAICrndPRESETScombo\" ONCHANGE=\"javascript:CIRCLESmethodMANAGERrandomMODELScombo();\">" ;
+ 		  HTMLcode += "<SELECT ID=\"ALGEBRAICrndPRESETScombo\" ONCHANGE=\"javascript:CIRCLESmethodMANAGERrandomMODELScombo(CIRCLESformsMETHODskipconfirm?0:1);\">" ;
  		  HTMLcode += "<OPTION></OPTION>" ;
       var _ps_n = safe_size( _glob_presets['rnd'], 0 ), _chunk ;
       for( var _i = 0 ; _i < _ps_n ; _i++ )

@@ -39,7 +39,7 @@ function CIRCLESformsMETHODfixedpointsFIGURES( _plane_type, _question, _silent, 
     else if ( !_plane_type.is_one_of( Z_PLANE, W_PLANE ) ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing input plane reference", _glob_app_title );
     else
     {
-       var _b_go = confirm( "Fixed points will be converted into 'figure' objects for further managing. Confirm ?" );
+       var _b_go = _fp_n > 0 && _question ? confirm( "Fixed points will be converted into 'figure' objects for further managing. Confirm ?" ) : YES ;
        if ( _b_go )
        {
           var _ret_chunk = circles_lib_fixedpoints_create_figures_from( UNDET, _plane_type, _out_channel );
@@ -58,7 +58,7 @@ function CIRCLESformsMETHODfixedpointsSEEDS( _question, _silent, _out_channel )
     if ( _items_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The fixed points list is currently empty", _glob_app_title );
     else
     {
-       var _b_go = _fp_n > 0 ? confirm( "The default seeds words list will overwrite current settings. Confirm ?" ) : YES ;
+       var _b_go = _fp_n > 0 && _question ? confirm( "The default seeds words list will overwrite current settings. Confirm ?" ) : YES ;
        if ( _b_go )
        {
           var _ret_chunk = circles_lib_fixedpoints_add_from_seeds( _out_channel );
@@ -78,7 +78,7 @@ function CIRCLESformsMETHODfixedpointsWORDSfromGENERATORSSET( _question, _silent
      if ( _gg_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The generators set is currently empty", _glob_app_title );
      else
      {
-        var _b_go = _fp_n > 0 ? confirm( "The generators set words list will overwrite current settings.\nConfirm ?" ) : YES ;
+        var _b_go = _fp_n > 0 && _question ? confirm( "The generators set words list will overwrite current settings.\nConfirm ?" ) : YES ;
         if ( _b_go )
         {
             var _ret_chunk = circles_lib_fixedpoints_add_from_gens_set( _out_channel );
@@ -99,7 +99,7 @@ function CIRCLESformsMETHODfixedpointsCOMMUTATORS( _question, _silent, _out_chan
     else if ( safe_size( _glob_alphabet ) == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't retrieve the commutators list: no alphabet available", _glob_app_title );
     else
     {
-       var _b_go = _fp_n > 0 ? confirm( "The commutators words list will overwrite current settings. Confirm ?" ) : YES ;
+       var _b_go = _fp_n > 0 && _question ? confirm( "The commutators words list will overwrite current settings. Confirm ?" ) : YES ;
        if ( _b_go )
        {
           var _ret_chunk = circles_lib_fixedpoints_add_from_commutators( 0, _out_channel );
@@ -119,7 +119,7 @@ function CIRCLESformsMETHODfixedpointsBOMB( _question, _silent, _out_channel )
      if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The list of input fixed points is already empty", _glob_app_title );
      else
      {
-          var _b_go = _question ? confirm( "Confirm to delete all entries of this list ?" ) : YES ;
+          var _b_go = _fp_n > 0 && _question ? confirm( "Confirm to delete all entries of this list ?" ) : YES ;
           if ( _b_go )
           {
               var _ret_chunk = circles_lib_fixedpoints_bomb( _out_channel );
@@ -370,10 +370,10 @@ function CIRCLESformsMETHODfixedpointsDELETEcombo( _index )
     _index = safe_int( _index, 0 );
     switch( _index )
     {
-       case 1: CIRCLESformsMETHODfixedpointsDELETESELECTED(); break ;
-       case 2: CIRCLESformsMETHODfixedpointsDELETEfixedPTS(FIXEDPOINT_SINK); break ;
-       case 3: CIRCLESformsMETHODfixedpointsDELETEfixedPTS(FIXEDPOINT_SOURCE); break ;
-       case 4: CIRCLESformsMETHODfixedpointsDELETEfixedPTS(FIXEDPOINT_NEUTRAL); break ;
+       case 1: CIRCLESformsMETHODfixedpointsDELETESELECTED(CIRCLESformsMETHODskipconfirm?0:1); break ;
+       case 2: CIRCLESformsMETHODfixedpointsDELETEfixedPTS(FIXEDPOINT_SINK,CIRCLESformsMETHODskipconfirm?0:1); break ;
+       case 3: CIRCLESformsMETHODfixedpointsDELETEfixedPTS(FIXEDPOINT_SOURCE,CIRCLESformsMETHODskipconfirm?0:1); break ;
+       case 4: CIRCLESformsMETHODfixedpointsDELETEfixedPTS(FIXEDPOINT_NEUTRAL,CIRCLESformsMETHODskipconfirm?0:1); break ;
        default: break ;
     }
 }
@@ -383,10 +383,10 @@ function CIRCLESformsMETHODfixedpointsKEEPcombo( _index )
     _index = safe_int( _index, 0 );
     switch( _index )
     {
-       case 1: CIRCLESformsMETHODfixedpointsKEEPSELECTED(); break ;
-       case 2: CIRCLESformsMETHODfixedpointsKEEPfixedPTS(FIXEDPOINT_SINK); break ;
-       case 3: CIRCLESformsMETHODfixedpointsKEEPfixedPTS(FIXEDPOINT_SOURCE); break ;
-       case 4: CIRCLESformsMETHODfixedpointsKEEPfixedPTS(FIXEDPOINT_NEUTRAL); break ;
+       case 1: CIRCLESformsMETHODfixedpointsKEEPSELECTED(CIRCLESformsMETHODskipconfirm?0:1); break ;
+       case 2: CIRCLESformsMETHODfixedpointsKEEPfixedPTS(FIXEDPOINT_SINK,CIRCLESformsMETHODskipconfirm?0:1); break ;
+       case 3: CIRCLESformsMETHODfixedpointsKEEPfixedPTS(FIXEDPOINT_SOURCE,CIRCLESformsMETHODskipconfirm?0:1); break ;
+       case 4: CIRCLESformsMETHODfixedpointsKEEPfixedPTS(FIXEDPOINT_NEUTRAL,CIRCLESformsMETHODskipconfirm?0:1); break ;
        default: break ;
     }
 }
@@ -396,8 +396,8 @@ function CIRCLESformsMETHODfixedpointsFIGUREScombo( _index )
     _index = safe_int( _index, 0 );
     switch( _index )
     {
-        case 1: CIRCLESformsMETHODfixedpointsFIGURES(Z_PLANE); break ;
-        case 2: CIRCLESformsMETHODfixedpointsFIGURES(W_PLANE); break ;
+        case 1: CIRCLESformsMETHODfixedpointsFIGURES(Z_PLANE,CIRCLESformsMETHODskipconfirm?0:1); break ;
+        case 2: CIRCLESformsMETHODfixedpointsFIGURES(W_PLANE,CIRCLESformsMETHODskipconfirm?0:1); break ;
         default: break ;
     }
 }
@@ -422,8 +422,8 @@ function CIRCLESformsMETHODfixedpointsLOCATEcombo( _index )
     var _showtext = $( "#ALGEBRAICfixedpointsSHOWTEXTcheckbox" ).is( ":checked" ) ? YES : NO ;
     switch( _index )
     {
-        case 1: CIRCLESformsMETHODfixedpointsLOCATE(UNDET,Z_PLANE,_clean,_showtext); break ;
-        case 2: CIRCLESformsMETHODfixedpointsLOCATE(UNDET,W_PLANE,_clean,_showtext); break ;
+        case 1: CIRCLESformsMETHODfixedpointsLOCATE(UNDET,Z_PLANE,_clean,_showtext,CIRCLESformsMETHODskipconfirm?0:1); break ;
+        case 2: CIRCLESformsMETHODfixedpointsLOCATE(UNDET,W_PLANE,_clean,_showtext,CIRCLESformsMETHODskipconfirm?0:1); break ;
         default: break ;
     }
 }
@@ -433,9 +433,9 @@ function CIRCLESformsMETHODfixedpointsFILLcombo( _index )
     _index = safe_int( _index, 0 );
     switch( _index )
     {
-        case 1: CIRCLESformsMETHODfixedpointsCOMMUTATORS(); break ;
-        case 2: CIRCLESformsMETHODfixedpointsWORDSfromGENERATORSSET(); break ;
-        case 3: CIRCLESformsMETHODfixedpointsSEEDS(); break ;
+        case 1: CIRCLESformsMETHODfixedpointsCOMMUTATORS(CIRCLESformsMETHODskipconfirm?0:1); break ;
+        case 2: CIRCLESformsMETHODfixedpointsWORDSfromGENERATORSSET(CIRCLESformsMETHODskipconfirm?0:1); break ;
+        case 3: CIRCLESformsMETHODfixedpointsSEEDS(CIRCLESformsMETHODskipconfirm?0:1); break ;
         default: break ;
     }
 }
@@ -470,7 +470,7 @@ function CIRCLESformsMETHODfixedpointsBUTTONBAR1( _mask )
         _html_code += "<td WIDTH=\"3\"></td>" ;
         _html_code += "<td>Keep up</td>" ;
         _html_code += "<td WIDTH=\"3\"></td>" ;
-        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsKEEPcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsKEEPcombo( this.value );\">" ;
+        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsKEEPcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsKEEPcombo(this.value,CIRCLESformsMETHODskipconfirm?0:1);\">" ;
         _html_code += "<OPTION VALUE=\"0\"></OPTION>" ;
         _html_code += "<OPTION VALUE=\"1\">Selected</OPTION>" ;
         _html_code += "<OPTION VALUE=\"2\">Sinks</OPTION>" ;
@@ -480,7 +480,7 @@ function CIRCLESformsMETHODfixedpointsBUTTONBAR1( _mask )
         _html_code += "<td WIDTH=\"15\"></td>" ;
         _html_code += "<td>Delete</td>" ;
         _html_code += "<td WIDTH=\"3\"></td>" ;
-        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsDELETEcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsDELETEcombo( this.value );\">" ;
+        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsDELETEcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsDELETEcombo(this.value,CIRCLESformsMETHODskipconfirm?0:1);\">" ;
         _html_code += "<OPTION VALUE=\"0\"></OPTION>" ;
         _html_code += "<OPTION VALUE=\"1\">Selected</OPTION>" ;
         _html_code += "<OPTION VALUE=\"2\">Sinks</OPTION>" ;
@@ -490,7 +490,7 @@ function CIRCLESformsMETHODfixedpointsBUTTONBAR1( _mask )
         _html_code += "<td WIDTH=\"15\"></td>" ;
         _html_code += "<td>Figures</td>" ;
         _html_code += "<td WIDTH=\"3\"></td>" ;
-        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsFIGUREScombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsFIGUREScombo( this.value );\">" ;
+        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsFIGUREScombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsFIGUREScombo(this.value,CIRCLESformsMETHODskipconfirm?0:1);\">" ;
         _html_code += "<OPTION VALUE=\"0\"></OPTION>" ;
         _html_code += "<OPTION VALUE=\"1\">Z-plane</OPTION>" ;
         _html_code += "<OPTION VALUE=\"2\">W-plane</OPTION>" ;
@@ -527,7 +527,7 @@ function CIRCLESformsMETHODfixedpointsBUTTONBAR1( _mask )
         _html_code += "<td WIDTH=\"3\"></td>" ;
         _html_code += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsLIST(NO);\">Full</td>" ;
         _html_code += "<td WIDTH=\"15\"></td>" ;
-        _html_code += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsBOMB();\">Bomb</td>" ;
+        _html_code += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsMETHODfixedpointsBOMB(CIRCLESformsMETHODskipconfirm?0:1);\">Bomb</td>" ;
         _html_code += "<td WIDTH=\"3\"></td>" ;
         _html_code += "</tr>" ;
         _html_code += "</table>" ;
@@ -555,7 +555,7 @@ function CIRCLESformsMETHODfixedpointsBUTTONBAR2()
         _html_code += "<td WIDTH=\"25\"></td>" ;
         _html_code += "<td>Localize</td>" ;
         _html_code += "<td WIDTH=\"3\"></td>" ;
-        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsLOCATEcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsLOCATEcombo( this.value );\">" ;
+        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsLOCATEcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsLOCATEcombo(this.value,CIRCLESformsMETHODskipconfirm?0:1);\">" ;
         _html_code += "<OPTION VALUE=\"0\"></OPTION>" ;
         _html_code += "<OPTION VALUE=\"1\">All / Z-plane</OPTION>" ;
         _html_code += "<OPTION VALUE=\"2\">All / W-plane</OPTION>" ;
@@ -563,7 +563,7 @@ function CIRCLESformsMETHODfixedpointsBUTTONBAR2()
         _html_code += "<td WIDTH=\"15\"></td>" ;
         _html_code += "<td>Connect</td>" ;
         _html_code += "<td WIDTH=\"3\"></td>" ;
-        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsCONNECTcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsCONNECTcombo( this.value );\">" ;
+        _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsCONNECTcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsCONNECTcombo(this.value,CIRCLESformsMETHODskipconfirm?0:1);\">" ;
         _html_code += "<OPTION VALUE=\"0\"></OPTION>" ;
         _html_code += "<OPTION VALUE=\"1\">All / Z-plane</OPTION>" ;
         _html_code += "<OPTION VALUE=\"2\">All / W-plane</OPTION>" ;

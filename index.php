@@ -11,6 +11,7 @@
 <?php $subtitle = get_params_ini( "MAIN", "subtitle", $PATH_TO_INI ); ?>
 <?php $lastreleasedate = get_params_ini( "MAIN", "lastreleasedate", $PATH_TO_INI ); ?>
 <?php $MAX_DEMO_IDX = 0 ;
+      $DEMO_FILENAME = "" ;
       if ( array_key_exists( "demo", $_GET ) )
       {
         $DEMO_IDX = intval( $_GET['demo'] ); if ( is_nan( $DEMO_IDX ) || $DEMO_IDX < 0 ) $DEMO_IDX = 0 ;
@@ -19,7 +20,6 @@
         {
           $RESULTSarray = scan_folder( $DEMO_FILES_PATH, "/^.*\.(php)$/i", 0, 1, 1, 0 );
           $DEMO_ARCHIVE = array();
-          $DEMO_FILENAME = "" ;
           foreach( $RESULTSarray AS $K => $CHUNK )
           {
             $FILENAME = $CHUNK['filename'] ;

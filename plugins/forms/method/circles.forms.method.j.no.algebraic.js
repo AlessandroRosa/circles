@@ -19,11 +19,11 @@ function CIRCLESmethodMANAGERrepetendsPANEL()
       HTMLcode += "<td WIDTH=\"20\"></td>" ;
       HTMLcode += "<td>Pattern</td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
-      HTMLcode += "<td><INPUT CHECKED NAME=\"ALGEBRAICsuggestRADIO\" ID=\"ALGEBRAICsuggestRADIO_01\" TYPE=\"radio\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsSTORE(YES);\"></td>" ;
+      HTMLcode += "<td><INPUT CHECKED NAME=\"ALGEBRAICsuggestRADIO\" ID=\"ALGEBRAICsuggestRADIO_01\" TYPE=\"radio\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsSTORE(YES&&CIRCLESformsMETHODskipconfirm?0:1);\"></td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
       HTMLcode += "<td>Symbol</td>" ;
       HTMLcode += "<td WIDTH=\"10\"></td>" ;
-      HTMLcode += "<td><INPUT NAME=\"ALGEBRAICsuggestRADIO\" ID=\"ALGEBRAICsuggestRADIO_02\" TYPE=\"radio\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsSTORE(YES);\"></td>" ;
+      HTMLcode += "<td><INPUT NAME=\"ALGEBRAICsuggestRADIO\" ID=\"ALGEBRAICsuggestRADIO_02\" TYPE=\"radio\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsSTORE(YES&&CIRCLESformsMETHODskipconfirm?0:1);\"></td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
       HTMLcode += "<td>Commutator</td>" ;
       HTMLcode += "<td WIDTH=\"15\"></td>" ;
