@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="http://alessandrorosa.altervista.org/demo_n/demo_n.css">
-<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="http://alessandrorosa.altervista.org/demo_n/demo_n.js"></SCRIPT>
+<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="../demo_n/demo_n.js"></SCRIPT>
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript" defer>
 var _demon = new demo_n();
     _demon.add( { ctrl_id : "alertYESbtn", time : 1.5, time_unit : "s",
@@ -23,7 +23,7 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                      $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
-                     $( "#presentation_div" ).html( "We're are going to list the steps<br/>to build a Random IFS." ) ;
+                     $( "#presentation_div" ).html( "We're are going to explain<br/>how to build a Random IFS<br>step by step, without triggers" ) ;
                   },
                   ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
                   action : "move", set_value : { to_x : 40, to_y : $(window).height() - 100 }, showlabel : false, desclabel : "",
@@ -89,7 +89,7 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.2, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "depth 18" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "depth 20" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.2, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -126,6 +126,10 @@ var _demon = new demo_n();
                   action : "move", set_value : { to_x : 30, to_y : $(window).height() - 110 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
+
+    _demon.add( { ctrl_id : "ALGEBRAICgeneratorsSKIPconfirmCHECKBOX", time : 1.5, time_unit : "s",
+                  action : "check", set_value : -1, showlabel : false, desclabel : "",
+                  post_fn : function() { CIRCLESformsMETHODskipconfirm = $("#ALGEBRAICgeneratorsSKIPconfirmCHECKBOX").prop("checked")?1:0; } } );
 
     _demon.add( { ctrl_id : "ALGEBRAICgenssetPRESETScombo", time : 1.5, time_unit : "s",
                   action : "select", set_value : 1, showlabel : false, desclabel : "" } );

@@ -49,7 +49,8 @@ function CIRCLESgenssetMANAGERgeneratorRESTOREfromRANDOMprobs( _question, _silen
                 
            if ( _n_restored > 0 )
            {
-              CIRCLESgenssetMANAGERgensSETUP( _question & CIRCLESformsMETHODskipconfirm?0:1, _silent );
+              
+              CIRCLESgenssetMANAGERgensSETUP( _question, _silent );
               CIRCLESgenssetMANAGERreload();
               CIRCLESformsMETHODalgebraicCHANGEtab( 2 );
            }
@@ -59,8 +60,9 @@ function CIRCLESgenssetMANAGERgeneratorRESTOREfromRANDOMprobs( _question, _silen
    }
 }
 
-function CIRCLESgenssetMANAGERgensMODELScombo()
+function CIRCLESgenssetMANAGERgensMODELScombo( _question )
 {
+   _question = safe_int(_question,1);
    var _chunk_index = $( "#ALGEBRAICgenssetPRESETScombo" ).val();
    _chunk_index = safe_int( _chunk_index, 0 );
    if ( _chunk_index > 0 )
@@ -70,13 +72,13 @@ function CIRCLESgenssetMANAGERgensMODELScombo()
        if ( _chunk_length > 0 )
        {
            var _sch_n = circles_lib_count_gens_set_model();
-           var _b_go = _sch_n == 0 ? YES : confirm( "Do you want to overwrite the current generators set ?" );
+           var _b_go = _sch_n == 0 || !_question ? YES : confirm( "Do you want to overwrite the current generators set ?" );
            if ( _b_go )
            {
                circles_lib_gens_set_bomb();
                for( var _i = 1 ; _i < _chunk_length ; _i++ ) _glob_gens_set_model_array.push( _chunk[_i] );
                CIRCLESgenssetMANAGERreload();
-               CIRCLESgenssetMANAGERgensSETUP( NO, YES );
+               CIRCLESgenssetMANAGERgensSETUP( _question, YES );
            }
        }
    }
@@ -311,9 +313,9 @@ function CIRCLESgenssetMANAGERgensSETUP( _question, _silent )
    if ( _entries_n > 0 )
    {
        for( var _i = 0 ; _i < _entries_n ; _i++ ) CIRCLESgenssetMANAGERgensUPDATE( _i, NO, YES );
-			 var _question = "The current generators set includes " + _entries_n + " entr" + ( _entries_n == 1 ? "y" : "ies" );
-           _question += _glob_crlf + "Do you confirm to build the generators set ?" ;
-       var _b_go = !_question ? YES : confirm( _question );
+			 var _q = "The current generators set includes " + _entries_n + " entr" + ( _entries_n == 1 ? "y" : "ies" );
+           _q += _glob_crlf + "Do you confirm to build the generators set ?" ;
+       var _b_go = !_question ? YES : confirm( _q );
        if ( _b_go )
        {
            _glob_text = "" ;
@@ -364,13 +366,13 @@ function CIRCLESgenssetMANAGERgensEXACT( _question, _silent, _out_channel )
    }
    else
    {
-       var _question = "There already exists a generators set."+_glob_crlf+"Confirm to replace it ?" ;
-       var _b_go = ( _sch_n > 0 && _question ) ? ( confirm( _question ) ) : YES ;
+       var _q = "There already exists a generators set."+_glob_crlf+"Confirm to replace it ?" ;
+       var _b_go = ( _sch_n > 0 && _question ) ? confirm( _q ) : YES ;
        if ( _b_go )
        {
            circles_lib_gens_model_create_exact( _out_channel );
            CIRCLESgenssetMANAGERreload();
-           CIRCLESgenssetMANAGERgensSETUP( _question && CIRCLESformsMETHODskipconfirm?0:1, _silent );
+           CIRCLESgenssetMANAGERgensSETUP( _question, _silent );
            var _msg = "The exact generators set has been built with success" ;
 					 if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
            return [ RET_ERROR, _msg ] ;

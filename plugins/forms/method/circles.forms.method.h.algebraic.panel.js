@@ -92,8 +92,8 @@ function CIRCLESformsMETHODmanagerALGEBRAICpanelBUILD( _new_method, caller_fn, W
  		  HTMLcode += "<td>Models</td>" ;
  		  HTMLcode += "<td WIDTH=\"3\"></td>" ;
  		  HTMLcode += "<td>" ;
- 		  HTMLcode += "<SELECT ID=\"ALGEBRAICgenssetPRESETScombo\" ONCHANGE=\"javascript:CIRCLESgenssetMANAGERgensMODELScombo();\">" ;
- 		  HTMLcode += "<OPTION></OPTION>" ;
+ 		  HTMLcode += "<SELECT ID=\"ALGEBRAICgenssetPRESETScombo\" ONCHANGE=\"javascript:CIRCLESgenssetMANAGERgensMODELScombo(CIRCLESformsMETHODskipconfirm?0:1);\">" ;
+ 		  HTMLcode += "<OPTION VALUE=\"0\"></OPTION>" ;
           var _ps_n = safe_size( _glob_presets['genssets'], 0 ), _chunk ;
           for( var _i = 0 ; _i < _ps_n ; _i++ )
           {
@@ -103,7 +103,7 @@ function CIRCLESformsMETHODmanagerALGEBRAICpanelBUILD( _new_method, caller_fn, W
  		  HTMLcode += "</SELECT>" ;
  		  HTMLcode += "</td>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
-      HTMLcode += "<td ID=\"ALGEBRAICgeneratorsBUILDmodelsBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERgensMODELScombo();\">Build</td>" ;
+      HTMLcode += "<td ID=\"ALGEBRAICgeneratorsBUILDmodelsBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERgensMODELScombo(CIRCLESformsMETHODskipconfirm?0:1);\">Build</td>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
       HTMLcode += "<td ID=\"ALGEBRAICgeneratorsSETcomboCONTAINER\"></td>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;

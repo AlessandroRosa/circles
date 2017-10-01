@@ -5,7 +5,7 @@ function CIRCLESmethodMANAGERrepetendsPANEL()
     {
     	HTMLcode = "<table WIDTH=\"100%\">" ;
       HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-      HTMLcode += "<tr><td WIDTH=\"5\"></td><td ALIGN=\"center\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#EDEDED;padding:6px;\">Note: repetends are evaluated without affecting the original dictionary entries</td></tr>" ;
+      HTMLcode += "<tr><td WIDTH=\"5\"></td><td ALIGN=\"center\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#EDEDED;padding:6px;font-size:10pt;\">Note: repetends are evaluated without affecting the original dictionary entries</td></tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
       HTMLcode += "<tr>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
@@ -41,7 +41,7 @@ function CIRCLESmethodMANAGERrepetendsPANEL()
       HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
       HTMLcode += "<tr>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
-      HTMLcode += "<td>Attach repetend</td>" ;
+      HTMLcode += "<td>Append repetend</td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
       HTMLcode += "<td>to words terminating with</td>" ;
       HTMLcode += "</tr>" ;

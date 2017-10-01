@@ -20,7 +20,6 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 
 * FORMS
 method
-> insert a checkbox, over the tab, to skip confirmations or not
 > test repetends services
 > test all functionalities inside tabs
 

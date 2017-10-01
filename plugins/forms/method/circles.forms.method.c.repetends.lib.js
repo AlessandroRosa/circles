@@ -246,24 +246,16 @@ function CIRCLESmethodMANAGERrepetendsLIST()
     var _overflow_count = 7 ;
     var HTMLcode = "" ;
  		if ( _len > _overflow_count ) HTMLcode += "<DIV STYLE=\"position:relative;width:auto;height:180px;overflow:auto;\">" ;
-				HTMLcode += "<table VALIGN=\"top\">" ;
-        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+				HTMLcode += "<table VALIGN=\"top\" ALIGN=\"center\">" ;
 
     if ( _len > 0 )
     {
-        HTMLcode += "<tr><td WIDTH=\"5\"></td><td ALIGN=\"center\" COLSPAN=\""+( _len > 0 ? 8 : 1 )+"\">Entries are sorted according to their evaluation sequence,<br>that is, to the length of terminator word on the right</td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
-        HTMLcode += "<tr>" ;
-        HTMLcode += "<td WIDTH=\"5\"></td>" ;
-        HTMLcode += "<td>Attach repetend</td>" ;
-        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-        HTMLcode += "<td>to words terminating with</td>" ;
-        HTMLcode += "</tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+        HTMLcode += "<tr><td WIDTH=\"5\"></td><td ALIGN=\"center\" COLSPAN=\""+( _len > 0 ? 8 : 1 )+"\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#EDEDED;padding:6px;font-size:10pt;\">Entries are sorted according to their evaluation sequence,<br>that is, to the length of terminating subword on the right</td></tr>" ;
+        HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
 
-        var _candidate_termination, _candidate_rep, _row_code, _keys = _glob_repetends_array.keys_associative(), _chunk ;
+        var _candidate_termination, _candidate_rep, _keys = _glob_repetends_array.keys_associative(), _chunk ;
 				var _index = 0, _c, _n ;
-        _keys = _keys.sort( function(a, b){ return b.length - a.length; /* ASC -> a - b; DESC -> b - a */ } );
+        _keys = _keys.sort( function(a, b){ return b.length - a.length; } );
         for( var _i = 0 ; _i < _keys.length ; _i++ )
         {
         		 _chunk = _glob_repetends_array[ _keys[_i] ] ;
@@ -271,30 +263,28 @@ function CIRCLESmethodMANAGERrepetendsLIST()
         		 {
 		              _candidate_termination = _keys[_i] ;
 		              _n = _chunk.length ;
-					        _row_code  = "<tr><td HEIGHT=\"3\"></td></tr>" ;
-		              _row_code += "<tr>" ;
-		              _row_code += "<td WIDTH=\"5\"></td>" ;
-									_row_code += "<td COLSPAN=\"8\"><b>"+_n+"</b> repetend"+(_n==1?"":"s")+" for words terminating with letter <b>" + _candidate_termination + "</b></td></tr>" ;
+		              HTMLcode += "<tr>" ;
+		              HTMLcode += "<td WIDTH=\"5\"></td>" ;
+									HTMLcode += "<td COLSPAN=\"8\"><b>"+_n+"</b> repetend"+(_n==1?"":"s")+" for words terminating with letter <b>" + _candidate_termination + "</b></td></tr>" ;
 		              for( _c = 0 ; _c < _n ; _c++, _index++ )
 		              {
 					             _candidate_rep = safe_string( _chunk[_c], "" );
-					             _row_code += "<tr>" ;
-                       _row_code += "<INPUT ID=\"ALGEBRAICrepetendTERMINATION_"+_index+"\" TYPE=\"HIDDEN\" VALUE=\""+_candidate_termination+"\">"
-                       _row_code += "<INPUT ID=\"ALGEBRAICrepetendSTORE_"+_index+"\" TYPE=\"HIDDEN\" VALUE=\""+_candidate_rep+"\">"
-					             _row_code += "<td WIDTH=\"5\"></td>" ;
-					             _row_code += "<td><INPUT ID=\"ALGEBRAICrepetendWORD_"+_index+"\" TYPE=\"edit\" STYLE=\"width:150px;\" VALUE=\""+_candidate_rep+"\" ONKEYUP=\"javascript:CIRCLESformsMETHODeventsHANDLER( this.id, event, "+_index+", $('#ALGEBRAICrepetendSTORE_"+_index+"').val() );\"></td>" ;
-					             _row_code += "<td WIDTH=\"3\"></td>" ;
-					             _row_code += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsUPDATE( YES, '"+_index+"', '"+_candidate_rep+"' );\">Update</td>" ;
-					             _row_code += "<td WIDTH=\"2\"></td>" ;
-					             _row_code += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsDELETE( YES, '"+_candidate_termination+"', '"+_candidate_rep+"' );\">Delete</td>" ;
-					             _row_code += "<td WIDTH=\"2\"></td>" ;
-					             _row_code += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsRESOLVE( "+_index+", '"+_candidate_termination+"', '"+_candidate_rep+"' );\">Resolve</td>" ;
-					             _row_code += "</tr>" ;
-					             _row_code += "<tr><td WIDTH=\"5\"></td><td  COLSPAN=\"6\" ID=\"ALGEBRAICrepetendSOLVED_"+_index+"\" STYLE=\"display:none;\"></td></tr>" ;
+					             HTMLcode += "<tr>" ;
+                       HTMLcode += "<INPUT ID=\"ALGEBRAICrepetendTERMINATION_"+_index+"\" TYPE=\"HIDDEN\" VALUE=\""+_candidate_termination+"\">"
+                       HTMLcode += "<INPUT ID=\"ALGEBRAICrepetendSTORE_"+_index+"\" TYPE=\"HIDDEN\" VALUE=\""+_candidate_rep+"\">"
+					             HTMLcode += "<td WIDTH=\"5\"></td>" ;
+					             HTMLcode += "<td><INPUT ID=\"ALGEBRAICrepetendWORD_"+_index+"\" TYPE=\"edit\" STYLE=\"width:150px;\" VALUE=\""+_candidate_rep+"\" ONKEYUP=\"javascript:CIRCLESformsMETHODeventsHANDLER( this.id, event, "+_index+", $('#ALGEBRAICrepetendSTORE_"+_index+"').val() );\"></td>" ;
+					             HTMLcode += "<td WIDTH=\"3\"></td>" ;
+					             HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsUPDATE( YES, '"+_index+"', '"+_candidate_rep+"' );\">Update</td>" ;
+					             HTMLcode += "<td WIDTH=\"2\"></td>" ;
+					             HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsDELETE( YES, '"+_candidate_termination+"', '"+_candidate_rep+"' );\">Delete</td>" ;
+					             HTMLcode += "<td WIDTH=\"2\"></td>" ;
+					             HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsRESOLVE( "+_index+", '"+_candidate_termination+"', '"+_candidate_rep+"' );\">Resolve</td>" ;
+					             HTMLcode += "</tr>" ;
+					             HTMLcode += "<tr><td WIDTH=\"5\"></td><td  COLSPAN=\"6\" ID=\"ALGEBRAICrepetendSOLVED_"+_index+"\" STYLE=\"display:none;\"></td></tr>" ;
+                       HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
 									}
 
-                  HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-		              HTMLcode += _row_code ;
 						 }
         }
 
