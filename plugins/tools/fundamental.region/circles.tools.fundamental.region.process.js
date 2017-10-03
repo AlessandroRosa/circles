@@ -27,7 +27,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONprocess()
         _features['updates_fn'] = CIRCLEStoolsFUNDAMENTALREGIONprocessUPDATE.myname();
 
     var _array = [] ;
-    $.each( _glob_seeds_array, function ( _i, _item_obj ) { _array.push( _item_obj.generator.pack() + "@" + _item_obj.symbol ) ; } ) ;
+    $.each( _glob_seeds_array, function ( _i, _item_obj ) { _array.push( _item_obj.map.pack() + "@" + _item_obj.symbol ) ; } ) ;
         _features['seeds'] = _array.join( "#" ) ;
 
         _features['words'] = CIRCLEStoolsFUNDAMENTALREGIONwords.join( "@" ) ;
@@ -72,8 +72,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONprocess()
         // feed input data
         _glob_inline_worker.init_vars( { out_channel : OUTPUT_SCREEN,
                                          features : _features,
-                                         crlf : _glob_crlf
-                                       } );
+                                         crlf : _glob_crlf } );
         // go !
     		_glob_inline_worker.run();
     }

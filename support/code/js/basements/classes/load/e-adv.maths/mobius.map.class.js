@@ -230,7 +230,7 @@ mobius_map.prototype.output = function( _sep, _fmt, _accuracy, _style_for_html )
     }
 }
 
-mobius_map.prototype.pack = function()
+mobius_map.prototype.pack = function( _sep = "," )
 {
     var str = ( ( this.get_a() != null ) ? this.get_a().formula() : "0" ) ;
     str += _sep + ( this.get_b() != null ? this.get_b().formula() : "0" ) ;
@@ -240,7 +240,7 @@ mobius_map.prototype.pack = function()
 }
 
 // INIT members
-mobius_map.prototype.init_from_obj = function( mm )
+mobius_map.prototype.init_from_obj = function( mm = null )
 {
     if ( is_mobius_map( mm ) ) // keep this raw check here
     {

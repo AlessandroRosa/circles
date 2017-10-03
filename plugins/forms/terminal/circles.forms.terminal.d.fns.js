@@ -67,19 +67,19 @@ function CIRCLESformsTERMINALpurgecmdUPDATEstatus( _suffix )
 		) ;
 }
 
-function CIRCLESformsTERMINALextractCODE( _suffix )
+function CIRCLESformsTERMINALextractLISTING( _suffix )
 {
     var _code = $("#CIRCLESbatchcompilerTEXT" + _suffix ).val();
     if ( _code.length > 0 )
     {
-         var _MSG = "Before extracting the code from the current config," ;
+         var _MSG = "Before extracting the listing from the current config," ;
              _MSG += _glob_crlf + "take care that there is already some text" ;
-             _MSG += _glob_crlf + "in the batch compiler tab" ;
-         alert_set_btns_width( 70 );
+             _MSG += _glob_crlf + "in the BATCH COMPILER tab." ;
+         alert_set_btns_width( 110 );
          alert_plug_label( ALERT_YES, "Save it" );
-         alert_plug_label( ALERT_NO, "Extract" );
+         alert_plug_label( ALERT_NO, "Extract listing" );
          alert_plug_fn( ALERT_YES, "CIRCLESformsTERMINALbatchcompilerSAVEFILE('"+_suffix+"');alertCLOSE();" );
-         alert_plug_fn( ALERT_NO, "circles_lib_terminal_exec( 'code', '', _glob_terminal, TERMINAL_SCRIPT_INPUT );alertCLOSE();" );
+         alert_plug_fn( ALERT_NO, "alertCLOSE();circles_lib_terminal_exec('code','',_glob_terminal,TERMINAL_SCRIPT_INPUT);" );
          alert_plug_fn( ALERT_CANCEL, "alertCLOSE();" );
          circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING | DISPATCH_YESNOCANCEL, _MSG, _glob_app_title );
     }

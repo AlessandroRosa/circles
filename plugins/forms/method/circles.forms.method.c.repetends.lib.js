@@ -1,3 +1,28 @@
+function CIRCLESmethodMANAGERrepetendsSYNTAX()
+{
+    var _html = "<table>" ;
+        _html += "<tr><td STYLE=\"font-size:12pt;\">Repetends Syntax</td></tr>" ;
+        _html += "<tr><td HEIGHT=\"4\"></td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:10pt;\">Repetends are words to be appended to dictionary entries</td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:10pt;\">according to a given termination and for a number of times.</td></tr>" ;
+        _html += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:12pt;color:blue;\">aaabAB</td></tr>" ;
+        _html += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:10pt;\">This word will be appended only once</td></tr>" ;
+        _html += "<tr><td HEIGHT=\"18\"></td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:12pt;color:blue;\">[aaabAB]</td></tr>" ;
+        _html += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:10pt;\">Same as before: only once.</td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:10pt;\">Brackets introduce to the repetend syntax</td></tr>" ;
+        _html += "<tr><td HEIGHT=\"18\"></td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:12pt;color:blue;\">[ABab*3]</td></tr>" ;
+        _html += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:10pt;\">The word <b>ABab</b> will be appended 3 times.</td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:10pt;\">The star symbol acts as multiplying operator</td></tr>" ;
+        _html += "</table>" ;
+    alert_msg( ALERT_INFO, _html, _glob_app_title );
+}
+
 function CIRCLESmethodMANAGERrepetendsSTORE( _question, _silent )
 {
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );

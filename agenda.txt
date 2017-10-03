@@ -18,25 +18,24 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 - report all remote ctrl params, for all forms, in read.me.txt file
   inside each form folder
 
-* FORMS
-method
-> test repetends services
-> test all functionalities inside tabs
-
-dictionary
-eps.editor
-geometric.transform
-script.editor
-svg.editor
-terminal
-
 * TOOLS
+fundamental.region
 alphabet.colorization
 canvas.composition
 f.z
-fundamental.region
 group.table
 raw.points.list
+
+* FORMS
+method
+> test repetends services
+  (both dictionary and index search)
+
+geometric.transform
+dictionary
+eps.editor
+script.editor
+svg.editor
 
 ------------ SCRIPT EDITOR ------------------------
 

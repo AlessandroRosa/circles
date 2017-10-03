@@ -204,7 +204,7 @@ function CIRCLESformsTERMINALgetHTML( _div_id, _is_popup, _input_w, _input_h, _s
     HTMLcode += "<table>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:"+_click_fn+";CIRCLESformsTERMINALextractCODE('"+_suffix+"');\">Extract</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:"+_click_fn+";CIRCLESformsTERMINALextractLISTING('"+_suffix+"');\">Extract listing</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:"+_click_fn+";_glob_terminal_run_code_from=RUN_CODE_FROM_TERMINAL;circles_lib_batch_compiler_run('CIRCLESbatchcompilerTEXT"+_suffix+"','CIRCLESdebugDIV"+_suffix+"',['CIRCLESbatchcompilerWARNINGSlabel"+_suffix+"','CIRCLESbatchcompilerERRORSlabel"+_suffix+"','CIRCLESbatchcompilerOKlabel"+_suffix+"'],YES,YES);\">Run</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;

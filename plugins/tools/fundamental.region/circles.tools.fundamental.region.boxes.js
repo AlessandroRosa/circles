@@ -2,7 +2,7 @@ function CIRCLEStoolsFUNDAMENTALREGIONparamsCONTAINERcreate( POPUP_WIDTH )
 {
 		POPUP_WIDTH = safe_int( POPUP_WIDTH, 400 );
     var CONTAINER_WIDTH = POPUP_WIDTH - 16 ;
-		var BOX_WIDTH = Math.floor( ( CONTAINER_WIDTH - 6 ) / 3 );
+		var BOX_WIDTH = Math.floor( ( CONTAINER_WIDTH - 6 ) / 3 ), BOX_HEIGHT = BOX_WIDTH ;
 		var HTMLcode = "<table ID=\"CIRLEStoolsFUNDAMENTALREGIONcontainerTABLE\" WIDTH=\""+CONTAINER_WIDTH+"\" HEIGHT=\"100%\">" ;
 				HTMLcode += "<tr>" ;
 				HTMLcode += "<td ID=\"CIRLEStoolsFUNDAMENTALREGIONcontainerBOX1\" WIDTH=\""+BOX_WIDTH+"\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#FAFAFA;padding:3px;\"></td>" ;
@@ -134,9 +134,11 @@ function CIRCLEStoolsFUNDAMENTALREGIONparamsBARcreate()
 		 		 HTMLcode += "<td WIDTH=\"3\"></td>" ;
 		 		 HTMLcode += "<td>Layer</td>" ;
 		 		 HTMLcode += "<td WIDTH=\"15\"></td>" ;
-		 		 HTMLcode += "<td><INPUT TYPE=\"edit\" ID=\"CIRCLEStoolsFUNDAMENTALREGIONdepth\" VALUE=\""+_glob_depth+"\" STYLE=\"width:30px;text-align:center;\"></td>" ;
-		 		 HTMLcode += "<td WIDTH=\"3\"></td>" ;
 		 		 HTMLcode += "<td>Depth</td>" ;
+		 		 HTMLcode += "<td WIDTH=\"3\"></td>" ;
+		 		 HTMLcode += "<td><INPUT TYPE=\"edit\" ID=\"CIRCLEStoolsFUNDAMENTALREGIONdepth\" VALUE=\""+_glob_depth+"\" STYLE=\"width:30px;text-align:center;\"></td>" ;
+		 		 HTMLcode += "<td WIDTH=\"15\"></td>" ;
+         HTMLcode += "<td><INPUT TYPE=\"button\" CLASS=\"button\" ONCLICK=\"javascript:CIRCLEStoolsFUNDAMENTALREGIONprocess();\" VALUE=\"Process\"></td>" ;
 		 		 HTMLcode += "</tr>" ;
 		 		 HTMLcode += "</table>" ;
 		 return HTMLcode ;

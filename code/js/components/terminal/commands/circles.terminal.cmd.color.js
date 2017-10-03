@@ -8,7 +8,7 @@ function circles_terminal_cmd_color()
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose )
+     if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
      var _color_tag_entry_max_length = 0 ;

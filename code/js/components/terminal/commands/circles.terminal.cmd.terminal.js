@@ -7,6 +7,9 @@ function circles_terminal_cmd_terminal()
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
 
+     if ( _glob_verbose && _glob_terminal_echo_flag )
+     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+
          _params = safe_string( _params, "" ).trim();
      var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " ); _params_array.clean_from( "" );

@@ -78,6 +78,8 @@ function CIRCLESmethodMANAGERrepetendsPANEL()
       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsBOMB();\">Bomb</td>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsLIST();\">List</td>" ;
+      HTMLcode += "<td WIDTH=\"10\"></td>" ;
+      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESmethodMANAGERrepetendsSYNTAX();\">Syntax</td>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
       HTMLcode += "</tr>" ;
       HTMLcode += "</table>" ;

@@ -7,9 +7,7 @@ function circles_terminal_cmd_code()
     var _cmd_mode = arguments[3] ;
     var _caller_id = arguments[4] ;
 
-    circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-
-    if ( _glob_verbose )
+    if ( _glob_verbose && _glob_terminal_echo_flag )
     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
@@ -119,9 +117,9 @@ function circles_terminal_cmd_code()
                   {
                       $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val( _plain_code );
                       if ( $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val().length == 0 )
-                      circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't flush the code into the script tab.\nPlease, close and re-open the terminal pop-up", _par_1, _cmd_tag );
+                      circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't flush the resulting code into the script tab.\nPlease, close and re-open the terminal pop-up", _par_1, _cmd_tag );
                       else
-                      circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Code flushed into the script tab", _par_1, _cmd_tag );
+                      circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The resulting code has been flushed into the script tab", _par_1, _cmd_tag );
                   }
               }
 

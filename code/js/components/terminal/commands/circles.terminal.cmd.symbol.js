@@ -8,7 +8,7 @@ function circles_terminal_cmd_symbol()
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose )
+     if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
      var _sd_n = circles_lib_count_seeds();
@@ -130,7 +130,7 @@ function circles_terminal_cmd_symbol()
                   else if ( ALPHABET.length == 0 )
                   {
                        _b_fail = YES, _error_str = "Current alphabet is not available" ;
-                       if ( _glob_verbose ) _error_str += _glob_crlf + "Try to init the input gens first" ;
+                       if ( _glob_verbose && _glob_terminal_echo_flag ) _error_str += _glob_crlf + "Try to init the input gens first" ;
                   }
                   else if ( _change_in_len == 0 )
                   {

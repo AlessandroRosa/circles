@@ -8,7 +8,7 @@ function circles_terminal_cmd_count()
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose )
+     if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;

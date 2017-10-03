@@ -8,7 +8,7 @@ function circles_terminal_cmd_dict()
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose )
+     if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
@@ -739,7 +739,7 @@ function circles_terminal_cmd_dict()
                    
                    var _msg = "Current dictionary size: " + _size + " word" + ( ( _size != 1 ) ? "s" : "" );
                        _msg += _glob_crlf + "Estimated pages length : " + _pages + " (each including " + _entries_per_page + " entries)" ;
-                       if ( _glob_verbose ) _msg += _glob_crlf + "Type '"+_cmd_tag+" /h' for syntax to display pages contents in this console" ;
+                       if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += _glob_crlf + "Type '"+_cmd_tag+" /h' for syntax to display pages contents in this console" ;
 
  								   circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
 									 break ;

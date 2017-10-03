@@ -8,7 +8,7 @@ function circles_terminal_cmd_palette()
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose )
+     if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
      var bOUT = 0 ;
@@ -349,7 +349,7 @@ function circles_terminal_cmd_palette()
   													 }
                         }
                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
-                        break ;
+                    ÿ   ኘƜeak ;
                         case "list":
                         var _digits = safe_int( Math.log( _palette_len ) / Math.log( 10 ), 0 ) + 3 ;
                         var _html = _params_assoc_array['html'] ;

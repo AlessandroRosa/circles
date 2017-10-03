@@ -8,7 +8,7 @@ function circles_terminal_cmd_circle()
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose )
+     if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
@@ -196,7 +196,7 @@ function circles_terminal_cmd_circle()
                    if ( _params_assoc_array['settings']['label'].length > 0 && _params_assoc_array['settings']['rec'] == NO )
                    {
                       circles_lib_output( _out_channel, DISPATCH_INFO, "Skipped symbol param. Mismatch setting: no rec param input", _par_1, _cmd_tag );
-                      if ( _glob_verbose )
+                      if ( _glob_verbose && _glob_terminal_echo_flag )
                       circles_lib_output( _out_channel, DISPATCH_INFO, "Symbol param is useless if this figure is not going to be recorded", _par_1, _cmd_tag );
                    }
                    else if ( _params_assoc_array['settings']['plane'] == NO_PLANE )

@@ -9,10 +9,7 @@ function circles_terminal_cmd_keepcmd()
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
-     var _echo_flag = _glob_terminal_echo_flag ;
-     if ( safe_int( _par_1, 0 ) == 1 ) _echo_flag = NO ;
-
-     if ( _glob_verbose && _echo_flag )
+     if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
      var _this_cmd_tag = "keepcmd" ;
@@ -87,7 +84,7 @@ function circles_terminal_cmd_keepcmd()
                       
                       var _cmd_tag = _b_compound_expr ? ( _expression.split( " " ) )[0] : _expression ;
                       var _b_already = _glob_terminal_keepcmd.strcmp( _cmd_tag );
-                      if ( _echo_flag )
+                      if ( _glob_terminal_echo_flag )
                       {
 												 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "'Keep command' mode has been"+( _b_already ? " already" : "" )+" toggled on to '" + _cmd_tag + "'", _par_1, _cmd_tag );
 												 circles_lib_output( _out_channel, DISPATCH_INFO, "Type 'keepcmd off' to disable the keeping mode", _par_1, _cmd_tag );
@@ -102,13 +99,13 @@ function circles_terminal_cmd_keepcmd()
                   break ;
                   case "off":
                   _params_assoc_array['settings'].push( "off" ) ;
-                  if ( _glob_terminal_keepcmd.length == 0 && _echo_flag )
+                  if ( _glob_terminal_keepcmd.length == 0 && _glob_terminal_echo_flag )
                   circles_lib_output( _out_channel, DISPATCH_WARNING, "'Keep command' mode was already toggled off", _par_1, _cmd_tag );
                   else
                   {
                       _glob_terminal_keepcmd = "" ;
                       _glob_terminal.set_prompt( _glob_terminal_default_prompt );
-                      if ( _echo_flag ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Keeping command mode has been toggled off", _par_1, _cmd_tag );
+                      if ( _glob_terminal_echo_flag ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Keeping command mode has been toggled off", _par_1, _cmd_tag );
                   }
                   break ;
                   default: break ;
@@ -120,9 +117,9 @@ function circles_terminal_cmd_keepcmd()
 		 		 _b_fail = YES, _error_str = "No input cmd to keep" ;
 		 }	
 				
-     if ( !_b_fail && _echo_flag && !_help && _glob_terminal_keepcmd.length > 0 )
+     if ( !_b_fail && _glob_terminal_echo_flag && !_help && _glob_terminal_keepcmd.length > 0 )
          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Currently kept command is</lightgray> <white>" + _glob_terminal_keepcmd + "</white>", _par_1, _this_cmd_tag );
-     else if ( _b_fail && _echo_flag )
+     else if ( _b_fail && _glob_terminal_echo_flag )
          circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _this_cmd_tag );
      if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
