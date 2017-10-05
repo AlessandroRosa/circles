@@ -3,8 +3,8 @@ function CIRCLESmethodMANAGERrepetendsSYNTAX()
     var _html = "<table>" ;
         _html += "<tr><td STYLE=\"font-size:12pt;\">Repetends Syntax</td></tr>" ;
         _html += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-        _html += "<tr><td STYLE=\"font-size:10pt;\">Repetends are words to be appended to dictionary entries</td></tr>" ;
-        _html += "<tr><td STYLE=\"font-size:10pt;\">according to a given termination and for a number of times.</td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:10pt;\">Repetends are words to be appended to ordinary dictionary entries,</td></tr>" ;
+        _html += "<tr><td STYLE=\"font-size:10pt;\">according to a given termination and repeated for a number of times.</td></tr>" ;
         _html += "<tr><td HEIGHT=\"12\"></td></tr>" ;
         _html += "<tr><td STYLE=\"font-size:12pt;color:blue;\">aaabAB</td></tr>" ;
         _html += "<tr><td HEIGHT=\"6\"></td></tr>" ;

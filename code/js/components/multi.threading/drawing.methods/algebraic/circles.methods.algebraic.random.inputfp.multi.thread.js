@@ -28,7 +28,7 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
 		 		 var _current_region = new rect( settings.left_up_pt.x, settings.left_up_pt.y, settings.right_down_pt.x, settings.right_down_pt.y, _RECT_ORIENTATION_CARTESIAN, "" );
          var pts_array = [], _inverses = [], circles_array = [];
          var G = new mobius_map( 1, 0, 0, 1 ), G_COMP = new mobius_map( 1, 0, 0, 1 ), G_COMP_CIRCLE ;
-				 var _fp = null, obj, _symbol ;
+				 var _fp = null, obj ;
          var _bunch_pts_limit = _glob_multithread_bunch_limit ;
          var INDEX = 0 ;
 
@@ -79,20 +79,18 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
               self.postMessage( { "id" : "append", "text" : "Warm-up " + ( _p + 1 ) + " of " + _i_len } );
               for( _wm = 0 ; _wm < _repetends_warmup ; _wm++ )
               {
-                 if ( _repetends_depth_tmp <= 0 )
+                 if ( _repetends_depth_tmp == 0 )
                  {
+                    INDEX = LUTarray[ ( _LUT_range * _rnd() ) | 0 ] ;
                     _r = _rnd() ;
-                    INDEX = LUTarray[ ( _LUT_range * _r ) | 0 ] ;
                     _repetends_depth_tmp = _r <= _repetends_threshold ? 0 : ( _r * _repetends_depth ) | 0 ;
                  }
                  else _repetends_depth_tmp-- ;
 
-                 G = _items_array[INDEX] ;
-         				 _fp = G.map.compute( _fp );
-       					 G_COMP = G_COMP.composition( G.map );
+         				 _fp = _items_array[INDEX].map.compute( _fp );
+       					 G_COMP = G_COMP.composition( _items_array[INDEX].map );
               }
               
-              _symbol = is_item_obj( G_COMP ) ? G_COMP.symbol : _items_array[0].symbol ;
               self.postMessage( { "id" : "append", "text" : "Step " + ( _p + 1 ) + " of " + _i_len + " x " + _n_operations + " operations" } );
 
       				for( _glob_multithread_operations_runner = 0 ; _glob_multithread_operations_runner <= _n_operations ; _glob_multithread_operations_runner++ )
@@ -101,51 +99,42 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
                   if ( pts_array.length >= _bunch_pts_limit )
                   {
                        obj = { 'circles_array' : circles_array,
-                               'words_array' : [],
                                'pts_array' : pts_array,
                                'draw_fn_id' : 2.2,
                                'runner' : _glob_multithread_operations_runner,
                                'counter' : _glob_multithread_operations_counter } ;
-                                                                
-                       self.postMessage( { 'id': "draw",
-                                           'obj': obj
-                                         } );
+                       self.postMessage( { 'id': "draw", 'obj': obj } );
       								 pts_array = [];
                        circles_array = [];
                   }
 
-                  if ( _repetends_depth_tmp <= 0 )
+                  if ( _repetends_depth_tmp == 0 )
                   {
-                      INDEX = LUTarray[ _LUT_range * _rnd() | 0 ] ;
                       _r = _rnd() ;
-                      _repetends_depth_tmp = _r <= _repetends_threshold ? 0 : ( _r * _repetends_depth ) | 0 ;
+                      INDEX = LUTarray[ ( _LUT_range * _r ) >> 0 ] ;
+                      _r = _rnd() ;
+                      _repetends_depth_tmp = _r < _repetends_threshold ? 0 : ( _r * _repetends_depth ) >> 0 ;
                   }
                   else _repetends_depth_tmp-- ;
-
-                  G = _items_array[INDEX] ;
-                  //if ( _inverses[ _symbol ] == G.symbol ) { _glob_multithread_operations_runner-- ; _symbol = G.symbol ; continue ; }
-                  if ( _gens_symbols_map[ _symbol ].lastchar() == _inverses[ G.symbol ] ) { _glob_multithread_operations_runner -= 2 ; _symbol = G.symbol ; continue ; }
-                  else _symbol = G.symbol ;
 
                   probability_distribution_array[INDEX]++ ;
       						if ( _current_region.is_pt_inside( _fp.real, _fp.imag ) )
       						{
 		 									pts_array.push( new point( _fp.real, _fp.imag,
 		 																						 _POINT_2D_CLS_EUCLIDEAN_ENV,
-		 									 													 G.complex_circle.drawcolor,
-		 									 													 G.complex_circle.fillcolor,
-																								 G.complex_circle.linewidth
-																							 ) );
+		 									 													 _items_array[INDEX].complex_circle.drawcolor,
+		 									 													 _items_array[INDEX].complex_circle.fillcolor,
+																								 _items_array[INDEX].complex_circle.linewidth ) );
                       G_COMP_CIRCLE = _drawentity == DRAWENTITY_INVERSION_CIRCLE ? G_COMP.inversion_circle() : G_COMP.isometric_circle();
-											G_COMP_CIRCLE.draw = G.complex_circle.draw ;
-											G_COMP_CIRCLE.drawcolor = G.complex_circle.drawcolor ;
-											G_COMP_CIRCLE.fill = G.complex_circle.fill ;
-											G_COMP_CIRCLE.fillcolor = G.complex_circle.fillcolor ;
+											G_COMP_CIRCLE.draw = _items_array[INDEX].complex_circle.draw ;
+											G_COMP_CIRCLE.drawcolor = _items_array[INDEX].complex_circle.drawcolor ;
+											G_COMP_CIRCLE.fill = _items_array[INDEX].complex_circle.fill ;
+											G_COMP_CIRCLE.fillcolor = _items_array[INDEX].complex_circle.fillcolor ;
 		                  circles_array.push( G_COMP_CIRCLE );
 									}
 
-     						  _fp = G.map.compute( _fp );
-     						  G_COMP = G_COMP.composition( G.map );
+     						  _fp = _items_array[INDEX].map.compute( _fp );
+     						  G_COMP = G_COMP.composition( _items_array[INDEX].map );
       						if ( !_glob_multithread_running ) break ;
               }
               
@@ -154,24 +143,19 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
          }
 
          obj = { 'circles_array' : circles_array,
-                 'words_array' : [],
                  'pts_array' : pts_array,
                  'draw_fn_id' : 2.2,
                  'runner' : _glob_multithread_operations_runner,
                  'counter' : _glob_multithread_operations_counter } ;
                                                       
-         self.postMessage( { 'id': "draw",
-                             'obj': obj
-                           } );
-
+         self.postMessage( { 'id': "draw", 'obj': obj } );
 				 var _benchmark_end = microtime(1);
          self.postMessage( { 'id': "benchmark",
                              'start': _benchmark_start,
                              'end': _benchmark_end,
                              'operations' : _n_operations,
 													   'probability_distribution' : probability_distribution_array.join( "@" ),
-                             'stats_bunch' : _stats_bunch
-                           } );
+                             'stats_bunch' : _stats_bunch } );
 
          if ( _glob_multithread_operations_mask & 8 ) CIRCLESalgebraicMARK( _glob_limitset_array );
       }

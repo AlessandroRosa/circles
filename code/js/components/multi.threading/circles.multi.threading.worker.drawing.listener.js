@@ -59,6 +59,7 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
                      for( var _i = 0 ; _i < _glob_multithread_tmp_array_len ; _i++ )
                      {
                  				if ( !_glob_multithread_running ) break ;
+                        else if ( _glob_multithread_obj.words_array != undefined )
                         _glob_multithread_obj_word = safe_string( _glob_multithread_obj.words_array[_i], "" );
 
        		              switch( _glob_multithread_obj_settings['drawentity'] )
