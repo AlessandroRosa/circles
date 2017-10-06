@@ -435,7 +435,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
               if ( ( _items_error != ITEM_ERR_NONE || _check_group != GROUP_TEST_ERR_OK || _repetends_fail_error || !_rnd_sum_check ) && _out_channel != OUTPUT_SCREEN )
               {
                  var _msg = "The following elements need to be initialized or reset:" ;
-                 if ( _items_error == ITEM_ERR_MOBIUS ) _msg += _glob_crlf + "gens" ;
+                 if ( _items_error == ITEM_ERR_MOBIUS ) _msg += _glob_crlf + "generators" ;
                  if ( _check_group != GROUP_TEST_ERR_OK ) _msg += _glob_crlf + "symbols" ;
                  if ( _repetends_fail_error ) _msg += _glob_crlf + "repetends" ;
                  if ( !_rnd_sum_check ) _msg += _glob_crlf + "random probabilities sum" ;

@@ -30,7 +30,7 @@ function circles_terminal_cmd_doctor()
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "release", "seeds", "gens", "html", "help" );
+    				 _local_cmds_params_array.push( "release", "seeds", "generators", "html", "help" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
@@ -44,7 +44,7 @@ function circles_terminal_cmd_doctor()
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
             else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-            else if ( _p.stricmp( "gens" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
+            else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else
             {
@@ -77,8 +77,8 @@ function circles_terminal_cmd_doctor()
                 circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 default:
-                var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
-                var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
+                var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+                var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Performing doctor's scan on</lightblue> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
 
                 var _HALT = NO, _error_scan = 0, _error_counter = 0 ;

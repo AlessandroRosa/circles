@@ -50,7 +50,7 @@ function circles_terminal_cmd_gensset()
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "short", "inverse", "add", "exact", "bomb", "model", "init", "list", "noclear", "seeds",
-    				 																"gens", "copy", "force", "reset", "zplane", "wplane", "bip",
+    				 																"generators", "copy", "force", "reset", "zplane", "wplane", "bip",
     				 																"help", "html", "release" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
@@ -94,7 +94,7 @@ function circles_terminal_cmd_gensset()
             }
             else if ( _p.stricmp( "noclear" ) ) _params_assoc_array["clear"] = NO ;
             else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-            else if ( _p.stricmp( "gens" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
+            else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
             else if ( _p.stricmp( "copy" ) ) _params_assoc_array["copy"] = YES ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else if ( _p.stricmp( "force" ) ) _params_assoc_array['force'] = YES ;
@@ -143,7 +143,7 @@ function circles_terminal_cmd_gensset()
                    else if ( _ret == REPETEND_TEST_ERR_EMPTY_GROUP )
                    {
                        _b_fail = YES ;
-                       _report.push( "The "+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" )+" list is empty, together with the alphabet" );
+                       _report.push( "The "+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" )+" list is empty, together with the alphabet" );
                        _report.push( "You must input the Mobius maps first" );
                        _report.push( "Can't add the input word '"+_gen_symbol+"' to the gens list" );
                    }

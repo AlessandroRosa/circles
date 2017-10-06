@@ -125,7 +125,7 @@ function CIRCLESformsSTORAGESPACErestore( _subset, _question, _silent, _out_chan
                  if ( !_silent && _out_channel == OUTPUT_SCREEN )
                  circles_lib_output( OUTPUT_SCREEN, _ret_id == RET_ERROR ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _glob_app_title );
                  break ;
-                 case "gens":
+                 case "generators":
                  _glob_gens_array = _glob_storage[_subset].clone();
                  if ( !_silent && _out_channel == OUTPUT_SCREEN )
                  circles_lib_output( OUTPUT_SCREEN, _ret_id == RET_ERROR ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _glob_app_title );

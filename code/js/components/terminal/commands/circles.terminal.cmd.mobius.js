@@ -67,7 +67,7 @@ function circles_terminal_cmd_mobius()
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "fill", "nofill", "draw", "nodraw", "on", "off", "disabled" );
-    				 _local_cmds_params_array.push( "add", "check", "class", "copy", "delete", "gens", "notes", "find", "fixedpoints", "list",
+    				 _local_cmds_params_array.push( "add", "check", "class", "copy", "delete", "generators", "notes", "find", "fixedpoints", "list",
 						 																"generator", "group", "plot", "select", "seeds", "update", "help", "html", "colorize", "decolorize" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
@@ -93,7 +93,7 @@ function circles_terminal_cmd_mobius()
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-            else if ( _p.stricmp( "gens" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
+            else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
             else if ( _p.is_one_of_i( "storagein" ) ) _params_assoc_array['settings']['params'].push( _p ) ;
             else if ( _p.start_with( "storagesubset:" ) ) _params_assoc_array['settings']['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
             else if ( _p.stricmp( "all" ) ) _params_assoc_array['all'] = YES ;
@@ -196,8 +196,8 @@ function circles_terminal_cmd_mobius()
          var _action = _params_assoc_array['settings']['action'] ;
          var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
 		     var _items_n = circles_lib_count_items( _items_array );
-         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
-         var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
+         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+         var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
          var _round_to = _params_assoc_array['roundto'] ;
          var _mm = new mobius_map( _params_assoc_array['a'], _params_assoc_array['b'], _params_assoc_array['c'], _params_assoc_array['d'] );
          var _storage_queue_request = _params_assoc_array['settings']['params'].includes_i( "storagein" ) ? YES : NO ;
@@ -764,10 +764,10 @@ function circles_terminal_cmd_mobius()
                     break ;
                     case "list" :
                     var _html = _params_assoc_array['html'] ;
-                    if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "The "+( (  _glob_items_switch == ITEMS_SWITCH_SEEDS ) ? "Seeds" : "Gens" )+" maps list is empty", _par_1, _cmd_tag );
+                    if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "The "+( (  _glob_items_switch == ITEMS_SWITCH_SEEDS ) ? "Seeds" : "Generators" )+" maps list is empty", _par_1, _cmd_tag );
                     else if ( _sd_n > 0 && is_array( _items_array ) )
                     {
-                        circles_lib_output( _out_channel, DISPATCH_STANDARD, "Retrieving the "+( (  _glob_items_switch == ITEMS_SWITCH_SEEDS ) ? "Seeds" : "Gens" )+" ..", _par_1, _cmd_tag );
+                        circles_lib_output( _out_channel, DISPATCH_STANDARD, "Retrieving the "+( (  _glob_items_switch == ITEMS_SWITCH_SEEDS ) ? "Seeds" : "Generators" )+" ..", _par_1, _cmd_tag );
                         var _out_file_txt = "Seeds list" ;
                     		var ITEM, _row, _exists, _print, _n_display ;
                         for( var _i = 0 ; _i < _sd_n ; _i++ )

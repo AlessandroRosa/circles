@@ -79,10 +79,14 @@ function circles_lib_plugin_move_wnd( _div_id, _X_TAG, _Y_TAG )
 function circles_lib_plugin_reload_basic_forms( _param_01 )
 {
     _param_01 = safe_int( _param_01, UNDET );
-    var _base_ids = [ "edit.disk", "seeds.list", "geometric.transform", "coordinates", "method", "panel.manager" ] ;
+    var _base_ids = [ { id : "edit.disk", subset : "forms" }, { id : "seeds.list", subset : "forms" },
+                      { id : "geometric.transform", subset : "forms" }, { id : "coordinates", subset : "forms" },
+                      { id : "method", subset : "forms" }, { id : "panel.manager", subset : "forms" },
+                      { id : "geometric.transform", subset : "forms" } ] ;
+                      console.log( _base_ids );
     for( var _p = 0 ; _p < _base_ids.length ; _p++ )
-    if ( circles_lib_plugin_find_index( { base_id : _base_ids[_p] }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
-		circles_lib_plugin_load('forms',_base_ids[_p], NO, _param_01 );
+    if ( circles_lib_plugin_find_index( { base_id : _base_ids[_p].id, subset : _base_ids[_p].subset }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+		circles_lib_plugin_load( _base_ids[_p].subset,_base_ids[_p].id, NO, _param_01 );
 }
 
 function circles_lib_plugin_hide_all()
@@ -90,26 +94,26 @@ function circles_lib_plugin_hide_all()
     var _array = _glob_popups_array, _len = safe_size( _array, 0 );
     if ( _len > 0 )
     {
-        var startINDEX, _unique_id, _div_id, _caption, _status, _visible, _height ;
-        for( var _i = 0 ; _i < _len ; _i++ )
+      var startINDEX, _unique_id, _div_id, _caption, _status, _visible, _height ;
+      for( var _i = 0 ; _i < _len ; _i++ )
+      {
+        if ( is_array( _array[_i] ) )
         {
-           if ( is_array( _array[_i] ) )
-           {
-               startINDEX = 0 ;
-               _unique_id = _array[_i][startINDEX].replaceAll( "#", "" );
-               startINDEX++ ;
-               _div_id = _array[_i][startINDEX].replaceAll( "#", "" );
-               startINDEX++ ;
-               _caption = _array[_i][startINDEX] ;
-               startINDEX++ ;
-               _status = safe_int( _array[_i][startINDEX], CLOSE );
-               startINDEX++ ;
-               _visible = safe_int( _array[_i][startINDEX], HIDE );
-               startINDEX++ ;
-               _height = safe_int( _array[_i][startINDEX], 0 );
-               if ( _visible ) circles_lib_forms_show_panel( HIDE, _div_id );
-           }
+           startINDEX = 0 ;
+           _unique_id = _array[_i][startINDEX].replaceAll( "#", "" );
+           startINDEX++ ;
+           _div_id = _array[_i][startINDEX].replaceAll( "#", "" );
+           startINDEX++ ;
+           _caption = _array[_i][startINDEX] ;
+           startINDEX++ ;
+           _status = safe_int( _array[_i][startINDEX], CLOSE );
+           startINDEX++ ;
+           _visible = safe_int( _array[_i][startINDEX], HIDE );
+           startINDEX++ ;
+           _height = safe_int( _array[_i][startINDEX], 0 );
+           if ( _visible ) circles_lib_forms_show_panel( HIDE, _div_id );
         }
+      }
     }
 }
 

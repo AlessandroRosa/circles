@@ -8,7 +8,7 @@ function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _call
 						switch( _tab_index.toLowerCase() )
 						{
 								case "repetends": _tab_index = 0 ; break ;
-								case "gens": _tab_index = 1 ; break ;
+								case "generators": _tab_index = 1 ; break ;
 								case "ifs": _tab_index = 2 ; break ;
 								case "fixedpoints": _tab_index = 3 ; break ;
 				        default: break ;
@@ -41,7 +41,7 @@ function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _call
         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsMETHODcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _caller_fn, _base_id, _div_id, _subset, "tools/tools.01.16x16.png", CLICK_FN );
         HTMLcode += "<tr><td VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F2F2F2;\"><table>" ;
         HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"5\"></td><td COLSPAN=\"3\">Items are switched to <b>"+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "gens" )+"</b> mode</td></tr>" ;
+        HTMLcode += "<tr><td WIDTH=\"5\"></td><td COLSPAN=\"3\">Items are switched to <b>"+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "generators" )+"</b> mode</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"5\"></td><td WIDTH=\"20\"><INPUT TYPE=\"checkbox\" ID=\"ALGEBRAICgeneratorsSKIPconfirmCHECKBOX\" ONCLICK=\"javascript:CIRCLESformsMETHODskipconfirm=this.checked?1:0;\"></td>" ;

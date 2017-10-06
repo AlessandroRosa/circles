@@ -41,7 +41,7 @@ function circles_terminal_cmd_symbol()
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "all", "auto", "change", "clean", "force", "forward", "backward",
                                             "clean", "hide", "init", "list", "shift", "show", "inverse",
-                                            "html", "help", "release", "gens", "seeds", "colorize", "decolorize"
+                                            "html", "help", "release", "generators", "seeds", "colorize", "decolorize"
 																					);
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
          var _p ;
@@ -55,7 +55,7 @@ function circles_terminal_cmd_symbol()
             else if ( _p.stricmp( "auto" ) ) _params_assoc_array['auto'] = YES ;
             else if ( _p.stricmp( "force" ) ) _params_assoc_array['force'] = NO ;
             else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-            else if ( _p.stricmp( "gens" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
+            else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
             else if ( _p.stricmp( "forward" ) ) _params_assoc_array['forward'] = YES ;
             else if ( _p.stricmp( "backward" ) ) _params_assoc_array['backward'] = YES ;
             else if ( _p.stricmp( "inverse" ) ) _params_assoc_array['inverse'] = YES ;
@@ -96,8 +96,8 @@ function circles_terminal_cmd_symbol()
          {
              var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     		     var _items_n = circles_lib_count_items( _items_array );
-             var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
-             var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
+             var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+             var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
              var _action = _params_assoc_array['action'] ;
              var _all = _params_assoc_array['all'] ;
              var _auto = _params_assoc_array['auto'] ;

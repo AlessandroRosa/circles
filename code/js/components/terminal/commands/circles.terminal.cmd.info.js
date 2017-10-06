@@ -32,7 +32,7 @@ function circles_terminal_cmd_info()
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "show", "reset", "release", "seeds", "gens", "help", "html", "group", "properties", "extras", "normalize" );
+    				 _local_cmds_params_array.push( "show", "reset", "release", "seeds", "generators", "help", "html", "group", "properties", "extras", "normalize" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -54,7 +54,7 @@ function circles_terminal_cmd_info()
               if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-              else if ( _p.stricmp( "gens" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
+              else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
               else if ( _p.is_one_of_i( "all", "extras", "group", "properties" ) )
               {
                   if ( !is_array( _params_assoc_array['settings']['features'] ) ) _params_assoc_array['settings']['features'] = [] ;
@@ -93,8 +93,8 @@ function circles_terminal_cmd_info()
              var _accuracy = _params_assoc_array['accuracy'] ;
              var _querying_gens = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? YES : NO ;
              var _items_array = _querying_gens ? _glob_gens_array : _glob_seeds_array ;
-             var _dest_ref = _querying_gens ? "gens" : "seeds" ;
-             var _category_ref = _querying_gens ? "gen" : "seed" ;
+             var _dest_ref = _querying_gens ? "generators" : "seeds" ;
+             var _category_ref = _querying_gens ? "generator" : "seed" ;
              switch( _action )
              {
                 case "release":

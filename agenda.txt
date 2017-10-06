@@ -18,8 +18,9 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 - report all remote ctrl params, for all forms, in read.me.txt file
   inside each form folder
 
+- left bar : zoom icons don't work
+
 * TOOLS
-fundamental.region
 alphabet.colorization
 canvas.composition
 f.z
@@ -31,7 +32,6 @@ method
 > test repetends services
   (both dictionary and index search)
 
-geometric.transform
 dictionary
 eps.editor
 script.editor

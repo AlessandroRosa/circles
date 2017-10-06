@@ -47,47 +47,47 @@ function Z_PLANE_work_layer_onmousedown( obj, event )
     }
     else if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_TANGENTCIRCLE_PROC_ID )
     {
-        // construct a tangent circle to the selected one
-        // it's blank now for further use
+      // construct a tangent circle to the selected one
+      // it's blank now for further use
     }
     else if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_DRAWDISKS_PROC_ID )
     {
-        _glob_centerX = _glob_coords_array["x"], _glob_centerY = _glob_coords_array["y"] ;
-        _glob_zplaneMOUSEleftBTNstatus = ON ;
+      _glob_centerX = _glob_coords_array["x"], _glob_centerY = _glob_coords_array["y"] ;
+      _glob_zplaneMOUSEleftBTNstatus = ON ;
     }
     else if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_SELECTDISKS_PROC_ID )
     {
-        if ( !is_rect( _glob_zoom_rect ) )
-        {
-           _glob_zoom_rect = new rect();
-           _glob_zoomSTARTpt = zplane_sm.from_client_to_cartesian( _glob_mouse_x, _glob_mouse_y );
-        }
+      if ( !is_rect( _glob_zoom_rect ) )
+      {
+         _glob_zoom_rect = new rect();
+         _glob_zoomSTARTpt = zplane_sm.from_client_to_cartesian( _glob_mouse_x, _glob_mouse_y );
+      }
     }
     else if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_PICK_POINTS_PROC_ID )
     {
-        var _pt = zplane_sm.from_client_to_cartesian( _glob_mouse_x, _glob_mouse_y );
-        var _is_dupl = circles_lib_figures_find_duplicates( FIGURE_CLASS_POINT, Z_PLANE, _pt, _glob_storage['figures'] );
-        if ( !_is_dupl )
-        {
-           var _tmp_chunk = [];
-           _tmp_chunk['class'] = FIGURE_CLASS_POINT ;
-           _tmp_chunk['obj'] = _pt ;
-           _tmp_chunk['plane'] = Z_PLANE ;
-           _tmp_chunk['draw'] = YES ;
-           _tmp_chunk['drawcolor'] = DEFAULT_INTERSECTION_POINT_BORDER_COLOR ;
-           _tmp_chunk['fill'] = YES ;
-           _tmp_chunk['fillcolor'] = DEFAULT_INTERSECTION_POINT_INTERIOR_COLOR ;
-           _tmp_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-           _tmp_chunk['linewidth'] = 2 ;
-           _tmp_chunk['enabled'] = YES ;
-           _tmp_chunk['myhash'] = "rec" + ( safe_size( _glob_storage['figures'], UNDET ) + 1 );
-           _tmp_chunk['label'] = "" ;
-           _tmp_chunk['propertiesmask'] = 0 ;
-           _glob_storage['figures'].push( _tmp_chunk );
-           circles_lib_draw_point( _glob_canvas_obj_ref.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm,
-                  _pt.x, _pt.y, YES, DEFAULT_INTERSECTION_POINT_BORDER_COLOR, YES, DEFAULT_INTERSECTION_POINT_INTERIOR_COLOR,
-                  _tmp_chunk['linewidth'], 3, DEFAULT_MAX_OPACITY, 0 );
-        }
+      var _pt = zplane_sm.from_client_to_cartesian( _glob_mouse_x, _glob_mouse_y );
+      var _is_dupl = circles_lib_figures_find_duplicates( FIGURE_CLASS_POINT, Z_PLANE, _pt, _glob_storage['figures'] );
+      if ( !_is_dupl )
+      {
+         var _tmp_chunk = [];
+         _tmp_chunk['class'] = FIGURE_CLASS_POINT ;
+         _tmp_chunk['obj'] = _pt ;
+         _tmp_chunk['plane'] = Z_PLANE ;
+         _tmp_chunk['draw'] = YES ;
+         _tmp_chunk['drawcolor'] = DEFAULT_INTERSECTION_POINT_BORDER_COLOR ;
+         _tmp_chunk['fill'] = YES ;
+         _tmp_chunk['fillcolor'] = DEFAULT_INTERSECTION_POINT_INTERIOR_COLOR ;
+         _tmp_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
+         _tmp_chunk['linewidth'] = 2 ;
+         _tmp_chunk['enabled'] = YES ;
+         _tmp_chunk['myhash'] = "rec" + ( safe_size( _glob_storage['figures'], UNDET ) + 1 );
+         _tmp_chunk['label'] = "" ;
+         _tmp_chunk['propertiesmask'] = 0 ;
+         _glob_storage['figures'].push( _tmp_chunk );
+         circles_lib_draw_point( _glob_canvas_obj_ref.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm,
+                _pt.x, _pt.y, YES, DEFAULT_INTERSECTION_POINT_BORDER_COLOR, YES, DEFAULT_INTERSECTION_POINT_INTERIOR_COLOR,
+                _tmp_chunk['linewidth'], 3, DEFAULT_MAX_OPACITY, 0 );
+      }
     }
 }
 
@@ -274,54 +274,54 @@ function Z_PLANE_work_canvas_onmouseup( obj, event )
 
     switch( event.which )
     {
-       case 1: // left btn
-       break;
-       case 2: // mid btn
-       break;
-       case 3: // right btn
-       _glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID ;
-       circles_lib_canvas_update_icons_bar( "CANVASzplaneBAR" );
-       circles_lib_statusbar_update_elements();
-       circles_lib_reset_coords();
-       event.preventDefault();
-       return false ;
-       break;
-       default: break ;
+      case 1: // left btn
+      break;
+      case 2: // mid btn
+      break;
+      case 3: // right btn
+      _glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID ;
+      circles_lib_canvas_update_icons_bar( "CANVASzplaneBAR" );
+      circles_lib_statusbar_update_elements();
+      circles_lib_reset_coords();
+      event.preventDefault();
+      return false ;
+      break;
+      default: break ;
     }
  
     if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_DRAWDISKS_PROC_ID &&
          _glob_zplaneMOUSEleftBTNstatus && _glob_centerRADIUS > 0 )
     {
-         // x,y and radius are not mapped to the complex plane,
-         // just given according to the canvas coordinates
-         var center = new point( _glob_centerX, _glob_centerY );
-         var c = new circle( center, _glob_centerRADIUS, YES, NO, DEFAULT_DRAW_SEED_COLOR, DEFAULT_FILL_SEED_COLOR );
-         var _items_array =_glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-         var _ret_chunk = circles_lib_screendisk_add( _items_array, c, YES );
-         var _last_index = _ret_chunk[2], _a = [];
-         if ( _last_index != UNDET ) _a.push( _last_index );
-         _glob_disk_sel_index = _last_index ;
+      // x,y and radius are not mapped to the complex plane,
+      // just given according to the canvas coordinates
+      var center = new point( _glob_centerX, _glob_centerY );
+      var c = new circle( center, _glob_centerRADIUS, YES, NO, DEFAULT_DRAW_SEED_COLOR, DEFAULT_FILL_SEED_COLOR );
+      var _items_array =_glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+      var _ret_chunk = circles_lib_screendisk_add( _items_array, c, YES );
+      var _last_index = _ret_chunk[2], _a = [];
+      if ( _last_index != UNDET ) _a.push( _last_index );
+      _glob_disk_sel_index = _last_index ;
                
-         /* the following cmd preserves the new circle to be requested for moving
-            as onmousemove is intercepted right after this add-on
-         */
+      /* the following cmd preserves the new circle to be requested for moving
+         as onmousemove is intercepted right after this add-on
+      */
     
-         circles_lib_canvas_clean( obj );
-         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
-         if ( _glob_popup_mask == 0 ) // if it is 1, no action is performed cause windows remains on top
-         {
-             // if the pop-up window is displayed, update it
-             _glob_disk_sel_index = _last_index ;
-         }
+      circles_lib_canvas_clean( obj );
+      var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
+      if ( _glob_popup_mask == 0 ) // if it is 1, no action is performed cause windows remains on top
+      {
+         // if the pop-up window is displayed, update it
+         _glob_disk_sel_index = _last_index ;
+      }
 
-         _glob_dict_create = _glob_items_to_init = YES ;
-         if ( _glob_method == METHOD_NONE )
-         {
-             circles_lib_method_set( METHOD_INVERSION );
-             circles_lib_set_target_plane( W_PLANE ) ;
-         }
-         if ( _glob_drawentity == DRAWENTITY_NONE ) _glob_drawentity = DRAWENTITY_ISOMETRIC_CIRCLE ;         
-         circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
+      _glob_dict_create = _glob_items_to_init = YES ;
+      if ( _glob_method == METHOD_NONE )
+      {
+         circles_lib_method_set( METHOD_INVERSION );
+         circles_lib_set_target_plane( W_PLANE ) ;
+      }
+      if ( _glob_drawentity == DRAWENTITY_NONE ) _glob_drawentity = DRAWENTITY_ISOMETRIC_CIRCLE ;
+      circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
     }
     else if ( _glob_zplaneMOUSEprocSWITCH.is_one_of( MOUSE_ZOOM_PROC_ID, MOUSE_SELECTDISKS_PROC_ID ) &&
               is_rect( _glob_zoom_rect ) )

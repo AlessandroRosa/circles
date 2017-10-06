@@ -324,7 +324,7 @@ function circles_lib_terminal_disks_check( _out_channel )
        _row += ( new String( " ").repeat( 14 ) );
        _row += "Formula" ;
        _row += ( new String( " ").repeat( 13 ) );
-       _row += "Gens" ;
+       _row += "Generators" ;
        circles_lib_output( _out_channel, DISPATCH_INFO, _row );
 
        _row = ( new String( " " ) ).rpad( " ", COLUMNSpaddingARRAY[0] );

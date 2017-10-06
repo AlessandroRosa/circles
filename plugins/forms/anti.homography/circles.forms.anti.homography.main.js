@@ -21,7 +21,7 @@ function CIRCLESformsANTIHOMOGRAPHYapply( _items_switch )
               
 		    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Complex conjugation settings have been applied to var z", "CIRCLESformsANTIHOMOGRAPHYoutMSG") ;
 		}
-		else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, (_items_switch == ITEMS_SWITCH_SEEDS?"Seeds":"Gens")+" set is empty", 'CIRCLESformsANTIHOMOGRAPHYoutMSG' ) ;
+		else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, (_items_switch == ITEMS_SWITCH_SEEDS?"Seeds":"Generators")+" set is empty", 'CIRCLESformsANTIHOMOGRAPHYoutMSG' ) ;
 }
 
 function CIRCLESformsANTIHOMOGRAPHYlist( _items_switch, _update )

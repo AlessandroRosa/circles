@@ -55,7 +55,7 @@ function circles_terminal_cmd_isometric()
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "show", "compute", "wplane", "zplane", "rec", "copy", "all",
-                                            "draw", "table", "release", "help", "html", "seeds", "gens" );
+                                            "draw", "table", "release", "help", "html", "seeds", "generators" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -81,7 +81,7 @@ function circles_terminal_cmd_isometric()
               else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-              else if ( _p.stricmp( "gens" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
+              else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
               else if ( _p.toLowerCase().start_with( "roundto:" ) )
               {
                    _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
@@ -144,8 +144,8 @@ function circles_terminal_cmd_isometric()
              var _action = _params_assoc_array['action'] ;
              var _round_to = _params_assoc_array['roundto'] ;
              var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-             var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
-             var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
+             var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+             var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
     		     var _items_n = circles_lib_count_items( _items_array );
              var _selection_indexes_array = [] ;
              var _all = _params_assoc_array['all'] != null ? _params_assoc_array['all'] : NO ;

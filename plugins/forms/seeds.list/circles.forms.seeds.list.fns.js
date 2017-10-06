@@ -30,7 +30,7 @@ function CIRCLESformsSEEDSLISTgeneratorsPANELask()
 function CIRCLESformsSEEDSLISTbarHTMLCODE( _selected_index, _index )
 {
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-    var _items_ref = _glob_items_switch == ITEMS_SWITCH_GENS ? "gens" : "seeds" ;
+    var _items_ref = _glob_items_switch == ITEMS_SWITCH_GENS ? "generators" : "seeds" ;
     var _items_n = circles_lib_count_items( _items_array ) ;
     var HTMLcode =  "<tr>" ;
         HTMLcode += "<td VALIGN=\"top\" CLASS=\"popup_buttons_bar\">" ;

@@ -56,7 +56,7 @@ function circles_terminal_cmd_color()
             else if ( _p.is_one_of_i( "bk", "colorize", "decolorize", "release", "show" ) ) _params_assoc_array['action'] = _p ;
             else if ( _p.is_one_of_i( "default", "reset" ) ) _params_assoc_array['color'] = DEFAULT_FONT_COLOR ;
             else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-            else if ( _p.stricmp( "gens" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
+            else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
             else if ( circles_lib_colors_is_def( _p ) ) _params_assoc_array['color'] = _p ;
             else
             {
@@ -67,8 +67,8 @@ function circles_terminal_cmd_color()
          var _action = _params_assoc_array['action'] ;
          var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
  		     var _items_n = circles_lib_count_items( _items_array );
-         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
-         var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
+         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+         var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
 
          switch( _action )
          {

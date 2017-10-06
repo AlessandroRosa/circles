@@ -44,7 +44,7 @@ function circles_terminal_cmd_frm()
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "parse", "release", "help", "html", "seeds", "gens", "classification" );
+    				 _local_cmds_params_array.push( "parse", "release", "help", "html", "seeds", "generators", "classification" );
     		 var _magic_entries = [] ;
 				 		 _magic_entries.push( "jorgensenineq" );
 				 		 _local_cmds_params_array = _local_cmds_params_array.concat( _magic_entries );
@@ -75,7 +75,7 @@ function circles_terminal_cmd_frm()
             else if ( _magic_entries.includes_i( _p ) ) _params_assoc_array['settings']['magic'] = _p ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-            else if ( _p.stricmp( "gens" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
+            else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
             else if ( _p.stricmp( "classification" ) ) _params_assoc_array["classification"] = YES ;
             else if ( _p.start_with_i( _std_var_label + ":" ) )
             _params_assoc_array[''+_std_var_label] = parse_complex_from_string( _p.replaceAll( _std_var_label+":" ) );
@@ -140,8 +140,8 @@ function circles_terminal_cmd_frm()
                  default:
                  var _n_frm = safe_size( _params_assoc_array['frm'], 0 );
 		             var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-		             var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
-		             var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
+		             var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+		             var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
                  if ( _n_frm == 0 )
                  {
                     _b_fail = 1 ;

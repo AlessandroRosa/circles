@@ -55,7 +55,7 @@ function circles_terminal_cmd_word()
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "all", "calc", "connect", "copy", "displacedset", "draw", "draworbits", "fixedpoints",
-                                            "gen", "html", "list", "markpoints", "orbit", "rle", "resolve", "sink", "source",
+                                            "generator", "html", "list", "markpoints", "orbit", "rle", "resolve", "sink", "source",
                                             "lastpt", "test", "trace", "track", "treescan", "html", "help", "release" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
@@ -81,7 +81,7 @@ function circles_terminal_cmd_word()
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-              else if ( _p.stricmp( "gens" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
+              else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
               else if ( _p.toLowerCase().start_with( "roundto:" ) )
               {
                   _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
@@ -110,7 +110,7 @@ function circles_terminal_cmd_word()
                    else if ( _params_assoc_array['action'].stricmp( "treescan" ) ) _params_assoc_array['service'] = _p.toLowerCase();
               }
               else if ( _p.includes( "@" ) && _p.count( "@" ) == 1 ) _params_assoc_array['objectref'] = _p ;
-              else if ( _p.is_one_of_i( "calc", "displacedset", "draw", "gen", "resolve", "test", "track", "treescan", "release" ) )
+              else if ( _p.is_one_of_i( "calc", "displacedset", "draw", "generator", "resolve", "test", "track", "treescan", "release" ) )
 									 _params_assoc_array['action'] = _p.toLowerCase();
               else if ( _p.is_one_of_i( "fixedpoints", "orbit", "lastpt" ) ) _params_assoc_array['service'] = _p.toLowerCase();
               else if ( _p.length > 0 && _params_assoc_array['action'].is_one_of_i( "trace" ) ) _symbols_array.push( _p );
@@ -200,8 +200,8 @@ function circles_terminal_cmd_word()
      else if ( !_b_fail )
      {
          var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
-         var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
+         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+         var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
 		     var _items_n = circles_lib_count_items( _items_array );
          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
          // convert input indexes or symbols into an array of indexes to be applied to next actions
@@ -613,7 +613,7 @@ function circles_terminal_cmd_word()
                 }
              }
              break ;
-             case "gen":
+             case "generator":
              if ( safe_size( _glob_alphabet, 0 ) == 0 )
              {
                   _b_fail = YES, _error_str = "Missing alphabet: try init input seeds first" ;

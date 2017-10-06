@@ -37,7 +37,7 @@ function circles_terminal_cmd_map()
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "add", "clean", "delete", "gen", "init", "symbol", "list", "modify", "tag", "newtag",
+    				 _local_cmds_params_array.push( "add", "clean", "delete", "generator", "init", "symbol", "list", "modify", "tag", "newtag",
     				 																"direct", "inverse", "notes", "release", "class", "html", "help"
 						 															);
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
@@ -57,10 +57,10 @@ function circles_terminal_cmd_map()
               else if ( _p.start_with_i( "direct:" ) ) _params_assoc_array['formula']['direct'] = _p.replaceAll( "direct:", "" ).trim();
               else if ( _p.start_with_i( "inverse:" ) ) _params_assoc_array['formula']['inverse'] = _p.replaceAll( "inverse:", "" ).trim();
               else if ( _p.start_with_i( "notes:" ) ) _params_assoc_array['notes'] = _p.replaceAll( "notes:", "" );
-              else if ( _p.is_one_of_i( "add", "clean", "delete", "gen", "list", "modify", "release" ) )
+              else if ( _p.is_one_of_i( "add", "clean", "delete", "generator", "list", "modify", "release" ) )
               {
                   _params_assoc_array['action'] = _p ;
-                  if ( _p.stricmp( "gen" ) ) _params_assoc_array['class'] = FN_DEF_MOBIUS ;
+                  if ( _p.stricmp( "generator" ) ) _params_assoc_array['class'] = FN_DEF_MOBIUS ;
               }
               else if ( _p.start_with_i( "symbol:" ) ) _params_assoc_array['symbol'] = _p.replaceAll( "symbol:", "" );
               else if ( _p.start_with_i( "class:" ) )
@@ -75,9 +75,9 @@ function circles_terminal_cmd_map()
                       break ;
                   }
               }
-              else if ( _params_assoc_array['action'].is_one_of( "add", "gen" ) && _p.is_one_of_i( "init" )  )
+              else if ( _params_assoc_array['action'].is_one_of( "add", "generator" ) && _p.is_one_of_i( "init" )  )
                   _params_assoc_array['service'].push( _p );
-              else if ( _params_assoc_array['action'].is_one_of( "add", "gen" ) &&
+              else if ( _params_assoc_array['action'].is_one_of( "add", "generator" ) &&
                         _params_assoc_array['class'] == FN_DEF_MOBIUS )
               {
                    var _n = ( _p.includes_i( "," ) ) ? _p.split( "," ).length : 1 ;
@@ -270,7 +270,7 @@ function circles_terminal_cmd_map()
                     circles_lib_output( _out_channel, ( _new_n == _old_n - 1 ) ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _par_1, _cmd_tag );
                 }
                 break ;
-                case "gen":
+                case "generator":
                 var _formula = _params_assoc_array['formula'] ;
                 var _symbol = _params_assoc_array['symbol'] ;
                 // if more formulas are input, no need to declare their symbols

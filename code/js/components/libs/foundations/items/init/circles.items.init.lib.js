@@ -5,7 +5,7 @@ function circles_lib_items_copy_to_storage_space( _item_type, _question, _silent
 				switch( _item_type.toLowerCase() )
 				{
 						case "seeds": default: _item_type = ITEMS_SWITCH_SEEDS ; break ;
-						case "gens": _item_type = ITEMS_SWITCH_GENS ; break ;
+						case "generators": _item_type = ITEMS_SWITCH_GENS ; break ;
 				}
 		}
     else _item_type = safe_int( _item_type, ITEMS_SWITCH_SEEDS );
@@ -16,7 +16,7 @@ function circles_lib_items_copy_to_storage_space( _item_type, _question, _silent
     
 		var _items_n = circles_lib_count_items( _items_array );
     var _symbol = _item_type == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
-    var _storage_ref = _item_type == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
+    var _storage_ref = _item_type == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
     if ( _items_n > 0 )
     {
        var _q = _item_type == ITEMS_SWITCH_SEEDS ? _QUESTION_18_05 : _QUESTION_18_06 ;
@@ -121,7 +121,7 @@ function circles_lib_items_switch_to( _switch_to_val, _silent, _out_channel )
     {
 				switch( _switch_to_val.toLowerCase() )
 				{
-						case "gens": _switch_to_val = ITEMS_SWITCH_GENS ; break ;
+						case "generators": _switch_to_val = ITEMS_SWITCH_GENS ; break ;
 						case "seeds": default: _switch_to_val = ITEMS_SWITCH_SEEDS ; break ;
 				}
 		}

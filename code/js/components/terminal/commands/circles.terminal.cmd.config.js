@@ -318,7 +318,7 @@ function circles_terminal_cmd_config()
                                   _outlabel = "Fixed points" ;
                                   _outval = circles_lib_fixedpoints_io_get_def( _glob_fixedpt_io );
                                   break ;
-                                  case "gens":
+                                  case "generators":
                                   _outlabel = "Generators to init" ;
                                   _outval = _glob_items_to_init ? Y : N ;
                                   break ;
@@ -329,7 +329,7 @@ function circles_terminal_cmd_config()
                                   else
                                   {
                                       if ( _glob_items_switch == ITEMS_SWITCH_SEEDS ) _out_array.push( "seeds" );
-                                      else if ( _glob_items_switch == ITEMS_SWITCH_GENS ) _out_array.push( "gens" );
+                                      else if ( _glob_items_switch == ITEMS_SWITCH_GENS ) _out_array.push( "generators" );
       
                                       if ( _glob_items_switch & ITEM_BYREF ) _out_array.push( "byref" );
                                       else if ( _glob_items_switch & ITEM_BYVAL ) _out_array.push( "byval" );
@@ -666,7 +666,7 @@ function circles_terminal_cmd_config()
                             {
                                 _glob_items_switch = ITEM_SWITCH_TO_NONE ;
                                 if ( _value.strcmp( "seeds" ) ) _glob_items_switch |= ITEMS_SWITCH_SEEDS ;
-                                else if ( _value.strcmp( "gens" ) ) _glob_items_switch |= ITEMS_SWITCH_GENS ;
+                                else if ( _value.strcmp( "generators" ) ) _glob_items_switch |= ITEMS_SWITCH_GENS ;
   
                                 if ( _params_assoc_array['params'].includes( "byref" ) ) _glob_items_switch |= ITEM_BYREF ;
                                 else if ( _params_assoc_array['params'].includes( "byval" ) ) _glob_items_switch |= ITEM_BYVAL ;

@@ -49,7 +49,7 @@ function circles_lib_plane_get_def_for_cmds( _plane_type ) { return _glob_plane_
 function circles_lib_items_get_def()
 {
     if ( _glob_items_switch & ITEMS_SWITCH_SEEDS ) return "seeds" ;
-    else if ( _glob_items_switch & ITEMS_SWITCH_GENS ) return "gens" ;
+    else if ( _glob_items_switch & ITEMS_SWITCH_GENS ) return "generators" ;
     else return "unknown" ;
 }
 
@@ -61,14 +61,14 @@ function circles_lib_items_set( _items_array, _more_infos )
     {
 				switch( _items_array.toLowerCase() )
 				{
-						case "gens": _items_label = "gens" ; _items_array = _glob_gens_array ; _items_switch = ITEMS_SWITCH_GENS ; break ;
+						case "generators": _items_label = "generators" ; _items_array = _glob_gens_array ; _items_switch = ITEMS_SWITCH_GENS ; break ;
 						case "seeds": default: _items_label = "seeds" ; _items_array = _glob_seeds_array ; _items_switch = ITEMS_SWITCH_SEEDS ; break ;
 				}
 		}
     else if ( is_number( _items_array ) )
     {
         _items_switch = _items_array ;
-        _items_label = _items_array == ITEMS_SWITCH_GENS ? "gens" : "seeds" ;
+        _items_label = _items_array == ITEMS_SWITCH_GENS ? "generators" : "seeds" ;
         _items_array = _items_array == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     }
     else if ( !is_array( _items_array ) )

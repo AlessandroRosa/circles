@@ -75,7 +75,7 @@ function circles_terminal_cmd_disk()
                                             "delete", "find", "fill", "nofill", "draw", "nodraw", "table", "off", "on",
                                             "intersect", "symbol", "list", "mirror", "move", "notes", "select", "html", "help",
                                             "disabled", "area", "center", "circumference", "curvature", "diameter", "pair", "set",
-                                            "radius", "mirror", "update", "rotate", "round", "plot", "release", "seeds", "gens",
+                                            "radius", "mirror", "update", "rotate", "round", "plot", "release", "seeds", "generators",
                                             "colorize" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -100,7 +100,7 @@ function circles_terminal_cmd_disk()
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-              else if ( _p.stricmp( "gens" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
+              else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
               else if ( _p.is_one_of_i( "storagein" ) ) _params_assoc_array['settings']['params'].push( _p ) ;
               else if ( _params_assoc_array['settings']['params'].includes( "storagein" ) &&
                         ( is_array( _glob_storage[ _p ] ) || _p.testME( _glob_storage_key_regex_pattern ) )
@@ -113,7 +113,7 @@ function circles_terminal_cmd_disk()
               else if ( _p.stricmp( "table" ) ) _params_assoc_array['table'] = YES ;
               else if ( _p.stricmp( "off" ) ) _params_assoc_array['off'] = YES ;
               else if ( _p.stricmp( "on" ) ) _params_assoc_array['on'] = YES ;
-              else if ( _p.is_one_of_i( "gens", "seeds" ) ) _params_assoc_array['settings']['params'].push( _p ) ;
+              else if ( _p.is_one_of_i( "generators", "seeds" ) ) _params_assoc_array['settings']['params'].push( _p ) ;
               else if ( _p.is_one_of_i( "add", "changesymbol", "changeinvsymbol", "check", "colorize", "decolorize", "copy", "delete", "find",
                                         "intersect", "symbol", "list", "mirror", "move", "notes", "pair", "select", "release",
                                         "rotate", "update" ) )
@@ -227,8 +227,8 @@ function circles_terminal_cmd_disk()
          var _action = _params_assoc_array['settings']['action'] ;
          var _storage_queue_request = _params_assoc_array['settings']['params'].includes_i( "storagein" ) ? YES : NO ;
          var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Gens" ;
-         var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "gen" ;
+         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+         var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
 		     var _items_n = circles_lib_count_items( _items_array );
          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
 
@@ -1107,7 +1107,7 @@ function circles_terminal_cmd_disk()
                     case "pair":
                     _symbols_array = _symbols_array.unique();
                     var _input_params = _params_assoc_array['settings']['params'] ;
-                    var _src_items_set_ref = _input_params.includes( "gens" ) ? 2 : ( _input_params.includes( "seeds" ) ? 1 : 0 ) ;
+                    var _src_items_set_ref = _input_params.includes( "generators" ) ? 2 : ( _input_params.includes( "seeds" ) ? 1 : 0 ) ;
                     var _src_items_set_name = "" ;
                  		if ( !_src_items_set_ref.is_one_of( 1, 2 ) )
                  		{
@@ -1125,7 +1125,7 @@ function circles_terminal_cmd_disk()
 												case 2:
 												circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Pairing action will be performed on the</lightgray> <snow>gens</snow> <lightgray>set</lightgray>", _par_1, _cmd_tag );
 												_src_items_set_ref = _glob_gens_array ;
-												_src_items_set_name = "gens" ;
+												_src_items_set_name = "generators" ;
 												break ;
 										}
 										 
