@@ -44,7 +44,7 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
     var WIDTH = Math.max( 500, $(window).width() * 0.38 ), HEIGHT = "auto" ;
     var _subset = "forms" ;
     var _div_id = CIRCLESformsAUTOMATONdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
-    var HTMLcode = "<table WIDTH=\"100%\" BORDER=\"0\">" ;
+    var HTMLcode = "<table WIDTH=\"100%\">" ;
         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsAUTOMATONcaption, 3, YES,
                     CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
 										"", "", "CIRCLESformsAUTOMATON" );

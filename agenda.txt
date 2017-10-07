@@ -18,7 +18,7 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 - report all remote ctrl params, for all forms, in read.me.txt file
   inside each form folder
 
-- left bar : zoom icons don't work
+- left bar : arbitrary zoom icon does not work
 
 * TOOLS
 alphabet.colorization

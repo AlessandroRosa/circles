@@ -174,7 +174,7 @@ function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_ma
           if ( _check_group != GROUP_TEST_ERR_OK )
           {
              var errMSG = circles_lib_symbol_get_err_def( _check_group, _out_channel );
-             if ( circles_lib_plugin_find_index( { base_id : 'seeds.list' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+             if ( circles_lib_plugin_find_index( { subset : "forms", base_id : 'seeds.list' }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
              {
                 if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, errMSG, _glob_app_title );
                 return [ RET_ERROR, errMSG ];

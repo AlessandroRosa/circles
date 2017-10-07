@@ -74,7 +74,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
          if ( _question )
          {
              // splash box contents arrangement
-             var HTMLcode = "<table WIDTH=\""+BOX_WIDTH+"\" BORDER=\"0\">" ;
+             var HTMLcode = "<table WIDTH=\""+BOX_WIDTH+"\">" ;
                  HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
              var _n_palette = safe_size( _glob_palette_array, 0 );
              if ( _glob_palette_use && _glob_depth > _n_palette && _plane_type.is_one_of( W_PLANE, BIP_BOX, ALL_PLANES ) )

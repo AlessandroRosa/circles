@@ -377,6 +377,6 @@ function CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARYend( _adapt_view )
  		CIRCLESformsDISCRETENESSLOCUSbenchmarkTABLE['end_time'] = unixtime() ;
     CIRCLESformsDISCRETENESSLOCUSbenchmark();
 
-    if ( circles_lib_plugin_find_index( { base_id : "bip" }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+    if ( circles_lib_plugin_find_index( { subset : "forms", base_id : "bip" }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
     circles_lib_plugin_dispatcher_unicast_message( "bip", "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS );
 }

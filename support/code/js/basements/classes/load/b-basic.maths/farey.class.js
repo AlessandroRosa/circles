@@ -483,7 +483,7 @@ farey.prototype.continued_frac_html = function( _color )
 		var _convergents = this.convergents().reverse() ;
 		if ( _convergents.length > 0 )
 		{
-				var FRAC_CONTAINER_TEMPLATE = "<table BORDER=\"0\" STYLE=\"font-size:7pt;font-family:arial;\">" ;
+				var FRAC_CONTAINER_TEMPLATE = "<table STYLE=\"font-size:7pt;font-family:arial;\">" ;
 					  FRAC_CONTAINER_TEMPLATE += "<tr><td VALIGN=\"bottom\" ALIGN=\"center\">%num%</td></tr>" ;
 						FRAC_CONTAINER_TEMPLATE += "<tr><td><hr noshade HEIGHT=\"1\"></td></tr>" ;
 						FRAC_CONTAINER_TEMPLATE += "<tr><td VALIGN=\"middle\"\">%den%</td></tr>" ;

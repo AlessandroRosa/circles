@@ -25,7 +25,7 @@ function circles_lib_splash_screen_code()
     splashHTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
     splashHTMLcode += "<tr>" ;
     splashHTMLcode += "<td VALIGN=\"top\" COLSPAN=\"3\" ALIGN=\"center\">" ;
-    splashHTMLcode += "<table ALIGN=\"center\" BORDER=\"0\">" ;
+    splashHTMLcode += "<table ALIGN=\"center\">" ;
 
     splashHTMLcode += "<tr>" ;
     splashHTMLcode += "<td WIDTH=\"32\" VALIGN=\"top\" ALIGN=\"center\" CLASS=\"general_rounded_corners\" STYLE=\"padding:6px;"+( isCHROME() ? "background-color:#D5E6F7;" : "" )+"\"><IMG SRC=\"%imgpath%icons/browsers/chrome/chrome.icon.01.32x32.png\"></td>" ;

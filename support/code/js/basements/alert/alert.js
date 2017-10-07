@@ -179,13 +179,13 @@ function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth,
     if ( ICONWIDTH == 0 ) ICONWIDTH = 48 ;
     ICONWIDTH += 16 ; 
 
-    var HTMLcode = "<table BORDER=\"0\" STYLE=\"padding:1px;\" "+( ( W > 0 ) ? "WIDTH=\""+W+"\"" : "" )+">" ;
+    var HTMLcode = "<table STYLE=\"padding:1px;\" "+( ( W > 0 ) ? "WIDTH=\""+W+"\"" : "" )+">" ;
     var bCAPTION = ( mode == ALERT_ERROR || ( mode & ALERT_NOCAPTION ) == 0 ) ? 1 : 0 ;
     if ( bCAPTION )
     {
         HTMLcode += "<tr>" ;
         HTMLcode += "<td HEIGHT=\"24\" COLSPAN=\""+_caption_colspan+"\" CLASS=\""+BKCOLORclass+"\" WIDTH=\""+W+"\">" ;
-        HTMLcode += "<table BORDER=\"0\" WIDTH=\""+W+"\" STYLE=\"padding:2px;\">" ;
+        HTMLcode += "<table WIDTH=\""+W+"\" STYLE=\"padding:2px;\">" ;
         HTMLcode += "<tr><td COLSPAN=\"4\" HEIGHT=\"2\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"8\"></td>" ;
@@ -227,7 +227,7 @@ function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth,
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"12\"></td>" ;
     HTMLcode += "<td VALIGN=\"top\" ALIGN=\"center\" COLSPAN=\"3\">" ;
-    HTMLcode += "<table BORDER=\"0\" ALIGN=\"center\" WIDTH=\""+( W > 0 ? ( W - 30 ) + "px" : "100%" )+"\">%alertbtns%</table>" ;
+    HTMLcode += "<table ALIGN=\"center\" WIDTH=\""+( W > 0 ? ( W - 30 ) + "px" : "100%" )+"\">%alertbtns%</table>" ;
     HTMLcode += "</td>" ;
     HTMLcode += "<td WIDTH=\"12\"></td>" ;
     HTMLcode += "</tr>" ;

@@ -53,7 +53,7 @@
                                                      <td VALIGN=\"top\" WIDTH=\"1\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:".( $SELECTED ? "#A2A2E0" : "#DCDCF7" ).";\"></td>
                                                      <td VALIGN=\"top\" WIDTH=\"1\"></td>
                                                      <td VALIGN=\"top\" ".( $SELECTED ? "ID=\"TREEleafSELECTED\"" : "" ).">
-                                                     <table cellpadding=0 cellspacing=0 valign=\"top\" BORDER=\"0\">
+                                                     <table cellpadding=0 cellspacing=0 valign=\"top\">
                                                      <tr>
                                                          <td VALIGN=\"top\" STYLE=\"padding-top:4px;\"><IMG SRC=\"".$GLOBALS['PATH_TO_IMG']."icons/bullets/bullet.left.blue.02.8x8.png\"></td>
                                                          <td STYLE=\"font-weight:bold;\"><A STYLE=\"color:#5BAAE7;\" HREF=\"?folder=$candidateFOLDER&lockat=$LOCKlevelAT\">$boldIN$LABEL$boldOUT</A></td>

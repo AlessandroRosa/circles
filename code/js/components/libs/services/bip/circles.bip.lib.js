@@ -1,7 +1,7 @@
 function circles_lib_bip_activate( bACTIVATE )
 {
     _glob_persistent_vars['old_target_plane'] = _glob_target_plane ;
-		_glob_target_plane = bACTIVATE ? BIP_BOX : ( circles_lib_plugin_find_index( { base_id : "discreteness.locus" }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ? D_LOCUS : W_PLANE ) ;
+		_glob_target_plane = bACTIVATE ? BIP_BOX : ( circles_lib_plugin_find_index( { subset : "forms", base_id : "discreteness.locus" }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND ? D_LOCUS : W_PLANE ) ;
     bACTIVATE ? circles_lib_statusbar_set_config_icon( CONFIG_BIPBOX ) : circles_lib_statusbar_set_config_icon( CONFIG_STD );
 
     var _popups = [ [ "forms", "general.options" ], [ "forms", "discreteness.locus" ] ] ;

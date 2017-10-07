@@ -392,7 +392,7 @@ function circles_lib_complexdisk_remove( _items_array, _question, _silent, _forc
           var _last_index = _n_disks_after - 1 ;
           if ( _last_index >= 0 && _out_channel == OUTPUT_SCREEN )
           {
-             if ( circles_lib_plugin_find_index( { base_id : 'edit.disk' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+             if ( circles_lib_plugin_find_index( { subset : "forms", base_id : "edit.disk" }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
              circles_lib_plugin_dispatcher_unicast_message( 'edit.disk', "forms", POPUP_DISPATCHER_UNICAST_EVENT_UPDATE );
           }
           else if ( _n_disks == 0 ) circles_lib_plugin_activate( NO, "edit.disk", "", "", "forms", CLOSE, "POPUPeditdiskDIV", "" );

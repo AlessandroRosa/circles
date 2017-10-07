@@ -256,7 +256,7 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
     if ( !_b_open ) hideCOLORTABLE();
     else _glob_popup_sel_unique_id = _div_id ;
 
-    var _index = circles_lib_plugin_find_index( _div_id, POPUP_SEARCH_BY_DIV_ID, _caption );
+    var _index = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID, _caption );
     var _popup_obj = null ;
     if ( _b_open )
     {

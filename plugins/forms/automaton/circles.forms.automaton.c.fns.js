@@ -418,10 +418,10 @@ function CIRCLESformsAUTOMATONtableSAVEENTRY( _row_index )
 
 function CIRCLESformsAUTOMATONconstructorTABLE( _base_id, _subset )
 {
-		var HTMLcode = "<table WIDTH=\"100%\" BORDER=\"0\">" ;
+		var HTMLcode = "<table WIDTH=\"100%\">" ;
 				HTMLcode += "<tr>" ;
 				HTMLcode += "<td CLASS=\"popup_buttons_bar\" ID=\"CIRCLESformsAUTOMATONwordBAR\">" ;
-				HTMLcode += "<table BORDER=\"0\">" ;
+				HTMLcode += "<table>" ;
 				HTMLcode += "<tr>" ;
 				HTMLcode += "<td WIDTH=\"5\"></td>" ;
 				HTMLcode += "<td>Symbol(s)</td>" ;

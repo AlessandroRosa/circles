@@ -16,13 +16,14 @@ function CIRCLESformsGEOMETRICTRANSFORMmain( _base_id, _move )
       var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
       HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsGEOMETRICTRANSFORMcaption+" - " + _dest_ref, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
       HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
-      HTMLcode += "<tr><td STYLE=\"padding:6px;background-color:#F0F0F0;\" ALIGN=\"right\" CLASS=\"general_rounded_corners\">"+( "Found <b>"+_items_n+"</b> "+( _items_n == 1 ? "entry" : "entries" ) )+"</td></tr>" ;
+      HTMLcode += "<tr><td STYLE=\"padding:6px;background-color:#F0F0F0;font-size:10pt;\" ALIGN=\"right\" CLASS=\"general_rounded_corners\">"+( "Found <b>"+_items_n+"</b> "+( _items_n == 1 ? "entry" : "entries" ) )+"</td></tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
       HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;color:#707070;\">Transforms apply to seeds exclusively</td></tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"15\"></td></tr>" ;
       HTMLcode += "<tr>" ;
       HTMLcode += "<td VALIGN=\"top\">" ;
-      if ( _items_n > 10 ) HTMLcode += "<DIV STYLE=\"position:relative;width:auto;height:250px;overflow:auto;\">" ;
+      var _b_div = _items_n > 5 ;
+      if ( _b_div ) HTMLcode += "<DIV STYLE=\"position:relative;width:auto;height:150px;overflow:auto;\">" ;
           
       HTMLcode += "<table>" ;
       HTMLcode += "<tr>" ;
@@ -34,7 +35,7 @@ function CIRCLESformsGEOMETRICTRANSFORMmain( _base_id, _move )
       HTMLcode += "<td STYLE=\"font-size:10pt;\" ALIGN=\"center\" COLSPAN=\"3\">Include</td>" ;
       HTMLcode += "</tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-          
+
       var ITEM, _symbol, complex_circle, complex_center_pt, complex_radius, bIN, bOUT ;
       for( var i = 0 ; i < _items_n ; i++ )
       {
@@ -44,20 +45,20 @@ function CIRCLESformsGEOMETRICTRANSFORMmain( _base_id, _move )
         complex_center_pt = is_circle( complex_circle ) ? complex_circle.center : new point( 0, 0 );
         complex_radius = is_circle( complex_circle ) ? complex_circle.radius : 0 ;
                
-        if ( _symbol.length == 0 ) _symbol = "<SPAN STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\">Missing<br>init needed</SPAN>" ;
+        if ( _symbol.length == 0 ) _symbol = "<SPAN STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\">Missing init needed</SPAN>" ;
                
         bIN = i == _glob_disk_sel_index ? "<b>" : "" ;
         bOUT = i == _glob_disk_sel_index ? "</b>" : "" ;
           
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
-        HTMLcode += "<td>"+bIN+_symbol+bOUT+"</td>" ;
+        HTMLcode += "<td WIDTH=\"100\">"+bIN+_symbol+bOUT+"</td>" ;
         HTMLcode += "<td WIDTH=\"15\"></td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" WIDTH=\"50\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,"+i+");\">Info</td>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" WIDTH=\"50\" ONCLICK=\"javascript:CIRCLESformsGEOMETRICTRANSFORMselectDISK( "+i+" );\">Select</td>" ;
         HTMLcode += "<td WIDTH=\"15\"></td>" ;
-        HTMLcode += "<td><INPUT TYPE=\"checkbox\" ID=\"CIRCLESLISTtransformLABELcheckbox_"+i+"\"></td>" ;
+        HTMLcode += "<td ALIGN=\"center\"><INPUT TYPE=\"checkbox\" ID=\"CIRCLESLISTtransformLABELcheckbox_"+i+"\"></td>" ;
         HTMLcode += "</tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
       }
@@ -65,11 +66,11 @@ function CIRCLESformsGEOMETRICTRANSFORMmain( _base_id, _move )
       HTMLcode += "<tr>" ;
       HTMLcode += "<td COLSPAN=\"6\" ALIGN=\"right\" STYLE=\"font-size:10pt;\">Include all</td>" ;
       HTMLcode += "<td WIDTH=\"15\"></td>" ;
-      HTMLcode += "<td><INPUT TYPE=\"checkbox\" ONCLICK=\"javascript:CIRCLESformsGEOMETRICTRANSFORMselectALL( this.checked ? YES : NO );\"></td>" ;
+      HTMLcode += "<td ALIGN=\"center\"><INPUT TYPE=\"checkbox\" ONCLICK=\"javascript:CIRCLESformsGEOMETRICTRANSFORMselectALL( this.checked ? YES : NO );\"></td>" ;
       HTMLcode += "</tr>" ;
           
       HTMLcode += "</table>" ;
-      if ( _items_n > 10 ) HTMLcode += "</DIV>" ;
+      if ( _b_div ) HTMLcode += "</DIV>" ;
       HTMLcode += "</td>" ;
       HTMLcode += "</tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;

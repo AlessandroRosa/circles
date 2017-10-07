@@ -11,7 +11,7 @@ function CIRCLESformsSVGEDITORmain( _base_id, _move )
     var _plane_label = circles_lib_plane_get_def( _svg_editor_coords_ref ), _subset = "forms" ;
     var _div_id = CIRCLESformsSVGEDITORdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLESformsSVGEDITORclose();", _click_fn = "$('#terminal_div').click();" ;
-    var HTMLcode = "<table ID=\"wnd_container_"+_div_id+"\" BORDER=\"0\" WIDTH=\"100%\" STYLE=\"background-color:white;\">" ;
+    var HTMLcode = "<table ID=\"wnd_container_"+_div_id+"\" WIDTH=\"100%\" STYLE=\"background-color:white;\">" ;
     HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsSVGEDITORcaption, 3, YES, CLOSE_FN,
 																		 WIDTH, HEIGHT, arguments.callee.name,
 																		 _base_id, _div_id, _subset, "cmd.prompt/cmd.prompt.icon.01.16x16.png", _click_fn );

@@ -68,7 +68,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay()
 		var _n_projs = is_array( _proj_labels ) ? safe_size( _proj_labels, 0 ) : 0 ;
 		var _scripts_array = _glob_js_code_projs_array[CIRCLESformsSCRIPTEDITORprojectlabelCURRENT], HTMLcode = "" ;
     var _n_entries = safe_size( _scripts_array, 0 ) ;
-    HTMLcode = "<table WIDTH=\"100%\" BORDER=\"0\">" ;
+    HTMLcode = "<table WIDTH=\"100%\">" ;
     HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\"><table>" ;
     HTMLcode += "<tr><td WIDTH=\"5\"></td>" ;

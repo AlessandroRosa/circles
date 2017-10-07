@@ -23,14 +23,14 @@ function CIRCLESformsTINYRENDERINGdispatcher()
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
            var _div_id = "CIRCLESformsTINYRENDERINGpopupWND"+arguments[1] ;
-           var _idx = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID, 0 ) ;
+           var _idx = circles_lib_plugin_find_index( { subset : "forms", div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_SUBSET, 0 ) ;
            if ( _idx != UNFOUND ) circles_lib_plugin_focus( _div_id ) ;
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
            var _div_id = "CIRCLESformsTINYRENDERINGpopupWND"+arguments[1] ;
-           var _idx = circles_lib_plugin_find_index( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID, 0 )
+           var _idx = circles_lib_plugin_find_index( { subset : "forms", div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID | POPUP_SEARCH_BY_SUBSET, 0 )
            if ( _idx != UNFOUND )
            {
     				   CIRCLESformsTINYRENDERINGremove( arguments[1], arguments[2] );

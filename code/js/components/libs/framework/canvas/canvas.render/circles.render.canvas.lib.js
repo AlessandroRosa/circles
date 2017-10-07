@@ -1,4 +1,4 @@
-function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_rendering, _question, _silent, _b_reset_coords, _out_channel )
+function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _question, _silent, _b_reset_coords, _out_channel )
 {
 		circles_lib_menu_entries_update() ;
 		if ( _glob_interface_index == INTERFACE_EXTEND_WPLANE ) return [ RET_IRRELEVANT, "Z-plane rendering skipped for extended interface" ] ;
@@ -12,7 +12,7 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
     if ( safe_size( _selected_layers_array, 0 ) == 0 ) _selected_layers_array = null ;
     
     _b_clean = safe_int( _b_clean, NO );
-    _b_render_bk = safe_int( _b_render_bk, YES ), _b_rendering = safe_int( _b_rendering, YES );
+    _b_render_bk = safe_int( _b_render_bk, YES ), _b_render_objs = safe_int( _b_render_objs, YES );
     _b_reset_coords = safe_int( _b_reset_coords, YES );
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
@@ -63,7 +63,6 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
     }
 
     if ( _b_render_bk ) circles_lib_canvas_layer_pile_init( Z_PLANE, _b_clean, NO );
-
     circles_lib_recalc_screen_disks_coords( _mapper );
       
     var _length = safe_size( _glob_zplane_layers_pile_role_array, 0 );
@@ -106,7 +105,7 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
             circles_lib_grid_draw( _grid_canvas, _mapper, Z_PLANE, YES, _glob_ticks_count, _out_channel );
             break ;
             case ROLE_RENDERING: // rendering
-            if ( _b_rendering && ( _glob_zplane_rendering_canvas_placeholder.is_visible() || is_html_canvas( _rendering_canvas ) ) )
+            if ( _b_render_objs && ( _glob_zplane_rendering_canvas_placeholder.is_visible() || is_html_canvas( _rendering_canvas ) ) )
             circles_lib_draw_all_complex_disks( _rendering_canvas.getContext( _glob_canvas_ctx_2D_mode ), _mapper, _glob_zplane_selected_items_array, NO, _silent, _out_channel );
             break ;
             case ROLE_FREEDRAW: // free draw
@@ -153,7 +152,7 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
    return [ RET_OK, "Z-plane rendered with success" ] ;
 }
 
-function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_rendering, _b_init_items, _question, _silent, _out_channel )
+function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _b_init_items, _question, _silent, _out_channel )
 {
 		circles_lib_menu_entries_update() ;
 		if ( _glob_interface_index == INTERFACE_EXTEND_ZPLANE ) return [ RET_IRRELEVANT, "W-plane rendering skipped for extended interface" ] ;
@@ -162,7 +161,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
     if ( safe_size( _selected_layers_array, 0 ) == 0 ) _selected_layers_array = null ;
 
     _b_clean = safe_int( _b_clean, NO );
-    _b_render_bk = safe_int( _b_render_bk, YES ), _b_rendering = safe_int( _b_rendering, YES );
+    _b_render_bk = safe_int( _b_render_bk, YES ), _b_render_objs = safe_int( _b_render_objs, YES );
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _b_init_items = safe_int( _b_init_items, CHECK );
     if ( _b_init_items == CHECK ) _b_init_items = _glob_items_to_init ;
@@ -293,7 +292,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
  						circles_lib_grid_draw( _grid_canvas, _mapper, W_PLANE, YES, _glob_ticks_count, _out_channel );
             break ;
             case ROLE_RENDERING: // rendering
-            if ( _b_rendering && _glob_wplane_rendering_canvas_placeholder.is_visible() )
+            if ( _b_render_objs && _glob_wplane_rendering_canvas_placeholder.is_visible() )
             {
                 _ret_chunk = circles_lib_canvas_render_process( _rendering_canvas, _mapper, W_PLANE, _silent, _out_channel );
                 circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _out_channel );
@@ -325,7 +324,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
    return [ RET_OK, "W-plane rendered with success" ] ;
 }
 
-function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, _b_clean, _b_render_bk, _b_rendering, _b_init_items, _question, _silent, _out_channel )
+function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _b_init_items, _question, _silent, _out_channel )
 {
 		circles_lib_menu_entries_update() ;
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
@@ -335,7 +334,7 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
 
     _b_clean = safe_int( _b_clean, YES ), _b_init_items = safe_int( _b_init_items, CHECK );
     if ( _b_init_items == CHECK ) _b_init_items = _glob_items_to_init ;
-    _b_render_bk = safe_int( _b_render_bk, YES ), _b_rendering = safe_int( _b_rendering, YES );
+    _b_render_bk = safe_int( _b_render_bk, YES ), _b_render_objs = safe_int( _b_render_objs, YES );
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, YES );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
 
@@ -391,7 +390,7 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
                 circles_lib_grid_draw( _canvas, _mapper, Z_PLANE, YES, _glob_ticks_count, _out_channel );
                 break ;
                 case ROLE_RENDERING: // rendering
-                if ( _b_rendering && _glob_zplane_rendering_canvas_placeholder.is_visible() )
+                if ( _b_render_objs && _glob_zplane_rendering_canvas_placeholder.is_visible() )
                 circles_lib_draw_all_complex_disks( _canvas.getContext( _glob_canvas_ctx_2D_mode ), _mapper, _glob_zplane_selected_items_array, NO, _silent, _out_channel );
                 break ;
                 case ROLE_FREEDRAW: // free draw
@@ -448,7 +447,7 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
                   circles_lib_grid_draw( _canvas, _mapper, BIP_BOX, YES, _glob_ticks_count, _out_channel );
                   break ;
                   case 2: // rendering
-                  if ( _b_rendering && _glob_wplane_rendering_canvas_placeholder.is_visible() )
+                  if ( _b_render_objs && _glob_wplane_rendering_canvas_placeholder.is_visible() )
                   {
                       _ret_chunk = circles_lib_canvas_render_process( _canvas, _mapper, BIP_BOX, _silent, _out_channel );
                       _ret_id = ( is_array( _ret_chunk ) || _ret_chunk == UNDEF ) ? safe_int( _ret_chunk[0], 0 ) : 0 ;

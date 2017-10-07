@@ -38,7 +38,7 @@ function CIRCLESformsDICTIONARYdispatcher()
 					 			case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
 					 			break ;
 					 			case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
-								if ( circles_lib_plugin_find_index( { base_id : CIRCLESformsDICTIONARYbaseid }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+								if ( circles_lib_plugin_find_index( { subset : "forms", base_id : CIRCLESformsDICTIONARYbaseid }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
 								circles_lib_plugin_activate( NO, "dictionary", "forms", CLOSE, "POPUPdictionaryinputformDIV", '', "" );
 						    if ( $("#" + CIRCLESformsDICTIONARYdiv_id).resizable('instance') != undefined )
                 $("#" + CIRCLESformsDICTIONARYdiv_id).resizable('destroy');

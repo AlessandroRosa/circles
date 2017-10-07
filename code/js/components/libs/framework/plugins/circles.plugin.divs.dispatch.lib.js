@@ -44,7 +44,6 @@ function circles_lib_plugin_dispatcher_unicast_message()
 function circles_lib_plugin_dispatcher_multicast_message()
 {
 		var _message_id = safe_string( arguments[0], POPUP_DISPATCHER_MULTICAST_EVENT_UNKNOWN );
-    _glob_popups_array = _glob_popups_array.unique();
     if ( _message_id != POPUP_DISPATCHER_MULTICAST_EVENT_UNKNOWN && _message_id.length > 0 )
     {
       var _base_id, _dispatcher_cmd, _j_args, _a, _original_cmd, _subset ;

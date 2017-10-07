@@ -37,7 +37,7 @@ function CIRCLESformsDISCRETENESSLOCUSdiagramBOX( POPUP_WIDTH, POPUP_HEIGHT )
 
 function CIRCLESformsDISCRETENESSLOCUSselectionlistBOX()
 {
-    var HTMLcode = "<table WIDTH=\"100%\" BORDER=\"0\">";
+    var HTMLcode = "<table WIDTH=\"100%\">";
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
         HTMLcode += "<tr><td VALIGN=\"top\"><DIV ID=\"CIRCLESformsDISCRETENESSLOCUSselectionlistDIV\" STYLE=\"position:relative;width:100%;height:100%;overflow:auto;\"></DIV></td></tr>" ;
         HTMLcode += "</table>" ;
@@ -71,7 +71,7 @@ function CIRCLESformsDISCRETENESSLOCUSfareyBOX()
 
 function CIRCLESformsDISCRETENESSLOCUStuningsBOX()
 {
-    var HTMLcode = "<table WIDTH=\"100%\" BORDER=\"0\" ID=\"CIRCLESformsDISCRETENESSLOCUStuningsBOXcontainer\">";
+    var HTMLcode = "<table WIDTH=\"100%\" ID=\"CIRCLESformsDISCRETENESSLOCUStuningsBOXcontainer\">";
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td VALIGN=\"top\" COLSPAN=\"3\">" ;
@@ -211,7 +211,7 @@ function CIRCLESformsDISCRETENESSLOCUSupperBAR()
 function CIRCLESformsDISCRETENESSLOCUSmainBOX()
 {
     var _tmp_discreteness_locus = new discreteness_locus();
-    var HTMLcode = "<table BORDER=\"0\" WIDTH=\"200\">" ;
+    var HTMLcode = "<table WIDTH=\"200\">" ;
     HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
     HTMLcode += "<tr><td WIDTH=\"3\"></td><td COLSPAN=\"3\" STYLE=\"font-size:11pt;\">General options</td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;

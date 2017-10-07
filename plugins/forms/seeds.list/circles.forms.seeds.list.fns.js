@@ -16,8 +16,8 @@ function CIRCLESformsSEEDSLISTgeneratorsPANELask()
     if ( _glob_to_save == NO )
     {
        var YES_CMD = "circles_lib_items_init_wrapper_fn(null,YES,NO,_glob_init_mask);" ;
-       if ( circles_lib_plugin_find_index( { base_id : 'edit.disk' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_plugin_load('forms','edit.disk', NO,_glob_disk_sel_index );
-       else if ( circles_lib_plugin_find_index( { base_id : 'seeds.list' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_plugin_load('forms','seeds.list', NO, _glob_disk_sel_index );
+       if ( circles_lib_plugin_find_index( { subset : "forms", base_id : 'edit.disk' }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND ) circles_lib_plugin_load('forms','edit.disk', NO,_glob_disk_sel_index );
+       else if ( circles_lib_plugin_find_index( { subset : "forms", base_id : 'seeds.list' }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND ) circles_lib_plugin_load('forms','seeds.list', NO, _glob_disk_sel_index );
        alert_plug_label( ALERT_YES, "Init" );
        alert_plug_fn( ALERT_YES, "alertCLOSE();"+YES_CMD );
        alert_plug_fn( ALERT_NO, "alertCLOSE();" );

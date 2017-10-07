@@ -85,7 +85,7 @@ function circles_lib_plugin_reload_basic_forms( _param_01 )
                       { id : "geometric.transform", subset : "forms" } ] ;
                       console.log( _base_ids );
     for( var _p = 0 ; _p < _base_ids.length ; _p++ )
-    if ( circles_lib_plugin_find_index( { base_id : _base_ids[_p].id, subset : _base_ids[_p].subset }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+    if ( circles_lib_plugin_find_index( { base_id : _base_ids[_p].id, subset : _base_ids[_p].subset }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
 		circles_lib_plugin_load( _base_ids[_p].subset,_base_ids[_p].id, NO, _param_01 );
 }
 

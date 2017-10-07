@@ -73,7 +73,8 @@ function CIRCLESgeneralpurposeFORM( _subset, _base_id, _move, _w, _h, _caption, 
     var WIDTH = safe_int( _w, 350 ), HEIGHT = safe_int( _h, "auto" );
     var _div_id = circles_lib_plugin_build_divid( _subset, _base_id );
     if ( $("#" + _div_id).resizable('instance') != undefined ) $("#" + _div_id).resizable('destroy');
-    if ( circles_lib_plugin_find_index( { base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND ) circles_lib_plugin_destroy_wnd( _div_id );
+    if ( circles_lib_plugin_find_index( { subset : _subset, base_id : _base_id }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
+    circles_lib_plugin_destroy_wnd( _div_id );
 
     var CLOSE_FN = "CIRCLESgeneralpurposeFORMclose();", _subset = "forms" ;
     var HTMLcode =  "<table ID=\"POPUPgeneralpurposesMASTERTABLE\" WIDTH=\"99%\">" ;

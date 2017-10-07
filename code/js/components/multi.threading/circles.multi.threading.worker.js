@@ -151,7 +151,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
  			 var _depth = safe_int( _glob_depth, 1 );
  			 
  			 if ( _glob_process == PROCESS_BREADTHFIRST &&
-            circles_lib_plugin_find_index( { base_id : 'dictionary' }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+            circles_lib_plugin_find_index( { subset : "forms", base_id : 'dictionary' }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
  			 circles_lib_plugin_dispatcher_unicast_message( 'dictionary', "forms", 3 );
 
        _glob_symbols_index_array = circles_lib_symbol_get_indexes_mapping_array( null,  NO );
@@ -466,7 +466,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
 
      			  if ( _out_channel == OUTPUT_SCREEN )
             {
-               var HTMLcode = "<table STYLE=\"background-color:white;width:100%;\" ALIGN=\"center\" BORDER=\"0\">" ;
+               var HTMLcode = "<table STYLE=\"background-color:white;width:100%;\" ALIGN=\"center\">" ;
  							 HTMLcode += "<tr><td HEIGHT=\"20\"></td></tr>" ;
      					 HTMLcode += "<tr><td ROWSPAN=\"6\" WIDTH=\"25\"></td>" ;
      					 HTMLcode += "<td VALIGN=\"top\" ROWSPAN=\"6\"><IMG SRC=\""+_glob_path_to_support+"img/wait/wait.animated.gif\"></td>" ;

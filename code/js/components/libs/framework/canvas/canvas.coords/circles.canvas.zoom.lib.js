@@ -127,6 +127,7 @@ function circles_lib_canvas_coords_shift( _where, _plane_type, _silent, _render,
           
     if ( _render && _plane_type.is_one_of( Z_PLANE ) )
     {
+       zplane_sm.set_coords_corners( new point( _glob_zplaneLEFT, _glob_zplaneTOP ), new point( _glob_zplaneRIGHT, _glob_zplaneBOTTOM ) );
        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, NO, YES, YES, _out_channel );
        var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
@@ -134,6 +135,7 @@ function circles_lib_canvas_coords_shift( _where, _plane_type, _silent, _render,
     }
     else if ( _render && _plane_type.is_one_of( W_PLANE ) )
     {
+       wplane_sm.set_coords_corners( new point( _glob_wplaneLEFT, _glob_wplaneTOP ), new point( _glob_wplaneRIGHT, _glob_wplaneBOTTOM ) );
        var _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, _glob_wplane_selected_items_array, NO, YES, _render, YES, NO, YES, _out_channel );
        var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
@@ -141,6 +143,7 @@ function circles_lib_canvas_coords_shift( _where, _plane_type, _silent, _render,
     }
     else if ( _render && _plane_type == BIP_BOX )
     {
+       bipbox_sm.set_coords_corners( new point( _glob_bipLEFT, _glob_bipTOP ), new point( _glob_bipRIGHT, _glob_bipBOTTOM ) );
        var _sel_array ;
        if ( _glob_bip_original_plane_data == Z_PLANE ) _sel_array = _glob_zplane_selected_items_array ;
        else if ( _glob_bip_original_plane_data == W_PLANE ) _sel_array = _glob_wplane_selected_items_array ;
@@ -174,7 +177,6 @@ function circles_lib_canvas_zoom( _plane_type, _mode /* 1: ZOOM IN, 2: ZOOM OUT 
     }
 
     var dX = Math.abs( RIGHT - LEFT ), dY = Math.abs( TOP - BOTTOM );
-
     if ( _mode == 1 )
     {
         var midX = ( LEFT + RIGHT ) / 2.0, midY = ( TOP + BOTTOM ) / 2.0 ;
@@ -187,22 +189,25 @@ function circles_lib_canvas_zoom( _plane_type, _mode /* 1: ZOOM IN, 2: ZOOM OUT 
 
     switch( _plane_type )
     {
-        case Z_PLANE:
-        _glob_zplaneLEFT = LEFT, _glob_zplaneRIGHT = RIGHT, _glob_zplaneTOP = TOP, _glob_zplaneBOTTOM = BOTTOM ;
-        if ( _render ) return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, _question, _silent, YES, _out_channel );
-        break ;
-        case W_PLANE:
-        _glob_wplaneLEFT = LEFT, _glob_wplaneRIGHT = RIGHT, _glob_wplaneTOP = TOP, _glob_wplaneBOTTOM = BOTTOM ;
-        if ( _render ) return circles_lib_canvas_render_wplane( null, wplane_sm, _glob_wplane_selected_items_array, NO, YES, _render, YES, _question, _silent, _out_channel );
-        break ;
-        case BIP_BOX:
-        _glob_bipLEFT = LEFT, _glob_bipRIGHT = RIGHT, _glob_bipTOP = TOP, _glob_bipBOTTOM = BOTTOM ;
-        var _sel_array = [] ;
-        if ( _glob_bip_original_plane_data == Z_PLANE ) _sel_array = _glob_zplane_selected_items_array ;
-        else if ( _glob_bip_original_plane_data == W_PLANE ) _sel_array = _glob_wplane_selected_items_array ;
-        if ( _render ) return circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, _sel_array, YES, YES, _render, YES, NO, YES, _out_channel );
-        break ;
-        default: break ;
+       case Z_PLANE:
+       _glob_zplaneLEFT = LEFT, _glob_zplaneRIGHT = RIGHT, _glob_zplaneTOP = TOP, _glob_zplaneBOTTOM = BOTTOM ;
+       zplane_sm.set_coords_corners( new point( _glob_zplaneLEFT, _glob_zplaneTOP ), new point( _glob_zplaneRIGHT, _glob_zplaneBOTTOM ) );
+       if ( _render ) return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, _question, _silent, YES, _out_channel );
+       break ;
+       case W_PLANE:
+       _glob_wplaneLEFT = LEFT, _glob_wplaneRIGHT = RIGHT, _glob_wplaneTOP = TOP, _glob_wplaneBOTTOM = BOTTOM ;
+       wplane_sm.set_coords_corners( new point( _glob_wplaneLEFT, _glob_wplaneTOP ), new point( _glob_wplaneRIGHT, _glob_wplaneBOTTOM ) );
+       if ( _render ) return circles_lib_canvas_render_wplane( null, wplane_sm, _glob_wplane_selected_items_array, NO, YES, _render, YES, _question, _silent, _out_channel );
+       break ;
+       case BIP_BOX:
+       _glob_bipLEFT = LEFT, _glob_bipRIGHT = RIGHT, _glob_bipTOP = TOP, _glob_bipBOTTOM = BOTTOM ;
+       bipbox_sm.set_coords_corners( new point( _glob_bipLEFT, _glob_bipTOP ), new point( _glob_bipRIGHT, _glob_bipBOTTOM ) );
+       var _sel_array = [] ;
+       if ( _glob_bip_original_plane_data == Z_PLANE ) _sel_array = _glob_zplane_selected_items_array ;
+       else if ( _glob_bip_original_plane_data == W_PLANE ) _sel_array = _glob_wplane_selected_items_array ;
+       if ( _render ) return circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, _sel_array, YES, YES, _render, YES, NO, YES, _out_channel );
+       break ;
+       default: break ;
     }
 
     return circles_lib_coordinates_set_core( null, null, _plane_type, _silent, _render, NO, _out_channel );

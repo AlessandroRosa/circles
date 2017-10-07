@@ -3,7 +3,7 @@ function circles_lib_log_add_entry( _log_str, _log_type ) { _glob_app_log.push( 
 function circles_lib_log_update_statusbar()
 {
   circles_lib_statusbar_log_icon_show( safe_size( _glob_app_log, 0 ) > 0 ? YES : NO ) ;
-  if ( circles_lib_plugin_find_index( { base_id : "log" }, POPUP_SEARCH_BY_BASE_ID ) != UNFOUND )
+  if ( circles_lib_plugin_find_index( { subset : "forms", base_id : "log" }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
   {
      circles_lib_plugin_dispatcher_unicast_message('log','forms',POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS);
      return YES ;
