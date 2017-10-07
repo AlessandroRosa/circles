@@ -14,7 +14,7 @@ function CIRCLESformsSVGEDITORmain( _base_id, _move )
     var HTMLcode = "<table ID=\"wnd_container_"+_div_id+"\" WIDTH=\"100%\" STYLE=\"background-color:white;\">" ;
     HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsSVGEDITORcaption, 3, YES, CLOSE_FN,
 																		 WIDTH, HEIGHT, arguments.callee.name,
-																		 _base_id, _div_id, _subset, "cmd.prompt/cmd.prompt.icon.01.16x16.png", _click_fn );
+																		 _base_id, _div_id, _subset, "cmd.prompt/cmd.prompt.icon.01.20x20.png", _click_fn );
 
     if ( _run )
     {
@@ -313,7 +313,7 @@ function CIRCLESformsSVGEDITORaddobjPANEL( _mode )
               HTMLcode += "<td WIDTH=\"10\"></td>";
               HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
               HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'LINEcolorICON', 'LINEcolor' );\"";
-              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"LINEcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum16x16.png\"></td>";
+              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"LINEcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum20x20.png\"></td>";
               HTMLcode += "<td WIDTH=\"10\"></td>";
               HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:$('#LINEcolor').css('background-color','transparent');$('#LINEcolor').html('none');\">Remove</td>";
               HTMLcode += "</tr>" ;
@@ -374,7 +374,7 @@ function CIRCLESformsSVGEDITORaddobjPANEL( _mode )
               HTMLcode += "<td WIDTH=\"10\"></td>";
               HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
               HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'CIRCLEdrawcolorICON', 'CIRCLEdrawcolor');\"";
-              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"CIRCLEdrawcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum16x16.png\"></td>";
+              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"CIRCLEdrawcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum20x20.png\"></td>";
               HTMLcode += "<td WIDTH=\"10\"></td>";
               HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:$('#CIRCLEdrawcolor').css('background-color','transparent');$('#CIRCLEdrawcolor')..html('none');\">Remove</td>";
               HTMLcode += "</tr>" ;
@@ -387,7 +387,7 @@ function CIRCLESformsSVGEDITORaddobjPANEL( _mode )
               HTMLcode += "<td WIDTH=\"10\"></td>";
               HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
               HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'CIRCLEfillcolorICON', 'CIRCLEfillcolor' );\"";
-              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"CIRCLEfillcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum16x16.png\"></td>";
+              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"CIRCLEfillcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum20x20.png\"></td>";
               HTMLcode += "<td WIDTH=\"10\"></td>";
               HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:$('#CIRCLEfillcolor').css('background-color','transparent');$('#CIRCLEfillcolor')..html('none');\">Remove</td>";
               HTMLcode += "</tr>" ;
@@ -464,7 +464,7 @@ function CIRCLESformsSVGEDITORaddobjPANEL( _mode )
               HTMLcode += "<td WIDTH=\"10\"></td>";
               HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
               HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'RECTdrawcolorICON', 'RECTdrawcolor' );\"";
-              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"RECTdrawcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum16x16.png\"></td>";
+              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"RECTdrawcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum20x20.png\"></td>";
               HTMLcode += "<td WIDTH=\"10\"></td>";
               HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:$('#RECTdrawcolor').css('background-color','transparent');$('#RECTdrawcolor').html('none');\">Remove</td>";
               HTMLcode += "</tr>" ;
@@ -477,7 +477,7 @@ function CIRCLESformsSVGEDITORaddobjPANEL( _mode )
               HTMLcode += "<td WIDTH=\"10\"></td>";
               HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
               HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'RECTfillcolorICON', 'RECTfillcolor' );\"";
-              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"RECTfillcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum16x16.png\"></td>";
+              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"RECTfillcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum20x20.png\"></td>";
               HTMLcode += "<td WIDTH=\"10\"></td>";
               HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:$('#RECTfillcolor').css('background-color','transparent');$('#RECTfillcolor').html('none');\">Remove</td>";
               HTMLcode += "</tr>" ;
@@ -530,7 +530,7 @@ function CIRCLESformsSVGEDITORaddobjPANEL( _mode )
               HTMLcode += "<td WIDTH=\"3\"></td>";
               HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
               HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'TEXTcolorICON' 'TEXTcolor' );\"";
-              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"TEXTcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum16x16.png\"></td>";
+              HTMLcode += "    WIDTH=\"16\" VALIGN=\"middle\" ID=\"TEXTcolorICON\"><IMG SRC=\""+_glob_path_to_circles+"img/colortable/img/btns/spectrum20x20.png\"></td>";
               HTMLcode += "<td WIDTH=\"3\"></td>";
               HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:$('#TEXTdrawcolor').css('background-color','transparent');$('#TEXTdrawcolor').html('none');\">Remove</td>";
               HTMLcode += "</tr>" ;

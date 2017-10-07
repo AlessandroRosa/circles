@@ -38,7 +38,7 @@ function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _call
     var CLOSE_FN = "CIRCLESformsMETHODclose();", CLICK_FN = "" ;
     var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
         HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsMETHODcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _caller_fn, _base_id, _div_id, _subset, "tools/tools.01.16x16.png", CLICK_FN );
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsMETHODcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _caller_fn, _base_id, _div_id, _subset, "tools/tools.01.20x20.png", CLICK_FN );
         HTMLcode += "<tr><td VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F2F2F2;\"><table>" ;
         HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
         HTMLcode += "<tr><td WIDTH=\"5\"></td><td COLSPAN=\"3\">Items are switched to <b>"+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seeds" : "generators" )+"</b> mode</td></tr>" ;

@@ -185,7 +185,7 @@ function CIRCLESembeddingsGRANDMA4ALARMmain( _base_id, _move, _restore )
 
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
     HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN, WIDTH, HEIGHT,
-                this_fn_name, 'grandma.4.alarm', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"GRANDMA4ALARM_",
+                this_fn_name, 'grandma.4.alarm', _div_id, _subset, "plug/plug.icon.01.20x20.png", "", "", "CIRCLES"+_subset+"GRANDMA4ALARM_",
 																								[ "CIRCLESembeddingsGRANDMA4ALARM_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGRANDMA4ALARM_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGRANDMA4ALARM_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );

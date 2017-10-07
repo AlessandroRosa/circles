@@ -343,41 +343,55 @@ function Z_PLANE_work_canvas_onmouseup( obj, event )
          {
            alert_plug_label( ALERT_YES, "Yes" );
            alert_plug_label( ALERT_NO, "No" );
-           alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_clean( _glob_zplane_work_canvas_placeholder );circles_lib_coords_confirm_zoom( Z_PLANE, "+_canvas_role+", NO, YES );" );
-           alert_plug_fn( ALERT_NO, "circles_lib_coords_pickupyours_close_proc(0);circles_lib_canvas_clean( _glob_wplane_work_canvas_placeholder );alertCLOSE();" )
-           alert_set_btns_width( "70px" );
+           alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_coords_confirm_zoom( Z_PLANE, "+_canvas_role+", NO, YES );circles_lib_helper_div_remove();" );
+           alert_plug_fn( ALERT_NO, "alertCLOSE();circles_lib_helper_div_remove();circles_lib_coords_pickupyours_close_proc(NO,NO,YES);" )
+           alert_set_btns_width( "70px" ); alert_set_btns_height( "30px" ) ;
+           alert_set_fontsize( "12pt" ) ;
 
-           var _canvas_thumb_w = 140, _canvas_thumb_h = Math.ceil( _canvas_thumb_w / _glob_interface_aspect_ratio ) ;
+           var _canvas_thumb_w = 190, _canvas_thumb_h = Math.ceil( _canvas_thumb_w / _glob_interface_aspect_ratio ) ;
            var HTMLcode = "<table>" ;
            HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-           HTMLcode += "<tr><td VALIGN=\"top\" COLSPAN=\"3\" ALIGN=\"center\">Zoom this region ?</td>" ;
-           HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+           HTMLcode += "<tr><td VALIGN=\"top\" COLSPAN=\"3\" ALIGN=\"center\" STYLE=\"font-size:12pt;\">Do you confirm to zoom the selected region ?</td>" ;
+           HTMLcode += "<tr><td HEIGHT=\"18\"></td></tr>" ;
            HTMLcode += "<tr>" ;
            HTMLcode += "<td VALIGN=\"top\"><table><tr>" ;
-           HTMLcode += "<td VALIGN=\"top\" STYLE=\"border:1px solid #EAEAEA;padding:3px;\"><CANVAS ID=\"ZOOMthumbCANVAS\" WIDTH=\""+_canvas_thumb_w+"\" HEIGHT=\""+_canvas_thumb_h+"\" STYLE=\"width:"+_canvas_thumb_w+"px;height:"+_canvas_thumb_h+"px;\"></CANVAS></td>" ;
            HTMLcode += "<td WIDTH=\"24\"></td>" ;
-           HTMLcode += "<td VALIGN=\"top\"><table>" ;
-           HTMLcode += "<tr><td>Left</td><td WIDTH=\"5\"></td><td>"+_glob_zoomSTARTpt.x+"</td></tr>" ;
-           HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-           HTMLcode += "<tr><td>Top</td><td WIDTH=\"5\"></td><td>"+_glob_zoomSTARTpt.y+"</td></tr>" ;
-           HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-           HTMLcode += "<tr><td>Right</td><td WIDTH=\"5\"></td><td>"+_glob_zoomENDpt.x+"</td></tr>" ;
-           HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-           HTMLcode += "<tr><td>Bottom</td><td WIDTH=\"5\"></td><td>"+_glob_zoomENDpt.y+"</td></tr>" ;
-           HTMLcode += "</table></td>" ;
+           HTMLcode += "<td VALIGN=\"top\">" ;
+           HTMLcode += "<table>" ;
+           HTMLcode += "<tr><td STYLE=\"font-size:10pt;\">Left</td></tr>" ;
+           HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:blue;\">"+_glob_zoomSTARTpt.x+"</td></tr>" ;
+           HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+           HTMLcode += "<tr><td STYLE=\"font-size:10pt;\">Top</td></tr>" ;
+           HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:blue;\">"+_glob_zoomSTARTpt.y+"</td></tr>" ;
+           HTMLcode += "</table>" ;
+           HTMLcode += "</td>" ;
+
+           HTMLcode += "<td VALIGN=\"top\" STYLE=\"border:1px solid #EAEAEA;padding:3px;\"><CANVAS ID=\"ZOOMthumbCANVAS\" WIDTH=\""+_canvas_thumb_w+"\" HEIGHT=\""+_canvas_thumb_h+"\" STYLE=\"width:"+_canvas_thumb_w+"px;height:"+_canvas_thumb_h+"px;\"></CANVAS></td>" ;
+
+           HTMLcode += "<td VALIGN=\"bottom\">" ;
+           HTMLcode += "<table>" ;
+           HTMLcode += "<tr><td STYLE=\"font-size:10pt;\">Right</td></tr>" ;
+           HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:blue;\">"+_glob_zoomENDpt.x+"</td></tr>" ;
+           HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+           HTMLcode += "<tr><td STYLE=\"font-size:10pt;\">Bottom</td></tr>" ;
+           HTMLcode += "<tr><td STYLE=\"font-size:10pt;color:blue;\">"+_glob_zoomENDpt.y+"</td></tr>" ;
+           HTMLcode += "</table>" ;
+           HTMLcode += "</td>" ;
+
            HTMLcode += "</tr></table></td>" ;
            HTMLcode += "</tr>" ;
            HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
            HTMLcode += "</table>" ;
 
-           alert_msg( ALERT_YESNO | ALERT_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_get_def( Z_PLANE ), 430 );
+           alert_msg( ALERT_YESNO | ALERT_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_get_def( Z_PLANE ), 640 );
            var screen_left_top_pt = zplane_sm.from_cartesian_to_client( _glob_zoom_rect.x1, _glob_zoom_rect.y1 );
            var screen_right_bottom_pt = zplane_sm.from_cartesian_to_client( _glob_zoom_rect.x2, _glob_zoom_rect.y2 );
-           circles_lib_canvas_blowup( _glob_zplane_rendering_canvas_placeholder,
+           circles_lib_canvas_blowup( [ _glob_zplane_grid_canvas_placeholder, _glob_zplane_rendering_canvas_placeholder,
+                                        _glob_zplane_work_canvas_placeholder, _glob_zplane_freedraw_canvas_placeholder ],
                                $('#ZOOMthumbCANVAS').get(0),
                                screen_left_top_pt.x, screen_left_top_pt.y,
-                               Math.abs( screen_left_top_pt.x - screen_right_bottom_pt.x ),
-                               Math.abs( screen_left_top_pt.y - screen_right_bottom_pt.y ) );
+                               screen_right_bottom_pt.x - screen_left_top_pt.x,
+                               screen_right_bottom_pt.y - screen_left_top_pt.y );
          }
          else if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_SELECTDISKS_PROC_ID )
          {
@@ -409,7 +423,6 @@ function Z_PLANE_work_canvas_onmouseup( obj, event )
          }
 
          _glob_zplaneMOUSEleftBTNstatus = OFF ;
-         _glob_zoom_rect = null ;
          circles_lib_canvas_update_icons_bar( "CANVASzplaneBAR" );
          circles_lib_statusbar_update_elements();
     }

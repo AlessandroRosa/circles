@@ -44,7 +44,7 @@ function CIRCLESformsSCRIPTEDITOReventsHANDLER( _event, _ctrl_id )
        }
        else if ( _ctrl_id.start_with( "CIRCLESformsSCRIPTEDITORcodelistENTRYedit" ) )
 			 {
-			 		 var _iconsize = safe_string( arguments[2], "16x16" );
+			 		 var _iconsize = safe_string( arguments[2], "20x20" );
 			 		 var _index = safe_int( _ctrl_id.replaceAll( "CIRCLESformsSCRIPTEDITORcodelistENTRYedit", "" ), UNDET ) ;
 					 CIRCLESformsSCRIPTEDITORcodemanagerLISTrename( _index, 1, _iconsize ) ;
 			 }
@@ -110,7 +110,7 @@ function CIRCLESformsSCRIPTEDITOReventsHANDLER( _event, _ctrl_id )
 		{
 				var _index = circles_lib_js_manager_find_module_index( CIRCLESformsSCRIPTEDITORmodulelabelCURRENT, CIRCLESformsSCRIPTEDITORprojectlabelCURRENT ) ;
 		 		$( "#CIRCLESformsSCRIPTEDITORrecordBTNID" ).css( "color", "red" );
-			  if ( _index != UNFOUND ) $( "#CIRCLESformsSCRIPTEDITORstatus" + _index ).html( "<IMG TITLE=\"Pending: save it!\" SRC=\""+_glob_path_to_img+"icons/stop/stop.icon.16x16.png\">" );
+			  if ( _index != UNFOUND ) $( "#CIRCLESformsSCRIPTEDITORstatus" + _index ).html( "<IMG TITLE=\"Pending: save it!\" SRC=\""+_glob_path_to_img+"icons/stop/stop.icon.20x20.png\">" );
 
 				CIRCLESformsSCRIPTEDITORcompiledFLAG = NO ;
 				$( "#CIRCLESformsSCRIPTEDITORcodeBTN" ).css( "color", "red" );

@@ -13,7 +13,7 @@ function CIRCLESformsCHECKITEMSmain( _base_id, _move, _items_switch )
     var _caption = _items_switch == ITEMS_SWITCH_SEEDS ? CIRCLESformsCHECKITEMScaption01 : CIRCLESformsCHECKITEMScaption02 ;
     var _are_seeds_switched = _items_switch == ITEMS_SWITCH_SEEDS ? YES : NO ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( _items_n > 0 ? YES : NO, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "aid/aid.16x16.png" );
+        HTMLcode += circles_lib_plugin_caption_code( _items_n > 0 ? YES : NO, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "aid/aid.20x20.png" );
         HTMLcode += "<tr>" ;
         HTMLcode += "<td VALIGN=\"top\" ALIGN=\"center\" WIDTH=\"100%\" ALIGN=\"center\">" ;
         HTMLcode += "<table ALIGN=\"center\" WIDTH=\""+WIDTH+"\">" ;
@@ -21,7 +21,7 @@ function CIRCLESformsCHECKITEMSmain( _base_id, _move, _items_switch )
     {
         var OKcode = "<td ALIGN=\"center\"><IMG %addon% SRC=\"%imgpath%icons/checked/checked.icon.01.12x12.png\"></td>" ;
         var FAILcode = "<td ALIGN=\"center\" ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" %onclick% ><IMG %addon% SRC=\"%imgpath%icons/unchecked/unchecked.icon.01.12x12.png\"></td>" ;
-        var DISABLEDcode = "<td ALIGN=\"center\"><IMG TITLE=\"Missing inverse symbol for this method\" SRC=\"%imgpath%icons/disabled/disabled.icon.01.16x16.png\"></td>" ;
+        var DISABLEDcode = "<td ALIGN=\"center\"><IMG TITLE=\"Missing inverse symbol for this method\" SRC=\"%imgpath%icons/disabled/disabled.icon.01.20x20.png\"></td>" ;
                 
         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
         HTMLcode += "<tr>" ;
@@ -73,7 +73,7 @@ function CIRCLESformsCHECKITEMSmain( _base_id, _move, _items_switch )
 
                 HTMLcode += "<tr>" ;
                 HTMLcode += "<td WIDTH=\"5\"></td>" ;
-                HTMLcode += "<td WIDTH=\"15\">"+( _symbol.length == 0 ? "<IMG ALIGN=\"center\" SRC=\"%imgpath%icons/questionmark/question.mark.icon.01.16x16.png\">" : _symbol )+"</td>" ;
+                HTMLcode += "<td WIDTH=\"15\">"+( _symbol.length == 0 ? "<IMG ALIGN=\"center\" SRC=\"%imgpath%icons/questionmark/question.mark.icon.01.20x20.png\">" : _symbol )+"</td>" ;
                 HTMLcode += "<td WIDTH=\"5\"></td>" ;
                 HTMLcode += _err_mask & 1 ? FAILcode : OKcode ;
                 HTMLcode = HTMLcode.replaceAll( "%addon%", "TITLE=\""+_symbol+"\"" );

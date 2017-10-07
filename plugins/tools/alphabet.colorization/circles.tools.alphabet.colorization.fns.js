@@ -62,7 +62,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONlist( case_id, _self_fill_container )
 			      HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"height:18px;width:18px;text-align:center;background-color:"+_color+";\" ID=\""+_COLOR_ID+"\">"+( _color.length == 0 ? "none" : "" )+"</td>" ;
 			      HTMLcode += "<td WIDTH=\"5\"></td>" ;
 	   	      HTMLcode += "<td ONCLICK=\"javascript:displayCOLORTABLE( '"+_COLOR_ID+"_ICON', '"+_COLOR_ID+"', function() { CIRCLEStoolsALPHABETCOLORIZATIONonselectCOLOR( "+case_id+", '"+_keys[_k]+"' ) } );\"";
-			      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\""+_COLOR_ID+"_ICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
+			      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\""+_COLOR_ID+"_ICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
 				 		if ( _k % COLUMNS == ( COLUMNS - 1 ) ) HTMLcode += "</tr><tr><td HEIGHT=\"12\"></td></tr>" ;
 				 }
 

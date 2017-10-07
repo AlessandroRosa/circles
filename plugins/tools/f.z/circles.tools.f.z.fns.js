@@ -35,13 +35,13 @@ function CIRCLEStoolsFZmemo()
     var _formula = $( "#CIRCLEStoolsFZformulaEDIT" ).val().trim() ;
     if ( _formula.length > 0 )
     {
-        if ( !is_array( _glob_persistent_settings['f.z.memo'] ) ) _glob_persistent_settings['f.z.memo'] = [] ;
-        if ( _glob_persistent_settings['f.z.memo'].includes( _formula ) )
+        if ( !is_array( _glob_persistent_vars['f.z.memo'] ) ) _glob_persistent_vars['f.z.memo'] = [] ;
+        if ( _glob_persistent_vars['f.z.memo'].includes( _formula ) )
         circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "This formula has already been saved", "CIRCLEStoolsFZoutMSG" ) ;
         else
         {
             _glob_volatile_settings['f.z.formula'] = CIRCLEStoolsFZformula = _formula ;
-            _glob_persistent_settings['f.z.memo'].push( _formula );
+            _glob_persistent_vars['f.z.memo'].push( _formula );
             circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Formula has been saved with success", "CIRCLEStoolsFZoutMSG" ) ;
             $( "#CIRCLEStoolsFZapplyBTN" ).css( "color", "black" );
             $( "#CIRCLEStoolsFZredrawBTN" ).css( "color", "red" );

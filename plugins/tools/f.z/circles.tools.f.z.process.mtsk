@@ -7,13 +7,11 @@ function multithread_fz_process()
     var _complex_pts_array = _glob_inline_workers_input_data.complex_pts_array.clone() ;
     var _output_ctrl_id = _glob_inline_workers_input_data.output_ctrl_id ;
 		var _is_circle = 0, _is_pt = 0, _counter = 0, _len = _complex_pts_array.size_associative() ;
-		var _mathjs = mathjs(), _parser = _mathjs.parser();
+		var _mathjs = mathjs();
     var _output_update_at_every_steps = 250 ;
     _glob_inline_worker_run_flag = 1 ;
-	  _complex_pts_array.work(
-													 	  function( _obj, _key )
-													 	  {
-																	_is_circle = _obj.center != null ? 1 : 0 ;
+	  _complex_pts_array.work( function( _obj, _key ) {
+								_is_circle = _obj.center != null ? 1 : 0 ;
 																	if ( _is_circle )
 																	{
 																			_complex_obj.real = _obj.x, _complex_obj.imag = _obj.y ;
@@ -61,14 +59,11 @@ function multithread_fz_process()
 															                              }
 															                      }
 															                    );
-															}
-													 );
+														 } );
 
     self.postMessage( { id : "end",
                         ret : { out_channel : _out_channel,
 												        output_ctrl_id : _output_ctrl_id,
-												        complex_pts_array : _complex_pts_array
-												      }
-											}
-										);
+												        complex_pts_array : _complex_pts_array }
+											} );
 }

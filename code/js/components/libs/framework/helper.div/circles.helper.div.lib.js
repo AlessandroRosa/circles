@@ -14,7 +14,6 @@ function circles_lib_helper_div_create( _plane_type, _title, _text, _force_width
     var _helper_div_id = "HELPERdiv" ;
     var DIV = $( "#"+_helper_div_id ).get(0) ;
     if ( DIV == null ) DIV = document.createElement( "DIV" );
-    
     if ( DIV != null )
     {
         var HTMLcode = "<table>" ;

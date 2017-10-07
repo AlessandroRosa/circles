@@ -120,7 +120,7 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANmain( _base_id, _move, _restore )
     var WIDTH = 450, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
     HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN,
-                WIDTH, HEIGHT, this_fn_name, 'mirror.quasi.fuchsian', _div_id, _subset, "plug/plug.icon.01.16x16.png", "", "", "CIRCLES"+_subset+"MIRRORQUASIFUCHSIAN_",
+                WIDTH, HEIGHT, this_fn_name, 'mirror.quasi.fuchsian', _div_id, _subset, "plug/plug.icon.01.20x20.png", "", "", "CIRCLES"+_subset+"MIRRORQUASIFUCHSIAN_",
 																								[ "CIRCLESembeddingsMIRRORQUASIFUCHSIAN_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsMIRRORQUASIFUCHSIAN_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsMIRRORQUASIFUCHSIAN_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );

@@ -31,7 +31,7 @@ function CIRCLESformsEPSEDITORmain( _base_id, _move )
     var _div_id = CIRCLESformsEPSEDITORdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLESformsEPSEDITORclose();" ;
     var HTMLcode = "<table ID=\"wnd_container_"+_div_id+"\" WIDTH=\"100%\" STYLE=\"background-color:white;\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsEPSEDITORcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "e.ps/e.ps.icon.01.16x16.png", "" );
+    HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsEPSEDITORcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "e.ps/e.ps.icon.01.20x20.png", "" );
 
     HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\" ID=\"CIRCLESformsEPSEDITORbuttonsBAR\" WIDTH=\"99%\">" ;

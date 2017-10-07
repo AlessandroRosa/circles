@@ -86,7 +86,7 @@ function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
     var _div_id = CIRCLESformsCOORDINATESdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
     var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
         HTMLcode += "<table WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsCOORDINATEScaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "lens/lens.icon.01.16x16.png", ONACTIVATEFN );
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsCOORDINATEScaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "lens/lens.icon.01.20x20.png", ONACTIVATEFN );
 
     var _left_up = _corners_array['lu'], _right_down = _corners_array['rd'] ;
     var LEFT = _left_up.x, TOP = _left_up.y, RIGHT = _right_down.x, BOTTOM = _right_down.y ;
@@ -104,25 +104,25 @@ function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
     HTMLcode += "<td VALIGN=\"top\" CLASS=\"popup_buttons_bar\">" ;
     HTMLcode += "<table>" ;
     HTMLcode += "<tr>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('top',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the top\" SRC=\"%imgpath%icons/bullets/bullet.up.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('top',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the top\" SRC=\"%imgpath%icons/bullets/bullet.up.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('bottom',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the bottom\" SRC=\"%imgpath%icons/bullets/bullet.down.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('bottom',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the bottom\" SRC=\"%imgpath%icons/bullets/bullet.down.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('left',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the left\" SRC=\"%imgpath%icons/bullets/bullet.left.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('left',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the left\" SRC=\"%imgpath%icons/bullets/bullet.left.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('right',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the right\" SRC=\"%imgpath%icons/bullets/bullet.right.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_coordinates_shift('right',"+_plane_type+",null);"+_render_cmd+"\"><IMG TITLE=\"Shift to the right\" SRC=\"%imgpath%icons/bullets/bullet.right.20x20.png\"></td>" ;
 
     if ( _plane_type.is_one_of( Z_PLANE, W_PLANE, BIP_BOX ) )
     {
         HTMLcode += "<td WIDTH=\"15\"></td>" ;
-        HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ONCLICK=\"javascript:circles_lib_coordinates_zoom_in_plane();"+_render_cmd+"\"><IMG TITLE=\"Zoom in\" SRC=\"%imgpath%icons/zoom.in/zoom.in.icon.01.16x16.png\"></td>" ;
+        HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ONCLICK=\"javascript:circles_lib_coordinates_zoom_in_plane();"+_render_cmd+"\"><IMG TITLE=\"Zoom in\" SRC=\"%imgpath%icons/zoom.in/zoom.in.icon.01.20x20.png\"></td>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
-        HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ONCLICK=\"javascript:circles_lib_coordinates_zoom_out_plane();"+_render_cmd+"\"><IMG TITLE=\"Zoom out\" SRC=\"%imgpath%icons/zoom.out/zoom.out.icon.01.16x16.png\"></td>" ;
+        HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\" ONCLICK=\"javascript:circles_lib_coordinates_zoom_out_plane();"+_render_cmd+"\"><IMG TITLE=\"Zoom out\" SRC=\"%imgpath%icons/zoom.out/zoom.out.icon.01.20x20.png\"></td>" ;
 
 		    if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) )
 		    {
 		        HTMLcode += "<td WIDTH=\"5\"></td>" ;
-		        HTMLcode += "<td ONCLICK=\"javascript:circles_lib_coords_pickupyours_open_proc("+_plane_type+");\"><IMG CLASS=\"link\" TITLE=\"Pick up your coordinates\" SRC=\"support/img/icons/lens/lens.icon.01.16x16.png\"></td>" ;
+		        HTMLcode += "<td ONCLICK=\"javascript:circles_lib_coords_pickupyours_open_proc("+_plane_type+");\"><IMG CLASS=\"link\" TITLE=\"Pick up your coordinates\" SRC=\"support/img/icons/lens/lens.icon.01.20x20.png\"></td>" ;
 		    }
     }
 

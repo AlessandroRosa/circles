@@ -9,7 +9,7 @@
 		<td WIDTH="12"></td>
 		<td><IMG CLASS="link" ONCLICK="javascript:if(!_glob_worker_lock){circles_lib_canvas_zoom(Z_PLANE,2,NO,YES,YES);}else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING,CIRCLES_WARNING_LABEL_03,_glob_app_title);" TITLE="Zoom out" SRC="support/img/icons/zoom.out/zoom.out.icon.01.20x20.png"></td>
     <td WIDTH="12"></td>
-    <td><IMG CLASS="link" ONCLICK="javascript:circles_lib_coords_pickupyours_open_proc( Z_PLANE );" TITLE="Pick up your coordinates" SRC="support/img/icons/lens/lens.icon.01.20x20.png"></td>
+    <td><IMG CLASS="link" ONCLICK="javascript:circles_lib_coords_pickupyours_open_proc(Z_PLANE);" TITLE="Pick up your coordinates" SRC="support/img/icons/lens/lens.icon.01.20x20.png"></td>
 		<td WIDTH="12"></td>
 		<td><IMG CLASS="link" ONCLICK="javascript:if(!_glob_worker_lock){circles_lib_canvas_process_ask(NO,YES,Z_PLANE,YES,YES,CHECK);}else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING,CIRCLES_WARNING_LABEL_03,_glob_app_title);" TITLE="Redraw Z-plane" SRC="support/img/icons/brush/brush.icon.01.20x20.png"></td>
 		<td WIDTH="12"></td>

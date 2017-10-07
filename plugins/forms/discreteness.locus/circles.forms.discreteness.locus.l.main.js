@@ -54,7 +54,7 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
     _glob_current_tab['dlocus'] = 0 ;
     var HTMLcode = "<table ID=\"CIRCLESformsDISCRETENESSLOCUSmasterTABLE\" WIDTH=\"100%\">" ;
         HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsDISCRETENESSLOCUScaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name,
-                    _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png", "", _help_fn, "CIRCLESformsDISCRETENESSLOCUS" );
+                    _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png", "", _help_fn, "CIRCLESformsDISCRETENESSLOCUS" );
 
     HTMLcode += "<tr><td VALIGN=\"top\">" + CIRCLESformsDISCRETENESSLOCUSupperMENU() + "</td></tr>";
     HTMLcode += "<tr><td VALIGN=\"top\" ID=\"CIRCLESformsDISCRETENESSLOCUSupperbar\" CLASS=\"popup_buttons_bar\">" + CIRCLESformsDISCRETENESSLOCUSupperBAR() + "</td></tr>";

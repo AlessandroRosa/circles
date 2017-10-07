@@ -12,20 +12,8 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 - srcptset terminal cmd:
   * build point set according to input params
 
-- check that all services inside each of these masks work properly.
-  (Remove each entry after completing the checkings)
-
 - report all remote ctrl params, for all forms, in read.me.txt file
   inside each form folder
-
-- left bar : arbitrary zoom icon does not work
-
-* TOOLS
-alphabet.colorization
-canvas.composition
-f.z
-group.table
-raw.points.list
 
 * FORMS
 method

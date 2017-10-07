@@ -13,7 +13,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
 				var _caller_fn = arguments.callee.name.toString() + "( "+_move+" )";
 	      var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
 	          HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
-	          HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsMETHODcaption, 1, YES, "", WIDTH, HEIGHT, _caller_fn, 'method.probability.distribution', _div_id, _subset, "tools/tools.01.16x16.png", "" );
+	          HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsMETHODcaption, 1, YES, "", WIDTH, HEIGHT, _caller_fn, 'method.probability.distribution', _div_id, _subset, "tools/tools.01.20x20.png", "" );
 						HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
             HTMLcode += "<tr><td VALIGN=\"top\" ID=\"METHODprobabilityGRAPHtable\" ALIGN=\"center\"><table>" ;
 	          HTMLcode += "<tr><td VALIGN=\"top\" ALIGN=\"center\">Statistics about the last rendering</td></tr>" ;
@@ -134,7 +134,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY( _move )
       var _caption = "Random probability simulation" ;
       var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
       HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
-      HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, "", WIDTH, HEIGHT, "", 'method.probability.model', _div_id, "tools/tools.01.16x16.png", "" );
+      HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, "", WIDTH, HEIGHT, "", 'method.probability.model', _div_id, "tools/tools.01.20x20.png", "" );
 			HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
       HTMLcode += "<tr><td STYLE=\"padding-left:5px;\" VALIGN=\"top\">Simulation - Applying random number generator: <b>" + _RNG_def + "</b></td></tr>" ;
 			HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;

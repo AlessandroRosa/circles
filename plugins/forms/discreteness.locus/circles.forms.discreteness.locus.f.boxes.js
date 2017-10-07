@@ -11,7 +11,7 @@ function CIRCLESformsDISCRETENESSLOCUSdiagramBOX( POPUP_WIDTH, POPUP_HEIGHT )
         HTMLcode += "<td WIDTH=\"3\"></td>" ;
         HTMLcode += "<td>Complex pt<td><td WIDTH=\"4\"></td><td HEIGHT=\"22\"><INPUT TYPE=\"edit\" STYLE=\"width:240px;\" ID=\"CIRCLESformsDISCRETENESSLOCUSpickedCOMPLEXPT\"></td>";
         HTMLcode += "<td WIDTH=\"3\"></td>" ;
-        HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPT(null,1);\"><IMG TITLE=\"Plot point\" ID=\"CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPTicon\" SRC=\"%imgpath%icons/brush/brush.icon.01.16x16.png\"></td>" ;
+        HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPT(null,1);\"><IMG TITLE=\"Plot point\" ID=\"CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPTicon\" SRC=\"%imgpath%icons/brush/brush.icon.01.20x20.png\"></td>" ;
         HTMLcode += "</tr>";
         HTMLcode += "</table>";
         HTMLcode += "</td></tr>" ;
@@ -239,7 +239,7 @@ function CIRCLESformsDISCRETENESSLOCUSmainBOX()
     HTMLcode += "<td WIDTH=\"5\"></td>";
     HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
     HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'CIRCLESformsDISCRETENESSLOCUSarrowcolorICON', 'CIRCLESformsDISCRETENESSLOCUSarrowcolor' );\"";
-    HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
+    HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;

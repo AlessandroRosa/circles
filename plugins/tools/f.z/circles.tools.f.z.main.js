@@ -32,14 +32,14 @@ function CIRCLEStoolsFZmain( _base_id, _move )
 {
     CIRCLEStoolsFZuniqueid = _base_id ;
     _move = safe_int( _move, YES );
-    var WIDTH = 450, HEIGHT = "auto", _run = YES, _subset = "tools" ;
+    var WIDTH = 520, HEIGHT = "auto", _run = YES, _subset = "tools" ;
     var _div_id = CIRCLEStoolsFZdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLEStoolsFZclose();" ;
     var _n_screen_pts = _glob_rec_canvas_entities_array.size_associative() ;
     CIRCLEStoolsFZformula = safe_string( _glob_volatile_settings['f.z.formula'], "" );
 	  var HTMLcode = "<table ID=\"CIRCLEStoolsFZmasterTABLE\" WIDTH=\"100%\">" ;
         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLEStoolsFZcaption, 5, 1, CLOSE_FN,
-																				 WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
+																				 WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png",
 																				 "", _n_screen_pts > 0 ? "CIRCLEStoolsFZhelp()" : "", "" );
         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
     if ( _n_screen_pts == 0 )
@@ -54,16 +54,17 @@ function CIRCLEStoolsFZmain( _base_id, _move )
 		}
 		else
 		{
-        HTMLcode += "<tr><td>Write down a formula in z to re-map all rendered points</td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+        HTMLcode += "<tr><td STYLE=\"font-size:12pt;\" ALIGN=\"center\">Write down a formula in z to re-map all rendered points</td></tr>" ;
+        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td VALIGN=\"top\">" ;
         HTMLcode += "<table>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
-        HTMLcode += "<td>F(z)</td>" ;
+        HTMLcode += "<td STYLE=\"font-size:12pt;\">F(z)</td>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
-        HTMLcode += "<td><INPUT TYPE=\"edit\" ID=\"CIRCLEStoolsFZformulaEDIT\" VALUE=\""+CIRCLEStoolsFZformula+"\" ONFOCUS=\"javascript:CIRCLEStoolsFZeventsHANDLER( event, this.id );\" ONKEYUP=\"javascript:CIRCLEStoolsFZeventsHANDLER( event, this.id );\" STYLE=\"width:"+(WIDTH-40)+"px;\"></td>" ;
+        HTMLcode += "<td><INPUT TYPE=\"edit\" ID=\"CIRCLEStoolsFZformulaEDIT\" VALUE=\""+CIRCLEStoolsFZformula+"\" ONFOCUS=\"javascript:CIRCLEStoolsFZeventsHANDLER( event, this.id );\" ONKEYUP=\"javascript:CIRCLEStoolsFZeventsHANDLER( event, this.id );\" STYLE=\"width:"+(WIDTH-60)+"px;\"></td>" ;
         HTMLcode += "</tr>" ;
         HTMLcode += "</table>" ;
         HTMLcode += "</td>" ;
@@ -91,7 +92,7 @@ function CIRCLEStoolsFZmain( _base_id, _move )
         HTMLcode += "</td>" ;
         HTMLcode += "</tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-        HTMLcode += "<tr><td ID=\"CIRCLEStoolsFZoutMSG\" ALIGN=\"center\"></td></tr>" ;
+        HTMLcode += "<tr><td STYLE=\"font-size:12pt;height:50px;\" ID=\"CIRCLEStoolsFZoutMSG\" ALIGN=\"center\"></td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
         HTMLcode += "<tr><td VALIGN=\"top\"><table WIDTH=\"100%\" ALIGN=\"center\">" ;
         HTMLcode += "<tr>" ;

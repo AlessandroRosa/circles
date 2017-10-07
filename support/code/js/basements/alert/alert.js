@@ -160,7 +160,7 @@ function alert_msg( mode, MSG, CAPTION, candidateW, candidateH, ICON, ICONwidth,
 				MSG = "<DIV STYLE=\"position:relative;padding2px;width:auto;height:"+_div_h+";overflow:auto;\">"+MSG+"</DIV>" ;
     }
 
-    var ICONSIZE = "16x16", ICONWIDTH = 48 ;
+    var ICONSIZE = "20x20", ICONWIDTH = 48 ;
     var ALERTICON = "", ALERTBTNS = "", ALERTiconSIZE = "64x64", ALERTbtnSIZE = "60" ;
     var EXTRAheight = 100 ; // this is the sum of caption height + button height + blank rows
       

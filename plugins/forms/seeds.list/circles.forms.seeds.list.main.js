@@ -52,7 +52,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
          var dims = getViewportExtents();
          var WIDTH = 650, HEIGHT = "auto" ;
          var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-             HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsSEEDSLISTcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "info/info.icon.01.16x16.png" );
+             HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsSEEDSLISTcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "info/info.icon.01.20x20.png" );
              HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
              HTMLcode += "<tr>" ;
              HTMLcode += "<td STYLE=\"padding-left:5px;\">"+( "Found <b>"+_items_n+"</b> "+( _items_n == 1 ? "entry" : "entries" ) )+"</td>" ;
@@ -182,7 +182,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
                   HTMLcode += "<td VALIGN=\"top\" WIDTH=\"60\" ALIGN=\"center\" STYLE=\"color:#2BB95B;\">"+_mobius_map_class+"</td>" ;
                   HTMLcode += "<td WIDTH=\"1\"></td>" ;
                   if ( safe_size( _notes.trim(), 0 ) > 0 )
-                  HTMLcode += "<td VALIGN=\"top\" STYLE=\"color:#2B6E9D;\" ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_output(OUTPUT_SCREEN,DISPATCH_INFO,'"+_notes+"',_glob_app_title);\"><IMG TITLE=\"Read notes\" SRC=\"%imgpath%icons/doc/doc.01.16x16.png\"></td>" ;
+                  HTMLcode += "<td VALIGN=\"top\" STYLE=\"color:#2B6E9D;\" ALIGN=\"center\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_output(OUTPUT_SCREEN,DISPATCH_INFO,'"+_notes+"',_glob_app_title);\"><IMG TITLE=\"Read notes\" SRC=\"%imgpath%icons/doc/doc.01.20x20.png\"></td>" ;
                   else
                   HTMLcode += "<td VALIGN=\"top\" STYLE=\"color:#B0B0B0;\" ALIGN=\"center\">Empty notes</td>" ;
                   HTMLcode += "</tr>" ;

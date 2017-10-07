@@ -181,8 +181,8 @@ function circles_lib_canvas_copy( _src_canvas, _dest_canvas )
     if ( is_html_canvas( _src_canvas ) && is_html_canvas( _dest_canvas ) )
     {
         _dest_canvas.getContext( _glob_canvas_ctx_2D_mode ).drawImage( _src_canvas,
-                                                                       0, 0, _src_canvas.get_width(), _src_canvas.get_height(),
-                                                                       0, 0, _dest_canvas.get_width(), _dest_canvas.get_height() );
+                                 0, 0, _src_canvas.get_width(), _src_canvas.get_height(),
+                                 0, 0, _dest_canvas.get_width(), _dest_canvas.get_height() );
         return YES ;
     }
     else return NO ;
@@ -190,15 +190,20 @@ function circles_lib_canvas_copy( _src_canvas, _dest_canvas )
 
 function circles_lib_canvas_blowup( _src_canvas, _dest_canvas, srcX, srcY, srcWIDTH, srcHEIGHT )
 {
-    if ( is_html_canvas( _src_canvas ) && is_html_canvas( _dest_canvas ) )
+    var _src = is_array( _src_canvas ) ? _src_canvas : [ _src_canvas ], _ret = 0 ;
+    _src.forEach( function( _canvas )
     {
-        var _context = _dest_canvas.getContext( _glob_canvas_ctx_2D_mode );
-        var _src_viewport_aspect_ratio = srcWIDTH / srcHEIGHT ;
-        var _dest_aspect_ratio = _dest_canvas.get_width() / _dest_canvas.get_height();
-        _context.drawImage( _src_canvas, srcX, srcY, srcWIDTH, srcHEIGHT, 0, 0, _dest_canvas.get_width(), _dest_canvas.get_height() );
-        return YES ;
-    }
-    else return NO ;
+      if ( is_html_canvas( _canvas ) && is_html_canvas( _dest_canvas ) )
+      {
+          var _context = _dest_canvas.getContext( _glob_canvas_ctx_2D_mode );
+          var _src_viewport_aspect_ratio = srcWIDTH / srcHEIGHT ;
+          var _dest_aspect_ratio = _dest_canvas.get_width() / _dest_canvas.get_height();
+          _context.drawImage( _canvas, srcX, srcY, srcWIDTH, srcHEIGHT, 0, 0, _dest_canvas.get_width(), _dest_canvas.get_height() );
+          _ret |= 1 ;
+      }
+      else _ret &= 0 ;
+    } );
+    return _ret ;
 }
 
 // merge canvas

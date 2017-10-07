@@ -17,17 +17,16 @@ function CIRCLEStoolsFZeventsHANDLER( _event, _ctrl_id )
         switch( safe_string( _event.type, "" ).toLowerCase() )
         {
             case "focus":
-            if ( is_array( _glob_persistent_settings['f.z.memo'] ) )
+            if ( is_array( _glob_persistent_vars['f.z.memo'] ) )
             {
-                var _n = safe_size( _glob_persistent_settings['f.z.memo'], 0 );
+                var _n = safe_size( _glob_persistent_vars['f.z.memo'], 0 );
                 if ( _n > 0 )
                 {
                     var _h = Math.min( _n * 20 + 20, 80 ) ;
                 
                     var _pos = $( "#CIRCLEStoolsFZformulaEDIT" ).offset();
                     var HTMLcode = "<table WIDTH=\"100%\"><tr><td VALIGN=\"top\"><DIV STYLE=\"position:relative;width:100%;height:"+_h+"px;overflow:auto;cursor:pointer;\"><table WIDTH=\"100%\">" ;
-                    $.each( _glob_persistent_settings['f.z.memo'],
-                            function( _i, _expr )
+                    $.each( _glob_persistent_vars['f.z.memo'], function( _i, _expr )
                             {
                                 HTMLcode += "<tr><td WIDTH=\"1\"></td><td ID=\"CIRCLEStoolsFZsuggestion_"+_i+"\" STYLE=\"padding:4px;\" data-expr=\""+_expr+"\" ONCLICK=\"javascript:$('#CIRCLEStoolsFZformulaEDIT').val( $('#'+this.id).data('expr') );\" ONMOUSEOUT=\"javascript:this.style.backgroundColor='white';\" ONMOUSEOVER=\"javascript:this.style.backgroundColor='#E6EBF8';\">"+_expr+"</td></tr>" ;
                             }
@@ -49,7 +48,6 @@ function CIRCLEStoolsFZeventsHANDLER( _event, _ctrl_id )
                     $( "#popup_floating_box" ).css( "z-index", 40 );
                     $( "#popup_floating_box" ).show();
                 }
-                
             }
             break ;
             case "keyup":

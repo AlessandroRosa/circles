@@ -27,12 +27,12 @@ function CIRCLEStoolsRAWPOINTSLISTmain( _base_id, _move )
 {
     CIRCLEStoolsRAWPOINTSLISTuniqueid = _base_id ;
     _move = safe_int( _move, YES );
-    var WIDTH = 340, HEIGHT = "auto", _run = YES, _subset = "tools" ;
+    var WIDTH = 420, HEIGHT = "auto", _run = YES, _subset = "tools" ;
     var _div_id = CIRCLEStoolsRAWPOINTSLISTdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLEStoolsRAWPOINTSLISTclose();" ;
 	  var HTMLcode = "<table ID=\"CIRCLEStoolsRAWPOINTSLISTmasterTABLE\" WIDTH=\"100%\">" ;
         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLEStoolsRAWPOINTSLISTcaption, 5, 1, CLOSE_FN,
-																				 WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
+																				 WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png",
 																				 "", null, "" );
         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
         HTMLcode += "<tr>" ;
@@ -63,7 +63,7 @@ function CIRCLEStoolsRAWPOINTSLISTmain( _base_id, _move )
 
         HTMLcode += "<tr><td COLSPAN=\"3\" STYLE=\"height:18px;\" ALIGN=\"center\" WIDTH=\"100%\"><table ALIGN=\"center\" STYLE=\"height:18px;\" WIDTH=\"100%\"><tr><td STYLE=\"height:18px;\" ALIGN=\"center\" ID=\"CIRCLEStoolsRAWPOINTSLISToutputBOX\"></td></tr></table></td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-        HTMLcode += "<tr><td STYLE=\"padding-left:7px;\">Insert one point coords per each row in the box below</td></tr>" ;
+        HTMLcode += "<tr><td STYLE=\"padding-left:7px;font-size:10pt;\">Insert points coordinates - Refer to the help table</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
         HTMLcode += "<tr><td VALIGN=\"top\" ALIGN=\"center\"><DIV STYLE=\"position:relative;width:auto;height:auto;\" ID=\"CIRCLEStoolsRAWPOINTSLISTtextareaCONTAINER\"><TEXTAREA ID=\"CIRCLEStoolsRAWPOINTSLISTtextarea\" STYLE=\"background-color:#232323;color:lime;font-size:10pt;overflow:auto;width:"+(WIDTH-20)+"px;height:220px;\"></TEXTAREA></DIV></td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
@@ -73,7 +73,7 @@ function CIRCLEStoolsRAWPOINTSLISTmain( _base_id, _move )
         HTMLcode += "<td WIDTH=\"7\"></td>" ;
         HTMLcode += "<td><INPUT TYPE=\"checkbox\" ID=\"CIRCLEStoolsRAWPOINTSLISTconnectCHECKBOX\"></td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
-        HTMLcode += "<td>Connect</td>" ;
+        HTMLcode += "<td STYLE=\"font-size:10pt;\">Connect points</td>" ;
         HTMLcode += "<td WIDTH=\"12\"></td>" ;
 		    HTMLcode += "<td CLASS=\"link\" ID=\"CIRCLEStoolsRAWPOINTSLISTlogBTN\"></td>" ;
         HTMLcode += "</tr>" ;
@@ -82,11 +82,11 @@ function CIRCLEStoolsRAWPOINTSLISTmain( _base_id, _move )
         HTMLcode += "<tr><td VALIGN=\"top\"><table>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"7\"></td>" ;
-        HTMLcode += "<td>Points in</td>" ;
+        HTMLcode += "<td STYLE=\"font-size:10pt;\">Points in</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
         HTMLcode += "<td><SELECT ID=\"CIRCLEStoolsRAWPOINTSLISTmapCOMBO\"><OPTION VALUE=\"1\">Cartesian coords<OPTION VALUE=\"2\">Screen coords<OPTION VALUE=\"3\">Complex coords</SELECT></td>" ;
         HTMLcode += "<td WIDTH=\"15\"></td>" ;
-        HTMLcode += "<td>Output plane</td>" ;
+        HTMLcode += "<td STYLE=\"font-size:10pt;\">Output plane</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
         HTMLcode += "<td><SELECT ID=\"CIRCLEStoolsRAWPOINTSLISTplaneCOMBO\"><OPTION VALUE=\""+Z_PLANE+"\">Z-plane<OPTION VALUE=\""+W_PLANE+"\">W-plane</SELECT></td>" ;
         HTMLcode += "<td WIDTH=\"8\"></td>" ;

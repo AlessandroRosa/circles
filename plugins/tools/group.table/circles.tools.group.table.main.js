@@ -33,13 +33,13 @@ function CIRCLEStoolsGROUPTABLEmain( _base_id, _move )
     _move = safe_int( _move, YES );
     CIRCLEStoolsGROUPTABLEuniqueid = _base_id ;
 		var _items_n = _glob_items_switch == ITEMS_SWITCH_SEEDS ? circles_lib_count_seeds() : circles_lib_count_gens();
-    var WIDTH = Math.max( Math.min( $(window).width(), _items_n * 140 ), 480 ), HEIGHT = 180 ;
+    var WIDTH = Math.max( Math.min( $(window).width(), _items_n * 140 ), 480 ), HEIGHT = 250 ;
     var CLOSE_FN = "CIRCLEStoolsGROUPTABLEclose();", _run = YES, _subset = "tools" ;
     var _div_id = CIRCLEStoolsGROUPTABLEdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
 	  var HTMLcode = "<table ID=\"CIRCLEStoolsGROUPTABLEmasterTABLE\" WIDTH=\"100%\">" ;
         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLEStoolsGROUPTABLEcaption, 5, 1, CLOSE_FN,
-																				 WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
-																				 "", null, "" );
+										WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png",
+										"", null, "" );
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td VALIGN=\"top\">" ;
@@ -66,7 +66,7 @@ function CIRCLEStoolsGROUPTABLEmain( _base_id, _move )
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td VALIGN=\"top\" ALIGN=\"left\" CLASS=\"general_rounded_corners\" WIDTH=\"100%\">" ;
-        HTMLcode += "<DIV ALIGN=\"left\" ID=\"CIRCLEStoolsGROUPTABLEdiv\" CLASS=\"general_rounded_corners\" STYLE=\"position:relative;width:"+(WIDTH-15)+"px;height:"+(HEIGHT-78)+"px;padding:2px;overflow-x:auto;overflow-y:hidden;background-color:#232323;\"></DIV>" ;
+        HTMLcode += "<DIV ALIGN=\"left\" ID=\"CIRCLEStoolsGROUPTABLEdiv\" CLASS=\"general_rounded_corners\" STYLE=\"position:relative;width:"+(WIDTH-10)+"px;height:"+(HEIGHT-88)+"px;padding:2px;overflow-x:auto;overflow-y:hidden;background-color:#232323;\"></DIV>" ;
         HTMLcode += "</td>" ;
         HTMLcode += "</tr>"
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;

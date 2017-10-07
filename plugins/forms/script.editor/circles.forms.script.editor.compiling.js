@@ -77,7 +77,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerCOMPILEloop()
 									 else
 									 {
 				              circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_MULTICOLOR, "<red>File</red> <white>"+_label+"</white> <red>includes errors</red>", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
- 										  $( "#CIRCLESformsSCRIPTEDITORstatus" + _i ).html( "<IMG SRC=\""+_glob_path_to_img+"icons/halt/halt.icon.01.16x16.png\">" );
+ 										  $( "#CIRCLESformsSCRIPTEDITORstatus" + _i ).html( "<IMG SRC=\""+_glob_path_to_img+"icons/halt/halt.icon.01.20x20.png\">" );
 									 }
 		           }
 		        }

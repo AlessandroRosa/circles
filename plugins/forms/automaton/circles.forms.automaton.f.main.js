@@ -46,7 +46,7 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
     var _div_id = CIRCLESformsAUTOMATONdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
     var HTMLcode = "<table WIDTH=\"100%\">" ;
         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsAUTOMATONcaption, 3, YES,
-                    CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
+                    CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png",
 										"", "", "CIRCLESformsAUTOMATON" );
         HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
 				HTMLcode += "<tr>" ;

@@ -51,7 +51,7 @@ function CIRCLESformsBIPmain( _base_id, _move )
 	 
    var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESrepetendsCURRENTkey\" VALUE=\"\">" ;
    HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
-   HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsBIPcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png", null, "CIRCLESformsBIPhelp()" );
+   HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsBIPcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png", null, "CIRCLESformsBIPhelp()" );
    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
    HTMLcode += "<tr><td HEIGHT=\"18\" ID=\"CIRCLESformsBIPoutputMSG\"></td></tr>" ;
    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
@@ -281,7 +281,7 @@ function CIRCLESbipFORMtabPROPERTIEShtml( _properties, _return_html )
       HTMLcode += "<td WIDTH=\"5\"></td>";
       HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
       HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'canvas_bk_colorICON', 'canvas_bk_color' );\"";
-      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"canvas_bk_colorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
+      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"canvas_bk_colorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
       HTMLcode += "<td WIDTH=\"15\"></td>";
       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:$('#canvas_bk_color').css('background-color','transparent');$('#canvas_bk_color').html('none');\">Set transparent</td>";
       HTMLcode += "</tr>" ;

@@ -137,7 +137,7 @@ function CIRCLESformsTERMINALgetHTML( _div_id, _is_popup, _input_w, _input_h, _s
     var HTMLcode = "<table ID=\"wnd_container_"+_div_id+"\" WIDTH=\""+WIDTH+"\" HEIGHT=\""+HEIGHT+"\" STYLE=\""+_table_style+"\" VALIGN=\"top\">" ;
     if ( _is_popup ) HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 3, YES, CLOSE_FN, WIDTH, HEIGHT,
                      arguments.callee.name, CIRCLESformsTERMINALbaseid, _div_id,
-                     _subset, "cmd.prompt/cmd.prompt.icon.01.16x16.png",
+                     _subset, "cmd.prompt/cmd.prompt.icon.01.20x20.png",
                      _click_fn, null, "CIRCLESformsTERMINAL" + _suffix,
                 		 [ "CIRCLESformsTERMINALnormalize", _div_id, _suffix, WIDTH, HEIGHT ],
                 		 [ "CIRCLESformsTERMINALminimize", _div_id, _suffix, WIDTH, HEIGHT ],

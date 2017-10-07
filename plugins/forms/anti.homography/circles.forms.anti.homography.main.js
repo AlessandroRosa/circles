@@ -116,7 +116,7 @@ function CIRCLESformsANTIHOMOGRAPHYmain( _base_id, _move, _items_switch )
     var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
         HTMLcode += "<table WIDTH=\"100%\">" ;
         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsANTIHOMOGRAPHYcaption + " - " + _caption, 5, YES, CLOSE_FN,
-        WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "lens/lens.icon.01.16x16.png", ONACTIVATEFN );
+        WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "lens/lens.icon.01.20x20.png", ONACTIVATEFN );
 
     HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\"><table><tr>" ;

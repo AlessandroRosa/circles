@@ -41,7 +41,7 @@ function CIRCLESformsSCRIPTEDITORmain( _base_id, _move )
     var _div_id = CIRCLESformsSCRIPTEDITORdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ), CLOSE_FN = "CIRCLESformsSCRIPTEDITORclose()" ;
 		CIRCLESformsSCRIPTEDITORdims = [ WIDTH, HEIGHT ] ;    
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" HEIGHT=\""+HEIGHT+"\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsSCRIPTEDITORcaption, 3, YES, CLOSE_FN, "100%", HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
+    HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsSCRIPTEDITORcaption, 3, YES, CLOSE_FN, "100%", HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png",
 																		            "", "", "CIRCLESformsSCRIPTEDITOR",
 													                      [ "CIRCLESformsSCRIPTEDITORnormalize", _div_id, WIDTH, HEIGHT ],
 													                      [ "CIRCLESformsSCRIPTEDITORminimize", _div_id, WIDTH, HEIGHT ],

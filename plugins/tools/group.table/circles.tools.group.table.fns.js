@@ -16,11 +16,10 @@ function CIRCLEStoolsGROUPTABLEfill_div_with_mobius_maps( _items_mask, _fontsize
         var _values = _glob_gens_set_symbols_map_array.values_associative();
         for( var _i = 0 ; _i < _items_n ; _i++ )
         {
-            _map = _array_ref[_i].map ;
-            _symbol = _array_ref[_i].symbol ;
+            _map = _array_ref[_i].map, _symbol = _array_ref[_i].symbol ;
             _word = _items_mask == ITEMS_SWITCH_SEEDS ? "" : _keys[ _values.indexOf( _symbol ) ] ;
             if ( is_mobius_map( _map ) )
-            _html_code += "<td WIDTH=\"35\"></td><td VALIGN=\"top\"><table><tr><td HEIGHT=\"60\" ALIGN=\"center\" STYLE=\"color:white;\">"+_map.output( "<br>", "html", _round_to, "font-size:"+_fontsize+"pt;" )+"</td></tr><tr><td HEIGHT=\"4\"></td></tr><tr><td HEIGHT=\"8\"></td></tr><tr><td ALIGN=\"center\" STYLE=\"color:white;font-size:"+_fontsize+"pt;\">"+_symbol+( ( !( _symbol.strcmp( _word ) ) && _word.length > 0 ) ? "&nbsp;("+_word+")" : "" )+"</td></tr></table></td>"
+            _html_code += "<td WIDTH=\"55\"></td><td VALIGN=\"top\"><table><tr><td HEIGHT=\"60\" ALIGN=\"center\" STYLE=\"color:white;\">"+_map.output( "<br>", "html", _round_to, "font-size:"+_fontsize+"pt;" )+"</td></tr><tr><td HEIGHT=\"4\"></td></tr><tr><td HEIGHT=\"8\"></td></tr><tr><td ALIGN=\"center\" STYLE=\"color:yellow;font-size:"+_fontsize+"pt;\"><b>"+_symbol+( ( !_symbol.strcmp( _word ) && _word.length > 0 ) ? "&nbsp;("+_word+")" : "" )+"</b></td></tr></table></td>"
         }
         _html_code += "</tr>" ;
     }

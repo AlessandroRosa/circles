@@ -82,8 +82,7 @@ function circles_lib_plugin_reload_basic_forms( _param_01 )
     var _base_ids = [ { id : "edit.disk", subset : "forms" }, { id : "seeds.list", subset : "forms" },
                       { id : "geometric.transform", subset : "forms" }, { id : "coordinates", subset : "forms" },
                       { id : "method", subset : "forms" }, { id : "panel.manager", subset : "forms" },
-                      { id : "geometric.transform", subset : "forms" } ] ;
-                      console.log( _base_ids );
+                      { id : "geometric.transform", subset : "forms" }, { id : "f.z", subset : "tools" } ] ;
     for( var _p = 0 ; _p < _base_ids.length ; _p++ )
     if ( circles_lib_plugin_find_index( { base_id : _base_ids[_p].id, subset : _base_ids[_p].subset }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
 		circles_lib_plugin_load( _base_ids[_p].subset,_base_ids[_p].id, NO, _param_01 );
@@ -250,9 +249,9 @@ function circles_lib_plugin_get_list( _fn_str, _html )
               _list += "ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"" ;
               _list += "ONCLICK=\"javascript:circles_lib_plugin_focus('"+_div_id+"',YES,event);\"" ;
               _list += ">"+_caption+"</td>" ;
-              if ( _visible ) _list += "<td WIDTH=\"20\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_forms_show_panel(HIDE,'"+_div_id+"');\"><IMG SRC=\"%imgpath%icons/hide/hide.icon.01.16x16.png\"></td>" ;
-              else _list += "<td WIDTH=\"20\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_forms_show_panel(SHOW,'"+_div_id+"');\"><IMG SRC=\"%imgpath%icons/eye/eye.01.16x16.png\"></td>" ;
-              _list += "<td WIDTH=\"20\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_activate( "+_allow_multiple_instances+", '"+_base_id+"', '', '', '"+_subset+"', CLOSE, '"+_div_id+"','');\"><IMG SRC=\"%imgpath%icons/delete/delete.icon.16x16.png\"></td>" ;
+              if ( _visible ) _list += "<td WIDTH=\"20\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_forms_show_panel(HIDE,'"+_div_id+"');\"><IMG SRC=\"%imgpath%icons/hide/hide.icon.01.20x20.png\"></td>" ;
+              else _list += "<td WIDTH=\"20\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_forms_show_panel(SHOW,'"+_div_id+"');\"><IMG SRC=\"%imgpath%icons/eye/eye.01.20x20.png\"></td>" ;
+              _list += "<td WIDTH=\"20\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_plugin_activate( "+_allow_multiple_instances+", '"+_base_id+"', '', '', '"+_subset+"', CLOSE, '"+_div_id+"','');\"><IMG SRC=\"%imgpath%icons/delete/delete.icon.20x20.png\"></td>" ;
               _list += "</tr><tr><td HEIGHT=\"1\"></td></tr>" ;
               }
               else _list.push( _caption ) ;

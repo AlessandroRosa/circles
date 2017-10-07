@@ -244,8 +244,7 @@ function circles_lib_coordinates_reset( _plane_type, _render, _question, _silent
 function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, _silent, _render, _out_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-		_silent = safe_int( _silent, NO ), _render = safe_int( _render, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+		_silent = safe_int( _silent, NO ), _render = safe_int( _render, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _plane_label = circles_lib_plane_get_def( _plane_type );
     var LEFT, TOP, RIGHT, BOTTOM ;

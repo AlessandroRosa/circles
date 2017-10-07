@@ -22,7 +22,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONactionCOMBOselect( _plane_type, _silent )
           default: break ;
 			 }
 		}
-		
+
 		setTimeout( function() { $( "#" + _ctrl_id ).get(0).selectedIndex = 0 ; }, 2500 ) ;
 }
 
@@ -33,17 +33,14 @@ function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUupdate()
     {
         var _chunk = null ;
         var HTMLcode = "<SELECT ID=\"CIRCLEStoolsCANVASCOMPOSITIONcanvasCOMBO\">" ;
-        $.each( _layers_array,
-                function( _i, _layer_chunk )
+        $.each( _layers_array, function( _i, _layer_chunk )
                 {
                     if ( _layer_chunk.includes( "@" ) )
                     {
                         _chunk = _layer_chunk.split( "@" );
                         // 0: idcanvas, 1 : role def, 2: plane type
                         HTMLcode += "<OPTION VALUE=\""+_layer_chunk+"\">" + circles_lib_plane_get_def( _chunk[1] ) + " - " + _chunk[2] ;
-                    }
-                }
-              ) ;
+                    } } ) ;
         HTMLcode += "</SELECT>" ;
         $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvasCOMBOcontainer" ).html( HTMLcode );
         $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvasCOMBOpanel" ).css( "display", "block" ) ;
@@ -67,6 +64,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONactionSELECT()
 				case 5: CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER() ; break ;
 				case 6: CIRCLEStoolsCANVASCOMPOSITIONcanvasSAVEASform() ; break ;
 				case 7: CIRCLEStoolsCANVASCOMPOSITIONcompositionDELETE(YES,NO) ; break ;
+				case 8: CIRCLEStoolsCANVASCOMPOSITIONcompositionREVERSE(YES,NO) ; break ;
         default: break ;
 		}
 
@@ -87,9 +85,27 @@ function CIRCLEStoolsCANVASCOMPOSITIONcompositionDELETE( _question, _silent )
 						CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUupdate();
 				    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Layers composition has been deleted with success", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 				}
-				else 
+				else
 				    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Problems while deleting the layers composition", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 		}
+}
+
+function CIRCLEStoolsCANVASCOMPOSITIONcompositionREVERSE( _question, _silent )
+{
+    _silent = safe_int( _silent, NO );
+    var _layers_array = CIRCLEStoolsCANVASCOMPOSITIONlayersARRAY ;
+    if ( safe_size( _layers_array, 0 ) > 0 )
+    {
+         var _combo = $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvasCOMBO" ).get(0) ;
+         if ( _combo != null )
+         {
+            _layers_array.reverse();
+            CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUupdate();
+            CIRCLEStoolsCANVASCOMPOSITIONcompositionCLEAN(NO) ;
+            CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER(YES) ;
+         }
+    }
+    else if ( !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Can't swap layers up: the composition pile is empty", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 }
 
 function CIRCLEStoolsCANVASCOMPOSITIONcanvasSAVEASform() { circles_lib_canvas_save_to_file( NO_PLANE, $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0), "circles.composition.png", NO, NO ) ; }
@@ -117,7 +133,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUswapup( _silent )
               {
                    _layers_array.swap( _sel_index - 1, _sel_index );
                    CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUupdate();
-                   CIRCLEStoolsCANVASCOMPOSITIONcompositionCLEAN( NO ) ;
+                   CIRCLEStoolsCANVASCOMPOSITIONcompositionCLEAN(NO) ;
                    CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER(YES) ;
               }
          }
@@ -134,9 +150,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUswapdown( _silent )
          var _combo = $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvasCOMBO" ).get(0) ;
          if ( _combo != null )
          {
-              var _n_options = _combo.options.length ;
-              var _last_index = _n_options - 1 ;
-              var _sel_index = _combo.selectedIndex ;
+              var _n_options = _combo.options.length, _last_index = _n_options - 1, _sel_index = _combo.selectedIndex ;
               if ( _sel_index < _last_index )
               {
                    _layers_array.swap( _sel_index, _sel_index - 1 );
@@ -146,7 +160,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUswapdown( _silent )
               }
          }
     }
-    lse if ( !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX,  DISPATCH_ERROR, "Can't swap layers down: the composition pile is empty", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
+    else if ( !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX,  DISPATCH_ERROR, "Can't swap layers down: the composition pile is empty", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 }
 
 function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUremove()
@@ -254,16 +268,16 @@ function CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER( _silent )
 				 {
 		         if ( _n_fix == UNDET )
              circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR,
-					 											 "Canvas composition has completely failed during the rendering stage.", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
+					 											 "Canvas composition has failed during the rendering stage", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 		         else if ( _n_fix == 0 )
              circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR,
-					 											 "Canvas composition has completely failed during the input stage.", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
+					 											 "Canvas composition has failed during the input stage", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 		         else if ( _n_fix > 0 && _n_fix < _n_layers )
              circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING,
-				 											   "Canvas composition succeded for "+_n_fix+" over "+_n_layers+" entr"+( _n_layers == 1 ? "y" : "ies" )+".", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
+				 											   "Canvas composition has been rendered with success<br>for "+_n_fix+" elements of "+_n_layers, "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 		         else if ( _n_fix == _n_layers )
              circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS,
-				 											  "Canvas composition has been completely successful.", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
+				 											  "Canvas composition has been rendered with success", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 				 }
     }
     else if ( !_silent )

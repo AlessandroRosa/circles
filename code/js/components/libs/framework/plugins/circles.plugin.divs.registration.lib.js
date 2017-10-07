@@ -61,8 +61,8 @@ function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrow
     _width -= 8 ;
     var HTMLcode = "" ;
     HTMLcode += "<tr>" ;
-    HTMLcode += "<td ID=\""+_div_id+"_caption_container\" COLSPAN=\""+_caption_colspan+"\" VALIGN=\"top\" WIDTH=\"100%\" HEIGHT=\"22\">" ;
-    HTMLcode += "<table ID=\""+_div_id+"_caption\" WIDTH=\"100%\" HEIGHT=\"16\" CLASS=\""+( _run ? "popup_caption_bk_enabled" : "popup_caption_bk_alert" )+"\">" ;
+    HTMLcode += "<td ID=\""+_div_id+"_caption_container\" COLSPAN=\""+_caption_colspan+"\" VALIGN=\"top\" WIDTH=\"100%\" HEIGHT=\"28\">" ;
+    HTMLcode += "<table ID=\""+_div_id+"_caption\" WIDTH=\"100%\" CLASS=\""+( _run ? "popup_caption_bk_enabled" : "popup_caption_bk_alert" )+"\">" ;
     HTMLcode += "<tr>" ;
     if ( _iconpath.length > 0 )
     {
@@ -86,27 +86,32 @@ function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrow
     if ( _help_fn.length > 0 )
     {
        if ( !( _help_fn.includes( "(" ) ) && !( _help_fn.includes( ")" ) ) ) _help_fn += "()" ;
-       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:"+_help_fn+";\"><IMG TITLE=\"Info\" SRC=\"%imgpath%icons/questionmark/question.mark.icon.01.12x12.png\"></td>" ;
+       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:"+_help_fn+";\"><IMG TITLE=\"Info\" SRC=\"%imgpath%icons/questionmark/question.mark.icon.01.20x20.png\"></td>" ;
        HTMLcode += "<td WIDTH=\"2\"></td>" ;
     }
 
  		HTMLcode += "<td WIDTH=\"3\"></td>" ;
-    HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_maximize('"+_div_id+"', '"+( is_array( _maximize_fns ) ? _maximize_fns.join("|") : "" )+"');\"><IMG TITLE=\"Maximize Window\" SRC=\"%imgpath%icons/wnd/maximize.icon.01.12x12.png\"></td>" ;
-		HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_minimize('"+_div_id+"', '"+( is_array( _minimize_fns ) ? _minimize_fns.join("|") : "" )+"');\"><IMG TITLE=\"Minimize Window\" SRC=\"%imgpath%icons/wnd/minimize.icon.01.12x12.png\"></td>" ;
-	  HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_normalize('"+_div_id+"', '"+( is_array( _normalize_fns ) ? _normalize_fns.join("|") : "" )+"');\"><IMG TITLE=\"Normalize Window\" SRC=\"%imgpath%icons/wnd/normalize.icon.01.12x12.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_maximize('"+_div_id+"', '"+( is_array( _maximize_fns ) ? _maximize_fns.join("|") : "" )+"');\"><IMG TITLE=\"Maximize Window\" SRC=\"%imgpath%icons/wnd/maximize.icon.01.20x20.png\"></td>" ;
+    HTMLcode += "<td WIDTH=\"3\"></td>" ;
+		HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_minimize('"+_div_id+"', '"+( is_array( _minimize_fns ) ? _minimize_fns.join("|") : "" )+"');\"><IMG TITLE=\"Minimize Window\" SRC=\"%imgpath%icons/wnd/minimize.icon.01.20x20.png\"></td>" ;
+    HTMLcode += "<td WIDTH=\"3\"></td>" ;
+	  HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_normalize('"+_div_id+"', '"+( is_array( _normalize_fns ) ? _normalize_fns.join("|") : "" )+"');\"><IMG TITLE=\"Normalize Window\" SRC=\"%imgpath%icons/wnd/normalize.icon.01.20x20.png\"></td>" ;
 
     if ( _arrows )
     {
-       HTMLcode += "<td WIDTH=\"2\"></td>" ;
-       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', '', 'TOP' );\"><IMG TITLE=\""+_CAPTION_BTN_03+"\" SRC=\"%imgpath%icons/bullets/bullet.up.12x12.png\"></td>" ;
-       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', '', 'BOTTOM' );\"><IMG TITLE=\""+_CAPTION_BTN_04+"\" SRC=\"%imgpath%icons/bullets/bullet.down.12x12.png\"></td>" ;
-       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', 'LEFT', '' );\"><IMG TITLE=\""+_CAPTION_BTN_01+"\" SRC=\"%imgpath%icons/bullets/bullet.left.12x12.png\"></td>" ;
-       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', 'RIGHT', '' );\"><IMG TITLE=\""+_CAPTION_BTN_02+"\" SRC=\"%imgpath%icons/bullets/bullet.right.12x12.png\"></td>" ;
-       HTMLcode += "<td WIDTH=\"2\"></td>" ;
+       HTMLcode += "<td WIDTH=\"3\"></td>" ;
+       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', '', 'TOP' );\"><IMG TITLE=\""+_CAPTION_BTN_03+"\" SRC=\"%imgpath%icons/bullets/bullet.up.20x20.png\"></td>" ;
+       HTMLcode += "<td WIDTH=\"3\"></td>" ;
+       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', '', 'BOTTOM' );\"><IMG TITLE=\""+_CAPTION_BTN_04+"\" SRC=\"%imgpath%icons/bullets/bullet.down.20x20.png\"></td>" ;
+       HTMLcode += "<td WIDTH=\"3\"></td>" ;
+       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', 'LEFT', '' );\"><IMG TITLE=\""+_CAPTION_BTN_01+"\" SRC=\"%imgpath%icons/bullets/bullet.left.20x20.png\"></td>" ;
+       HTMLcode += "<td WIDTH=\"3\"></td>" ;
+       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', 'RIGHT', '' );\"><IMG TITLE=\""+_CAPTION_BTN_02+"\" SRC=\"%imgpath%icons/bullets/bullet.right.20x20.png\"></td>" ;
+       HTMLcode += "<td WIDTH=\"3\"></td>" ;
     }
 
-    HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:"+ONCLOSE_FN+"\"><IMG TITLE=\""+_CAPTION_BTN_07+"\" SRC=\"%imgpath%icons/close/close.icon.01.12x12.png\"></td>" ;
-    HTMLcode += "<td WIDTH=\"2\"></td>" ;
+    HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:"+ONCLOSE_FN+"\"><IMG TITLE=\""+_CAPTION_BTN_07+"\" SRC=\"%imgpath%icons/close/close.icon.01.20x20.png\"></td>" ;
+    HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</tr>" ;

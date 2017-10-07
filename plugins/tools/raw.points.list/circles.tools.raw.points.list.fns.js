@@ -119,7 +119,7 @@ function CIRCLEStoolsRAWPOINTSLISTcopyintoSTORAGE()
              
             circles_lib_output( OUTPUT_SPECIAL_FX, !_errors_exist ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, 'CIRCLESformsEDITDISKoutMSG' )
                   
-            $( "#CIRCLEStoolsRAWPOINTSLISTlogBTN" ).html( "<IMG TITLE=\"Operation log\" SRC=\""+_glob_path_to_img+"icons/log/log.icon.01.16x16.png\">" );
+            $( "#CIRCLEStoolsRAWPOINTSLISTlogBTN" ).html( "<IMG TITLE=\"Operation log\" SRC=\""+_glob_path_to_img+"icons/log/log.icon.01.20x20.png\">" );
             $( "#CIRCLEStoolsRAWPOINTSLISTlogBTN" ).get(0).onclick = function() { CIRCLEStoolsRAWPOINTSLISTshowLOG( $( "#CIRCLEStoolsRAWPOINTSLISTtextareaCONTAINER" ).css( "display" ) == "block" ? SHOW : HIDE ) ; } ;
         }
         else circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Can't draw points: inconsistent input", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' )
@@ -156,20 +156,18 @@ function CIRCLEStoolsRAWPOINTSLISTdraw()
         if ( _text.includes( CRLF_NO_WIN ) ) _text = _text.replaceAll( CRLF_NO_WIN, ";" ) ;
         if ( _text.includes( ")(" ) ) _text = _text.replaceAll( ")(", ";" ).replaceAll( "(", "" ).replaceAll( ")", ";" ) ;
         else _text = _text.replaceAll( "(", "" ).replaceAll( ")", ";" ) ;
-        _text = _text.replaceAll( ";", ";" ) ;
 
         var _pts_array = _text.split( ";" ), _n_errors = 0, _pt, _params, _n_params = 0 ;
+        _pts_array.clean_from( function( _item ){ return _item.trim().length == 0 ; } );
         var _pts_n = safe_size( _pts_array, 0 ) ;
         circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Found "+_pts_n+" point"+(_pts_n==1?"":"s"), "CIRCLEStoolsRAWPOINTSLISToutputBOX" );
         CIRCLEStoolsRAWPOINTSLISTpoints = [], CIRCLEStoolsRAWPOINTSLISTreport = [] ;
         if ( safe_size( _pts_array, 0 ) > 0 )
         {
             // acquire
-            $.each( _pts_array,
-                    function( _i, _pt )
+            $.each( _pts_array, function( _i, _pt )
                     {
-                        _params = _pt.split( "," );
-                        _n_params = safe_size( _params, 0 ) ;
+                        _params = _pt.split( "," ), _n_params = safe_size( _params, 0 ) ;
                         if ( _n_params.is_one_of( 2, 3 ) )
                         {
                             if ( _map_type.is_one_of( 1, 2 ) ) _pt = read_2D_point( _params ) ;
@@ -195,8 +193,7 @@ function CIRCLEStoolsRAWPOINTSLISTdraw()
                             _n_errors++ ;
                             CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:orange;\">Missing point params at row #" + ( _i + 1 ) + "</SPAN>" ) ;
                         }
-                    }
-                  ) ;
+                    } ) ;
             var _errors_exist = _n_errors > 0 ? YES : NO ;
             $( "#CIRCLEStoolsRAWPOINTSLISTlogCONTAINER" ).html( CIRCLEStoolsRAWPOINTSLISTreport.join( "<br>" ) );
             CIRCLEStoolsRAWPOINTSLISTdrawPOINTS( _plane_type, _map_type ) ;
@@ -206,7 +203,7 @@ function CIRCLEStoolsRAWPOINTSLISTdraw()
              
             circles_lib_output( OUTPUT_SPECIAL_FX, !_errors_exist ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, 'CIRCLESformsEDITDISKoutMSG' )
                   
-            $( "#CIRCLEStoolsRAWPOINTSLISTlogBTN" ).html( "<IMG TITLE=\"Operation log\" SRC=\""+_glob_path_to_img+"icons/log/log.icon.01.16x16.png\">" );
+            $( "#CIRCLEStoolsRAWPOINTSLISTlogBTN" ).html( "<IMG TITLE=\"Operation log\" SRC=\""+_glob_path_to_img+"icons/log/log.icon.01.20x20.png\">" );
             $( "#CIRCLEStoolsRAWPOINTSLISTlogBTN" ).get(0).onclick = function() { CIRCLEStoolsRAWPOINTSLISTshowLOG( $( "#CIRCLEStoolsRAWPOINTSLISTtextareaCONTAINER" ).css( "display" ) == "block" ? SHOW : HIDE ) ; } ;
         }
         else circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Can't draw points: inconsistent input", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' )

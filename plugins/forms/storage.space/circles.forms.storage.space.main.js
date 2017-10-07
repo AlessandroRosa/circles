@@ -8,7 +8,7 @@ function CIRCLESformsSTORAGESPACEmain( _base_id, _move )
     var _div_id = CIRCLESformsSTORAGESPACEdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
 
 		var HTMLcode = "<table WIDTH=\""+WIDTH+"\" HEIGHT=\"100%\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsSTORAGESPACEcaption, 5, 1, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "box/box.01.icon.16x16.png" );
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsSTORAGESPACEcaption, 5, 1, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "box/box.01.icon.20x20.png" );
         HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
 			  HTMLcode += "<tr>" ;
 			  HTMLcode += "<td ID=\"CIRCLESformsSTORAGESPACElistCONTAINER\" VALIGN=\"top\" HEIGHT=\"100%\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F1F1F5;padding:5px;\">" ;

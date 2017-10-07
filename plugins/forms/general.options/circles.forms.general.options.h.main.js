@@ -49,7 +49,7 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
     }
 
      var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ALIGN=\"center\" ID=\"GENERALoptionsMASTERtable\">" ;
-         HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "tools/tools.01.16x16.png" );
+         HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "tools/tools.01.20x20.png" );
          HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"18\" ID=\"CIRCLESformsGENERALOPTIONSoutputBOX\" ALIGN=\"center\"></td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;

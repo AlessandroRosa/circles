@@ -39,13 +39,13 @@ function CIRCLESformsEDITDISKcoordinatesCODE( _index, _items_switch )
     HTMLcode += "<tr>" ;
     HTMLcode += "<td>Shift disk</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('up');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.up.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('up');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.up.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('down');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.down.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('down');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.down.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('left');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.left.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('left');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.left.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('right');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.right.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_complexdisk_shift('right');\"><IMG SRC=\"%imgpath%icons/bullets/bullet.right.20x20.png\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -81,7 +81,7 @@ function CIRCLESformsEDITDISKgraphixCODE( _index, _items_switch )
     HTMLcode += "<td WIDTH=\"5\"></td>";
     HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
     HTMLcode += "    ONCLICK=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);displayCOLORTABLE( 'CIRCLEScircleSELECTEDdrawcolorICON', 'CIRCLEScircleSELECTEDdrawcolor' );\"";
-    HTMLcode += "    WIDTH=\"16\" valign=\"middle\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
+    HTMLcode += "    WIDTH=\"16\" valign=\"middle\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
     HTMLcode += "<td WIDTH=\"25\"></td>";
     HTMLcode += "<td>Draw Border</td>";
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
@@ -98,7 +98,7 @@ function CIRCLESformsEDITDISKgraphixCODE( _index, _items_switch )
     HTMLcode += "<td WIDTH=\"5\"></td>";
     HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
     HTMLcode += "    ONCLICK=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);displayCOLORTABLE( 'CIRCLEScircleSELECTEDfillcolorICON', 'CIRCLEScircleSELECTEDfillcolor' );\"";
-    HTMLcode += "    WIDTH=\"16\" valign=\"middle\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
+    HTMLcode += "    WIDTH=\"16\" valign=\"middle\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
     HTMLcode += "<td WIDTH=\"25\"></td>";
     HTMLcode += "<td>Fill interior</td>";
     HTMLcode += "<td WIDTH=\"5\"></td>";

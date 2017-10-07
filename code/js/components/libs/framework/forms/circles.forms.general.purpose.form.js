@@ -78,7 +78,7 @@ function CIRCLESgeneralpurposeFORM( _subset, _base_id, _move, _w, _h, _caption, 
 
     var CLOSE_FN = "CIRCLESgeneralpurposeFORMclose();", _subset = "forms" ;
     var HTMLcode =  "<table ID=\"POPUPgeneralpurposesMASTERTABLE\" WIDTH=\"99%\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "info/info.icon.01.16x16.png" );
+        HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "info/info.icon.01.20x20.png" );
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
         HTMLcode += "<tr><td VALIGN=\"top\"><DIV ID=\"CIRCLESgeneralpurposeDIV\" STYLE=\"position:relative;"+( _word_wrap ? "word-wrap:break-word;" : "" )+"background-color:"+_bkcolor+";padding:6px;width:"+( WIDTH - 10 )+"px;height:"+(_h-7)+"px;overflow:auto;\" CLASS=\"general_rounded_corners\">"+_html_code+"</DIV></td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;

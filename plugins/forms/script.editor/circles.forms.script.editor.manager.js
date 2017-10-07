@@ -78,19 +78,19 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay()
     HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\" ALIGN=\"right\"><table>" ;
     HTMLcode += "<tr><td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Add new project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerADDproject();\" SRC=\""+_glob_path_to_img+"icons/plus/plus.icon.01.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Add new project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerADDproject();\" SRC=\""+_glob_path_to_img+"icons/plus/plus.icon.01.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"4\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Remove project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerREMOVEproject();\" SRC=\""+_glob_path_to_img+"icons/minus/minus.icon.01.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Remove project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerREMOVEproject();\" SRC=\""+_glob_path_to_img+"icons/minus/minus.icon.01.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"4\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Rename project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerRENAMEproject();\" TITLE=\"Rename\" SRC=\"%root%img/icons/abc/abc.icon.01.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Rename project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerRENAMEproject();\" TITLE=\"Rename\" SRC=\"%root%img/icons/abc/abc.icon.01.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"4\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Reload project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay();\" SRC=\""+_glob_path_to_img+"icons/reload/reload.01.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Reload project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay();\" SRC=\""+_glob_path_to_img+"icons/reload/reload.01.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"4\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Compile project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerCOMPILEprocess();\" SRC=\""+_glob_path_to_img+"icons/gearwheel/gearwheel.icon.01.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Compile project\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerCOMPILEprocess();\" SRC=\""+_glob_path_to_img+"icons/gearwheel/gearwheel.icon.01.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"4\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Load file or proj\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORactivateLOAD();\" SRC=\""+_glob_path_to_img+"icons/bullets/bullet.down.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Load file or proj\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORactivateLOAD();\" SRC=\""+_glob_path_to_img+"icons/bullets/bullet.down.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"4\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Save project into zip\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerSAVEprojectZIPFILE();\" SRC=\""+_glob_path_to_img+"icons/zip/zip.icon.01.16x16.png\"></td>" ;
+    HTMLcode += "<td CLASS=\"link\"><IMG TITLE=\"Save project into zip\" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerSAVEprojectZIPFILE();\" SRC=\""+_glob_path_to_img+"icons/zip/zip.icon.01.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"8\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
@@ -144,7 +144,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTdisplay()
                         HTMLcode += "<td WIDTH=\"4\"></td>" ;
                         HTMLcode += "<td VALIGN=\"top\" WIDTH=\""+ICONside+"\" ALIGN=\"center\"><INPUT ID=\"CIRCLESformsSCRIPTEDITORcodeCHECKBOX"+_i+"\" TYPE=\"checkbox\" "+(_chunk[2]?"CHECKED":"")+" ONCLICK=\"javascript:CIRCLESformsSCRIPTEDITORcodemanagerCOMPILEflag( this.checked?YES:NO, "+_i+" );\"></td>" ;
                         HTMLcode += "<td WIDTH=\"4\"></td>" ;
-                        HTMLcode += "<td VALIGN=\"top\" WIDTH=\""+ICONside+"\" ALIGN=\"center\" ID=\"CIRCLESformsSCRIPTEDITORstatus"+_i+"\">"+(_pending?"<IMG SRC=\""+_glob_path_to_img+"icons/unchecked/unchecked.icon.01.16x16.png\">":"")+"</td>" ;
+                        HTMLcode += "<td VALIGN=\"top\" WIDTH=\""+ICONside+"\" ALIGN=\"center\" ID=\"CIRCLESformsSCRIPTEDITORstatus"+_i+"\">"+(_pending?"<IMG SRC=\""+_glob_path_to_img+"icons/unchecked/unchecked.icon.01.20x20.png\">":"")+"</td>" ;
                         HTMLcode += "<td WIDTH=\"5\"></td>" ;
                         HTMLcode += "</tr>" ;
                     }

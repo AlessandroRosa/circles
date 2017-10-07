@@ -22,7 +22,7 @@ function CIRCLESformsBENCHMARKmain( _base_id, _move )
      var CLOSE_FN = "CIRCLESformsBENCHMARKclose()" ;
      var _div_id = CIRCLESformsBENCHMARKdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
      var HTMLcode =  "<table WIDTH=\""+WIDTH+"\">" ;
-         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsBENCHMARKcaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "clock/clock.16x16.png" );
+         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsBENCHMARKcaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "clock/clock.20x20.png" );
          HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
          if ( _glob_benchmark_operations > 0 )
          {

@@ -33,7 +33,7 @@
 {
     padding:3px;
     color:white;
-    font-size:8pt;
+    font-size:11pt;
     font-weight:bold;
 }
 
@@ -54,6 +54,7 @@
     -moz-border-radius: 5px; 
     -webkit-border-radius: 5px; 
     border: 0px solid #424DE3;
+    height:30px;
 }
 
 .popup_caption_bk_disabled
@@ -73,6 +74,7 @@
     -moz-border-radius: 5px; 
     -webkit-border-radius: 5px; 
     border: 0px solid #424DE3;
+    height:30px;
 }
 
 .popup_caption_bk_alert
@@ -92,6 +94,7 @@
     -moz-border-radius: 5px; 
     -webkit-border-radius: 5px; 
     border: 0px solid #424DE3;
+    height:30px;
 }
 
 .popup_method
@@ -118,4 +121,5 @@
     border-radius: 5px; 
     -moz-border-radius: 5px; 
     -webkit-border-radius: 5px; 
+    height:30px;
 }

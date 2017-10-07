@@ -134,7 +134,7 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
 
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
     HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN,
-                WIDTH, HEIGHT, this_fn_name, 'maskit.once', _div_id, _subset, "plug/plug.icon.01.16x16.png", FOCUS_FN, "", "CIRCLES"+_subset+"MASKITONCE_",
+                WIDTH, HEIGHT, this_fn_name, 'maskit.once', _div_id, _subset, "plug/plug.icon.01.20x20.png", FOCUS_FN, "", "CIRCLES"+_subset+"MASKITONCE_",
 								[ "CIRCLES"+_subset+"MASKITONCE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 								[ "CIRCLES"+_subset+"MASKITONCE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 								[ "CIRCLES"+_subset+"MASKITONCE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );

@@ -7,7 +7,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONmain( _base_id, _move )
     var CLOSE_FN = "CIRCLEStoolsALPHABETCOLORIZATIONclose()" ;
     var _div_id = circles_lib_plugin_build_divid( _subset, _base_id );
 	  var HTMLcode = "<table WIDTH=\""+WIDTH+"\" HEIGHT=\"100%\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLEStoolsALPHABETCOLORIZATIONcaption, 5, 1, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "abc/abc.icon.01.16x16.png" );
+    HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLEStoolsALPHABETCOLORIZATIONcaption, 5, 1, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "abc/abc.icon.01.20x20.png" );
     HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
 	 	HTMLcode += "<tr>" ;
 	 	HTMLcode += "<td ID=\"CIRCLEStoolsALPHABETCOLORIZATIONlistCONTAINER\" VALIGN=\"top\" HEIGHT=\"100%\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F1F1F5;padding:5px;\">" ;

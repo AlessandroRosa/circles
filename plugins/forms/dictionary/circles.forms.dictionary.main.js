@@ -69,7 +69,7 @@ function CIRCLESformsDICTIONARYmain( _base_id, _move )
         var _caption = CIRCLESformsDICTIONARYcaption01, _subset = "forms" ;
         var _div_id = CIRCLESformsDICTIONARYdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
         var HTMLcode = "<table WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( _run, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "abc/abc.icon.01.16x16.png", "", "CIRCLESformsDICTIONARYinfo()" );
+        HTMLcode += circles_lib_plugin_caption_code( _run, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "abc/abc.icon.01.20x20.png", "", "CIRCLESformsDICTIONARYinfo()" );
         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td VALIGN=\"top\" ID=\"CIRCLESformsDICTIONARYalphabetFORMcontainerUPPER\">" ;
@@ -278,7 +278,7 @@ function CIRCLESformsDICTIONARYmain( _base_id, _move )
         HTMLcode += "<td WIDTH=\"3\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'CANVAScolorCELLgradientSTARTICON', 'CANVAScolorCELLgradientSTART' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CANVAScolorCELLgradientSTARTICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CANVAScolorCELLgradientSTARTICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
         HTMLcode += "<td></td>";
         HTMLcode += "<td WIDTH=\"15\"></td>";
         HTMLcode += "<td ID=\"colorLABEL\">End</td>";
@@ -287,7 +287,7 @@ function CIRCLESformsDICTIONARYmain( _base_id, _move )
         HTMLcode += "<td WIDTH=\"3\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'CANVAScolorCELLgradientENDICON', 'CANVAScolorCELLgradientEND' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CANVAScolorCELLgradientENDICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CANVAScolorCELLgradientENDICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
         HTMLcode += "</tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
         HTMLcode += "<tr><td COLSPAN=\"14\" VALIGN=\"top\" ID=\"PALETTEcontainer\" WIDTH=\""+PALETTEcontainerWIDTH+"\"></td></tr>" ;
@@ -397,7 +397,7 @@ function CIRCLESformsDICTIONARYactionsIMPORTform()
      var _div_id = "POPUPdictionaryinputformDIV" ;
      var WIDTH = 340, HEIGHT = 450, boxHEIGHT = HEIGHT - 110 ;
      var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsDICTIONARYcaption02, 1, YES, "", WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "book/book.icon.16x16.png", "", "" );
+         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsDICTIONARYcaption02, 1, YES, "", WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "book/book.icon.20x20.png", "", "" );
          HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
 
          HTMLcode += "<tr>" ;
@@ -461,7 +461,7 @@ function CIRCLESformsDICTIONARYactionsCRASHSTRINGform()
      var _div_id = "POPUPdictionaryinputformDIV" ;
      var WIDTH = 340, HEIGHT = 450, boxHEIGHT = HEIGHT - 140 ;
      var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsDICTIONARYcaption03, 1, YES, "", WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "book/book.icon.16x16.png", "", "" );
+         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsDICTIONARYcaption03, 1, YES, "", WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "book/book.icon.20x20.png", "", "" );
          HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
 
          HTMLcode += "<tr>" ;

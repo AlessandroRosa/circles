@@ -41,10 +41,10 @@ function CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, _move )
     var CLOSE_FN = "CIRCLEStoolsCANVASCOMPOSITIONclose();" ;
 	  var HTMLcode = "<table ID=\"CIRCLEStoolsCANVASCOMPOSITIONmasterTABLE\" WIDTH=\"100%\">" ;
         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLEStoolsCANVASCOMPOSITIONcaption, 5, 1, CLOSE_FN,
-																				 WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.16x16.png",
-																				 "", null, "" );
+										WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png",
+										"", null, "" );
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-        HTMLcode += "<tr><td COLSPAN=\"3\" STYLE=\"height:18px;\" ALIGN=\"center\" WIDTH=\"100%\"><table ALIGN=\"center\" STYLE=\"height:18px;\" WIDTH=\"100%\"><tr><td STYLE=\"height:18px;\" ALIGN=\"center\" ID=\"CIRCLEStoolsCANVASCOMPOSITIONoutputBOX\"></td></tr></table></td></tr>" ;
+        HTMLcode += "<tr><td COLSPAN=\"3\" STYLE=\"height:24px;font-size:12pt;\" ALIGN=\"center\" WIDTH=\"100%\" ID=\"CIRCLEStoolsCANVASCOMPOSITIONoutputBOX\"></td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
 
         HTMLcode += "<tr><td VALIGN=\"top\"><table>" ;
@@ -118,6 +118,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, _move )
         HTMLcode += "<OPTION VALUE=\"5\">Render composition" ;
         HTMLcode += "<OPTION VALUE=\"6\">Save composition as" ;
         HTMLcode += "<OPTION VALUE=\"7\">Delete composition" ;
+        HTMLcode += "<OPTION VALUE=\"8\">Reverse composition" ;
         HTMLcode += "</SELECT>" ;
         HTMLcode += "</td>" ;
         HTMLcode += "</tr>" ;
