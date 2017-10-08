@@ -726,7 +726,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
                 GLOB_PLUGIN_WIZARD_STEP(1);
               	circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "The group has been generated with success. Now render it !", 'PLUGIN_OUTMSG' ) ;
                 CIRCLESembeddingsGENERALPURPOSE_GENS_REGISTER();
-        			  circles_lib_plugin_dispatcher_unicast_message( 'dictionary', 'forms', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
+        			  
                 $("[id$=initBTN]").css( "color", DEFAULT_COLOR_STD );
                 $("[id$=renderBTN]").css( "color", DEFAULT_COLOR_ERROR );
             }

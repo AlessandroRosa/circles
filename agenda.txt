@@ -16,14 +16,9 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
   inside each form folder
 
 * FORMS
-method
-> test repetends services
-  (both dictionary and index search)
-
-dictionary
-eps.editor
-script.editor
-svg.editor
+  - method
+    > test repetends services (index search)
+  - script.editor (after conclusion of objs development)
 
 ------------ SCRIPT EDITOR ------------------------
 

@@ -11,50 +11,49 @@ function CIRCLEStoolsCANVASCOMPOSITIONdispatcher()
 				 var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN );
          var _idx = circles_lib_plugin_find_index( { subset : "tools", base_id : "canvas.composition" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 ) ;
          if ( _idx == UNFOUND ) return 0 ;
-					 switch( MESSAGE_ID )
-					 {
-              case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
-              var _div_id = _glob_popups_array[_idx][1] ;
+				 switch( MESSAGE_ID )
+				 {
+           case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
+           var _div_id = _glob_popups_array[_idx][1] ;
+					 var _min_dim_type = $( window ).height() < $( window ).width() ? 1 : 2 ;
+					 var _max_dim_type = $( window ).height() > $( window ).width() ? 1 : 2 ;
+					 var _dim = _max_dim_type == 1 ? $( window ).height() : $( window ).width();
+					 var _dim = Math.min( $(window).width() - 130, $(window).height() - 130 ) ;
+           $("#"+_div_id).height( _dim ) ;
+           $("#"+_div_id).width( _dim ) ;
 
-						  var _min_dim_type = $( window ).height() < $( window ).width() ? 1 : 2 ;
-						  var _max_dim_type = $( window ).height() > $( window ).width() ? 1 : 2 ;
-						  var _dim = _max_dim_type == 1 ? $( window ).height() : $( window ).width();
-						  var _dim = Math.min( $(window).width() - 130, $(window).height() - 130 ) ;
-              $("#"+_div_id).height( _dim ) ;
-              $("#"+_div_id).width( _dim ) ;
+				   var _side = _dim - 180 ;
+           $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).set_width( _side );
+           $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).set_height( _side );
+					 CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER(YES);
 
-						  var _side = _dim - 180 ;
-              $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).set_width( _side );
-              $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).set_height( _side );
-							CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER(YES);
+           circles_lib_forms_adjust_position( _div_id ) ;
+           break ;
+           case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
+           case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
+           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+           CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, NO ) ;
+           break ;
+           case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
+           break ;
+           case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
+           break ;
+           case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
+           if ( $('#'+CIRCLEStoolsCANVASCOMPOSITIONdiv_id).resizable('instance') != undefined )
+				   $("#"+CIRCLEStoolsCANVASCOMPOSITIONdiv_id).resizable('destroy');
 
-              circles_lib_forms_adjust_position( _div_id ) ;
-              break ;
-              case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
-              case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
-              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-              CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, NO ) ;
-              break ;
-              case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
-              break ;
-              case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
-              break ;
-              case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
-              if ( $('#'+CIRCLEStoolsCANVASCOMPOSITIONdiv_id).resizable('instance') != undefined )
-							$("#"+CIRCLEStoolsCANVASCOMPOSITIONdiv_id).resizable('destroy');
-
-              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-              circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
-              break ;
-              case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
-              break ;
-			        case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:
-			        case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
-              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-			        circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
-			        break ;
-              default: break ;
-					 }
+           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+           circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
+           break ;
+           case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
+           break ;
+           case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:
+			     case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
+           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+			     circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
+			     break ;
+           default: break ;
+				 }
 			}
 }
 

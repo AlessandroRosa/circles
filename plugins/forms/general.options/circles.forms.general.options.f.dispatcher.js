@@ -9,8 +9,8 @@ function CIRCLESformsGENERALOPTIONSdispatcher()
 		if ( arguments.length > 0 )
 		{
 			 var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN );
-          var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "general.options" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 )
-         if ( _idx == UNFOUND ) return 0 ;
+       var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "general.options" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 )
+       if ( _idx == UNFOUND ) return 0 ;
 			 switch( MESSAGE_ID )
 			 {
           case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
@@ -23,27 +23,23 @@ function CIRCLESformsGENERALOPTIONSdispatcher()
               $("#"+_div_id).height( _sh - 70 ) ;
               $( "#GENERALOPTIONSlayerslistCONTAINER" ).height( _popup_height - 95 );
           }
-
           circles_lib_forms_adjust_position( _div_id ) ;
           break ;
-      case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
-      case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
-      var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-      CIRCLESformsGENERALOPTIONSmain( _base_id, NO ) ;
-      break ;
+          case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
+          case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
+          var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+          CIRCLESformsGENERALOPTIONSmain( _base_id, NO ) ;
+          break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
           break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
           break ;
 		      case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
-              var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+          var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
 		      circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		      break ;
           case POPUP_DISPATCHER_UNICAST_EVENT_CLOSE:
           _glob_wplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID ;
-					if ( $("#" + CIRCLESformsGENERALOPTIONSdiv_id).resizable('instance') != undefined )
-          $("#" + CIRCLESformsGENERALOPTIONSdiv_id).resizable('destroy');
-
           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
           circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
           break ;
@@ -62,9 +58,7 @@ function CIRCLESformsGENERALOPTIONSdispatcher()
           case 2.2:
           _glob_current_tab['generaloptions'] = safe_int( _glob_current_tab['generaloptions'], 0 ) ;
           if ( _glob_current_tab['generaloptions'] == 1 ) // basics
-          {
-              $( "#CIRCLESgeneraloptionsLASTPTcoordsEDIT" ).val( is_complex( _glob_last_pt ) ? _glob_last_pt.formula() : "0" );
-          }
+          $( "#CIRCLESgeneraloptionsLASTPTcoordsEDIT" ).val( is_complex( _glob_last_pt ) ? _glob_last_pt.formula() : "0" );
           break ;
 	        default: break ;
 			 }

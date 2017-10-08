@@ -16,12 +16,12 @@ function CIRCLESformsBIPdispatcher()
             case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
             circles_lib_forms_adjust_position( CIRCLESformsBIPdiv_id ) ;
             break ;
-      case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
-      case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
-      var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-      CIRCLESformsBIPmain( _base_id, NO ) ;
-  		CIRCLESformsBIPcanvasmirrorSHOW(SHOW);
-      break ;
+            case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
+            case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
+            var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
+            CIRCLESformsBIPmain( _base_id, NO ) ;
+        		CIRCLESformsBIPcanvasmirrorSHOW(SHOW);
+            break ;
             case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
 						CIRCLESformsBIPcanvasmirrorSHOW(SHOW);
 						CIRCLESbipFORMcanvasMETRICShtml(NO);

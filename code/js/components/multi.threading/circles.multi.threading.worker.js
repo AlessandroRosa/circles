@@ -150,10 +150,6 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
   		 var _mapper = _options_chunk[ _startINDEX ];
  			 var _depth = safe_int( _glob_depth, 1 );
  			 
- 			 if ( _glob_process == PROCESS_BREADTHFIRST &&
-            circles_lib_plugin_find_index( { subset : "forms", base_id : 'dictionary' }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
- 			 circles_lib_plugin_dispatcher_unicast_message( 'dictionary', "forms", 3 );
-
        _glob_symbols_index_array = circles_lib_symbol_get_indexes_mapping_array( null,  NO );
        if ( !_glob_use_last_pt ) _glob_rec_canvas_entities_array = [] ;
        var _tmp_array = [];

@@ -108,12 +108,8 @@ function circles_lib_canvas_after_process_main()
      
      var _popups_msg = [] ;
      		 _popups_msg.push( [ 'forms', 'storage.space', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ] ) ;
-     		 _popups_msg.push( [ 'forms', 'svg.editor', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ] ) ;
-     		 _popups_msg.push( [ 'forms', 'dictionary', 5 ] ) ;
-     		 _popups_msg.push( [ 'forms', 'eps.editor', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ] ) ;
      		 _popups_msg.push( [ 'forms', 'bip', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ] ) ;
      		 _popups_msg.push( [ 'forms', 'general.options', 2.1 ] ) ;
-     		 _popups_msg.push( [ 'forms', 'general.options', 2.2 ] ) ;
      		 _popups_msg.push( [ 'forms', 'method', POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ] ) ;
      		 _popups_msg.push( [ 'tools', 'f.z', POPUP_DISPATCHER_UNICAST_EVENT_RELOAD ] ) ;
 

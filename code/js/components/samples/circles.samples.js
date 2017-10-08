@@ -61,6 +61,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( is_32bits_architecture() ? 7 : 9 );
         break ;
@@ -90,6 +91,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( is_32bits_architecture() ? 7 : 9 );
         break ;
@@ -120,6 +122,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( is_32bits_architecture() ? 7 : 9 );
         break ;
@@ -150,6 +153,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( is_32bits_architecture() ? 7 : 9 );
         break ;
@@ -182,6 +186,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( is_32bits_architecture() ? 7 : 9 );
         break ;
@@ -212,6 +217,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( is_32bits_architecture() ? 7 : 9 );
         break ;
@@ -242,6 +248,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( is_32bits_architecture() ? 7 : 9 );
         break ;
@@ -272,6 +279,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( is_32bits_architecture() ? 7 : 9 );
         break ;
@@ -302,6 +310,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( is_32bits_architecture() ? 7 : 9 );
         break ;
@@ -330,6 +339,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( 4 );
         break ;
@@ -358,6 +368,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( 4 );
         break ;
@@ -388,6 +399,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( is_32bits_architecture() ? 7 : 9 );
         break ;
@@ -417,6 +429,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
         _glob_palette_use = _glob_wplane_disk_fill = YES ;
 
         circles_lib_drawentity_set( DRAWENTITY_ISOMETRIC_CIRCLE );
+        circles_lib_process_set( PROCESS_BREADTHFIRST );
         circles_lib_method_set( METHOD_INVERSION );
         circles_lib_depth_set( is_32bits_architecture() ? 7 : 9 );
         break ;
