@@ -11,30 +11,6 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _out_channe
     var _div_id = _idx != UNFOUND ? _glob_popups_array[_idx][1] : "" ;
 		switch( _options[0].toLowerCase() )
 		{
-				case "activate.ifs":
-				if ( CIRCLESformsGENERALOPTIONStabindex == 1 )
-				{
-					_out_msg = "<green>IFS random params have been activated with success</green>" ;
-					_glob_scheduled_rendering_flag = _glob_density_scan_flag = _glob_use_last_pt = YES ;
-					_glob_method = METHOD_ALGEBRAIC, _glob_process == PROCESS_RANDOM ;
-					$( "#CIRCLESgeneraloptionsUSELASTPTcheckbox" ).prop( "disabled", false );
-					$( "#CIRCLESgeneraloptionsUSELASTPTcheckbox" ).prop( "checked", "checked" );
-					$( "#CIRCLESgeneraloptionsSCHEDULEDRENDERINGcheckbox" ).prop( "disabled", false );
-					$( "#CIRCLESgeneraloptionsSCHEDULEDRENDERINGcheckbox" ).prop( "checked", "checked" );
-						
-					$( "#CIRCLESgeneraloptionsDENSITYWEIGHTcheckbox" ).prop( "disabled", false );
-					$( "#CIRCLESgeneraloptionsDENSITYWEIGHTcheckbox" ).prop( "checked", "checked" );
-						
-					circles_lib_extras_htmlctrl_enable( "CIRCLESgeneraloptionsDENSITYWEIGHTcombo", YES ) ;
-					CIRCLESformsGENERALOPTIONSifsrandomOPTIONSmanager();
-          return 1 ;
-				}
-				else
-        {
-          _out_msg = "<orange>IFS random params can be activated when the 'Basics' tab is visible</orange>" ;
-          return 0 ;
-        }
-				break ;
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "forms", _base_id = "general.options" ;
@@ -46,7 +22,7 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _out_channe
         circles_lib_plugin_focus( _div_id );
         return 1;
         break ;
-				case "ifs.last.pt":
+				case "random.ifs.last.pt":
 				if ( CIRCLESformsGENERALOPTIONStabindex == 1 )
 				{
 						if ( is_string( _options[1] ) )
@@ -63,7 +39,37 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _out_channe
            return 0 ;
         }
 				break ;
-				case "ifs.region":
+				case "random.ifs.activate":
+				if ( CIRCLESformsGENERALOPTIONStabindex == 1 )
+				{
+					_out_msg = "<green>IFS random params have been activated with success</green>" ;
+					_glob_scheduled_rendering_flag = _glob_density_scan_flag = _glob_use_last_pt = YES ;
+					_glob_method = METHOD_ALGEBRAIC, _glob_process = PROCESS_RANDOM ;
+					CIRCLESformsGENERALOPTIONSifsrandomOPTIONSmanager();
+          return 1 ;
+				}
+				else
+        {
+          _out_msg = "<orange>IFS random params can be activated when the 'Basics' tab is visible</orange>" ;
+          return 0 ;
+        }
+				break ;
+				case "random.ifs.deactivate":
+				if ( CIRCLESformsGENERALOPTIONStabindex == 1 )
+				{
+					_out_msg = "<green>IFS random params have been activated with success</green>" ;
+					_glob_scheduled_rendering_flag = _glob_density_scan_flag = _glob_use_last_pt = NO ;
+					_glob_method = METHOD_ALGEBRAIC, _glob_process = PROCESS_BREADTHFIRST ;
+					CIRCLESformsGENERALOPTIONSifsrandomOPTIONSmanager();
+          return 1 ;
+				}
+				else
+        {
+          _out_msg = "<orange>IFS random params can be activated when the 'Basics' tab is visible</orange>" ;
+          return 0 ;
+        }
+				break ;
+				case "random.ifs.region":
 				if ( CIRCLESformsGENERALOPTIONStabindex == 1 )
 				{
 						if ( is_string( _options[1] ) )
@@ -92,7 +98,7 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _out_channe
 				}
 				else
         {
-          _out_msg = "<orange>Last point coords can be input when the 'Basics' tab is visible</orange>" ;
+          _out_msg = "<orange>Rendering time can be input when the 'Basics' tab is visible</orange>" ;
           return 0 ;
         }
 				break ;

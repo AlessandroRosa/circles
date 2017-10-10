@@ -257,9 +257,7 @@ function circles_terminal_cmd_plugin()
                   {
                     var _json = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                     var _path = "plugins/" + _json.fam + "/" + _json.def + "/remote.cmds.info" ;
-                    var jqxhr = $.get( _path, function() {
-                    })
-                      .done(function( _data ) {
+                    var jqxhr = $.get( _path, function() {}).done(function( _data ) {
                         _data = _data.split( "\n" ) ;
                         if ( _data.length > 0 )
                         {
@@ -283,10 +281,7 @@ function circles_terminal_cmd_plugin()
                       .fail(function() {
                         circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: missing file remotecmds.info", _par_1, _cmd_tag );
                       })
-                      .always(function() {
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "File remotecmds.info has been loaded with success", _par_1, _cmd_tag );
-                      });
-                    }
+                  }
                   else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: please, set it first", _par_1, _cmd_tag );
                   break ;
                   case "send":

@@ -28,7 +28,7 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
 
     _glob_current_tab['generaloptions'] = _tab_index ;
     var WIDTH = 450, HEIGHT = 0, CLOSE_FN = "CIRCLESformsGENERALOPTIONSclose();", _subset = "forms" ;
-    if ( _tab_index == 1 ) { WIDTH = 430, HEIGHT = 384 ; }
+    if ( _tab_index == 1 ) { WIDTH = 430, HEIGHT = 420 ; }
     else if ( _tab_index.is_one_of( 2, 3 ) ) HEIGHT = 500 ;
     else if ( _tab_index == 4 ) { WIDTH = 400, HEIGHT = 300 ; }
     else if ( _tab_index == 5 ) HEIGHT = 346 ;
@@ -95,12 +95,12 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
          }
 
          HTMLcode += "<td WIDTH=\"25\" CLASS=\"link_rounded\" ALIGN=\"center\" ID=\"GENERALOPTIONSrenderBTN\" ONCLICK=\"javascript:circles_lib_items_switch_to(_glob_items_switch,YES);circles_lib_canvas_process_ask(YES,NO,_glob_target_plane,YES,YES,CHECK);\">Render</td>" ;
-
          HTMLcode += "</tr>" ;
          HTMLcode += "</table>" ;
          HTMLcode += "</td>" ;
          HTMLcode += "</tr>" ;
 
+         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
          HTMLcode += "<tr>" ;
          HTMLcode += "<td VALIGN=\"top\" ID=\"GENERALOPTIONStabCONTAINER\">" ;
 
@@ -143,11 +143,11 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
      var _draw_color_check = 0, _fill_color_check = 0 ;
      for( var _i = 0 ; _i < _items_n ; _i++ )
      {
-         if ( is_circle( _items_array[_i].complex_circle ) )
-         {
-             if ( _items_array[_i].complex_circle.draw ) _draw_color_check++ ;
-             if ( _items_array[_i].complex_circle.fill ) _fill_color_check++ ;
-         }
+        if ( is_circle( _items_array[_i].complex_circle ) )
+        {
+           if ( _items_array[_i].complex_circle.draw ) _draw_color_check++ ;
+           if ( _items_array[_i].complex_circle.fill ) _fill_color_check++ ;
+        }
      }
               
      if ( _draw_color_check != _items_n && _draw_color_check > 0 && _items_n > 0 ) $("#CIRCLEScheckboxDISKSdraw").prop( "indeterminate", 1 );

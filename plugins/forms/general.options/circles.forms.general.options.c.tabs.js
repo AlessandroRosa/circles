@@ -240,7 +240,7 @@ function CIRCLESformsGENERALOPTIONSbasicsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>" ;
         HTMLcode += "<td COLSPAN=\"6\" VALIGN=\"top\">" ;
         HTMLcode += "<table>" ;
-        HTMLcode += "<tr><td>IFS random process</td><td WIDTH=\"30\"></td><td ID=\"CIRCLESlabelLASTPT_OUTMSG\"></td></tr>" ;
+        HTMLcode += "<tr><td ID=\"CIRCLESgeneraloptionsIFSRANDOMlabel\" STYLE=\"color:"+DEFAULT_EDIT_COLOR_DISABLED+";\"><b>IFS Random Process</b></td><td WIDTH=\"30\"></td><td ID=\"CIRCLESgeneraloptionsLASTPT_OUTMSGlabel\"></td></tr>" ;
         HTMLcode += "</table>" ;
         HTMLcode += "</td>" ;
         HTMLcode += "</tr>" ;
@@ -254,7 +254,7 @@ function CIRCLESformsGENERALOPTIONSbasicsTAB()
         HTMLcode += "<td VALIGN=\"top\">" ;
         HTMLcode += "<table>" ;
         HTMLcode += "<tr>" ;
-        HTMLcode += "<td><INPUT TYPE=\"button\" STYLE=\"height:22px;width:105px;\" CLASS=\"button\" VALUE=\"Pick a point\" ONCLICK=\"javascript:_glob_wplaneMOUSEprocSWITCH = _glob_wplaneMOUSEprocSWITCH == MOUSE_NO_PROC_ID ? MOUSE_PICK_LASTPT_PROC_ID : MOUSE_NO_PROC_ID ;this.value=_glob_wplaneMOUSEprocSWITCH==MOUSE_NO_PROC_ID?'Pick a point':'Switch picking off';\"></td>" ;
+        HTMLcode += "<td ID=\"CIRCLESgeneraloptionsPICKUPonepointBTN\" STYLE=\"width:105px;background-color:#F4F4F4;color:"+DEFAULT_EDIT_COLOR_DISABLED+";\" CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_wplaneMOUSEprocSWITCH = _glob_wplaneMOUSEprocSWITCH == MOUSE_NO_PROC_ID ? MOUSE_PICK_LASTPT_PROC_ID : MOUSE_NO_PROC_ID ;this.value=_glob_wplaneMOUSEprocSWITCH==MOUSE_NO_PROC_ID?'Pick a point':'Switch picking off';\">Pick up one point</td>" ;
         HTMLcode += "</tr>" ;
         HTMLcode += "</table>" ;
         HTMLcode += "</td>" ;
@@ -270,7 +270,7 @@ function CIRCLESformsGENERALOPTIONSbasicsTAB()
         HTMLcode += "<td VALIGN=\"top\">" ;
         HTMLcode += "<table>" ;
         HTMLcode += "<tr>" ;
-        HTMLcode += "<td>Render every</td>" ;
+        HTMLcode += "<td>Render again every</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
         HTMLcode += "<td>" ;
         HTMLcode += "<INPUT "+( ( !_check_ifs_random || !_glob_use_last_pt || !_glob_scheduled_rendering_flag ) ?"DISABLED":"")+" TYPE=\"edit\" VALUE=\""+_glob_scheduled_rendering_interval+"\" ID=\"CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeEDIT\" ONKEYUP=\"javascript:CIRCLESformsGENERALOPTIONSeventHANDLER( this.id, event );\" STYLE=\"color:"+(_glob_scheduled_rendering_flag?DEFAULT_EDIT_COLOR_ENABLED:DEFAULT_EDIT_COLOR_DISABLED)+";background-color:"+(_glob_scheduled_rendering_flag?DEFAULT_EDIT_BKCOLOR_ENABLED:DEFAULT_EDIT_BKCOLOR_DISABLED)+";width:30px;text-align:center;\">" ;
@@ -307,19 +307,22 @@ function CIRCLESformsGENERALOPTIONSbasicsTAB()
         HTMLcode += "<td VALIGN=\"top\">Density scan to pick up last pt</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
         HTMLcode += "<td VALIGN=\"top\"><INPUT TYPE=\"checkbox\" "+(_glob_use_last_pt && _check_ifs_random?"":"DISABLED")+" "+( _glob_density_scan_flag ? "CHECKED" : "" )+" ID=\"CIRCLESgeneraloptionsDENSITYWEIGHTcheckbox\" ONCLICK=\"javascript:_glob_density_scan_flag=this.checked;circles_lib_extras_htmlctrl_enable('CIRCLESgeneraloptionsDENSITYWEIGHTcombo',_glob_density_scan_flag);\"></td>" ;
-        HTMLcode += "<td WIDTH=\"20\"></td>" ;
-        HTMLcode += "<td VALIGN=\"top\">Pick from regions with</td>" ;
-        HTMLcode += "<td WIDTH=\"3\"></td>" ;
+        HTMLcode += "</tr>" ;
+        HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
+        HTMLcode += "<tr>" ;
+        HTMLcode += "<td VALIGN=\"top\">Pick up from regions with</td>" ;
+        HTMLcode += "<td WIDTH=\"2\"></td>" ;
         HTMLcode += "<td>" ;
         HTMLcode += "<SELECT "+(_glob_density_scan_flag?"":"DISABLED")+" STYLE=\"color:"+(_glob_density_scan_flag?DEFAULT_EDIT_COLOR_ENABLED:DEFAULT_EDIT_COLOR_DISABLED)+";background-color:"+(_glob_density_scan_flag?DEFAULT_EDIT_BKCOLOR_ENABLED:DEFAULT_EDIT_BKCOLOR_DISABLED)+";\" ONCHANGE=\"javascript:CIRCLESformsGENERALOPTIONSdensityCOMBOchange();\" ID=\"CIRCLESgeneraloptionsDENSITYWEIGHTcombo\">" ;
         var _levels = [ [ 0.1, "Desert", 30 ],
-        								[ 0.5, "Pourly dispersed", 30 ],
-        								[ 1.0, "Unweighted density", 30 ],
+        								[ 0.5, "Pour", 30 ],
+        								[ 1.0, "Unweighted", 30 ],
         								[ 1.3, "Crowded", 30 ],
-        								[ 1.5, "Very crowded", 30 ]
-											] ;
+        								[ 1.5, "Maximal", 30 ] ] ;
 				$.each( _levels, function( _i, _chunk ) { HTMLcode += "<OPTION "+( _chunk[0]==_glob_density_weight_coeff?"SELECTED=\"selected\"":"" )+" VALUE=\""+_chunk[0]+"@"+_chunk[2]+"\">" + _chunk[1] ; } );
         HTMLcode += "</SELECT></td>" ;
+        HTMLcode += "<td WIDTH=\"5\"></td>" ;
+        HTMLcode += "<td VALIGN=\"top\">density</td>" ;
         HTMLcode += "</tr>" ;
         HTMLcode += "</table>" ;
         HTMLcode += "</td>" ;
@@ -327,13 +330,12 @@ function CIRCLESformsGENERALOPTIONSbasicsTAB()
 
         HTMLcode += "<tr><td HEIGHT=\"6\"></td><tr>" ;
         HTMLcode += "<tr><td COLSPAN=\"6\" ALIGN=\"right\" STYLE=\"color:#454545;\">" ;
-				HTMLcode += "<table><tr><td CLASS=\"link_rounded\" STYLE=\"background-color:#F4F4F4;\" ONCLICK=\"javascript:CIRCLESformsGENERALOPTIONSscheduledrenderingAPPLY();\">Apply all settings</td></tr></table>" ;
+				HTMLcode += "<table><tr><td CLASS=\"link_rounded\" STYLE=\"width:110px;background-color:#F4F4F4;\" ONCLICK=\"javascript:CIRCLESformsGENERALOPTIONSscheduledrenderingAPPLY();\">Apply all settings</td></tr></table>" ;
 				HTMLcode += "</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"4\"></td><tr>" ;
         HTMLcode += "<tr><td VALIGN=\"top\" COLSPAN=\"4\"></td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"2\"></td><tr>" ;
         HTMLcode += "</table>" ;
-          
         return HTMLcode ;
 }
 

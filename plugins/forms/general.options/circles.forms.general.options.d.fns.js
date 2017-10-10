@@ -9,20 +9,19 @@ function CIRCLESformsGENERALOPTIONSredirectCOMBOonchange()
 
 function CIRCLESformsGENERALOPTIONSifsrandomOPTIONSmanager()
 {
-    if ( !_glob_use_last_pt )
-    {
-       _glob_scheduled_rendering_flag = NO ;
-       $( "#CIRCLESgeneraloptionsSCHEDULEDRENDERINGcheckbox, #CIRCLESgeneraloptionsDENSITYWEIGHTcheckbox" ).prop( "checked", false );
-    }
-    else _glob_scheduled_rendering_flag = $( "#CIRCLESgeneraloptionsSCHEDULEDRENDERINGcheckbox" ).prop( "checked" ) ? YES : NO ;
-      
-    $( "#CIRCLESgeneraloptionsSCHEDULEDRENDERINGcheckbox" ).prop( "disabled", _glob_use_last_pt ? false : true );
-    $( "#CIRCLESgeneraloptionsDENSITYWEIGHTcheckbox" ).prop( "disabled", _glob_use_last_pt ? false : true );
-    $( "#CIRCLESgeneraloptionsLASTPTcoordsEDIT" ).prop( "disabled", _glob_scheduled_rendering_flag ? false : true );
-      
+  	$( "#CIRCLESgeneraloptionsUSELASTPTcheckbox" ).prop( "disabled", _glob_use_last_pt ? false : true );
+    if ( _glob_use_last_pt ) $( "#CIRCLESgeneraloptionsUSELASTPTcheckbox" ).prop( "checked", false );
+
+	  $( "#CIRCLESgeneraloptionsSCHEDULEDRENDERINGcheckbox" ).prop( "disabled", _glob_density_scan_flag ? false : true );
+    if ( _glob_density_scan_flag ) $( "#CIRCLESgeneraloptionsSCHEDULEDRENDERINGcheckbox" ).prop( "checked", false );
+
     circles_lib_extras_htmlctrl_enable( "CIRCLESgeneraloptionsLASTPTcoordsEDIT", _glob_use_last_pt ) ;
     circles_lib_extras_htmlctrl_enable( "CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeEDIT", _glob_scheduled_rendering_flag ) ;
     circles_lib_extras_htmlctrl_enable( "CIRCLESgeneraloptionsDENSITYWEIGHTcombo", _glob_density_scan_flag ) ;
+    circles_lib_extras_htmlctrl_enable( "CIRCLESgeneraloptionsDENSITYWEIGHTcheckbox", _glob_density_scan_flag ) ;
+
+    $("#CIRCLESgeneraloptionsPICKUPonepointBTN").css( "color", _glob_use_last_pt ? DEFAULT_EDIT_COLOR_ENABLED : DEFAULT_EDIT_COLOR_DISABLED );
+    $("#CIRCLESgeneraloptionsIFSRANDOMlabel").css( "color", _glob_use_last_pt ? DEFAULT_EDIT_COLOR_ENABLED : DEFAULT_EDIT_COLOR_DISABLED );
 
     if ( _glob_scheduled_rendering_flag && _glob_custom_div.innerHTML.length > 0 ) $( "#CIRCLEScustomDIV" ).fadeIn( "slow", function(){} );
     else
@@ -697,22 +696,22 @@ function CIRCLESformsGENERALOPTIONSscheduledrenderingAPPLY()
               var _min_t = 1, _max_t = 15 ;
               var _t = Math.max( 0, safe_int( $( "#" + _ctrl_id ).val(), 0 ) ) ;
               var _fail = ( _t < _min_t || _t > _max_t ) ? 1 : 0 ;
-              if ( _fail ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Time interval does not range from 1 to 15", 'CIRCLESlabelLASTPT_OUTMSG' ) ;
+              if ( _fail ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Time interval does not range from 1 to 15", 'CIRCLESgeneraloptionsLASTPT_OUTMSGlabel' ) ;
               else
               {
                   _glob_scheduled_rendering_interval = _t ;
                   $( "#CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeMINUTESlabel" ).html( "minute" + ( _t == 1 ? "" : "s" ) );
-                  setTimeout( function() { circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "These settings will be applied after the next rendering", 'CIRCLESlabelLASTPT_OUTMSG' ) }, 3500 ) ;
+                  setTimeout( function() { circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "These settings will be applied after the next rendering", 'CIRCLESgeneraloptionsLASTPT_OUTMSGlabel' ) }, 3500 ) ;
               }
 
            		_ctrl_id = "CIRCLESgeneraloptionsLASTPTcoordsEDIT" ;
               var _c = parse_complex_from_string( $( "#" + _ctrl_id ).val() );
               _b_fail = !is_complex( _c ) ;
               if ( !_b_fail ) _glob_last_pt = _c ;
-              circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Last point coords do not assemble into a complex value", 'CIRCLESlabelLASTPT_OUTMSG' ) ;
+              circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Last point coords do not assemble into a complex value", 'CIRCLESgeneraloptionsLASTPT_OUTMSGlabel' ) ;
               
        if ( !_b_fail )
-			 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "All settings have been applied with success", "CIRCLESlabelLASTPT_OUTMSG" ) ;
+			 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "All settings have been applied with success", "CIRCLESgeneraloptionsLASTPT_OUTMSGlabel" ) ;
 		}
 }
 

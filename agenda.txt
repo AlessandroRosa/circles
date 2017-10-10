@@ -12,8 +12,9 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 - srcptset terminal cmd:
   * build point set according to input params
 
-- report all remote ctrl params, for all forms, in read.me.txt file
-  inside each form folder
+- report all remote ctrl params, for all forms, in read.cmds.info file
+  inside each form folder.
+  Last form: general.options
 
 * FORMS
   - method

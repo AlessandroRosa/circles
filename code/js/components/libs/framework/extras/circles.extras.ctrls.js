@@ -1,8 +1,11 @@
 function circles_lib_extras_htmlctrl_enable( _ctrl_id, _b_enabled )
 {
-		$('#'+_ctrl_id).prop( "disabled", _b_enabled ? false : true );
-		$('#'+_ctrl_id).css( "background-color", _b_enabled ? DEFAULT_EDIT_BKCOLOR_ENABLED : DEFAULT_EDIT_BKCOLOR_DISABLED );
-		$('#'+_ctrl_id).css( "color", _b_enabled ? DEFAULT_EDIT_COLOR_ENABLED : DEFAULT_EDIT_COLOR_DISABLED );
+    if ( $('#'+_ctrl_id).get(0) != null )
+    {
+  		$('#'+_ctrl_id).css( "background-color", _b_enabled ? DEFAULT_EDIT_BKCOLOR_ENABLED : DEFAULT_EDIT_BKCOLOR_DISABLED );
+  		$('#'+_ctrl_id).css( "color", _b_enabled ? DEFAULT_EDIT_COLOR_ENABLED : DEFAULT_EDIT_COLOR_DISABLED );
+  		$('#'+_ctrl_id).prop( "disabled", _b_enabled ? false : true );
+    }
 }
 
 function circles_lib_extras_button_enable( _ctrl_id, _checkvar, _focus )
