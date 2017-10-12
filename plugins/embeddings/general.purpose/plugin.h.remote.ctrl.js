@@ -76,9 +76,6 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _out_c
   			 CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);
          return 1 ;
   			 break ;
-				 case "update.params":
-         return 1 ;
-				 break ;
          case "vars.list":
          var _v = [ "gx_n" ] ;
          var _output = [] ;

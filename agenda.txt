@@ -9,12 +9,10 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 * indexsearch (via terminal general.purpose, use a 6-generators group)
 
 ------------ APP -------------------------------------------------
+* [TEST] all listings
+
 - srcptset terminal cmd:
   * build point set according to input params
-
-- report all remote ctrl params, for all forms, in read.cmds.info file
-  inside each form folder.
-  Last form: general.options
 
 * FORMS
   - method
@@ -44,8 +42,6 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 * multicolor textarea (test codemirror)
 
 ------------- MATH -------------------------------------------------
-* [TEST] all listings
-
 * boundary tracer form:
   >> [TEST] jorgensen boundary is not correctly displayed
 

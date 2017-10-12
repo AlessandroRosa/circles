@@ -10,4 +10,4 @@
 "move"="move pop-up window. Example: move LEFT|RIGHT TOP|BOTTOM"
 "new.mobius.map"="insert a new mobius map"
 "refresh"="display the generators list"
-"vars.list"="return the variable identifiers, related to this plug-in"
+"vars.list"="return all declared variable identifiers"

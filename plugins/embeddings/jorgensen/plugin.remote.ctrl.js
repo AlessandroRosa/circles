@@ -43,11 +43,6 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn, _out_channe
 				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
         return 1 ;
 				break ;
-        case "params":
-        if ( _options[1] != null ) $("#PLUGIN_PARAM_ALPHA").val( _options[1] );
-        if ( _options[2] != null ) $("#PLUGIN_PARAM_BETA").val( _options[2] );
-        return 1 ;
-        break ;
 				case "update.params":
         CIRCLESembeddingsJORGENSEN_alpha = _options[1] ;
         $("#PLUGIN_PARAM_ALPHA").val( CIRCLESembeddingsJORGENSEN_alpha );
