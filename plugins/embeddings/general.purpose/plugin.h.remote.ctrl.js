@@ -29,6 +29,8 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _out_c
   			 CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
          return 1 ;
   			 break ;
+         case "add.var":
+         break ;
   			 case "bomb":
   			 CIRCLESembeddingsGENERALPURPOSE_BOMB();
          return 1 ;
@@ -76,6 +78,49 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _out_c
   			 CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);
          return 1 ;
   			 break ;
+         case "type":
+         var _letter = safe_string( _options[1], "" ) ;
+         if ( _letter.length == 1 && _letter.is_one_of( "a", "b", "c", "d" ) )
+         {
+           switch( _letter )
+           {
+              case "a":
+              $( "#PLUGIN_PARAM_A" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
+              break ;
+              case "b":
+              $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
+              break ;
+              case "c":
+              $( "#PLUGIN_PARAM_C" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
+              break ;
+              case "d":
+              $( "#PLUGIN_PARAM_D" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
+              break ;
+              default:
+              break ;
+           }
+         }
+         else
+         {
+           if ( _options[1] != null ) $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) );
+           if ( _options[2] != null ) $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
+           if ( _options[3] != null ) $( "#PLUGIN_PARAM_C" ).val( _options[3].replaceAll( [ ",", ";" ], "" ) );
+           if ( _options[4] != null ) $( "#PLUGIN_PARAM_D" ).val( _options[4].replaceAll( [ ",", ";" ], "" ) );
+           if ( _options[5] != null )
+           {
+              var _cmd = safe_string( _options[5], "" );
+              switch( _cmd )
+              {
+                case "add":
+                CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
+                break ;
+                default: break ;
+              }
+           }
+         }
+         return 1 ;
+  			 break ;
+         break ;
          case "vars.list":
          var _v = [ "gx_n" ] ;
          var _output = [] ;

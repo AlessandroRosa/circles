@@ -19,7 +19,7 @@ palette off
 method algebraic breadthfirst
 config set drawentity pixel
 config set construction limitset
-plugin set embedding mirror.quasifuchsian
+plugin set embeddings mirror.quasifuchsian
 plugin var tau=2.8
 plugin open
 init maps singly

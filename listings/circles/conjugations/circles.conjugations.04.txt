@@ -19,7 +19,7 @@ palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
-plugin set embedding maskit.once
+plugin set embeddings maskit.once
 plugin var mu=1.7i-0.1
 plugin open
 init maps singly

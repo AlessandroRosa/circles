@@ -145,373 +145,371 @@ function circles_terminal_cmd_palette()
          }
          else
          {
-              if ( _params_assoc_array['mode'] != UNDET )
-              {
-                   _glob_palette_use = _params_assoc_array['mode'] ;
-                   var _palette_label = "" ;
-                   switch( _glob_palette_use )
-                   {
-                        case 1 : _palette_label = "Colors palette mode is on" ; break ;
-                        default : _palette_label = "Colors palette mode is off" ; break ;
-                   }
+             if ( _params_assoc_array['mode'] != UNDET )
+             {
+               _glob_palette_use = _params_assoc_array['mode'] ;
+               var _palette_label = "" ;
+               switch( _glob_palette_use )
+               {
+                  case 1 : _palette_label = "Colors palette mode is on" ; break ;
+                  default : _palette_label = "Colors palette mode is off" ; break ;
+               }
                
-                   _palette_label = _palette_label.toLowerCase();
-                   circles_lib_output( _out_channel, DISPATCH_SUCCESS, _palette_label, _par_1, _cmd_tag );
+               _palette_label = _palette_label.toLowerCase();
+               circles_lib_output( _out_channel, DISPATCH_SUCCESS, _palette_label, _par_1, _cmd_tag );
 
-		               if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
-		  						 {
-											_glob_terminal_change = YES ;
-			                circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-									 }
-              }
-              else
-              {
-                   var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-          		     var _items_n = circles_lib_count_items( _items_array );
-                   var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
-                   var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
-                   var _action = _params_assoc_array['action'] ;
-                   switch( _action )
-                   {
-                        case "release":
-                        circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-                        break ;
-                        case "adapt":
-                        if ( _palette_len > 0 )
-                        {
-                            if ( _glob_depth > 1 )
-                            {
-                                var _rgb_start = is_array( _glob_palette_array ) ? _glob_palette_array[0] : "" ;
-                                var _rgb_end = is_array( _glob_palette_array ) ? _glob_palette_array[_palette_len-1] : "" ;
-                                
-                                var _ret_chunk = circles_lib_colors_compute_gradient( _rgb_start, _rgb_end, _glob_depth, YES, _out_channel );
-                                var _ret_id = _ret_chunk[0] ;
-                                _glob_palette_array = _ret_chunk[1] ;
-                                var _ret_msg = _ret_chunk[2] ;
-
-                                if ( is_array( _glob_palette_array ) )
-                                {
-                                    if ( _glob_palette_array.length > 0 )
-                                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette has been adapted to current depth ("+_glob_depth+")", _par_1, _cmd_tag );
-          						              if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
-          						  						{
-          															_glob_terminal_change = YES ;
-          							                circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-          													}
-                                }
-                                else
-                                {
-                                    _b_fail = YES, _error_str = "Fail to resize palette: " + _ret_msg ;
-                                }
-                            }
-                            else circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette can be adapted only if depth is greater than 1", _par_1, _cmd_tag );
-                        }
-                        break ;
-                        case "append":
-                        case "create":
-                        case "resize":
-                        var _steps = safe_int( _params_assoc_array['steps'], 0 ) ;
-                        var _rgb_start = _params_assoc_array['start'], _rgb_end = _params_assoc_array['end'] ;
-                        if ( circles_lib_colors_is_def( _rgb_start ) && circles_lib_colors_is_def( _rgb_end ) )
-                        {
-                        		if ( circles_lib_colors_is_tag( _rgb_start ) ) _rgb_start = circles_lib_colors_get_def_from_tag( _rgb_start );
-                        		if ( circles_lib_colors_is_tag( _rgb_end ) ) _rgb_end = circles_lib_colors_get_def_from_tag( _rgb_end );
-
-		                        var _rgb_start_formats = circles_lib_colors_get_formats( _rgb_start ) ;
-		                        var _rgb_end_formats = circles_lib_colors_get_formats( _rgb_end ) ;
-		                        var _ret_chunk = circles_lib_colors_compute_gradient( _rgb_start_formats[COLOR_RGB_INT], _rgb_end_formats[COLOR_RGB_INT], _steps, YES, _out_channel );
-                            var _ret_id = _ret_chunk[0] ;
-                            var _ret_palette = _ret_chunk[1] ;
-                            var _ret_msg = _ret_chunk[2] ;
-
-		                        if ( _steps == 0 )
-		                        {
-		                             circles_lib_output( _out_channel, DISPATCH_WARNING, "No steps number set: current depth ("+_glob_depth+") is assumed", _par_1, _cmd_tag );
-		                             _steps = _glob_depth ;
-		                        }
-		
-		                        _rgb_start = _params_assoc_array['action'].strcmp( "resize" ) ? _glob_palette_array[0] : ( circles_lib_colors_get_formats( _rgb_start ) )[COLOR_RGB_INT] ;
-		                        _rgb_end = _params_assoc_array['action'].strcmp( "resize" ) ? _glob_palette_array.get_last() : ( circles_lib_colors_get_formats( _rgb_end ) )[COLOR_RGB_INT] ;
-		  
-		                        if ( _params_assoc_array['action'] == "create" ) _glob_palette_array = _ret_palette ;
-		                        else if ( _params_assoc_array['action'] == "append" ) _glob_palette_array = _glob_palette_array.concat( _ret_palette );
-		  
-		                        if ( !is_array( _glob_palette_array ) )
-		                        {
-		                            _b_fail = YES, _error_str = "Fail to perform '"+_action+"' action on current colors palette" ;
-		                        }
-		                        else if ( _glob_palette_array.length > 0 )
-		                        {
-		                            if ( _params_assoc_array['action'] == "create" )
-		                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "A new colors palette has been created", _par_1, _cmd_tag );
-		                            else if ( _params_assoc_array['action'] == "append" )
-		                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "This new colors palette was appended", _par_1, _cmd_tag );
-		                            else if ( _params_assoc_array['action'] == "resize" )
-		                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The current colors palette has been resized", _par_1, _cmd_tag );
-		  
-		  						              if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
-		  						  						{
-		  															_glob_terminal_change = YES ;
-		  							                circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-		  													}
-		                        }
-												}
-												else
-												{
-														var _msg = [] ;
-														if ( !circles_lib_colors_is_def( _rgb_start ) ) _msg.push( "* Unknown start color format" );
-														if ( !circles_lib_colors_is_def( _rgb_end ) ) _msg.push( "* Unknown end color format" );
-														circles_lib_output( _out_channel, DISPATCH_ERROR, _msg.join( _glob_crlf ), _par_1, _cmd_tag );
-												}
-                        break ;
-           case "colorize":
-           if ( _items_n > 0 )
-           {
-    	     		 var _params_array = [] ;
-    					 _params_array['prepromptquestion'] = null ;
-    					 _params_array['promptquestion'] = "Confirm to colorize all "+_dest_ref+"? " ;
-    					 _params_array['yes_fn'] = function()
+               if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+  						 {
+									_glob_terminal_change = YES ;
+                  circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+							 }
+             }
+             else
+             {
+               var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+          		 var _items_n = circles_lib_count_items( _items_array );
+               var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+               var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
+               var _action = _params_assoc_array['action'] ;
+               switch( _action )
                {
-                  var _ret_chunk = circles_lib_colors_colorize( _dest_ref, YES, YES, _out_channel );
-                  var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-                  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "51Unknown error" ;
-                  circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-               }
-    					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize( _dest_ref, YES, YES, _out_channel ); }
-     			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
-           }
-           else
-           {
-               _b_fail = YES, _error_str = "The list of seeds is empty" ;
-           }
-           break ;
-           case "decolorize":
-           if ( _items_n > 0 )
-           {
-    	     		 var _params_array = [] ;
-    					 _params_array['prepromptquestion'] = null ;
-    					 _params_array['promptquestion'] = "Confirm to decolorize all "+_dest_ref+"? " ;
-    					 _params_array['yes_fn'] = function()
-               {
-                  var _ret_chunk = circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel );
-                  var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-                  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "52Unknown error" ;
-                  circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-               }
-    					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel ); }
-     			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
-           }
-           else
-           {
-               _b_fail = YES, _error_str = "The list of seeds is empty" ;
-           }
-           break ;
-                        case "destroy":
-                        if ( _palette_len > 0 )
+                  case "release":
+                  circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                  break ;
+                  case "adapt":
+                  if ( _palette_len > 0 )
+                  {
+                     if ( _glob_depth > 1 )
+                     {
+                        var _rgb_start = is_array( _glob_palette_array ) ? _glob_palette_array[0] : "" ;
+                        var _rgb_end = is_array( _glob_palette_array ) ? _glob_palette_array[_palette_len-1] : "" ;
+                        var _ret_chunk = circles_lib_colors_compute_gradient( _rgb_start, _rgb_end, _glob_depth, YES, _out_channel );
+                        var _ret_id = _ret_chunk[0] ;
+                            _glob_palette_array = _ret_chunk[1] ;
+                        var _ret_msg = _ret_chunk[2] ;
+
+                        if ( is_array( _glob_palette_array ) )
                         {
-                            _glob_palette_array.flush();
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette is now empty", _par_1, _cmd_tag );
-   						              if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
-   						  						{
-   															_glob_terminal_change = YES ;
-   							                circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-   													}
-                        }
-                        else circles_lib_output( _out_channel, DISPATCH_INFO, "Colors palette is already empty", _par_1, _cmd_tag );
-                        break ;
-                        case "invert":
-                        if ( _palette_len > 0 )
-                        {
-                             var _clr, _clr_array ;
-  													 for( var _i = 0 ; _i < _palette_len ; _i++ )
-                             {
-                                  _clr = _glob_palette_array[_i].replaceAll( "rgb(", "").replaceAll( ")", "").replaceAll( " ", "" );
-                                  _clr_array = _clr.split( "," );
-                                  if ( _clr_array.length == 3 )
-                                  {
-                                      _clr_array[0] = safe_int( _clr_array[0], 0 );      _clr_array[0] = 255 - _clr_array[0] ;
-                                      _clr_array[1] = safe_int( _clr_array[1], 0 );      _clr_array[1] = 255 - _clr_array[1] ;
-                                      _clr_array[2] = safe_int( _clr_array[2], 0 );      _clr_array[2] = 255 - _clr_array[2] ;
-                                      _glob_palette_array[_i] = "rgb(" + _clr_array.join( "," ) + ")" ;
-                                  }
-                                  else
-                                  {
-                                      _b_fail = YES, _error_str = "Failed inversion: the color format is not correct (index " + ( _i + 1 ) + " )" ;
-                                      break ;
-                                  }
-                             }
-                             
-                             if ( !_b_fail ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette inverted", _par_1, _cmd_tag );
-  							             if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
-  							  					 {
-  															_glob_terminal_change = YES ;
-  								              circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-  													 }
-                        }
-                        else circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
-                    ÿ   ኘƜeak ;
-                        case "list":
-                        var _digits = safe_int( Math.log( _palette_len ) / Math.log( 10 ), 0 ) + 3 ;
-                        var _html = _params_assoc_array['html'] ;
-                        if ( _palette_len > 0 )
-                        {
-                             circles_lib_output( _out_channel, DISPATCH_STANDARD, "Listing the palette ..", _par_1, _cmd_tag );
-                             var _ordinal = "" ;
-                             var _out_file_txt = "Current palette : "+_palette_len+" entr"+( ( _palette_len == 1 ) ? "y" : "ies" )+_glob_crlf ;
-                             var _out_tagged_txt = "<snow>"+_out_file_txt+"</snow>" ;
-                             var _hex, _line, _tag ;
-  
-                                 for( var _i = 0 ; _i < _palette_len ; _i++ )
-                                 {
-                                      _hex = _glob_palette_array[_i] != null ? circles_lib_colors_rgb_dec_to_hex( _glob_palette_array[_i] ) : "" ;
-                                      if ( _hex.length > 0 )
-                                      {
-                                          _ordinal = (_i+1) + ") " ;
-                                          _ordinal = _ordinal.rpad( " ", _digits );
-                                          _tag = circles_lib_colors_get_formats( _hex )[3] ;
-                                          _line = _ordinal + _glob_palette_array[_i] + " " + _hex + " " + ( _tag.length > 0 ? _tag.lpad( " ", 10 ) : "" );
-                                          _out_file_txt += _line + _glob_crlf ;
-                                          _out_tagged_txt += "<span STYLE=\"color:"+_glob_palette_array[_i]+";\">"+_ordinal+"</span>" + _glob_crlf ;
-  
-                                          if ( _params_assoc_array['plain'] )
-                                          circles_lib_output( _out_channel, DISPATCH_STANDARD, _line, _par_1, _cmd_tag );
-                                          else
-                                          circles_lib_output( _out_channel, DISPATCH_TEXTCOLOR_TYPE, _line, _hex );
-                                      }
-                                 }
-  
-                                 if ( _html ) circles_lib_terminal_color_decode_htmltext( _out_tagged_txt, 'palette', 'right', 'top' );
-                                 else if ( _params_assoc_array['dump'] )
-                                 {
-  																	  _params_assoc_array['dump_array'] = is_array( _params_assoc_array['dump_array'] ) ? _params_assoc_array['dump_array'][0] : "circles.palette.txt" ;
-  																	  var _ret_chunk = circles_lib_dump_data_to_format( _out_file_txt.strip_tags(), _params_assoc_array['dump_array'] );
-  																		var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
-  																		var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation";
-  																		
-  																		if ( _ret_id == 0 )
-  																		{
-  																				_b_fail = YES, _error_str = _ret_msg ;
-  																		}
-  																		else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
-                                 }
-                        }
-                        else circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
-                        break ;
-                         case "remove":
-                       if ( _palette_len == 0 )
-                       {
-                            _b_fail = YES, _error_str = "No entries can be removed: palette is empty" ;
-                       }
-                       else
-                       {
-                            if ( _index_array_chunk.length > 0 )
-                            {
-                                 var _palette_len = _glob_palette_array.length, _cand_index ;
-                                 for( var _i = 0 ; _i < _index_array_chunk.length ; _i++ )
-                                 {
-                                      _cand_index = safe_int( _index_array_chunk[_i], 0 );
-                                      if ( _cand_index <= 0 || _cand_index > _palette_len )
-                                      {
-                                           _b_fail = YES, _error_str = "Index " + _cand_index + " is out of range (1-"+_palette_len+")" ;
-                                           break ;
-                                      }
-                                      else
-                                      {
-                                           _cand_index-- ;
-                                           _glob_palette_array[ _cand_index ] = "kill." + _glob_palette_array[ _cand_index ] ;     
-                                      }
-                                 }
-                                 
-                                 // as rgb values are taken, they will be searched along the palette and then removed
-                                 var _p = _glob_palette_array.length, _clr, _search_token = "kill" ;
-                                 for( var _c = 0 ; _c < _p ; _c++ )
-                                 {
-                                      _clr = _glob_palette_array[_c] ;
-                                      if ( _clr != null )
-                                      {
-                                           if ( _clr.substr( 0, _search_token.length ).toLowerCase() == _search_token.toLowerCase() )
-                                           {
-                                                _glob_palette_array.remove( _c, _c );
-                                                _p = _glob_palette_array.length ;
-                                           }                                           
-                                      }
-                                 }
-                                 
-                                 if ( !_b_fail ) 
-                                 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Entries have been removed", _par_1, _cmd_tag );
-                            }
-                            else
-                            {
-                                _b_fail = YES, _error_str = "No entries can be removed: no input index" ;
-                            }
-                       }
-                        break ;
-                        case "reverse":
-                        if ( _palette_len > 0 )
-                        {
-                            _glob_palette_array.reverse();
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette reversed", _par_1, _cmd_tag );
-        			              if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
-      				  						{
-      													_glob_terminal_change = YES ;
-      					                circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-      											}
-                        }
-                        break ;
-                        case "replace":
-                        var _p_color = _params_assoc_array['color'] ;
-                        if ( _p_color.length > 0 )
-                        {
-                            var _color = ( circles_lib_colors_get_formats( _p_color ) )[COLOR_RGB_HEX] ;
-                            _b_fail = ( color.length == 0 ) ? YES : NO ;
-                            if ( _b_fail ) _error_str = "color format is unknown" ;
-                            else _params_assoc_array['color'] = color ;
-                            if ( _selected_index != UNDET )
-                            {
-                                _glob_palette_array[_selected_index] = _params_assoc_array['color'] ;
-                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Color replaced", _par_1, _cmd_tag );
-                            }
-                            else
-                            {
-                                _b_fail = YES, _error_str = "The input index ("+_selected_index+") for color replacement is not a number" ;
-                            }
+                           if ( _glob_palette_array.length > 0 )
+                           circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette has been adapted to current depth ("+_glob_depth+")", _par_1, _cmd_tag );
+          						     if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+          						     {
+          										_glob_terminal_change = YES ;
+          							      circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+          								 }
                         }
                         else
                         {
-                            _b_fail = YES, _error_str = "Please, input %color% parameter" ;
+                           _b_fail = YES, _error_str = "Fail to resize palette: " + _ret_msg ;
                         }
-                        break ;
-                      case "size":
-                        if ( _palette_len > 0 )
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "Colors palette size is "+_glob_palette_array.length+"", _par_1, _cmd_tag );
-                        else 
-                        circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
-                        break ;
-                        case "tags":
-                        var _entry_max_length = 15 ;
-                        var _cols = Math.floor( _glob_terminal.cols() / _entry_max_length ), _counter = 0, _row = "" ;
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "Default color tags are:", _par_1, _cmd_tag );
-                        for( var _key in def_clrs_tags )
+                     }
+                     else circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette can be adapted only if depth is greater than 1", _par_1, _cmd_tag );
+                  }
+                  break ;
+                  case "append":
+                  case "create":
+                  case "resize":
+                  var _steps = safe_int( _params_assoc_array['steps'], 0 ) ;
+                  var _rgb_start = _params_assoc_array['start'], _rgb_end = _params_assoc_array['end'] ;
+                  if ( circles_lib_colors_is_def( _rgb_start ) && circles_lib_colors_is_def( _rgb_end ) )
+                  {
+                     if ( circles_lib_colors_is_tag( _rgb_start ) ) _rgb_start = circles_lib_colors_get_def_from_tag( _rgb_start );
+                     if ( circles_lib_colors_is_tag( _rgb_end ) ) _rgb_end = circles_lib_colors_get_def_from_tag( _rgb_end );
+
+		                 var _rgb_start_formats = circles_lib_colors_get_formats( _rgb_start ) ;
+		                 var _rgb_end_formats = circles_lib_colors_get_formats( _rgb_end ) ;
+		                 var _ret_chunk = circles_lib_colors_compute_gradient( _rgb_start_formats[COLOR_RGB_INT], _rgb_end_formats[COLOR_RGB_INT], _steps, YES, _out_channel );
+                     var _ret_id = _ret_chunk[0], _ret_palette = _ret_chunk[1], _ret_msg = _ret_chunk[2] ;
+
+		                 if ( _steps == 0 )
+		                 {
+		                    circles_lib_output( _out_channel, DISPATCH_WARNING, "No steps number set: current depth ("+_glob_depth+") is assumed", _par_1, _cmd_tag );
+		                    _steps = _glob_depth ;
+		                 }
+		
+		                 _rgb_start = _params_assoc_array['action'].strcmp( "resize" ) ? _glob_palette_array[0] : ( circles_lib_colors_get_formats( _rgb_start ) )[COLOR_RGB_INT] ;
+		                 _rgb_end = _params_assoc_array['action'].strcmp( "resize" ) ? _glob_palette_array.get_last() : ( circles_lib_colors_get_formats( _rgb_end ) )[COLOR_RGB_INT] ;
+		  
+		                 if ( _params_assoc_array['action'] == "create" ) _glob_palette_array = _ret_palette ;
+		                 else if ( _params_assoc_array['action'] == "append" ) _glob_palette_array = _glob_palette_array.concat( _ret_palette );
+		  
+		                 if ( !is_array( _glob_palette_array ) )
+		                 {
+		                    _b_fail = YES, _error_str = "Fail to perform '"+_action+"' action on current colors palette" ;
+		                 }
+		                 else if ( _glob_palette_array.length > 0 )
+		                 {
+		                    if ( _params_assoc_array['action'] == "create" )
+		                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "A new colors palette has been created", _par_1, _cmd_tag );
+		                    else if ( _params_assoc_array['action'] == "append" )
+		                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "This new colors palette was appended", _par_1, _cmd_tag );
+		                    else if ( _params_assoc_array['action'] == "resize" )
+		                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The current colors palette has been resized", _par_1, _cmd_tag );
+		  
+		  						      if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+		  						  		{
+		  										_glob_terminal_change = YES ;
+		  							      circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+		  									}
+		                 }
+									}
+									else
+									{
+										 var _msg = [] ;
+										 if ( !circles_lib_colors_is_def( _rgb_start ) ) _msg.push( "* Unknown start color format" );
+									   if ( !circles_lib_colors_is_def( _rgb_end ) ) _msg.push( "* Unknown end color format" );
+										 circles_lib_output( _out_channel, DISPATCH_ERROR, _msg.join( _glob_crlf ), _par_1, _cmd_tag );
+									}
+                  break ;
+                  case "colorize":
+                  if ( _items_n > 0 )
+                  {
+           	     		 var _params_array = [] ;
+           					 _params_array['prepromptquestion'] = null ;
+           					 _params_array['promptquestion'] = "Confirm to colorize all "+_dest_ref+"? " ;
+           					 _params_array['yes_fn'] = function()
+                     {
+                        var _ret_chunk = circles_lib_colors_colorize( _dest_ref, YES, YES, _out_channel );
+                        var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
+                        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "51Unknown error" ;
+                        circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                     }
+
+          					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize( _dest_ref, YES, YES, _out_channel ); }
+           			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+                  }
+                  else
+                  {
+                     _b_fail = YES, _error_str = "The list of seeds is empty" ;
+                  }
+                  break ;
+                  case "decolorize":
+                  if ( _items_n > 0 )
+                  {
+            	     	 var _params_array = [] ;
+            				 _params_array['prepromptquestion'] = null ;
+            				 _params_array['promptquestion'] = "Confirm to decolorize all "+_dest_ref+"? " ;
+            				 _params_array['yes_fn'] = function()
+                     {
+                        var _ret_chunk = circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel );
+                        var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
+                        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "52Unknown error" ;
+                        circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                     }
+            				 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel ); }
+             			   circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+                  }
+                  else
+                  {
+                     _b_fail = YES, _error_str = "The list of seeds is empty" ;
+                  }
+                  break ;
+                  case "destroy":
+                  if ( _palette_len > 0 )
+                  {
+                     _glob_palette_array.flush();
+                     circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette is now empty", _par_1, _cmd_tag );
+   						       if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+   						  	   {
+   									  	_glob_terminal_change = YES ;
+   							        circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+   									 }
+                  }
+                  else circles_lib_output( _out_channel, DISPATCH_INFO, "Colors palette is already empty", _par_1, _cmd_tag );
+                  break ;
+                  case "invert":
+                  if ( _palette_len > 0 )
+                  {
+                     var _clr, _clr_array ;
+  									 for( var _i = 0 ; _i < _palette_len ; _i++ )
+                     {
+                        _clr = _glob_palette_array[_i].replaceAll( "rgb(", "").replaceAll( ")", "").replaceAll( " ", "" );
+                        _clr_array = _clr.split( "," );
+                        if ( _clr_array.length == 3 )
                         {
-                             if ( _key.includes( "tag." ) )
-                             {
-                                 _p_color = def_clrs_tags[_key] ;
-                                 _key = _key.replaceAll( "tag.", "" );
-                                  var _entry = "<"+_key+">"+_key+"</"+_key+">" ;
-                                      _entry += ( new String( " " ) ).repeat( _entry_max_length - _key.length );
-                                 _row += _entry ;
-                                 _counter++ ;
-                                 if ( _counter > 0 && ( _counter % _cols == 0 ) )
-                                 {
-                                     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
-                                     _row = "" ;
-                                 }
-                             }
+                           _clr_array[0] = safe_int( _clr_array[0], 0 ); _clr_array[0] = 255 - _clr_array[0] ;
+                           _clr_array[1] = safe_int( _clr_array[1], 0 ); _clr_array[1] = 255 - _clr_array[1] ;
+                           _clr_array[2] = safe_int( _clr_array[2], 0 ); _clr_array[2] = 255 - _clr_array[2] ;
+                           _glob_palette_array[_i] = "rgb(" + _clr_array.join( "," ) + ")" ;
                         }
-                        break ;
-								        default: break ;
-                   }
-              }
+                        else
+                        {
+                           _b_fail = YES, _error_str = "Failed inversion: the color format is not correct (index " + ( _i + 1 ) + " )" ;
+                           break ;
+                        }
+                     }
+                             
+                     if ( !_b_fail ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette inverted", _par_1, _cmd_tag );
+  							     if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+  							  	 {
+  											_glob_terminal_change = YES ;
+  								      circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+  									 }
+                  }
+                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
+                  break ;
+                  case "list":
+                  var _digits = safe_int( Math.log( _palette_len ) / Math.log( 10 ), 0 ) + 3 ;
+                  var _html = _params_assoc_array['html'] ;
+                  if ( _palette_len > 0 )
+                  {
+                     circles_lib_output( _out_channel, DISPATCH_STANDARD, "Listing the palette ..", _par_1, _cmd_tag );
+                     var _ordinal = "" ;
+                     var _out_file_txt = "Current palette : "+_palette_len+" entr"+( ( _palette_len == 1 ) ? "y" : "ies" )+_glob_crlf ;
+                     var _out_tagged_txt = "<snow>"+_out_file_txt+"</snow>" ;
+                     var _hex, _line, _tag ;
+  
+                     for( var _i = 0 ; _i < _palette_len ; _i++ )
+                     {
+                        _hex = _glob_palette_array[_i] != null ? circles_lib_colors_rgb_dec_to_hex( _glob_palette_array[_i] ) : "" ;
+                        if ( _hex.length > 0 )
+                        {
+                          _ordinal = (_i+1) + ") " ;
+                          _ordinal = _ordinal.rpad( " ", _digits );
+                          _tag = circles_lib_colors_get_formats( _hex )[3] ;
+                          _line = _ordinal + _glob_palette_array[_i] + " " + _hex + " " + ( _tag.length > 0 ? _tag.lpad( " ", 10 ) : "" );
+                          _out_file_txt += _line + _glob_crlf ;
+                          _out_tagged_txt += "<span STYLE=\"color:"+_glob_palette_array[_i]+";\">"+_ordinal+"</span>" + _glob_crlf ;
+  
+                          if ( _params_assoc_array['plain'] )
+                          circles_lib_output( _out_channel, DISPATCH_STANDARD, _line, _par_1, _cmd_tag );
+                          else
+                          circles_lib_output( _out_channel, DISPATCH_TEXTCOLOR_TYPE, _line, _hex );
+                        }
+                     }
+  
+                     if ( _html ) circles_lib_terminal_color_decode_htmltext( _out_tagged_txt, 'palette', 'right', 'top' );
+                     else if ( _params_assoc_array['dump'] )
+                     {
+    									  _params_assoc_array['dump_array'] = is_array( _params_assoc_array['dump_array'] ) ? _params_assoc_array['dump_array'][0] : "circles.palette.txt" ;
+  										  var _ret_chunk = circles_lib_dump_data_to_format( _out_file_txt.strip_tags(), _params_assoc_array['dump_array'] );
+  											var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
+  	   									var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation";
+  																		
+  		  								if ( _ret_id == 0 )
+  											{
+  												_b_fail = YES, _error_str = _ret_msg ;
+  			   							}
+  											else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+                     }
+                  }
+                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
+                  break ;
+                  case "remove":
+                  if ( _palette_len == 0 )
+                  {
+                      _b_fail = YES, _error_str = "No entries can be removed: palette is empty" ;
+                  }
+                  else
+                  {
+                     if ( _index_array_chunk.length > 0 )
+                     {
+                        var _palette_len = _glob_palette_array.length, _cand_index ;
+                        for( var _i = 0 ; _i < _index_array_chunk.length ; _i++ )
+                        {
+                           _cand_index = safe_int( _index_array_chunk[_i], 0 );
+                           if ( _cand_index <= 0 || _cand_index > _palette_len )
+                           {
+                              _b_fail = YES, _error_str = "Index " + _cand_index + " is out of range (1-"+_palette_len+")" ;
+                              break ;
+                           }
+                           else
+                           {
+                              _cand_index-- ;
+                              _glob_palette_array[ _cand_index ] = "kill." + _glob_palette_array[ _cand_index ] ;
+                           }
+                        }
+                                 
+                        // as rgb values are taken, they will be searched along the palette and then removed
+                        var _p = _glob_palette_array.length, _clr, _search_token = "kill" ;
+                        for( var _c = 0 ; _c < _p ; _c++ )
+                        {
+                           _clr = _glob_palette_array[_c] ;
+                           if ( _clr != null )
+                           {
+                              if ( _clr.substr( 0, _search_token.length ).toLowerCase() == _search_token.toLowerCase() )
+                              {
+                                _glob_palette_array.remove( _c, _c );
+                                _p = _glob_palette_array.length ;
+                              }
+                           }
+                        }
+                                 
+                        if ( !_b_fail )
+                        circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Entries have been removed", _par_1, _cmd_tag );
+                     }
+                     else
+                     {
+                        _b_fail = YES, _error_str = "No entries can be removed: no input index" ;
+                     }
+                  }
+                  break ;
+                  case "reverse":
+                  if ( _palette_len > 0 )
+                  {
+                    _glob_palette_array.reverse();
+                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette reversed", _par_1, _cmd_tag );
+        			      if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+      				  		{
+      								_glob_terminal_change = YES ;
+      					      circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+      							}
+                  }
+                  break ;
+                  case "replace":
+                  var _p_color = _params_assoc_array['color'] ;
+                  if ( _p_color.length > 0 )
+                  {
+                     var _color = ( circles_lib_colors_get_formats( _p_color ) )[COLOR_RGB_HEX] ;
+                     _b_fail = ( color.length == 0 ) ? YES : NO ;
+                     if ( _b_fail ) _error_str = "color format is unknown" ;
+                     else _params_assoc_array['color'] = color ;
+                     if ( _selected_index != UNDET )
+                     {
+                        _glob_palette_array[_selected_index] = _params_assoc_array['color'] ;
+                        circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Color replaced", _par_1, _cmd_tag );
+                     }
+                     else
+                     {
+                        _b_fail = YES, _error_str = "The input index ("+_selected_index+") for color replacement is not a number" ;
+                     }
+                  }
+                  else
+                  {
+                     _b_fail = YES, _error_str = "Please, input %color% parameter" ;
+                  }
+                  break ;
+                  case "size":
+                  if ( _palette_len > 0 )
+                  circles_lib_output( _out_channel, DISPATCH_INFO, "Colors palette size is "+_glob_palette_array.length+"", _par_1, _cmd_tag );
+                  else
+                  circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
+                  break ;
+                  case "tags":
+                  var _entry_max_length = 15 ;
+                  var _cols = Math.floor( _glob_terminal.cols() / _entry_max_length ), _counter = 0, _row = "" ;
+                  circles_lib_output( _out_channel, DISPATCH_INFO, "Default color tags are:", _par_1, _cmd_tag );
+                  for( var _key in def_clrs_tags )
+                  {
+                     if ( _key.includes( "tag." ) )
+                     {
+                        _p_color = def_clrs_tags[_key] ;
+                        _key = _key.replaceAll( "tag.", "" );
+                        var _entry = "<"+_key+">"+_key+"</"+_key+">" ;
+                            _entry += ( new String( " " ) ).repeat( _entry_max_length - _key.length );
+                        _row += _entry ;
+                        _counter++ ;
+                        if ( _counter > 0 && ( _counter % _cols == 0 ) )
+                        {
+                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+                           _row = "" ;
+                        }
+                     }
+                  }
+                  break ;
+								  default: break ;
+               }
+             }
          }
      }
      else

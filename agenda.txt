@@ -9,6 +9,26 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 * indexsearch (via terminal general.purpose, use a 6-generators group)
 
 ------------ APP -------------------------------------------------
+* all listings
+  cmd "plugin"
+  - revisit all calls as sampled here
+plugin set embeddings general.purpose
+plugin open
+plugin send type a (1-i)/sqrt(2)
+plugin send type b 0
+plugin send type c 0
+plugin send type d (1+i)/sqrt(2)
+plugin send add.mobius.map
+
+- update help file with the new syntax and also include
+this example, where params are quickly typed and saved
+plugin send type 1 2 0 1 add
+
+- manage the remote ctrl cmd "add.var"
+  
+
+* EMBEDDING / general.purpose
+
 * [TEST] all listings
 
 - srcptset terminal cmd:
