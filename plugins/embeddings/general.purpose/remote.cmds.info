@@ -10,4 +10,7 @@
 "move"="move pop-up window. Example: move LEFT|RIGHT TOP|BOTTOM"
 "new.mobius.map"="insert a new mobius map"
 "refresh"="display the generators list"
-"vars.list"="return all declared variable identifiers"
+"var.add"="register a new var and binds it to a complex value. Example: var.add _a 1+i"
+"var.update"="update the complex value of a registered var. Example: var.update _a 0.5i"
+"var.delete"="delete a value from the current list. Example: var.delete _a"
+"var.list"="return all declared variables and values"

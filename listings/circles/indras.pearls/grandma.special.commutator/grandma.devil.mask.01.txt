@@ -20,9 +20,9 @@ method algebraic breadthfirst
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings grandma.4.alarm
-plugin var a=1/2
-plugin var b=2
-plugin var p=1
+plugin send var.add a=1/2
+plugin send var.add b=2
+plugin send var.add p=1
 plugin open
 init maps singly
 config set diskfill no

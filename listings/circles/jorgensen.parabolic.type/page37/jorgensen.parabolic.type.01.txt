@@ -19,16 +19,16 @@ method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings general.purpose
-plugin var g1_1=1
-plugin var g1_2=1
-plugin var g1_3=0
-plugin var g1_4=1
-plugin var g2_1=0
-plugin var g2_2=-i*e^(-i*$theta)
-plugin var g2_3=-i*e^(i*$theta)
-plugin var g2_4=2*$k*e^(i*$theta)
-plugin var v1=[$k@1/2]
-plugin var v2=[$theta@PI]
+plugin send var.add g1_1=1
+plugin send var.add g1_2=1
+plugin send var.add g1_3=0
+plugin send var.add g1_4=1
+plugin send var.add g2_1=0
+plugin send var.add g2_2=-i*e^(-i*$theta)
+plugin send var.add g2_3=-i*e^(i*$theta)
+plugin send var.add g2_4=2*$k*e^(i*$theta)
+plugin send var.add v1=[$k@1/2]
+plugin send var.add v2=[$theta@PI]
 plugin open
 init maps singly
 config set diskfill no

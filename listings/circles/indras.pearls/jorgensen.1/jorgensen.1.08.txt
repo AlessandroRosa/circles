@@ -19,9 +19,9 @@ method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings jorgensen
-plugin var a=1.64213876-0.76658841i
-plugin var b=2
-plugin var p=2
+plugin send var.add a=1.64213876-0.76658841i
+plugin send var.add b=2
+plugin send var.add p=2
 plugin open
 init maps singly
 probability set 0.2 0.3 0.2 0.3

@@ -11,6 +11,22 @@ var CIRCLESembeddingsGENERALPURPOSEpresets = [], CIRCLESembeddingsGENERALPURPOSE
 var CIRCLESembeddingsGENERALPURPOSEform_flag = 0 ; // MAXI = 0, MINI = 1
 var CIRCLESembeddingsGENERALPURPOSE_ADD = 1, CIRCLESembeddingsGENERALPURPOSE_UPDATE = 2;
 var CIRCLESembeddingsGENERALPURPOSE_DELETE = 3, CIRCLESembeddingsGENERALPURPOSE_NEW = 4 ;
+        var CIRCLESembeddingsGENERALPURPOSEillegals = [ "abs","acos","add","arg","asin","atan","atan2",
+                          "bignumber","boolean","ceil","clone",
+                          "combinations","compare","compile","complex","concat",
+                          "conj","cos","cosh","cot","coth","csc","csch","cube",
+                          "deepEqual","det","diag","distribution","divide","dotDivide",
+                          "dotMultiply","dotPow","equal","eval","exp","eye","factorial",
+                          "filter","fix","flatten","floor","forEach","format","gcd","help",
+                          "im","import","index","inv","larger","largerEq","lcm","log",
+                          "log10","map","matrix","max","mean","median","min","mod","multiply",
+                          "norm","number","ones","parse","parser","permutations","pickRandom",
+                          "pow","print","prod","random","randomInt","range","re","resize",
+                          "round","sec","sech","select","sign","sin","sinh","size","smaller",
+                          "smallerEq","sort","sqrt","square","squeeze","std","string","subset",
+                          "subtract","sum","tan","tanh","to","transpose","typeof","unaryMinus",
+                          "unaryPlus","unequal","unit","var","xgcd","zeros" ] ;
+
 var CIRCLESembeddingsGENERALPURPOSEremotectrlCOMMANDS = { "add.mobius.map" : "<lightblue>Add a new mobius map</lightblue> <yellow>Example: addmobius 1 2+i 0 1</yellow>",
 																													"bomb" : "<lightblue>delete the current list of mobius maps</lightblue>",
 																													"capture.seeds" : "<lightblue>the seeds set is copied into this plug-in</lightblue>",
@@ -22,5 +38,4 @@ var CIRCLESembeddingsGENERALPURPOSEremotectrlCOMMANDS = { "add.mobius.map" : "<l
 																													"new.mobius.map" : "<lightblue>clean edit boxes</lightblue>",
 																													"refresh" : "<lightblue>refresh the current list of mobius maps</lightblue>"
 																												} ;
-var CIRCLESembeddingsGENERALPURPOSEopenPARAMS = { 'move' : { 'desc' : 'move the popup to the input position', 'values' : 'yes|no|left,top,right,bottom' }
-                                                } ;
+var CIRCLESembeddingsGENERALPURPOSEopenPARAMS = { 'move' : { 'desc' : 'move the popup to the input position', 'values' : 'yes|no|left,top,right,bottom' } } ;

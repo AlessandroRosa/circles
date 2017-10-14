@@ -19,9 +19,9 @@ method algebraic breadthfirst
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings grandma.4.alarm
-plugin var a=2*cos(PI/10)
-plugin var b=2*cos(PI/10)
-plugin var p=2
+plugin send var.add a=2*cos(PI/10)
+plugin send var.add b=2*cos(PI/10)
+plugin send var.add p=2
 plugin open
 init maps singly
 repetends set A [AB:3]

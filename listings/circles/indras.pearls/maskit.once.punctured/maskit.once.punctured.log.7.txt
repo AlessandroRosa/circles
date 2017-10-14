@@ -18,7 +18,7 @@ method algebraic breadthfirst
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings maskit.once
-plugin var mu=log(7)*i
+plugin send var.add mu=log(7)*i
 plugin open
 init maps singly
 gensset flush

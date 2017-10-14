@@ -17,18 +17,18 @@ method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings general.purpose
-plugin var g1_1=1
-plugin var g1_2=1
-plugin var g1_3=0
-plugin var g1_4=1
-plugin var g2_1=0
-plugin var g2_2=-1
-plugin var g2_3=1
-plugin var g2_4=0
-plugin var g3_1=1
-plugin var g3_2=(1+sqrt(15)*i)/2
-plugin var g3_3=0
-plugin var g3_4=1
+plugin send var.add g1_1=1
+plugin send var.add g1_2=1
+plugin send var.add g1_3=0
+plugin send var.add g1_4=1
+plugin send var.add g2_1=0
+plugin send var.add g2_2=-1
+plugin send var.add g2_3=1
+plugin send var.add g2_4=0
+plugin send var.add g3_1=1
+plugin send var.add g3_2=(1+sqrt(15)*i)/2
+plugin send var.add g3_3=0
+plugin send var.add g3_4=1
 plugin open
 init maps singly
 config set diskfill no

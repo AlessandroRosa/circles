@@ -19,9 +19,9 @@ method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings grandma.4.alarm
-plugin var a=1.785+0.73852i
-plugin var b=3
-plugin var p=2
+plugin send var.add a=1.785+0.73852i
+plugin send var.add b=3
+plugin send var.add p=2
 plugin open
 init maps singly
 probability set 0.33 0.17 0.33 0.17

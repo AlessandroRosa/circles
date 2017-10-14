@@ -11,6 +11,9 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 ------------ APP -------------------------------------------------
 * all listings
   cmd "plugin"
+  - put 'plugin open' after 'plugin set'
+  - use 'update.params' to set up the plugin value(s) for generators
+  - [only general.purpose plugin] test cmds 'var.add', 'var.update', 'var.delete', 'var.list'
   - revisit all calls as sampled here
 plugin set embeddings general.purpose
 plugin open
@@ -23,9 +26,6 @@ plugin send add.mobius.map
 - update help file with the new syntax and also include
 this example, where params are quickly typed and saved
 plugin send type 1 2 0 1 add
-
-- manage the remote ctrl cmd "add.var"
-  
 
 * EMBEDDING / general.purpose
 

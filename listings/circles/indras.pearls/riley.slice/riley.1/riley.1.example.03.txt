@@ -20,7 +20,7 @@ method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings riley
-plugin var rho=0.5i-0.5
+plugin send var.add rho=0.5i-0.5
 plugin open
 init maps singly
 config set diskfill no

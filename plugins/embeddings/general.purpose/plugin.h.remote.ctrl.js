@@ -29,8 +29,6 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _out_c
   			 CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
          return 1 ;
   			 break ;
-         case "add.var":
-         break ;
   			 case "bomb":
   			 CIRCLESembeddingsGENERALPURPOSE_BOMB();
          return 1 ;
@@ -97,6 +95,8 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _out_c
               $( "#PLUGIN_PARAM_D" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
               break ;
               default:
+       			  _out_msg = "<orange>Unknown parameter letter '"+_letter+"'</orange>" ;
+              return 0 ;
               break ;
            }
          }
@@ -121,14 +121,158 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _out_c
          return 1 ;
   			 break ;
          break ;
-         case "vars.list":
-         var _v = [ "gx_n" ] ;
-         var _output = [] ;
-             _output.push( "General Purpose Plug-in --- Internal variables\n" ) ;
-             _output.push( "Each parameter shall be mentioned in the form g<generator-index>_<parameter-index>" ) ;
-             _output.push( "<generator-index> shall be strictly positive, i.e., > 0" ) ;
-             _output.push( "<parameter-index> shall range from 1 to 4, bounds included" ) ;
-         return _output.join( "\n" ) ;
+         case "var.add":
+         var _var_id = safe_string( _options[1], "" ), _var_value = safe_string( _options[1], "" );
+         if ( _var_id.length > 0 && _var_value.length > 0 )
+         {
+            if ( !CIRCLESembeddingsGENERALPURPOSE_VAR_CHECK_SYNTAX( _var_id ) )
+            {
+               var _out_msg = "The candidate var name '" + _var_id + "' does not match the correct pattern. So check" + _glob_crlf ;
+                   _out_msg += _glob_crlf + "* that var name starts with '_', for example : _a ;" ;
+                   _out_msg += _glob_crlf + "* to use alphanumeric chars + underscore only ;" ;
+               return 0 ;
+            }
+            else if ( CIRCLESembeddingsGENERALPURPOSEillegals.includes_i( _var_id.replaceAll( "_", "" ) ) )
+            {
+                 var _out_msg = "The candidate var name '" + _var_id + "' is a reserved keyword" ;
+                 return 0 ;
+            }
+            else
+            {
+              var _v_complex = circles_lib_math_parse_formula( _var_value );
+              _v_complex = parse_complex_from_string( _v_complex + "" );
+
+              if ( !is_complex( _v_complex ) )
+              {
+                  _out_msg = "<orange>The input var value of "+_var_id+" is not a complex formula.</orange>" ;
+                  return 0 ;
+              }
+              else
+              {
+                  if ( !is_array( _plugin_rec_var_vals[''+_var_id] ) ) _plugin_rec_var_vals[''+_var_id] = [] ;
+                  if ( !_plugin_rec_var_vals[''+_var_id].includes( _var_value ) )
+                  _plugin_rec_var_vals[''+_var_id].push( _var_value );
+                  else
+                  {
+              			 _out_msg = "<orange>Already existing value for var '"+_var_id+"'</orange>" ;
+                     return 0 ;
+                  }
+                  _out_msg = "<green>Var "+_var_id+" has been added with success</green>" ;
+                  return 1 ;
+              }
+            }
+         }
+         else
+         {
+      			 _out_msg = "<orange>Can't add the var to the listing: please, input both var ID and VALUE</orange>" ;
+             return 0 ;
+         }
+         break ;
+         case "var.update":
+         var _var_id = safe_string( _options[1], "" ), _var_value = safe_string( _options[1], "" );
+         if ( _var_id.length > 0 && _var_value.length > 0 )
+         {
+            if ( !CIRCLESembeddingsGENERALPURPOSE_VAR_CHECK_SYNTAX( _var_id ) )
+            {
+               var _out_msg = "The candidate var name '" + _var_id + "' does not match the correct pattern. So check" + _glob_crlf ;
+                   _out_msg += _glob_crlf + "* that var name starts with '_', for example : _a ;" ;
+                   _out_msg += _glob_crlf + "* to use alphanumeric chars + underscore only ;" ;
+               return 0 ;
+            }
+            else if ( CIRCLESembeddingsGENERALPURPOSEillegals.includes_i( _var_id.replaceAll( "_", "" ) ) )
+            {
+                 var _out_msg = "The candidate var name '" + _var_id + "' is a reserved keyword" ;
+                 return 0 ;
+            }
+            else
+            {
+              var _v_complex = circles_lib_math_parse_formula( _var_value );
+              _v_complex = parse_complex_from_string( _v_complex + "" );
+
+              if ( !is_complex( _v_complex ) )
+              {
+                _out_msg = "<orange>The input var value of "+_var_id+" is not a complex formula.</orange>" ;
+                return 0 ;
+              }
+              else
+              {
+                if ( !is_array( _plugin_rec_var_vals[''+_var_id] ) )
+                {
+                  _out_msg = "<orange>Can't update: missing declaration of var "+_var_id+".</orange>" ;
+                  return 0 ;
+                }
+                else
+                {
+                  _plugin_rec_var_vals[''+_var_id][0] = _var_value ;
+                  _out_msg = "<green>Var "+_var_id+" has been updated to '"+_var_value+"' with success</green>" ;
+                  return 1 ;
+                }
+              }
+            }
+         }
+         else
+         {
+      			_out_msg = "<orange>Can't update the var inside the list: please, input both var ID and VALUE</orange>" ;
+            return 0 ;
+         }
+         break ;
+         case "var.delete":
+         var _var_id = safe_string( _options[1], "" );
+         if ( _var_id.length > 0 )
+         {
+            if ( !is_array( _plugin_rec_var_vals[''+_var_id] ) )
+            {
+               _out_msg = "<orange>Can't delete: missing declaration of var "+_var_id+".</orange>" ;
+               return 0 ;
+            }
+            else
+            {
+               _plugin_rec_var_vals.remove_key( _var_id );
+               var _exists = _plugin_rec_var_vals[ _var_id ] == null ? 0 : 1 ;
+               _out_msg = _exists ? "<orange>Fail to remove var '"+_var_id+"'</orange>" : "<green>Var '"+_var_id+"' has been removed with success</green>" ;
+               return _exists ? 0 : 1 ;
+            }
+         }
+         else
+         {
+      			 _out_msg = "<orange>Can't delete the var from the list: please, input var ID</orange>" ;
+             return 0 ;
+         }
+         break ;
+         case "var.list":
+         var _keys = _plugin_rec_var_vals.keys_associative();
+         if ( _keys.length == 0 )
+         {
+     			  _out_msg = "<orange>The variables list is currently empty</orange>" ;
+            return 0 ;
+         }
+         else
+         {
+            switch( _out_channel )
+            {
+                case OUTPUT_TERMINAL:
+                var _html = "<table>" ;
+                    _keys.forEach( function( _element, _index ) { _html += "<tr><td STYLE=\"color:yellow;\">"+_element+"</td><td></td><td STYLE=\"color:white;\">"+_plugin_rec_var_vals[_element]+"</td></tr>" ; }; );
+                    _html += "</table>" ;
+                circles_lib_terminal_html_display( _glob_terminal, _html );
+                return 1 ;
+                break ;
+                case OUTPUT_SCRIPT:
+                break ;
+                case OUTPUT_CONSOLE:
+                var _html = "<table>" ;
+                    _keys.forEach( function( _element, _index ) { _html += "<tr><td STYLE=\"color:yellow;\">"+_element+"</td><td></td><td STYLE=\"color:white;\">"+_plugin_rec_var_vals[_element]+"</td></tr>" ; }; );
+                    _html += "</table>" ;
+                circles_lib_terminal_html_display( _glob_terminal, _html );
+                return 1 ;
+                break ;
+                default:
+         			  _out_msg = "<orange>Can't display the variables list: unknown output channel</orange>" ;
+                return 0 ;
+                break ;
+            }
+         }
+         return 1 ;
          break ;
   			 default:
   			 _out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;

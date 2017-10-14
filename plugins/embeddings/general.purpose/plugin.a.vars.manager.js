@@ -32,22 +32,6 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( _question, _silent )
     else
     {
         // this is the functions list of mathjs component
-        var _illegals = [ "abs","acos","add","arg","asin","atan","atan2",
-                          "bignumber","boolean","ceil","clone",
-                          "combinations","compare","compile","complex","concat",
-                          "conj","cos","cosh","cot","coth","csc","csch","cube",
-                          "deepEqual","det","diag","distribution","divide","dotDivide",
-                          "dotMultiply","dotPow","equal","eval","exp","eye","factorial",
-                          "filter","fix","flatten","floor","forEach","format","gcd","help",
-                          "im","import","index","inv","larger","largerEq","lcm","log",
-                          "log10","map","matrix","max","mean","median","min","mod","multiply",
-                          "norm","number","ones","parse","parser","permutations","pickRandom",
-                          "pow","print","prod","random","randomInt","range","re","resize",
-                          "round","sec","sech","select","sign","sin","sinh","size","smaller",
-                          "smallerEq","sort","sqrt","square","squeeze","std","string","subset",
-                          "subtract","sum","tan","tanh","to","transpose","typeof","unaryMinus",
-                          "unaryPlus","unequal","unit","var","xgcd","zeros" ] ;
-
         if ( !CIRCLESembeddingsGENERALPURPOSE_VAR_CHECK_SYNTAX( _var_id ) )
         {
              var _msg = "The candidate var name '" + _var_id + "' does not match the correct pattern. So check" + _glob_crlf ;
@@ -56,7 +40,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( _question, _silent )
              if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
              return NO ;
         }
-        else if ( _illegals.includes_i( _var_id.replaceAll( "_", "" ) ) )
+        else if ( CIRCLESembeddingsGENERALPURPOSEillegals.includes_i( _var_id.replaceAll( "_", "" ) ) )
         {
              var _msg = "The candidate var name '" + _var_id + "' is a reserved keyword" ;
              if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );

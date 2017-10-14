@@ -20,8 +20,8 @@ method algebraic breadthfirst
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings jorgensen
-plugin var a=0.2i
-plugin var b=2
+plugin send var.add a=0.2i
+plugin send var.add b=2
 plugin open
 init maps singly
 config set diskfill no

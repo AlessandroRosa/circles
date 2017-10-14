@@ -19,16 +19,16 @@ method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings general.purpose
-plugin var g1_1=1
-plugin var g1_2=1
-plugin var g1_3=0
-plugin var g1_4=1
-plugin var g2_1=0
-plugin var g2_2=-1/$sigma
-plugin var g2_3=$sigma
-plugin var g2_4=$lambda
-plugin var v1=[$sigma@2*cos(PI/(256i))]
-plugin var v2=[$lambda@2*cos(PI/(8+i))]
+plugin send var.add g1_1=1
+plugin send var.add g1_2=1
+plugin send var.add g1_3=0
+plugin send var.add g1_4=1
+plugin send var.add g2_1=0
+plugin send var.add g2_2=-1/$sigma
+plugin send var.add g2_3=$sigma
+plugin send var.add g2_4=$lambda
+plugin send var.add v1=[$sigma@2*cos(PI/(256i))]
+plugin send var.add v2=[$lambda@2*cos(PI/(8+i))]
 plugin open
 init maps singly
 config set diskfill no
