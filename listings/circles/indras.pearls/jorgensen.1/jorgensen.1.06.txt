@@ -8,21 +8,20 @@ Generators can be found at p. 256
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 grid 12
-config set accuracy 18
+config set accuracy 12
 config set depth 15
 palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings jorgensen
-plugin send var.add a=1.91+0.05i
-plugin send var.add b=3
-plugin send var.add p=2
 plugin open
+plugin send update.params a=1.91+0.05i
+plugin send update.params b=3
+plugin send update.params p=2
 init maps singly
 probability set 0.4 0.1 0.4 0.1
 auto refresh off

@@ -5,7 +5,7 @@ echo on
 
 config set construction limitset < 0.004
 grid 12
-config set accuracy 20
+config set accuracy 12
 config set depth 6
 palette off
 method inversion

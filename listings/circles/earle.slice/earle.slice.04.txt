@@ -7,20 +7,19 @@ Thesis, University of Warwick, 2006
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 plane zplane
 grid ticks 16
-config set accuracy 16
+config set accuracy 12
 config set depth 15
 palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings earle
-plugin send var.add d=0.5+0.55i
 plugin open
+plugin send update.params d=0.5+0.55i
 init maps singly
 config set diskfill no
 config set diskdraw yes
@@ -30,7 +29,6 @@ gensset add a b A B abAB ABab
 gensset init
 probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
 probability repsthreshold:0.85 repsdepth:15
-
 fp bomb
 fp add 0.5298025644871933+0.21131405845623466i BabA
 fp add -0.00000000801906876289+0.00000000090092352562i ABab

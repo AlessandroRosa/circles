@@ -5,7 +5,7 @@ echo on
 grid zplane show
 grid wplane show
 grid 12
-config set accuracy 20
+config set accuracy 12
 config set depth 7
 palette on
 palette create start:rgb(0,0,76) end:rgb(255,255,255) steps:10

@@ -17,8 +17,8 @@ method algebraic breadthfirst
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings maskit.once
-plugin send var.add mu=1.5559i-0.222
 plugin open
+plugin send update.params mu=1.5559i-0.222
 init maps singly
 gensset flush
 gensset add A B a b

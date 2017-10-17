@@ -5,7 +5,6 @@ This is the octahedral group T(2,3,4) at p. 75
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 plane wplane

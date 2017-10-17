@@ -2,35 +2,38 @@
 Refer to the paper
 Quasiconformal homeomorphisms and the convex hull boundary
 By D.B.A. Epstein, A. Marden and V. Markovic
-Annals of Mathematics, 159 (2004), 305â336
+Annals of Mathematics, 159 (2004)
 //Generators can be found at p. 309
 //or visit http://klein.math.okstate.edu/kleinian/epstein/
 */
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 plane zplane
 grid ticks 16
-config set accuracy 16
+config set accuracy 12
 config set depth 12
 palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings general.purpose
-plugin send var.add g1_1=sqrt(2)*e^(_z/2)
-plugin send var.add g1_2=(1+sqrt(2))*e^(_z/2)
-plugin send var.add g1_3=(-1+sqrt(2))*e^(-_z/2)
-plugin send var.add g1_4=sqrt(2)*e^(-_z/2)
-plugin send var.add g2_1=sqrt(2)-1
-plugin send var.add g2_2=0
-plugin send var.add g2_3=0
-plugin send var.add g2_4=sqrt(2)+1
-plugin send var.add v1=[_z@2i]
 plugin open
+plugin send type a sqrt(2)*e^(_z/2)
+plugin send type b (1+sqrt(2))*e^(_z/2)
+plugin send type c (-1+sqrt(2))*e^(-_z/2)
+plugin send type d sqrt(2)*e^(-_z/2)
+plugin send add.mobius.map
+plugin send type a sqrt(2)-1
+plugin send type b 0
+plugin send type c 0
+plugin send type d sqrt(2)+1
+plugin send add.mobius.map
+plugin send var.add _z 2i
+plugin send generate.group
+plugin close
 init maps singly
 config set diskfill no
 config set diskdraw yes
@@ -40,7 +43,6 @@ gensset add A a B b ABab abAB
 gensset init
 probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
 probability repsthreshold:0.85 repsdepth:15
-
 fp bomb
 fp add -1.0000000056153904+0.00000002180875563842i BabA
 fp add -0.41614681544505105+0.9092974322098467i ABab

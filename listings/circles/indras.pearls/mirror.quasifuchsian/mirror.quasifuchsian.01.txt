@@ -8,7 +8,6 @@ Generators can be found at p. 351
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 plane wplane
@@ -20,8 +19,8 @@ method algebraic breadthfirst
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings mirror.quasifuchsian
-plugin send var.add tau=2.2-0.1i
 plugin open
+plugin send update.params tau=2.2-0.1i
 init maps singly
 config set diskfill no
 config set diskdraw yes

@@ -36,9 +36,37 @@ function CIRCLESembeddingsMASKITONCEremotectrl( _options, _return_fn, _out_chann
         return 1 ;
 				break ;
 				case "update.params":
+				if ( _options[1].includes( "=" ) )
+				{
+					var _toks = _options[1].split( "=" );
+					var _param = _toks[0].trim(), _val = _toks[1].trim();
+					if ( _param.length == 0 )
+					{
+					_out_msg = "<orange>Invalid syntax: missing left-hand param</orange>" ;
+        return 0 ;
+					}
+					else if ( _param != 'mu' )
+					{
+					_out_msg = "<orange>Invalid syntax: left-hand param shall be defined as 'mu'</orange>" ;
+        return 0 ;
+					}
+					else if ( _val.length == 0 )
+					{
+					_out_msg = "<orange>Invalid syntax: missing right-hand value</orange>" ;
+        return 0 ;
+					}
+					else
+					{
         CIRCLESembeddingsMASKITONCE_mu = _options[1] ;
         $("#PLUGIN_PARAM_MU").val( CIRCLESembeddingsMASKITONCE_mu );
         return 1 ;
+					}
+				}
+				else
+				{
+					_out_msg = "<orange>Invalid syntax: missing equal operator</orange>" ;
+					return 0 ;
+				}
 				break ;
 				default:
 				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;

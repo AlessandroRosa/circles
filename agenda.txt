@@ -11,25 +11,13 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 ------------ APP -------------------------------------------------
 * all listings
   cmd "plugin"
-  - put 'plugin open' after 'plugin set'
-  - use 'update.params' to set up the plugin value(s) for generators
-  - [only general.purpose plugin] test cmds 'var.add', 'var.update', 'var.delete', 'var.list'
-  - revisit all calls as sampled here
-plugin set embeddings general.purpose
-plugin open
-plugin send type a (1-i)/sqrt(2)
-plugin send type b 0
-plugin send type c 0
-plugin send type d (1+i)/sqrt(2)
-plugin send add.mobius.map
-
-- update help file with the new syntax and also include
-this example, where params are quickly typed and saved
-plugin send type 1 2 0 1 add
-
-* EMBEDDING / general.purpose
-
-* [TEST] all listings
+  - remote ctrl handler: check that _out_msg is displayed in the output_channel
+  - check that update.params applies to the correct variable name. Example: 'mu' for maskit.once
+  - [general.purpose plugin] test cmds 'type', 'var.update', 'var.delete', 'var.list'
+  - update help file with the new syntax and also include
+    this example, where params are quickly typed and saved
+    plugin send type 1 2 0 1 add
+  - run them all
 
 - srcptset terminal cmd:
   * build point set according to input params

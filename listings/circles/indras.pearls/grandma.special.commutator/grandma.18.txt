@@ -8,7 +8,6 @@ Generators can be found at p. 229
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 grid 12
@@ -19,10 +18,10 @@ method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings grandma.4.alarm
-plugin send var.add a=1.785+0.73852i
-plugin send var.add b=3
-plugin send var.add p=2
 plugin open
+plugin send update.params a=1.785+0.73852i
+plugin send update.params b=3
+plugin send update.params p=2
 init maps singly
 probability set 0.33 0.17 0.33 0.17
 auto refresh off
@@ -31,7 +30,6 @@ zoom zplane (0,0) side:4 silent
 zoom wplane (0,0) side:3 silent 
 refresh zplane silent clean
 refresh wplane silent clean
-
 comment
 [
 Example of degenerate group

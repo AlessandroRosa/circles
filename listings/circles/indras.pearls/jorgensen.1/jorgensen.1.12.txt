@@ -8,22 +8,21 @@ Generators can be found at p. 256
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 plane zplane
 grid ticks 16
-config set accuracy 20
+config set accuracy 12
 config set depth 15
 palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings jorgensen
-plugin send var.add a=2*cos(PI/(256i))
-plugin send var.add b=2*cos(PI/(8+i))
-plugin send var.add p=2
 plugin open
+plugin send update.params a=2*cos(PI/(256i))
+plugin send update.params b=2*cos(PI/(8+i))
+plugin send update.params p=2
 init maps singly
 config set diskfill no
 config set diskdraw yes
@@ -33,7 +32,6 @@ gensset add a b A B abAB ABab
 gensset init
 probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
 probability repsthreshold:0.85 repsdepth:15
-
 fp bomb
 fp add 0.2797911683584071+0.28479013230273836i BabA
 fp add 0.2797911572413198+0.2847901147196275i BabA

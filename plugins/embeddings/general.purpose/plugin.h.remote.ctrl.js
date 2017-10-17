@@ -121,8 +121,8 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _out_c
          return 1 ;
   			 break ;
          break ;
-         case "var.add":
-         var _var_id = safe_string( _options[1], "" ), _var_value = safe_string( _options[1], "" );
+         case "type":
+         var _var_id = safe_string( _options[1], "" ), _var_value = safe_string( _options[2], "" );
          if ( _var_id.length > 0 && _var_value.length > 0 )
          {
             if ( !CIRCLESembeddingsGENERALPURPOSE_VAR_CHECK_SYNTAX( _var_id ) )

@@ -8,7 +8,6 @@ Generators can be found at p. 229
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 grid 12
@@ -19,10 +18,10 @@ method algebraic random
 config set drawentity pixel
 config set construction limitset
 plugin set embeddings grandma.4.alarm
-plugin send var.add a=1.9
-plugin send var.add b=1.9+0.2i
-plugin send var.add p=1
 plugin open
+plugin send update.params a=1.9
+plugin send update.params b=1.9+0.2i
+plugin send update.params p=1
 init maps singly
 gensset flush
 gensset add A B a b ABab abAB
