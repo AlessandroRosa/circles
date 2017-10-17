@@ -9,15 +9,14 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 * indexsearch (via terminal general.purpose, use a 6-generators group)
 
 ------------ APP -------------------------------------------------
-* all listings
+* Listings:
   cmd "plugin"
-  - remote ctrl handler: check that _out_msg is displayed in the output_channel
   - check that update.params applies to the correct variable name. Example: 'mu' for maskit.once
   - [general.purpose plugin] test cmds 'type', 'var.update', 'var.delete', 'var.list'
   - update help file with the new syntax and also include
     this example, where params are quickly typed and saved
     plugin send type 1 2 0 1 add
-  - run them all
+  - run all listings
 
 - srcptset terminal cmd:
   * build point set according to input params

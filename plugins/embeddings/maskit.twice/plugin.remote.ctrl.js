@@ -3,7 +3,7 @@ function CIRCLESembeddingsMASKITTWICE_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESembeddingsMASKITTWICEremotectrl( _options, _return_fn, _out_channel )
+function CIRCLESembeddingsMASKITTWICEremotectrl( _options, _return_fn, _ret_array, _out_channel )
 {
 		if ( !is_array( _options ) )
 		{
@@ -16,23 +16,23 @@ function CIRCLESembeddingsMASKITTWICEremotectrl( _options, _return_fn, _out_chan
     var _div_id = _idx != UNFOUND ? _glob_popups_array[_idx][1] : "" ;
 		switch( _options[0].toLowerCase() )
 		{
-				case "/*anyaction*/":
-          return 1 ;
-				break ;
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "embeddings", _base_id = "maskit.twice" ;
         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
+        _ret_array.push( 1, "<green>Plug-in has been closed with success</green>" ) ;
         return 1 ;
         break ;
 				case "focus":
         var _sub = "embeddings", _base_id = "maskit.twice" ;
         circles_lib_plugin_focus( _div_id );
+        _ret_array.push( 1, "<green>Plug-in has been focused with success</green>" ) ;
         return 1;
         break ;
 				case "move":
         var _sub = "embeddings", _base_id = "maskit.twice" ;
 				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+        _ret_array.push( 1, "<green>Plug-in has been moved with success</green>" ) ;
         return 1 ;
 				break ;
 				case "update.params":
@@ -40,10 +40,11 @@ function CIRCLESembeddingsMASKITTWICEremotectrl( _options, _return_fn, _out_chan
         $("#PLUGIN_PARAM_TAU_1").val( CIRCLESembeddingsMASKITTWICE_TAU_1 );
         CIRCLESembeddingsMASKITTWICE_TAU_2 = _options[2] ;
         $("#PLUGIN_PARAM_TAU_1").val( CIRCLESembeddingsMASKITTWICE_TAU_2 );
+		_ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
         return 1 ;
 				break ;
 				default:
-				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
+				        _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
         return 0 ;
 				break ;
 		}

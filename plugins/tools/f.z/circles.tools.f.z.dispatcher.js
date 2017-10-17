@@ -41,29 +41,6 @@ function CIRCLEStoolsFZdispatcher()
 	          circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
 	          break ;
             default: break ;
-s				 }
+				 }
 			}
-}
-
-function CIRCLEStoolsFZremotectrl( _options, _return_fn, _out_channel )
-{
-		if ( !is_array( _options ) && typeof _return_fn === "function" )
-		{
-			 _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
-			 return 0 ;
-		}
-
-		var _out_msg = "" ;
-		switch( _options[0].toLowerCase() )
-		{
-				case "/*anyaction*/":
-        return 1 ;
-				break ;
-				default:
-        _out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
-        return 0 ;
-        break ;
-		}
-
-		if ( typeof _return_fn === "function" && safe_size( _out_msg, 0 ) > 0 ) _return_fn.call( this, _out_msg );
 }

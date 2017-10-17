@@ -3,7 +3,7 @@ function CIRCLESformsAUTOMATON_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESformsAUTOMATONremotectrl( _options, _return_fn, _out_channel )
+function CIRCLESformsAUTOMATONremotectrl( _options, _return_fn, _ret_array, _out_channel )
 {
 		if ( !is_array( _options ) )
 		{
@@ -16,9 +16,6 @@ function CIRCLESformsAUTOMATONremotectrl( _options, _return_fn, _out_channel )
     var _div_id = _idx != UNFOUND ? _glob_popups_array[_idx][1] : "" ;
 		switch( _options[0].toLowerCase() )
 		{
-				case "/*anyaction*/":
-          return 1 ;
-				break ;
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "forms", _base_id = "automaton" ;
@@ -36,7 +33,7 @@ function CIRCLESformsAUTOMATONremotectrl( _options, _return_fn, _out_channel )
         return 1 ;
 				break ;
 				default:
-				_out_msg = "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ;
+				        _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
           return 0 ;
 				break ;
 		}
