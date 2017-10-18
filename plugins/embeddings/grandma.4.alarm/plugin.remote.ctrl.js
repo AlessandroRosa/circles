@@ -36,14 +36,43 @@ function CIRCLESembeddingsGRANDMA4ALARMremotectrl( _options, _return_fn, _ret_ar
         _ret_array.push( 1, "<green>Plug-in has been moved with success</green>" ) ;
 				break ;
 				case "update.params":
-        CIRCLESembeddingsGRANDMA4ALARM_trA = _options[1] ;
-        $("#PLUGIN_PARAM_A").val( CIRCLESembeddingsGRANDMA4ALARM_trA );
-        CIRCLESembeddingsGRANDMA4ALARM_trB = _options[2] ;
-        $("#PLUGIN_PARAM_B").val( CIRCLESembeddingsGRANDMA4ALARM_trB );
-        CIRCLESembeddingsGRANDMA4ALARM_trC = _options[3] ;
-        $("#PLUGIN_PARAM_C").val( CIRCLESembeddingsGRANDMA4ALARM_trC );
-        _ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
-        return 1 ;
+				var _switch_to = 0, _param_id = "" ;
+				for( var _i = 1 ; _i < _options.length ; _i++ )
+				{
+					_param_id = _options[_i].trim().toLowerCase();
+					if ( _param_id.length == 0 ) continue ;
+					else if ( _param_id == "a" ) _switch_to = 1 ;
+					else if ( _param_id == "b" ) _switch_to = 2 ;
+					else if ( _param_id == "c" ) _switch_to = 3 ;
+					else if ( _param_id == "p" ) _switch_to = 4 ;
+					else
+					{
+						switch( _switch_to )
+						{
+							case 1:
+							CIRCLESembeddingsGRANDMA4ALARM_trA = _options[_i] ;
+							$("#PLUGIN_PARAM_A").val( CIRCLESembeddingsGRANDMA4ALARM_trA );
+							break ;
+							case 2:
+							CIRCLESembeddingsGRANDMA4ALARM_trB = _options[_i] ;
+							$("#PLUGIN_PARAM_B").val( CIRCLESembeddingsGRANDMA4ALARM_trB );
+							break ;
+							case 3:
+							CIRCLESembeddingsGRANDMA4ALARM_trAB = _options[_i] ;
+							$("#PLUGIN_PARAM_AB").val( CIRCLESembeddingsGRANDMA4ALARM_trAB );
+							break ;
+							case 4:
+							CIRCLESembeddingsGRANDMA4ALARM_param = _options[_i] ;
+							break ;
+							default:
+							_ret_array.push( 0, "<orange>Unknown input param name</orange>" ) ;
+							return 0 ;
+							break ;
+						}
+					}
+				}
+				_ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
+				return 1 ;
 				break ;
 				default:
         _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;

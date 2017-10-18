@@ -18,7 +18,7 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings maskit.once
 plugin open
-plugin send update.params mu=2.42i+0.22
+plugin send update.params mu 2.42i+0.22
 init maps singly
 gensset flush
 gensset add A B a b

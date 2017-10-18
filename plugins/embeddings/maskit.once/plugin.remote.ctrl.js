@@ -36,38 +36,29 @@ function CIRCLESembeddingsMASKITONCEremotectrl( _options, _return_fn, _ret_array
         return 1 ;
 				break ;
 				case "update.params":
-				if ( _options[1].includes( "=" ) )
+				var _switch_to = 0, _param_id = "" ;
+				for( var _i = 1 ; _i < _options.length ; _i++ )
 				{
-					var _toks = _options[1].split( "=" );
-					var _param = _toks[0].trim(), _val = _toks[1].trim();
-					if ( _param.length == 0 )
-					{
-            _ret_array.push( 0, "<orange>Invalid syntax: missing left-hand param</orange>" ) ;
-            return 0 ;
-					}
-					else if ( _param != 'mu' )
-					{
-            _ret_array.push( 0, "<orange>Invalid syntax: left-hand param shall be defined as 'mu'</orange>" ) ;
-        return 0 ;
-					}
-					else if ( _val.length == 0 )
-					{
-            _ret_array.push( 0, "<orange>Invalid syntax: missing right-hand value</orange>" ) ;
-        return 0 ;
-					}
+					_param_id = _options[_i].trim().toLowerCase();
+					if ( _param_id.length == 0 ) continue ;
+					else if ( _param_id == "mu" ) _switch_to = 1 ;
 					else
 					{
-        CIRCLESembeddingsMASKITONCE_mu = _options[1] ;
-        $("#PLUGIN_PARAM_MU").val( CIRCLESembeddingsMASKITONCE_mu );
-        _ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
-        return 1 ;
+						switch( _switch_to )
+						{
+							case 1:
+							CIRCLESembeddingsMASKITONCE_mu = _options[1] ;
+							$("#PLUGIN_PARAM_MU").val( CIRCLESembeddingsMASKITONCE_mu );
+							break ;
+							default:
+							_ret_array.push( 0, "<orange>Unknown input param name</orange>" ) ;
+							return 0 ;
+							break ;
+						}
 					}
 				}
-				else
-				{
-            _ret_array.push( 0, "<orange>Invalid syntax: missing equal operator</orange>" ) ;
-					return 0 ;
-				}
+				_ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
+				return 1 ;
 				break ;
 				default:
         _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;

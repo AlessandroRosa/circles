@@ -19,7 +19,7 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings riley
 plugin open
-plugin send update.params rho=0.8888i
+plugin send update.params rho 0.8888i
 init maps singly
 probability set 0.27 0.23 0.27 0.23 built-in
 auto refresh off

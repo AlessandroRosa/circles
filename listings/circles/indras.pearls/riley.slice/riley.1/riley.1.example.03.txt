@@ -20,7 +20,7 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings riley
 plugin open
-plugin send update.params rho=0.5i-0.5
+plugin send update.params rho 0.5i-0.5
 init maps singly
 config set diskfill no
 config set diskdraw yes

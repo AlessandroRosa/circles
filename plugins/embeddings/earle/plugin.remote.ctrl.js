@@ -36,10 +36,29 @@ function CIRCLESembeddingsEARLEremotectrl( _options, _return_fn, _ret_array, _ou
         return 1 ;
 				break ;
 				case "update.params":
-        CIRCLESembeddingsEARLE_d = _options[1] ;
-        $("#PLUGIN_PARAM_D").val( CIRCLESembeddingsEARLE_d );
-		   _ret_array.push( 1, "<green>Params have been set up with success</green>" ) ;
-        return 1 ;
+				var _switch_to = 0, _param_id = "" ;
+				for( var _i = 1 ; _i < _options.length ; _i++ )
+				{
+					_param_id = _options[_i].trim().toLowerCase();
+					if ( _param_id.length == 0 ) continue ;
+					else if ( _param_id == "d" ) _switch_to = 1 ;
+					else
+					{
+						switch( _switch_to )
+						{
+							case 1:
+							CIRCLESembeddingsEARLE_d = _options[_i] ;
+							$("#PLUGIN_PARAM_D").val( CIRCLESembeddingsEARLE_d );
+							break ;
+							default:
+							_ret_array.push( 0, "<orange>Unknown input param name</orange>" ) ;
+							return 0 ;
+							break ;
+						}
+					}
+				}
+				_ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
+				return 1 ;
 				break ;
 				default:
 				        _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;

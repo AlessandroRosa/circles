@@ -36,16 +36,38 @@ function CIRCLESembeddingsMASKITTWICEremotectrl( _options, _return_fn, _ret_arra
         return 1 ;
 				break ;
 				case "update.params":
-        CIRCLESembeddingsMASKITTWICE_TAU_1 = _options[1] ;
-        $("#PLUGIN_PARAM_TAU_1").val( CIRCLESembeddingsMASKITTWICE_TAU_1 );
-        CIRCLESembeddingsMASKITTWICE_TAU_2 = _options[2] ;
-        $("#PLUGIN_PARAM_TAU_1").val( CIRCLESembeddingsMASKITTWICE_TAU_2 );
-		_ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
-        return 1 ;
+				var _switch_to = 0, _param_id = "" ;
+				for( var _i = 1 ; _i < _options.length ; _i++ )
+				{
+					_param_id = _options[_i].trim().toLowerCase();
+					if ( _param_id.length == 0 ) continue ;
+					else if ( _param_id == "tau1" ) _switch_to = 1 ;
+					else if ( _param_id == "tau2" ) _switch_to = 2 ;
+					else
+					{
+						switch( _switch_to )
+						{
+							case 1:
+							CIRCLESembeddingsMASKITTWICE_TAU_1 = _options[_i] ;
+							$("#PLUGIN_PARAM_TAU_1").val( CIRCLESembeddingsMASKITTWICE_TAU_1 );
+							break ;
+							case 2:
+							CIRCLESembeddingsMASKITTWICE_TAU_2 = _options[_i] ;
+							$("#PLUGIN_PARAM_TAU_2").val( CIRCLESembeddingsMASKITTWICE_TAU_2 );
+							break ;
+							default:
+							_ret_array.push( 0, "<orange>Unknown input param name</orange>" ) ;
+							return 0 ;
+							break ;
+						}
+					}
+				}
+				_ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
+				return 1 ;
 				break ;
 				default:
-				        _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
-        return 0 ;
+		        _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
+				return 0 ;
 				break ;
 		}
 

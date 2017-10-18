@@ -18,9 +18,9 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings grandma.4.alarm
 plugin open
-plugin send update.params a=2*cos(PI/(256i))
-plugin send update.params b=2*cos(PI/(3+1.8i))
-plugin send update.params p=2
+plugin send update.params a 2*cos(PI/(256i))
+plugin send update.params b 2*cos(PI/(3+1.8i))
+plugin send update.params p 2
 init maps singly
 gensset flush
 gensset add A B a b abAB ABab

@@ -11,7 +11,7 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 ------------ APP -------------------------------------------------
 * Listings:
   cmd "plugin"
-  - check that update.params applies to the correct variable name. Example: 'mu' for maskit.once
+  - add the input params names for the current plug-in into each .info file
   - [general.purpose plugin] test cmds 'type', 'var.update', 'var.delete', 'var.list'
   - update help file with the new syntax and also include
     this example, where params are quickly typed and saved

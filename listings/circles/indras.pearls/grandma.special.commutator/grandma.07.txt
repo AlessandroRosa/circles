@@ -19,9 +19,9 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings grandma.4.alarm
 plugin open
-plugin send update.params a=1.92+0.3i
-plugin send update.params b=1.88-0.4i
-plugin send update.params p=1
+plugin send update.params a 1.92+0.3i
+plugin send update.params b 1.88-0.4i
+plugin send update.params p 1
 init maps singly
 probability set 0.3 0.20 0.3 0.20
 auto refresh off

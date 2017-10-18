@@ -36,10 +36,16 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANremotectrl( _options, _return_fn, _
         return 1 ;
 				break ;
 				case "update.params":
-        CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau = _options[1] ;
-        $("#PLUGIN_PARAM_MU").val( CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau );
-        _ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
-        return 1 ;
+				var _var_id = safe_string( _options[1], "" ).trim().toLowerCase() ;
+				if ( _var_id == "mu" ) 
+				{
+					CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau = _options[2] ;
+					$("#PLUGIN_PARAM_MU").val( CIRCLESembeddingsMIRRORQUASIFUCHSIAN_tau );
+					_ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
+					return 1 ;
+				}
+				_ret_array.push( 0, "<orange>Missing param 'mu' specification</orange>" ) ;
+				return 0 ;
 				break ;
 				default:
         _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;

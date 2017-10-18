@@ -19,9 +19,9 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings jorgensen
 plugin open
-plugin send update.params a=1.6583123951777-0.5i
-plugin send update.params b=3
-plugin send update.params p=2
+plugin send update.params a 1.6583123951777-0.5i
+plugin send update.params b 3
+plugin send update.params p 2
 init maps singly
 probability set 0.34 0.16 0.34 0.16
 auto refresh off

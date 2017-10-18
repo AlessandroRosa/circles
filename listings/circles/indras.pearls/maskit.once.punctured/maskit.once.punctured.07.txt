@@ -19,7 +19,7 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings maskit.once
 plugin open
-plugin send update.params mu=0.136998688+1.80785524i
+plugin send update.params mu 0.136998688+1.80785524i
 init maps singly
 auto refresh off
 auto init off

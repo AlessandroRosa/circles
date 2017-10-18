@@ -19,10 +19,10 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings grandma.4.alarm
 plugin open
-plugin send update.params a=i
-plugin send update.params b=i
-plugin send update.params ab=i
-plugin send update.params p=1
+plugin send update.params a i
+plugin send update.params b i
+plugin send update.params ab i
+plugin send update.params p 1
 init maps singly
 auto refresh off
 auto init off

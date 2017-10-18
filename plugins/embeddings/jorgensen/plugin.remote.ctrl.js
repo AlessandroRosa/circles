@@ -46,12 +46,38 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn, _ret_array,
         return 1 ;
 				break ;
 				case "update.params":
-        CIRCLESembeddingsJORGENSEN_alpha = _options[1] ;
-        $("#PLUGIN_PARAM_ALPHA").val( CIRCLESembeddingsJORGENSEN_alpha );
-        CIRCLESembeddingsJORGENSEN_beta = _options[2] ;
-        $("#PLUGIN_PARAM_BETA").val( CIRCLESembeddingsJORGENSEN_beta );
-        _ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
-        return 1 ;
+				var _switch_to = 0, _param_id = "" ;
+				for( var _i = 1 ; _i < _options.length ; _i++ )
+				{
+					_param_id = _options[_i].trim().toLowerCase();
+					if ( _param_id.length == 0 ) continue ;
+					else if ( _param_id == "alpha" ) _switch_to = 1 ;
+					else if ( _param_id == "beta" ) _switch_to = 2 ;
+					else if ( _param_id == "p" ) _switch_to = 3 ;
+					else
+					{
+						switch( _switch_to )
+						{
+							case 1:
+							CIRCLESembeddingsJORGENSEN_alpha = _options[_i] ;
+							$("#PLUGIN_PARAM_ALPHA").val( CIRCLESembeddingsJORGENSEN_alpha );
+							break ;
+							case 2:
+							CIRCLESembeddingsJORGENSEN_beta = _options[_i] ;
+							$("#PLUGIN_PARAM_BETA").val( CIRCLESembeddingsJORGENSEN_beta );
+							break ;
+							case 3:
+							CIRCLESembeddingsJORGENSEN_param = _options[_i] ;
+							break ;
+							default:
+							_ret_array.push( 0, "<orange>Unknown input param name</orange>" ) ;
+							return 0 ;
+							break ;
+						}
+					}
+				}
+				_ret_array.push( 1, "<green>Params have been updated with success</green>" ) ;
+				return 1 ;
 				break ;
 				default:
 				        _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
