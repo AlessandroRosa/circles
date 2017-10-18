@@ -1,4 +1,5 @@
 "close"="close pop-up window"
 "focus"="set the focus to the pop-up window"
 "move"="move pop-up window. Example: move LEFT|RIGHT TOP|BOTTOM"
-"update.params"="Set the param 'a, b, c' in the Grandma-4-alarm plug-in and recalculates the generators. Example: update.params 0.25+i 1 -0.7i"
+"update.params"="Set the param 'a, b, c' in the Grandma-4-alarm plug-in and recalculates the generators. Example: update.params a 0.25+i b 1 c -0.7i"
+"info.params"="Return the params identifiers"

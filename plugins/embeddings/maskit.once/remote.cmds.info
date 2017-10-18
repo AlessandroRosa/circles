@@ -1,4 +1,5 @@
 "close"="close pop-up window"
 "focus"="set the focus to the pop-up window"
 "move"="move pop-up window. Example: move LEFT|RIGHT TOP|BOTTOM"
-"update.params"="Set the param 'mu' in the Maskit-once plug-in and recalculates the generators. Example: update.params 1-0.2i"
+"update.params"="Set the param 'mu' in the Maskit-once plug-in and recalculates the generators. Example: update.params mu 1-0.2i"
+"info.params"="Return the params identifiers"

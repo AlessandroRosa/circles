@@ -39,6 +39,13 @@
 <white>plugin open</white>
 <white>plugin send get.point 1-0.3i</white>
 
+<lightblue>plugin type</lightblue>
+<cadetblue>type the subsequent values in the parameter box</cadetblue>
+<white>plugin send type 1</white>
+<lightgray>type 1 in the parameter 'a' box</lightgray>
+<white>plugin send type 1 2 0 1 add</white>
+<lightgray>type vlaues in the boxes of parameter 'a', 'b', 'c', 'd' respectively and add the resulting mobius map to the candidate group</lightgray>
+
 <lightblue>plugin target</lightblue>
 <white>alias of 'set' action</white>
 

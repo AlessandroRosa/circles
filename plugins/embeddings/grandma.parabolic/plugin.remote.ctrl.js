@@ -35,6 +35,9 @@ function CIRCLESembeddingsGRANDMAPARABOLICremotectrl( _options, _return_fn, _ret
         _ret_array.push( 1, "<green>Plug-in has been moved with success</green>" ) ;
         return 1 ;
 				break ;
+				case "info.params":
+        _ret_array.push( 1, "<green>Param identifiers for the Earle plugin: 'a', 'b'</green> and 'p' for the solutions selector" ) ;
+				break ;
 				case "update.params":
 				var _switch_to = 0, _param_id = "" ;
 				for( var _i = 1 ; _i < _options.length ; _i++ )

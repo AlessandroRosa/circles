@@ -3,4 +3,5 @@
 "close"="close pop-up window"
 "focus"="set the focus to the pop-up window"
 "move"="move pop-up window. Example: move LEFT|RIGHT TOP|BOTTOM"
-"update.params"="Set the param 'd' in the Jorgensen plug-in and recalculates the generators. Example: update.params 1 -i"
+"update.params"="Set the param 'd' in the Jorgensen plug-in and recalculates the generators. Example: update.params d 1-i"
+"info.params"="Return the params identifiers"

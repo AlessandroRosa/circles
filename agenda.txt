@@ -11,11 +11,8 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 ------------ APP -------------------------------------------------
 * Listings:
   cmd "plugin"
-  - add the input params names for the current plug-in into each .info file
-  - [general.purpose plugin] test cmds 'type', 'var.update', 'var.delete', 'var.list'
-  - update help file with the new syntax and also include
-    this example, where params are quickly typed and saved
-    plugin send type 1 2 0 1 add
+  - [general.purpose plugin] test cmds:
+    'type', 'var.update', 'var.delete', 'var.list', 'update.params', 'info.params'
   - run all listings
 
 - srcptset terminal cmd:
