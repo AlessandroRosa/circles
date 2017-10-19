@@ -11,8 +11,11 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 ------------ APP -------------------------------------------------
 * Listings:
   cmd "plugin"
+  - custom vars : combos for var ids and values shall be re-built dynamically after insertion/modification/deletion
+  - how var values updates the input mobius map params ? (Register?)
   - [general.purpose plugin] test cmds:
-    'type', 'var.update', 'var.delete', 'var.list', 'update.params', 'info.params'
+    'type', 'var.save', 'var.delete', 'var.help', 'var.bomb', 'var.list', 'update.params', 'info.params'
+	(update .info file)
   - run all listings
 
 - srcptset terminal cmd:

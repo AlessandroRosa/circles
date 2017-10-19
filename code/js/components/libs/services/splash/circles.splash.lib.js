@@ -35,13 +35,13 @@ function circles_lib_splash_screen_code()
     splashHTMLcode += "<td WIDTH=\"32\" VALIGN=\"top\" ALIGN=\"center\" CLASS=\"general_rounded_corners\" STYLE=\"padding:6px;"+( isIE() ? "background-color:#D5E6F7;" : "" )+"\"><IMG SRC=\"%imgpath%icons/browsers/ie/ie.icon.01.32x32.png\"></td>" ;
     splashHTMLcode += "</tr>" ;
     splashHTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-    splashHTMLcode += "<tr><td COLSPAN=\"5\" ALIGN=\"center\">Detected "+get_bits_system_architecture()+"-bits system architecture</td></tr>" ;
+    splashHTMLcode += "<tr><td COLSPAN=\"5\" ALIGN=\"center\" STYLE=\"font-size:12pt;\">Detected <SPAN STYLE=\"color:blue;\">"+get_bits_system_architecture()+"-bits</SPAN> system architecture</td></tr>" ;
     splashHTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-    splashHTMLcode += "<tr><td COLSPAN=\"5\" STYLE=\""+( _glob_multithreading_compatible ? "color:#1FB954;" : "color:#EE0000;" )+"\" ALIGN=\"center\">"+( _glob_multithreading_compatible ? "Your" : "Sorry, but your" )+" browser "+( _glob_multithreading_compatible ? "supports" : "does not support" )+" multi-threading</td></tr>" ;
+    splashHTMLcode += "<tr><td COLSPAN=\"5\" STYLE=\"font-size:12pt;"+( _glob_multithreading_compatible ? "color:#1FB954;" : "color:#EE0000;" )+"\" ALIGN=\"center\">"+( _glob_multithreading_compatible ? "Your" : "Sorry, but your" )+" browser "+( _glob_multithreading_compatible ? "supports" : "does not support" )+" multi-threading</td></tr>" ;
     if ( !_glob_multithreading_compatible )
     {
        splashHTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-       splashHTMLcode += "<tr><td COLSPAN=\"5\" ALIGN=\"center\">Sorry, this app requires multi-threading featured browser</td></tr>" ;
+       splashHTMLcode += "<tr><td COLSPAN=\"5\" ALIGN=\"center\">Sorry, this app requires your browser to support multi-threading</td></tr>" ;
     }
 
     if ( _demos_list.length > 0 )

@@ -22,9 +22,9 @@ else
     var _html_code = circles_lib_splash_screen_code( _glob_appLASTreleaseDATE );
         _html_code += "<table cellpadding=0 cellspacing=0 valign=\"top\" ALIGN=\"center\">" ;
         _html_code += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-				_html_code += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">I'm sorry but this application can't run further:</td></tr>";
-				if ( !is_canvas_supported() ) _html_code += "<tr><td><br>your browser does not support canvas</td></tr><tr><td HEIGHT=\"12\"></td></tr>";
-				if ( !is_multithreading_compatible() ) _html_code += "<tr><td><br>your browser version does not support multi-threading</td></tr>";
+				_html_code += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">I'm sorry but this application can't run on your system:</td></tr>";
+				if ( !is_canvas_supported() ) _html_code += "<tr><td>your browser does not support canvas</td></tr><tr><td HEIGHT=\"12\"></td></tr>";
+				if ( !is_multithreading_compatible() ) _html_code += "<tr><td>your browser version does not support multi-threading</td></tr>";
         _html_code += "<tr><td HEIGHT=\"12\"></td></tr>" ;
 				_html_code += "</table>" ; 
     alert_msg( ALERT_NOBUTTON | ALERT_NOICON | ALERT_NOCAPTION, _html_code, _glob_app_title, 580, 0, null, 0, 100 );
