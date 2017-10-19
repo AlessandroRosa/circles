@@ -14,9 +14,11 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 		var _out_msg = "" ;
     var _idx = circles_lib_plugin_find_index( { subset : "embeddings", base_id : "general.purpose" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 ) ;
     var _div_id = _idx != UNFOUND ? _glob_popups_array[_idx][1] : "" ;
+	console.log( _options );
     if ( is_array( _options ) )
     {
-      switch( _options[0].toLowerCase() )
+		var _opt = _options[0].toLowerCase() ;
+      switch( _opt )
   		{
 			 case "add.mobius.map":
   			 if ( _options[1] != null ) $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) );
@@ -156,8 +158,9 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
                 case "add":
 				if ( _params.length > 0 )
 				{
-					CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
-					_ret_array.push( 1, "<green>Params "+_params.join( "," )+" have been been added with success</green>" ) ;
+					var _ret = CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_ADD,YES,_out_channel);
+					_out_msg = _ret ? "<green>Params "+_params.join( "," )+" have been been added with success</green>" : "Fail to perform operation" ;
+					_ret_array.push( 1, _out_msg ) ;
 				}
 				else _ret_array.push( 0, "<orange>No input params have been specified</orange>" ) ;
                 break ;
@@ -167,60 +170,8 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          }
          return 1 ;
 		 break ;
-         case "type":
-         var _var_id = safe_string( _options[1], "" ), _var_value = safe_string( _options[2], "" );
-         if ( _var_id.length > 0 && _var_value.length > 0 )
-         {
-            if ( !CIRCLESembeddingsGENERALPURPOSE_VAR_CHECK_SYNTAX( _var_id ) )
-            {
-               var _out_msg = "The candidate var name '" + _var_id + "' does not match the correct pattern. So check" + _glob_crlf ;
-                   _out_msg += _glob_crlf + "* that var name starts with '_', for example : _a ;" ;
-                   _out_msg += _glob_crlf + "* to use alphanumeric chars + underscore only ;" ;
-			   _ret_array.push( 0, _out_msg ) ;
-               return 0 ;
-            }
-            else if ( CIRCLESembeddingsGENERALPURPOSEillegals.includes_i( _var_id.replaceAll( "_", "" ) ) )
-            {
-                 var _out_msg = "The candidate var name '" + _var_id + "' is a reserved keyword" ;
-			   _ret_array.push( 0, _out_msg ) ;
-                 return 0 ;
-            }
-            else
-            {
-              var _v_complex = circles_lib_math_parse_formula( _var_value );
-              _v_complex = parse_complex_from_string( _v_complex + "" );
-              if ( !is_complex( _v_complex ) )
-              {
-                  _out_msg = "<orange>The input var value of "+_var_id+" is not a complex formula.</orange>" ;
-			   _ret_array.push( 0, _out_msg ) ;
-                  return 0 ;
-              }
-              else
-              {
-                  if ( !is_array( _plugin_user_vars[''+_var_id] ) ) _plugin_user_vars[''+_var_id] = [] ;
-                  if ( !_plugin_user_vars[''+_var_id].includes( _var_value ) )
-                  _plugin_user_vars[''+_var_id].push( _var_value );
-                  else
-                  {
-              			 _out_msg = "<orange>Already existing value for var '"+_var_id+"'</orange>" ;
-			   _ret_array.push( 0, _out_msg ) ;
-                     return 0 ;
-                  }
-                  _out_msg = "<green>Var "+_var_id+" has been added with success</green>" ;
-			   _ret_array.push( 1, _out_msg ) ;
-                  return 1 ;
-              }
-            }
-         }
-         else
-         {
-      			 _out_msg = "<orange>Can't add the var to the listing: please, input both var ID and VALUE</orange>" ;
-			   _ret_array.push( 0, _out_msg ) ;
-             return 0 ;
-         }
-         break ;
 		 case "var.bomb":
-		 CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB(1,1,OUTPUT_TERMINAL);
+		 CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB(1,1,_out_channel);
 		 _ret_array.push( 1, "<green>All vars have been deleted with success</green>" ) ;
          CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
 		 return 1 ;
@@ -253,33 +204,51 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          }
          break ;
          case "var.help":
-         var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( 1, OUTPUT_TERMINAL ) ;
+         var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( 1, _out_channel ) ;
    	     _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<orange>Fail to accomplish the operation</orange>" ;
 		 _ret_array.push( _ret, _out_msg ) ;
          return _ret ;
          break ;
          case "var.list":
-         var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_LIST( OUTPUT_HTML ) ;
+		 var _dispatch_mode = DISPATCH_INFO ;
+		 if ( _out_channel == OUTPUT_TERMINAL ) { _out_channel = OUTPUT_HTML ; }
+         var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD( _out_channel ) ;
    	     _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<orange>Fail to accomplish the operation</orange>" ;
 		 _ret_array.push( _ret, _out_msg ) ;
          return _ret ;
          break ;
-		 case "var.save":
-         var _var_id = safe_string( _options[1], "" ), _var_value = safe_string( _options[1], "" );
-         if ( _var_id.length > 0 && _var_value.length > 0 )
+		 case "var.declare":
+		 case "var.register":
+         var _var_id = safe_string( _options[1], "" ), _var_value = safe_string( _options[2], "" );
+		 var _b_go = _opt == "var.declare" ? _var_id.length > 0 : ( _var_id.length > 0 && _var_value.length > 0 );
+		 console.log( _b_go );
+         if ( _b_go )
          {
-            var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( 1, 0, OUTPUT_TERMINAL, _var_id, _var_value );
+            var _ret = NO ;
+		 console.log( _opt, _ret );
+			if ( _opt == "var.declare" ) _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( YES, NO, _out_channel, _var_id );
+			else if ( _opt == "var.register" ) _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER( _out_channel, _var_id, _var_value );
+			
       	    _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<orange>Fail to accomplish the operation</orange>" ;
-			_ret_array.push( _ret, _out_msg ) ;
+			_ret_array.push( _ret, _out_msg );
             return _ret ;
          }
          else
          {
-      	    _out_msg = "<orange>Can't add the var to the list: please, input both var ID and VALUE</orange>" ;
+      	    if ( _opt == "var.declare" ) _out_msg = "<orange>Can't add the var to the list: please, input var ID</orange>" ;
+			else _out_msg = "<orange>Can't add the var to the list: please, input var ID and VALUE</orange>" ;
 			_ret_array.push( 0, _out_msg ) ;
             return 0 ;
          }
          break ;
+		 case "var.declare.select":
+		 var _idx = safe_int( _options[1], 0 ) ;
+		 if ( $("#PLUGINdeclaredvarsCOMBO").get(0) != null ) $("#PLUGINdeclaredvarsCOMBO").get(0).selectedIndex = _idx ;
+		 break ;
+		 case "var.register.select":
+		 var _idx = safe_int( _options[1], 0 ) ;
+		 if ( $("#PLUGINregisteredvarsCOMBO").get(0) != null ) $("#PLUGINregisteredvarsCOMBO").get(0).selectedIndex = _idx ;
+		 break ;
 		 default:
          _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
          return 0 ;

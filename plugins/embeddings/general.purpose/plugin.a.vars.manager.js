@@ -1,3 +1,7 @@
+function CIRCLESembeddingsGENERALPURPOSE_VAR_CHECK_SYNTAX( _var ) { return _var.testME( _glob_varname_regex_pattern ); }
+function CIRCLESembeddingsGENERALPURPOSE_VAR_CHANGE() { CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE(); }
+function CIRCLESembeddingsGENERALPURPOSE_VAR_IS_INCLUDED( _formula ) { return safe_size( _formula.match( /\$([a-zA-B]{1,})/gi ), 0 ) > 0 ? YES : NO ; }
+function CIRCLESembeddingsGENERALPURPOSE_VAR_EXTRACT( _formula ) { return safe_size( _formula.match( /\$([a-zA-B]{1,})/gi ), 0 ) > 0 ? _matches : null ; }
 function CIRCLESembeddingsGENERALPURPOSE_VAR_ALL_REPLACE_WITH_VAL()
 {
     var _vars_names = _plugin_user_vars.keys_associative();
@@ -15,18 +19,15 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_ALL_REPLACE_WITH_VAL()
     }
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_VAR_CHECK_SYNTAX( _var ) { return _var.testME( _glob_varname_regex_pattern ); }
-
-function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( _question, _silent, _out_channel, _id, _val )
+function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( _question, _silent, _out_channel, _id )
 {
 	_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ) ;
-	_id = safe_string( _id, "" ), _val = safe_string( _val, "" );
-    var _var_id = _id.length > 0 ? _id : $("#PLUGINvaridEDIT").val(), _var_value = _val.length > 0 ? _val : $("#PLUGINvarvalueEDIT").val();
-    if ( _var_id.length == 0 || _var_value.length == 0 )
+	_id = safe_string( _id, "" );
+    var _var_id = _id.length > 0 ? _id : $("#PLUGINvaridEDIT").val();
+    if ( _var_id.length == 0 )
     {
         var _msg = "Can't set on the var params:" + _glob_crlf ;
-        if ( _var_id.length == 0 ) _msg += _glob_crlf + "- missing var name;" ;
-        if ( _var_value.length == 0 ) _msg += _glob_crlf + "- missing var value;" ;
+			_msg += _glob_crlf + "- missing var name;" ;
         if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
         return NO ;
     }
@@ -47,12 +48,6 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( _question, _silent, _out_c
              if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
              return NO ;
         }
-        else if ( _var_value.includes( _var_id ) )
-        {
-             var _msg = "Detected cyclic reference of var"+_glob_crlf+_glob_crlf+" '"+_var_id+"'"+_glob_crlf+_glob_crlf+"inside input value"+_glob_crlf+_glob_crlf+"'"+_var_value+"'" ;
-             if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
-             return NO ;
-        }
         else if ( !_var_id.testME( _glob_varname_regex_pattern ) )
         {
              var _msg = "The candidate var name '" + _var_id + "' includes invalid chars" ;
@@ -60,16 +55,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( _question, _silent, _out_c
              return NO ;
         }
 
-        var _v_complex = circles_lib_math_parse_formula( _var_value );
-        _v_complex = parse_complex_from_string( _v_complex + "" );
-
-        if ( !is_complex( _v_complex ) )
-        {
-            if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_ERROR, "The input var is not a complex formula.", _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
-            return NO ;
-        }
-
-        _plugin_user_vars[ ""+_var_id ] = _var_value ;
+        _plugin_user_vars[ ""+_var_id ] = 0 ;
         CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL( YES, NO );
         return YES ;
     }
@@ -77,8 +63,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( _question, _silent, _out_c
 
 function CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL( _refresh_vars_combo, _refresh_vals_combo )
 {
-    _refresh_vars_combo = safe_int( _refresh_vars_combo, YES );
-    _refresh_vals_combo = safe_int( _refresh_vals_combo, YES );
+    _refresh_vars_combo = safe_int( _refresh_vars_combo, YES ), _refresh_vals_combo = safe_int( _refresh_vals_combo, YES );
     if ( _refresh_vars_combo )
     {
         var _combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE_COMBO_BUILD();
@@ -87,7 +72,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL( _refresh_vars_combo,
     
     if ( _refresh_vals_combo )
     {
-        var _combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_VALS_RECORD_COMBO_BUILD();
+        var _combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_COMBO_BUILD();
         $("#PLUGINrecordedvaluesCOMBOcontainer").html( _combo_code );
     }
 
@@ -100,10 +85,35 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL( _refresh_vars_combo,
     $("#CIRCLESembeddingsGENERALPURPOSE_ADD_BTN").css( "color", DEFAULT_COLOR_STD );
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_VAR_LIST( _output_channel )
+function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE_COMBO_BUILD()
 {
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    if ( _plugin_user_vars.is_associative() )
+    {
+        var _keys = _plugin_user_vars.keys_associative(), _values = _plugin_user_vars.values_associative();
+        if ( _keys.length > 0 && _values.length > 0 )
+        {
+            var _n_vars = _keys.length ;
+            var _msg = ( _n_vars == 0 ? "No" : _n_vars ) + " declared var" + ( _n_vars == 1 ? "" : "s" );
+            $( "#PLUGINregisteredvarsLABEL" ).css( "color", _n_vars == 0 ? "#909090" : DEFAULT_COLOR_STD );
+            $( "#PLUGINregisteredvarsLABEL" ).html( _msg );
+        
+            var _html_code = "<SELECT ONCHANGE=\"javascript:$('#PLUGINvaridEDIT').val(this.options[this.selectedIndex].text);$('#PLUGINvarvalueEDIT').val(this.value);\" ID=\"PLUGINdeclaredvarsCOMBO\">" ;
+            _html_code += "<OPTION SELECTED VALUE=\"\">" ;
+            for( var _i = 0 ; _i < _keys.length ; _i++ ) _html_code += "<OPTION VALUE=\""+_values[_i]+"\">" + _keys[_i] ;
+            _html_code += "</SELECT>" ;
+            return _html_code ;
+        }
+        else return "" ;
+    }
+    else return "" ;
+}
+
+
+function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD( _output_channel, _dispatch_mode )
+{
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN ), _dispatch_mode = safe_int( _dispatch_mode, DISPATCH_INFO );
 	var _keys = _plugin_user_vars.keys_associative(), _n_keys = safe_size( _keys, 0 ), _html_code = "" ;
+	console.log( _n_keys );
     if ( _n_keys > 0 )
     {
         _html_code += "<table>" ;
@@ -129,20 +139,19 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_LIST( _output_channel )
             _html_code = "</td></tr>" ;
         }
         _html_code += "</table>" ;
-        circles_lib_output( _output_channel, DISPATCH_INFO, _html_code, _glob_app_title + " - Vars list" );
+		console.log( _output_channel, _dispatch_mode );
+        circles_lib_output( _output_channel, _dispatch_mode, _html_code, _glob_app_title + " - Vars list" );
 		return YES ;
     }
     else
     {
-        _html_code += "<table><tr><td ALIGN=\"center\">The vars list is empty</td></tr></table>" ;
+        _html_code += "<table><tr><td ALIGN=\"center\" STYLE=\"color:orange;\">The vars list is empty</td></tr></table>" ;
         circles_lib_output( _output_channel, DISPATCH_WARNING, _html_code, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 		return NO ;
     }
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_VAR_CHANGE() { CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE(); }
-
-function CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_REGISTER( _output_channel, _id, _val )
+function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER( _output_channel, _id, _val )
 {
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
 	_id = safe_string( _id, "" ), _val = safe_string( _val, "" );
@@ -159,8 +168,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_REGISTER( _output_channel, _id,
         else
         {
             if ( !is_array( _plugin_rec_var_vals[''+_var_id] ) ) _plugin_rec_var_vals[''+_var_id] = [] ;
-            if ( !_plugin_rec_var_vals[''+_var_id].includes( _var_value ) )
-            _plugin_rec_var_vals[''+_var_id].push( _var_value );
+            if ( !_plugin_rec_var_vals[''+_var_id].includes( _var_value ) ) _plugin_rec_var_vals[''+_var_id].push( _var_value );
             else
             {
 			   switch( _output_channel )
@@ -169,15 +177,20 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_REGISTER( _output_channel, _id,
                   $( "#PLUGINrecordedvaluesCOMBOoutput" ).css( "color", DEFAULT_COLOR_WARNING );
                   $( "#PLUGINrecordedvaluesCOMBOoutput" ).html( "Already existing value" );
                   setTimeout( function() { $( "#PLUGINrecordedvaluesCOMBOoutput" ).html( "" ); }, 2500 );
+				  return NO ;
 				  break ;
 				  case OUTPUT_TERMINAL:
 				  circles_lib_output( _output_channel, DISPATCH_WARNING, "Already existing value", _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+				  return NO ;
 				  break ;
 				  default: break ;
 			   }
             }
             
-            var _combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_VALS_RECORD_COMBO_BUILD();
+			var _combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE_COMBO_BUILD();
+			$("#PLUGINregisteredvarsCOMBOcontainer").html( _combo_code );
+
+			var _combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_COMBO_BUILD();
             $("#PLUGINrecordedvaluesCOMBOcontainer").html( _combo_code );
 			return YES ;
         }
@@ -192,7 +205,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_REGISTER( _output_channel, _id,
 function CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_DELETE( _question, _silent, _output_channel )
 {
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
-    var _ENTRY = $( "#PLUGINvarsvalsrecCOMBO" ).get(0) != null ? $( "#PLUGINvarsvalsrecCOMBO" ).val() : "" ;
+    var _ENTRY = $( "#PLUGINregisteredvarsCOMBO" ).get(0) != null ? $( "#PLUGINregisteredvarsCOMBO" ).val() : "" ;
     if ( safe_size( _ENTRY, 0 ) > 0 )
     {
        if ( _ENTRY.includes( ":" ) && _ENTRY.count( ":" ) == 1 )
@@ -208,7 +221,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_DELETE( _question, _silent, _ou
              if ( _new_size == _old_size - 1 )
              {
                 if ( !_silent ) circles_lib_output( _output_channel, DISPATCH_WARNING, "The value '"+_val+"' of var '"+_var+"' has been removed with success.", _glob_app_title );
-                var _combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_VALS_RECORD_COMBO_BUILD();
+                var _combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD();
                 $("#PLUGINrecordedvaluesCOMBOcontainer").html( _combo_code );
                 $("#PLUGINvaridEDIT").val( "" );
                 $("#PLUGINvarvalueEDIT").val( "" );
@@ -316,9 +329,6 @@ function CIRCLESembeddingsGENERALPURPOSE_SET_USERVARS_IN_PARAMS( _edit_acquisiti
     }
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_VAR_IS_INCLUDED( _formula ) { return safe_size( _formula.match( /\$([a-zA-B]{1,})/gi ), 0 ) > 0 ? YES : NO ; }
-function CIRCLESembeddingsGENERALPURPOSE_VAR_EXTRACT( _formula ) { return safe_size( _formula.match( /\$([a-zA-B]{1,})/gi ), 0 ) > 0 ? _matches : null ; }
-
 function CIRCLESembeddingsGENERALPURPOSE_VAR_COMPUTE( _param_id, _output_channel )
 {
 	_out_channel = safe_int( _out_channel, OUTPUT_SCREEN ) ;
@@ -385,30 +395,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_WATCH( _param_id, _out_channel )
     else circles_lib_output( _out_channel, DISPATCH_WARNING, "Param '"+_param_id+"' does not include any user-defined var.", _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE_COMBO_BUILD()
-{
-    if ( _plugin_user_vars.is_associative() )
-    {
-        var _keys = _plugin_user_vars.keys_associative(), _values = _plugin_user_vars.values_associative();
-        if ( _keys.length > 0 && _values.length > 0 )
-        {
-            var _n_vars = _keys.length ;
-            var _msg = ( _n_vars == 0 ? "No" : _n_vars ) + " registered var" + ( _n_vars == 1 ? "" : "s" );
-            $( "#PLUGINregisteredvarsLABEL" ).css( "color", _n_vars == 0 ? "#909090" : DEFAULT_COLOR_STD );
-            $( "#PLUGINregisteredvarsLABEL" ).html( _msg );
-        
-            var _html_code = "<SELECT ONCHANGE=\"javascript:$('#PLUGINvaridEDIT').val(this.options[this.selectedIndex].text);$('#PLUGINvarvalueEDIT').val(this.value);\" ID=\"PLUGINuservarsCOMBO\">" ;
-            _html_code += "<OPTION SELECTED VALUE=\"\">" ;
-            for( var _i = 0 ; _i < _keys.length ; _i++ ) _html_code += "<OPTION VALUE=\""+_values[_i]+"\">" + _keys[_i] ;
-            _html_code += "</SELECT>" ;
-            return _html_code ;
-        }
-        else return "" ;
-    }
-    else return "" ;
-}
-
-function CIRCLESembeddingsGENERALPURPOSE_VAR_VALS_RECORD_COMBO_BUILD()
+function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_COMBO_BUILD()
 {
     if ( _plugin_rec_var_vals.is_associative() )
     {
@@ -416,7 +403,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_VALS_RECORD_COMBO_BUILD()
         if ( _n_vals > 0 )
         {
             $( "#PLUGINregisteredvalsLABEL" ).html( ( _n_vals == 0 ? "No" : _n_vals )+" registered value"+( _n_vals == 1 ? "" : "s" ) );
-            var _html_code = "<SELECT ONCHANGE=\"javascript:CIRCLESembeddingsGENERALPURPOSE_VARS_VALS_RECORD_COMBO_SELECT();\" ID=\"PLUGINvarsvalsrecCOMBO\">" ;
+            var _html_code = "<SELECT ONCHANGE=\"javascript:CIRCLESembeddingsGENERALPURPOSE_VARS_VALS_RECORD_COMBO_SELECT();\" ID=\"PLUGINregisteredvarsCOMBO\">" ;
                 _html_code += "<OPTION SELECTED VALUE=\"\">" ;
             var _keys = _plugin_rec_var_vals.keys_associative();
             if ( !is_array( _keys ) ) _keys = [] ;
@@ -433,7 +420,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_VALS_RECORD_COMBO_BUILD()
 
 function CIRCLESembeddingsGENERALPURPOSE_VARS_VALS_RECORD_COMBO_SELECT()
 {
-    var _combo = $( "#PLUGINvarsvalsrecCOMBO" ).get(0);
+    var _combo = $( "#PLUGINregisteredvarsCOMBO" ).get(0);
     var _entry = _combo.options[_combo.selectedIndex].text ;
     if ( _entry.includes( ":" ) && _entry.count( ":" ) == 1 )
     {

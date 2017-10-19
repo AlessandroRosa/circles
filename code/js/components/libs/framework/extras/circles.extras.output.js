@@ -45,10 +45,10 @@ function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*m
 		 			case DISPATCH_SUCCESS: _color = "greensuccess" ; break ;
 		 			case DISPATCH_CRITICAL: case DISPATCH_ERROR: _color = "rederror" ; break ;
 		 			case DISPATCH_INFO: default: _color = "lightgray" ; break ;
-			 }
+		 }
 			 _color = get_rgb_from_color_tag( _color ) ;
 			 circles_lib_extras_special_fx_msg( _ctrl_id, _out_msg_text, _color, _milliseconds_duration, _mutex ) ;
-		}
+	}
     
     if ( _out_channel_type & OUTPUT_SCREEN )
     {
@@ -97,6 +97,9 @@ function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*m
        }
     }
       
+    if ( _out_channel_type & OUTPUT_HTML ) // html output on the terminal
+    circles_lib_terminal_html_display( _glob_terminal, _out_msg_text ) ;
+	  
     if ( _out_channel_type & OUTPUT_SCRIPT ) // batch processing output
     {
          var _textcolor = "" ;

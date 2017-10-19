@@ -295,7 +295,7 @@ function circles_terminal_cmd_plugin()
                           var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_\-]/g, "" ) ;
                           var _options = _params_assoc_array['settings']['send.params'] ;
                           var _ret_array = [] ;
-                          var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null, _ret_array )" ;
+                          var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null, _ret_array, "+_out_channel+" )" ;
                           var _output = null ;
                          	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
                          	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }

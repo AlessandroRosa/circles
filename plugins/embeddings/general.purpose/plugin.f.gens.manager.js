@@ -1,6 +1,7 @@
-function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent )
+function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent, _out_channel )
 {
-		_silent = safe_int( _silent, NO ), _opcode = safe_int( _opcode, CIRCLESembeddingsGENERALPURPOSE_ADD );
+	_silent = safe_int( _silent, NO ), _opcode = safe_int( _opcode, CIRCLESembeddingsGENERALPURPOSE_ADD );
+	_out_channel = safe_int( _out_channel, OUTPUT_SPECIAL_FX );
     var _entries = $( "[id^=PLUGIN_PARAM_]" );
     $.each( _entries, function( _i, _id ) { $( _id ).val( $( _id ).val().replaceAll( ",", "." ) ); } );
     var _index_ref = _plugin_last_ref, _opcode_str = "" ;
@@ -30,28 +31,36 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent )
            $("#PLUGIN_PARAM_C").val( "" );
            $("#PLUGIN_PARAM_D").val( "" );
            $("#PLUGIN_PARAM_A").focus();
-					 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Form cleaned for a new entry", 'PLUGIN_OUTMSG' ) ;
+		   circles_lib_output( _out_channel, DISPATCH_WARNING, "Form has been cleaned for a new entry", 'PLUGIN_OUTMSG' ) ;
+		   return YES ;
         }
-        return ;
+        else return YES ;
     }
 
     var _IS_DUPLICATE = CIRCLESembeddingsGENERALPURPOSE_CHECK_DUPLICATE( CIRCLESembeddingsGENERALPURPOSE_a_formula, CIRCLESembeddingsGENERALPURPOSE_b_formula, CIRCLESembeddingsGENERALPURPOSE_c_formula, CIRCLESembeddingsGENERALPURPOSE_d_formula );
     if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_ADD && _IS_DUPLICATE )
     {
-			var _MSG = "", _index = CIRCLESembeddingsGENERALPURPOSE_FIND_INDEX( CIRCLESembeddingsGENERALPURPOSE_a_formula, CIRCLESembeddingsGENERALPURPOSE_b_formula, CIRCLESembeddingsGENERALPURPOSE_c_formula, CIRCLESembeddingsGENERALPURPOSE_d_formula );
+	  var _MSG = "", _index = CIRCLESembeddingsGENERALPURPOSE_FIND_INDEX( CIRCLESembeddingsGENERALPURPOSE_a_formula, CIRCLESembeddingsGENERALPURPOSE_b_formula, CIRCLESembeddingsGENERALPURPOSE_c_formula, CIRCLESembeddingsGENERALPURPOSE_d_formula );
       if ( _index == CIRCLESembeddingsGENERALPURPOSEcurr_sel ) _MSG = "Update won't be performed: no modifications detected in this generator" ;
       else
       {
          _MSG = "There exists already one generator including the same parameter values in this list." ;
-			 	 _MSG += _glob_crlf + "Duplicates will be not admitted into the current candidate group," ;
-		   	 _MSG += _glob_crlf.repeat(2)+"This entry won't be inserted !" ;
+	     _MSG += _glob_crlf + "Duplicates will be not admitted into the current candidate group," ;
+		 _MSG += _glob_crlf.repeat(2)+"This entry won't be inserted !" ;
       }
-			circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
-		}
-		else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSEcurr_sel == UNDET )
-				 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: missing reference index.", 'PLUGIN_OUTMSG' ) ;
-		else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSE_gens_container[ CIRCLESembeddingsGENERALPURPOSEcurr_sel ] == null )
-				 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: unfound referenced element.", 'PLUGIN_OUTMSG' ) ;
+	  circles_lib_output( _out_channel, DISPATCH_WARNING, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+	  return NO ;
+	}
+	else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSEcurr_sel == UNDET )
+	{
+		 circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: missing reference index.", 'PLUGIN_OUTMSG' ) ;
+		 return NO ;
+	}
+	else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSE_gens_container[ CIRCLESembeddingsGENERALPURPOSEcurr_sel ] == null )
+	{
+		 circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: unfound referenced element.", 'PLUGIN_OUTMSG' ) ;
+		 return NO ;
+	}
     else
     {
         var _ret_scan = CIRCLESembeddingsGENERALPURPOSE_SET_USERVARS_IN_PARAMS( YES, null );
@@ -99,7 +108,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent )
                  $("[id$=renderBTN]").css( "color", COLOR_DISABLED );
 
                  if ( _new_n > _old_n )
-								 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Gen #"+_new_n+" has been added with success!", 'PLUGIN_OUTMSG' ) ;
+								 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Gen #"+_new_n+" has been added with success!", 'PLUGIN_OUTMSG' ) ;
 							}
 							else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE )
 							{
@@ -115,22 +124,22 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent )
                     $("[id$=initBTN]").css( "color", COLOR_DISABLED );
                     $("[id$=renderBTN]").css( "color", COLOR_DISABLED );
                     if ( _new_n == _old_n )
- 								    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Gen #"+(CIRCLESembeddingsGENERALPURPOSEcurr_sel+1)+" has been updated with success!", 'PLUGIN_OUTMSG' ) ;
+ 								    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Gen #"+(CIRCLESembeddingsGENERALPURPOSEcurr_sel+1)+" has been updated with success!", 'PLUGIN_OUTMSG' ) ;
 								 }
 							}
 
               jQuery.extend( _plugin_rec_configs_array[ _index_ref ], CIRCLESembeddingsGENERALPURPOSE_gens_container );
               CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES);
 				  }
-				  else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't "+_opcode_str+" the generator: some entries could be empty.", 'PLUGIN_OUTMSG' ) ;
+				  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" the generator: some entries could be empty.", 'PLUGIN_OUTMSG' ) ;
 				}
 				else
         {
             var _msg = "Can't "+_opcode_str+" the generator: some entries have not been correctly parsed." ;
                 _msg += _glob_crlf.repeat(2) + "The input params might include invalid chars or unregistered vars." ;
-            circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+            circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
         }
-		}
+	}
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_GEN_DELETE( _index, _question, _silent )

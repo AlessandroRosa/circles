@@ -17,7 +17,7 @@ function CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id )
     _glob_submethod_desc = safe_string( _glob_submethod_desc, "" );
     if ( _glob_process == PROCESS_NONE ) _glob_process = PROCESS_BREADTHFIRST ;
     _glob_target_plane = W_PLANE ;
-		circles_lib_drawentity_set( DRAWENTITY_PIXEL );
+	circles_lib_drawentity_set( DRAWENTITY_PIXEL );
     circles_lib_method_set( METHOD_ALGEBRAIC );
     if ( _glob_depth <= 1 ) circles_lib_depth_set( 8, YES );
     _plugin_init_fns_array[_index_ref] = arguments.callee.name ;
@@ -159,13 +159,13 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
     var _CANVAS_W = WIDTH - 34, _CANVAS_H = Math.floor( _CANVAS_W / 2 ) - 60 ;
-    var TAB_H = _CANVAS_H + 20 ;
+    var TAB_H = _CANVAS_H + 50 ;
 
 		HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\" ID=\"PLUGIN_TABS_CONTAINER\">" ;
     HTMLcode += "<div ID=\"CIRCLESGENERALPURPOSEmainDIV\" STYLE=\"position:relative;width:99%;height:"+(TAB_H+12)+"px;\" VALIGN=\"top\" class=\"tabber\">" ;
 
     HTMLcode += "<DIV class=\"tabbertab\" STYLE=\"width:99%;height:"+TAB_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_01\">" ;
-    HTMLcode += "<h2>Input form</h2>" ;
+    HTMLcode += "<h2>Input maps</h2>" ;
     HTMLcode += "<table>" ;
     HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
     HTMLcode += "<tr>" ;
@@ -238,7 +238,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 
     HTMLcode += "<DIV class=\"tabbertab\" STYLE=\"width:99%;height:"+TAB_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_03\">" ;
     HTMLcode += "<h2>Custom vars</h2>" ;
-		HTMLcode += "<table>" ;
+	HTMLcode += "<table>" ;
 
     HTMLcode += "<tr><td VALIGN=\"top\" CLASS=\"general_rounded_corners_top\" STYLE=\"padding:5px;background-color:#F0F0F0;\">" ;
     HTMLcode += "<table>" ;
@@ -265,7 +265,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     var _temptative_var_combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE_COMBO_BUILD();
     var _n_vars = _plugin_user_vars != null ? safe_int( _plugin_user_vars.size_associative(), 0 ) : 0 ;
 
-    _temptative_val_combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_VALS_RECORD_COMBO_BUILD();
+    _temptative_val_combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_COMBO_BUILD();
     var _n_vals = _plugin_rec_var_vals != null ? safe_int( _plugin_rec_var_vals.size_associative(), 0 ) : 0 ;
 
     HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
@@ -303,10 +303,6 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB();\" ID=\"PLUGINparam_bombBTN\">Bomb</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_LIST();\" ID=\"PLUGINparam_listBTN\">List</td>" ;
-    HTMLcode += "<td WIDTH=\"10\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_REGISTER();\" ID=\"PLUGINparam_registerBTN\">Register value</td>" ;
-    HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_DELETE();\" ID=\"PLUGINparam_delete_valBTN\">Delete value</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_HELP(1);\">?</td>" ;
@@ -315,7 +311,29 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "</td>" ;
     HTMLcode += "</tr>" ;
 
-		HTMLcode += "</table>" ;
+    HTMLcode += "<tr><td VALIGN=\"top\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"padding:5px;background-color:#EBEBEB;\">" ;
+    HTMLcode += "<table>" ;
+    HTMLcode += "<tr>" ;
+    HTMLcode += "<td WIDTH=\"5\"></td>" ;
+    HTMLcode += "<td>Register</td>" ;
+    HTMLcode += "<td WIDTH=\"5\"></td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER();\" ID=\"PLUGINparam_registerBTN\">Value</td>" ;
+    HTMLcode += "<td WIDTH=\"10\"></td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD();\" ID=\"PLUGINparam_listBTN\">List</td>" ;
+    HTMLcode += "</tr>" ;
+    HTMLcode += "</table>" ;
+    HTMLcode += "</td>" ;
+    HTMLcode += "</tr>" ;
+
+    HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
+    HTMLcode += "<tr><td COLSPAN=\"8\"><SPAN STYLE=\"color:blue;\">Note #1</SPAN> Var ids can be singly declared and then used for further registration, together with a complex value</td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+    HTMLcode += "<tr><td COLSPAN=\"8\"><SPAN STYLE=\"color:blue;\">Note #2</SPAN> Registered values can be used to input formulas in the generators parameters</td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+    HTMLcode += "<tr><td COLSPAN=\"8\"><SPAN STYLE=\"color:blue;\">Note #3</SPAN> If formulas are input into generators parameters, push 'update' button to get the related complex values</td></tr>" ;
+    HTMLcode += "" ;
+ 
+	HTMLcode += "</table>" ;
     HTMLcode += "</DIV>" ;
 
     HTMLcode += "<DIV class=\"tabbertab\" STYLE=\"width:99%;height:"+TAB_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_04\">" ;
@@ -623,12 +641,11 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 {
     _silent = safe_int( _silent, NO ), _edit_acquisition = safe_int( _edit_acquisition, YES );
     var _index_ref = _plugin_last_ref, _N_GENS = safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 );
-		if ( _N_GENS == 0 ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't generate the group: the gens list is empty", 'PLUGIN_OUTMSG' ) ;
-		else
-		{
+	if ( _N_GENS == 0 ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't generate the group: the gens list is empty", 'PLUGIN_OUTMSG' ) ;
+	else
+	{
         if ( _glob_method == METHOD_NONE ) { circles_lib_config_create_new_main(YES); circles_lib_method_set( _plugin_method_array[ _index_ref ] ); }
    	    if ( is_array( _glob_gens_array ) ) _glob_gens_array.flush();
-        if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
         if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
         if ( is_array( _glob_zplane_selected_items_array ) ) _glob_zplane_selected_items_array.flush();
 
@@ -737,7 +754,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
             $("[id$=initBTN]").css( "color", DEFAULT_COLOR_ERROR );
             $("[id$=renderBTN]").css( "color", DEFAULT_COLOR_STD );
         }
-		}
+	}
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_CALL_METHOD( fn ) { circles_lib_plugin_load('forms','method', YES, 0, _glob_method, fn ); }
