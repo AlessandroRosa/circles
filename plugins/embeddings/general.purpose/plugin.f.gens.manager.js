@@ -1,4 +1,4 @@
-function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent, _out_channel )
+function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode, _silent, _out_channel )
 {
 	_silent = safe_int( _silent, NO ), _opcode = safe_int( _opcode, CIRCLESembeddingsGENERALPURPOSE_ADD );
 	_out_channel = safe_int( _out_channel, OUTPUT_SPECIAL_FX );
@@ -34,7 +34,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent, _out_chan
 		   circles_lib_output( _out_channel, DISPATCH_WARNING, "Form has been cleaned for a new entry", 'PLUGIN_OUTMSG' ) ;
 		   return YES ;
         }
-        else return YES ;
+        else return NO ;
     }
 
     var _IS_DUPLICATE = CIRCLESembeddingsGENERALPURPOSE_CHECK_DUPLICATE( CIRCLESembeddingsGENERALPURPOSE_a_formula, CIRCLESembeddingsGENERALPURPOSE_b_formula, CIRCLESembeddingsGENERALPURPOSE_c_formula, CIRCLESembeddingsGENERALPURPOSE_d_formula );
@@ -53,21 +53,25 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent, _out_chan
 	}
 	else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSEcurr_sel == UNDET )
 	{
-		 circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: missing reference index.", 'PLUGIN_OUTMSG' ) ;
-		 return NO ;
+	  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: missing reference index.", 'PLUGIN_OUTMSG' ) ;
+	  return NO ;
 	}
 	else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSE_gens_container[ CIRCLESembeddingsGENERALPURPOSEcurr_sel ] == null )
 	{
-		 circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: unfound referenced element.", 'PLUGIN_OUTMSG' ) ;
-		 return NO ;
+	  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: unfound referenced element.", 'PLUGIN_OUTMSG' ) ;
+	  return NO ;
 	}
     else
     {
-        var _ret_scan = CIRCLESembeddingsGENERALPURPOSE_SET_USERVARS_IN_PARAMS( YES, null );
+		CIRCLESembeddingsGENERALPURPOSE_SET_REGISTEREDVARS_IN_PARAMS( YES, null );
+        console.log( "IN1", CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array );
+		var _ret_scan = CIRCLESembeddingsGENERALPURPOSE_VAR_ALL_REPLACE_WITH_VAL();
+        console.log( "IN2", _ret_scan );
         var _RET_CHUNK = CIRCLESembeddingsGENERALPURPOSE_PARSE( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[0],
 			                                       CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[1],
 			                                       CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[2],
 			                                       CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[3] );
+		console.log( "RET CHUNK", _RET_CHUNK );
 		    var _start_index = 0 ;
 		    var _RET_MASK = _RET_CHUNK[_start_index] ;
 		    		_start_index++ ;
@@ -93,13 +97,12 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent, _out_chan
 
 		      if ( is_complex( _A_COMPLEX ) && is_complex( _B_COMPLEX ) && is_complex( _C_COMPLEX ) && is_complex( _D_COMPLEX ) )
 		      {
-							if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_ADD )
+						if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_ADD )
 		  				{
                  var _old_n = safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 );
 								 CIRCLESembeddingsGENERALPURPOSE_gens_container.push( [ CIRCLESembeddingsGENERALPURPOSE_a_formula, CIRCLESembeddingsGENERALPURPOSE_b_formula, CIRCLESembeddingsGENERALPURPOSE_c_formula, CIRCLESembeddingsGENERALPURPOSE_d_formula ] );
                  var _new_n = safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 );
 								 CIRCLESembeddingsGENERALPURPOSEcurr_sel = UNDET ;
-
 								 CIRCLESembeddingsGENERALPURPOSE_CLEAN(NO,YES);
                  $("#PLUGIN_PARAM_A").focus();
 								 $("#PLUGIN_GENERATE_GROUP_BTN").css( "color", _new_n > 0 ? DEFAULT_COLOR_GO : DEFAULT_COLOR_ERROR );
@@ -107,8 +110,12 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent, _out_chan
                  $("[id$=initBTN]").css( "color", COLOR_DISABLED );
                  $("[id$=renderBTN]").css( "color", COLOR_DISABLED );
 
+				 var _ret = NO ;
                  if ( _new_n > _old_n )
-								 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Gen #"+_new_n+" has been added with success!", 'PLUGIN_OUTMSG' ) ;
+				 {
+					 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Gen #"+_new_n+" has been added with success!", 'PLUGIN_OUTMSG' ) ;
+					 _ret = YES ;
+				 }
 							}
 							else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE )
 							{
@@ -124,22 +131,35 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( _opcode, _silent, _out_chan
                     $("[id$=initBTN]").css( "color", COLOR_DISABLED );
                     $("[id$=renderBTN]").css( "color", COLOR_DISABLED );
                     if ( _new_n == _old_n )
- 								    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Gen #"+(CIRCLESembeddingsGENERALPURPOSEcurr_sel+1)+" has been updated with success!", 'PLUGIN_OUTMSG' ) ;
+					{
+					    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Gen #"+(CIRCLESembeddingsGENERALPURPOSEcurr_sel+1)+" has been updated with success!", 'PLUGIN_OUTMSG' ) ;
+						_ret = YES ;
+					}
 								 }
 							}
 
+							if ( _ret == YES )
+							{
               jQuery.extend( _plugin_rec_configs_array[ _index_ref ], CIRCLESembeddingsGENERALPURPOSE_gens_container );
               CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES);
+							}
+							return _ret ;
 				  }
-				  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" the generator: some entries could be empty.", 'PLUGIN_OUTMSG' ) ;
+				  else
+				  {
+					  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" the generator: some entries could be empty.", 'PLUGIN_OUTMSG' ) ;
+					  return NO ;
+				  }
 				}
 				else
         {
             var _msg = "Can't "+_opcode_str+" the generator: some entries have not been correctly parsed." ;
                 _msg += _glob_crlf.repeat(2) + "The input params might include invalid chars or unregistered vars." ;
             circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+			return NO ;
         }
 	}
+	return NO ;
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_GEN_DELETE( _index, _question, _silent )
@@ -300,7 +320,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( _resolve_formula, _restore, _
     		else if ( _resolve_formula )
    			{
   		 		  HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-   		 		  HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"color:#3E99DB;font-size:10pt;\">List version with resolved formulas</td></tr>" ;
+   		 		  HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"color:#3E99DB;font-size:10pt;\">List with formulas resolved into values</td></tr>" ;
   		 		  HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
    			}
     }
@@ -315,9 +335,11 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( _resolve_formula, _restore, _
         var _A_FORMULA, _B_FORMULA, _C_FORMULA, _D_FORMULA ;
         var _CALC_A_FORMULA, _CALC_B_FORMULA, _CALC_C_FORMULA, _CALC_D_FORMULA ;
         var _is_normalized, _mm, _including_vars, _i, _c, _mm, _src_mask = 0 ;
+		console.log( _N_GENS );
 				for( _i = 0 ; _i < _N_GENS ; _i++ )
 		  	{
 						GEN_CHUNK = _input_maps_array[_i], _including_vars = NO ;
+						console.log( GEN_CHUNK );
 						if ( GEN_CHUNK != null )
 						{
 					 		  if ( is_item_obj( GEN_CHUNK ) )
@@ -338,15 +360,14 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( _resolve_formula, _restore, _
     
     								_A_FORMULA = GEN_CHUNK[0], _B_FORMULA = GEN_CHUNK[1], _C_FORMULA = GEN_CHUNK[2], _D_FORMULA = GEN_CHUNK[3] ;
                     // resolve values in generators formula
-                    var _vars_names = _plugin_user_vars.keys_associative();
-                    var _vars_values = _plugin_user_vars.values_associative();
+                    var _vars_names = _plugin_rec_var_vals.keys_associative();
                     var _n_vars = safe_size( _vars_names, 0 ) ;
                     for( var _x = 0 ; _x < _n_vars ; _x++ )
                     {
-                      _A_FORMULA = _A_FORMULA.replaceAll( _vars_names[_x], "("+_vars_values[_x]+")" );
-                      _B_FORMULA = _B_FORMULA.replaceAll( _vars_names[_x], "("+_vars_values[_x]+")" );
-                      _C_FORMULA = _C_FORMULA.replaceAll( _vars_names[_x], "("+_vars_values[_x]+")" );
-                      _D_FORMULA = _D_FORMULA.replaceAll( _vars_names[_x], "("+_vars_values[_x]+")" );
+                      _A_FORMULA = _A_FORMULA.replaceAll( _vars_names[_x], "("+_plugin_rec_var_vals[ _vars_names[_x] ]+")" );
+                      _B_FORMULA = _B_FORMULA.replaceAll( _vars_names[_x], "("+_plugin_rec_var_vals[ _vars_names[_x] ]+")" );
+                      _C_FORMULA = _C_FORMULA.replaceAll( _vars_names[_x], "("+_plugin_rec_var_vals[ _vars_names[_x] ]+")" );
+                      _D_FORMULA = _D_FORMULA.replaceAll( _vars_names[_x], "("+_plugin_rec_var_vals[ _vars_names[_x] ]+")" );
                     }
 
     								_CALC_A_FORMULA = circles_lib_math_parse_formula( _A_FORMULA );

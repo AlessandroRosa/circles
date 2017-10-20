@@ -56,7 +56,7 @@ function CIRCLESembeddingsGENERALPURPOSE_PRESETS( _opcode )
 						            _glob_zplaneBOTTOM = _glob_wplaneBOTTOM = _glob_bipBOTTOM = safe_float( _coords[3], -DEFAULT_PLANE_COORD );
 						            circles_lib_canvas_coords_acquire( ALL_PLANES );
             
-                        CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( CIRCLESembeddingsGENERALPURPOSE_ADD, YES );
+                        CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( CIRCLESembeddingsGENERALPURPOSE_ADD, YES );
                         CIRCLESembeddingsGENERALPURPOSE_RECORD_PARAMS();
                         _glob_target_plane = W_PLANE ;
                     }

@@ -1,20 +1,8 @@
 function CIRCLESembeddingsGENERALPURPOSE_EVENTS( ctrl_id, event )
 {
-	  if ( event.stopPropagation )      event.stopPropagation();
-	  if ( event.cancelBubble != null ) event.cancelBubble = true;
+	if ( event.stopPropagation )      event.stopPropagation();
+	if ( event.cancelBubble != null ) event.cancelBubble = true;
     var _is_tab = event.keyCode == 9 ? YES : NO ;
-
-    switch( event.type.toLowerCase() )
-    {
-        case "keyup":
-        switch( event.target.id )
-        {
-            case "PLUGINvarvalueEDIT": $( "#PLUGINparam_declareBTN" ).css( "color", DEFAULT_COLOR_WARNING ); break ;
-            default: break ;
-        }
-        break ;
-        default: break ;
-    }
 
 		switch( event.keyCode )
 		{
@@ -84,7 +72,7 @@ function CIRCLESembeddingsGENERALPURPOSE_EVENTS( ctrl_id, event )
                   }
                }
             }
-					  else if ( ctrl_id.strcmp( "PLUGIN_PARAM_D" ) )
+			else if ( ctrl_id.strcmp( "PLUGIN_PARAM_D" ) )
             {
                var _d_text = $( "#PLUGIN_PARAM_D" ).val();
                if ( _d_text.includes( "," ) )
@@ -99,19 +87,14 @@ function CIRCLESembeddingsGENERALPURPOSE_EVENTS( ctrl_id, event )
                   }
                }
 
-               if ( !_is_tab ) CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( CIRCLESembeddingsGENERALPURPOSEcurr_sel == UNDET ? CIRCLESembeddingsGENERALPURPOSE_ADD : CIRCLESembeddingsGENERALPURPOSE_UPDATE, YES );
+               if ( !_is_tab ) CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( CIRCLESembeddingsGENERALPURPOSEcurr_sel == UNDET ? CIRCLESembeddingsGENERALPURPOSE_ADD : CIRCLESembeddingsGENERALPURPOSE_UPDATE, YES );
                _glob_items_to_init = YES ;
                $('[id$=initBTN]').css('color',COLOR_ERROR) ;
                CIRCLESembeddingsGENERALPURPOSE_RECORD_PARAMS();
             }
 				}
         else if ( ctrl_id.stricmp( "PLUGINvaridEDIT" ) ) $( "#PLUGINvarvalueEDIT" ).focus();
-        else if ( ctrl_id.stricmp( "PLUGINvarvalueEDIT" ) )
-        {
-             if ( safe_string( $( "#PLUGINvaridEDIT" ).val(), "" ).trim().length > 0 &&
-                  safe_string( $( "#PLUGINvarvalueEDIT" ).val(), "" ).trim().length > 0 )
-             CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE();
-        }
+        else if ( ctrl_id.stricmp( "PLUGINvarvalueEDIT" ) ) CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER();
 				break ;
         default:
         _plugin_step_index = 0 ;

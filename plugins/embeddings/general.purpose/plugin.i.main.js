@@ -1,3 +1,4 @@
+function CIRCLESembeddingsGENERALPURPOSE_CALL_METHOD( fn ) { circles_lib_plugin_load('forms','method', YES, 0, _glob_method, fn ); }
 function CIRCLESembeddingsGENERALPURPOSEclose() { return circles_lib_plugin_dispatcher_unicast_message( 'general.purpose', "embeddings", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id )
 {
@@ -262,26 +263,18 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "</td>" ;
     HTMLcode += "</tr>" ;
 
-    var _temptative_var_combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE_COMBO_BUILD();
-    var _n_vars = _plugin_user_vars != null ? safe_int( _plugin_user_vars.size_associative(), 0 ) : 0 ;
-
-    _temptative_val_combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_COMBO_BUILD();
-    var _n_vals = _plugin_rec_var_vals != null ? safe_int( _plugin_rec_var_vals.size_associative(), 0 ) : 0 ;
+    var _n_registered_vars = _plugin_rec_var_vals != null ? safe_int( _plugin_rec_var_vals.size_associative(), 0 ) : 0 ;
 
     HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\" STYLE=\"padding:5px;background-color:#EBEBEB;\">" ;
     HTMLcode += "<table>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td ID=\"PLUGINregisteredvarsLABEL\">"+( _n_vars == 0 ? "No" : _n_vars )+" registered var"+( _n_vars == 1 ? "" : "s" )+"</td>" ;
+    HTMLcode += "<td ID=\"PLUGINregisteredvaluesLABEL\">"+( _n_registered_vars == 0 ? "No" : _n_registered_vars )+" registered value"+( _n_registered_vars == 1 ? "" : "s" )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td ID=\"PLUGINregisteredvarsCOMBOcontainer\">"+_temptative_var_combo_code+"</td>" ;
-    HTMLcode += "<td WIDTH=\"12\"></td>" ;
-    HTMLcode += "<td ID=\"PLUGINregisteredvalsLABEL\">"+( _n_vals == 0 ? "No" : _n_vars )+" registered value"+( _n_vars == 1 ? "" : "s" )+"</td>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td ID=\"PLUGINrecordedvaluesCOMBOcontainer\">"+_temptative_val_combo_code+"</td>" ;
+    HTMLcode += "<td ID=\"PLUGINregisteredvaluesCOMBOcontainer\">"+CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_COMBO_BUILD()+"</td>" ;
     HTMLcode += "<td WIDTH=\"8\"></td>" ;
-    HTMLcode += "<td ID=\"PLUGINrecordedvaluesCOMBOoutput\"></td>" ;
+    HTMLcode += "<td ID=\"PLUGINregisteredvaluesCOMBOoutput\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
@@ -295,10 +288,6 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_CLEAN();\" ID=\"PLUGINparam_cleanBTN\">Clean</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE();\" ID=\"PLUGINparam_declareBTN\">Declare</td>" ;
-    HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_CHANGE();\" ID=\"PLUGINparam_changeBTN\">Change</td>" ;
-    HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_DELETE();\" ID=\"PLUGINparam_delete_idBTN\">Delete</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB();\" ID=\"PLUGINparam_bombBTN\">Bomb</td>" ;
@@ -306,15 +295,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_DELETE();\" ID=\"PLUGINparam_delete_valBTN\">Delete value</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_HELP(1);\">?</td>" ;
-    HTMLcode += "</tr>" ;
-    HTMLcode += "</table>" ;
-    HTMLcode += "</td>" ;
-    HTMLcode += "</tr>" ;
-
-    HTMLcode += "<tr><td VALIGN=\"top\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"padding:5px;background-color:#EBEBEB;\">" ;
-    HTMLcode += "<table>" ;
-    HTMLcode += "<tr>" ;
-    HTMLcode += "<td WIDTH=\"5\"></td>" ;
+    HTMLcode += "<td WIDTH=\"25\"></td>" ;
     HTMLcode += "<td>Register</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER();\" ID=\"PLUGINparam_registerBTN\">Value</td>" ;
@@ -326,11 +307,9 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "</tr>" ;
 
     HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
-    HTMLcode += "<tr><td COLSPAN=\"8\"><SPAN STYLE=\"color:blue;\">Note #1</SPAN> Var ids can be singly declared and then used for further registration, together with a complex value</td></tr>" ;
+    HTMLcode += "<tr><td COLSPAN=\"8\"><SPAN STYLE=\"color:blue;\">Note #1</SPAN> Registered values can be used to input formulas in the generators parameters</td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-    HTMLcode += "<tr><td COLSPAN=\"8\"><SPAN STYLE=\"color:blue;\">Note #2</SPAN> Registered values can be used to input formulas in the generators parameters</td></tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-    HTMLcode += "<tr><td COLSPAN=\"8\"><SPAN STYLE=\"color:blue;\">Note #3</SPAN> If formulas are input into generators parameters, push 'update' button to get the related complex values</td></tr>" ;
+    HTMLcode += "<tr><td COLSPAN=\"8\"><SPAN STYLE=\"color:blue;\">Note #2</SPAN> If formulas are input into generators parameters, push 'update' button to get the related complex values</td></tr>" ;
     HTMLcode += "" ;
  
 	HTMLcode += "</table>" ;
@@ -373,11 +352,11 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td ALIGN=\"right\" CLASS=\"popup_buttons_bar\" HEIGHT=\"18\">" ;
     HTMLcode += "<table ALIGN=\"right\">" ;
     HTMLcode += "<tr>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESembeddingsGENERALPURPOSE_NEW_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_NEW,YES);\">New</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESembeddingsGENERALPURPOSE_NEW_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_NEW,YES);\">New</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESembeddingsGENERALPURPOSE_ADD_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);\">Add</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESembeddingsGENERALPURPOSE_ADD_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);\">Add</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESembeddingsGENERALPURPOSE_UPDATE_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_UPDATE,YES);\">Update</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESembeddingsGENERALPURPOSE_UPDATE_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_UPDATE,YES);\">Update</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ID=\"PLUGIN_WHOLEGROUP_LIST_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);\" WIDTH=\"90\">View whole group</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
@@ -431,7 +410,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 
     CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, _restore, YES );
     TABINDEXorderSET( "#PLUGIN_PARAM_A", "#PLUGIN_PARAM_B", "#PLUGIN_PARAM_C", "#PLUGIN_PARAM_D", "#PLUGINSconfigCOMBO" );
-    $( "#PLUGINregisteredvarsLABEL" ).css( "color", _n_vars == 0 ? "#909090" : DEFAULT_COLOR_STD );
+    $( "#PLUGINregisteredvarsLABEL" ).css( "color", _n_registered_vars == 0 ? "#909090" : DEFAULT_COLOR_STD );
 
     $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESembeddingsGENERALPURPOSE_LOADgroup ) } ;
     $("#"+_div_id).bind( "click", function() { GLOB_PLUGIN_FOCUS( _base_id ); } );
@@ -461,7 +440,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
                    $( "#PLUGIN_PARAM_D" ).val( _store_gens[3] );
                    _store_gens = [] ;
 
-                   CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE( CIRCLESembeddingsGENERALPURPOSE_ADD, YES );
+                   CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( CIRCLESembeddingsGENERALPURPOSE_ADD, YES );
                    _glob_target_plane = W_PLANE ;
                  }
             }
@@ -486,7 +465,7 @@ function CIRCLESembeddingsGENERALPURPOSE_CAPTURE( _items_switch )
         var _b_go = YES ;
         if ( safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 ) > 0 )
         {
-           var _question = "Another group, previously declared through this plug-in, had been already saved. Old entries would be lost." + _glob_crlf ;
+           var _question = "Another group, previously generated through this plug-in, had been already saved. Old entries would be lost." + _glob_crlf ;
                _question += "Do you want to replace it with the current "+_items_array_label+" set ?" ;
            if ( confirm( _question ) ) CIRCLESembeddingsGENERALPURPOSE_gens_container.flush();
            else _b_go = NO ;
@@ -726,13 +705,13 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 				// take each entry, parse parameters, construct the Mobius map object
 				// and fill the standard seeds gens list
       	_glob_dict_create = _glob_items_to_init = YES ;
-        circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES, _glob_output_channel );
-        var _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, NO, YES, _glob_output_channel );
+        circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES, _glob_out_channel );
+        var _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, NO, YES, _glob_out_channel );
         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "64Unknown error" ;
         if ( _ret_id == RET_OK )
         {
-            _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _glob_output_channel );
+            _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _glob_out_channel );
             _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
             _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "65Unknown error" ;
             if ( _ret_id == RET_OK )
@@ -756,8 +735,6 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
         }
 	}
 }
-
-function CIRCLESembeddingsGENERALPURPOSE_CALL_METHOD( fn ) { circles_lib_plugin_load('forms','method', YES, 0, _glob_method, fn ); }
 
 function CIRCLESembeddingsGENERALPURPOSE_PARSE( a_formula, b_formula, c_formula, d_formula )
 {

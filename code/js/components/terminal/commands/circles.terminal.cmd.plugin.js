@@ -300,7 +300,7 @@ function circles_terminal_cmd_plugin()
                          	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
                          	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
                           if ( _ret_array.length == 2 )
-                          circles_lib_output( _out_channel, _ret_array[0] ? DISPATCH_MULTICOLOR : DISPATCH_ERROR, _ret_array[1], _par_1, _cmd_tag );
+                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _ret_array[1], _par_1, _cmd_tag );
                           else
                           circles_lib_output( _out_channel, DISPATCH_ERROR, "Illegal response from event dispatching system", _par_1, _cmd_tag );
                        }

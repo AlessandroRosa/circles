@@ -6,7 +6,7 @@ function CIRCLESembeddingsGENERALPURPOSE_LOADgroup( _filename, _file_contents )
     _file_rows = _file_rows.filtering( function( _entry ) { return ( _entry + "" ).trim().length > 0 ; } ).reset_index();
     var _start_index = 0, _rows_len = safe_size( _file_rows, 0 );
     CIRCLESembeddingsGENERALPURPOSE_gens_container.flush();
-    _plugin_user_vars.flush_associative();
+    _plugin_rec_var_vals.flush_associative();
 
     var _CHUNKS = [], _var, _val ;
     for( var _i = 0 ; _i < _rows_len ; _i++ )
@@ -67,17 +67,9 @@ function CIRCLESembeddingsGENERALPURPOSE_LOADgroup( _filename, _file_contents )
     					_file_rows[_i] = _file_rows[_i].replaceAll( "var@", "" );
     					_var = ( _file_rows[_i].split( "=" ) )[0], _val = ( _file_rows[_i].split( "=" ) )[1] ;
     					if ( !_var.start_with( "_" ) ) _var = "_" + _var ;
-    					_plugin_user_vars[ _var ] = _val ; 
+    					_plugin_rec_var_vals[ _var ] = _val ; 
     			 }
-           else if ( _file_rows[_i].start_with( "rec@" ) )
-           {
-							_file_rows[_i] = _file_rows[_i].replaceAll( "rec@", "" );
-							_var = ( _file_rows[_i].split( "=" ) )[0], _val = ( _file_rows[_i].split( "=" ) )[1] ;
-							if ( !_var.start_with( "_" ) ) _var = "_" + _var ;
-							if ( _plugin_rec_var_vals[ ''+_var ] == null ) _plugin_rec_var_vals[ ''+_var ] = [] ;
-              _plugin_rec_var_vals[ ''+_var ].push( _val ); 
-           }
-           else
+          else
     			 {
     				   _CHUNKS.push( ( _file_rows[_i].split( "=" ) )[1] );
     				   if ( safe_size( _CHUNKS, 0 ) == 4 )
@@ -154,37 +146,16 @@ function CIRCLESembeddingsGENERALPURPOSE_SAVE_GROUP()
                 }
               );
 
-    		var _keys = _plugin_user_vars.keys_associative();
-        if ( is_array( _keys ) )
-        {
-        		if ( _keys.length > 0 )
-            {
-               _out_stream.push( "// Registered variables" );
-               $.each( _keys, function( _i, _key ) { _out_stream.push( "var@"+_key+"=" + _plugin_user_vars[ _key ] ); } );
-            }
-        }
-
     		var _keys = _plugin_rec_var_vals.keys_associative();
         if ( is_array( _keys ) )
         {
         		if ( _keys.length > 0 )
             {
                _out_stream.push( "// Registered values" );
-               var _chunk = null ;
-               for( var _k = 0 ; _k < _keys.length ; _k++ )
-               {
-                  _chunk = _plugin_rec_var_vals[ ""+_keys[_k] ] ;
-               		$.each( _chunk,
-               		        function( _i, _key )
-                          {
-                              if ( safe_string( _chunk[ _i ], "" ).trim().length > 0 )
-                              _out_stream.push( "rec@"+_keys[_k]+"=" + _chunk[ _i ] );
-                          }
-              					);
-               }
+               $.each( _keys, function( _i, _key ) { _out_stream.push( "var@"+_key+"=" + _plugin_rec_var_vals[ _key ] ); } );
             }
         }
-        
+
         _out_stream = _out_stream.work( function( _row ) { return _row + _glob_crlf } );
         var blob = new Blob( _out_stream, { type: 'plain/text', endings: 'native' });
         saveAs( blob, "circles.general.purpose.plugin.txt" );

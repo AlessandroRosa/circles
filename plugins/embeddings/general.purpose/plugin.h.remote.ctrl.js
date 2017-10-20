@@ -5,60 +5,59 @@ function CIRCLESembeddingsGENERALPURPOSE_REMOTE_CTRL_KEYWORDS_INIT()
 
 function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_array, _out_channel )
 {
-		if ( !is_array( _options ) )
-		{
-       if ( typeof _return_fn === "function" ) _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
-			 return 0 ;
-		}
+	if ( !is_array( _options ) )
+	{
+       if ( typeof _return_fn === "function" ) _return_fn.call( this, "<red>Invalid input data for remote control management</red>" );
+	   return 0 ;
+	}
 
-		var _out_msg = "" ;
+	var _out_msg = "" ;
     var _idx = circles_lib_plugin_find_index( { subset : "embeddings", base_id : "general.purpose" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 ) ;
     var _div_id = _idx != UNFOUND ? _glob_popups_array[_idx][1] : "" ;
-	console.log( _options );
     if ( is_array( _options ) )
     {
 		var _opt = _options[0].toLowerCase() ;
-      switch( _opt )
+		switch( _opt )
   		{
-			 case "add.mobius.map":
-  			 if ( _options[1] != null ) $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) );
-  			 if ( _options[2] != null ) $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
-  			 if ( _options[3] != null ) $( "#PLUGIN_PARAM_C" ).val( _options[3].replaceAll( [ ",", ";" ], "" ) );
-  			 if ( _options[4] != null ) $( "#PLUGIN_PARAM_D" ).val( _options[4].replaceAll( [ ",", ";" ], "" ) );
-  			 CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
-		   _ret_array.push( 1, "<green>Mobius map has been added with success to the candidate group</green>" ) ;
-         return 1 ;
-  			 break ;
-  			 case "bomb":
-  			 CIRCLESembeddingsGENERALPURPOSE_BOMB();
-		   _ret_array.push( 1, "<green>Group has been bombed with success: all generators have been deleted</green>" ) ;
-         return 1 ;
-  			 break ;
-  			 case "capture.seeds":
-  			 CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
-		   _ret_array.push( 1, "<green>Seeds have been captured with success</green>" ) ;
-         return 1 ;
-  			 break ;
-  			 case "capture.gens":
-  			 CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
-		   _ret_array.push( 1, "<green>Generators have been captured with success</green>" ) ;
-         return 1 ;
-  			 break ;
-  			 case "clean":
-  			 CIRCLESembeddingsGENERALPURPOSE_CLEAN();
-		   _ret_array.push( 1, "<green>Plug-in have been cleaned with success</green>" ) ;
-         return 1 ;
-  			 break ;
+			case "add.mobius.map":
+  			if ( _options[1] != null ) $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) );
+  			if ( _options[2] != null ) $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
+  			if ( _options[3] != null ) $( "#PLUGIN_PARAM_C" ).val( _options[3].replaceAll( [ ",", ";" ], "" ) );
+  			if ( _options[4] != null ) $( "#PLUGIN_PARAM_D" ).val( _options[4].replaceAll( [ ",", ";" ], "" ) );
+  			CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
+		    _ret_array.push( 1, "<green>Mobius map has been added with success to the candidate group</green>" ) ;
+			return 1 ;
+  			break ;
+  			case "bomb":
+  			CIRCLESembeddingsGENERALPURPOSE_BOMB();
+		    _ret_array.push( 1, "<green>Group has been bombed with success: all generators have been deleted</green>" ) ;
+			return 1 ;
+  			break ;
+  			case "capture.seeds":
+  			CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
+		    _ret_array.push( 1, "<green>Seeds have been captured with success</green>" ) ;
+			return 1 ;
+  			break ;
+  			case "capture.gens":
+  			CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
+		    _ret_array.push( 1, "<green>Generators have been captured with success</green>" ) ;
+			return 1 ;
+  			break ;
+  		 case "clean":
+  		 CIRCLESembeddingsGENERALPURPOSE_CLEAN();
+		 _ret_array.push( 1, "<green>Plug-in have been cleaned with success</green>" ) ;
+		 return 1 ;
+  		 break ;
          case "close":
          GLOB_PLUGIN_DESTROY_POPUP_VARS();
          var _sub = "forms", _base_id = "general.purpose" ;
          circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
-        _ret_array.push( 1, "<green>Plug-in has been closed with success</green>" ) ;
+         _ret_array.push( 1, "<green>Plug-in has been closed with success</green>" ) ;
          break ;
-  			 case "focus":
+  		 case "focus":
          var _sub = "embeddings", _base_id = "general.purpose" ;
          circles_lib_plugin_focus( _div_id );
-        _ret_array.push( 1, "<green>Plug-in has been focused with success</green>" ) ;
+         _ret_array.push( 1, "<green>Plug-in has been focused with success</green>" ) ;
          return 1;
          break ;
   			 case "full.group":
@@ -82,7 +81,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 			 var _tab_name = _options[1].toLowerCase().trim() ;
 			 switch( _tab_name )
 			 {
-				 case "input.form":
+				 case "input.maps":
 				 $('#CIRCLESGENERALPURPOSEmainDIV').get(0).tabber.tabShow(0);
 				 _found = 1 ;
 				 break ;
@@ -105,11 +104,11 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 				 default: break ;
 			 }
 			 _tab_name = _tab_name.replace( /\./g, ' ' );
-			 _ret_array.push( _found, !_found ? "<orange>Can't switch to unknown tab '"+_tab_name+"'</orange>" : "<green>Switched to tab '"+_tab_name+"' with success</green>" ) ;
+			 _ret_array.push( _found, !_found ? "<red>Can't switch to unknown tab '"+_tab_name+"'</red>" : "<green>Switched to tab '"+_tab_name+"' with success</green>" ) ;
 			 return 1 ;
 			 break ;
   			 case "new.mobius.map":
-  			 CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_NEW,YES);
+  			 CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_NEW,YES);
          return 1 ;
   			 break ;
   			 case "refresh":
@@ -136,7 +135,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
               $( "#PLUGIN_PARAM_D" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
               break ;
               default:
-       			  _out_msg = "<orange>Unknown parameter letter '"+_letter+"'</orange>" ;
+       			  _out_msg = "<red>Unknown parameter letter '"+_letter+"'</red>" ;
 			  _ret_array.push( 0, _out_msg ) ;
               return 0 ;
               break ;
@@ -158,11 +157,11 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
                 case "add":
 				if ( _params.length > 0 )
 				{
-					var _ret = CIRCLESembeddingsGENERALPURPOSE_GEN_UPDATE(CIRCLESembeddingsGENERALPURPOSE_ADD,YES,_out_channel);
+					var _ret = CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_ADD,YES,_out_channel);
 					_out_msg = _ret ? "<green>Params "+_params.join( "," )+" have been been added with success</green>" : "Fail to perform operation" ;
 					_ret_array.push( 1, _out_msg ) ;
 				}
-				else _ret_array.push( 0, "<orange>No input params have been specified</orange>" ) ;
+				else _ret_array.push( 0, "<red>No input params have been specified</red>" ) ;
                 break ;
                 default: break ;
               }
@@ -180,32 +179,32 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          var _var_id = safe_string( _options[1], "" );
          if ( _var_id.length > 0 )
          {
-            if ( !is_array( _plugin_user_vars[''+_var_id] ) )
+            if ( _plugin_rec_var_vals[''+_var_id] == null )
             {
-               _out_msg = "<orange>Can't delete: missing declaration of var "+_var_id+".</orange>" ;
+               _out_msg = "<red>Can't delete: missing declaration of var "+_var_id+".</red>" ;
 			   _ret_array.push( 0, _out_msg ) ;
                return 0 ;
             }
             else
             {
-               _plugin_user_vars.remove_key( _var_id );
-               var _exists = _plugin_user_vars[ _var_id ] == null ? 0 : 1 ;
+               _plugin_rec_var_vals.remove_key( _var_id );
+               var _exists = _plugin_rec_var_vals[ _var_id ] == null ? 0 : 1 ;
 			   if ( !_exists ) CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
-               _out_msg = _exists ? "<orange>Fail to remove var '"+_var_id+"'</orange>" : "<green>Var '"+_var_id+"' has been removed with success</green>" ;
+               _out_msg = _exists ? "<red>Fail to remove var '"+_var_id+"'</red>" : "<green>Var '"+_var_id+"' has been removed with success</green>" ;
 			   _ret_array.push( _exists ? 0 : 1, _out_msg ) ;
                return _exists ? 0 : 1 ;
             }
          }
          else
          {
-      			 _out_msg = "<orange>Can't delete the var from the list: please, input var ID</orange>" ;
+      			 _out_msg = "<red>Can't delete the var from the list: please, input var ID</red>" ;
 			   _ret_array.push( 0, _out_msg ) ;
              return 0 ;
          }
          break ;
          case "var.help":
          var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( 1, _out_channel ) ;
-   	     _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<orange>Fail to accomplish the operation</orange>" ;
+   	     _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<red>Fail to accomplish the operation</red>" ;
 		 _ret_array.push( _ret, _out_msg ) ;
          return _ret ;
          break ;
@@ -213,44 +212,33 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 		 var _dispatch_mode = DISPATCH_INFO ;
 		 if ( _out_channel == OUTPUT_TERMINAL ) { _out_channel = OUTPUT_HTML ; }
          var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD( _out_channel ) ;
-   	     _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<orange>Fail to accomplish the operation</orange>" ;
+   	     _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<red>Fail to accomplish the operation</red>" ;
 		 _ret_array.push( _ret, _out_msg ) ;
          return _ret ;
          break ;
-		 case "var.declare":
 		 case "var.register":
          var _var_id = safe_string( _options[1], "" ), _var_value = safe_string( _options[2], "" );
-		 var _b_go = _opt == "var.declare" ? _var_id.length > 0 : ( _var_id.length > 0 && _var_value.length > 0 );
-		 console.log( _b_go );
+		 var _b_go = _var_id.length > 0 && _var_value.length > 0;
          if ( _b_go )
          {
-            var _ret = NO ;
-		 console.log( _opt, _ret );
-			if ( _opt == "var.declare" ) _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_DECLARE( YES, NO, _out_channel, _var_id );
-			else if ( _opt == "var.register" ) _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER( _out_channel, _var_id, _var_value );
-			
-      	    _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<orange>Fail to accomplish the operation</orange>" ;
+            var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER( _out_channel, _var_id, _var_value );
+      	    _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<red>Fail to accomplish the operation</red>" ;
 			_ret_array.push( _ret, _out_msg );
             return _ret ;
          }
          else
          {
-      	    if ( _opt == "var.declare" ) _out_msg = "<orange>Can't add the var to the list: please, input var ID</orange>" ;
-			else _out_msg = "<orange>Can't add the var to the list: please, input var ID and VALUE</orange>" ;
+			_out_msg = "<red>Can't add the var to the list: please, input var ID and VALUE</red>" ;
 			_ret_array.push( 0, _out_msg ) ;
             return 0 ;
          }
          break ;
-		 case "var.declare.select":
-		 var _idx = safe_int( _options[1], 0 ) ;
-		 if ( $("#PLUGINdeclaredvarsCOMBO").get(0) != null ) $("#PLUGINdeclaredvarsCOMBO").get(0).selectedIndex = _idx ;
-		 break ;
 		 case "var.register.select":
 		 var _idx = safe_int( _options[1], 0 ) ;
 		 if ( $("#PLUGINregisteredvarsCOMBO").get(0) != null ) $("#PLUGINregisteredvarsCOMBO").get(0).selectedIndex = _idx ;
 		 break ;
 		 default:
-         _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
+         _ret_array.push( 0, "<red>Unknown remote control command '"+_options[0].toLowerCase()+"'</red>" ) ;
          return 0 ;
 		 break ;
   		}
