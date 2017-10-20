@@ -5,9 +5,9 @@
    - set the fixed points of the commutators as the input ones
  */
 
-function trigger_multi_pass_redraw( _silent, _out_channel )
+function trigger_multi_pass_redraw( _silent, _output_channel )
 {
-    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _sd_n = circles_lib_count_seeds();
     var _gens_set_n = circles_lib_count_gens_set_model();
     var _fp_n = circles_lib_count_fixed_points();

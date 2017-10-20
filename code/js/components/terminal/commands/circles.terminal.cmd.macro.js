@@ -5,14 +5,14 @@ function circles_terminal_cmd_macro()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -23,7 +23,7 @@ function circles_terminal_cmd_macro()
      var _input_array = [] ;
 
      var _params_assoc_array = [];
-     _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+     _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
      _params_assoc_array['help'] = NO ;
      _params_assoc_array['keywords'] = NO ;
      _params_assoc_array['action'] = "" ;
@@ -41,7 +41,7 @@ function circles_terminal_cmd_macro()
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "arrange", "exec", "flush", "init", "kill", "list", "merge", "release",
                                             "rec", "remove", "save", "show", "select", "unselect", "html", "help" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
 				 _params_assoc_array['dump_operator_index'] = _dump_operator_index ;
@@ -74,15 +74,15 @@ function circles_terminal_cmd_macro()
               else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p.toLowerCase();
          }
 
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_b_fail )
@@ -91,7 +91,7 @@ function circles_terminal_cmd_macro()
              switch( _action )
              {
                   case "release":
-                  circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
                   default:
                   if ( _params_assoc_array['dump_array'].length > 0 )
@@ -174,7 +174,7 @@ function circles_terminal_cmd_macro()
           																_glob_macros_array[ "MACRO." + _macro_label ].flush();
           																_glob_macros_array[ "MACRO." + _macro_label ] = _new_macro.clone();
 
-          			 												  circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Macro '"+_macro_label+"' has been arranged with success", _par_1, _cmd_tag );
+          			 												  circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Macro '"+_macro_label+"' has been arranged with success", _par_1, _cmd_tag );
           														}
                                   }
           										}
@@ -193,17 +193,17 @@ function circles_terminal_cmd_macro()
           										{
            											  var _macro_array = circles_terminal_cmd_macro_get( _macro_label );
           											  if ( _macro_array == null || !is_array( _macro_array ) )
-          												circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Macro '"+_macro_label+"' does not appear to be valid", _par_1, _cmd_tag );
-          												else if ( _macro_array.length == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Macro '"+_macro_label+"' is empty", _par_1, _cmd_tag );
+          												circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Macro '"+_macro_label+"' does not appear to be valid", _par_1, _cmd_tag );
+          												else if ( _macro_array.length == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Macro '"+_macro_label+"' is empty", _par_1, _cmd_tag );
           												else
           												{
-          													 circles_lib_output( _out_channel, DISPATCH_STANDARD, "Executing macro '"+_macro_label+"'", _par_1, _cmd_tag );
+          													 circles_lib_output( _output_channel, DISPATCH_STANDARD, "Executing macro '"+_macro_label+"'", _par_1, _cmd_tag );
           													 var _macro_cmd = "", _counter = 1 ;
           													 for( var _i = 0 ; _i < _macro_array.length ; _i++ )
           													 {
           												 			_macro_cmd = _macro_array[_i] ;
           												 			_macro_cmd = _macro_cmd == null ? "" : _macro_cmd.trim();
-          												 			if ( _macro_cmd.length > 0 ) circles_lib_terminal_interpreter( _macro_cmd, _glob_terminal, _out_channel );
+          												 			if ( _macro_cmd.length > 0 ) circles_lib_terminal_interpreter( _macro_cmd, _glob_terminal, _output_channel );
           													 }
           												}
           										}
@@ -221,7 +221,7 @@ function circles_terminal_cmd_macro()
           	                   		 		_params_array['promptquestion'] = "Confirm to flush all macros away ?" ;
           	                   		 		_params_array['yes_fn'] = function() { _flush_macros(); }
           	                   		 		_params_array['ifquestiondisabled_fn'] = function() { _flush_macros(); }
-          	                   		circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+          	                   		circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
           										}
           										break ;
           										case "init":
@@ -252,7 +252,7 @@ function circles_terminal_cmd_macro()
           												{
           														 _glob_macros_array[ "MACRO." + _macro_label ] = [] ;
           														 if ( is_array( _glob_macros_array[ "MACRO." + _macro_label ] ) )
-          																 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Macro '"+_macro_label+"' has been initialized with success!", _par_1, _cmd_tag );
+          																 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Macro '"+_macro_label+"' has been initialized with success!", _par_1, _cmd_tag );
           														 else
           														 {
           														 		 _b_fail = YES, _error_str = "Memory failure: can't initialize macro '"+_macro_label+"'" ;
@@ -277,13 +277,13 @@ function circles_terminal_cmd_macro()
           	                   		 		_params_array['promptquestion'] = "Confirm to delete the macro '"+_macro_label+"' ?" ;
           	                   		 		_params_array['yes_fn'] = function() { _kill_macro( _macro_label ); }
           	                   		 		_params_array['ifquestiondisabled_fn'] = function() { _kill_macro( _macro_label ); }
-          	                   		circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+          	                   		circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
           										}
           										break ;
           										case "list":
           										var _n_macros = safe_int( circles_terminal_cmd_macro_count(), 0 );
                               var _html = _params_assoc_array['html'] != null ? YES : NO ;
-          										if ( _n_macros == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "No macros recorded in the archive", _par_1, _cmd_tag );
+          										if ( _n_macros == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "No macros recorded in the archive", _par_1, _cmd_tag );
           										else
           										{
           									 			 var _macros_list_array = [];
@@ -297,13 +297,13 @@ function circles_terminal_cmd_macro()
                                         _macros_list_array.push( [ _macro_label, _macro_n_cmds ] );
                                    }
 
-            											 circles_lib_output( _out_channel, DISPATCH_STANDARD, _n_macros + " macro" + ( ( _n_macros != 1 ) ? "s" : "" ) + " recorded", _par_1, _cmd_tag );
+            											 circles_lib_output( _output_channel, DISPATCH_STANDARD, _n_macros + " macro" + ( ( _n_macros != 1 ) ? "s" : "" ) + " recorded", _par_1, _cmd_tag );
                                    var _macro_list_chunk = null, _out_type, _row ;
           	  										 for( var _i = 0 ; _i < _macros_list_array.length ; _i++ )
                                    {
                                         _macro_list_chunk = _macros_list_array[_i] ;
                                         if ( _macro_list_chunk == null )
-                                        circles_lib_output( _out_channel, DISPATCH_ERROR, ( _i + 1 ) + ") null macro", _par_1, _cmd_tag );
+                                        circles_lib_output( _output_channel, DISPATCH_ERROR, ( _i + 1 ) + ") null macro", _par_1, _cmd_tag );
                                         else
                                         {
                                             _macro_label = _macro_list_chunk[0] + "" ;
@@ -314,7 +314,7 @@ function circles_terminal_cmd_macro()
                                             _macro_n_cmds = ( _macro_n_cmds == 0 ) ? "No cmds" : ( _macro_n_cmds + " command" + ( ( _macro_n_cmds == 1 ) ? "" : "s" ) );
                                             _row = ( _i + 1 ) + ") " + _macro_label + " " + _macro_n_cmds ;
                                             _out_text += _row ;
-                                            circles_lib_output( _out_channel, _out_type, _row );
+                                            circles_lib_output( _output_channel, _out_type, _row );
                                         }
                                    }
 
@@ -329,7 +329,7 @@ function circles_terminal_cmd_macro()
           														 {
           														 		_b_fail = YES, _error_str = _ret_msg ;
           														 }
-          														 else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+          														 else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                                   }
           										}
           										break ;
@@ -366,23 +366,23 @@ function circles_terminal_cmd_macro()
           												 			var _other_macros_array = _candidate_macros ;
           			 		                    var _prompt_question = "" ;
                                         var _resulting_macro_exists = circles_terminal_cmd_macro_exists( _resulting_macro_label );
-                                        if ( _resulting_macro_exists ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning: macro '"+_resulting_macro_label+"' already exists and its contents will be erased after merging", _par_1, _cmd_tag );
+                                        if ( _resulting_macro_exists ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: macro '"+_resulting_macro_label+"' already exists and its contents will be erased after merging", _par_1, _cmd_tag );
                                         _prompt_question += "Confirm to merge the input macros into '"+_resulting_macro_label+"' ?" ;
 
-          														  circles_lib_output( _out_channel, DISPATCH_INFO, "Next actions scenario", _par_1, _cmd_tag );
-          															circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "1. macros (<yellow>"+_other_macros_array.join(",")+"</yellow>) will be merged into '<yellow>"+_resulting_macro_label+"</yellow>'", _par_1, _cmd_tag );
+          														  circles_lib_output( _output_channel, DISPATCH_INFO, "Next actions scenario", _par_1, _cmd_tag );
+          															circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "1. macros (<yellow>"+_other_macros_array.join(",")+"</yellow>) will be merged into '<yellow>"+_resulting_macro_label+"</yellow>'", _par_1, _cmd_tag );
           															if ( _candidate_additionals_cmds.includes( "destroy" ) )
-          															circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "2. macros (<yellow>"+_other_macros_array.join(",")+"</yellow>) will be destroyed after merging", _par_1, _cmd_tag );
-                                        circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
+          															circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "2. macros (<yellow>"+_other_macros_array.join(",")+"</yellow>) will be destroyed after merging", _par_1, _cmd_tag );
+                                        circles_lib_output( _output_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
 
           												 			var _macro_merge = function()
           												 			{
           																	var _new_macro = [], _flush_macro_label, _still_alive ;
           														 			var _failures = 0, _old_length, _new_length, _macro, _i, _m ;
-                                            circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
+                                            circles_lib_output( _output_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
           																	for( _i = 0 ; _i < _candidate_macros.length ; _i++ )
           														 			{
-          																			circles_lib_output( _out_channel, DISPATCH_INFO, "Trying to merge '" + _candidate_macros[ _i ] + "' into '"+_resulting_macro_label+"'" , _par_1, _cmd_tag );
+          																			circles_lib_output( _output_channel, DISPATCH_INFO, "Trying to merge '" + _candidate_macros[ _i ] + "' into '"+_resulting_macro_label+"'" , _par_1, _cmd_tag );
           																			if ( circles_terminal_cmd_macro_exists( _candidate_macros[ _i ] ) )
           																			{
           																				   _macro = circles_terminal_cmd_macro_get( _candidate_macros[ _i ] );
@@ -391,17 +391,17 @@ function circles_terminal_cmd_macro()
           					 																	  _old_length = _new_macro.length ;
           																							_new_macro = _new_macro.concat( _macro );
           					 																	  _new_length = _new_macro.length ;
-          										                          if ( _old_length < _new_length ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<greenyellow>Macro '" + _candidate_macros[ _i ] + "' has been merged with success</greenyellow>", _par_1, _cmd_tag );
+          										                          if ( _old_length < _new_length ) circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<greenyellow>Macro '" + _candidate_macros[ _i ] + "' has been merged with success</greenyellow>", _par_1, _cmd_tag );
           																							else
           																							{
           																									_failures++ ;
-          																									circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to merge '" + _candidate_macros[ _i ] + "'", _par_1, _cmd_tag );
+          																									circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to merge '" + _candidate_macros[ _i ] + "'", _par_1, _cmd_tag );
           																							}
           																					 }
           						                               else
-          																					 circles_lib_output( _out_channel, DISPATCH_INFO, "No merge for macro '" + _candidate_macros[ _i ]+"' : it's empty", _par_1, _cmd_tag );
+          																					 circles_lib_output( _output_channel, DISPATCH_INFO, "No merge for macro '" + _candidate_macros[ _i ]+"' : it's empty", _par_1, _cmd_tag );
           																			}
-          					                            else circles_lib_output( _out_channel, DISPATCH_WARNING, "Macro '" + _candidate_macros[ _i ] + "' does not exist", _par_1, _cmd_tag );
+          					                            else circles_lib_output( _output_channel, DISPATCH_WARNING, "Macro '" + _candidate_macros[ _i ] + "' does not exist", _par_1, _cmd_tag );
           																	}
 
           																	if ( _candidate_additionals_cmds.length > 0 )
@@ -411,7 +411,7 @@ function circles_terminal_cmd_macro()
           																			 			switch( _candidate_additionals_cmds[_i] )
           																			 			{
           																								case "destroy": // flush all other input macros
-          																							  circles_lib_output( _out_channel, DISPATCH_INFO, "\nDestroy param selected: attempting to remove merged macros", _par_1, _cmd_tag );
+          																							  circles_lib_output( _output_channel, DISPATCH_INFO, "\nDestroy param selected: attempting to remove merged macros", _par_1, _cmd_tag );
           																								for( _m = 0 ; _m < _candidate_macros.length ; _m++ )
           																								{
           																										 _flush_macro_label = _candidate_macros[_m] ;
@@ -420,9 +420,9 @@ function circles_terminal_cmd_macro()
 
           																										 _still_alive = circles_terminal_cmd_macro_exists( _flush_macro_label );
            																										 if ( !_still_alive )
-          																										 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Macro '" + _flush_macro_label + "' removed with success", _par_1, _cmd_tag );
+          																										 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Macro '" + _flush_macro_label + "' removed with success", _par_1, _cmd_tag );
           																										 else if ( _still_alive )
-          																										 circles_lib_output( _out_channel, DISPATCH_WARNING, "Macro '" + _flush_macro_label + "' has not been removed", _par_1, _cmd_tag );
+          																										 circles_lib_output( _output_channel, DISPATCH_WARNING, "Macro '" + _flush_macro_label + "' has not been removed", _par_1, _cmd_tag );
           																								}
           																								break ;
 																									        default: break ;
@@ -450,7 +450,7 @@ function circles_terminal_cmd_macro()
           																	}
 
           		                              circles_terminal_cmd_macro_set( _resulting_macro_label, _new_macro );
-          																	circles_lib_output( _out_channel, _out_type, _out_text, _par_1, _cmd_tag );
+          																	circles_lib_output( _output_channel, _out_type, _out_text, _par_1, _cmd_tag );
           															}
 
                              		  var _params_array = [] ;
@@ -458,7 +458,7 @@ function circles_terminal_cmd_macro()
           	                   		 		_params_array['promptquestion'] = _prompt_question ;
           	                   		 		_params_array['yes_fn'] = function() { _macro_merge(); }
           	                   		 		_params_array['ifquestiondisabled_fn'] = function() { _macro_merge(); }
-          	                   		circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+          	                   		circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
           										}
           										break ;
           										case "rec":
@@ -497,7 +497,7 @@ function circles_terminal_cmd_macro()
                                            _ret_op = circles_terminal_cmd_macro_add_cmd( _macro_label, _cmd );
                                            _out_type = ( _ret_op ) ? DISPATCH_SUCCESS : DISPATCH_ERROR ;
                                            _out_text = ( _ret_op ) ? "Add cmd '"+_cmd+"' to macro '"+_macro_label+"' with success !" : "Failure: can't add cmd '"+_cmd+"'' to macro '"+_macro_label+"'" ;
-                                           circles_lib_output( _out_channel, DISPATCH_SUCCESS, _out_text, _par_1, _cmd_tag );
+                                           circles_lib_output( _output_channel, DISPATCH_SUCCESS, _out_text, _par_1, _cmd_tag );
                 												}
                                    }
           										}
@@ -537,9 +537,9 @@ function circles_terminal_cmd_macro()
                                         if ( _macro_chunk_array != null && _cmd_text != null )
                                             _cmd_text_array.push( _cmd_text );
                                         else if ( _macro_chunk_array == null )
-                                            circles_lib_output( _out_channel, DISPATCH_WARNING, "Memory failure: macro '"+_macro_label+"' does not exist", _par_1, _cmd_tag );
+                                            circles_lib_output( _output_channel, DISPATCH_WARNING, "Memory failure: macro '"+_macro_label+"' does not exist", _par_1, _cmd_tag );
                                         else if ( _macro_chunk_array[_real_index] == null )
-                                            circles_lib_output( _out_channel, DISPATCH_WARNING, "The input index '"+_candidate_index+"' does not refer to any cmd entry in macro '"+_macro_label+"'", _par_1, _cmd_tag );
+                                            circles_lib_output( _output_channel, DISPATCH_WARNING, "The input index '"+_candidate_index+"' does not refer to any cmd entry in macro '"+_macro_label+"'", _par_1, _cmd_tag );
                                    }
 
                                    for( _c = 0 ; _c < _cmd_text_array.length ; _c++ )
@@ -557,7 +557,7 @@ function circles_terminal_cmd_macro()
                                         _out_text += ( _new_size == ( _old_size - 1 ) ) ? "Cmd removed with success" : "Can't remove this command" ;
                                         _out_text += " from macro '"+_macro_label+"'" ;
                                         _out_text += ( _new_size == ( _old_size - 1 ) ) ? "</greenshock>" : "</red>" ;
-                                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _out_text, _par_1, _cmd_tag );
+                                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _out_text, _par_1, _cmd_tag );
                                    }
                               }
                               break ;
@@ -575,16 +575,16 @@ function circles_terminal_cmd_macro()
           										else if ( _params_assoc_array['dump_array'].length == 0 )
                               {
                                    _filename = _macro_label + ".txt" ;
-            											 circles_lib_output( _out_channel, DISPATCH_STANDARD, "No filename was input. The macro label '"+_macro_label+"' will be used then", _par_1, _cmd_tag );
+            											 circles_lib_output( _output_channel, DISPATCH_STANDARD, "No filename was input. The macro label '"+_macro_label+"' will be used then", _par_1, _cmd_tag );
                               }
 
                               if ( !_b_fail && _params_assoc_array['dump_array'] )
           	                  {
           												 var _macro_array = _glob_macros_array[ "MACRO." + _macro_label] ;
           												 if ( _macro_array == null || !is_array( _macro_array ) )
-          												 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Macro '"+_macro_label+"' does not appear to be valid", _par_1, _cmd_tag );
+          												 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Macro '"+_macro_label+"' does not appear to be valid", _par_1, _cmd_tag );
           												 else if ( _macro_array.length == 0 )
-          											   circles_lib_output( _out_channel, DISPATCH_WARNING, "Macro '"+_macro_label+"' is empty", _par_1, _cmd_tag );
+          											   circles_lib_output( _output_channel, DISPATCH_WARNING, "Macro '"+_macro_label+"' is empty", _par_1, _cmd_tag );
           												 else
           												 {
                                       var _row_array = [], _i;
@@ -606,7 +606,7 @@ function circles_terminal_cmd_macro()
           													 {
           																_b_fail = YES, _error_str = _ret_msg ;
           													 }
-          													 else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+          													 else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
           												}
           	                  }
                               else
@@ -619,9 +619,9 @@ function circles_terminal_cmd_macro()
                               if (  _macro_label.length == 0 )
                               {
                                    if ( _glob_macros_current_sel.length == 0 )
-                                   circles_lib_output( _out_channel, DISPATCH_STANDARD, "No current macro selection", _par_1, _cmd_tag );
+                                   circles_lib_output( _output_channel, DISPATCH_STANDARD, "No current macro selection", _par_1, _cmd_tag );
                                    else
-                                   circles_lib_output( _out_channel, DISPATCH_INFO, "Current macro selection : " + _glob_macros_current_sel, _par_1, _cmd_tag );
+                                   circles_lib_output( _output_channel, DISPATCH_INFO, "Current macro selection : " + _glob_macros_current_sel, _par_1, _cmd_tag );
                               }
             									else if ( !circles_terminal_cmd_macro_exists( _macro_label ) )
           										{
@@ -632,7 +632,7 @@ function circles_terminal_cmd_macro()
                                    _glob_macros_current_sel = _macro_label ;
                                    var _msg = "Macro '"+_macro_label+"' has been selected" ;
                                        _msg += _glob_crlf + "Further operations will be automatically re-directed to this macro" ;
-           												 circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
+           												 circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                               }
           										break ;
           										case "show":
@@ -649,18 +649,18 @@ function circles_terminal_cmd_macro()
           										{
           												 var _n_cmds = circles_terminal_cmd_macro_count_cmds( _macro_label );
                                    if ( !circles_terminal_cmd_macro_exists( _macro_label ) )
-          												 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Macro '"+_macro_label+"' does not appear to be valid", _par_1, _cmd_tag );
-          												 else if ( _n_cmds == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Macro '"+_macro_label+"' is empty", _par_1, _cmd_tag );
+          												 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Macro '"+_macro_label+"' does not appear to be valid", _par_1, _cmd_tag );
+          												 else if ( _n_cmds == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Macro '"+_macro_label+"' is empty", _par_1, _cmd_tag );
           												 else
           												 {
           												     var _macro_array = circles_terminal_cmd_macro_get( _macro_label );
-          												 		 circles_lib_output( _out_channel, DISPATCH_STANDARD, "Macro '"+_macro_label+"' includes commands in the order below:", _par_1, _cmd_tag );
+          												 		 circles_lib_output( _output_channel, DISPATCH_STANDARD, "Macro '"+_macro_label+"' includes commands in the order below:", _par_1, _cmd_tag );
           												 		 var _macro_cmd = "", _counter = 1 ;
           												 		 for( var _i = 0 ; _i < _n_cmds ; _i++, _counter++ )
           												 		 {
           											 		 			_macro_cmd = _macro_array[_i] ;
           											 		 			_macro_cmd = _macro_cmd == null ? "" : _macro_cmd.trim();
-          											 		 			if ( _macro_cmd ) circles_lib_output( _out_channel, DISPATCH_INFO, _counter + ") " + _macro_cmd, _par_1, _cmd_tag );
+          											 		 			if ( _macro_cmd ) circles_lib_output( _output_channel, DISPATCH_INFO, _counter + ") " + _macro_cmd, _par_1, _cmd_tag );
           														 }
           												 }
           										}
@@ -678,7 +678,7 @@ function circles_terminal_cmd_macro()
                                    if ( _glob_macros_current_sel.length == 0 )
                                    {
                                        var _msg = "Macro '"+_last_selection+"' has been unselected" ;
-              												 circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
+              												 circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                                    }
                                    else
                                    {
@@ -698,9 +698,9 @@ function circles_terminal_cmd_macro()
          _b_fail = YES, _error_str = "Missing input params" ;
    	 }
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
 
 function circles_terminal_cmd_macro_validate_cmd( _cmd )

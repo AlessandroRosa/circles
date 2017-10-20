@@ -18,7 +18,7 @@ onmessage = function(e)
 function inline_worker_output_member( ret )
 {
     document.title = "Progress " + ret.progress + " %" ;
-    var _out_channel = ret.out_channel ;
+    var _output_channel = ret.out_channel ;
     var _stage = ret.stage ;
     switch ( ret.service.toLowerCase() )
     {
@@ -69,19 +69,19 @@ function inline_worker_output_member( ret )
             var _fillcolor = ret.fillcolor ;
             if ( _glob_method == METHOD_INVERSION )
             {
-                 var _ret_chunk = circles_lib_draw_word_inversion( _glob_wplane_freedraw_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, null, NO, _word, YES, _out_channel );
+                 var _ret_chunk = circles_lib_draw_word_inversion( _glob_wplane_freedraw_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, null, NO, _word, YES, _output_channel );
             }
             else if ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) && _word.length > 0 )
             {
                  var _start_x = safe_float( ret.startpt.x, 0 ), _start_y = safe_float( ret.startpt.y, 0 );
                  var _ret_chunk = circles_lib_draw_word_pointwise( _glob_wplane_freedraw_canvas_placeholder, wplane_sm, null, NO,
                                                             _word, _start_x, _start_y,
-                                                            YES, NO, YES, _drawcolor, _fillcolor, YES, YES, _out_channel );
+                                                            YES, NO, YES, _drawcolor, _fillcolor, YES, YES, _output_channel );
             }
         }
         break;
         case "region":
-        if ( ret._out_channel == OUTPUT_TEXT ) _glob_text += ret.data ;
+        if ( ret._output_channel == OUTPUT_TEXT ) _glob_text += ret.data ;
         if ( ret.copy )
         {
              if ( is_array( _glob_storage['words'] ) )
@@ -97,7 +97,7 @@ function inline_worker_output_member( ret )
         circles_lib_terminal_multicolor_echo( ret.data );
         break;
         case "trace":
-        if ( ret._out_channel == OUTPUT_TEXT ) _glob_text += ret.data ;
+        if ( ret._output_channel == OUTPUT_TEXT ) _glob_text += ret.data ;
         if ( ret.copy )
         {
              if ( is_array( _glob_storage['words'] ) )

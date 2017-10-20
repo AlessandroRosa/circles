@@ -2,14 +2,14 @@ function circles_terminal_cmd_symbol()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
      var _sd_n = circles_lib_count_seeds();
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
@@ -22,7 +22,7 @@ function circles_terminal_cmd_symbol()
 		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['action'] = null ;
@@ -43,7 +43,7 @@ function circles_terminal_cmd_symbol()
                                             "clean", "hide", "init", "list", "shift", "show", "inverse",
                                             "html", "help", "release", "generators", "seeds", "colorize", "decolorize"
 																					);
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
@@ -81,15 +81,15 @@ function circles_terminal_cmd_symbol()
             }
          }
          
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_b_fail )
@@ -106,7 +106,7 @@ function circles_terminal_cmd_symbol()
              var _forward = _params_assoc_array['forward'] ;
              var _inverse = _params_assoc_array['inverse'] ;
 
-             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
+             circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
              switch( _action )
              {
                   case "change":
@@ -143,10 +143,10 @@ function circles_terminal_cmd_symbol()
                   else
                   {
                        var _err_report = [], _tmp_error_count = 0, _err_count = 0, _i ;
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Current alphabet</lightblue> <snow>"+ALPHABET.join( ", " )+"</snow>", _par_1, _cmd_tag );
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "", _par_1, _cmd_tag );
-                       circles_lib_output( _out_channel, DISPATCH_INFO, "Scanning the 'FROM' group for invalid inputs", _par_1, _cmd_tag );
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>'FROM' group is</lightblue> <snow>"+ _params_assoc_array['change_from'].join(", ")+"</snow>", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Current alphabet</lightblue> <snow>"+ALPHABET.join( ", " )+"</snow>", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_INFO, "Scanning the 'FROM' group for invalid inputs", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>'FROM' group is</lightblue> <snow>"+ _params_assoc_array['change_from'].join(", ")+"</snow>", _par_1, _cmd_tag );
                        for( _i = 0 ; _i < _params_assoc_array['change_from'].length ; _i++ )
                        {
                             if ( !ALPHABET.includes( _params_assoc_array['change_from'][_i] ) )
@@ -159,12 +159,12 @@ function circles_terminal_cmd_symbol()
                        
                        if ( _tmp_error_count == 0 )
                        {
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The 'FROM' group entries have been validated with success", _par_1, _cmd_tag );
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The 'FROM' group entries have been validated with success", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "", _par_1, _cmd_tag );
                        }
     
-                       circles_lib_output( _out_channel, DISPATCH_INFO, "Scanning the 'TO' group for invalid inputs", _par_1, _cmd_tag );
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>'TO' group is</lightblue> <snow>"+ _params_assoc_array['change_to'].join(", ")+"</snow>", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_INFO, "Scanning the 'TO' group for invalid inputs", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>'TO' group is</lightblue> <snow>"+ _params_assoc_array['change_to'].join(", ")+"</snow>", _par_1, _cmd_tag );
     
                        _tmp_error_count = 0 ;
                        for( _i = 0 ; _i < _params_assoc_array['change_to'].length ; _i++ )
@@ -179,8 +179,8 @@ function circles_terminal_cmd_symbol()
     
                        if ( _tmp_error_count == 0 )
                        {
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The 'TO' group entries have been validated with success", _par_1, _cmd_tag );
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The 'TO' group entries have been validated with success", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "", _par_1, _cmd_tag );
                        }
                        
                        if ( _err_report.length > 0 )
@@ -190,15 +190,15 @@ function circles_terminal_cmd_symbol()
                        else
                        {
                             if ( _params_assoc_array['change_from'].compare_to( _params_assoc_array['change_to'] ) )
-                                 circles_lib_output( _out_channel, DISPATCH_WARNING, "Symbols change aborted: 'FROM' group matches the 'TO' group", _par_1, _cmd_tag );
+                                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Symbols change aborted: 'FROM' group matches the 'TO' group", _par_1, _cmd_tag );
                             else if ( _params_assoc_array['change_from'].has_duplicates() )
-                                 circles_lib_output( _out_channel, DISPATCH_WARNING, "Symbols change aborted: 'FROM' group includes duplicate entries", _par_1, _cmd_tag );
+                                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Symbols change aborted: 'FROM' group includes duplicate entries", _par_1, _cmd_tag );
                             else if ( _params_assoc_array['change_to'].has_duplicates() )
-                                 circles_lib_output( _out_channel, DISPATCH_WARNING, "Symbols change aborted: 'TO' group includes duplicate entries", _par_1, _cmd_tag );
+                                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Symbols change aborted: 'TO' group includes duplicate entries", _par_1, _cmd_tag );
                             else
                             {
                                  _tmp_error_count = 0, _err_report.flush();
-                                 circles_lib_output( _out_channel, DISPATCH_INFO, "Collecting indexes from the 'FROM' group", _par_1, _cmd_tag );
+                                 circles_lib_output( _output_channel, DISPATCH_INFO, "Collecting indexes from the 'FROM' group", _par_1, _cmd_tag );
                                  var _tmp_var = UNFOUND, _i, _c ;
                                  for( _c = 0 ; _c < _params_assoc_array['change_from'].length ; _c++ )
                                  {
@@ -211,10 +211,10 @@ function circles_terminal_cmd_symbol()
                                  }
     
                                  if ( _tmp_error_count == 0 )
-                                 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Indexes collected from the 'FROM' group with success", _par_1, _cmd_tag );
-                                 else circles_lib_output( _out_channel, DISPATCH_WARNING, _err_report.join( _glob_crlf ), _par_1, _cmd_tag );
+                                 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Indexes collected from the 'FROM' group with success", _par_1, _cmd_tag );
+                                 else circles_lib_output( _output_channel, DISPATCH_WARNING, _err_report.join( _glob_crlf ), _par_1, _cmd_tag );
     
-                                 circles_lib_output( _out_channel, DISPATCH_INFO, "Collecting index from the 'TO' group", _par_1, _cmd_tag );
+                                 circles_lib_output( _output_channel, DISPATCH_INFO, "Collecting index from the 'TO' group", _par_1, _cmd_tag );
                                     _tmp_error_count = 0, _tmp_var = UNFOUND ;
                                  for( _c = 0 ; _c < _params_assoc_array['change_to'].length ; _c++ )
                                  {
@@ -227,14 +227,14 @@ function circles_terminal_cmd_symbol()
                                  }
     
                                  if ( _tmp_error_count == 0 )
-                                 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Indexes collected from the 'TO' group with success", _par_1, _cmd_tag );
-                                 else circles_lib_output( _out_channel, DISPATCH_WARNING, _err_report.join( _glob_crlf ), _par_1, _cmd_tag );
+                                 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Indexes collected from the 'TO' group with success", _par_1, _cmd_tag );
+                                 else circles_lib_output( _output_channel, DISPATCH_WARNING, _err_report.join( _glob_crlf ), _par_1, _cmd_tag );
                                  
                                  if ( _tmp_error_count == 0 )
                                  {
                                       var _map = [], _chunk, _symbol_from = "", _symbol_to = "" ;
                                       // proceed to map indexes
-                                      circles_lib_output( _out_channel, DISPATCH_INFO, "Mapping indexes for final change", _par_1, _cmd_tag );
+                                      circles_lib_output( _output_channel, DISPATCH_INFO, "Mapping indexes for final change", _par_1, _cmd_tag );
                                       for( _i = 0 ; _i < _params_assoc_array['change_from'].length ; _i++ )
                                       {
                                          _symbol_from = _params_assoc_array['change_from'][_i] ;
@@ -246,12 +246,12 @@ function circles_terminal_cmd_symbol()
                                       {
                                          _chunk = _map[_i] ;
                                          _items_array[ _chunk[0] ].original_word = _items_array[ _chunk[0] ].symbol = _chunk[2] ;
-                                         circles_lib_output( _out_channel, DISPATCH_INFO, "Turning old '"+_chunk[1]+"' to new '"+_chunk[2]+"'", _par_1, _cmd_tag );
+                                         circles_lib_output( _output_channel, DISPATCH_INFO, "Turning old '"+_chunk[1]+"' to new '"+_chunk[2]+"'", _par_1, _cmd_tag );
                                          if ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) )
                                          _items_array[ _chunk[0] ].inverse_symbol = circles_lib_word_inverse_get( _chunk[2] );
                                       }
                                       
-                                      circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Symbols have been changed with success", _par_1, _cmd_tag );
+                                      circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Symbols have been changed with success", _par_1, _cmd_tag );
                                       if ( _glob_terminal_autorefresh && _glob_show_symbols_zplane )
                                       circles_lib_symbol_zplane_display(null,null,null,NO);
                                  }
@@ -280,7 +280,7 @@ function circles_terminal_cmd_symbol()
                            
                            var _msg = " have been cleaned" ;
                            _msg = ( !_all ) ? ( ( _inverse ) ? "Inverse symbols" : "Symbols" ) + _msg : "All entries " + _msg ;
-                           circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                        }
     
                        if ( _glob_terminal_silent ) _clean_fn();
@@ -291,7 +291,7 @@ function circles_terminal_cmd_symbol()
     	                   		 		_params_array['promptquestion'] = "Are you sure to clean all symbols ?" ;
     	                   		 		_params_array['yes_fn'] = function() { _clean_fn(); }
     	                   		 		_params_array['ifquestiondisabled_fn'] = function() { _clean_fn(); }
-    	                   		circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+    	                   		circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                        }
                   }
                   else
@@ -307,13 +307,13 @@ function circles_terminal_cmd_symbol()
            					 _params_array['promptquestion'] = "Confirm to colorize all "+_dest_ref+"? " ;
            					 _params_array['yes_fn'] = function()
                      {
-                        var _ret_chunk = circles_lib_colors_colorize( _dest_ref, YES, YES, _out_channel );
+                        var _ret_chunk = circles_lib_colors_colorize( _dest_ref, YES, YES, _output_channel );
                         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "37Unknown error" ;
-                        circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                      }
-           					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize( _dest_ref, YES, YES, _out_channel ); }
-           			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+           					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize( _dest_ref, YES, YES, _output_channel ); }
+           			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                   }
                   else
                   {
@@ -328,13 +328,13 @@ function circles_terminal_cmd_symbol()
     					 _params_array['promptquestion'] = "Confirm to decolorize all "+_dest_ref+"? " ;
     					 _params_array['yes_fn'] = function()
                {
-                  var _ret_chunk = circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel );
+                  var _ret_chunk = circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel );
                   var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "38Unknown error" ;
-                  circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                }
-    					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel ); }
-     			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+    					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel ); }
+     			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
            }
            else
            {
@@ -343,10 +343,10 @@ function circles_terminal_cmd_symbol()
            break ;
                   case "init":
                   var _auto = _params_assoc_array['auto'] ;
-                  var _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( !_glob_terminal_silent, _glob_terminal_silent, _auto, YES, _out_channel );
+                  var _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( !_glob_terminal_silent, _glob_terminal_silent, _auto, YES, _output_channel );
                   var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
                   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Symbols setting proc: memory failure" ;
-                  if ( _ret_id == 1 ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+                  if ( _ret_id == 1 ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                   else if ( _ret_id == 0 )
                   {
                       _b_fail = YES, _glob_terminal_critical_halt_msg = _error_str = _ret_msg ;
@@ -369,8 +369,8 @@ function circles_terminal_cmd_symbol()
                        if ( _counter > 0 ) _out = _counter + " symbol" + ( ( _counter == 1 ) ? "" : "s" ) + " used : " + _out_array.join( "," );
                        else _out = "No symbols used" ;
                            
-                       if ( _inverse ) circles_lib_output( _out_channel, "Inverse param: skipped.", _out, _par_1, _cmd_tag );
-                       circles_lib_output( _out_channel, DISPATCH_INFO, _out, _par_1, _cmd_tag );
+                       if ( _inverse ) circles_lib_output( _output_channel, "Inverse param: skipped.", _out, _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_INFO, _out, _par_1, _cmd_tag );
                   }
                   else
                   {
@@ -378,7 +378,7 @@ function circles_terminal_cmd_symbol()
                   }
                   break ;
                   case "release":
-                  circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
                   case "shift":
                   if ( _forward && _backward )
@@ -387,17 +387,17 @@ function circles_terminal_cmd_symbol()
                   }
                   else
                   {
-                      var _ret_chunk = circles_lib_symbol_shift( null, ( _forward ? YES : ( ( _backward ) ? NO : YES ) ), NO, YES, _out_channel );
+                      var _ret_chunk = circles_lib_symbol_shift( null, ( _forward ? YES : ( ( _backward ) ? NO : YES ) ), NO, YES, _output_channel );
                       var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
                       var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Shifting symbols: memory failure" ;
     
                            if ( _ret_id == 1 )
                            {
-                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                                 if ( _auto )
                                 {
                                      _glob_show_symbols_zplane = NO ;
-                                     var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+                                     var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
                                      var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
                                      var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Shifting symbols: memory failure" ;
                                      if ( _ret_id )
@@ -412,10 +412,10 @@ function circles_terminal_cmd_symbol()
                                      }
                                 }
     
-    							              if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+    							              if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
     							  						{
     																_glob_terminal_change = YES ;
-    								                circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+    								                circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
     														}
                            }
                            else if ( _ret_id == 0 )
@@ -428,19 +428,19 @@ function circles_terminal_cmd_symbol()
                   case "hide":
                   case "show":
                   _glob_show_symbols_zplane = ( _action == "show" || _action.length == 0 ) ? YES : NO ;
-                  circles_lib_output( _out_channel, DISPATCH_SUCCESS, "symbols are " + ( _glob_show_symbols_zplane ? "shown" : "hidden" ), _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_SUCCESS, "symbols are " + ( _glob_show_symbols_zplane ? "shown" : "hidden" ), _par_1, _cmd_tag );
                   circles_lib_menu_entries_update();
                   if ( _sd_n > 0 )
                   {
-                      var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+                      var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
                       var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
                       var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Shifting symbols: memory failure" ;
                       if ( _ret_id )
                       {
-                          if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+                          if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
               						{
             									_glob_terminal_change = YES ;
-                              circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+                              circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
             							}
                       }
                       else
@@ -458,7 +458,7 @@ function circles_terminal_cmd_symbol()
          _b_fail = YES, _error_str = "Missing input params" ;
      }
      
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

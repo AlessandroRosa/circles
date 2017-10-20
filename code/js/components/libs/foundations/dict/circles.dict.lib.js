@@ -1,8 +1,8 @@
-function circles_lib_dict_run( _caller_id, _opcode, _action_id, _question, _silent, _out_channel )
+function circles_lib_dict_run( _caller_id, _opcode, _action_id, _question, _silent, _output_channel )
 {
     _opcode = safe_float( _opcode, 0 ), _action_id = safe_int( _action_id, 0 );
     _question = safe_int( _question, 0 ), _silent = safe_int( _silent, 0 );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
 		var _options_chunk = [];
     if ( _opcode.is_one_of( 0.1, 0.2 ) )
     {
@@ -11,7 +11,7 @@ function circles_lib_dict_run( _caller_id, _opcode, _action_id, _question, _sile
 					case 0.1:
 		      var _alphabet = circles_lib_alphabet_get(), _packed_alphabet = _alphabet.join( "@" );
 					_options_chunk = [ _caller_id, _opcode, _glob_depth, _glob_method, _packed_alphabet, _glob_original_dict ] ;
-				  return CIRCLESmultithreadingPROCESSdictionary( _options_chunk, _silent, _out_channel );
+				  return CIRCLESmultithreadingPROCESSdictionary( _options_chunk, _silent, _output_channel );
 					break ;
 					case 0.2:
 					_glob_dict_processor.sliced_dict_flush();
@@ -40,17 +40,17 @@ function circles_lib_dict_run( _caller_id, _opcode, _action_id, _question, _sile
 				 									_first_n, _last_n,
 													_start_with, _includes, _end_with,
 													_glob_original_dict ] ;
-       return CIRCLESmultithreadingPROCESSdictionary( _options_chunk, _silent, _out_channel );
+       return CIRCLESmultithreadingPROCESSdictionary( _options_chunk, _silent, _output_channel );
     }
     else if ( _opcode == 4 )
     {
 			 _options_chunk = [ _caller_id, _opcode, _glob_depth, _glob_method, _packed_alphabet, _glob_original_dict ] ;
-       return CIRCLESmultithreadingPROCESSdictionary( _options_chunk, _silent, _out_channel );
+       return CIRCLESmultithreadingPROCESSdictionary( _options_chunk, _silent, _output_channel );
 		}
     else
     {
        var _msg = "Operation halted by user" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
 }

@@ -1,9 +1,9 @@
 var _glob_svg_open = 0 ;
 
-function circles_lib_canvas_save_to_svg( _filename, _silent, _out_channel )
+function circles_lib_canvas_save_to_svg( _filename, _silent, _output_channel )
 {
      _silent = safe_int( _silent, NO );
-     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
      var _code_array = _glob_export_code_array ;
      if ( is_array( _code_array ) && _code_array != UNDEF )
      {
@@ -23,14 +23,14 @@ function circles_lib_canvas_save_to_svg( _filename, _silent, _out_channel )
         else
         {
             var _msg = "Code is not consistent to save the SVG file."+_glob_crlf+"Switch the export option to SVG, redraw the figure and try saving it again" ;
-            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
+            if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
             else return [ 0, _msg ];
         }
      }
      else
      {
         var _msg = "Code is not available to save the SVG file" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
         else return [ 0, _msg ];
      }
 }

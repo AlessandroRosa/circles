@@ -17,18 +17,18 @@ function CIRCLESformsBIPcanvasREALDIMS()
     else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Missing BIP box data", "CIRCLESformsBIPoutputMSG", 3000 ) ;
 }
 
-function CIRCLESformsBIPtips( _silent, _out_channel )
+function CIRCLESformsBIPtips( _silent, _output_channel )
 {
-    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _msg = "Open menu entry : SETTINGS >> GENERAL >> OPTIONS >> Z-PLANE | W-PLANE" ;
         _msg += "<br>to select what canvas to render" ;
-    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg, "CIRCLESformsBIPoutputMSG", 5000 ) ;
+    if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg, "CIRCLESformsBIPoutputMSG", 5000 ) ;
     return [ RET_OK, _msg ];
 }
 
-function CIRCLESformsBIPreviewSETTINGS( _silent, _out_channel )
+function CIRCLESformsBIPreviewSETTINGS( _silent, _output_channel )
 {
-    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     if ( is_html_canvas( _glob_bip_canvas ) )
     {
         var _memo = [] ;
@@ -79,22 +79,22 @@ function CIRCLESformsBIPreviewSETTINGS( _silent, _out_channel )
             default: _msg += _glob_crlf + "Export to unknown option" ; break ;
         }
 
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg.replace( /\n/g, "<br>" ), "CIRCLESformsBIPoutputMSG", 8000 ) ;
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg.replace( /\n/g, "<br>" ), "CIRCLESformsBIPoutputMSG", 8000 ) ;
         return [ RET_OK, _msg ];
     }
     else
     {
         var _msg = "Memory failure" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, _msg, "CIRCLESformsBIPoutputMSG", 1500 ) ;
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, _msg, "CIRCLESformsBIPoutputMSG", 1500 ) ;
         return [ RET_ERROR, _msg ];
     }
 }
 
-function CIRCLESformsBIPtrigger( _opcode, _silent, _render, _update, _out_channel )
+function CIRCLESformsBIPtrigger( _opcode, _silent, _render, _update, _output_channel )
 {
     _opcode = safe_int( _opcode, UNDET ), _silent = safe_int( _silent, UNDET );
     _render = safe_int( _render, NO ), _update = safe_int( _update, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     switch( _opcode )
     {
         case 1:
@@ -104,8 +104,8 @@ function CIRCLESformsBIPtrigger( _opcode, _silent, _render, _update, _out_channe
         if ( _ret_id == 0 ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, _ret_msg, "CIRCLESformsBIPoutputMSG" ) ;
         else if ( _ret_id == 1 && _render )
         {
-           if ( _out_channel == OUTPUT_SCREEN ) circles_lib_canvas_process_ask( YES, _silent, BIP_BOX, _render, YES, CHECK, [], _out_channel );
-           else circles_lib_bip_render( _silent, _out_channel );
+           if ( _output_channel == OUTPUT_SCREEN ) circles_lib_canvas_process_ask( YES, _silent, BIP_BOX, _render, YES, CHECK, [], _output_channel );
+           else circles_lib_bip_render( _silent, _output_channel );
         }
         break ;
         default:
@@ -157,10 +157,10 @@ function CIRCLESformsBIPcalculatePIXELside( _update )
     if ( _update && $( "#BIPcanvasPIXELsize" ).get(0) != null ) $( "#BIPcanvasPIXELsize" ).val( _glob_bip_pixel_size );
 }
 
-function CIRCLESformsBIPcanvasmirrorSHOW( bSHOW, _silent, _out_channel )
+function CIRCLESformsBIPcanvasmirrorSHOW( bSHOW, _silent, _output_channel )
 {
     bSHOW = safe_int( bSHOW, YES ), _silent = safe_int( _silent, YES );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _copy_bip_width = $( "#copy_bip_canvasDIV" ).width();
     $( "#BIPBOX_EXTENT_W" ).html( "Width " + $( "#CIRCLESbipCANVAS" ).get(0).get_width() );
     $( "#BIPBOX_EXTENT_H" ).html( "Height " + $( "#CIRCLESbipCANVAS" ).get(0).get_height() );
@@ -173,12 +173,12 @@ function CIRCLESformsBIPcanvasmirrorSHOW( bSHOW, _silent, _out_channel )
        if ( _ret_id == UNDET )
        {
           var _msg = "Memory failure" ;
-          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, _ret_msg, "CIRCLESformsBIPoutputMSG" ) ;
+          if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, _ret_msg, "CIRCLESformsBIPoutputMSG" ) ;
           return [ RET_ERROR, _msg ] ;
        }
        else if ( _ret_id != YES )
        {
-          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, _ret_msg, "CIRCLESformsBIPoutputMSG" ) ;
+          if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, _ret_msg, "CIRCLESformsBIPoutputMSG" ) ;
           return [ RET_ERROR, _ret_msg ] ;
        }
     }

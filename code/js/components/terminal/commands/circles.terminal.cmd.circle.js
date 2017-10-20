@@ -2,14 +2,14 @@ function circles_terminal_cmd_circle()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -21,7 +21,7 @@ function circles_terminal_cmd_circle()
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      else if ( _params.length > 0 )
      {
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
@@ -30,7 +30,7 @@ function circles_terminal_cmd_circle()
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "draw", "drawcolor", "fill", "fillcolor", "opacity", "radius",
 						 																"wplane", "zplane", "bip", "rec", "thick", "release", "help", "html" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -95,7 +95,7 @@ function circles_terminal_cmd_circle()
                   else if ( _p.stricmp( "bip" ) ) _params_assoc_array['settings']['plane'] = BIP_BOX ;
 
 								  _msg = "<lightblue>Plane has been set to</lightblue> <snow>"+_p+"</snow>" ;
-									circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
               }
 							else if ( circles_lib_colors_is_def( _p ) )
 							{
@@ -103,18 +103,18 @@ function circles_terminal_cmd_circle()
 								 {
 									 _params_assoc_array['settings']['drawcolor'] = _p ;
 									 _msg = "<lightblue>Border color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-									 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 								 }
 								 else if ( _params_assoc_array['settings']['fillcolor'] == null )
 								 {
 									 _params_assoc_array['settings']['fillcolor'] = _p ;
 									 _msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-									 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 								 }
 								 else
 								 {
 									 _msg = "<orange>Redundant input color params found in '"+_p+"': skipped</orange>" ;
-									 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 								 }
 							}
               else if ( _p.testME( _glob_sector_regex_pattern ) )
@@ -122,7 +122,7 @@ function circles_terminal_cmd_circle()
                    _p = _p.replaceAll( [ "[", "]" ], "" );
                    _p = _p.split( "," );
 									 _msg = "<lightblue>Detected sector range syntax</lightblue> <snow>from "+_p[0]+"</snow> to <snow>"+_p[1]+"</snow>" ;
-									 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                    // before converting to radians, values will be adapted for
                    // rendering sectors according to the standard counter-clockwise orientation
                    _params_assoc_array['settings']['sector_start'] = radians( -_p[1] );
@@ -134,19 +134,19 @@ function circles_terminal_cmd_circle()
                    {
                        _params_assoc_array['settings']['radius'] = safe_float( _p, 1 );
 											 _msg = "<lightblue>Radius has been set to</lightblue> <snow>"+_p+"</snow>" ;
-											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+											 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                    }
                    else if ( _params_assoc_array['settings']['linewidth'] == null )
                    {
                        _params_assoc_array['settings']['linewidth'] = safe_int( _p, 1 );
 											 _msg = "<lightblue>Line width has been set to</lightblue> <snow>"+_p+"</snow>" ;
-											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+											 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                    }
                    else if ( _params_assoc_array['settings']['opacity'] == null )
                    {
                        _params_assoc_array['settings']['opacity'] = safe_float( _p, 1 );
 											 _msg = "<lightblue>Opacity has been set to</lightblue> <snow>"+_p+"</snow>" ;
-											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+											 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                    }
               }
               else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
@@ -157,7 +157,7 @@ function circles_terminal_cmd_circle()
                       var _pt_array = _p.split( "," );
                       _params_assoc_array['settings']['center'] = new point( parseFloat( _pt_array[0] ), parseFloat( _pt_array[1] ) );
     								  _msg = "<lightblue>Circle center has been set to</lightblue> <snow>"+_p+"</snow>" ;
-    									circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+    									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                   }
               }
          }
@@ -168,15 +168,15 @@ function circles_terminal_cmd_circle()
          _error_str = "Missing input params" ;
      }
 
-     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
      else if ( _params_assoc_array['keywords'] )
      {
          var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-         if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+         if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
          else
          {
              _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-             circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+             circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
          }
      }
      else if ( !_b_fail )
@@ -187,7 +187,7 @@ function circles_terminal_cmd_circle()
          switch( _action )
          {
               case "release":
-              circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+              circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
               break ;
               default:
               // checking input errors
@@ -195,9 +195,9 @@ function circles_terminal_cmd_circle()
               {
                    if ( _params_assoc_array['settings']['label'].length > 0 && _params_assoc_array['settings']['rec'] == NO )
                    {
-                      circles_lib_output( _out_channel, DISPATCH_INFO, "Skipped symbol param. Mismatch setting: no rec param input", _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, "Skipped symbol param. Mismatch setting: no rec param input", _par_1, _cmd_tag );
                       if ( _glob_verbose && _glob_terminal_echo_flag )
-                      circles_lib_output( _out_channel, DISPATCH_INFO, "Symbol param is useless if this figure is not going to be recorded", _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, "Symbol param is useless if this figure is not going to be recorded", _par_1, _cmd_tag );
                    }
                    else if ( _params_assoc_array['settings']['plane'] == NO_PLANE )
                    {
@@ -285,7 +285,7 @@ function circles_terminal_cmd_circle()
                        }
                        else
                        {
-                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_get_def( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Circle processed with success</green>", _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_get_def( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Circle processed with success</green>", _par_1, _cmd_tag );
                            if ( _params_assoc_array['settings']['rec'] == YES || _storage_queue_request )
                            {
                                var _rec_chunk = [];
@@ -311,12 +311,12 @@ function circles_terminal_cmd_circle()
                                        {
                                            _glob_storage[_subset].push( _rec_chunk );
                                            var _msg = "<green>Circle "+( _rec_chunk['settings']['label'].length > 0 ? "'"+_rec_chunk['settings']['label']+"'" : "" )+" has been copied into data storage space</green>" ;
-                                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                                        }
-                                       else circles_lib_output( _out_channel, DISPATCH_WARNING, "'"+_subset+"' does not refer to any valid storage space subset", _par_1, _cmd_tag );
+                                       else circles_lib_output( _output_channel, DISPATCH_WARNING, "'"+_subset+"' does not refer to any valid storage space subset", _par_1, _cmd_tag );
                                    }
           
-                                   circles_lib_output( _out_channel, DISPATCH_INFO, "Circle recorded", _par_1, _cmd_tag );
+                                   circles_lib_output( _output_channel, DISPATCH_INFO, "Circle recorded", _par_1, _cmd_tag );
                             }
                        }
                    }
@@ -331,7 +331,7 @@ function circles_terminal_cmd_circle()
      }
 
      if ( _b_fail )
-     circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

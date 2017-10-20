@@ -1,4 +1,4 @@
-function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array, _out_channel )
+function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array, _output_channel )
 {
 		if ( !is_array( _options ) )
 		{

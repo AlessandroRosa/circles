@@ -1,4 +1,4 @@
-function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _question, _silent, _b_reset_coords, _out_channel )
+function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _question, _silent, _b_reset_coords, _output_channel )
 {
 		circles_lib_menu_entries_update() ;
 		if ( _glob_interface_index == INTERFACE_EXTEND_WPLANE ) return [ RET_IRRELEVANT, "Z-plane rendering skipped for extended interface" ] ;
@@ -15,7 +15,7 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
     _b_render_bk = safe_int( _b_render_bk, YES ), _b_render_objs = safe_int( _b_render_objs, YES );
     _b_reset_coords = safe_int( _b_reset_coords, YES );
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     
     if ( _question && !_silent )
     {
@@ -49,16 +49,16 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
                        if ( _layer != null )
                        {
                           _tmp_canvas = $( "#" + _layer.get_idcanvas() ).get(0);
-                          if ( is_html_canvas( _tmp_canvas ) ) circles_lib_canvas_clean( _tmp_canvas, _layer.get_backgroundcolor(), _out_channel );
+                          if ( is_html_canvas( _tmp_canvas ) ) circles_lib_canvas_clean( _tmp_canvas, _layer.get_backgroundcolor(), _output_channel );
                        }
                     } );
         }
         else
         {
-           circles_lib_canvas_clean( _grid_canvas, "", _out_channel );
-           circles_lib_canvas_clean( _rendering_canvas, "", _out_channel );
-           circles_lib_canvas_clean( _freedraw_canvas, "", _out_channel );
-           circles_lib_canvas_clean( _work_canvas, "", _out_channel );
+           circles_lib_canvas_clean( _grid_canvas, "", _output_channel );
+           circles_lib_canvas_clean( _rendering_canvas, "", _output_channel );
+           circles_lib_canvas_clean( _freedraw_canvas, "", _output_channel );
+           circles_lib_canvas_clean( _work_canvas, "", _output_channel );
         }
     }
 
@@ -70,7 +70,7 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
 
     if ( _b_render_bk )
     {
-        circles_lib_canvas_layer_pile_clean_per_plane( Z_PLANE, UNDET, _silent, _out_channel );
+        circles_lib_canvas_layer_pile_clean_per_plane( Z_PLANE, UNDET, _silent, _output_channel );
         circles_lib_canvas_layer_pile_reset( Z_PLANE, _b_clean, NO );
     }
 
@@ -102,11 +102,11 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
         {
             case ROLE_GRID: // grid
             if ( _glob_show_grid_zplane && ( _glob_zplane_grid_canvas_placeholder.is_visible() || is_html_canvas( _grid_canvas ) ) )
-            circles_lib_grid_draw( _grid_canvas, _mapper, Z_PLANE, YES, _glob_ticks_count, _out_channel );
+            circles_lib_grid_draw( _grid_canvas, _mapper, Z_PLANE, YES, _glob_ticks_count, _output_channel );
             break ;
             case ROLE_RENDERING: // rendering
             if ( _b_render_objs && ( _glob_zplane_rendering_canvas_placeholder.is_visible() || is_html_canvas( _rendering_canvas ) ) )
-            circles_lib_draw_all_complex_disks( _rendering_canvas.getContext( _glob_canvas_ctx_2D_mode ), _mapper, _glob_zplane_selected_items_array, NO, _silent, _out_channel );
+            circles_lib_draw_all_complex_disks( _rendering_canvas.getContext( _glob_canvas_ctx_2D_mode ), _mapper, _glob_zplane_selected_items_array, NO, _silent, _output_channel );
             break ;
             case ROLE_FREEDRAW: // free draw
             if ( _glob_zplane_freedraw_canvas_placeholder.is_visible() || is_html_canvas( _freedraw_canvas ) )
@@ -117,7 +117,7 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
             case ROLE_WORK: // work
             if ( _glob_zplane_work_canvas_placeholder.is_visible() || is_html_canvas( _work_canvas ) )
 						{
-                if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display( null, _work_canvas, null, NO, NO, YES, _out_channel );
+                if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display( null, _work_canvas, null, NO, NO, YES, _output_channel );
                 circles_lib_canvas_after_process_figures( null, NO, Z_PLANE );
 						}
             break ;
@@ -152,7 +152,7 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
    return [ RET_OK, "Z-plane rendered with success" ] ;
 }
 
-function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _b_init_items, _question, _silent, _out_channel )
+function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _b_init_items, _question, _silent, _output_channel )
 {
 		circles_lib_menu_entries_update() ;
 		if ( _glob_interface_index == INTERFACE_EXTEND_ZPLANE ) return [ RET_IRRELEVANT, "W-plane rendering skipped for extended interface" ] ;
@@ -165,7 +165,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _b_init_items = safe_int( _b_init_items, CHECK );
     if ( _b_init_items == CHECK ) _b_init_items = _glob_items_to_init ;
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
 
     var _items_n = circles_lib_count_items();
     if ( _items_n == 0 ) _b_init_items = NO ;
@@ -184,7 +184,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
     if ( _glob_items_to_init && !_silent )
     {
         var _msg = "Can't draw the W-plane."+_glob_crlf+"Please, init gens first" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
 
@@ -194,11 +194,11 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
         if ( !is_array( _selected_layers_array ) )
         {
             if ( _b_render_bk && _glob_wplane_grid_canvas_placeholder.is_visible() ) circles_lib_canvas_layer_pile_init( W_PLANE, _b_clean, NO );
-            circles_lib_canvas_layer_pile_clean_per_plane( W_PLANE, UNDET, _silent, _out_channel );
+            circles_lib_canvas_layer_pile_clean_per_plane( W_PLANE, UNDET, _silent, _output_channel );
             circles_lib_canvas_layer_pile_reset( W_PLANE );
         }
 
-        if ( is_html_canvas( _canvas ) ) circles_lib_canvas_clean( _canvas, "", _out_channel );
+        if ( is_html_canvas( _canvas ) ) circles_lib_canvas_clean( _canvas, "", _output_channel );
 
         // in any case, it cleans the basic layers, cause they stand behind the depth layers pile
         if ( is_array( _selected_layers_array ) )
@@ -211,7 +211,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
                        if ( _layer != null )
                        {
                          _tmp_canvas = $( "#" + _layer.get_idcanvas() ).get(0);
-                         if ( is_html_canvas( _tmp_canvas ) ) circles_lib_canvas_clean( _tmp_canvas, _layer.get_backgroundcolor(), _out_channel );
+                         if ( is_html_canvas( _tmp_canvas ) ) circles_lib_canvas_clean( _tmp_canvas, _layer.get_backgroundcolor(), _output_channel );
                        }
                     } );
         }
@@ -272,8 +272,8 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
 
 		if ( _b_init_items )
     {
-        circles_lib_items_switch_to( circles_lib_gens_model_exists() ? ITEMS_SWITCH_GENS : ITEMS_SWITCH_SEEDS, _silent, _out_channel );
-        var _ret_chunk = circles_lib_items_init( null, _question, _silent, _glob_init_mask, NO, YES, _out_channel );
+        circles_lib_items_switch_to( circles_lib_gens_model_exists() ? ITEMS_SWITCH_GENS : ITEMS_SWITCH_SEEDS, _silent, _output_channel );
+        var _ret_chunk = circles_lib_items_init( null, _question, _silent, _glob_init_mask, NO, YES, _output_channel );
         if ( _ret_chunk[0] != RET_OK )
         {
            circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
@@ -289,18 +289,18 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
         {
             case ROLE_GRID: // grid
             if ( _glob_show_grid_wplane && _glob_wplane_grid_canvas_placeholder.is_visible() )
- 						circles_lib_grid_draw( _grid_canvas, _mapper, W_PLANE, YES, _glob_ticks_count, _out_channel );
+ 						circles_lib_grid_draw( _grid_canvas, _mapper, W_PLANE, YES, _glob_ticks_count, _output_channel );
             break ;
             case ROLE_RENDERING: // rendering
             if ( _b_render_objs && _glob_wplane_rendering_canvas_placeholder.is_visible() )
             {
-                _ret_chunk = circles_lib_canvas_render_process( _rendering_canvas, _mapper, W_PLANE, _silent, _out_channel );
-                circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _out_channel );
+                _ret_chunk = circles_lib_canvas_render_process( _rendering_canvas, _mapper, W_PLANE, _silent, _output_channel );
+                circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _output_channel );
                 _ret_id = ( is_array( _ret_chunk ) || _ret_chunk == UNDEF ) ? safe_int( _ret_chunk[0], 0 ) : 0 ;
                 _ret_msg = ( is_array( _ret_chunk ) || _ret_chunk == UNDEF ) ? _ret_chunk[1] : _ERR_00_00 ;
                 if ( _ret_id == 0 )
                 {
-                   if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
+                   if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
                    return _ret_chunk ;
                 }
             }
@@ -324,7 +324,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
    return [ RET_OK, "W-plane rendered with success" ] ;
 }
 
-function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _b_init_items, _question, _silent, _out_channel )
+function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _b_init_items, _question, _silent, _output_channel )
 {
 		circles_lib_menu_entries_update() ;
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
@@ -336,7 +336,7 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
     if ( _b_init_items == CHECK ) _b_init_items = _glob_items_to_init ;
     _b_render_bk = safe_int( _b_render_bk, YES ), _b_render_objs = safe_int( _b_render_objs, YES );
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, YES );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
 
     if ( !_plane_type.is_one_of( Z_PLANE, W_PLANE ) ) return [ RET_ERROR, "Unknown source plane" ] ;
 
@@ -372,10 +372,10 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
         case EXPORT_NONE: default: break ;
     }
 
-    if ( _b_clean ) circles_lib_canvas_clean( _glob_bip_canvas, _glob_bip_canvas.get_backgroundcolor(), _out_channel );
+    if ( _b_clean ) circles_lib_canvas_clean( _glob_bip_canvas, _glob_bip_canvas.get_backgroundcolor(), _output_channel );
     if ( _plane_type == Z_PLANE )
     {
-        if ( safe_size( _glob_seeds_array, 0 ) > 0 ) circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _out_channel );
+        if ( safe_size( _glob_seeds_array, 0 ) > 0 ) circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _output_channel );
         circles_lib_recalc_screen_disks_coords( _mapper );
         var _length = safe_size( _glob_zplane_layers_pile_role_array, 0 );
         var _layers_array = _glob_zplane_layers_pile_role_array ;
@@ -387,11 +387,11 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
             {
                 case ROLE_GRID: // grid
                 if ( _glob_show_grid_zplane )
-                circles_lib_grid_draw( _canvas, _mapper, Z_PLANE, YES, _glob_ticks_count, _out_channel );
+                circles_lib_grid_draw( _canvas, _mapper, Z_PLANE, YES, _glob_ticks_count, _output_channel );
                 break ;
                 case ROLE_RENDERING: // rendering
                 if ( _b_render_objs && _glob_zplane_rendering_canvas_placeholder.is_visible() )
-                circles_lib_draw_all_complex_disks( _canvas.getContext( _glob_canvas_ctx_2D_mode ), _mapper, _glob_zplane_selected_items_array, NO, _silent, _out_channel );
+                circles_lib_draw_all_complex_disks( _canvas.getContext( _glob_canvas_ctx_2D_mode ), _mapper, _glob_zplane_selected_items_array, NO, _silent, _output_channel );
                 break ;
                 case ROLE_FREEDRAW: // free draw
                 if ( _glob_zplane_freedraw_canvas_placeholder.is_visible() )
@@ -427,8 +427,8 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
 
         if ( _b_init_items )
         {
-            circles_lib_items_switch_to( circles_lib_gens_model_exists() ? ITEMS_SWITCH_GENS : ITEMS_SWITCH_SEEDS, _silent, _out_channel );
-            var _ret_chunk = circles_lib_items_init( null, _question, _silent, _glob_init_mask, NO, YES, _out_channel );
+            circles_lib_items_switch_to( circles_lib_gens_model_exists() ? ITEMS_SWITCH_GENS : ITEMS_SWITCH_SEEDS, _silent, _output_channel );
+            var _ret_chunk = circles_lib_items_init( null, _question, _silent, _glob_init_mask, NO, YES, _output_channel );
             if ( _ret_chunk[0] != RET_OK )
             {
                circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
@@ -444,17 +444,17 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
              {
                   case 1: // grid
                   if ( _glob_show_grid_wplane && _glob_wplane_grid_canvas_placeholder.is_visible() )
-                  circles_lib_grid_draw( _canvas, _mapper, BIP_BOX, YES, _glob_ticks_count, _out_channel );
+                  circles_lib_grid_draw( _canvas, _mapper, BIP_BOX, YES, _glob_ticks_count, _output_channel );
                   break ;
                   case 2: // rendering
                   if ( _b_render_objs && _glob_wplane_rendering_canvas_placeholder.is_visible() )
                   {
-                      _ret_chunk = circles_lib_canvas_render_process( _canvas, _mapper, BIP_BOX, _silent, _out_channel );
+                      _ret_chunk = circles_lib_canvas_render_process( _canvas, _mapper, BIP_BOX, _silent, _output_channel );
                       _ret_id = ( is_array( _ret_chunk ) || _ret_chunk == UNDEF ) ? safe_int( _ret_chunk[0], 0 ) : 0 ;
                       _ret_msg = ( is_array( _ret_chunk ) || _ret_chunk == UNDEF ) ? _ret_chunk[1] : _ERR_00_00 ;
                       if ( _ret_id == 0 )
                       {
-                          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
+                          if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title );
                           return _ret_chunk ;
                       }
                   }

@@ -5,10 +5,10 @@ function CIRCLESformsPALETTEshow()
     $("#CIRCLEScolorsPALETTEcontainer").html( PALETTEhtmlCODE );
 }
 
-function CIRCLESformsPALETTEaddCOLOR( _question, _silent, _out_channel )
+function CIRCLESformsPALETTEaddCOLOR( _question, _silent, _output_channel )
 {
      _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
      var CLR = $("#CANVAScolorCELL").css( "background-color" );
      if ( CLR.length > 0 )
      {
@@ -19,22 +19,22 @@ function CIRCLESformsPALETTEaddCOLOR( _question, _silent, _out_channel )
               $("#CIRCLEScolorsPALETTEcontainer").html( CIRCLESformsPALETTEdisplayTABLE().replaceAll( "%imgpath%", _glob_path_to_img ) );
 
               var _msg = "New color added with success" ;
-              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+              if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
               return [ RET_WARNING, _msg ] ;
          }
      }
      else
      {
          var _msg = "Pick up a color first !" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+         if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_IRRELEVANT, _msg ] ;
      }
 }
 
-function CIRCLESformsPALETTEupdateCOLOR( _question, _silent, _out_channel )
+function CIRCLESformsPALETTEupdateCOLOR( _question, _silent, _output_channel )
 {
      _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
      var CLR = $("#CANVAScolorCELL").css( "background-color" );
      if ( CLR.length > 0 && _glob_palette_index_selection != UNDET )
      {
@@ -44,14 +44,14 @@ function CIRCLESformsPALETTEupdateCOLOR( _question, _silent, _out_channel )
               _glob_palette_array[_glob_palette_index_selection] = CLR ;
               $("#CIRCLEScolorsPALETTEcontainer").html( CIRCLESformsPALETTEdisplayTABLE().replaceAll( "%imgpath%", _glob_path_to_img ) );
               var _msg = "Color modified with success" ;
-              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+              if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
               return [ RET_WARNING, _msg ] ;
          }
      }
      else
      {
          var _msg = "Select a color from the palette first !" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+         if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_IRRELEVANT, _msg ] ;
      }
 }
@@ -97,9 +97,9 @@ function CIRCLESformsPALETTEdisplayTABLE( divwidth )
      return HTMLcode ;
 }
 
-function CIRCLESformsPALETTEcomputeGRADIENTpre( _silent, _out_channel )
+function CIRCLESformsPALETTEcomputeGRADIENTpre( _silent, _output_channel )
 {
-     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+     _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
      var RGBintSTART = $("#CANVAScolorCELLgradientSTART").css( 'background-color' );
      var RGBintEND = $("#CANVAScolorCELLgradientEND").css( 'background-color' );
      var STEPS = safe_int( $("#CANVAScolorCELLgradientSTEPS").val(), 0 );
@@ -108,14 +108,14 @@ function CIRCLESformsPALETTEcomputeGRADIENTpre( _silent, _out_channel )
          STEPS = 10 ;
          $("#CANVAScolorCELLgradientSTEPS").val( STEPS );
          var _msg = "The input entries value is not positive: corrected to the default value ("+STEPS+")." ;
-         if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+         if ( !_silent && _output_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          else circles_lib_output( _output_channel, _msg, DISPATCH_INFO ) ;
      }
 
      _glob_palette_start_rgb = RGBintSTART, _glob_palette_end_rgb = RGBintEND ;
      _glob_palette_steps = STEPS ;
 
-     var _ret_chunk = circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, STEPS, _silent, _out_channel );
+     var _ret_chunk = circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, STEPS, _silent, _output_channel );
      var _ret_id = _ret_chunk[0], _tmp_array = _ret_chunk[1] ;
      var _msg = _ret_chunk[2] ;
      if ( _ret_id == RET_ERROR ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg + _glob_crlf + "Can't compute the color gradient." + _glob_crlf + _ERR_00_05, _glob_app_title );
@@ -132,10 +132,10 @@ function CIRCLESformsPALETTEswapCOLORS()
      $("#CANVAScolorCELLgradientEND").css( "background-color", RGBintSTART );
 }
 
-function CIRCLESformsPALETTEpreviewAPPEND( _question, _silent, _out_channel )
+function CIRCLESformsPALETTEpreviewAPPEND( _question, _silent, _output_channel )
 {
      _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
      hideCOLORTABLE();
      var RGBintSTART = $("#CANVAScolorCELLgradientSTART").css( "background-color" );
      var RGBintEND = $("#CANVAScolorCELLgradientEND").css( "background-color" );
@@ -146,7 +146,7 @@ function CIRCLESformsPALETTEpreviewAPPEND( _question, _silent, _out_channel )
          STEPS = 10, $("#CANVAScolorCELLgradientSTEPS").val( STEPS );
      }
 
-     var GRADIENTdataCHUNK = circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, STEPS, _silent, _out_channel );
+     var GRADIENTdataCHUNK = circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, STEPS, _silent, _output_channel );
      var _ret_id = GRADIENTdataCHUNK[0], _ret_palette_array = GRADIENTdataCHUNK[1], _ret_msg = GRADIENTdataCHUNK[2] ;
      if ( !_ret_id ) alert_msg( ALERT, _ret_msg, GLOBALpathTOroot );
      else
@@ -177,10 +177,10 @@ function CIRCLESformsPALETTEpreviewAPPEND( _question, _silent, _out_channel )
      }
 }
 
-function CIRCLESformsPALETTEappend( _question, _silent, _out_channel )
+function CIRCLESformsPALETTEappend( _question, _silent, _output_channel )
 {
      _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
      var _b_go = !_question ? YES : confirm( "Confirm to append the input gradient to the current palette ?" );
      if ( _b_go )
      {
@@ -195,7 +195,7 @@ function CIRCLESformsPALETTEappend( _question, _silent, _out_channel )
 
          _glob_palette_start_rgb = RGBintSTART, _glob_palette_end_rgb = RGBintEND ;
          _glob_palette_steps = STEPS ;
-         var _ret_chunk = circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, STEPS, _silent, _out_channel );
+         var _ret_chunk = circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, STEPS, _silent, _output_channel );
          var appendPALETTEarray = _ret_chunk[1] ;
          if ( !is_array( appendPALETTEarray ) && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't compute the color gradient." + _glob_crlf + _ret_chunk[1] + _glob_crlf + _ERR_00_05, _glob_app_title );
          else

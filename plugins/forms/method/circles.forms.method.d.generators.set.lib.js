@@ -353,15 +353,15 @@ function CIRCLESgenssetMANAGERgensSETUP( _question, _silent )
    }
 }
 
-function CIRCLESgenssetMANAGERgensEXACT( _question, _silent, _out_channel )
+function CIRCLESgenssetMANAGERgensEXACT( _question, _silent, _output_channel )
 {
-   _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+   _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
    var _items_array = _glob_seeds_array ;
    var _items_n = circles_lib_count_items( _items_array ), _sch_n = circles_lib_count_gens_set_model();
    if ( _items_n == 0 )
    {
        var _msg = "Can't build the exact generators set."+_glob_crlf+"The "+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" )+" list is empty" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
    }
    else
@@ -370,11 +370,11 @@ function CIRCLESgenssetMANAGERgensEXACT( _question, _silent, _out_channel )
        var _b_go = ( _sch_n > 0 && _question ) ? confirm( _q ) : YES ;
        if ( _b_go )
        {
-           circles_lib_gens_model_create_exact( _out_channel );
+           circles_lib_gens_model_create_exact( _output_channel );
            CIRCLESgenssetMANAGERreload();
            CIRCLESgenssetMANAGERgensSETUP( _question, _silent );
            var _msg = "The exact generators set has been built with success" ;
-					 if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+					 if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
            return [ RET_ERROR, _msg ] ;
        }
        else return [ RET_IRRELEVANT, "Operation aborted by user" ] ;

@@ -2,14 +2,14 @@ function circles_terminal_cmd_plugin()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -22,7 +22,7 @@ function circles_terminal_cmd_plugin()
 		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['settings'] = [] ;
@@ -32,7 +32,7 @@ function circles_terminal_cmd_plugin()
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "close", "current", "html", "help", "list", "remotecmds", "open", "release", "run", "set", "send", "silent", "var" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
@@ -71,22 +71,22 @@ function circles_terminal_cmd_plugin()
                       break ;
                     }
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Unknown input parameter '"+_p+"'", _par_1, _cmd_tag );
+                  else circles_lib_output( _output_channel, DISPATCH_WARNING, "Unknown input parameter '"+_p+"'", _par_1, _cmd_tag );
               }
          }
 
          var _already = _glob_verbose == _params_assoc_array['mode'] ? YES : NO ;
          _glob_verbose = _params_assoc_array['mode'] ;
 
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_b_fail )
@@ -109,7 +109,7 @@ function circles_terminal_cmd_plugin()
                          if ( _result.includes( "@@" ) ) _result = _result.split( "@@" );
 							       if ( safe_size( _result, 0 ) == 0 )
 							       {
-												 circles_lib_output( _out_channel, DISPATCH_WARNING, "No available plug-ins for subset '"+_subset+"'", _par_1, _cmd_tag );
+												 circles_lib_output( _output_channel, DISPATCH_WARNING, "No available plug-ins for subset '"+_subset+"'", _par_1, _cmd_tag );
 										 		 break ;
 										 }
 							       var _rows = null, _crlf = "", _item, _archive = [] ;
@@ -146,7 +146,7 @@ function circles_terminal_cmd_plugin()
 		                      _row += "<white>"+( new String( "Opening id" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</white>" ;
 		                      _startINDEX++ ;
 		                      _row += "<lightblue>"+( new String( "Plug-in caption" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
-		                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+		                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                      var _subset, _base_id, _caption, _visible ;
 		                 $.each( _archive, function( _i, _chunk )
 		                         {
@@ -157,7 +157,7 @@ function circles_terminal_cmd_plugin()
 															  _row += "<lightblue>"+_base_id.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
 		                            _startINDEX++ ;
 															  _row += "<white>"+_caption.rpad( " ", _cols_width[_startINDEX] )+"</white>" ;
-		                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+		                            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
 		                         }
 		                       );
 								 }
@@ -174,18 +174,18 @@ function circles_terminal_cmd_plugin()
                           var _output = null ;
                         	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
                         	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
-                          circles_lib_output( _out_channel, _output ? DISPATCH_SUCCESS : DISPATCH_ERROR, "Plug-in "+_src.fam+" "+_src.def+" has "+(_output?"":"not ")+"been closed with success", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, _output ? DISPATCH_SUCCESS : DISPATCH_ERROR, "Plug-in "+_src.fam+" "+_src.def+" has "+(_output?"":"not ")+"been closed with success", _par_1, _cmd_tag );
                       }
-                      else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                      else circles_lib_output( _output_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                  }
-                 else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                 else circles_lib_output( _output_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                  case "current":
                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
                  {
                       var _plugin_specs = _plugin_tmp_vars_array['plugin_sel']['packed_name'].split( "@" ) ;
-                      circles_lib_output( _out_channel, DISPATCH_INFO, "Current Plug-in is "+_plugin_specs[0]+ " "+_plugin_specs[1], _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, "Current Plug-in is "+_plugin_specs[0]+ " "+_plugin_specs[1], _par_1, _cmd_tag );
                  }
-                 else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in: please, set it first", _par_1, _cmd_tag );
+                 else circles_lib_output( _output_channel, DISPATCH_ERROR, "Cannot get current Plug-in: please, set it first", _par_1, _cmd_tag );
                  break ;
                  case "list":
                  var _cols_width = [ 9, 14, 25, 30 ], _startINDEX = 0, _row = "" ;
@@ -197,7 +197,7 @@ function circles_terminal_cmd_plugin()
                       _row += "<white>"+( new String( "Opening id" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</white>" ;
                       _startINDEX++ ;
                       _row += "<lightblue>"+( new String( "Popup caption" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
-                  circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                   var _subset, _base_id, _caption, _visible ;
                   $.each( _glob_popups_array, function( _i, _chunk )
                           {
@@ -210,7 +210,7 @@ function circles_terminal_cmd_plugin()
   												  _row += "<white>"+_base_id.rpad( " ", _cols_width[_startINDEX] )+"</white>" ;
                             _startINDEX++ ;
                             _row += "<lightblue>"+_caption.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
-                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                           }
                         );
                  break ;
@@ -225,10 +225,10 @@ function circles_terminal_cmd_plugin()
                         	var _open_cmd = "circles_lib_plugin_load( '"+_fam+"', '"+_def+"' );" ;
                         	try{ eval( "var _return_open = " + _open_cmd + ";" ) }
                         	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
-                          circles_lib_output( _out_channel, _return_open ? DISPATCH_SUCCESS : DISPATCH_ERROR, ( _return_open ? "Success" : "Failure" )+" in opening "+_fam+" "+_def, _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, _return_open ? DISPATCH_SUCCESS : DISPATCH_ERROR, ( _return_open ? "Success" : "Failure" )+" in opening "+_fam+" "+_def, _par_1, _cmd_tag );
 
                           if ( !_return_open )
-                          circles_lib_output( _out_channel, DISPATCH_WARNING, "Check whether input '"+_def+"' could have been mispelled or '"+_fam+"' is not the correct category, or mandatory params are missing", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_WARNING, "Check whether input '"+_def+"' could have been mispelled or '"+_fam+"' is not the correct category, or mandatory params are missing", _par_1, _cmd_tag );
                           else
                           {
                             if ( _json != null )
@@ -242,15 +242,15 @@ function circles_terminal_cmd_plugin()
                                	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
                               }, 700 );
                             }
-                            else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                            else circles_lib_output( _output_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                           }
                       }
-                      else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot open the mask: please, set a Plug-in first", _par_1, _cmd_tag );
+                      else circles_lib_output( _output_channel, DISPATCH_ERROR, "Cannot open the mask: please, set a Plug-in first", _par_1, _cmd_tag );
                  }
-                 else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot open current Plug-in mask: please, set it first", _par_1, _cmd_tag );
+                 else circles_lib_output( _output_channel, DISPATCH_ERROR, "Cannot open current Plug-in mask: please, set it first", _par_1, _cmd_tag );
                  break ;
                  case "release":
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                  break ;
                  case "remotecmds":
                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
@@ -261,7 +261,7 @@ function circles_terminal_cmd_plugin()
                         _data = _data.split( "\n" ) ;
                         if ( _data.length > 0 )
                         {
-                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Remote control messages for Plug-in <white>" + _json.fam + " / " + _json.def + "</white>", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Remote control messages for Plug-in <white>" + _json.fam + " / " + _json.def + "</white>", _par_1, _cmd_tag );
                           for( var _i = 0 ; _i < _data.length ; _i++ )
                           {
                             if ( _data[_i].includes( "=" ) )
@@ -271,18 +271,18 @@ function circles_terminal_cmd_plugin()
                               {
                                  _data[_i][0] = _data[_i][0].replace( /\"/g, "" ) ;
                                  _data[_i][1] = _data[_i][1].replace( /\"/g, "" ) ;
-                                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<white>"+_data[_i][0]+"</white> <lightblue>"+_data[_i][1]+"</lightblue>", _par_1, _cmd_tag );
+                                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<white>"+_data[_i][0]+"</white> <lightblue>"+_data[_i][1]+"</lightblue>", _par_1, _cmd_tag );
                               }
                             }
                           }
                         }
-                        else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: missing file remotecmds.info", _par_1, _cmd_tag );
+                        else circles_lib_output( _output_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: missing file remotecmds.info", _par_1, _cmd_tag );
                       })
                       .fail(function() {
-                        circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: missing file remotecmds.info", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: missing file remotecmds.info", _par_1, _cmd_tag );
                       })
                  }
-                 else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: please, set it first", _par_1, _cmd_tag );
+                 else circles_lib_output( _output_channel, DISPATCH_ERROR, "Cannot get current Plug-in remote control lists: please, set it first", _par_1, _cmd_tag );
                  break ;
                  case "send":
                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
@@ -295,20 +295,20 @@ function circles_terminal_cmd_plugin()
                           var _famLC = _src.fam.toLowerCase(), _defUC = _src.def.toUpperCase().replace( /[\.\_\-]/g, "" ) ;
                           var _options = _params_assoc_array['settings']['send.params'] ;
                           var _ret_array = [] ;
-                          var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null, _ret_array, "+_out_channel+" )" ;
+                          var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null, _ret_array, "+_output_channel+" )" ;
                           var _output = null ;
                          	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
                          	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
                           if ( _ret_array.length == 2 )
-                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _ret_array[1], _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _ret_array[1], _par_1, _cmd_tag );
                           else
-                          circles_lib_output( _out_channel, DISPATCH_ERROR, "Illegal response from event dispatching system", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_ERROR, "Illegal response from event dispatching system", _par_1, _cmd_tag );
                        }
-                       else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                       else circles_lib_output( _output_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                     }
-                    else circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing params specification after 'send' action", _par_1, _cmd_tag );
+                    else circles_lib_output( _output_channel, DISPATCH_ERROR, "Missing params specification after 'send' action", _par_1, _cmd_tag );
                  }
-                 else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot send event to Plug-in: please, set it first", _par_1, _cmd_tag );
+                 else circles_lib_output( _output_channel, DISPATCH_ERROR, "Cannot send event to Plug-in: please, set it first", _par_1, _cmd_tag );
                  break ;
                  case "set":
                  case "target":
@@ -322,9 +322,9 @@ function circles_terminal_cmd_plugin()
 
                     _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] = { fam : _fam, def : _def } ;
                     _plugin_tmp_vars_array['plugin_sel']['packed_name'] = _famLC + "@" + _defLC ;
-                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Plug-in target has been correctly set to <white>"+_params_assoc_array['settings']['family']+" "+_params_assoc_array['settings']['def']+"</white>", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Plug-in target has been correctly set to <white>"+_params_assoc_array['settings']['family']+" "+_params_assoc_array['settings']['def']+"</white>", _par_1, _cmd_tag );
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot set plug-in: missing couple family specification / definition", _par_1, _cmd_tag );
+                  else circles_lib_output( _output_channel, DISPATCH_ERROR, "Cannot set plug-in: missing couple family specification / definition", _par_1, _cmd_tag );
                  break ;
                  case "varslist":
                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
@@ -340,12 +340,12 @@ function circles_terminal_cmd_plugin()
                         	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
                           if ( is_string( _output ) )
                           {
-                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _output, _par_1, _cmd_tag );
+                             circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _output, _par_1, _cmd_tag );
                           }
                       }
-                      else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                      else circles_lib_output( _output_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                  }
-                 else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                 else circles_lib_output( _output_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                  break ;
                  case "var":
                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )
@@ -367,19 +367,19 @@ function circles_terminal_cmd_plugin()
                         	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
                         	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
                           var _b_ok = _output ? DISPATCH_SUCCESS : DISPATCH_ERROR ;
-                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Plugin <white>" + _plugin_sel.fam + " " + _plugin_sel.def + "</white> : var <white>" + _var_set[0] + "</white> "+(_b_ok?"correctly":"not")+" set to <white>" + _var_set[1] + "</white>", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Plugin <white>" + _plugin_sel.fam + " " + _plugin_sel.def + "</white> : var <white>" + _var_set[0] + "</white> "+(_b_ok?"correctly":"not")+" set to <white>" + _var_set[1] + "</white>", _par_1, _cmd_tag );
                         }
                         else
                         {
                           if ( _var_set[0].length == 0 )
-                          circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing <var-id> specification", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_ERROR, "Missing <var-id> specification", _par_1, _cmd_tag );
                           if ( _var_set[1].length == 0 )
-                          circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing <var-value> specification", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_ERROR, "Missing <var-value> specification", _par_1, _cmd_tag );
                         }
                       }
-                      else circles_lib_output( _out_channel, DISPATCH_ERROR, "var setting shall be in the form <var-id>=<var-value>", _par_1, _cmd_tag );
+                      else circles_lib_output( _output_channel, DISPATCH_ERROR, "var setting shall be in the form <var-id>=<var-value>", _par_1, _cmd_tag );
                  }
-                 else circles_lib_output( _out_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
+                 else circles_lib_output( _output_channel, DISPATCH_ERROR, "Please, use 'set' action to fix the working Plug-in first or cmds wouldn't be accepted", _par_1, _cmd_tag );
                  break ;
                  default: break ;
              }
@@ -391,7 +391,7 @@ function circles_terminal_cmd_plugin()
 		 }
 
      if ( _b_fail )
-     circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

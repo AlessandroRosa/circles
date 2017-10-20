@@ -2,13 +2,13 @@ function circles_terminal_cmd_code()
 {
     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
     var _params = arguments[0] ;
-    var _out_channel = arguments[1] ;
+    var _output_channel = arguments[1] ;
     var _par_1 = arguments[2] ;
     var _cmd_mode = arguments[3] ;
     var _caller_id = arguments[4] ;
 
     if ( _glob_verbose && _glob_terminal_echo_flag )
-    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -17,7 +17,7 @@ function circles_terminal_cmd_code()
      var _fn_ret_val = null ;
 
      var _params_assoc_array = [];
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['action'] = "" ;
@@ -26,7 +26,7 @@ function circles_terminal_cmd_code()
          _params_assoc_array['dump_operator_index'] = UNDET ;
 
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     else if ( _out_channel == OUTPUT_SCRIPT )
+     else if ( _output_channel == OUTPUT_SCRIPT )
      {
          _b_fail = YES, _error_str = "This command doesn't run in script mode, thus it will be skipped" ;
      }
@@ -50,7 +50,7 @@ function circles_terminal_cmd_code()
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
 						 _local_cmds_params_array.push( "help", "html" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
          var _p ;
          // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
@@ -64,15 +64,15 @@ function circles_terminal_cmd_code()
          }
      }
 
-     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
      else if ( _params_assoc_array['keywords'] )
      {
          var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-         if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+         if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
          else
          {
              _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-             circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+             circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
          }
      }
      else if ( !_b_fail )
@@ -95,7 +95,7 @@ function circles_terminal_cmd_code()
                  5th step: add filter (not implemented yet)
               */
 
-              var code_fn = function( _opt, _out_channel )
+              var code_fn = function( _opt, _output_channel )
               {
                   var _plain_code = _out_text_string = circles_terminal_cmd_code_assemble( _opt );
                   if ( _params_assoc_array['dump'] )
@@ -108,22 +108,22 @@ function circles_terminal_cmd_code()
   										{
 													_b_fail = YES, _error_str = _ret_msg ;
 											}
-											else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+											else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
 									}
 
-                  if ( _out_channel == OUTPUT_HTML ) circles_lib_terminal_color_decode_htmltext( "<gray>"+_plain_code+"</gray>", 'code', 'right', 'top' );
-                  else if ( _out_channel == OUTPUT_TEXT ) return _plain_code ;
-                  else if ( _out_channel.match_bit_mask( TERMINAL_SCRIPT_INPUT, OUTPUT_TERMINAL ) )
+                  if ( _output_channel == OUTPUT_HTML ) circles_lib_terminal_color_decode_htmltext( "<gray>"+_plain_code+"</gray>", 'code', 'right', 'top' );
+                  else if ( _output_channel == OUTPUT_TEXT ) return _plain_code ;
+                  else if ( _output_channel.match_bit_mask( TERMINAL_SCRIPT_INPUT, OUTPUT_TERMINAL ) )
                   {
                       $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val( _plain_code );
                       if ( $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val().length == 0 )
-                      circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't flush the resulting code into the script tab.\nPlease, close and re-open the terminal pop-up", _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't flush the resulting code into the script tab.\nPlease, close and re-open the terminal pop-up", _par_1, _cmd_tag );
                       else
-                      circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The resulting code has been flushed into the script tab", _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The resulting code has been flushed into the script tab", _par_1, _cmd_tag );
                   }
               }
 
-              if ( _plugin_last_ref == 0 ) code_fn( 1, _out_channel );
+              if ( _plugin_last_ref == 0 ) code_fn( 1, _output_channel );
               else
               {
                    var _pre_prompt = "System detected one active gens plug-in." + _glob_crlf ;
@@ -137,12 +137,12 @@ function circles_terminal_cmd_code()
                         {
                             if (command.match(/\b(1)\b/g))
                             {
-                                code_fn( 1, _out_channel );
+                                code_fn( 1, _output_channel );
                                 for( var _i = 0 ; _i < _question_counter ; _i++ ) _glob_terminal_out_stream.pop();
                             }
                             else if (command.match(/\b(2)\b/g))
                             {
-                                code_fn( 2, _out_channel );
+                                code_fn( 2, _output_channel );
                                 for( var _i = 0 ; _i < _question_counter ; _i++ ) _glob_terminal_out_stream.pop();
                             }
                             else if (command.match(/\b(quit)\b/g))
@@ -158,19 +158,19 @@ function circles_terminal_cmd_code()
                             }
                         } ;
 
-                        if ( _glob_terminal_questions_enabled && _out_channel == OUTPUT_TERMINAL )
+                        if ( _glob_terminal_questions_enabled && _output_channel == OUTPUT_TERMINAL )
                         {
-                           circles_lib_output( _out_channel, DISPATCH_INFO, _pre_prompt, _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_INFO, _pre_prompt, _par_1, _cmd_tag );
                            _glob_terminal_out_stream.push( _fn, { prompt: _prompt_question });
                         }
-                        else code_fn( 1, _out_channel );
+                        else code_fn( 1, _output_channel );
               }
          }
      }
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
 
 function circles_terminal_cmd_code_assemble( _opt, _settings_array )

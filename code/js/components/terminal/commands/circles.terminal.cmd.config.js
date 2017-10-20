@@ -4,14 +4,14 @@ function circles_terminal_cmd_config()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -34,13 +34,13 @@ function circles_terminal_cmd_config()
      var _adds = [ "seeds", "byref", "byval" ] ;
 
          _params_assoc_array['help'] = NO ;
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['keywords'] = NO ;
 
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array = _keywords.concat( _readonly ).concat( _groups ).concat( _adds );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
  		 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
    		   _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -86,15 +86,15 @@ function circles_terminal_cmd_config()
          _b_fail = YES, _error_str = "Missing input params" ;
      }
 
-     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
      else if ( _params_assoc_array['keywords'] )
      {
          var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-         if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+         if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
          else
          {
              _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-             circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+             circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
          }
      }
      else if ( !_b_fail && !is_string( _params_assoc_array['action'] ) )
@@ -195,7 +195,7 @@ function circles_terminal_cmd_config()
            var _html = _params_assoc_array['html'] ;
   
            if ( _html ) circles_lib_terminal_color_decode_htmltext( _config_str, 'config', 'right', 'top' );
-           else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _config_str, _par_1, _cmd_tag );
+           else circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _config_str, _par_1, _cmd_tag );
   
            if ( _params_assoc_array['dump'] )
            {
@@ -209,7 +209,7 @@ function circles_terminal_cmd_config()
   						 {
   						 		_b_fail = YES, _error_str = _ret_msg ;
   						 }
-  						 else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+  						 else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
            }
        }
      }
@@ -253,8 +253,8 @@ function circles_terminal_cmd_config()
   
                 _out_text_string = _MSG ;
   
-                if ( _params_assoc_array['html'] ) circles_lib_output( _out_channel, DISPATCH_INFO, LANG_MSG_00, _par_1, _cmd_tag );
-                _params_assoc_array['html'] ? circles_lib_terminal_color_decode_htmltext( _MSG ) : circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _MSG, _par_1, _cmd_tag );
+                if ( _params_assoc_array['html'] ) circles_lib_output( _output_channel, DISPATCH_INFO, LANG_MSG_00, _par_1, _cmd_tag );
+                _params_assoc_array['html'] ? circles_lib_terminal_color_decode_htmltext( _MSG ) : circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _MSG, _par_1, _cmd_tag );
                 break ;
                 case "get":
                 if ( _params_assoc_array['params'].length == 0 )
@@ -385,14 +385,14 @@ function circles_terminal_cmd_config()
 													        default: break ;
                              }
   
-                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_outlabel+"</lightblue> "+( _outval.includes( "</" ) ? _outval : "<snow>" + _outval + "</snow>" ), _par_1, _cmd_tag );
+                             circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_outlabel+"</lightblue> "+( _outval.includes( "</" ) ? _outval : "<snow>" + _outval + "</snow>" ), _par_1, _cmd_tag );
                          }
-                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Unknown param '"+_p+"'", _par_1, _cmd_tag );
+                         else circles_lib_output( _output_channel, DISPATCH_WARNING, "Unknown param '"+_p+"'", _par_1, _cmd_tag );
                     }
                 }
                 break ;
                 case "release":
-                circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 case "save":
                 var _config_list = circles_lib_config_list_generate();
@@ -406,9 +406,9 @@ function circles_terminal_cmd_config()
   									{
   											_b_fail = YES, _error_str = _ret_msg ;
   									}
-  									else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+  									else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                 }
-                else circles_lib_output( _out_channel, DISPATCH_INFO, _config_list, _par_1, _cmd_tag );
+                else circles_lib_output( _output_channel, DISPATCH_INFO, _config_list, _par_1, _cmd_tag );
                 break ;
                 case "set":
                 if ( _params_assoc_array['params'].length == 0 )
@@ -424,7 +424,7 @@ function circles_terminal_cmd_config()
                     var _resp = [], _param = _params_assoc_array['params'][0], _value = _params_assoc_array['params'][1] ;
   
                     if ( _readonly.includes( _param ) )
-                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Param '"+_param+"' is read-only here.</orange>\n<gray>Use specific command '"+_param+"' instead.</gray>", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<orange>Param '"+_param+"' is read-only here.</orange>\n<gray>Use specific command '"+_param+"' instead.</gray>", _par_1, _cmd_tag );
                     else if ( _keywords.includes( _param ) )
                     {
                         if ( _param.strcmp( "accuracy" ) )
@@ -629,7 +629,7 @@ function circles_terminal_cmd_config()
                                          }
                                      }
                                      
-                                     circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Pixel size is now " + _glob_pixel_size, _par_1, _cmd_tag );
+                                     circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Pixel size is now " + _glob_pixel_size, _par_1, _cmd_tag );
                                 }
                             }
   
@@ -679,7 +679,7 @@ function circles_terminal_cmd_config()
                                 if ( _glob_items_switch & ITEM_BYREF ) _resume_params_array.push( "by reference" );
                                 else if ( _glob_items_switch & ITEM_BYVAL ) _resume_params_array.push( "by value" );
   
-                                var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _out_channel );
+                                var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
          										    var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
        												  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
                                 _resp = [ _ret_id, _ret_id ? "<greenshock>Items switch params have been correctly set to '" + _resume_params_array.join( "," ) + "'</greenshock>" : "<red>"+_ret_msg+"</red>" ] ;
@@ -708,7 +708,7 @@ function circles_terminal_cmd_config()
                                 var _menu = ( _value.is_one_of( "yes", "y" ) ? YES : NO );
                                 _value = ( _value.is_one_of( "yes", "y" ) ? "visible" : ( _value.is_one_of( "no", "n" ) ? "hidden" : "???" ) );
                                 $("#CIRCLEScheckboxMENU").prop( ":checked", ( _menu ) ? YES : NO );
-                                circles_lib_menu_show_top( _out_channel );
+                                circles_lib_menu_show_top( _output_channel );
                                 _resp = [ 1, "<greenshock>Top menu is '" + _value + "'</greenshock>" ] ;
                             }
                             else
@@ -765,21 +765,21 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _resp[1], _par_1, _cmd_tag );
-                        if ( circles_lib_terminal_batch_script_exists() && _glob_verbose && _out_channel == OUTPUT_TERMINAL )
+                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _resp[1], _par_1, _cmd_tag );
+                        if ( circles_lib_terminal_batch_script_exists() && _glob_verbose && _output_channel == OUTPUT_TERMINAL )
              						{
            									_glob_terminal_change = YES ;
-           	                circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+           	                circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
            							}
                     }
-                    else circles_lib_output( _out_channel, DISPATCH_WARNING, "Param '"+_param+"' is unknown", _par_1, _cmd_tag );
+                    else circles_lib_output( _output_channel, DISPATCH_WARNING, "Param '"+_param+"' is unknown", _par_1, _cmd_tag );
                 }
                 break ;
 				        default: break ;
            }
      }
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

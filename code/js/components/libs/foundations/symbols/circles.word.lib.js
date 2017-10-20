@@ -48,11 +48,11 @@ function circles_lib_word_commutator_get( _start_from_symbol, _items_array )
     }
 }
 
-function circles_lib_word_mobiusmap_get( _word, _items_array, _out_channel )
+function circles_lib_word_mobiusmap_get( _word, _items_array, _output_channel )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
-    var _symbols_index_array = circles_lib_symbol_get_indexes_mapping_array( _items_array,  NO, _out_channel );
+    var _symbols_index_array = circles_lib_symbol_get_indexes_mapping_array( _items_array,  NO, _output_channel );
     _word = safe_string( _word, "" ).trim();
     if ( _word.length > 0 && _test )
     {
@@ -69,12 +69,12 @@ function circles_lib_word_mobiusmap_get( _word, _items_array, _out_channel )
     return null ;
 }
 
-function circles_lib_word_fixedpoints_get( _input_word, _items_array, _prog, _out_channel )
+function circles_lib_word_fixedpoints_get( _input_word, _items_array, _prog, _output_channel )
 {
     _input_word = safe_string( _input_word, "" ), _prog = safe_int( _prog, NO );
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _sd_n = safe_size( _items_array, 0 ) ;
     if ( !_test ) return [ CIRCLES_INVALID_ITEMS_CONTAINER, null ] ;
 		else if ( _sd_n.length == 0 ) return [ CIRCLES_MISSING_SEEDS, null ] ;
@@ -82,7 +82,7 @@ function circles_lib_word_fixedpoints_get( _input_word, _items_array, _prog, _ou
     else if ( _glob_alphabet.length == 0 ) return [ CIRCLES_MISSING_ALPHABET, null ] ;
     else
     {
-       var _symbols_index_array = circles_lib_symbol_get_indexes_mapping_array( null,  NO, _out_channel );
+       var _symbols_index_array = circles_lib_symbol_get_indexes_mapping_array( null,  NO, _output_channel );
        var _points = [], _words = [], _word ;
        var INDEX, G, _mm, _fp, _type ;
        if ( _prog ) for( var _w = 0 ; _w < _input_word.length ; _w++ ) _words.push( _input_word.left( _w + 1 ) );
@@ -90,7 +90,7 @@ function circles_lib_word_fixedpoints_get( _input_word, _items_array, _prog, _ou
 
        for( var _w = 0 ; _w < _words.length ; _w++ )
        {
-          _mm = circles_lib_word_mobiusmap_get( _words[_w], _items_array, _out_channel );
+          _mm = circles_lib_word_mobiusmap_get( _words[_w], _items_array, _output_channel );
           _fp = is_mobius_map( _mm ) ? _mm.fixed_points() : [] ;
           if ( is_complex( _fp[0] ) )
           {

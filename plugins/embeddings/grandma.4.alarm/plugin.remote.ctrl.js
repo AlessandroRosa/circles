@@ -3,7 +3,7 @@ function CIRCLESembeddingsGRANDMA4ALARM_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESembeddingsGRANDMA4ALARMremotectrl( _options, _return_fn, _ret_array, _out_channel )
+function CIRCLESembeddingsGRANDMA4ALARMremotectrl( _options, _return_fn, _ret_array, _output_channel )
 {
 		if ( !is_array( _options ) )
 		{

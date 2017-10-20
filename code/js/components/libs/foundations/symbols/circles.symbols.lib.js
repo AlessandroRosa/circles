@@ -1,9 +1,9 @@
 function circles_lib_symbol_check( _input ) { return _input.testME( _glob_symbol_regex_pattern ) ? YES : NO ; }
-function circles_lib_symbol_check_group( _items_array, _out_channel )
+function circles_lib_symbol_check_group( _items_array, _output_channel )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _ret = GROUP_TEST_ERR_OK, _items_n = safe_size( _items_array, 0 );
     if ( _items_n > 0 && _test )
     {
@@ -53,13 +53,13 @@ function circles_lib_symbol_check_group( _items_array, _out_channel )
      return _ret ;
 }
 
-function circles_lib_symbol_shift( _items_array, _fwd, _question, _silent, _out_channel )
+function circles_lib_symbol_shift( _items_array, _fwd, _question, _silent, _output_channel )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     _fwd = safe_int( _fwd, YES );
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _sd_n = circles_lib_count_items( _items_array );
     if ( _sd_n > 1 && _test )
     {
@@ -95,12 +95,12 @@ function circles_lib_symbol_shift( _items_array, _fwd, _question, _silent, _out_
               _items_array[i].inverse_symbol = _tmp_array[i][1].trim();
            }
 
-           return _out_channel == OUTPUT_SCREEN ? 1 : [ 1, "Symbols shifted "+( !_fwd ? "backward " : "" )+"with success" ] ;
+           return _output_channel == OUTPUT_SCREEN ? 1 : [ 1, "Symbols shifted "+( !_fwd ? "backward " : "" )+"with success" ] ;
        }
        else
        {
            var MSG = "Symbols permutation aborted by user" ;
-           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
+           if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
            return [ RET_ERROR, MSG ] ;
        }
     }
@@ -108,14 +108,14 @@ function circles_lib_symbol_shift( _items_array, _fwd, _question, _silent, _out_
     {
        var MSG = "Can't perform cyclic permutation of group symbols" + _glob_crlf ;
            MSG += _sd_n == 1 ? "The group includes one only element" : "The group is empty" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
        return [ RET_ERROR, MSG ] ;
     }
 }
 
-function circles_lib_symbol_get_err_def( _ret, _out_channel )
+function circles_lib_symbol_get_err_def( _ret, _output_channel )
 {
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     _ret = safe_int( _ret, GROUP_TEST_ERR_UNDET );
     var MSG = "" ;
     switch( _ret )
@@ -130,18 +130,18 @@ function circles_lib_symbol_get_err_def( _ret, _out_channel )
        default: MSG = "31Unknown error" ; break ;
     }
 
-    if ( _ret != GROUP_TEST_ERR_OK && _out_channel == OUTPUT_SCREEN ) MSG += _glob_crlf + "Open the <a href=\"#\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','seeds.list',NO,"+UNDET+");\">circles list</a> to set it" ;
+    if ( _ret != GROUP_TEST_ERR_OK && _output_channel == OUTPUT_SCREEN ) MSG += _glob_crlf + "Open the <a href=\"#\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','seeds.list',NO,"+UNDET+");\">circles list</a> to set it" ;
     return MSG ;
 }
 
-function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent, _caller, _out_channel )
+function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent, _caller, _output_channel )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     _caller = safe_int( _caller, 0 ), _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _count_checked = 0, CHECKEDentriesINDEXarray = [], _items_n = circles_lib_count_items( _items_array );
-    if ( _out_channel == OUTPUT_SCREEN )
+    if ( _output_channel == OUTPUT_SCREEN )
     {
         var CTRLID, CHECKBOX ;
         for( var i = 0 ; i < _items_n ; i++ )
@@ -162,24 +162,24 @@ function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent
 		if ( !_test )
 		{
 				var _ret_msg = "Input items set is not a valid container" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg, _glob_app_title );
         return [ RET_ERROR, _ret_msg ] ;
 		}
     else if ( _items_n == 0 )
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_01, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_01, _glob_app_title );
         return [ RET_ERROR, _ERR_33_01 ] ;
     }
     else if ( _count_checked == 0 )
     {
         var _msg = "No selected entries to swap" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
     else if ( _count_checked != 2 )
     {
         var _msg = "Select just 2 entries to swap symbols" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
     else if ( _count_checked == 2 )
@@ -201,37 +201,37 @@ function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent
               _items_array[_index_02].inverse_symbol = _inverse_sym_01.trim();
 
               if ( _caller == 1 ) circles_lib_plugin_load('forms','seeds.list');
-              return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+              return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
            }
            else
            {
            	  var _msg = "Can't swap symbols.\n\nCoordinates are not consistent with archived data" ;
-              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+              if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
               return [ RET_ERROR, _msg ] ;
            }
         }
         else
         {
            var _msg = "Swap halted by user" ;
-           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+           if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
            return [ RET_ERROR, _msg ] ;
         }
     }
     else
     {
         var _msg = "An unknown exception has been caught" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
 }
 
-function circles_lib_symbol_remove_all( _items_array, _caller, _question, _silent, _out_channel )
+function circles_lib_symbol_remove_all( _items_array, _caller, _question, _silent, _output_channel )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     _caller = safe_int( _caller, 0 );
     _question = safe_int( _question, NO ), _silent = safe_int( _silent, YES );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _array = [], _items_n = circles_lib_count_items( _items_array );
     for( var _i = 0 ; _i < _items_n ; _i++ ) _array.push( _i );
     var MSG = _QUESTION_10_03 ;
@@ -245,13 +245,13 @@ function circles_lib_symbol_remove_all( _items_array, _caller, _question, _silen
     else return [ RET_IRRELEVANT, "Operation aborted by user" ] ;
 }
 
-function circles_lib_symbol_remove( _items_array, a, _caller, _b_inverse, _question, _silent, _out_channel )
+function circles_lib_symbol_remove( _items_array, a, _caller, _b_inverse, _question, _silent, _output_channel )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     _b_inverse = safe_int( _b_inverse, NO );
     _question = safe_int( _question, NO ), _silent = safe_int( _silent, YES );
-    _caller = safe_int( _caller, 0 ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _caller = safe_int( _caller, 0 ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _a_length = safe_size( a, 0 );
     if ( _a_length > 0 && _test )
     {
@@ -273,14 +273,14 @@ function circles_lib_symbol_remove( _items_array, a, _caller, _b_inverse, _quest
     return YES ;
 }
 
-function circles_lib_symbol_zplane_display( _items_array, _canvas, _symbol, _b_invert, _refresh_zplane, _silent, _out_channel )
+function circles_lib_symbol_zplane_display( _items_array, _canvas, _symbol, _b_invert, _refresh_zplane, _silent, _output_channel )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     _canvas = !is_html_canvas( _canvas ) ? _glob_zplane_work_canvas_placeholder : _canvas ;
     _symbol = safe_string( _symbol, "" ), _b_invert = safe_int( _b_invert, NO );
     _refresh_zplane = safe_int( _refresh_zplane, YES );
-    _silent = safe_int( _silent, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var zplane_context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
     var _inv_symbol = _symbol.length > 0 ? circles_lib_word_inverse_get( _symbol ) : "" ;
     var _items_n = circles_lib_count_items( _items_array );
@@ -290,7 +290,7 @@ function circles_lib_symbol_zplane_display( _items_array, _canvas, _symbol, _b_i
         CELLsetCONTENTS('[id$=symbolsBTN]', _glob_show_symbols_zplane ? "Hide symbols" : "Show symbols" );
     
         if ( _refresh_zplane && !( arguments.callee.caller.callername(1).strcmp( "circles_lib_canvas_render_zplane" ) ) ) // prevent looping in any case
-        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
 		    var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 		    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "32Unknown error" ;
         if ( _ret_id == RET_ERROR )
@@ -346,23 +346,23 @@ function circles_lib_symbol_zplane_display( _items_array, _canvas, _symbol, _b_i
     }
     else
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_00_04, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_00_04, _glob_app_title );
         return [ RET_ERROR, _ERR_00_04 ];
     }
 }
 
-function circles_lib_symbol_get_indexes_mapping_array( _items_array, _init_items, _out_channel )
+function circles_lib_symbol_get_indexes_mapping_array( _items_array, _init_items, _output_channel )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     _init_items = safe_int( _init_items, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     var _sd_n = circles_lib_count_items( _items_array );
     if ( _sd_n == 0 || !_test ) return null ;
     else
     {
         var _symbols_index_array = [];
-        var _ret_chunk = _init_items ? circles_lib_items_switch_to( _glob_init_mask, YES, _out_channel ) : [ RET_OK, "success" ] ;
+        var _ret_chunk = _init_items ? circles_lib_items_switch_to( _glob_init_mask, YES, _output_channel ) : [ RET_OK, "success" ] ;
         if ( _ret_chunk[0] == RET_ERROR ) return null ;
         else
         {

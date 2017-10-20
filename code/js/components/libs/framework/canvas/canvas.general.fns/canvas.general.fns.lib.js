@@ -26,9 +26,9 @@ function circles_lib_canvas_get_from_role( _plane_type, _role )
     return circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_INDEX, _role );
 }
 
-function circles_lib_canvas_clean( _canvas, _color, _out_channel )
+function circles_lib_canvas_clean( _canvas, _color, _output_channel )
 {
-    _color = safe_string( _color, "" ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _color = safe_string( _color, "" ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _bk = is_html_canvas( _canvas ) ? safe_string( _canvas.get_backgroundcolor(), "" ) : "" ;
     var _context = is_html_canvas( _canvas ) ? _canvas.getContext( _glob_canvas_ctx_2D_mode ) : null ;
     if ( _context != null )
@@ -43,12 +43,12 @@ function circles_lib_canvas_clean( _canvas, _color, _out_channel )
     else return [ RET_ERROR, "Canvas is not available" ];
 }
 
-function circles_lib_refresh_main_canvases( _out_channel )
+function circles_lib_refresh_main_canvases( _output_channel )
 {
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _final_ret = YES ;
-    var _ret_chunk_zplane = circles_lib_canvas_render_zplane( null, zplane_sm, null, NO, YES, YES, YES, YES, YES, _out_channel );
-    var _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, NO, YES, NO, YES, NO, YES, _out_channel );
+    var _ret_chunk_zplane = circles_lib_canvas_render_zplane( null, zplane_sm, null, NO, YES, YES, YES, YES, YES, _output_channel );
+    var _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, NO, YES, NO, YES, NO, YES, _output_channel );
     if ( _ret_chunk_zplane[0] != RET_IRRELEVANT )
     _final_ret &= _ret_chunk_zplane != null ? _ret_chunk_zplane[0] : 0 ;
     if ( _ret_chunk_wplane[0] != RET_IRRELEVANT )
@@ -79,13 +79,13 @@ function circles_lib_canvas_set( _plane_type, _target_service, _layer )
 		return is_html_canvas( _arr[_target_service] ) ? YES : NO ;    
 }
 
-function circles_lib_canvas_plane_refresh( _plane_type, _question, _out_channel )
+function circles_lib_canvas_plane_refresh( _plane_type, _question, _output_channel )
 {
 		if ( circles_lib_count_seeds() == 0 ) return ;
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
 		var _plane_def = circles_lib_plane_get_def( _plane_type ) ;
     _question = safe_int( _question, YES );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _b_go = _question ? ( confirm( "Confirm to update the " + _plane_def + " ?" ) ) : YES ;
     if ( _b_go )
     {
@@ -93,28 +93,28 @@ function circles_lib_canvas_plane_refresh( _plane_type, _question, _out_channel 
         {
 					 if ( _glob_interface_index == INTERFACE_EXTEND_NONE )
            {
-               var _ret_chunk = circles_lib_canvas_render_zplane(null,null,null,YES,NO,NO,NO,YES,YES,_out_channel);
+               var _ret_chunk = circles_lib_canvas_render_zplane(null,null,null,YES,NO,NO,NO,YES,YES,_output_channel);
                var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
                if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
            }
-					 else circles_lib_interface_extend( _plane_type, YES, null, _out_channel ) ;
+					 else circles_lib_interface_extend( _plane_type, YES, null, _output_channel ) ;
         }
 
         if ( _plane_type.is_one_of( W_PLANE, ALL_PLANES ) )
         {
 					 if ( _glob_interface_index == INTERFACE_EXTEND_NONE )
 					 {
-						  var _ret_chunk = circles_lib_canvas_render_wplane(null,null,null,YES,NO,NO,NO,NO,YES,_out_channel);
+						  var _ret_chunk = circles_lib_canvas_render_wplane(null,null,null,YES,NO,NO,NO,NO,YES,_output_channel);
 				      var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 					    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "14Unknown error" ;
 					 }
-					 else circles_lib_interface_extend( _plane_type, YES, null, _out_channel ) ;
+					 else circles_lib_interface_extend( _plane_type, YES, null, _output_channel ) ;
         }
 
         if ( _plane_type.is_one_of( BIP_BOX, ALL_PLANES ) )
         {
-					 circles_lib_canvas_render_bipbox(null,null,YES,NO,NO,NO,NO,YES,_out_channel);
+					 circles_lib_canvas_render_bipbox(null,null,YES,NO,NO,NO,NO,YES,_output_channel);
         }
 		}
 }

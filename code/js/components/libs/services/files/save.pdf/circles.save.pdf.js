@@ -89,13 +89,13 @@ function circles_lib_files_pdf_add_pix( doc, _left, _top, _display_zplane, _disp
      }
 }
 
-function circles_lib_files_pdf_save_ask( _fn, _silent, _out_channel )
+function circles_lib_files_pdf_save_ask( _fn, _silent, _output_channel )
 {
-     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+     _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
      if ( !object_exists( _fn ) )
      {
          var _msg = "Missing parameters to save the PDF" ;
-         if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
+         if ( _output_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ] ;
      }
      else

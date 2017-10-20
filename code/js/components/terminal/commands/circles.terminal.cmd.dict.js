@@ -2,14 +2,14 @@ function circles_terminal_cmd_dict()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -38,7 +38,7 @@ function circles_terminal_cmd_dict()
             _params_assoc_array["copy"] = NO ;
             _params_assoc_array['features'] = [];
             _params_assoc_array['force'] = NO ;
-            _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+            _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['keywords'] = NO ;
             _params_assoc_array['opcode'] = "" ;
 
@@ -68,7 +68,7 @@ function circles_terminal_cmd_dict()
                                            "find", "flush", "list", "prepend", "help",
                                            "remove", "removeword", "reverse", "reverseword", "release",
                                            "sortbyval", "sortbylen", "save", "size" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
@@ -230,15 +230,15 @@ function circles_terminal_cmd_dict()
          }
 
  	 			 var _action = _params_assoc_array['action'], _force = _params_assoc_array['force'] ;
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( _action.length == 0 )
@@ -268,7 +268,7 @@ function circles_terminal_cmd_dict()
 														{
 																_current_crash_words_array.push( _crash_word );
 																_dictionary_init_settings_array['crash_words_packed'] = _current_crash_words_array.join( "|" );
-									 						  circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Crash word '"+_crash_word+"' is now in", _par_1, _cmd_tag );
+									 						  circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Crash word '"+_crash_word+"' is now in", _par_1, _cmd_tag );
 														}
 												}
 												else
@@ -306,7 +306,7 @@ function circles_terminal_cmd_dict()
 											 			if ( _old_size == _new_size - 1 )
 											 			{
 											 					var _msg = "Word '"+_general_token_str+"' has been appended with success" ;
-							 								  circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
+							 								  circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
 														}
 														else
 														{
@@ -326,12 +326,12 @@ function circles_terminal_cmd_dict()
                    var _msg = _b_go ? "Dictionary has been applied to diagram with success !" : "Dictionary has not been applied" ;
                        if ( _b_go ) _msg += "Now render for settings to take effect" ;
 									 var _ret_id = _b_go ? YES : NO, _ret_text = _msg ;
- 								   circles_lib_output( _out_channel, ( _ret_id == 1 ) ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_text, _par_1, _cmd_tag );
+ 								   circles_lib_output( _output_channel, ( _ret_id == 1 ) ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_text, _par_1, _cmd_tag );
 									 break ; 
 									 case "build":
                    if ( circles_lib_count_dict() == 0 || _force )
                    {
-    									 if ( _force ) circles_lib_output( _out_channel, DISPATCH_INFO, "Forcing dict creation", _par_1, _cmd_tag );
+    									 if ( _force ) circles_lib_output( _output_channel, DISPATCH_INFO, "Forcing dict creation", _par_1, _cmd_tag );
                        var _settings = _dictionary_init_settings_array ;
                        _glob_original_dict = circles_lib_dict_progressive_generation( _glob_dict_processor, _glob_alphabet, _glob_depth,
                                                                                      _settings['use_reduced_words'],
@@ -343,7 +343,7 @@ function circles_terminal_cmd_dict()
 
          							 var _ret_id = ( circles_lib_count_dict() > 0 ) ? YES : NO ;
                        var _ret_msg = _ret_id ? "Dictionary built with success" : "Fail tu build the dictionary" ;
-    			 						 circles_lib_output( _out_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
+    			 						 circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                    }
                    else
                    {
@@ -359,47 +359,47 @@ function circles_terminal_cmd_dict()
                        _check &= is_array( _glob_storage['dict'] ) ;
                        _check &= _glob_storage['dict'].size_recursive() > 0 ;
                        var _msg = _check ? "All words in the dictionary have been copied into storage space with success" : "Storage destination error: can't perform copy of the whole dictionary" ;
-                       circles_lib_output( _out_channel, _check ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, _check ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
                    }
-                   else circles_lib_output( _out_channel, "Can't copy : " + _ERR_33_04, _msg, _par_1, _cmd_tag );
+                   else circles_lib_output( _output_channel, "Can't copy : " + _ERR_33_04, _msg, _par_1, _cmd_tag );
 									 break ;
 									 case "find":
-                   if ( circles_lib_count_dict() > 0 && _out_channel == OUTPUT_TERMINAL )
+                   if ( circles_lib_count_dict() > 0 && _output_channel == OUTPUT_TERMINAL )
                    {
                         if ( _general_token_str.length > 0 )
                         {
                              if ( _glob_original_dict.includes( _general_token_str ) )
                              {
                                  var _index = _glob_original_dict.indexOf( _general_token_str );
-              			 						 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The input word '"+_general_token_str+"' is indexed at "+( _index + 1 )+"", _par_1, _cmd_tag );
+              			 						 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The input word '"+_general_token_str+"' is indexed at "+( _index + 1 )+"", _par_1, _cmd_tag );
                              }
-                             else circles_lib_output( _out_channel, DISPATCH_WARNING, "The current dictionary does not include the word '"+_general_token_str+"'", _par_1, _cmd_tag );
+                             else circles_lib_output( _output_channel, DISPATCH_WARNING, "The current dictionary does not include the word '"+_general_token_str+"'", _par_1, _cmd_tag );
                         }
                         else
                         {
                            _b_fail = YES, _error_str = "Can't find: the input word is empty" ;
                         }
                    }
-                   else if ( _out_channel != OUTPUT_TERMINAL )
-     			 						  circles_lib_output( _out_channel, DISPATCH_WARNING, "The dictionary finder is available in console mode exclusively", _par_1, _cmd_tag );
+                   else if ( _output_channel != OUTPUT_TERMINAL )
+     			 						  circles_lib_output( _output_channel, DISPATCH_WARNING, "The dictionary finder is available in console mode exclusively", _par_1, _cmd_tag );
                    else if ( circles_lib_count_dict() == 0 )
                    {
                        _b_fail = YES, _error_str = "Can't find: the current dictionary is empty" ;
                    }
 									 break ;
 									 case "flush":
-                   if ( circles_lib_count_dict() > 0 && _out_channel == OUTPUT_TERMINAL )
+                   if ( circles_lib_count_dict() > 0 && _output_channel == OUTPUT_TERMINAL )
                    {
                    		 var _params_array = [] ;
 									      	 _params_array['prepromptquestion'] = "This action is irreversible: all flushed data cannot be recovered, unless" ;
 									      	 _params_array['prepromptquestion'] += _glob_crlf + "the dictionary itself will be generated again with the same params" ;
                    		 		 _params_array['promptquestion'] = "Confirm to erase the whole dictionary ?" ;
-                   		 		 _params_array['yes_fn'] = function() { var _ret = circles_lib_dict_destroy(); circles_lib_output( _out_channel, _ret ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret ? "Dictionary flushed with success" : "Can't flush the dictionary away", _par_1, _cmd_tag ); }
+                   		 		 _params_array['yes_fn'] = function() { var _ret = circles_lib_dict_destroy(); circles_lib_output( _output_channel, _ret ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret ? "Dictionary flushed with success" : "Can't flush the dictionary away", _par_1, _cmd_tag ); }
                    		 		 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_dict_destroy(); }
-                   		 circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+                   		 circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                    }
-                   else if ( _out_channel != OUTPUT_TERMINAL )
-     			 						  circles_lib_output( _out_channel, DISPATCH_WARNING, "Flushing option is available in console mode exclusively", _par_1, _cmd_tag );
+                   else if ( _output_channel != OUTPUT_TERMINAL )
+     			 						  circles_lib_output( _output_channel, DISPATCH_WARNING, "Flushing option is available in console mode exclusively", _par_1, _cmd_tag );
                    else
                    {
                        _b_fail = YES, _error_str = "Can't flush: the current dictionary is empty" ;
@@ -407,19 +407,19 @@ function circles_terminal_cmd_dict()
                    break ;
 									 case "list":
                    var _size = circles_lib_count_dict();
-                   if ( _out_channel != OUTPUT_TERMINAL ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Dictionary list is available in console mode exclusively", _par_1, _cmd_tag );
+                   if ( _output_channel != OUTPUT_TERMINAL ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Dictionary list is available in console mode exclusively", _par_1, _cmd_tag );
                    else if ( _size == 0 )
                    {
-		 			 						  circles_lib_output( _out_channel, DISPATCH_WARNING, "The dictionary is currently empty", _par_1, _cmd_tag );
+		 			 						  circles_lib_output( _output_channel, DISPATCH_WARNING, "The dictionary is currently empty", _par_1, _cmd_tag );
                    }
                    else if ( _crash_words_context && _action_id == 3 )
                    {
 											  var _packed = _dictionary_init_settings_array['crash_words_packed'] ;
 												var _current_crash_words_array = ( _packed.includes( "|" ) ) ? _packed.split( "|" ) : ( ( _packed.length > 0 ) ? [ _packed ] : [] );
 												if ( safe_size( _current_crash_words_array, 0 ) == 0 )
-		 			 						  circles_lib_output( _out_channel, DISPATCH_WARNING, "The crash words list is empty", _par_1, _cmd_tag );
+		 			 						  circles_lib_output( _output_channel, DISPATCH_WARNING, "The crash words list is empty", _par_1, _cmd_tag );
 		 			 						  else 
-		 			 						  circles_lib_output( _out_channel, DISPATCH_INFO, "The crash words list is "+_current_crash_words_array.join( "," )+"", _par_1, _cmd_tag );
+		 			 						  circles_lib_output( _output_channel, DISPATCH_INFO, "The crash words list is "+_current_crash_words_array.join( "," )+"", _par_1, _cmd_tag );
                    }
                    else if ( _action_id == UNDET )
                    {
@@ -441,17 +441,17 @@ function circles_terminal_cmd_dict()
                         if ( _word_filter_exists ) _filter_existence_mask |= 4 ;
 
                         _glob_storage['words'].flush();
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "Purging word data storage for next list", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_INFO, "Purging word data storage for next list", _par_1, _cmd_tag );
 
-                        if ( _full && _out_channel != OUTPUT_TEXT )
-                        circles_lib_output( _out_channel, DISPATCH_WARNING, "'Full' parameter is skipped for console input", _par_1, _cmd_tag );
+                        if ( _full && _output_channel != OUTPUT_TEXT )
+                        circles_lib_output( _output_channel, DISPATCH_WARNING, "'Full' parameter is skipped for console input", _par_1, _cmd_tag );
 
                         if ( _length_filter_exists )
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "Filter : length ("+_length_filter+")", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_INFO, "Filter : length ("+_length_filter+")", _par_1, _cmd_tag );
                         if ( _page_filter_exists )
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "Filter : page number ("+_page_filter+")", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_INFO, "Filter : page number ("+_page_filter+")", _par_1, _cmd_tag );
                         if ( _word_filter_exists )
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "Filter : word ("+_word_filter+")", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_INFO, "Filter : word ("+_word_filter+")", _par_1, _cmd_tag );
 
                         var _pages = Math.floor( _size / _entries_per_page );
                         if ( ( _size % _entries_per_page ) > 0 ) _pages++ ;
@@ -461,7 +461,7 @@ function circles_terminal_cmd_dict()
                                   var _msg = "Input page number ("+_page_filter+") exceeds current page length ("+_pages+")" ;
                                       _msg += _glob_crlf + "Dictionary set to page " + _pages ;
                                       _page_filter = _pages ;
-                                  circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
+                                  circles_lib_output( _output_channel, DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
                              }
 
                             _page_filter = Math.min( Math.max( _page_filter, 0 ), _pages );
@@ -478,8 +478,8 @@ function circles_terminal_cmd_dict()
                             _cols = Math.max( 1, _cols );
                             
                         var _row_str = "", _word = "", _append_count = 0, _found = 0, _mask = 0 ;
-                        if ( ( ( _out_channel == OUTPUT_TERMINAL && !_filters_on && !_dump )
-                                 || _out_channel == OUTPUT_SCRIPT )
+                        if ( ( ( _output_channel == OUTPUT_TERMINAL && !_filters_on && !_dump )
+                                 || _output_channel == OUTPUT_SCRIPT )
                              && _cmd_mode == TERMINAL_CMD_MODE_ACTIVE )
                         {
                             _b_fail = YES, _error_str = "Filters are missing and dumping is off: list won't be processed" ;
@@ -505,7 +505,7 @@ function circles_terminal_cmd_dict()
                             {
                                   if ( _append_count > 0 && _append_count % _cols == 0 )
                                   {
-                                      circles_lib_output( _out_channel, DISPATCH_STANDARD, _row_str, _par_1, _cmd_tag );
+                                      circles_lib_output( _output_channel, DISPATCH_STANDARD, _row_str, _par_1, _cmd_tag );
                                       _out_text_string += _row_str ;
                                       _append_count = 0 ;
                                       _row_str = "" ;
@@ -528,17 +528,17 @@ function circles_terminal_cmd_dict()
                                   _mask = 0 ;
                             }
                         }
-                        else if ( ( _filters_on || _dump ) && _out_channel.match_bit_mask( OUTPUT_TERMINAL, OUTPUT_TEXT, OUTPUT_HTML ) )
+                        else if ( ( _filters_on || _dump ) && _output_channel.match_bit_mask( OUTPUT_TERMINAL, OUTPUT_TEXT, OUTPUT_HTML ) )
                         {
                             var _display = ( _filters_on && !_dump ) ? YES : NO ;
-                            if ( _dump ) circles_lib_output( _out_channel, DISPATCH_INFO, "Dumping into file " + _params_assoc_array['dump_array'][0], _par_1, _cmd_tag );
-                            if ( !_display ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Filters off and dumping on: resulting entries will be exported but not displayed in order to prevent one very long video data queue", _par_1, _cmd_tag );
+                            if ( _dump ) circles_lib_output( _output_channel, DISPATCH_INFO, "Dumping into file " + _params_assoc_array['dump_array'][0], _par_1, _cmd_tag );
+                            if ( !_display ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Filters off and dumping on: resulting entries will be exported but not displayed in order to prevent one very long video data queue", _par_1, _cmd_tag );
 
             		            var JS_FOLDER_COMPONENTS = "code/js/components/" ;
                             var MULTITHREAD_FOLDER = JS_FOLDER_COMPONENTS + "multi.threading/cmds.support/dict.filter/" ;
             		            var JS_FOLDER_SUPPORT = _glob_path_to_support + "code/js/basements/" ;
             		            var JS_FOLDER_CLASSES = JS_FOLDER_SUPPORT + "classes/load/" ;
-                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Processing the dictionary ..", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Processing the dictionary ..", _par_1, _cmd_tag );
                             $.ajaxSetup( {async:false} );
                             var _code_array = [], _load_failure = 0 ;
                             _code_array.push( $.getScript( MULTITHREAD_FOLDER + "multithread.dict.filter.worker.js" ).responseText );
@@ -558,7 +558,7 @@ function circles_terminal_cmd_dict()
 	                                                                       JS_FOLDER_SUPPORT + "basics/a-basics/string.js",
 	                                                                       JS_FOLDER_SUPPORT + "basics/array.js" ] );
 	                            // feed some input vars
-	                            _glob_inline_worker.init_vars( { out_channel : _out_channel,
+	                            _glob_inline_worker.init_vars( { out_channel : _output_channel,
 	                                                             param_01 : _par_1,
 	                                                             dict : _dict_array.clone(),
 	                                                             word_filter : _word_filter,
@@ -609,7 +609,7 @@ function circles_terminal_cmd_dict()
                    }
                    else
                    {
-     			 						 circles_lib_output( _out_channel, DISPATCH_INFO, "Multitasking mode: wait for response", _par_1, _cmd_tag );
+     			 						 circles_lib_output( _output_channel, DISPATCH_INFO, "Multitasking mode: wait for response", _par_1, _cmd_tag );
                        var _options_chunk = [ _caller_id, _opcode, _action_id,
    							 									            _length_from, _length_to,
    							 									            _index_from, _index_to,
@@ -641,7 +641,7 @@ function circles_terminal_cmd_dict()
 											 			if ( _old_size == _new_size - 1 )
 											 			{
 											 					 var _msg = "Word '"+_general_token_str+"' has been appended with success" ;
-										 						 circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
+										 						 circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
 														}
 														else
 														{
@@ -655,7 +655,7 @@ function circles_terminal_cmd_dict()
 									 }
                    break ;
                    case "release":
-                   circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                   circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                    break ;
 									 case "remove":
                    if ( _crash_words_context && _action_id == 2 && _crash_word.length > 0 )
@@ -674,7 +674,7 @@ function circles_terminal_cmd_dict()
 														{
 																_current_crash_words_array.delete_entry( _crash_word );
 																_dictionary_init_settings_array['crash_words_packed'] = _current_crash_words_array.join( "|" );
-									 						  circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Crash word '"+_crash_word+"' has been removed", _par_1, _cmd_tag );
+									 						  circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Crash word '"+_crash_word+"' has been removed", _par_1, _cmd_tag );
 														}
 												}
 												else
@@ -693,9 +693,9 @@ function circles_terminal_cmd_dict()
 									 case "sortbyval":
 									 if ( circles_lib_count_dict() > 0 )
                    {
-    			 						 circles_lib_output( _out_channel, DISPATCH_INFO, "Sorting the dictionary by value ..", _par_1, _cmd_tag );
-     			 						 circles_lib_output( _out_channel, DISPATCH_INFO, "Multitasking mode: wait for response", _par_1, _cmd_tag );
-                       circles_lib_dict_run( 'Dictionary',0.2,null,NO,YES,_out_channel);
+    			 						 circles_lib_output( _output_channel, DISPATCH_INFO, "Sorting the dictionary by value ..", _par_1, _cmd_tag );
+     			 						 circles_lib_output( _output_channel, DISPATCH_INFO, "Multitasking mode: wait for response", _par_1, _cmd_tag );
+                       circles_lib_dict_run( 'Dictionary',0.2,null,NO,YES,_output_channel);
                    }
                    else
                    {
@@ -705,9 +705,9 @@ function circles_terminal_cmd_dict()
 									 case "sortbylen":
 									 if ( circles_lib_count_dict() > 0 )
                    {
-    			 						 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Sorting the dictionary by length", _par_1, _cmd_tag );
-     			 						 circles_lib_output( _out_channel, DISPATCH_INFO, "Multitasking mode: wait for response", _par_1, _cmd_tag );
-     									 circles_lib_dict_run('Dictionary',0.3,null,NO,YES,_out_channel);
+    			 						 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Sorting the dictionary by length", _par_1, _cmd_tag );
+     			 						 circles_lib_output( _output_channel, DISPATCH_INFO, "Multitasking mode: wait for response", _par_1, _cmd_tag );
+     									 circles_lib_dict_run('Dictionary',0.3,null,NO,YES,_output_channel);
                    }
                    else
                    {
@@ -718,7 +718,7 @@ function circles_terminal_cmd_dict()
 									 if ( circles_lib_count_dict() > 0 )
                    {
     									 _glob_original_dict.reverse();
-     								   circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Reversing the dictionary", _par_1, _cmd_tag );
+     								   circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Reversing the dictionary", _par_1, _cmd_tag );
                    }
                    else
                    {
@@ -741,7 +741,7 @@ function circles_terminal_cmd_dict()
                        _msg += _glob_crlf + "Estimated pages length : " + _pages + " (each including " + _entries_per_page + " entries)" ;
                        if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += _glob_crlf + "Type '"+_cmd_tag+" /h' for syntax to display pages contents in this console" ;
 
- 								   circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+ 								   circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
 									 break ;
 					         default: break ;
 							}
@@ -752,9 +752,9 @@ function circles_terminal_cmd_dict()
 		 		 _b_fail = YES, _error_str = "Missing input params" ;
 		 }
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
 
 function circles_terminal_cmd_dict_dump_end_fn()

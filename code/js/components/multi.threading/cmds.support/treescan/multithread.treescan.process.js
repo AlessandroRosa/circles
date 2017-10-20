@@ -19,9 +19,9 @@ function multithread_treescan( _max_depth, _input_array, _alphabet, _letters_map
     }
 }
 
-function multithread_treescan_index_mapping_array( _seeds_array, _out_channel )
+function multithread_treescan_index_mapping_array( _seeds_array, _output_channel )
 {
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _sd_n = safe_size( _seeds_array, 0 );
     if ( _sd_n == 0 ) return null ;
     else
@@ -37,13 +37,13 @@ function multithread_treescan_index_mapping_array( _seeds_array, _out_channel )
     }
 }
 
-function multithread_treescan_get_orbit_from_word( _word, _seeds_array, _startpt, _out_channel )
+function multithread_treescan_get_orbit_from_word( _word, _seeds_array, _startpt, _output_channel )
 {
     _seeds_array = safe_size( _seeds_array, 0 ) == 0 ? null : _seeds_array ;
     _word = safe_string( _word, "" ).trim();
     if ( _word.length > 0 && is_array( _seeds_array ) )
     {
-        var _symbols_index_array = multithread_treescan_index_mapping_array( _seeds_array, _out_channel );
+        var _symbols_index_array = multithread_treescan_index_mapping_array( _seeds_array, _output_channel );
         var _ret_orbit_array = [ _startpt ];
         var _ret_pt = new complex( _startpt.x, _startpt.y );
         var G = new mobius_map(), INDEX = _symbols_index_array[ _word[0] ] ;
@@ -60,13 +60,13 @@ function multithread_treescan_get_orbit_from_word( _word, _seeds_array, _startpt
     else return null ;
 }
 
-function multithread_treescan_get_mobiusmap_from_word( _word, _seeds_array, _out_channel )
+function multithread_treescan_get_mobiusmap_from_word( _word, _seeds_array, _output_channel )
 {
     _seeds_array = safe_size( _seeds_array, 0 ) == 0 ? null : _seeds_array ;
     _word = safe_string( _word, "" ).trim();
     if ( _word.length > 0 && is_array( _seeds_array ) )
     {
-        var _symbols_index_array = multithread_treescan_index_mapping_array( _seeds_array, _out_channel );
+        var _symbols_index_array = multithread_treescan_index_mapping_array( _seeds_array, _output_channel );
         var INDEX = _symbols_index_array[ _word[0] ] ;
         var OBJ_MM = is_item_obj( _seeds_array[INDEX] ) ? _seeds_array[INDEX].map : null ;
         var G = new mobius_map(), M = new mobius_map();
@@ -89,7 +89,7 @@ function multithread_treescan_get_mobiusmap_from_word( _word, _seeds_array, _out
 
 function multithread_treescan_process()
 {
-    var _out_channel = _glob_inline_workers_input_data.out_channel ;
+    var _output_channel = _glob_inline_workers_input_data.out_channel ;
     var _seeds_array = _glob_inline_workers_input_data.seeds ;
     var _startword = _glob_inline_workers_input_data.startword ;
     var _startpt = _glob_inline_workers_input_data.startpt ;
@@ -148,7 +148,7 @@ function multithread_treescan_process()
                                 startpt : _startpt,
                                 drawcolor : _drawcolor,
                                 fillcolor : _fillcolor,
-                                out_channel : _out_channel,
+                                out_channel : _output_channel,
                                 stage : 1
                               }
                       }
@@ -180,12 +180,12 @@ function multithread_treescan_process()
                   break ;
                   case "region":
                   _check = 1 ;
-                  _orbit = multithread_treescan_get_orbit_from_word( _word, _seeds_array, _startpt, _out_channel );
+                  _orbit = multithread_treescan_get_orbit_from_word( _word, _seeds_array, _startpt, _output_channel );
                   _last_pt = _orbit[ _orbit.length - 1 ] ;
                   _passed = _region.includes_pt( _last_pt.x, _last_pt.y );
                   break ;
                   case "trace":
-                  _mm = multithread_treescan_get_mobiusmap_from_word( _word, _seeds_array, _out_channel );
+                  _mm = multithread_treescan_get_mobiusmap_from_word( _word, _seeds_array, _output_channel );
                   _mobius.init_from_obj( _mm );
                   _dist = Math.abs( _mobius.trace().radius() - _trace );
                   _check = _dist <= _tolerance ? 1 : 0 ;
@@ -201,7 +201,7 @@ function multithread_treescan_process()
                  {
                       case "lastpt":
                       _output_data = _word ;
-                      _orbit = multithread_treescan_get_orbit_from_word( _word, _seeds_array, _startpt, _out_channel );
+                      _orbit = multithread_treescan_get_orbit_from_word( _word, _seeds_array, _startpt, _output_channel );
                       _last_pt = _orbit[ _orbit.length - 1 ] ;
                       break ;
                       case "orbit":
@@ -232,7 +232,7 @@ function multithread_treescan_process()
                                                  startpt : _startpt,
                                                  drawcolor : _drawcolor,
                                                  fillcolor : _fillcolor,
-                                                 out_channel : _out_channel,
+                                                 out_channel : _output_channel,
                                                  stage : 2,
                                                  copy : _copy
                                                }
@@ -256,7 +256,7 @@ function multithread_treescan_process()
                                           startpt : _startpt,
                                           drawcolor : _drawcolor,
                                           fillcolor : _fillcolor,
-                                          out_channel : _out_channel,
+                                          out_channel : _output_channel,
                                           stage : 3
                                         }
                                 }
@@ -279,7 +279,7 @@ function multithread_treescan_process()
                                     startpt : _startpt,
                                     drawcolor : _drawcolor,
                                     fillcolor : _fillcolor,
-                                    out_channel : _out_channel
+                                    out_channel : _output_channel
                                   }
                           }
                         );

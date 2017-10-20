@@ -2,14 +2,14 @@ function circles_terminal_cmd_help()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -26,8 +26,8 @@ function circles_terminal_cmd_help()
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      else if ( _params.length == 0 )
      {
-         circles_lib_output( _out_channel, DISPATCH_INFO, "No command specified for help.\nThis is the list of all available commands", _par_1, _cmd_tag );
-         circles_lib_output( _out_channel, DISPATCH_INFO, "Type: help %cmd% or %cmd% /h for command help text", _par_1, _cmd_tag );
+         circles_lib_output( _output_channel, DISPATCH_INFO, "No command specified for help.\nThis is the list of all available commands", _par_1, _cmd_tag );
+         circles_lib_output( _output_channel, DISPATCH_INFO, "Type: help %cmd% or %cmd% /h for command help text", _par_1, _cmd_tag );
          var vars = { tip: "",
                       folder : "code/js/components/terminal/commands/help/",
                       filter : "/[?.hlp]$/",
@@ -49,7 +49,7 @@ function circles_terminal_cmd_help()
                     if ( _counter % _columns == 0 )
                     {
                         _color = _row_colors[ _row % _row_colors.length ] ;
-                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<"+_color+">"+_out_row+"</"+_color+">", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<"+_color+">"+_out_row+"</"+_color+">", _par_1, _cmd_tag );
                         _counter = 0, _out_row = "", _row++ ;
                     }
                  }
@@ -58,20 +58,20 @@ function circles_terminal_cmd_help()
          if ( _counter % _columns != 0 )
          {
              var _color = _row_colors[ _row % _row_colors.length ] ;
-             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<"+_color+">"+_out_row+"</"+_color+">", _par_1, _cmd_tag );
+             circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<"+_color+">"+_out_row+"</"+_color+">", _par_1, _cmd_tag );
              _counter = 0, _out_row = "", _row++ ;
          }
      }
      else
      {
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['keywords'] = NO ;
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "html", "tip", "exact", "release", "help", "html" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
@@ -96,7 +96,7 @@ function circles_terminal_cmd_help()
          if ( _params_assoc_array['help'] != null )
          {
               jQuery.get( _glob_terminal_help_path + _cmd_tag + ".cmd.hlp",
-                          function( help_text ) { circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, help_text, _par_1, _cmd_tag ); },
+                          function( help_text ) { circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, help_text, _par_1, _cmd_tag ); },
                          'html');
          }
          else if ( _params_assoc_array['exec'].length > 0 )
@@ -104,7 +104,7 @@ function circles_terminal_cmd_help()
               if ( !( _params_assoc_array['exec'].includes( "/h" ) ) ) _params_assoc_array['exec'].push( "/h" );
               _params_assoc_array['exec'].sort_adv(YES);
               var _cmd = ( _params_assoc_array['exec'].join( " " ) );
-              circles_lib_terminal_interpreter( _cmd, _glob_terminal, _out_channel );
+              circles_lib_terminal_interpreter( _cmd, _glob_terminal, _output_channel );
          }
          else
          {
@@ -112,12 +112,12 @@ function circles_terminal_cmd_help()
              switch( _action )
              {
                 case "release":
-                circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 case "tip":
                    if ( _params_assoc_array['tip'].length > 0 )
                    {
-                       circles_lib_output( _out_channel, DISPATCH_INFO, "Processing request ... please wait ..", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_INFO, "Processing request ... please wait ..", _par_1, _cmd_tag );
                        var vars = { tip: _params_assoc_array['tip'].join("|"),
                                     exact : _params_assoc_array['exact'],
                                     folder : "code/js/components/terminal/commands/help/",
@@ -127,12 +127,12 @@ function circles_terminal_cmd_help()
                        if ( _result.length == 0 )
                        {
                            var _plural = _params_assoc_array['tip'].length != 1 ? YES : NO ;
-                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "The term"+(_plural?"s":"")+" '<lightblue>"+_params_assoc_array['tip'].join(", ")+"</lightblue>' ha"+(_plural?"ve":"s")+" not been found", _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "The term"+(_plural?"s":"")+" '<lightblue>"+_params_assoc_array['tip'].join(", ")+"</lightblue>' ha"+(_plural?"ve":"s")+" not been found", _par_1, _cmd_tag );
                        }
                        else if ( _result.length > 0 )
                        {
                             var _plural = _params_assoc_array['tip'].length != 1 ? YES : NO ;
-                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "The term"+(_plural?"s":"")+" '<lightblue>"+_params_assoc_array['tip'].join(", ")+"</lightblue>' ha"+(_plural?"ve":"s")+" been found inside the help file of these cmds:", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "The term"+(_plural?"s":"")+" '<lightblue>"+_params_assoc_array['tip'].join(", ")+"</lightblue>' ha"+(_plural?"ve":"s")+" been found inside the help file of these cmds:", _par_1, _cmd_tag );
 
                             _result = ( _result.includes( "@@@" ) ) ? _result.split( "@@@" ) : [ _result ];
                             var _max_entry_length = 0 ;
@@ -150,7 +150,7 @@ function circles_terminal_cmd_help()
                                        if ( _counter % _columns == 0 )
                                        {
                                            var _color = _row_colors[ _row % _row_colors.length ] ;
-                                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<"+_color+">"+_out_row+"</"+_color+">", _par_1, _cmd_tag );
+                                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<"+_color+">"+_out_row+"</"+_color+">", _par_1, _cmd_tag );
                                            _counter = 0, _out_row = "", _row++ ;
                                        }
                                    }
@@ -159,14 +159,14 @@ function circles_terminal_cmd_help()
                             if ( _counter % _columns != 0 )
                             {
                                 var _color = _row_colors[ _row % _row_colors.length ] ;
-                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<"+_color+">"+_out_row+"</"+_color+">", _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<"+_color+">"+_out_row+"</"+_color+">", _par_1, _cmd_tag );
                                 _counter = 0, _out_row = "", _row++ ;
                             }
 
-                            circles_lib_output( _out_channel, DISPATCH_INFO, "Type '%cmd% /h' to return help text of the related %cmd% tag", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "Type '%cmd% /h' to return help text of the related %cmd% tag", _par_1, _cmd_tag );
                        }
                    }
-                   else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing input tips to search for", _par_1, _cmd_tag );
+                   else circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing input tips to search for", _par_1, _cmd_tag );
                 break ;
 				        default: break ;
              }
@@ -174,7 +174,7 @@ function circles_terminal_cmd_help()
      }
 
      if ( _b_fail )
-     circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + "\nPlease, just type 'help' for commands list", _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + "\nPlease, just type 'help' for commands list", _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

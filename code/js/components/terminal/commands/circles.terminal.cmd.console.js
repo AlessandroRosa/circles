@@ -2,14 +2,14 @@ function circles_terminal_cmd_console()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -21,7 +21,7 @@ function circles_terminal_cmd_console()
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      else if ( _params.length > 0 )
      {
-             _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+             _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
              _params_assoc_array['keywords'] = NO ;
              _params_assoc_array['x'] = null ;
              _params_assoc_array['y'] = null ;
@@ -38,7 +38,7 @@ function circles_terminal_cmd_console()
     				 _local_cmds_params_array.push( "bottom", "default", "history", "left", "nohelp",
                                             "right", "reset", "resize", "screenfit", "top",
                                             "maxi", "mini", "wide", "long", "release", "help", "html" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
@@ -78,15 +78,15 @@ function circles_terminal_cmd_console()
               }
          }
          
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                 _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_b_fail )
@@ -111,19 +111,19 @@ function circles_terminal_cmd_console()
                        _w = $( window ).width(), _h = Math.floor( ( $( window ).height()- _extras_menu_height ) * 2 / 3 );
                        _w -= 20, _h = Math.min( 340, _h );
                        if ( _params_assoc_array['x'].length > 0 && !_params_assoc_array['x'].strcmp( "left" ) )
-                       circles_lib_output( _out_channel, DISPATCH_INFO, "Invalid X-pos for '"+_consolesize+"' : reset to 'left'", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_INFO, "Invalid X-pos for '"+_consolesize+"' : reset to 'left'", _par_1, _cmd_tag );
                        _params_assoc_array['x'] = "left" ;
                        break ;
                        case "long" :
                        _w = Math.floor( $( window ).width() / 2 ), _h = $( window ).height() - ( _extras_menu_height + _extras_statusbar_height + 10 );
                        if ( _params_assoc_array['y'].length > 0 && !_params_assoc_array['y'].strcmp( "top" ) )
-                       circles_lib_output( _out_channel, DISPATCH_INFO, "Invalid Y-pos for '"+_consolesize+"': reset to 'top'", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_INFO, "Invalid Y-pos for '"+_consolesize+"': reset to 'top'", _par_1, _cmd_tag );
                        _params_assoc_array['y'] = "top" ;
                        break ;
 							         default: break ;
                    }
 
-                   CIRCLESformsTERMINALresize( _w, _h, _glob_terminal_form_suffix, _out_channel );
+                   CIRCLESformsTERMINALresize( _w, _h, _glob_terminal_form_suffix, _output_channel );
               }
               else
               {
@@ -131,7 +131,7 @@ function circles_terminal_cmd_console()
                    switch( _action )
                    {
                        case "history":
-                       if ( _out_channel == OUTPUT_TERMINAL )
+                       if ( _output_channel == OUTPUT_TERMINAL )
                        {
                            var _n_history = _params_assoc_array["history"] ;
                            var _h = _glob_terminal.history().data().clone();
@@ -146,13 +146,13 @@ function circles_terminal_cmd_console()
                               if ( _b_append ) $("#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).append( _h[_i] + _glob_crlf );
                            }
 
-                           circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Last " + _n_extract + " cmd" + ( _n_extract != 1 ? "s have" : " has" ) + " been copied into the batch script tab", _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Last " + _n_extract + " cmd" + ( _n_extract != 1 ? "s have" : " has" ) + " been copied into the batch script tab", _par_1, _cmd_tag );
                        }
                        else 
-                       circles_lib_output( _out_channel, DISPATCH_WARNING, "This option is available from the console input exclusively", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_WARNING, "This option is available from the console input exclusively", _par_1, _cmd_tag );
                        break ;
                       case "release":
-                      circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                       break ;
                        case "resize":
                        if ( _params_assoc_array['w'] != null && _params_assoc_array['h'] != null )
@@ -174,7 +174,7 @@ function circles_terminal_cmd_console()
                                      var _extra_height = 58 ;
                                      _params_assoc_array['h'] -= _extra_height ;
                             
-                                 var _ret_chunk = CIRCLESformsTERMINALresize( _params_assoc_array['w'], _params_assoc_array['h'], _glob_terminal_form_suffix, _out_channel );
+                                 var _ret_chunk = CIRCLESformsTERMINALresize( _params_assoc_array['w'], _params_assoc_array['h'], _glob_terminal_form_suffix, _output_channel );
                                  var _ret_id = safe_int( _ret_chunk[0], RET_ERROR );
                                  var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
                                  
@@ -182,7 +182,7 @@ function circles_terminal_cmd_console()
                                  {
                                       _b_fail = YES, _error_str = _ret_msg ;
                                  }
-                                 else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg + " New width / height are " + _params_assoc_array['w'] + "px / " + _params_assoc_array['h'] + "px", _par_1, _cmd_tag );
+                                 else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg + " New width / height are " + _params_assoc_array['w'] + "px / " + _params_assoc_array['h'] + "px", _par_1, _cmd_tag );
                             }
                             else
                             {
@@ -197,7 +197,7 @@ function circles_terminal_cmd_console()
 								       default:
                        if ( _params_assoc_array['x'].length > 0 || _params_assoc_array['y'].length > 0 )
                        move_div( circles_lib_plugin_build_divid( "forms", "terminal" ) + _glob_terminal_form_suffix, _params_assoc_array['x'], _params_assoc_array['y'] );
-                       else circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to apply command 'console'.\nMissing action specification", _par_1, _cmd_tag );
+                       else circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to apply command 'console'.\nMissing action specification", _par_1, _cmd_tag );
                        break ;
                    }
               }
@@ -209,7 +209,7 @@ function circles_terminal_cmd_console()
          _b_fail = YES, _error_str = "Missing input params" ;
      }
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to apply command 'console'.\nType '"+_cmd_tag+" /h' for syntax help", _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to apply command 'console'.\nType '"+_cmd_tag+" /h' for syntax help", _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

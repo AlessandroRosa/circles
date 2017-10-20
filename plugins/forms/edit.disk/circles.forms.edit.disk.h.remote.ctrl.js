@@ -3,7 +3,7 @@ function CIRCLESformsEDITDISK_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESformsEDITDISKremotectrl( _options, _return_fn, _ret_array, _out_channel )
+function CIRCLESformsEDITDISKremotectrl( _options, _return_fn, _ret_array, _output_channel )
 {
 		if ( !is_array( _options ) )
 		{

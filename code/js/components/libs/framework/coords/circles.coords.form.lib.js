@@ -1,10 +1,10 @@
-function circles_lib_coordinates_shift( _where, _plane_type, _scalar_shift, _silent, _out_channel )
+function circles_lib_coordinates_shift( _where, _plane_type, _scalar_shift, _silent, _output_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _where = safe_string( _where, "" ).toLowerCase();
     var _plane_def = circles_lib_plane_get_def( _plane_type );
     _scalar_shift = safe_float( _scalar_shift, UNDET );
-    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var left = null, right = null, top = null, bottom = null ;
     var _form_panel_src = $("#PLANEleft").get(0) != null ? YES : NO ;
     if ( _form_panel_src )
@@ -120,22 +120,22 @@ function circles_lib_coordinates_shift( _where, _plane_type, _scalar_shift, _sil
             }
 
             var _msg = "Can't shift: input "+_plane_def+" coordinates are invalid and then reset to default values" ;
-            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+            if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
             return [ RET_ERROR, _msg ] ;
         }
     }
     else
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, SYSTEM_ERROR_08, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, SYSTEM_ERROR_08, _glob_app_title );
         return [ RET_ERROR, SYSTEM_ERROR_08 ] ;
     }
 }
 
-function circles_lib_coordinates_zoomtofit( _plane_type, _render, _question, _silent, _out_channel )
+function circles_lib_coordinates_zoomtofit( _plane_type, _render, _question, _silent, _output_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
 		_render = safe_int( _render, YES );
-		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var MAXleft = 0, MAXright = 0, MAXup = 0, MAXdown = 0, ERR = 0 ;
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     if ( _plane_type.is_one_of( Z_PLANE, ALL_PLANES ) )
@@ -183,7 +183,7 @@ function circles_lib_coordinates_zoomtofit( _plane_type, _render, _question, _si
 	      if ( ERR == 1 )      MSG = "Can't perform this operation."+_glob_crlf+"Circles shall be initialized first" ;
 	      else if ( ERR == 2 ) MSG = "Can't perform this operation."+_glob_crlf+_ERR_33_01 ;
 	      else if ( ERR == 3 ) MSG = "Can't perform this operation."+_glob_crlf+"It seems that no W-plane diagram has been processed yet" ;
-	      if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
+	      if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
 	      return [ RET_ERROR, MSG ] ;
     }
     else if ( ERR == 0 )
@@ -216,18 +216,18 @@ function circles_lib_coordinates_zoomtofit( _plane_type, _render, _question, _si
              _glob_bipBOTTOM = MIDpoint.y - MAX ;
            }
     
-           return circles_lib_coordinates_set_core( null, null, _plane_type, _silent, _render, YES, _out_channel );
+           return circles_lib_coordinates_set_core( null, null, _plane_type, _silent, _render, YES, _output_channel );
        }
        else return [ RET_ERROR, "Operation halted by user" ] ;
     }
 }
 
-function circles_lib_coordinates_reset( _plane_type, _render, _question, _silent, _out_channel )
+function circles_lib_coordinates_reset( _plane_type, _render, _question, _silent, _output_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _render = safe_int( _render, YES );
 		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var MSG = "Confirm to reset coordinates for the " + circles_lib_plane_get_def( _plane_type ) + " plane ?";
     var _b_go = !_question ? YES : confirm( MSG );
     if ( _b_go )
@@ -241,10 +241,10 @@ function circles_lib_coordinates_reset( _plane_type, _render, _question, _silent
     else return [ RET_ERROR, "Operation halted by user" ] ;
 }
 
-function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, _silent, _render, _out_channel )
+function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, _silent, _render, _output_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-		_silent = safe_int( _silent, NO ), _render = safe_int( _render, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+		_silent = safe_int( _silent, NO ), _render = safe_int( _render, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _plane_label = circles_lib_plane_get_def( _plane_type );
     var LEFT, TOP, RIGHT, BOTTOM ;
@@ -276,13 +276,13 @@ function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, 
     if ( LEFT > RIGHT )
     {
        var _msg = _plane_label+_glob_crlf+"Horizonthal coordinates are not consistent" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else if ( BOTTOM > TOP )
     {
        var _msg = _plane_label+_glob_crlf+"Vertical coordinates are not consistent" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else
@@ -310,7 +310,7 @@ function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, 
 
           if ( _render )
           {
-             var _ret_chunk = circles_lib_canvas_render_zplane( _canvas, _mapper, null, YES, YES, _render, !_silent, _silent, NO, _out_channel );
+             var _ret_chunk = circles_lib_canvas_render_zplane( _canvas, _mapper, null, YES, YES, _render, !_silent, _silent, NO, _output_channel );
              _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
              _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
              return [ _ret_id, _ret_id == RET_OK ? "Coords set up and rendered with success" : "Problems while rendering new coords" ] ;
@@ -341,17 +341,17 @@ function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, 
         }
 
        var _msg = "Coords set up with success !" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
        return [ RET_OK, _msg ] ;
     }
 }
 
-function circles_lib_coordinates_reset_core( _plane_type, _render, _question, _silent, _out_channel )
+function circles_lib_coordinates_reset_core( _plane_type, _render, _question, _silent, _output_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _render = safe_int( _render, YES );
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     if ( _plane_type.is_one_of( Z_PLANE, ALL_PLANES ) )
     {
@@ -388,7 +388,7 @@ function circles_lib_coordinates_reset_core( _plane_type, _render, _question, _s
         }
                     
         if ( _render )
-        return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, _question, _silent, NO, _out_channel );
+        return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, _question, _silent, NO, _output_channel );
         else return [ RET_ERROR, "Insufficient conditions to render the Z-plane: try checking seeds consistence and render flag" ] ;
     }
     else if ( _plane_type.is_one_of( W_PLANE, ALL_PLANES ) )
@@ -408,7 +408,7 @@ function circles_lib_coordinates_reset_core( _plane_type, _render, _question, _s
         wplane_sm.set_coords_corners( wplane_left_up_pt, wplane_right_down_pt );
                 
         if ( circles_lib_count_items() > 0 && _render )
-        return circles_lib_canvas_render_wplane( _canvas, wplane_sm, null, YES, YES, _render, YES, _question, _silent, _out_channel );
+        return circles_lib_canvas_render_wplane( _canvas, wplane_sm, null, YES, YES, _render, YES, _question, _silent, _output_channel );
         else return [ RET_ERROR, "Insufficient conditions to render the W-plane: try checking seeds consistence and render flag" ] ;
     }
     else if ( _plane_type == BIP_BOX )
@@ -425,7 +425,7 @@ function circles_lib_coordinates_reset_core( _plane_type, _render, _question, _s
         bipbox_sm.set_coords_corners( bip_left_up_pt, bip_right_down_pt );
                 
         if ( circles_lib_count_items() > 0 && _render )
-        return circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, null, YES, YES, _render, YES, _question, _silent, _out_channel );
+        return circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, null, YES, YES, _render, YES, _question, _silent, _output_channel );
         else return [ RET_ERROR, "Insufficient conditions to render the bip plane: try checking seeds consistence and render flag" ] ;
     }
     else return [ RET_ERROR, "Canvas type is unknown: cannot reset it" ] ;
@@ -561,11 +561,11 @@ function circles_lib_coordinates_zoom_in_plane( _plane_type )
     }
 }
 
-function circles_lib_coordinates_zoom_in_disk( _render, _index, _question, _silent, _out_channel )
+function circles_lib_coordinates_zoom_in_disk( _render, _index, _question, _silent, _output_channel )
 {
 		_render = safe_int( _render, YES ), _index = safe_int( _index, UNDET );
 		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     if ( _index != UNDET )
     {
        var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -617,14 +617,14 @@ function circles_lib_coordinates_zoom_in_disk( _render, _index, _question, _sile
                  circles_lib_helper_div_remove();
                  _glob_zplane_selected_items_array.push( i );
                  _glob_disk_sel_index = i ;
-                 var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, NO, YES, NO, _out_channel );
+                 var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _render, NO, YES, NO, _output_channel );
                  var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
                  if ( _ret_id == RET_OK )
                  {
                     circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
                     var _msg = "Zoom-in performed with success" ;
-                    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+                    if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
                     return [ RET_OK, _msg ] ;
                  }
                  else
@@ -636,27 +636,27 @@ function circles_lib_coordinates_zoom_in_disk( _render, _index, _question, _sile
              else
              {
                  var _msg = "Zoom-in: found memory leak" ;
-                 if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+                 if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
                  return [ RET_ERROR, _msg ] ;
              }
           }
           else
           {
              var _msg = "Zoom-in halted by user" ;
-             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+             if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
              return [ RET_ERROR, _msg ] ;
           }
        }
        else
        {
           var _msg = "Zoom-in: missing item coords" ;
-          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+          if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
           return [ RET_ERROR, _msg ] ;
        }
     }
     else
     {
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Coordinates are not consistent with archived data", _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Coordinates are not consistent with archived data", _glob_app_title );
         return [ RET_ERROR, "Coordinates are not consistent with archived data" ] ;
     }
 }

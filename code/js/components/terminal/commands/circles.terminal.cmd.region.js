@@ -2,14 +2,14 @@ function circles_terminal_cmd_region()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -21,7 +21,7 @@ function circles_terminal_cmd_region()
 		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['props'] = [] ;
@@ -42,7 +42,7 @@ function circles_terminal_cmd_region()
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "release", "clean", "x", "y", "<", ">", "zplane", "wplane", "html", "help", "rec" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p, _layer ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
@@ -56,12 +56,12 @@ function circles_terminal_cmd_region()
                    if ( _p <= 0 )
                    {
                        _p = _glob_accuracy ;
-                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
                    }
                    else if ( _p > DEFAULT_MAX_ACCURACY )
                    {
                        _p = _glob_accuracy ;
-                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
                    }
                    
                    _params_assoc_array['roundto'] = _p ;
@@ -75,22 +75,22 @@ function circles_terminal_cmd_region()
                    if ( _params_assoc_array['settings']['layer'] != null )
                    {
                        _params_assoc_array['settings']['layerdef'] = _params_assoc_array['settings']['layer'].getContext(_glob_canvas_ctx_2D_mode).role_def ;
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Selected</lime> <snow>"+_params_assoc_array['settings']['layerdef']+" layer</snow> <lime>for region rendering</lime>", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lime>Selected</lime> <snow>"+_params_assoc_array['settings']['layerdef']+" layer</snow> <lime>for region rendering</lime>", _par_1, _cmd_tag );
                    }
               }
               else if ( _p.is_one_of_i( "x", "y" ) )
               {
                    if ( _p.stricmp( "x" ) )
                    {
-                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected inequality syntax for coord x</lightblue>", _par_1, _cmd_tag );
-                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<gray>start of coord x syntax</gray>", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected inequality syntax for coord x</lightblue>", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<gray>start of coord x syntax</gray>", _par_1, _cmd_tag );
                         _params_assoc_array['settings']['xsyntax']['status'] = OPEN ;
                         _params_assoc_array['settings']['xsyntax']['coord'] = YES ;
                    }
                    else if ( _p.stricmp( "y" ) )
                    {
-                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected inequality syntax for coord y</lightblue>", _par_1, _cmd_tag );
-                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<gray>start of coord y syntax</gray>", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected inequality syntax for coord y</lightblue>", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<gray>start of coord y syntax</gray>", _par_1, _cmd_tag );
                         _params_assoc_array['settings']['ysyntax']['status'] = OPEN ;
                         _params_assoc_array['settings']['ysyntax']['coord'] = YES ;
                    }
@@ -100,14 +100,14 @@ function circles_terminal_cmd_region()
                    if ( _p.is_one_of( "<", ">" ) )
                    {
                        _params_assoc_array['settings']['xsyntax']['operator'] = _p ;
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected operator</lightblue> <snow>"+_p+"</snow> <lightblue>for coord x syntax</lightblue>", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected operator</lightblue> <snow>"+_p+"</snow> <lightblue>for coord x syntax</lightblue>", _par_1, _cmd_tag );
                    }
                    else if ( _p.testME( _glob_float_regex_pattern ) )
                    {
                        _params_assoc_array['settings']['xsyntax']['operand'] = safe_float( _p, 0 ) ;
                        _params_assoc_array['settings']['xsyntax']['status'] = CLOSE ;
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected operand</lightblue> <snow>"+_p+"</snow> <lightblue>for coord x syntax</lightblue>", _par_1, _cmd_tag );
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<gray>end of coord x syntax</gray>", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected operand</lightblue> <snow>"+_p+"</snow> <lightblue>for coord x syntax</lightblue>", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<gray>end of coord x syntax</gray>", _par_1, _cmd_tag );
                    }
               }
               else if ( _params_assoc_array['settings']['ysyntax']['status'] == OPEN )
@@ -115,9 +115,9 @@ function circles_terminal_cmd_region()
                    if ( _p.is_one_of( "<", ">" ) )
                    {
                        _params_assoc_array['settings']['ysyntax']['operator'] = _p ;
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected operator</lightblue> <snow>"+_p+"</snow> <lightblue>for coord y syntax</lightblue>", _par_1, _cmd_tag );
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected operand</lightblue> <snow>"+_p+"</snow> <lightblue>for coord y syntax</lightblue>", _par_1, _cmd_tag );
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<gray>end of coord y syntax</gray>", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected operator</lightblue> <snow>"+_p+"</snow> <lightblue>for coord y syntax</lightblue>", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected operand</lightblue> <snow>"+_p+"</snow> <lightblue>for coord y syntax</lightblue>", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<gray>end of coord y syntax</gray>", _par_1, _cmd_tag );
                    }
                    else if ( _p.testME( _glob_float_regex_pattern ) )
                    {
@@ -135,13 +135,13 @@ function circles_terminal_cmd_region()
 														_params_assoc_array['props']['plane'] = _p ;
                             _params_assoc_array['props']['planeval'] = Z_PLANE ;
 														_msg = "<lightblue>Selected work layer on the</lightblue> <snow>Z-plane</snow>" ;
-														circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+														circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 												}
 												else
 												{
 														var _pt = _glob_plane_cmd_type_array[ _params_assoc_array['props']['plane'] ] ;
 														_msg = "<orange>Skipped param '"+_p+"' : input plane has been already set to "+_glob_plane_defs_array[_pt]+"</orange>" ;
-														circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+														circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 												}
 												break ;
 												case "wplane":
@@ -150,13 +150,13 @@ function circles_terminal_cmd_region()
 														_params_assoc_array['props']['plane'] = _p ;
                             _params_assoc_array['props']['planeval'] = W_PLANE ;
 														_msg = "<lightblue>Selected work layer on the </lightblue> <snow>W-plane</snow>" ;
-														circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+														circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 												}
 												else
 												{
 														var _pt = _glob_plane_cmd_type_array[ _params_assoc_array['props']['plane'] ] ;
 														_msg = "<orange>Skipped param '"+_p+"' : input plane has been already set to "+_glob_plane_defs_array[_pt]+"</orange>" ;
-														circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+														circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 												}
 												break ;
 												default:
@@ -170,24 +170,24 @@ function circles_terminal_cmd_region()
 									 {
 											 _params_assoc_array['props']['colors']['drawcolor'] = _p ;
 											 _msg = "<lightblue>Border color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+											 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 									 }
 									 else if ( _params_assoc_array['props']['colors']['fillcolor'] == null )
 									 {
 											 _params_assoc_array['props']['colors']['fillcolor'] = _p ;
 											 _msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+											 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 									 }
 									 else
 									 {
 											 _msg = "<orange>Redundant input color params found in '"+_p+"': skipped</orange>" ;
-											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+											 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 									 }
 							}
 							else if ( _p.includes( "," ) && _p.count( "," ) == 3 && _p.split( "," ).length == 4 )
 							{
 								 	 _msg = "<gray>Detected complex coordinates syntax</gray>" + _glob_crlf + "<gray>Attempting to parse and resolve</gray>" ;
-									 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 									 var _params = _p.split( "," ), _coord, _def ;
 									 $.each( _params,
 									 				 function( _i, _p )
@@ -196,7 +196,7 @@ function circles_terminal_cmd_region()
 													 		if ( _coord == "nan" )
 													 		{
 																	 _msg = "<orange>Invalid input coord operand '"+_p+"' at param #"+(_i+1)+"</orange>" ;
-																	 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+																	 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 																	 _b_fail = YES, _error_str = "Process aborted" ;
 															}
 															else
@@ -212,7 +212,7 @@ function circles_terminal_cmd_region()
 		 															_params_assoc_array['syntax']['coords'].push( _coord );
 																	_msg = "<lime>Detected region coord</lime> <snow>"+_coord+"</snow> <lime>and saved with success as</lime> <snow>"+_def+"</snow>" ;
 																	_got_it.push( _i ) ;
-																	circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+																	circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 															}
 													 }
 												 ) ;
@@ -224,10 +224,10 @@ function circles_terminal_cmd_region()
                    {
                       _params_assoc_array['syntax']['coords'].push( safe_float( _p, 0 ) );
                       _msg = "<lime>Detected region coord</lime> <snow>"+_p+"</snow> <lime>and saved with success</lime>" ;
-                      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                       _got_it.push( _got_it.length );
                    }
-                   else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Skipped redundant input data detected at</orange> <snow>"+_p+"</snow>", _par_1, _cmd_tag );
+                   else circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<orange>Skipped redundant input data detected at</orange> <snow>"+_p+"</snow>", _par_1, _cmd_tag );
               }
               else if ( _p.start_with( "opaq:" ) )
               {
@@ -235,13 +235,13 @@ function circles_terminal_cmd_region()
 									 if ( _opacity < 0 || _opacity > 1 )
 									 {
                        _msg = "<orange>Detected invalid opacity input</lime> <snow>"+_opacity+"</snow> <orange>and reset to default</orange> <snow>"+DEFAULT_OPACITY+"</snow>" ;
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                        _opacity = DEFAULT_OPACITY ;
 									 }
 									 else
 									 {
                        _msg = "<lightblue>Detected opacity input</lightblue> <snow>"+_opacity+"</snow>" ;
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 									 }
 
 									 _params_assoc_array['props']['opacity'] = _opacity ;
@@ -252,7 +252,7 @@ function circles_terminal_cmd_region()
                    if ( _border < 0 )
                    {
                        _msg = "<orange>Detected invalid border input</lime> <snow>"+_border+"</snow> <orange>and reset to default</orange> <snow>0</snow>" ;
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                        _border = 0 ;
                    }
                    
@@ -273,15 +273,15 @@ function circles_terminal_cmd_region()
          if ( _params_assoc_array['settings']['layer'] == null )
          _params_assoc_array['settings']['layer'] = circles_lib_canvas_layer_find( _params_assoc_array['props']['planeval'], FIND_LAYER_BY_ROLE_DEF, "work" ) ;
          
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_x_syntax_flag && !_y_syntax_flag && !_input_rect_flag )
@@ -298,9 +298,9 @@ function circles_terminal_cmd_region()
 		         switch( _action )
 		         {
                   case "draw":
-                  circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>End of input stage</snow>", _par_1, _cmd_tag );
-                  circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "", _par_1, _cmd_tag );
-                  circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>Begin to process data</snow>", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>End of input stage</snow>", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>Begin to process data</snow>", _par_1, _cmd_tag );
                   if ( safe_size( _got_it, 0 ) > 0 )
                   {
                   		_params_assoc_array['props']['left_top_flag'] = _got_it.includes(0) && _got_it.includes( 1 ) ? YES : NO ;
@@ -309,20 +309,20 @@ function circles_terminal_cmd_region()
     									{
     											_params_assoc_array['props']['left_top_pt'] = new point( _params_assoc_array['syntax']['coords'][0], _params_assoc_array['syntax']['coords'][1] );
                           _msg = "<lightblue>Region left top corner</lightblue> <lime>has been filled with success</lime> <lightblue>"+_params_assoc_array['props']['left_top_pt'].output("cartesian",_round_to)+"</lightblue>" ;
-    											circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+    											circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
      									}
 
      									if ( _params_assoc_array['props']['right_bottom_flag'] )
      									{
      											_params_assoc_array['props']['right_bottom_pt'] = new point( _params_assoc_array['syntax']['coords'][2], _params_assoc_array['syntax']['coords'][3] );
      											_msg = "<lightblue>Region right bottom corner</lightblue> <lime>has been filled with success and set at</lime> <lightblue>"+_params_assoc_array['props']['right_bottom_pt'].output("cartesian",_round_to)+"</lightblue>" ;
-     											circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+     											circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
      									}
                   }
 
                   if ( _params_assoc_array['settings']['xsyntax']['status'] == CLOSE )
                   {
-                      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Found coord x syntax", _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Found coord x syntax", _par_1, _cmd_tag );
                       var _ret_chunk = circles_terminal_cmd_region_check_syntax( _params_assoc_array['settings']['xsyntax'] ) ;
                       var _ret_id = _ret_chunk[0], _ret_mask = _ret_chunk[1] ;
                       if ( !_ret_id )
@@ -333,16 +333,16 @@ function circles_terminal_cmd_region()
                           if ( _ret_mask & 4 ) _error_str += _glob_crlf + "Missing operator symbol" ;
                           if ( _ret_mask & 8 ) _error_str += _glob_crlf + "Missing operand identifier" ;
                       }
-                      else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Coord x syntax has been validated with success</lime>", _par_1, _cmd_tag );
+                      else circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lime>Coord x syntax has been validated with success</lime>", _par_1, _cmd_tag );
                   }
 
                   if ( _params_assoc_array['settings']['ysyntax']['status'] == CLOSE )
                   {
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Found coord y syntax", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Found coord y syntax", _par_1, _cmd_tag );
                        var _ret_chunk = circles_terminal_cmd_region_check_syntax( _params_assoc_array['settings']['ysyntax'] ) ;
                        var _ret_id = _ret_chunk[0], _ret_mask = _ret_chunk[1] ;
                        if ( !_ret_id ) { _b_fail = YES, _error_str = "Detected invalid coord y syntax: process aborted" ; }
-                       else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Coord x syntax has been validated with success</lime>", _par_1, _cmd_tag );
+                       else circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lime>Coord x syntax has been validated with success</lime>", _par_1, _cmd_tag );
                   }
 
       		        var _plane_type = circles_lib_plane_get_value( _params_assoc_array['props']['plane'] ) ;
@@ -363,8 +363,8 @@ function circles_terminal_cmd_region()
                   
                   if ( _params_assoc_array['props'].includes( "clean" ) )
                   {
-                       circles_lib_canvas_clean( _canvas, "transparent", _out_channel );
-                       circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>"+_params_assoc_array['props']['plane']+"</snow> <lightblue>has been cleaned before drawing</lightblue>", _par_1, _cmd_tag );
+                       circles_lib_canvas_clean( _canvas, "transparent", _output_channel );
+                       circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>"+_params_assoc_array['props']['plane']+"</snow> <lightblue>has been cleaned before drawing</lightblue>", _par_1, _cmd_tag );
                   }
 
              		 var _draw = _params_assoc_array['props']['colors']['drawcolor'] != null ? YES : NO ;
@@ -437,7 +437,7 @@ function circles_terminal_cmd_region()
                      {
                         _glob_storage[_subset] = [] ;
                         var _msg = "Storage space <white>'"+_subset+"'</white> has been created with success" ;
-                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                      }
 
                      if ( is_array( _glob_storage[_subset] ) )
@@ -445,13 +445,13 @@ function circles_terminal_cmd_region()
                         _glob_storage[_subset].push( _rec_chunk );
                         var _default_space = _subset == "regions" ? 1 : 0 ;
                         var _msg = "<green>Region "+( _rec_chunk['label'].length > 0 ? "'"+_rec_chunk['label']+"' " : "" )+"has been recorded into "+(_default_space?"default ":"")+"'"+_subset+"' storage space</green>" ;
-                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                      }
-                     else circles_lib_output( _out_channel, DISPATCH_WARNING, "Storage space '"+_subset+"' does not exist", _par_1, _cmd_tag );
+                     else circles_lib_output( _output_channel, DISPATCH_WARNING, "Storage space '"+_subset+"' does not exist", _par_1, _cmd_tag );
                   }
                   break ;
 		              case "release":
-		              circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+		              circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
 		              break ;
 		              default: break ;
 		         }
@@ -462,9 +462,9 @@ function circles_terminal_cmd_region()
 					_b_fail = YES, _error_str = "Missing all input params" ;
 		 }
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
 
 function circles_terminal_cmd_region_check_syntax( _syntax_array )

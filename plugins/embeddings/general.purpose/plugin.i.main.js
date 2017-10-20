@@ -1,5 +1,6 @@
 function CIRCLESembeddingsGENERALPURPOSE_CALL_METHOD( fn ) { circles_lib_plugin_load('forms','method', YES, 0, _glob_method, fn ); }
 function CIRCLESembeddingsGENERALPURPOSEclose() { return circles_lib_plugin_dispatcher_unicast_message( 'general.purpose', "embeddings", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
+function CIRCLESembeddingsGENERALPURPOSE_FOCUS() { var SW = $(window).width(), SH = $(window).height(); CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, NO, SH > 540 ? YES : NO ); }
 function CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id )
 {
     _plugin_main_ref = safe_string( _base_id + "", _plugin_main_ref ) ;
@@ -115,10 +116,10 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>"+circles_lib_extras_canvas_dropdown( _base_id.toUpperCase() )+"</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane Objs</td>" ;
-		HTMLcode += "<td WIDTH=\"3\"></td>" ;
-		HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',W_PLANE);\" ID=\"PLUGINpreview_wplaneBTN\">Render W-plane Objs</td>" ;
-		HTMLcode += "</tr>" ;
+	HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',Z_PLANE);\" ID=\"PLUGINpreview_zplaneBTN\">Render Z-plane Objs</td>" ;
+	HTMLcode += "<td WIDTH=\"3\"></td>" ;
+	HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_render_preview('"+_clean_base_id.toUpperCase()+"','"+_subset+"',W_PLANE);\" ID=\"PLUGINpreview_wplaneBTN\">Render W-plane Objs</td>" ;
+	HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
     HTMLcode += "</tr>" ;
@@ -162,7 +163,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     var _CANVAS_W = WIDTH - 34, _CANVAS_H = Math.floor( _CANVAS_W / 2 ) - 60 ;
     var TAB_H = _CANVAS_H + 50 ;
 
-		HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\" ID=\"PLUGIN_TABS_CONTAINER\">" ;
+	HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\" ID=\"PLUGIN_TABS_CONTAINER\">" ;
     HTMLcode += "<div ID=\"CIRCLESGENERALPURPOSEmainDIV\" STYLE=\"position:relative;width:99%;height:"+(TAB_H+12)+"px;\" VALIGN=\"top\" class=\"tabber\">" ;
 
     HTMLcode += "<DIV class=\"tabbertab\" STYLE=\"width:99%;height:"+TAB_H+"px;\" VALIGN=\"top\" ID=\"CIRCLESGENERALPURPOSE_TAB_01\">" ;
@@ -292,7 +293,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB();\" ID=\"PLUGINparam_bombBTN\">Bomb</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_VAL_DELETE();\" ID=\"PLUGINparam_delete_valBTN\">Delete value</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_REGISTERED_VAR_DELETE();\" ID=\"PLUGINparam_delete_valBTN\">Delete value</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSEvar_check=CIRCLESembeddingsGENERALPURPOSE_VAR_HELP(1);\">?</td>" ;
     HTMLcode += "<td WIDTH=\"25\"></td>" ;
@@ -339,9 +340,9 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "</table>" ;
     HTMLcode += "</DIV>" ;
 
-		HTMLcode += "</div>" ;
-		HTMLcode += "</td>" ;
-		HTMLcode += "</tr>"
+	HTMLcode += "</div>" ;
+	HTMLcode += "</td>" ;
+	HTMLcode += "</tr>"
 
     HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
     HTMLcode += "<tr><td ALIGN=\"center\"><SPAN STYLE=\"color:red;\">Don't input inverse gens</SPAN>: they'll be computed and inserted while generating the group</td></tr>" ;
@@ -396,18 +397,17 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )
+	{
+		if ( is_string( _move ) )
 		{
-				if ( is_string( _move ) )
-				{
-						_move = _move.replace( /[\|\;\:]/, "," );
-						_move = _move.includes( "," ) ? _move.split( "," ) : [ _move, "TOP" ];
-						move_div( _div.id, _move[0], _move[1] );
-				}
-				else move_div( _div.id, "LEFT", "TOP" );
+			_move = _move.replace( /[\|\;\:]/, "," );
+			_move = _move.includes( "," ) ? _move.split( "," ) : [ _move, "TOP" ];
+			move_div( _div.id, _move[0], _move[1] );
 		}
+		else move_div( _div.id, "LEFT", "TOP" );
+	}
 
     tabberAutomatic( CIRCLESGENERALPURPOSEtabberOptions, "CIRCLESGENERALPURPOSE" );
-
     CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, _restore, YES );
     TABINDEXorderSET( "#PLUGIN_PARAM_A", "#PLUGIN_PARAM_B", "#PLUGIN_PARAM_C", "#PLUGIN_PARAM_D", "#PLUGINSconfigCOMBO" );
     $( "#PLUGINregisteredvarsLABEL" ).css( "color", _n_registered_vars == 0 ? "#909090" : DEFAULT_COLOR_STD );
@@ -421,36 +421,31 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 
     if ( _plugin_tmp_vars_array['plugin_sel'] != null )
     {
-        var _data = _plugin_tmp_vars_array['plugin_sel'] ;
-        var _store_gens = [] ;
+        var _data = _plugin_tmp_vars_array['plugin_sel'], _store_gens = [] ;
         $.each( _data.keys_associative(), function( _i, _key )
         {
-              var _var_id = _key, _var_val = _data[ _key ] ;
-              if ( _var_id.start_with( "g" ) && _var_id.includes( "_" ) )
-              {
-                 _var_id = _var_id.replace( "g", "" ).split( "_" ) ;
-                 var _g_name = safe_int( _var_id[0], 0 ), _g_index = safe_int( _var_id[1], 0 ) ;
-                 if ( _g_index >= 1 && _g_index <= 4 ) _store_gens.push( _var_val );
-                 if ( _store_gens.length == 4 )
-                 {
+            var _var_id = _key, _var_val = _data[ _key ] ;
+            if ( _var_id.start_with( "g" ) && _var_id.includes( "_" ) )
+            {
+                _var_id = _var_id.replace( "g", "" ).split( "_" ) ;
+                var _g_name = safe_int( _var_id[0], 0 ), _g_index = safe_int( _var_id[1], 0 ) ;
+                if ( _g_index >= 1 && _g_index <= 4 ) _store_gens.push( _var_val );
+                if ( _store_gens.length == 4 )
+                {
                    CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array = [ _store_gens[0], _store_gens[1], _store_gens[2], _store_gens[3] ] ;
                    $( "#PLUGIN_PARAM_A" ).val( _store_gens[0] );
                    $( "#PLUGIN_PARAM_B" ).val( _store_gens[1] );
                    $( "#PLUGIN_PARAM_C" ).val( _store_gens[2] );
                    $( "#PLUGIN_PARAM_D" ).val( _store_gens[3] );
                    _store_gens = [] ;
-
                    CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( CIRCLESembeddingsGENERALPURPOSE_ADD, YES );
                    _glob_target_plane = W_PLANE ;
-                 }
+                }
             }
         } ) ;
-
         CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO);
     }
 }
-
-function CIRCLESembeddingsGENERALPURPOSE_FOCUS() { var SW = $(window).width(), SH = $(window).height(); CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, NO, SH > 540 ? YES : NO ); }
 
 function CIRCLESembeddingsGENERALPURPOSE_CAPTURE( _items_switch )
 {
@@ -502,47 +497,39 @@ function CIRCLESembeddingsGENERALPURPOSE_CAPTURE( _items_switch )
 function CIRCLESembeddingsGENERALPURPOSE_CHECK_DUPLICATE( _a_formula, _b_formula, _c_formula, _d_formula )
 {
   	var _N_GENS = safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 ), GEN_CHUNK, _FOUND = NO ;
-		for( var _i = 0 ; _i < _N_GENS ; _i++ )
+	for( var _i = 0 ; _i < _N_GENS ; _i++ )
+	{
+		GEN_CHUNK = CIRCLESembeddingsGENERALPURPOSE_gens_container[_i] ;
+		if ( GEN_CHUNK != null )
 		{
-			 GEN_CHUNK = CIRCLESembeddingsGENERALPURPOSE_gens_container[_i] ;
-			 if ( GEN_CHUNK != null )
-			 {
-			 		if ( _a_formula.stricmp( GEN_CHUNK[0] ) &&
-			 		     _b_formula.stricmp( GEN_CHUNK[1] ) &&
-			 			   _c_formula.stricmp( GEN_CHUNK[2] ) &&
-			 			   _d_formula.stricmp( GEN_CHUNK[3] )
-						 )
-					{
-						_FOUND = YES ;
-            break ;
-					}
-			 }
+			if ( _a_formula.stricmp( GEN_CHUNK[0] ) && _b_formula.stricmp( GEN_CHUNK[1] ) &&
+			 	 _c_formula.stricmp( GEN_CHUNK[2] ) && _d_formula.stricmp( GEN_CHUNK[3] ) )
+			{
+				_FOUND = YES ;
+				break ;
+			}
 		}
-			
-		return _FOUND ;
+	}
+	return _FOUND ;
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_FIND_INDEX( _a_formula, _b_formula, _c_formula, _d_formula )
 {
-		var _N_GENS = safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 ), GEN_CHUNK, _INDEX = UNDET ;
-		for( var _i = 0 ; _i < _N_GENS ; _i++ )
+	var _N_GENS = safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 ), GEN_CHUNK, _INDEX = UNDET ;
+	for( var _i = 0 ; _i < _N_GENS ; _i++ )
+	{
+		GEN_CHUNK = CIRCLESembeddingsGENERALPURPOSE_gens_container[_i] ;
+		if ( GEN_CHUNK != null )
 		{
-			 GEN_CHUNK = CIRCLESembeddingsGENERALPURPOSE_gens_container[_i] ;
-			 if ( GEN_CHUNK != null )
-			 {
-		 			if ( _a_formula.stricmp( GEN_CHUNK[0] ) &&
-		 			     _b_formula.stricmp( GEN_CHUNK[1] ) &&
-		 			     _c_formula.stricmp( GEN_CHUNK[2] ) &&
-		 			     _d_formula.stricmp( GEN_CHUNK[3] )
-					   )
-  				{
-							_FOUND = _i ;
-              break ;
-					}
-			 }
+			if ( _a_formula.stricmp( GEN_CHUNK[0] ) && _b_formula.stricmp( GEN_CHUNK[1] ) &&
+				 _c_formula.stricmp( GEN_CHUNK[2] ) && _d_formula.stricmp( GEN_CHUNK[3] ) )
+  			{
+				_FOUND = _i ;
+				break ;
+			}
 		}
-
-		return _FOUND ;
+	}
+	return _FOUND ;
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_MOBIUS_INFO( _index )
@@ -551,33 +538,28 @@ function CIRCLESembeddingsGENERALPURPOSE_MOBIUS_INFO( _index )
     var GEN_CHUNK = CIRCLESembeddingsGENERALPURPOSE_gens_container[_index] ;
     if ( is_array( GEN_CHUNK ) )
     {
-	 		  var _GEN_CHECK_MASK = 0, _mm = null ;
-  			for( var _c = 0 ; _c < 4 ; _c++ ) if ( GEN_CHUNK[_c] != null ) _GEN_CHECK_MASK |= ( GEN_CHUNK[_c].length > 0 ) ? Math.pow( 2, _c ) : 0 ;
+		var _GEN_CHECK_MASK = 0, _mm = null ;
+  		for( var _c = 0 ; _c < 4 ; _c++ ) if ( GEN_CHUNK[_c] != null ) _GEN_CHECK_MASK |= ( GEN_CHUNK[_c].length > 0 ) ? Math.pow( 2, _c ) : 0 ;
         if ( _GEN_CHECK_MASK == 15 )
         {
-   					var _A_FORMULA = GEN_CHUNK[0], _B_FORMULA = GEN_CHUNK[1], _C_FORMULA = GEN_CHUNK[2], _D_FORMULA = GEN_CHUNK[3] ;
-
-   					_A_FORMULA = circles_lib_math_parse_formula( _A_FORMULA );
-   					_B_FORMULA = circles_lib_math_parse_formula( _B_FORMULA );
-   					_C_FORMULA = circles_lib_math_parse_formula( _C_FORMULA );
-     				_D_FORMULA = circles_lib_math_parse_formula( _D_FORMULA );
+   			var _A_FORMULA = GEN_CHUNK[0], _B_FORMULA = GEN_CHUNK[1], _C_FORMULA = GEN_CHUNK[2], _D_FORMULA = GEN_CHUNK[3] ;
+   			_A_FORMULA = circles_lib_math_parse_formula( _A_FORMULA );
+   			_B_FORMULA = circles_lib_math_parse_formula( _B_FORMULA );
+   			_C_FORMULA = circles_lib_math_parse_formula( _C_FORMULA );
+     		_D_FORMULA = circles_lib_math_parse_formula( _D_FORMULA );
 
             _A_FORMULA = parse_complex_from_string( _A_FORMULA );
-  					_B_FORMULA = parse_complex_from_string( _B_FORMULA );
-  					_C_FORMULA = parse_complex_from_string( _C_FORMULA );
-     				_D_FORMULA = parse_complex_from_string( _D_FORMULA );
-
+			_B_FORMULA = parse_complex_from_string( _B_FORMULA );
+			_C_FORMULA = parse_complex_from_string( _C_FORMULA );
+     		_D_FORMULA = parse_complex_from_string( _D_FORMULA );
             _mm = new mobius_map( _A_FORMULA, _B_FORMULA, _C_FORMULA, _D_FORMULA );
         }
 
         if ( is_mobius_map( _mm ) )
         {
             var _item_obj = circles_lib_find_item_obj_by_map( _glob_seeds_array.concat( _glob_gens_array ), _mm ) ;
-            var _trace = _mm.trace();
-            var _determinant = _mm.det();
-            var _is_normalized = _mm.is_normalized();
-            var _classification = _mm.classification( NO );
-
+            var _trace = _mm.trace(), _determinant = _mm.det();
+            var _is_normalized = _mm.is_normalized(), _classification = _mm.classification( NO );
             var _features_html = "<table>" ;
             _features_html += "<tr><td WIDTH=\"3\"></td><td VALIGN=\"top\">Generator #" + (_index+1) + "</td></tr>" ;
             if ( is_item_obj( _item_obj ) )
@@ -616,11 +598,16 @@ function CIRCLESembeddingsGENERALPURPOSE_MOBIUS_INFO( _index )
     else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Invalid referenced data", 'PLUGIN_OUTMSG' ) ;
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisition )
+function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisition, _output_channel )
 {
     _silent = safe_int( _silent, NO ), _edit_acquisition = safe_int( _edit_acquisition, YES );
+	_output_channel = safe_int( _output_channel, OUTPUT_SPECIAL_FX );
     var _index_ref = _plugin_last_ref, _N_GENS = safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 );
-	if ( _N_GENS == 0 ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't generate the group: the gens list is empty", 'PLUGIN_OUTMSG' ) ;
+	if ( _N_GENS == 0 )
+	{
+		circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't generate the group: the generators list is empty", 'PLUGIN_OUTMSG' ) ;
+		return NO ;
+	}
 	else
 	{
         if ( _glob_method == METHOD_NONE ) { circles_lib_config_create_new_main(YES); circles_lib_method_set( _plugin_method_array[ _index_ref ] ); }
@@ -635,85 +622,97 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 
         _plugin_rec_configs_array[ _index_ref ] = [] ;
 
-	 		  var GEN_CHUNK = null, _symbol, _inv_symbol, _mm, _inv_mm, _mm_trace_squared ;
-	 		  var _A_COMPLEX, _B_COMPLEX, _C_COMPLEX, _D_COMPLEX = null, _CC, _INV_CC, _ret_scan ;
-				var _CC_01, _IS_01, _circle01 ;
-				var _INV_CC_01, _INV_IS_01, _inv_circle01 ;
-				for( var _i = 0 ; _i < _N_GENS ; _i++ )
-  			{
-					 GEN_CHUNK = CIRCLESembeddingsGENERALPURPOSE_gens_container[_i] ;
-   				 if ( GEN_CHUNK != null )
-					 {
-							_symbol = _glob_caps_letters_array[_i], _inv_symbol = circles_lib_word_inverse_get( _symbol );
-							_A_COMPLEX = GEN_CHUNK[0], _B_COMPLEX = GEN_CHUNK[1], _C_COMPLEX = GEN_CHUNK[2], _D_COMPLEX = GEN_CHUNK[3] ;
-			        _ret_scan = CIRCLESembeddingsGENERALPURPOSE_SET_USERVARS_IN_PARAMS( _edit_acquisition, GEN_CHUNK );
-							if ( _A_COMPLEX != null && _B_COMPLEX != null && _C_COMPLEX != null && _D_COMPLEX != null )
-							{
-									_A_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[0] );
-									_A_COMPLEX = parse_complex_from_string( _A_COMPLEX + "" );
-									_B_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[1] );
-									_B_COMPLEX = parse_complex_from_string( _B_COMPLEX + "" );
-									_C_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[2] );
-									_C_COMPLEX = parse_complex_from_string( _C_COMPLEX + "" );
-									_D_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[3] );
-									_D_COMPLEX = parse_complex_from_string( _D_COMPLEX + "" );
+		var GEN_CHUNK = null, _symbol, _inv_symbol, _mm, _inv_mm, _mm_trace_squared ;
+	 	var _A_COMPLEX, _B_COMPLEX, _C_COMPLEX, _D_COMPLEX = null, _CC, _INV_CC, _ret_scan ;
+		var _CC_01, _IS_01, _circle01 ;
+		var _INV_CC_01, _INV_IS_01, _inv_circle01 ;
+		for( var _i = 0 ; _i < _N_GENS ; _i++ )
+  		{
+			GEN_CHUNK = CIRCLESembeddingsGENERALPURPOSE_gens_container[_i] ;
+   			if ( GEN_CHUNK != null )
+			{
+				_symbol = _glob_caps_letters_array[_i], _inv_symbol = circles_lib_word_inverse_get( _symbol );
+				_A_COMPLEX = GEN_CHUNK[0], _B_COMPLEX = GEN_CHUNK[1], _C_COMPLEX = GEN_CHUNK[2], _D_COMPLEX = GEN_CHUNK[3] ;
+			    _ret_scan = CIRCLESembeddingsGENERALPURPOSE_SET_REGISTEREDVARS_IN_PARAMS( _edit_acquisition, GEN_CHUNK );
+				if ( _A_COMPLEX != null && _B_COMPLEX != null && _C_COMPLEX != null && _D_COMPLEX != null )
+				{
+					_A_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[0] );
+					_A_COMPLEX = parse_complex_from_string( _A_COMPLEX + "" );
+					_B_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[1] );
+					_B_COMPLEX = parse_complex_from_string( _B_COMPLEX + "" );
+					_C_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[2] );
+					_C_COMPLEX = parse_complex_from_string( _C_COMPLEX + "" );
+					_D_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[3] );
+					_D_COMPLEX = parse_complex_from_string( _D_COMPLEX + "" );
 
-									if ( is_complex( _A_COMPLEX ) && is_complex( _B_COMPLEX ) && is_complex( _C_COMPLEX ) && is_complex( _D_COMPLEX ) )
-									{
-                    _mm = new mobius_map( _A_COMPLEX, _B_COMPLEX, _C_COMPLEX, _D_COMPLEX );
-										_inv_mm = _mm.inv();
-                    _CC_01 = _mm.inversion_circle(), _IS_01 = _mm.isometric_circle();
-									  _circle01 = GLOB_PLUGIN_CIRCLE_TYPE == DRAWENTITY_ISOMETRIC_CIRCLE ? _IS_01 : _CC_01 ;
-									  _INV_CC_01 = _inv_mm.inversion_circle(), _INV_IS_01 = _inv_mm.isometric_circle();
-									  _inv_circle01 = GLOB_PLUGIN_CIRCLE_TYPE == DRAWENTITY_ISOMETRIC_CIRCLE ? _INV_IS_01 : _INV_CC_01 ;
-				      			_glob_seeds_array.push( new item_obj( _mm, _circle01, null, _symbol, 0,
-                                                          YES, _glob_draw_seed_color, NO, _glob_fill_seed_color,
-                                                          _inv_symbol, 1, 0 ) );
-				      			_glob_seeds_array.push( new item_obj( _inv_mm, _inv_circle01, null, _inv_symbol, 0,
-                                                          YES, _glob_draw_inverse_seed_color, NO, _glob_fill_inverse_seed_color,
-                                                          _symbol, 1, 0 ) );
-									}
-									else
-									{
-										 var _MSG = "Failure: parameters have not been correctly input in element #"+(_i+1)+"" ;
-										 if ( !is_complex(_A_COMPLEX ) ) _MSG += _glob_crlf+"Check param 'a'" ;
-										 if ( !is_complex(_B_COMPLEX ) ) _MSG += _glob_crlf+"Check param 'b'" ;
-										 if ( !is_complex(_C_COMPLEX ) ) _MSG += _glob_crlf+"Check param 'c'" ;
-										 if ( !is_complex(_D_COMPLEX ) ) _MSG += _glob_crlf+"Check param 'd'" ;
-										 _MSG += _glob_crlf+_glob_crlf + "Operation halted: can't generate the group" ;
-										 if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
-										 break ;
-									}
-							}
-							else
-							{
-									var _MSG = "Memory failure: parameters have not been correctly stored in element #"+(_i+1)+"" ;
-											_MSG += _glob_crlf+"Operation halted: can't generate the group" ;
-									if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
-									break ;
-							}
-					 }
-					 else
-					 {
-							 var _MSG = "Memory failure: one element has not been correctly stored" ;
-							 		 _MSG += _glob_crlf+"Operation halted: can't generate the group" ;
-							 if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
-							 break ;
-					 }
+					if ( is_complex( _A_COMPLEX ) && is_complex( _B_COMPLEX ) && is_complex( _C_COMPLEX ) && is_complex( _D_COMPLEX ) )
+					{
+						_mm = new mobius_map( _A_COMPLEX, _B_COMPLEX, _C_COMPLEX, _D_COMPLEX );
+						_inv_mm = _mm.inv();
+						_CC_01 = _mm.inversion_circle(), _IS_01 = _mm.isometric_circle();
+						_circle01 = GLOB_PLUGIN_CIRCLE_TYPE == DRAWENTITY_ISOMETRIC_CIRCLE ? _IS_01 : _CC_01 ;
+						_INV_CC_01 = _inv_mm.inversion_circle(), _INV_IS_01 = _inv_mm.isometric_circle();
+						_inv_circle01 = GLOB_PLUGIN_CIRCLE_TYPE == DRAWENTITY_ISOMETRIC_CIRCLE ? _INV_IS_01 : _INV_CC_01 ;
+				      	_glob_seeds_array.push( new item_obj( _mm, _circle01, null, _symbol, 0,
+                                                YES, _glob_draw_seed_color, NO, _glob_fill_seed_color,
+                                                _inv_symbol, 1, 0 ) );
+				      	_glob_seeds_array.push( new item_obj( _inv_mm, _inv_circle01, null, _inv_symbol, 0,
+                                                YES, _glob_draw_inverse_seed_color, NO, _glob_fill_inverse_seed_color,
+                                                _symbol, 1, 0 ) );
+					}
+					else
+					{
+						var _MSG = "Failure: parameters have not been correctly input in element #"+(_i+1)+"" ;
+						if ( !is_complex(_A_COMPLEX ) ) _MSG += _glob_crlf+"Check param 'a'" ;
+						if ( !is_complex(_B_COMPLEX ) ) _MSG += _glob_crlf+"Check param 'b'" ;
+						if ( !is_complex(_C_COMPLEX ) ) _MSG += _glob_crlf+"Check param 'c'" ;
+						if ( !is_complex(_D_COMPLEX ) ) _MSG += _glob_crlf+"Check param 'd'" ;
+						_MSG += _glob_crlf+_glob_crlf + "Operation halted: can't generate the group" ;
+						if ( !_silent )
+						{
+							circles_lib_output( _output_channel, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+							return NO ;
+						}
+						break ;
+					}
 				}
+				else
+				{
+					var _MSG = "Memory failure: parameters have not been correctly stored in element #"+(_i+1)+"" ;
+						_MSG += _glob_crlf+"Operation halted: can't generate the group" ;
+					if ( !_silent )
+					{
+						circles_lib_output( _output_channel, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+						return NO ;
+					}
+					break ;
+				}
+			}
+			else
+			{
+			    var _MSG = "Memory failure: one element has not been correctly stored" ;
+				    _MSG += _glob_crlf+"Operation halted: can't generate the group" ;
+			    if ( !_silent )
+				{
+				    circles_lib_output( _output_channel, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+					return NO ;
+				}
+				break ;
+			}
+		}
 					
-				// take each entry, parse parameters, construct the Mobius map object
-				// and fill the standard seeds gens list
+		// take each entry, parse parameters, construct the Mobius map object
+		// and fill the standard seeds generators list
       	_glob_dict_create = _glob_items_to_init = YES ;
-        circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES, _glob_out_channel );
-        var _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, NO, YES, _glob_out_channel );
+        circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES, _glob_output_channel );
+        var _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, NO, YES, _glob_output_channel );
         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "64Unknown error" ;
+        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
         if ( _ret_id == RET_OK )
         {
-            _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _glob_out_channel );
+            _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _glob_output_channel );
             _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-            _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "65Unknown error" ;
+            _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
             if ( _ret_id == RET_OK )
             {
                 $("#PLUGIN_GENERATE_GROUP_BTN").css( "color", DEFAULT_COLOR_STD );
@@ -727,11 +726,13 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
                 $("[id$=renderBTN]").css( "color", DEFAULT_COLOR_ERROR );
             }
             else if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
+		    return YES ;
         }
         else
         {
             $("[id$=initBTN]").css( "color", DEFAULT_COLOR_ERROR );
             $("[id$=renderBTN]").css( "color", DEFAULT_COLOR_STD );
+			return NO ;
         }
 	}
 }
@@ -761,22 +762,23 @@ function CIRCLESembeddingsGENERALPURPOSE_PARSE( a_formula, b_formula, c_formula,
 
 function CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE( _div_id, WIDTH, HEIGHT )
 {
-		var _visible = $( "#PLUGIN_PREVIEW" ).is(":visible") ;
-		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
-		var _canvas = $( "#CIRCLESembeddingsGENERALPURPOSE_CANVAS" ).get(0) ;
-		_canvas.set_width( _plugin_width - 5 );
+	var _visible = $( "#PLUGIN_PREVIEW" ).is(":visible") ;
+	var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
+	var _canvas = $( "#CIRCLESembeddingsGENERALPURPOSE_CANVAS" ).get(0) ;
+	_canvas.set_width( _plugin_width - 5 );
     circles_lib_plugin_render_preview( "general.purpose", "embeddings" ) ;
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_MINIMIZE( _div_id, WIDTH, HEIGHT )
 {
+	// further development
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_NORMALIZE( _div_id, WIDTH, HEIGHT )
 {
-		var _visible = $( "#PLUGIN_PREVIEW" ).is(":visible") ;
-		var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
-		var _canvas = $( "#CIRCLESembeddingsGENERALPURPOSE_CANVAS" ).get(0) ;
-		_canvas.set_width( _plugin_width - 5 );
+	var _visible = $( "#PLUGIN_PREVIEW" ).is(":visible") ;
+	var _plugin_width = $( "#"+GLOB_PLUGIN_DIV_ID ).width() ;
+	var _canvas = $( "#CIRCLESembeddingsGENERALPURPOSE_CANVAS" ).get(0) ;
+	_canvas.set_width( _plugin_width - 5 );
     circles_lib_plugin_render_preview( "general.purpose", "embeddings" ) ;
 }

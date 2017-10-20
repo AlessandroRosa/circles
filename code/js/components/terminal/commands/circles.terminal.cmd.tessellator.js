@@ -4,14 +4,14 @@ function circles_terminal_cmd_tessellator()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _sd_n = circles_lib_count_seeds();
@@ -25,7 +25,7 @@ function circles_terminal_cmd_tessellator()
 		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['plane'] = _glob_target_plane ;
@@ -42,7 +42,7 @@ function circles_terminal_cmd_tessellator()
 						 															  "amplitude", "height", "reps", "circles",
 						 															  "radial", "sector", "html", "help"
 																					);
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
@@ -122,15 +122,15 @@ function circles_terminal_cmd_tessellator()
               }
          }
 
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_b_fail )
@@ -139,7 +139,7 @@ function circles_terminal_cmd_tessellator()
              switch( _action )
              {
                  case "release":
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                  break ;
                  default:
                  var _tessellate_fn = function()
@@ -148,17 +148,17 @@ function circles_terminal_cmd_tessellator()
                      if ( _params_assoc_array['sector'] == null && _tessellation.strcmp( "radial" ) )
                      {
                           _params_assoc_array['sector'] = CIRCLES_TWO_PI ;
-                          circles_lib_output( _out_channel, DISPATCH_INFO, "Missing input sector amplitude. Set to default: 2PI", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_INFO, "Missing input sector amplitude. Set to default: 2PI", _par_1, _cmd_tag );
                      }
                      else if ( Math.abs( _params_assoc_array['sector'] ) > CIRCLES_TWO_PI && _tessellation.strcmp( "radial" ) )
                      {
-                          circles_lib_output( _out_channel, DISPATCH_INFO, "Input sector amplitude ("+_params_assoc_array['sector']+") exceeding radians range (2PI)", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_INFO, "Input sector amplitude ("+_params_assoc_array['sector']+") exceeding radians range (2PI)", _par_1, _cmd_tag );
                           _params_assoc_array['sector'] = rad( _params_assoc_array['sector'] );
-                          circles_lib_output( _out_channel, DISPATCH_INFO, "Assumed to be in degrees and converted to "+_params_assoc_array['sector']+" radians", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_INFO, "Assumed to be in degrees and converted to "+_params_assoc_array['sector']+" radians", _par_1, _cmd_tag );
                      }
 
                      if ( _params_assoc_array['span'] && !( _tessellation.strcmp( "radial" ) ) )
-                          circles_lib_output( _out_channel, DISPATCH_INFO, "Skipped 'span' param for "+_tesselation+" tesselation", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_INFO, "Skipped 'span' param for "+_tesselation+" tesselation", _par_1, _cmd_tag );
 
                      if ( _tessellation.length == 0 )
                      {
@@ -182,7 +182,7 @@ function circles_terminal_cmd_tessellator()
                           if ( _params_assoc_array['plane'] == NO_PLANE )
                           {
                               _params_assoc_array['plane'] = Z_PLANE ;
-                              circles_lib_output( _out_channel, DISPATCH_INFO, "Missing plane definition: default setting to 'zplane'", _par_1, _cmd_tag );
+                              circles_lib_output( _output_channel, DISPATCH_INFO, "Missing plane definition: default setting to 'zplane'", _par_1, _cmd_tag );
                           }
 
                           switch( _tessellation )
@@ -344,25 +344,25 @@ function circles_terminal_cmd_tessellator()
 
                           if ( !_b_fail )
                           {
-                              var _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _out_channel );
+                              var _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _output_channel );
                               circles_lib_recalc_screen_disks_coords( zplane_sm );
                               if ( _glob_method.is_one_of( METHOD_INVERSION ) )
-                              circles_lib_alphabet_autoconfig_all_symbols( NO, YES, NO, YES, _out_channel );
+                              circles_lib_alphabet_autoconfig_all_symbols( NO, YES, NO, YES, _output_channel );
                               else 
                               {
-                                   circles_lib_output( _out_channel, DISPATCH_WARNING, "Current method requires symbols to be manually set", _par_1, _cmd_tag );
-                                   circles_lib_output( _out_channel, DISPATCH_INFO, "Input cmd 'disk %index% %symbol%'. Ex: 'disk 0 A'", _par_1, _cmd_tag );
+                                   circles_lib_output( _output_channel, DISPATCH_WARNING, "Current method requires symbols to be manually set", _par_1, _cmd_tag );
+                                   circles_lib_output( _output_channel, DISPATCH_INFO, "Input cmd 'disk %index% %symbol%'. Ex: 'disk 0 A'", _par_1, _cmd_tag );
                               }
 
                               _glob_items_to_init = YES ;
-                              var _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, _glob_verbose, YES, YES, _out_channel );
+                              var _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, _glob_verbose, YES, YES, _output_channel );
                               var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                               var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "35Unknown error" ;
                               if ( _ret_id == RET_OK )
                               {
                                   if ( _params_assoc_array['plane'] == Z_PLANE )
                                   {
-                                  	 var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+                                  	 var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
 																     var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 																	   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "36Unknown error" ;
 																	   if ( _ret_id == RET_ERROR )
@@ -371,9 +371,9 @@ function circles_terminal_cmd_tessellator()
 																		 }
 																	}
                                   else if ( _params_assoc_array['plane'] == W_PLANE )
-                                  circles_lib_draw_all_screen_disks( _glob_wplane_rendering_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, null, YES, YES, _out_channel );
+                                  circles_lib_draw_all_screen_disks( _glob_wplane_rendering_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, null, YES, YES, _output_channel );
                                   var _plane_def = circles_lib_plane_get_def( _params_assoc_array['plane'] );
-                                  circles_lib_output( _out_channel, DISPATCH_SUCCESS, _plane_def + ": " + _tessellation + " tessellation performed with success", _par_1, _cmd_tag );
+                                  circles_lib_output( _output_channel, DISPATCH_SUCCESS, _plane_def + ": " + _tessellation + " tessellation performed with success", _par_1, _cmd_tag );
                               }
                               else
                               {
@@ -383,16 +383,16 @@ function circles_terminal_cmd_tessellator()
                      }
                  }
 
-                 if ( _sd_n > 0 && _out_channel == OUTPUT_TERMINAL )
+                 if ( _sd_n > 0 && _output_channel == OUTPUT_TERMINAL )
                  {
-                    circles_lib_output( _out_channel, DISPATCH_WARNING, "A set of seeds has been detected", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, "A set of seeds has been detected", _par_1, _cmd_tag );
                     var _prompt_question = "Do you want to delete'em and replace with current tessellation ?" ;
   			     		    var _params_array = [] ;
   								   	  _params_array['prepromptquestion'] = null ;
    							        _params_array['promptquestion'] = _prompt_question ;
    							        _params_array['yes_fn'] = function() { _tessellate_fn(); }
    							        _params_array['ifquestiondisabled_fn'] = function() { _tessellate_fn(); }
-   						      circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+   						      circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                  }
                  else _tessellate_fn();
     
@@ -425,7 +425,7 @@ function circles_terminal_cmd_tessellator()
                               }
                           }
                      }
-                     else circles_lib_output( _out_channel, DISPATCH_WARNING, _ERR_33_01 + ": no figures to rec", _par_1, _cmd_tag );
+                     else circles_lib_output( _output_channel, DISPATCH_WARNING, _ERR_33_01 + ": no figures to rec", _par_1, _cmd_tag );
                  }
                  break ;
              }
@@ -436,7 +436,7 @@ function circles_terminal_cmd_tessellator()
          _b_fail = YES, _error_str = "Missing input params" ;
      }
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

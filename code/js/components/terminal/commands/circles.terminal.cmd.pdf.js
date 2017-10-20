@@ -2,14 +2,14 @@ function circles_terminal_cmd_pdf()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -25,14 +25,14 @@ function circles_terminal_cmd_pdf()
          _params_assoc_array['dump_operator_index'] = UNDET ;
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
 
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "bip", "wplane", "zplane", "none", "showcanvas", "silent", "release", "help", "html" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_FROM );
 				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -54,15 +54,15 @@ function circles_terminal_cmd_pdf()
          }
 
          if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-         else if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         else if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_params_assoc_array['dump'] && !_b_fail )
@@ -75,7 +75,7 @@ function circles_terminal_cmd_pdf()
              switch( _action )
              {
                  case "release":
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                  break ;
                  default:
         				 // gather all dump parameters into one array
@@ -93,7 +93,7 @@ function circles_terminal_cmd_pdf()
                               _caller_type = CALLER_TYPE_CANVAS ;
                               _params_assoc_array['dump_array'].push( _token );
                           }
-                          else circles_lib_output( _out_channel, DISPATCH_INFO, "Detected and skipped '"+_p+"' tag", _par_1, _cmd_tag );
+                          else circles_lib_output( _output_channel, DISPATCH_INFO, "Detected and skipped '"+_p+"' tag", _par_1, _cmd_tag );
                      }
                  }
 
@@ -110,7 +110,7 @@ function circles_terminal_cmd_pdf()
                                  var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO
                                  var _ret_data = _ret_chunk[1] ;
                                  var _cmd_ref = _params_assoc_array['dump_array'][0].toLowerCase();
-                                 circles_lib_output( _out_channel, DISPATCH_INFO, "processing "+_cmd_ref+" cmd", _par_1, _cmd_tag );
+                                 circles_lib_output( _output_channel, DISPATCH_INFO, "processing "+_cmd_ref+" cmd", _par_1, _cmd_tag );
                                  var _filename = "" ;
                                  if ( _ret_id )
                                  {
@@ -148,9 +148,9 @@ function circles_terminal_cmd_pdf()
                                      _glob_text = _ret_data ;
                                      if ( _glob_text.length > 0 )
                                      {
-                                         circles_lib_output( _out_channel, DISPATCH_INFO, "saving code into pdf file", _par_1, _cmd_tag );
+                                         circles_lib_output( _output_channel, DISPATCH_INFO, "saving code into pdf file", _par_1, _cmd_tag );
                                          if ( _return_datatype == "text" )
-                                         circles_lib_files_pdf_save_ask( circles_lib_files_pdf_save_text, _silent, _out_channel, CALLER_TYPE_CMD, '_glob_text', _filename, _include_canvas,_cmd_ref );
+                                         circles_lib_files_pdf_save_ask( circles_lib_files_pdf_save_text, _silent, _output_channel, CALLER_TYPE_CMD, '_glob_text', _filename, _include_canvas,_cmd_ref );
                                      }
                                      else
                                      {
@@ -188,7 +188,7 @@ function circles_terminal_cmd_pdf()
                             else
                             {
                                  var _canvas_role = _ret_layer.get_role_id() ;
-                                 circles_lib_files_pdf_save_ask( circles_lib_files_pdf_save_canvas, _silent, _out_channel, CALLER_TYPE_CANVAS, _filename, _canvas_role, _cmd_ref );
+                                 circles_lib_files_pdf_save_ask( circles_lib_files_pdf_save_canvas, _silent, _output_channel, CALLER_TYPE_CANVAS, _filename, _canvas_role, _cmd_ref );
                             }
                             break ;
 										        default: break ;
@@ -203,7 +203,7 @@ function circles_terminal_cmd_pdf()
          }
          
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

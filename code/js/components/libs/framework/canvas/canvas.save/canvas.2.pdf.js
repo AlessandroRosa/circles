@@ -1,11 +1,11 @@
 var _glob_e_ps_open = 0 ;
 
-function circles_lib_canvas_save_to_pdf( _canvas, _filename, _silent, _out_channel )
+function circles_lib_canvas_save_to_pdf( _canvas, _filename, _silent, _output_channel )
 {
      if ( !is_html_canvas( _canvas ) ) _canvas = _glob_canvas_obj_ref ;
 		 _filename = safe_string( _filename, "" );
      _silent = safe_int( _silent, NO );
-     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
      if ( is_html_canvas( _canvas ) )
      {
          // remove extension if explictly inside input var
@@ -63,7 +63,7 @@ function circles_lib_canvas_save_to_pdf( _canvas, _filename, _silent, _out_chann
      else
      {
         var _msg = "Code is not available to save the PDF file" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
         else return [ 0, _msg ];
      }
 }

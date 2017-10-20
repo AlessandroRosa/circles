@@ -210,14 +210,14 @@ function circles_lib_statusbar_set_config_icon( _e )
    else return NO ;
 }
 
-function circles_lib_statusbar_set_output_stream( _out_channel )
+function circles_lib_statusbar_set_output_stream( _output_channel )
 {
-   _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
-   _glob_output_channel = _out_channel ;
+   _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+   _glob_output_channel = _output_channel ;
    if ( $("#STATUSBARoutput").get(0) != null )
    {
       var _icon_code = "", ICONSIZE = "20x20" ;
-      switch( _out_channel )
+      switch( _output_channel )
       {
          case OUTPUT_SCREEN : _icon_code = "<IMG TITLE=\"Output : screen\" SRC=\"%imgpath%icons/screen/screen.icon.01."+ICONSIZE+".png\">" ; break ;
          case OUTPUT_TERMINAL : _icon_code = "<IMG TITLE=\"Output : terminal console\" SRC=\"%imgpath%icons/cmd.prompt/cmd.prompt.icon.01."+ICONSIZE+".png\">" ; break ;

@@ -95,10 +95,10 @@ function circles_lib_canvas_layer_create( _init_properties_array )
     }
 }
 
-function circles_lib_canvas_layer_pile_resize_to_default( _set_default_coords, _render, _out_channel )
+function circles_lib_canvas_layer_pile_resize_to_default( _set_default_coords, _render, _output_channel )
 {
     _set_default_coords = safe_int( _set_default_coords, NO );
-    _render = safe_int( _render, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _render = safe_int( _render, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _menu_height = $( "#menu" ).height(), _menu_width = $( "#menu" ).width();
     var _coords_height = $( "#ZplaneCOORDScontainer" ).height();
     var _extra_height = _menu_height + _coords_height + 22 ;
@@ -209,22 +209,22 @@ function circles_lib_canvas_layer_pile_resize_to_default( _set_default_coords, _
 
     if ( _render )
     {
-       var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+       var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
        var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
        if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
        {
-			 		 var _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, YES, NO, YES, _out_channel );
+			 		 var _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, YES, NO, YES, _output_channel );
 		       var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 					 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "3Unknown error" ;
 			 }
     }
 }
 
-function circles_lib_canvas_layer_pile_resize( _plane_type, _width_percentage, _render, _out_channel )
+function circles_lib_canvas_layer_pile_resize( _plane_type, _width_percentage, _render, _output_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    _render = safe_int( _render, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _render = safe_int( _render, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     _width_percentage = Math.min( 100.0, Math.abs( safe_float( _width_percentage, 50 ) ) );
     if ( _width_percentage == 50 )
     {
@@ -471,11 +471,11 @@ function circles_lib_canvas_layer_pile_resize( _plane_type, _width_percentage, _
 
      if ( _render )
      {
-         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
          var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
          var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
          if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
-         var _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, YES, NO, YES, _out_channel );
+         var _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, YES, NO, YES, _output_channel );
          var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 				 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "4Unknown error" ;
          if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
@@ -591,17 +591,17 @@ function circles_lib_canvas_layer_pile_get_per_plane( _plane_type )
     else return null ;
 }
 
-function circles_lib_canvas_layer_pile_clean_per_plane( _plane_type, _role, _silent, _out_channel )
+function circles_lib_canvas_layer_pile_clean_per_plane( _plane_type, _role, _silent, _output_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    _role = safe_float( _role, UNDET ), _silent = safe_float( _silent, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _role = safe_float( _role, UNDET ), _silent = safe_float( _silent, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _layers_array = null ;
     if ( _plane_type == Z_PLANE ) _layers_array = _glob_zplane_layers_pile_array ;
     else if ( _plane_type == W_PLANE ) _layers_array = _glob_wplane_layers_pile_array ;
     else
     {
         var _msg = "Missing input plane type" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
 
@@ -613,17 +613,17 @@ function circles_lib_canvas_layer_pile_clean_per_plane( _plane_type, _role, _sil
          {
              _canvas = _layers_array[_i] ;
              _bkcolor = _canvas.get_backgroundcolor() != null ? _canvas.get_backgroundcolor() : "rgba( 255, 255, 255, 0 )" ;
-             if ( is_html_canvas( _canvas ) && ( _role == UNDET || _canvas.get_role_id() == _role ) ) circles_lib_canvas_clean( _canvas, _bkcolor, _out_channel );
+             if ( is_html_canvas( _canvas ) && ( _role == UNDET || _canvas.get_role_id() == _role ) ) circles_lib_canvas_clean( _canvas, _bkcolor, _output_channel );
          }
 
          var _msg = "Layers have been cleaned with success" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+         if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
          return [ RET_OK, _msg ] ;
     }
     else
     {
          var _msg = circles_lib_plane_get_def( _plane_type ) + " layers list is empty" ;
-         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+         if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ] ;
     }
 }

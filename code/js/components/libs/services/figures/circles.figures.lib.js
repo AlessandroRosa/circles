@@ -19,7 +19,7 @@ function circles_lib_figures_add( _rec_chunk )
     else return NO ;
 }
 
-function circles_lib_figures_disconnect( _out_channel, _figures_array, _param_01 )
+function circles_lib_figures_disconnect( _output_channel, _figures_array, _param_01 )
 {
     var _rec_chunk, _obj, _class, _points ;
     var _new_entries = [], _i, _x, _tmp_chunk ;
@@ -185,7 +185,7 @@ function circles_lib_figures_find_duplicates( _class, _plane, _obj, _haystack )
     return _b_found ;
 }
 
-function circles_lib_figures_update_manager( _out_channel, _options, _param_01 )
+function circles_lib_figures_update_manager( _output_channel, _options, _param_01 )
 {
     var _b_fail = 0, _ret_flag = 0, _error_str = "", _zerobased_index ;
     var _figure_label = "", _value = null, _rec_chunk = null ;
@@ -229,7 +229,7 @@ function circles_lib_figures_update_manager( _out_channel, _options, _param_01 )
             if ( _zerobased_index < 0 )
             {
                  if ( _glob_terminal_echo_flag )
-                 circles_lib_output( _out_channel, DISPATCH_WARNING, "Skipped invalid index '"+_index_array[_i]+"'", _param_01 );
+                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Skipped invalid index '"+_index_array[_i]+"'", _param_01 );
                  continue ;
             }
 
@@ -247,7 +247,7 @@ function circles_lib_figures_update_manager( _out_channel, _options, _param_01 )
                     if ( !_point_params_table_array.includes( _param ) )
                     {
                         if ( _glob_terminal_echo_flag )
-                        circles_lib_output( _out_channel, DISPATCH_WARNING, "Skipped invalid param '"+_param+"' for "+_figure_label+" obj", _param_01 );
+                        circles_lib_output( _output_channel, DISPATCH_WARNING, "Skipped invalid param '"+_param+"' for "+_figure_label+" obj", _param_01 );
                         continue ;
                     }
 
@@ -308,7 +308,7 @@ function circles_lib_figures_update_manager( _out_channel, _options, _param_01 )
                     if ( !_circle_params_table_array.includes( _param ) )
                     {
                          if ( _glob_terminal_echo_flag )
-                         circles_lib_output( _out_channel, DISPATCH_WARNING, "Skipped invalid param '"+_param+"' for "+_figure_label+" obj", _param_01 );
+                         circles_lib_output( _output_channel, DISPATCH_WARNING, "Skipped invalid param '"+_param+"' for "+_figure_label+" obj", _param_01 );
                          continue ;
                     }
 
@@ -374,7 +374,7 @@ function circles_lib_figures_update_manager( _out_channel, _options, _param_01 )
                     if ( !_line_params_table_array.includes( _param ) )
                     {
                          if ( _glob_terminal_echo_flag )
-                         circles_lib_output( _out_channel, DISPATCH_WARNING, "Skipped invalid param '"+_param+"' for "+_figure_label+" obj", _param_01 );
+                         circles_lib_output( _output_channel, DISPATCH_WARNING, "Skipped invalid param '"+_param+"' for "+_figure_label+" obj", _param_01 );
                          continue ;
                     }
 
@@ -458,7 +458,7 @@ function circles_lib_figures_update_manager( _out_channel, _options, _param_01 )
                     if ( !_rect_params_table_array.includes( _param ) )
                     {
                          if ( _glob_terminal_echo_flag )
-                         circles_lib_output( _out_channel, DISPATCH_WARNING, "Skipped invalid param '"+_param+"' for "+_figure_label+" obj", _param_01 );
+                         circles_lib_output( _output_channel, DISPATCH_WARNING, "Skipped invalid param '"+_param+"' for "+_figure_label+" obj", _param_01 );
                          continue ;
                     }
                     if ( _param.testME( _glob_cartesian_coords_regex_pattern ) )
@@ -567,7 +567,7 @@ function circles_lib_figures_update_manager( _out_channel, _options, _param_01 )
                }
 
                if ( !_ret_flag && _glob_terminal_echo_flag )
-               circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning: unknown param '"+_param+"' for " + _figure_label + " obj", _param_01 );
+               circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: unknown param '"+_param+"' for " + _figure_label + " obj", _param_01 );
            }
 
            if ( _ret_flag )
@@ -575,8 +575,8 @@ function circles_lib_figures_update_manager( _out_channel, _options, _param_01 )
                 _glob_figures_array[ _zerobased_index ] = _rec_chunk, _plane_def = circles_lib_plane_get_def( _plane );
                 if ( _glob_terminal_echo_flag && _plane != NO_PLANE )
                 {
-                     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>("+_plane_def+")</snow> <green>obj "+_figure_label+" #"+( _i + 1 )+" updated</green>", _param_01 );
-                     circles_lib_output( _out_channel, DISPATCH_INFO, "Refreshing "+_plane_def, _param_01 );
+                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>("+_plane_def+")</snow> <green>obj "+_figure_label+" #"+( _i + 1 )+" updated</green>", _param_01 );
+                     circles_lib_output( _output_channel, DISPATCH_INFO, "Refreshing "+_plane_def, _param_01 );
                      circles_lib_canvas_after_process_figures( null, YES, _plane );
                 }
            }
@@ -584,11 +584,11 @@ function circles_lib_figures_update_manager( _out_channel, _options, _param_01 )
     }
 
     if ( ( _b_fail || _ret_flag == 0 ) && _glob_terminal_echo_flag )
-    circles_lib_output( _out_channel, DISPATCH_WARNING, _error_str, _param_01 );
+    circles_lib_output( _output_channel, DISPATCH_WARNING, _error_str, _param_01 );
     return [ _b_fail, _error_str ] ;
 }
 
-function circles_lib_figures_action( _out_channel, _action, _index_vals_array, _plane_type, _refresh, _param_01 )
+function circles_lib_figures_action( _output_channel, _action, _index_vals_array, _plane_type, _refresh, _param_01 )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _refresh = safe_int( _refresh, NO );
@@ -617,26 +617,26 @@ function circles_lib_figures_action( _out_channel, _action, _index_vals_array, _
                             case "delete":
                             _glob_figures_array.remove( _x, _x );
                             if ( _glob_terminal_echo_flag )
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" deleted", _param_01 );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" deleted", _param_01 );
                             _x = -1 ;
                             _refresh = YES ;
                             break ;
                             case "disable":
                             _glob_figures_array[_x]['enabled'] = NO ;
                             if ( _glob_terminal_echo_flag )
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" disabled", _param_01 );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" disabled", _param_01 );
                             _refresh = YES ;
                             break ;
                             case "enable":
                             _glob_figures_array[_x]['enabled'] = YES ;
                             if ( _glob_terminal_echo_flag )
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" enabled", _param_01 );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" enabled", _param_01 );
                             _refresh = YES ;
                             break ;
                             case "transfer":
                             _glob_figures_array[_x]['plane'] = _plane ;
                             if ( _glob_terminal_echo_flag )
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" transfered to " + circles_lib_plane_get_def(_plane), _param_01 );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" transfered to " + circles_lib_plane_get_def(_plane), _param_01 );
                             _refresh = YES ;
                             break ;
 						                default: break ;
@@ -652,7 +652,7 @@ function circles_lib_figures_action( _out_channel, _action, _index_vals_array, _
              if ( _action.stricmp( "delete" ) && _glob_figures_array.length > 0 )
              {
                  // rebuild hash tags after previous operations
-                 if ( _glob_terminal_echo_flag ) circles_lib_output( _out_channel, DISPATCH_INFO, "Rebuilding hash tags", _param_01 );
+                 if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding hash tags", _param_01 );
                  for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ ) _glob_figures_array[_i]['myhash'] = "rec" + ( _i + 1 );
              }
 
@@ -672,13 +672,13 @@ function circles_lib_figures_action( _out_channel, _action, _index_vals_array, _
 
     if ( _refresh )
     {
-        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
         if ( _ret_id == RET_OK )
         {
            // no render, just draw other stuff
-           _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, YES, NO, YES, _out_channel );
+           _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, YES, NO, YES, _output_channel );
            _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
            _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
            if ( _ret_id == RET_ERROR )

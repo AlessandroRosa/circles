@@ -2,14 +2,14 @@ function circles_terminal_cmd_word()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -31,7 +31,7 @@ function circles_terminal_cmd_word()
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['action'] = "" ;
          _params_assoc_array["copy"] = NO ;
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['all'] = NO ;
          _params_assoc_array['connect'] = NO ;
          _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
@@ -57,7 +57,7 @@ function circles_terminal_cmd_word()
     				 _local_cmds_params_array.push( "all", "calc", "connect", "copy", "displacedset", "draw", "draworbits", "fixedpoints",
                                             "generator", "html", "list", "markpoints", "orbit", "rle", "resolve", "sink", "source",
                                             "lastpt", "test", "trace", "track", "treescan", "html", "help", "release" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -88,12 +88,12 @@ function circles_terminal_cmd_word()
                   if ( _p <= 0 )
                   {
                      _p = _glob_accuracy ;
-                     circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                     circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
                   }
                   else if ( _p > DEFAULT_MAX_ACCURACY )
                   {
                      _p = _glob_accuracy ;
-                     circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                     circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
                   }
                    
                   _params_assoc_array['roundto'] = _p ;
@@ -186,15 +186,15 @@ function circles_terminal_cmd_word()
          _b_fail = YES, _error_str = "Missing input params" ;
    	 }
 
-     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
      else if ( _params_assoc_array['keywords'] )
      {
          var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-         if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+         if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
          else
          {
              _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-             circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+             circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
          }
      }
      else if ( !_b_fail )
@@ -203,7 +203,7 @@ function circles_terminal_cmd_word()
          var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
          var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
 		     var _items_n = circles_lib_count_items( _items_array );
-         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
+         circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
          // convert input indexes or symbols into an array of indexes to be applied to next actions
          var _selection_indexes_array = [] ;
          var _all = _params_assoc_array['all'] != null ? _params_assoc_array['all'] : NO ;
@@ -231,7 +231,7 @@ function circles_terminal_cmd_word()
          switch( _action )
          {
              case "release":
-             circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+             circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
              break ;
              case "calc":
              if ( safe_size( _glob_alphabet, 0 ) == 0 )
@@ -274,7 +274,7 @@ function circles_terminal_cmd_word()
                                 {
                                    p = ( _word.split( "/" ) )[0], q = ( _word.split( "/" ) )[1];
                                    _resolved_pq_word = circles_lib_word_pq_translate( p, q );
-                                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "input p/q word '<lightblue>"+_word+"</lightblue>' resolved into '<snow>"+_resolved_pq_word+"</snow>'", _par_1, _cmd_tag );
+                                   circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "input p/q word '<lightblue>"+_word+"</lightblue>' resolved into '<snow>"+_resolved_pq_word+"</snow>'", _par_1, _cmd_tag );
                                    _word = _resolved_pq_word
                                 }
                                 else
@@ -283,12 +283,12 @@ function circles_terminal_cmd_word()
                                    _solved_repetend = _is_repetend ? circles_lib_repetends_resolve( _word ) : _word ;
                                    if ( _is_repetend )
                                    {
-                                      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Detected repetend '<lightblue>"+ $.terminal.escape_brackets(_word)+"</lightblue>' resolved into '<snow>"+_solved_repetend+"</snow>'", _par_1, _cmd_tag );
+                                      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Detected repetend '<lightblue>"+ $.terminal.escape_brackets(_word)+"</lightblue>' resolved into '<snow>"+_solved_repetend+"</snow>'", _par_1, _cmd_tag );
                                       _word = _solved_repetend ;
                                    }
                                 }
                                   
-                                _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _out_channel );
+                                _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _output_channel );
                                 _msg = "<cadetblue>Calculating word '</cadetblue><yellow>"+_word+"</yellow><cadetblue>'</cadetblue>" ;
                                 _msg += _glob_crlf + "<snow>a</snow> <lightblue>" + _mm.a.roundTo(_glob_accuracy-6).formula(YES,YES,_round_to).rpad( " ", _glob_accuracy + 3 ) + "</lightblue>" ;
                                 _msg += "<snow>b</snow> <lightblue>" + _mm.b.roundTo(_glob_accuracy-6).formula(YES,YES,_round_to) + "</lightblue>" ;
@@ -298,7 +298,7 @@ function circles_terminal_cmd_word()
                                 _msg += _glob_crlf + "<greenyellow>Trace</greenyellow> <lightblue>" + _mm.trace().roundTo(_glob_accuracy-6).formula(YES,YES,_round_to).rpad( " ", _glob_accuracy + 2 ) + "</lightblue>" ;
                                 _msg += _glob_crlf + "<greenyellow>Trace (squared)</greenyellow> <lightblue>" + _mm.trace().pow(2).roundTo(_glob_accuracy-6).formula(YES,YES,_round_to).rpad( " ", _glob_accuracy + 2 ) + "</lightblue>" ;
                                 _msg += _glob_crlf + "<greenyellow>Classification</greenyellow> <lightblue>" + _mm.classification(NO).rpad( " ", _glob_accuracy + 2 ) + "</lightblue>" ;
-                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                              } );
                   }
              }
@@ -322,51 +322,51 @@ function circles_terminal_cmd_word()
              }
              else
              {
-                circles_lib_output( _out_channel, DISPATCH_INFO, "The displaced set is the union of non-trivial orbits from all permutations of '"+_word+"'", _par_1, _cmd_tag );
-                circles_lib_output( _out_channel, DISPATCH_INFO, "Computing the displaced set of input word '"+_word+"'", _par_1, _cmd_tag );
+                circles_lib_output( _output_channel, DISPATCH_INFO, "The displaced set is the union of non-trivial orbits from all permutations of '"+_word+"'", _par_1, _cmd_tag );
+                circles_lib_output( _output_channel, DISPATCH_INFO, "Computing the displaced set of input word '"+_word+"'", _par_1, _cmd_tag );
                 var _start_pt = null, _orbit ;
                 if ( safe_size( _params_assoc_array['pts'] ) == 0 )
                 {
-                   circles_lib_output( _out_channel, DISPATCH_INFO, "Missing explicit input start point: fixed point of '"+_word+"' will be assumed", _par_1, _cmd_tag );
-                   circles_lib_output( _out_channel, DISPATCH_INFO, "Attempting to their computation", _par_1, _cmd_tag );
+                   circles_lib_output( _output_channel, DISPATCH_INFO, "Missing explicit input start point: fixed point of '"+_word+"' will be assumed", _par_1, _cmd_tag );
+                   circles_lib_output( _output_channel, DISPATCH_INFO, "Attempting to their computation", _par_1, _cmd_tag );
                    var _fp_def = "" ;
                    if ( _params_assoc_array['extras'].includes( "sink" ) ) _fp_def = "sink" ;
                    else if ( _params_assoc_array['extras'].includes( "source" ) ) _fp_def = "source" ;
                    else
                    {
                       _fp_def = "sink" ;
-                      circles_lib_output( _out_channel, DISPATCH_INFO, "Missing input fixed point type: '"+_fp_def+"' will be assumed as default type", _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, "Missing input fixed point type: '"+_fp_def+"' will be assumed as default type", _par_1, _cmd_tag );
                    }
                    
                    var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-                   var _ret_chunk = circles_lib_word_fixedpoints_get( _word, _items_array, NO, _out_channel ) ;
+                   var _ret_chunk = circles_lib_word_fixedpoints_get( _word, _items_array, NO, _output_channel ) ;
                    var _ret_id = safe_int( _ret_chunk[0], RET_ERROR );
                    var _ret_pts = _ret_chunk[1] ;
                        
                    switch( _ret_id )
                    {
                        case CIRCLES_MISSING_SEEDS:
-                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing seeds", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing seeds", _par_1, _cmd_tag );
                        break ;
                        case CIRCLES_MISSING_INPUT:
-                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing input word", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing input word", _par_1, _cmd_tag );
                        break ;
                        case CIRCLES_MISSING_SEEDS:
-                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing alphabet", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing alphabet", _par_1, _cmd_tag );
                        break ;
                        default:
                        $.each( _ret_pts, function( _i, _fp_chunk ) { if ( _fp_chunk[2].strcmp( _fp_def ) ) _start_pt = read_2D_point( _fp_chunk[0].real, _fp_chunk[0].imag ) ; } ) ;
                        if ( is_point( _start_pt ) )
                        {
-                           circles_lib_output( _out_channel, DISPATCH_INFO, "Start point has been taken from the "+_fp_def+" fixed", _par_1, _cmd_tag );
-                           circles_lib_output( _out_channel, DISPATCH_INFO, "point of the Mobius map of word '"+_word+"'", _par_1, _cmd_tag );
-                           circles_lib_output( _out_channel, DISPATCH_INFO, "Now set to " + _start_pt.output( "cartesian" ), _par_1, _cmd_tag );
-                           circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_INFO, "Start point has been taken from the "+_fp_def+" fixed", _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_INFO, "point of the Mobius map of word '"+_word+"'", _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_INFO, "Now set to " + _start_pt.output( "cartesian" ), _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
                        }
                        else
                        {
-                           circles_lib_output( _out_channel, DISPATCH_WARNING, "No "+_fp_def+" fixed point has been detected for the Mobius map of word '"+_word+"'", _par_1, _cmd_tag );
-                           circles_lib_output( _out_channel, DISPATCH_WARNING, "The computation of the displaced set has been halted", _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_WARNING, "No "+_fp_def+" fixed point has been detected for the Mobius map of word '"+_word+"'", _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_WARNING, "The computation of the displaced set has been halted", _par_1, _cmd_tag );
                        }
                        break ;
                    }
@@ -374,7 +374,7 @@ function circles_terminal_cmd_word()
                 else if ( is_point( _params_assoc_array['pts'][0] ) )
                 {
                    _start_pt = _params_assoc_array['pts'][0] ;
-                   circles_lib_output( _out_channel, DISPATCH_INFO, "Start point is " + _start_pt.output( "cartesian" ), _par_1, _cmd_tag );
+                   circles_lib_output( _output_channel, DISPATCH_INFO, "Start point is " + _start_pt.output( "cartesian" ), _par_1, _cmd_tag );
                 }
                   
                 if ( is_point( _start_pt ) )
@@ -393,7 +393,7 @@ function circles_terminal_cmd_word()
                    if ( _params_assoc_array["copy"] ) _glob_storage["points"]["displacedset"] = [] ;
 
                    if ( _params_assoc_array["markpoints"] )
-                   circles_lib_output( _out_channel, DISPATCH_INFO, "'Markpoint' flag is active", _par_1, _cmd_tag );
+                   circles_lib_output( _output_channel, DISPATCH_INFO, "'Markpoint' flag is active", _par_1, _cmd_tag );
                       
                    for( var _w = 0 ; _w < _word.length ; _w++ )
                    {
@@ -431,7 +431,7 @@ function circles_terminal_cmd_word()
                    if ( _params_assoc_array["copy"] )
                    {
                    		_glob_storage["points"]["displacedset"] = _displaced_set.clone() ;
-                      circles_lib_output( _out_channel, DISPATCH_INFO, "The displaced set has been copied into the storage space at 'points@displacedset'", _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, "The displaced set has been copied into the storage space at 'points@displacedset'", _par_1, _cmd_tag );
 									 }
                 }
              }
@@ -463,7 +463,7 @@ function circles_terminal_cmd_word()
                 var _unpacked_ref = _params_assoc_array['objectref'].split( "@" );
                 var _index = Math.max( 0, safe_int( _unpacked_ref[0], 0 ) );
                 var _object_entity = ( _unpacked_ref[1] + "" ).trim().toLowerCase();
-                var _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _out_channel );
+                var _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _output_channel );
                 if ( !is_mobius_map( _mm ) )
                 {
                    _b_fail = YES, _error_str = "System returned an invalid Mobius map: check the seeds first" ;
@@ -653,7 +653,7 @@ function circles_terminal_cmd_word()
                                   {
                                       var p = ( _word.split( "/" ) )[0], q = ( _word.split( "/" ) )[1];
                                       var _resolved_pq_word = circles_lib_word_pq_translate( p, q );
-                                      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "input p/q word '<lightblue>"+_word+"</lightblue>' resolved into '<snow>"+_resolved_pq_word+"</snow>'", _par_1, _cmd_tag );
+                                      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "input p/q word '<lightblue>"+_word+"</lightblue>' resolved into '<snow>"+_resolved_pq_word+"</snow>'", _par_1, _cmd_tag );
                                       _word = _resolved_pq_word
                                   }
                                   else
@@ -662,12 +662,12 @@ function circles_terminal_cmd_word()
                                       var _solved_repetend = ( _is_repetend ) ? circles_lib_repetends_resolve( _word ) : _word ;
                                       if ( _is_repetend )
                                       {
-                                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Detected repetend '<lightblue>"+_word+"</lightblue>' resolved into '<snow>"+_solved_repetend+"</snow>'", _par_1, _cmd_tag );
+                                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Detected repetend '<lightblue>"+_word+"</lightblue>' resolved into '<snow>"+_solved_repetend+"</snow>'", _par_1, _cmd_tag );
                                            _word = _solved_repetend ;
                                       }
                                   }
                                   
-                                  _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _out_channel );
+                                  _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _output_channel );
                                   
                                   if ( is_mobius_map( _mm ) )
                                   {
@@ -695,29 +695,29 @@ function circles_terminal_cmd_word()
                                           _glob_gens_array.push( new item_obj( _mm, _cc, _sc, circles_lib_word_inverse_get( _word ), 0,
                                         		                                         _draw, _drawcolor, _fill, _fillcolor,
                                         		                                         _word, 1, ITEM_TYPE_MOBIUS ) )
-                                           circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Generator has been computed from word '"+_word+"' with success", _par_1, _cmd_tag );
-                                           circles_lib_output( _out_channel, DISPATCH_INFO, "Inverse generator has been also computed with success", _par_1, _cmd_tag );
+                                           circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Generator has been computed from word '"+_word+"' with success", _par_1, _cmd_tag );
+                                           circles_lib_output( _output_channel, DISPATCH_INFO, "Inverse generator has been also computed with success", _par_1, _cmd_tag );
                                            
                                            _added += 2 ;
                                            _glob_gens_set_to_init = YES ;
                                       }
-                                      else circles_lib_output( _out_channel, DISPATCH_WARNING, "The word '"+_word+"' or '"+circles_lib_word_inverse_get(_word )+"' is already included in the generators set", _par_1, _cmd_tag );
+                                      else circles_lib_output( _output_channel, DISPATCH_WARNING, "The word '"+_word+"' or '"+circles_lib_word_inverse_get(_word )+"' is already included in the generators set", _par_1, _cmd_tag );
                                   }
-                                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to compute generator from word '"+_input_word+"'", _par_1, _cmd_tag );
+                                  else circles_lib_output( _output_channel, DISPATCH_WARNING, "Fail to compute generator from word '"+_input_word+"'", _par_1, _cmd_tag );
                               } );
                               
                         var _gg_n = circles_lib_count_gens(), _sch_n = circles_lib_count_gens_set_model();
                         if ( _gg_n > 0 && _added > 0 )
                         {
-                             circles_lib_output( _out_channel, DISPATCH_INFO, _added + " gen"+(_added!=1?'s':'')+" ha"+(_added!=1?'ve':'s')+" been added to the generators set", _par_1, _cmd_tag );
-                             circles_lib_output( _out_channel, DISPATCH_INFO, "The generators set includes " + _sch_n + " elements now", _par_1, _cmd_tag );
+                             circles_lib_output( _output_channel, DISPATCH_INFO, _added + " gen"+(_added!=1?'s':'')+" ha"+(_added!=1?'ve':'s')+" been added to the generators set", _par_1, _cmd_tag );
+                             circles_lib_output( _output_channel, DISPATCH_INFO, "The generators set includes " + _sch_n + " elements now", _par_1, _cmd_tag );
                              if ( _glob_gens_set_to_init )
                              {
-                                 circles_lib_output( _out_channel, DISPATCH_WARNING, "", _par_1, _cmd_tag );
-                                 circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning !"+_glob_crlf+"The generators set needs to be init", _par_1, _cmd_tag );
+                                 circles_lib_output( _output_channel, DISPATCH_WARNING, "", _par_1, _cmd_tag );
+                                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning !"+_glob_crlf+"The generators set needs to be init", _par_1, _cmd_tag );
                              }
                         }
-                        else if ( _added == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "No gen has been added: the generators set is empty", _par_1, _cmd_tag );
+                        else if ( _added == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "No gen has been added: the generators set is empty", _par_1, _cmd_tag );
                   }
              }
              break ;
@@ -760,7 +760,7 @@ function circles_terminal_cmd_word()
                               }
 
                               var _out = "<lightblue>"+$.terminal.escape_brackets( _original )+"</lightblue> resolved into <lightblue>"+_word+"</lightblue>" ;
-                              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _out, _par_1, _cmd_tag );
+                              circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _out, _par_1, _cmd_tag );
                               if ( _params_assoc_array['extras'].includes( "rle" ) && _case.is_one_of( 2, 3 ) )
                               {
 		                              _lengths_array = circles_lib_word_pq_find_powers( _str[0], _str[1] );
@@ -775,10 +775,10 @@ function circles_terminal_cmd_word()
 															if ( _params_assoc_array['extras'].includes( "trace" ) )
 															{
 																	 if ( _sd_n == 0 )
-                                   circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't compute trace: missing registered seeds", _par_1, _cmd_tag );
+                                   circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't compute trace: missing registered seeds", _par_1, _cmd_tag );
 																	 else
 																	 {
-		                                   _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _out_channel );
+		                                   _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _output_channel );
 		                                   if ( is_mobius_map( _mm ) )
 		                                   {
 		                                        _tr = _mm.trace();
@@ -790,10 +790,10 @@ function circles_terminal_cmd_word()
 																						else
 																						{
 				                                        _out_str = is_complex( _tr ) ? "Trace of '"+$.terminal.escape_brackets(_word)+"' is " + _tr.formula(YES,YES,_round_to) : "Can't compute trace: word '"+_word+"' returned error" ;
-				                                        circles_lib_output( _out_channel, is_complex( _tr ) ? DISPATCH_INFO : DISPATCH_WARNING, _out_str, _par_1, _cmd_tag );
+				                                        circles_lib_output( _output_channel, is_complex( _tr ) ? DISPATCH_INFO : DISPATCH_WARNING, _out_str, _par_1, _cmd_tag );
 																						}
 		                                   }
-		                                   else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't compute trace: word '"+_word+"' returned error", _par_1, _cmd_tag );
+		                                   else circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't compute trace: word '"+_word+"' returned error", _par_1, _cmd_tag );
 																	 }
 															}
                           } );
@@ -818,40 +818,40 @@ function circles_terminal_cmd_word()
              }
              else
              {
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "Testing the input word '"+_word+"'", _par_1, _cmd_tag );
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "It is "+_word.length+" char"+( _word.length == 1 ? "" : "s" )+" long", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "Testing the input word '"+_word+"'", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "It is "+_word.length+" char"+( _word.length == 1 ? "" : "s" )+" long", _par_1, _cmd_tag );
                   var _is_cyclically_reduced = circles_lib_word_is_cyclically_reduced( _word );
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "It is "+( !_is_cyclically_reduced ? "not " : "" )+"cyclically reduced", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "It is "+( !_is_cyclically_reduced ? "not " : "" )+"cyclically reduced", _par_1, _cmd_tag );
                   var _is_reduced = circles_lib_word_is_reduced( _word, _glob_alphabet );
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "It is "+( !_is_reduced ? "not " : "" )+"reduced", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "It is "+( !_is_reduced ? "not " : "" )+"reduced", _par_1, _cmd_tag );
                   
                   if ( !_is_reduced )
                   {
 										  var _reduced_word = circles_lib_word_reduce( _word, _glob_alphabet );
-		                  circles_lib_output( _out_channel, DISPATCH_INFO, "It can be reduced to '"+_reduced_word+"'", _par_1, _cmd_tag );
-		                  circles_lib_output( _out_channel, DISPATCH_INFO, "The resulting reduced word '"+_reduced_word+"' is "+_reduced_word.length+" char"+( _reduced_word.length == 1 ? "" : "s" )+" long", _par_1, _cmd_tag );
+		                  circles_lib_output( _output_channel, DISPATCH_INFO, "It can be reduced to '"+_reduced_word+"'", _par_1, _cmd_tag );
+		                  circles_lib_output( _output_channel, DISPATCH_INFO, "The resulting reduced word '"+_reduced_word+"' is "+_reduced_word.length+" char"+( _reduced_word.length == 1 ? "" : "s" )+" long", _par_1, _cmd_tag );
 		                  _word = _reduced_word ;
 									}
 									
-									var _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _out_channel ) ;
+									var _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _output_channel ) ;
                   var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-									var FF = circles_lib_word_fixedpoints_get( _word, _items_array, NO, _out_channel ) ;
+									var FF = circles_lib_word_fixedpoints_get( _word, _items_array, NO, _output_channel ) ;
 									
-                  circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf.repeat(2), _par_1, _cmd_tag );
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "This is the resulting Mobius map from word '"+_word+"'", _par_1, _cmd_tag );
-                  circles_lib_output( _out_channel, DISPATCH_INFO, _mm.output( _glob_crlf ), _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, _glob_crlf.repeat(2), _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "This is the resulting Mobius map from word '"+_word+"'", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, _mm.output( _glob_crlf ), _par_1, _cmd_tag );
 									
 									var _ret_id = FF[0], _ret_pts = FF[1] ;
 									if ( _ret_id == YES )
 									{
-			                 circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf.repeat(2), _par_1, _cmd_tag );
+			                 circles_lib_output( _output_channel, DISPATCH_INFO, _glob_crlf.repeat(2), _par_1, _cmd_tag );
 											 var _n_pts = safe_size( _ret_pts, 0 ) ;
-		                   circles_lib_output( _out_channel, DISPATCH_INFO, "Found " + _n_pts + " fixed point" + ( _n_pts == 1 ? "" : "s" ), _par_1, _cmd_tag );
+		                   circles_lib_output( _output_channel, DISPATCH_INFO, "Found " + _n_pts + " fixed point" + ( _n_pts == 1 ? "" : "s" ), _par_1, _cmd_tag );
 											 $.each( _ret_pts,
 											 				 function( _i, _chunk )
 											 				 {
-																		circles_lib_output( _out_channel, DISPATCH_INFO, "Fixed point #" + ( _i + 1 ) + " - " + _chunk[2], _par_1, _cmd_tag );
-																		circles_lib_output( _out_channel, DISPATCH_INFO, _chunk[0].formula(YES,YES,_round_to), _par_1, _cmd_tag );
+																		circles_lib_output( _output_channel, DISPATCH_INFO, "Fixed point #" + ( _i + 1 ) + " - " + _chunk[2], _par_1, _cmd_tag );
+																		circles_lib_output( _output_channel, DISPATCH_INFO, _chunk[0].formula(YES,YES,_round_to), _par_1, _cmd_tag );
 															 }
 											 			 ) ;
 									}
@@ -876,35 +876,35 @@ function circles_terminal_cmd_word()
                                   if ( _is_rep == YES )
                                   {
                                        _rep_str = circles_lib_repetends_resolve( _symbol );
-                                       circles_lib_output( _out_channel, DISPATCH_INFO, "Detected repetend syntax in "+$.terminal.escape_brackets(_symbol)+": resolved to " + _rep_str, _par_1, _cmd_tag );
+                                       circles_lib_output( _output_channel, DISPATCH_INFO, "Detected repetend syntax in "+$.terminal.escape_brackets(_symbol)+": resolved to " + _rep_str, _par_1, _cmd_tag );
                                        _symbol = _rep_str ;
                                   }
 
                                   if ( circles_lib_word_check( _symbol, _alphabet ) )
                                   {
-                                      _mm = circles_lib_word_mobiusmap_get( _symbol, _glob_seeds_array, _out_channel );
+                                      _mm = circles_lib_word_mobiusmap_get( _symbol, _glob_seeds_array, _output_channel );
                                       if ( is_mobius_map( _mm ) )
                                       {
                                            _tr = _mm.trace();
                                            _out_str = ( is_complex( _tr ) ) ? "Trace of '"+$.terminal.escape_brackets(_symbol)+"' is " + _tr.formula(YES,YES,_round_to) : "Can't compute trace: word '"+_symbol+"' returned error" ;
-                                           circles_lib_output( _out_channel, is_complex( _tr ) ? DISPATCH_SUCCESS : DISPATCH_WARNING, _out_str, _par_1, _cmd_tag );
+                                           circles_lib_output( _output_channel, is_complex( _tr ) ? DISPATCH_SUCCESS : DISPATCH_WARNING, _out_str, _par_1, _cmd_tag );
                                       }
-                                      else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't compute trace: word '"+_symbol+"' returned error", _par_1, _cmd_tag );
+                                      else circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't compute trace: word '"+_symbol+"' returned error", _par_1, _cmd_tag );
                                   }
-                                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't compute trace: word '"+_symbol+"' does not match current alphabet ("+_alphabet.join(",")+")", _par_1, _cmd_tag );
+                                  else circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't compute trace: word '"+_symbol+"' does not match current alphabet ("+_alphabet.join(",")+")", _par_1, _cmd_tag );
                               }
                              );
                   }
              }
-             else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't compute trace: input is empty", _par_1, _cmd_tag );
+             else circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't compute trace: input is empty", _par_1, _cmd_tag );
              break ;
              case "track":
              var _bFOUND = 1 ;
              var _input_word = _params_assoc_array['word'][0], _symbol ;
              if ( _params_assoc_array['word'].length > 1 )
              {
-                 circles_lib_output( _out_channel, DISPATCH_WARNING, "Just one word can be tracked at once", _par_1, _cmd_tag );
-                 circles_lib_output( _out_channel, DISPATCH_INFO, "Now processing word '"+_input_word+"'", _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Just one word can be tracked at once", _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, "Now processing word '"+_input_word+"'", _par_1, _cmd_tag );
              }
              
              var _is_repetend = circles_lib_repetends_check_syntax( null, _input_word );
@@ -912,14 +912,14 @@ function circles_terminal_cmd_word()
              if ( _is_repetend )
              {
                  var _encoded = $.terminal.escape_brackets( _input_word ); 
-                 circles_lib_output( _out_channel, DISPATCH_INFO, "Detected repetend syntax in '"+_encoded+"'", _par_1, _cmd_tag );
-                 circles_lib_output( _out_channel, DISPATCH_INFO, "Resolved repetend '"+_encoded+"' into '"+_solved_repetend+"'", _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, "Detected repetend syntax in '"+_encoded+"'", _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, "Resolved repetend '"+_encoded+"' into '"+_solved_repetend+"'", _par_1, _cmd_tag );
              }
              
              var _check = circles_lib_word_check( _solved_repetend, _glob_alphabet );
              var _w_len = safe_size( _solved_repetend, 0 );
-             if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't track: the list of registered items is empty", _par_1, _cmd_tag );
-             else if ( _w_len == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't track: the input word is empty", _par_1, _cmd_tag );
+             if ( _sd_n == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't track: the list of registered items is empty", _par_1, _cmd_tag );
+             else if ( _w_len == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't track: the input word is empty", _par_1, _cmd_tag );
              else if ( safe_size( _glob_alphabet, 0 ) == 0 )
              {
                   _b_fail = YES, _error_str = "Missing alphabet: try init input seeds first" ;
@@ -949,11 +949,11 @@ function circles_terminal_cmd_word()
                        case "orbit":
                        if ( _glob_method == METHOD_INVERSION )
                        {
-                           var _ret_chunk = circles_lib_draw_word_inversion( _freedraw_canvas.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, null, YES, _input_word, YES, _out_channel );
+                           var _ret_chunk = circles_lib_draw_word_inversion( _freedraw_canvas.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, null, YES, _input_word, YES, _output_channel );
                            var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure - Err. 0.1" ;
-                               if ( _ret_id == 0 ) circles_lib_output( _out_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
-                               else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+                               if ( _ret_id == 0 ) circles_lib_output( _output_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
+                               else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                            var _ret_orbit = is_array( _ret_chunk ) ? _ret_chunk[2] : null ;
 
                            if ( _params_assoc_array['list'] && _ret_orbit != null )
@@ -967,8 +967,8 @@ function circles_terminal_cmd_word()
                                 var _out_file_txt = _o + " point" + ( ( _o != 1 ) ? "s" : "" ) + " tracked" + _glob_crlf ;
                                     _out_file_txt += _n_col + _real_col + _imag_col + _glob_crlf ;
 
-                                circles_lib_output( _out_channel, DISPATCH_INFO, _o + " point" + ( ( _o != 1 ) ? "s" : "" ) + " tracked", _par_1, _cmd_tag );
-                                circles_lib_output( _out_channel, DISPATCH_INFO, _n_col + _real_col + _imag_col + _type_col, _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_INFO, _o + " point" + ( ( _o != 1 ) ? "s" : "" ) + " tracked", _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_INFO, _n_col + _real_col + _imag_col + _type_col, _par_1, _cmd_tag );
                                 var _pt, _x, _y, _n ;
                                 for( var _i = 0 ; _i < _o ; _i++ )
                                 {
@@ -977,7 +977,7 @@ function circles_terminal_cmd_word()
                                      _x = _x.rpad( " ", _padding_len );
                                      _y = _y.rpad( " ", _padding_len );
                                      _out_file_txt += _n + _x + _y + _glob_crlf ;
-                                     circles_lib_output( _out_channel, DISPATCH_INFO, _n + _x + _y, _par_1, _cmd_tag );
+                                     circles_lib_output( _output_channel, DISPATCH_INFO, _n + _x + _y, _par_1, _cmd_tag );
                                 }
 
 				                        if ( _params_assoc_array['dump'] &&
@@ -996,7 +996,7 @@ function circles_terminal_cmd_word()
 																		{
 																				_b_fail = YES, _error_str = _ret_msg ;
 																		}
-																		else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+																		else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
 				                        }
                            }
                        }
@@ -1009,11 +1009,11 @@ function circles_terminal_cmd_word()
 													 																						YES, _start_x, _start_y,
                                                                       _input_word, YES, _params_assoc_array['connect'],
 																																			YES, _params_assoc_array['drawcolor'], _params_assoc_array['fillcolor'],
-                                                                      YES, _glob_terminal_silent, _glob_drawentity, _out_channel );
+                                                                      YES, _glob_terminal_silent, _glob_drawentity, _output_channel );
                            var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure - Err. 0.2" ;
-                               if ( _ret_id == 0 ) circles_lib_output( _out_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
-                               else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+                               if ( _ret_id == 0 ) circles_lib_output( _output_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
+                               else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                            var _ret_orbit = is_array( _ret_chunk ) ? _ret_chunk[2] : null ;
                            if ( _params_assoc_array['list'] && _ret_orbit != null )
                            {
@@ -1026,8 +1026,8 @@ function circles_terminal_cmd_word()
                                 var _out_file_txt = _o + " point" + ( ( _o != 1 ) ? "s" : "" ) + " tracked" + _glob_crlf ;
                                     _out_file_txt += _n_col + _real_col + _imag_col + _glob_crlf ;
 
-                                circles_lib_output( _out_channel, DISPATCH_INFO, _o + " point" + ( ( _o != 1 ) ? "s" : "" ) + " tracked", _par_1, _cmd_tag );
-                                circles_lib_output( _out_channel, DISPATCH_INFO, _n_col + _real_col + _imag_col, _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_INFO, _o + " point" + ( ( _o != 1 ) ? "s" : "" ) + " tracked", _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_INFO, _n_col + _real_col + _imag_col, _par_1, _cmd_tag );
                                 var _pt, _x, _y, _n ;
                                 for( var _i = 0 ; _i < _o ; _i++ )
                                 {
@@ -1037,7 +1037,7 @@ function circles_terminal_cmd_word()
                                      _x = _x.rpad( " ", _padding_len );
                                      _y = _y.rpad( " ", _padding_len );
 
-                                     circles_lib_output( _out_channel, DISPATCH_INFO, _n + _x + _y, _par_1, _cmd_tag );
+                                     circles_lib_output( _output_channel, DISPATCH_INFO, _n + _x + _y, _par_1, _cmd_tag );
                                      _out_file_txt += _n + _x + _y + _glob_crlf ;
                                 }
 
@@ -1055,18 +1055,18 @@ function circles_terminal_cmd_word()
                        break ;
                        case "fixedpoints":
                        var _ret = circles_lib_word_check( _input_word, _glob_alphabet );
-                       if ( _ret == CIRCLES_MISSING_ALPHABET ) circles_lib_output( _out_channel, DISPATCH_ERROR, "The input word does not match the current alphabet", _par_1, _cmd_tag );
-                       else if ( _ret == CIRCLES_MISSING_INPUT ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't perform this operation.\nPlease, input a word", _par_1, _cmd_tag );
+                       if ( _ret == CIRCLES_MISSING_ALPHABET ) circles_lib_output( _output_channel, DISPATCH_ERROR, "The input word does not match the current alphabet", _par_1, _cmd_tag );
+                       else if ( _ret == CIRCLES_MISSING_INPUT ) circles_lib_output( _output_channel, DISPATCH_ERROR, "Can't perform this operation.\nPlease, input a word", _par_1, _cmd_tag );
                        else
                        {
 					                  var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-                            var _ret_chunk = circles_lib_word_fixedpoints_get( _input_word, _items_array, _params_assoc_array['all'], _out_channel );
+                            var _ret_chunk = circles_lib_word_fixedpoints_get( _input_word, _items_array, _params_assoc_array['all'], _output_channel );
                             var _ret_id = safe_int( _ret_chunk[0], RET_ERROR );
                             var _ret_data = _ret_id == RET_ERROR ? null : _ret_chunk[1] ;
                             if ( _ret_data == null )
                             {
-                                 if ( _ret_data == CIRCLES_MISSING_ALPHABET ) circles_lib_output( _out_channel, DISPATCH_ERROR, "The input word does not match the current alphabet", _par_1, _cmd_tag );
-                                 else if ( _ret_data == CIRCLES_MISSING_INPUT ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't perform this operation.\nPlease, input a word", _par_1, _cmd_tag );
+                                 if ( _ret_data == CIRCLES_MISSING_ALPHABET ) circles_lib_output( _output_channel, DISPATCH_ERROR, "The input word does not match the current alphabet", _par_1, _cmd_tag );
+                                 else if ( _ret_data == CIRCLES_MISSING_INPUT ) circles_lib_output( _output_channel, DISPATCH_ERROR, "Can't perform this operation.\nPlease, input a word", _par_1, _cmd_tag );
                             }
                             else
                             {
@@ -1090,13 +1090,13 @@ function circles_terminal_cmd_word()
                                     if ( _is_repetend )
                                     {
                                         var _msg = "Repetend found: resolved to " + _input_word ;
-                                        circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                                        circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
                                         _out_file_txt += _msg ;
                                     }
 
                                     _out_file_txt += _header ;
 
-                                    if ( _params_assoc_array['list'] ) circles_lib_output( _out_channel, DISPATCH_INFO, _header, _par_1, _cmd_tag );
+                                    if ( _params_assoc_array['list'] ) circles_lib_output( _output_channel, DISPATCH_INFO, _header, _par_1, _cmd_tag );
 
                                     var _freedraw_context = _freedraw_canvas.getContext( _glob_canvas_ctx_2D_mode );
                                     var _chunk, _fp, startINDEX, _symbol, _inv_symbol, _fp_type ;
@@ -1141,7 +1141,7 @@ function circles_terminal_cmd_word()
                                          _out_file_txt += _list_entry ;
 
                                          if ( _params_assoc_array['list'] )
-                                         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _list_entry, _par_1, _cmd_tag );
+                                         circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _list_entry, _par_1, _cmd_tag );
                                     }
 
                                     if ( _params_assoc_array['dump_array'].length > 0 )
@@ -1177,8 +1177,8 @@ function circles_terminal_cmd_word()
                  if ( _params_assoc_array['treescan_trace'] == null ) _err_array.push( "Missing 'trace' value for treescan" );
              }
 
-             if ( _out_channel != OUTPUT_TERMINAL )
-                  circles_lib_output( _out_channel, DISPATCH_WARNING, "Word treescan runs in console mode exclusively", _par_1, _cmd_tag );
+             if ( _output_channel != OUTPUT_TERMINAL )
+                  circles_lib_output( _output_channel, DISPATCH_WARNING, "Word treescan runs in console mode exclusively", _par_1, _cmd_tag );
              else if ( _err_array.length > 0 )
              {
                   _b_fail = YES, _error_str = _err_array.join( _glob_crlf );
@@ -1217,20 +1217,20 @@ function circles_terminal_cmd_word()
                        _inverse_symbols.push( _glob_seeds_array[_i].inverse_symbol );
                   }
 
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "Resuming input params", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "Resuming input params", _par_1, _cmd_tag );
                   if ( _startpt != null )
-                  circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>Start point</snow> <lightblue>"+_startpt+"</lightblue>", _par_1, _cmd_tag );
-                  circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>Start word</snow> <lightblue>"+_startword+"</lightblue>", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>Start point</snow> <lightblue>"+_startpt+"</lightblue>", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>Start word</snow> <lightblue>"+_startword+"</lightblue>", _par_1, _cmd_tag );
                   if ( _tolerance != null )
-                  circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>Tolerance</snow> <lightblue>"+_tolerance+"</lightblue>", _par_1, _cmd_tag );
-                  circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>Depth</snow> <lightblue>"+( _depth == UNDET ? "Loop" : _depth )+"</lightblue>", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>Tolerance</snow> <lightblue>"+_tolerance+"</lightblue>", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>Depth</snow> <lightblue>"+( _depth == UNDET ? "Loop" : _depth )+"</lightblue>", _par_1, _cmd_tag );
                   if ( _trace != null )
-                  circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>Trace</snow> <lightblue>"+_trace+"</lightblue>", _par_1, _cmd_tag );
-                  if ( _depth == UNDET ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Looping mode activated: type 'stop' to break the tree scan running", _par_1, _cmd_tag );
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "Treescan start ...", _par_1, _cmd_tag );
-                  circles_lib_output( _out_channel, DISPATCH_WARNING, "Type 'stop' to terminate this process", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>Trace</snow> <lightblue>"+_trace+"</lightblue>", _par_1, _cmd_tag );
+                  if ( _depth == UNDET ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Looping mode activated: type 'stop' to break the tree scan running", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "Treescan start ...", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_WARNING, "Type 'stop' to terminate this process", _par_1, _cmd_tag );
                   if ( _params_assoc_array["copy"] && _params_assoc_array['service'].stricmp( "orbit" ) )
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "Copy option unavailable for 'orbit' service", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "Copy option unavailable for 'orbit' service", _par_1, _cmd_tag );
 
                   var JS_FOLDER_COMPONENTS = "code/js/components/" ;
                   var MULTITHREAD_FOLDER = JS_FOLDER_COMPONENTS+"multi.threading/cmds.support/treescan/" ;
@@ -1268,7 +1268,7 @@ function circles_terminal_cmd_word()
 		                                               ] );
 		
 		                  // feed some input vars
-		                  _glob_inline_worker.init_vars( { out_channel : _out_channel,
+		                  _glob_inline_worker.init_vars( { out_channel : _output_channel,
 		                                   param_01 : _par_1,
 		                                   seeds: _glob_seeds_array.clone(),
 		                                   startword : _startword,
@@ -1297,7 +1297,7 @@ function circles_terminal_cmd_word()
          }
      }
      
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

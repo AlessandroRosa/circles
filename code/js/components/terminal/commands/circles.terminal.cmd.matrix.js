@@ -2,14 +2,14 @@ function circles_terminal_cmd_matrix()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -22,7 +22,7 @@ function circles_terminal_cmd_matrix()
      var _fn_ret_val = null ;
      var _zero = new complex( 0, 0 ), _unit_real = new complex( 1, 0 ), _unit_imag = new complex( 0, 1 );
 
-     _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+     _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
      _params_assoc_array['help'] = NO ;
      _params_assoc_array['keywords'] = NO ;
      _params_assoc_array['all'] = NO ;
@@ -46,7 +46,7 @@ function circles_terminal_cmd_matrix()
                                             "negative", "normalize", "sub", "prod", "pull", "trace", "transpose",
                                             "html", "help"
 																					);
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -74,12 +74,12 @@ function circles_terminal_cmd_matrix()
                  if ( _p <= 0 )
                  {
                     _p = _glob_accuracy ;
-                    circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
                  }
                  else if ( _p > DEFAULT_MAX_ACCURACY )
                  {
                     _p = _glob_accuracy ;
-                    circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
                  }
                    
                  _params_assoc_array['roundto'] = _p ;
@@ -98,7 +98,7 @@ function circles_terminal_cmd_matrix()
                                                                    "add", "prod", "sub", "div",
                                                                    "determinant", "trace", "power", "pull" ) )
               {
-                  if( !circles_terminal_cmd_matrix_parse_str( _p, _params_assoc_array, _out_channel, _par_1 ) )
+                  if( !circles_terminal_cmd_matrix_parse_str( _p, _params_assoc_array, _output_channel, _par_1 ) )
                   {
                       _b_fail = YES, _error_str = "Invalid input param '"+_p+"' for "+_params_assoc_array['action']+" action"  ;
                   }
@@ -109,15 +109,15 @@ function circles_terminal_cmd_matrix()
               }
          }
 
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_b_fail )
@@ -130,7 +130,7 @@ function circles_terminal_cmd_matrix()
            switch( _action )
            {
                 case "release":
-                circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 case "adjoint":
                 case "conjugate":
@@ -178,9 +178,9 @@ function circles_terminal_cmd_matrix()
                                     _matrix.set_params( _mm_params );
 
                                     if ( !_params_assoc_array['silent'] )
-                                    circles_lib_output( _out_channel, DISPATCH_INFO, "Input entry #" + ( _i + 1 ) + _glob_crlf + _matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
+                                    circles_lib_output( _output_channel, DISPATCH_INFO, "Input entry #" + ( _i + 1 ) + _glob_crlf + _matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
                                     else
-                                    circles_lib_output( _out_channel, DISPATCH_INFO, "Elaborating input entry #" + ( _i + 1 ) + " : " + _dump_symbol, _par_1, _cmd_tag );
+                                    circles_lib_output( _output_channel, DISPATCH_INFO, "Elaborating input entry #" + ( _i + 1 ) + " : " + _dump_symbol, _par_1, _cmd_tag );
 
                                     switch( _action )
                                     {
@@ -215,7 +215,7 @@ function circles_terminal_cmd_matrix()
 																        default: break ;
                                     }
 
-                                    circles_lib_output( _out_channel, DISPATCH_WARNING, _ret_action_label+" of entry #" + ( _i + 1 ) + " is " + _glob_crlf + _ret_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
+                                    circles_lib_output( _output_channel, DISPATCH_WARNING, _ret_action_label+" of entry #" + ( _i + 1 ) + " is " + _glob_crlf + _ret_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
 
                                     if ( _params_assoc_array['dump'] )
                                     {
@@ -231,30 +231,30 @@ function circles_terminal_cmd_matrix()
                                                        {
                                                             _glob_seeds_array[_mm_index].map.set_params( _ret_matrix.array() );
                                                             _glob_items_to_init = YES, _glob_init_mask = INIT_FROM_MAPS | _elements_init ;
-                                                            circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _out_channel );
-                                                            var _ret_chunk = circles_lib_items_init( null, NO, NO, _glob_init_mask, NO, NO, _out_channel );
+                                                            circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _output_channel );
+                                                            var _ret_chunk = circles_lib_items_init( null, NO, NO, _glob_init_mask, NO, NO, _output_channel );
                                                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                                                             var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "57Unknown error" ;
                                                             if ( _ret_id == RET_OK )
                                                             {
                                                                 $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
                                                                 $('[id$=renderBTN]').css('color',COLOR_ERROR) ;
-                                                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Dumping "+_ret_action_label+" matrix into gen '"+_dump_symbol+"'", _par_1, _cmd_tag );
+                                                                circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Dumping "+_ret_action_label+" matrix into gen '"+_dump_symbol+"'", _par_1, _cmd_tag );
                                                             }
                                                             else
                                                             {
                                                                 _b_fail = YES, _error_str = _ret_msg ;
                                                             }
                                                        }
-                                                       else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it does not refer to any registered map", _par_1, _cmd_tag );
+                                                       else circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it does not refer to any registered map", _par_1, _cmd_tag );
                                                   }
-                                                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it must be one letter long", _par_1, _cmd_tag );
+                                                  else circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it must be one letter long", _par_1, _cmd_tag );
                                              }
-                                             else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it must be of string type", _par_1, _cmd_tag );
+                                             else circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it must be of string type", _par_1, _cmd_tag );
                                         }
                                     }
                                 }
-                                else circles_lib_output( _out_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
+                                else circles_lib_output( _output_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
                             }
                           );
                 }
@@ -319,7 +319,7 @@ function circles_terminal_cmd_matrix()
                                        }
 
                                        if ( _i > 0 )
-                                       circles_lib_output( _out_channel, DISPATCH_INFO, "Performing scalar "+_action_str+" by '"+_original_str+"'", _par_1, _cmd_tag );
+                                       circles_lib_output( _output_channel, DISPATCH_INFO, "Performing scalar "+_action_str+" by '"+_original_str+"'", _par_1, _cmd_tag );
                                   }
                                   else
                                   {
@@ -362,15 +362,15 @@ function circles_terminal_cmd_matrix()
                                           }
                                           
                                           if ( _i > 0 )
-                                          circles_lib_output( _out_channel, DISPATCH_INFO, "Performing matrix "+_action_str, _par_1, _cmd_tag );
+                                          circles_lib_output( _output_channel, DISPATCH_INFO, "Performing matrix "+_action_str, _par_1, _cmd_tag );
                                       }
-                                      else circles_lib_output( _out_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
+                                      else circles_lib_output( _output_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
                                   }
                             }
                           );
 
                     if ( is_complex_matrix( _ret_matrix ) )
-                    circles_lib_output( _out_channel, DISPATCH_INFO, "Result from matrix "+_action_str+" is " + _glob_crlf + _ret_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_INFO, "Result from matrix "+_action_str+" is " + _glob_crlf + _ret_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
                     else
                     {
                         _b_fail = YES, _error_str = "Error detected during matrix "+_action_str+": check input maps" ;
@@ -383,7 +383,7 @@ function circles_terminal_cmd_matrix()
                          if ( _dump_symbol == UNDET )
                          {
                              _dump_symbol = _params_assoc_array['dump_array'][0] ;
-                             circles_lib_output( _out_channel, DISPATCH_WARNING, "Only one destination symbol can be input, thus '"+_dump_symbol+"' is assumed", _par_1, _cmd_tag );
+                             circles_lib_output( _output_channel, DISPATCH_WARNING, "Only one destination symbol can be input, thus '"+_dump_symbol+"' is assumed", _par_1, _cmd_tag );
                          }
 
                          if ( _dump_symbol != null )
@@ -398,28 +398,28 @@ function circles_terminal_cmd_matrix()
                                        {
                                             _glob_seeds_array[_mm_index].map.set_params( _ret_matrix.array() );
                                             _glob_items_to_init = YES, _glob_init_mask = INIT_FROM_MAPS | _elements_init ;
-                                            circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _out_channel );
-                                            var _ret_chunk = circles_lib_items_init( null, NO, NO, _glob_init_mask, NO, NO, _out_channel );
+                                            circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _output_channel );
+                                            var _ret_chunk = circles_lib_items_init( null, NO, NO, _glob_init_mask, NO, NO, _output_channel );
                                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                                             var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "58Unknown error" ;
                                             if ( _ret_id == RET_OK )
                                             {
                                                 $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
                                                 $('[id$=renderBTN]').css('color',COLOR_ERROR) ;
-                                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Dumping matrix "+_action+" into gen '"+_dump_symbol+"'", _par_1, _cmd_tag );
+                                                circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Dumping matrix "+_action+" into gen '"+_dump_symbol+"'", _par_1, _cmd_tag );
                                             }
                                             else
                                             {
                                                 _b_fail = YES, _error_str = _ret_msg ;
                                             }
                                        }
-                                       else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it does not refer to any registered map", _par_1, _cmd_tag );
+                                       else circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it does not refer to any registered map", _par_1, _cmd_tag );
                                    }
-                                   else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it must be one letter long", _par_1, _cmd_tag );
+                                   else circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it must be one letter long", _par_1, _cmd_tag );
                               }
-                              else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it must be of string type", _par_1, _cmd_tag );
+                              else circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it must be of string type", _par_1, _cmd_tag );
                          }
-                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing destination map tag", _par_1, _cmd_tag );
+                         else circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing destination map tag", _par_1, _cmd_tag );
                     }
                 }
                 break ;
@@ -454,9 +454,9 @@ function circles_terminal_cmd_matrix()
                                   _rows = Math.ceil( safe_size( _mm_params, 0 ) / 2 );
                                   _matrix = new complex_matrix( _rows, _rows ); // square matrix
                                   _matrix.set_params( _mm_params );
-                                  circles_terminal_cmd_matrix_check_str( _input, _matrix, _out_channel, _par_1, _cmd_tag );
+                                  circles_terminal_cmd_matrix_check_str( _input, _matrix, _output_channel, _par_1, _cmd_tag );
                                }
-                               else circles_lib_output( _out_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
+                               else circles_lib_output( _output_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
                             }
                           );
                 }
@@ -500,9 +500,9 @@ function circles_terminal_cmd_matrix()
                                     }
                                     
                                     // perform matrix action here
-                                    circles_lib_output( _out_channel, DISPATCH_WARNING, _action + " of map '"+_input+"' is " + _ret_value.formula(YES,YES,_round_to), _par_1, _cmd_tag );
+                                    circles_lib_output( _output_channel, DISPATCH_WARNING, _action + " of map '"+_input+"' is " + _ret_value.formula(YES,YES,_round_to), _par_1, _cmd_tag );
                                 }
-                                else circles_lib_output( _out_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
+                                else circles_lib_output( _output_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
                             }
                           );
                 }
@@ -540,7 +540,7 @@ function circles_terminal_cmd_matrix()
                                   _matrix = new complex_matrix( _rows, _rows ); // square matrix
                                   _matrix.set_params( _mm_params );
                                   _glob_storage['matrix'].push( _matrix.copy() );
-                                  circles_lib_output( _out_channel, DISPATCH_INFO, "Map '"+_input+"' stored into the storage space (subset 'matrix')", _par_1, _cmd_tag );
+                                  circles_lib_output( _output_channel, DISPATCH_INFO, "Map '"+_input+"' stored into the storage space (subset 'matrix')", _par_1, _cmd_tag );
                                }
                             }
                           );
@@ -557,51 +557,51 @@ function circles_terminal_cmd_matrix()
          _b_fail = YES, _error_str = "Missing input params" ;
    	 }
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
 
-function circles_terminal_cmd_matrix_check_str( _input_str, _input_matrix, _out_channel, _par_1 )
+function circles_terminal_cmd_matrix_check_str( _input_str, _input_matrix, _output_channel, _par_1 )
 {
      if ( is_complex_matrix( _input_matrix ) )
      {
-          circles_lib_output( _out_channel, DISPATCH_INFO, "Checking matrix '"+_input_str+"'", _par_1, _cmd_tag );
-          circles_lib_output( _out_channel, DISPATCH_INFO, _input_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
-          if ( _input_matrix.is_logical_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is an identity matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_row_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a row matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_column_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a column matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_square_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a square matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_rectangular_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a rectangular matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_symmetric_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a symmetric matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_skewsymmetric_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a skew symmetric matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_hermitian_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a hermitian matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_antihermitian_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a anti-hermitian matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_involutive_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a involutive matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_orthogonal_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a orthogonal matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_normal_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a normal matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_zero_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a zero matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_identity_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a boolean matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_diagonal_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a diagonal matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_antidiagonal_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a anti-diagonal matrix", _par_1, _cmd_tag );
-          if ( _input_matrix.is_scalar_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a scalar matrix", _par_1, _cmd_tag );
+          circles_lib_output( _output_channel, DISPATCH_INFO, "Checking matrix '"+_input_str+"'", _par_1, _cmd_tag );
+          circles_lib_output( _output_channel, DISPATCH_INFO, _input_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
+          if ( _input_matrix.is_logical_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is an identity matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_row_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a row matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_column_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a column matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_square_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a square matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_rectangular_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a rectangular matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_symmetric_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a symmetric matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_skewsymmetric_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a skew symmetric matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_hermitian_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a hermitian matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_antihermitian_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a anti-hermitian matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_involutive_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a involutive matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_orthogonal_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a orthogonal matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_normal_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a normal matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_zero_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a zero matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_identity_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a boolean matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_diagonal_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a diagonal matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_antidiagonal_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a anti-diagonal matrix", _par_1, _cmd_tag );
+          if ( _input_matrix.is_scalar_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a scalar matrix", _par_1, _cmd_tag );
      }
-     else circles_lib_output( _out_channel, DISPATCH_WARNING, "Detected invalid input matrix '"+_input_str+"' to check", _par_1, _cmd_tag );
+     else circles_lib_output( _output_channel, DISPATCH_WARNING, "Detected invalid input matrix '"+_input_str+"' to check", _par_1, _cmd_tag );
 }
 
-function circles_terminal_cmd_matrix_parse_str( _input_str, _params_assoc_array, _out_channel, _par_1 )
+function circles_terminal_cmd_matrix_parse_str( _input_str, _params_assoc_array, _output_channel, _par_1 )
 {
     if ( _input_str.testME( _glob_complex_number_regex_pattern ) ||
          is_complex( _tmp = parse_complex_from_string( circles_lib_math_parse_formula( _input_str ) ) ) )
     {
          _params_assoc_array['complex'].push( _input_str );
-         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>"+_input_str + "</yellow> <greenshock>has been parsed as a complex number</greenshock>", _par_1, _cmd_tag );
+         circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<yellow>"+_input_str + "</yellow> <greenshock>has been parsed as a complex number</greenshock>", _par_1, _cmd_tag );
          return YES ;
     }
     else if ( safe_size( _input_str, 0 ) == 1 && _input_str.isAlpha() )
     {
         _params_assoc_array['symbols'].push( _input_str );
-        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>"+_input_str + "</yellow> <greenshock>has been parsed as map symbol</greenshock>", _par_1, _cmd_tag );
+        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<yellow>"+_input_str + "</yellow> <greenshock>has been parsed as map symbol</greenshock>", _par_1, _cmd_tag );
         return YES ;
     }
     else if ( _input_str.includes( "@" ) && _input_str.count( "@" ) == 1 )
@@ -617,18 +617,18 @@ function circles_terminal_cmd_matrix_parse_str( _input_str, _params_assoc_array,
              if ( is_complex_matrix( _data ) )
              {
                   _params_assoc_array['complex'].push( complex_matrix.array() );
-                  circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Stored matrix has been parsed with success", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Stored matrix has been parsed with success", _par_1, _cmd_tag );
              }
              else
              {
-                  circles_lib_output( _out_channel, DISPATCH_WARNING, "Data storage space ref '"+_input_index+"' is not a valid matrix", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_WARNING, "Data storage space ref '"+_input_index+"' is not a valid matrix", _par_1, _cmd_tag );
                   return NO ;             
              }
         }
         else
         {
-            if ( _mask & 1 == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Storage space reference does not point to 'matrix' storage", _par_1, _cmd_tag );
-            if ( _mask & 2 == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Storage space reference does not include a valid index", _par_1, _cmd_tag );
+            if ( _mask & 1 == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Storage space reference does not point to 'matrix' storage", _par_1, _cmd_tag );
+            if ( _mask & 2 == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Storage space reference does not include a valid index", _par_1, _cmd_tag );
             return NO ;
         }
     }
@@ -644,36 +644,36 @@ function circles_terminal_cmd_matrix_parse_str( _input_str, _params_assoc_array,
                     _a[ _i ] = circles_lib_math_parse_formula( _a[ _i ] );
                     if ( _a[ _i ] == null )
                     {
-                        circles_lib_output( _out_channel, DISPATCH_WARNING, _a[ _i ] + " can't be parsed as complex number", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_WARNING, _a[ _i ] + " can't be parsed as complex number", _par_1, _cmd_tag );
                         return NO ;
                     }
                     _a[ _i ] = parse_complex_from_string( _a[ _i ] + "" );
                     if ( _a[ _i ] == null )
                     {
-                        circles_lib_output( _out_channel, DISPATCH_WARNING, _a[ _i ] + " can't be parsed as complex number", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_WARNING, _a[ _i ] + " can't be parsed as complex number", _par_1, _cmd_tag );
                         return NO ;
                     }
                }
 
                _params_assoc_array['complex'].push( _a );
-               circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>"+_input_str + "</yellow> <greenshock>has been parsed as a matrix of complex entries</greenshock>", _par_1, _cmd_tag );
+               circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<yellow>"+_input_str + "</yellow> <greenshock>has been parsed as a matrix of complex entries</greenshock>", _par_1, _cmd_tag );
                return YES ;
             }
             else
             {
-               circles_lib_output( _out_channel, DISPATCH_WARNING, _input_str + " must include 4 entries separated by comma", _par_1, _cmd_tag );
+               circles_lib_output( _output_channel, DISPATCH_WARNING, _input_str + " must include 4 entries separated by comma", _par_1, _cmd_tag );
                return NO ;
             }
         }
         else
         {
-            circles_lib_output( _out_channel, DISPATCH_WARNING, _input_str + " must include 4 entries separated by comma", _par_1, _cmd_tag );
+            circles_lib_output( _output_channel, DISPATCH_WARNING, _input_str + " must include 4 entries separated by comma", _par_1, _cmd_tag );
             return NO ;
         }
     }
     else
     {
-        circles_lib_output( _out_channel, DISPATCH_WARNING, _input_str + " is invalid", _par_1, _cmd_tag );
+        circles_lib_output( _output_channel, DISPATCH_WARNING, _input_str + " is invalid", _par_1, _cmd_tag );
         return NO ;
     }
 }

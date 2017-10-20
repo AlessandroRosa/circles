@@ -2,14 +2,14 @@ function circles_terminal_cmd_normalize()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0, _cnt = 0 ;
@@ -32,7 +32,7 @@ function circles_terminal_cmd_normalize()
          _params_assoc_array['dump_array'] = null ;
          _params_assoc_array['dump_operator_index'] = UNDET ;
          _params_assoc_array['help'] = NO ;
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['index'] = null ;
@@ -44,7 +44,7 @@ function circles_terminal_cmd_normalize()
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "show", "compute", "release", "help", "html" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -74,12 +74,12 @@ function circles_terminal_cmd_normalize()
               if ( _p <= 0 )
               {
                  _p = _glob_accuracy ;
-                 circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
               }
               else if ( _p > DEFAULT_MAX_ACCURACY )
               {
                  _p = _glob_accuracy ;
-                 circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
               }
                    
               _params_assoc_array['roundto'] = _p ;
@@ -94,15 +94,15 @@ function circles_terminal_cmd_normalize()
             }
          }
          
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_b_fail )
@@ -134,8 +134,8 @@ function circles_terminal_cmd_normalize()
               {
                   case "show":
                   var _sel_n = safe_size( _symbols_array, 0 );
-                  if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_action+": the list of registered items is empty", _par_1, _cmd_tag );
-                  else if ( _sel_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_action+": missing input symbols", _par_1, _cmd_tag );
+                  if ( _sd_n == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't "+_action+": the list of registered items is empty", _par_1, _cmd_tag );
+                  else if ( _sel_n == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't "+_action+": missing input symbols", _par_1, _cmd_tag );
                   else
                   {
                        var ITEM = null, _out_str = "", _index = UNFOUND ;
@@ -180,21 +180,21 @@ function circles_terminal_cmd_normalize()
                                 _header += new String( "<snow>Normalized</snow>" ) + ( new String() ).rpad( " ", 6 );
                                 _header += _glob_crlf ;
                                 _out_str = _header + _out_str ;
-                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _out_str, _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _out_str, _par_1, _cmd_tag );
                        }
                        else if ( !_b_fail && _action.stricmp( "compute" ) )
                        {
                             var _msg = "Normalization for " ;
                                 _msg += ( _params_assoc_array['all'] ) ? "all maps " : "maps " + _symbols_array.join( ", " ) + " " ;
                                 _msg += "have been computed with success" ;
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                        }
                   }
                   break ;
                   case "compute":
                   var _sel_n = safe_size( _symbols_array, 0 );
-                  if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_action+": the list of registered items is empty", _par_1, _cmd_tag );
-                  else if ( _sel_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_action+": missing input symbols", _par_1, _cmd_tag );
+                  if ( _sd_n == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't "+_action+": the list of registered items is empty", _par_1, _cmd_tag );
+                  else if ( _sel_n == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't "+_action+": missing input symbols", _par_1, _cmd_tag );
                   else
                   {
                        var _prompt_question = "Confirm to normalize "+( ( _sel_n == 1 && _all == 0 ) ? "this map" : ( ( _all ) ? "all maps" : "these maps" ) )+"? " ;
@@ -213,7 +213,7 @@ function circles_terminal_cmd_normalize()
                                      {
                                          _items_array[_i].map.init_from_obj( ITEM.map );
                                          _check = _items_array[_i].map.is_normalized();
-                                         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Attempting to normalize map '"+ITEM.symbol+"'</lightgray> " + ( _check ? "<green>success</green>" : "<red>failed</red>" ), _par_1, _cmd_tag );
+                                         circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Attempting to normalize map '"+ITEM.symbol+"'</lightgray> " + ( _check ? "<green>success</green>" : "<red>failed</red>" ), _par_1, _cmd_tag );
                                      }
                                 }
                                 else
@@ -232,11 +232,11 @@ function circles_terminal_cmd_normalize()
 						             	_params_array['promptquestion'] = _prompt_question ;
 						             	_params_array['yes_fn'] = function() { _normalize_maps( _symbols_array ); }
 						             	_params_array['ifquestiondisabled_fn'] = function() { _normalize_maps( _symbols_array ); }
-						          circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+						          circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                   }
                   break ;
                   case "release":
-                  circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
                   default:
                   _b_fail = YES, _error_str = "Missing input action" ;
@@ -250,7 +250,7 @@ function circles_terminal_cmd_normalize()
          _error_str = "Missing input params" ;
      }
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

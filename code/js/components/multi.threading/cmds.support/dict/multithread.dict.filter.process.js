@@ -1,6 +1,6 @@
 function multithread_dict_process()
 {
-     var _out_channel = _glob_inline_workers_input_data.out_channel ;
+     var _output_channel = _glob_inline_workers_input_data.out_channel ;
      var _dict_array = _glob_inline_workers_input_data.dict ;
      var _length_filter = _glob_inline_workers_input_data.length_filter ;
      var _page_filter = _glob_inline_workers_input_data.page_filter ;
@@ -66,7 +66,7 @@ function multithread_dict_process()
                                           copy : _copy,
                                           dump : _dump,
                                           display : _display,
-                                          out_channel : _out_channel
+                                          out_channel : _output_channel
                                         }
                                 }
                               );
@@ -86,7 +86,7 @@ function multithread_dict_process()
                                       copy : _copy,
                                       dump : _dump,
                                       display : _display,
-                                      out_channel : _out_channel
+                                      out_channel : _output_channel
                                     }
                             }
                           );
@@ -98,5 +98,5 @@ function multithread_dict_process()
                                              dump : _dump,
                                              end_fn : _end_fn,
                                              dump_params : _dump_params,
-                                             out_channel : _out_channel } } );
+                                             out_channel : _output_channel } } );
 }

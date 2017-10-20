@@ -4,14 +4,14 @@ function circles_terminal_cmd_dg()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -28,7 +28,7 @@ function circles_terminal_cmd_dg()
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['action'] = "" ;
          _params_assoc_array['class'] = FN_DEF_NONE ;
@@ -50,7 +50,7 @@ function circles_terminal_cmd_dg()
                                             "inversion", "isometric", "release",
                                             "list", "rec", "refresh", "render",
                                             "save", "short", "show", "subgroup", "wplane", "zplane" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
@@ -65,12 +65,12 @@ function circles_terminal_cmd_dg()
                    if ( _p <= 0 )
                    {
                        _p = _glob_accuracy ;
-                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
                    }
                    else if ( _p > DEFAULT_MAX_ACCURACY )
                    {
                        _p = _glob_accuracy ;
-                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
                    }
                    
                    _params_assoc_array['roundto'] = _p ;
@@ -78,12 +78,12 @@ function circles_terminal_cmd_dg()
              else if ( _p.stricmp( "isometric" ) )
              {
                   _glob_drawentity = _params_assoc_array['drawentity'] = DRAWENTITY_ISOMETRIC_CIRCLE ;
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "Items will be associated to isometric circles", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "Items will be associated to isometric circles", _par_1, _cmd_tag );
              }
              else if ( _p.stricmp( "inversion" ) )
              {
                   _glob_drawentity = _params_assoc_array['drawentity'] = DRAWENTITY_INVERSION_CIRCLE ;
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "Items will be associated to inversion circles", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "Items will be associated to inversion circles", _par_1, _cmd_tag );
              }
              else if ( _p.is_one_of_i( "zplane", "wplane" ) )
              {
@@ -110,7 +110,7 @@ function circles_terminal_cmd_dg()
                    {
                         var _msg = "'Render' implies 'init', the latter service will be disabled" ;
                         _params_assoc_array['service'].delete_entry( "init" );
-                        circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
                    }
              }
              else if ( _params_assoc_array['action'].stricmp( "subgroup" ) &&
@@ -132,7 +132,7 @@ function circles_terminal_cmd_dg()
                    {
                         var _msg = "'Render' implies 'init', the latter service will be disabled" ;
                         _params_assoc_array['service'].delete_entry( "init" );
-                        circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
                    }
              }
              else if ( _p.includes_i( ":", "$" ) && !( _p.start_with_i( "map:" ) ) )
@@ -146,7 +146,7 @@ function circles_terminal_cmd_dg()
                    var _n = ( _p.includes_i( "," ) ) ? _p.split( "," ).length : 1 ;
                    if ( _n == 4 )
                    {
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "Detected input syntax for possible Mobius map", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input syntax for possible Mobius map", _par_1, _cmd_tag );
                         _params_assoc_array['class'] = FN_DEF_MOBIUS ;
                    }
                    var _p1 = _p.count( "(" ), _p2 = _p.count( ")" );
@@ -169,15 +169,15 @@ function circles_terminal_cmd_dg()
              }
          }
 
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( _params_assoc_array['service'].includes( "info", "show" ) ) // test if it includes both terms
@@ -208,7 +208,7 @@ function circles_terminal_cmd_dg()
                 {
                     function _call_group()
                     {
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "Overwriting current group maps", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_INFO, "Overwriting current group maps", _par_1, _cmd_tag );
                         var _error_append = "" ;
                         var _group_chunk = _glob_groups_table[_zero_based] ;
                         if ( _group_chunk != null )
@@ -217,13 +217,13 @@ function circles_terminal_cmd_dg()
                             var _n_seeds = safe_int( _group_chunk[1], 0 );
                             if ( _n_seeds > 0 && _n_seeds % 2 == 0 )
                             {
-                                circles_lib_output( _out_channel, DISPATCH_INFO, "Removing previous entries", _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_INFO, "Removing previous entries", _par_1, _cmd_tag );
                                 if ( circles_lib_count_seeds() > 0 )
                                 {
                                     _glob_seeds_array.flush();
                                     for( var _g = 0 ; _g < _n_seeds ; _g++ ) _glob_seeds_array.push( _seeds_array[_g] );
                                 }
-                                else circles_lib_output( _out_channel, DISPATCH_WARNING, "Operation aborted: can't remove previous entries", _par_1, _cmd_tag );
+                                else circles_lib_output( _output_channel, DISPATCH_WARNING, "Operation aborted: can't remove previous entries", _par_1, _cmd_tag );
                             }
                             else if ( _n_seeds == 0 ) _error_append = "Archival group data is empty" ;
                             else _error_append = "Invalid group entries number : " + _n_seeds ;
@@ -231,11 +231,11 @@ function circles_terminal_cmd_dg()
 
                         if ( circles_lib_count_seeds() > 0 && safe_size( _error_append, 0 ) == 0 )
                         {
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Current group has been called with success", _par_1, _cmd_tag );
-                            _kg_cmd_init( _par_1, _out_channel, _cmd_tag );
-                            if ( !_b_fail ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "All group members have been conjugated with success", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Current group has been called with success", _par_1, _cmd_tag );
+                            _kg_cmd_init( _par_1, _output_channel, _cmd_tag );
+                            if ( !_b_fail ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All group members have been conjugated with success", _par_1, _cmd_tag );
                         }
-                        else circles_lib_output( _out_channel, DISPATCH_ERROR, "Memory error: can't call input group" + ( _glob_crlf + _error_append ) , _par_1, _cmd_tag );
+                        else circles_lib_output( _output_channel, DISPATCH_ERROR, "Memory error: can't call input group" + ( _glob_crlf + _error_append ) , _par_1, _cmd_tag );
                     }
 
 						     		var _params_array = [] ;
@@ -244,12 +244,12 @@ function circles_terminal_cmd_dg()
 						     		 		_params_array['promptquestion'] = "Confirm to call the group #"+_index+" in ?" ;
 						     		 		_params_array['yes_fn'] = function() { _call_group(); }
 						     		 		_params_array['ifquestiondisabled_fn'] = function() { _call_group(); }
-					     		  circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+					     		  circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
                 case "clean":
                 var _len = safe_size( _glob_groups_table, 0 );
-                if ( _len == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "The groups list is already empty", _par_1, _cmd_tag );
+                if ( _len == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "The groups list is already empty", _par_1, _cmd_tag );
                 else
                 {
 						     		var _params_array = [] ;
@@ -257,7 +257,7 @@ function circles_terminal_cmd_dg()
 						     		 		_params_array['promptquestion'] = "Confirm to clean the whole groups list ?" ;
 						     		 		_params_array['yes_fn'] = function() { _glob_groups_table.flush(); }
 						     		 		_params_array['ifquestiondisabled_fn'] = function() { _glob_groups_table.flush(); }
-					     		  circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+					     		  circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
                 case "conjugate":
@@ -283,11 +283,11 @@ function circles_terminal_cmd_dg()
                 }
                 else
                 {
-                    circles_lib_output( _out_channel, DISPATCH_INFO, "Counting input maps: " + _maps_n, _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_INFO, "Counting input maps: " + _maps_n, _par_1, _cmd_tag );
                     $.each( _maps_ref,
                             function( _i, _map_tag )
                             {
-                                circles_lib_output( _out_channel, DISPATCH_INFO, "Candidate map #"+(_i+1)+" definition : '"+_map_tag+"'", _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_INFO, "Candidate map #"+(_i+1)+" definition : '"+_map_tag+"'", _par_1, _cmd_tag );
                                 var _chunk = clone( _glob_maps[ _map_tag ] );
                                     if ( safe_size( _chunk, 0 ) == 0 ) _chunk = null ;
                                 var _is_built_in = ( _chunk != null ) ? YES : NO ;
@@ -316,7 +316,7 @@ function circles_terminal_cmd_dg()
                         $.each( _maps_ref,
                                 function( _i, _map_tag )
                                 {
-                                    _ret_chunk = _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _par_1, _out_channel, _cmd_tag );
+                                    _ret_chunk = _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _par_1, _output_channel, _cmd_tag );
                                     if ( _ret_chunk[0] == RET_ERROR )
                                     {
                                        _b_fail = YES, _error_str = _ret_chunk[1] ;
@@ -344,7 +344,7 @@ function circles_terminal_cmd_dg()
                         var _old_n = safe_size( _glob_groups_table, 0 );
                         _glob_groups_table.remove( _zero_based, _zero_based );
                         var _new_n = safe_size( _glob_groups_table, 0 );
-                        if ( _new_n = _old_n - 1 ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Current group has been deleted with success", _par_1, _cmd_tag );
+                        if ( _new_n = _old_n - 1 ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Current group has been deleted with success", _par_1, _cmd_tag );
                         else
                         {
                             _b_fail = YES, _error_str = "Memory error: can't delete input group" ;
@@ -356,7 +356,7 @@ function circles_terminal_cmd_dg()
 						     		 		_params_array['promptquestion'] = "Confirm to delete the registered group #"+_index+"? " ;
 						     		 		_params_array['yes_fn'] = function() { _delete_group(); }
 						     		 		_params_array['ifquestiondisabled_fn'] = function() { _delete_group(); }
-					     		  circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+					     		  circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
                 case "list":
@@ -364,7 +364,7 @@ function circles_terminal_cmd_dg()
                 var _index = safe_int( _params_assoc_array['index'], UNDET );
                 var _short = safe_int( _params_assoc_array['short'], NO );
                 var _zero_based = _index - 1 ;
-                if ( _len == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "The groups list is empty", _par_1, _cmd_tag );
+                if ( _len == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "The groups list is empty", _par_1, _cmd_tag );
                 else
                 {
                    var _html = "<table><tr><td HEIGHT=\"8\"></td></tr>" ;
@@ -401,7 +401,7 @@ function circles_terminal_cmd_dg()
                 }
                 break ;
                 case "release":
-                circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 case "save":
                 var _ref_mm_array = _glob_seeds_array ;
@@ -415,13 +415,13 @@ function circles_terminal_cmd_dg()
                     var _ret_chunk = _kg_cmd_scan_for_duplicates( [ _input_group, safe_size( _input_group, 0 ), _def ] );
                     var _is_duplicate = safe_int( _ret_chunk[0], NO );
                     var _entry_index = ( _is_duplicate ) ? safe_int( _ret_chunk[1], UNDET ) : UNDET ;
-                    if ( _is_duplicate ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Current group is use has already been saved as 'group #" + _entry_index + "'", _par_1, _cmd_tag );
+                    if ( _is_duplicate ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Current group is use has already been saved as 'group #" + _entry_index + "'", _par_1, _cmd_tag );
                     else
                     {
                         var _old_n = safe_size( _glob_groups_table, 0 );
                         _glob_groups_table.push( [ _input_group, safe_size( _input_group, 0 ), _def ] );
                         var _new_n = safe_size( _glob_groups_table, 0 );
-                        if ( _new_n == _old_n + 1 ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Current group in use has been saved with success", _par_1, _cmd_tag );
+                        if ( _new_n == _old_n + 1 ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Current group in use has been saved with success", _par_1, _cmd_tag );
                         else
                         {
                             _b_fail = YES, _error_str = "Can't save the current group in use: memory error" ;
@@ -449,8 +449,8 @@ function circles_terminal_cmd_dg()
                 }
                 else if ( _ws_len > 0 )
                 {
-                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>Creation of the input subgroup</yellow>", _par_1, _cmd_tag );
-                    circles_lib_output( _out_channel, DISPATCH_INFO, "Checking input words consistence", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<yellow>Creation of the input subgroup</yellow>", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_INFO, "Checking input words consistence", _par_1, _cmd_tag );
                     var _consistence_check = YES, _consistence_fault_word = "" ;
                     var _word = "", _w_len = 0, _is_repetend = NO, _i, _x ;
                     for( _i = 0 ; _i < _ws_len ; _i++ )
@@ -460,7 +460,7 @@ function circles_terminal_cmd_dg()
                         if ( _is_repetend )
                         {
                             _word = circles_lib_repetends_resolve( _word );
-                            circles_lib_output( _out_channel, DISPATCH_INFO, "Detected repetend syntax in '"+_input_words[_i]+"' | Resolved to '"+_word+"'", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "Detected repetend syntax in '"+_input_words[_i]+"' | Resolved to '"+_word+"'", _par_1, _cmd_tag );
                             _input_words[_i] = _word ;
                         }
                         _w_len = _word.length ;
@@ -477,7 +477,7 @@ function circles_terminal_cmd_dg()
 
                     if ( _consistence_check )
                     {
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "Building symbols/maps table", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_INFO, "Building symbols/maps table", _par_1, _cmd_tag );
                         var _symbols_index_array = [], ITEM ;
                         for( var _i = 0 ; _i < _sd_n ; _i++ )
                         {
@@ -485,7 +485,7 @@ function circles_terminal_cmd_dg()
                             _symbols_index_array[ ITEM.symbol ] = _i ;
                         }
 
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "Computing input words", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_INFO, "Computing input words", _par_1, _cmd_tag );
 
                         var _def = _params_assoc_array['def'] != null ? new String( _params_assoc_array['def'] ) : "" ;
                         if ( safe_size( _def, 0 ) == 0 ) _def = "Missing definition for group symbol" ;
@@ -493,9 +493,9 @@ function circles_terminal_cmd_dg()
                         // read each word, build the map, get a symbol, build item obj, add to _new_group
                         for( var _i = 0 ; _i < _ws_len ; _i++ )
                         {
-                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<peacock>>> Computing input word '"+_input_words[_i]+"'</peacock>", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<peacock>>> Computing input word '"+_input_words[_i]+"'</peacock>", _par_1, _cmd_tag );
                             WORD = _input_words[_i] ;
-                            _mm = circles_lib_word_mobiusmap_get( WORD, _glob_seeds_array, _out_channel );
+                            _mm = circles_lib_word_mobiusmap_get( WORD, _glob_seeds_array, _output_channel );
                             _symbol = circles_lib_alphabet_suggest_symbol( _new_group, CAPS_LETTER );
                             _inv_symbol = ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) ) ? circles_lib_word_inverse_get( _symbol ) : "" ;
                             _new_group.push( new item_obj( _mm, null, null, _symbol, 0,
@@ -505,16 +505,16 @@ function circles_terminal_cmd_dg()
                             _new_group.push( new item_obj( _mm.inv(), null, null, _inv_symbol, 0,
                                                            YES, _glob_draw_seed_color, NO, "",
                                                            _symbol, 1, ITEM_TYPE_MOBIUS ) );
-                            circles_lib_output( _out_channel, DISPATCH_INFO, "word "+_input_words[_i]+" has been computed and resulting map is with symbol '"+_symbol+"'", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "word "+_input_words[_i]+" has been computed and resulting map is with symbol '"+_symbol+"'", _par_1, _cmd_tag );
                         }
 
                         var _g_n = safe_size( _new_group, 0 );
                         if ( _g_n > 0 && _g_n % 2 == 0 )
                         {
-                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Subgroup has been created with success</lime>", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lime>Subgroup has been created with success</lime>", _par_1, _cmd_tag );
                             if ( safe_size( _service_array, 0 ) == 0 )
                             {
-                                circles_lib_output( _out_channel, DISPATCH_INFO, "Missing service: default set to 'show'", _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_INFO, "Missing service: default set to 'show'", _par_1, _cmd_tag );
                                 _service_array.push( "show" );
                             }
 
@@ -537,18 +537,18 @@ function circles_terminal_cmd_dg()
                                 _b_fail = ( safe_int( _ret_chunk[0], RET_ERROR ) == RET_ERROR ) ? YES : NO ;
                                 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                                 if ( _b_fail ) _error_str = _ret_msg ;
-                                else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+                                else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                             }
 
                             if ( !_b_fail && _service_array.includes( "render" ) )
                             {
-                                var _ret_id = _kg_cmd_init( _par_1, _out_channel, _cmd_tag );
+                                var _ret_id = _kg_cmd_init( _par_1, _output_channel, _cmd_tag );
                                 if ( _ret_id != RET_ERROR )
-                                circles_lib_terminal_interpreter( "refresh wplane silent clean", _glob_terminal, _out_channel );
+                                circles_lib_terminal_interpreter( "refresh wplane silent clean", _glob_terminal, _output_channel );
                             }
 
                             if ( !_b_fail && _service_array.includes( "refresh" ) )
-                            circles_lib_terminal_interpreter( "refresh zplane silent clean", _glob_terminal, _out_channel );
+                            circles_lib_terminal_interpreter( "refresh zplane silent clean", _glob_terminal, _output_channel );
                          }
                          else
                          {
@@ -578,12 +578,12 @@ function circles_terminal_cmd_dg()
      }
 
      if ( _b_fail )
-     circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
 
-function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _par_1, _out_channel, _cmd_tag )
+function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _par_1, _output_channel, _cmd_tag )
 {
      var _sd_n = circles_lib_count_seeds();
      var _chunk = clone( _glob_maps[ _map_tag ] );
@@ -598,20 +598,20 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
 		 if ( _is_built_in )
      {
          _params.push( _chunk[2], _chunk[3], _chunk[4], _chunk[5] );
-         circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Found input map '"+_map_tag+"'", _par_1, _cmd_tag );
+         circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Found input map '"+_map_tag+"'", _par_1, _cmd_tag );
      }
      else if ( _is_user_defined )
      {
          _params.push( _mobius_params_array[0], _mobius_params_array[1],
                        _mobius_params_array[2], _mobius_params_array[3] );
-         circles_lib_output( _out_channel, DISPATCH_INFO, "Input conjugation map: " + _map_tag, _par_1, _cmd_tag );
+         circles_lib_output( _output_channel, DISPATCH_INFO, "Input conjugation map: " + _map_tag, _par_1, _cmd_tag );
      }
 
      var _ref_params = ( _is_built_in ) ? _params : _mobius_params_array ;
-     circles_lib_output( _out_channel, DISPATCH_INFO, "Detected input param 'a' as " + _ref_params[0], _par_1, _cmd_tag );
-     circles_lib_output( _out_channel, DISPATCH_INFO, "Detected input param 'b' as " + _ref_params[1], _par_1, _cmd_tag );
-     circles_lib_output( _out_channel, DISPATCH_INFO, "Detected input param 'c' as " + _ref_params[2], _par_1, _cmd_tag );
-     circles_lib_output( _out_channel, DISPATCH_INFO, "Detected input param 'd' as " + _ref_params[3], _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'a' as " + _ref_params[0], _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'b' as " + _ref_params[1], _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'c' as " + _ref_params[2], _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'd' as " + _ref_params[3], _par_1, _cmd_tag );
 
      // check consistence of parameters
      if ( _params[0] == null || _params[1] == null || _params[2] == null || _params[3] == null )
@@ -626,13 +626,13 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
           var _n_vars = _params_assoc_array['vars'].size_associative();
           if ( _n_vars > 0 )
           {
-               circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Found "+_n_vars+" user-defined input var" + ( _n_vars == 1 ? "" : "s" ), _par_1, _cmd_tag );
+               circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Found "+_n_vars+" user-defined input var" + ( _n_vars == 1 ? "" : "s" ), _par_1, _cmd_tag );
                var _keys = _params_assoc_array['vars'].keys_associative();
                var _values = _params_assoc_array['vars'].values_associative();
                $.each( _keys,
                        function( _i, _key )
                        {
-                            circles_lib_output( _out_channel, DISPATCH_INFO, "Setting param '"+_key+"' -> " + _params_assoc_array['vars'][_key], _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "Setting param '"+_key+"' -> " + _params_assoc_array['vars'][_key], _par_1, _cmd_tag );
                             if ( _params[0].includes( "$" + _key ) ) _params[0] = _params[0].replaceAll( "$" + _key, "("+_params_assoc_array['vars'][_key]+")" );
                             if ( _params[1].includes( "$" + _key ) ) _params[1] = _params[1].replaceAll( "$" + _key, "("+_params_assoc_array['vars'][_key]+")" );
                             if ( _params[2].includes( "$" + _key ) ) _params[2] = _params[2].replaceAll( "$" + _key, "("+_params_assoc_array['vars'][_key]+")" );
@@ -640,7 +640,7 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                        }
                      );
 
-               circles_lib_output( _out_channel, DISPATCH_INFO, "Validating input params", _par_1, _cmd_tag );
+               circles_lib_output( _output_channel, DISPATCH_INFO, "Validating input params", _par_1, _cmd_tag );
           }
 
           if ( _params[0].includes( "$" ) || _params[1].includes( "$" ) ||
@@ -661,13 +661,13 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                     );
               
               _glob_terminal_critical_halt_msg += _glob_crlf + ( _is_built_in ? "Type 'map list' and check built-in formula" : "Check user-defined formula" );
-              if ( _out_channel == OUTPUT_TERMINAL )
-              circles_lib_output( _out_channel, DISPATCH_WARNING, _glob_terminal_critical_halt_msg, _par_1, _cmd_tag );
+              if ( _output_channel == OUTPUT_TERMINAL )
+              circles_lib_output( _output_channel, DISPATCH_WARNING, _glob_terminal_critical_halt_msg, _par_1, _cmd_tag );
           }
           else
           {
               var _parsed_map = circles_lib_mobius_mng_pull_from( _params );
-              circles_lib_output( _out_channel, DISPATCH_INFO, "Resulting map " + _glob_crlf + _parsed_map + " after parsing", _par_1, _cmd_tag );
+              circles_lib_output( _output_channel, DISPATCH_INFO, "Resulting map " + _glob_crlf + _parsed_map + " after parsing", _par_1, _cmd_tag );
           }
 
           var _a_complex = circles_lib_math_parse_formula( _params[0] );         		// return a string
@@ -682,7 +682,7 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
           if ( is_complex( _a_complex ) && is_complex( _b_complex ) &&
                is_complex( _c_complex ) && is_complex( _d_complex ) && !_b_fail )
           {
-               circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Validation has been successful", _par_1, _cmd_tag );
+               circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Validation has been successful", _par_1, _cmd_tag );
                var _mm = new mobius_map( _a_complex, _b_complex, _c_complex, _d_complex );
                var _inv_mm = _mm.inv(), _kg_item = null, _kg_map = null, _tmp ;
                for( var _i = 0 ; _i < _sd_n ; _i++ )
@@ -690,9 +690,9 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                     _kg_item = _glob_seeds_array[_i], _kg_map = _kg_item.map ;
                     if ( _kg_map != null )
                     {
-                         circles_lib_output( _out_channel, DISPATCH_INFO, "Conjugation of seed '"+_kg_item.symbol+"' now", _par_1, _cmd_tag );
+                         circles_lib_output( _output_channel, DISPATCH_INFO, "Conjugation of seed '"+_kg_item.symbol+"' now", _par_1, _cmd_tag );
                          _kg_map = _mm.composition( _kg_map ).composition( _inv_mm );
-                         circles_lib_output( _out_channel, is_mobius_map( _kg_map ) ? DISPATCH_SUCCESS : DISPATCH_WARNING, is_mobius_map( _kg_map ) ? "Conjugation of '"+_kg_item.symbol+"' performed with success" : "Conjugation of '"+_kg_item.symbol+"' failed", _par_1, _cmd_tag );
+                         circles_lib_output( _output_channel, is_mobius_map( _kg_map ) ? DISPATCH_SUCCESS : DISPATCH_WARNING, is_mobius_map( _kg_map ) ? "Conjugation of '"+_kg_item.symbol+"' performed with success" : "Conjugation of '"+_kg_item.symbol+"' failed", _par_1, _cmd_tag );
 
 												 var ITEM = new item_obj();
                          ITEM.init_from_obj( _glob_seeds_array[_i] );
@@ -715,20 +715,20 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                     else
                     {
                          _b_ret &= NO ;
-       							     circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing seed map in the current group" + _glob_crlf + "Please, check group consistence", _par_1, _cmd_tag );
+       							     circles_lib_output( _output_channel, DISPATCH_ERROR, "Missing seed map in the current group" + _glob_crlf + "Please, check group consistence", _par_1, _cmd_tag );
                          break ;
                     }
                }
 
                if ( _service_array.includes( "apply" ) )
                {
-               	    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Conjugation applied to input entries with success", _par_1, _cmd_tag );
+               	    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Conjugation applied to input entries with success", _par_1, _cmd_tag );
                     var _msg = "All entries have been set into the current group" ;
                     if ( !( _service_array.includes( "init" ) ) ) _msg += _glob_crlf + "Now init it and render" ;
-               	    circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+               	    circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
                }
 
-               if ( _service_array.includes( "init" ) ) _kg_cmd_init( _par_1, _out_channel, _cmd_tag );
+               if ( _service_array.includes( "init" ) ) _kg_cmd_init( _par_1, _output_channel, _cmd_tag );
 
                if ( _service_array.includes( "rec" ) )
                {
@@ -738,24 +738,24 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                        _b_ret = safe_int( _ret_chunk[0], RET_ERROR );
                    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                    if ( _b_ret == RET_ERROR )
-                   circles_lib_output( _out_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
+                   circles_lib_output( _output_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                    else
-                   circles_lib_output( _out_channel, _b_ret == RET_WARNING ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+                   circles_lib_output( _output_channel, _b_ret == RET_WARNING ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                }
 
                if ( _b_ret != RET_ERROR && _service_array.includes( "render", "refresh" ) )
                jQuery.extend( _glob_seeds_array, _new_group );
                if ( _b_ret != RET_ERROR && _service_array.includes( "render" ) )
                {
-                   var _ret_id = _kg_cmd_init( _par_1, _out_channel, _cmd_tag )
-                   if ( _ret_id == RET_ERROR ) circles_lib_output( _out_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
-                   else circles_lib_output( _out_channel, DISPATCH_SUCCESS,  "All group members have been conjugated with success", _par_1, _cmd_tag );
+                   var _ret_id = _kg_cmd_init( _par_1, _output_channel, _cmd_tag )
+                   if ( _ret_id == RET_ERROR ) circles_lib_output( _output_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
+                   else circles_lib_output( _output_channel, DISPATCH_SUCCESS,  "All group members have been conjugated with success", _par_1, _cmd_tag );
                    if ( _ret_id != RET_ERROR )
-                   circles_lib_terminal_interpreter( "refresh wplane silent clean", _glob_terminal, _out_channel );
+                   circles_lib_terminal_interpreter( "refresh wplane silent clean", _glob_terminal, _output_channel );
                }
 
                if ( _b_ret != RET_ERROR && _service_array.includes( "refresh" ) )
-               circles_lib_terminal_interpreter( "refresh zplane silent clean", _glob_terminal, _out_channel );
+               circles_lib_terminal_interpreter( "refresh zplane silent clean", _glob_terminal, _output_channel );
           }
           else
           {
@@ -766,14 +766,14 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
      return [ _b_fail ? RET_ERROR : RET_OK, _error_str ] ;
 }
 
-function _kg_cmd_init( _par_1, _out_channel, _cmd_tag )
+function _kg_cmd_init( _par_1, _output_channel, _cmd_tag )
 {
      _glob_init_mask &= ~INIT_FROM_DISKS ;
      _glob_init_mask |= INIT_FROM_MAPS ;
-     var _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, YES, YES, _out_channel );
+     var _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, YES, YES, _output_channel );
      var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
      var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "40Unknown error" ;
-		 if ( _ret_id == RET_OK ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _ret_msg, _par_1, _cmd_tag );
+		 if ( _ret_id == RET_OK ) circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _ret_msg, _par_1, _cmd_tag );
      else
 		 {
      		 _b_fail = YES, _error_str = _ret_msg ;

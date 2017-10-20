@@ -40,9 +40,9 @@ function circles_lib_menu_resize_top()
     else $( "#nav" ).css( "height", 24 ) ;
 }
 
-function circles_lib_menu_show_top( _out_channel )
+function circles_lib_menu_show_top( _output_channel )
 {
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _b_show = $("#CIRCLEScheckboxMENU").is( ":checked" ) ? YES : NO ;
     _b_show ? $("#menu").slideDown("slow", function() { circles_lib_refresh_main_canvases(); } ) : $("#menu").slideUp("slow", function() { circles_lib_refresh_main_canvases(); } );
     $("#menucontainer").css( "height", ( _b_show ? "26" : "0" ) + "px" );

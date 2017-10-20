@@ -80,11 +80,11 @@ function CIRCLESformsSTORAGESPACElist()
     return HTMLcode ;
 }
 
-function CIRCLESformsSTORAGESPACEpurge( _subset, _question, _silent, _out_channel )
+function CIRCLESformsSTORAGESPACEpurge( _subset, _question, _silent, _output_channel )
 {
     _subset = safe_string( _subset, "" ).toLowerCase();
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     if ( _subset.length > 0 )
     {
         var _b_go = _question ? confirm( "Confirm to purge all data away from subset '"+_subset+"' of storage space ?" ) : YES ;
@@ -101,11 +101,11 @@ function CIRCLESformsSTORAGESPACEpurge( _subset, _question, _silent, _out_channe
     return RET_ERROR ;
 }
 
-function CIRCLESformsSTORAGESPACErestore( _subset, _question, _silent, _out_channel )
+function CIRCLESformsSTORAGESPACErestore( _subset, _question, _silent, _output_channel )
 {
     _subset = safe_string( _subset, "" ).toLowerCase();
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     if ( _subset.length > 0 )
     {
        var _b_go = _question ? confirm( "Confirm to restore all data from subset '"+_subset+"' of storage space to the proper container ?" ) : YES ;
@@ -122,12 +122,12 @@ function CIRCLESformsSTORAGESPACErestore( _subset, _question, _silent, _out_chan
               {
                  case "seeds":
                  _glob_seeds_array = _glob_storage[_subset].clone();
-                 if ( !_silent && _out_channel == OUTPUT_SCREEN )
+                 if ( !_silent && _output_channel == OUTPUT_SCREEN )
                  circles_lib_output( OUTPUT_SCREEN, _ret_id == RET_ERROR ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _glob_app_title );
                  break ;
                  case "generators":
                  _glob_gens_array = _glob_storage[_subset].clone();
-                 if ( !_silent && _out_channel == OUTPUT_SCREEN )
+                 if ( !_silent && _output_channel == OUTPUT_SCREEN )
                  circles_lib_output( OUTPUT_SCREEN, _ret_id == RET_ERROR ? DISPATCH_WARNING : DISPATCH_SUCCESS, _ret_msg, _glob_app_title );
                  break ;
                  default: if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title ); break ;

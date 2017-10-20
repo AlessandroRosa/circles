@@ -3,7 +3,7 @@ function CIRCLESformsBENCHMARK_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESformsBENCHMARKremotectrl( _options, _return_fn, _ret_array, _out_channel )
+function CIRCLESformsBENCHMARKremotectrl( _options, _return_fn, _ret_array, _output_channel )
 {
 		if ( !is_array( _options ) )
 		{

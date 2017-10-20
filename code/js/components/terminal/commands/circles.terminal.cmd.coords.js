@@ -2,14 +2,14 @@ function circles_terminal_cmd_coords()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
@@ -25,7 +25,7 @@ function circles_terminal_cmd_coords()
          _params_assoc_array['all'] = NO ;
          _params_assoc_array['center'] = NO ;
          _params_assoc_array['help'] = NO ;
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['params'] = [] ;
          _params_assoc_array['planes'] = [] ;
@@ -36,7 +36,7 @@ function circles_terminal_cmd_coords()
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "all", "bip", "wplane", "zplane", "center", "copy", "release",
 						 																"clean", "render", "silent", "html", "help" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
@@ -59,15 +59,15 @@ function circles_terminal_cmd_coords()
 
          if ( safe_size( _params_assoc_array['planes'], 0 ) == 0 ) _params_assoc_array['planes'].push( _glob_target_plane ) ;
 
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                 _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_b_fail )
@@ -85,18 +85,18 @@ function circles_terminal_cmd_coords()
                   _params_assoc_array['planes'] = _params_assoc_array['planes'].unique();
                   var _n_planes = safe_size( _params_assoc_array['planes'], 0 );
                   if ( _n_planes < _old_n_planes )
-    	            circles_lib_output( _out_channel, DISPATCH_WARNING, "Found and deleted duplicates of plane inputs", _par_1, _cmd_tag );
+    	            circles_lib_output( _output_channel, DISPATCH_WARNING, "Found and deleted duplicates of plane inputs", _par_1, _cmd_tag );
     
                   if ( _n_planes > 2 )
                   {
                        _params_assoc_array['planes'] = _params_assoc_array['planes'].subset(2);
-        	             circles_lib_output( _out_channel, DISPATCH_WARNING, "Copy accepts only two input planes: more inputs will be ignored", _par_1, _cmd_tag );
+        	             circles_lib_output( _output_channel, DISPATCH_WARNING, "Copy accepts only two input planes: more inputs will be ignored", _par_1, _cmd_tag );
                   }
                      
                   if ( _n_planes == 0 )
-    	            circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing both source and destination plane for coords copy", _par_1, _cmd_tag );
+    	            circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing both source and destination plane for coords copy", _par_1, _cmd_tag );
                   else if ( _n_planes == 1 )
-    	            circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing destination plane for coords copy", _par_1, _cmd_tag );
+    	            circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing destination plane for coords copy", _par_1, _cmd_tag );
                   else
                   {
                       var _src_coords = [] ;
@@ -126,11 +126,11 @@ function circles_terminal_cmd_coords()
                           break ;
                       }
 
-         		          circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Coords have been copied from "+_src_plane_def+" to "+_dest_plane_def + " with success", _par_1, _cmd_tag );
+         		          circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Coords have been copied from "+_src_plane_def+" to "+_dest_plane_def + " with success", _par_1, _cmd_tag );
                   }
                   break ;
                   case "release":
-                  circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
                   default:
                   var _curr_plane = _params_assoc_array['planes'][0] ;
@@ -161,7 +161,7 @@ function circles_terminal_cmd_coords()
                       _MSG += "The "+_plane_def+" region is centered at" + _glob_crlf ;
                       _MSG += "<lightblue>X</lightblue> <white>" + _x + "</white>" + _glob_crlf ;
                       _MSG += "<lightblue>Y</lightblue> <white>" + _y + "</white>" + _glob_crlf ;
-                      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _MSG, _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _MSG, _par_1, _cmd_tag );
                   }
     
                   for( var _pl = 0 ; _pl < _params_assoc_array['planes'].length ; _pl++ )
@@ -187,15 +187,15 @@ function circles_terminal_cmd_coords()
                           break ;
                       }
 
-                      circles_lib_output( _out_channel, DISPATCH_INFO, _MSG, _par_1, _cmd_tag );
-                      if ( _params_assoc_array['center'] ) circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, _MSG, _par_1, _cmd_tag );
+                      if ( _params_assoc_array['center'] ) circles_lib_output( _output_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
 
                       var _MSG = "" ;
                       _MSG += "<lightblue>Top</lightblue> <white>" + _top + "</white>" + _glob_crlf ;
                       _MSG += "<lightblue>Left</lightblue> <white>" + _left + "</white>" + _glob_crlf ;
                       _MSG += "<lightblue>Right</lightblue> <white>" + _right + "</white>" + _glob_crlf ;
                       _MSG += "<lightblue>Bottom</lightblue> <white>" + _bottom  + "</white>" + _glob_crlf ;
-                      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _MSG, _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _MSG, _par_1, _cmd_tag );
                     }
                   }
                   break ;
@@ -210,10 +210,10 @@ function circles_terminal_cmd_coords()
                          _new_params += " " + _dest_plane_def ;
                      if ( _clean )  _new_params += " clean" ;
                      if ( _silent ) _new_params += " silent" ;
-                     circles_lib_terminal_interpreter( "refresh "+_new_params, _glob_terminal, _out_channel );
-    		             circles_lib_output( _out_channel, DISPATCH_INFO, "Now render the " + _plane_def, _par_1, _cmd_tag );
+                     circles_lib_terminal_interpreter( "refresh "+_new_params, _glob_terminal, _output_channel );
+    		             circles_lib_output( _output_channel, DISPATCH_INFO, "Now render the " + _plane_def, _par_1, _cmd_tag );
                  }
-                 else circles_lib_output( _out_channel, DISPATCH_WARNING, "Rendering has been skipped: no registered seeds", _par_1, _cmd_tag );
+                 else circles_lib_output( _output_channel, DISPATCH_WARNING, "Rendering has been skipped: no registered seeds", _par_1, _cmd_tag );
              }
          }
      }
@@ -222,7 +222,7 @@ function circles_terminal_cmd_coords()
          _b_fail = YES, _error_str = "Select a plane to return coords info" ;
      }
      
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 } 

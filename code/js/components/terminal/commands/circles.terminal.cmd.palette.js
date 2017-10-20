@@ -2,14 +2,14 @@ function circles_terminal_cmd_palette()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
      var bOUT = 0 ;
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
@@ -20,7 +20,7 @@ function circles_terminal_cmd_palette()
      var _selected_index = UNDET ;
      var _fn_ret_val = null ;
      var _params_assoc_array = [];
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
      var _palette_len = ( is_array( _glob_palette_array ) ) ? _glob_palette_array.length : 0 ;
 
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
@@ -47,7 +47,7 @@ function circles_terminal_cmd_palette()
     				 _local_cmds_params_array.push( "on", "off", "adapt", "append", "create", "invert", "destroy",
                                             "list", "plain", "remove", "replace", "resize", "reverse",
                                             "size", "tags", "colorize", "decolorize" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -132,15 +132,15 @@ function circles_terminal_cmd_palette()
               }
          }
 
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else
@@ -156,12 +156,12 @@ function circles_terminal_cmd_palette()
                }
                
                _palette_label = _palette_label.toLowerCase();
-               circles_lib_output( _out_channel, DISPATCH_SUCCESS, _palette_label, _par_1, _cmd_tag );
+               circles_lib_output( _output_channel, DISPATCH_SUCCESS, _palette_label, _par_1, _cmd_tag );
 
-               if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+               if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
   						 {
 									_glob_terminal_change = YES ;
-                  circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
 							 }
              }
              else
@@ -174,7 +174,7 @@ function circles_terminal_cmd_palette()
                switch( _action )
                {
                   case "release":
-                  circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
                   case "adapt":
                   if ( _palette_len > 0 )
@@ -183,7 +183,7 @@ function circles_terminal_cmd_palette()
                      {
                         var _rgb_start = is_array( _glob_palette_array ) ? _glob_palette_array[0] : "" ;
                         var _rgb_end = is_array( _glob_palette_array ) ? _glob_palette_array[_palette_len-1] : "" ;
-                        var _ret_chunk = circles_lib_colors_compute_gradient( _rgb_start, _rgb_end, _glob_depth, YES, _out_channel );
+                        var _ret_chunk = circles_lib_colors_compute_gradient( _rgb_start, _rgb_end, _glob_depth, YES, _output_channel );
                         var _ret_id = _ret_chunk[0] ;
                             _glob_palette_array = _ret_chunk[1] ;
                         var _ret_msg = _ret_chunk[2] ;
@@ -191,11 +191,11 @@ function circles_terminal_cmd_palette()
                         if ( is_array( _glob_palette_array ) )
                         {
                            if ( _glob_palette_array.length > 0 )
-                           circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette has been adapted to current depth ("+_glob_depth+")", _par_1, _cmd_tag );
-          						     if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+                           circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Colors palette has been adapted to current depth ("+_glob_depth+")", _par_1, _cmd_tag );
+          						     if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
           						     {
           										_glob_terminal_change = YES ;
-          							      circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+          							      circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
           								 }
                         }
                         else
@@ -203,7 +203,7 @@ function circles_terminal_cmd_palette()
                            _b_fail = YES, _error_str = "Fail to resize palette: " + _ret_msg ;
                         }
                      }
-                     else circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette can be adapted only if depth is greater than 1", _par_1, _cmd_tag );
+                     else circles_lib_output( _output_channel, DISPATCH_WARNING, "Colors palette can be adapted only if depth is greater than 1", _par_1, _cmd_tag );
                   }
                   break ;
                   case "append":
@@ -218,12 +218,12 @@ function circles_terminal_cmd_palette()
 
 		                 var _rgb_start_formats = circles_lib_colors_get_formats( _rgb_start ) ;
 		                 var _rgb_end_formats = circles_lib_colors_get_formats( _rgb_end ) ;
-		                 var _ret_chunk = circles_lib_colors_compute_gradient( _rgb_start_formats[COLOR_RGB_INT], _rgb_end_formats[COLOR_RGB_INT], _steps, YES, _out_channel );
+		                 var _ret_chunk = circles_lib_colors_compute_gradient( _rgb_start_formats[COLOR_RGB_INT], _rgb_end_formats[COLOR_RGB_INT], _steps, YES, _output_channel );
                      var _ret_id = _ret_chunk[0], _ret_palette = _ret_chunk[1], _ret_msg = _ret_chunk[2] ;
 
 		                 if ( _steps == 0 )
 		                 {
-		                    circles_lib_output( _out_channel, DISPATCH_WARNING, "No steps number set: current depth ("+_glob_depth+") is assumed", _par_1, _cmd_tag );
+		                    circles_lib_output( _output_channel, DISPATCH_WARNING, "No steps number set: current depth ("+_glob_depth+") is assumed", _par_1, _cmd_tag );
 		                    _steps = _glob_depth ;
 		                 }
 		
@@ -240,16 +240,16 @@ function circles_terminal_cmd_palette()
 		                 else if ( _glob_palette_array.length > 0 )
 		                 {
 		                    if ( _params_assoc_array['action'] == "create" )
-		                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "A new colors palette has been created", _par_1, _cmd_tag );
+		                    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "A new colors palette has been created", _par_1, _cmd_tag );
 		                    else if ( _params_assoc_array['action'] == "append" )
-		                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "This new colors palette was appended", _par_1, _cmd_tag );
+		                    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "This new colors palette was appended", _par_1, _cmd_tag );
 		                    else if ( _params_assoc_array['action'] == "resize" )
-		                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The current colors palette has been resized", _par_1, _cmd_tag );
+		                    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The current colors palette has been resized", _par_1, _cmd_tag );
 		  
-		  						      if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+		  						      if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
 		  						  		{
 		  										_glob_terminal_change = YES ;
-		  							      circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+		  							      circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
 		  									}
 		                 }
 									}
@@ -258,7 +258,7 @@ function circles_terminal_cmd_palette()
 										 var _msg = [] ;
 										 if ( !circles_lib_colors_is_def( _rgb_start ) ) _msg.push( "* Unknown start color format" );
 									   if ( !circles_lib_colors_is_def( _rgb_end ) ) _msg.push( "* Unknown end color format" );
-										 circles_lib_output( _out_channel, DISPATCH_ERROR, _msg.join( _glob_crlf ), _par_1, _cmd_tag );
+										 circles_lib_output( _output_channel, DISPATCH_ERROR, _msg.join( _glob_crlf ), _par_1, _cmd_tag );
 									}
                   break ;
                   case "colorize":
@@ -269,14 +269,14 @@ function circles_terminal_cmd_palette()
            					 _params_array['promptquestion'] = "Confirm to colorize all "+_dest_ref+"? " ;
            					 _params_array['yes_fn'] = function()
                      {
-                        var _ret_chunk = circles_lib_colors_colorize( _dest_ref, YES, YES, _out_channel );
+                        var _ret_chunk = circles_lib_colors_colorize( _dest_ref, YES, YES, _output_channel );
                         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "51Unknown error" ;
-                        circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                      }
 
-          					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize( _dest_ref, YES, YES, _out_channel ); }
-           			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+          					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize( _dest_ref, YES, YES, _output_channel ); }
+           			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                   }
                   else
                   {
@@ -291,13 +291,13 @@ function circles_terminal_cmd_palette()
             				 _params_array['promptquestion'] = "Confirm to decolorize all "+_dest_ref+"? " ;
             				 _params_array['yes_fn'] = function()
                      {
-                        var _ret_chunk = circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel );
+                        var _ret_chunk = circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel );
                         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "52Unknown error" ;
-                        circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                      }
-            				 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel ); }
-             			   circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+            				 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel ); }
+             			   circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                   }
                   else
                   {
@@ -308,14 +308,14 @@ function circles_terminal_cmd_palette()
                   if ( _palette_len > 0 )
                   {
                      _glob_palette_array.flush();
-                     circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette is now empty", _par_1, _cmd_tag );
-   						       if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+                     circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Colors palette is now empty", _par_1, _cmd_tag );
+   						       if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
    						  	   {
    									  	_glob_terminal_change = YES ;
-   							        circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+   							        circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
    									 }
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_INFO, "Colors palette is already empty", _par_1, _cmd_tag );
+                  else circles_lib_output( _output_channel, DISPATCH_INFO, "Colors palette is already empty", _par_1, _cmd_tag );
                   break ;
                   case "invert":
                   if ( _palette_len > 0 )
@@ -339,21 +339,21 @@ function circles_terminal_cmd_palette()
                         }
                      }
                              
-                     if ( !_b_fail ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette inverted", _par_1, _cmd_tag );
-  							     if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+                     if ( !_b_fail ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Colors palette inverted", _par_1, _cmd_tag );
+  							     if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
   							  	 {
   											_glob_terminal_change = YES ;
-  								      circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+  								      circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
   									 }
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
+                  else circles_lib_output( _output_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
                   break ;
                   case "list":
                   var _digits = safe_int( Math.log( _palette_len ) / Math.log( 10 ), 0 ) + 3 ;
                   var _html = _params_assoc_array['html'] ;
                   if ( _palette_len > 0 )
                   {
-                     circles_lib_output( _out_channel, DISPATCH_STANDARD, "Listing the palette ..", _par_1, _cmd_tag );
+                     circles_lib_output( _output_channel, DISPATCH_STANDARD, "Listing the palette ..", _par_1, _cmd_tag );
                      var _ordinal = "" ;
                      var _out_file_txt = "Current palette : "+_palette_len+" entr"+( ( _palette_len == 1 ) ? "y" : "ies" )+_glob_crlf ;
                      var _out_tagged_txt = "<snow>"+_out_file_txt+"</snow>" ;
@@ -372,9 +372,9 @@ function circles_terminal_cmd_palette()
                           _out_tagged_txt += "<span STYLE=\"color:"+_glob_palette_array[_i]+";\">"+_ordinal+"</span>" + _glob_crlf ;
   
                           if ( _params_assoc_array['plain'] )
-                          circles_lib_output( _out_channel, DISPATCH_STANDARD, _line, _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_STANDARD, _line, _par_1, _cmd_tag );
                           else
-                          circles_lib_output( _out_channel, DISPATCH_TEXTCOLOR_TYPE, _line, _hex );
+                          circles_lib_output( _output_channel, DISPATCH_TEXTCOLOR_TYPE, _line, _hex );
                         }
                      }
   
@@ -390,10 +390,10 @@ function circles_terminal_cmd_palette()
   											{
   												_b_fail = YES, _error_str = _ret_msg ;
   			   							}
-  											else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+  											else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                      }
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
+                  else circles_lib_output( _output_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
                   break ;
                   case "remove":
                   if ( _palette_len == 0 )
@@ -436,7 +436,7 @@ function circles_terminal_cmd_palette()
                         }
                                  
                         if ( !_b_fail )
-                        circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Entries have been removed", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Entries have been removed", _par_1, _cmd_tag );
                      }
                      else
                      {
@@ -448,11 +448,11 @@ function circles_terminal_cmd_palette()
                   if ( _palette_len > 0 )
                   {
                     _glob_palette_array.reverse();
-                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette reversed", _par_1, _cmd_tag );
-        			      if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+                    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Colors palette reversed", _par_1, _cmd_tag );
+        			      if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
       				  		{
       								_glob_terminal_change = YES ;
-      					      circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+      					      circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
       							}
                   }
                   break ;
@@ -467,7 +467,7 @@ function circles_terminal_cmd_palette()
                      if ( _selected_index != UNDET )
                      {
                         _glob_palette_array[_selected_index] = _params_assoc_array['color'] ;
-                        circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Color replaced", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Color replaced", _par_1, _cmd_tag );
                      }
                      else
                      {
@@ -481,14 +481,14 @@ function circles_terminal_cmd_palette()
                   break ;
                   case "size":
                   if ( _palette_len > 0 )
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "Colors palette size is "+_glob_palette_array.length+"", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "Colors palette size is "+_glob_palette_array.length+"", _par_1, _cmd_tag );
                   else
-                  circles_lib_output( _out_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_WARNING, "Colors palette size is empty", _par_1, _cmd_tag );
                   break ;
                   case "tags":
                   var _entry_max_length = 15 ;
                   var _cols = Math.floor( _glob_terminal.cols() / _entry_max_length ), _counter = 0, _row = "" ;
-                  circles_lib_output( _out_channel, DISPATCH_INFO, "Default color tags are:", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, "Default color tags are:", _par_1, _cmd_tag );
                   for( var _key in def_clrs_tags )
                   {
                      if ( _key.includes( "tag." ) )
@@ -501,7 +501,7 @@ function circles_terminal_cmd_palette()
                         _counter++ ;
                         if ( _counter > 0 && ( _counter % _cols == 0 ) )
                         {
-                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                            _row = "" ;
                         }
                      }
@@ -521,10 +521,10 @@ function circles_terminal_cmd_palette()
               default : _palette_label = "Current palette mode is off" ; break ;
          }
               
-         circles_lib_output( _out_channel, DISPATCH_INFO, _palette_label, _par_1, _cmd_tag );
+         circles_lib_output( _output_channel, DISPATCH_INFO, _palette_label, _par_1, _cmd_tag );
      }
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

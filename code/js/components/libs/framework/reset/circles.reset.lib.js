@@ -55,10 +55,10 @@ function circles_lib_reset_colors()
     _glob_pt_interior_color = DEFAULT_PT_INTERIOR_COLOR ;
 }
 
-function circles_lib_reset_vars( _reset_mask, _silent, _out_channel )
+function circles_lib_reset_vars( _reset_mask, _silent, _output_channel )
 {
     _reset_mask = safe_int( _reset_mask, ~RESET_NONE );
-    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _reset_report_array = [];
     _glob_items_to_init = NO ;
     $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
@@ -126,7 +126,7 @@ function circles_lib_reset_vars( _reset_mask, _silent, _out_channel )
     
         _glob_wplane_layers_pile_role_array = [ ROLE_GRID, ROLE_RENDERING, ROLE_FREEDRAW, ROLE_WORK ];
         /* 1: grid, 2: rendering, 3: free draw, 4: work */
-        circles_lib_items_switch_to(ITEMS_SWITCH_SEEDS,YES,_out_channel );
+        circles_lib_items_switch_to(ITEMS_SWITCH_SEEDS,YES,_output_channel );
         circles_lib_statusbar_set_config_icon( _glob_bip_use ? CONFIG_BIPBOX : CONFIG_STD );
     }
     
@@ -230,6 +230,6 @@ function circles_lib_reset_vars( _reset_mask, _silent, _out_channel )
 		}
 
     var _reset_report = "The following components have been reset:" + _glob_crlf.repeat(2) + _reset_report_array.join( _glob_crlf );
-    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _reset_report, _glob_app_title );
+    if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _reset_report, _glob_app_title );
     else return [ RET_OK, _reset_report ] ;
 }

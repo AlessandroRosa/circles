@@ -1,4 +1,4 @@
-function circles_lib_items_copy_to_storage_space( _item_type, _question, _silent, _out_channel )
+function circles_lib_items_copy_to_storage_space( _item_type, _question, _silent, _output_channel )
 {
     if ( is_string( _item_type ) )
     {
@@ -11,7 +11,7 @@ function circles_lib_items_copy_to_storage_space( _item_type, _question, _silent
     else _item_type = safe_int( _item_type, ITEMS_SWITCH_SEEDS );
     
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _items_array = _item_type == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     
 		var _items_n = circles_lib_count_items( _items_array );
@@ -28,22 +28,22 @@ function circles_lib_items_copy_to_storage_space( _item_type, _question, _silent
            $.each( _items_array, function( _i, _seed_obj ) { _glob_storage[_storage_ref].push( _seed_obj ) } );
            var _n_copied = safe_size( _glob_storage[_storage_ref], 0 );
            var _msg = ( _n_copied == 0 ) ? "Fail to copy "+_symbol+"s to storage space" : _n_copied + " " + _symbol + ( _n_copied != 1 ? "s have" : " has" ) + " been copied to storage space" ;
-           if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, _n_copied == 0 ? DISPATCH_WARNING : DISPATCH_SUCCESS, _msg, _glob_app_title );
+           if ( !_silent && _output_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, _n_copied == 0 ? DISPATCH_WARNING : DISPATCH_SUCCESS, _msg, _glob_app_title );
            return [ _n_copied == 0 ? RET_WARNING : RET_OK, _msg ] ;
        }
     }
     else
 		{
 			 var _msg = "Fail to copy "+_symbol+"s to storage space." + _glob_crlf.repeat(2) + ( _item_type == ITEMS_SWITCH_SEEDS ? _ERR_33_01 : _ERR_33_02 ) ;
-			 if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+			 if ( !_silent && _output_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
 			 return _msg ;
 		}
 }
 
-function circles_lib_items_unselect( _question, _silent, _out_channel )
+function circles_lib_items_unselect( _question, _silent, _output_channel )
 {
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     if ( _glob_disk_sel_index != UNDET )
     {
 		   if ( circles_lib_count_items() > 0 )
@@ -54,7 +54,7 @@ function circles_lib_items_unselect( _question, _silent, _out_channel )
 			       _glob_disk_sel_index = UNDET ;
 	        	 _glob_zplane_selected_items_array.flush();
              circles_lib_helper_div_remove();
-						 _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+						 _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
              if ( safe_int( _ret_chunk[ 0 ], 0 ) == RET_ERROR ) return _ret_chunk ;
 					}
 
@@ -62,14 +62,14 @@ function circles_lib_items_unselect( _question, _silent, _out_channel )
 		   }
 		   else
 		   {
-		      if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't unselect: " + _ERR_33_01, _glob_app_title );
+		      if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't unselect: " + _ERR_33_01, _glob_app_title );
 		      return [ RET_ERROR, "Can't unselect: " + _ERR_33_01 ];
 		   }
 		}
 		else
     {
         var _msg = "Can't unselect: no item(s) selected" ;
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
     }
 }
@@ -114,9 +114,9 @@ function circles_lib_items_verify_init_mask( _init_src_opt )
     else return UNDET ;
 }
 
-function circles_lib_items_switch_to( _switch_to_val, _silent, _out_channel )
+function circles_lib_items_switch_to( _switch_to_val, _silent, _output_channel )
 {
-    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     if ( is_string( _switch_to_val ) )
     {
 				switch( _switch_to_val.toLowerCase() )
@@ -132,25 +132,25 @@ function circles_lib_items_switch_to( _switch_to_val, _silent, _out_channel )
     _glob_items_switch = safe_int( _switch_to_val, ITEMS_SWITCH_SEEDS );
     var _zplane_items_desc = circles_lib_items_get_def();
     var _ret_msg = "Switch to "+_zplane_items_desc+" (items)" ;
-    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title + " - Items init" );
+    if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title + " - Items init" );
 	  return [ RET_OK, _ret_msg ] ;
 }
 
-function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_mask, _out_channel )
+function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_mask, _output_channel )
 {
     _index = safe_int( _index, UNDET ), _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _init_mask = safe_int( _init_mask, _glob_init_mask ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _init_mask = safe_int( _init_mask, _glob_init_mask ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _items_n = _glob_items_switch == ITEMS_SWITCH_GENS ? circles_lib_count_gens() : circles_lib_count_seeds();
     if ( _glob_method == METHOD_NONE )
     {
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_24_03, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_24_03, _glob_app_title );
        return [ RET_WARNING, _ERR_24_03 ];
     }
     else if ( _items_n == 0 )
     {
 			 var _msg = _ERR_33_02 ;
 			 if ( _plugin_last_ref != 0 ) _msg += "\nPush 'set parameters' in the plug-in window" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else if ( _items_n > 0 )
@@ -163,27 +163,27 @@ function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_ma
           var _ret_chunk = circles_lib_items_init( _index, _question, _silent, _init_mask );
           var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
           var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
-          if ( _out_channel != OUTPUT_SCREEN && is_array( _ret_chunk ) && _ret_id == 0 )
+          if ( _output_channel != OUTPUT_SCREEN && is_array( _ret_chunk ) && _ret_id == 0 )
           {
-              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_chunk[0], _glob_app_title );
+              if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_chunk[0], _glob_app_title );
               return _ret_chunk ;
           }
 
-          var _check_group = circles_lib_symbol_check_group( _glob_seeds_array, _out_channel ) ;
+          var _check_group = circles_lib_symbol_check_group( _glob_seeds_array, _output_channel ) ;
           var _items_error = circles_lib_items_check_data_coherence();
           if ( _check_group != GROUP_TEST_ERR_OK )
           {
-             var errMSG = circles_lib_symbol_get_err_def( _check_group, _out_channel );
+             var errMSG = circles_lib_symbol_get_err_def( _check_group, _output_channel );
              if ( circles_lib_plugin_find_index( { subset : "forms", base_id : 'seeds.list' }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
              {
-                if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, errMSG, _glob_app_title );
+                if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, errMSG, _glob_app_title );
                 return [ RET_ERROR, errMSG ];
              }
           }
           else if ( _items_error != ITEM_ERR_NONE )
           {
              var errMSG = "There is at least one item which has not been init or tagged" ;
-             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, errMSG, _glob_app_title );
+             if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, errMSG, _glob_app_title );
              return [ RET_ERROR, errMSG ];
           }
           else return _ret_chunk ;
@@ -191,36 +191,36 @@ function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_ma
        else
        {
           var _msg = "Items check halted by user" ;
-          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+          if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
           return [ RET_ERROR, _msg ];
        }
     }
 }
 
-function circles_lib_items_init( _index, _question, _silent, _init_mask, _report, _force_init, _out_channel )
+function circles_lib_items_init( _index, _question, _silent, _init_mask, _report, _force_init, _output_channel )
 {
     _index = safe_int( _index, UNDET ), _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _init_mask = safe_int( _init_mask, _glob_init_mask );
     _report = safe_int( _report, NO ), _force_init = safe_int( _force_init, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     if ( _init_mask == INIT_AUTO_RECOGNITION ) _init_mask = circles_lib_items_auto_recognition_group_params();
     var _report_text = "", _items_n = circles_lib_count_items();
     if ( _glob_method == METHOD_NONE )
     {
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_24_03, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_24_03, _glob_app_title );
        return [ RET_WARNING, _ERR_24_03 ] ;
     }
     else if ( _items_n == 0 )
     {
 			 var _msg = _ERR_33_02 ;
 			 if ( _plugin_last_ref != 0 ) _msg += _glob_crlf + "Push 'set' in the plug-in window" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else if ( !_glob_items_to_init && _items_n > 0 && !_force_init )
     {
        var _msg = "<gray>Items have been already initialized</gray>" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app_title );
        return [ RET_IRRELEVANT, _msg ] ;
     }
     else
@@ -239,22 +239,22 @@ function circles_lib_items_init( _index, _question, _silent, _init_mask, _report
        var _ret_chunk = null ;
        if ( _init_mask & INIT_SYMBOLS || _init_mask & INIT_AUTO_RECOGNITION )
        {
-          //_ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( _question, _glob_terminal_silent, YES, NO, _out_channel );
+          //_ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( _question, _glob_terminal_silent, YES, NO, _output_channel );
     		  if ( _ret_chunk[0] == RET_ERROR ) return _ret_chunk ;
        }
         
-       if ( _init_mask & INIT_FROM_DISKS ) _ret_chunk = circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, _force_init, _out_channel );
-       else if ( _init_mask & INIT_FROM_MAPS ) _ret_chunk = circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _force_init, _out_channel );
+       if ( _init_mask & INIT_FROM_DISKS ) _ret_chunk = circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, _force_init, _output_channel );
+       else if ( _init_mask & INIT_FROM_MAPS ) _ret_chunk = circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _force_init, _output_channel );
        else if ( !_force_init )
        {
           var _msg = "Flag 'force' is off: skipped initialization of items" ;
-          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+          if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
           return [ RET_WARNING, _msg ] ;
        }
        else
        {
           var _msg = "Invalid init options for method '" + circles_lib_method_get_def( _glob_method ) + "'" ;
-          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+          if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
           return [ RET_ERROR, _msg ] ;
        }
 
@@ -264,15 +264,15 @@ function circles_lib_items_init( _index, _question, _silent, _init_mask, _report
 
        if ( _ret_id == 0 )
        {
-          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg, _glob_app_title );
+          if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg, _glob_app_title );
           return [ RET_ERROR, _ret_msg ] ;
        }
 
        var _gens_exist = circles_lib_gens_model_exists();
-       if ( !_gens_exist ) _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _out_channel );
+       if ( !_gens_exist ) _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _output_channel );
        else if ( _init_mask != IF_NOT_EXISTING )
        {
-          _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_GENS, _silent, _out_channel );
+          _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_GENS, _silent, _output_channel );
 			    _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], 0 ) : 0 ;
 			    _ret_msg += _glob_crlf + ( is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown response" );
 			    if ( _ret_id == RET_OK )
@@ -365,11 +365,11 @@ function circles_lib_items_auto_recognition_group_params()
     }
 }
 
-function circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, _force, _out_channel )
+function circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, _force, _output_channel )
 {
     _init_mask = safe_int( _init_mask, _glob_init_mask );
     _silent = safe_int( _silent, YES ), _report = safe_int( _report, NO );
-    _force = safe_int( _force, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _force = safe_int( _force, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _locked = _glob_init_mask & INIT_LOCK ? YES : NO, _report_array = [] ;
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _items_n = circles_lib_count_items( _items_array );
@@ -476,26 +476,26 @@ function circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, 
               _msg = _report_array.join( _glob_crlf );
            }
 
-           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+           if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
            return [ RET_OK, _msg ];
        }
        else
        {
-           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_33_06, _glob_app_title );
+           if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_33_06, _glob_app_title );
            return [ RET_ERROR, _ERR_33_06 ] ;
        }
     }
     else
     {
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_33_01, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_33_01, _glob_app_title );
        return [ RET_ERROR, _ERR_33_01 ] ;
     }
 }
 
-function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _force, _out_channel )
+function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _force, _output_channel )
 {
     _silent = safe_int( _silent, YES ), _init_mask = safe_int( _init_mask, YES );
-    _report = safe_int( _report, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _report = safe_int( _report, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     _force = safe_int( _force, YES ) ;
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _locked = _glob_init_mask & INIT_LOCK ? YES : NO, _report_array = [] ;
@@ -504,13 +504,13 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
     if ( !( _init_mask & INIT_FROM_MAPS ) )
     {
        var _msg = "Inconsistent params call to group init from Mobius maps" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else if ( !_init_mask.match_bit_mask( INIT_SINGLE_ITEMS, INIT_PAIRED_ITEMS ) )
     {
        var _msg = "Can't init items: incoherent init option" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ];
     }
     else if ( _items_n > 0 )
@@ -605,7 +605,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
                       _msg = _report_array.join( _glob_crlf )
                    }
 
-                   if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg.strip_tags(), _glob_app_title );
+                   if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg.strip_tags(), _glob_app_title );
                    return [ RET_ERROR, _msg ];
                }
            }
@@ -617,31 +617,31 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
               _msg = _report_array.join( _glob_crlf );
            }
 
-           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+           if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
            return [ RET_OK, _msg ];
        }
        else
        {
-          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Failure: " + _ERR_33_06, _glob_app_title );
+          if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Failure: " + _ERR_33_06, _glob_app_title );
           return [ RET_ERROR, "Failure: " + _ERR_33_06 ];
        }
     }
     else
     {
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_00_10, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_00_10, _glob_app_title );
        return [ RET_ERROR, _ERR_00_10 ];
     }
 }
 
-function circles_lib_items_group_test( _silent, _out_channel ) // main function
+function circles_lib_items_group_test( _silent, _output_channel ) // main function
 {
-    _silent = safe_int( _silent, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _ret_chunk = circles_lib_items_group_consistence_test();
     var _ret_id = safe_int( _ret_chunk['ret'], UNDET ), _entries_n = safe_int( _ret_chunk['n'], 0 );
         _ret_chunk = circles_lib_items_group_return_msg( _ret_id, _entries_n );
         _ret_id = _ret_chunk[0] ;
     var _ret_msg = safe_string( _ret_chunk[1], "Unknown error" );
-    if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, _ret_id >= 0 ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _glob_app_title );
+    if ( !_silent && _output_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, _ret_id >= 0 ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _glob_app_title );
     return [ _ret_id, _ret_msg ]
 }
 

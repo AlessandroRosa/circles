@@ -29,13 +29,13 @@ function CIRCLESformsCOORDINATESalphabetCOMBOonchange()
 		}
 }
 
-function CIRCLESformsCOORDINATESinputMANAGER( _plane_type, _render, _callback_fn, _input_type, _center, _side, _question, _silent, _out_channel )
+function CIRCLESformsCOORDINATESinputMANAGER( _plane_type, _render, _callback_fn, _input_type, _center, _side, _question, _silent, _output_channel )
 {
 		_plane_type = circles_lib_return_plane_type( _plane_type ), _render = safe_int( _render, YES );
     _callback_fn = safe_string( _callback_fn, "" ), _side = safe_int( _side, 0 ) ;
     _input_type = safe_int( _input_type, ZOOM_PULL_COORDS );
 		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _plane_label = circles_lib_plane_get_def( _plane_type );
     var MSG = "Confirm to set these coordinates for the " + _plane_label + "? " ;
     var _b_go = !_question ? YES : confirm( MSG );
@@ -63,13 +63,13 @@ function CIRCLESformsCOORDINATESinputMANAGER( _plane_type, _render, _callback_fn
 		        if ( LEFT > RIGHT )
 		        {
 		            var _msg = _plane_label+_glob_crlf+"Horizonthal coordinates are not consistent" ;
-		            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+		            if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
 		            return [ RET_ERROR, _msg ] ;
 		        }
 		        else if ( BOTTOM > TOP )
 		        {
 		            var _msg = _plane_label+_glob_crlf+"Vertical coordinates are not consistent" ;
-		            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+		            if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
 		            return [ RET_ERROR, _msg ] ;
 		        }
 		        else
@@ -96,7 +96,7 @@ function CIRCLESformsCOORDINATESinputMANAGER( _plane_type, _render, _callback_fn
 		            }
 
                 $("#CIRCLESformsCOORDINATESsetcoordsBTN").css("color","black");
-		            var _ret_chunk = circles_lib_coordinates_set_core( null, null, _plane_type, _silent, _render, _out_channel );
+		            var _ret_chunk = circles_lib_coordinates_set_core( null, null, _plane_type, _silent, _render, _output_channel );
 		            if ( typeof _callback_fn === "function" ) eval( _callback_fn );
 		            return _ret_chunk ;
 		        }
@@ -125,7 +125,7 @@ function CIRCLESformsCOORDINATESinputMANAGER( _plane_type, _render, _callback_fn
 								_glob_interface_index == INTERFACE_EXTEND_ZPLANE ? _glob_zplaneBOTTOM = BOTTOM : _glob_wplaneBOTTOM = BOTTOM ; 
 
                 $("#CIRCLESformsCOORDINATESsetcoordsBTN").css("color","black");
-		            var _ret_chunk = circles_lib_coordinates_set_core( null, null, _plane_type, _silent, _render, _out_channel );
+		            var _ret_chunk = circles_lib_coordinates_set_core( null, null, _plane_type, _silent, _render, _output_channel );
 		            if ( _callback_fn.length > 0 ) eval( _callback_fn );
 		            return _ret_chunk ;
 						}

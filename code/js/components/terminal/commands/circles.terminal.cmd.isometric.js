@@ -4,14 +4,14 @@ function circles_terminal_cmd_isometric()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
+     var _output_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0, _cnt = 0 ;
@@ -38,7 +38,7 @@ function circles_terminal_cmd_isometric()
          _params_assoc_array['dump_operator_index'] = UNDET ;
          _params_assoc_array['fillcolor'] = "" ;
          _params_assoc_array['help'] = NO ;
-         _params_assoc_array['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['index'] = null ;
          _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
@@ -56,7 +56,7 @@ function circles_terminal_cmd_isometric()
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "show", "compute", "wplane", "zplane", "rec", "copy", "all",
                                             "draw", "table", "release", "help", "html", "seeds", "generators" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -88,12 +88,12 @@ function circles_terminal_cmd_isometric()
                    if ( _p <= 0 )
                    {
                        _p = _glob_accuracy ;
-                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
                    }
                    else if ( _p > DEFAULT_MAX_ACCURACY )
                    {
                        _p = _glob_accuracy ;
-                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
                    }
                    
                    _params_assoc_array['roundto'] = _p ;
@@ -126,15 +126,15 @@ function circles_terminal_cmd_isometric()
               }
          }
 
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _out_channel );
+         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_b_fail )
@@ -161,29 +161,29 @@ function circles_terminal_cmd_isometric()
              }
 
              _symbols_array = is_array( _symbols_array ) ? _symbols_array.unique().sort() : [] ;
-             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
+             circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
              switch( _action )
              {
                 case "release":
-                circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 case "show":
                 case "compute":
                   _glob_alphabet = circles_lib_alphabet_get();
-                  if ( _items_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_action+" the isometric circles: the list of registered items is empty", _par_1, _cmd_tag );
+                  if ( _items_n == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't "+_action+" the isometric circles: the list of registered items is empty", _par_1, _cmd_tag );
                   else if ( safe_size( _glob_alphabet, 0 ) == 0 )
                   {
                        _b_fail = YES, _error_str = "Current alphabet is empty" ;
                        if ( _params_assoc_array['word'].length > 0 ) _error_str += " : can't compute isometric circle from word '"+_params_assoc_array['word']+"'" ;
                   }
-                  else if ( safe_size( _symbols_array, 0 ) == 0 && _params_assoc_array['word'].length == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_action+" the isometric circles: missing input symbols", _par_1, _cmd_tag );
+                  else if ( safe_size( _symbols_array, 0 ) == 0 && _params_assoc_array['word'].length == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't "+_action+" the isometric circles: missing input symbols", _par_1, _cmd_tag );
                   else if ( _params_assoc_array['word'].length > 0 )
                   {
                        var _word = _params_assoc_array['word'] ;
                        var _draw = ( _params_assoc_array['draw'] || _params_assoc_array['drawcolor'].length > 0 || _params_assoc_array['fillcolor'].length > 0 ) ? YES : NO ;
                        var G, _mm ;
-                       circles_lib_output( _out_channel, DISPATCH_INFO, "Computing the isometric circle for word '"+_word+"' ", _par_1, _cmd_tag );
-                       circles_lib_output( _out_channel, DISPATCH_INFO, "Checking '"+_word+"' for coherence with current alphabet ", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_INFO, "Computing the isometric circle for word '"+_word+"' ", _par_1, _cmd_tag );
+                       circles_lib_output( _output_channel, DISPATCH_INFO, "Checking '"+_word+"' for coherence with current alphabet ", _par_1, _cmd_tag );
                        for( var _runner = 0 ; _runner < _word.length ; _runner++ )
                        {
                             if ( !_glob_alphabet.includes( _word[_runner] ) )
@@ -192,27 +192,27 @@ function circles_terminal_cmd_isometric()
                             }
                        }
                        
-                       if ( !_b_fail ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Coherence test passed with success", _par_1, _cmd_tag );
+                       if ( !_b_fail ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Coherence test passed with success", _par_1, _cmd_tag );
                        if ( !_b_fail )
                        {
                            var _resolved_word = circles_lib_repetends_resolve( _word );
                            if ( !_word.strcmp( _resolved_word ) )
-                           circles_lib_output( _out_channel, DISPATCH_INFO, "Input word"+_glob_crlf+_word+_glob_crlf+"has been resolved to"+_glob_crlf+_resolved_word, _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_INFO, "Input word"+_glob_crlf+_word+_glob_crlf+"has been resolved to"+_glob_crlf+_resolved_word, _par_1, _cmd_tag );
 
-                           circles_lib_output( _out_channel, DISPATCH_INFO, "Mobius map composition from word '" + _word + "'", _par_1, _cmd_tag );
-                           _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _out_channel );
+                           circles_lib_output( _output_channel, DISPATCH_INFO, "Mobius map composition from word '" + _word + "'", _par_1, _cmd_tag );
+                           _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _output_channel );
                            var _isometric_cc = _mm.isometric_circle(YES);
-                           circles_lib_output( _out_channel, DISPATCH_INFO, "Resulting isometric circle " + _glob_crlf + _isometric_cc.output( "", _round_to ), _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_INFO, "Resulting isometric circle " + _glob_crlf + _isometric_cc.output( "", _round_to ), _par_1, _cmd_tag );
                            if ( _draw && _params_assoc_array['plane'] == NO_PLANE )
                            {
-                                circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing input plane for drawing: 'zplane' is assumed by default", _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing input plane for drawing: 'zplane' is assumed by default", _par_1, _cmd_tag );
                                 _params_assoc_array['plane'] = Z_PLANE ;
                            }
 
                            if ( _draw )
                            circles_terminal_cmd_isometric_draw( _params_assoc_array['plane'], _word, _isometric_cc,
                                                                  _params_assoc_array['drawcolor'], _params_assoc_array['fillcolor'],
-                                                                 2, _out_channel, _par_1, _cmd_tag );
+                                                                 2, _output_channel, _par_1, _cmd_tag );
 
                            if ( _params_assoc_array['rec'] || _params_assoc_array["copy"] )
                            {
@@ -236,12 +236,12 @@ function circles_terminal_cmd_isometric()
                                {
                                    _glob_storage['figures'].push( _rec_chunk );
                                    var _msg = "<green>Isometric circle '"+_word+"' copied into data storage space</green>" ;
-                                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                                   circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                                }
 
                                var _msg = "<green>Isometric circle '"+_word+"' recorded into figures set</green>" ;
                                if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += _glob_crlf + "<lightgray>Use cmd 'figures' to manage this entry.</lightgray>" ;
-                               circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                               circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                            }
                        }
                   }
@@ -290,7 +290,7 @@ function circles_terminal_cmd_isometric()
                                          sc_radius_pt = zplane_sm.from_cartesian_to_client( _isometric_cc.center.x + _isometric_cc.radius, _isometric_cc.center.y );
                                          sc_radius = Math.abs( sc_radius_pt.x - sc_radius_pt.x );
                                          _items_array[_index].screen_circle = new circle( new point( sc_center_pt.x, sc_center_pt.y ), sc_radius );
-                                         if ( !_check ) _b_fail = YES, circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Computing the isometric circle for map '"+ITEM.symbol+"'</lightgray> " + ( _check ? "<green>success</green>" : "<red>failed</red>" ), _par_1, _cmd_tag );
+                                         if ( !_check ) _b_fail = YES, circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Computing the isometric circle for map '"+ITEM.symbol+"'</lightgray> " + ( _check ? "<green>success</green>" : "<red>failed</red>" ), _par_1, _cmd_tag );
                                      }
                                      else
                                      {
@@ -301,14 +301,14 @@ function circles_terminal_cmd_isometric()
 
                                  if ( _draw && _params_assoc_array['plane'] == NO_PLANE )
                                  {
-                                      circles_lib_output( _out_channel, DISPATCH_WARNING, "No input plane for drawing: 'zplane' is assumed by default", _par_1, _cmd_tag );
+                                      circles_lib_output( _output_channel, DISPATCH_WARNING, "No input plane for drawing: 'zplane' is assumed by default", _par_1, _cmd_tag );
                                       _params_assoc_array['plane'] = Z_PLANE ;
                                  }
 
                                  if ( _draw )
                                  circles_terminal_cmd_isometric_draw( _params_assoc_array['plane'], ITEM.symbol, _isometric_cc,
                                                                       _params_assoc_array['drawcolor'], _params_assoc_array['fillcolor'],
-                                                                      2, _out_channel, _par_1, _cmd_tag );
+                                                                      2, _output_channel, _par_1, _cmd_tag );
 
                                  if ( _params_assoc_array['rec'] || _params_assoc_array["copy"] )
                                  {
@@ -333,12 +333,12 @@ function circles_terminal_cmd_isometric()
                                       {
                                           _glob_storage['figures'].push( _rec_chunk );
                                           var _msg = "<green>Isometric circle '"+_word+"' copied into data storage space</green>" ;
-                                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                                          circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                                       }
 
                                       var _msg = "<green>Isometric circle '"+ITEM.symbol+"' recorded into figures set</green>" ;
                                       if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += _glob_crlf + "<lightgray>Use cmd 'figures' to manage this entry.</lightgray>" ;
-                                      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                                      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                                  }
                             }
                             else
@@ -362,14 +362,14 @@ function circles_terminal_cmd_isometric()
                              _out_str += _report.join( _glob_crlf );
                           }
                           else _out_str += "<greenshock>Congruence test has passed with success</greenshock>" ;
-                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _out_str, _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _out_str, _par_1, _cmd_tag );
                        }
                        else if ( _action.stricmp( "compute" ) )
                        {
                           var _msg = "The isometric circles for " ;
                           _msg += ( _params_assoc_array['all'] ) ? "all maps " : "maps " + _symbols_array.join( ", " ) + " " ;
                           _msg += "have"+( _b_fail ? " not " : " " )+"been computed with success" ;
-                          circles_lib_output( _out_channel, _b_fail ? DISPATCH_ERROR : DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, _b_fail ? DISPATCH_ERROR : DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                        }
                   }
                   else
@@ -386,18 +386,18 @@ function circles_terminal_cmd_isometric()
          _b_fail = YES, _error_str = "Missing input params" ;
      }
 
-     if ( _b_fail && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
 
-function circles_terminal_cmd_isometric_draw( _plane_type, _word, _isometric_cc, _drawcolor, _fillcolor, _bordersize, _out_channel, _par_1 )
+function circles_terminal_cmd_isometric_draw( _plane_type, _word, _isometric_cc, _drawcolor, _fillcolor, _bordersize, _output_channel, _par_1 )
 {
      var _draw = ( _drawcolor.length > 0 ) ? YES : NO ;
      var _fill = ( _fillcolor.length > 0 ) ? YES : NO ;
      if ( _plane_type.is_one_of( W_PLANE, Z_PLANE ) && ( _draw || _fill ) )
      {
-        circles_lib_output( _out_channel, DISPATCH_INFO, "Plot circle '"+_word+"' on the " + circles_lib_plane_get_def( _plane ), _par_1, _cmd_tag );
+        circles_lib_output( _output_channel, DISPATCH_INFO, "Plot circle '"+_word+"' on the " + circles_lib_plane_get_def( _plane ), _par_1, _cmd_tag );
         var _mapper = null ;
         var _canvas = circles_lib_canvas_get_exists( _plane_type, "work" ) ? circles_lib_canvas_get_target( _plane_type, "work" ) : ( _plane_type == Z_PLANE ? _glob_zplane_work_canvas_placeholder : _glob_wplane_work_canvas_placeholder );
         if ( _plane == W_PLANE ) _mapper = wplane_sm ;
@@ -406,5 +406,5 @@ function circles_terminal_cmd_isometric_draw( _plane_type, _word, _isometric_cc,
                                                      _isometric_cc.center.x, _isometric_cc.center.y, _isometric_cc.radius,
                                                      _draw, _drawcolor, _fill, _fillcolor, _bordersize, null, null, null, _word, 0 );
      }
-     else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing color params: the isometric circle '"+_word+"' has not been plot", _par_1, _cmd_tag );
+     else circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing color params: the isometric circle '"+_word+"' has not been plot", _par_1, _cmd_tag );
 }
