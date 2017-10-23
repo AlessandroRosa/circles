@@ -43,9 +43,8 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     _move = is_string( _move ) ? _move : safe_int( _move, YES ), _restore = safe_int( _restore, YES );
     var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ) ;
     CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id );
-		_plugin_last_ref = _plugin_main_ref ;
-    _glob_palette_use = NO ;
-    _glob_drawentity = DRAWENTITY_PIXEL ;
+	_plugin_last_ref = _plugin_main_ref ;
+    _glob_palette_use = NO, _glob_drawentity = DRAWENTITY_PIXEL ;
     var _index_ref = _plugin_last_ref ;
     var _items_n = circles_lib_count_items();
     var this_fn_name = arguments.callee.name + "(NO,"+_restore+")" ;
@@ -421,10 +420,10 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 
     if ( _plugin_tmp_vars_array['plugin_sel'] != null )
     {
-        var _data = _plugin_tmp_vars_array['plugin_sel'], _store_gens = [] ;
+        var _data = _plugin_tmp_vars_array['plugin_sel'], _store_gens = [], _var_id = "", _var_val = 0 ;
         $.each( _data.keys_associative(), function( _i, _key )
         {
-            var _var_id = _key, _var_val = _data[ _key ] ;
+            _var_id = _key, _var_val = _data[ _key ] ;
             if ( _var_id.start_with( "g" ) && _var_id.includes( "_" ) )
             {
                 _var_id = _var_id.replace( "g", "" ).split( "_" ) ;

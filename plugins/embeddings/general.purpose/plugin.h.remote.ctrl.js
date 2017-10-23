@@ -20,27 +20,27 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 		switch( _opt )
   		{
 		 case "add.mobius.map":
-  			if ( _options[1] != null ) $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) );
-  			if ( _options[2] != null ) $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
-  			if ( _options[3] != null ) $( "#PLUGIN_PARAM_C" ).val( _options[3].replaceAll( [ ",", ";" ], "" ) );
-  			if ( _options[4] != null ) $( "#PLUGIN_PARAM_D" ).val( _options[4].replaceAll( [ ",", ";" ], "" ) );
-  			CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
-		    _ret_array.push( 1, "<green>Mobius map has been added with success to the candidate group</green>" ) ;
-			return YES ;
-  			break ;
+  		 if ( _options[1] != null ) $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) );
+  		 if ( _options[2] != null ) $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
+  		 if ( _options[3] != null ) $( "#PLUGIN_PARAM_C" ).val( _options[3].replaceAll( [ ",", ";" ], "" ) );
+  		 if ( _options[4] != null ) $( "#PLUGIN_PARAM_D" ).val( _options[4].replaceAll( [ ",", ";" ], "" ) );
+  		 CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
+		 _ret_array.push( 1, "<green>Mobius map has been added with success to the candidate group</green>" ) ;
+		 return YES ;
+  		 break ;
   		 case "bomb":
-  			CIRCLESembeddingsGENERALPURPOSE_BOMB();
-		    _ret_array.push( 1, "<green>Group has been bombed with success: all generators have been deleted</green>" ) ;
-			return YES ;
-  			break ;
+  		 CIRCLESembeddingsGENERALPURPOSE_BOMB();
+		 _ret_array.push( 1, "<green>Group has been bombed with success: all generators have been deleted</green>" ) ;
+		 return YES ;
+  		 break ;
   		 case "capture.seeds":
-  			CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
-		    _ret_array.push( 1, "<green>Seeds have been captured with success</green>" ) ;
-			return YES ;
-  			break ;
+  		 CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
+		 _ret_array.push( 1, "<green>Seeds have been captured with success</green>" ) ;
+		 return YES ;
+  		 break ;
   		 case "capture.gens":
-  			CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
-		    _ret_array.push( 1, "<green>Generators have been captured with success</green>" ) ;
+  		 CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
+		 _ret_array.push( 1, "<green>Generators have been captured with success</green>" ) ;
 		 return YES ;
   		 break ;
   		 case "clean":
@@ -138,7 +138,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
               break ;
               default:
        		  _out_msg = "<red>Unknown parameter letter '"+_letter+"'</red>" ;
-			  _ret_array.push( 0, _out_msg ) ;
+			  _ret_array.push( NO, _out_msg ) ;
               return NO ;
               break ;
            }
@@ -161,7 +161,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 				{
 					var _ret = CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_ADD,YES,_output_channel);
 					_out_msg = _ret ? "<green>Params "+_params.join( "," )+" have been been added with success</green>" : "Fail to perform operation" ;
-					_ret_array.push( 1, _out_msg ) ;
+					_ret_array.push( YES, _out_msg ) ;
 				}
 				else _ret_array.push( 0, "<red>No input params have been specified</red>" ) ;
                 break ;
@@ -182,6 +182,8 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
         if ( _var_id.length > 0 )
         {
 			var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_DELETE( YES, NO, _var_id, _output_channel ) ;
+		    _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<red>Fail to accomplish the operation</red>" ;
+		    _ret_array.push( _ret, _out_msg ) ;
             return _ret ;
         }
         else
@@ -218,14 +220,17 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          else
          {
 			_out_msg = "<red>Can't add the var to the list: please, input var ID and VALUE</red>" ;
-			_ret_array.push( 0, _out_msg ) ;
+			_ret_array.push( NO, _out_msg ) ;
             return NO ;
          }
          break ;
 		 case "var.register.select":
-		 var _idx = safe_int( _options[1], 0 ) ;
-		 console.log( _options, _idx );
-		 if ( _idx >= 0 )
+		 var _idx = _options[1] ;
+		 var _idx_type = 0 ; // 1 : number, 2 : letter
+		 if ( /([0-9]{1,})/.test( _options[1] ) ) { _idx_type = 1 ; _idx = safe_int( _idx, 0 ); }
+		 else { _idx_type = 2 ; _idx = safe_string( _idx, "" ) ; }
+		 
+		 if ( _idx_type == 1 && _idx >= 0 )
 		 {
 			if ( $("#PLUGINregisteredvarsCOMBO").get(0) != null )
 			{
@@ -235,27 +240,57 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 					$("#PLUGINregisteredvarsCOMBO").get(0).selectedIndex = _idx ;
 					$("#PLUGINregisteredvarsCOMBO").trigger("change") ;
 					_out_msg = "<green>Selected entry #"+_idx+"</green>" ;
-					_ret_array.push( 1, _out_msg ) ;
+					_ret_array.push( YES, _out_msg ) ;
 					return YES ;
 				}
 				else
 				{
 					_out_msg = "<orange>Allowed index range for dropdown selection goes from 0 to "+(_n_options-1)+"</orange>" ;
-					_ret_array.push( 1, _out_msg ) ;
+					_ret_array.push( YES, _out_msg ) ;
 					return NO ;
 				}
 			}
 			else
 			{
 				_out_msg = "<red>Missing dropdown menu for selection: please register a var before</red>" ;
-				_ret_array.push( 0, _out_msg ) ;
+				_ret_array.push( NO, _out_msg ) ;
 				return NO ;
 			}
 		 }
+		 else if ( _idx_type == 2 )
+		 {
+			var _sel = -1 ;
+			var _opts_length = $("#PLUGINregisteredvarsCOMBO").get(0).options.length ;
+			for( var _i = 0 ; _i < _opts_length ; _i++ )
+			{
+				if ( $("#PLUGINregisteredvarsCOMBO").get(0).options[_i].value.start_with( _idx+":" ) )
+				{
+					_sel = _i ;
+					break ;
+				}
+			}
+			if ( _sel == -1 )
+			{
+				$("#PLUGINregisteredvarsCOMBO").get(0).selectedIndex = 0 ;
+				_out_msg = "<red>Entry '"+_idx+"' was not found</red>" ;
+				_ret_array.push( NO, _out_msg ) ;
+				$("#PLUGINvaridEDIT").val("");
+				$("#PLUGINvarvalueEDIT").val("");
+				return NO ;
+			}
+			else
+			{
+				$("#PLUGINregisteredvarsCOMBO").get(0).selectedIndex = _sel ;
+				$("#PLUGINregisteredvarsCOMBO").trigger("change") ;
+				_out_msg = "<green>Selected entry #"+_sel+"</green>" ;
+				_ret_array.push( YES, _out_msg ) ;
+				return YES ;
+			}
+         }
 		 else
 		 {
 			_out_msg = "<red>Negative indexes are not allowed for selection</red>" ;
-			_ret_array.push( 0, _out_msg ) ;
+			_ret_array.push( NO, _out_msg ) ;
             return NO ;
 		 }
 		 break ;
