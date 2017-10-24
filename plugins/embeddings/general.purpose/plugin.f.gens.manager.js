@@ -113,7 +113,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode, _silent, _output_
 					var _ret = NO ;
 					if ( _new_n > _old_n )
 					{
-						circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Gen #"+_new_n+" has been added with success!", 'PLUGIN_OUTMSG' ) ;
+						circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Generator #"+_new_n+" has been added with success to the candidate group!", 'PLUGIN_OUTMSG' ) ;
 						_ret = YES ;
 					}
 				}

@@ -1,13 +1,13 @@
 function circles_lib_drawentity_get_def( _drawentity ) { return _glob_drawentity_defs_array[''+_drawentity] != null ? _glob_drawentity_defs_array[''+_drawentity] : "unknown" ; }
-function circles_lib_figure_get_def( _figure_class )       { return _glob_figures_defs_array[''+_figure_class] != null ? _glob_figures_defs_array[''+_figure_class] : "unknown" ; }
+function circles_lib_figure_get_def( _figure_class ) { return _glob_figures_defs_array[''+_figure_class] != null ? _glob_figures_defs_array[''+_figure_class] : "unknown" ; }
 function circles_lib_fixedpoints_get_def( _def_type ) { return _glob_fixedpoints_defs_array[''+_def_type] != null ? _glob_fixedpoints_defs_array[''+_def_type] : "unknown" ; }
-function circles_lib_fixedpoints_io_get_def( _fc_type )    { return _glob_fixedpt_io_defs_array[''+_fc_type] != null ? _glob_fixedpt_io_defs_array[''+_fc_type] : "unknown" ; }
+function circles_lib_fixedpoints_io_get_def( _fc_type ) { return _glob_fixedpt_io_defs_array[''+_fc_type] != null ? _glob_fixedpt_io_defs_array[''+_fc_type] : "unknown" ; }
 function circles_lib_construction_mode_get_def( _cm_type ) { return _glob_constr_mode_defs_array[''+_cm_type] != null ? _glob_constr_mode_defs_array[''+_cm_type] : "unknown" ; }
 function circles_lib_process_get_def( _proc_type ) { return _glob_proc_defs_array[''+_proc_type] != null ? _glob_proc_defs_array[''+_proc_type] : "unknown" ; }
 function circles_lib_method_get_def( _m_type ) { return _glob_method_defs_array[''+_m_type] != null ? _glob_method_defs_array[''+_m_type] : "unknown" ; }
 function circles_lib_method_get_def_for_cmds( _m_type ) { return _glob_method_cmd_defs_array[''+_m_type] != null ? _glob_method_cmd_defs_array[''+_m_type] : "unknown" ; }
-function circles_lib_get_target_plane()                 { return _glob_target_plane ; }
-function circles_lib_set_target_plane( _plane_type )    { return circles_lib_return_plane_type( _plane_type, YES ) ; }
+function circles_lib_get_target_plane() { return _glob_target_plane ; }
+function circles_lib_set_target_plane( _plane_type ) { return circles_lib_return_plane_type( _plane_type, YES ) ; }
 function circles_lib_return_plane_type( _plane_def, _set_target )
 {
     if ( is_string( _plane_def ) )

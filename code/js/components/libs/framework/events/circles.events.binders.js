@@ -29,8 +29,8 @@ function circles_lib_events_mouse_on_document_body( _event, _param_01, _param2 )
 function circles_lib_events_bind_to_document_body()
 {
     document.body.onkeydown = function( event ) { circles_lib_events_body_keydown(event,document.body,0); }
-    document.body.onkeyup = function( event )    { circles_lib_events_body_keyup(event,document.body,0); }
-    document.body.onclick = function( event )    { circles_lib_events_mouse_on_document_body(event,document.body,0); }
+    document.body.onkeyup = function( event ) { circles_lib_events_body_keyup(event,document.body,0); }
+    document.body.onclick = function( event ) { circles_lib_events_mouse_on_document_body(event,document.body,0); }
     document.body.ondblclick = function( event ) { circles_lib_events_mouse_on_document_body(event,document.body,0); }
 }
 

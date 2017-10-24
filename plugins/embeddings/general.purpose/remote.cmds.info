@@ -1,3 +1,4 @@
+"addmap"="add the mobius map to the group from the input parameters"
 "bomb"="delete all generators"
 "capture.seeds"="capture seeds into the mask from current group configuration"
 "capture.generators"="capture generators into the mask from current group configuration"

@@ -6,21 +6,13 @@ https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
 https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ DEMO ------------------------------------------------
-* modular group via general.purpose (parametric) and terminal commands
-  plugin send var.register _a 1
-  plugin send type 0 _a _a 0 add (the argument 'add' applies automatic insertion of the mobius map)
-  plugin send type _a _a 0 _a add
-  plugin send generate.group
-  
 * indexsearch (via terminal general.purpose, use a 6-generators group)
 
 ------------ APP -------------------------------------------------
 * Listings:
   cmd "plugin"
   - [general.purpose plugin] test cmds:
-    'type', 'var.save', 'var.delete', 'var.help', 'var.bomb', 'var.list',
-    'update.params', 'info.params'
-	(update .info file)
+    'var.help', 'var.bomb', 'var.list', 'update.params', 'info.params' (update .info file)
   - run all listings
 
 - srcptset terminal cmd:

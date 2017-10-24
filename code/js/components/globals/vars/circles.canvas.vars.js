@@ -67,7 +67,7 @@ var _glob_orbit_palette_array = null ;
 
 var _glob_canvas_ctx_2D_mode = "2d" ;
 var _glob_tiny_rendering_ref_id = 0 ;
-var _glob_depth = 1 ;
+var _glob_depth = DEFAULT_DEPTH ;
 var _glob_pt_border = DEFAULT_PT_BORDER, _glob_pt_radius = DEFAULT_PT_RADIUS ;
 var _glob_line_width = DEFAULT_LINE_WIDTH ;
 var _glob_opacity = DEFAULT_MAX_OPACITY ;

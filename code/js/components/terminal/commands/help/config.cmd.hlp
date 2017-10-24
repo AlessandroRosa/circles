@@ -22,7 +22,11 @@
 
 <yellow>------------- SPECIFIC SYNTAX ----------------</yellow>
 <gray>Syntax input: config %param% %value(s)%</gray>
-<yellow>example</yellow> <gray>config accuracy 12</gray>
+<yellow>example</yellow> <gray>config set accuracy 12</gray>
+<lightblue>set accuracy to 12 decimals</lightblue>
+
+<yellow>example</yellow> <gray>config get accuracy</gray>
+<lightblue>return the number of decimals applied to computation</lightblue>
 
 <banana>ACCURACY</banana>
 <banana>set approximation accuracy</banana>
@@ -61,10 +65,8 @@
 <banana>DRAW ENTITY</banana>
 <banana>set object for drawing the diagrams</banana>
 <lightblue>usage</lightblue> <snow>drawentity %class%</snow>
-<lightblue>%class%</lightblue> <snow>isometric | point | pixel | polyline %tolerance%</snow>
+<lightblue>%class%</lightblue> <snow>inversion | isometric | point | pixel</snow>
 <lightblue>drawentity isometric</lightblue>
-<lightblue>drawentity polyline 0.2</lightblue>
-<cadetblue>set drawing to polyline with tolerance 0.2</cadetblue>
 <lightblue>drawentity pixel 2</lightblue>
 <cadetblue>set pixel size to 2</cadetblue>
 <gray>Note: tolerance manages the upper bound distance between nodes of polyline</gray>

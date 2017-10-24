@@ -4,7 +4,7 @@ function is_html_canvas( _obj )  { return _obj instanceof HTMLCanvasElement; }
 function is_html_context( _obj ) { return _obj instanceof CanvasRenderingContext2D; }
 
 function CELLgetCONTENTS( IDBTN )            { return $( "#"+IDBTN ).html() ; }
-function CELLgetCLR( IDBTN )                 { return $( "#"+IDBTN ).css( "color" ) ; }
+function CELLgetCLR( IDBTN ) { return $( "#"+IDBTN ).css( "color" ) ; }
 
 function CELLsetCLR( IDBTN, _color )
 {

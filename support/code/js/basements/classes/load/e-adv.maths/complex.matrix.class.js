@@ -313,18 +313,18 @@ complex_matrix.prototype.is_singular_matrix = function() { return this.det().rad
 complex_matrix.prototype.is_logical_matrix = function() { return this.is_boolean_matrix() ; }
 complex_matrix.prototype.is_consistent_matrix = function() { return ( ( this.rows + this.cols ) % 2 == 0 ) ; }
 complex_matrix.prototype.is_row_matrix = function() { return ( this.rows == 1 && this.cols == 0 ) ? 1 : 0 ; }
-complex_matrix.prototype.is_column_matrix = function()       { return ( this.rows == 0 && this.cols == 1 ) ? 1 : 0 ; }
+complex_matrix.prototype.is_column_matrix = function() { return ( this.rows == 0 && this.cols == 1 ) ? 1 : 0 ; }
 complex_matrix.prototype.is_rectangular_matrix = function()  { return this.rows != this.cols ? 1 : 0 ; }
-complex_matrix.prototype.is_square_matrix = function()       { return this.rows == this.cols ? 1 : 0 ; }
-complex_matrix.prototype.is_symmetric_matrix = function()    { return this.is_equal_to( this.get_transpose_matrix() ) ? 1 : 0 ; }
+complex_matrix.prototype.is_square_matrix = function() { return this.rows == this.cols ? 1 : 0 ; }
+complex_matrix.prototype.is_symmetric_matrix = function() { return this.is_equal_to( this.get_transpose_matrix() ) ? 1 : 0 ; }
 complex_matrix.prototype.is_skewsymmetric_matrix = function() { return this.is_equal_to( this.get_transpose_matrix().get_negative_matrix() ) ? 1 : 0 ; }
 complex_matrix.prototype.is_nilpotent_matrix_of_order = function( _k )  { return this.pow( _k ).is_equal_to( this.get_zero_matrix() ) ? 1 : 0 ; }
 complex_matrix.prototype.is_periodic_matrix_of_order = function( _k ) { return this.is_equal_to( this.pow( _k ) ) ? 1 : 0 ; }
 complex_matrix.prototype.is_idempotent_matrix = function()            { return this.is_periodic_matrix_of_order( 2 ) ? 1 : 0 ; }
 complex_matrix.prototype.is_hermitian_matrix = function() { return this.is_equal_to( this.get_adjoint_matrix() ) ? 1 : 0 ; }
 complex_matrix.prototype.is_antihermitian_matrix = function() { return this.get_negative_matrix().is_equal_to( this.get_adjoint_matrix() ) ? 1 : 0 ; }
-complex_matrix.prototype.is_involutive_matrix = function()    { return this.pow( 2 ).is_equal_to( this.get_identity_matrix() ) ? 1 : 0 ; }
-complex_matrix.prototype.is_orthogonal_matrix = function()    { return this.mul( this.get_transpose_matrix() ).is_equal_to( this.get_identity_matrix() ) ? 1 : 0 ; }
+complex_matrix.prototype.is_involutive_matrix = function() { return this.pow( 2 ).is_equal_to( this.get_identity_matrix() ) ? 1 : 0 ; }
+complex_matrix.prototype.is_orthogonal_matrix = function() { return this.mul( this.get_transpose_matrix() ).is_equal_to( this.get_identity_matrix() ) ? 1 : 0 ; }
 complex_matrix.prototype.is_normal_matrix = function() { return this.mul( this.get_transpose_matrix() ).is_equal_to( this.get_transpose_matrix().mul( this ) ) ? 1 : 0 ; }
 complex_matrix.prototype.is_zero_matrix = function()
 {
@@ -1714,12 +1714,12 @@ complex_matrix.prototype.sub_matrix = function( _start_index_row, _start_index_c
 
 // -- START -- ALIASES
 
-complex_matrix.prototype.inner_product = function( _m2 )       { return this.dot_product( _m2 ); }
+complex_matrix.prototype.inner_product = function( _m2 ) { return this.dot_product( _m2 ); }
 complex_matrix.prototype.scalar_product = function( _m2 ) { return this.dot_product( _m2 ); }
-complex_matrix.prototype.parallel_product = function( _m2 )    { return this.mul( _m2 ); }
+complex_matrix.prototype.parallel_product = function( _m2 ) { return this.mul( _m2 ); }
 complex_matrix.prototype.elementwise_product = function( _m2 ) { return this.hadamard_product( _m2 ); }
 complex_matrix.prototype.entrywise_product = function( _m2 ) { return this.hadamard_product( _m2 ); }
 complex_matrix.prototype.pointwise_product = function( _m2 ) { return this.hadamard_product( _m2 ); }
-complex_matrix.prototype.schur_product = function( _m2 )       { return this.hadamard_product( _m2 ); }
+complex_matrix.prototype.schur_product = function( _m2 ) { return this.hadamard_product( _m2 ); }
 
 // -- END -- ALIASES

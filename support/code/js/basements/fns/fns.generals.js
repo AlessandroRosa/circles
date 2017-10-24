@@ -1,7 +1,7 @@
 function debug( _str ) { console.log( _str ) ; }
 function object_exists( _obj ) { return ( _obj != null && _obj != "undefined" ) ? 1 : 0 ; }
 function is_consistent_array( _a ) { return _a != null ? ( ( _a instanceof Array ) ? ( _a.length > 0 ? 1 : 0 ) : -2 ) : -1 ; }
-function is_a_given_obj( _obj, _obj_tag )       { return ( window.eval( "_obj instanceof " + _obj_tag ) ) ? 1 : 0 ; }
+function is_a_given_obj( _obj, _obj_tag ) { return ( window.eval( "_obj instanceof " + _obj_tag ) ) ? 1 : 0 ; }
 function is_reg_ex( _obj ) { return ( _obj.exec && _obj.test ) ? 1 : 0 ; }
 function safe_array( _obj, _ret_val )
 {

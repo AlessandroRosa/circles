@@ -175,27 +175,27 @@ rect.prototype.is_included = function( c )
 rect.prototype.set_orientation = function( _o ) { _o = safe_int( _o, _RECT_ORIENTATION_SCREEN ) ; this.orientation = ( _o == _RECT_ORIENTATION_SCREEN || _o == _RECT_ORIENTATION_CARTESIAN ) ? _o : _RECT_ORIENTATION_SCREEN ; }
 rect.prototype.set_left = function( x1 )  { this.x1 = x1 ; this.correct(); this.w = this.width(), this.h = this.height() ; this.aspect_ratio = this.w / this.h ; }
 rect.prototype.set_right = function( x2 ) { this.x2 = x2 ; this.correct(); this.w = this.width(), this.h = this.height() ; this.aspect_ratio = this.w / this.h ; }
-rect.prototype.set_top = function( y )    { this.orientation == _RECT_ORIENTATION_SCREEN ? this.y2 = y : this.y1 = y ; this.correct(); this.w = this.width(), this.h = this.height() ; this.aspect_ratio = this.w / this.h ; }
+rect.prototype.set_top = function( y ) { this.orientation == _RECT_ORIENTATION_SCREEN ? this.y2 = y : this.y1 = y ; this.correct(); this.w = this.width(), this.h = this.height() ; this.aspect_ratio = this.w / this.h ; }
 rect.prototype.set_bottom = function( y ) { this.orientation == _RECT_ORIENTATION_SCREEN ? this.y1 = y : this.y2 = y ; this.correct(); this.w = this.width(), this.h = this.height() ; this.aspect_ratio = this.w / this.h ; }
 
 rect.prototype.get_aspect_ratio = function() { return this.aspect_ratio ; }
 rect.prototype.get_orientation = function() { return this.orientation ; }
-rect.prototype.get_left = function()       { return this.x1 ; }
+rect.prototype.get_left = function() { return this.x1 ; }
 rect.prototype.get_right = function() { return this.x2 ; }
 rect.prototype.get_top = function() { return this.orientation == _RECT_ORIENTATION_SCREEN ? this.y2 : this.y1 ; }
 rect.prototype.get_bottom = function() { return this.orientation == _RECT_ORIENTATION_SCREEN ? this.y1 : this.y2 ; }
 
 rect.prototype.copy = function() { return new rect( this.x1, this.y1, this.x2, this.y2, this.orientation, this.notes ); }
 rect.prototype.width = function() { this.w = Math.abs( this.x2 - this.x1 ) ; return this.w ; } // subsequent calls can be skipped by calling this.w member
-rect.prototype.height = function()       { this.h = Math.abs( this.y1 - this.y2 ) ; return this.h ; } // subsequent calls can be skipped by calling this.h member
+rect.prototype.height = function() { this.h = Math.abs( this.y1 - this.y2 ) ; return this.h ; } // subsequent calls can be skipped by calling this.h member
 rect.prototype.area = function() { return this.width() * this.height() ; }
-rect.prototype.perimeter = function()    { return ( 2.0 * this.width() + 2.0 * this.height() ) ; }
+rect.prototype.perimeter = function() { return ( 2.0 * this.width() + 2.0 * this.height() ) ; }
 rect.prototype.diagonal = function() { return Math.sqrt( this.width() * this.width() + this.height() * this.height() ) ; }
 rect.prototype.offset = function( _w, _h )  { return new rect( this.x1 + _w, this.y1 + _h, this.x2 + _w, this.y2 + _h, this.orientation, this.notes ) ; }
 rect.prototype.center = function() { return { 'x' : ( this.x1 + this.x2 ) / 2.0, 'y' : ( this.y1 + this.y2 ) / 2.0 } ; }
 rect.prototype.center_pt = function() { return new point( ( this.x1 + this.x2 ) / 2.0, ( this.y1 + this.y2 ) / 2.0 ) ; }
 rect.prototype.stretch_left = function( _w ) { return new rect( this.x1 - _w, this.y1, this.x2, this.y2, this.orientation, this.notes ) ; }
-rect.prototype.stretch_top = function( _h )    { return new rect( this.x1, this.y1 + _h, this.x2, this.y2, this.orientation, this.notes ) ; }
+rect.prototype.stretch_top = function( _h ) { return new rect( this.x1, this.y1 + _h, this.x2, this.y2, this.orientation, this.notes ) ; }
 rect.prototype.stretch_right = function( _w )  { return new rect( this.x1, this.y1, this.x2 + _w, this.y2, this.orientation, this.notes ) ; }
 rect.prototype.stretch_bottom = function( _h ) { return new rect( this.x1, this.y1, this.x2, this.y2 - _h, this.orientation, this.notes ) ; }
 rect.prototype.shrink = function( _size ) { _size = safe_float( _size, 0 ) ; return new rect( this.x1 + _size, this.y1 + _size, this.x2 - _size, this.y2 - _size, this.orientation, this.notes ) ; }

@@ -166,7 +166,7 @@ complex.prototype.i = function() { return this.imag ; }
 
 // define constants
 complex.prototype.zero = function() { return new complex(0.0,0.0) ; }
-complex.prototype.origin = function()    { return new complex(0.0,0.0) ; }
+complex.prototype.origin = function() { return new complex(0.0,0.0) ; }
 complex.prototype.real_unit = function() { return new complex(1.0,0.0) ; }
 complex.prototype.imag_unit = function() { return new complex(0.0,1.0) ; }
 
@@ -189,11 +189,11 @@ complex.prototype.abs = function()           		{ return this.radius() ; }
 complex.prototype.infinity_complex = function() { return new complex( Infinity, Infinity ) ; }
 
 complex.prototype.is_real = function() { return ( this.imag == 0 ) ? 1 : 0 ; }
-complex.prototype.is_imaginary = function()    { return ( this.real == 0 && this.imag != 0 ) ? 1 : 0 ; }
+complex.prototype.is_imaginary = function() { return ( this.real == 0 && this.imag != 0 ) ? 1 : 0 ; }
 complex.prototype.is_complex = function() { return ( this.real != 0 && this.imag != 0 ) ? 1 : 0 ; }
 complex.prototype.is_zero = function() { return ( this.real == 0 && this.imag == 0 ) ? 1 : 0 ; }
-complex.prototype.is_real_unit = function()    { return ( this.real == 1 && this.imag == 0 ) ? 1 : 0 ; }
-complex.prototype.is_imag_unit = function()    { return ( this.real == 0 && this.imag == 1 ) ? 1 : 0 ; }
+complex.prototype.is_real_unit = function() { return ( this.real == 1 && this.imag == 0 ) ? 1 : 0 ; }
+complex.prototype.is_imag_unit = function() { return ( this.real == 0 && this.imag == 1 ) ? 1 : 0 ; }
 complex.prototype.is_complex_unit = function() { return ( this.radius() == 1 && this.argument() != 0 ) ? 1 : 0 ; }
 complex.prototype.is_gaussian_int = function() { return ( this.real == safe_int( this.real, 0 ) && this.imag == safe_int( this.imag, 0 ) ) ; }
 complex.prototype.is_finite = function()			 { return is_infinity( this.real ) || is_infinity( this.imag ) ? 0 : 1 ; }
@@ -253,7 +253,7 @@ complex.prototype.sqrt = function()		{	return this.pow( new complex( 0.5, 0.0 ) 
 complex.prototype.ln = function() { return new complex( Math.log( this.radius() ), this.angle() ) ; }
 // Base 10 Logarithm
 complex.prototype.log = function()		{ return ( this.ln() ).div( ( new complex( 10.0, 0.0 ) ).ln() ) ; }
-complex.prototype.exp = function()    { return new complex( Math.exp( this.real ) * Math.cos( this.imag ), Math.exp( this.real ) * Math.sin( this.imag ) ) ; }
+complex.prototype.exp = function() { return new complex( Math.exp( this.real ) * Math.cos( this.imag ), Math.exp( this.real ) * Math.sin( this.imag ) ) ; }
 // Trigonometric
 complex.prototype.sin = function()
 {

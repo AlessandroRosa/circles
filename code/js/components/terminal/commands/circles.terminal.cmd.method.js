@@ -41,38 +41,38 @@ function circles_terminal_cmd_method()
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
-              _p = _params_array[_i].toLowerCase();
-              if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.stricmp( "reset" ) ) _params_assoc_array['reset'] = YES ;
-              else if ( _p.stricmp( METHOD_INVERSION_CMD_DEF ) ) { _params_assoc_array['process_def'] = _p ; _params_assoc_array['method'] = METHOD_INVERSION ; }
-              else if ( _p.stricmp( METHOD_ALGEBRAIC_CMD_DEF ) ) { _params_assoc_array['process_def'] = _p ; _params_assoc_array['method'] = METHOD_ALGEBRAIC ; }
-              else if ( _p.stricmp( PROCESS_BREADTHFIRST_CMD_DEF ) ) { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_BREADTHFIRST ; }
-              else if ( _p.stricmp( PROCESS_INDEXSEARCH_CMD_DEF ) )  { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_INDEXSEARCH ; }
-              else if ( _p.stricmp( PROCESS_RANDOM_CMD_DEF ) )       { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_RANDOM ; }
-              else if ( _p.stricmp( "none" ) )
-              {
-                  if ( _params_assoc_array['method'] != null ) _params_assoc_array['method'] = METHOD_NONE ;
-                  else if ( _params_assoc_array['process'] != null ) _params_assoc_array['process'] = PROCESS_NONE ;
-              }
-              else
-              {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
-              }
+            _p = _params_array[_i].toLowerCase();
+            if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.stricmp( "reset" ) ) _params_assoc_array['reset'] = YES ;
+            else if ( _p.stricmp( METHOD_INVERSION_CMD_DEF ) ) { _params_assoc_array['process_def'] = _p ; _params_assoc_array['method'] = METHOD_INVERSION ; }
+            else if ( _p.stricmp( METHOD_ALGEBRAIC_CMD_DEF ) ) { _params_assoc_array['process_def'] = _p ; _params_assoc_array['method'] = METHOD_ALGEBRAIC ; }
+            else if ( _p.stricmp( PROCESS_BREADTHFIRST_CMD_DEF ) ) { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_BREADTHFIRST ; }
+            else if ( _p.stricmp( PROCESS_INDEXSEARCH_CMD_DEF ) )  { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_INDEXSEARCH ; }
+            else if ( _p.stricmp( PROCESS_RANDOM_CMD_DEF ) ) { _params_assoc_array['process_def'] = _p ; _params_assoc_array['process'] = PROCESS_RANDOM ; }
+            else if ( _p.stricmp( "none" ) )
+            {
+               if ( _params_assoc_array['method'] != null ) _params_assoc_array['method'] = METHOD_NONE ;
+               else if ( _params_assoc_array['process'] != null ) _params_assoc_array['process'] = PROCESS_NONE ;
+            }
+            else
+            {
+               _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + (_i+1);
+            }
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
-             else
-             {
-                 _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-             }
+            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+            else
+            {
+               _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
+               circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+            }
          }
          else if ( !_b_fail )
          {

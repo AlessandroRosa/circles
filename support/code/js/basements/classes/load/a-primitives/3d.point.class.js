@@ -72,8 +72,8 @@ function point_3d()
 
 point_3d.prototype.set_drawcolor = function( _clr ) { this.drawcolor = _clr ; }
 point_3d.prototype.set_fillcolor = function( _clr ) { this.fillcolor = _clr ; }
-point_3d.prototype.get_drawcolor = function()       { return this.drawcolor ; }
-point_3d.prototype.get_fillcolor = function()       { return this.fillcolor ; }
+point_3d.prototype.get_drawcolor = function() { return this.drawcolor ; }
+point_3d.prototype.get_fillcolor = function() { return this.fillcolor ; }
 
 point_3d.prototype.copy = function() { return new point_3d( this.x, this.y, this.z, this.color, this.notes ) ; }
 point_3d.prototype.acquire_from_coords = function( _x, _y, _z ) { this.x = _x, this.y = _y, this.z = _z ; }

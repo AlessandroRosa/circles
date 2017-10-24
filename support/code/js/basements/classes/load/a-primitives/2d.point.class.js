@@ -100,15 +100,15 @@ function point()
 		}
 }
 
-point.prototype.set_env = function( _env )       { this.env = safe_float( _env, _POINT_2D_CLS_EUCLIDEAN_ENV ) ; }
+point.prototype.set_env = function( _env ) { this.env = safe_float( _env, _POINT_2D_CLS_EUCLIDEAN_ENV ) ; }
 point.prototype.set_radius = function( _r ) { this.radius = safe_float( _r, 0 ) ; }
 point.prototype.set_drawcolor = function( _clr ) { this.drawcolor = safe_string( _clr, "" ) ; }
 point.prototype.set_fillcolor = function( _clr ) { this.fillcolor = safe_string( _clr, "" ) ; }
-point.prototype.set_notes = function( _l )       { this.notes = safe_string( _l, "" ) ; }
+point.prototype.set_notes = function( _l ) { this.notes = safe_string( _l, "" ) ; }
 point.prototype.get_env = function()             { return this.env ; }
 point.prototype.get_radius = function() { return this.radius ; }
-point.prototype.get_drawcolor = function()       { return this.drawcolor ; }
-point.prototype.get_fillcolor = function()       { return this.fillcolor ; }
+point.prototype.get_drawcolor = function() { return this.drawcolor ; }
+point.prototype.get_fillcolor = function() { return this.fillcolor ; }
 point.prototype.get_notes = function() { return this.notes ; }
 point.prototype.get_angle = function() { return Math.atan2( this.x, this.y ) > 0 ? Math.PI * 2.0 - Math.atan2( this.x, this.y ) : 0.0 ; } // returns in radians from 0 to + 2PI
 

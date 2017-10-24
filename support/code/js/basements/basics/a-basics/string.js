@@ -518,9 +518,9 @@ String.prototype.isAlphanumeric = function() { return /^[a-zA-Z0-9]{1,}$/.test( 
 
 String.prototype.accents_encode = function() { return this.replaceAll( [ "à", "è", "é", "ì", "ò", "ù" ], [ "a'", "e'", "e'", "i'", "o'", "u'" ] ); }
 String.prototype.accents_decode = function() { return this.replaceAll( [ "a'", "e'", "e'", "i'", "o'", "u'" ], [ "à", "è", "é", "ì", "ò", "ù" ] ); }
-String.prototype.left = function( n )       { return this.slice( 0, n ) } ;
+String.prototype.left = function( n ) { return this.slice( 0, n ) } ;
 String.prototype.right = function( n ) { return this.slice( this.length - n ) } ;
-String.prototype.slide_back = function()    { return ( this.slice(1) ).concat( this.slice( 0,1 ) ) ; }
+String.prototype.slide_back = function() { return ( this.slice(1) ).concat( this.slice( 0,1 ) ) ; }
 String.prototype.slide_forward = function() { return ( this.slice(this.length-1).concat( this.slice(0,this.length-1) ) ) ; }
 String.prototype.trim = function()  { return this.replace(/^\s+|\s+$/g,""); }
 String.prototype.ltrim = function() { return this.replace(/^\s+/,""); }
@@ -544,8 +544,8 @@ String.prototype.set_char_at = function( _index , _chr )
 		if( _index > this.length-1 ) return str ;
 		return this.substr( 0,_index ) + _chr + this.substr( _index + 1 );
 }
-String.prototype.urlencode = function()       { return encodeURIComponent( encodeURIComponent( this ) ) ; }
-String.prototype.urldecode = function()       { return decodeURIComponent( decodeURIComponent( this ) ) ; }
+String.prototype.urlencode = function() { return encodeURIComponent( encodeURIComponent( this ) ) ; }
+String.prototype.urldecode = function() { return decodeURIComponent( decodeURIComponent( this ) ) ; }
 String.prototype.omits = function( _input ) { return !this.includes( _input ); }
 String.prototype.omits_i = function( _input ) { return !this.includes_i( _input ); }
 

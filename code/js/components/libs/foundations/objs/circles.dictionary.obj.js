@@ -84,7 +84,7 @@ function dictionary()
 
 dictionary.prototype.error_log_flush = function() { this.error_log = [] ; }
 dictionary.prototype.error_log_rec = function( _msg ) { this.error_log.push( _msg ); }
-dictionary.prototype.error_log_get = function()       { return this.error_log.clone(); }
+dictionary.prototype.error_log_get = function() { return this.error_log.clone(); }
 
 dictionary.prototype.reset = function()
 {
@@ -161,7 +161,7 @@ dictionary.prototype.add_word = function( w )              { this.dictionary_arr
 dictionary.prototype.get_word = function( i )              { return this.dictionary_array[i] ; }
 dictionary.prototype.set_repetition = function( r ) { this.repetition = r ; }
 dictionary.prototype.get_repetition = function() { return this.repetition ; }
-dictionary.prototype.put_dictionary = function( _dict )    { if ( is_array( _dict ) ) this.sliced_dictionary = _dict.clone(); }
+dictionary.prototype.put_dictionary = function( _dict ) { if ( is_array( _dict ) ) this.sliced_dictionary = _dict.clone(); }
 dictionary.prototype.get_dictionary = function() { return this.sliced_dictionary.clone(); }
 dictionary.prototype.set_process = function( p ) { this.process = safe_int( p, _DICTIONARY_NONE_PROCESS ) ; }
 dictionary.prototype.get_process = function()              { return this.process ; }

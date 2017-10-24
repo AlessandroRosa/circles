@@ -13,7 +13,7 @@ function circles_terminal_cmd_config()
      if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+	 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
      var _error_str = "" ;
      var _out_text_string = "" ;
@@ -26,7 +26,7 @@ function circles_terminal_cmd_config()
      var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
 
      var _keywords = [ 'accuracy', 'automaton', 'canvasmode', 'circle', 'construction', 'depth', 'diskdash', 'diskdraw', 'diskfill',
-                       'drawentity', 'fixedpoint', 'gens', 'init', 'interface', 'items', 'mapprecision', 'menu', 'method', 'os',
+                       'drawentity', 'fixedpoints', 'gens', 'init', 'interface', 'items', 'mapprecision', 'menu', 'method', 'os',
                        'pixel', 'plugin', 'point', 'save', 'html', 'help', 'release',
                        'terminal', 'title', 'usepalette', 'warnings' ] ;
      var _readonly = [ 'gens', 'init', 'method', 'os', 'plugin', 'terminal' ] ;
@@ -50,36 +50,36 @@ function circles_terminal_cmd_config()
 	 		  _params_assoc_array['transfer_to'] = ( _params_array.indexOf( TERMINAL_TRANSFER_TO_OPERATOR ) != UNFOUND ) ? YES : NO ;
 	 		  _params_assoc_array['transfer_from'] = ( _params_array.indexOf( TERMINAL_TRANSFER_FROM_OPERATOR ) != UNFOUND ) ? YES : NO ;
 
-			  // gather all dump parameters into one array
+		// gather all dump parameters into one array
         if ( _params_assoc_array['dump'] )
         {
-  				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-  				 if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
+			for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+  			if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
         }
 
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      else if ( _params.length > 0 )
      {
-         _params_array.clean_from( " " );       _params_array.clean_from( "" );
-         var _p, _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
-         for( var _i = 0 ; _i < _up_to_index ; _i++ )
-         {
-             _p = _params_array[_i] ;
-             if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
-             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-             else if ( _p.is_one_of_i( "get", "keywords", "save", "set", "release" ) )
-             {
-                 if ( _p.stricmp( "save" ) ) _params_assoc_array['dump'] = YES ;
-                 _params_assoc_array['action'] = _p.toLowerCase() ;
-             }
-             else if ( _p.is_one_of_i( "rendering", "generals", "terminal", "graphix", "all" ) ) _params_assoc_array['group'] = _p ;
-             else if ( _params_assoc_array['action'] != null )
-             {
-                 if ( _params_assoc_array['action'].is_one_of( "get", "set" ) )
-                 _params_assoc_array['params'].push( _p );
-             }
-         }
+        _params_array.clean_from( " " );       _params_array.clean_from( "" );
+        var _p, _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
+        for( var _i = 0 ; _i < _up_to_index ; _i++ )
+        {
+            _p = _params_array[_i] ;
+            if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.is_one_of_i( "get", "keywords", "save", "set", "release" ) )
+            {
+               if ( _p.stricmp( "save" ) ) _params_assoc_array['dump'] = YES ;
+               _params_assoc_array['action'] = _p.toLowerCase() ;
+            }
+            else if ( _p.is_one_of_i( "rendering", "generals", "terminal", "graphix", "all" ) ) _params_assoc_array['group'] = _p ;
+            else if ( _params_assoc_array['action'] != null )
+            {
+               if ( _params_assoc_array['action'].is_one_of( "get", "set" ) )
+               _params_assoc_array['params'].push( _p );
+            }
+        }
      }
      else
      {
@@ -173,27 +173,26 @@ function circles_terminal_cmd_config()
   
            if ( _params_assoc_array['group'].is_one_of( "all", "graphix" ) )
            {
-          				 var _smpr_perc = safe_int( _glob_smpr / _glob_zplane_rendering_canvas_placeholder.get_width() * 100.0, 1 );
-                   _row_array.push( "<banana>Graphix</banana>" );
-                   _row_array.push( "<lavender>disk dashed border (non-Z-planes)</lavender> <skyblue>" + ( _glob_activate_dashed_border ? Y : N ) + "</skyblue>" );
-                   _row_array.push( "<lavender>use palette</lavender> <skyblue>" + ( _glob_palette_use ? Y : N ) + "</skyblue>" );
-                   _row_array.push( "<lavender>draw entity</lavender> <skyblue>" + circles_lib_drawentity_get_def( _glob_drawentity ) + "</skyblue>" );
-                   _row_array.push( "<lavender>disk draw (W-plane)</lavender> <skyblue>" + ( _glob_wplane_disk_draw ? Y : N ) + "</skyblue>" );
-                   _row_array.push( "<lavender>disk fill (W-plane)</lavender> <skyblue>" + ( _glob_wplane_disk_fill ? Y : N ) + "</skyblue>" );
-                   _row_array.push( "<lavender>Map draw precision</lavender> <skyblue>" + _smpr_perc + "%</skyblue>" );
+          		var _smpr_perc = safe_int( _glob_smpr / _glob_zplane_rendering_canvas_placeholder.get_width() * 100.0, 1 );
+                _row_array.push( "<banana>Graphix</banana>" );
+                _row_array.push( "<lavender>disk dashed border (non-Z-planes)</lavender> <skyblue>" + ( _glob_activate_dashed_border ? Y : N ) + "</skyblue>" );
+                _row_array.push( "<lavender>use palette</lavender> <skyblue>" + ( _glob_palette_use ? Y : N ) + "</skyblue>" );
+                _row_array.push( "<lavender>draw entity</lavender> <skyblue>" + circles_lib_drawentity_get_def( _glob_drawentity ) + "</skyblue>" );
+                _row_array.push( "<lavender>disk draw (W-plane)</lavender> <skyblue>" + ( _glob_wplane_disk_draw ? Y : N ) + "</skyblue>" );
+                _row_array.push( "<lavender>disk fill (W-plane)</lavender> <skyblue>" + ( _glob_wplane_disk_fill ? Y : N ) + "</skyblue>" );
+                _row_array.push( "<lavender>Map draw precision</lavender> <skyblue>" + _smpr_perc + "%</skyblue>" );
   
-                   switch( _glob_src_canvas_mode )
-                   {
-                        case ZPLANE_CANVAS_CIRCLESDRAW_MODE: _row_array.push( "<lavender>canvas mode</lavender> <skyblue>circlesdraw</skyblue>" ); break ;
-                        default: _row_array.push( "<lavender>canvas mode</lavender> <gray>unknown</gray>" ); break ;
-                   }
+                switch( _glob_src_canvas_mode )
+                {
+                    case ZPLANE_CANVAS_CIRCLESDRAW_MODE: _row_array.push( "<lavender>canvas mode</lavender> <skyblue>circlesdraw</skyblue>" ); break ;
+                    default: _row_array.push( "<lavender>canvas mode</lavender> <gray>unknown</gray>" ); break ;
+                }
            }
   
            var _config_str = _row_array.join( _glob_crlf );
                _out_text_string = _config_str ;
   
            var _html = _params_assoc_array['html'] ;
-  
            if ( _html ) circles_lib_terminal_color_decode_htmltext( _config_str, 'config', 'right', 'top' );
            else circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _config_str, _par_1, _cmd_tag );
   
@@ -201,15 +200,15 @@ function circles_terminal_cmd_config()
            {
                _config_str = _config_str.replaceAll( "</lavender>", " : " );
                _config_str = _config_str.strip_tags();
-           		 _params_assoc_array['dump_array'] = is_array( _params_assoc_array['dump_array'] ) ? _params_assoc_array['dump_array'][0] : "circles.config.txt" ;
+           	   _params_assoc_array['dump_array'] = is_array( _params_assoc_array['dump_array'] ) ? _params_assoc_array['dump_array'][0] : "circles.config.txt" ;
                var _ret_chunk = circles_lib_dump_data_to_format( _config_str, _params_assoc_array['dump_array'] );
-  						 var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
-  						 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation";
-  						 if ( _ret_id == 0 )
-  						 {
-  						 		_b_fail = YES, _error_str = _ret_msg ;
-  						 }
-  						 else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+  			   var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
+  			   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation";
+  			   if ( _ret_id == 0 )
+  			   {
+  				  _b_fail = YES, _error_str = _ret_msg ;
+  			   }
+  			   else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
            }
        }
      }
@@ -259,7 +258,7 @@ function circles_terminal_cmd_config()
                 case "get":
                 if ( _params_assoc_array['params'].length == 0 )
                 {
-    						 		_b_fail = YES, _error_str = "Please, enter at least one param to get" ;
+					_b_fail = YES, _error_str = "Please, enter at least one param to get" ;
                 }
                 else
                 {
@@ -399,7 +398,7 @@ function circles_terminal_cmd_config()
                 if ( _params_assoc_array['dump'] )
                 {
                     if ( is_array( _params_assoc_array['dump_array'] ) ) _params_assoc_array['dump_array'].push( "circles.config.list.txt" );
-      							var _ret_chunk = circles_lib_dump_data_to_format( _config_list, _params_assoc_array['dump_array'][0] );
+      				var _ret_chunk = circles_lib_dump_data_to_format( _config_list, _params_assoc_array['dump_array'][0] );
   									var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
   									var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
   									if ( _ret_id == 0 )
@@ -413,11 +412,11 @@ function circles_terminal_cmd_config()
                 case "set":
                 if ( _params_assoc_array['params'].length == 0 )
                 {
-    						 		_b_fail = YES, _error_str = "Please, enter one param to set" ;
+					_b_fail = YES, _error_str = "Please, enter one param to set" ;
                 }
                 else if ( _params_assoc_array['params'].length == 1 )
                 {
-    						 		_b_fail = YES, _error_str = "Incomplete set syntax" ;
+    				_b_fail = YES, _error_str = "Incomplete set syntax" ;
                 }
                 else
                 {
@@ -461,8 +460,10 @@ function circles_terminal_cmd_config()
                             if ( _value.strcmp( "input" ) )
                             {
                                 _glob_fixedpt_io = FIXEDPOINTS_IO_INPUT;
-                                _resp = [ 1, "<greenshock>Fixed point i/o is 'fixed point' now</greenshock>" ] ;
+                                _resp = [ 1, "<greenshock>Fixed point i/o has been set to '"+_value+"' with success</greenshock>" ] ;
                             }
+							else
+                            _resp = [ 0, "<orange>Invalid parameter value '"+_value+"' for fixed points settings</orange>" ] ;
                         }
   
                         if ( _param.strcmp( "construction" ) )
@@ -635,9 +636,10 @@ function circles_terminal_cmd_config()
   
                             if ( !_resp[0] && _glob_verbose )
                             {
-                                 _resp[1] += "\n<gray>The input value should be set to one of the following values:</gray>" ;
-                                 _resp[1] += "\n<snow>"+DRAWENTITY_ISOMETRIC_CIRCLE+" "+DRAWENTITY_POINT+" "+DRAWENTITY_PIXEL+" "+DRAWENTITY_PIXEL+" "+DRAWENTITY_POLYLINE+"</snow>" ;
+                                _resp[1] += "\n<gray>The input value should be set to one of the following values:</gray>" ;
+                                _resp[1] += "\n<snow>"+DRAWENTITY_ISOMETRIC_CIRCLE+" "+DRAWENTITY_POINT+" "+DRAWENTITY_PIXEL+" "+DRAWENTITY_PIXEL+" "+DRAWENTITY_POLYLINE+"</snow>" ;
                             }
+							else circles_lib_menu_entries_update();
                         }
   
                         if ( _param.strcmp( "interface" ) )

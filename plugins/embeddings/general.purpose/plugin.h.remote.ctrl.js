@@ -1,8 +1,4 @@
-function CIRCLESembeddingsGENERALPURPOSE_REMOTE_CTRL_KEYWORDS_INIT()
-{
-    CIRCLESembeddingsGENERALPURPOSEremotectrl_keywords = [ "capture.gens", "capture.seeds" ] ;
-}
-
+function CIRCLESembeddingsGENERALPURPOSE_REMOTE_CTRL_KEYWORDS_INIT() { CIRCLESembeddingsGENERALPURPOSEremotectrl_keywords = [ "capture.gens", "capture.seeds" ] ; }
 function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_array, _output_channel )
 {
 	if ( !is_array( _options ) )
@@ -19,50 +15,56 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 		var _opt = _options[0].toLowerCase() ;
 		switch( _opt )
   		{
-		 case "add.mobius.map":
-  		 if ( _options[1] != null ) $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) );
-  		 if ( _options[2] != null ) $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) );
-  		 if ( _options[3] != null ) $( "#PLUGIN_PARAM_C" ).val( _options[3].replaceAll( [ ",", ";" ], "" ) );
-  		 if ( _options[4] != null ) $( "#PLUGIN_PARAM_D" ).val( _options[4].replaceAll( [ ",", ";" ], "" ) );
-  		 CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
-		 _ret_array.push( 1, "<green>Mobius map has been added with success to the candidate group</green>" ) ;
-		 return YES ;
+		 case "addmap":
+		 var _cnt = 0, _ret = NO ;
+  		 if ( $( "#PLUGIN_PARAM_A" ).val().length > 0 ) _cnt++ ;
+  		 if ( $( "#PLUGIN_PARAM_B" ).val().length > 0 ) _cnt++ ;
+  		 if ( $( "#PLUGIN_PARAM_C" ).val().length > 0 ) _cnt++ ;
+  		 if ( $( "#PLUGIN_PARAM_D" ).val().length > 0 ) _cnt++ ;
+		 if ( _cnt == 4 )
+		 {
+			CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_ADD,YES);
+			_ret_array.push( YES, "<green>Mobius map has been added with success to the candidate group</green>" ) ;
+			_ret = YES ;
+		 }
+		 else _ret_array.push( NO, "<red>Fail to add the map: all 4 input params must be input</red>" ) ;
+		 return _ret ;
   		 break ;
   		 case "bomb":
   		 CIRCLESembeddingsGENERALPURPOSE_BOMB();
-		 _ret_array.push( 1, "<green>Group has been bombed with success: all generators have been deleted</green>" ) ;
+		 _ret_array.push( YES, "<green>Group has been bombed with success: all generators have been deleted</green>" ) ;
 		 return YES ;
   		 break ;
   		 case "capture.seeds":
   		 CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
-		 _ret_array.push( 1, "<green>Seeds have been captured with success</green>" ) ;
+		 _ret_array.push( YES, "<green>Seeds have been captured with success</green>" ) ;
 		 return YES ;
   		 break ;
   		 case "capture.gens":
   		 CIRCLESembeddingsGENERALPURPOSE_CAPTURE(1);
-		 _ret_array.push( 1, "<green>Generators have been captured with success</green>" ) ;
+		 _ret_array.push( YES, "<green>Generators have been captured with success</green>" ) ;
 		 return YES ;
   		 break ;
   		 case "clean":
   		 CIRCLESembeddingsGENERALPURPOSE_CLEAN();
-		 _ret_array.push( 1, "<green>Plug-in have been cleaned with success</green>" ) ;
+		 _ret_array.push( YES, "<green>Plug-in have been cleaned with success</green>" ) ;
 		 return YES ;
   		 break ;
          case "close":
          GLOB_PLUGIN_DESTROY_POPUP_VARS();
-         var _sub = "forms", _base_id = "general.purpose" ;
+         var _sub = "embeddings", _base_id = "general.purpose" ;
          circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
-         _ret_array.push( 1, "<green>Plug-in has been closed with success</green>" ) ;
+		 return YES ;
          break ;
   		 case "focus":
          var _sub = "embeddings", _base_id = "general.purpose" ;
          circles_lib_plugin_focus( _div_id );
-         _ret_array.push( 1, "<green>Plug-in has been focused with success</green>" ) ;
+         _ret_array.push( YES, "<green>Plug-in has been focused with success</green>" ) ;
          return 1;
          break ;
   		 case "full.group":
   		 var _ret = CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);
-		 _ret_array.push( 1, "<green>The list of generators have been displayed with success</green>" ) ;
+		 _ret_array.push( YES, "<green>The list of generators have been displayed with success</green>" ) ;
          return YES ;
   		 break ;
 		 case "generate.group":
@@ -75,7 +77,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
   		 case "move":
          var _sub = "embeddings", _base_id = "general.purpose" ;
   		 var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
-         _ret_array.push( 1, "<green>Plug-in has been moved with success</green>" ) ;
+         _ret_array.push( YES, "<green>Plug-in has been moved with success</green>" ) ;
          return _ret ;
   		 break ;
   		 case "tab":
@@ -115,7 +117,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
   		break ;
   		case "refresh":
   		CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);
-        _ret_array.push( 1, "<green>Plug-in has been refreshed with success</green>" ) ;
+        _ret_array.push( YES, "<green>Plug-in has been refreshed with success</green>" ) ;
         return YES ;
   		break ;
         case "type":
@@ -142,10 +144,12 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
               return NO ;
               break ;
            }
-		   _ret_array.push( 1, "<green>Param '"+_letter+"' has been set up with success</green>" ) ;
+		   _ret_array.push( YES, "<green>Param '"+_letter+"' has been set up with success</green>" ) ;
+		   return YES ;
         }
         else
         {
+			console.log( "IN" );
 		   var _params = [] ;
            if ( _options[1] != null ) { _params.push('A'); $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) ); }
            if ( _options[2] != null ) { _params.push('B'); $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) ); }
@@ -156,24 +160,33 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
               var _cmd = safe_string( _options[5], "" );
               switch( _cmd )
               {
-                case "add":
-				if ( _params.length > 0 )
+                case "addmap":
+				if ( _params.length == 4 )
 				{
 					var _ret = CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_ADD,YES,_output_channel);
-					_out_msg = _ret ? "<green>Params "+_params.join( "," )+" have been been added with success</green>" : "Fail to perform operation" ;
+					_out_msg = _ret ? "<green>Parameters "+_params.join( "," )+" have been been added with success</green>" : "Fail to perform operation" ;
 					_ret_array.push( YES, _out_msg ) ;
 				}
-				else _ret_array.push( 0, "<red>No input params have been specified</red>" ) ;
+				else if ( _params.length != 4 ) _ret_array.push( NO, "<red>Fail to add the map: all 4 input params must be input</red>" ) ;
+				else if ( _params.length == 0 ) _ret_array.push( NO, "<red>Fail to add the map: no input params</red>" ) ;
                 break ;
-                default: break ;
+                default:
+				_ret_array.push( YES, "<green>Parameters "+_params.join( "," )+" have been typed in the edit boxes with success</green>" ) ;
+				return YES ;
+				break ;
               }
            }
+		   else
+		   {
+			  _ret_array.push( YES, "<green>Parameters "+_params.join( "," )+" have been typed in the edit boxes with success</green>" ) ;
+			  return YES ;
+		   }
         }
         return YES ;
 		break ;
 		case "var.bomb":
 		CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB(YES,YES,_output_channel);
-		_ret_array.push( 1, "<green>All vars have been deleted with success</green>" ) ;
+		_ret_array.push( YES, "<green>All vars have been deleted with success</green>" ) ;
         CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
 		return YES ;
 		break ;
@@ -295,7 +308,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 		 }
 		 break ;
 		 default:
-         _ret_array.push( 0, "<red>Unknown remote control command '"+_options[0].toLowerCase()+"'</red>" ) ;
+         _ret_array.push( NO, "<red>Unknown remote control command '"+_options[0].toLowerCase()+"'</red>" ) ;
          return NO ;
 		 break ;
   		}

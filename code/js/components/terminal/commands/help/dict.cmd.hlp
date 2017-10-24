@@ -20,6 +20,9 @@
 <lightblue>dict copy</lightblue>
 <cadetblue>copy current dictionary into storage space</cadetblue>
 
+<lightblue>dict createflag on|off</lightblue>
+<cadetblue>set on/off the flag for dictionary creation</cadetblue>
+
 <lightblue>dict save</lightblue>
 <cadetblue>save the dictionary into a plain text file</cadetblue>
 

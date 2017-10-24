@@ -1,5 +1,5 @@
 function circles_lib_gens_model_exists() { return circles_lib_count_gens_set_model() > 0 ? YES : NO ; }
-function circles_lib_gens_set_initflag_get()    { return _glob_gens_set_to_init ; }
+function circles_lib_gens_set_initflag_get() { return _glob_gens_set_to_init ; }
 function circles_lib_gens_set_initflag_set( _init ) { _glob_gens_set_to_init = safe_int( _init, YES ); }
 function circles_lib_gens_model_get() { return _glob_gens_set_model_array.clone(); }
 function circles_lib_gens_set_exists()        			 { return _glob_gens_array.clone() ; }

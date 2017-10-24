@@ -47,13 +47,14 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
                      switch( _glob_multithread_obj_settings['drawentity'] )
                      {
                         case DRAWENTITY_ISOMETRIC_CIRCLE:
-												_glob_multithread_tmp_array_len = safe_size( _glob_multithread_obj.circles_array, 0 );
-												break ;
+                        case DRAWENTITY_INVERSION_CIRCLE:
+						_glob_multithread_tmp_array_len = safe_size( _glob_multithread_obj.circles_array, 0 );
+						break ;
                         case DRAWENTITY_POINT:
                         case DRAWENTITY_PIXEL:
                         _glob_multithread_tmp_array_len = safe_size( _glob_multithread_obj.pts_array, 0 );
                         break ;
-								        default: break ;
+						default: break ;
                      }
 
                      for( var _i = 0 ; _i < _glob_multithread_tmp_array_len ; _i++ )

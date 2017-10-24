@@ -11,7 +11,7 @@ function circles_terminal_cmd_dict()
      if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+	 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
      var _error_str = "" ;
      var _out_text_string = "" ;
@@ -63,7 +63,7 @@ function circles_terminal_cmd_dict()
 
         // pre-scan for levenshtein correction
 				var _local_cmds_params_array = [];
-						_local_cmds_params_array.push( "add", "append", "apply", "build", "concatword", "copy", "crashstring",
+						_local_cmds_params_array.push( "add", "append", "apply", "build", "concatword", "copy", "crashstring", "createflag",
                                            "delete", "destroy", "flipword", "flush", "keepword", "html",
                                            "find", "flush", "list", "prepend", "help",
                                            "remove", "removeword", "reverse", "reverseword", "release",
@@ -74,6 +74,7 @@ function circles_terminal_cmd_dict()
          {
               _p = _params_array[_i];
               if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
+              else if ( _p.is_one_of_i( "on", "off" ) ) _params_assoc_array['go'] = _p ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "copy" ) )
               {
@@ -84,6 +85,7 @@ function circles_terminal_cmd_dict()
               }
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.stricmp( "force" ) ) _params_assoc_array['force'] = YES ;
+              else if ( _p.stricmp( "createflag" ) ) _params_assoc_array['action'] = _p.toLowerCase();
               else if ( _p.stricmp( "crashstring" ) ) _crash_words_context = YES ;
               else if ( _p.stricmp( "add" ) )
               {
@@ -92,7 +94,7 @@ function circles_terminal_cmd_dict()
               }
               else if ( _p.stricmp( "list" ) )
               {
-                   _action_id = ( _crash_words_context ) ? 3 : UNDET ;
+                   _action_id = _crash_words_context ? 3 : UNDET ;
                    _params_assoc_array['action'] = _p.toLowerCase();
               }
               else if ( _p.stricmp( "remove" ) )
@@ -341,7 +343,7 @@ function circles_terminal_cmd_dict()
                                                                                      _settings['crash_words_packed'],
 																																										 NO );
 
-         							 var _ret_id = ( circles_lib_count_dict() > 0 ) ? YES : NO ;
+         							 var _ret_id = circles_lib_count_dict() > 0 ? YES : NO ;
                        var _ret_msg = _ret_id ? "Dictionary built with success" : "Fail tu build the dictionary" ;
     			 						 circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                    }
@@ -361,9 +363,14 @@ function circles_terminal_cmd_dict()
                        var _msg = _check ? "All words in the dictionary have been copied into storage space with success" : "Storage destination error: can't perform copy of the whole dictionary" ;
                        circles_lib_output( _output_channel, _check ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
                    }
-                   else circles_lib_output( _output_channel, "Can't copy : " + _ERR_33_04, _msg, _par_1, _cmd_tag );
+                   else circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't copy : " + _ERR_33_04, _par_1, _cmd_tag );
 									 break ;
-									 case "find":
+				   case "createflag":
+				   var _bGO = _params_assoc_array['go'] != null ? ( _params_assoc_array['go'] == "on" ? YES : NO ) : NO ;
+				   _glob_dict_create = _bGO ;
+				   circles_lib_output( _output_channel, _params_assoc_array['go'] != null ? DISPATCH_SUCCESS : DISPATCH_INFO, "The flag for dictionary has been set to '"+ _params_assoc_array['go']+"'", _par_1, _cmd_tag );
+				   break ;
+				   case "find":
                    if ( circles_lib_count_dict() > 0 && _output_channel == OUTPUT_TERMINAL )
                    {
                         if ( _general_token_str.length > 0 )

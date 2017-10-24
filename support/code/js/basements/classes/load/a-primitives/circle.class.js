@@ -120,8 +120,8 @@ circle.prototype.init_coords_only = function( c )
     this.radius = c.radius ;
 }
 
-circle.prototype.get_center = function()    { return this.center ; }
-circle.prototype.get_radius = function()    { return this.radius ; }
+circle.prototype.get_center = function() { return this.center ; }
+circle.prototype.get_radius = function() { return this.radius ; }
 circle.prototype.set_center = function( c ) { this.center = c ; }
 circle.prototype.set_radius = function( r ) { this.radius = r ; }
 
@@ -140,8 +140,8 @@ circle.prototype.copy = function()            { return new circle( this.center, 
 circle.prototype.is_null = function() { return ( ( this.center.is_null() || !this.center.is_consistent() ) && this.radius == 0 ) ? 1 : 0 ; }
 circle.prototype.is_point = function() { return this.radius == 0 ? 1 : 0 ; }
 circle.prototype.is_equal_to = function( C )  { return ( C.center.is_equal_to( this.center ) && this.radius == C.radius ) ? 1 : 0 ; }
-circle.prototype.get_notes = function()       { return this.notes ; }
-circle.prototype.set_notes = function( L )    { this.notes = "" + L ; }
+circle.prototype.get_notes = function() { return this.notes ; }
+circle.prototype.set_notes = function( L ) { this.notes = "" + L ; }
 circle.prototype.diameter = function() { return 2.0 * this.radius ; }
 circle.prototype.circumference = function() { return 2.0 * Math.PI * this.radius ; }
 circle.prototype.arc = function( rad ) { return ( this.circumference() / ( 2.0 * Math.PI ) * rad ) ; }
@@ -169,7 +169,7 @@ circle.prototype.is_boundary_point = function( pt, _tolerance )
     return Math.abs( this.center.distance( pt ) - this.radius ) <= error ? 1 : 0 ;
 }
 
-circle.prototype.is_secant = function( C2 )       { return ( this.center.distance( C1.center ) < ( this.radius + C2.radius ) ) ? 1 : 0 ; }
+circle.prototype.is_secant = function( C2 ) { return ( this.center.distance( C1.center ) < ( this.radius + C2.radius ) ) ? 1 : 0 ; }
 circle.prototype.is_intersecting = function( C2 ) { return ( this.center.distance( C1.center ) > ( this.radius + C2.radius ) ) ? 0 : 1 ; }
 circle.prototype.is_tangent = function( C2 ) { return ( this.center.distance( C1.center ) == ( this.radius + C2.radius ) ) ? 1 : 0 ; }
 circle.prototype.is_internally_tangent = function( C2 )
@@ -190,7 +190,7 @@ circle.prototype.is_internally_tangent = function( C2 )
 
 circle.prototype.write = function() { document.write( this.output() ) ; }
 circle.prototype.fulloutput = function() { return ( this.output() + " Draw : " + this.draw + "/" + this.drawcolor + " Fill : " + this.fill + "/" + this.fillcolor ) ; }
-circle.prototype.pack = function()       { return this.center.x + "@" + this.center.y + "@" + this.radius ; }
+circle.prototype.pack = function() { return this.center.x + "@" + this.center.y + "@" + this.radius ; }
 circle.prototype.unpack = function( _packed_input )
 {
     if ( _packed_input.includes( "@" ) )

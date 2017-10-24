@@ -84,13 +84,11 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
               _glob_multithread_dictionary_obj.sliced_dictionary = _glob_original_dict ;
               _glob_multithread_operations_counter = _glob_multithread_dictionary_obj.sliced_dict_size();
               self.postMessage( { "id" : "append", "text" : _glob_multithread_operations_counter + " operations" } );
-              
+
               if ( _glob_multithread_operations_counter > 0 )
               {
                     self.postMessage( { "id" : "update", "text" : "["+_glob_multithread_working_plane_def+"] - " + _method_def + " / " + _process_def + " / " + _construction_mode_def + " / " + _fixedpoints_io_def } );
-
-                    var WORD = "", INDEX = 0, _p, _i, runner ;
-                    var drawcolor = "", draw = 0 ;
+                    var WORD = "", INDEX = 0, _p, _i, runner, drawcolor = "", draw = 0 ;
                     var _bunch_limit = _glob_multithread_bunch_limit, _bunch_counter = 0 ;
                     var i = 0, _found_repetends_index = 0, runner = 0, _dict_size = _glob_original_dict.size_recursive();
                     var complex_circle = null, first_circle = _items_array[0].complex_circle ;
@@ -104,7 +102,6 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
                         for( i = 0 ; i < _dict_size ; i++ )
                         {
                              if ( !_glob_multithread_running ) break ;
-
     						 WORD = _glob_multithread_dictionary_obj.sliced_dict_read_runner();
                              if ( WORD.length == _depth && _keys_len > 0 ) WORD = reps_apply_fn( WORD );
 
@@ -131,12 +128,10 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
                              complex_circle = _drawentity == DRAWENTITY_INVERSION_CIRCLE ? G.inversion_circle() : G.isometric_circle();
                              if( _current_region.is_pt_inside( _fp.real, _fp.imag ) )
                              {
-                                 pts_array.push( new point( _fp.real, _fp.imag,
-                                 														_POINT_2D_CLS_EUCLIDEAN_ENV,
-                                 														_items_array[INDEX].complex_circle.drawcolor,
-                                 														_items_array[INDEX].complex_circle.fillcolor,
-                                 														_items_array[INDEX].complex_circle.linewidth
-																 													) );
+                                 pts_array.push( new point( _fp.real, _fp.imag, _POINT_2D_CLS_EUCLIDEAN_ENV,
+                                 				 _items_array[INDEX].complex_circle.drawcolor,
+                                 				 _items_array[INDEX].complex_circle.fillcolor,
+                                 				 _items_array[INDEX].complex_circle.linewidth ) );
                                  words_array.push( WORD );
                                  circles_array.push( complex_circle );
                              }
@@ -148,17 +143,10 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
                                          'words_array' : words_array,
                                          'draw_fn_id' : 2.2,
                                          'counter' : _glob_multithread_operations_counter,
-                                         'runner' : _glob_multithread_operations_runner
-                                       } ;
-
-                                 self.postMessage( { 'id' : "draw",
-                                                     'obj' : obj
-                                                   } );
-
+                                         'runner' : _glob_multithread_operations_runner } ;
+                                 self.postMessage( { 'id' : "draw", 'obj' : obj } );
                                  _bunch_counter = 0 ;
-     														 pts_array = [];
-                                 words_array = [];
-                                 circles_array = [];
+     							 pts_array = []; words_array = []; circles_array = [];
                              }
                         }
 

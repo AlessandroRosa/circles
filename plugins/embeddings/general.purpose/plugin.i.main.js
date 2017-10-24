@@ -12,16 +12,16 @@ function CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id )
     _plugin_run_fn_array[_index_ref] = "CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO);" ;
     _plugin_vars_array[_index_ref] = [] ;
 
+    _glob_target_plane = W_PLANE ;
     _glob_init_mask = INIT_FROM_MAPS | INIT_PAIRED_ITEMS ;
-    if ( _glob_drawentity == DRAWENTITY_NONE ) _glob_drawentity = DRAWENTITY_PIXEL ;
+    circles_lib_method_set( METHOD_ALGEBRAIC );
     
     _glob_submethod_desc = _plugin_definitions_array[_index_ref] ;
     _glob_submethod_desc = safe_string( _glob_submethod_desc, "" );
     if ( _glob_process == PROCESS_NONE ) _glob_process = PROCESS_BREADTHFIRST ;
-    _glob_target_plane = W_PLANE ;
-	circles_lib_drawentity_set( DRAWENTITY_PIXEL );
-    circles_lib_method_set( METHOD_ALGEBRAIC );
-    if ( _glob_depth <= 1 ) circles_lib_depth_set( 8, YES );
+
+    if ( _glob_drawentity == DRAWENTITY_NONE ) circles_lib_drawentity_set( DRAWENTITY_PIXEL );
+    if ( _glob_depth <= 1 ) circles_lib_depth_set( DEFAULT_DEPTH, YES );
     _plugin_init_fns_array[_index_ref] = arguments.callee.name ;
     CIRCLESembeddingsGENERALPURPOSE_PRESETS_INIT();
 }
@@ -44,7 +44,6 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ) ;
     CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id );
 	_plugin_last_ref = _plugin_main_ref ;
-    _glob_palette_use = NO, _glob_drawentity = DRAWENTITY_PIXEL ;
     var _index_ref = _plugin_last_ref ;
     var _items_n = circles_lib_count_items();
     var this_fn_name = arguments.callee.name + "(NO,"+_restore+")" ;
@@ -145,7 +144,16 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"13\"></td>" ;
     HTMLcode += "<td>Display</td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
-    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:_glob_drawentity=this.value;circles_lib_menu_entries_update();\"><OPTION VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric<OPTION VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion</SELECT></td></tr></table></td>" ;
+    HTMLcode += "<td><table><tr><td><SELECT ID=\"PLUGINcircleCOMBO\" ONCHANGE=\"javascript:_glob_drawentity=this.value;circles_lib_menu_entries_update();\">" ;
+	var _selected = _glob_drawentity == DRAWENTITY_ISOMETRIC_CIRCLE ? "SELECTED=\"selected\"" : "" ;
+	HTMLcode += "<OPTION "+_selected+" VALUE=\""+DRAWENTITY_ISOMETRIC_CIRCLE+"\">Isometric" ;
+		_selected = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? "SELECTED=\"selected\"" : "" ;
+	HTMLcode += "<OPTION "+_selected+" VALUE=\""+DRAWENTITY_INVERSION_CIRCLE+"\">Inversion" ;
+		_selected = _glob_drawentity == DRAWENTITY_PIXEL ? "SELECTED=\"selected\"" : "" ;
+	HTMLcode += "<OPTION "+_selected+" VALUE=\""+DRAWENTITY_PIXEL+"\">Pixel" ;
+		_selected = _glob_drawentity == DRAWENTITY_POINT ? "SELECTED=\"selected\"" : "" ;
+	HTMLcode += "<OPTION "+_selected+" VALUE=\""+DRAWENTITY_POINT+"\">Point" ;
+	HTMLcode += "</SELECT></td></tr></table></td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td WIDTH=\"3\">circles</td>" ;
     HTMLcode += "</tr>" ;
@@ -615,14 +623,13 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
         if ( is_array( _glob_zplane_selected_items_array ) ) _glob_zplane_selected_items_array.flush();
 
         GLOB_PLUGIN_CIRCLE_TYPE = $( "#PLUGINcircleCOMBO option:selected" ).val();
-        if ( GLOB_PLUGIN_CIRCLE_TYPE == 0 ) GLOB_PLUGIN_CIRCLE_TYPE = DRAWENTITY_ISOMETRIC_CIRCLE ;
-        if ( !GLOB_PLUGIN_CIRCLE_TYPE.is_one_of( DRAWENTITY_ISOMETRIC_CIRCLE, DRAWENTITY_INVERSION_CIRCLE ) )
+        if ( !GLOB_PLUGIN_CIRCLE_TYPE.is_one_of( DRAWENTITY_ISOMETRIC_CIRCLE, DRAWENTITY_INVERSION_CIRCLE, DRAWENTITY_PIXEL, DRAWENTITY_POINT ) )
         GLOB_PLUGIN_CIRCLE_TYPE = DRAWENTITY_ISOMETRIC_CIRCLE ;
 
         _plugin_rec_configs_array[ _index_ref ] = [] ;
 
 		var GEN_CHUNK = null, _symbol, _inv_symbol, _mm, _inv_mm, _mm_trace_squared ;
-	 	var _A_COMPLEX, _B_COMPLEX, _C_COMPLEX, _D_COMPLEX = null, _CC, _INV_CC, _ret_scan ;
+	 	var _A_COMPLEX = null, _B_COMPLEX = null, _C_COMPLEX = null, _D_COMPLEX = null, _CC = null, _INV_CC = null, _ret_scan ;
 		var _CC_01, _IS_01, _circle01 ;
 		var _INV_CC_01, _INV_IS_01, _inv_circle01 ;
 		for( var _i = 0 ; _i < _N_GENS ; _i++ )

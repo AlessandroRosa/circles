@@ -194,7 +194,7 @@ self.addEventListener( 'message', function(e)
                           'depth' : safe_int( data.depth, 1 ),
                           'dict_create' : _glob_multithread_dict_create,
                           'dict_init_settings_packed' : data.dict_init_settings,
-									        'dict_process' : data.dict_process,
+						  'dict_process' : data.dict_process,
                           'dist_tolerance' : safe_float( data.dist_tolerance, DEFAULT_DISTANCE_TOLERANCE ),
                           'disk_visibility_radius' : data.disk_visibility_radius,
                           'drawentity' : _glob_multithread_drawentity,

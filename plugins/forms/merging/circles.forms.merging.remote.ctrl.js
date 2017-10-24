@@ -20,7 +20,7 @@ function CIRCLESformsMERGINGremotectrl( _options, _return_fn, _ret_array, _outpu
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "forms", _base_id = "merging" ;
         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
-        _ret_array.push( 1, "<green>Plug-in has been closed with success</green>" ) ;
+        
         return 1 ;
         break ;
 				case "focus":

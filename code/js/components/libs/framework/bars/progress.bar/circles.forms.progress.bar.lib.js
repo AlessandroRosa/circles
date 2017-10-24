@@ -1,6 +1,6 @@
 function circles_lib_progressbar_div_is_visible() { return ( $( "#PROGRESSbarDIV" ).get(0) != null ) ? ( $( "#PROGRESSbarDIV" ).is( ":visible" ) ? YES : NO ) : NO ; }
 function circles_lib_progressbar_div_show_element( _element_id, _show ) { if ( $( "#" + _element_id ).get(0) != null ) _show ? $( "#" + _element_id ).show() : $( "#" + _element_id ).hide(); }
-function circles_lib_progressbar_div_write_label( TEXT ) { if ( $( "#PROGRESSbarDIVtext" ).get(0) != null )    { $( "#PROGRESSbarDIVtext" ).html( TEXT ); return YES ; } else return NO ; }
+function circles_lib_progressbar_div_write_label( TEXT ) { if ( $( "#PROGRESSbarDIVtext" ).get(0) != null ) { $( "#PROGRESSbarDIVtext" ).html( TEXT ); return YES ; } else return NO ; }
 function circles_lib_progressbar_div_append_label( TEXT ) { if ( $( "#PROGRESSbarDIVappend" ).get(0) != null ) { $( "#PROGRESSbarDIVappend" ).html( TEXT ); return YES ; } else return NO ; }
 function circles_lib_progressbar_div_step_label( TEXT ) { if ( $( "#PROGRESSbarDIVstep" ).get(0) != null ) { $( "#PROGRESSbarDIVstep" ).html( TEXT ); return YES ; } else return NO ; }
 function circles_lib_progressbar_set_value( ctrl_id, v, _force )
