@@ -296,7 +296,7 @@ function circles_lib_terminal_error_echo( _message, _return_msg )
 function circles_lib_terminal_success_echo( _message, _return_msg )
 {
     _return_msg = safe_int( _return_msg, NO );
-    _message = '[[;'+get_rgb_from_color_tag( 'greensuccess' )+';]' + _message.replace(/\\$/, '&#92;') + ']' ;
+    _message = '[[;'+get_rgb_from_color_tag( 'green' )+';]' + _message.replace(/\\$/, '&#92;') + ']' ;
 		if ( _return_msg ) return _message ;
     else if ( _glob_terminal != null ) _glob_terminal.echo( _message );
 }

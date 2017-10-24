@@ -6,10 +6,10 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode, _silent, _output_
     $.each( _entries, function( _i, _id ) { $( _id ).val( $( _id ).val().replaceAll( ",", "." ) ); } );
     var _index_ref = _plugin_last_ref, _opcode_str = "" ;
     if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_ADD )
-		{
-				CIRCLESembeddingsGENERALPURPOSEcurr_sel = UNDET ;
-				_opcode_str = "add" ;
-		}
+	{
+		CIRCLESembeddingsGENERALPURPOSEcurr_sel = UNDET ;
+		_opcode_str = "add" ;
+	}
     else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE ) _opcode_str = "update" ;
     else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_DELETE ) _opcode_str = "delete" ;
     else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_NEW ) _opcode_str = "new" ;
@@ -31,6 +31,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode, _silent, _output_
            $("#PLUGIN_PARAM_C").val( "" );
            $("#PLUGIN_PARAM_D").val( "" );
            $("#PLUGIN_PARAM_A").focus();
+		   CIRCLESembeddingsGENERALPURPOSEcurr_sel = UNDET ;
 		   circles_lib_output( _output_channel, DISPATCH_WARNING, "Form has been cleaned for a new entry", 'PLUGIN_OUTMSG' ) ;
 		   return YES ;
         }

@@ -11,7 +11,7 @@ function circles_terminal_cmd_plugin()
      if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+	 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
      var _error_str = "" ;
      var _out_text_string = "" ;
@@ -36,23 +36,23 @@ function circles_terminal_cmd_plugin()
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
-              _p = _params_array[_i].toLowerCase();
-              if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "available", "close", "current", "list", "remotecmds", "open", "set", "send", "target", "var", "varslist" ) ) _params_assoc_array['action'] = _p.toLowerCase();
-              else if ( _p.is_one_of_i( "silent" ) ) _params_assoc_array['settings'].push( _p ) ;
-              else
-              {
-                  if ( _params_assoc_array['action'] != null )
-                  {
+            _p = _params_array[_i].toLowerCase();
+            if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.is_one_of_i( "available", "close", "current", "list", "remotecmds", "open", "set", "send", "target", "var", "varslist" ) ) _params_assoc_array['action'] = _p.toLowerCase();
+            else if ( _p.is_one_of_i( "silent" ) ) _params_assoc_array['settings'].push( _p ) ;
+            else
+            {
+                if ( _params_assoc_array['action'] != null )
+                {
                     switch( _params_assoc_array['action'] )
                     {
                       case "available":
-                   		if ( !is_array( _params_assoc_array['settings'][ _params_assoc_array['action'] ] ) )
-      								_params_assoc_array['settings'][ _params_assoc_array['action'] ] = [] ;
+               		  if ( !is_array( _params_assoc_array['settings'][ _params_assoc_array['action'] ] ) )
+      								  _params_assoc_array['settings'][ _params_assoc_array['action'] ] = [] ;
 
-      								_params_assoc_array['settings'][ _params_assoc_array['action'] ].push( _p );
+      				  _params_assoc_array['settings'][ _params_assoc_array['action'] ].push( _p );
                       break ;
                       case "var": _params_assoc_array['settings']['var'] = _p ; break ;
                       case "open":
@@ -70,9 +70,9 @@ function circles_terminal_cmd_plugin()
                       default:
                       break ;
                     }
-                  }
-                  else circles_lib_output( _output_channel, DISPATCH_WARNING, "Unknown input parameter '"+_p+"'", _par_1, _cmd_tag );
-              }
+                }
+                else circles_lib_output( _output_channel, DISPATCH_WARNING, "Unknown input parameter '"+_p+"'", _par_1, _cmd_tag );
+            }
          }
 
          var _already = _glob_verbose == _params_assoc_array['mode'] ? YES : NO ;
@@ -94,18 +94,18 @@ function circles_terminal_cmd_plugin()
              var _action = _params_assoc_array['action'] ;
              switch( _action )
              {
-             		 case "available" :
+             	 case "available" :
                  var _settings = _params_assoc_array['settings'][ 'available' ] ;
                  var _subset = is_array( _settings ) ? safe_string( _settings[0], "" ) : "" ;
                  if ( _subset.length == 0 ) { _b_fail = YES, _error_str = "Missing input subset" ; }
                  else
                  {
-							       var vars = { tip: "",
-							                    folder : "plugins/" + _subset + "/",
-							                    filter : "/^.*\.(ini)$/i",
-																  exact : 0,
-							                    search_params : "1,1,1,0" } ;
-							       var _result = get_filedata_from_folder( "support/code/phpcode/svc/svc.filelist.php", "POST", false, vars );
+					var vars = { tip: "",
+					             folder : "plugins/" + _subset + "/",
+					             filter : "/^.*\.(ini)$/i",
+							     exact : 0,
+							     search_params : "1,1,1,0" } ;
+					var _result = get_filedata_from_folder( "support/code/phpcode/svc/svc.filelist.php", "POST", false, vars );
                          if ( _result.includes( "@@" ) ) _result = _result.split( "@@" );
 							       if ( safe_size( _result, 0 ) == 0 )
 							       {
@@ -311,20 +311,23 @@ function circles_terminal_cmd_plugin()
                  else circles_lib_output( _output_channel, DISPATCH_ERROR, "Cannot send event to Plug-in: please, set it first", _par_1, _cmd_tag );
                  break ;
                  case "set":
-                 case "target":
                  if ( _plugin_tmp_vars_array['plugin_sel'] == null ) _plugin_tmp_vars_array['plugin_sel'] = [] ;
-                  var _fam = _params_assoc_array['settings']['family'] != null ? _params_assoc_array['settings']['family'] : "" ;
-                  var _def = _params_assoc_array['settings']['def'] != null ? _params_assoc_array['settings']['def'] : "" ;
-                  if ( is_consistent_string( _fam ) && is_consistent_string( _def ) )
-                  {
-                    var _famLC = _fam.toLowerCase(), _famUC = _fam.toUpperCase();
-                    var _defLC = _def.toLowerCase(), _defUC = _def.toUpperCase();
-
-                    _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] = { fam : _fam, def : _def } ;
-                    _plugin_tmp_vars_array['plugin_sel']['packed_name'] = _famLC + "@" + _defLC ;
-                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Plug-in target has been correctly set to <white>"+_params_assoc_array['settings']['family']+" "+_params_assoc_array['settings']['def']+"</white>", _par_1, _cmd_tag );
-                  }
-                  else circles_lib_output( _output_channel, DISPATCH_ERROR, "Cannot set plug-in: missing couple family specification / definition", _par_1, _cmd_tag );
+                 var _fam = _params_assoc_array['settings']['family'] != null ? _params_assoc_array['settings']['family'] : "" ;
+                 var _def = _params_assoc_array['settings']['def'] != null ? _params_assoc_array['settings']['def'] : "" ;
+                 if ( is_consistent_string( _fam ) && is_consistent_string( _def ) )
+                 {
+				   var _exists = check_file_exists( _glob_plugins_path + _fam + "/" + _def ) ;
+				   if ( _exists )
+				   {
+					   var _famLC = _fam.toLowerCase(), _famUC = _fam.toUpperCase();
+					   var _defLC = _def.toLowerCase(), _defUC = _def.toUpperCase();
+					   _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] = { fam : _fam, def : _def } ;
+					   _plugin_tmp_vars_array['plugin_sel']['packed_name'] = _famLC + "@" + _defLC ;
+					   circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<green>Plug-in target has been correctly set to</green> <white>"+_params_assoc_array['settings']['family']+" "+_params_assoc_array['settings']['def']+"</white>", _par_1, _cmd_tag );
+				   }
+				   else circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<orange>Fail to set plug-in</orange> <white>'"+_fam+"' '"+_def+"'</white><orange>: wrong definition or missing components</orange>", _par_1, _cmd_tag );
+                 }
+                 else circles_lib_output( _output_channel, DISPATCH_ERROR, "Cannot set plug-in: missing couple family specification / definition", _par_1, _cmd_tag );
                  break ;
                  case "varslist":
                  if ( _plugin_tmp_vars_array['plugin_sel'] != null )

@@ -28,7 +28,6 @@ var def_clrs_tags = [], def_clrs_tags_keys = [] ;
     def_clrs_tags['tag.green'] = "#00FF00" ;
     def_clrs_tags['tag.greenshock'] = "#3EFF00" ;
     def_clrs_tags['tag.greenyellow'] = "#ADFF2F" ;
-    def_clrs_tags['tag.greensuccess'] = "#5FCD42" ;
     def_clrs_tags['tag.khaki'] = "#F0E68C" ;
     def_clrs_tags['tag.indigo'] = "#4B0082" ;
     def_clrs_tags['tag.ivory'] = "#FFFFF0" ;

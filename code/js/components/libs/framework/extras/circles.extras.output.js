@@ -42,7 +42,7 @@ function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*m
    		 switch( _out_msg_type )
    		 {
 		 			case DISPATCH_WARNING: _color = "orange" ; break ;
-		 			case DISPATCH_SUCCESS: _color = "greensuccess" ; break ;
+		 			case DISPATCH_SUCCESS: _color = "green" ; break ;
 		 			case DISPATCH_CRITICAL: case DISPATCH_ERROR: _color = "rederror" ; break ;
 		 			case DISPATCH_INFO: default: _color = "lightgray" ; break ;
 		 }

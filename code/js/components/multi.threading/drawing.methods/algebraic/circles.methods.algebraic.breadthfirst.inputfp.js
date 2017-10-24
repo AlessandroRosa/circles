@@ -97,7 +97,6 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
                     var pts_array = [], words_array = [], circles_array = [] ;
                     var G = null, GM = null ;
                     var _fp = null, obj ;
-                    
                     for( _p = 0 ; _p < _input_fixed_pts.length ; _p++ )
                     {
                         self.postMessage( { "id" : "step", "text" : "Pass " + ( _p + 1 ) + " of " + _input_fixed_pts.length } );
@@ -106,7 +105,7 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
                         {
                              if ( !_glob_multithread_running ) break ;
 
-    												 WORD = _glob_multithread_dictionary_obj.sliced_dict_read_runner();
+    						 WORD = _glob_multithread_dictionary_obj.sliced_dict_read_runner();
                              if ( WORD.length == _depth && _keys_len > 0 ) WORD = reps_apply_fn( WORD );
 
                              _fp = _input_fixed_pts[_p] ;
@@ -122,7 +121,8 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
                                     break ;
                                     case DRAWENTITY_ISOMETRIC_CIRCLE:
                                     case DRAWENTITY_INVERSION_CIRCLE:
-                                    G = G.composition( _items_array[INDEX].map );
+									if ( runner == 0 ) G = _items_array[INDEX].map ;
+                                    else G = G.composition( _items_array[INDEX].map );
                                     break ;
                                     default: break ;
                                  }

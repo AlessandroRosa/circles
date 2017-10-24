@@ -103,7 +103,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "</tr>" ;
 
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
-    HTMLcode += "<tr><td HEIGHT=\"22\"><DIV ID=\"PLUGIN_OUTMSG\" CLASS=\"general_rounded_corners\" STYLE=\"height:18px;background-color:white;\" ALIGN=\"center\"></DIV></td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"28\"><DIV ID=\"PLUGIN_OUTMSG\" CLASS=\"general_rounded_corners\" STYLE=\"height:28px;background-color:white;font-size:12pt;\" ALIGN=\"center\"></DIV></td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
 
     HTMLcode += "<tr>" ;

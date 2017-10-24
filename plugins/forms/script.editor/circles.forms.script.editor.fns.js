@@ -166,7 +166,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerREMOVEproject( _silent )
 						var _ret_proj_label = safe_string( _ret_chunk[1], "" );
 						if ( _ret_id )
 						{
-								circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_MULTICOLOR, "<greensuccess>Project</greensuccess> <white>"+CIRCLESformsSCRIPTEDITORprojectlabelCURRENT+"</white> <greensuccess>has been removed with success</greensuccess>", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
+								circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_MULTICOLOR, "<green>Project</green> <white>"+CIRCLESformsSCRIPTEDITORprojectlabelCURRENT+"</white> <green>has been removed with success</green>", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
 								CIRCLESformsSCRIPTEDITORcodemirrorOBJ.setValue( "" );
 								CIRCLESformsSCRIPTEDITORprojectlabelCURRENT = "" ;
 								$( "#CIRCLESformsSCRIPTEDITORrecordBTNID" ).css( "color", "black" );

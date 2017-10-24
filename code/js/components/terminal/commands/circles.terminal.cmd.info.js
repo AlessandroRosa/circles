@@ -124,14 +124,12 @@ function circles_terminal_cmd_info()
                     
                     var _max_dec_length = 0, _approx_dec_length = 14 ;
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Retrieving infos on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
-                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "This group includes <lightblue>" + _sd_n + " generator" + ( _sd_n == 1 ? "" : "s" ), _par_1 ) + "</lightblue>";
-                    $.each( _items_array,
-                            function( _i, ITEM )
+                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "The current group includes <lightblue>" + _sd_n + " generator" + ( _sd_n == 1 ? "" : "s" ), _par_1 ) + "</lightblue>";
+                    $.each( _items_array, function( _i, ITEM )
                             {
                                 _max_dec_length = Math.max( _max_dec_length, ITEM.map.trace().formula(YES,YES,DEFAULT_MAX_ACCURACY).length );
                                 _approx_dec_length = Math.max( _approx_dec_length, ITEM.map.trace().formula(YES,YES,_accuracy).length );
-                            }
-                          );
+                            } );
 
                     if ( _features.one_in_i( "all", "group" ) )
                     {
@@ -152,8 +150,7 @@ function circles_terminal_cmd_info()
                         _header += "</snow>" ;
                         circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _header, _par_1, _cmd_tag );
 
-                        $.each( _items_array,
-                                function( _i, ITEM )
+                        $.each( _items_array, function( _i, ITEM )
                                 {
                                    if ( _do_normalization ) ITEM.map.normalize(_accuracy);
                                    _symbol = safe_string( ITEM.symbol, "unknown" );
@@ -176,8 +173,7 @@ function circles_terminal_cmd_info()
                                    _row += "<yellow>"+( new String( _tr.formula(YES,YES,DEFAULT_MAX_ACCURACY) ) ).trim().rpad( " ", _columns[3] )+"</yellow>" ;
                                    _max_row_length = Math.max( _max_row_length, _row.strip_tags().length + 2 );
                                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
-                                }
-                              );
+                                } );
                     }
 
                     var _sep = "-" ;    _sep = _sep.repeat( _max_row_length );
@@ -194,7 +190,9 @@ function circles_terminal_cmd_info()
                         var _commutator_tr_approx = _commutator_map.trace().roundTo( _accuracy );
                         var _commutator_tr = _commutator_map.trace();
 
-                        _row  = "<lightblue>"+( new String( _prog_num ) ).trim().rpad( " ", _columns[0] )+"</lightblue>" ;
+						_row = "<lightgray>Building up the commutator from the current group</lightgray>" ;
+                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+                        _row = "<lightblue>"+( new String( _prog_num ) ).trim().rpad( " ", _columns[0] )+"</lightblue>" ;
                         _row += "<orange>"+_commutator_word.trim().rpad( " ", _columns[1] )+"</orange>" ;
                         _row += "<yellow>"+( new String( "commutator" ) ).rpad( " ", _columns[4] )+"</yellow>" ;
                         _row += "<yellow>"+( new String( _classification ) ).trim().rpad( " ", _columns[2] )+"</yellow>" ;
