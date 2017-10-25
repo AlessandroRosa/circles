@@ -131,7 +131,7 @@ function circles_terminal_cmd_target()
                            {
                                 _b_fail = YES, _error_str = "Target creation failure: '"+_service_ref+"' is a special keyword and can't be used for creating new targets" ;
                            }
-                           else if ( !_service_ref.testME( _glob_varname_regex_pattern ) )
+                           else if ( !_service_ref.testME( _glob_varid_regex_pattern ) )
                            {
                                 _b_fail = YES, _error_str = "Target creation failure: '"+_service_ref+"' includes illegal chars" ;
                            }

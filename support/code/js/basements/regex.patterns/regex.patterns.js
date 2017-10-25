@@ -29,5 +29,5 @@ var _glob_storage_key_regex_pattern = "^([A-Za-z0-9\@]{1,})$" ;
 var _glob_symbol_regex_pattern = "^([A-Za-z]{1})$" ;
 var _glob_trace_word_regex_pattern = /(tr)+(\^([0-9]{1,}))?(\()?([a-zA-Z]{1,})((\*+[1-9]{1,})?)?(\))?/g ;
 var _glob_trace_commutator_regex_pattern = /(tr)+\[([a-zA-Z]{1})\,([a-zA-Z]{1})\]/g ;
-var _glob_varname_regex_pattern = "^\_([A-Za-z0-9\_\$]{1,})$" ;
+var _glob_varid_regex_pattern = "^\_([A-Za-z0-9\_\$]{1,})$" ;
 var _glob_word_regex_pattern = "^([A-Za-z]{1,})$" ;

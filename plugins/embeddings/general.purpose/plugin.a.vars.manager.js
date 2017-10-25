@@ -1,10 +1,10 @@
-function CIRCLESembeddingsGENERALPURPOSE_VAR_CHECK_SYNTAX( _var ) { return _var.testME( _glob_varname_regex_pattern ); }
+function CIRCLESembeddingsGENERALPURPOSE_VAR_CHECK_SYNTAX( _var ) { return _var.testME( _glob_varid_regex_pattern ); }
 function CIRCLESembeddingsGENERALPURPOSE_VAR_IS_INCLUDED( _formula ) { return safe_size( _formula.match( /\$([a-zA-B]{1,})/gi ), 0 ) > 0 ? YES : NO ; }
 function CIRCLESembeddingsGENERALPURPOSE_VAR_EXTRACT( _formula ) { return safe_size( _formula.match( /\$([a-zA-B]{1,})/gi ), 0 ) > 0 ? _matches : null ; }
 function CIRCLESembeddingsGENERALPURPOSE_VAR_ALL_REPLACE_WITH_VAL()
 {
-    var _vars_names = _plugin_rec_var_vals.keys_associative();
-    var _n_vars = safe_size( _vars_names, 0 ), _i, _p, _x, _resolved ;
+    var _vars_ids = _plugin_rec_var_vals.keys_associative();
+    var _n_vars = safe_size( _vars_ids, 0 ), _i, _p, _x, _resolved ;
     if ( _n_vars > 0 )
     {
 	  var _ret = YES ;
@@ -12,7 +12,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_ALL_REPLACE_WITH_VAL()
       {
         _resolved = CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[_i] ;
 		if ( _resolved == null ) { _ret = NO ; break ; }
-        for( _x = 0 ; _x < _n_vars ; _x++ ) _resolved = _resolved.replaceAll( _vars_names[_x], "("+_plugin_rec_var_vals[ _vars_names[_x] ]+")" );
+        for( _x = 0 ; _x < _n_vars ; _x++ ) _resolved = _resolved.replaceAll( _vars_ids[_x], "("+_plugin_rec_var_vals[ _vars_ids[_x] ]+")" );
         CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[_i] = _resolved ;
       }
 	  return _ret ;
@@ -45,7 +45,8 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD( _output_channe
     if ( _n_keys > 0 )
     {
         _html_code += "<table>" ;
-        _html_code += "<tr><td COLSPAN=\"3\">"+_n_keys+" key"+( _n_keys == 1 ? "" : "s" )+" ha"+( _n_keys == 1 ? "s" : "ve" )+" been registered</td></tr>" ;
+        _html_code += "<tr><td HEIGHT=\"6\"></td></tr>" ;
+        _html_code += "<tr><td COLSPAN=\"3\" STYLE=\"color:white;\">"+_n_keys+" var"+( _n_keys == 1 ? "" : "s" )+" ha"+( _n_keys == 1 ? "s" : "ve" )+" been registered</td></tr>" ;
 		var _b_div = _n_keys > 10 ;
         if ( _b_div )
         {
@@ -53,12 +54,11 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD( _output_channe
             _html_code += "<DIV STYLE=\"position:relative;width:auto;height:220px;overflow:auto;padding:3px;\">" ;
             _html_code += "<table>" ;
         }
-        _html_code += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-        _html_code += "<tr><td>Var name</td><td WIDTH=\"5\"></td><td ALIGN=\"right\">Var value</td></tr>" ;
+        _html_code += "<tr><td STYLE=\"color:yellow;\">Var ID</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:pink;\">Var value</td></tr>" ;
         _html_code += "<tr><td HEIGHT=\"3\"></td></tr>" ;
         $.each( _keys, function( _i, _key )
                 {
-                    _html_code += "<tr><td>"+_key+"</td><td WIDTH=\"5\"></td><td ALIGN=\"right\">"+_plugin_rec_var_vals[_key]+"</td></tr>" ;
+                    _html_code += "<tr><td STYLE=\"color:yellow;\">"+_key+"</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:pink;\">"+_plugin_rec_var_vals[_key]+"</td></tr>" ;
                     _html_code += "<tr><td HEIGHT=\"3\"></td></tr>" ;
                 } );
         if ( _b_div )
@@ -69,14 +69,13 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD( _output_channe
         }
         _html_code += "</table>" ;
         circles_lib_output( _output_channel, _dispatch_mode, _html_code, _glob_app_title + " - Vars list" );
-		return YES ;
     }
     else
     {
-        _html_code += "<table><tr><td ALIGN=\"center\" STYLE=\"color:orange;\">The vars list is empty</td></tr></table>" ;
+        _html_code += "<table><tr><td ALIGN=\"center\" STYLE=\"color:orange;\">The vars list is currently empty</td></tr></table>" ;
         circles_lib_output( _output_channel, DISPATCH_WARNING, _html_code, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
-		return NO ;
     }
+	return YES ;
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER( _output_channel, _id, _val )
@@ -208,7 +207,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DELETE( _question, _silent, _var_id
     if ( _var_id.length == 0 )
     {
         var _msg = "Can't delete var params:" + _glob_crlf ;
-        if ( _var_id.length == 0 ) _msg += _glob_crlf + "missing var name" ;
+        if ( _var_id.length == 0 ) _msg += _glob_crlf + "missing var ID" ;
         if ( !_silent ) circles_lib_output( _output_channel, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
         return NO ;
     }
@@ -277,10 +276,10 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_COMPUTE( _param_id, _output_channel
     {
         var _matches = CIRCLESembeddingsGENERALPURPOSE_VAR_EXTRACT( _param_formula );
         var _n_found = _matches == null ? 0 : safe_size( _matches, 0 );
-        var _vars_names = _plugin_rec_var_vals.keys_associative();
-        var _n_vars = safe_size( _vars_names, 0 );
+        var _vars_ids = _plugin_rec_var_vals.keys_associative();
+        var _n_vars = safe_size( _vars_ids, 0 );
         if ( _n_vars > 0 )
-        for( var _x = 0 ; _x < _n_vars ; _x++ ) _param_formula = _param_formula.replaceAll( _vars_names[_x], "("+_plugin_rec_var_vals[ _vars_names[_x] ]+")" );
+        for( var _x = 0 ; _x < _n_vars ; _x++ ) _param_formula = _param_formula.replaceAll( _vars_ids[_x], "("+_plugin_rec_var_vals[ _vars_ids[_x] ]+")" );
 
         var _complex = circles_lib_math_parse_formula( _param_formula );
         var _html_code  = "<table>" ;
@@ -319,7 +318,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_WATCH( _param_id, _output_channel )
        else
        {
           _html_code += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-          _html_code += "<tr><td>Var name</td><td WIDTH=\"5\"></td><td ALIGN=\"right\">Var value</td></tr>" ;
+          _html_code += "<tr><td>Var ID</td><td WIDTH=\"5\"></td><td ALIGN=\"right\">Var value</td></tr>" ;
           _html_code += "<tr><td HEIGHT=\"3\"></td></tr>" ;
           $.each( _vars, function( _i, _key )
                   {
@@ -358,15 +357,18 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_COMBO_BUILD()
 
 function CIRCLESembeddingsGENERALPURPOSE_VARS_VALS_RECORD_COMBO_SELECT()
 {
-    var _combo = $( "#PLUGINregisteredvarsCOMBO" ).get(0);
-    var _entry = _combo.options[_combo.selectedIndex].text ;
+    var _combo = $( "#PLUGINregisteredvarsCOMBO" ).get(0), _entry = _combo.options[_combo.selectedIndex].text ;
     if ( _entry.includes( ":" ) && _entry.count( ":" ) == 1 )
     {
        var _entryARRAY = _entry.split( ":" );
        $('#PLUGINvaridEDIT').val( _entryARRAY[0] );
        $('#PLUGINvarvalueEDIT').val( _entryARRAY[1] );
-       $("#PLUGIN_GENERATE_GROUP_BTN").css( "color", DEFAULT_COLOR_GO );
     }
+	else
+	{
+       $('#PLUGINvaridEDIT').val( "" );
+       $('#PLUGINvarvalueEDIT').val( "" );
+	}
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( _section, _output_channel )
@@ -376,12 +378,14 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( _section, _output_channel )
     switch( _section )
     {
         case 1: // vars info
-        _msg += "Var name shall start with '_' (underscore), for example : _a ;" ;
-        _msg += "\n\nYou can use alphanumeric chars and underscore exclusively ;" ;
+		_msg += "Lexical rule for vars declaration:\n" ;
+        _msg += "\n1) Var ID must start with the underscore '_'. Example: _a" ;
+        _msg += "\n2) Var ID includes underscore and alphanumeric chars exclusively" ;
         break ;
         default: break ;
     }
     circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+	return YES ;
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_VAR_EXPORT()

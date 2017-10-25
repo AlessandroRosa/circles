@@ -106,24 +106,24 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 			_found = 1 ;
 			break ;
 			default: break ;
-		}
-		_tab_name = _tab_name.replace( /\./g, ' ' );
-		_ret_array.push( _found, !_found ? "<red>Can't switch to unknown tab '"+_tab_name+"'</red>" : "<green>Switched to tab '"+_tab_name+"' with success</green>" ) ;
-		return YES ;
-		break ;
-  		case "new.mobius.map":
-  		CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_NEW,YES,_output_channel);
-        return YES ;
-  		break ;
-  		case "refresh":
-  		CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);
-        _ret_array.push( YES, "<green>Plug-in has been refreshed with success</green>" ) ;
-        return YES ;
-  		break ;
-        case "type":
-        var _letter = safe_string( _options[1], "" ) ;
-        if ( _letter.length == 1 && _letter.is_one_of( "a", "b", "c", "d" ) )
-        {
+		 }
+		 _tab_name = _tab_name.replace( /\./g, ' ' );
+		 _ret_array.push( _found, !_found ? "<red>Can't switch to unknown tab '"+_tab_name+"'</red>" : "<green>Switched to tab '"+_tab_name+"' with success</green>" ) ;
+		 return YES ;
+		 break ;
+  		 case "newmap":
+  		 CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_NEW,YES,_output_channel);
+         return YES ;
+  		 break ;
+  		 case "refresh":
+  		 CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);
+         _ret_array.push( YES, "<green>Plug-in has been refreshed with success</green>" ) ;
+         return YES ;
+  		 break ;
+         case "type":
+         var _letter = safe_string( _options[1], "" ) ;
+         if ( _letter.length == 1 && _letter.is_one_of( "a", "b", "c", "d" ) )
+         {
            switch( _letter )
            {
               case "a":
@@ -146,10 +146,9 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
            }
 		   _ret_array.push( YES, "<green>Param '"+_letter+"' has been set up with success</green>" ) ;
 		   return YES ;
-        }
-        else
-        {
-			console.log( "IN" );
+         }
+         else
+         {
 		   var _params = [] ;
            if ( _options[1] != null ) { _params.push('A'); $( "#PLUGIN_PARAM_A" ).val( _options[1].replaceAll( [ ",", ";" ], "" ) ); }
            if ( _options[2] != null ) { _params.push('B'); $( "#PLUGIN_PARAM_B" ).val( _options[2].replaceAll( [ ",", ";" ], "" ) ); }
@@ -181,30 +180,30 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 			  _ret_array.push( YES, "<green>Parameters "+_params.join( "," )+" have been typed in the edit boxes with success</green>" ) ;
 			  return YES ;
 		   }
-        }
-        return YES ;
-		break ;
-		case "var.bomb":
-		CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB(YES,YES,_output_channel);
-		_ret_array.push( YES, "<green>All vars have been deleted with success</green>" ) ;
-        CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
-		return YES ;
-		break ;
-        case "var.delete":
-        var _var_id = safe_string( _options[1], "" );
-        if ( _var_id.length > 0 )
-        {
+         }
+         return YES ;
+		 break ;
+		 case "var.bomb":
+		 CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB(YES,YES,_output_channel);
+		 _ret_array.push( YES, "<green>All vars have been deleted with success</green>" ) ;
+         CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
+		 return YES ;
+		 break ;
+         case "var.delete":
+         var _var_id = safe_string( _options[1], "" );
+         if ( _var_id.length > 0 )
+         {
 			var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_DELETE( YES, NO, _var_id, _output_channel ) ;
 		    _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<red>Fail to accomplish the operation</red>" ;
 		    _ret_array.push( _ret, _out_msg ) ;
             return _ret ;
-        }
-        else
-        {
+         }
+         else
+         {
 		   _out_msg = "<red>Can't delete the var from the list: please, input var ID</red>" ;
 		   _ret_array.push( NO, _out_msg ) ;
            return NO ;
-        }
+         }
          break ;
          case "var.help":
          var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( YES, _output_channel ) ;
@@ -237,7 +236,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
             return NO ;
          }
          break ;
-		 case "var.register.select":
+		 case "var.select":
 		 var _idx = _options[1] ;
 		 var _idx_type = 0 ; // 1 : number, 2 : letter
 		 if ( /([0-9]{1,})/.test( _options[1] ) ) { _idx_type = 1 ; _idx = safe_int( _idx, 0 ); }
@@ -258,6 +257,8 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 				}
 				else
 				{
+					$("#PLUGINregisteredvarsCOMBO").get(0).selectedIndex = 0 ;
+					$("#PLUGINregisteredvarsCOMBO").trigger("change") ;
 					_out_msg = "<orange>Allowed index range for dropdown selection goes from 0 to "+(_n_options-1)+"</orange>" ;
 					_ret_array.push( YES, _out_msg ) ;
 					return NO ;
@@ -265,6 +266,8 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 			}
 			else
 			{
+				$("#PLUGINregisteredvarsCOMBO").get(0).selectedIndex = 0 ;
+				$("#PLUGINregisteredvarsCOMBO").trigger("change") ;
 				_out_msg = "<red>Missing dropdown menu for selection: please register a var before</red>" ;
 				_ret_array.push( NO, _out_msg ) ;
 				return NO ;

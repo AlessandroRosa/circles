@@ -154,7 +154,7 @@ function circles_terminal_cmd_frm()
                     circles_lib_output( _output_channel, DISPATCH_INFO, "", 0, "frm" );
                     $.each( _params_assoc_array['frm'], function( _i, _tok ){ _params_assoc_array['frm'][_i] = _tok.trim() ; } ) ;
                     var _frm = _params_assoc_array['frm'].join( "" ) ;
-                    var _is_var = _frm.testME( _glob_varname_regex_pattern ) ? YES : NO ;
+                    var _is_var = _frm.testME( _glob_varid_regex_pattern ) ? YES : NO ;
                     var _illegals = _glob_punctuation.clone().remove( [ ".", "-", "^", "," ] ).concat( _glob_illegal_symbols ) ;
                     var _is_formula = YES, _is_illegal = NO, _what_illegals = [] ;
                     $.each( _params_assoc_array['frm'],

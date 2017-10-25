@@ -10,10 +10,7 @@ https://en.wikipedia.org/wiki/Structured_program_theorem
 
 ------------ APP -------------------------------------------------
 * Listings:
-  cmd "plugin"
-  - [general.purpose plugin] test cmds:
-    'var.help', 'var.bomb', 'var.list', 'update.params', 'info.params' (update .info file)
-  - run all listings
+  - run and test all listings
 
 - srcptset terminal cmd:
   * build point set according to input params
