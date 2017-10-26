@@ -30,8 +30,8 @@ function circles_terminal_cmd_new()
      _params_assoc_array['mask'] = RESET_NONE ;
      _params_assoc_array['silent'] = NO ;
      // pre-scan for levenshtein correction
-		 var _local_cmds_params_array = [];
- 				 _local_cmds_params_array.push( "release", "bip", "clean", "coords", "generals", "none", "plugins", "terminal", "html", "help" );
+	 var _local_cmds_params_array = [];
+ 		 _local_cmds_params_array.push( "release", "bip", "clean", "coords", "generals", "none", "plugins", "terminal", "html", "help" );
      circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
      var _p ;
      for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -102,10 +102,10 @@ function circles_terminal_cmd_new()
                   {
                     var _prompt_question = "Are you sure to set up a new config ?" ;
                		  var _params_array = [] ;
-          		     	  	_params_array['prepromptquestion'] = null ;
-                       	_params_array['promptquestion'] = _prompt_question ;
-                       	_params_array['yes_fn'] = function() { _new_proc(); }
-                       	_params_array['ifquestiondisabled_fn'] = function() { _new_proc(); }
+          		     	  _params_array['prepromptquestion'] = null ;
+                       	  _params_array['promptquestion'] = _prompt_question ;
+                       	  _params_array['yes_fn'] = function() { _new_proc(); }
+                       	  _params_array['ifquestiondisabled_fn'] = function() { _new_proc(); }
                     circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                   }
                   break ;

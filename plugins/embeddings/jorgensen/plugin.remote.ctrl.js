@@ -33,15 +33,15 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn, _ret_array,
         
         return 1 ;
         break ;
-				case "focus":
+		case "focus":
         var _sub = "embeddings", _base_id = "jorgensen" ;
         circles_lib_plugin_focus( _div_id );
         _ret_array.push( YES, "<green>Plug-in has been focused with success</green>" ) ;
         return 1;
         break ;
-				case "move":
+		case "move":
         var _sub = "embeddings", _base_id = "jorgensen" ;
-				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+		var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
         _ret_array.push( YES, "<green>Plug-in has been moved with success</green>" ) ;
         return 1 ;
 				break ;
@@ -81,6 +81,17 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn, _ret_array,
 				}
 				_ret_array.push( YES, "<green>Params have been updated with success</green>" ) ;
 				return 1 ;
+				case "init":
+                CIRCLESembeddingsJORGENSEN_INIT(NO,YES);
+        		CIRCLESembeddingsJORGENSEN_COMP(CIRCLESembeddingsJORGENSEN_param);
+				GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
+				CIRCLESembeddingsJORGENSEN_CONFIG(); GLOB_PLUGIN_WIZARD_STEP(1.1,_glob_items_to_init); GLOB_PLUGIN_GENS_SHOW(YES);
+                CIRCLESembeddingsJORGENSEN_RECORD_PARAMS();
+                GLOB_PLUGIN_GENS_SHOW(YES);
+			    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
+				_ret_array.push( YES, "<green>Params have been initialized with success</green>" ) ;
+				return YES ;
+				break ;
 				break ;
 				default:
 				        _ret_array.push( NO, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;

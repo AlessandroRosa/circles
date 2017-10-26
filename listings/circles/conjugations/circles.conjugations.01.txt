@@ -49,7 +49,7 @@ fp add -0.033875349799877-0.34134892487599683i bABa
 fp add -0.09999999632459047+60023992.868715495i abAB
 auto refresh off
 auto init off
-zoom zplane (0,0) side:5 silent
-zoom wplane (0,0) side:4 silent
+zoom zplane (0,0) side:6 silent
+zoom wplane (0,0) side:6 silent
 refresh zplane silent clean
 refresh wplane silent clean

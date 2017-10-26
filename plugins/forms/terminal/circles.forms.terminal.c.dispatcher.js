@@ -30,7 +30,7 @@ function CIRCLESformsTERMINALdispatcher()
            case POPUP_DISPATCHER_UNICAST_EVENT_UPDATE:
            case POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL:
            var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-           CIRCLESformsTERMINALmain( _base_id, NO ) ;
+		   // for further development, but don't show the terminal again !
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
            _glob_wnd_onkeyup_event_halt = YES ;

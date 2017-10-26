@@ -1,9 +1,14 @@
 ------------ APP -------------------------------------------------
 * Listings:
   - run and test all listings
-  LAST CHECKED : conjugations/circles.conjugations.01.txt
-                 Find the cmd that makes the terminal open again
-  
+  LAST CHECKED (pending) : conjugations/circles.conjugations.03.txt
+  * DG command : insert param 'defaultmaps' to list the currently
+                 available maps from the array _glob_maps
+  * all plugins: add the remote ctrl 'init', as already done for
+                 Jorgensen's
+  * for all listings including "update.params",
+    replace "init maps singly" with "plugin send init"
+
 * TO FIX:
   >> When random process is set but RND probs array is still empty,
      don't start multi-threading and display error message

@@ -12,7 +12,7 @@ function circles_lib_config_create_new_proc( _reset_mask, _drop_additional_figur
 {
     _drop_additional_figures = safe_int( _drop_additional_figures, NO );
     _reset_mask = safe_int( _reset_mask, RESET_NONE ), _clean = safe_int( _clean, YES );
-		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
+	_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     var _reset_filter = "", _final_ret = YES, _ret_chunk_zplane, _ret_chunk_wplane ;
     var _items_n = circles_lib_count_items();
 
@@ -23,14 +23,14 @@ function circles_lib_config_create_new_proc( _reset_mask, _drop_additional_figur
 
     if ( _clean && _items_n > 0 )
     {
-		    _ret_chunk_zplane = circles_lib_coordinates_reset_core( Z_PLANE, YES, _question, _silent, _output_channel );
+		_ret_chunk_zplane = circles_lib_coordinates_reset_core( Z_PLANE, YES, _question, _silent, _output_channel );
         _ret_chunk_zplane = circles_lib_canvas_render_zplane( null, zplane_sm, null, _clean, YES, NO, _question, _silent, YES, _output_channel );
         _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, _clean, YES, NO, YES, _question, _silent, _output_channel );
-		    _ret_chunk_wplane = circles_lib_coordinates_reset_core( W_PLANE, YES, _question, _silent, _output_channel );
-		    if ( _ret_chunk_zplane[0] != RET_IRRELEVANT )
-		    _final_ret &= _ret_chunk_zplane != null ? _ret_chunk_zplane[0] : 0 ;
-		    if ( _ret_chunk_wplane[0] != RET_IRRELEVANT )
-		    _final_ret &= _ret_chunk_wplane != null ? _ret_chunk_wplane[0] : 0 ;
+		_ret_chunk_wplane = circles_lib_coordinates_reset_core( W_PLANE, YES, _question, _silent, _output_channel );
+		if ( _ret_chunk_zplane[0] != RET_IRRELEVANT )
+		_final_ret &= _ret_chunk_zplane != null ? _ret_chunk_zplane[0] : 0 ;
+		if ( _ret_chunk_wplane[0] != RET_IRRELEVANT )
+		_final_ret &= _ret_chunk_wplane != null ? _ret_chunk_wplane[0] : 0 ;
     }
     else _final_ret = 1 ;
     circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );

@@ -46,7 +46,7 @@ function circles_terminal_cmd_dg()
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "call", "clean", "conjugate", "delete", "info", "init", "help", "html",
+    				 _local_cmds_params_array.push( "call", "clean", "conjugate", "delete", "init", "help", "html",
                                             "inversion", "isometric", "release",
                                             "list", "rec", "refresh", "render",
                                             "save", "short", "show", "subgroup", "wplane", "zplane" );
@@ -116,8 +116,7 @@ function circles_terminal_cmd_dg()
              else if ( _params_assoc_array['action'].stricmp( "subgroup" ) &&
                        ( _p.is_one_of_i( "info", "init", "rec", "refresh", "render", "show" ) ||
                          _p.testME( _glob_word_regex_pattern ) || circles_lib_repetends_check_syntax( null, _p )
-                       )
-                     )
+                       ) )
              {
                    _begin_flag = 0 ;
                    if ( _p.is_one_of_i( "init", "info", "rec", "refresh", "render", "show" ) ) _params_assoc_array['service'].push( _p.toLowerCase() );
@@ -629,8 +628,7 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Found "+_n_vars+" user-defined input var" + ( _n_vars == 1 ? "" : "s" ), _par_1, _cmd_tag );
                var _keys = _params_assoc_array['vars'].keys_associative();
                var _values = _params_assoc_array['vars'].values_associative();
-               $.each( _keys,
-                       function( _i, _key )
+               $.each( _keys, function( _i, _key )
                        {
                             circles_lib_output( _output_channel, DISPATCH_INFO, "Setting param '"+_key+"' -> " + _params_assoc_array['vars'][_key], _par_1, _cmd_tag );
                             if ( _params[0].includes( "$" + _key ) ) _params[0] = _params[0].replaceAll( "$" + _key, "("+_params_assoc_array['vars'][_key]+")" );
@@ -649,8 +647,7 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
               _b_fail = _glob_terminal_critical_halt = 1 ;
               _glob_terminal_critical_halt_msg = "Validation failure: var patterns need to be replaced with complex values" ;
               var _param_loc = { 0: "a", 1 : "b", 2 : "c", 3 : "d" } ;
-              $.each( _params,
-                      function( _i, _p )
+              $.each( _params, function( _i, _p )
                       {
                           if ( _p.includes_i( "$" ) )
                           {
@@ -690,33 +687,32 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                     _kg_item = _glob_seeds_array[_i], _kg_map = _kg_item.map ;
                     if ( _kg_map != null )
                     {
-                         circles_lib_output( _output_channel, DISPATCH_INFO, "Conjugation of seed '"+_kg_item.symbol+"' now", _par_1, _cmd_tag );
-                         _kg_map = _mm.composition( _kg_map ).composition( _inv_mm );
-                         circles_lib_output( _output_channel, is_mobius_map( _kg_map ) ? DISPATCH_SUCCESS : DISPATCH_WARNING, is_mobius_map( _kg_map ) ? "Conjugation of '"+_kg_item.symbol+"' performed with success" : "Conjugation of '"+_kg_item.symbol+"' failed", _par_1, _cmd_tag );
+                        circles_lib_output( _output_channel, DISPATCH_INFO, "Conjugation of seed '"+_kg_item.symbol+"' now", _par_1, _cmd_tag );
+                        _kg_map = _mm.composition( _kg_map ).composition( _inv_mm );
+                        circles_lib_output( _output_channel, is_mobius_map( _kg_map ) ? DISPATCH_SUCCESS : DISPATCH_WARNING, is_mobius_map( _kg_map ) ? "Conjugation of '"+_kg_item.symbol+"' performed with success" : "Conjugation of '"+_kg_item.symbol+"' failed", _par_1, _cmd_tag );
 
-												 var ITEM = new item_obj();
-                         ITEM.init_from_obj( _glob_seeds_array[_i] );
-                         ITEM.map = _kg_map ;
-                         switch( _params_assoc_array['drawentity'] )
-                         {
-                              case DRAWENTITY_ISOMETRIC_CIRCLE:
-                              ITEM.complex_circle.init_coords_only( _kg_map.isometric_circle() );
-                              break ;
-                              case DRAWENTITY_INVERSION_CIRCLE:
-                              ITEM.complex_circle.init_coords_only( _kg_map.inversion_circle() );
-                              break ;
-											        default: break ;
-                         }
-                         ITEM.screen_circle = circles_lib_get_screendisk_from_complexdisk( zplane_sm, _glob_seeds_array[_i].complex_circle );
-                         _new_group.push( ITEM );
-
-                         if ( _service_array.includes( "apply" ) ) _glob_seeds_array[_i].init_from_obj( ITEM );
+						var ITEM = new item_obj();
+                        ITEM.init_from_obj( _glob_seeds_array[_i] );
+                        ITEM.map = _kg_map ;
+                        switch( _params_assoc_array['drawentity'] )
+                        {
+                            case DRAWENTITY_ISOMETRIC_CIRCLE:
+                            ITEM.complex_circle.init_coords_only( _kg_map.isometric_circle() );
+                            break ;
+                            case DRAWENTITY_INVERSION_CIRCLE:
+                            ITEM.complex_circle.init_coords_only( _kg_map.inversion_circle() );
+                            break ;
+							default: break ;
+                        }
+                        ITEM.screen_circle = circles_lib_get_screendisk_from_complexdisk( zplane_sm, _glob_seeds_array[_i].complex_circle );
+                        _new_group.push( ITEM );
+                        if ( _service_array.includes( "apply" ) ) _glob_seeds_array[_i].init_from_obj( ITEM );
                     }
                     else
                     {
-                         _b_ret &= NO ;
-       							     circles_lib_output( _output_channel, DISPATCH_ERROR, "Missing seed map in the current group" + _glob_crlf + "Please, check group consistence", _par_1, _cmd_tag );
-                         break ;
+                        _b_ret &= NO ;
+       					circles_lib_output( _output_channel, DISPATCH_ERROR, "Missing seed map in the current group" + _glob_crlf + "Please, check group consistence", _par_1, _cmd_tag );
+                        break ;
                     }
                }
 
@@ -729,7 +725,6 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                }
 
                if ( _service_array.includes( "init" ) ) _kg_cmd_init( _par_1, _output_channel, _cmd_tag );
-
                if ( _service_array.includes( "rec" ) )
                {
                    var _def = _params_assoc_array['def'] != null ? new String( _params_assoc_array['def'] ) : "" ;
@@ -775,7 +770,7 @@ function _kg_cmd_init( _par_1, _output_channel, _cmd_tag )
      var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "40Unknown error" ;
 		 if ( _ret_id == RET_OK ) circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _ret_msg, _par_1, _cmd_tag );
      else
-		 {
+	 {
      		 _b_fail = YES, _error_str = _ret_msg ;
          _ret_id = RET_ERROR ;
      }

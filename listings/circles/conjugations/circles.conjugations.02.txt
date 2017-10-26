@@ -12,7 +12,6 @@ Apply solution 2
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 plane zplane
@@ -49,6 +48,6 @@ fp add -0.00000001284579923461-0.999999969305201i abAB
 auto refresh off
 auto init off
 zoom zplane (0,0) side:5 silent
-zoom wplane (0,2.25) side:9 silent
+zoom wplane (0,0) side:5 silent
 refresh zplane silent clean
 refresh wplane silent clean

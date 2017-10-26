@@ -8,7 +8,6 @@ Generators can be found at p. 256
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 plane zplane
@@ -21,10 +20,11 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings jorgensen
 plugin open
-plugin send update.params a 1.87+0.1i
-plugin send update.params b 1.87-0.1i
+plugin send update.params alpha 1.87+0.1i
+plugin send update.params beta 1.87-0.1i
 plugin send update.params p 2
-init maps singly
+plugin send init
+dg conjugate map:cayley apply
 config set diskfill no
 config set diskdraw yes
 config set diskdash no
@@ -33,7 +33,6 @@ gensset add a b A B abAB ABab
 gensset init
 probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
 probability repsthreshold:0.85 repsdepth:15
-
 fp bomb
 fp add 0.33904984911646446+0.5182638031689777i BabA
 fp add -0.00000000474881012216+0.9999999962618338i ABab

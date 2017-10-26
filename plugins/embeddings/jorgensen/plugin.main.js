@@ -35,14 +35,14 @@ function CIRCLESembeddingsJORGENSEN_PARAMS_FILL()
 
 function CIRCLESembeddingsJORGENSEN_EVENTS( ctrl_id, event )
 {
-	  if ( event.stopPropagation )      event.stopPropagation();
-	  if ( event.cancelBubble != null ) event.cancelBubble = true;
+	if ( event.stopPropagation )      event.stopPropagation();
+	if ( event.cancelBubble != null ) event.cancelBubble = true;
 
-		switch( event.keyCode )
-		{
-				case 13: // return
-				if ( ctrl_id.is_one_of( "PLUGIN_PARAM_ALPHA", "PLUGIN_PARAM_BETA" ) )
-  			{
+	switch( event.keyCode )
+	{
+		case 13: // return
+		if ( ctrl_id.is_one_of( "PLUGIN_PARAM_ALPHA", "PLUGIN_PARAM_BETA" ) )
+  		{
            if ( ctrl_id.strcmp( "PLUGIN_PARAM_ALPHA" ) )
            {
               $("#PLUGIN_PARAM_BETA").focus();
@@ -59,10 +59,10 @@ function CIRCLESembeddingsJORGENSEN_EVENTS( ctrl_id, event )
            }
            else if ( ctrl_id.strcmp( "PLUGIN_PARAM_BETA" ) )
            {
-    				  if ( _plugin_step_index == 0 )
+    		  if ( _plugin_step_index == 0 )
               {
-                 CIRCLESembeddingsJORGENSEN_INIT(NO,YES);
-        				 CIRCLESembeddingsJORGENSEN_COMP(CIRCLESembeddingsJORGENSEN_param);
+                CIRCLESembeddingsJORGENSEN_INIT(NO,YES);
+        		CIRCLESembeddingsJORGENSEN_COMP(CIRCLESembeddingsJORGENSEN_param);
               }
               if ( _plugin_step_index == 0 ) GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
               else if ( _plugin_step_index == 0.1 ) { CIRCLESembeddingsJORGENSEN_CONFIG(); GLOB_PLUGIN_WIZARD_STEP(1.1,_glob_items_to_init); GLOB_PLUGIN_GENS_SHOW(YES); }
@@ -71,17 +71,17 @@ function CIRCLESembeddingsJORGENSEN_EVENTS( ctrl_id, event )
                  if ( _plugin_step_index == 1.1 ) CIRCLESembeddingsJORGENSEN_RECORD_PARAMS();
                  GLOB_PLUGIN_WIZARD_STEP(2.1);
                  GLOB_PLUGIN_GENS_SHOW(YES);
-							   circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
+				 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
               }
            }
-				}
-				break ;
+		}
+		break ;
         default:
         if ( _plugin_step_index.is_one_of( UNDET, 2.1 ) ) GLOB_PLUGIN_WIZARD_STEP(0,NO);
         _plugin_step_index = 0 ;
         GLOB_PLUGIN_WIZARD_STEP(0,NO);
         break ;
-		}
+	}
 }
 
 function CIRCLESembeddingsJORGENSEN_CONFIG( _base_id )
@@ -129,7 +129,7 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
     _move = is_string( _move ) ? _move : safe_int( _move, YES ), _restore = safe_int( _restore, NO );
     var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ) ;
     CIRCLESembeddingsJORGENSEN_CONFIG( _base_id );
-		_plugin_last_ref = _plugin_main_ref ;
+	_plugin_last_ref = _plugin_main_ref ;
     _glob_palette_use = NO ;
     var _index_ref = _plugin_last_ref;
     var _items_n = circles_lib_count_items();
@@ -164,9 +164,9 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
     HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN, WIDTH, HEIGHT,
                 this_fn_name, 'jorgensen', _div_id, _subset, "plug/plug.icon.01.20x20.png", "", "", "CIRCLES"+_subset+"JORGENSEN_",
-																								[ "CIRCLESembeddingsJORGENSEN_NORMALIZE", _div_id, WIDTH, HEIGHT ],
-																								[ "CIRCLESembeddingsJORGENSEN_MINIMIZE", _div_id, WIDTH, HEIGHT ],
-																								[ "CIRCLESembeddingsJORGENSEN_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
+				[ "CIRCLESembeddingsJORGENSEN_NORMALIZE", _div_id, WIDTH, HEIGHT ],
+				[ "CIRCLESembeddingsJORGENSEN_MINIMIZE", _div_id, WIDTH, HEIGHT ],
+				[ "CIRCLESembeddingsJORGENSEN_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td VALIGN=\"top\">" ;
@@ -252,13 +252,13 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>&alpha;</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_ALPHA\" VALUE=\""+( CIRCLESembeddingsJORGENSEN_alpha != null ? CIRCLESembeddingsJORGENSEN_alpha : "0" )+"\" ONKEYUP=\"javascript:$('#PLUGINsetBTN').attr('class','link');$('#PLUGINsetBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsJORGENSEN_EVENTS(this.id,event);\"></td>" ;
+    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_ALPHA\" VALUE=\""+( CIRCLESembeddingsJORGENSEN_alpha != null ? CIRCLESembeddingsJORGENSEN_alpha : "0" )+"\" ONKEYUP=\"javascript:$('#PLUGINsetBTN').attr('class','link');$('#PLUGINsetBTN').css('color',COLOR_ERROR );CIRCLESembeddingsJORGENSEN_EVENTS(this.id,event);\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>&beta;</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_BETA\" VALUE=\""+( CIRCLESembeddingsJORGENSEN_beta != null? CIRCLESembeddingsJORGENSEN_beta : "0" )+"\" ONKEYUP=\"javascript:$('#PLUGINsetBTN').attr('class','link');$('#PLUGINsetBTN').css('color',COLOR_ERROR ) ;CIRCLESembeddingsJORGENSEN_EVENTS(this.id,event);\"></td>" ;
+    HTMLcode += "<td><INPUT TYPE=\"edit\" STYLE=\"width:300px;\" ID=\"PLUGIN_PARAM_BETA\" VALUE=\""+( CIRCLESembeddingsJORGENSEN_beta != null? CIRCLESembeddingsJORGENSEN_beta : "0" )+"\" ONKEYUP=\"javascript:$('#PLUGINsetBTN').attr('class','link');$('#PLUGINsetBTN').css('color',COLOR_ERROR );CIRCLESembeddingsJORGENSEN_EVENTS(this.id,event);\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;
