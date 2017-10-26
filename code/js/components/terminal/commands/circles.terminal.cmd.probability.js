@@ -22,7 +22,7 @@ function circles_terminal_cmd_probability()
      var FULL_SUM = 1.0, _alphabet = circles_lib_gens_alphabet_exists() ;
      var _decimals = 5 ;
 
-		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+	 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
        _params_assoc_array['action'] = "" ;
@@ -35,18 +35,18 @@ function circles_terminal_cmd_probability()
        _params_assoc_array['settings']['repsthreshold'] = UNDET ;
        _params_assoc_array['settings']['repsdepth'] = UNDET ;
 
-       var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-       _params_array.clean_from( " " );       _params_array.clean_from( "" );
-       // pre-scan for levenshtein correction
-    	 var _local_cmds_params_array = [];
-    			 _local_cmds_params_array.push( "clean", "default", "exact", "list", "set", "help",
-                                          "built-in", "uniform", "normal", "exponential", "poisson",
-                                          "gamma", "sine", "release", "html", "repsthreshold", "warmup", "repsdepth" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
-         var _p ;
-         params_loop:
-				 for( var _i = 0 ; _i < _params_array.length ; _i++ )
-         {
+        var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+        _params_array.clean_from( " " );       _params_array.clean_from( "" );
+        // pre-scan for levenshtein correction
+        var _local_cmds_params_array = [];
+    	    _local_cmds_params_array.push( "clean", "default", "exact", "list", "set", "help",
+                     "built-in", "uniform", "normal", "exponential", "poisson",
+                     "gamma", "sine", "release", "html", "repsthreshold", "warmup", "repsdepth" );
+        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+        var _p ;
+        params_loop:
+	    for( var _i = 0 ; _i < _params_array.length ; _i++ )
+        {
            _p = _params_array[_i] ;
            if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
@@ -56,9 +56,8 @@ function circles_terminal_cmd_probability()
              if ( !is_array( _params_assoc_array['settings']['options'] ) ) _params_assoc_array['settings']['options'] = [] ;
              _params_assoc_array['settings']['options'].push( _p.toLowerCase() );
            }
-           else if ( _p.is_one_of_i( "exponential", "gamma", "gaussian", "normal",
-                     "poisson", "sine", "built-in", "uniform", "mersenne" ) )
-              _params_assoc_array['settings']['rng'] = _p ;
+           else if ( _p.is_one_of_i( "exponential", "gamma", "gaussian", "normal", "poisson", "sine", "built-in", "uniform", "mersenne" ) )
+           _params_assoc_array['settings']['rng'] = _p ;
               else if ( _p.start_with_i( "warmup:" ) )
               {
                   var _w = safe_int( _p.replaceAll( "warmup:", "" ), DEFAULT_RND_WARMUP );
@@ -137,7 +136,7 @@ function circles_terminal_cmd_probability()
                    _b_fail = YES, _error_str = "Unknown parameter '"+_p+"' : input has been halted" ;
                    break ;
               }
-         }
+        }
          
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
@@ -342,30 +341,29 @@ function circles_terminal_cmd_probability()
 
                         if ( safe_size( _params_assoc_array['settings']['rng'], 0 ) > 0 )
                         {
-														switch( _params_assoc_array['settings']['rng'] )
-														{
-																case "built-in": _glob_probabilityRNGmethod = RNG_BUILT_IN ; break ;
-																case "uniform": _glob_probabilityRNGmethod = RNG_UNIFORM ; break ;
-																case "normal": _glob_probabilityRNGmethod = RNG_NORMAL ; break ;
-																case "exponential": _glob_probabilityRNGmethod = RNG_EXPONENTIAL; break ;
-																case "poisson": _glob_probabilityRNGmethod = RNG_POISSON; break ;
-																case "gamma": _glob_probabilityRNGmethod = RNG_GAMMA; break ;
-																case "mersenne": _glob_probabilityRNGmethod = RNG_MERSENNE_TWISTER; break ;
-																case "cmwc": _glob_probabilityRNGmethod = RNG_COMPLEMENTARY_MULTIPLY_WITH_CARRY; break ;
+							switch( _params_assoc_array['settings']['rng'] )
+							{
+								case "built-in": _glob_probabilityRNGmethod = RNG_BUILT_IN ; break ;
+								case "uniform": _glob_probabilityRNGmethod = RNG_UNIFORM ; break ;
+								case "normal": _glob_probabilityRNGmethod = RNG_NORMAL ; break ;
+								case "exponential": _glob_probabilityRNGmethod = RNG_EXPONENTIAL; break ;
+								case "poisson": _glob_probabilityRNGmethod = RNG_POISSON; break ;
+								case "gamma": _glob_probabilityRNGmethod = RNG_GAMMA; break ;
+								case "mersenne": _glob_probabilityRNGmethod = RNG_MERSENNE_TWISTER; break ;
+								case "cmwc": _glob_probabilityRNGmethod = RNG_COMPLEMENTARY_MULTIPLY_WITH_CARRY; break ;
                                 case "marz": _glob_probabilityRNGmethod = RNG_MARSAGLIA_ZAMAN ; break ;
-																case "lcg": _glob_probabilityRNGmethod = RNG_LINEAR_CONGRUENT; break ;
-																default:
-																_glob_probabilityRNGmethod = RNG_BUILT_IN ;
+								case "lcg": _glob_probabilityRNGmethod = RNG_LINEAR_CONGRUENT; break ;
+								default:
+								_glob_probabilityRNGmethod = RNG_BUILT_IN ;
                                 _params_assoc_array['settings']['rng'] = "built-in" ;
                                 var _msg = "" ;
                                 if ( _params_assoc_array['settings']['rng'].length > 0 )
-																_msg = "RNG method "+_params_assoc_array['settings']['rng']+" is not available. Reset to the default 'built-in' method" ;
+								_msg = "RNG method "+_params_assoc_array['settings']['rng']+" is not available. Reset to the default 'built-in' method" ;
                                 else _msg = "Missing input RNG method. Reset to the default 'built-in' method" ;
                                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-																break ;
-														}
-
-                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "RNG method has been set up to " + _params_assoc_array['settings']['rng'] + " with success", _par_1, _cmd_tag );
+								break ;
+							}
+                            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<green>RNG method has been set up to</green> <white>" + _params_assoc_array['settings']['rng'] + "</white> <green>with success</green>", _par_1, _cmd_tag );
                         }
 
                         var _letters_arr = _params_assoc_array['settings']['letters'] ;
@@ -384,21 +382,20 @@ function circles_terminal_cmd_probability()
                         var _n_probabilities = safe_size( _probabilities_array, 0 ) ;
                         var _diff = _n_letters - _n_probabilities ;
                         var _min = Math.min( _n_letters, _n_probabilities ) ;
+						console.log( "LOCK", _n_locked, "LETTERS", _n_letters, "ALPHABET", _n_alphabet );
                         if ( _n_intersection > 0 )
                         {
                              circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning! Common entries ('"+_intersection_array.join(",")+"') in the entries to be set and to be locked.", _par_1, _cmd_tag );
                              circles_lib_output( _output_channel, DISPATCH_INFO, "Operation has been aborted", _par_1, _cmd_tag );
                         }
-                        else if ( ( _n_locked + _n_letters ) == _n_alphabet && !_force )
+                        else if ( _n_locked > 0 && ( _n_locked + _n_letters ) == _n_alphabet && !_force )
                         {
                              circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning! No settings will be applied: all symbols in the generators set have been locked or set as candidates for changes", _par_1, _cmd_tag );
                              circles_lib_output( _output_channel, DISPATCH_INFO, "At least one entry shall be left free for probabilities management", _par_1, _cmd_tag );
                              circles_lib_output( _output_channel, DISPATCH_INFO, "Use 'force' param to skip this warning", _par_1, _cmd_tag );
                         }
                         else if ( _n_letters != _n_probabilities )
-                        {
                              circles_lib_output( _output_channel, DISPATCH_WARNING, "Words ("+_n_letters+") must match probabilities ("+_n_probabilities+") in number", _par_1, _cmd_tag );
-                        }
                         else if ( _n_letters > 0 && _n_probabilities > 0 )
                         {
                             if ( _force ) circles_lib_output( _output_channel, DISPATCH_INFO, "Detected 'force' param: attempting to build the probability table from input data ...", _par_1, _cmd_tag );

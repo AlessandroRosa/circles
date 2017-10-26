@@ -105,7 +105,7 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.2, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send var.register.select 1" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send var.select 1" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.2, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 

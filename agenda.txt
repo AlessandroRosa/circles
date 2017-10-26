@@ -1,17 +1,14 @@
------------- READINGS ------------------------
-https://it.wikipedia.org/wiki/Paradigma_di_programmazione
-https://en.wikipedia.org/wiki/Programming_paradigm
-https://en.wikipedia.org/wiki/Kleene_algebra
-https://it.wikipedia.org/wiki/Teorema_di_B%C3%B6hm-Jacopini
-https://en.wikipedia.org/wiki/Structured_program_theorem
-
------------- DEMO ------------------------------------------------
-* indexsearch (via terminal general.purpose, use a 6-generators group)
-
 ------------ APP -------------------------------------------------
 * Listings:
   - run and test all listings
-
+  LAST CHECKED : conjugations/circles.conjugations.01.txt
+                 Find the cmd that makes the terminal open again
+  
+* TO FIX:
+  >> When random process is set but RND probs array is still empty,
+     don't start multi-threading and display error message
+	 -- CHECK var _probability_array_pack and its source
+  
 - srcptset terminal cmd:
   * build point set according to input params
 

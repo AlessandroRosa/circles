@@ -23,12 +23,12 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
          var _use_last_pt = safe_int( settings['use_last_pt'], 0 );
 
          var _disk_visibility_radius = safe_float( settings['_disk_visibility_radius'], DEFAULT_VISIBILITY_RADIUS );
- 				 var probability_rng_method = safe_int( settings['probability_rng_method'], RNG_BUILT_IN );
+ 		 var probability_rng_method = safe_int( settings['probability_rng_method'], RNG_BUILT_IN );
          var _base = 2, _n_operations = Math.pow( _base, _depth );
-		 		 var _current_region = new rect( settings.left_up_pt.x, settings.left_up_pt.y, settings.right_down_pt.x, settings.right_down_pt.y, _RECT_ORIENTATION_CARTESIAN, "" );
+		 var _current_region = new rect( settings.left_up_pt.x, settings.left_up_pt.y, settings.right_down_pt.x, settings.right_down_pt.y, _RECT_ORIENTATION_CARTESIAN, "" );
          var pts_array = [], _inverses = [], circles_array = [];
          var G = new mobius_map( 1, 0, 0, 1 ), G_COMP = new mobius_map( 1, 0, 0, 1 ), G_COMP_CIRCLE ;
-				 var _fp = null, obj ;
+		 var _fp = null, obj ;
          var _bunch_pts_limit = _glob_multithread_bunch_limit ;
          var INDEX = 0 ;
 
@@ -38,13 +38,14 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
          var _rnd = CIRCLESmultithreadingRNGfunctionGET( probability_rng_method ) ;
          var _benchmark_start = microtime(1);
 
-				 _glob_multithread_running = YES ;
-				 for( var _i = 0 ; _i < _items_n ; _i++ ) probability_distribution_array.push(0);
+		 _glob_multithread_running = YES ;
+		 for( var _i = 0 ; _i < _items_n ; _i++ ) probability_distribution_array.push(0);
 
+		 console.log( "RND PROBS", _glob_multithread_rnd_probability_array );
          var _min_prob = 1, _rnd_val ;
          for( var _p = 0 ; _p < _glob_multithread_rnd_probability_array.length ; _p++ )
          _min_prob = Math.min( _glob_multithread_rnd_probability_array[_p], _min_prob );
-				 var _LUT_length = safe_int( 1.0 / _min_prob, 100 ) * 100 ;
+		 var _LUT_length = safe_int( 1.0 / _min_prob, 100 ) * 100 ;
 
          var LUTarray = CIRCLESalgebraicPROCESSrandomPROBABILITY( _glob_multithread_rnd_probability_array, _LUT_length );
          var _LUT_range = _LUT_length - 1 ;
@@ -63,15 +64,17 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
          if ( _use_last_pt && is_point( _last_pt ) ) _input_fixed_pts.push( _last_pt );
          else
          {
-						 var _tmp_input_fixed_pts = settings['inputfixedpts'].split( "|" ), _tmp_pt ;
-		         for( var _t = 0 ; _t < _tmp_input_fixed_pts.length ; _t++ )
-		         {
-		            _tmp_pt = _tmp_input_fixed_pts[_t].split( "@" );
-		            _input_fixed_pts.push( new complex( safe_float( _tmp_pt[0] ), safe_float( _tmp_pt[1] ) ) );
-		         }
-				 }
+			var _tmp_input_fixed_pts = settings['inputfixedpts'].split( "|" ), _tmp_pt ;
+		    for( var _t = 0 ; _t < _tmp_input_fixed_pts.length ; _t++ )
+		    {
+		        _tmp_pt = _tmp_input_fixed_pts[_t].split( "@" );
+		        _input_fixed_pts.push( new complex( safe_float( _tmp_pt[0] ), safe_float( _tmp_pt[1] ) ) );
+		    }
+		 }
 				 
          var _i_len = _input_fixed_pts.length, _p, _wm, _r = 0 ;
+		 console.log( "ITEMS", _items_array );
+		 console.log( "LUT", LUTarray );
          for( _p = 0 ; _p < _i_len ; _p++ )
          {
               INDEX = 0, _fp = _input_fixed_pts[_p] ;
@@ -87,15 +90,15 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
                  }
                  else _repetends_depth_tmp-- ;
 
-         				 _fp = _items_array[INDEX].map.compute( _fp );
-       					 G_COMP = G_COMP.composition( _items_array[INDEX].map );
+         		 _fp = _items_array[INDEX].map.compute( _fp );
+       			 G_COMP = G_COMP.composition( _items_array[INDEX].map );
               }
               
               self.postMessage( { "id" : "append", "text" : "Step " + ( _p + 1 ) + " of " + _i_len + " x " + _n_operations + " operations" } );
 
-      				for( _glob_multithread_operations_runner = 0 ; _glob_multithread_operations_runner <= _n_operations ; _glob_multithread_operations_runner++ )
+      		  for( _glob_multithread_operations_runner = 0 ; _glob_multithread_operations_runner <= _n_operations ; _glob_multithread_operations_runner++ )
               {
-      						if ( !_glob_multithread_running ) break ;
+      			  if ( !_glob_multithread_running ) break ;
                   if ( pts_array.length >= _bunch_pts_limit )
                   {
                        obj = { 'circles_array' : circles_array,
@@ -110,32 +113,33 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
 
                   if ( _repetends_depth_tmp == 0 )
                   {
-                      _r = _rnd() ;
-                      INDEX = LUTarray[ ( _LUT_range * _r ) >> 0 ] ;
-                      _r = _rnd() ;
-                      _repetends_depth_tmp = _r < _repetends_threshold ? 0 : ( _r * _repetends_depth ) >> 0 ;
+                    _r = _rnd() ;
+                    INDEX = LUTarray[ ( _LUT_range * _r ) >> 0 ] ;
+                    _r = _rnd() ;
+                    _repetends_depth_tmp = _r < _repetends_threshold ? 0 : ( _r * _repetends_depth ) >> 0 ;
                   }
                   else _repetends_depth_tmp-- ;
 
                   probability_distribution_array[INDEX]++ ;
-      						if ( _current_region.is_pt_inside( _fp.real, _fp.imag ) )
-      						{
-		 									pts_array.push( new point( _fp.real, _fp.imag,
-		 																						 _POINT_2D_CLS_EUCLIDEAN_ENV,
-		 									 													 _items_array[INDEX].complex_circle.drawcolor,
-		 									 													 _items_array[INDEX].complex_circle.fillcolor,
-																								 _items_array[INDEX].complex_circle.linewidth ) );
-                      G_COMP_CIRCLE = _drawentity == DRAWENTITY_INVERSION_CIRCLE ? G_COMP.inversion_circle() : G_COMP.isometric_circle();
-											G_COMP_CIRCLE.draw = _items_array[INDEX].complex_circle.draw ;
-											G_COMP_CIRCLE.drawcolor = _items_array[INDEX].complex_circle.drawcolor ;
-											G_COMP_CIRCLE.fill = _items_array[INDEX].complex_circle.fill ;
-											G_COMP_CIRCLE.fillcolor = _items_array[INDEX].complex_circle.fillcolor ;
-		                  circles_array.push( G_COMP_CIRCLE );
-									}
+      			  if ( _current_region.is_pt_inside( _fp.real, _fp.imag ) )
+      			  {
+					  if ( _items_array[INDEX] == null ) console.log( "I:", INDEX );
+		 			pts_array.push( new point( _fp.real, _fp.imag,
+									_POINT_2D_CLS_EUCLIDEAN_ENV,
+		 						 	_items_array[INDEX].complex_circle.drawcolor,
+		 						 	_items_array[INDEX].complex_circle.fillcolor,
+									_items_array[INDEX].complex_circle.linewidth ) );
+                    G_COMP_CIRCLE = _drawentity == DRAWENTITY_INVERSION_CIRCLE ? G_COMP.inversion_circle() : G_COMP.isometric_circle();
+					G_COMP_CIRCLE.draw = _items_array[INDEX].complex_circle.draw ;
+					G_COMP_CIRCLE.drawcolor = _items_array[INDEX].complex_circle.drawcolor ;
+					G_COMP_CIRCLE.fill = _items_array[INDEX].complex_circle.fill ;
+					G_COMP_CIRCLE.fillcolor = _items_array[INDEX].complex_circle.fillcolor ;
+		            circles_array.push( G_COMP_CIRCLE );
+				  }
 
-     						  _fp = _items_array[INDEX].map.compute( _fp );
-     						  G_COMP = G_COMP.composition( _items_array[INDEX].map );
-      						if ( !_glob_multithread_running ) break ;
+     			  _fp = _items_array[INDEX].map.compute( _fp );
+     			  G_COMP = G_COMP.composition( _items_array[INDEX].map );
+      			  if ( !_glob_multithread_running ) break ;
               }
               
               _glob_multithread_operations_runner = 0 ;

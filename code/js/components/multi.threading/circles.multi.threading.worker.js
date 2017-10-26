@@ -103,11 +103,11 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
     var _startINDEX = 0 ;
     var _workarea = safe_float( _input_chunk[ _startINDEX ], 0 );
         _startINDEX++ ;
- 		var _options_chunk = _input_chunk[ _startINDEX ] ;
+ 	var _options_chunk = _input_chunk[ _startINDEX ] ;
         _startINDEX++ ;
- 		var _silent = safe_int( _input_chunk[ _startINDEX ], NO );
+ 	var _silent = safe_int( _input_chunk[ _startINDEX ], NO );
         _startINDEX++ ;
- 		var _output_channel = safe_int( _input_chunk[ _startINDEX ], OUTPUT_SCREEN );
+ 	var _output_channel = safe_int( _input_chunk[ _startINDEX ], OUTPUT_SCREEN );
     var _items_n = circles_lib_count_items();
     var _pre_check_ret = CIRCLESmultithreadingPREcheck();
     if ( _workarea == MULTITHREADING_OBJ_WORKAREA_NONE )
@@ -125,10 +125,10 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
-		else if ( _workarea == MULTITHREADING_OBJ_WORKAREA_RENDERING ) // rendering
+	else if ( _workarea == MULTITHREADING_OBJ_WORKAREA_RENDERING ) // rendering
     {
        _glob_worker = new Worker( "code/js/components/multi.threading/circles.multi.threading.worker.drawing.core.js" );
- 			 CIRCLESmultithreadingADDdrawingLISTENER();
+ 	   CIRCLESmultithreadingADDdrawingLISTENER();
 
        _startINDEX = 0 ;
        circles_lib_progressbar_div_show_element( "PROGRESSbarDIVcloseICON", YES );
@@ -137,18 +137,18 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
 
        var PROGRESSbarDIVappend = $( "#PROGRESSbarDIVappend" ).get(0);
        var _canvas_w = 0, _canvas_h = 0 ;
-  		 var _method = safe_int( _options_chunk[ _startINDEX ], _glob_method );
+  	   var _method = safe_int( _options_chunk[ _startINDEX ], _glob_method );
            _startINDEX++ ;
-  		 var _process = safe_int( _options_chunk[ _startINDEX ], PROCESS_NONE );
+  	   var _process = safe_int( _options_chunk[ _startINDEX ], PROCESS_NONE );
            _startINDEX++ ;
-  		 var _fixedpts_io = safe_int( _options_chunk[ _startINDEX ], FIXEDPOINTS_IO_INPUT );
+  	   var _fixedpts_io = safe_int( _options_chunk[ _startINDEX ], FIXEDPOINTS_IO_INPUT );
            _startINDEX++ ;
-  		 var _working_plane = safe_int( _options_chunk[ _startINDEX ], _glob_target_plane );
+  	   var _working_plane = safe_int( _options_chunk[ _startINDEX ], _glob_target_plane );
            _startINDEX++ ;
-  		 var _canvas = _options_chunk[ _startINDEX ]; if ( !is_html_canvas( _canvas ) ) _canvas = _glob_wplane_rendering_canvas_placeholder ;
+  	   var _canvas = _options_chunk[ _startINDEX ]; if ( !is_html_canvas( _canvas ) ) _canvas = _glob_wplane_rendering_canvas_placeholder ;
            _startINDEX++ ;
-  		 var _mapper = _options_chunk[ _startINDEX ];
- 			 var _depth = safe_int( _glob_depth, 1 );
+  	   var _mapper = _options_chunk[ _startINDEX ];
+ 	   var _depth = safe_int( _glob_depth, 1 );
  			 
        _glob_symbols_index_array = circles_lib_symbol_get_indexes_mapping_array( null,  NO );
        if ( !_glob_use_last_pt ) _glob_rec_canvas_entities_array = [] ;
@@ -221,7 +221,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
        {
          _glob_multithread_context = is_html_canvas( _glob_multithread_canvas ) ? _glob_multithread_canvas.getContext( _glob_canvas_ctx_2D_mode ) : null ;
          _glob_worker.postMessage( { 'id' : 'init', 'action' : 0,
- 																	   'method' : _method, 'process' : _process, 'lang' : LANG,
+ 									 'method' : _method, 'process' : _process, 'lang' : LANG,
                                      'w' : _canvas_w, 'h' : _canvas_h } );
   		   var _probability_array_pack = _glob_rnd_probability_array.join( "@" );
          var _dict_init_settings = _dictionary_init_settings_array.join_associative( "@" );
@@ -242,7 +242,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
          {
            _glob_repetends_array[ _reps_keys[_k] ] = _glob_repetends_array[ _reps_keys[_k] ].sort( function(a, b){ return b.length - a.length; /* ASC -> a - b; DESC -> b - a */ } );
 	         $.each( _glob_repetends_array[ _reps_keys[_k] ], function( _i, _rep ) { _reps_array.push( _reps_keys[_k]+"@"+_rep ); } );
-				 }
+		 }
          var _reps = safe_size( _reps_array, 0 ) > 0 ? _reps_array.join( "|" ) : "" ;
          var inputfixedpts = [], _fp_n = circles_lib_count_fixed_points();
          if ( _glob_use_last_pt )

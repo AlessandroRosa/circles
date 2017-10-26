@@ -1,8 +1,8 @@
 function circles_lib_display_key_status()
 {
-		$("#STATUSBARaltKEY").html( _glob_alt_key ? "Alt" : "" );
-		$("#STATUSBARctrlKEY").html( _glob_ctrl_key ? "Ctrl" : "" );
-		$("#STATUSBARshiftKEY").html( _glob_shift_key ? "Shf" : "" );
+	$("#STATUSBARaltKEY").html( _glob_alt_key ? "Alt" : "" );
+	$("#STATUSBARctrlKEY").html( _glob_ctrl_key ? "Ctrl" : "" );
+	$("#STATUSBARshiftKEY").html( _glob_shift_key ? "Shf" : "" );
 }
 
 function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user releases a key
@@ -17,9 +17,9 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
   	var _alt_pressed = _event.altKey ;
     var _del_pressed = _event.keyCode == 8 ? YES : NO ;
     var _canc_pressed = _event.keyCode == 46 ? YES : NO ;
-	  var _ctrl_pressed = _event.ctrlKey ;
+	var _ctrl_pressed = _event.ctrlKey ;
     var _esc_pressed = _event.keyCode == 27 ? YES : NO ;
-		var _shift_pressed = _event.shiftKey ;
+	var _shift_pressed = _event.shiftKey ;
     var _return_pressed = _event.keyCode == 13 ? YES : NO ;
 
     _glob_alt_key = _alt_pressed ? YES : NO ;
@@ -31,10 +31,11 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
     circles_lib_display_key_status();
     var _sel_length = _glob_zplane_selected_items_array.length ;
 
-		if ( _esc_pressed ) // esc released
-		{
-		  	if ( ALERT_CURRENT_DISPLAY_FLAG ) alertCLOSE();
-		}
+	console.log( _glob_ctrl_key, _glob_alt_key, _event.keyCode );
+	if ( _esc_pressed && ALERT_CURRENT_DISPLAY_FLAG ) alertCLOSE(); // esc released
+	if ( _glob_ctrl_key && _glob_alt_key && _event.keyCode == 84 ) circles_lib_plugin_load('forms','terminal',YES,0,YES); // terminal -> console
+	else if ( _glob_ctrl_key && _glob_alt_key && _event.keyCode == 66 ) circles_lib_plugin_load('forms','terminal',YES,1,YES); //terminal -> batch compiler
+	else if ( _glob_ctrl_key && _glob_alt_key && _event.keyCode == 83 ) circles_lib_plugin_load('forms','script.editor'); //Script editor
 
     if ( !_ctrl_pressed && !_return_pressed ) // ctrl released
     {
@@ -46,67 +47,67 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
         if ( safe_size( _glob_zplane_selected_items_array, 0 ) > 0 )
         {
             var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-    				for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
+    		for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
             {
                 if ( is_circle( _items_array[ _i ].screen_circle ) )
-        		    circles_lib_complexdisk_update( ITEMS_SWITCH_SEEDS, _items_array[ _i ].screen_circle, _i );
+        		circles_lib_complexdisk_update( ITEMS_SWITCH_SEEDS, _items_array[ _i ].screen_circle, _i );
             }
         }
 
         _glob_items_to_init = YES ;
         $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-   			if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
+   		if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
     }
 
     if ( !_shift_pressed && !_canc_pressed && !_glob_alt_key ) // shift released
     {
-         if ( _glob_zplane_selected_items_array.length > 0 && _glob_disk_sel_locked )
-		     {
-		          if ( _glob_worker_lock )
-              {
-                  var _msg = "<table>" ;
-                      _msg += "<tr><td>"+CIRCLES_WARNING_LABEL_02+"</td></tr>" ;
-                      _msg += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:_glob_process_running_flag=NO;CIRCLESmultithreadingPOSTMESSAGEworker( 'stop' );_glob_to_save=NO;\">Click here to force process to stop</td></tr>" ;
-                      _msg += "<table>" ;
-                  circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, _msg, _glob_app_title );
-              }
-         }
-		     else
-		     {
-							var _screen_circle = null;
-              if ( safe_size( _glob_zplane_selected_items_array, 0 ) > 0 )
-              {
-                    var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-      							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
-      							{
-      									_screen_circle = _items_array[ _i ].screen_circle ;
-      						    	circles_lib_complexdisk_update( ITEMS_SWITCH_SEEDS, _screen_circle, _i );
-      							}
-              }
+        if ( _glob_zplane_selected_items_array.length > 0 && _glob_disk_sel_locked )
+		{
+		    if ( _glob_worker_lock )
+            {
+                var _msg = "<table>" ;
+                    _msg += "<tr><td>"+CIRCLES_WARNING_LABEL_02+"</td></tr>" ;
+                    _msg += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:_glob_process_running_flag=NO;CIRCLESmultithreadingPOSTMESSAGEworker( 'stop' );_glob_to_save=NO;\">Click here to force process to stop</td></tr>" ;
+                    _msg += "<table>" ;
+                circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, _msg, _glob_app_title );
+            }
+        }
+		else
+		{
+			var _screen_circle = null;
+            if ( safe_size( _glob_zplane_selected_items_array, 0 ) > 0 )
+            {
+                var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+      			for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
+      			{
+      				_screen_circle = _items_array[ _i ].screen_circle ;
+      			   	circles_lib_complexdisk_update( ITEMS_SWITCH_SEEDS, _screen_circle, _i );
+      			}
+            }
 
-				    	_glob_disk_sel_index = UNDET ;
-				      _glob_disk_sel_locked = NO ;
-				      _glob_zplane_selected_items_array.flush();
-				    	_glob_screencircles_sel_array.flush();
-				    	_glob_zplaneMOUSEleftBTNstatus = OFF ;
-				    	_glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID ;
-              if ( _glob_app_run && circles_lib_count_seeds() > 0 && _sel_length > 0 )
-              {
-                  var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCRIPT_EDITOR );
-                  circles_lib_canvas_update_icons_bar( "CANVASzplaneBAR" );
-                  circles_lib_statusbar_update_elements();
-              }
-				 }
+	    	_glob_disk_sel_index = UNDET ;
+			_glob_disk_sel_locked = NO ;
+			_glob_zplane_selected_items_array.flush();
+			_glob_screencircles_sel_array.flush();
+			_glob_zplaneMOUSEleftBTNstatus = OFF ;
+			_glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID ;
+            if ( _glob_app_run && circles_lib_count_seeds() > 0 && _sel_length > 0 )
+            {
+                var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCRIPT_EDITOR );
+                circles_lib_canvas_update_icons_bar( "CANVASzplaneBAR" );
+                circles_lib_statusbar_update_elements();
+            }
 		}
+	}
 		      
 		if ( _canc_pressed && safe_size( _glob_zplane_selected_items_array, 0 ) > 0 )
 		{
-		      var _n_disks = safe_size( _glob_zplane_selected_items_array, 0 );
-					var _question = "Confirm to remove the selected disk"+( _n_disks != 1 ? "s" : "" )+"? " ;
-              _question += _glob_crlf + "This operation is irreversible and items can't be resumed" ;
-		      if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
-					else if ( confirm( _question ) )
-		      {
+		    var _n_disks = safe_size( _glob_zplane_selected_items_array, 0 );
+			var _question = "Confirm to remove the selected disk"+( _n_disks != 1 ? "s" : "" )+"? " ;
+            _question += _glob_crlf + "This operation is irreversible and items can't be resumed" ;
+		    if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
+			else if ( confirm( _question ) )
+		    {
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
               if ( _glob_zplane_rendering_canvas_placeholder.get_role_id() != ROLE_RENDERING )
 		          _glob_zplane_rendering_canvas_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
@@ -134,7 +135,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
               circles_lib_draw_all_screen_disks( _glob_zplane_rendering_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
 				 			if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
               _glob_items_to_init = YES ;
-		      }
+		    }
 		}
 
 		if( _event.keyCode == 9 && _sel_length > 0 ) // tab key
