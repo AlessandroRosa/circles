@@ -198,5 +198,5 @@ function copy_to_clipboard( _element_id, _html, _silent )
       return _ret ;
     }
   }
-  else return 0 ;
+  else return NO ;
 }

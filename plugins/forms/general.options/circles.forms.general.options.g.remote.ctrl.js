@@ -3,7 +3,7 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array,
 		if ( !is_array( _options ) )
 		{
        if ( typeof _return_fn === "function" ) _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
-			 return 0 ;
+			 return NO ;
 		}
 
 		var _out_msg = "" ;
@@ -16,7 +16,7 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array,
         var _sub = "forms", _base_id = "general.options" ;
         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
         
-        return 1 ;
+        return YES ;
         break ;
 				case "focus":
         var _sub = "forms", _base_id = "general.options" ;
@@ -32,14 +32,14 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array,
 								$( "#CIRCLESgeneraloptionsLASTPTcoordsEDIT" ).val( _options[1] );
 								CIRCLESformsGENERALOPTIONSeventHANDLER( "CIRCLESgeneraloptionsLASTPTcoordsEDIT", { keyCode : 13 } ) ;
         _ret_array.push( 1, "<green>Last point has been set up with success</green>" ) ;
-                return 1 ;
+                return YES ;
 						}
-            else { _ret_array.push( 0, "<orange>Fail to set up the last point</orange>" ) ; return 0 ; }
+            else { _ret_array.push( 0, "<orange>Fail to set up the last point</orange>" ) ; return NO ; }
 				}
 				else
         {
 		   _ret_array.push( 0, "<orange>Last point coords can be input when the 'Basics' tab is visible</orange>" ) ;
-           return 0 ;
+           return NO ;
         }
 				break ;
 				case "random.ifs.activate":
@@ -50,13 +50,13 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array,
 					_glob_method = METHOD_ALGEBRAIC, _glob_process = PROCESS_RANDOM ;
 					CIRCLESformsGENERALOPTIONSifsrandomOPTIONSmanager();
 		   _ret_array.push( 1, _out_msg ) ;
-          return 1 ;
+          return YES ;
 				}
 				else
         {
           _out_msg = "<orange>IFS random params can be activated when the 'Basics' tab is visible</orange>" ;
 		  _ret_array.push( 0, _out_msg ) ;
-          return 0 ;
+          return NO ;
         }
 				break ;
 				case "random.ifs.deactivate":
@@ -67,13 +67,13 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array,
 					_glob_method = METHOD_ALGEBRAIC, _glob_process = PROCESS_BREADTHFIRST ;
 					CIRCLESformsGENERALOPTIONSifsrandomOPTIONSmanager();
 		   _ret_array.push( 1, _out_msg ) ;
-          return 1 ;
+          return YES ;
 				}
 				else
         {
           _out_msg = "<orange>IFS random params can be activated when the 'Basics' tab is visible</orange>" ;
 		   _ret_array.push( 0, _out_msg ) ;
-          return 0 ;
+          return NO ;
         }
 				break ;
 				case "random.ifs.region":
@@ -83,14 +83,14 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array,
 						{
 								$("#CIRCLESgeneraloptionsDENSITYWEIGHTcombo option").each( function() { if( $(this).text().stricmp( _options[1] ) ) $(this).attr('selected', 'selected'); });
 		   _ret_array.push( 1, "<green>Region has been set up with success</green>" ) ;
-                return 1 ;
+                return YES ;
 						}
-            else return 0 ;
+            else return NO ;
 				}
 				else
         {
           _out_msg = "<orange>Last point coords can be input when the 'Basics' tab is visible</orange>" ;
-          return 0 ;
+          return NO ;
         }
 				break ;
 				case "ifs.time":
@@ -101,22 +101,22 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array,
 							 $( "#CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeEDIT" ).val( Math.max( 1, safe_int( _options[1], 0 ) ) );
 							 CIRCLESformsGENERALOPTIONSeventHANDLER( "CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeEDIT", { keyCode : 13 } ) ;
 		   _ret_array.push( 1, "<green>IFS time has been set up with success</green>" ) ;
-               return 1 ;
+               return YES ;
 						}
-            else { _ret_array.push( 0, "<orange>IFS time has not been set up with success</orange>" ) ; return 0 ; }
+            else { _ret_array.push( 0, "<orange>IFS time has not been set up with success</orange>" ) ; return NO ; }
 				}
 				else
         {
           _out_msg = "<orange>Rendering time can be input when the 'Basics' tab is visible</orange>" ;
 		  _ret_array.push( 0, _out_msg ) ;
-          return 0 ;
+          return NO ;
         }
 				break ;
 				case "move":
         var _subset = "forms", _base_id = "general.options" ;
 				var _ret = move_div( _plugin_tmp_vars_array[ _subset ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
         _ret_array.push( 1, "<green>Plug-in has been moved with success</green>" ) ;
-        return 1 ;
+        return YES ;
 				break ;
         case "tab":
         var _subset = "forms", _base_id = "general.options" ;
@@ -183,11 +183,11 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array,
         }
 
 	    _ret_array.push( 1, "<green>Tab has been switched to '"+_tabname+"'</green>" ) ;
-        return 1 ;
+        return YES ;
         break ;
 				default:
 				        _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
-        return 0 ;
+        return NO ;
 				break ;
 		}
 

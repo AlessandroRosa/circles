@@ -17,9 +17,9 @@ function center_div( _div_id )
         var divWIDTH = safe_int( $("#"+_div_id).width(), 0 ) ;
         var X = safe_int( ( ( getViewportExtents() )[0] - divWIDTH ) / 2, 0 ) ;
         $("#"+_div_id).css( "left", X ) ;
-        return 1 ;
+        return YES ;
     }
-    else return 0 ;
+    else return NO ;
 }
 
 function move_div( _div_id, POS_X_STR, POS_Y_STR, DIVw, DIVh, _animate )
@@ -64,9 +64,9 @@ function move_div( _div_id, POS_X_STR, POS_Y_STR, DIVw, DIVh, _animate )
             else DIV.style.top = Y + "px" ;  
         }
         
-        return 1 ;
+        return YES ;
     }
-    else return 0 ;
+    else return NO ;
 }
 
 function set_opacity( _obj_id, val ) // input val is normalized in [0,1]

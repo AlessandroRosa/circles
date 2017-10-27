@@ -143,16 +143,16 @@ rect.prototype.is_pt_outside = function( _pt_x, _pt_y ) { return !this.is_pt_ins
 rect.prototype.is_pt_onborder = function( _pt_x, _pt_y ) { return ( ( this.x1 == _pt_x || this.x2 == _pt_x ) && ( this.y1 == _pt_y || this.y2 == _pt_y ) ) ? 1 : 0 ; }
 rect.prototype.is_pt_vertex = function( _pt_x, pt_y )
 {
-    if ( this.x1 == _pt_x && this.y1 == _pt_y ) return 1 ;
-    else if ( this.x2 == _pt_x && this.y1 == _pt_y ) return 1 ;
-    else if ( this.x2 == _pt_x && this.y2 == _pt_y ) return 1 ;
-    else if ( this.x1 == _pt_x && this.y2 == _pt_y ) return 1 ;
-    else return 0 ;
+    if ( this.x1 == _pt_x && this.y1 == _pt_y ) return YES ;
+    else if ( this.x2 == _pt_x && this.y1 == _pt_y ) return YES ;
+    else if ( this.x2 == _pt_x && this.y2 == _pt_y ) return YES ;
+    else if ( this.x1 == _pt_x && this.y2 == _pt_y ) return YES ;
+    else return NO ;
 }
 
 rect.prototype.is_equal_to = function( c )
 {
-    if ( !is_rect( c ) ) return 0 ;
+    if ( !is_rect( c ) ) return NO ;
     else
     {
        var _bEQ = this.x1 == c.x1 ? 1 : 0 ;
@@ -314,9 +314,9 @@ rect.prototype.from_rect = function( _rect )
        this.correct();
        this.w = this.width(), this.h = this.height() ;
        this.aspect_ratio = this.w / this.h ;
-       return 1 ;
+       return YES ;
     }
-    else return 0 ;
+    else return NO ;
 }
 
 rect.prototype.correct = function()
@@ -364,14 +364,14 @@ rect.prototype.set_sides = function()
     {
        _side_x = safe_float( arguments[0] ), _side_y = safe_float( arguments[1] );
     }
-    else return 0 ;
+    else return NO ;
 
     this.x2 = this.x1 + _side_x ;
     this.y2 = this.y1 + ( this.orientation == _RECT_ORIENTATION_SCREEN ? _side_x : -_side_x ) ;
     this.correct();
     this.w = this.width(), this.h = this.height() ;
     this.aspect_ratio = this.w / this.h ;
-    return 1 ;
+    return YES ;
 }
 
 rect.prototype.side = function()
@@ -463,7 +463,7 @@ rect.prototype.output = function( _format, _round_digits, _sep )
 
 rect.prototype.includes = function( _rect )
 {
-    if ( this.orientation != _rect.orientation ) return 0 ;
+    if ( this.orientation != _rect.orientation ) return NO ;
     // orientation does not affect rect-in-rect inclusion
     var _includes_x = ( this.x1 < _rect.x1 && _rect.x1 < this.x2 ) ? 1 : 0 ;
     _includes_x &= ( this.x1 < _rect.x2 && _rect.x2 < this.x2 ) ? 1 : 0 ;

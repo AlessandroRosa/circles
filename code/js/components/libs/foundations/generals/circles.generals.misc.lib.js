@@ -14,14 +14,14 @@ function circles_lib_log_update_statusbar()
 // COUNTING FNS
 function circles_lib_count_seeds( _safe_count )
 {
-	if ( !is_array( _glob_seeds_array ) ) return 0 ;
+	if ( !is_array( _glob_seeds_array ) ) return NO ;
   var _cnt = 0, _test = _glob_seeds_array.test( function( _obj ) { if ( is_item_obj( _obj ) ) _cnt++ ; return is_item_obj( _obj ) ; } ) ;
   return ( _test && _safe_count ) ? safe_size( _glob_seeds_array, 0 ) : _cnt ;
 }
 
 function circles_lib_count_gens( _safe_count )
 {
-	if ( !is_array( _glob_gens_array ) ) return 0 ;
+	if ( !is_array( _glob_gens_array ) ) return NO ;
   var _cnt = 0, _test = _glob_gens_array.test( function( _obj ) { if ( is_item_obj( _obj ) ) _cnt++ ; return is_item_obj( _obj ) ; } ) ;
   return ( _test && _safe_count ) ? safe_size( _glob_gens_array, 0 ) : _cnt ;
 }

@@ -752,7 +752,7 @@ function calcola_eta( $DATA_NASCITA, $DATA_OGGI ) // le date devono essere inser
          $ETA = $OGGI_AAAA - $NASCITA ;
          
          if ( $ETA < 0 ) return -1 ;
-         else if ( $ETA == 0 ) return 0 ;
+         else if ( $ETA == 0 ) return NO ;
          else
          {
             if ( $OGGI_MM < $NASCITA_MM ) $ETA-- ;

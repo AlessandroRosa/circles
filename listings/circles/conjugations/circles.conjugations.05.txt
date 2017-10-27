@@ -20,11 +20,11 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings jorgensen
 plugin open
-plugin send update.params a 2*cos(PI/(16-4i))
-plugin send update.params b 2*cos(PI/(16+4i))
+plugin send update.params alpha 2*cos(PI/(16-4i))
+plugin send update.params beta 2*cos(PI/(16+4i))
 plugin send update.params p 2
+plugin send init
 plugin close
-init maps schottky
 dg conjugate map:cayley init apply
 config set diskfill no
 config set diskdraw yes

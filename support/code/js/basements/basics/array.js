@@ -405,7 +405,7 @@ if ( !Array.prototype.test )
   Array.prototype.test = function()
   {
       var _is_fn = typeof arguments[0] === "function" ? 1 : 0 ;
-		  var _tester = arguments[0] ; if ( !_is_fn ) return 0 ;
+		  var _tester = arguments[0] ; if ( !_is_fn ) return NO ;
 		  var _ref = arguments[1] == null ? this : arguments[1], _b_ok = 1 ;
 			for ( var _property in _ref )
       {
@@ -432,7 +432,7 @@ if ( !Array.prototype.work )
   Array.prototype.work = function()
   {
       var _is_fn = typeof arguments[0] === "function" ? 1 : 0 ;
-      if ( !_is_fn ) return 0 ;
+      if ( !_is_fn ) return NO ;
 		  var _tester = arguments[0] ;
       _recursive = safe_int( arguments[1], 0 );
 		  var _ref = arguments[2] == null ? this : arguments[2], _out_array = [], _ret ;
@@ -459,7 +459,7 @@ if ( !Array.prototype.filtering )
     {
   			// filters and preserves structure
         var _is_fn = typeof arguments[0] === "function" ? 1 : 0 ;
-        if ( !_is_fn ) return 0 ;
+        if ( !_is_fn ) return NO ;
   		  var _tester = arguments[0] ;
   		  var _ref = arguments[1] == null ? this : arguments[1];
   		  var _level = arguments[2] == null ? 0 : arguments[2];
@@ -601,7 +601,7 @@ if ( !Array.includes )
     		// it works recursively if sub-arrays are included
         // return true if ALL input arguments are included inside this array
         var _b_found = 0, _input = arguments[0] ;
-		  	if ( _input == null ) return 0 ;
+		  	if ( _input == null ) return NO ;
 		  	var _ref = arguments[1] == null ? this : arguments[1];
 				for ( var _property in _ref )
 	      {
@@ -625,7 +625,7 @@ if ( !Array.includes_i ) // case insensitive version
         // return true if ALL input arguments are included inside this array
         var _b_found = 0 ;
   	  	var _input = arguments[0] ;
-		  	if ( _input == null ) return 0 ;
+		  	if ( _input == null ) return NO ;
 		  	var _ref = arguments[1] == null ? this : arguments[1];
 				for ( var _property in _ref )
 	      {
@@ -702,7 +702,7 @@ if ( !Array.compare_to )
 {
 		Array.prototype.compare_to = function( _compare )
 		{
-				if ( !is_array( _compare ) ) return 0 ;
+				if ( !is_array( _compare ) ) return NO ;
 				else return this.join("").localeCompare( _compare.join("") ) == 0 ? 1 : 0 ;
 		}
 }
@@ -711,8 +711,8 @@ if ( !Array.deep_compare_to )
 {
 		Array.prototype.deep_compare_to = function( _compare, _index_match )
 		{
-				if ( !is_array( _compare ) ) return 0 ;
-				else if ( this.length != _compare.length ) return 0 ;
+				if ( !is_array( _compare ) ) return NO ;
+				else if ( this.length != _compare.length ) return NO ;
         else
         {
              var _ret = 1 ;
@@ -1130,9 +1130,9 @@ if( !Array.flush_associative )
        if ( this.is_associative() )
        {
           for ( var property in this ) if ( this.hasOwnProperty( property ) && !( /^\d+$/.test( property ) ) ) delete this[ property ] ;
-          return 1 ;
+          return YES ;
        }
-       else return 0 ;
+       else return NO ;
     }
 }
 

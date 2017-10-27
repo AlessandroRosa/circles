@@ -140,7 +140,7 @@ line.prototype.rotate = function( center_pt, rot_rad )
 line.prototype.intersection = function()
 {
 		var _start_pt = null, _end_pt = null, _line = null ;
-		if ( arguments.length == 0 ) return 0 ;
+		if ( arguments.length == 0 ) return NO ;
 		else if ( is_line( arguments[0] ) )
 		{
 				_start_pt = arguments[0].start_pt, _end_pt = arguments[0].end_pt ;
@@ -155,7 +155,7 @@ line.prototype.intersection = function()
 				_start_pt.x = arguments[0], _start_pt.y = arguments[1] ;
 				_end_pt.x = arguments[2], _end_pt.y = arguments[3] ;
 		}
-		else return 0 ;
+		else return NO ;
 
     var x1 = this.start_pt.x, y1 = this.start_pt.y ;
     var x2 = this.end_pt.x, y2 = this.end_pt.y ;
@@ -189,7 +189,7 @@ line.prototype.intersection = function()
 line.prototype.intersect_test = function()
 {
 		var _start_pt = null, _end_pt = null, _line = null ;
-		if ( arguments.length == 0 ) return 0 ;
+		if ( arguments.length == 0 ) return NO ;
 		else if ( is_line( arguments[0] ) )
 		{
 				_start_pt = arguments[0].start_pt, _end_pt = arguments[0].end_pt ;
@@ -204,7 +204,7 @@ line.prototype.intersect_test = function()
 				_start_pt.x = arguments[0], _start_pt.y = arguments[1] ;
 				_end_pt.x = arguments[2], _end_pt.y = arguments[3] ;
 		}
-		else return 0 ;
+		else return NO ;
 		
 		_line = new line( _start_pt.x, _start_pt.y, _end_pt.x, _end_pt.y ) ;
 

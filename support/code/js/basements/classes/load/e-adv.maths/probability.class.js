@@ -103,8 +103,8 @@ probability.prototype.check_probabilities = function()
 
 probability.prototype.conditional_probability = function( _input_event_string, _input_condition_string )
 {
-    if ( _input_event_string == null || _input_event_string == "undefined" ) return 0 ;
-    if ( _input_condition_string == null || _input_condition_string == "undefined" ) return 0 ;
+    if ( _input_event_string == null || _input_event_string == "undefined" ) return NO ;
+    if ( _input_condition_string == null || _input_condition_string == "undefined" ) return NO ;
 
     var _chunk = _input_condition_string + _input_event_string ;
     var _event = this.compute_probability( _chunk );

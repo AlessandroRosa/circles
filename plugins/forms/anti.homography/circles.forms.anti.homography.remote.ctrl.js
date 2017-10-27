@@ -8,7 +8,7 @@ function CIRCLESformsANTIHOMOGRAPHYremotectrl( _options, _return_fn, _ret_array,
 		if ( !is_array( _options ) )
 		{
        if ( typeof _return_fn === "function" ) _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
-			 return 0 ;
+			 return NO ;
 		}
 
 		var _out_msg = "" ;
@@ -28,7 +28,7 @@ function CIRCLESformsANTIHOMOGRAPHYremotectrl( _options, _return_fn, _ret_array,
         var _sub = "forms", _base_id = "anti.homography" ;
         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
 		   
-        return 1 ;
+        return YES ;
         break ;
 				case "focus":
         var _sub = "forms", _base_id = "anti.homography" ;
@@ -40,7 +40,7 @@ function CIRCLESformsANTIHOMOGRAPHYremotectrl( _options, _return_fn, _ret_array,
         var _sub = "forms", _base_id = "anti.homography" ;
 				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
 		   _ret_array.push( 1, "<green>Plug-in has been moved with success</green>" ) ;
-        return 1 ;
+        return YES ;
 				break ;
         case "uncheck":
         var _symbol = safe_string( _options[1], "" ) ;
@@ -51,7 +51,7 @@ function CIRCLESformsANTIHOMOGRAPHYremotectrl( _options, _return_fn, _ret_array,
 				break ;
 				default:
 				        _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
-        return 0 ;
+        return NO ;
 				break ;
 		}
 

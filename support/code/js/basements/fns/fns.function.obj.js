@@ -17,7 +17,7 @@ function function_exists( fn_obj )
 }
 
 if ( typeof unload_fn != "function" )
-function unload_fn( _fn_name ) { if ( function_exists( _fn_name ) ) { eval( _fn_name + " = null ;" ); return 1 ; } else return 0 ; }
+function unload_fn( _fn_name ) { if ( function_exists( _fn_name ) ) { eval( _fn_name + " = null ;" ); return YES ; } else return NO ; }
 
 if ( typeof unload_fns != "function" )
 function unload_fns( _obj, _obj_ref_name, _fn_name, _exact_match )

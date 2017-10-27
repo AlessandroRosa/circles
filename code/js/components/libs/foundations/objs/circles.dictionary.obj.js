@@ -232,9 +232,9 @@ dictionary.prototype.add_crash_word = function( _crash_word )
         if ( !( this.crash_words_array.includes( _crash_word ) ) && _crash_word.length > 0 )
         {
             this.crash_words_array.push( _crash_word );
-            return 1 ;
+            return YES ;
         }
-        else return 0 ;
+        else return NO ;
     }
     else
     {
@@ -251,9 +251,9 @@ dictionary.prototype.remove_crash_word = function( _crash_word )
         if ( this.crash_words_array.includes( _crash_word ) && _crash_word.length > 0 )
         {
             this.crash_words_array.delete_entry( _crash_word );
-            return 1 ;
+            return YES ;
         }
-        else return 0 ;
+        else return NO ;
     }
     else
     {
@@ -301,7 +301,7 @@ dictionary.prototype.remove_symbol = function()
 		{
 				this.err = 1 ;
         error_log_rec( "input maps array is empty or missing" );
-				return 0 ;
+				return NO ;
 		}
     else
     {
@@ -323,13 +323,13 @@ dictionary.prototype.remove_symbol = function()
 		    if ( this.MAPSarray.length == _m_length - 1 )
 		    {
 						 this.err = 0 ;
-						 return 1 ;
+						 return YES ;
 				}
 				else
 				{
              error_log_rec( "error while removing crash word" );
 						 this.err = 1 ;
-						 return 0 ;
+						 return NO ;
 				}
 		}
 }
@@ -364,7 +364,7 @@ dictionary.prototype.automaton_table_flush = function()
     else
     {
         error_log_rec( "error while removing crash word" );
-        return 0 ;
+        return NO ;
     }
 }
 
@@ -375,7 +375,7 @@ dictionary.prototype.automaton_table_read = function( _alphabet, _automaton_tabl
 				this.automaton_table = _automaton_table.clone_associative();
 				this.automaton_states = _automaton_table.keys_associative();
 				this.alphabet = _alphabet.clone();
-				if ( this.automaton_states.length == 0 || _alphabet.length == 0 ) return 0 ;
+				if ( this.automaton_states.length == 0 || _alphabet.length == 0 ) return NO ;
 
 			  var _row, _state, _a, _j, _s ;
 				this.automaton_index_version = [] ;
@@ -402,13 +402,13 @@ dictionary.prototype.automaton_table_read = function( _alphabet, _automaton_tabl
 						}
 				}
 
- 			  return 1 ;
+ 			  return YES ;
 		}
 		else
     {
         if ( !is_array( _automaton_table ) ) error_log_rec( "automaton table input is not of array type" );
         if ( !is_array( _alphabet ) ) error_log_rec( "alphabet input is not of array type" );
-        return 0 ;
+        return NO ;
     }
 }
 
@@ -442,7 +442,7 @@ dictionary.prototype.create_rules = function()
 		{
 				this.err = 2 ;
         error_log_rec( "maps input is not of array type or missing" );
-				return 0 ;
+				return NO ;
 		}
     else
     {
@@ -474,12 +474,12 @@ dictionary.prototype.create_dictionary = function()
              default: break ;
         }
 
-				return 1 ;    
+				return YES ;    
 		}
 		else
     {
         error_log_rec( "dictionary can't be created due to a previous error detection" );
-        return 0 ;
+        return NO ;
     }
 }
 
@@ -674,7 +674,7 @@ dictionary.prototype.sort_length_asc = function(a, b)
 dictionary.prototype.sliced_dict_size = function( _sliced_input_array )
 {
 		var _arr = is_array( _sliced_input_array ) ? _sliced_input_array : this.sliced_dictionary ;
-		if ( !is_array( _arr ) ) return 0 ;
+		if ( !is_array( _arr ) ) return NO ;
 		var _s = 0 ;
 		for( var _t = 0 ; _t < _arr.length ; _t++ ) _s += _arr[_t] != null ? _arr[_t].length : 0 ;
 		return _s ;
@@ -724,7 +724,7 @@ dictionary.prototype.sliced_dict_resize = function( _chunk_size, _self_resize )
 dictionary.prototype.sliced_dict_get_linear_array = function()
 {
 		var _arr = this.sliced_dictionary ;
-		if ( !is_array( _arr ) ) return 0 ;
+		if ( !is_array( _arr ) ) return NO ;
 		var _out_array = [] ;
 		for( var _t = 0 ; _t < _arr.length ; _t++ ) _out_array = _out_array.concat( _arr[_t] );
 		return _out_array.clone();
@@ -733,7 +733,7 @@ dictionary.prototype.sliced_dict_get_linear_array = function()
 dictionary.prototype.sliced_dict_includes = function( _sliced_input_array, _word )
 {
 		var _arr = is_array( _sliced_input_array ) ? _sliced_input_array : this.sliced_dictionary ;
-		if ( !is_array( _arr ) ) return 0 ;
+		if ( !is_array( _arr ) ) return NO ;
 		var _incl = 0 ;
 		for( var _t = 0 ; _t < _arr.length ; _t++ )
     {
@@ -749,7 +749,7 @@ dictionary.prototype.sliced_dict_includes = function( _sliced_input_array, _word
 dictionary.prototype.sliced_dict_get_chunk_index_from_word = function( _sliced_input_array, _word )
 {
 		var _arr = is_array( _sliced_input_array ) ? _sliced_input_array : this.sliced_dictionary ;
-		if ( !is_array( _arr ) ) return 0 ;
+		if ( !is_array( _arr ) ) return NO ;
 		var _index = 0 ;
 		for( var _t = 0 ; _t < _arr.length ; _t++ )
     {
@@ -780,7 +780,7 @@ dictionary.prototype.sliced_dict_set_runner = function( _i )
 {
     this.token_dictionary_read_index = safe_int( _i / this.sliced_dictionary_upper_bound, 0 );
     this.main_dictionary_read_runner = _i % this.sliced_dictionary_upper_bound ;
-    if ( !is_array( this.sliced_dictionary[ this.token_dictionary_read_index ] ) ) return 0 ;
+    if ( !is_array( this.sliced_dictionary[ this.token_dictionary_read_index ] ) ) return NO ;
     else return this.sliced_dictionary[ this.token_dictionary_read_index ][this.main_dictionary_read_runner] == null ? 0 : 1 ;
 }
 

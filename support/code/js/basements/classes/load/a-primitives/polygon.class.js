@@ -182,9 +182,9 @@ polygon.prototype.is_equal_to = function( _gon )
 						}
 						return _b_equal ;
 				}
-				else return 0 ;
+				else return NO ;
 		}
-		else return 0 ;
+		else return NO ;
 }
 
 polygon.prototype.is_not_equal_to = function( _gon ) { return !this.is_equal_to( _gon ); }
@@ -239,7 +239,7 @@ polygon.prototype.perimeter = function()
        {
           this.err_no = _POLYGON_ERR_MISSING_INPUT_VERTEXES ;
           this.log_add( "missing input vertexes for perimeter calcutation" ) ;
-          return 0 ;
+          return NO ;
        }
        else
        {
@@ -253,7 +253,7 @@ polygon.prototype.perimeter = function()
     {
        this.log_add( "missing input vertexes for perimeter calcutation" ) ;
        this.err_no = _POLYGON_ERR_MISSING_INPUT_VERTEXES ;
-       return 0 ;
+       return NO ;
     }
 }
 
@@ -317,7 +317,7 @@ polygon.prototype.is_convex = function()
           if ( fail && ok ) return 0;
        }
     
-       return 1 ;
+       return YES ;
     }
     else
     {
@@ -404,13 +404,13 @@ polygon.prototype.triangulation = function()
               _ctx.closePath();
            }
        }
-       return 1 ;
+       return YES ;
     }
     else
     {
        this.log_add( "Can't perform triangulation: irregular polygon" );
        this.err_no = _POLYGON_ERR_INVALID_VALUE ;
-       return 0 ;
+       return NO ;
     }
 }
 
@@ -421,7 +421,7 @@ polygon.prototype.area = function()
        if ( this.vertex_array.length < 3 )
        {
           this.err_no = _POLYGON_ERR_MISSING_INPUT_VERTEXES ;
-          return 0 ;
+          return NO ;
        }
        else
        {
@@ -441,7 +441,7 @@ polygon.prototype.area = function()
     {
        this.log_add( "Can't calculate area: missing vertexes" );
        this.err_no = _POLYGON_ERR_MISSING_INPUT_VERTEXES ;
-       return 0 ;
+       return NO ;
     }
 }
 
@@ -460,7 +460,7 @@ polygon.prototype.draw_point = function()
     {
        this.log_add( "Can't draw point: missing input coords" );
        this.err_no = _POLYGON_ERR_INVALID_VALUE ;
-       return 0 ;
+       return NO ;
     }
 		else if ( is_html_canvas( this.canvas_obj ) )
 		{
@@ -487,7 +487,7 @@ polygon.prototype.draw_point = function()
     {
        this.log_add( "Can't draw point: missing input canvas obj" );
        this.err_no = _POLYGON_ERR_MISSING_CANVAS_OBJ_REF ;
-       return 0 ;
+       return NO ;
     }
 }
 
@@ -549,13 +549,13 @@ polygon.prototype.draw = function( _drawcolor, _fillcolor, _linewidth, _remap_to
          
        // draw the canvas
        this.err_no = _POLYGON_ERR_NONE ;
-       return 1 ;
+       return YES ;
     }
     else
     {
        this.log_add( "Can't draw point: missing input canvas obj" );
        this.err_no = _POLYGON_ERR_MISSING_CANVAS_OBJ_REF ;
-       return 0 ;
+       return NO ;
     }
 }
 

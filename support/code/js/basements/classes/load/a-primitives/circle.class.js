@@ -201,11 +201,11 @@ circle.prototype.unpack = function( _packed_input )
           this.center.x = safe_float( _tmp[0], 0 );
           this.center.y = safe_float( _tmp[1], 0 );
           this.radius = safe_float( _tmp[2], 0 );
-          return 1 ;
+          return YES ;
        }
-       else return 0 ;
+       else return NO ;
     }
-    else return 0 ;
+    else return NO ;
 }
 
 circle.prototype.roundTo = function( _round_digits )
@@ -280,7 +280,7 @@ circle.prototype.orthogonality_test = function( _C2, _accuracy )
 {
 		// ref. "geometry" by Brannan, Esplen, Gray - page 9
     _accuracy = safe_float( _accuracy, _CIRCLE_OBJ_MAX_ACCURACY );
-		if ( !is_circle( _C2 ) ) return 0 ;
+		if ( !is_circle( _C2 ) ) return NO ;
 		var _coeffs_1 = this.equation( _accuracy );
 		var _f1 = _coeffs_1[0], _g1 = _coeffs_1[1], _h1 = _coeffs_1[2] ;
 		var _coeffs_2 = _C2.equation( _accuracy );

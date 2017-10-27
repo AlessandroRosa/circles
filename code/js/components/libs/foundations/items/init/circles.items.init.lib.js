@@ -293,8 +293,8 @@ function circles_lib_items_init( _index, _question, _silent, _init_mask, _report
        _glob_alphabet = circles_lib_alphabet_get();
        if ( _ret_id == RET_OK )
        {
-          if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
-          if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
+          if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
+          if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
        }
 
        //circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );

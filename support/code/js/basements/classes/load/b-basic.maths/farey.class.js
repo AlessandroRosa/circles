@@ -203,7 +203,7 @@ farey.prototype.is_contiguous = function( _c, _d, _order )
         _c = safe_int( _c, 0 ), _d = safe_int( _d, 0 );
         return ( 1.0/(this.q*( this.q+_d)) <= 1.0/( this.q*(_tree_order+1)) ) ? 1 : 0 ;
     }
-    else return 0 ;
+    else return NO ;
 }
 
 farey.prototype.ratio = function() { return ( !isNaN( this.p ) && !isNaN( this.q ) && this.q != 0 ) ? this.p / this.q : "error" ; }
@@ -237,7 +237,7 @@ farey.prototype.gcd = function() { return this.gcd_params( this.q, this.p % this
 farey.prototype.gcd_params = function(a, b) // greatest common divisor
 {
     if ( !b ) return a ;
-    else if ( b == 0 ) return 0 ;
+    else if ( b == 0 ) return NO ;
     return this.gcd_params(b, a % b);
 }
 

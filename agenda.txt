@@ -1,9 +1,7 @@
 ------------ APP -------------------------------------------------
 * Listings:
   - run and test all listings
-  LAST CHECKED (pending) : conjugations/circles.conjugations.04.txt
-                           why does it return warning for probabilities distribution ?
-						   check the code in the alert.
+  LAST CHECKED : conjugations/circles.conjugations.05.txt
   
   * DG command : test all examples mentioned in the help file
 

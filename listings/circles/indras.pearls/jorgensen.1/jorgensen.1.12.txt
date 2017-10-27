@@ -20,8 +20,8 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings jorgensen
 plugin open
-plugin send update.params a 2*cos(PI/(256i))
-plugin send update.params b 2*cos(PI/(8+i))
+plugin send update.params alpha 2*cos(PI/(256i))
+plugin send update.params beta 2*cos(PI/(8+i))
 plugin send update.params p 2
 plugin send init
 plugin close

@@ -181,7 +181,7 @@ fraction.prototype.gcd = function() { return this.gcd_params( this.q, this.p % t
 fraction.prototype.gcd_params = function(a, b) // greatest common divisor
 {
     if ( !b ) return a ;
-    else if ( b == 0 ) return 0 ;
+    else if ( b == 0 ) return NO ;
     return this.gcd_params(b, a % b);
 }
 

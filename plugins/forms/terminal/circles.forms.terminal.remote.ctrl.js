@@ -8,7 +8,7 @@ function CIRCLESformsTERMINALremotectrl( _options, _return_fn, _ret_array, _outp
 		if ( !is_array( _options ) )
 		{
        if ( typeof _return_fn === "function" ) _return_fn.call( this, "<orange>Invalid input data for remote control management</orange>" );
-			 return 0 ;
+			 return NO ;
 		}
 
 		var _out_msg = "" ;
@@ -20,7 +20,7 @@ function CIRCLESformsTERMINALremotectrl( _options, _return_fn, _ret_array, _outp
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "forms", _base_id = "terminal" ;
         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
-        return 1 ;
+        return YES ;
         break ;
 		case "focus":
         var _sub = "forms", _base_id = "terminal" ;
@@ -32,11 +32,11 @@ function CIRCLESformsTERMINALremotectrl( _options, _return_fn, _ret_array, _outp
         var _sub = "forms", _base_id = "terminal" ;
 				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
         _ret_array.push( 1, "<green>Plug-in has been moved with success</green>" ) ;
-        return 1 ;
+        return YES ;
 		break ;
 		default:
 		_ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
-        return 0 ;
+        return NO ;
 		break ;
 		}
 

@@ -261,7 +261,7 @@ mobius_map.prototype.init_from_obj = function( mm = null )
 mobius_map.prototype.init_inversion_from_one_circle = function( C1, _notes, _normalize )
 {
     _normalize = safe_int( _normalize, 1 );
-		if ( !is_circle( C1 ) ) return 0 ;
+		if ( !is_circle( C1 ) ) return NO ;
 		var _c = new complex( C1.center.x, C1.center.y ), _radius = C1.radius ;
     this.a = _c ;
     this.b = new complex( _radius * _radius - ( _c.real * _c.real + _c.imag * _c.imag ), 0 ) ;
@@ -271,7 +271,7 @@ mobius_map.prototype.init_inversion_from_one_circle = function( C1, _notes, _nor
     this.anti_homography_mask = 0 ;
     this.accuracy = MOBIUS_MAP_MAX_ACCURACY ;
     if ( _normalize ) this.normalize();
-    return 1 ;
+    return YES ;
 }
 
 mobius_map.prototype.get_inversion_from_one_circle = function( C1 )
@@ -288,7 +288,7 @@ mobius_map.prototype.init_inversion_from_two_circles = function( C1, C2, _normal
 		if ( !is_circle( C1 ) || !is_circle( C2 ) )
     {
         this.a = this.b = this.c = this.d = new complex( 0, 0 );
-        return 0 ;
+        return NO ;
     }
     // cast values to complex for performing calculations
     var P = new complex( C1.center.x, C1.center.y ), r = new complex( C1.radius, 0 ) ;
@@ -301,7 +301,7 @@ mobius_map.prototype.init_inversion_from_two_circles = function( C1, C2, _normal
     this.accuracy = MOBIUS_MAP_MAX_ACCURACY ;
     this.notes = "" ;
     if ( _normalize ) this.normalize();
-    return 1 ;
+    return YES ;
 }
 
 mobius_map.prototype.get_inversion_from_two_circles = function( C1, C2 )
@@ -658,7 +658,7 @@ mobius_map.prototype.fixed_points = function() // return an array of complex bou
 
 mobius_map.prototype.commute_with = function( _mm )
 {
-		if ( !is_mobius_map( _mm ) ) return 0 ;
+		if ( !is_mobius_map( _mm ) ) return NO ;
 		else
 		{
 				// See Marden's book 'Outer circles', p. 19
@@ -676,7 +676,7 @@ mobius_map.prototype.commute_with = function( _mm )
 						}
 						return _mask ;
 				}
-				else return 0 ;
+				else return NO ;
 		}
 }
 

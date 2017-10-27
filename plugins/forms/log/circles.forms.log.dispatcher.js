@@ -10,7 +10,7 @@ function CIRCLESformsLOGdispatcher()
 			{
 				 var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN );
          var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "log" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 )
-         if ( _idx == UNFOUND ) return 0 ;
+         if ( _idx == UNFOUND ) return NO ;
 				 switch( MESSAGE_ID )
 				 {
             case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:

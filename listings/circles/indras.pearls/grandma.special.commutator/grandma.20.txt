@@ -1,7 +1,6 @@
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 grid 12

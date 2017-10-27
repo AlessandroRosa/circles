@@ -335,7 +335,7 @@ function circles_terminal_cmd_gensset()
 
                           var _msg = _added + " entr" + ( ( _added == 1 ) ? "y" : "ies" ) + " added to the generators set" ;
                           circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
-                          if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( 'method', 'forms', 3.21 ) ;
+                          if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( 'method', 'forms', 3.21 ) ;
                           if ( _params_assoc_array["copy"] )
                           {
                               _msg = _copied + " entr" + ( ( _copied == 1 ) ? "y" : "ies" ) + " copied into the data storage space" ;
@@ -370,7 +370,7 @@ function circles_terminal_cmd_gensset()
 											_glob_terminal_change = YES ;
 						          circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
 									 }
-                   if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( 'method', 'forms', 3.21 ) ;
+                   if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( 'method', 'forms', 3.21 ) ;
                  }
                  else
                  {
@@ -403,7 +403,7 @@ function circles_terminal_cmd_gensset()
                    if ( !_ret )
                    {
                       _b_fail = YES, _error_str = "The "+(  _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seed" : "generator" )+", indexed at "+_i+", has no symbol.\nGenerators set construction aborted" ;
-                      return 0 ;
+                      return NO ;
                    }
                    else return _ret ;
                }
@@ -437,7 +437,7 @@ function circles_terminal_cmd_gensset()
 												 var _msg = "The generators set has been built with success." + _glob_crlf ;
 	                           _msg += _sch_n + " new entr" + ( ( _sch_n == 1 ) ? "y" : "ies" );
 	                       circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
-                         if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( 'method', 'forms', 3.21 ) ;
+                         if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( 'method', 'forms', 3.21 ) ;
 											}
 											else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                    }

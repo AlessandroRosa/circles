@@ -706,7 +706,7 @@ function circles_terminal_cmd_macro()
 function circles_terminal_cmd_macro_validate_cmd( _cmd )
 {
 			var _input_array = ( _cmd == null || _cmd == UNDEF ) ? [] : ( ( _cmd.length == 0 ) ? [] : _cmd.split( " " ) );
-			if ( _input_array.length == 0 ) return 0 ;
+			if ( _input_array.length == 0 ) return NO ;
 			else
 			{
            var _b_found = 0 ;
@@ -730,28 +730,28 @@ function circles_terminal_cmd_macro_extract_operation_from_cmd( _cmd )
 
 function circles_terminal_cmd_macro_exists( _label )
 {
-      if ( !is_string( _label ) ) return 0 ;
-			else if ( _label.length == 0 || _glob_macros_array[ "MACRO." + _label ] == null ) return 0 ;
-			else if ( _glob_macros_array[ "MACRO." + _label ] != null ) return 1 ;
+      if ( !is_string( _label ) ) return NO ;
+			else if ( _label.length == 0 || _glob_macros_array[ "MACRO." + _label ] == null ) return NO ;
+			else if ( _glob_macros_array[ "MACRO." + _label ] != null ) return YES ;
 }
 
 function circles_terminal_cmd_macro_add_cmd( _label, _cmd )
 {
-      if ( !circles_terminal_cmd_macro_exists( _label ) ) return 0 ;
+      if ( !circles_terminal_cmd_macro_exists( _label ) ) return NO ;
 			else
       {
           _glob_macros_array[ "MACRO." + _label].push( _cmd );
-          return 1 ;
+          return YES ;
       }
 }
 
 function circles_terminal_cmd_macro_includes_cmd( _label, _cmd )
 {
-      if ( !circles_terminal_cmd_macro_exists( _label ) ) return 0 ;
+      if ( !circles_terminal_cmd_macro_exists( _label ) ) return NO ;
 			else
       {
           var _scan_array = _glob_macros_array[ "MACRO." + _label] ;
-          if ( _scan_array == null ) return 0 ;
+          if ( _scan_array == null ) return NO ;
           else
           {
                var _b_found = 0, _candidate_cmd = "" ;
@@ -805,7 +805,7 @@ function circles_terminal_cmd_macro_set( _label, _macro ) { _glob_macros_array[ 
 
 function circles_terminal_cmd_macro_count_cmds( _label )
 {
-      if ( !circles_terminal_cmd_macro_exists( _label ) ) return 0 ;
+      if ( !circles_terminal_cmd_macro_exists( _label ) ) return NO ;
 			else return _glob_macros_array[ "MACRO." + _label ].length ;
 }
 

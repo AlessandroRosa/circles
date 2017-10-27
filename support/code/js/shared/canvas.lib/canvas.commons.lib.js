@@ -1,6 +1,6 @@
 function _canvas_draw_circle( _canvas, _center_x, _center_y, _radius, _draw, _drawcolor, _fill, _fillcolor, _line_thickness, _opacity )
 {
-     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return 0 ;
+     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return NO ;
 
      if ( isNaN( _draw ) ) _draw = 0 ;
      if ( isNaN( _fill ) ) _fill = 0 ;
@@ -45,12 +45,12 @@ function _canvas_draw_circle( _canvas, _center_x, _center_y, _radius, _draw, _dr
      }
 
      _context.closePath();
-     return 1 ;
+     return YES ;
 }
 
 function _canvas_draw_pixel( _canvas, _x, _y, _drawcolor, _size, _opacity )
 {
-     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return 0 ;
+     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return NO ;
 		 var _context = _canvas.getContext( "2d" ) ;
 
      if ( !object_exists( _opacity ) ) _opacity = 1.0 ;
@@ -71,7 +71,7 @@ function _canvas_draw_pixel( _canvas, _x, _y, _drawcolor, _size, _opacity )
 
 function _canvas_draw_line( _canvas, mapper, _from_x, _from_y, _to_x, _to_y, _drawcolor, _line_thickness, _opacity )
 {
-     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return 0 ;
+     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return NO ;
 		 var _context = _canvas.getContext( "2d" ) ;
 
      if ( !object_exists( _opacity ) ) _opacity = 1.0 ;
@@ -94,7 +94,7 @@ function _canvas_draw_line( _canvas, mapper, _from_x, _from_y, _to_x, _to_y, _dr
 
 function _canvas_polyline( _canvas, POINTSarray, _drawcolor, _line_thickness, _close, _opacity )
 {
-     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return 0 ;
+     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return NO ;
 		 var _context = _canvas.getContext( "2d" ) ;
 
      if ( !object_exists( _opacity ) ) _opacity = 1.0 ;
@@ -129,7 +129,7 @@ function _canvas_polyline( _canvas, POINTSarray, _drawcolor, _line_thickness, _c
 
 function _canvas_draw_rect( _canvas, _rect_obj, _draw, _drawcolor, _fill, _fillcolor, _line_thickness, _map_it, _opacity )
 {
-     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return 0 ;
+     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return NO ;
 		 var _context = _canvas.getContext( "2d" ) ;
 
      if ( !object_exists( _map_it ) ) _map_it = 0 ;
@@ -168,7 +168,7 @@ function _canvas_draw_rect( _canvas, _rect_obj, _draw, _drawcolor, _fill, _fillc
 
 function _canvas_draw_point( _canvas, _x, _y, _draw, _drawcolor, _fill, _fillcolor, _line_thickness, radius, _opacity )
 {
-     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return 0 ;
+     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return NO ;
 		 var _context = _canvas.getContext( "2d" ) ;
 
      if ( _draw == null || _draw == "undefined" ) _draw = YES ;
@@ -204,7 +204,7 @@ function _canvas_draw_point( _canvas, _x, _y, _draw, _drawcolor, _fill, _fillcol
 
 function CIRCLESdrawTEXT( _canvas, _x, _y, _text, _textcolor, _fontstyle, _shift_x_canvas, _shift_y_canvas, _map_it, _opacity )
 {
-     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return 0 ;
+     if ( !object_exists( _canvas ) || !( _canvas instanceof HTMLCanvasElement ) ) return NO ;
 		 var _context = _canvas.getContext( "2d" ) ;
 
      if ( !object_exists( _map_it ) ) _map_it = 1 ;

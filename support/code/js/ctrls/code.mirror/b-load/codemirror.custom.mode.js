@@ -25,7 +25,7 @@ function _comment_encloser_remove( _index )
         var _new_size = safe_size( _comments_array, 0 );
         return _new_size == ( _old_size - 1 ) ? 1 : 0 ;
     }
-    else return 0 ;
+    else return NO ;
 }
 
 function _comment_encloser_create( _row, _col, _type )
@@ -41,9 +41,9 @@ function _comment_encloser_close( _row, _col, _index )
     if ( _comments_array[ _index ] instanceof _comment_encloser )
     {
         _comment.end_row = _row, _comment.end_col = _col ;
-        return 1 ;
+        return YES ;
     }
-    else return 0 ;
+    else return NO ;
 }
 
 function _comment_encloser_shift_one_row( _row )

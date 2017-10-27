@@ -399,7 +399,7 @@ function circles_terminal_cmd_probability()
                         else if ( _n_letters > 0 && _n_probabilities > 0 )
                         {
                             if ( _force ) circles_lib_output( _output_channel, DISPATCH_INFO, "Detected 'force' param: attempting to build the probability table from input data ...", _par_1, _cmd_tag );
-                            circles_lib_output( _output_channel, DISPATCH_INFO, "Probability table is being attempted to modification ...", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "Attenpting to modify probability table ...", _par_1, _cmd_tag );
                             if ( safe_size( _glob_rnd_probability_array, 0 ) == 0 )
                             circles_lib_output( _output_channel, DISPATCH_INFO, "Missing probability table: attempting to recover it from input params", _par_1, _cmd_tag );
                             

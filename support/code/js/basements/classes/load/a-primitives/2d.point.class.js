@@ -303,13 +303,13 @@ function harmonic_test( A, B ) { return ( A.x * A.y * B.x * B.y == -1 ) ? 1 : 0 
 function couple_collinear_test( A, B ) { return ( A.x == B.x || A.y == A.y ) ? 1 : 0 ; }
 function triplet_collinear_test( A, B, C )
 {
-    if ( ( B.x == A.x && B.x == C.x ) || ( B.y == A.y && B.y == C.y ) ) return 1 ;
+    if ( ( B.x == A.x && B.x == C.x ) || ( B.y == A.y && B.y == C.y ) ) return YES ;
     else
     {
        // compute slopes
        var slope_1 = ( B.y - A.y ) / ( B.x - A.x ) ;
        var slope_2 = ( B.y - C.y ) / ( B.x - C.x ) ;
-       if ( slope_1 != slope_2 ) return 0 ;
+       if ( slope_1 != slope_2 ) return NO ;
        else
        {
           // let y = mx + q be the straight-line equation

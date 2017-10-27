@@ -65,11 +65,11 @@ function _svg_open( _code_array, _w, _h, _desc, _canvas )
                  }
              
              _glob_svg_open = 1 ;
-             return 1 ;
+             return YES ;
          }
-         else return 0 ; 
+         else return NO ; 
      }
-     else return 0 ;
+     else return NO ;
 }
 
 function _svg_comment( _code_array, _text )

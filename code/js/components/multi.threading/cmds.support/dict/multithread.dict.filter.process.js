@@ -34,7 +34,7 @@ function multithread_dict_process()
      else if ( _ending_with ) _word_check_fn = function( _w, _substr ) { return _w.end_with( _substr ) ? 1 : 0 ; }
      else if ( _including_with ) _word_check_fn = function( _w, _substr ) { return _w.includes( _substr ) ? 1 : 0 ; }
      else if ( _matching_with ) _word_check_fn = function( _w, _substr ) { return _w.strcmp( _substr ) ? 1 : 0 ; }
-     else _word_check_fn = function( _w, _substr ) { return 1 ; }
+     else _word_check_fn = function( _w, _substr ) { return YES ; }
      
      _glob_inline_worker_run_flag = 1 ;
      

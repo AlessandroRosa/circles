@@ -438,7 +438,7 @@ complex_matrix.prototype.is_antidiagonal_matrix = function()
 
 complex_matrix.prototype.is_scalar_matrix = function()
 {
-    if ( !this.is_diagonal ) return 0 ;
+    if ( !this.is_diagonal ) return NO ;
     var _b_ok = 1, _item = null, _rec_item = null, _r, _c ;
     for( _r = 0 ; _r < this.rows ; _r++ )
     {
@@ -466,8 +466,8 @@ complex_matrix.prototype.is_scalar_matrix = function()
 
 complex_matrix.prototype.is_equal_to = function( _cm )
 {
-    if ( !is_complex_matrix( _cm ) ) return 0 ;
-    else if ( _cm.rows != this.rows || _cm.cols != this.cols ) return 0 ;
+    if ( !is_complex_matrix( _cm ) ) return NO ;
+    else if ( _cm.rows != this.rows || _cm.cols != this.cols ) return NO ;
     else
     {
         var _b_ok = 1, _r, _c ;
@@ -501,7 +501,7 @@ complex_matrix.prototype.set_params = function()
     {
         this.grid = arguments[0].grid.clone();
         this.cols = arguments[0].cols, this.rows = arguments[0].rows ;
-        return 1 ;
+        return YES ;
     }
     else if ( safe_size( arguments, 0 ) > 0 )
     {
@@ -525,9 +525,9 @@ complex_matrix.prototype.set_params = function()
            }
         }
         
-        return 1 ;
+        return YES ;
     }
-    else return 0 ;
+    else return NO ;
 }
 
 complex_matrix.prototype.set_formal_params = function()
@@ -538,15 +538,15 @@ complex_matrix.prototype.set_formal_params = function()
         this.grid.flush();
 				this.grid = arguments[0].grid.clone();
         this.cols = arguments[0].cols, this.rows = arguments[0].rows ;
-				return 1 ;
+				return YES ;
     }
     else if ( safe_size( arguments, 0 ) > 0 )
     {
 				this.grid.flush();
 				for( _a = 0 ; _a < arguments.length ; _a++ ) this.grid.push( arguments[_a] );
-				return 1 ;
+				return YES ;
 		}
-		else return 0 ;
+		else return NO ;
 }
 
 complex_matrix.prototype.resolve_parametrization = function( _params_tags, _params_complex_vals )
@@ -584,13 +584,13 @@ complex_matrix.prototype.set_value_at = function( _x, _y, _val )
     if ( this.grid[ _y * this.rows + _x ] != null && is_complex( _val ) )
     {
         this.grid[ _y * this.rows + _x ] = _val ;
-        return 1 ;
+        return YES ;
     }
     else
     {
         if ( !is_complex( _val ) ) this.err_log.push( arguments.callee.caller + " : Invalid input complex value" );
         else this.err_log.push( arguments.callee.caller + " : Invalid coords " + _x + ", " + _y );
-        return 0 ;
+        return NO ;
     }
 }
 
@@ -838,7 +838,7 @@ complex_matrix.prototype.set_row = function( _i, _arr )
        if ( _i < 0 || _i > this.rows )
        {
           this.err_log.push( arguments.callee.caller + " : input row index is out of range" );
-          return 0 ;
+          return NO ;
        }
        else if ( _arr.length == this.cols )
        {
@@ -849,21 +849,21 @@ complex_matrix.prototype.set_row = function( _i, _arr )
              else
              {
                 this.err_log.push( arguments.callee.caller + " : input item, with index "+_a+", is not of complex type" );
-                return 0 ;
+                return NO ;
              }
           }
-          return 1 ;
+          return YES ;
        }
        else
        {
           this.err_log.push( arguments.callee.caller + " : undetermined error" );
-          return 0 ;
+          return NO ;
        }
     }
     else
     {
        this.err_log.push( arguments.callee.caller + " : input is not of array type" );
-       return 0 ;
+       return NO ;
     }
 }
 
@@ -871,7 +871,7 @@ complex_matrix.prototype.set_col = function( _i, _arr )
 {
     if ( is_array( _arr ) )
     {
-       if ( _i < 0 || _i > this.cols ) return 0 ;
+       if ( _i < 0 || _i > this.cols ) return NO ;
        else if ( _arr.length == this.rows )
        {
           var _pos = _i, _a ;
@@ -881,21 +881,21 @@ complex_matrix.prototype.set_col = function( _i, _arr )
              else
              {
                 this.err_log.push( arguments.callee.caller + " : input item, with index "+_a+", is not of complex type" );
-                return 0 ;
+                return NO ;
              }
           }
-          return 1 ;
+          return YES ;
        }
        else
        {
           this.err_log.push( arguments.callee.caller + " : undetermined error" );
-          return 0 ;
+          return NO ;
        }
     }
     else
     {
        this.err_log.push( arguments.callee.caller + " : input is not of array type" );
-       return 0 ;
+       return NO ;
     }
 }
 
@@ -1082,7 +1082,7 @@ complex_matrix.prototype.add_scalar = function( _val, _overwrite )
     if ( _overwrite )
     {
         for( var _i = 0 ; _i < this.grid.length ; _i++ ) this.grid[_i] = this.grid[_i].add( _val );
-        return 1 ;
+        return YES ;
     }
     else
     {
@@ -1106,7 +1106,7 @@ complex_matrix.prototype.sub_scalar = function( _val, _overwrite )
     if ( _overwrite )
     {
         for( var _i = 0 ; _i < this.grid.length ; _i++ ) this.grid[_i] = this.grid[_i].sub( _val );
-        return 1 ;
+        return YES ;
     }
     else
     {
@@ -1130,7 +1130,7 @@ complex_matrix.prototype.mul_scalar = function( _val, _overwrite )
     if ( _overwrite )
     {
         for( var _i = 0 ; _i < this.grid.length ; _i++ ) this.grid[_i] = this.grid[_i].mul( _val );
-        return 1 ;
+        return YES ;
     }
     else
     {
@@ -1154,7 +1154,7 @@ complex_matrix.prototype.div_scalar = function( _val, _overwrite )
     if ( _overwrite )
     {
         for( var _i = 0 ; _i < this.grid.length ; _i++ ) this.grid[_i] = this.grid[_i].div( _val );
-        return 1 ;
+        return YES ;
     }
     else
     {
@@ -1457,7 +1457,7 @@ complex_matrix.prototype.find_period = function( _max_period_test )
     if ( _max_period_test == 0 )
     {
        this.stream_lines.push( "missing max input period test" );
-       return 0 ;
+       return NO ;
     }
     else
     {

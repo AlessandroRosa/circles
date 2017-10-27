@@ -221,9 +221,9 @@ lattice.prototype.is_equal_to = function( _l2 )
 						 
 						 return _b_ok ;
 				 }
-				 else return 0 ;
+				 else return NO ;
 		}
-		else return 0 ;
+		else return NO ;
 }
 
 lattice.prototype.is_not_equal_to = function( _l2 ) { return is_lattice( _l2 ) ? ( this.is_equal_to( _l2 ) ? 0 : 1 ) : 1 ; }
@@ -261,7 +261,7 @@ lattice.prototype.add_pt = function()
 				return _ret_n ;
 		}
 		
-		return 0 ;
+		return NO ;
 }
 
 lattice.prototype.parse_complex_from_string = function( str )

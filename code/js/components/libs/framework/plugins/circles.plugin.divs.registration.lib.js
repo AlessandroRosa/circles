@@ -10,12 +10,12 @@
 function circles_lib_set_caption_text( _div_id, _caption_text )
 {
     _caption_text = safe_string( _caption_text, "" ).trim();
-    if ( _caption_text.length == 0 ) return 0 ;
+    if ( _caption_text.length == 0 ) return NO ;
     var _caption_id = "PLUGIN"+_div_id+"CAPTION" ;
     if ( $("#"+_caption_id).get(0) != null )
     {
        $("#"+_caption_id).html( _caption_text );
-       return 1 ;
+       return YES ;
     }
     else return -1 ;
 }

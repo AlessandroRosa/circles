@@ -140,7 +140,7 @@ function circles_lib_plugin_focus( _div_id, _dispatch_msg, event )
       $( "#CIRCLESbarsSTATUSBARdiv" ).zIndex( $( "#CIRCLESbarsSTATUSBARdiv" ).zIndex() - 1 ) ;
       return is_array( _popup_obj ) ? 1 : 0 ;
     }
-    else return 0 ;
+    else return NO ;
 }
 
 function circles_lib_plugin_blur( _div_id, _dispatch_msg )

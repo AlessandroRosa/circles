@@ -37,7 +37,7 @@ Number.prototype.countDecimalDigits = function()
          var decimal_part = a[1] ;
          return a[1].length ;
     }
-    else return 0 ;        
+    else return NO ;        
 }
 
 Number.prototype.trunc = function( decimals, separator )

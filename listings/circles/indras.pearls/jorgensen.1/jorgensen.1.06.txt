@@ -19,12 +19,16 @@ config set drawentity pixel
 config set construction limitset
 plugin set embeddings jorgensen
 plugin open
-plugin send update.params a 1.91+0.05i
-plugin send update.params b 3
+plugin send update.params alpha 1.91+0.05i
+plugin send update.params beta 3
 plugin send update.params p 2
 plugin send init
 plugin close
-probability set 0.4 0.1 0.4 0.1
+gensset flush
+gensset add a b A B abAB ABab
+gensset init
+probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
 auto refresh off
 auto init off
 zoom zplane (0,0) side:4 silent 

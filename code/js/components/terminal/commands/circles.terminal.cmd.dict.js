@@ -505,7 +505,7 @@ function circles_terminal_cmd_dict()
                             else if ( _including_with ) _word_check_fn = function( _w, _substr ) { return _w.includes( _substr ) ? YES : NO ; }
                             else if ( _starting_with ) _word_check_fn = function( _w, _substr ) { return ( _w.right( _substr.length ).strcmp( _substr ) ) ? YES : NO ; }
                             else if ( _matching_with ) _word_check_fn = function( _w, _substr ) { return ( _w.strcmp( _substr ) ) ? YES : NO ; }
-                            else _word_check_fn = function( _w, _substr ) { return 1 ; }
+                            else _word_check_fn = function( _w, _substr ) { return YES ; }
                              
                             var _length = _subset.length ;
                             for( var _i = 0 ; _i < _length ; _i++ )

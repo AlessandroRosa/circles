@@ -61,7 +61,7 @@ function JSONlength( _obj, _level )
     _level = safe_int( _level, 0 );
     if ( _level == 0 )
     {
-        if ( !is_json( _obj ) ) return 0 ;
+        if ( !is_json( _obj ) ) return NO ;
     }
 
     var _cnt = 0 ;
@@ -121,7 +121,7 @@ function JSONmax_level( _obj, _level, _arr )
    if ( _level == 0 )
    {
       _arr = [0] ;
-      if ( !is_json( _obj ) ) return 0 ;
+      if ( !is_json( _obj ) ) return NO ;
    }
 
    for( var _prop in _obj )
