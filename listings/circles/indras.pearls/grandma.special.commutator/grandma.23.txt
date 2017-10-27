@@ -22,7 +22,8 @@ plugin open
 plugin send update.params a 2*cos(PI/5)
 plugin send update.params b 2*cos(PI/12)
 plugin send update.params p 2
-init maps singly
+plugin send init
+plugin close
 probability set 0.34 0.16 0.34 0.16
 auto refresh off
 auto init off

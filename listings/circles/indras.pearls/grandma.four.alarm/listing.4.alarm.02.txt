@@ -23,7 +23,8 @@ plugin send update.params a i
 plugin send update.params b i
 plugin send update.params ab i
 plugin send update.params p 1
-init maps singly
+plugin send init
+plugin close
 auto refresh off
 auto init off
 zoom zplane (0,0) side:4 silent 

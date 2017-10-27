@@ -21,7 +21,8 @@ config set construction limitset
 plugin set embeddings riley
 plugin open
 plugin send update.params rho 0.05+0.93i
-init maps singly
+plugin send init
+plugin close
 config set diskfill no
 config set diskdraw yes
 config set diskdash no

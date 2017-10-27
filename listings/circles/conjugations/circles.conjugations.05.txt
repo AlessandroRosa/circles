@@ -23,6 +23,7 @@ plugin open
 plugin send update.params a 2*cos(PI/(16-4i))
 plugin send update.params b 2*cos(PI/(16+4i))
 plugin send update.params p 2
+plugin close
 init maps schottky
 dg conjugate map:cayley init apply
 config set diskfill no

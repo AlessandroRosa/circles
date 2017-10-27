@@ -1,10 +1,3 @@
-/*
-Maskit slice - once punctured torus
-Refer to 'Indra's Pearls'
-by David Mumford, Caroline Series, David Wright
-Cambridge Press, 2002
-Generators can be found at p. 287
-*/
 new
 silent off
 echo on
@@ -21,7 +14,8 @@ config set construction limitset
 plugin set embeddings maskit.once
 plugin open
 plugin send update.params mu 1.7i-0.1
-init maps singly
+plugin send init
+plugin close
 dg conjugate map:cayley apply init
 config set diskfill no
 config set diskdraw yes

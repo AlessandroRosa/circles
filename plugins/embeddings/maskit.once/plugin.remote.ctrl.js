@@ -20,24 +20,39 @@ function CIRCLESembeddingsMASKITONCEremotectrl( _options, _return_fn, _ret_array
         var _sub = "embeddings", _base_id = "maskit.once" ;
         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
-        
-        return 1 ;
+        return YES ;
         break ;
-				case "focus":
+		case "focus":
         var _sub = "embeddings", _base_id = "maskit.once" ;
         circles_lib_plugin_focus( _div_id );
         _ret_array.push( YES, "<green>Plug-in has been focused with success</green>" ) ;
-        return 1;
+        return YES;
         break ;
-				case "move":
+		case "move":
         var _sub = "embeddings", _base_id = "maskit.once" ;
-				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
-        
-        return 1 ;
-				break ;
-				case "info.params":
+		var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+        return YES ;
+		break ;
+		case "info.params":
         _ret_array.push( YES, "<green>Param identifiers for the Earle plugin: 'mu'</green>" ) ;
-				break ;
+        return YES ;
+		break ;
+		case "init":
+        CIRCLESembeddingsMASKITONCE_INIT(NO,YES);
+		CIRCLESembeddingsMASKITONCE_COMP();
+		GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
+		CIRCLESembeddingsMASKITONCE_CONFIG(); GLOB_PLUGIN_WIZARD_STEP(1.1,YES); GLOB_PLUGIN_GENS_SHOW(YES);
+	    CIRCLESembeddingsMASKITONCE_RECORD_PARAMS();
+        GLOB_PLUGIN_WIZARD_STEP(2.1);
+		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
+        _ret_array.push( YES, "<green>Group has been init with success</green>" ) ;
+		return YES ;
+		break ;
+		case "render":
+		GLOB_PLUGIN_WIZARD_STEP(2.1,null,null,W_PLANE,YES);
+        _ret_array.push( YES, "<green>Rendering has been started up</green>" ) ;
+		return YES ;
+		break ;
 				case "update.params":
 				var _switch_to = 0, _param_id = "" ;
 				for( var _i = 1 ; _i < _options.length ; _i++ )
@@ -50,7 +65,7 @@ function CIRCLESembeddingsMASKITONCEremotectrl( _options, _return_fn, _ret_array
 						switch( _switch_to )
 						{
 							case 1:
-							CIRCLESembeddingsMASKITONCE_mu = _options[1] ;
+							CIRCLESembeddingsMASKITONCE_mu = _options[_i] ;
 							$("#PLUGIN_PARAM_MU").val( CIRCLESembeddingsMASKITONCE_mu );
 							break ;
 							default:
@@ -61,7 +76,7 @@ function CIRCLESembeddingsMASKITONCEremotectrl( _options, _return_fn, _ret_array
 					}
 				}
 				_ret_array.push( YES, "<green>Params have been updated with success</green>" ) ;
-				return 1 ;
+				return YES ;
 				break ;
 				default:
         _ret_array.push( NO, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;

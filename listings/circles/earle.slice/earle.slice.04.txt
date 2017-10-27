@@ -20,7 +20,8 @@ config set construction limitset
 plugin set embeddings earle
 plugin open
 plugin send update.params d 0.5+0.55i
-init maps singly
+plugin send init
+plugin close
 config set diskfill no
 config set diskdraw yes
 config set diskdash no

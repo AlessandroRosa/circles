@@ -20,24 +20,41 @@ function CIRCLESembeddingsGRANDMA4ALARMremotectrl( _options, _return_fn, _ret_ar
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "embeddings", _base_id = "grandma.4.alarm" ;
         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
-        
-        return 1 ;
+        return YES ;
         break ;
-				case "focus":
+		case "focus":
         var _sub = "embeddings", _base_id = "grandma.4.alarm" ;
         circles_lib_plugin_focus( _div_id );
         _ret_array.push( YES, "<green>Plug-in has been focused with success</green>" ) ;
-        return 1;
+        return YES;
         break ;
-				case "move":
-        var _sub = "embeddings", _base_id = "grandma.4.alarm" ;
-				var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
-        return 1 ;
-        _ret_array.push( YES, "<green>Plug-in has been moved with success</green>" ) ;
-				break ;
-				case "info.params":
+		case "info.params":
         _ret_array.push( YES, "<green>Param identifiers for the Earle plugin: 'a', 'b', 'c'</green> and 'p' for the solutions selector" ) ;
-				break ;
+		return YES ;
+		break ;
+		case "init":
+		CIRCLESembeddingsGRANDMA4ALARM_INIT(NO,YES);
+		CIRCLESembeddingsGRANDMA4ALARM_COMP(0);
+        GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
+        CIRCLESembeddingsGRANDMA4ALARM_CONFIG(); GLOB_PLUGIN_WIZARD_STEP(1.1,YES); GLOB_PLUGIN_GENS_SHOW(YES);
+		CIRCLESembeddingsGRANDMA4ALARM_RECORD_PARAMS();
+        GLOB_PLUGIN_WIZARD_STEP(2.1);
+        GLOB_PLUGIN_GENS_SHOW(YES);
+		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
+        _ret_array.push( YES, "<green>Group has been init with success</green>" ) ;
+		return YES ;
+		break ;
+		case "move":
+        var _sub = "embeddings", _base_id = "grandma.4.alarm" ;
+		var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
+        return YES ;
+        _ret_array.push( YES, "<green>Plug-in has been moved with success</green>" ) ;
+		break ;
+		case "render":
+		GLOB_PLUGIN_WIZARD_STEP(2.1,null,null,W_PLANE,YES);
+        _ret_array.push( YES, "<green>Rendering has been started up</green>" ) ;
+		return YES ;
+		break ;
 				case "update.params":
 				var _switch_to = 0, _param_id = "" ;
 				for( var _i = 1 ; _i < _options.length ; _i++ )
@@ -75,7 +92,7 @@ function CIRCLESembeddingsGRANDMA4ALARMremotectrl( _options, _return_fn, _ret_ar
 					}
 				}
 				_ret_array.push( YES, "<green>Params have been updated with success</green>" ) ;
-				return 1 ;
+				return YES ;
 				break ;
 				default:
         _ret_array.push( NO, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;

@@ -60,7 +60,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          var _sub = "embeddings", _base_id = "general.purpose" ;
          circles_lib_plugin_focus( _div_id );
          _ret_array.push( YES, "<green>Plug-in has been focused with success</green>" ) ;
-         return 1;
+         return YES;
          break ;
   		 case "full.group":
   		 var _ret = CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);
@@ -69,17 +69,33 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
   		 break ;
 		 case "generate.group":
 		 var _ret = CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO,_output_channel);
-		 console.log( _ret );
 		 _out_msg = _ret ? "<green>Group has been generated with success</green>" : "<red>Fail to perform the group generation</red>" ;
 	     _ret_array.push( _ret, _out_msg ) ;
          return _ret ;
   		 break ;
+		 case "init":
+		 var _ret = CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO,_output_channel);
+		 if ( _ret )
+		 {
+			 CIRCLESembeddingsGENERALPURPOSE_CONFIG();
+			 GLOB_PLUGIN_WIZARD_STEP(1.1,YES);
+			 CIRCLESembeddingsGENERALPURPOSE_RECORD_PARAMS();
+		 }
+		 _out_msg = _ret ? "<green>Group has been generated with success</green>" : "<red>Fail to perform the group generation</red>" ;
+         _ret_array.push( YES, _out_msg ) ;
+		 return _ret ;
+		 break ;
   		 case "move":
          var _sub = "embeddings", _base_id = "general.purpose" ;
   		 var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toUpperCase() : "TOP" );
          _ret_array.push( YES, "<green>Plug-in has been moved with success</green>" ) ;
          return _ret ;
   		 break ;
+		 case "render":
+		 GLOB_PLUGIN_WIZARD_STEP(2.1,null,null,W_PLANE,YES);
+        _ret_array.push( YES, "<green>Rendering has been started up</green>" ) ;
+		 return YES ;
+		 break ;
   		 case "tab":
 		 var _found = 0 ;
 		 var _tab_name = _options[1].toLowerCase().trim() ;

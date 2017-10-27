@@ -51,14 +51,22 @@
 <lightblue>dg conjugate class:Mobius map:1,2,0,1 %service%</lightblue>
 <cadetblue>formulas can be input through a chain of params separated by comma (here, conjugating map is 'z+2')</cadetblue>
 
-<lightblue>dg conjugate class:Mobius map:1,$a,0,1 $a:2 %service%</lightblue>
+<lightblue>dg conjugate class:Mobius map:1,$a,0,1 $a:2 %service#1% %service#1%</lightblue>
 <cadetblue>parametrized version of the previous example</cadetblue>
-<lightblue>%service%</lightblue> <snow>apply | rec</snow>
+<lightblue>list of values for param %service%</lightblue>
+<orange>params can be appended</orange>
 <lightblue>apply</lightblue> <snow>set the conjugated group as the current one</snow>
 <lightblue>init</lightblue> <snow>initialize the new group</snow>
 <lightblue>rec</lightblue> <snow>save the conjugated group into dg archive</snow>
 <lightblue>refresh</lightblue> <snow>draw the Z-plane again</snow>
 <lightblue>render</lightblue> <snow>render the W-plane again</snow>
+
+<yellow>Example</yellow> <lightgray>dg conjugate map:D1toH apply init</lightgray>
+<cadetblue>Conjugate the registered Mobius maps through the default map 'D1toH' and</cadetblue>
+<cadetblue>initialize the current group for further rendering</cadetblue>
+
+<lightblue>dg defaultmaps</lightblue>
+<cadetblue>display the list of default maps to conjugate</cadetblue> <white>via 'conjugate' param and 'map' attribute</white>
 
 <lightblue>dg release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>

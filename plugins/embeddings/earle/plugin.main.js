@@ -21,6 +21,40 @@ function CIRCLESembeddingsEARLE_PARAMS_FILL()
     }
 }
 
+function CIRCLESembeddingsEARLE_EVENTS( ctrl_id, event )
+{
+	  if ( event.stopPropagation )      event.stopPropagation();
+	  if ( event.cancelBubble != null ) event.cancelBubble = true;
+
+		switch( event.keyCode )
+		{
+			 case 13: // return
+			 if ( ctrl_id == "PLUGIN_PARAM_D" )
+			 {
+ 					 if ( _plugin_step_index == 0 )
+           {
+              CIRCLESembeddingsEARLE_INIT(NO,YES);
+    				  CIRCLESembeddingsEARLE_COMP();
+           }
+           if ( _plugin_step_index == 0 ) GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
+           else if ( _plugin_step_index == 0.1 ) { CIRCLESembeddingsEARLE_CONFIG(); GLOB_PLUGIN_WIZARD_STEP(1.1,YES); GLOB_PLUGIN_GENS_SHOW(YES); }
+           else if ( _plugin_step_index.is_one_of( 1.1, 2.1 ) )
+           {
+              if ( _plugin_step_index == 1.1 ) CIRCLESembeddingsEARLE_RECORD_PARAMS();
+              GLOB_PLUGIN_WIZARD_STEP(2.1);
+              GLOB_PLUGIN_GENS_SHOW(YES);
+							circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
+           }
+			 }
+			 break ;
+       default:
+       if ( _plugin_step_index.is_one_of( UNDET, 2.1 ) ) GLOB_PLUGIN_WIZARD_STEP(0,NO);
+       _plugin_step_index = 0 ;
+       GLOB_PLUGIN_WIZARD_STEP(0,NO);
+       break ;
+		}
+}
+
 function CIRCLESembeddingsEARLE_CONFIG( _base_id )
 {
     _plugin_main_ref = safe_string( _base_id + "", _plugin_main_ref ) ;

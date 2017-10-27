@@ -247,7 +247,7 @@ String.prototype.flipCase = function()
 //pads from left to right
 String.prototype.lpad = function(padString, length)
 {
-		var str = this;
+	var str = this;
     while (str.length < length) str = padString + str;
     return str ;
 }
@@ -255,7 +255,8 @@ String.prototype.lpad = function(padString, length)
 //pads from right to left
 String.prototype.rpad = function(padString, length)
 {
-		var str = this;
+	var str = this;
+	console.log( "IN" );
    	while (str.length < length) str += padString;
     return str ;
 }

@@ -46,7 +46,7 @@ function circles_terminal_cmd_dg()
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "call", "clean", "conjugate", "delete", "init", "help", "html",
+    				 _local_cmds_params_array.push( "call", "clean", "conjugate", "delete", "defaultmaps", "init", "help", "html",
                                             "inversion", "isometric", "release",
                                             "list", "rec", "refresh", "render",
                                             "save", "short", "show", "subgroup", "wplane", "zplane" );
@@ -61,40 +61,40 @@ function circles_terminal_cmd_dg()
              else if ( _p.stricmp( "short" ) ) _params_assoc_array['short'] = YES ;
              else if ( _p.toLowerCase().start_with( "roundto:" ) )
              {
-                   _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
-                   if ( _p <= 0 )
-                   {
-                       _p = _glob_accuracy ;
-                       circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
-                   }
-                   else if ( _p > DEFAULT_MAX_ACCURACY )
-                   {
-                       _p = _glob_accuracy ;
-                       circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
-                   }
+                _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
+                if ( _p <= 0 )
+                {
+                    _p = _glob_accuracy ;
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                }
+                else if ( _p > DEFAULT_MAX_ACCURACY )
+                {
+                    _p = _glob_accuracy ;
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                }
                    
-                   _params_assoc_array['roundto'] = _p ;
+                _params_assoc_array['roundto'] = _p ;
              }
              else if ( _p.stricmp( "isometric" ) )
              {
-                  _glob_drawentity = _params_assoc_array['drawentity'] = DRAWENTITY_ISOMETRIC_CIRCLE ;
-                  circles_lib_output( _output_channel, DISPATCH_INFO, "Items will be associated to isometric circles", _par_1, _cmd_tag );
+                _glob_drawentity = _params_assoc_array['drawentity'] = DRAWENTITY_ISOMETRIC_CIRCLE ;
+                circles_lib_output( _output_channel, DISPATCH_INFO, "Items will be associated to isometric circles", _par_1, _cmd_tag );
              }
              else if ( _p.stricmp( "inversion" ) )
              {
-                  _glob_drawentity = _params_assoc_array['drawentity'] = DRAWENTITY_INVERSION_CIRCLE ;
-                  circles_lib_output( _output_channel, DISPATCH_INFO, "Items will be associated to inversion circles", _par_1, _cmd_tag );
+                _glob_drawentity = _params_assoc_array['drawentity'] = DRAWENTITY_INVERSION_CIRCLE ;
+                circles_lib_output( _output_channel, DISPATCH_INFO, "Items will be associated to inversion circles", _par_1, _cmd_tag );
              }
              else if ( _p.is_one_of_i( "zplane", "wplane" ) )
              {
-                  if ( _p.stricmp( zplane ) ) _params_assoc_array['plane'] = Z_PLANE ;
-                  else if ( _p.stricmp( wplane ) ) _params_assoc_array['plane'] = W_PLANE ;
-                  _begin_flag = 0 ;
+                if ( _p.stricmp( zplane ) ) _params_assoc_array['plane'] = Z_PLANE ;
+                else if ( _p.stricmp( wplane ) ) _params_assoc_array['plane'] = W_PLANE ;
+                _begin_flag = 0 ;
              }
-             else if ( _p.is_one_of_i( "call", "clean", "conjugate", "delete", "list", "release", "save", "subgroup" ) )
+             else if ( _p.is_one_of_i( "call", "clean", "conjugate", "delete", "defaultmaps", "list", "release", "save", "subgroup" ) )
              {
-                  _params_assoc_array['action'] = _p.toLowerCase();
-                  _begin_flag = 0 ;
+                _params_assoc_array['action'] = _p.toLowerCase();
+                _begin_flag = 0 ;
              }
              else if ( _p.testME( _glob_positive_integer_regex_pattern ) )
              {
@@ -115,8 +115,7 @@ function circles_terminal_cmd_dg()
              }
              else if ( _params_assoc_array['action'].stricmp( "subgroup" ) &&
                        ( _p.is_one_of_i( "info", "init", "rec", "refresh", "render", "show" ) ||
-                         _p.testME( _glob_word_regex_pattern ) || circles_lib_repetends_check_syntax( null, _p )
-                       ) )
+                         _p.testME( _glob_word_regex_pattern ) || circles_lib_repetends_check_syntax( null, _p ) ) )
              {
                    _begin_flag = 0 ;
                    if ( _p.is_one_of_i( "init", "info", "rec", "refresh", "render", "show" ) ) _params_assoc_array['service'].push( _p.toLowerCase() );
@@ -237,13 +236,13 @@ function circles_terminal_cmd_dg()
                         else circles_lib_output( _output_channel, DISPATCH_ERROR, "Memory error: can't call input group" + ( _glob_crlf + _error_append ) , _par_1, _cmd_tag );
                     }
 
-						     		var _params_array = [] ;
-								     	  _params_array['prepromptquestion'] = "This operation overwrites the current config definitely," ;
-								      	_params_array['prepromptquestion'] += _glob_crlf + "so that previous maps will be unrecoverable" ;
-						     		 		_params_array['promptquestion'] = "Confirm to call the group #"+_index+" in ?" ;
-						     		 		_params_array['yes_fn'] = function() { _call_group(); }
-						     		 		_params_array['ifquestiondisabled_fn'] = function() { _call_group(); }
-					     		  circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+					var _params_array = [] ;
+					_params_array['prepromptquestion'] = "This operation overwrites the current config definitely," ;
+					_params_array['prepromptquestion'] += _glob_crlf + "so that previous maps will be unrecoverable" ;
+					_params_array['promptquestion'] = "Confirm to call the group #"+_index+" in ?" ;
+					_params_array['yes_fn'] = function() { _call_group(); }
+					_params_array['ifquestiondisabled_fn'] = function() { _call_group(); }
+					circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
                 case "clean":
@@ -251,12 +250,12 @@ function circles_terminal_cmd_dg()
                 if ( _len == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "The groups list is already empty", _par_1, _cmd_tag );
                 else
                 {
-						     		var _params_array = [] ;
-								     	  _params_array['prepromptquestion'] = "Cleaning is irreversible and the whole groups table will be unrecoverable" ;
-						     		 		_params_array['promptquestion'] = "Confirm to clean the whole groups list ?" ;
-						     		 		_params_array['yes_fn'] = function() { _glob_groups_table.flush(); }
-						     		 		_params_array['ifquestiondisabled_fn'] = function() { _glob_groups_table.flush(); }
-					     		  circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+		     		var _params_array = [] ;
+						_params_array['prepromptquestion'] = "Cleaning is irreversible and the whole groups table will be unrecoverable" ;
+						_params_array['promptquestion'] = "Confirm to clean the whole groups list ?" ;
+						_params_array['yes_fn'] = function() { _glob_groups_table.flush(); }
+						_params_array['ifquestiondisabled_fn'] = function() { _glob_groups_table.flush(); }
+					circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
                 case "conjugate":
@@ -283,8 +282,7 @@ function circles_terminal_cmd_dg()
                 else
                 {
                     circles_lib_output( _output_channel, DISPATCH_INFO, "Counting input maps: " + _maps_n, _par_1, _cmd_tag );
-                    $.each( _maps_ref,
-                            function( _i, _map_tag )
+                    $.each( _maps_ref, function( _i, _map_tag )
                             {
                                 circles_lib_output( _output_channel, DISPATCH_INFO, "Candidate map #"+(_i+1)+" definition : '"+_map_tag+"'", _par_1, _cmd_tag );
                                 var _chunk = clone( _glob_maps[ _map_tag ] );
@@ -324,6 +322,19 @@ function circles_terminal_cmd_dg()
                                 } );
                     }
                 }
+                break ;
+                case "defaultmaps":
+				var _keys = _glob_maps.keys_associative();
+					_keys.sort(function (a, b) {return a.toLowerCase().localeCompare(b.toLowerCase());});
+				var _desc = "" ;
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>This is the list of default transformations</lightblue>", _par_1, _cmd_tag );
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Refer to 'conjugate' action in the dg help file</lightblue>", _par_1, _cmd_tag );
+				_keys.forEach( function( _key )
+				{
+					_desc =  _glob_maps[_key][6] ;
+					_key = _key.rpad( " ", 16 ) ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<white>"+_key+"</white> <yellow>"+_desc+"</yellow>", _par_1, _cmd_tag );
+				} );
                 break ;
                 case "delete":
                 var _index = safe_int( _params_assoc_array['index'], UNDET );

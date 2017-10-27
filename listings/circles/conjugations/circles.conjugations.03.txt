@@ -1,10 +1,3 @@
-/*
-Jorgensen's recipe #1
-Refer to 'Indra's Pearls'
-by David Mumford, Caroline Series, David Wright
-Cambridge Press, 2002
-Generators can be found at p. 256
-*/
 new
 silent off
 echo on
@@ -24,6 +17,7 @@ plugin send update.params alpha 1.87+0.1i
 plugin send update.params beta 1.87-0.1i
 plugin send update.params p 2
 plugin send init
+plugin close
 dg conjugate map:cayley apply
 config set diskfill no
 config set diskdraw yes
@@ -41,6 +35,6 @@ fp add -0.00000003160768011163-1.0000000349440976i abAB
 auto refresh off
 auto init off
 zoom zplane (0,0) side:5 silent
-zoom wplane (0,1.5) side:6 silent
+zoom wplane (-1,-0.4) side:6 silent
 refresh zplane silent clean
 refresh wplane silent clean

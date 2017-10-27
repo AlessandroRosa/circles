@@ -21,7 +21,8 @@ config set construction limitset
 plugin set embeddings mirror.quasifuchsian
 plugin open
 plugin send update.params tau 2.8
-init maps singly
+plugin send init
+plugin close
 config set diskfill no
 config set diskdraw yes
 config set diskdash no

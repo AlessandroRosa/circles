@@ -22,6 +22,7 @@ plugin open
 plugin send update.params a 1.87+0.1i
 plugin send update.params b 1.87+0.1i
 plugin send update.params p 2
+plugin close
 init maps singly
 probability set 0.32 0.18 0.32 0.18
 auto refresh off

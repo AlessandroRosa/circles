@@ -20,7 +20,8 @@ config set construction limitset
 plugin set embeddings maskit.once
 plugin open
 plugin send update.params mu 0.136998688+1.80785524i
-init maps singly
+plugin send init
+plugin close
 auto refresh off
 auto init off
 zoom zplane (0,0) side:4 silent 

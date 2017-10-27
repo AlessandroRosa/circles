@@ -168,12 +168,11 @@ function GLOB_PLUGIN_VARS_PATTERN_RESTORE( _plugin_ref )
     return YES ;
 }
 
-function GLOB_PLUGIN_WIZARD_STEP( _step_index, _init_items, _clean, _target_plane )
+function GLOB_PLUGIN_WIZARD_STEP( _step_index, _init_items, _clean, _target_plane, _silent )
 {
-		_step_index = safe_float( _step_index, UNDET ), _init_items = safe_int( _init_items, _glob_items_to_init ), _clean = safe_int( _clean, YES );
-    _plugin_step_index = _step_index ;
-    _target_plane = safe_int( _target_plane, _glob_target_plane );
-    
+	_step_index = safe_float( _step_index, UNDET ), _init_items = safe_int( _init_items, _glob_items_to_init ), _clean = safe_int( _clean, YES );
+    _plugin_step_index = _step_index, _target_plane = safe_int( _target_plane, _glob_target_plane );
+	_silent = safe_int( _silent, NO );
     $('#PLUGINsetBTN').css('color',_step_index==0?COLOR_ERROR : DEFAULT_COLOR_STD);
     $('[id$=initBTN]').css('color',_step_index==0.1?COLOR_ERROR : DEFAULT_COLOR_STD);
     $('[id$=renderBTN]').css('color',_step_index==1.1?COLOR_ERROR : DEFAULT_COLOR_STD);
@@ -202,7 +201,7 @@ function GLOB_PLUGIN_WIZARD_STEP( _step_index, _init_items, _clean, _target_plan
     {
       GLOB_PLUGIN_GENS_SHOW(YES);
       _glob_dict_create = _glob_process == PROCESS_RANDOM ? NO : YES ;
-      var _ret_chunk_ask = circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_target_plane,YES,_clean,_init_items);
+      var _ret_chunk_ask = circles_lib_canvas_process_ask(!_silent,_silent,_glob_bip_use?BIP_BOX:_target_plane,YES,_clean,_init_items);
       var _ret_id = _ret_chunk_ask != null ? safe_int( _ret_chunk_ask[0], 0 ) : 0 ;
       var _ret_msg = _ret_chunk_ask != null ? _ret_chunk_ask[1] : _ERR_00_00 ;
       return [ RET_OK, _ret_id == 0 ? _ret_msg : "Step " + _step_index + " performed with success" ] ;

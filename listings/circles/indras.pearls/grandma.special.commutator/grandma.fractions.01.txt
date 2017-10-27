@@ -23,7 +23,8 @@ plugin open
 plugin send update.params a 2/3
 plugin send update.params b 3
 plugin send update.params p 1
-init maps singly
+plugin send init
+plugin close
 config set diskfill no
 config set diskdraw yes
 config set diskdash no
