@@ -11,7 +11,7 @@ grid wplane show
 plane zplane
 grid ticks 16
 config set accuracy 12
-config set depth 18
+config set depth 20
 palette off
 method algebraic random
 config set drawentity pixel
@@ -22,12 +22,12 @@ plugin send type a 1
 plugin send type b 1
 plugin send type c 0
 plugin send type d 1
-plugin send add.mobius.map
+plugin send addmap
 plugin send type a 1
 plugin send type b 0
 plugin send type c 1+i
 plugin send type d 1
-plugin send add.mobius.map
+plugin send addmap
 plugin send generate.group
 plugin close
 init maps singly

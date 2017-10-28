@@ -1,0 +1,37 @@
+/*
+Grandma's special parabolic commutators
+Refer to 'Indra's Pearls'
+by David Mumford, Caroline Series, David Wright
+Cambridge Press, 2002
+Generators can be found at p. 229
+*/
+new
+silent off
+echo on
+grid zplane show
+grid wplane show
+grid 12
+config set accuracy 12
+config set depth 20
+palette off
+method algebraic random
+config set drawentity pixel
+config set construction limitset
+plugin set embeddings grandma.parabolic
+plugin open
+plugin send update.params a 1.92+0.3i
+plugin send update.params b 1.88-0.4i
+plugin send update.params p 1
+plugin send init
+plugin close
+gensset flush
+gensset add a b A B abAB ABab
+gensset init
+probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
+auto refresh off
+auto init off
+zoom zplane (0,0) side:4 silent 
+zoom wplane (0,0) side:4.5 silent 
+refresh zplane silent clean
+refresh wplane silent clean

@@ -20,6 +20,6 @@ disk add E center:0,0 radius:0.55
 init disks singly
 all draw on
 zoom zplane (0,0) side:2 silent 
-zoom wplane (0,0) side:2 silent 
+zoom wplane (0,0) side:4 silent 
 refresh zplane silent clean
 refresh wplane silent clean

@@ -10,7 +10,7 @@ grid wplane show
 plane wplane
 grid ticks 16
 config set accuracy 12
-config set depth 18
+config set depth 20
 palette on
 palette create start:rgb(255,0,0) end:rgb(255,255,0) steps:10
 method algebraic random
@@ -22,22 +22,22 @@ plugin send type a -1
 plugin send type b -2-2i
 plugin send type c 2
 plugin send type d 3+4i
-plugin send add.mobius.map
+plugin send addmap
 plugin send type a 1
 plugin send type b -2i
 plugin send type c 0
 plugin send type d 1
-plugin send add.mobius.map
+plugin send addmap
 plugin send type a 3+2i
 plugin send type b 4i
 plugin send type c -2
 plugin send type d -1-2i
-plugin send add.mobius.map
+plugin send addmap
 plugin send type a -1-2i
 plugin send type b 2-4i
 plugin send type c 2+2i
 plugin send type d -1+6i
-plugin send add.mobius.map
+plugin send addmap
 plugin send generate.group
 plugin close
 init maps singly

@@ -91,7 +91,7 @@ function CIRCLESembeddingsGRANDMA4ALARMremotectrl( _options, _return_fn, _ret_ar
 				}
 			}
 		}
-		_out_msg = _p_sum == _param_ids ? "<green>Params have been updated with success</green>" : "<orange>Not all params have been set up. Allowed ids for this plug-in are: "+_param_ids.join(", ")+"</orange>" ;
+		_out_msg = _p_sum != 0 ? "<green>Params have been updated with success</green>" : "<orange>Not all params have been set up. Allowed ids for this plug-in are: "+_param_ids.join(", ")+"</orange>" ;
 		_ret_array.push( YES, _out_msg ) ;
 		return YES ;
 		break ;

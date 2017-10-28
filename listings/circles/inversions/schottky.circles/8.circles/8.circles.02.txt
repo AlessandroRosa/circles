@@ -30,6 +30,6 @@ init disks schottky
 auto refresh off
 auto init off
 zoom zplane (0,0) side:3 silent 
-zoom wplane (0,0) side:2 silent 
+zoom wplane (0,0) side:4 silent 
 refresh zplane silent clean
 refresh wplane silent clean

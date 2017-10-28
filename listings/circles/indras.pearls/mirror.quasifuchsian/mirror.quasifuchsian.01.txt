@@ -28,7 +28,7 @@ config set diskdraw yes
 config set diskdash no
 auto refresh off
 auto init off
-zoom zplane (0,0) side:23.90547868939376 silent norender
-zoom wplane (0,0) side:6.75 silent norender
+zoom zplane (0,0) side:23.90547868939376 silent
+zoom wplane (0,0) side:6.75 silent
 refresh zplane silent clean
 refresh wplane silent clean

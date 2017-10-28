@@ -21,12 +21,12 @@ plugin send type a (1-i)/sqrt(2)
 plugin send type b 0
 plugin send type c 0
 plugin send type d (1+i)/sqrt(2)
-plugin send add.mobius.map
+plugin send addmap
 plugin send type a (1-i)/2
 plugin send type b (1-i)/2
 plugin send type c (-1-i)/2
 plugin send type d (1+i)/2
-plugin send add.mobius.map
+plugin send addmap
 plugin send generate.group
 plugin close
 init maps singly

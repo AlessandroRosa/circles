@@ -25,12 +25,12 @@ plugin send type a sqrt(2)*e^(_z/2)
 plugin send type b (1+sqrt(2))*e^(_z/2)
 plugin send type c (-1+sqrt(2))*e^(-_z/2)
 plugin send type d sqrt(2)*e^(-_z/2)
-plugin send add.mobius.map
+plugin send addmap
 plugin send type a sqrt(2)-1
 plugin send type b 0
 plugin send type c 0
 plugin send type d sqrt(2)+1
-plugin send add.mobius.map
+plugin send addmap
 plugin send var.add _z 2i
 plugin send generate.group
 plugin close

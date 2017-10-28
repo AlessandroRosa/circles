@@ -15,7 +15,7 @@ grid source show
 grid image show
 grid 12
 config set accuracy 12
-config set depth 15
+config set depth 20
 palette off
 method limitset random
 config set drawentity pixel
@@ -32,7 +32,7 @@ probability set 0.25 0.27 0.20999999999999996 0.27 built-in
 init maps singly
 auto refresh off
 auto init off
-zoom source (0,0) side:4 silent norender
-zoom image (0,0) side:4 silent norender
+zoom source (0,0) side:4 silent
+zoom image (0,0) side:4 silent
 refresh source silent clean
 refresh image silent clean
