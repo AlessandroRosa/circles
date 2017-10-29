@@ -38,6 +38,6 @@ fp add 20648881.032544333+30973321.72189343i abAB
 auto refresh off
 auto init off
 zoom zplane (0,0) side:5 silent
-zoom wplane (0,0) side:2 silent
+zoom wplane (0,0) side:3 silent
 refresh zplane silent clean
 refresh wplane silent clean

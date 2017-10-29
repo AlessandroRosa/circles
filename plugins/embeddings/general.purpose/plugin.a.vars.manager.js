@@ -41,7 +41,6 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD( _output_channe
 {
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN ), _dispatch_mode = safe_int( _dispatch_mode, DISPATCH_INFO );
 	var _keys = _plugin_rec_var_vals.keys_associative(), _n_keys = safe_size( _keys, 0 ), _html_code = "" ;
-	console.log( _n_keys );
     if ( _n_keys > 0 )
     {
         _html_code += "<table>" ;

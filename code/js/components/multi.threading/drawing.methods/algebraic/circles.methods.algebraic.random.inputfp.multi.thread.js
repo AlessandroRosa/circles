@@ -41,7 +41,6 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
 		 _glob_multithread_running = YES ;
 		 for( var _i = 0 ; _i < _items_n ; _i++ ) probability_distribution_array.push(0);
 
-		 console.log( "RND PROBS", _glob_multithread_rnd_probability_array );
          var _min_prob = 1, _rnd_val ;
          for( var _p = 0 ; _p < _glob_multithread_rnd_probability_array.length ; _p++ )
          _min_prob = Math.min( _glob_multithread_rnd_probability_array[_p], _min_prob );
@@ -73,8 +72,6 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
 		 }
 				 
          var _i_len = _input_fixed_pts.length, _p, _wm, _r = 0 ;
-		 console.log( "ITEMS", _items_array );
-		 console.log( "LUT", LUTarray );
          for( _p = 0 ; _p < _i_len ; _p++ )
          {
               INDEX = 0, _fp = _input_fixed_pts[_p] ;
@@ -123,7 +120,6 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
                   probability_distribution_array[INDEX]++ ;
       			  if ( _current_region.is_pt_inside( _fp.real, _fp.imag ) )
       			  {
-					  if ( _items_array[INDEX] == null ) console.log( "I:", INDEX );
 		 			pts_array.push( new point( _fp.real, _fp.imag,
 									_POINT_2D_CLS_EUCLIDEAN_ENV,
 		 						 	_items_array[INDEX].complex_circle.drawcolor,

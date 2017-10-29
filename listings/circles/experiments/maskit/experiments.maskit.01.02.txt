@@ -17,7 +17,6 @@ Use plug-in "General Purpose" to input the three generators
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 grid 12
@@ -27,20 +26,24 @@ palette off
 method algebraic random
 config set drawentity pixel
 config set construction limitset
-mobius add A a:(0.5,-0.8660254037844386) b:(0,0) c:(0,0) d:(0.5,0.8660254037844387)
-mobius update A a #61df61
-mobius add a a:(0.5,0.8660254037844387) b:(0,0) c:(0,0) d:(0.5,-0.8660254037844386)
-mobius update a A #61df61
+mobius add A a:(0.5,-0.866025) b:(0,0) c:(0,0) d:(0.5,0.866025)
+mobius update A a drawcolor:#61df61
+mobius add a a:(0.5,0.866025) b:(0,0) c:(0,0) d:(0.5,-0.866025)
+mobius update a A drawcolor:#61df61
 mobius add B a:(2,0) b:(-1,0) c:(1,0) d:(0,0)
-mobius update B b #61df61
+mobius update B b drawcolor:#61df61
 mobius add b a:(0,0) b:(1,0) c:(-1,0) d:(2,0)
-mobius update b B #61df61
-mobius add C a:(-0.5,0.8660254037844386) b:(1,-1.7320508075688772) c:(0,0) d:(0.5,-0.8660254037844386)
-mobius update C c #61df61
-mobius add c a:(0.5,-0.8660254037844386) b:(-1,1.7320508075688772) c:(0,0) d:(-0.5,0.8660254037844386)
-mobius update c C #61df61
+mobius update b B drawcolor:#61df61
+mobius add C a:(-0.5,0.866025) b:(1,-1.732051) c:(0,0) d:(0.5,-0.866025)
+mobius update C c drawcolor:#61df61
+mobius add c a:(0.5,-0.866025) b:(-1,1.732051) c:(0,0) d:(-0.5,0.866025)
+mobius update c C drawcolor:#61df61
 init maps singly
-probability set 0.14 0.19334000000000007 0.14 0.19333999999999996 0.14 0.19331999999999994 built-in
+gensset flush
+gensset add A B C a b c
+gensset init
+probability set 0.14 A 0.19334 B 0.14 C 0.19334 a 0.14 b 0.19332 c built-in
+probability repsthreshold:0.85 repsdepth:15
 auto refresh off
 auto init off
 zoom zplane (0,0) side:4 silent 

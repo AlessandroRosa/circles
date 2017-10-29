@@ -39,7 +39,7 @@ function circles_terminal_cmd_mobius()
          _params_assoc_array['extras'] = [] ;
          _params_assoc_array['fill'] = UNDET ;
          _params_assoc_array['fillcolor'] = null ;
-				 _params_assoc_array['generator'] = NO ;
+		 _params_assoc_array['generator'] = NO ;
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
@@ -65,10 +65,10 @@ function circles_terminal_cmd_mobius()
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "fill", "nofill", "draw", "nodraw", "on", "off", "disabled" );
-    				 _local_cmds_params_array.push( "add", "check", "class", "copy", "delete", "generators", "notes", "find", "fixedpoints", "list",
-						 																"generator", "group", "plot", "select", "seeds", "update", "help", "html", "colorize", "decolorize" );
+    	 var _local_cmds_params_array = [];
+    		 _local_cmds_params_array.push( "fill", "nofill", "draw", "nodraw", "on", "off", "disabled" );
+    		 _local_cmds_params_array.push( "add", "check", "class", "copy", "delete", "generators", "notes", "find", "fixedpoints", "list",
+				 							"generator", "group", "plot", "select", "seeds", "update", "help", "html", "colorize", "decolorize" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -79,8 +79,8 @@ function circles_terminal_cmd_mobius()
 				 // gather all dump parameters into one array
          if ( _params_assoc_array['dump'] )
          {
-    				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-    				 if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
+    		for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+    		if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
          }
 				 
          var _p ;
@@ -141,24 +141,24 @@ function circles_terminal_cmd_mobius()
             }
             else if ( _p.toLowerCase().start_with( "linewidth:" ) )
             _params_assoc_array['linewidth'] = safe_int( _p.toLowerCase().replaceAll( "linewidth:", "" ), 1 );
-						else if ( _p.toLowerCase().start_with( "drawcolor:" )  )
-						{
+			else if ( _p.toLowerCase().start_with( "drawcolor:" )  )
+			{
                _p = _p.replaceAll( "drawcolor:", "" );
                if ( circles_lib_colors_is_def( _p ) )
                {
-								 _params_assoc_array['drawcolor'] = _p ;
-								 _msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-								 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				 _params_assoc_array['drawcolor'] = _p ;
+				 _msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_p+"</snow>" ;
+				 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                }
             }
-						else if ( _p.toLowerCase().start_with( "fillcolor:" )  )
-						{
+			else if ( _p.toLowerCase().start_with( "fillcolor:" )  )
+			{
                _p = _p.replaceAll( "fillcolor:", "" );
                if ( circles_lib_colors_is_def( _p ) )
                {
-								 _params_assoc_array['fillcolor'] = _p ;
-								 _msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-								 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				  _params_assoc_array['fillcolor'] = _p ;
+				  _msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_p+"</snow>" ;
+				  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                }
             }
             else if ( _p.includes_i( ":", "(", ",", ")" ) )

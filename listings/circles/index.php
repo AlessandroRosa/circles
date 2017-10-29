@@ -2,7 +2,7 @@
 <?php $PATH_TO_APP = "../../" ; ?>
 <?php $PATH_TO_IMG = $PATH_TO_APP."support/img/" ; ?>
 <?php $NOBAR = array_key_exists( "nb", $_GET ) ? intval( $_GET['nb'] ) : 0 ; ?>
-<?php $folder = $_GET['folder'] ; ?>
+<?php $folder = array_key_exists( 'folder', $_GET ) ? $_GET['folder'] : "" ; ?>
 <?php $displayW = array_key_exists( "w", $_GET ) ? intval( $_GET['w'] ) : 0 ;
       $displayH = array_key_exists( "h", $_GET ) ? intval( $_GET['h'] ) : 0 ;
       if ( is_nan( $displayW ) ) $displayW = 0 ;

@@ -23,7 +23,6 @@ plugin send update.params b 2*cos(PI/(3+1.8i))
 plugin send update.params p 1
 plugin send init
 plugin close
-// A scheme was already found and deleted for further initialization
 gensset flush
 gensset add a b A B abAB ABab
 gensset init

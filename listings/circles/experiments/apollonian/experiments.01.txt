@@ -18,13 +18,13 @@ method algebraic breadthfirst
 config set drawentity pixel
 config set construction limitset
 mobius add A a:(1,0) b:(0,0) c:(0,-0.7) d:(1,0)
-mobius update A a fill #3fbfff
+mobius update A a fill drawcolor:#3fbfff
 mobius add a a:(1,0) b:(0,0) c:(0,0.7) d:(1,0)
-mobius update a A fill #3fbfff
+mobius update a A fill drawcolor:#3fbfff
 mobius add B a:(1,0) b:(2.5,0) c:(1.1,0) d:(1,0)
-mobius update B b fill #3fbfff
+mobius update B b fill drawcolor:#3fbfff
 mobius add b a:(1,0) b:(-2.5,0) c:(-1.1,0) d:(1,0)
-mobius update b B fill #3fbfff
+mobius update b B fill drawcolor:#3fbfff
 init maps singly
 auto refresh off
 auto init off

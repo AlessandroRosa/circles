@@ -59,7 +59,6 @@ function CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, 
            var complex_circle = null, first_circle = _items_array[0].complex_circle ;
            var pts_array = [], words_array = [], circles_array = [] ;
            var _based_n_num = "", _proc_str = "", _v = 0, _abs_runner = 0 ;
-           //console.log( "BASED-N COMMUTATOR", _based_n_commutator );
            var _crash_words = [] ;
            for( var _cr1 = 0 ; _cr1 < _items_array.length ; _cr1++ )
            {
@@ -70,7 +69,7 @@ function CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, 
                  _crash_words.push( _cr1+""+_cr2 );
              }
            }
-           //console.log( "CRASH WORDS", _crash_words );
+
 function get_RL_path( _n, _digits_n, _depth )
 {
   var _rem = 0, _quot = _n, _out = "" ;
@@ -84,7 +83,6 @@ function get_RL_path( _n, _digits_n, _depth )
   }
 }
 
-//console.log( _depths_index_array );
            self.postMessage( { "id" : "append", "text" : _n_entries + " operations" } );
            for( _p = 0 ; _p < _input_fixed_pts.length ; _p++ )
            {
@@ -98,7 +96,6 @@ function get_RL_path( _n, _digits_n, _depth )
                      if ( _n == _depths_index_array[_d-1] ) _d++ ;
                      if ( _proc_str.includes_one_of( _crash_words ) ) continue ;
                      _fp = _input_fixed_pts[_p] ;
-                     //console.log( _n, "|", _d-1, "|", _proc_str );
 
                      for( _word_runner = 0 ; _word_runner < _proc_str.length ; _word_runner++ )
                      {

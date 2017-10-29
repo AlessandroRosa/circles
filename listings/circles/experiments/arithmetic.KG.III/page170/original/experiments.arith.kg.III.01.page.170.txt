@@ -17,7 +17,6 @@ tau = 2i
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 grid 12
@@ -28,19 +27,23 @@ method algebraic random
 config set drawentity pixel
 config set construction limitset
 mobius add A a:(1,0) b:(1,0) c:(0,0) d:(1,0)
-mobius update A a #61df61
+mobius update A a drawcolor:#61df61
 mobius add a a:(1,0) b:(-1,0) c:(0,0) d:(1,0)
-mobius update a A #61df61
+mobius update a A drawcolor:#61df61
 mobius add B a:(0,0) b:(-1,0) c:(1,0) d:(0,0)
-mobius update B b #61df61
+mobius update B b drawcolor:#61df61
 mobius add b a:(0,0) b:(1,0) c:(-1,0) d:(0,0)
-mobius update b B #61df61
+mobius update b B drawcolor:#61df61
 mobius add C a:(1,0) b:(0,2) c:(0,0) d:(1,0)
-mobius update C c #61df61
+mobius update C c drawcolor:#61df61
 mobius add c a:(1,0) b:(0,-2) c:(0,0) d:(1,0)
-mobius update c C #61df61
+mobius update c C drawcolor:#61df61
 init maps singly
-probability set 0.16667 0.16667 0.16667 0.16667 0.16667 0.16664999999999996 built-in
+gensset flush
+gensset add A B C a b c
+gensset init
+probability set 0.16667 a 0.16667 b 0.16667 c 0.16667 A 0.16667 B 0.16665 C built-in
+probability repsthreshold:0.85 repsdepth:15
 auto refresh off
 auto init off
 zoom zplane (0,0) side:4 silent 

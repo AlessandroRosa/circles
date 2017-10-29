@@ -19,7 +19,7 @@ function circles_terminal_cmd_probability()
      var _out_text_string = "" ;
      var _fn_ret_val = null ;
      var _params_assoc_array = [];
-     var FULL_SUM = 1.0, _alphabet = circles_lib_gens_alphabet_exists() ;
+     var FULL_SUM = 1.0, _alphabet = circles_lib_gens_alphabet_get() ;
      var _decimals = 5 ;
 
 	 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
@@ -242,10 +242,10 @@ function circles_terminal_cmd_probability()
                         if ( _pp_n == 0 )
                         {
 														 _b_fail = YES, _error_str = "The probability table is empty" ;
-												}
-												else if ( _items_n != _pp_n )
+						}
+						else if ( _items_n != _pp_n )
                         {
-														 _b_fail = YES, _error_str = "Mismatch error: the number ("+_pp_n+") of entries in the probability table is not the same as of gens ("+_items_n+")" ;
+							_b_fail = YES, _error_str = "Mismatch error: the number ("+_pp_n+") of entries in the probability table is not the same as of gens ("+_items_n+")" ;
                              if ( _glob_items_to_init ) _error_str += "\nTry to init gens again." ;
 												}
 												else
@@ -320,6 +320,9 @@ function circles_terminal_cmd_probability()
                         var _force = is_array( _params_assoc_array['settings']['options'] ) ? ( _params_assoc_array['settings']['options'].includes_i( "force" ) ? YES : NO ) : NO ;
                         var _gens_set_exists = circles_lib_gens_model_exists() ;
                         var _items_n = _gens_set_exists ? circles_lib_count_gens() : circles_lib_count_items() ;
+                        var _ks = _glob_gens_set_symbols_map_array.keys_associative() ;
+						if ( _ks == null ) _ks = [] ;
+                        var _vs = _glob_gens_set_symbols_map_array.values_associative();
 
                         if ( _params_assoc_array['settings']['warmup'] != UNDET )
                         {
@@ -368,6 +371,7 @@ function circles_terminal_cmd_probability()
 
                         var _letters_arr = _params_assoc_array['settings']['letters'] ;
                         if ( !is_array( _letters_arr ) ) _letters_arr = [] ;
+						_alphabet = _letters_arr ;
                         var _locked_letters_arr = _params_assoc_array['settings']['lockedletters'] ;
                         if ( !is_array( _locked_letters_arr ) ) _locked_letters_arr = [] ;
                         var _probabilities_array = _params_assoc_array['settings']['probs'] ;
@@ -382,11 +386,20 @@ function circles_terminal_cmd_probability()
                         var _n_probabilities = safe_size( _probabilities_array, 0 ) ;
                         var _diff = _n_letters - _n_probabilities ;
                         var _min = Math.min( _n_letters, _n_probabilities ) ;
-						console.log( "LOCK", _n_locked, "LETTERS", _n_letters, "ALPHABET", _n_alphabet );
-                        if ( _n_intersection > 0 )
+						
+						if ( _ks.length == 0 )
+						{
+                            _b_fail = _glob_terminal_coderun_break = _glob_terminal_critical_halt = YES ;
+							_error_str = "" ;
+							var _msg = "Probabilities settings must follow after generators settings." ;
+								_msg += "\nRefer to 'gensset' cmd with 'add' parameter" ;
+								_msg += "\nType 'gensset /h' for full info" ;
+                            circles_lib_output( _output_channel, DISPATCH_CRITICAL, _msg, _par_1, _cmd_tag );
+						}
+						else if ( _n_intersection > 0 )
                         {
-                             circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning! Common entries ('"+_intersection_array.join(",")+"') in the entries to be set and to be locked.", _par_1, _cmd_tag );
-                             circles_lib_output( _output_channel, DISPATCH_INFO, "Operation has been aborted", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning! Common entries ('"+_intersection_array.join(",")+"') in the entries to be set and to be locked.", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "Operation has been aborted", _par_1, _cmd_tag );
                         }
                         else if ( _n_locked > 0 && ( _n_locked + _n_letters ) == _n_alphabet && !_force )
                         {
@@ -411,25 +424,22 @@ function circles_terminal_cmd_probability()
                             }
                             else
                             {
+                                circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Acquired "+_n_letters+" letter"+(_n_letters==1?"":"s")+" : <white>"+_letters_arr.join(", ")+"</white>", _par_1, _cmd_tag );
+                                circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Acquired "+_n_probabilities+" probabilit"+(_n_letters==1?"y":"ies")+" : <white>"+_probabilities_array.join(", ")+"</white>", _par_1, _cmd_tag );
+
                                 var _lock_sum = 0, _lock_n = _locked_letters_arr.length ;
                                 if ( !_force )
-                                {
-                                    //$.each( _probabilities_array, function( _i, _prob ) { _lock_sum += _prob ; } ) ;
-                                    $.each( _locked_letters_arr, function( _i, _letter ) { _lock_sum += _glob_rnd_probability_array[ _alphabet.indexOf( _letter ) ] ; } ) ;
-                                }
+                                $.each( _locked_letters_arr, function( _i, _letter ) { _lock_sum += _glob_rnd_probability_array[ _alphabet.indexOf( _letter ) ] ; } ) ;
+
                                 var _new_prob_sum = 0 ;
                                 _probabilities_array.work( function( _prob ){ _new_prob_sum += _prob ; } ) ;
                                 _new_prob_sum = _new_prob_sum.roundTo(_decimals);
 
                                 var _residue = FULL_SUM - _lock_sum -_new_prob_sum ;
                                     _residue = _residue.roundTo(_decimals);
-                                var _rs = _input_rnd_array.clone() ;
                                 var _unlocked_n = _n_alphabet - _lock_n - _n_letters ;
                                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Resulting residue to recompute <white>"+_unlocked_n+"</white> unlocked value"+(_unlocked_n==1?"":"s")+" is <white>"+_residue+"</white>", _par_1, _cmd_tag );
-                                var _ks = _glob_gens_set_symbols_map_array.keys_associative();
-                                var _vs = _glob_gens_set_symbols_map_array.values_associative();
-                                circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Acquired "+_n_letters+" letter"+(_n_letters==1?"":"s")+" : <white>"+_letters_arr.join(", ")+"</white>", _par_1, _cmd_tag );
-                                circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Acquired "+_n_probabilities+" probabilit"+(_n_letters==1?"y":"ies")+" : <white>"+_probabilities_array.join(", ")+"</white>", _par_1, _cmd_tag );
+                                var _rs = _input_rnd_array.clone() ;
                                 if ( _diff != 0 )
                                 {
                                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Detected mismatch between input letters and probabilities", _par_1, _cmd_tag );
@@ -528,7 +538,9 @@ function circles_terminal_cmd_probability()
                                 }
                                 else
                                 {
-                                   _b_fail = YES, _error_str = "No changes have been applied: the sum ("+_checksum+") of the new probabilities distribution is not " + FULL_SUM ;
+                                   _b_fail = YES, _error_str = "No changes applied: the sum "+_checksum+" of probabilities is not "+FULL_SUM ;
+								   _glob_terminal_critical_halt = _glob_terminal_coderun_break = YES ;
+								   _glob_terminal_critical_halt_msg = "Code run has been halted" ;
                                 }
                             }
                         }
@@ -536,26 +548,30 @@ function circles_terminal_cmd_probability()
                         circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't set match letters to probabilities: missing letters", _par_1, _cmd_tag );
                         else if ( _n_probabilities == 0 && _diff != 0 )
                         circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't set match letters to probabilities: missing probabilities", _par_1, _cmd_tag );
+						
+						if ( !_b_fail )
+						{
+							var _sch_n = circles_lib_count_gens_set_model(), _pp_n = safe_size( _params_assoc_array['settings']['probs'], 0 );
+							if ( _sch_n == 0 )
+							{
+								circles_lib_output( _output_channel, DISPATCH_INFO, "Missing generators set: attempting default generation", _par_1, _cmd_tag );
+								var _ret_chunk = circles_lib_gens_set_build( _output_channel, YES, YES, NO, YES );
+								var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
+								var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure : unknown response" ;
+								if ( _ret_id == 0 )
+								{
+									_b_fail = YES, _error_str = _ret_msg ;
+								}
+								else
+								{
+									_pp_n = _sch_n ;
+									circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+								}
+							}
+						}
 
-                        var _sch_n = circles_lib_count_gens_set_model(), _pp_n = safe_size( _params_assoc_array['settings']['probs'], 0 );
-												if ( _sch_n == 0 )
-												{
-           									circles_lib_output( _output_channel, DISPATCH_INFO, "Missing generators set: attempting default generation", _par_1, _cmd_tag );
-                            var _ret_chunk = circles_lib_gens_set_build( _output_channel, YES, YES, NO, YES );
-          									var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
-          									var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure : unknown response" ;
-          									if ( _ret_id == 0 )
-          									{
-          											_b_fail = YES, _error_str = _ret_msg ;
-          									}
-          									else
-                            {
-                                _pp_n = _sch_n ;
-              									circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
-                            }
-     										}
                         break ;
-	                      default: break ;
+	                    default: break ;
                    }
               }
          }
@@ -565,7 +581,7 @@ function circles_terminal_cmd_probability()
          _b_fail = YES, _error_str = "Missing input params" ;
      }
 
-     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _b_fail && _error_str.length > 0 && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

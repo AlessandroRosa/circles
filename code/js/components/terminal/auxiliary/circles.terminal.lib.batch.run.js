@@ -186,8 +186,7 @@ function circles_lib_batch_compiler_exec( _cmd_str, _params_str, _param_01, _cmd
       if ( check_file_exists( _glob_terminal_cmds_path + _filename ) )
       {
           $.ajaxSetup( {async:false} );
-          $.getScript( _glob_terminal_cmds_path + _filename ).done(
-                       function()
+          $.getScript( _glob_terminal_cmds_path + _filename ).done( function()
                        {
                           if ( !_glob_code_run_cmds_array.includes( _cmd_str ) ) _glob_code_run_cmds_array.push( _cmd_str );
                           var _include_files = is_array( _glob_terminal_cmd_files_include[ _cmd_str ] ) ? _glob_terminal_cmd_files_include[ _cmd_str ].clone() : [] ;
@@ -209,23 +208,18 @@ function circles_lib_batch_compiler_exec( _cmd_str, _params_str, _param_01, _cmd
                            var _sub_fn = "circles_terminal_cmd_" + _cmd_str ;
                            try{ eval( _sub_fn + "( '"+_params_str+"', "+OUTPUT_SCRIPT+", '"+_param_01+"', "+_cmd_mode+" )" ) }
                            catch( _err )
-													 {
-															circles_lib_error_obj_handler( _err ) ;
-													 		circles_lib_log_add_entry( "Cmd '"+_cmd_str+"': " + _err.message );
-													 }
+						   {
+								circles_lib_error_obj_handler( _err ) ;
+								circles_lib_log_add_entry( "Cmd '"+_cmd_str+"': " + _err.message );
+						   }
 
-                       } ).fail(
-                       function()
+                       } ).fail( function()
                        {
                           circles_lib_log_add_entry( "Cmd '"+_cmd_str+"' can't be loaded: suspected invalid filename or internal code error" , LOG_ERROR ) ;
                        }
                        );
       }
-      else
-      {
-         var _msg = "Missing or corrupted cmd '"+_cmd_str+"'" ;
-         circles_lib_log_add_entry( _msg, LOG_ERROR ) ;
-      }
+      else circles_lib_log_add_entry( "Missing or corrupted cmd '"+_cmd_str+"'", LOG_ERROR ) ;
    }
    else
    {

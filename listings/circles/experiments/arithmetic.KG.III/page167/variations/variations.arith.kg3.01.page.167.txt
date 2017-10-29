@@ -6,8 +6,7 @@ by M. D. E. CONDER, C. MACLACHLAN, G. J. MARTIN and E. A. O'BRIEN
 MATH. SCAND. 90 (2002), 161-179
 see page 167
 
-Here coefficients have been changed to
-
+Here coefficients have been changed to:
 omega = -i
 lambda_n = 2cos(pi/n)
 n = 3
@@ -20,7 +19,6 @@ Y = ( 0, -1/(2*omega), omega, lambda_n )
 new
 silent off
 echo on
-
 grid zplane show
 grid wplane show
 grid 12
@@ -31,15 +29,19 @@ method algebraic random
 config set drawentity pixel
 config set construction limitset
 mobius add A a:(1,0) b:(1,0) c:(0,0) d:(1,0)
-mobius update A a #3fbfff
+mobius update A a drawcolor:#3fbfff
 mobius add a a:(1,0) b:(-1,0) c:(0,0) d:(1,0)
-mobius update a A #3fbfff
+mobius update a A drawcolor:#3fbfff
 mobius add B a:(0,0) b:(0,-0.5) c:(0,-1) d:(1,0)
-mobius update B b #3fbfff
+mobius update B b drawcolor:#3fbfff
 mobius add b a:(1,0) b:(0,0.5) c:(0,1) d:(0,0)
-mobius update b B #3fbfff
+mobius update b B drawcolor:#3fbfff
 init maps singly
-probability set 0.25 0.27 0.21 0.27 built-in
+gensset flush
+gensset add A B a b ABab abAB
+gensset init
+probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
 auto refresh off
 auto init off
 zoom zplane (0,0) side:4 silent 

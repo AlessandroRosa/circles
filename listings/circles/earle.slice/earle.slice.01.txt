@@ -24,10 +24,11 @@ plugin close
 gensset flush
 gensset add A B a b ABab abAB
 gensset init
-probability set 0.24 0.24 0.24 0.24 0.02 0.02 built-in
+probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
 auto refresh off
 auto init off
 zoom zplane (0,0) side:4 silent 
-zoom wplane (-0.039215686274509776,0.017825311942959) side:1.340463458110517 silent 
+zoom wplane (-0.04,0.018) side:1.4 silent 
 refresh zplane silent clean
 refresh wplane silent clean

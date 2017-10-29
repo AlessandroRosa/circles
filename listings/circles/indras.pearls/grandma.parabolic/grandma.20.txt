@@ -11,15 +11,19 @@ method algebraic random
 config set drawentity pixel
 config set construction limitset
 mobius add A a:(0.9396926207859083,0) b:(3.4141872565706795e-17,-0.05262739368101473) c:(4.96903734646021e-16,-2.222754543946011) d:(0.9396926207859083,0)
-mobius update A a #61df61
-mobius add B a:(0.8660254037844387,-1) b:(0.8660254037844387,0) c:(0.8660254037844387,0) d:(0.8660254037844387,1)
-mobius update B b #61df61
+mobius update A a drawcolor:#61df61
+mobius add B a:(0.866025,-1) b:(0.866025,0) c:(0.866025,0) d:(0.866025,1)
+mobius update B b drawcolor:#61df61
 mobius add a a:(0.9396926207859083,0) b:(-3.4141872565706795e-17,0.05262739368101473) c:(-4.96903734646021e-16,2.222754543946011) d:(0.9396926207859083,0)
-mobius update a A #61df61
-mobius add b a:(0.8660254037844387,1) b:(-0.8660254037844387,0) c:(-0.8660254037844387,0) d:(0.8660254037844387,-1)
-mobius update b B #61df61
+mobius update a A drawcolor:#61df61
+mobius add b a:(0.866025,1) b:(-0.866025,0) c:(-0.866025,0) d:(0.866025,-1)
+mobius update b B drawcolor:#61df61
 init maps singly
-probability set 0.36 0.14 0.36 0.14
+gensset flush
+gensset add A B a b ABab abAB
+gensset init
+probability set 0.345 a 0.125 b 0.345 A 0.125 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
 auto refresh off
 auto init off
 zoom zplane (0,0) side:4 silent 

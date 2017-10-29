@@ -1,4 +1,4 @@
-comment:
+﻿comment:
 [
 Generators refer to:
 2-GENERATOR ARITHMETIC KLEINIAN GROUPS III
@@ -21,15 +21,19 @@ method limitset random
 config set drawentity pixel
 config set construction limitset
 mobius add A a:(1,0) b:(1,0) c:(0,0) d:(1,0)
-mobius update A a #61df61
+mobius update A a drawcolor:#61df61
 mobius add a a:(1,0) b:(-1,0) c:(0,0) d:(1,0)
-mobius update a A #61df61
+mobius update a A drawcolor:#61df61
 mobius add B a:(0,0) b:(-0.455547391623806,0.2939015429831006) c:(1.55,1) d:(1.8019377358048365,0)
-mobius update B b #61df61
+mobius update B b drawcolor:#61df61
 mobius add b a:(1.8019377358048365,0) b:(0.455547391623806,-0.2939015429831006) c:(-1.55,-1) d:(0,0)
-mobius update b B #61df61
-probability set 0.25 0.27 0.20999999999999996 0.27 built-in
+mobius update b B drawcolor:#61df61
 init maps singly
+gensset flush
+gensset add A B a b ABab abAB
+gensset init
+probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
+probability repsthreshold:0.85 repsdepth:15
 auto refresh off
 auto init off
 zoom source (0,0) side:4 silent

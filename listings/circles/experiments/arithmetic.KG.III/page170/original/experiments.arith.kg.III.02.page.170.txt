@@ -39,7 +39,11 @@ config set diskfill no
 config set diskdraw yes
 config set diskdash no
 auto refresh off
-probability set 0.16667 0.16667 0.16667 0.16667 0.16667 0.16664999999999996 built-in
+gensset flush
+gensset add A B C a b c
+gensset init
+probability set 0.16667 A 0.16667 B 0.16667 C 0.16667 a 0.16667 b 0.16665 c built-in
+probability repsthreshold:0.85 repsdepth:15
 auto init off
 zoom zplane (0,0) side:4 silent 
 zoom wplane (0,0) side:4 silent 

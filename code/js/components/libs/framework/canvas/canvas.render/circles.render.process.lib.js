@@ -1,6 +1,5 @@
 function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _render, _b_clean, _b_init_items, _selected_layers_array, _output_channel )
 {
-		 console.log( "RND ARRAY", _glob_rnd_probability_array );
 	_plane_type = circles_lib_return_plane_type( _plane_type, YES ) ;
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _render = safe_int( _render, YES ), _b_clean = safe_int( _b_clean, YES );

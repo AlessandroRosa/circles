@@ -79,9 +79,9 @@ var _demos_list = [] ;
       @include( $PATH_TO_SUPPORT."code/phpcode/divs/loading.php" ); ?>
 <?php load_src_code_dir( $PATH_TO_CIRCLES."code/phpcode/panels/", "php", $ERRCODE ); ?>
 <DIV ID="MASTERdiv" STYLE="position:absolute;left:0px;top:0px;display:none;width:100%;" ALIGN="left">
-<table cellpadding=0 cellspacing=0 valign="top" BORDER="0" WIDTH="100%">
+<table cellpadding=0 cellspacing=0 valign="top" WIDTH="100%">
 <tr><td HEIGHT="2"></td></tr>
-<tr><td VALIGN="top" ALIGN="center" ID="menucontainer" STYLE="height:42px;"><?php @include( $PATH_TO_CIRCLES."screen/menu.php" ); ?></td></tr>
+<tr><td VALIGN="top" ALIGN="center" ID="menucontainer" STYLE="height:30px;"><?php @include( $PATH_TO_CIRCLES."screen/menu.php" ); ?></td></tr>
 <tr><td HEIGHT="3"></td></tr>
 <tr><td VALIGN="top"><DIV ID="interfacecontainer" STYLE="position:relative;"></DIV></td></tr>
 <tr><td HEIGHT="18"></td></tr>

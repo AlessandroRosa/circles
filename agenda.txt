@@ -5,13 +5,10 @@
   
   * DG command : test all examples mentioned in the help file
 
-* TO FIX:
-  >> When random process is set but RND probs array is still empty,
-     don't start multi-threading and display error message
-	 -- CHECK var _probability_array_pack and its source
-  
 - srcptset terminal cmd:
   * build point set according to input params
+
+* terminal cmds: test'em all
 
 * FORMS
   - method

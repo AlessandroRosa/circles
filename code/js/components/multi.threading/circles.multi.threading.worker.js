@@ -26,7 +26,7 @@ function CIRCLESmultithreadingPROCESSrendering( canvas, mapper, method, _process
 function CIRCLESmultithreadingSTOPworker( _silent )
 {
     _silent = safe_int( _silent, NO );
-		if ( !_glob_worker_lock ) return ;
+	if ( !_glob_worker_lock ) return ;
 		
     _glob_worker.postMessage( { 'id' : 'stop' } );
     _glob_worker.terminate();
@@ -89,10 +89,10 @@ function CIRCLESmultithreadingPREcheck()
     if ( circles_lib_count_dict() == 0 && !_glob_dict_create &&
          _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_BREADTHFIRST )
     _ret = -6 ;
-
-    if ( _glob_dict_processor.get_process() == _DICTIONARY_AUTOMATON_PROCESS &&
-         _glob_dict_processor.automaton_keys_count() == 0 )
+    else if ( _glob_dict_processor.get_process() == _DICTIONARY_AUTOMATON_PROCESS && _glob_dict_processor.automaton_keys_count() == 0 )
     _ret = -7 ;
+	else if ( _glob_process == PROCESS_RANDOM && _glob_rnd_probability_array.length == 0 )
+    _ret = -8 ;
      
     return _ret ;
 }
@@ -122,6 +122,8 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
        if ( _pre_check_ret < 0 && _pre_check_ret >= -5 ) _msg = "Errors found in items data." + _glob_crlf + "Please, init them again and retry the rendering" ;
        else if ( _pre_check_ret == -6 ) _msg = "The current dictionary is empty." + _glob_crlf + "Please, check both symbols and dict filters, then try to build it again" ;
        else if ( _pre_check_ret == -7 ) _msg = "The automaton table is empty." ;
+       else if ( _pre_check_ret == -8 ) _msg = "The probabilities table is empty." ;
+       else if ( _pre_check_ret == -9 ) _msg = "Detected mismatch between the number of probabilities and the length of current alphabet." ;
        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
@@ -223,7 +225,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
          _glob_worker.postMessage( { 'id' : 'init', 'action' : 0,
  									 'method' : _method, 'process' : _process, 'lang' : LANG,
                                      'w' : _canvas_w, 'h' : _canvas_h } );
-  		   var _probability_array_pack = _glob_rnd_probability_array.join( "@" );
+  		 var _probability_array_pack = _glob_rnd_probability_array.join( "@" );
          var _dict_init_settings = _dictionary_init_settings_array.join_associative( "@" );
          _glob_process_running_flag = YES ;
          _glob_rec_canvas_entities_array.flush_associative();

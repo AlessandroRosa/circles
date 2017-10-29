@@ -65,9 +65,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode, _silent, _output_
     else
     {
 		CIRCLESembeddingsGENERALPURPOSE_SET_REGISTEREDVARS_IN_PARAMS( YES, null );
-        console.log( "IN1", CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array );
 		var _ret_scan = CIRCLESembeddingsGENERALPURPOSE_VAR_ALL_REPLACE_WITH_VAL();
-        console.log( "IN2", _ret_scan );
         var _RET_CHUNK = CIRCLESembeddingsGENERALPURPOSE_PARSE( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[0],
 			CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[1],
 			CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[2],

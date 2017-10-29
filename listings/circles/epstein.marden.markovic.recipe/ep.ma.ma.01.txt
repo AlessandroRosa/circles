@@ -42,7 +42,6 @@ gensset add A a B b ABab abAB
 gensset init
 probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
 probability repsthreshold:0.85 repsdepth:15
-
 fp bomb
 fp add -1.0000000056153904+0.00000002180875563842i BabA
 fp add -0.41614681544505105+0.9092974322098467i ABab

@@ -179,7 +179,7 @@ $( "#LOADINGdiv" ).css( "left", ( _display_w - $( "#LOADINGdiv" ).width() ) / 2 
     <DIV STYLE="position:relative;width:100%;height:0px;overflow:auto;" ID="DIVexamplesLIST">
     <table valign="top" WIDTH="100%" BORDER="0">
     <tr><td HEIGHT="8"></td></tr>
-    <tr><td COLSPAN="3" STYLE="font-size:10pt;">In this same folder<br><b STYLE="font-size:14pt;color:#434343;"><?php echo str_replace( ".", " ", ucfirst( basename( "$DIRNAME" ) ) ) ; ?></b></td></tr>
+    <tr><td COLSPAN="3" STYLE="font-size:10pt;">Inside this folder<br><b STYLE="font-size:14pt;color:#434343;"><?php echo str_replace( ".", " ", ucfirst( basename( "$DIRNAME" ) ) ) ; ?></b></td></tr>
     <tr><td HEIGHT="12"></td></tr>
     <?php $FILESlist = scan_folder( $DIRNAME, "/.txt/" ) ;
           $f = count( $FILESlist ) ;      $f-- ; // remove the current element from list counting
@@ -237,7 +237,7 @@ $( "#LOADINGdiv" ).css( "left", ( _display_w - $( "#LOADINGdiv" ).width() ) / 2 
           else
           {
                ?>
-               <tr><td STYLE="color:#909090;">No other entries here</td></tr>
+               <tr><td STYLE="color:#909090;font-size:12pt;">Sorry, no more entries</td></tr>
                <tr><td HEIGHT="4"></td></tr>
                <?php
           }

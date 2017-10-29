@@ -12,6 +12,17 @@
 <lightblue>generator model</lightblue>
 <cadetblue>display the gens set model</cadetblue>
 
+<lightblue>generator add A</lightblue>
+<cadetblue>add a new item to the gens model set</cadetblue> <yellow>(*)</yellow>
+
+<lightblue>generator add A a B b</lightblue>
+<cadetblue>add a chain of new items to the gens model set</cadetblue>
+<lightgray>this chain of letters covers the usual 2-generators group</lightgray>
+
+<lightblue>generator add A a B b ABab abAB</lightblue>
+<cadetblue>add a chain of new items to the gens model set</cadetblue>
+<lightgray>this chain of letters is often used for random IFS applying the commutators</lightgray>
+
 <lightblue>generator add &#91;a&#93;&#91;b:12&#93;</lightblue>
 <cadetblue>add a new item to the gens model set</cadetblue> <yellow>(*)</yellow>
 

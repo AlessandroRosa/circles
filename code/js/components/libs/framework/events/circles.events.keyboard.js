@@ -31,7 +31,6 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
     circles_lib_display_key_status();
     var _sel_length = _glob_zplane_selected_items_array.length ;
 
-	console.log( _glob_ctrl_key, _glob_alt_key, _event.keyCode );
 	if ( _esc_pressed && ALERT_CURRENT_DISPLAY_FLAG ) alertCLOSE(); // esc released
 	if ( _glob_ctrl_key && _glob_alt_key && _event.keyCode == 84 ) circles_lib_plugin_load('forms','terminal',YES,0,YES); // terminal -> console
 	else if ( _glob_ctrl_key && _glob_alt_key && _event.keyCode == 66 ) circles_lib_plugin_load('forms','terminal',YES,1,YES); //terminal -> batch compiler
