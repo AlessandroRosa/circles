@@ -1,7 +1,9 @@
 ------------ APP -------------------------------------------------
 * Listings:
   - run and test all listings
-  LAST CHECKED : conjugations/circles.conjugations.05.txt
+  LAST CHECKED : epstein.../ep.ma.ma.02.txt
+                 ERROR : param _z is not replaced by value '2i' into
+				         formulas while generating the group
   
   * DG command : test all examples mentioned in the help file
 

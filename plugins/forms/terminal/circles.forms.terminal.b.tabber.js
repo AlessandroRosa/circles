@@ -49,7 +49,7 @@ var CIRCLESTERMINALtabberOptions = {
         _glob_output_channel = OUTPUT_CONSOLE ;
         circles_lib_plugin_focus( _div_id );
         break;
-	      default: break ;
+	    default: break ;
       }
   },
 

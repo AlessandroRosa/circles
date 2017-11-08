@@ -32,23 +32,22 @@ function CIRCLESformsTERMINALnormalize()
 
 function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _term_height )
 {
-		if ( is_string( _tab ) )
+	if ( is_string( _tab ) )
     {
         if ( _tab.isAlpha() )
-    		switch( _tab.toLowerCase() )
-    		{
-    				case "console": _tab = 0 ; break ;
-    				case "batch": _tab = 1 ; break ;
-    				case "debug": _tab = 2 ; break ;
-    				default: _tab = 0 ; break ;
-    		}
+    	switch( _tab.toLowerCase() )
+    	{
+    		case "console": _tab = 0 ; break ;
+    		case "batch": _tab = 1 ; break ;
+    		case "debug": _tab = 2 ; break ;
+    		default: _tab = 0 ; break ;
+    	}
         else _tab = Math.abs( safe_int( _tab, 0 ) );
         if ( !_tab.is_one_of( 0, 1, 2 ) ) _tab = 0 ;
     }
     else _tab = safe_int( _tab, 0 );
 
     CIRCLESformsTERMINALbaseid = safe_string( _base_id, "" ) ;
-
     _glob_terminal_windows_counter++ ;
     _move = safe_int( _move, YES ), _tab = safe_int( _tab, 0 ), _new = safe_int( _new, NO );
     var _extras_menu_height = 52 ;
@@ -96,29 +95,26 @@ function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _te
        else move_div( _div.id, "LEFT", "TOP" );
     }
 
-		$("#"+CIRCLESformsTERMINALdiv_id ).bind( "keypress keydown keyup", function() { _glob_wnd_onkeyup_event_halt = YES ; } );
-		$("#"+CIRCLESformsTERMINALdiv_id ).bind( "mousedown mouseup click", function() { _glob_wnd_onkeyup_event_halt = YES ; } );
+	$("#"+CIRCLESformsTERMINALdiv_id ).bind( "keypress keydown keyup", function() { _glob_wnd_onkeyup_event_halt = YES ; } );
+	$("#"+CIRCLESformsTERMINALdiv_id ).bind( "mousedown mouseup click", function() { _glob_wnd_onkeyup_event_halt = YES ; } );
 
-    //if ( _run )
-    //{
-      if ( $("#"+_div_id ).resizable('instance') != undefined )
-      $("#"+_div_id).resizable('destroy').resizable(
-      {
-         start: function( event, ui ) { CIRCLESformsTERMINALstartresize( ui.size.width, ui.size.height ) },
-         resize: function( event, ui ) { CIRCLESformsTERMINALresize( ui.size.width, ui.size.height, _suffix, OUTPUT_SCREEN ); },
-         stop: function( event, ui ) { CIRCLESformsTERMINALstopresize( ui.size.width, ui.size.height ) }
-      } );
-      else
-      {
+    if ( $("#"+_div_id ).resizable('instance') != undefined )
+    $("#"+_div_id).resizable('destroy').resizable(
+    {
+        start: function( event, ui ) { CIRCLESformsTERMINALstartresize( ui.size.width, ui.size.height ) },
+        resize: function( event, ui ) { CIRCLESformsTERMINALresize( ui.size.width, ui.size.height, _suffix, OUTPUT_SCREEN ); },
+        stop: function( event, ui ) { CIRCLESformsTERMINALstopresize( ui.size.width, ui.size.height ) }
+    } );
+    else
+    {
         $("#"+_div_id).resizable(
         {
            start: function( event, ui ) { CIRCLESformsTERMINALstartresize( ui.size.width, ui.size.height ) },
            resize: function( event, ui ) { CIRCLESformsTERMINALresize( ui.size.width, ui.size.height, _suffix, OUTPUT_SCREEN ); },
            stop: function( event, ui ) { CIRCLESformsTERMINALstopresize( ui.size.width, ui.size.height ) }
         } );
-      }
-      $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });
-    //}
+    }
+    $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });
 
     _glob_terminal_popup_active++ ;
     $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESformsTERMINALlistingsLOAD ) } ;
@@ -128,7 +124,7 @@ function CIRCLESformsTERMINALgetHTML( _div_id, _is_popup, _input_w, _input_h, _s
 {
     _is_popup = safe_int( _is_popup, YES );
     _input_w = safe_int( _input_w, 200 ), _input_h = safe_int( _input_h, 200 );
-		var _n_commands = safe_size( _glob_code_run_cmds_array, 0 );
+	var _n_commands = safe_size( _glob_code_run_cmds_array, 0 );
     var WIDTH = _input_w, HEIGHT = _input_h, _subset = "forms" ;
     var _caption = CIRCLESformsTERMINALcaption + " #" + ( _glob_terminal_popup_active + 1 );
     var CLOSE_FN = "CIRCLESformsTERMINALclose("+_suffix+");" ;
@@ -136,18 +132,16 @@ function CIRCLESformsTERMINALgetHTML( _div_id, _is_popup, _input_w, _input_h, _s
     var _table_style = _is_popup ? "background-color:white;" : "" ;
     var HTMLcode = "<table ID=\"wnd_container_"+_div_id+"\" WIDTH=\""+WIDTH+"\" HEIGHT=\""+HEIGHT+"\" STYLE=\""+_table_style+"\" VALIGN=\"top\">" ;
     if ( _is_popup ) HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 3, YES, CLOSE_FN, WIDTH, HEIGHT,
-                     arguments.callee.name, CIRCLESformsTERMINALbaseid, _div_id,
-                     _subset, "cmd.prompt/cmd.prompt.icon.01.20x20.png",
+                     arguments.callee.name, CIRCLESformsTERMINALbaseid, _div_id, _subset, "cmd.prompt/cmd.prompt.icon.01.20x20.png",
                      _click_fn, null, "CIRCLESformsTERMINAL" + _suffix,
-                		 [ "CIRCLESformsTERMINALnormalize", _div_id, _suffix, WIDTH, HEIGHT ],
-                		 [ "CIRCLESformsTERMINALminimize", _div_id, _suffix, WIDTH, HEIGHT ],
-                		 [ "CIRCLESformsTERMINALmaximize", _div_id, _suffix, WIDTH, HEIGHT ] );
+                	[ "CIRCLESformsTERMINALnormalize", _div_id, _suffix, WIDTH, HEIGHT ],
+                	[ "CIRCLESformsTERMINALminimize", _div_id, _suffix, WIDTH, HEIGHT ],
+                	[ "CIRCLESformsTERMINALmaximize", _div_id, _suffix, WIDTH, HEIGHT ] );
     HTMLcode += "<tr>" ;
     HTMLcode += "<td ID=\"CIRCLESTERMINALcontainer"+_suffix+"\" VALIGN=\"top\" STYLE=\"padding-left:1px;padding-right:1px;\" WIDTH=\"100%\" HEIGHT=\"100%\">" ;
     HTMLcode += "<div ID=\"CIRCLESTERMINAL"+_suffix+"mainDIV\" STYLE=\"position:relative;width:99%;height:94%;\" VALIGN=\"top\" class=\"tabber\">" ;
 
     var terminalWIDTH = !( ( new String( WIDTH ) ).includes( "%" ) ) ? ( WIDTH - 35 ) + "px" : WIDTH ;
-
     _glob_terminal_current_id = "terminal_div" + _suffix ;
 
     HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:99%;height:94%;\" VALIGN=\"top\" ID=\"CIRCLESTERMINAL"+_suffix+"_TAB_01\">" ;
@@ -176,7 +170,7 @@ function CIRCLESformsTERMINALgetHTML( _div_id, _is_popup, _input_w, _input_h, _s
     HTMLcode += "</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
-		HTMLcode += "<tr><td WIDTH=\"99%\" HEIGHT=\"0\" ID=\"TERMINALhistoryCONTAINER"+_suffix+"\" STYLE=\"display:none;\"></td></tr>" ;
+	HTMLcode += "<tr><td WIDTH=\"99%\" HEIGHT=\"0\" ID=\"TERMINALhistoryCONTAINER"+_suffix+"\" STYLE=\"display:none;\"></td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</div>" ;
@@ -310,7 +304,8 @@ function CIRCLESformsTERMINALresize( _new_width, _new_height, _suffix, _output_c
     var _bar_1_h = safe_int( $("#CIRCLESbatchcompilerBAR1" + _suffix ).height(), 0 );
     var _bar_2_h = safe_int( $("#CIRCLESbatchcompilerBAR2" + _suffix ).height(), 0 );
     var _bar_3_h = safe_int( $("#CIRCLESbatchcompilerBAR3" + _suffix ).height(), 0 );
-        _extra_height = safe_int( _bar_1_h + _bar_2_h + _bar_3_h + 44, 0 );
+        _extra_height = safe_int( _bar_1_h + _bar_2_h + _bar_3_h + ( CIRCLESformsTERMINALfirstresize ? 94 : 38 ), 0 );
+		if ( CIRCLESformsTERMINALfirstresize ) CIRCLESformsTERMINALfirstresize = 0 ;
     $("#CIRCLESbatchcompilerBAR1" + _suffix ).css( "width", _tab_interior_width - 20 )
     $("#CIRCLESbatchcompilerBAR2" + _suffix ).css( "width", _tab_interior_width - 20 )
     $("#CIRCLESbatchcompilerBAR3" + _suffix ).css( "width", _tab_interior_width - 20 )
@@ -337,23 +332,17 @@ function CIRCLESformsTERMINALresize( _new_width, _new_height, _suffix, _output_c
 function CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix )
 {
     // terminal tab
-    jQuery(document).ready(
-    function($)
-    {
+    jQuery(document).ready( function($) {
         var _term = $('#terminal_div'+_suffix).terminal
         (
            function( command, terminal ){ circles_lib_terminal_interpreter( command, terminal, OUTPUT_TERMINAL ); },
            {
-               greetings: ["Circles terminal console",
-                           "Powered by Jquery terminal",
-                           "Type 'help' for commands list"].join('\n'),
+               greetings: ["Circles terminal console", "Powered by Jquery terminal", "Type 'help' for commands list"].join('\n'),
                prompt: _glob_terminal_default_prompt
            }
         );
-
         $('#terminal_div'+_suffix).click(); // put the focus on the terminal console
-    }
-    );
+    } );
 
     CIRCLESformsTERMINALform_div = $( "#"+_div_id ).get(0);
     CIRCLESformsTERMINALtab_container = $( "#CIRCLESTERMINAL"+_suffix+"mainDIV" ).get(0);
@@ -363,39 +352,29 @@ function CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix )
 
     _glob_terminal = $("#terminal_div"+_suffix).terminal();
     _glob_terminal.bind('blur', function(e) { _glob_wnd_onkeyup_event_halt = NO ; this.active().disable(); });
-    _glob_terminal.bind('keydown keyup keypress', function(e)
-    {
+    _glob_terminal.bind('keydown keyup keypress', function(e) {
         _glob_wnd_onkeyup_event_halt = YES ;
         if ( e.stopImmediatePropagation() ) e.stopImmediatePropagation() ;
         if ( e.stopPropagation ) e.stopPropagation();
         if ( e.cancelBubble ) e.cancelBubble = true;
-        e.preventDefault();
-    }
-    );
+        e.preventDefault(); } );
 
-    _glob_terminal.bind( 'click focus mousedown mouseup',
-                         function(e)
-                         {
-                            _glob_wnd_onkeyup_event_halt = YES ;
-                            circles_lib_plugin_focus( _div_id );
-                            if ( e.stopImmediatePropagation() ) e.stopImmediatePropagation() ;
-                            if ( e.stopPropagation ) e.stopPropagation();
-                            if ( e.cancelBubble ) e.cancelBubble = true;
-                             e.preventDefault();
-                         }
-                      );
+    _glob_terminal.bind( 'click focus mousedown mouseup', function(e) {
+                         _glob_wnd_onkeyup_event_halt = YES ;
+                         circles_lib_plugin_focus( _div_id );
+                         if ( e.stopImmediatePropagation() ) e.stopImmediatePropagation() ;
+                         if ( e.stopPropagation ) e.stopPropagation();
+                         if ( e.cancelBubble ) e.cancelBubble = true;
+                         e.preventDefault(); } );
     
     if ( DEFAULT_TERMINAL_FONT_FAMILY == null ) DEFAULT_TERMINAL_FONT_FAMILY = $("#terminal_div"+_suffix).css( "font-family" );
     if ( DEFAULT_TERMINAL_FONT_SIZE == null ) DEFAULT_TERMINAL_FONT_SIZE = $("#terminal_div"+_suffix).css( "fontSize" );
     
-    $( "#CIRCLESbatchcompilerTEXT"+_suffix ).bind( 'click focus keyup keydown keypress',
-    function( e )
-    {
+    $( "#CIRCLESbatchcompilerTEXT"+_suffix ).bind( 'click focus keyup keydown keypress', function( e ) {
         _glob_wnd_onkeyup_event_halt = YES ;
-     		circles_lib_plugin_focus( _div_id );
+     	circles_lib_plugin_focus( _div_id );
         if ( e.stopPropagation ) e.stopPropagation();
-        if ( e.cancelBubble != null ) e.cancelBubble = true;
-    } );
+        if ( e.cancelBubble != null ) e.cancelBubble = true; } );
 
     $("#terminal_div" + _suffix ).focus();
     var _opts = {} ;
@@ -403,21 +382,16 @@ function CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix )
     _opts.prefix = "CIRCLESTERMINAL" + _suffix ;
     tabberAutomatic( _opts, "CIRCLESTERMINAL" + _suffix );
           
-    var _w = $( "#terminal_div"+_suffix ).width() ;
-    var _h = $( "#terminal_div"+_suffix ).height() ;
+    var _w = $( "#terminal_div"+_suffix ).width(), _h = $( "#terminal_div"+_suffix ).height() ;
     if ( CIRCLESformsTERMINALform_width_px == null && CIRCLESformsTERMINALform_height_px == null )
     CIRCLESformsTERMINALform_width_px = _w - 20, CIRCLESformsTERMINALform_height_px = _h - 5 ;
     
     $("#CIRCLESbatchcompilerTEXT"+_suffix ).css( "width", _w );
     $("#CIRCLESbatchcompilerTEXT"+_suffix ).css( "height", _h - 60 );
-    $("#CIRCLESbatchcompilerTEXT"+_suffix ).bind( "keydown",
-                                                 function( event )
-                                                 {
+    $("#CIRCLESbatchcompilerTEXT"+_suffix ).bind( "keydown", function( event ) {
                                                     var _xy = getCursorXY( "CIRCLESbatchcompilerTEXT"+_suffix );
                                                     $("#BATCHscriptCOL"+_suffix ).html( _xy[ 0 ] + 1 );
-                                                    $("#BATCHscriptROW"+_suffix ).html( _xy[ 1 ] + 1 );
-                                                 }
-                                               );
+                                                    $("#BATCHscriptROW"+_suffix ).html( _xy[ 1 ] + 1 ); } );
 
     circles_lib_statusbar_set_output_stream( OUTPUT_TERMINAL );
     if ( safe_size( _glob_terminal_codelist, "" ).length > 0 ) $("#CIRCLESbatchcompilerTEXT"+_suffix ).val( _glob_terminal_codelist );

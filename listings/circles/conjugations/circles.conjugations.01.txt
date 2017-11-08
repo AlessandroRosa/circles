@@ -44,9 +44,6 @@ probability set 0.235 a 0.235 b 0.235 A 0.235 B 0.03 c 0.03 C built-in
 probability repsthreshold:0.85 repsdepth:15
 fp bomb
 fp add 0.23271307255417695+0.15865107974871276i BabA
-fp add 0.00000000155915410592+0.0000000011667480893i ABab
-fp add -0.033875349799877-0.34134892487599683i bABa
-fp add -0.09999999632459047+60023992.868715495i abAB
 auto refresh off
 auto init off
 zoom zplane (0,0) side:6 silent

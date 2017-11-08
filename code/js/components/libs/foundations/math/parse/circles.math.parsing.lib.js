@@ -1,4 +1,4 @@
-function circles_lib_math_parse_formula( _frm )
+function circles_lib_math_parse_formula( _frm = "" )
 {
    // return a string representing the complex number
    // p.s. to obtain the complex value, parse such string
@@ -22,6 +22,7 @@ function circles_lib_math_parse_formula( _frm )
       }
       else
       {
+		 console.log( _frm );
          try { _result = _glob_parser.eval( _frm ); }
          catch( _err )
          {

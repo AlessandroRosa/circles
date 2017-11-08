@@ -55,7 +55,7 @@ function CIRCLESformsLOGmain( _base_id, _move )
     HTMLcode += "</tr>" ;
     HTMLcode += "</table></td></tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
-    HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\"><DIV CLASS=\"general_rounded_corners\" ID=\"CIRCLESformsLOGdivLIST\" STYLE=\"overflow:auto;position:relative;width:"+(WIDTH-5)+"px;height:"+(HEIGHT-86)+"px;background-color:#323232;padding:2px;\"></td></DIV>" ;
+    HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\"100%\"><DIV CLASS=\"general_rounded_corners\" ID=\"CIRCLESformsLOGdivLIST\" STYLE=\"position:relative;overflow:auto;width:"+(WIDTH-5)+"px;height:"+(HEIGHT-86)+"px;background-color:#323232;padding:2px;\"></DIV></td>" ;
     HTMLcode += "</table>" ;
     HTMLcode = HTMLcode.replaceAll( "%imgpath%", _glob_path_to_img );
 
@@ -70,24 +70,23 @@ function CIRCLESformsLOGmain( _base_id, _move )
                [ "CIRCLESformsLOGminimize", _div_id, WIDTH, HEIGHT ],
                [ "CIRCLESformsLOGmaximize", _div_id, WIDTH, HEIGHT ] );
 
-      if ( $("#"+_div_id ).resizable('instance') != undefined )
-      $("#"+_div_id).resizable('destroy').resizable(
-      {
+    if ( $("#"+_div_id ).resizable('instance') != undefined )
+    $("#"+_div_id).resizable('destroy').resizable(
+    {
         start: function( event, ui ) { CIRCLESformsLOGstartresize( ui.size.width, ui.size.height ) },
         resize: function( event, ui ) { CIRCLESformsLOGresize( ui.size.width, ui.size.height ); },
         stop: function( event, ui ) { CIRCLESformsLOGstopresize( ui.size.width, ui.size.height ) }
-      } );
-      else
-      {
+    } );
+    else
+    {
         $("#"+_div_id).resizable(
         {
           start: function( event, ui ) { CIRCLESformsLOGstartresize( ui.size.width, ui.size.height ) },
           resize: function( event, ui ) { CIRCLESformsLOGresize( ui.size.width, ui.size.height ); },
           stop: function( event, ui ) { CIRCLESformsLOGstopresize( ui.size.width, ui.size.height ) }
         } );
-      }
-      $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });
-
+    }
+    $("#"+_div_id).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });
     CIRCLESformsLOGlist();
 }
 
@@ -99,16 +98,16 @@ function CIRCLESformsLOGresize( _new_width, _new_height )
     $( "#CIRCLESformsLOGdivLIST" ).height( _new_height - 86 ) ;
 }
 
-function CIRCLESformsLOGclean( _silent )
+function CIRCLESformsLOGclean( _silent = NO )
 {
-		_silent = safe_int( _silent, NO ) ;
-		var _b_go = !_silent ? confirm( "Confirm to clean the current log ?" ) : YES ;
-		if ( _b_go )
-		{
-				_glob_app_log = [] ;
-				CIRCLESformsLOGlist() ;
-				circles_lib_statusbar_log_icon_show( NO );
-		}
+	_silent = safe_int( _silent, NO ) ;
+	var _b_go = !_silent ? confirm( "Confirm to clean the current log ?" ) : YES ;
+	if ( _b_go )
+	{
+		_glob_app_log = [] ;
+		CIRCLESformsLOGlist() ;
+		circles_lib_statusbar_log_icon_show( NO );
+	}
 }
 
 function CIRCLESformsLOGlist()
@@ -123,20 +122,17 @@ function CIRCLESformsLOGlist()
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
         HTMLcode += "<tr><td WIDTH=\"5\"></td><td STYLE=\"color:white;\" COLSPAN=\"3\">Displaying the last "+_last_entries_n+" entr"+(_last_entries_n==1?"y":"ies")+"</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-        $.each( _glob_app_log, function( _i, _log_chunk )
+        $.each( _glob_app_log, function( _i, _log_chunk ) {
+                switch( _log_chunk[2] )
                 {
-                   switch( _log_chunk[2] )
-                   {
-                      case LOG_SUCCESS: _textcolor = DEFAULT_COLOR_GO ; break ;
-                      case LOG_ERROR: _textcolor = DEFAULT_COLOR_ERROR ; break ;
-                      case LOG_WARNING: _textcolor = DEFAULT_COLOR_WARNING ; break ;
-                      default: _textcolor = DEFAULT_EDIT_COLOR_DISABLED ; break ;
-                   }
-                   // keep the ending CRLF for clipboard copy
-                   HTMLcode += "<tr><td WIDTH=\"5\"></td><td STYLE=\"color:white;\" VALIGN=\"top\">"+_log_chunk[0]+"</td><td WIDTH=\"10\"></td><td VALIGN=\"top\" STYLE=\"color:"+_textcolor+";\">"+_log_chunk[1]+"</td></tr>" ;
-                   HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+                    case LOG_SUCCESS: _textcolor = DEFAULT_COLOR_GO ; break ;
+                    case LOG_ERROR: _textcolor = DEFAULT_COLOR_ERROR ; break ;
+                    case LOG_WARNING: _textcolor = DEFAULT_COLOR_WARNING ; break ;
+                    default: _textcolor = DEFAULT_EDIT_COLOR_DISABLED ; break ;
                 }
-              ) ;
+                // keep the ending CRLF for clipboard copy
+                HTMLcode += "<tr><td WIDTH=\"5\"></td><td STYLE=\"color:white;\" VALIGN=\"top\">"+_log_chunk[0]+"</td><td WIDTH=\"10\"></td><td VALIGN=\"top\" STYLE=\"color:"+_textcolor+";\">"+_log_chunk[1]+"</td></tr>" ;
+                HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ; } ) ;
     }
     else
     {
@@ -151,20 +147,20 @@ function CIRCLESformsLOGlist()
 
 function CIRCLESformsLOGtableSAVE()
 {
-		switch( _ret_chunk[0] )
-		{
-				case YES:
-				var _out_array = [] ;
-						_out_array.push( _glob_app_title, _glob_app_subtitle, "", "Log", "" );
-            if ( _glob_app_log.length > 0 )
+	switch( _ret_chunk[0] )
+	{
+		case YES:
+		var _out_array = [] ;
+			_out_array.push( _glob_app_title, _glob_app_subtitle, "", "Log", "" );
+        if ( _glob_app_log.length > 0 )
             _out_array = _out_array.concat( _glob_app_log.from_to( 0, 50 ) ) ;
-            else _out_array.push( "Log is empty" ) ;
-				var _filename = "circles.log.txt" ;
-				var blob = new Blob( [ _out_array.join( _glob_crlf != null ? _glob_crlf : "\r\n" ) ], { type: 'plain/text', endings: 'native' });
-			  saveAs( blob, _filename );
-				break ;
+        else _out_array.push( "Log is empty" ) ;
+		var _filename = "circles.log.txt" ;
+		var blob = new Blob( [ _out_array.join( _glob_crlf != null ? _glob_crlf : "\r\n" ) ], { type: 'plain/text', endings: 'native' });
+		saveAs( blob, _filename );
+		break ;
         default:
         CIRCLESformsAUTOMATONtableCHECKprocessOUTPUT( _ret_chunk ) ;
         break ;
-		}
+	}
 }

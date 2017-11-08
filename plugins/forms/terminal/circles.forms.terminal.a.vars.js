@@ -10,10 +10,10 @@ var CIRCLESformsTERMINALform_tab_index = UNDET ;
 var CIRCLESformsTERMINALcaption = "Terminal" ;
 var CIRCLESformsTERMINALdiv_id = "" ;
 var CIRCLESformsTERMINALbaseid = "" ;
+var CIRCLESformsTERMINALfirstresize = 1 ;
 
 var CIRCLESformsTERMINALremotectrlCOMMANDS = { } ; // json entry key : desc string (with color tags)
 var CIRCLESformsTERMINALopenPARAMS = { 'move' : { 'desc' : 'move the popup to the input position', 'values' : 'yes|no|left,top,right,bottom' },
       'tab' : { 'desc' : 'open that tab at form show-up', 'values' : 'console|batch|debug' },
       'width' : { 'desc' : 'set the form width at opening (not exceeding the viewport width)', 'values' : 'positive integer' },
-      'height' : { 'desc' : 'set the form height at opening (not exceeding the viewport height)', 'values' : 'positive integer' }
-    } ;
+      'height' : { 'desc' : 'set the form height at opening (not exceeding the viewport height)', 'values' : 'positive integer' } } ;
