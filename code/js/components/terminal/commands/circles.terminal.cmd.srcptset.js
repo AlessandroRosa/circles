@@ -44,7 +44,7 @@ function circles_terminal_cmd_srcptset()
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
             _p = _params_array[_i] ;
-            if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else if ( _p.is_one_of_i( "zplane", "wplane" ) ) { _params_assoc_array['plane'] = _p ; _params_assoc_array['action'] = "plane" ; }

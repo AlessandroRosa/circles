@@ -13,7 +13,7 @@ grid wplane show
 plane wplane
 grid ticks 16
 config set accuracy 12
-config set depth 9
+config set depth 20
 palette off
 method algebraic breadthfirst
 config set drawentity pixel

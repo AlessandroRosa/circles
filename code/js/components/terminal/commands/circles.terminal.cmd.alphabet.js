@@ -46,14 +46,14 @@ function circles_terminal_cmd_alphabet()
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "add", "check", "delete", "inv", "long", "regen", "help", "html",
+    				 _local_cmds_params_array.push( "add", "check", "delete", "inv", "long", "regen", "html",
                                             "release", "bomb", "show", "colorize", "decolorize" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
             _p = _params_array[_i] ;
-            if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else if ( _p.is_one_of_i( "long", "inv" ) ) _params_assoc_array['settings'].push( _p.toLowerCase() ) ;

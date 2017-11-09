@@ -44,7 +44,7 @@ function circles_terminal_cmd_grid()
          {
               _p = _params_array[_i].toLowerCase();
               if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
+              else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.stricmp( "all" ) ) _params_assoc_array['all'] = YES ;
               else if ( _p.stricmp( "default" ) ) _params_assoc_array['default'] = YES ;

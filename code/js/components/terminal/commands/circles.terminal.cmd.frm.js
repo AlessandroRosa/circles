@@ -44,7 +44,7 @@ function circles_terminal_cmd_frm()
          _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "parse", "release", "help", "html", "seeds", "generators", "classification" );
+    				 _local_cmds_params_array.push( "parse", "release", "html", "seeds", "generators", "classification" );
     		 var _magic_entries = [] ;
 				 		 _magic_entries.push( "jorgensenineq" );
 				 		 _local_cmds_params_array = _local_cmds_params_array.concat( _magic_entries );
@@ -69,7 +69,7 @@ function circles_terminal_cmd_frm()
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
             _p = _params_array[_i] ;
-            if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
             else if ( _magic_entries.includes_i( _p ) ) _params_assoc_array['settings']['magic'] = _p ;

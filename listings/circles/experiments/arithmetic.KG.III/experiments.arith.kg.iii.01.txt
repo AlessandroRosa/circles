@@ -10,7 +10,6 @@ see page 167
 new
 silent off
 echo on
-
 grid source show
 grid image show
 grid 12

@@ -10,7 +10,7 @@ silent off
 grid zplane show
 grid 12
 config set accuracy 12
-config set depth 10
+config set depth 20
 palette off
 method algebraic breadthfirst
 config set drawentity pixel

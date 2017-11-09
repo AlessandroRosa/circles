@@ -37,13 +37,13 @@ function circles_terminal_cmd_console()
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "bottom", "default", "history", "left", "nohelp",
                                             "right", "reset", "resize", "screenfit", "top",
-                                            "maxi", "mini", "wide", "long", "release", "help", "html" );
+                                            "maxi", "mini", "wide", "long", "release", "html" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
               _p = _params_array[_i].toLowerCase();
-              if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
+              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.is_one_of_i( "history", "resize", "release" ) ) _params_assoc_array['action'] = _p ;

@@ -37,7 +37,7 @@ function circles_terminal_cmd_debug()
         _params_array.clean_from( " " );       _params_array.clean_from( "" );
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "clean", "release", "help", "html" );
+    				 _local_cmds_params_array.push( "clean", "release", "html" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -58,7 +58,7 @@ function circles_terminal_cmd_debug()
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
               _p = _params_array[_i].toLowerCase();
-              if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
+              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.is_one_of_i( "clean", "release" ) ) _params_assoc_array['action'] = _p ;

@@ -36,7 +36,7 @@ function circles_terminal_cmd_figures()
                                             "keep", "list", "long", "mark", "mergerect", "open",
                                             "polyadd", "polydelete", "polysort", "polyupdate",
                                             "rebuild", "render", "shift", "sort", "swap", "transfer",
-                                            "update", "unmark", "help", "html" );
+                                            "update", "unmark", "html" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -72,7 +72,7 @@ function circles_terminal_cmd_figures()
          {
               _p = _params_array[_i] ;
               if ( _p.stricmp( "noinherit" ) ) _params_assoc_array['inherit'] = NO ;
-              else if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
+              else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.start_with_i( "$" ) ) _params_assoc_array['labels'].push( _p );

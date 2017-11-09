@@ -66,7 +66,7 @@ function circles_terminal_cmd_matrix()
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
               _p = _params_array[_i] ;
-              if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
+              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.toLowerCase().start_with( "roundto:" ) )
               {

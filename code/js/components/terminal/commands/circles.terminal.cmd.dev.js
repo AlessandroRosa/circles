@@ -53,7 +53,7 @@ function circles_terminal_cmd_dev()
               _p = _params_array[_i].trim() ;
               if ( safe_size( _p, 0 ) == 0 ) continue ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
+              else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.is_one_of_i( "datatypes" ) )
                    _params_assoc_array['action'] = _p.toLowerCase();

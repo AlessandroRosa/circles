@@ -2,61 +2,59 @@ _glob_terminal_cmd_files_include[ "dg" ] = [ "init", "circle", "refresh" ] ;
 
 function circles_terminal_cmd_dg()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-	 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-	 console.log( _last_release_date, _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" );
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _help = NO ;
-     var _params_assoc_array = [];
-     var _sd_n = circles_lib_count_seeds();
-     var _begin_flag = 0 ;
-     var _fn_ret_val = null ;
-     var _conjugation_service_cat = [ "apply", "init", "rec", "refresh", "render" ] ;
-     var _subgroup_service_cat = [ "info", "init", "rec", "refresh", "render", "show" ] ;
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _help = NO ;
+    var _params_assoc_array = [];
+    var _sd_n = circles_lib_count_seeds();
+    var _begin_flag = 0 ;
+    var _fn_ret_val = null ;
+    var _conjugation_service_cat = [ "apply", "init", "rec", "refresh", "render" ] ;
+    var _subgroup_service_cat = [ "info", "init", "rec", "refresh", "render", "show" ] ;
      
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
-         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-         _params_assoc_array['keywords'] = NO ;
-         _params_assoc_array['action'] = "" ;
-         _params_assoc_array['class'] = FN_DEF_NONE ;
-         _params_assoc_array['index'] = UNDET ;
-         _params_assoc_array['def'] = [] ;
-         _params_assoc_array['map'] = [] ;
-         _params_assoc_array['plane'] = _glob_target_plane ;
-         _params_assoc_array['service'] = [] ;
-         _params_assoc_array['drawentity'] = DRAWENTITY_ISOMETRIC_CIRCLE ;
-         _params_assoc_array['roundto'] = _glob_accuracy ;
-         _params_assoc_array['short'] = NO ;
-         _params_assoc_array['vars'] = [] ;
-         _params_assoc_array['words'] = [] ;
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " );       _params_array.clean_from( "" );
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "call", "clean", "conjugate", "delete", "defaultmaps", "init", "help", "html",
-                                            "inversion", "isometric", "release",
-                                            "list", "rec", "refresh", "render",
-                                            "save", "short", "show", "subgroup", "wplane", "zplane" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+        _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
+        _params_assoc_array['keywords'] = NO ;
+        _params_assoc_array['action'] = "" ;
+        _params_assoc_array['class'] = FN_DEF_NONE ;
+        _params_assoc_array['index'] = UNDET ;
+        _params_assoc_array['def'] = [] ;
+        _params_assoc_array['map'] = [] ;
+        _params_assoc_array['plane'] = _glob_target_plane ;
+        _params_assoc_array['service'] = [] ;
+        _params_assoc_array['drawentity'] = DRAWENTITY_ISOMETRIC_CIRCLE ;
+        _params_assoc_array['roundto'] = _glob_accuracy ;
+        _params_assoc_array['short'] = NO ;
+        _params_assoc_array['vars'] = [] ;
+        _params_assoc_array['words'] = [] ;
+        var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+        _params_array.clean_from( " " );       _params_array.clean_from( "" );
+        // pre-scan for levenshtein correction
+    	var _local_cmds_params_array = [];
+    	_local_cmds_params_array.push( "call", "clean", "conjugate", "delete", "defaultmaps", "init", "html",
+                    "inversion", "isometric", "list", "release", "rec", "refresh", "render",
+                    "save", "short", "show", "subgroup", "wplane", "zplane" );
+        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
              _p = _params_array[_i] ;
-             if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
+             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
              else if ( _p.stricmp( "short" ) ) _params_assoc_array['short'] = YES ;
@@ -195,6 +193,7 @@ function circles_terminal_cmd_dg()
                 case "call":
                 var _index = safe_int( _params_assoc_array['index'], UNDET );
                 var _zero_based = ( _index > 0 ) ? _index - 1 : UNDET ;
+                var _def = safe_string( _params_assoc_array['def'], "" ) ;
                 if ( _zero_based == UNDET )
                 {
                     _b_fail = YES, _error_str = "Fail to call group #"+_index+": missing or invalid input group index" ;
@@ -231,7 +230,7 @@ function circles_terminal_cmd_dg()
                         if ( circles_lib_count_seeds() > 0 && safe_size( _error_append, 0 ) == 0 )
                         {
                             circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Current group has been called with success", _par_1, _cmd_tag );
-                            _kg_cmd_init( _par_1, _output_channel, _cmd_tag );
+                            _dg_cmd_init( _par_1, _output_channel, _cmd_tag );
                             if ( !_b_fail ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All group members have been conjugated with success", _par_1, _cmd_tag );
                         }
                         else circles_lib_output( _output_channel, DISPATCH_ERROR, "Memory error: can't call input group" + ( _glob_crlf + _error_append ) , _par_1, _cmd_tag );
@@ -311,10 +310,8 @@ function circles_terminal_cmd_dg()
                     {
                         // conjugate the input maps in sequence
                         var _ret_chunk ;
-                        $.each( _maps_ref,
-                                function( _i, _map_tag )
-                                {
-                                    _ret_chunk = _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _par_1, _output_channel, _cmd_tag );
+                        $.each( _maps_ref, function( _i, _map_tag ) {
+                                    _ret_chunk = _dg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _par_1, _output_channel, _cmd_tag );
                                     if ( _ret_chunk[0] == RET_ERROR )
                                     {
                                        _b_fail = YES, _error_str = _ret_chunk[1] ;
@@ -362,51 +359,61 @@ function circles_terminal_cmd_dg()
                         }
                     }
 
-						     		var _params_array = [] ;
-								     	  _params_array['prepromptquestion'] = null ;
-						     		 		_params_array['promptquestion'] = "Confirm to delete the registered group #"+_index+"? " ;
-						     		 		_params_array['yes_fn'] = function() { _delete_group(); }
-						     		 		_params_array['ifquestiondisabled_fn'] = function() { _delete_group(); }
-					     		  circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+					var _params_array = [] ;
+					_params_array['prepromptquestion'] = null ;
+					_params_array['promptquestion'] = "Confirm to delete the registered group #"+_index+"? " ;
+					_params_array['yes_fn'] = function() { _delete_group(); }
+					_params_array['ifquestiondisabled_fn'] = function() { _delete_group(); }
+					circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
                 case "list":
                 var _len = safe_size( _glob_groups_table, 0 );
                 var _index = safe_int( _params_assoc_array['index'], UNDET );
                 var _short = safe_int( _params_assoc_array['short'], NO );
-                var _zero_based = _index - 1 ;
+                var _cols = 4 ;
+				if ( _index == 0 )
+				{
+					_index = 1 ;
+					circles_lib_output( _output_channel, DISPATCH_INFO, "Zero-based index are not allowed: 0 will be turned into 1", _par_1, _cmd_tag );
+				}
+				
                 if ( _len == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "The groups list is empty", _par_1, _cmd_tag );
+				else if ( _index < 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Negative indexes are not allowed", _par_1, _cmd_tag );
+				else if ( _index > _len )
+				{
+					var _range_str = _len == 1 ? "(1)" : "(1-"+_len+")" ;
+					circles_lib_output( _output_channel, DISPATCH_WARNING, "Index #"+_index+" is out of range "+_range_str, _par_1, _cmd_tag );
+				}
                 else
                 {
                    var _html = "<table><tr><td HEIGHT=\"8\"></td></tr>" ;
                    var _group_chunk = null, _def, _size ;
                    for( var _i = 0 ; _i < _len ; _i++ )
                    {
-                      if ( _zero_based >= 0 && _i != _zero_based ) continue ;
                       _group_chunk = _glob_groups_table[ _i ] ;
                       if ( _group_chunk != null )
                       {
-                         _size = safe_int( _group_chunk[1], 0 );
-                         _def = safe_string( _group_chunk[2], "" ).trim();
-                         if ( _short ) _html += "<tr><td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#00B900;padding:5px;color:white;\">Group #"+(_i+1)+( safe_size( _def, 0 ) > 0 ? " - &lsquo;" + _def + "&rsquo;" : "" )+" - entries "+_size+"</td></tr>" ;
-                         else
-                         {
+                        if ( _index != 0 && _index != (_i+1) ) continue ;
+						_size = safe_int( _group_chunk[1], 0 );
+                        _def = safe_string( _group_chunk[2], "" ).trim();
+                        if ( _short ) _html += "<tr><td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#00B900;padding:5px;color:white;\">Group #"+(_i+1)+( safe_size( _def, 0 ) > 0 ? " - &lsquo;" + _def + "&rsquo;" : "" )+" - entries "+_size+"</td></tr>" ;
+                        else
+                        {
                            _html += "<tr><td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#C8C8C8;padding:5px;\" VALIGN=\"top\">" ;
                            _html += "<table>" ;
-                           _html += "<tr><td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#00B900;padding:5px;color:white;\">Group #"+(_i+1)+( safe_size( _def, 0 ) > 0 ? " - &lsquo;" + _def + "&rsquo;" : "" )+"</td></tr>" ;
-                           _html += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-                           _html += "<tr><td VALIGN=\"top\">" + _kg_cmd_show_group( _group_chunk ) + "</td></tr>" ;
-                           _html += "<tr><td HEIGHT=\"3\"></td></tr>" ;
+                           _html += "<tr><td CLASS=\"general_rounded_corners\" COLSPAN=\""+_cols+"\" STYLE=\"background-color:#00B900;padding:5px;color:white;\">Group #"+(_i+1)+( safe_size( _def, 0 ) > 0 ? " - &lsquo;" + _def + "&rsquo;" : "" )+"</td></tr>" ;
+                           _html += "<tr><td HEIGHT=\"1\"></td></tr>" ;
+                           _html += "<tr><td VALIGN=\"top\">" + _dg_cmd_show_group( _group_chunk, _cols ) + "</td></tr>" ;
+                           _html += "<tr><td HEIGHT=\"1\"></td></tr>" ;
                            _html += "</table>" ;
-                           _html += "</td>" ;
-                           _html += "</tr>" ;
-                         }
+                           _html += "</td></tr>" ;
+                        }
 
-                         _html += "<tr><td HEIGHT=\"3\"></td></tr>" ;
+                        _html += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                       }
                    }
 
-                   _html += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                    _html += "</table>" ;
                    circles_lib_terminal_html_display( _glob_terminal, _html );
                 }
@@ -423,10 +430,11 @@ function circles_terminal_cmd_dg()
                     var _input_group = [];
                     $.each( _ref_mm_array, function( _i, ITEM ) { _input_group.push( ITEM ); } );
 
-                    var _ret_chunk = _kg_cmd_scan_for_duplicates( [ _input_group, safe_size( _input_group, 0 ), _def ] );
+                    var _ret_chunk = _dg_cmd_scan_for_duplicates( [ _input_group, safe_size( _input_group, 0 ), _def ] );
                     var _is_duplicate = safe_int( _ret_chunk[0], NO );
-                    var _entry_index = ( _is_duplicate ) ? safe_int( _ret_chunk[1], UNDET ) : UNDET ;
-                    if ( _is_duplicate ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Current group is use has already been saved as 'group #" + _entry_index + "'", _par_1, _cmd_tag );
+                    var _entry_zero_based_index = _is_duplicate ? safe_int( _ret_chunk[1], UNDET ) : UNDET ;
+                    var _entry_def = _is_duplicate ? safe_string( _ret_chunk[2], "" ) : "" ;
+                    if ( _is_duplicate ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Current group has already been tagged as '"+_entry_def+"', with index #"+(_entry_zero_based_index+1), _par_1, _cmd_tag );
                     else
                     {
                         var _old_n = safe_size( _glob_groups_table, 0 );
@@ -531,12 +539,12 @@ function circles_terminal_cmd_dg()
 
                             if ( _service_array.includes( "info" ) )
                             {
-                                var _html = _kg_cmd_info_group( [ _new_group, safe_size( _new_group, 0 ), _def  ] );
+                                var _html = _dg_cmd_info_group( [ _new_group, safe_size( _new_group, 0 ), _def  ] );
                                 circles_lib_terminal_html_display( _glob_terminal, _html );
                             }
                             else if ( _service_array.includes( "show" ) )
                             {
-                                var _html = _kg_cmd_show_group( [ _new_group, safe_size( _new_group, 0 ), _def  ] );
+                                var _html = _dg_cmd_show_group( [ _new_group, safe_size( _new_group, 0 ), _def  ] );
                                 circles_lib_terminal_html_display( _glob_terminal, _html );
                             }
 
@@ -544,7 +552,7 @@ function circles_terminal_cmd_dg()
                             {
                                 var _def = _params_assoc_array['def'] != null ? new String( _params_assoc_array['def'] ) : "" ;
                                 if ( safe_size( _def, 0 ) == 0 ) _def = "Missing definition for group symbol" ;
-                                var _ret_chunk = _kg_cmd_record_group( _new_group, _def );
+                                var _ret_chunk = _dg_cmd_record_group( _new_group, _def );
                                 _b_fail = ( safe_int( _ret_chunk[0], RET_ERROR ) == RET_ERROR ) ? YES : NO ;
                                 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                                 if ( _b_fail ) _error_str = _ret_msg ;
@@ -553,7 +561,7 @@ function circles_terminal_cmd_dg()
 
                             if ( !_b_fail && _service_array.includes( "render" ) )
                             {
-                                var _ret_id = _kg_cmd_init( _par_1, _output_channel, _cmd_tag );
+                                var _ret_id = _dg_cmd_init( _par_1, _output_channel, _cmd_tag );
                                 if ( _ret_id != RET_ERROR )
                                 circles_lib_terminal_interpreter( "refresh wplane silent clean", _glob_terminal, _output_channel );
                             }
@@ -594,7 +602,7 @@ function circles_terminal_cmd_dg()
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
 
-function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _par_1, _output_channel, _cmd_tag )
+function _dg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _par_1, _output_channel, _cmd_tag )
 {
      var _sd_n = circles_lib_count_seeds();
      var _chunk = clone( _glob_maps[ _map_tag ] );
@@ -736,12 +744,12 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                	    circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
                }
 
-               if ( _service_array.includes( "init" ) ) _kg_cmd_init( _par_1, _output_channel, _cmd_tag );
+               if ( _service_array.includes( "init" ) ) _dg_cmd_init( _par_1, _output_channel, _cmd_tag );
                if ( _service_array.includes( "rec" ) )
                {
                    var _def = _params_assoc_array['def'] != null ? new String( _params_assoc_array['def'] ) : "" ;
                    if ( safe_size( _def, 0 ) == 0 ) _def = "Missing definition for group symbol" ;
-                   var _ret_chunk = _kg_cmd_record_group( _new_group, _def );
+                   var _ret_chunk = _dg_cmd_record_group( _new_group, _def );
                        _b_ret = safe_int( _ret_chunk[0], RET_ERROR );
                    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                    if ( _b_ret == RET_ERROR )
@@ -754,7 +762,7 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                jQuery.extend( _glob_seeds_array, _new_group );
                if ( _b_ret != RET_ERROR && _service_array.includes( "render" ) )
                {
-                   var _ret_id = _kg_cmd_init( _par_1, _output_channel, _cmd_tag )
+                   var _ret_id = _dg_cmd_init( _par_1, _output_channel, _cmd_tag )
                    if ( _ret_id == RET_ERROR ) circles_lib_output( _output_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                    else circles_lib_output( _output_channel, DISPATCH_SUCCESS,  "All group members have been conjugated with success", _par_1, _cmd_tag );
                    if ( _ret_id != RET_ERROR )
@@ -773,7 +781,7 @@ function _kg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
      return [ _b_fail ? RET_ERROR : RET_OK, _error_str ] ;
 }
 
-function _kg_cmd_init( _par_1, _output_channel, _cmd_tag )
+function _dg_cmd_init( _par_1, _output_channel, _cmd_tag )
 {
      _glob_init_mask &= ~INIT_FROM_DISKS ;
      _glob_init_mask |= INIT_FROM_MAPS ;
@@ -789,7 +797,7 @@ function _kg_cmd_init( _par_1, _output_channel, _cmd_tag )
      return _ret_id ;
 }
 
-function _kg_cmd_scan_for_duplicates( _input_group_chunk )
+function _dg_cmd_scan_for_duplicates( _input_group_chunk )
 {
      var _is_duplicate = NO, _group_chunk, _input_group_n = safe_size( _input_group_chunk, 0 );
      var _matches = 0, _group, _group_n, _def = "", _candidate_def = "", _t, _g, _i ;
@@ -815,18 +823,18 @@ function _kg_cmd_scan_for_duplicates( _input_group_chunk )
                    if ( _matches == _input_group_n || _candidate_def.stricmp( _def ) )
                    {
                       _is_duplicate = YES ;
-                      return [ _is_duplicate, _t + 1 ] ;
+                      return [ _is_duplicate, _t, _def ] ;
                    }
                }
           }
      }
 
-     return [ _is_duplicate, UNDET ] ;
+     return [ _is_duplicate, UNDET, "" ] ;
 }
 
-function _kg_cmd_record_group( _new_group, _def )
+function _dg_cmd_record_group( _new_group, _def )
 {
-     var _ret_chunk = _kg_cmd_scan_for_duplicates( [ _new_group, safe_size( _new_group, 0 ), _def ] );
+     var _ret_chunk = _dg_cmd_scan_for_duplicates( [ _new_group, safe_size( _new_group, 0 ), _def ] );
      var _is_duplicate = safe_int( _ret_chunk[0], NO );
      var _entry_index = ( _is_duplicate ) ? safe_int( _ret_chunk[1], UNDET ) : UNDET ;
      if ( safe_size( _new_group, 0 ) == 0 ) return [ RET_ERROR, "The resulting input subgroup is empty: can't record it" ] ;
@@ -841,7 +849,7 @@ function _kg_cmd_record_group( _new_group, _def )
      }
 }
 
-function _kg_cmd_show_group( _group_chunk )
+function _dg_cmd_show_group( _group_chunk, _cols = 1 )
 {
      var _html = "<table>" ;
      var _mm, _symbol, _inv_symbol, _trace ;
@@ -850,25 +858,36 @@ function _kg_cmd_show_group( _group_chunk )
      var _def = safe_string( _group_chunk[2], "" );
      for( var _x = 0 ; _x < _entries_n ; _x++ )
      {
-         _symbol = _entries[_x].symbol, _inv_symbol = _entries[_x].inverse_symbol ;
-         _mm = _entries[_x].map ;
-         _trace = _mm.trace();
-         _html += "<tr><td COLSPAN=\"15\" STYLE=\"color:#B0B0B0;padding:5px;\">Symbol <b>"+_symbol+"</b>&nbsp;&nbsp;|&nbsp;&nbsp;Inverse symbol <b>"+_inv_symbol+"</b></td></tr>" ;
-         _html += "<tr><td COLSPAN=\"15\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#3C6FA1;color:white;padding:5px;\">Trace "+_trace.formula(YES,YES,_round_to)+"</td></tr>" ;
-         _html += "<tr><td HEIGHT=\"1\"></td></tr>" ;
-         _html += "<tr><td COLSPAN=\"15\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#EAEAEA;padding:5px;\"><table>" ;
-         _html += "<tr><td STYLE=\"background-color:#D0D0D0;padding:2px;color:#3C6FA1;\">a</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:blue;\">"+( _mm.a.formula(YES,YES,_round_to) )+"</td></tr>" ;
-         _html += "<tr><td STYLE=\"background-color:#D0D0D0;padding:2px;color:#3C6FA1;\">b</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:blue;\">"+( _mm.b.formula(YES,YES,_round_to) )+"</td></tr>" ;
-         _html += "<tr><td STYLE=\"background-color:#D0D0D0;padding:2px;color:#3C6FA1;\">c</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:blue;\">"+( _mm.c.formula(YES,YES,_round_to) )+"</td></tr>" ;
-         _html += "<tr><td STYLE=\"background-color:#D0D0D0;padding:2px;color:#3C6FA1;\">d</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:blue;\">"+( _mm.d.formula(YES,YES,_round_to) )+"</td></tr>" ;
-         _html += "</table></td></tr>" ;
-         _html += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+        _symbol = _entries[_x].symbol, _inv_symbol = _entries[_x].inverse_symbol ;
+        _mm = _entries[_x].map ;
+        _trace = _mm != null ? _mm.trace() : new complex(0,0);
+		if ( _x % _cols == 0 ) _html += "<tr>" ;
+		_html += "<td><table>" ;
+        _html += "<tr><td STYLE=\"color:#B0B0B0;padding:5px;\">Symbol <b>"+_symbol+"</b>&nbsp;&nbsp;|&nbsp;&nbsp;Inverse symbol <b>"+_inv_symbol+"</b></td></tr>" ;
+        _html += "<tr><td COLSPAN=\"15\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#3C6FA1;color:white;padding:5px;\">Trace "+_trace.formula(YES,YES,_glob_accuracy)+"</td></tr>" ;
+        _html += "<tr><td HEIGHT=\"3\"></td></tr>" ;
+        _html += "<tr><td COLSPAN=\"15\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#EAEAEA;padding:5px;\"><table>" ;
+        _html += "<tr><td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#D0D0D0;padding:4px;color:#3C6FA1;\">a</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:blue;\">"+( _mm.a.formula(YES,YES,_glob_accuracy) )+"</td></tr>" ;
+        _html += "<tr><td HEIGHT=\"1\"></td></tr>" ;
+        _html += "<tr><td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#D0D0D0;padding:4px;color:#3C6FA1;\">b</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:blue;\">"+( _mm.b.formula(YES,YES,_glob_accuracy) )+"</td></tr>" ;
+        _html += "<tr><td HEIGHT=\"1\"></td></tr>" ;
+        _html += "<tr><td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#D0D0D0;padding:4px;color:#3C6FA1;\">c</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:blue;\">"+( _mm.c.formula(YES,YES,_glob_accuracy) )+"</td></tr>" ;
+        _html += "<tr><td HEIGHT=\"1\"></td></tr>" ;
+        _html += "<tr><td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#D0D0D0;padding:4px;color:#3C6FA1;\">d</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:blue;\">"+( _mm.d.formula(YES,YES,_glob_accuracy) )+"</td></tr>" ;
+        _html += "</table></td>" ;
+        _html += "</tr></table></td>" ;
+		if ( _x % _cols == ( _cols - 1 ) )
+		{
+			_html += "</tr>" ;
+			_html += "<tr><td HEIGHT=\"2\"></td></tr>" ;
+		}
+		else _html += "<td WIDTH=\"2\"></td>" ;
      }
      _html += "</table>" ;
      return _html ;
 }
 
-function _kg_cmd_info_group( _group_chunk )
+function _dg_cmd_info_group( _group_chunk )
 {
      var _entries = ( _group_chunk != null ) ? _group_chunk[0] : [] ;
      var _entries_n = safe_int( _group_chunk[1], 0 );

@@ -56,7 +56,7 @@ function circles_terminal_cmd_word()
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "all", "calc", "connect", "copy", "displacedset", "draw", "draworbits", "fixedpoints",
                                             "generator", "html", "list", "markpoints", "orbit", "rle", "resolve", "sink", "source",
-                                            "lastpt", "test", "trace", "track", "treescan", "html", "help", "release" );
+                                            "lastpt", "test", "trace", "track", "treescan", "html", "release" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -77,7 +77,7 @@ function circles_terminal_cmd_word()
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
               _p = _params_array[_i] ;
-              if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
+              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;

@@ -51,7 +51,7 @@ function circles_terminal_cmd_gensset()
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "short", "inverse", "add", "exact", "bomb", "model", "init", "list", "noclear", "seeds",
     				 																"generators", "copy", "force", "reset", "zplane", "wplane", "bip",
-    				 																"help", "html", "release" );
+    				 																"html", "release" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -72,7 +72,7 @@ function circles_terminal_cmd_gensset()
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
             _p = _params_array[_i] ;
-            if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.is_one_of_i( "add", "exact", "flush", "bomb", "init", "list", "model", "release" ) )
 						_params_assoc_array['action'] = _p.toLowerCase();

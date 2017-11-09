@@ -41,7 +41,7 @@ function circles_terminal_cmd_coords()
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
              _p = _params_array[_i].toLowerCase();
-             if ( _p.is_one_of_i( "/h", "/?" ) ) _params_assoc_array['help'] = YES ;
+             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
              else if ( _p.stricmp( "all" ) ) { _params_assoc_array['planes'].flush() ; _params_assoc_array['planes'].push( Z_PLANE, W_PLANE, BIP_BOX ) ; }
              else if ( _p.stricmp( "bip" ) && _params_assoc_array['planes'].not_includes( _BIP_BOX ) ) _params_assoc_array['planes'].push( BIP_BOX ) ;

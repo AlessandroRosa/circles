@@ -1,6 +1,5 @@
 ------------ APP -------------------------------------------------
 * Listings:
-  - set depth to 18 for all listings with random IFS
 
   - run and test all listings
   LAST CHECKED : epstein.../ep.ma.ma.02.txt
