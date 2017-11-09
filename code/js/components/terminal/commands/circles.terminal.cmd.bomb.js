@@ -137,9 +137,9 @@ function circles_terminal_cmd_bomb()
                                  if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb items: " + _ERR_33_01, _par_1, _cmd_tag );
                                  else
                                  {
-                              	     if ( is_array( _glob_gens_array ) ) _glob_gens_array.flush();
-                                     if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
-                                     if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
+                              	     if ( is_array( _glob_gens_array ) ) _glob_gens_array = [];
+                                     if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
+                                     if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
                                      circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Items have been bombed with success", _par_1, _cmd_tag );
                                  }
                               }
@@ -167,7 +167,7 @@ function circles_terminal_cmd_bomb()
                                    if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb seeds: no items found", _par_1, _cmd_tag );
                                    else
                                    {
-                                       if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
+                                       if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
                                        circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Seeds have been bombed with success", _par_1, _cmd_tag );
                                    }
                               }

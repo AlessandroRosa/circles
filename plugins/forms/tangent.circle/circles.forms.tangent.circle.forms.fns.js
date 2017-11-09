@@ -86,7 +86,7 @@ function CIRCLESformsTANGENTCIRCLEselection()
 {
     var SEL1 = safe_int( $("#CIRCLEScombo01").val(), 0 );
     _glob_zplaneMOUSEprocSWITCH = MOUSE_TANGENTCIRCLE_PROC_ID ;
-    _glob_zplane_selected_items_array.flush();
+    _glob_zplane_selected_items_array = [];
     circles_lib_helper_div_remove();
     if ( CIRCLEScombo01.selectedIndex > 0 ) _glob_zplane_selected_items_array.push( SEL1 );
     if ( _glob_zplane_selected_items_array.length > 0 )

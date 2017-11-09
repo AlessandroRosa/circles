@@ -214,7 +214,7 @@ function circles_terminal_cmd_tessellator()
                                     var _shifthorz = safe_float( _params_assoc_array['shifthorz'], 0 );
                                     var _shiftvert = safe_float( _params_assoc_array['shiftvert'], 0 );
                                     var _cx, _cy, _complex_circle, _screen_circle, _x, _y ;
-                                    _glob_seeds_array.flush();
+                                    _glob_seeds_array = [];
                                     for( _x = 0 ; _x < _cols ; _x++ )
                                     {
                                         _cx = _start_pt.x + _shifthorz * _x ;
@@ -264,7 +264,7 @@ function circles_terminal_cmd_tessellator()
                                     var _complex_circle = new circle( _start_pt, _radius );
                                     var _complex_center = new complex( _complex_circle.center.x, _complex_circle.center.y );
                                     var _center_pt = null, _rotated_pt ;
-                                    _glob_seeds_array.flush();
+                                    _glob_seeds_array = [];
                                     for( var _i = 0 ; _i < _n_circles ; _i++ )
                                     {
                                         _rotated_pt = _complex_center.rotate( new complex( _rotation_center.x, _rotation_center.y ), _i * _sector_rad );
@@ -324,7 +324,7 @@ function circles_terminal_cmd_tessellator()
                                     var _cx = _center_pt.x, _cy = _center_pt.y ;
                                     var _r, _c ;
 
-                                    _glob_seeds_array.flush();
+                                    _glob_seeds_array = [];
                                     for( _r = 0 ; _r < _n_reps * 2 ; _r++ )
                                     {
                                         for( _c = 0 ; _c < _n_circles ; _c++ )

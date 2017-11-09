@@ -86,7 +86,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 
 	    	_glob_disk_sel_index = UNDET ;
 			_glob_disk_sel_locked = NO ;
-			_glob_zplane_selected_items_array.flush();
+			_glob_zplane_selected_items_array = [];
 			_glob_screencircles_sel_array.flush();
 			_glob_zplaneMOUSEleftBTNstatus = OFF ;
 			_glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID ;
@@ -127,7 +127,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
               if ( _hashtags.includes( _items_array[_i].hashtag ) ) _items_array.remove( _i, _i );
 
 		          _glob_disk_sel_index = UNDET ;
-		          _glob_zplane_selected_items_array.flush();
+		          _glob_zplane_selected_items_array = [];
 				    	_glob_screencircles_sel_array.flush();
 		               
               circles_lib_helper_div_remove();

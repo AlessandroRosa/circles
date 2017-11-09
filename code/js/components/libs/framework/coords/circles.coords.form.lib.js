@@ -613,7 +613,7 @@ function circles_lib_coordinates_zoom_in_disk( _render, _index, _question, _sile
                  // highlight the selected object on the screen as its data
                  // are displayed in this pop-up window
                  var i = _index ;
-                 _glob_zplane_selected_items_array.flush();
+                 _glob_zplane_selected_items_array = [];
                  circles_lib_helper_div_remove();
                  _glob_zplane_selected_items_array.push( i );
                  _glob_disk_sel_index = i ;

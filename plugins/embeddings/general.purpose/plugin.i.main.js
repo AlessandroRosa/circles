@@ -1,6 +1,6 @@
 function CIRCLESembeddingsGENERALPURPOSE_CALL_METHOD( fn ) { circles_lib_plugin_load('forms','method', YES, 0, _glob_method, fn ); }
 function CIRCLESembeddingsGENERALPURPOSEclose() { return circles_lib_plugin_dispatcher_unicast_message( 'general.purpose', "embeddings", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
-function CIRCLESembeddingsGENERALPURPOSE_FOCUS() { var SW = $(window).width(), SH = $(window).height(); CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, NO, SH > 540 ? YES : NO ); }
+function CIRCLESembeddingsGENERALPURPOSE_FOCUS() { var SW = $(window).width(), SH = $(window).height(); CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, SH > 540 ? YES : NO ); }
 function CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id )
 {
     _plugin_main_ref = safe_string( _base_id + "", _plugin_main_ref ) ;
@@ -9,16 +9,15 @@ function CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id )
     _plugin_method_array[_index_ref] = METHOD_ALGEBRAIC ;
     _plugin_definitions_array[_index_ref] = "General purpose" ;
     _plugin_info_array[_index_ref] = "Just input the coefficients of gens and pull your Mobius maps group out !" ;
-    _plugin_run_fn_array[_index_ref] = "CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO);" ;
+    _plugin_run_fn_array[_index_ref] = "CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES);CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO);" ;
     _plugin_vars_array[_index_ref] = [] ;
 
     _glob_target_plane = W_PLANE ;
     _glob_init_mask = INIT_FROM_MAPS | INIT_PAIRED_ITEMS ;
-    circles_lib_method_set( METHOD_ALGEBRAIC );
-    
     _glob_submethod_desc = _plugin_definitions_array[_index_ref] ;
     _glob_submethod_desc = safe_string( _glob_submethod_desc, "" );
     if ( _glob_process == PROCESS_NONE ) _glob_process = PROCESS_BREADTHFIRST ;
+    circles_lib_method_set( METHOD_ALGEBRAIC );
 
     if ( _glob_drawentity == DRAWENTITY_NONE ) circles_lib_drawentity_set( DRAWENTITY_PIXEL );
     if ( _glob_depth <= 1 ) circles_lib_depth_set( DEFAULT_DEPTH, YES );
@@ -60,9 +59,9 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
     HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN, WIDTH, HEIGHT,
                 this_fn_name, 'general.purpose', _div_id, _subset, "plug/plug.icon.01.20x20.png", "", "", "CIRCLES"+_subset+"GENERALPURPOSE_",
-								[ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
-								[ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
-								[ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
+				[ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
+				[ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
+				[ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td VALIGN=\"top\">" ;
@@ -70,7 +69,6 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<tr>" ;
 
     HTMLcode += "<td>" ;
-    var _abs_folder_path = "plugins/"+_subset+"/"+_base_id+"/" ;
     var _rel_folder_path = "plugins/"+_subset+"/"+_base_id+"/" ;
     $.ajaxSetup( { async:false } );
     $.get( _rel_folder_path + "menu.html", function( response ) { HTMLcode += response.replaceAll( "%indexref%", "'"+_index_ref+"'" ) ; } );
@@ -366,9 +364,9 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ID=\"CIRCLESembeddingsGENERALPURPOSE_UPDATE_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_UPDATE,YES);\">Update</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"PLUGIN_WHOLEGROUP_LIST_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);\" WIDTH=\"90\">View whole group</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"PLUGIN_WHOLEGROUP_LIST_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES,_glob_seeds_array);\" WIDTH=\"90\">View whole group</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"PLUGIN_REFRESH_LIST_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);\">Refresh List</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ID=\"PLUGIN_REFRESH_LIST_BTN\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES);\">Refresh List</td>" ;
     HTMLcode += "<td WIDTH=\"2\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</td>" ;
@@ -415,7 +413,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 	}
 
     tabberAutomatic( CIRCLESGENERALPURPOSEtabberOptions, "CIRCLESGENERALPURPOSE" );
-    CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, _restore, YES );
+    CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( _restore, YES );
     TABINDEXorderSET( "#PLUGIN_PARAM_A", "#PLUGIN_PARAM_B", "#PLUGIN_PARAM_C", "#PLUGIN_PARAM_D", "#PLUGINSconfigCOMBO" );
     $( "#PLUGINregisteredvarsLABEL" ).css( "color", _n_registered_vars == 0 ? "#909090" : DEFAULT_COLOR_STD );
 
@@ -494,7 +492,7 @@ function CIRCLESembeddingsGENERALPURPOSE_CAPTURE( _items_switch )
            }
 
        		 circles_lib_output( OUTPUT_SPECIAL_FX, (_success_n == _items_n/2) ? DISPATCH_SUCCESS : DISPATCH_WARNING, _success_n + " of " + _items_n/2 + " entries have been correctly processed", 'PLUGIN_OUTMSG' ) ;
-           CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, NO );
+           CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO );
            $("#CIRCLESGENERALPURPOSEmainDIV").get(0).tabber.tabShow(1);
         }
         else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Capturing has been aborted by user", 'PLUGIN_OUTMSG' ) ;
@@ -605,7 +603,7 @@ function CIRCLESembeddingsGENERALPURPOSE_MOBIUS_INFO( _index )
     else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Invalid referenced data", 'PLUGIN_OUTMSG' ) ;
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisition, _output_channel )
+function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisition, _output_channel = OUTPUT_SPECIAL_FX )
 {
     _silent = safe_int( _silent, NO ), _edit_acquisition = safe_int( _edit_acquisition, YES );
 	_output_channel = safe_int( _output_channel, OUTPUT_SPECIAL_FX );
@@ -618,14 +616,13 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 	else
 	{
         if ( _glob_method == METHOD_NONE ) { circles_lib_config_create_new_main(YES); circles_lib_method_set( _plugin_method_array[ _index_ref ] ); }
-   	    if ( is_array( _glob_gens_array ) ) _glob_gens_array.flush();
-        if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
-        if ( is_array( _glob_zplane_selected_items_array ) ) _glob_zplane_selected_items_array.flush();
+   	    if ( is_array( _glob_gens_array ) ) _glob_gens_array = [];
+        if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
+        if ( is_array( _glob_zplane_selected_items_array ) ) _glob_zplane_selected_items_array = [];
 
         GLOB_PLUGIN_CIRCLE_TYPE = $( "#PLUGINcircleCOMBO option:selected" ).val();
         if ( !GLOB_PLUGIN_CIRCLE_TYPE.is_one_of( DRAWENTITY_ISOMETRIC_CIRCLE, DRAWENTITY_INVERSION_CIRCLE, DRAWENTITY_PIXEL, DRAWENTITY_POINT ) )
         GLOB_PLUGIN_CIRCLE_TYPE = DRAWENTITY_ISOMETRIC_CIRCLE ;
-
         _plugin_rec_configs_array[ _index_ref ] = [] ;
 
 		var GEN_CHUNK = null, _symbol, _inv_symbol, _mm, _inv_mm, _mm_trace_squared ;
@@ -634,7 +631,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 		var _INV_CC_01, _INV_IS_01, _inv_circle01 ;
 		for( var _i = 0 ; _i < _N_GENS ; _i++ )
   		{
-			GEN_CHUNK = CIRCLESembeddingsGENERALPURPOSE_gens_container[_i] ;
+			GEN_CHUNK = CIRCLESembeddingsGENERALPURPOSE_gens_container[_i].clone() ;
    			if ( GEN_CHUNK != null )
 			{
 				_symbol = _glob_caps_letters_array[_i], _inv_symbol = circles_lib_word_inverse_get( _symbol );
@@ -642,13 +639,18 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 			    _ret_scan = CIRCLESembeddingsGENERALPURPOSE_SET_REGISTEREDVARS_IN_PARAMS( _edit_acquisition, GEN_CHUNK );
 				if ( _A_COMPLEX != null && _B_COMPLEX != null && _C_COMPLEX != null && _D_COMPLEX != null )
 				{
-					_A_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[0] );
+					_A_COMPLEX = CIRCLESembeddingsGENERALPURPOSE_VAR_REPLACE_PARAMS_IN_FORMULA(_A_COMPLEX);
+					_B_COMPLEX = CIRCLESembeddingsGENERALPURPOSE_VAR_REPLACE_PARAMS_IN_FORMULA(_B_COMPLEX);
+					_C_COMPLEX = CIRCLESembeddingsGENERALPURPOSE_VAR_REPLACE_PARAMS_IN_FORMULA(_C_COMPLEX);
+					_D_COMPLEX = CIRCLESembeddingsGENERALPURPOSE_VAR_REPLACE_PARAMS_IN_FORMULA(_D_COMPLEX);
+
+					_A_COMPLEX = circles_lib_math_parse_formula( _A_COMPLEX );
 					_A_COMPLEX = parse_complex_from_string( _A_COMPLEX + "" );
-					_B_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[1] );
+					_B_COMPLEX = circles_lib_math_parse_formula( _B_COMPLEX );
 					_B_COMPLEX = parse_complex_from_string( _B_COMPLEX + "" );
-					_C_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[2] );
+					_C_COMPLEX = circles_lib_math_parse_formula( _C_COMPLEX );
 					_C_COMPLEX = parse_complex_from_string( _C_COMPLEX + "" );
-					_D_COMPLEX = circles_lib_math_parse_formula( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[3] );
+					_D_COMPLEX = circles_lib_math_parse_formula( _D_COMPLEX );
 					_D_COMPLEX = parse_complex_from_string( _D_COMPLEX + "" );
 
 					if ( is_complex( _A_COMPLEX ) && is_complex( _B_COMPLEX ) && is_complex( _C_COMPLEX ) && is_complex( _D_COMPLEX ) )
@@ -727,7 +729,6 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
                 GLOB_PLUGIN_WIZARD_STEP(1);
               	circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "The group has been generated with success. Now render it !", 'PLUGIN_OUTMSG' ) ;
                 CIRCLESembeddingsGENERALPURPOSE_GENS_REGISTER();
-        			  
                 $("[id$=initBTN]").css( "color", DEFAULT_COLOR_STD );
                 $("[id$=renderBTN]").css( "color", DEFAULT_COLOR_ERROR );
             }
@@ -743,7 +744,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 	}
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_PARSE( a_formula, b_formula, c_formula, d_formula )
+function CIRCLESembeddingsGENERALPURPOSE_PARSE( a_formula = "", b_formula = "", c_formula = "", d_formula = "" )
 {
     var _entries = $( "[id^=PLUGIN_PARAM_]" );
     $.each( _entries, function( _i, _id ) { $( _id ).val( $( _id ).val().replaceAll( ",", "." ) ); } );
@@ -759,7 +760,6 @@ function CIRCLESembeddingsGENERALPURPOSE_PARSE( a_formula, b_formula, c_formula,
     if ( _b_complex != null ) _RET_MASK |= 2 ;
     if ( _c_complex != null ) _RET_MASK |= 4 ;
     if ( _d_complex != null ) _RET_MASK |= 8 ;
-
     if ( _plugin_rec_configs_array[ _index_ref ] == null ) _plugin_rec_configs_array[ _index_ref ] = [];
     _plugin_rec_configs_array[ _index_ref ].push( [ a_formula, b_formula, c_formula, d_formula ] );
 

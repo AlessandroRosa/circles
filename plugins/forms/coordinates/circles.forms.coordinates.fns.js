@@ -10,7 +10,7 @@ function CIRCLESformsCOORDINATESalphabetCOMBOonchange()
         var _index = circles_lib_find_item_index_by_symbol( _items_array, _glob_persistent_vars['CIRCLESformsCOORDINATESsymbol'] ) ;
         if ( _index != UNFOUND )
         {
-           _glob_zplane_selected_items_array.flush();
+           _glob_zplane_selected_items_array = [];
            _glob_zplane_selected_items_array.push( _index );
         }
           

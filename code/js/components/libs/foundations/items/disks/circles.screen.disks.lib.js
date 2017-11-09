@@ -17,7 +17,7 @@ function circles_lib_screendisk_add_from_coords( X, Y, RADIUS, _output_channel )
     _items_array.push( new item_obj( _mm, _complex_circle, null, "", 0, YES, "", NO, "", "", 1, ITEM_TYPE_CIRCLE ) );
     var LASTindex = circles_lib_count_items() - 1 ;
     _glob_disk_sel_index = LASTindex = safe_int( LASTindex, UNDET );
-    _glob_zplane_selected_items_array.flush();
+    _glob_zplane_selected_items_array = [];
     _glob_zplane_selected_items_array.push( LASTindex );
     circles_lib_helper_div_remove();
     if ( circles_lib_count_items() > 0 )

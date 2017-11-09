@@ -1,4 +1,4 @@
-function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode, _silent, _output_channel )
+function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode = 0, _silent = 0, _output_channel = OUTPUT_SPECIAL_FX )
 {
 	_silent = safe_int( _silent, NO ), _opcode = safe_int( _opcode, CIRCLESembeddingsGENERALPURPOSE_ADD );
 	_output_channel = safe_int( _output_channel, OUTPUT_SPECIAL_FX );
@@ -64,6 +64,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode, _silent, _output_
 	}
     else
     {
+		/*
 		CIRCLESembeddingsGENERALPURPOSE_SET_REGISTEREDVARS_IN_PARAMS( YES, null );
 		var _ret_scan = CIRCLESembeddingsGENERALPURPOSE_VAR_ALL_REPLACE_WITH_VAL();
         var _RET_CHUNK = CIRCLESembeddingsGENERALPURPOSE_PARSE( CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[0],
@@ -86,14 +87,17 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode, _silent, _output_
 	    $("#PLUGIN_PARAM_B").css( "background-color", _RET_MASK & 2 == 0 ? DEFAULT_COLOR_ERROR : DEFAULT_EDIT_BKCOLOR_ENABLED );
 	    $("#PLUGIN_PARAM_C").css( "background-color", _RET_MASK & 4 == 0 ? DEFAULT_COLOR_ERROR : DEFAULT_EDIT_BKCOLOR_ENABLED );
 	    $("#PLUGIN_PARAM_D").css( "background-color", _RET_MASK & 8 == 0 ? DEFAULT_COLOR_ERROR : DEFAULT_EDIT_BKCOLOR_ENABLED );
+		*/
 
-	    if ( _RET_MASK == 15 ) // all entries are ok
+	    if ( true /*_RET_MASK == 15*/ ) // all entries are ok
 	    {
+			/*
 			_A_COMPLEX = parse_complex_from_string( _A_COMPLEX + "" );
 			_B_COMPLEX = parse_complex_from_string( _B_COMPLEX + "" );
 			_C_COMPLEX = parse_complex_from_string( _C_COMPLEX + "" );
 			_D_COMPLEX = parse_complex_from_string( _D_COMPLEX + "" );
-			if ( is_complex( _A_COMPLEX ) && is_complex( _B_COMPLEX ) && is_complex( _C_COMPLEX ) && is_complex( _D_COMPLEX ) )
+			*/
+			if ( true /*is_complex( _A_COMPLEX ) && is_complex( _B_COMPLEX ) && is_complex( _C_COMPLEX ) && is_complex( _D_COMPLEX )*/ )
 		    {
 				if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_ADD )
 		  		{
@@ -234,7 +238,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_SELECT( _index, _N_GENS, _src_mask,
 	 	CIRCLESembeddingsGENERALPURPOSEcurr_sel = _index ;
 
         _glob_disk_sel_index = _index ;
-        _glob_zplane_selected_items_array.flush();
+        _glob_zplane_selected_items_array = [];
         _glob_zplane_selected_items_array.push( _index );
         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
 	    var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
@@ -324,10 +328,10 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( _resolve_formula, _restore, _
 		var GEN_CHUNK = null, _GEN_CHECK_MASK ;
         var _A_FORMULA, _B_FORMULA, _C_FORMULA, _D_FORMULA ;
         var _CALC_A_FORMULA, _CALC_B_FORMULA, _CALC_C_FORMULA, _CALC_D_FORMULA ;
-        var _is_normalized, _mm, _including_vars, _i, _c, _mm, _src_mask = 0 ;
-		for( _i = 0 ; _i < _N_GENS ; _i++ )
+        var _is_normalized, _mm, _including_vars, _c, _mm, _src_mask = 0 ;
+		for( var _i = 0 ; _i < _N_GENS ; _i++ )
 	  	{
-			GEN_CHUNK = _input_maps_array[_i], _including_vars = NO ;
+			GEN_CHUNK = _input_maps_array[_i].clone(), _including_vars = NO ;
 			if ( GEN_CHUNK != null )
 			{
 				if ( is_item_obj( GEN_CHUNK ) )
@@ -346,38 +350,6 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( _resolve_formula, _restore, _
     				for( _c = 0 ; _c < 4 ; _c++ ) if ( GEN_CHUNK[_c] != null ) _GEN_CHECK_MASK |= GEN_CHUNK[_c].length > 0 ? Math.pow(2,_c) : 0 ;
     
 					_A_FORMULA = GEN_CHUNK[0], _B_FORMULA = GEN_CHUNK[1], _C_FORMULA = GEN_CHUNK[2], _D_FORMULA = GEN_CHUNK[3] ;
-                    // resolve values in generators formula
-                    var _vars_names = _plugin_rec_var_vals.keys_associative();
-                    var _n_vars = safe_size( _vars_names, 0 ) ;
-                    for( var _x = 0 ; _x < _n_vars ; _x++ )
-                    {
-                      _A_FORMULA = _A_FORMULA.replaceAll( _vars_names[_x], "("+_plugin_rec_var_vals[ _vars_names[_x] ]+")" );
-                      _B_FORMULA = _B_FORMULA.replaceAll( _vars_names[_x], "("+_plugin_rec_var_vals[ _vars_names[_x] ]+")" );
-                      _C_FORMULA = _C_FORMULA.replaceAll( _vars_names[_x], "("+_plugin_rec_var_vals[ _vars_names[_x] ]+")" );
-                      _D_FORMULA = _D_FORMULA.replaceAll( _vars_names[_x], "("+_plugin_rec_var_vals[ _vars_names[_x] ]+")" );
-                    }
-
-					_CALC_A_FORMULA = circles_lib_math_parse_formula( _A_FORMULA );
-					_CALC_B_FORMULA = circles_lib_math_parse_formula( _B_FORMULA );
-					_CALC_C_FORMULA = circles_lib_math_parse_formula( _C_FORMULA );
-					_CALC_D_FORMULA = circles_lib_math_parse_formula( _D_FORMULA );
-    
-                    _CALC_A_FORMULA = parse_complex_from_string( _CALC_A_FORMULA );
-           			_CALC_B_FORMULA = parse_complex_from_string( _CALC_B_FORMULA );
-           			_CALC_C_FORMULA = parse_complex_from_string( _CALC_C_FORMULA );
-               		_CALC_D_FORMULA = parse_complex_from_string( _CALC_D_FORMULA );
-    
-                    $.each( GEN_CHUNK, function( _i, _param ) { if ( _param.includes( "$" ) ) { _including_vars = YES ; return ; } } );
-          
-                    _mm = new mobius_map( _CALC_A_FORMULA, _CALC_B_FORMULA, _CALC_C_FORMULA, _CALC_D_FORMULA );
-                    _is_normalized = _including_vars ? NO : _mm.is_normalized();
-    				if ( _resolve_formula )
-    				{
-                       _A_FORMULA = _CALC_A_FORMULA.formula();
-                       _B_FORMULA = _CALC_B_FORMULA.formula();
-                       _C_FORMULA = _CALC_C_FORMULA.formula();
-                       _D_FORMULA = _CALC_D_FORMULA.formula();
-    				}
                 }
 
 				HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;

@@ -46,7 +46,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 		        _glob_bipRIGHT = _glob_wplaneRIGHT = 3, _glob_bipBOTTOM = _glob_wplaneBOTTOM = -3 ;
 				}
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 0.038 ), 0.865 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.4, -0.2 ), 0.4 ), null, "B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.4, -0.2 ), 0.4 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
@@ -76,7 +76,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
         _glob_show_grid_wplane = YES ;
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.0, 100000 ), 100000 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, -0.25 ), 0.25 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -1, -1 ), 1 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
@@ -107,7 +107,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
         _glob_show_grid_wplane = YES ;
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.0, 100000 ), 100000 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, -0.4 ), 0.3083045973594573 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -1.1, -0.9 ), 0.9 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
@@ -138,7 +138,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
         _glob_show_grid_wplane = YES ;
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 10000, 0 ), 9999 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -10000, 0 ), 9999 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 1 ), 1 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
@@ -169,7 +169,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
         _glob_show_grid_wplane = YES ;
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 10000, 0 ), 9999.5 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -10000, 0 ), 9999.5 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 0.5 ), 0.5 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
@@ -202,7 +202,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
         _glob_show_grid_wplane = YES ;
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 4 ), 3.5 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, -4 ), 3.5 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.6, 0 ), 0.54 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
@@ -233,7 +233,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
         _glob_show_grid_wplane = YES ;
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 1000, 0 ), 999.5 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.15714285714285714,0.3494792 ), 0.337202380952381 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -1000, 0 ), 999.5 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
@@ -264,7 +264,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
         _glob_show_grid_wplane = YES ;
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 100000 ), 100000 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.0004784971644612476,-0.2529389177693762 ), 0.25168950850661626 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point(-0.8829268292682927,-0.7658536585365853), 0.7658536585365853 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
@@ -295,7 +295,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
         _glob_show_grid_wplane = YES ;
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 100000 ), 100000 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.0012892666594076646, -1.4871583732578397 ), 0.3988703179442508 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point(-0.6609210396477568,-0.6595582756015897), 0.6595582756015897 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
@@ -324,7 +324,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 		        _glob_bipRIGHT = _glob_wplaneRIGHT = 1.0, _glob_bipBOTTOM = _glob_wplaneBOTTOM = -1.0 ;
         }
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.61, 0 ), 0.4 ), null, "A", 0, YES, _glob_draw_seed_color, NO, "", "a", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.61, 0 ), 0.4 ), null, "a", 0, YES, _glob_draw_seed_color, NO, "", "A", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 0.61 ), 0.4 ), null, "B", 0, YES, _glob_draw_seed_color, NO, "", "b", 1, 0 ) );
@@ -353,7 +353,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 		        _glob_bipRIGHT = _glob_wplaneRIGHT = 1.0, _glob_bipBOTTOM = _glob_wplaneBOTTOM = -1.0 ;
         }
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.4, 0 ), 0.4 ), null, "A", 0, YES, _glob_draw_seed_color, NO, "", "a", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.4, 0 ), 0.4 ), null, "a", 0, YES, _glob_draw_seed_color, NO, "", "A", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 0.4 ), 0.4 ), null, "B", 0, YES, _glob_draw_seed_color, NO, "", "b", 1, 0 ) );
@@ -384,7 +384,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
         _glob_show_grid_wplane = YES ;
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.4, 0.4 ), 0.4 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "a", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.4, 0.4 ), 0.4 ), null, "b", 0, NO, circles_lib_alphabet_get_color_from_symbol('b'), YES, "", "B", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.4, -0.4 ), 0.4 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "b", 1, 0 ) );
@@ -415,7 +415,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
         _glob_show_grid_wplane = YES ;
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.3987789203084833,-0.0006426735218508997 ), 0.16323907455012854 ), null, "a", 0, NO, circles_lib_alphabet_get_color_from_symbol('a'), YES, "", "A", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.3982969151670951,-0.0006426735218508997 ), 0.16323907455012854 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "a", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0,0.4 ), 0.4 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "b", 1, 0 ) );

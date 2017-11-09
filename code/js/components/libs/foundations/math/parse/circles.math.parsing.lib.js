@@ -10,19 +10,16 @@ function circles_lib_math_parse_formula( _frm = "" )
       var _result = null ;
       if ( _frm.start_with_i( "complex(" ) && _frm.lastchar().strcmp( ")" ) && _frm.count( "complex(" ) == 1 )
       {
-         _frm = _frm.replaceAll( "complex(", "" ) ;
-         _frm = _frm.substr( 0, _frm.length - 1 ) ;
+         _frm = _frm.replaceAll( "complex(", "" ).substr( 0, _frm.length - 1 ) ;
          var _c_comp = _frm.includes( "," ) ? _frm.split( "," ) : [ _c_comp, 0 ] ;
          var _c0 = _glob_parser.eval( _c_comp[0] ), _c1 = _glob_parser.eval( _c_comp[1] );
          _c0 = ( _c0.im != null ) ? new complex( _c0.re.sci_to_dec(), _c0.im.sci_to_dec() ) : new complex( safe_float( _c0, 0 ).sci_to_dec(), 0 );
          _c1 = ( _c1.im != null ) ? new complex( _c1.re.sci_to_dec(), _c1.im.sci_to_dec() ) : new complex( safe_float( _c1, 0 ).sci_to_dec(), 0 );
          _c1 = _c1.mul( new complex( 0, 1 ) );
-         var _c = _c0.add( _c1 );
-         _result = _c.formula( YES, YES, _glob_accuracy );
+         _result = _c0.add( _c1 ).formula( YES, YES, _glob_accuracy );
       }
       else
       {
-		 console.log( _frm );
          try { _result = _glob_parser.eval( _frm ); }
          catch( _err )
          {

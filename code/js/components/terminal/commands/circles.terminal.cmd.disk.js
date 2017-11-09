@@ -772,7 +772,7 @@ function circles_terminal_cmd_disk()
                     break ;
                     case "find":
                     var ITEM = null, _b_found = NO, a = [], _sel ;
-                    if ( _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ) _glob_zplane_selected_items_array.flush();
+                    if ( _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ) _glob_zplane_selected_items_array = [];
                     circles_lib_helper_div_remove();
                     for( var _i = 0 ; _i < _index_selection_array.length ; _i++ )
                     {

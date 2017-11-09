@@ -96,7 +96,7 @@ function CIRCLESformsCHECKITEMSmain( _base_id, _move, _items_switch )
                 else HTMLcode += "<td COLSPAN=\"3\"></td>" ;
 
                 HTMLcode += "<td WIDTH=\"1\"></td>" ;
-                HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:event.stopPropagation();_glob_zplane_selected_items_array.flush();_glob_zplane_selected_items_array.push("+i+");_glob_disk_sel_index="+i+";circles_lib_canvas_render_zplane( null, zplane_sm, null,YES,YES,YES,NO,YES);\">Select</td>" ;
+                HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:event.stopPropagation();_glob_zplane_selected_items_array = [];_glob_zplane_selected_items_array.push("+i+");_glob_disk_sel_index="+i+";circles_lib_canvas_render_zplane( null, zplane_sm, null,YES,YES,YES,NO,YES);\">Select</td>" ;
                 HTMLcode += "<td WIDTH=\"5\"></td>" ;
                 HTMLcode += "</tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;

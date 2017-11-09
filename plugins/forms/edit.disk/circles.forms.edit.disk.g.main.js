@@ -331,7 +331,7 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     // are displayed in this pop-up window
     if ( _item_index != UNDET )
     {
-        _glob_zplane_selected_items_array.flush();
+        _glob_zplane_selected_items_array = [];
         _glob_zplane_selected_items_array.push( _item_index );
         circles_lib_helper_div_remove();
         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCREEN );

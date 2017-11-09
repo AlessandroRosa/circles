@@ -131,8 +131,8 @@ function CIRCLESembeddingsGRANDMAPARABOLIC_COMP( _param, _init )
     else if ( !is_complex( trA ) || !is_complex( trB ) ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "The input trace is not a complex formula.", 'PLUGIN_OUTMSG') ;
     else
     {
-		    if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
-		    if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
+		    if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
+		    if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
 
         $('#PLUGIN1stSOLUTIONid').css('font-weight',CIRCLESembeddingsGRANDMAPARABOLIC_param==1?'bold':'');
         $('#PLUGIN2ndSOLUTIONid').css('font-weight',CIRCLESembeddingsGRANDMAPARABOLIC_param==2?'bold':'');

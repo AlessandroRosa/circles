@@ -313,7 +313,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                }
                else
                {
-                   _glob_zplane_selected_items_array.flush();
+                   _glob_zplane_selected_items_array = [];
                    _glob_zplane_selected_items_array.push( _item_index );
                    circles_lib_helper_div_remove();
                    var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );

@@ -214,7 +214,7 @@ function Z_PLANE_work_canvas_onclick( obj, event )
             CIRCLESformsCONSTRUCTTANGENTCIRCLEprocess( _glob_mouse_x, _glob_mouse_y );
             _glob_disk_sel_index = UNDET ;
 	          _glob_disk_sel_locked = NO ;
-				    _glob_zplane_selected_items_array.flush();
+				    _glob_zplane_selected_items_array = [];
 					  _glob_screencircles_sel_array.flush();
             circles_lib_helper_div_remove();
         }
@@ -234,7 +234,7 @@ function Z_PLANE_work_canvas_ondblclick( obj, event )
         var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
  				if ( !_glob_zplane_selected_items_array.includes( _glob_disk_sel_index ) )
 				{
-						if ( !_glob_shift_key ) { _glob_zplane_selected_items_array.flush(); circles_lib_helper_div_remove(); }
+						if ( !_glob_shift_key ) { _glob_zplane_selected_items_array = []; circles_lib_helper_div_remove(); }
 						_glob_zplane_selected_items_array.push( _glob_disk_sel_index );
 				}
 				else _glob_zplane_selected_items_array.delete_entry( _glob_disk_sel_index );
@@ -253,7 +253,7 @@ function Z_PLANE_work_canvas_ondblclick( obj, event )
     {
         _glob_disk_sel_locked = NO ;
  				_glob_screencircles_sel_array.flush();
- 				_glob_zplane_selected_items_array.flush();
+ 				_glob_zplane_selected_items_array = [];
  	      _glob_zplaneMOUSEleftBTNstatus = OFF ;
  	      _glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID ;
         circles_lib_helper_div_remove();
@@ -398,7 +398,7 @@ function Z_PLANE_work_canvas_onmouseup( obj, event )
              var _sd_n = circles_lib_count_seeds(), ITEM ;
              if ( _sd_n > 0 )
              {
-                 _glob_zplane_selected_items_array.flush();
+                 _glob_zplane_selected_items_array = [];
                  for( var _i = 0 ; _i < _sd_n ; _i++ )
                  {
                      ITEM = _items_array[_i] ;
@@ -450,7 +450,7 @@ function Z_PLANE_work_canvas_onmouseout( obj, event )
 						circles_lib_complexdisk_update( ITEMS_SWITCH_SEEDS, ITEM.screen_circle, _glob_disk_sel_index );
 						_glob_disk_sel_index = UNDET ;
 		        _glob_disk_sel_locked = NO ;
-		        _glob_zplane_selected_items_array.flush();
+		        _glob_zplane_selected_items_array = [];
 						_glob_screencircles_sel_array.flush();
 			      _glob_zplaneMOUSEleftBTNstatus = OFF ;
 		        circles_lib_helper_div_remove();

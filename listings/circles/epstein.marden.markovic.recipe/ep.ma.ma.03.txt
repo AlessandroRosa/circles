@@ -31,7 +31,7 @@ plugin send type b=0
 plugin send type c=0
 plugin send type d=sqrt(2)+1
 plugin send addmap
-plugin send var.add _z 1.8i+1.4
+plugin send var.register _z 1.8i+1.4
 plugin send generate.group
 plugin close
 init maps singly

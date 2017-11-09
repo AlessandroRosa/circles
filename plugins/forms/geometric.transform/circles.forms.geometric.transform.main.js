@@ -159,7 +159,7 @@ function CIRCLESformsGEOMETRICTRANSFORMmain( _base_id, _move )
 
 function CIRCLESformsGEOMETRICTRANSFORMselectDISK( index )
 {
-    _glob_zplane_selected_items_array.flush();
+    _glob_zplane_selected_items_array = [];
     _glob_zplane_selected_items_array.push( index );
     _glob_disk_sel_index = index ;
     circles_lib_helper_div_remove();

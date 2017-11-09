@@ -4,11 +4,11 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_EXTRACT( _formula ) { return safe_s
 function CIRCLESembeddingsGENERALPURPOSE_VAR_ALL_REPLACE_WITH_VAL()
 {
     var _vars_ids = _plugin_rec_var_vals.keys_associative();
-    var _n_vars = safe_size( _vars_ids, 0 ), _i, _p, _x, _resolved ;
+    var _n_vars = safe_size( _vars_ids, 0 ), _p, _x, _resolved ;
     if ( _n_vars > 0 )
     {
 	  var _ret = YES ;
-      for( _i = 0 ; _i < 4 ; _i++ )
+      for( var _i = 0 ; _i < 4 ; _i++ )
       {
         _resolved = CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array[_i] ;
 		if ( _resolved == null ) { _ret = NO ; break ; }
@@ -18,6 +18,13 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_ALL_REPLACE_WITH_VAL()
 	  return _ret ;
     }
 	else return NO ;
+}
+
+function CIRCLESembeddingsGENERALPURPOSE_VAR_REPLACE_PARAMS_IN_FORMULA( _formula = "" )
+{
+    var _vars_ids = _plugin_rec_var_vals.keys_associative(), _n_vars = safe_size( _vars_ids, 0 );
+    for( var _i = 0 ; _i < _n_vars ; _i++ ) _formula = _formula.replaceAll( _vars_ids[_i], "("+_plugin_rec_var_vals[ _vars_ids[_i] ]+")" );
+	return _formula ;
 }
 
 function CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL( _refresh_vals_combo )
@@ -55,11 +62,9 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD( _output_channe
         }
         _html_code += "<tr><td STYLE=\"color:yellow;\">Var ID</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:pink;\">Var value</td></tr>" ;
         _html_code += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-        $.each( _keys, function( _i, _key )
-                {
+        $.each( _keys, function( _i, _key ) {
                     _html_code += "<tr><td STYLE=\"color:yellow;\">"+_key+"</td><td WIDTH=\"5\"></td><td ALIGN=\"right\" STYLE=\"color:pink;\">"+_plugin_rec_var_vals[_key]+"</td></tr>" ;
-                    _html_code += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-                } );
+                    _html_code += "<tr><td HEIGHT=\"3\"></td></tr>" ; } );
         if ( _b_div )
         {
             _html_code = "</table>" ;
@@ -77,10 +82,9 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD( _output_channe
 	return YES ;
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER( _output_channel, _id, _val )
+function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER( _output_channel = OUTPUT_SCREEN, _id = "", _val = "" )
 {
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
-	_id = safe_string( _id, "" ), _val = safe_string( _val, "" );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN ), _id = safe_string( _id, "" ), _val = safe_string( _val, "" );
     var _var_id = _id.length > 0 ? _id : $("#PLUGINvaridEDIT").val(), _var_value = _val.length > 0 ? _val : $("#PLUGINvarvalueEDIT").val();
     if ( _var_id.length > 0 && _var_value.length > 0 )
     {
@@ -111,7 +115,6 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER( _output_channel, _id, _va
 				  default: break ;
 			   }
             }
-            
 			var _combo_code = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_COMBO_BUILD();
             $("#PLUGINregisteredvaluesCOMBOcontainer").html( _combo_code );
 			return YES ;
@@ -198,7 +201,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_CLEAN( _question, _silent )
    }
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_VAR_DELETE( _question, _silent, _var_id, _output_channel )
+function CIRCLESembeddingsGENERALPURPOSE_VAR_DELETE( _question = YES, _silent = NO, _var_id = "", _output_channel = OUTPUT_SCREEN )
 {
 	_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
 	_var_id = safe_string( _var_id, "" );
@@ -233,7 +236,7 @@ function CIRCLESembeddingsGENERALPURPOSE_SET_REGISTEREDVARS_IN_PARAMS( _edit_acq
          if ( _gen_chunk.length != 4 ) return NO ;
     }
 
-    CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array.flush();
+    CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array = [];
     if ( $("#PLUGIN_PARAM_A").get(0) != null && _edit_acquisition )
     {
         CIRCLESembeddingsGENERALPURPOSEresolved_mm_params_array.push( $("#PLUGIN_PARAM_A").val().length > 0 ? $("#PLUGIN_PARAM_A").val() : 0.0 );
@@ -319,8 +322,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_WATCH( _param_id, _output_channel )
           _html_code += "<tr><td HEIGHT=\"6\"></td></tr>" ;
           _html_code += "<tr><td>Var ID</td><td WIDTH=\"5\"></td><td ALIGN=\"right\">Var value</td></tr>" ;
           _html_code += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-          $.each( _vars, function( _i, _key )
-                  {
+          $.each( _vars, function( _i, _key ) {
                      _html_code += "<tr><td>"+_key+"</td><td WIDTH=\"5\"></td><td ALIGN=\"right\">"+_plugin_rec_var_vals[_key]+"</td></tr>" ;
                      _html_code += "<tr><td HEIGHT=\"3\"></td></tr>" ;
                   } );
@@ -344,9 +346,9 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_COMBO_BUILD()
             var _keys = _plugin_rec_var_vals.keys_associative();
             if ( !is_array( _keys ) ) _keys = [] ;
             for( var _k = 0 ; _k < _keys.length ; _k++ )
-               $.each( _plugin_rec_var_vals[ ""+_keys[_k] ], function( _i, _item ) { _html_code += "<OPTION VALUE=\""+_keys[_k]+":"+_item+"\">" + _keys[_k] + ":" + _item ; } );                
+            _html_code += "<OPTION VALUE=\""+_keys[_k]+":"+(_plugin_rec_var_vals[ ""+_keys[_k] ])+"\">" + _keys[_k] + ":" + _plugin_rec_var_vals[ ""+_keys[_k] ] ;
 
-		   _html_code += "</SELECT>" ;
+		    _html_code += "</SELECT>" ;
             return _html_code ;
         }
         else return "" ;
@@ -370,7 +372,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VARS_VALS_RECORD_COMBO_SELECT()
 	}
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( _section, _output_channel )
+function CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( _section = 1, _output_channel = OUTPUT_SCREEN )
 {
     _section = safe_int( _section, 1 ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN ) ;
     var _msg = "" ;
@@ -389,22 +391,18 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( _section, _output_channel )
 
 function CIRCLESembeddingsGENERALPURPOSE_VAR_EXPORT()
 {
-    var _exported_code = [];
-    var _index_ref = _plugin_last_ref;
-    var _desc = _plugin_definitions_array[_plugin_last_ref] ;
-    var _info = _plugin_info_array[_index_ref] ;
+    var _exported_code = [], _index_ref = _plugin_last_ref;
+    var _desc = _plugin_definitions_array[_plugin_last_ref], _info = _plugin_info_array[_index_ref] ;
     if ( _plugin_rec_var_vals.size_associative > 0 || CIRCLESembeddingsGENERALPURPOSE_gens_container.length > 0 )
     {
        _exported_code.push( "plugin set " + _index_ref );
        if ( safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 ) > 0 )
-       $.each( CIRCLESembeddingsGENERALPURPOSE_gens_container, function( _i, _chunk )
-               {
+       $.each( CIRCLESembeddingsGENERALPURPOSE_gens_container, function( _i, _chunk ) {
                  _exported_code.push( "plugin type a" + " " + _chunk[0] );
                  _exported_code.push( "plugin type b" + " " + _chunk[1] );
                  _exported_code.push( "plugin type c" + " " + _chunk[2] );
                  _exported_code.push( "plugin type d" + " " + _chunk[3] );
                } );
-
        if ( _plugin_rec_var_vals.is_associative() )
        {
            var _keys = _plugin_rec_var_vals.keys_associative();
@@ -414,13 +412,12 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_EXPORT()
                _exported_code.push( "plugin send var.save "+_keys[_i]+" "+_plugin_rec_var_vals[ _keys[_i] ] );
            }
        }
-
        _exported_code.push( "plugin run" );
     }
     return _exported_code.clone();
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_VAR_IMPORT( _one_row_of_code, _output_channel )
+function CIRCLESembeddingsGENERALPURPOSE_VAR_IMPORT( _one_row_of_code = "", _output_channel = OUTPUT_SCRIPT )
 {
 	_output_channel = safe_int( _output_channel, OUTPUT_SCRIPT )
     var _tokens = _one_row_of_code.split( " " ), _action = "", _tok = "" ;

@@ -587,7 +587,7 @@ function circles_terminal_cmd_mobius()
                         else if ( _all == YES )
                         {
                              _items_array.flush();
-                             if ( _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ) _glob_seeds_array.flush();
+                             if ( _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ) _glob_seeds_array = [];
                              _new_sd_n = circles_lib_count_items( _items_array );
                              if ( _new_sd_n == 0 ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The Mobius maps list has been emptied with success", _par_1, _cmd_tag );
                         }
@@ -637,7 +637,7 @@ function circles_terminal_cmd_mobius()
                     var ITEM = null, a = [], _sel ;
                     if ( is_array( _items_array ) )
                     {
-                        _glob_zplane_selected_items_array.flush();
+                        _glob_zplane_selected_items_array = [];
                         circles_lib_helper_div_remove();
                         for( var _i = 0 ; _i < _selection_indexes_array.length ; _i++ )
                         {

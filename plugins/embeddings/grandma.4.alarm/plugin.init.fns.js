@@ -100,8 +100,8 @@ function CIRCLESembeddingsGRANDMA4ALARM_COMP( _param, _init )
         circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Incorrect option: can't compute Q for further calculations", 'PLUGIN_OUTMSG' ) ;
    			else
    			{
-            if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
-            if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
+            if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
+            if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
 
    					var _imag = new complex( 0, 1 );
    					var _choice_1 = ( tC.add( ( _imag.mul(Q).mul( tC.add(2).sqrt() ) ) ) ).radius(); // sign '+'
@@ -188,7 +188,7 @@ function CIRCLESembeddingsGRANDMA4ALARM_OUTPUT( MM_01, MM_02, _init )
     var screen_INV_CC_01 = circles_lib_complex_to_screen_disk( _inv_circle01, zplane_sm, _glob_draw_seed_color );
     var screen_INV_CC_02 = circles_lib_complex_to_screen_disk( _inv_circle02, zplane_sm, _glob_draw_seed_color );
 
-    _glob_seeds_array.flush();
+    _glob_seeds_array = [];
     _glob_seeds_array.push( new item_obj( MM_01, _circle01, screen_CC_01, "a", 0, YES, _glob_draw_seed_color, NO, _glob_fill_seed_color, "A", 1, ITEM_TYPE_CIRCLE ) );
     _glob_seeds_array.push( new item_obj( MM_02, _circle02, screen_CC_02, "b", 0, YES, _glob_draw_seed_color, NO, _glob_fill_seed_color, "B", 1, ITEM_TYPE_CIRCLE ) );
     _glob_seeds_array.push( new item_obj( inverse_MM_01, _inv_circle01, screen_INV_CC_01, "A", 0, YES, _glob_draw_inverse_seed_color, NO, _glob_fill_inverse_seed_color, "a", 1, ITEM_TYPE_CIRCLE ) );

@@ -219,7 +219,7 @@ function circles_terminal_cmd_dg()
                                 circles_lib_output( _output_channel, DISPATCH_INFO, "Removing previous entries", _par_1, _cmd_tag );
                                 if ( circles_lib_count_seeds() > 0 )
                                 {
-                                    _glob_seeds_array.flush();
+                                    _glob_seeds_array = [];
                                     for( var _g = 0 ; _g < _n_seeds ; _g++ ) _glob_seeds_array.push( _seeds_array[_g] );
                                 }
                                 else circles_lib_output( _output_channel, DISPATCH_WARNING, "Operation aborted: can't remove previous entries", _par_1, _cmd_tag );

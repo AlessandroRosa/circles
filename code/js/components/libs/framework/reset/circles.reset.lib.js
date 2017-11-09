@@ -114,9 +114,9 @@ function circles_lib_reset_vars( _reset_mask, _silent, _output_channel )
         _glob_rnd_reps_threshold = DEFAULT_RND_REPS_THRESHOLD ;
         _glob_rnd_reps_depth = DEFAULT_RND_REPS_DEPTH ;
 
-        _glob_seeds_array.flush();
+        _glob_seeds_array = [];
         _glob_symbols_index_array = [];
-        _glob_zplane_selected_items_array.flush();
+        _glob_zplane_selected_items_array = [];
         circles_lib_helper_div_remove();
         _glob_wplane_selected_items_array.flush();
         _glob_rnd_probability_array.flush();
@@ -223,7 +223,7 @@ function circles_lib_reset_vars( _reset_mask, _silent, _output_channel )
     {
 		    _glob_gens_set_model_array.flush();
 		    _glob_gens_set_symbols_map_array.flush();
-		    _glob_gens_array.flush();
+		    _glob_gens_array = [];
 
     		_glob_probabilityRNDrecalcAUTOMATICflag = YES ;
     		_glob_probabilityRNGmethod = RNG_BUILT_IN ;

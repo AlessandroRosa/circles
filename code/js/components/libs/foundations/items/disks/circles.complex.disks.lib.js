@@ -149,7 +149,7 @@ function circles_lib_complexdisk_select_all( _output_channel )
 {
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _items_n = circles_lib_count_items();
-    _glob_zplane_selected_items_array.flush();
+    _glob_zplane_selected_items_array = [];
     circles_lib_helper_div_remove();
     for( var _i = 0 ; _i < _items_n ; _i++ ) _glob_zplane_selected_items_array.push( _i );
     circles_lib_canvas_clean( _glob_zplane_rendering_canvas_placeholder );
@@ -197,7 +197,7 @@ function circles_lib_complexdisk_addfrom_screendisk( X, Y, RADIUS, _output_chann
 
     var LASTindex = circles_lib_count_items() - 1, _ret_chunk ;
     _glob_disk_sel_index = LASTindex = safe_int( LASTindex, UNDET );
-    _glob_zplane_selected_items_array.flush();
+    _glob_zplane_selected_items_array = [];
     _glob_zplane_selected_items_array.push( LASTindex );
     circles_lib_helper_div_remove();
     $('[id$=initBTN]').css('color',COLOR_ERROR) ;

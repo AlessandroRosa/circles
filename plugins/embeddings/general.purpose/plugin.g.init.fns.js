@@ -1,14 +1,12 @@
 function CIRCLESembeddingsGENERALPURPOSE_PRESETS_INIT()
 {
     CIRCLESembeddingsGENERALPURPOSEpresets = [] ;
-    CIRCLESembeddingsGENERALPURPOSEpresets.push( [
-                                                   [ "1", "1", "0", "1", UNDET, [ -1.3, 1.3, 1.3, -1.3 ], "" ],
+    CIRCLESembeddingsGENERALPURPOSEpresets.push( [ [ "1", "1", "0", "1", UNDET, [ -1.3, 1.3, 1.3, -1.3 ], "" ],
                                                    [ "1", "0", "i", "1", UNDET, [ -1.3, 1.3, 1.3, -1.3 ], "" ]
-                                                 ]
-                                               );
+                                                 ] );
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_PRESETS( _opcode )
+function CIRCLESembeddingsGENERALPURPOSE_PRESETS( _opcode = 0 )
 {
     _opcode = safe_float( _opcode, UNDET );
     switch( _opcode )
@@ -28,41 +26,35 @@ function CIRCLESembeddingsGENERALPURPOSE_PRESETS( _opcode )
         if ( is_array( _preset_data ) & _b_go )
         {
             CIRCLESembeddingsGENERALPURPOSE_CONFIG();
-            $.each( _preset_data,
-                    function( _i, _chunk )
-                    {
+            $.each( _preset_data, function( _i, _chunk ) {
                         $( "#PLUGIN_PARAM_A" ).val( _chunk[0] );
                         $( "#PLUGIN_PARAM_B" ).val( _chunk[1] );
                         $( "#PLUGIN_PARAM_C" ).val( _chunk[2] );
                         $( "#PLUGIN_PARAM_D" ).val( _chunk[3] );
                         var _comp = Math.max( 1, Math.abs( safe_int( _chunk[4], 1 ) ) );
                         var _coords = _chunk[5] ;
-                        
-						            if ( is_array( _coords ) && safe_size( _coords, 0 ) == 4 && _glob_interface_index == INTERFACE_EXTEND_NONE )
-						            {
-						               var _ret_chunk = circles_lib_canvas_coords_correct_aspectratio( W_PLANE );
-						               if ( _ret_chunk[0] != RET_IRRELEVANT ) circles_lib_canvas_layer_pile_resize_to_default();
-						            }
-						            else
-						            {
-						               _coords = circles_lib_interface_recalc_bounding_coords( INTERFACE_INPUT_HEIGHT,
-						                         _glob_wplaneLEFT, safe_float( _coords[1], DEFAULT_PLANE_COORD ),
-						                         _glob_wplaneRIGHT, safe_float( _coords[3], -DEFAULT_PLANE_COORD ) ) ;
-						            }
+						if ( is_array( _coords ) && safe_size( _coords, 0 ) == 4 && _glob_interface_index == INTERFACE_EXTEND_NONE )
+						{
+						    var _ret_chunk = circles_lib_canvas_coords_correct_aspectratio( W_PLANE );
+						    if ( _ret_chunk[0] != RET_IRRELEVANT ) circles_lib_canvas_layer_pile_resize_to_default();
+						}
+						else
+						{
+						    _coords = circles_lib_interface_recalc_bounding_coords( INTERFACE_INPUT_HEIGHT,
+						              _glob_wplaneLEFT, safe_float( _coords[1], DEFAULT_PLANE_COORD ),
+						              _glob_wplaneRIGHT, safe_float( _coords[3], -DEFAULT_PLANE_COORD ) ) ;
+						}
 						
-						            _glob_zplaneLEFT = _glob_wplaneLEFT = _glob_bipLEFT = safe_float( _coords[0], -DEFAULT_PLANE_COORD );
-						            _glob_zplaneTOP = _glob_wplaneTOP = _glob_bipTOP = safe_float( _coords[1], DEFAULT_PLANE_COORD );
-						            _glob_zplaneRIGHT = _glob_wplaneRIGHT = _glob_bipRIGHT = safe_float( _coords[2], DEFAULT_PLANE_COORD );
-						            _glob_zplaneBOTTOM = _glob_wplaneBOTTOM = _glob_bipBOTTOM = safe_float( _coords[3], -DEFAULT_PLANE_COORD );
-						            circles_lib_canvas_coords_acquire( ALL_PLANES );
-            
+						_glob_zplaneLEFT = _glob_wplaneLEFT = _glob_bipLEFT = safe_float( _coords[0], -DEFAULT_PLANE_COORD );
+						_glob_zplaneTOP = _glob_wplaneTOP = _glob_bipTOP = safe_float( _coords[1], DEFAULT_PLANE_COORD );
+						_glob_zplaneRIGHT = _glob_wplaneRIGHT = _glob_bipRIGHT = safe_float( _coords[2], DEFAULT_PLANE_COORD );
+						_glob_zplaneBOTTOM = _glob_wplaneBOTTOM = _glob_bipBOTTOM = safe_float( _coords[3], -DEFAULT_PLANE_COORD );
+						circles_lib_canvas_coords_acquire( ALL_PLANES );
                         CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( CIRCLESembeddingsGENERALPURPOSE_ADD, YES );
                         CIRCLESembeddingsGENERALPURPOSE_RECORD_PARAMS();
                         _glob_target_plane = W_PLANE ;
-                    }
-                  ) ;
-        
-            CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( YES, NO );
+                    } ) ;
+			CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( YES, NO );
             GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
             GLOB_PLUGIN_WIZARD_STEP(1.1,NO);
             $("#CIRCLESGENERALPURPOSEmainDIV").get(0).tabber.tabShow(1);
@@ -71,6 +63,5 @@ function CIRCLESembeddingsGENERALPURPOSE_PRESETS( _opcode )
         break ;
         default: break ;
     }
-
     return null ;
 }

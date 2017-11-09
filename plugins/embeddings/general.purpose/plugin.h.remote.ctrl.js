@@ -31,7 +31,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 		 return _ret ;
   		 break ;
   		 case "bomb":
-  		 CIRCLESembeddingsGENERALPURPOSE_BOMB();
+  		 CIRCLESembeddingsGENERALPURPOSE_BOMB(NO,YES);
 		 _ret_array.push( YES, "<green>Group has been bombed with success: all generators have been deleted</green>" ) ;
 		 return YES ;
   		 break ;
@@ -63,7 +63,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          return YES;
          break ;
   		 case "full.group":
-  		 var _ret = CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES,NO,YES,_glob_seeds_array);
+  		 var _ret = CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES,_glob_seeds_array);
 		 _ret_array.push( YES, "<green>The list of generators have been displayed with success</green>" ) ;
          return YES ;
   		 break ;
@@ -132,7 +132,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          return YES ;
   		 break ;
   		 case "refresh":
-  		 CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(NO,YES);
+  		 CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES);
          _ret_array.push( YES, "<green>Plug-in has been refreshed with success</green>" ) ;
          return YES ;
   		 break ;
@@ -200,7 +200,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          return YES ;
 		 break ;
 		 case "var.bomb":
-		 CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB(YES,YES,_output_channel);
+		 CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB(NO,YES,_output_channel);
 		 _ret_array.push( YES, "<green>All vars have been deleted with success</green>" ) ;
          CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
 		 return YES ;

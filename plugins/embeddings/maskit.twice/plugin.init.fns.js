@@ -79,8 +79,8 @@ function CIRCLESembeddingsMASKITTWICE_COMP( _init )
     circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "At least one of the two traces is not a complex formula.", 'PLUGIN_OUTMSG' ) ;
     else
     {
-       if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
-       if ( is_array( _glob_seeds_array ) ) _glob_seeds_array.flush();
+       if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
+       if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
 
        var _unit = new complex( 1, 0 ), _zero = new complex( 0, 0 );
 
@@ -147,7 +147,7 @@ function CIRCLESembeddingsMASKITTWICE_OUTPUT( MM_01, MM_02, MM_03, _init )
     var screen_INV_CC_02 = circles_lib_complex_to_screen_disk( _inv_circle02, zplane_sm, circles_lib_alphabet_get_color_from_symbol('B') );
     var screen_INV_CC_03 = circles_lib_complex_to_screen_disk( _inv_circle03, zplane_sm, circles_lib_alphabet_get_color_from_symbol('C') );
 
-    _glob_seeds_array.flush();
+    _glob_seeds_array = [];
     _glob_seeds_array.push( new item_obj( MM_01, _circle01, screen_CC_01, "a", 0, YES, screen_CC_01.drawcolor, NO, screen_CC_01.drawcolor, "A", 1, ITEM_TYPE_CIRCLE ) );
     _glob_seeds_array.push( new item_obj( MM_02, _circle02, screen_CC_02, "b", 0, YES, screen_CC_02.drawcolor, NO, screen_CC_02.drawcolor, "B", 1, ITEM_TYPE_CIRCLE ) );
     _glob_seeds_array.push( new item_obj( MM_03, _circle03, screen_CC_03, "c", 0, YES, screen_CC_03.drawcolor, NO, screen_CC_03.drawcolor, "C", 1, ITEM_TYPE_CIRCLE ) );

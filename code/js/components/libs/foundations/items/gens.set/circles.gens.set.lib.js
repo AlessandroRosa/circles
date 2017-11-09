@@ -13,7 +13,7 @@ function circles_lib_gens_set_bomb()
 {
     if ( !is_array( _glob_gens_set_model_array ) || !is_array( _glob_gens_array ) ) return NO ;
     _glob_gens_set_model_array.flush();
-    _glob_gens_array.flush();
+    _glob_gens_array = [];
     return YES ;
 }
 
@@ -129,7 +129,7 @@ function circles_lib_gens_set_build( _output_channel, _init_gens, _reset_gens_se
         {
             if ( _reset_gens_set )
             {
-							 _glob_gens_array.flush();
+							 _glob_gens_array = [];
 	             _glob_gens_set_symbols_map_array.flush_associative();
 						}
 

@@ -52,7 +52,7 @@ function circles_lib_items_unselect( _question, _silent, _output_channel )
 		      if ( _b_go )
 					{
 			       _glob_disk_sel_index = UNDET ;
-	        	 _glob_zplane_selected_items_array.flush();
+	        	 _glob_zplane_selected_items_array = [];
              circles_lib_helper_div_remove();
 						 _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
              if ( safe_int( _ret_chunk[ 0 ], 0 ) == RET_ERROR ) return _ret_chunk ;

@@ -96,7 +96,7 @@ function CIRCLESformsINTERSECTIONPOINTScopyPOINTS( packed_pts )
 function CIRCLESformsINTERSECTIONPOINTScomboONCHANGE()
 {
     var index1 = safe_int( $("#CIRCLEScombo1").val(), UNDET ), index2 = safe_int( $("#CIRCLEScombo2").val(), UNDET );
-    _glob_zplane_selected_items_array.flush();
+    _glob_zplane_selected_items_array = [];
     circles_lib_helper_div_remove();
     if ( index1 != UNDET ) _glob_zplane_selected_items_array.push( index1 );
     if ( index2 != UNDET ) _glob_zplane_selected_items_array.push( index2 );

@@ -11,13 +11,13 @@ function CIRCLESembeddingsGENERALPURPOSE_LOADgroup( _filename, _file_contents )
     var _CHUNKS = [], _var, _val ;
     for( var _i = 0 ; _i < _rows_len ; _i++ )
     {
-     		if ( _file_rows[_i].start_with( "/" ) || _file_rows[_i].start_with( "gens=" ) ) continue ;
-     		else if ( _file_rows[_i].start_with( "depth=" ) )
+     	if ( _file_rows[_i].start_with( "/" ) || _file_rows[_i].start_with( "gens=" ) ) continue ;
+     	else if ( _file_rows[_i].start_with( "depth=" ) )
         {
            _file_rows[_i] = _file_rows[_i].replaceAll( "depth=", "" ).trim();
            circles_lib_depth_set( safe_int( _file_rows[_i], 0 ), NO )
         }
-    		else if ( _file_rows[_i].start_with( "circletype=" ) )
+    	else if ( _file_rows[_i].start_with( "circletype=" ) )
         {
            _file_rows[_i] = _file_rows[_i].replaceAll( "circletype=", "" ).trim();
            switch( _file_rows[_i] )
@@ -33,7 +33,7 @@ function CIRCLESembeddingsGENERALPURPOSE_LOADgroup( _filename, _file_contents )
               break ;
            }
         }
-     		else if ( _file_rows[_i].start_with( "drawentity=" ) )
+     	else if ( _file_rows[_i].start_with( "drawentity=" ) )
         {
            _file_rows[_i] = _file_rows[_i].replaceAll( "drawentity=", "" ).trim().toLowerCase();
            switch( _file_rows[_i] )
@@ -54,35 +54,35 @@ function CIRCLESembeddingsGENERALPURPOSE_LOADgroup( _filename, _file_contents )
               _glob_drawentity = DRAWENTITY_ISOMETRIC_CIRCLE ;
               break ;
            }
-         }
-         else if ( _file_rows[_i].start_with( "comment=" ) )
-         {
+        }
+        else if ( _file_rows[_i].start_with( "comment=" ) )
+        {
            CIRCLESembeddingsGENERALPURPOSEcomment = _file_rows[_i].replaceAll( "comment=", "" ).replaceAll( "@@@", _glob_crlf ).trim();
            if ( CIRCLESembeddingsGENERALPURPOSEcomment.length > 0 ) $( "#PLUGINcommentTEXTAREA" ).val( CIRCLESembeddingsGENERALPURPOSEcomment );
-         }
-				 else if ( _file_rows[_i].includes( "=" ) && _file_rows[_i].count( "=" ) == 1 )
-     		 {
-    		 	 if ( _file_rows[_i].start_with( "var@" ) )
-    		 	 {
-    					_file_rows[_i] = _file_rows[_i].replaceAll( "var@", "" );
-    					_var = ( _file_rows[_i].split( "=" ) )[0], _val = ( _file_rows[_i].split( "=" ) )[1] ;
-    					if ( !_var.start_with( "_" ) ) _var = "_" + _var ;
-    					_plugin_rec_var_vals[ _var ] = _val ; 
-    			 }
-          else
-    			 {
-    				   _CHUNKS.push( ( _file_rows[_i].split( "=" ) )[1] );
-    				   if ( safe_size( _CHUNKS, 0 ) == 4 )
-    				   {
-    					    CIRCLESembeddingsGENERALPURPOSE_gens_container.push( [ _CHUNKS[0], _CHUNKS[1], _CHUNKS[2], _CHUNKS[3] ] );
-    						  _CHUNKS.flush();
-    					 }
-    			 }
-    		 }
+        }
+		else if ( _file_rows[_i].includes( "=" ) && _file_rows[_i].count( "=" ) == 1 )
+     	{
+    		if ( _file_rows[_i].start_with( "var@" ) )
+    		{
+    			_file_rows[_i] = _file_rows[_i].replaceAll( "var@", "" );
+    			_var = ( _file_rows[_i].split( "=" ) )[0], _val = ( _file_rows[_i].split( "=" ) )[1] ;
+    			if ( !_var.start_with( "_" ) ) _var = "_" + _var ;
+    			_plugin_rec_var_vals[ _var ] = _val ; 
+    		}
+			else
+    		{
+    			_CHUNKS.push( ( _file_rows[_i].split( "=" ) )[1] );
+    			if ( safe_size( _CHUNKS, 0 ) == 4 )
+    			{
+    			    CIRCLESembeddingsGENERALPURPOSE_gens_container.push( [ _CHUNKS[0], _CHUNKS[1], _CHUNKS[2], _CHUNKS[3] ] );
+    			    _CHUNKS.flush();
+    			}
+    		}
+    	}
      }
         
     $("#PLUGIN_GENERATE_GROUP_BTN").css( "color", DEFAULT_COLOR_GO );
-    CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, NO, YES );
+    CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( NO, YES );
     CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
 
     var _msg = "The generators have been correctly loaded." ;
@@ -100,8 +100,8 @@ function CIRCLESembeddingsGENERALPURPOSE_SAVE_GROUP()
         var _out_stream = [] ;
             _out_stream.push( "// Circles - general purpose plug-in"  );
             _out_stream.push( "// Group data saved on " + today_date() + " at " + current_time() );
-            _out_stream.push( "gens=" + _N_GENS  );
-            _out_stream.push( "depth=" + _glob_depth );
+            _out_stream.push( "gens="+_N_GENS);
+            _out_stream.push( "depth="+_glob_depth);
 
         switch( GLOB_PLUGIN_CIRCLE_TYPE )
         {
@@ -143,15 +143,14 @@ function CIRCLESembeddingsGENERALPURPOSE_SAVE_GROUP()
                    _out_stream.push( "b"+_i+"=" + _gen_chunk[1] );
                    _out_stream.push( "c"+_i+"=" + _gen_chunk[2] );
                    _out_stream.push( "d"+_i+"=" + _gen_chunk[3] );
-                }
-              );
+                } );
 
-    		var _keys = _plugin_rec_var_vals.keys_associative();
+    	var _keys = _plugin_rec_var_vals.keys_associative();
         if ( is_array( _keys ) )
         {
-        		if ( _keys.length > 0 )
+        	if ( _keys.length > 0 )
             {
-               _out_stream.push( "// Registered values" );
+               _out_stream.push( "//Registered values" );
                $.each( _keys, function( _i, _key ) { _out_stream.push( "var@"+_key+"=" + _plugin_rec_var_vals[ _key ] ); } );
             }
         }
