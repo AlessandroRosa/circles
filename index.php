@@ -98,7 +98,7 @@ var _demos_list = [] ;
                          array( $PATH_TO_CIRCLES."code/js/components/forms/",
                                 $PATH_TO_CIRCLES."code/js/components/globals/",
                                 $PATH_TO_CIRCLES."code/js/components/libs/on.demand/",
-                                $PATH_TO_CIRCLES."code/js/components/terminal/commands/",
+                                $PATH_TO_CIRCLES."terminal.cmds/",
                                 $PATH_TO_CIRCLES."code/js/components/samples/" ) ); ?>
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript">
 var LANG = $_GET( "lang" );      if ( LANG == null || LANG == "undefined" || LANG.length == 0 ) LANG = "en" ;

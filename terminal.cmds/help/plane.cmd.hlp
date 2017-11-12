@@ -1,0 +1,8 @@
+<banana>set the plane context for the following commands</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>plane zplane | wplane | all | none</snow>
+
+<lightblue>plane release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

@@ -1,0 +1,93 @@
+<banana>perform operations on input word</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>word %action% %service% w:%word% %list% %file% %region% copy</snow>
+
+<lightblue>%action%</lightblue> <snow>calc | draw | resolve | test | trace | track | treescan</snow>
+<lightblue>%file%</lightblue> <snow>export the list into a plain text file</snow>
+<lightblue>%list%</lightblue> <snow>return the list in text format</snow>
+<lightblue>%service%</lightblue> <snow>orbit | fixedpoints</snow>
+<lightblue>%region%</lightblue> <snow>input example of an input region '[-2,2,2,-2]'</snow>
+<lightblue>copy</lightblue> <snow>copy the resulting entities into the exchange data storage (except orbits)</snow>
+
+<lightblue>word trace A</lightblue>
+<cadetblue>compute trace for seed A</cadetblue>
+
+<lightblue>word trace A b</lightblue>
+<cadetblue>compute trace for seeds A and b</cadetblue>
+
+<lightblue>word trace Ab</lightblue>
+<cadetblue>compute trace for the resulting map resulting from 'Ab' word composition</cadetblue>
+
+<lightblue>word trace all</lightblue>
+<cadetblue>compute trace for all registered seeds</cadetblue>
+
+<lightblue>word resolve w:[abAB*3][aB*2]</lightblue>
+<cadetblue>resolve the input repetend, expading it into the original word</cadetblue>
+
+<lightblue>word resolve w:4/9</lightblue>
+<cadetblue>resolve the input P/Q word</cadetblue>
+
+<lightblue>word resolve w:17/23 rle</lightblue>
+<cadetblue>resolve the input P/Q word and show the resulting word in a rle-packed format</cadetblue>
+
+<lightblue>word w:abAB test</lightblue>
+<cadetblue>basic test for the (commutator) input word 'abAB'</cadetblue>
+
+<lightblue>word displacedset w:abAB (0,0) draworbit</lightblue>
+<cadetblue>The displaced set is the union of non-trivial orbits from all permutations of 'abAB'</cadetblue>
+<cadetblue>(0,0) is the input start point for any orbit, but if omitted you can input</cadetblue>
+
+<lightblue>word displacedset w:abAB sink|source draworbit</lightblue>
+<cadetblue>the sink|source fixed point of the input word</cadetblue>
+
+
+<lightblue>word track orbit startpt:(0,0) w:aaBBabAAb</lightblue>
+<cadetblue>track orbit starting from the origin for the input word</cadetblue>
+
+<lightblue>word track orbit startpt:(0,0) w:aaBBabAAb connect</lightblue>
+<cadetblue>same as before and points are connected by a broken line</cadetblue>
+
+<lightblue>word track orbit startpt:(0,0) w:[a*20] yellow</lightblue>
+<cadetblue>track orbit starting from the origin for the input word and paint it yellow</cadetblue>
+
+<lightblue>word track orbit w:aaBBabAAb</lightblue>
+<cadetblue>no start point is required for inversion method</cadetblue>
+
+<lightblue>word track orbit startpt:(0,0) w:aaBBabAAb -> tracklist.txt</lightblue>
+<cadetblue>the orbit, starting from the origin, is plot on the W-plane for the input word aaBBabAAb and finally it is flushed into a plain text file</cadetblue>
+
+<lightblue>word track orbit startpt:(0,0) w:aaBBabAAb -> tracklist.txt list</lightblue>
+<cadetblue>same as before and the list is display on the screen</cadetblue>
+
+<lightblue>word track fixedpoints w:aaBBabAAb list</lightblue>
+<cadetblue>fixed points are computed and displayed for the input word aaBBabAAb</cadetblue>
+
+<lightblue>word track fixedpoints w:aaBBabAAb all list</lightblue>
+<cadetblue>fixed points are computed and displayed for the progression of words a, aa, aaB, aaBB, aaBBa, ...</cadetblue>
+
+<lightblue>word displacedset w:abAB (0,0) draworbit markpoints</lightblue>
+<cadetblue>draw the displaced set and mark the node points for all orbits</cadetblue>
+
+<lightblue>word displacedset w:abAB (0,0) copy</lightblue>
+<cadetblue>compute the displaced set and put all points of the orbits into the storage space</cadetblue>
+
+<lightblue>word treescan startword:AA depth:5 tolerance:0.2 trace:2</lightblue>
+<cadetblue>scan the dictionary tree for entries (up to depth 5) whose |trace - 2| <= tolerance</cadetblue>
+
+<lightblue>word treescan orbit startword:a startpt:(0,0) depth:5 connect</lightblue>
+<cadetblue>display the orbits returned by words starting with 'a' and at the origin, up to depth 5. Orbit points are connected by a broken line.</cadetblue>
+
+<lightblue>word treescan startword:a startpt:(0,0) depth:5 [-1,0,1,1]</lightblue>
+<cadetblue>Scan the orbits of the words in the words tree and check whether the last point falls inside the input region.</cadetblue>
+
+<lightblue>word release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+------------------------------------------
+<yellow>Note (1)</yellow> <snow>the 'track' action applies to seeds esclusively</snow>
+<yellow>Note (2)</yellow> <snow>if inversion method is on, no start point is required</snow>
+<yellow>Note (3)</yellow> <snow>Input region coords are located as follows: 'left','top','right','bottom'</snow>
+<yellow>Note (4)</yellow> <snow>'rle' stands for 'Run-Length Encoding'</snow>
+
+<lightgray>Use 'roundto:n' to round output values to 10E-n</lightgray>

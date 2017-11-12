@@ -1,0 +1,60 @@
+<banana>canvas data destination management for renderings</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>canvas %action% %params%</snow>
+
+<lightblue>%action%</lightblue> <snow>copy | clean | create | default | delete | info | list | merge | redirect | split | update</snow>
+
+<lightblue>canvas redirect zplane rendering to zplane freedraw</lightblue>
+<cadetblue>set Z-plane freedraw canvas for Z-plane rendering</cadetblue>
+
+<lightblue>canvas default</lightblue>
+<cadetblue>restore canvas default settings</cadetblue>
+
+<lightblue>canvas zplane | wplane list</lightblue>
+<cadetblue>return current canvas list for Z-plane | W-plane</cadetblue>
+
+<lightblue>canvas info</lightblue>
+<cadetblue>return redirection assignment report about all canvases</cadetblue>
+
+<lightblue>canvas create zplane|wplane mynewcanvas</lightblue>
+<cadetblue>create a new canvas on the Z-plane|W-plane list and tag it as 'mynewcanvas'</cadetblue>
+
+<lightblue>canvas update %plane% %canvas% %param% %value%</lightblue>
+<lightblue>%param%</lightblue> <snow>bkcolor | opacity | visible</snow>
+
+<lightblue>canvas clean zplane|wplane</lightblue>
+<cadetblue>clean all canvases of input plane</cadetblue>
+
+<lightblue>canvas update zplane mynewcanvas bkcolor aquamarine</lightblue>
+<cadetblue>update canvas background clr (rgb hex or decimal triplets are allowed too)</cadetblue>
+
+<lightblue>canvas update zplane mynewcanvas opacity 80</lightblue>
+<cadetblue>update canvas background opacity (values ranges from 0 to 100)</cadetblue>
+
+<lightblue>canvas update zplane mynewcanvas visible show|hide</lightblue>
+<cadetblue>toggle canvas visibility</cadetblue>
+
+<lightblue>canvas delete zplane|wplane mynewcanvas</lightblue>
+<cadetblue>delete canvas tagged as 'mynewcanvas' from the Z-plane|W-plane list</cadetblue>
+
+<lightblue>canvas merge zplane|wplane</lightblue>
+<cadetblue>merge all Z-plane|W-plane canvases into one (i.e. outputs are redirected to one only canvas)</cadetblue>
+
+<lightblue>canvas split zplane|wplane</lightblue>
+<cadetblue>split all Z-plane|W-plane canvases if already merged (i.e. outputs are redirected to fitting canvases)</cadetblue>
+
+<lightblue>canvas thumbnail zplane rendering 100</lightblue>
+<cadetblue>display a thumbnail of Z-plane rendering layer, whose side is 100 pixels long</cadetblue>
+
+<lightblue>canvas release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<yellow>------------- NOTES ----------------</yellow>
+<yellow>Special mode</yellow>
+<cadetblue>Can be de/activated by 'open' / 'close' commands respectively</cadetblue>
+<lightblue>canvas open</lightblue>
+<cadetblue>open special mode</cadetblue>
+<lightblue>close</lightblue>
+<cadetblue>close special mode (warning: just write 'close')</cadetblue>

@@ -1,0 +1,11 @@
+<banana>return both the rgb formats and the associated tag, if any</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>rgb %rgb% | %tag%</snow>
+<lightblue>rgb brown</lightblue>
+<lightblue>rgb #FFFFFF</lightblue>
+<lightblue>rgb 0,0,0</lightblue>
+
+<lightblue>rgb release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

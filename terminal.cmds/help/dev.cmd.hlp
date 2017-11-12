@@ -1,0 +1,13 @@
+<banana>copy input data to dev space for exchangement among different services</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>slice %action% %datakeywords%</snow>
+<lightblue>action</lightblue> <snow>add | copy | create | datatypes | exists | keys | list | purge | remove | reset | restore | size | export</snow>
+<lightblue>datakeywords</lightblue> <snow>get the keywords to have available data storages</snow>
+
+<lightblue>dev release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<lightblue>dev datatypes</lightblue>
+<cadetblue>return the list of registered data types to be used in </cadetblue> <white>add</white> <cadetblue>action</cadetblue>

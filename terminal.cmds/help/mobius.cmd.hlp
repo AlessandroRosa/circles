@@ -1,0 +1,116 @@
+<banana>Mobius maps management</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>mobius %action% %property% %label% %all% %invlabel% %index% %a% %b% %c% %d% %linethickness% %fill% %draw% %file%</snow>
+
+<lightblue>%property%</lightblue> <snow>characteristic | determinant | fixedpoints | isometric | kind | multiplier | normalize | trace</snow>
+<lightblue>%action%</lightblue> <snow>add | copy | check | delete | find | list | select | update</snow>
+<lightblue>%index%</lightblue> <snow>zero-based integer indexing for the map, if label was not set yet</snow>
+<lightblue>%fill%</lightblue> <snow>nofill or fill</snow>
+<lightblue>%draw%</lightblue> <snow>nodraw or draw</snow>
+<lightblue>label, invl</lightblue> <snow>set letter of the given map or of the associated inverse map</snow>
+<lightblue>file</lightblue> <snow>export the list into a plain text file</snow>
+
+<lightblue>mobius add a a:(0,0) b:(1,0) c:(1,0) d:(0,0)</lightblue>
+<cadetblue>add one mobius map with input parameters to the seeds list</cadetblue>
+
+<lightblue>mobius add a a:(0,0) b:(1,0) c:(1,0) d:(0,0) storagein</lightblue>
+<cadetblue>same as above, but the map is saved into the default storage subset</cadetblue>
+
+<lightblue>mobius add a a:(0,0) b:(1,0) c:(1,0) d:(0,0) storagein storagesubset:mobius</lightblue>
+<cadetblue>same as above, but the map is saved into the 'mobius' storage subset (if existing)</cadetblue>
+
+<lightblue>mobius assemble A B a b</lightblue>
+<cadetblue>assemble a new Mobius map from input seeds</cadetblue>
+
+<lightblue>mobius assemble A B a b -> out.txt</lightblue>
+<cadetblue>composition and dumping into a plain text file</cadetblue>
+
+<lightblue>mobius colorize</lightblue>
+<cadetblue>set colors to all seeds|gens by matching symbols with the default palette</cadetblue>
+
+<lightblue>mobius decolorize</lightblue>
+<cadetblue>set default colors to all seeds|gens</cadetblue>
+
+<lightblue>mobius check</lightblue>
+
+<lightblue>mobius changesymbol A C</lightblue>
+<cadetblue>find the item with symbol 'A' and set the latter to 'C'</cadetblue>
+
+<lightblue>mobius changesymbol 0 a</lightblue>
+<cadetblue>find the item with index 0 and set the symbol to 'a'</cadetblue>
+
+<lightblue>mobius class all</lightblue>
+<cadetblue>return the class of all Mobius maps</cadetblue>
+
+<lightblue>mobius class a b</lightblue>
+<cadetblue>return the class of two Mobius maps, tagged as 'a' and as 'b'</cadetblue>
+
+<lightblue>mobius copy</lightblue>
+<cadetblue>copy all seeds into storage space</lightblue>
+
+<lightblue>mobius delete 0</lightblue>
+<lightblue>mobius delete a</lightblue>
+<cadetblue>delete map 'a'</lightblue>
+
+<lightblue>mobius find 2</lightblue>
+<lightblue>mobius find A</lightblue>
+<cadetblue>find mobius map through its index or symbol</cadetblue>
+
+<lightblue>mobius fixedpoints a </lightblue>
+<cadetblue>compute fixed points of the map 'a'</cadetblue>
+
+<lightblue>mobius fixedpoints a -> fp.txt</lightblue>
+<cadetblue>compute fixed points and save coords into a plain test file</cadetblue>
+
+<lightblue>mobius fixedpoints all</lightblue>
+<cadetblue>compute fixed points of all maps</cadetblue>
+
+<lightblue>mobius fixedpoints all plot</lightblue>
+<cadetblue>compute fixed points of all maps and plot'em on the Z-plane</cadetblue>
+
+<lightblue>mobius inverse a</lightblue>
+
+<lightblue>mobius label on/off</lightblue>
+<cadetblue>show/hide labels in Z-plane</cadetblue>
+
+<lightblue>mobius list -> maps.list.txt</lightblue>
+<cadetblue>save current list into a plain text file</lightblue>
+
+<lightblue>mobius list attr|params</lightblue>
+<cadetblue>whole list (only attributes|params are displayed)</lightblue>
+
+<lightblue>mobius list params A B</lightblue>
+<cadetblue>just list items tagged as 'A' and as 'B' (only are params displayed)</lightblue>
+<cadetblue>show list without details</lightblue>
+
+<lightblue>mobius A notes this is a text for mobius map A</lightblue>
+<cadetblue>save a text into the notes for disk A</cadetblue>
+
+<lightblue>mobius pair</lightblue>
+<cadetblue>check correspondance between a map and its inverse</cadetblue>
+
+<lightblue>mobius release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<lightblue>mobius select 0</lightblue>
+<lightblue>mobius select a</lightblue>
+<cadetblue>select map with index 0 or symbol A on the screen</lightblue>
+
+<lightblue>mobius select a,A</lightblue>
+<cadetblue>multiple input version of the previous example</lightblue>
+
+<lightblue>mobius select a,A storagein storagesubset:mobius</lightblue>
+<cadetblue>select and saves both mobius maps into the storage subset 'mobius'</lightblue>
+
+<lightblue>mobius update 0 a:(1,0) fill draw</lightblue>
+<cadetblue>update param a inside map with index 0</cadetblue>
+
+<lightblue>mobius update a c:(1,0) nofill nodraw</lightblue>
+<cadetblue>update param c inside map with symbol 'a'</cadetblue>
+
+<lightblue>mobius update A fillcolor:brown</lightblue>
+<lightblue>mobius update b fillcolor:255,255,255</lightblue>
+<lightblue>mobius update B drawcolor:#E0E0F0</lightblue>
+<cadetblue>examples about other properties</cadetblue>

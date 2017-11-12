@@ -1,0 +1,14 @@
+<banana>return some stats about the last rendering</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue>
+
+<snow>benchmark on | off</snow>
+<cadetblue>toggle on/off benchmarking activity</cadetblue>
+
+<snow>benchmark -> benchmark.txt</snow>
+<cadetblue>dump benchmark data into a plain text file</cadetblue>
+
+<lightblue>benchmark release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

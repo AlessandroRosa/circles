@@ -1,0 +1,38 @@
+<banana>zoom on a region of the Z-plane/W-plane/Bip box</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>zoom %action% %center% %plane% %side% %zoomfactor% silent clean render</snow>
+
+<lightblue>%action%</lightblue> <snow>copy | release | shift | %blank field%</snow>
+<lightblue>%plane%</lightblue> <snow>zplane | wplane | bip</snow>
+
+<lightblue>center</lightblue> <snow>the center in cartesian pair (x,y) for the new square region to zoom</snow>
+<lightblue>side</lightblue> <snow>the side length for the new square region to zoom</snow>
+<lightblue>zoomfactor</lightblue> <snow>a number for zooming in or out</snow>
+<lightblue>%blank field%</lightblue> <snow>not mentioning any action performs the zoom according to input params</snow>
+
+<yellow>-------------------- Examples --------------------</yellow>
+<lightblue>zoom wplane (0,0) side:0.2</lightblue>
+<cadetblue>zoom a square region in the W-plane, centered at the origin and with side 0.2</cadetblue>
+
+<lightblue>zoom zplane shift left|top|right|bottom 0.2</lightblue>
+<cadetblue>shift the z-plane to the left (or to the top, or to the right or to the bottom) left by 0.2</cadetblue>
+
+<lightblue>zoom zplane tofit</lightblue>
+<cadetblue>zoom to the smallest square region including all seed circles</cadetblue>
+
+<lightblue>zoom copy zplane wplane</lightblue>
+<cadetblue>copy and set coords of the W-plane (dest) to the Z-plane (src)</cadetblue>
+
+<lightblue>zoom wplane +0.3 clean</lightblue>
+<cadetblue>the input region is cleaned and then zoomed in by 0.3 factor (*) units</cadetblue>
+<cadetblue>no action is mentioned here, hence zoom is performed</cadetblue>
+
+<lightblue>zoom zplane -1.4 clean</lightblue>
+<cadetblue>the input region is cleaned and then zoomed out by 1.4 factor units</cadetblue>
+
+<lightblue>zoom release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<lightgray>(*) one factor unit is equal to 1/3 of current plane width in cartesian metrics</lightgray>

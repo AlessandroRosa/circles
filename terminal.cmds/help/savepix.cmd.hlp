@@ -1,0 +1,9 @@
+<banana>plane capture and save into a picture file</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>savepix %plane%</snow>
+<lightblue>%plane%</lightblue> <snow>zplane | wplane</snow>
+
+<lightblue>savepix release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

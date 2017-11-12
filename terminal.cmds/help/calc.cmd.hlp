@@ -1,0 +1,25 @@
+<banana>perform specific built-in calculations</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>calc %calculation% %params%</snow>
+
+<lightblue>calculation</lightblue> <snow>a string identifier</snow>
+<lightblue>%params%</lightblue> <snow>input objs of different kind, according to %calculation%</snow>
+
+<yellow>------------- EXAMPLES ----------------</yellow>
+
+<lightblue>calc crossratio (-1,0) (1,0) (0,1) (0,-1)</lightblue>
+<cadetblue>calculate cross-ratio of 4 input points and perform circle test (i.e., whether they all belong to a same circle)</cadetblue>
+
+<lightblue>calc crossratio (-1,0) (1,0) (0,1) (0,-1) roundto:3</lightblue>
+<cadetblue>calculate cross-ratio and display values up to 10E-3</cadetblue>
+
+<lightblue>calc convergents 12/7</lightblue>
+<cadetblue>display the sequence of convergents for the continued fraction representing 12/7</cadetblue>
+
+<lightblue>calc convergents 12/7 fraction</lightblue>
+<cadetblue>display the sequence of convergents in a fraction format</cadetblue>
+
+<lightblue>calc convergents 12/7 fraction red</lightblue>
+<cadetblue>same as above but paint the convergents in red. Type 'color /h' for the available shades list or input any rgb hex value.</cadetblue>

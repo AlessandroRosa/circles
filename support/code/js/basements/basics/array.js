@@ -52,7 +52,7 @@ if ( !Array.recursive_indexOf )
              this[_i].recursive_indexOf( obj, _level + 1, _index_rec, _flag ) ;
              if ( _flag[0] == 1 ) break outer_loop ;
           }
-		      else
+		  else
           {
              if( JSON.stringify( this[_i] ) == JSON.stringify( obj ) )
              {
@@ -63,7 +63,7 @@ if ( !Array.recursive_indexOf )
                 break outer_loop ;
              }
           } 
-			 }
+		}
 				 
 			 if ( !_b_found )
 			 {

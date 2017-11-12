@@ -1,0 +1,25 @@
+<banana>repetends management</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>repetends %action%</snow>
+
+<lightblue>%action%</lightblue> <snow>set | remove | flush | list | suggest</snow>
+
+<lightblue>repetends set a [a*6]</lightblue>
+<cadetblue>associate the repetend '[a*6]' to words ending with 'a'</cadetblue>
+
+<lightblue>repetends remove a</lightblue>
+<cadetblue>remove the repetend for words ending with 'a'</cadetblue>
+
+<lightblue>repetends flush</lightblue>
+<cadetblue>flush the list of repetends away</cadetblue>
+
+<lightblue>repetends list</lightblue>
+<cadetblue>show the list of repetends</cadetblue>
+
+<lightblue>repetends suggest n</lightblue>
+<cadetblue>compile the list of repetends with length n</cadetblue>
+
+<lightblue>repetends release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

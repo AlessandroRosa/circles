@@ -1,0 +1,8 @@
+<banana>halt batch code run in the compiler tab</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>break</snow>
+
+<lightblue>break release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

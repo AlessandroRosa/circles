@@ -1,0 +1,11 @@
+<banana>set template file name for further output savings</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>filename %filename%</snow>
+
+<lightblue>filename fuchsian.group.01</lightblue>
+<cadetblue>set template file name to 'fuchsian.group.01'</cadetblue>
+
+<lightblue>filename release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

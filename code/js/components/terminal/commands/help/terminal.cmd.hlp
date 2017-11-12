@@ -1,8 +1,0 @@
-<banana>close terminal console</banana>
-<white>Type param /k to return all available keywords</white>
-
-<lightblue>usage</lightblue> <snow>terminal</snow>
-<white>alias of clean console</white>
-
-<lightblue>console release</lightblue>
-<cadetblue>return the latest release date for this command</cadetblue>

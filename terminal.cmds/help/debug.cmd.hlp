@@ -1,0 +1,15 @@
+<banana>manage debug tab contents</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>debug clean | file</snow>
+
+<lightblue>file</lightblue> <snow>export the list into a plain text file</snow>
+<lightblue>debug clean</lightblue>
+
+<cadetblue>clean all text in the debug window</cadetblue>
+<lightblue>debug -> debug.txt</lightblue>
+<cadetblue>flush all debug contents into a plain text file</cadetblue>
+
+<lightblue>debug release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

@@ -1,0 +1,23 @@
+<banana>grid display management</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>grid %action% %value%</snow>
+
+<lightblue>grid</lightblue>
+<cadetblue>return current grid settings</cadetblue>
+
+<lightblue>grid 12</lightblue>
+<cadetblue>split grid axes into 12 ticks</cadetblue>
+
+<lightblue>grid zplane show</lightblue>
+<cadetblue>show axes in the Z-plane</cadetblue>
+
+<lightblue>grid wplane hide</lightblue>
+<cadetblue>hide axes in the W-plane</cadetblue>
+
+<lightblue>grid aquamarine | #FF0000 | rgb(192,38,100)</lightblue>
+<cadetblue>change axes color in both planes</cadetblue>
+
+<lightblue>grid release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

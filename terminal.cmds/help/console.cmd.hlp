@@ -1,0 +1,32 @@
+<banana>console size and screen position management</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>console %where% %action%</snow>
+
+<lightblue>%action%</lightblue> <snow>history | resize</snow>
+<lightblue>%where%</lightblue> <snow>left | right | top | bottom</snow>
+
+<lightblue>console right</lightblue>
+<cadetblue>move console to the right</cadetblue>
+
+<lightblue>console bottom left</lightblue>
+<cadetblue>move console to the bottom left corner of the screen</cadetblue>
+
+<lightblue>console history 10</lightblue>
+<cadetblue>return the latest 10 cmds in the batch compiler tab</cadetblue>
+
+<lightblue>console history 10 nohelp</lightblue>
+<cadetblue>return the latest 10 cmds and skips help cmds, if any</cadetblue>
+
+<lightblue>console resize 200 300</lightblue>
+<cadetblue>(both int) resize terminal viewport width and height to 200px and 300px respectively</cadetblue>
+
+<lightblue>console resize 80% 50%</lightblue>
+<cadetblue>(both perc) resize terminal viewport width and height to 80% and 50% of browser viewport respectively</cadetblue>
+
+<lightblue>console resize 50% 300</lightblue>
+<cadetblue>(mixed) resize terminal viewport width to 80% of browser viewport and height to 300px respectively</cadetblue>
+
+<lightblue>console release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

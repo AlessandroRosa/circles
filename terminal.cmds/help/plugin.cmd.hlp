@@ -1,0 +1,56 @@
+<banana>plugin management</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>plugin %action%</snow>
+<lightblue>%action%</lightblue> <snow>current | open | set | var</snow>
+
+<lightblue>plugin release</lightblue>
+<cadetblue>return the latest release date for this cmd</cadetblue>
+
+<lightblue>plugin available forms</lightblue>
+<cadetblue>return a list of all services available in the 'forms' subset, together with opening params</cadetblue>
+
+<lightblue>plugin close</lightblue>
+<cadetblue>simply close the mask for the working plug-in</cadetblue>
+
+<lightblue>plugin current</lightblue>
+<cadetblue>return the current refs to the working plug-in</cadetblue>
+
+<lightblue>plugin list</lightblue>
+<cadetblue>return the list including popup ids to perform open|close operations</cadetblue>
+
+<lightblue>plugin open</lightblue>
+<cadetblue>simply open the mask for the current working plug-in</cadetblue>
+
+<lightblue>plugin open move right</lightblue>
+<cadetblue>open the mask for the current working plug-in</cadetblue>
+<cadetblue>and send it the 'move' event with 'right' parameter value</cadetblue>
+
+<lightblue>plugin remotecmds</lightblue>
+<cadetblue>return the text list of the available remote cmds for the working plug-in</cadetblue>
+
+<lightblue>plugin set</lightblue>
+<white>plugin set embeddings general.purpose</white>
+<cadetblue>set up the plug-in reference and save it for further plugin cmds</cadetblue>
+
+<lightblue>plugin send</lightblue>
+<cadetblue>send a remote control message to the working plug-in</cadetblue>
+<white>plugin set forms discreteness.locus move left</white>
+<white>plugin open</white>
+<white>plugin send get.point 1-0.3i</white>
+
+<lightblue>plugin type</lightblue>
+<cadetblue>type the subsequent values in the parameter box</cadetblue>
+<white>plugin send type 1</white>
+<lightgray>type 1 in the parameter 'a' box</lightgray>
+<white>plugin send type 1 2 0 1 add</white>
+<lightgray>type vlaues in the boxes of parameter 'a', 'b', 'c', 'd' respectively and add the resulting mobius map to the candidate group</lightgray>
+
+<lightblue>plugin target</lightblue>
+<white>alias of 'set' action</white>
+
+<lightblue>plugin var</lightblue>
+<cadetblue>set var id and related value for the current working plug-in</cadetblue>
+<white>plugin var g1_1=1+i</white>
+<slategray>Assuming we're working with the embeddings/general.purpose plug-in, we set the first (of four) parameter in the first generator</slategray>

@@ -27,28 +27,25 @@ function basename(path, suffix)
     // *     example 2: basename('ecra.php?p=1');
     // *     returns 2: 'ecra.php?p=1'
     var b = path.replace(/^.*[\/\\]/g, '');
-     if (typeof(suffix) == 'string' && b.substr(b.length - suffix.length) == suffix) {
+    if (typeof(suffix) == 'string' && b.substr(b.length - suffix.length) == suffix)
         b = b.substr(0, b.length - suffix.length);
-    }
- 
     return b;
 }
 
 function get_current_path_url()
 {
-    var URL = window.location.href ;
-    var OUT = "" ;
-        if ( URL.length > 0 )
+    var URL = window.location.href, OUT = "" ;
+    if ( URL.length > 0 )
+    {
+        var URLarray = URL.split( "/" );
+        if ( URLarray.length > 0 )
         {
-            var URLarray = URL.split( "/" );
-            if ( URLarray.length > 0 )
-            {
-                for ( var i = 0 ; i < ( URLarray.length - 1 ) ; i++ ) OUT += URLarray[ i ] + "/" ;
-                return OUT ;
-            }
-            else return false ;
+            for ( var i = 0 ; i < ( URLarray.length - 1 ) ; i++ ) OUT += URLarray[ i ] + "/" ;
+            return OUT ;
         }
         else return false ;
+    }
+    else return false ;
 }
 
 function check_file_exists( _url )
@@ -70,7 +67,7 @@ function get_filedata_from_folder( _php_url, _method, _async, _vars )
     if ( !window.jQuery ) return null ;
     if ( !_async )
     {
-   		var _result = $.ajax({ type: _method, url: _php_url, exact: 0, data: _vars, async: false }).responseText ;
+	  var _result = $.ajax({ type: _method, url: _php_url, exact: 0, data: _vars, async: false }).responseText ;
       return _result == "" ? [] : _result ;
     }
     else

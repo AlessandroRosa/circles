@@ -1,0 +1,58 @@
+<banana>palette management</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>palette on | off %action% %file%</snow>
+
+<lightblue>%action%</lightblue> <snow>adapt | invert | destroy | list | remove | replace | reverse | resize | size | tags</snow>
+<lightblue>%color%</lightblue> <snow>tag (red), hex (#RRGGBB) or rgb (255,128,67) format</snow>
+<lightblue>file</lightblue> <snow>export the list into a plain text file</snow>
+
+<lightblue>palette on/off</lightblue>
+<cadetblue>switch the color palette on/off for disks fill</cadetblue>
+
+<lightblue>palette create start:#000000 end:rgb(255,128,67) steps:12</lightblue>
+
+<lightblue>palette create start:black end:white steps:12</lightblue>
+
+<lightblue>palette append start:black end:white steps:12</lightblue>
+
+<lightblue>palette resize steps:8</lightblue>
+
+<lightblue>palette destroy</lightblue>
+
+<lightblue>palette remove index:m,n</lightblue>
+<cadetblue>removes palette entries, indexed as m and n</cadetblue>
+
+<lightblue>palette remove index:m-n</lightblue>
+<cadetblue>removes palette entries, indexed from m to n</cadetblue>
+
+<lightblue>palette remove index:l,m-n</lightblue>
+<cadetblue>removes palette entries, indexed as l and from m to n</cadetblue>
+
+<lightblue>palette reverse</lightblue>
+<lightblue>palette replace index:1 color:white</lightblue>
+
+<lightblue>palette list</lightblue>
+<cadetblue>entries in color shading</cadetblue>
+
+<lightblue>palette list plain</lightblue>
+<cadetblue>entries in no color shading</cadetblue>
+
+<lightblue>palette list -> palette.list.txt</lightblue>
+<cadetblue>entries are listed and exported into a plain text file</cadetblue>
+
+<lightblue>palette adapt</lightblue>
+<cadetblue>resize palette length to current depth value</cadetblue>
+
+<lightblue>palette colorize</lightblue>
+<cadetblue>set colors to all seeds|gens by matching symbols with the default palette</cadetblue>
+
+<lightblue>palette decolorize</lightblue>
+<cadetblue>set default colors to all seeds|gens</cadetblue>
+
+<lightblue>palette tags</lightblue>
+<cadetblue>display color tags for palette</cadetblue>
+
+<lightblue>palette release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

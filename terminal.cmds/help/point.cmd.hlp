@@ -1,0 +1,35 @@
+<banana>plot one or more points</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>point %plane% %coords% %drawcolor% %fillcolor% %borderradius% %linethickness% %opacity% $label</snow>
+
+<lightblue>%plane%</lightblue> <snow>zplane | wplane</snow>
+<lightblue>%draw|fillcolor%</lightblue> <snow>tag or rgb triplets</snow>
+<lightblue>%opacity%</lightblue> <snow>0.0-1.0 range</snow>
+
+<lightblue>point (0,0) drawcolor orange fillcolor yellow zplane opacity 0.4 thick 2 $point1 rec</lightblue>
+<cadetblue>plot point in the Z-plane, paint it yellow with orange border and record it as $point1,</cadetblue>
+<cadetblue>then set opacity level to 0.4 and line thickness to 2 units</cadetblue>
+
+<lightblue>point (0,0) drawcolor orange fillcolor yellow zplane opacity 0.4 thick 2 $point1 storagein</lightblue>
+<cadetblue>same as above, but the point is save into the default storage subset space</cadetblue>
+
+<lightblue>point (0,0) drawcolor orange fillcolor yellow zplane opacity 0.4 thick 2 $point1 storagein storagesubset:points</lightblue>
+<cadetblue>same as above, but the point is save into the 'points' storage subset space (if existing)</cadetblue>
+
+<lightblue>point (0,0) (1,1) (2,2) drawcolor orange fillcolor yellow zplane opacity 0.4 thick 2</lightblue>
+<cadetblue>multiple point version</cadetblue>
+
+<lightblue>point release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<lightgray>-------------------------------</lightgray>
+<turquoise>Note (1)</turquoise>
+<cadetblue>Border radius, line thickness and opacity must be input according to the above params sequence</cadetblue>
+<turquoise>Note (2)</turquoise>
+<cadetblue>Technically, a point is a circle with fixed radius (i.e., 3)</cadetblue>
+<turquoise>Note (3)</turquoise> <cadetblue>$labels can be used to refer to figures, as alternative to indexes</cadetblue>
+<turquoise>Note (4)</turquoise> <cadetblue>if you want to update later a point entry, use these parameters</cadetblue>
+<cadetblue>in'</cadetblue><white>figures</white><cadetblue>' cmd with '</cadetblue><white>update</white><cadetblue>' action</cadetblue>
+<snow>coords draw drawcolor fill fillcolor opacity thick</snow>

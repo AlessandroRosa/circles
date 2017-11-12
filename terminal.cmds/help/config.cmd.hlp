@@ -1,0 +1,104 @@
+<banana>display current config parameters</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>config %action% %group%</snow>
+<lightblue>%action%</lightblue> <snow>get | set | keywords | save</snow>
+<lightblue>%group%</lightblue> <snow>generals | graphix | rendering | terminal</snow>
+
+<lightblue>config save -> config.txt</lightblue>
+<cadetblue>dump config parameters list into a plain text file entitled as 'config.txt'</cadetblue>
+
+<lightblue>config keywords</lightblue>
+<cadetblue>return keywords for params get | set</cadetblue>
+
+<lightblue>config rendering</lightblue>
+<cadetblue>return params under 'rendering' group</cadetblue>
+
+<lightblue>config get os</lightblue>
+<cadetblue>return current operative systems</cadetblue>
+
+<lightblue>config release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<yellow>------------- SPECIFIC SYNTAX ----------------</yellow>
+<gray>Syntax input: config %param% %value(s)%</gray>
+<yellow>example</yellow> <gray>config set accuracy 12</gray>
+<lightblue>set accuracy to 12 decimals</lightblue>
+
+<yellow>example</yellow> <gray>config get accuracy</gray>
+<lightblue>return the number of decimals applied to computation</lightblue>
+
+<banana>ACCURACY</banana>
+<banana>set approximation accuracy</banana>
+<lightblue>usage</lightblue> <snow>accuracy %value%</snow>
+<lightblue>accuracy</lightblue>
+<cadetblue>return current accuracy value</cadetblue>
+<lightblue>accuracy 12</lightblue>
+<cadetblue>set accuracy to 10^(-12)</cadetblue>
+<lightblue>accuracy reset</lightblue>
+<cadetblue>reset approximation to default accuracy</cadetblue>
+
+<banana>DEPTH</banana>
+<banana>set depth value for rendering process</banana>
+<lightblue>usage</lightblue> <snow>depth %value%</snow>
+<lightblue>depth 6</lightblue>
+<cadetblue>set depth to 6</cadetblue>
+
+<banana>DISKDASH</banana>
+<banana>set disk dashed border for W-plane disks if border is not visible</banana>
+<lightblue>usage</lightblue> <snow>diskdash %value%</snow>
+<lightblue>diskdash yes|no</lightblue>
+<cadetblue>enable| disable diskdash feature</cadetblue>
+
+<banana>DISKDRAW</banana>
+<banana>set disk border visibility</banana>
+<lightblue>usage</lightblue> <snow>diskdraw %value%</snow>
+<lightblue>diskdraw yes|no</lightblue>
+<cadetblue>enable| disable diskdraw feature</cadetblue>
+
+<banana>DISKFILL</banana>
+<banana>set disk interior painting</banana>
+<lightblue>usage</lightblue> <snow>diskfill %value%</snow>
+<lightblue>diskdraw yes|no</lightblue>
+<cadetblue>enable| disable diskfill feature</cadetblue>
+
+<banana>DRAW ENTITY</banana>
+<banana>set object for drawing the diagrams</banana>
+<lightblue>usage</lightblue> <snow>drawentity %class%</snow>
+<lightblue>%class%</lightblue> <snow>inversion | isometric | point | pixel</snow>
+<lightblue>drawentity isometric</lightblue>
+<lightblue>drawentity pixel 2</lightblue>
+<cadetblue>set pixel size to 2</cadetblue>
+<gray>Note: tolerance manages the upper bound distance between nodes of polyline</gray>
+
+<banana>FIXED POINTS INPUT/OUTPUT</banana>
+<banana>set i/o options for fixed points</banana>
+<lightblue>usage</lightblue> <snow>fixedpoints %option%</snow>
+<lightblue>%layout%</lightblue> <snow>input | output</snow>
+
+<banana>LIMITSET | TILING</banana>
+<banana>set construction mode to limit set | tiling</banana>
+<lightblue>usage</lightblue> <snow>%cmd% %operator% %threshold-disk-radius% %reset% %settings%</snow>
+<lightblue>%cmd%</lightblue> limitset | tiling</snow>
+<lightblue>%operator%</lightblue> <snow>'<', '=', '>'</snow>
+<lightblue>%threshold-disk-radius%</lightblue> <snow>any positive rational number</snow>
+<lightblue>%cmd%</lightblue>
+<cadetblue>set the construction mode</cadetblue>
+<lightblue>%cmd% <|=|> 0.01</lightblue>
+<cadetblue>display disks with radius less, equal or greater than 0.01</cadetblue>
+<lightblue>%cmd% reset</lightblue>
+<cadetblue>restore default settings</cadetblue>
+
+<banana>MAPPRECISION</banana>
+<banana>set pixels precision for disks movements (shift|resize)</banana>
+<lightblue>usage</lightblue> <snow>maprecision %percentage%</snow>
+
+<banana>TITLE</banana>
+<banana>set a title for the current working configuration</banana>
+<lightblue>usage</lightblue> <snow>title %a-title-for-the-current-config%</snow>
+<lightblue>title these-disks-are-made-for-packing</lightblue>
+
+<banana>WARNINGS</banana>
+<banana>toggle on/off the warnings in debug window</banana>
+<lightblue>usage</lightblue> <snow>warnings yes | no</snow>

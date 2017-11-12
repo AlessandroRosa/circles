@@ -1,0 +1,8 @@
+<banana>close this web-app instance</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>die</snow>
+
+<lightblue>die release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

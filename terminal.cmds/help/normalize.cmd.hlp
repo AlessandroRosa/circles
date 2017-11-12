@@ -1,0 +1,34 @@
+<banana>normalizes input Mobius maps</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>normalize %action% %label% %all% seeds|gens</snow>
+
+<lightblue>%action%</lightblue> <snow>compute | show</snow>
+
+<lightblue>normalize show B</snow>
+<cadetblue>show params of Mobius map 'A' after normalization</cadetblue>
+
+<lightblue>normalize show B roundto:3</snow>
+<cadetblue>same as before but values are rounded up to 10E-3</cadetblue>
+
+<lightblue>normalize show all</snow>
+<cadetblue>show params of all Mobius maps after normalization</cadetblue>
+
+<lightblue>normalize compute b</snow>
+<cadetblue>normalize Mobius map 'b' only (seeds are the default item container)</cadetblue>
+
+<lightblue>normalize compute all</snow>
+<cadetblue>normalize all Mobius maps</cadetblue>
+
+<lightblue>normalize all</snow>
+<cadetblue>equivalent syntax for the previous example</cadetblue>
+
+<lightblue>normalize A gens</snow>
+<cadetblue>normalize Mobius map 'A' in the gens items container</cadetblue>
+
+<lightblue>normalize release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<yellow>------------- NOTES ----------------</yellow>
+<yellow>Note</yellow> <snow>this cmd applies to seeds esclusively</snow>
