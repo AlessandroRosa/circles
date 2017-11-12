@@ -354,24 +354,33 @@ function circles_terminal_cmd_dg()
 				} );
                 break ;
                 case "delete":
+                var _tag = is_array( _params_assoc_array['tag'] ) ? ( _params_assoc_array['tag'][0] != null ? _params_assoc_array['tag'][0] : "" ) : "" ;
                 var _index = safe_int( _params_assoc_array['index'], UNDET );
-                var _zero_based = ( _index > 0 ) ? _index - 1 : UNDET ;
+				console.log( _params_assoc_array['tag'], _tag, _index );
+                var _zero_based = _tag.length > 0 ? _dg_cmd_find( _tag ) : ( _index > 0 ? _index - 1 : UNDET ) ;
                 if ( _zero_based == UNDET )
                 {
                     _b_fail = YES, _error_str = "Missing or invalid input group index" ;
                 }
                 else if ( !is_array( _glob_groups_table[_zero_based] ) )
                 {
-                    _b_fail = YES, _error_str = "Unreferenced input group index" ;
+                    _b_fail = YES, _error_str = "Invalid input group index" ;
                 }
                 else
                 {
                     function _delete_group()
                     {
+						console.log( "ZERO BASED", _zero_based );
                         var _old_n = safe_size( _glob_groups_table, 0 );
                         _glob_groups_table.remove( _zero_based, _zero_based );
                         var _new_n = safe_size( _glob_groups_table, 0 );
-                        if ( _new_n = _old_n - 1 ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Current group has been deleted with success", _par_1, _cmd_tag );
+                        if ( _new_n == _old_n - 1 )
+						{
+							if ( _tag.length > 0 )
+							circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Group entry tagged as '"+_tag+"' has been deleted with success", _par_1, _cmd_tag );
+							else
+							circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Group entry indexed as "+_index+" has been deleted with success", _par_1, _cmd_tag );
+						}
                         else
                         {
                             _b_fail = YES, _error_str = "Memory error: can't delete input group" ;
@@ -380,7 +389,8 @@ function circles_terminal_cmd_dg()
 
 					var _params_array = [] ;
 					_params_array['prepromptquestion'] = null ;
-					_params_array['promptquestion'] = "Confirm to delete the registered group #"+_index+"? " ;
+					if ( _tag.length > 0 ) _params_array['promptquestion'] = "Confirm to delete the registered group tagged as '"+_tag+"' ? " ;
+					else _params_array['promptquestion'] = "Confirm to delete the registered group with index #"+_index+" ? " ;
 					_params_array['yes_fn'] = function() { _delete_group(); }
 					_params_array['ifquestiondisabled_fn'] = function() { _delete_group(); }
 					circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
@@ -391,6 +401,10 @@ function circles_terminal_cmd_dg()
                 var _index = _params_assoc_array['index'] != null ? safe_int( _params_assoc_array['index'], 0 ) : null ;
                 var _short = safe_int( _params_assoc_array['short'], NO );
                 var _cols = 4, _b_go = 1 ;
+				if ( _len == 0 )
+				{
+					_b_go = 0, _b_fail = YES, _error_str = "List is empty" ;
+				}
 				if ( _index != null )
 				{
 					if ( _index == 0 )
@@ -461,7 +475,7 @@ function circles_terminal_cmd_dg()
                 circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 case "save":
-                var _tag = is_array( _params_assoc_array['tag'] ) ? _params_assoc_array['tag'][0] : "" ;
+                var _tag = is_array( _params_assoc_array['tag'] ) ? ( _params_assoc_array['tag'][0] != null ? _params_assoc_array['tag'][0] : "" ) : "" ;
                 var _ref_mm_array = _glob_seeds_array ;
                 if ( safe_size( _tag, 0 ) == 0 ) circles_lib_output( _output_channel, DISPATCH_ERROR, "Missing group tag", _par_1, _cmd_tag );
                 else if ( safe_size( _ref_mm_array, 0 ) > 0 )
@@ -491,11 +505,13 @@ function circles_terminal_cmd_dg()
                 }
                 break ;
                 case "subgroup":
+                var _tag = is_array( _params_assoc_array['tag'] ) ? ( _params_assoc_array['tag'][0] != null ? _params_assoc_array['tag'][0] : "" ) : "" ;
                 var _input_words = _params_assoc_array['words'] ;
                 var _alphabet = circles_lib_alphabet_get();
                 var _ws_len = safe_size( _input_words, 0 );
                 var _alpha_len = safe_size( _alphabet, 0 );
-                if ( _alpha_len == 0 )
+                if ( safe_size( _tag, 0 ) == 0 ) circles_lib_output( _output_channel, DISPATCH_ERROR, "Missing group tag", _par_1, _cmd_tag );
+                else if ( _alpha_len == 0 )
                 {
                     _b_fail = YES, _error_str = "Current alphabet is empty: no subgroup can be created" ;
                 }
@@ -538,9 +554,6 @@ function circles_terminal_cmd_dg()
                         for( var _i = 0 ; _i < _sd_n ; _i++ ) _symbols_index_array[ _glob_seeds_array[_i].symbol ] = _i ;
 
                         circles_lib_output( _output_channel, DISPATCH_INFO, "Computing input words", _par_1, _cmd_tag );
-
-                        var _tag = is_array( _params_assoc_array['tag'] ) ? _params_assoc_array['tag'][0] : "" ;
-                        if ( safe_size( _tag, 0 ) == 0 ) _tag = "Missing tag for group symbol" ;
                         var INDEX, _mm = null, G = null, WORD, _symbol, _inv_symbol, _new_group = [];
                         // read each word, build the map, get a symbol, build item obj, add to _new_group
                         for( var _i = 0 ; _i < _ws_len ; _i++ )
@@ -583,13 +596,19 @@ function circles_terminal_cmd_dg()
 
                             if ( _service_array.includes( "rec" ) )
                             {
-                                var _tag = is_array( _params_assoc_array['tag'] ) ? _params_assoc_array['tag'][0] : "" ;
-                                if ( safe_size( _tag, 0 ) == 0 ) _tag = "Missing tag for group symbol" ;
-                                var _ret_chunk = _dg_cmd_record_group( _new_group, _tag );
-                                _b_fail = ( safe_int( _ret_chunk[0], RET_ERROR ) == RET_ERROR ) ? YES : NO ;
-                                var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
-                                if ( _b_fail ) _error_str = _ret_msg ;
-                                else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+								var _ret_chunk = _dg_cmd_scan_for_duplicates( [ _new_group, safe_size( _new_group, 0 ), _tag ] );
+								var _is_duplicate = safe_int( _ret_chunk[0], NO );
+								var _entry_zero_based_index = _is_duplicate ? safe_int( _ret_chunk[1], UNDET ) : UNDET ;
+								var _entry_tag = _is_duplicate ? safe_string( _ret_chunk[2], "" ) : "" ;
+								if ( _is_duplicate ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Current group has already been tagged as '"+_entry_tag+"', with index #"+(_entry_zero_based_index+1), _par_1, _cmd_tag );
+								else
+								{
+									var _ret_chunk = _dg_cmd_record_group( _new_group, _tag );
+									_b_fail = ( safe_int( _ret_chunk[0], RET_ERROR ) == RET_ERROR ) ? YES : NO ;
+									var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
+									if ( _b_fail ) _error_str = _ret_msg ;
+									else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+								}
                             }
 
                             if ( !_b_fail && _service_array.includes( "render" ) )
@@ -778,7 +797,7 @@ function _dg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                if ( _service_array.includes( "init" ) ) _dg_cmd_init( _par_1, _output_channel, _cmd_tag );
                if ( _service_array.includes( "rec" ) )
                {
-                   var _tag = is_array( _params_assoc_array['tag'] ) ? _params_assoc_array['tag'][0] : "" ;
+                   var _tag = is_array( _params_assoc_array['tag'] ) ? ( _params_assoc_array['tag'][0] != null ? _params_assoc_array['tag'][0] : "" ) : "" ;
                    if ( safe_size( _tag, 0 ) == 0 ) _tag = "Missing definition for group symbol" ;
                    var _ret_chunk = _dg_cmd_record_group( _new_group, _tag );
                        _b_ret = safe_int( _ret_chunk[0], RET_ERROR );
@@ -830,7 +849,7 @@ function _dg_cmd_init( _par_1, _output_channel, _cmd_tag )
 
 function _dg_cmd_find( _tag = "" )
 {
-	var _ret = -1 ;
+	var _ret = UNDET ;
 	if ( _tag == "" ) return _ret ;
 	else
 	{

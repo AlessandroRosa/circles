@@ -4,8 +4,6 @@
   - run and test all listings
   LAST CHECKED : epstein.../ep.ma.ma.02.txt
   
-  * DG command : test all examples mentioned in the help file
-
 - srcptset terminal cmd:
   * build point set according to input params
 

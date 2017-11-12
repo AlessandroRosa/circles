@@ -20,6 +20,12 @@
 <lightblue>dg list 1</lightblue>
 <cadetblue>display the group indexed as '1' only</cadetblue>
 
+<lightblue>dg delete 1</lightblue>
+<cadetblue>delete group entry with index 1, if any</cadetblue>
+
+<lightblue>dg delete tag:mygroupid</lightblue>
+<cadetblue>delete group entry tagged as 'mygroupid', if any</cadetblue>
+
 <lightblue>dg save tag:mypersonalgroup</lightblue>
 <cadetblue>save current group in use and tag it as 'mypersonalgroup' inside the archive</cadetblue>
 
