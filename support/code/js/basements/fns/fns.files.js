@@ -50,6 +50,7 @@ function get_current_path_url()
 
 function check_file_exists( _url )
 {
+	console.log( _url );
     var xhr = new XMLHttpRequest();
         xhr.open( 'HEAD', _url, false );
         xhr.send();

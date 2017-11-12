@@ -297,8 +297,8 @@ function circles_terminal_cmd_plugin()
                           var _ret_array = [] ;
                           var _dispatcher_fn = "CIRCLES" + _famLC + _defUC + "remotectrl( _options, null, _ret_array, "+_output_channel+" )" ;
                           var _output = null ;
-                         	try{ eval( "_output = " + _dispatcher_fn + ";" ) }
-                         	catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
+                          try{ eval( "_output = " + _dispatcher_fn + ";" ) }
+                          catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
                           if ( _ret_array.length == 2 )
                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _ret_array[1], _par_1, _cmd_tag );
                           else
@@ -316,7 +316,7 @@ function circles_terminal_cmd_plugin()
                  var _def = _params_assoc_array['settings']['def'] != null ? _params_assoc_array['settings']['def'] : "" ;
                  if ( is_consistent_string( _fam ) && is_consistent_string( _def ) )
                  {
-				   var _exists = check_file_exists( _glob_plugins_path + _fam + "/" + _def ) ;
+				   var _exists = check_file_exists( _glob_plugins_path + _fam + "/" + _def + "/remote.cmds.info" ) ;
 				   if ( _exists )
 				   {
 					   var _famLC = _fam.toLowerCase(), _famUC = _fam.toUpperCase();

@@ -208,7 +208,7 @@ function circles_lib_plugin_destroy_wnd( _div_id )
     }
 }
 
-function circles_lib_plugin_register( _calling_params, _div_id, _caption, _status, _visible, _caption_class, _subset, _base_id, _allow_multiple_instances )
+function circles_lib_plugin_register( _calling_params, _div_id, _caption, _status, _visible, _caption_class, _subset = "forms", _base_id, _allow_multiple_instances )
 {
     if ( !is_array( _calling_params ) ) _calling_params = [ "", "" ] ;
     _div_id = safe_string( _div_id, "" ).trim();

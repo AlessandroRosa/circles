@@ -132,7 +132,11 @@ var _demon = new demo_n();
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms discreteness.locus" ); },
-                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
+                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 1.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin open" ); },
+                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 1.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send focus" ); },
@@ -151,7 +155,11 @@ var _demon = new demo_n();
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send focus" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin open" ); },
+                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 1.0, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+				  _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send focus" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 

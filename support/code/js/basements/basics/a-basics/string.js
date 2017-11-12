@@ -256,7 +256,6 @@ String.prototype.lpad = function(padString, length)
 String.prototype.rpad = function(padString, length)
 {
 	var str = this;
-	console.log( "IN" );
    	while (str.length < length) str += padString;
     return str ;
 }
