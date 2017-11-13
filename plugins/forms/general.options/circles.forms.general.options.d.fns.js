@@ -356,7 +356,7 @@ function CIRCLESformsGENERALOPTIONSlayersLIST( _plane_type, _reloader_fn )
            HTMLcode += "<td WIDTH=\"5\"></td>" ;
            HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
            HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE('"+_layer_bkcolor_id+"ICON','"+_layer_bkcolor_id+"');\"";
-           HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\""+_layer_bkcolor_id+"ICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+           HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\""+_layer_bkcolor_id+"ICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
            HTMLcode += "<td WIDTH=\"12\"></td>" ;
 
            var _filename = _glob_export_filename.length == 0 ? "circles." + _layer.get_role_def() + ".png" : _glob_export_filename ;

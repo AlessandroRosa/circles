@@ -1,13 +1,8 @@
 ------------ APP -------------------------------------------------
 * CHECK:
-  - all switch cases inside each
-    remotectrl( _options, _return_fn, _ret_array, _output_channel )
-    include
-    _ret_array.push( 1, <some color-formatted output string> ) ;
   - demos:
-    after "plugin set ...", insert "plugin open" otherwise no
-    msg dispatching would work
-
+    DEMO #8 - fix JS errors
+	
 * Listings:
 
   - run and test all listings

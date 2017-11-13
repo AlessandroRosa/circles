@@ -10,7 +10,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTlinecolorICON', 'DEFAULTlinecolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTlinecolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTlinecolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "<td WIDTH=\"30\"></td>" ;
         HTMLcode += "<td>Text</td>" ;
@@ -19,7 +19,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTtextcolorICON', 'DEFAULTtextcolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTtextcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTtextcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "<td WIDTH=\"30\"></td>" ;
         HTMLcode += "<td>Axis</td>" ;
@@ -28,7 +28,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTaxiscolorICON', 'DEFAULTaxiscolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTaxiscolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTaxiscolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "</tr>" ;
 
@@ -42,7 +42,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTlabeltextcolorICON', 'DEFAULTlabeltextcolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTlabeltextcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTlabeltextcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "<td WIDTH=\"30\"></td>" ;
         HTMLcode += "<td>Label dot</td>" ;
@@ -51,7 +51,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTlabeldotcolorICON', 'DEFAULTlabeldotcolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTlabeldotcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTlabeldotcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "</tr>" ;
 
@@ -64,7 +64,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTdrawseedcolorICON', 'DEFAULTdrawseedcolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTdrawseedcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTdrawseedcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "<td WIDTH=\"30\"></td>" ;
         HTMLcode += "<td>Draw (inverse seed)</td>" ;
@@ -73,7 +73,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTdrawinverseseedcolorICON', 'DEFAULTdrawinverseseedcolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTdrawinverseseedcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTdrawinverseseedcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "<td WIDTH=\"30\"></td>" ;
         HTMLcode += "<td>Draw (point)</td>" ;
@@ -82,7 +82,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTpointbordercolorICON', 'DEFAULTpointbordercolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTpointbordercolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTpointbordercolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "</tr>" ;
 
@@ -95,7 +95,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTfillseedcolorICON', 'DEFAULTfillseedcolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTfillseedcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTfillseedcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "<td WIDTH=\"30\"></td>" ;
         HTMLcode += "<td>Fill (inverse seed)</td>" ;
@@ -104,7 +104,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTfillinverseseedcolorICON', 'DEFAULTfillinverseseedcolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTfillinverseseedcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTfillinverseseedcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "<td WIDTH=\"30\"></td>" ;
         HTMLcode += "<td>Fill (point)</td>" ;
@@ -113,7 +113,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTpointinteriorcolorICON', 'DEFAULTpointinteriorcolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTpointinteriorcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTpointinteriorcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
 
         HTMLcode += "</tr>" ;
@@ -127,7 +127,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTboundarycolorICON', 'DEFAULTboundarycolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTboundarycolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTboundarycolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "<td WIDTH=\"30\"></td>" ;
         HTMLcode += "<td>Pleating ray</td>" ;
@@ -136,7 +136,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTpleatingraycolorICON', 'DEFAULTpleatingraycolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTpleatingraycolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTpleatingraycolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "<td WIDTH=\"30\"></td>" ;
         HTMLcode += "<td>Pleating ray (selected)</td>" ;
@@ -145,7 +145,7 @@ function CIRCLESformsGENERALOPTIONScolorsTAB()
         HTMLcode += "<td WIDTH=\"10\"></td>";
         HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
         HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'DEFAULTpleatingrayselectedcolorICON', 'DEFAULTpleatingrayselectedcolor' );\"";
-        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTpleatingrayselectedcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+        HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"DEFAULTpleatingrayselectedcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
 
         HTMLcode += "</tr>" ;
 

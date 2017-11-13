@@ -239,7 +239,7 @@ function CIRCLESformsDISCRETENESSLOCUSmainBOX()
     HTMLcode += "<td WIDTH=\"5\"></td>";
     HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
     HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'CIRCLESformsDISCRETENESSLOCUSarrowcolorICON', 'CIRCLESformsDISCRETENESSLOCUSarrowcolor' );\"";
-    HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+    HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CIRCLESformsDISCRETENESSLOCUSarrowcolorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;

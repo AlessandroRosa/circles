@@ -54,6 +54,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          GLOB_PLUGIN_DESTROY_POPUP_VARS();
          var _sub = "embeddings", _base_id = "general.purpose" ;
          circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
+        _ret_array.push( YES, "<green>Plug-in has been closed with success</green>" ) ;
 		 return YES ;
          break ;
   		 case "focus":
@@ -91,6 +92,10 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          _ret_array.push( YES, "<green>Plug-in has been moved with success</green>" ) ;
          return _ret ;
   		 break ;
+		 case "open":
+         _ret_array.push( 1, "<green>Plug-in has been opened with success</green>" ) ;
+         return YES ;
+		 break ;
 		 case "render":
 		 GLOB_PLUGIN_WIZARD_STEP(2.1,null,null,W_PLANE,YES);
         _ret_array.push( YES, "<green>Rendering has been started up</green>" ) ;
@@ -129,6 +134,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 		 break ;
   		 case "newmap":
   		 CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_NEW,YES,_output_channel);
+        _ret_array.push( YES, "<green>A new Mobius map has been added with success</green>" ) ;
          return YES ;
   		 break ;
   		 case "refresh":
@@ -201,8 +207,8 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 		 break ;
 		 case "var.bomb":
 		 CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB(NO,YES,_output_channel);
-		 _ret_array.push( YES, "<green>All vars have been deleted with success</green>" ) ;
          CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
+		 _ret_array.push( YES, "<green>All vars have been deleted with success</green>" ) ;
 		 return YES ;
 		 break ;
          case "var.delete":

@@ -42,6 +42,10 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn, _ret_arr
         _ret_array.push( 1, "<green>Plug-in has been moved with success</green>" ) ;
         return YES ;
 		break ;
+		case "open":
+        _ret_array.push( 1, "<green>Plug-in has been opened with success</green>" ) ;
+        return YES ;
+		break ;
 		default:
 	    _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
         return NO ;

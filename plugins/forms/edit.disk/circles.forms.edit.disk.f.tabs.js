@@ -81,7 +81,7 @@ function CIRCLESformsEDITDISKgraphixCODE( _index, _items_switch )
     HTMLcode += "<td WIDTH=\"5\"></td>";
     HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
     HTMLcode += "    ONCLICK=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);displayCOLORTABLE( 'CIRCLEScircleSELECTEDdrawcolorICON', 'CIRCLEScircleSELECTEDdrawcolor' );\"";
-    HTMLcode += "    WIDTH=\"16\" valign=\"middle\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+    HTMLcode += "    WIDTH=\"16\" valign=\"middle\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
     HTMLcode += "<td WIDTH=\"25\"></td>";
     HTMLcode += "<td>Draw Border</td>";
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
@@ -98,7 +98,7 @@ function CIRCLESformsEDITDISKgraphixCODE( _index, _items_switch )
     HTMLcode += "<td WIDTH=\"5\"></td>";
     HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
     HTMLcode += "    ONCLICK=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);displayCOLORTABLE( 'CIRCLEScircleSELECTEDfillcolorICON', 'CIRCLEScircleSELECTEDfillcolor' );\"";
-    HTMLcode += "    WIDTH=\"16\" valign=\"middle\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+    HTMLcode += "    WIDTH=\"16\" valign=\"middle\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
     HTMLcode += "<td WIDTH=\"25\"></td>";
     HTMLcode += "<td>Fill interior</td>";
     HTMLcode += "<td WIDTH=\"5\"></td>";

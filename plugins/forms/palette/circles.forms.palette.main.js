@@ -33,7 +33,7 @@ function CIRCLESformsPALETTEmain( _base_id, _move )
       HTMLcode += "<td WIDTH=\"5\"></td>";
       HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
       HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'CANVAScolorCELLICON', 'CANVAScolorCELL' );\"";
-      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CANVAScolorCELLICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CANVAScolorCELLICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
       HTMLcode += "<td></td>";
       HTMLcode += "<td WIDTH=\"15\"></td>";
       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsPALETTEaddCOLOR();\">Add it</td>";
@@ -60,7 +60,7 @@ function CIRCLESformsPALETTEmain( _base_id, _move )
       HTMLcode += "<td STYLE=\"height:20px;width:20px;background-color:"+_glob_palette_start_rgb+";\" CLASS=\"general_rounded_corners\" ID=\"CANVAScolorCELLgradientSTART\"></td>";
       HTMLcode += "<td WIDTH=\"3\"></td>";
       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:displayCOLORTABLE( 'CANVAScolorCELLgradientSTARTICON', 'CANVAScolorCELLgradientSTART' );\"";
-      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CANVAScolorCELLgradientSTARTICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CANVAScolorCELLgradientSTARTICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
       HTMLcode += "<td WIDTH=\"15\"></td>";
       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:$('#CANVAScolorCELLgradientSTART').css( 'background-color', $('#CANVAScolorCELL').css('background-color') );\"><IMG TITLE=\"Get selected color\" SRC=\"%imgpath%icons/bullets/bullet.down.12x12.png\"></td>" ;
       HTMLcode += "<td WIDTH=\"2\"></td>";
@@ -74,7 +74,7 @@ function CIRCLESformsPALETTEmain( _base_id, _move )
       HTMLcode += "<td STYLE=\"height:20px;width:20px;background-color:"+_glob_palette_end_rgb+";\" CLASS=\"general_rounded_corners\" ID=\"CANVAScolorCELLgradientEND\"></td>";
       HTMLcode += "<td WIDTH=\"3\"></td>";
       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:displayCOLORTABLE( 'CANVAScolorCELLgradientENDICON', 'CANVAScolorCELLgradientEND' );\"";
-      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CANVAScolorCELLgradientENDICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"CANVAScolorCELLgradientENDICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
       HTMLcode += "<td WIDTH=\"15\"></td>";
       HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:$('#CANVAScolorCELLgradientEND').css( 'background-color', $('#CANVAScolorCELL').css('background-color') );\"><IMG TITLE=\"Get selected color\" SRC=\"%imgpath%icons/bullets/bullet.down.12x12.png\"></td>" ;
       HTMLcode += "<td WIDTH=\"2\"></td>";

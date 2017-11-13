@@ -71,7 +71,7 @@ var _demon = new demo_n();
                   post_fn : function() { _glob_terminal.exec( "plugin set embeddings maskit.once" ); _glob_terminal.exec( "plugin open" ); }
                 } );
 
-    _demon.add( { ctrl_id : "", time : 2.0, time_unit : "s",
+	_demon.add( { ctrl_id : "", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "",
                   post_fn : function() { _glob_terminal.exec( "console resize 450 400" ); }
                 } );

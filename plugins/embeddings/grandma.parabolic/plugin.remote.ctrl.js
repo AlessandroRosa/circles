@@ -20,6 +20,7 @@ function CIRCLESembeddingsGRANDMAPARABOLICremotectrl( _options, _return_fn, _ret
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "embeddings", _base_id = "grandma.parabolic" ;
         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
+        _ret_array.push( YES, "<green>Plug-in has been closed with success</green>" ) ;
         return YES ;
         break ;
 		case "focus":
@@ -47,6 +48,10 @@ function CIRCLESembeddingsGRANDMAPARABOLICremotectrl( _options, _return_fn, _ret
 		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
         _ret_array.push( YES, "<green>Group has been init with success</green>" ) ;
 		return YES ;
+		break ;
+		case "open":
+        _ret_array.push( 1, "<green>Plug-in has been opened with success</green>" ) ;
+        return YES ;
 		break ;
 		case "render":
 		GLOB_PLUGIN_WIZARD_STEP(2.1,null,null,W_PLANE,YES);

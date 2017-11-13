@@ -51,11 +51,7 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
                      $( "#presentation_div" ).html( "Open the Triggers form to boost up the rendering" ) ;
                   },
-                  post_fn : function() { _glob_terminal.exec( "plugin set forms triggers" ); },
-                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin open" ); },
+                  post_fn : function() { _glob_terminal.exec( "plugin set forms triggers" ); _glob_terminal.exec( "plugin open" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -68,11 +64,7 @@ var _demon = new demo_n();
                   action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
                 } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms discreteness.locus" ); },
-                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin open" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms discreteness.locus" ); _glob_terminal.exec( "plugin open" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 

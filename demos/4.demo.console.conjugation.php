@@ -111,11 +111,11 @@ var _demon = new demo_n();
                   post_fn : function(){
                       circles_lib_canvas_coords_acquire( ALL_PLANES );
                       CIRCLESembeddingsEARLE_INIT(NO,YES);
-          					  CIRCLESembeddingsEARLE_COMP(YES);
+          			  CIRCLESembeddingsEARLE_COMP(YES);
                       CIRCLESembeddingsEARLE_CONFIG();
                       GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
                       GLOB_PLUGIN_WIZARD_STEP(1.1,YES);
-          						circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
+          			  circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
                 } } );
 
     _demon.add( { pre_fn : function()

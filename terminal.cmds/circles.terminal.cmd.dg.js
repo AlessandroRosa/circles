@@ -356,7 +356,6 @@ function circles_terminal_cmd_dg()
                 case "delete":
                 var _tag = is_array( _params_assoc_array['tag'] ) ? ( _params_assoc_array['tag'][0] != null ? _params_assoc_array['tag'][0] : "" ) : "" ;
                 var _index = safe_int( _params_assoc_array['index'], UNDET );
-				console.log( _params_assoc_array['tag'], _tag, _index );
                 var _zero_based = _tag.length > 0 ? _dg_cmd_find( _tag ) : ( _index > 0 ? _index - 1 : UNDET ) ;
                 if ( _zero_based == UNDET )
                 {
@@ -370,7 +369,6 @@ function circles_terminal_cmd_dg()
                 {
                     function _delete_group()
                     {
-						console.log( "ZERO BASED", _zero_based );
                         var _old_n = safe_size( _glob_groups_table, 0 );
                         _glob_groups_table.remove( _zero_based, _zero_based );
                         var _new_n = safe_size( _glob_groups_table, 0 );

@@ -281,7 +281,7 @@ function CIRCLESbipFORMtabPROPERTIEShtml( _properties, _return_html )
       HTMLcode += "<td WIDTH=\"5\"></td>";
       HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
       HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'canvas_bk_colorICON', 'canvas_bk_color' );\"";
-      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"canvas_bk_colorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum20x20.png\"></td>";
+      HTMLcode += "    WIDTH=\"16\" valign=\"middle\" ID=\"canvas_bk_colorICON\"><IMG SRC=\"%imgpath%colortable/img/btns/spectrum16x16.png\"></td>";
       HTMLcode += "<td WIDTH=\"15\"></td>";
       HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:$('#canvas_bk_color').css('background-color','transparent');$('#canvas_bk_color').html('none');\">Set transparent</td>";
       HTMLcode += "</tr>" ;

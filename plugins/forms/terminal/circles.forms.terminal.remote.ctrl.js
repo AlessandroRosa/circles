@@ -17,6 +17,7 @@ function CIRCLESformsTERMINALremotectrl( _options, _return_fn, _ret_array, _outp
 	switch( _options[0].toLowerCase() )
 	{
         case "close":
+        _ret_array.push( YES, "<green>Plug-in has been closed with success</green>" ) ;
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "forms", _base_id = "terminal" ;
         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
@@ -32,6 +33,10 @@ function CIRCLESformsTERMINALremotectrl( _options, _return_fn, _ret_array, _outp
         var _sub = "forms", _base_id = "terminal" ;
 		var _ret = move_div( _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ], _options[1] != null ? _options[1].toUpperCase() : "LEFT", _options[2] != null ? _options[2].toLowerCase() : "TOP" );
         _ret_array.push( 1, "<green>Plug-in has been moved with success</green>" ) ;
+        return YES ;
+		break ;
+		case "open":
+        _ret_array.push( 1, "<green>Plug-in has been opened with success</green>" ) ;
         return YES ;
 		break ;
 		default:

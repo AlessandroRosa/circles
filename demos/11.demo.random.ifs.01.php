@@ -63,11 +63,7 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set embeddings maskit.once" ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin close" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set embeddings maskit.once" ); _glob_terminal.exec( "plugin close" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -171,11 +167,7 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms terminal" ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin close" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms terminal" ); _glob_terminal.exec( "plugin close" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
