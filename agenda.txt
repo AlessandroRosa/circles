@@ -1,7 +1,15 @@
 ------------ APP -------------------------------------------------
 * CHECK:
   - demos:
-    DEMO #8 - fix JS errors
+    * Demo #8:
+      After the run, the Discreteness Locus plugin remains open.
+      When I close it, the work canvas still remains on the
+      screen, events are fired, no such canvas is found and
+      errors are generated
+      
+
+    * Inspired from DEMO #8 - write another one for displaying
+      the Pleating rays
 	
 * Listings:
 

@@ -19,7 +19,7 @@ function circles_lib_plugin_find_index( _json, _datatype_mask, _offset )
 {
     var _popups = _glob_popups_array, _len = safe_size( _popups, 0 ), _ret = UNFOUND, _tmp_mask = 0 ;
     _datatype_mask = safe_int( _datatype_mask, POPUP_SEARCH_BY_UNIQUE_ID );
-    _offset = Math.min( Math.max( safe_int( _offset, 0 ), 0 ), _len - 1 );
+    _offset = _len > 0 ? Math.min( Math.max( safe_int( _offset, 0 ), 0 ), _len - 1 ) : 0 ;
     if ( ( _datatype_mask & POPUP_SEARCH_BY_UNIQUE_ID ) && _json.unique_id != null )
     _json.unique_id = _json.unique_id.replace( /[\.\_\-]/g, "" ).toUpperCase() ;
     for( var _i = _offset ; _i < _len ; _i++ )

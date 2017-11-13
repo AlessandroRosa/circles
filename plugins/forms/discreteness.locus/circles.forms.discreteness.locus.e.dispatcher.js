@@ -6,13 +6,13 @@ function CIRCLESformsDISCRETENESSLOCUSdispatcher()
                            and gain access to the stored features
      2 and more: arguments with index greater than 1 supply additional parameters, customizable for each message
   */
-	if ( arguments.length > 0 )
+  if ( arguments.length > 0 )
   {
-		var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN ), _idx = safe_int( arguments[1], 0 );
+	var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN ), _idx = safe_int( arguments[1], 0 );
     var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "discreteness.locus" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 )
     if ( _idx == UNFOUND ) return NO ;
-		switch( MESSAGE_ID )
-		{
+	switch( MESSAGE_ID )
+	{
       case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
       var _sw = $(window).width(), _sh = $(window).height() ;
       var _div_id = _glob_popups_array[_idx][1] ;
@@ -38,15 +38,15 @@ function CIRCLESformsDISCRETENESSLOCUSdispatcher()
       case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
       _glob_target_plane = D_LOCUS ;
       CIRCLESformsDISCRETENESSLOCUSbindCANVASevents();
-			CIRCLESformsDISCRETENESSLOCUSdrawCANVAS() ;
+	  CIRCLESformsDISCRETENESSLOCUSdrawCANVAS();
       var _ok_tab_0 = safe_int( _glob_current_tab['dlocus'], 0 ) == 0 ? YES : NO ;
       $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).css( "display", _ok_tab_0 ? "block" : "none" );
       $( "#CIRCLESdlocusworklayerCANVAS" ).css( "display", _ok_tab_0 ? "block" : "none" );
       if ( _ok_tab_0 )
       {
-		     CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( CIRCLESformsDISCRETENESSLOCUSdiv_id, NO, YES ) ;
-			   $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).offset( $( "#CIRCLESdlocusdiagramCANVAS" ).offset() );
-			}
+		CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( CIRCLESformsDISCRETENESSLOCUSdiv_id, NO, YES ) ;
+		$( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).offset( $( "#CIRCLESdlocusdiagramCANVAS" ).offset() );
+	  }
       break ;
       case POPUP_DISPATCHER_UNICAST_EVENT_BLUR:
       var _div_id = _glob_popups_array[_idx][1] ;
@@ -92,6 +92,6 @@ function CIRCLESformsDISCRETENESSLOCUSdispatcher()
 		  circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
 		  break ;
       default: break ;
-		}
 	}
+  }
 }

@@ -42,14 +42,14 @@ function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrow
     _focus_fn = safe_string( _focus_fn, "" );
     _append_fns_at_close = safe_string( _append_fns_at_close, "" );
     _help_fn = safe_string( _help_fn, "" );
-		_title = _title.length > 70 ? _title.substr( 0, 65 ) + "&nbsp;.." : _title ;
+	_title = _title.length > 70 ? _title.substr( 0, 65 ) + "&nbsp;.." : _title ;
 
-		var _clean_base_id = safe_string( _base_id, "" ).replace( /[\.\_\-]/g, "" ).toUpperCase();
+	var _clean_base_id = safe_string( _base_id, "" ).replace( /[\.\_\-]/g, "" ).toUpperCase();
     var METHODstr = circles_lib_method_get_def( _glob_method );
     var _check_method = circles_lib_method_check();
     var _sub_method_desc = ( _glob_method == METHOD_ALGEBRAIC && _plugin_last_ref.length > 0 ) ? _plugin_definitions_array[_plugin_last_ref] : "" ;
     if ( !is_string( _sub_method_desc ) ) _sub_method_desc = "Description not available" ;
-		else _sub_method_desc = _sub_method_desc.length > 30 ? _sub_method_desc.substr( 0, 34 ) + "&nbsp;.." : _sub_method_desc ;
+	else _sub_method_desc = _sub_method_desc.length > 30 ? _sub_method_desc.substr( 0, 34 ) + "&nbsp;.." : _sub_method_desc ;
 
     // if playing with inversion circle is active, then it is also switched off whenever a panel is displayed
     if ( _glob_play_inversion ) circles_lib_forms_play_inversion(NO,YES);

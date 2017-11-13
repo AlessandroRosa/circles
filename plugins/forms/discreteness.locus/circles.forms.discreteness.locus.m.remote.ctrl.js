@@ -25,7 +25,7 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn, _ret_arr
         break ;
 		case "focus":
         var _sub = "forms", _base_id = "discreteness.locus" ;
-        circles_lib_plugin_focus( _div_id );
+		circles_lib_plugin_focus( _div_id );
         _ret_array.push( 1, "<green>Plug-in has been focused with success</green>" ) ;
         return YES;
         break ;

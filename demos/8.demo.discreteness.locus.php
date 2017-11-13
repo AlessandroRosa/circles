@@ -23,7 +23,7 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                      $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
-                     $( "#presentation_div" ).html( "I'm opening the Terminal Console<br/>to input settings for the configuration to render" ) ;
+                     $( "#presentation_div" ).html( "I'm opening the Terminal Console.<br/>I will input settings for the group configuration to be rendered" ) ;
                   },
                   ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
                   action : "move", set_value : { to_x : 40, to_y : 100 }, showlabel : false, desclabel : "",
@@ -107,11 +107,7 @@ var _demon = new demo_n();
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set embeddings maskit.once" ); },
-                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin open" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set embeddings maskit.once" ); _glob_terminal.exec( "plugin open" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -124,10 +120,6 @@ var _demon = new demo_n();
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms discreteness.locus" ); },
-                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 1.0, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin open" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 1.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -147,11 +139,7 @@ var _demon = new demo_n();
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin open" ); },
-                  ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 1.0, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
-				  _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send focus" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send focus" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -203,8 +191,7 @@ var _demon = new demo_n();
                     $( "#presentation_div" ).css( "background-color", "#538BB4" ) ;
                     var _html = "END OF DEMO #<?php echo $DEMO_IDX ; ?><br>Wishes of a peaceful day !" ;
                         _html += "<br><br><SPAN STYLE=\"font-size:11pt;\">To watch other demos" ;
-                        _html += "<br>change n at ?demo=n inside the URL bar" ;
-                        _html += "<br>where 1 <= n <= <?php echo $GLOBALS['MAX_DEMO_IDX']; ?></SPAN>" ;
+                        _html += "<br>Open men&uacute; '?'" ;
                     $( "#presentation_div" ).html( _html ) ;
                   },
                   ctrl_id : "presentation_div", time : 7, time_unit : "s",
