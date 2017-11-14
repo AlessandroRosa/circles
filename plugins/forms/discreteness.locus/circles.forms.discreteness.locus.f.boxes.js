@@ -77,9 +77,9 @@ function CIRCLESformsDISCRETENESSLOCUStuningsBOX()
         HTMLcode += "<td VALIGN=\"top\" COLSPAN=\"3\">" ;
         HTMLcode += "<table>" ;
         HTMLcode += "<tr>" ;
-        HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F4F4F4;padding:4px;\" VALIGN=\"top\">"+CIRCLESformsDISCRETENESSLOCUSmainBOX()+"</td>" ;
+        HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F4F4F4;padding:4px;\" VALIGN=\"top\">"+CIRCLESformsDISCRETENESSLOCUStuningsMAIN_BOX()+"</td>" ;
         HTMLcode += "<td WIDTH=\"2\"></td>" ;
-        HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F8F8F8;padding:4px;\" VALIGN=\"top\">"+CIRCLESformsDISCRETENESSLOCUSpleatingraysBOX()+"</td>" ;
+        HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F8F8F8;padding:4px;\" VALIGN=\"top\">"+CIRCLESformsDISCRETENESSLOCUStuningsPLEATINGRAYS_BOX()+"</td>" ;
         HTMLcode += "</tr>"
         HTMLcode += "</table>" ;
         HTMLcode += "</td>" ;
@@ -208,7 +208,7 @@ function CIRCLESformsDISCRETENESSLOCUSupperBAR()
     return HTMLcode ;
 }
 
-function CIRCLESformsDISCRETENESSLOCUSmainBOX()
+function CIRCLESformsDISCRETENESSLOCUStuningsMAIN_BOX()
 {
     var _tmp_discreteness_locus = new discreteness_locus();
     var HTMLcode = "<table WIDTH=\"200\">" ;
@@ -248,7 +248,7 @@ function CIRCLESformsDISCRETENESSLOCUSmainBOX()
     return HTMLcode ;
 }
 
-function CIRCLESformsDISCRETENESSLOCUSpleatingraysBOX()
+function CIRCLESformsDISCRETENESSLOCUStuningsPLEATINGRAYS_BOX()
 {
     var _tmp_discreteness_locus = new discreteness_locus();
     var HTMLcode = "<table WIDTH=\"230\">" ;

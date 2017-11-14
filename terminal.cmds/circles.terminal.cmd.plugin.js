@@ -346,6 +346,7 @@ function circles_terminal_cmd_plugin()
 					   _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] = { fam : _fam, def : _def } ;
 					   _plugin_tmp_vars_array['plugin_sel']['packed_name'] = _famLC + "@" + _defLC ;
 					   circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<green>Plug-in target has been correctly set to</green> <white>"+_params_assoc_array['settings']['family']+" "+_params_assoc_array['settings']['def']+"</white>", _par_1, _cmd_tag );
+					   circles_lib_output( _output_channel, DISPATCH_INFO, "Next commands will be dispatched to this plug-in", _par_1, _cmd_tag );
 				   }
 				   else circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<orange>Fail to set plug-in</orange> <white>'"+_fam+"' '"+_def+"'</white><orange>: wrong definition or missing components</orange>", _par_1, _cmd_tag );
                  }

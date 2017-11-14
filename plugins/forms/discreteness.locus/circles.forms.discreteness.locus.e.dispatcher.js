@@ -63,12 +63,12 @@ function CIRCLESformsDISCRETENESSLOCUSdispatcher()
 
       if ( $("#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).get(0) != null )
       {
-		    $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).css( "display", "none" );
-		    $( "#CIRCLESdlocusworklayerCANVAS" ).css( "display", "none" );
+		$( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).hide();
+		$( "#CIRCLESdlocusworklayerCANVAS" ).hide();
         if ( $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).get(0) != null ) document.body.removeChild( $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).get(0) );
         if ( $( "#CIRCLESdlocusworklayerCANVAS" ).get(0) != null ) document.body.removeChild( $( "#CIRCLESdlocusworklayerCANVAS" ).get(0) );
-			}
-			if ( _glob_target_plane == D_LOCUS ) _glob_target_plane = _glob_persistent_vars['old_target_plane'] ;
+	  }
+	  if ( _glob_target_plane == D_LOCUS ) _glob_target_plane = _glob_persistent_vars['old_target_plane'] ;
       if ( _glob_storage['dlocus_selected_pts'] == null ) _glob_storage['dlocus_selected_pts'] = [] ;
       if ( is_array( _glob_storage['dlocus_selected_pts'] ) )
       _glob_storage['dlocus_selected_pts'] = CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array.clone();
@@ -76,21 +76,21 @@ function CIRCLESformsDISCRETENESSLOCUSdispatcher()
       var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
       circles_lib_plugin_activate( NO, _base_id, '', '', _subset, CLOSE, _glob_popups_array[_idx][1],'' );
       break ;
-		  case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
+	  case POPUP_DISPATCHER_UNICAST_EVENT_RELOAD:
       _glob_target_plane = D_LOCUS ;
       var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-		  circles_lib_plugin_load( _subset, _base_id, NO ) ;
-		  break ;
+	  circles_lib_plugin_load( _subset, _base_id, NO ) ;
+	  break ;
       case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
       _glob_target_plane = D_LOCUS ;
-			CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 2, 8, 1, 64 ], YES ) ;
-			break ;
+	  CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 2, 8, 1, 64 ], YES ) ;
+	  break ;
       case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:
-		  case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
+	  case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
       _glob_target_plane = D_LOCUS ;
       var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
-		  circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
-		  break ;
+	  circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
+	  break ;
       default: break ;
 	}
   }

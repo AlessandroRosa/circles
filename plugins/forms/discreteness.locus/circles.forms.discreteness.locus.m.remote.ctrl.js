@@ -19,6 +19,7 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn, _ret_arr
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "forms", _base_id = "discreteness.locus" ;
+		CIRCLESformsDISCRETENESSLOCUSdispatcher(POPUP_DISPATCHER_UNICAST_EVENT_CLOSE);
         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
 		_ret_array.push( 1, "<green>Plug-in has been closed with success</green>" ) ;
         return YES ;
@@ -45,6 +46,46 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn, _ret_arr
 		case "open":
         _ret_array.push( 1, "<green>Plug-in has been opened with success</green>" ) ;
         return YES ;
+		break ;
+  		case "tab":
+		var _found = 0 ;
+		var _tab_name = _options[1].toLowerCase().trim() ;
+		switch( _tab_name )
+		{
+			case "diagram":
+			$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(0);
+			_found = 1 ;
+			break ;
+			case "calcs":
+			console.log( "CALCS" );
+			$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(1);
+			_found = 1 ;
+			break ;
+			case "points":
+			$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(2);
+			_found = 1 ;
+			break ;
+			case "farey":
+			$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(3);
+			_found = 1 ;
+			break ;
+			case "tunings":
+			$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(4);
+			_found = 1 ;
+			break ;
+			case "benchmark":
+			$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(5);
+			_found = 1 ;
+			break ;
+			case "misc":
+			$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(6);
+			_found = 1 ;
+			break ;
+			default: break ;
+		}
+		_tab_name = _tab_name.replace( /\./g, ' ' );
+		_ret_array.push( _found, !_found ? "<red>Can't switch to unknown tab '"+_tab_name+"'</red>" : "<green>Switched to tab '"+_tab_name+"' with success</green>" ) ;
+		return YES ;
 		break ;
 		default:
 	    _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;

@@ -35,8 +35,7 @@ function CIRCLESformsDISCRETENESSLOCUSnormalize()
 
 function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
 {
-		_glob_persistent_vars['old_target_plane'] = _glob_target_plane ;
-		_glob_target_plane = D_LOCUS ;
+	_glob_persistent_vars['old_target_plane'] = _glob_target_plane, _glob_target_plane = D_LOCUS ;
     if ( is_array( _glob_storage['dlocus_selected_pts'] ) )
     CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array = _glob_storage['dlocus_selected_pts'].clone();
     CIRCLESformsDISCRETENESSLOCUSbaseid = safe_string( _base_id, "" ) ;
@@ -199,7 +198,7 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
     CIRCLESformsDISCRETENESSLOCUSselectionlistUPDATE();
     if ( CIRCLESformsDISCRETENESSLOCUSwork_layer == null )
     {
-    	var _hide_bar = WIDTH < 410 || HEIGHT < 400 ;
+      var _hide_bar = WIDTH < 410 || HEIGHT < 400 ;
       var _left_panel_width = WIDTH - CIRCLESformsDISCRETENESSLOCUSright_panel_w - ( _hide_bar ? 0 : 30 );
       $( "#CIRCLESformsDISCRETENESSLOCUSdiagramLEFTPANELcontainer" ).css( "width", _left_panel_width );
     	$( "#CIRCLESformsDISCRETENESSLOCUSleftPANEL" ).css( "width", _left_panel_width );
@@ -222,20 +221,20 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
     {
    		switch( _glob_target_plane )
    		{
- 				case D_LOCUS: circles_lib_dlocus_mapper_init( _canvas_w, _canvas_h, YES ); break ;
- 				case BIP_BOX: circles_lib_bip_mapper_init( _glob_dlocusLEFT, _glob_dlocusTOP, _glob_dlocusRIGHT, _glob_dlocusBOTTOM ); break ;
-				default: break ;
-			}
+ 			case D_LOCUS: circles_lib_dlocus_mapper_init( _canvas_w, _canvas_h, YES ); break ;
+ 			case BIP_BOX: circles_lib_bip_mapper_init( _glob_dlocusLEFT, _glob_dlocusTOP, _glob_dlocusRIGHT, _glob_dlocusBOTTOM ); break ;
+			default: break ;
+		}
 
-      var _den = 10 ;
-      for( var _i = 0 ; _i <= _den ; _i++ ) CIRCLESformsDISCRETENESSLOCUSdisplay_fracs_array.push( _i + "/" + _den );
-			CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 2, 8, 1 ], YES );
+		var _den = 10 ;
+		for( var _i = 0 ; _i <= _den ; _i++ ) CIRCLESformsDISCRETENESSLOCUSdisplay_fracs_array.push( _i + "/" + _den );
+		CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 2, 8, 1 ], YES );
     }
 
     $( "[id^=CIRCLESformsDISCRETENESSLOCUS_TAB_]" ).height( HEIGHT - 134 );
     $( "#CIRCLESformsDISCRETENESSLOCUSstartFRAC" ).val( "0/1" );
     $( "#CIRCLESformsDISCRETENESSLOCUSendFRAC" ).val( "1/1" );
-	  $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESformsDISCRETENESSLOCUSloadCONFIG ) } ;
+	$("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESformsDISCRETENESSLOCUSloadCONFIG ) } ;
 }
 
 function CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( _div_id, _create, _show )
@@ -250,9 +249,9 @@ function CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( _div_id, _create, _sh
      
     if ( _show )
     {
-				$( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).css( "display", "block" ) ;
-				$( "#CIRCLESdlocusworklayerCANVAS" ).css( "display", "block" ) ;
-		}
+		$( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).css( "display", "block" ) ;
+		$( "#CIRCLESdlocusworklayerCANVAS" ).css( "display", "block" ) ;
+	}
 
     var _canvas = $( "#CIRCLESdlocusdiagramCANVAS" ).get(0);
     var _canvas_w = is_html_canvas( _canvas ) ? _canvas.get_width() : 0 ;
