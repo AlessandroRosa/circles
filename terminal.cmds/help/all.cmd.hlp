@@ -1,4 +1,4 @@
-<banana>toggle all settings on/off at once</banana>
+<banana>toggle all settings on/off at once for the group of Mobius map in use</banana>
 <white>Type param /k to return all available keywords</white>
 <white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
 
@@ -9,14 +9,16 @@
 <lightblue>all on | off</lightblue>
 <cadetblue>switch all settings on|off</cadetblue>
 
-<lightblue>all draw on</lightblue>
-<cadetblue>switch draw setting on for all items</cadetblue> <yellow>*</yellow>
+<lightblue>all 'draw' on</lightblue>
+<cadetblue>switch 'draw' setting on for all items</cadetblue>
+<cadetblue>Geometric entities (point, circles...) associated the Mobius maps will be drawn</cadetblue>
 
-<lightblue>all fill off</lightblue>
-<cadetblue>switch fill setting off for all items</cadetblue> <yellow>*</yellow>
+<lightblue>all 'fill' off</lightblue>
+<cadetblue>switch 'fill' setting off for all items</cadetblue>
+<cadetblue>Geometric entities (point, circles...) associated the Mobius maps won't be filled</cadetblue>
 
 <lightblue>all release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>
 
 <yellow>------------- NOTES ----------------</yellow>
-<yellow>*</yellow> Items may be seeds or gens, depending on user's switch
+<yellow>*</yellow> <white>Items may be seeds or gens, depending on user's switch</white>

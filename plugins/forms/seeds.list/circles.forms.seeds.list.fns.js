@@ -94,7 +94,7 @@ function CIRCLESformsSEEDSLISTbarHTMLCODE( _selected_index, _index )
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
     HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_coordinates_zoomtofit(Z_PLANE,YES);circles_lib_plugin_load('forms','coordinates',NO,Z_PLANE);\">Zoom to fit</td>" ;
     HTMLcode += "<td WIDTH=\"1\"></td>" ;
-    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_colors_colorize( _glob_items_switch, NO );\">Colorize</td>" ;
+    HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_colors_colorize_group( _glob_items_switch, NO );\">Colorize</td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "</table>" ;
     HTMLcode += "</td>" ;

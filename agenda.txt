@@ -1,6 +1,8 @@
 ------------ APP -------------------------------------------------
-* Listings:
+* terminal cmds:
+  last cmd checked: alphabet
 
+* Listings:
   - run and test all listings
   LAST CHECKED : epstein.../ep.ma.ma.02.txt
   

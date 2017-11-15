@@ -64,21 +64,6 @@ function inline_worker_output_member( ret )
                     _glob_inline_worker_fn_pointer = eval( ret.features['updates_fn'] );
                     _glob_inline_worker_fn_pointer.call( null, _data, ret.features, "", _fill, _init, _output_channel );
                 }
-
-								/*
-                if ( _save )
-                {
-                    $.each( _text, function( _i, _chunk )
-                    {
-                        if ( _i > 0 )
-                        {
-                            if ( _coords ) circles_lib_terminal_multicolor_echo( _chunk );
-                            _glob_storage['data'].push( _chunk );
-                        }
-                    }
-                    );
-                }
-                */
             }
             else if ( safe_size( _text, 0 ) > 0 ) circles_lib_terminal_multicolor_echo( _text );
         }
@@ -96,8 +81,6 @@ function inline_worker_output_member( ret )
                 _glob_inline_worker_fn_pointer.call( null, _data, ret.features, "", _fill, _init, _output_channel );
             }
         }
-
-        //if ( _copy && _text instanceof Array ) _glob_storage['data'] = _glob_storage['data'].concat( _text );
         break;
         case "cusp":
         var _boundary = ret.features["farey"], _q = ret.features['farey_q'] ;
@@ -105,26 +88,26 @@ function inline_worker_output_member( ret )
         var _pq_word = is_array( _data ) ? _data[2] : "" ;
         if ( is_array( _boundary ) && _q > 0 )
         {
-             if ( !is_array( _glob_storage["farey"] ) ) _glob_storage["farey"] = [];
-             _glob_storage["farey"][''+_q] = _boundary.clone();
+            if ( !is_array( _glob_storage["farey"] ) ) _glob_storage["farey"] = [];
+            _glob_storage["farey"][''+_q] = _boundary.clone();
         }
 
         if ( _output_channel == OUTPUT_TERMINAL )
         {
-             if ( function_exists( ret.features['updates_fn'] ) )
-             {
-                  var _updates_fn_pointer = eval( ret.features['updates_fn'] );
-									if ( _updates_fn_pointer != null )
-                  {
-                  		if ( ret.features['updates_fn'].start_with( "PLUGIN" ) && _ret_pq_trace != null )
-  										_updates_fn_pointer.call( null, new complex( _ret_pq_trace.real, _ret_pq_trace.imag ), 0 );
-                  		else if ( safe_size( _data, 0 ) > 0 )
-											_updates_fn_pointer.call( null, _data, ret.features, "", _fill, _init, _output_channel );
-									}
+            if ( function_exists( ret.features['updates_fn'] ) )
+            {
+                var _updates_fn_pointer = eval( ret.features['updates_fn'] );
+				if ( _updates_fn_pointer != null )
+                {
+               		if ( ret.features['updates_fn'].start_with( "PLUGIN" ) && _ret_pq_trace != null )
+  					_updates_fn_pointer.call( null, new complex( _ret_pq_trace.real, _ret_pq_trace.imag ), 0 );
+                  	else if ( safe_size( _data, 0 ) > 0 )
+					_updates_fn_pointer.call( null, _data, ret.features, "", _fill, _init, _output_channel );
+				}
 									
-									if ( safe_size( _text, 0 ) > 0 ) circles_lib_terminal_multicolor_echo( _text );
-             }
-						 else circles_lib_terminal_warning_echo( "No fill allowed: please, open a plug-in first" );
+				if ( safe_size( _text, 0 ) > 0 ) circles_lib_terminal_multicolor_echo( _text );
+            }
+			else circles_lib_terminal_warning_echo( "No fill allowed: please, open a plug-in first" );
         }
         else if ( _output_channel == OUTPUT_SCREEN )
         {
@@ -135,20 +118,11 @@ function inline_worker_output_member( ret )
                  _updates_fn_pointer.call( null, _ret_pq_trace.formula(), ret.features, _pq_word, _fill, _init, _output_channel );
              }
         }
-
-				/*
-        if ( _copy )
-        {
-            _glob_storage['complex'] = [ _ret_pq_trace ] ;
-            _glob_storage['data'].push( [ _ret_pq_cusp, _ret_pq_trace ] );
-        }
-        */
         break;
         case "pleatingrays":
         if ( function_exists( "CIRCLESformsDISCRETENESSLOCUSstoreRAYS" ) ) CIRCLESformsDISCRETENESSLOCUSstoreRAYS( _text );
         break ;
-        default:
-        break ;
+        default: break ;
     }
 }
 
@@ -158,15 +132,12 @@ function inline_worker_start_member( ret )
     if ( _output_channel.match_bit_mask( OUTPUT_TERMINAL, OUTPUT_SCREEN ) )
     {
        if ( function_exists( "CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARYbegin" ) )
-			 CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARYbegin();
+	   CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARYbegin();
        if ( function_exists( "CIRCLESformsDISCRETENESSLOCUSdrawCANVAS" ) )
-			 CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 2, 8, 1 ] );
+	   CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( [ 2, 8, 1 ] );
          
-			 if ( safe_size( ret.features['start_fn'], 0 ) > 0 )
-       {
-           var _start_fn_pointer = eval( ret.features['start_fn'] );
-           _start_fn_pointer.call( null, ret.service.toLowerCase(), ret.features.boundarydef );
-       }
+	   if ( safe_size( ret.features['start_fn'], 0 ) > 0 )
+       eval( ret.features['start_fn'] ).call( null, ret.service.toLowerCase(), ret.features.boundarydef );
     }
 }
 
@@ -180,10 +151,6 @@ function inline_worker_end_member( ret )
          circles_lib_terminal_wait_icon( NO, 0, _glob_terminal_form_suffix );
     }
     
-    if ( _output_channel == OUTPUT_SCREEN )
-    {
-    }
-
     if ( _output_channel.match_bit_mask( OUTPUT_TERMINAL, OUTPUT_SCREEN ) )
     {
          if ( _pl_rays_flag ) CIRCLESformsDISCRETENESSLOCUSrecastdataRAYS();

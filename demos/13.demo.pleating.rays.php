@@ -26,7 +26,7 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).html( "I'm opening the Terminal Console." ) ;
                   },
                   ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
-                  action : "move", set_value : { to_x : 40, to_y : 100 }, showlabel : false, desclabel : "",
+                  action : "move", set_value : { to_x : $(window).width() - 410, to_y : 100 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
@@ -90,7 +90,23 @@ var _demon = new demo_n();
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSpleatingraysCHECKBOX", time : 3.0, time_unit : "s",
+    _demon.add( { pre_fn : function()
+                  {
+                     $( "#presentation_div" ).css( "background-color", "#49D10F" ) ;
+                     var _html = "Now I'll compute the discreteness locus,<br>" ;
+                         _html += "with POSITIVE pleating rays" ;
+                     $( "#presentation_div" ).html( _html ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 4, time_unit : "s",
+                  action : "move", set_value : { to_x : $(window).width() - 410, to_y : 100 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).fadeIn( "fast" ) ; }
+                } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSpleatingraysCHECKBOX", time : 3.0, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Set this flag on to include the pleating rays into the next locus rendering"
                 } );
 

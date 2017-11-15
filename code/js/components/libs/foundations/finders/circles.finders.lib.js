@@ -1,4 +1,4 @@
-function circles_lib_find_item_obj_main( _items_array, _token )
+function circles_lib_find_item_obj_main( _items_array = [], _token )
 {
     if ( is_mobius_map( _token ) ) return circles_lib_find_item_obj_by_map( _items_array, _token ) ;
     else if ( is_string( _token ) ) return circles_lib_find_item_obj_by_symbol( _items_array, _token ) ;
@@ -7,30 +7,30 @@ function circles_lib_find_item_obj_main( _items_array, _token )
     else return null ;
 }
 
-function circles_lib_find_item_obj_by_index( _items_array, _index )
+function circles_lib_find_item_obj_by_index( _items_array = [], _index )
 {
     // no need to check array consistence here: the input array may be just a new one to fill later
-		_items_array = circles_lib_items_set( _items_array ) ;
+	_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     return !_test ? null : _items_array[_index] ;
 }
 
-function circles_lib_find_item_obj_by_symbol( _items_array, _symbol )
+function circles_lib_find_item_obj_by_symbol( _items_array = [], _symbol )
 {
     // no need to check array consistence here: the input array may be just a new one to fill later
-		_items_array = circles_lib_items_set( _items_array ) ;
+	_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     if ( !_test ) return null ;
     _symbol = safe_string( _symbol, "" ).trim();
-		var _items_n = safe_size( _items_array, 0 );
+	var _items_n = safe_size( _items_array, 0 );
     for( var _i = 0 ; _i < _items_n ; _i++ ) if ( _items_array[ _i ].symbol == _symbol ) return _items_array[ _i ] ;
     return null ;
 }
 
-function circles_lib_find_item_index_by_symbol( _items_array, _symbol )
+function circles_lib_find_item_index_by_symbol( _items_array = [], _symbol )
 {
     // no need to check array consistence here: the input array may be just a new one to fill later
-		_items_array = circles_lib_items_set( _items_array ) ;
+	_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     if ( !_test ) return UNFOUND ;
     _symbol = safe_string( _symbol, "" ).trim();
@@ -39,7 +39,7 @@ function circles_lib_find_item_index_by_symbol( _items_array, _symbol )
     return UNFOUND ;
 }
 
-function circles_lib_find_item_obj_by_inverse_symbol( _items_array, inv_symbol )
+function circles_lib_find_item_obj_by_inverse_symbol( _items_array = [], inv_symbol )
 {
     // no need to check array consistence here: the input array may be just a new one to fill later
 		_items_array = circles_lib_items_set( _items_array ) ;
@@ -52,7 +52,7 @@ function circles_lib_find_item_obj_by_inverse_symbol( _items_array, inv_symbol )
     return null ;
 }
 
-function circles_lib_find_item_index_by_inverse_symbol( _items_array, inv_symbol )
+function circles_lib_find_item_index_by_inverse_symbol( _items_arra = []y, inv_symbol )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
@@ -63,7 +63,7 @@ function circles_lib_find_item_index_by_inverse_symbol( _items_array, inv_symbol
     return UNFOUND ;
 }
 
-function circles_lib_find_item_index_by_map( _items_array, _mm )
+function circles_lib_find_item_index_by_map( _items_array = [], _mm )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
@@ -73,7 +73,7 @@ function circles_lib_find_item_index_by_map( _items_array, _mm )
     return UNFOUND ;
 }
 
-function circles_lib_find_item_obj_by_map( _items_array, _mm )
+function circles_lib_find_item_obj_by_map( _items_array = [], _mm )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
@@ -83,7 +83,7 @@ function circles_lib_find_item_obj_by_map( _items_array, _mm )
     return _items_array[ _index ] ;
 }
 
-function circles_lib_find_item_index_from_circle( _items_array, _circle )
+function circles_lib_find_item_index_from_circle( _items_array = [], _circle )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
@@ -114,7 +114,7 @@ function circles_lib_find_item_index_from_circle( _items_array, _circle )
     return _index ;
 }
 
-function circles_lib_find_item_obj_from_circle( _items_array, _circle )
+function circles_lib_find_item_obj_from_circle( _items_array = [], _circle )
 {
     var _i = circles_lib_find_item_index_from_circle( _items_array, _circle );
     return _i == UNFOUND ? null : _items_array[_i] ;

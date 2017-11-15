@@ -5,7 +5,7 @@
 <lightblue>usage</lightblue> <snow>alphabet %action% %param%</snow>
 
 <lightblue>%action%</lightblue> <snow>add | bomb | delete | regen | show</snow>
-<lightblue>%param%</lightblue> <snow>long</snow> (optional)
+<lightblue>%param%</lightblue> <snow>long (optional)</snow>
 <cadetblue>return alphabet list with symbols</cadetblue>
 
 <lightblue>alphabet add a</lightblue>
@@ -30,13 +30,13 @@
 <cadetblue>set default colors to all seeds|gens</cadetblue>
 
 <lightblue>alphabet delete a</lightblue>
-<cadetblue>delete symbol 'a' from current alphabet</cadetblue>
+<cadetblue>try to delete symbol 'a' from current alphabet</cadetblue>
 
 <lightblue>alphabet regen</lightblue>
 <cadetblue>regenerate alphabet from current seeds list</cadetblue>
 
 <lightblue>alphabet regen long</lightblue>
-<cadetblue>alphabet regeneration in a more verbose mode</cadetblue>
+<cadetblue>alphabet regeneration in verbose mode</cadetblue>
 
 <lightblue>alphabet show</lightblue>
 <cadetblue>show current alphabet</cadetblue>

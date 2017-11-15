@@ -624,30 +624,30 @@ function CIRCLESformsDISCRETENESSLOCUSsettingsLABELsSET()
 
 function CIRCLESformsDISCRETENESSLOCUSfixtraceMANAGER()
 {
-		CIRCLESformsDISCRETENESSLOCUStrace_fix_op = safe_int( $('#FIXTRACECOMBO option:selected').val(), _DLOCUS_TRACE_FIX_DEFAULT_OP );
-		switch( CIRCLESformsDISCRETENESSLOCUStrace_fix_op )
-		{
-				case _DLOCUS_TRACE_FIX_DEFAULT_OP:
-				$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).css( "color", "#B0B0B0" );
-				$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).html( "No trace fixed" );
-				break ;
-				case _DLOCUS_TRACE_FIX_A_OP:
-				$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).css( "color", "#5393CD" );
-				$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).html( "Fixed trace A" );
-				break ;
-				case _DLOCUS_TRACE_FIX_B_OP:
-				$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).css( "color", "#B17E9A" );
-				$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).html( "Fixed trace B" );
-				break ;
-				case _DLOCUS_TRACE_FIX_ABab_OP:
-				$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).css( "color", "#F4AE5B" );
-				$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).html( "Fixed trace ABab" );
-				break ;
-				default:
-				$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).css( "color", "#B0B0B0" );
-				$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).html( "No trace fixed" );
-				break ;
-		}
+	CIRCLESformsDISCRETENESSLOCUStrace_fix_op = safe_int( $('#FIXTRACECOMBO option:selected').val(), _DLOCUS_TRACE_FIX_DEFAULT_OP );
+	switch( CIRCLESformsDISCRETENESSLOCUStrace_fix_op )
+	{
+		case _DLOCUS_TRACE_FIX_DEFAULT_OP:
+		$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).css( "color", "#B0B0B0" );
+		$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).html( "No trace fixed" );
+		break ;
+		case _DLOCUS_TRACE_FIX_A_OP:
+		$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).css( "color", "#5393CD" );
+		$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).html( "Fixed trace A" );
+		break ;
+		case _DLOCUS_TRACE_FIX_B_OP:
+		$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).css( "color", "#B17E9A" );
+		$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).html( "Fixed trace B" );
+		break ;
+		case _DLOCUS_TRACE_FIX_ABab_OP:
+		$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).css( "color", "#F4AE5B" );
+		$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).html( "Fixed trace ABab" );
+		break ;
+		default:
+		$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).css( "color", "#B0B0B0" );
+		$( "#CIRCLESformsDISCRETENESSLOCUStracefixLABEL" ).html( "No trace fixed" );
+		break ;
+	}
 }
 
 function CIRCLESformsDISCRETENESSLOCUSpopupPROCESSstart( _process_type, _embedding )
@@ -663,24 +663,22 @@ function CIRCLESformsDISCRETENESSLOCUSpopupPROCESSstart( _process_type, _embeddi
         if ( _pl_rays_negative ) _label_array.push( "negative" );
     var HTMLcode = "<table ALIGN=\"center\">" ;
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-        if ( _process_type.stricmp( "dlocus" ) )
-        {
-            HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;\">COMPUTING THE DISCRETENESS LOCUS<br>IN THE "+_embedding.toUpperCase()+" EMBEDDING</td></tr>" ;
-						if ( _pl_rays_flag )
-            HTMLcode += "<tr><td ALIGN=\"center\">(including "+_label_array.join( " and " )+" pleating rays)</td></tr>" ;
-				}
-        else if ( _process_type.stricmp( "cusp" ) )
-            HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;\">COMPUTING TRACE FOR CUSP "+ $( "#CIRCLESformsDISCRETENESSLOCUScuspFRAC" ).val() +"<br>IN THE "+_embedding.toUpperCase()+"</td></tr>" ;
+    if ( _process_type.stricmp( "dlocus" ) )
+    {
+        HTMLcode += "<tr><td ALIGN=\"center\" CLASS=\"general_rounded_corners\" STYLE=\"font-size:12pt;background-color:#EBEBEB;padding:4px;\">COMPUTING THE DISCRETENESS LOCUS<br>IN THE "+_embedding.toUpperCase()+" EMBEDDING</td></tr>" ;
+		if ( _pl_rays_flag )
+        HTMLcode += "<tr><td ALIGN=\"center\">(including "+_label_array.join(" and ")+" pleating rays)</td></tr>" ;
+	}
+    else if ( _process_type.stricmp( "cusp" ) )
+    HTMLcode += "<tr><td ALIGN=\"center\" STYLE=\"font-size:12pt;\">COMPUTING TRACE FOR CUSP "+ $( "#CIRCLESformsDISCRETENESSLOCUScuspFRAC" ).val() +"<br>IN THE "+_embedding.toUpperCase()+"</td></tr>" ;
 
-        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-        HTMLcode += "<tr><td STYLE=\"font-size:10pt;\" ID=\"CIRCLESformsDISCRETENESSLOCUSsplashTEXT\"></td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
-        HTMLcode += "<tr><td ALIGN=\"center\"><table><tr><td CLASS=\"link_rounded\" WIDTH=\"120\" STYLE=\"padding:6px;font-size:12pt;\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARYstop();\">Stop process</td></tr></table></td></tr>" ;
-        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-        HTMLcode += "</table>" ;
-
-		var HEIGHT = "auto" ;
-    SPLASHanimated( HTMLcode, YES, 560, HEIGHT, 24, 140 );
+    HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+    HTMLcode += "<tr><td STYLE=\"font-size:10pt;\" ID=\"CIRCLESformsDISCRETENESSLOCUSsplashTEXT\"></td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"24\"></td></tr>" ;
+    HTMLcode += "<tr><td ALIGN=\"center\"><table><tr><td CLASS=\"link_rounded\" WIDTH=\"120\" STYLE=\"padding:6px;font-size:12pt;\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARYstop();\">Stop process</td></tr></table></td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
+    HTMLcode += "</table>" ;
+    SPLASHanimated( HTMLcode, YES, 440, "auto", 24, 140 );
 }
 
 function CIRCLESformsDISCRETENESSLOCUSpopupPROCESSupdateTEXT( _text, _features )
@@ -691,7 +689,7 @@ function CIRCLESformsDISCRETENESSLOCUSpopupPROCESSupdateTEXT( _text, _features )
 
 function CIRCLESformsDISCRETENESSLOCUSstoreRAYS( _rays_array )
 {
-		CIRCLESformsDISCRETENESSLOCUSpleating_rays_pts_array = CIRCLESformsDISCRETENESSLOCUSpleating_rays_pts_array.concat( _rays_array );
+	CIRCLESformsDISCRETENESSLOCUSpleating_rays_pts_array = CIRCLESformsDISCRETENESSLOCUSpleating_rays_pts_array.concat( _rays_array );
 }
 
 function CIRCLESformsDISCRETENESSLOCUScomputeCUSPupdateTEXT( _text, _pq_word, _features, _fill, _init, _output_channel )
@@ -699,8 +697,8 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSPupdateTEXT( _text, _pq_word, _f
     _fill = safe_int( _fill, NO ), _init = safe_int( _init, NO );
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _transform_map = ( $( "#CIRCLESformsDISCRETENESSLOCUStraceTRANSFORMformula" ).val() + "" ).trim();
-        if ( _transform_map.length == 0 ) _transform_map = "%mu%" ;
-        _transform_map = _transform_map.replaceAll( "%mu%", "("+_text+")" );
+    if ( _transform_map.length == 0 ) _transform_map = "%mu%" ;
+    _transform_map = _transform_map.replaceAll( "%mu%", "("+_text+")" );
 
     var _ret_trace = circles_lib_math_parse_formula( _transform_map );
         _ret_trace = parse_complex_from_string( _ret_trace + "" );

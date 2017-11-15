@@ -297,7 +297,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                   
 	                _items_array.push( new item_obj( _mm, _complex_circle, _screen_circle, _symbol, PARAMSinputTYPEmask,
 	                   		                           draw, DRAWCOLOR, fill, FILLCOLOR, _inv_symbol, linewidth, _item_type, _symbol ) );
-                  if ( _b_colorize ) circles_lib_colors_colorize( _items_array, YES, YES, _output_channel ) ;
+                  if ( _b_colorize ) circles_lib_colors_colorize_group( _items_array, YES, YES, _output_channel ) ;
                }
 
                _glob_disk_sel_index = _item_index = safe_int( circles_lib_count_items( _items_array ) - 1, UNFOUND );
@@ -353,7 +353,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                  _items_array[_item_index].inverse_symbol = safe_string( _inv_symbol, "" ) ;
                  _items_array[_item_index].params_mask = PARAMSinputTYPEmask ;
                  _glob_disk_sel_index = _item_index, _b_go = YES, _glob_to_save = NO ;
-                  if ( _b_colorize ) circles_lib_colors_colorize( _items_array, YES, YES, _output_channel ) ;
+                  if ( _b_colorize ) circles_lib_colors_colorize_group( _items_array, YES, YES, _output_channel ) ;
                   
                  _msg = "Params have been applied with success" ;
             }

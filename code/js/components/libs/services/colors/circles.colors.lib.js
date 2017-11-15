@@ -118,54 +118,48 @@ function circles_rgb_hex_to_dec( hex )
     return RGB ;
 }
 
-function circles_lib_colors_colorize( _items_array, _update, _silent, _output_channel )
+function circles_lib_colors_colorize_group( _items_array = [], _update = NO, _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
-    _update = safe_int( _update, NO );
-    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
-		_items_array = circles_lib_items_set( _items_array ) ;
+    _update = safe_int( _update, NO ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+	_items_array = circles_lib_items_set( _items_array ) ;
     if ( !_items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ) return [ RET_ERROR, "Invalid input items container" ] ;
     else if ( !_items_array.test( function( _obj ) { return _obj.symbol.length > 0 ? YES : NO ; } ) ) return [ RET_ERROR, "Missing symbols" ] ;
     else
     {
          var _color = "" ;
-         $.each( _items_array, function( _i, _item )
-                 {
+         $.each( _items_array, function( _i, _item ) {
                      _color = circles_lib_alphabet_get_color_from_symbol( _item.symbol ) ;
                      if ( _item.complex_circle.draw ) _items_array[_i].complex_circle.drawcolor = _color ;
                      if ( _item.screen_circle.draw ) _items_array[_i].screen_circle.drawcolor = _color ;
                      if ( _item.complex_circle.fill ) _items_array[_i].complex_circle.fillcolor = _color ;
                      if ( _item.screen_circle.fill ) _items_array[_i].screen_circle.cillcolor = _color ;
-                 }
-               );
+                 } );
 
          if ( _update ) circles_lib_canvas_process_ask(NO,YES,Z_PLANE,YES,YES,CHECK);
-         var _msg = "All items have been colorized with success" ;
+         var _msg = "All group entries have been colorized with success" ;
          if ( !_silent && _output_channel != OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_OK, _msg ] ;
     }
 }
 
-function circles_lib_colors_decolorize( _items_array, _update, _silent, _output_channel )
+function circles_lib_colors_decolorize( _items_array = [], _update = NO, _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
-    _update = safe_int( _update, NO );
-    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
-		_items_array = circles_lib_items_set( _items_array ) ;
+    _update = safe_int( _update, NO ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+	_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     if ( !_test ) return [ RET_ERROR, "Invalid input items container" ] ;
     else
     {
          var _color = "" ;
-         $.each( _items_array, function( _i, _item )
-                 {
+         $.each( _items_array, function( _i, _item ) {
                      if ( _item.complex_circle.draw ) _items_array[_i].complex_circle.drawcolor = DEFAULT_DRAW_SEED_COLOR ;
                      if ( _item.screen_circle.draw ) _items_array[_i].screen_circle.drawcolor = DEFAULT_DRAW_SEED_COLOR ;
                      if ( _item.complex_circle.fill ) _items_array[_i].complex_circle.fillcolor = DEFAULT_FILL_SEED_COLOR ;
-                     if ( _item.screen_circle.fill ) _items_array[_i].screen_circle.cillcolor = DEFAULT_FILL_SEED_COLOR ;
-                 }
-               );
+                     if ( _item.screen_circle.fill ) _items_array[_i].screen_circle.fillcolor = DEFAULT_FILL_SEED_COLOR ;
+                 } );
 
          if ( _update ) circles_lib_canvas_process_ask(NO,YES,Z_PLANE,YES,YES,CHECK);
-         var _msg = "All items have been decolorized with success" ;
+         var _msg = "All group entries have been decolorized with success" ;
          if ( !_silent && _output_channel != OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_OK, _msg ] ;
     }
@@ -174,26 +168,22 @@ function circles_lib_colors_decolorize( _items_array, _update, _silent, _output_
 function circles_lib_colors_decode_tags( _data )
 {
     var _color ;
-		$.each( def_clrs_tags_keys, function( _i, _key )
-            {
-                _color = def_clrs_tags['tag.'+_key] ;
-                _data = _data.replaceAll( "color:"+_key, "color:"+_color, YES ) ;
-    					  _data = _data.replaceAll( "<"+_key+">", "<SPAN STYLE=\"color:"+_color+"\">", YES ) ;
-    					  _data = _data.replaceAll( "</"+_key+">", "</SPAN>", YES ) ;
-    				}
-    			) ;
-    				
+	$.each( def_clrs_tags_keys, function( _i, _key ) {
+            _color = def_clrs_tags['tag.'+_key] ;
+            _data = _data.replaceAll( "color:"+_key, "color:"+_color, YES ) ;
+    		_data = _data.replaceAll( "<"+_key+">", "<SPAN STYLE=\"color:"+_color+"\">", YES ) ;
+    		_data = _data.replaceAll( "</"+_key+">", "</SPAN>", YES ) ; } ) ;
     return _data ;
 }
 
 function circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, nSTEPS, _silent, _output_channel )
 {
-		nSTEPS = safe_int( nSTEPS, 1 ) - 1 ;
+	nSTEPS = safe_int( nSTEPS, 1 ) - 1 ;
     RGBintSTART = safe_string( RGBintSTART, _glob_palette_array[0] );
     if ( RGBintSTART.length == 0 ) RGBintSTART = _glob_palette_array[0] ;
     RGBintEND = safe_string( RGBintEND, _glob_palette_array.get_last() );
     if ( RGBintEND.length == 0 ) RGBintEND = _glob_palette_array.get_last() ;
-		_silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+	_silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
 
     RGBintSTART = RGBintSTART.replaceAll( "rgb(", "" );
     RGBintSTART = RGBintSTART.replaceAll( [ "(", ")", " " ], "" );
@@ -230,9 +220,9 @@ function circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, nSTEPS, _s
 			 return [ RET_OK, tmpPALETTE, _msg ] ;
     }
     else
-		{
-       var _msg = "Can't resize the colors palette : invalid input RGB colors" ;
-       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
-	 		 return [ RET_ERROR, null, _msg ] ;
-		}
+	{
+        var _msg = "Can't resize the colors palette : invalid input RGB colors" ;
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+		return [ RET_ERROR, null, _msg ] ;
+	}
 }

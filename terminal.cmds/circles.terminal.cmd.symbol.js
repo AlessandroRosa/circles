@@ -307,12 +307,12 @@ function circles_terminal_cmd_symbol()
            					 _params_array['promptquestion'] = "Confirm to colorize all "+_dest_ref+"? " ;
            					 _params_array['yes_fn'] = function()
                      {
-                        var _ret_chunk = circles_lib_colors_colorize( _dest_ref, YES, YES, _output_channel );
+                        var _ret_chunk = circles_lib_colors_colorize_group( _dest_ref, YES, YES, _output_channel );
                         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "37Unknown error" ;
                         circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                      }
-           					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize( _dest_ref, YES, YES, _output_channel ); }
+           					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _output_channel ); }
            			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                   }
                   else

@@ -6,11 +6,7 @@ function inline_worker( _inline_blob_code, _import_ext_scripts_array )
     var _l = window.location.href.split( "/" ) ;
     this.location = _l.slice( 0, _l.length - 1 ).join( "/" ) + "/" ;
 
-    this.worker.postMessage( { id : "import",
-                               location : this.location,
-                               scripts : _import_ext_scripts_array }
-                           );
-
+    this.worker.postMessage( { id : "import", location : this.location, scripts : _import_ext_scripts_array } );
     // this is the listener to capture messages from above custom script
     this.worker.onmessage = function(e)
     {
