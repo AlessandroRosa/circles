@@ -26,7 +26,7 @@ function circles_terminal_cmd_canvas()
          _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['keywords'] = NO ;
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " );       _params_array.clean_from( "" );
+         _params_array.clean_from( " " ); 
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "apply", "bip", "bkcolor", "clean", "close", "copy", "create",

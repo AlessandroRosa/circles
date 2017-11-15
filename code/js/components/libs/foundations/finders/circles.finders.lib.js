@@ -52,7 +52,7 @@ function circles_lib_find_item_obj_by_inverse_symbol( _items_array = [], inv_sym
     return null ;
 }
 
-function circles_lib_find_item_index_by_inverse_symbol( _items_arra = []y, inv_symbol )
+function circles_lib_find_item_index_by_inverse_symbol( _items_arra = [], inv_symbol )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;

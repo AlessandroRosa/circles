@@ -13,7 +13,7 @@ function circles_terminal_cmd_auto()
      if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+	 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
      var _curr_autorefresh_set = _glob_terminal_autorefresh ;
      var _curr_autoinit_set = _glob_terminal_autoinit_enable ;
@@ -26,131 +26,122 @@ function circles_terminal_cmd_auto()
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      else if ( _params.length > 0 )
      {
-         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-         _params_assoc_array['keywords'] = NO ;
-         _params_assoc_array['mode'] = 0 ;
-         _params_assoc_array['action'] = "" ;
-         _params_assoc_array['all'] = NO ;
-         _params_assoc_array['plane'] = "w-plane" ;
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " );       _params_array.clean_from( "" );
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "all", "init", "wplane", "off", "on", "refresh", "zplane", "html" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
-         var _p ;
-         for( var _i = 0 ; _i < _params_array.length ; _i++ )
-         {
-              _p = _params_array[_i].toLowerCase();
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "html", "init", "refresh", "release" ) ) _params_assoc_array['action'] = _p ;
-              else if ( _p.stricmp( "off" ) ) _params_assoc_array['mode'] = OFF ;
-              else if ( _p.stricmp( "on" ) ) _params_assoc_array['mode'] = ON ;
-              else if ( _p.stricmp( "all" ) ) _params_assoc_array['all'] = YES ;
-              else
-              {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
-              }
-         }
+        _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
+        _params_assoc_array['keywords'] = NO ;
+        _params_assoc_array['mode'] = 0 ;
+        _params_assoc_array['action'] = "" ;
+        _params_assoc_array['all'] = NO ;
+        _params_assoc_array['plane'] = "w-plane" ;
+        var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+        _params_array.clean_from( " " ); 
+        // pre-scan for levenshtein correction
+		var _local_cmds_params_array = [];
+   		_local_cmds_params_array.push( "all", "init", "wplane", "off", "on", "refresh", "zplane", "html" );
+        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+        var _p ;
+        for( var _i = 0 ; _i < _params_array.length ; _i++ )
+        {
+            _p = _params_array[_i].toLowerCase();
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.is_one_of_i( "html", "init", "refresh", "release" ) ) _params_assoc_array['action'] = _p ;
+            else if ( _p.stricmp( "off" ) ) _params_assoc_array['mode'] = OFF ;
+            else if ( _p.stricmp( "on" ) ) _params_assoc_array['mode'] = ON ;
+            else if ( _p.stricmp( "all" ) ) _params_assoc_array['all'] = YES ;
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 ); }
+        }
          
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
-         else if ( _params_assoc_array['keywords'] )
-         {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
-             else
-             {
-                 _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-             }
-         }
-         else if ( !_b_fail )
-         {
-             var _action = _params_assoc_array['action'] ;
-             
-             if ( _action.strcmp( "release" ) )
-             circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+        if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
+        else if ( _params_assoc_array['keywords'] )
+        {
+            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+            else
+            {
+                _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
+                circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+            }
+        }
+        else if ( !_b_fail )
+        {
+            var _action = _params_assoc_array['action'] ;
+            if ( _action.strcmp( "release" ) )
+            circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
 
-             var _all = _params_assoc_array['all'] ;
-             var _mode = _params_assoc_array['mode'] ;
-             if ( _action.stricmp( "init" ) || _all )
-             {
-                 if ( _glob_method == METHOD_NONE && _mode == 1 )
-                 {
-                      _fail_flag_array['init'] = 1 ;
-                      circles_lib_output( _output_channel, DISPATCH_WARNING, "A method must be chosen before setting auto init on", _par_1, _cmd_tag );
-                 }
-                 else _glob_terminal_autoinit_enable = _mode ;
-             }
+            var _all = _params_assoc_array['all'], _mode = _params_assoc_array['mode'] ;
+            if ( _action.stricmp( "init" ) || _all )
+            {
+                if ( _glob_method == METHOD_NONE && _mode == 1 )
+                {
+                    _fail_flag_array['init'] = 1 ;
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, "A method must be chosen before setting auto init on", _par_1, _cmd_tag );
+                }
+                else _glob_terminal_autoinit_enable = _mode ;
+            }
 
-             if ( _action.stricmp( "refresh" ) || _all )
-             {
-                 _glob_target_plane = _params_assoc_array['all'] ? ALL_PLANES : circles_lib_plane_get_value( _params_assoc_array['plane'] );
-                 if ( _glob_target_plane == NO_PLANE && _mode == 1 )
-                 {
-                      _fail_flag_array['refresh'] = 1 ;
-                      circles_lib_output( _output_channel, DISPATCH_WARNING, "At least one plane shall be chosen before setting autorefresh on", _par_1, _cmd_tag );
-                 }
-                 else if ( _glob_target_plane != NO_PLANE ) _glob_terminal_autorefresh = _mode ;
-             }
+            if ( _action.stricmp( "refresh" ) || _all )
+            {
+                _glob_target_plane = _params_assoc_array['all'] ? ALL_PLANES : circles_lib_plane_get_value( _params_assoc_array['plane'] );
+                if ( _glob_target_plane == NO_PLANE && _mode == 1 )
+                {
+                    _fail_flag_array['refresh'] = 1 ;
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, "At least one plane shall be chosen before setting autorefresh on", _par_1, _cmd_tag );
+                }
+                else if ( _glob_target_plane != NO_PLANE ) _glob_terminal_autorefresh = _mode ;
+            }
 
-             var _already_refresh = ( _curr_autorefresh_set == _glob_terminal_autorefresh && _fail_flag_array['refresh'] != 1 ) ? "already " : "" ;
-             var _already_init = ( _curr_autoinit_set == _glob_terminal_autoinit_enable && _fail_flag_array['init'] != 1 ) ? "already " : "" ;
+            var _already_refresh = ( _curr_autorefresh_set == _glob_terminal_autorefresh && _fail_flag_array['refresh'] != 1 ) ? "already " : "" ;
+            var _already_init = ( _curr_autoinit_set == _glob_terminal_autoinit_enable && _fail_flag_array['init'] != 1 ) ? "already " : "" ;
 
-             var _autorefresh_label = "" ;
-             switch( _glob_terminal_autorefresh )
-             {
-                 case 1 : _autorefresh_label = "Autorefresh mode is "+_already_refresh+"on" ; break ;
-                 default : _autorefresh_label = "Autorefresh mode is "+_already_refresh+"off" ; break ;
-             }
+            var _autorefresh_label = "" ;
+            switch( _glob_terminal_autorefresh )
+            {
+                case 1 : _autorefresh_label = "Autorefresh mode is "+_already_refresh+"on" ; break ;
+                default : _autorefresh_label = "Autorefresh mode is "+_already_refresh+"off" ; break ;
+            }
 
-             if ( _params.length == 0 ) _autorefresh_label = "Current " + _autorefresh_label.toLowerCase();
+            if ( _params.length == 0 ) _autorefresh_label = "Current " + _autorefresh_label.toLowerCase();
 
-             var _autoinit_label = "" ;
-             switch( _glob_terminal_autoinit_enable )
-             {
-                 case 1 : _autoinit_label = "Autoinit mode is "+_already_init+"on" ; break ;
-                 default : _autoinit_label = "Autoinit mode is "+_already_init+"off" ; break ;
-             }
+            var _autoinit_label = "" ;
+            switch( _glob_terminal_autoinit_enable )
+            {
+                case 1 : _autoinit_label = "Autoinit mode is "+_already_init+"on" ; break ;
+                default : _autoinit_label = "Autoinit mode is "+_already_init+"off" ; break ;
+            }
 
-             if ( _all || _action.stricmp( "init" ) )
-             {
-                 if ( _params.length == 0 ) _autoinit_label = "Current " + _autoinit_label.toLowerCase();
-                 if ( _fail_flag_array['init'] != 1 )
-                 {
-                     if ( _params.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, _autoinit_label, _par_1, _cmd_tag );
-                     else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _autoinit_label, _par_1, _cmd_tag );
-                 }
-             }
+            if ( _all || _action.stricmp( "init" ) )
+            {
+                if ( _params.length == 0 ) _autoinit_label = "Current " + _autoinit_label.toLowerCase();
+                if ( _fail_flag_array['init'] != 1 )
+                {
+                    if ( _params.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, _autoinit_label, _par_1, _cmd_tag );
+                    else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _autoinit_label, _par_1, _cmd_tag );
+                }
+            }
 
-             if ( _all || _action.stricmp( "refresh" ) )
-             {
-                 if ( _params.length == 0 ) _autorefresh_label = "Current " + _autorefresh_label.toLowerCase();
-                 if ( _fail_flag_array['refresh'] != 1 )
-                 {
-                     if ( _params.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, _autorefresh_label, _par_1, _cmd_tag );
-                     else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _autorefresh_label, _par_1, _cmd_tag );
-                 }
+            if ( _all || _action.stricmp( "refresh" ) )
+            {
+                if ( _params.length == 0 ) _autorefresh_label = "Current " + _autorefresh_label.toLowerCase();
+                if ( _fail_flag_array['refresh'] != 1 )
+                {
+                    if ( _params.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, _autorefresh_label, _par_1, _cmd_tag );
+                    else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _autorefresh_label, _par_1, _cmd_tag );
+                }
 
-                 if ( _mode )
-                 {
-                     var _tmp_array = [];
-                     if ( _params_assoc_array['plane'] != null ) _tmp_array.push( _params_assoc_array['plane'] );
-                     else if ( _params_assoc_array['all'] ) _tmp_array.push( "all" );
+                if ( _mode )
+                {
+                    var _tmp_array = [];
+                    if ( _params_assoc_array['plane'] != null ) _tmp_array.push( _params_assoc_array['plane'] );
+                    else if ( _params_assoc_array['all'] ) _tmp_array.push( "all" );
 
-                     _tmp_array.push( "silent" );
-                     circles_lib_terminal_interpreter( "refresh "+_tmp_array.join( " " ), _glob_terminal, _output_channel );
-                 }
-             }
-         }
+                    _tmp_array.push( "silent" );
+                    circles_lib_terminal_interpreter( "refresh "+_tmp_array.join( " " ), _glob_terminal, _output_channel );
+                }
+            }
+        }
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
-
+     else { _b_fail = YES, _error_str = "Missing input params" ; }
      if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;

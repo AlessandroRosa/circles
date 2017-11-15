@@ -1,6 +1,6 @@
 ------------ APP -------------------------------------------------
 * terminal cmds:
-  last cmd checked: alphabet
+  last cmd checked: benchmark
 
 * Listings:
   - run and test all listings

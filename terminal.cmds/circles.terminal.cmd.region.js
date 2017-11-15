@@ -38,7 +38,7 @@ function circles_terminal_cmd_region()
 
 				 var _labels = [ "x1", "y1", "x2", "y2" ], _got_it = [] ;
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " );       _params_array.clean_from( "" );
+         _params_array.clean_from( " " ); 
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "release", "clean", "x", "y", "<", ">", "zplane", "wplane", "html", "rec" );

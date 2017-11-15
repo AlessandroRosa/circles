@@ -28,7 +28,7 @@ function circles_terminal_cmd_plugin()
          _params_assoc_array['settings'] = [] ;
              
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " );       _params_array.clean_from( "" );
+         _params_array.clean_from( " " ); 
          // pre-scan for levenshtein correction
     	 var _local_cmds_params_array = [];
     		 _local_cmds_params_array.push( "close", "current", "html", "list", "remotecmds", "open", "release", "run", "set", "send", "silent", "var" );

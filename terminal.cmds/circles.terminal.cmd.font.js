@@ -30,7 +30,7 @@ function circles_terminal_cmd_font()
              _params_assoc_array['action'] = "set" ;
          
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " );       _params_array.clean_from( "" );
+         _params_array.clean_from( " " ); 
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "show", "reset", "release", "html" );

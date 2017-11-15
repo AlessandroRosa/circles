@@ -327,8 +327,7 @@ function circles_lib_dump_data_to_format( /* additional arguments will be proces
             var _max_length = 1 ;
             _rows_array.work( function( _w ) { _max_length = Math.max( _max_length, _w.length ); } );
             var _shift_x = _max_length * 3.5, _count = 0 ;
-            $.each( _rows_array,
-                    function( _i, _row )
+            $.each( _rows_array, function( _i, _row )
                     {
                        if ( _row.trim().length > 0 )
                        {
@@ -364,7 +363,8 @@ function circles_lib_dump_data_to_format( /* additional arguments will be proces
        else if ( is_string( _obj ) ) _out_obj_data = _obj ;
        else if ( is_array( _obj ) ) $.each( _obj, function( _i, _chunk ) { _out_obj_data += _glob_crlf + _chunk ; } );
        else _out_obj_data = _obj ;
-
+	   
+	   _out_obj_data = _glob_appTITLE + "\n" + _glob_appSUBTITLE + "\nLast release " + _glob_appLASTreleaseDATE + "\n\n" + _out_obj_data ;
        if ( _out_obj_data.length > 0 )
        {
            var blob = new Blob( [ _out_obj_data.strip_tags() ], { type: 'plain/text', endings: 'native' });
