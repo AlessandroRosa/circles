@@ -145,18 +145,6 @@ function CIRCLESformsBIPcolorBTNS( _alert )
     else $('[id$=renderBTN]').css('color',_alert?COLOR_ERROR:DEFAULT_COLOR_STD);
 }
 
-function CIRCLESformsBIPcalculatePIXELside( _update )
-{
-    _update = safe_int( _update, NO );
-    var _bip_area = is_html_canvas( _glob_bip_canvas ) ? ( _glob_bip_canvas.get_width() * _glob_bip_canvas.get_height() ) : 0 ;
-    var _canvas = circles_lib_canvas_layer_find( _glob_bip_original_plane_data, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
-    var _diagram_area = _canvas.get_width() * _canvas.get_height();
-    // this proportion grows with squared factor, so we compute the root
-    _glob_bip_pixel_size = Math.floor( Math.sqrt( _bip_area * _glob_pixel_size / _diagram_area ) );
-    if ( _glob_bip_pixel_size == 0 ) _glob_bip_pixel_size = 1 ;
-    if ( _update && $( "#BIPcanvasPIXELsize" ).get(0) != null ) $( "#BIPcanvasPIXELsize" ).val( _glob_bip_pixel_size );
-}
-
 function CIRCLESformsBIPcanvasmirrorSHOW( bSHOW, _silent, _output_channel )
 {
     bSHOW = safe_int( bSHOW, YES ), _silent = safe_int( _silent, YES );

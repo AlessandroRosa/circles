@@ -303,7 +303,7 @@ function CIRCLESbipFORMtabPROPERTIEShtml( _properties, _return_html )
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
       HTMLcode += "<td><INPUT ID=\"BIPcanvasPIXELsize\" TYPE=\"edit\" STYLE=\"text-align:center;width:24px;\" VALUE=\""+_glob_bip_pixel_size+"\" ONKEYUP=\"javascript:CIRCLESformsBIPcolorBTNS(YES);_glob_bip_pixel_size=Math.max(1,safe_int(this.value,1));\"></td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;
-      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:CIRCLESformsBIPcalculatePIXELside(YES);\">Recalc</td>" ;
+      HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_bip_calc_pixel_side(YES);\">Recalc</td>" ;
       HTMLcode += "<td WIDTH=\"10\"></td>" ;
       HTMLcode += "<td>Grid ticks</td>" ;
       HTMLcode += "<td WIDTH=\"3\"></td>" ;

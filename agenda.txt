@@ -1,4 +1,7 @@
 ------------ APP -------------------------------------------------
+* plugin : after dropdown selections of preset config, grid of
+  z-plane and of w-plane shall be redrawn again
+
 * terminal cmds:
   last cmd checked: benchmark
 

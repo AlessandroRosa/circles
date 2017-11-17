@@ -1,5 +1,5 @@
 var def_clrs_tags = [], def_clrs_tags_keys = [] ;
-    def_clrs_tags['tag.aqua'] = "#70DB93" ;
+    def_clrs_tags['tag.aqua'] = def_clrs_tags['tag.aquamarine'] = "#70DB93" ;
     def_clrs_tags['tag.banana'] = "#E3CF57" ;
     def_clrs_tags['tag.beige'] = "#F5F5DC" ;
     def_clrs_tags['tag.black'] = "#000000" ;

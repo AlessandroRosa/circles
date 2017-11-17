@@ -6,44 +6,44 @@
 
 <lightblue>%param%</lightblue> <snow>xextent | yextent | minside | coords | data</snow>
 <lightblue>%switch%</lightblue> <snow>on | off | list</snow>
-<lightblue>%plane%</lightblue> <snow>zplane | wplane</snow> (input)
-<lightblue>%diagram%</lightblue> <snow>zplane | wplane | userdef</snow> (output)
+<lightblue>%coords-plane%</lightblue> <snow>zplane | wplane (input)</snow>
+<lightblue>%data-plane%</lightblue> <snow>zplane | wplane | userdef (output)</snow>
 <lightblue>%action%</lightblue> <snow>acquire | apply | render | save</snow>
 <lightblue>%export%</lightblue> <snow>svg | ps | eps | latex</snow>
 <lightblue>%minside%</lightblue> <snow>short side of the bip box (longer side is recomputed along the current ratio)</snow>
-<lightblue>%bk%</lightblue> <snow>set the background color</snow> (tag or rgb triplets)
+<lightblue>%bk%</lightblue> <snow>set the background color (tag or rgb triplets)</snow>
 <lightblue>svg | no svg</lightblue> <snow>toggle on/off svg format for export</snow>
 
 <lightblue>bip on</lightblue>
 <cadetblue>open bip mode</cadetblue> <orange>(required)</orange>
 
-<lightblue>bip acquire</lightblue>
-<cadetblue>get bip parameters from selected plane for coords</cadetblue>
+<lightblue>bip acquire %coords-plane%</lightblue>
+<cadetblue>get coordinates from selected plane</cadetblue>
 
-<lightblue>bip list</lightblue>
-<cadetblue>resume current bip options</cadetblue>
+<lightblue>bip settings</lightblue>
+<cadetblue>resume current bip settings</cadetblue>
 
-<lightblue>bip list -> list.txt</lightblue>
-<cadetblue>dump settings list into a plain text file</cadetblue>
+<lightblue>bip settings -> list.txt</lightblue>
+<cadetblue>dump settings into a plain text file</cadetblue>
 
-<lightblue>bip list html</lightblue>
-<cadetblue>dump settings list into a new popup</cadetblue>
+<lightblue>bip settings html</lightblue>
+<cadetblue>dump settings into a new popup</cadetblue>
 
 <lightblue>bip zplane userdef</lightblue>
-<cadetblue>pick the W-plane for data and user-defined coordinates (follow the order)</cadetblue>
+<cadetblue>pick the Z-plane for data and user-defined coordinates (follow the order)</cadetblue>
 
-<lightblue>bip zplane (0,0) 12 4 500</lightblue>
-<cadetblue>set W-plane for input data, bip box is centered at the origin, sized 12 x 4 (cartesian metrics) and whose shorter side is 500 pixels long</cadetblue>
+<lightblue>bip %coords-plane% (0,0) 12 4 500</lightblue>
+<cadetblue>set %coords-plane% for input data, bip box is centered at the origin, sized 12 x 4 (cartesian metrics) and whose shorter side is 500 pixels long</cadetblue>
 
 <cadetblue>-----------------------------</cadetblue>
 <cadetblue>parameters can be also input one by one, mentioning their type, as follows</cadetblue>
 <cadetblue>-----------------------------</cadetblue>
 
-<lightblue>bip data zplane | wplane</lightblue>
-<cadetblue>set Z-plane | W-plane for picking items (disks, maps) data from</cadetblue>
+<lightblue>bip %coords-plane% zplane | wplane | userdef</lightblue>
+<cadetblue>set %coords-plane% for picking up the coordinates</cadetblue>
 
-<lightblue>bip coords zplane | wplane | userdef</lightblue>
-<cadetblue>set Z-plane | W-plane or user-defined values for coords</cadetblue>
+<lightblue>bip %data-plane% zplane | wplane</lightblue>
+<cadetblue>set %data-plane% for picking up the items (Mobius maps and disks)</cadetblue>
 
 <lightblue>bip xextent 12</lightblue>
 <cadetblue>set width 12 units for coords diagram</cadetblue>
