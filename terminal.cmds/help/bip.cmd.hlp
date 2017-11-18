@@ -1,16 +1,16 @@
-<banana>render the input plane on a canvas of custom size</banana>
+<banana>perform the rendering into a canvas of custom dimensions</banana>
 <white>Type param /k to return all available keywords</white>
 <white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
 
 <lightblue>usage</lightblue> <snow>bip %switch% %plane% %diagram% %action% %export% %bk%</snow>
 
-<lightblue>%param%</lightblue> <snow>xextent | yextent | minside | coords | data</snow>
+<lightblue>%param%</lightblue> <snow>xextent | yextent | shorterside | coords | data</snow>
 <lightblue>%switch%</lightblue> <snow>on | off | list</snow>
 <lightblue>%coords-plane%</lightblue> <snow>zplane | wplane (input)</snow>
 <lightblue>%data-plane%</lightblue> <snow>zplane | wplane | userdef (output)</snow>
 <lightblue>%action%</lightblue> <snow>acquire | apply | render | save</snow>
 <lightblue>%export%</lightblue> <snow>svg | ps | eps | latex</snow>
-<lightblue>%minside%</lightblue> <snow>short side of the bip box (longer side is recomputed along the current ratio)</snow>
+<lightblue>%shorterside%</lightblue> <snow>short side of the bip box (longer side is recomputed along the current ratio)</snow>
 <lightblue>%bk%</lightblue> <snow>set the background color (tag or rgb triplets)</snow>
 <lightblue>svg | no svg</lightblue> <snow>toggle on/off svg format for export</snow>
 
@@ -29,9 +29,6 @@
 <lightblue>bip settings html</lightblue>
 <cadetblue>dump settings into a new popup</cadetblue>
 
-<lightblue>bip zplane userdef</lightblue>
-<cadetblue>pick the Z-plane for data and user-defined coordinates (follow the order)</cadetblue>
-
 <lightblue>bip %coords-plane% (0,0) 12 4 500</lightblue>
 <cadetblue>set %coords-plane% for input data, bip box is centered at the origin, sized 12 x 4 (cartesian metrics) and whose shorter side is 500 pixels long</cadetblue>
 
@@ -39,11 +36,12 @@
 <cadetblue>parameters can be also input one by one, mentioning their type, as follows</cadetblue>
 <cadetblue>-----------------------------</cadetblue>
 
-<lightblue>bip %coords-plane% zplane | wplane | userdef</lightblue>
-<cadetblue>set %coords-plane% for picking up the coordinates</cadetblue>
+<lightblue>bip coords zplane | wplane | userdef</lightblue>
+<cadetblue>the bip box will keep the same coordinates as of the input plane</cadetblue>
 
-<lightblue>bip %data-plane% zplane | wplane</lightblue>
-<cadetblue>set %data-plane% for picking up the items (Mobius maps and disks)</cadetblue>
+<lightblue>bip data zplane | wplane</lightblue>
+<cadetblue>the bip box will display the objects lying on the selected plane</cadetblue>
+<cadetblue>therefore objects might include points, circles, lines, the limit set ...</cadetblue>
 
 <lightblue>bip xextent 12</lightblue>
 <cadetblue>set width 12 units for coords diagram</cadetblue>
@@ -51,7 +49,7 @@
 <lightblue>bip yextent 12</lightblue>
 <cadetblue>set height 4 units for coords diagram</cadetblue>
 
-<lightblue>bip minside 400</lightblue>
+<lightblue>bip shorterside 400</lightblue>
 <cadetblue>set 400 pixels for the shortest side of the bip box</cadetblue>
 
 <lightblue>bip aquamarine | #00FF00 | rgb(192,192,192)</lightblue>

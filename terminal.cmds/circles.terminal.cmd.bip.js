@@ -34,9 +34,10 @@ function circles_terminal_cmd_bip()
         _params_array.clean_from( " " ); 
         // pre-scan for levenshtein correction
     	var _local_cmds_params_array = [];
-    	_local_cmds_params_array.push( "clean", "close", "wplane", "settings", "off", "on", "open", "render", "save",
-                                       "zplane", "silent", "svg", "eps", "ps", "userdef", "html", "help",
-                                       "data", "center", "coords", "xextent", "yextent", "minside" );
+    	_local_cmds_params_array.push( "center", "clean", "close", "coords", "data",
+                                       "eps", "help", "html", "off", "on", "open", "ps",
+                                       "render", "save", "settings", "shorterside", "silent", "svg", "userdef",
+									   "wplane", "xextent", "yextent", "zplane" );
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 		_params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -73,7 +74,7 @@ function circles_terminal_cmd_bip()
                 _params_assoc_array['toggle'] = _p ;
             }
             else if ( _p.stricmp( "silent" ) ) _params_assoc_array['silent'] = YES ;
-            else if ( _p.is_one_of_i( "data", "center", "coords", "xextent", "yextent", "minside", "background" ) )
+            else if ( _p.is_one_of_i( "data", "center", "coords", "xextent", "yextent", "shorterside", "background" ) )
                 _params_assoc_array['inputparamlabel'] = _p ;
             else if ( _p.is_one_of_i( "zplane", "wplane", "userdef" ) )
             {
@@ -103,13 +104,6 @@ function circles_terminal_cmd_bip()
 							if ( _p.is_one_of_i( "zplane", "wplane", "userdef" ) ) _params_assoc_array['coordsdiagram'] = _p ;
 							break ;
 						}
-					}
-					else
-					{
-						if ( _p.is_one_of_i( "zplane", "wplane", "userdef" ) && _params_assoc_array['coordsdiagram'] == null )
-						_params_assoc_array['coordsdiagram'] = _p ;
-						else if ( _p.is_one_of_i( "zplane", "wplane" ) && _params_assoc_array['datadiagram'] == null )
-						_params_assoc_array['datadiagram'] = _p ;
 					}
 
 					if ( _params_assoc_array['datadiagram'] != null )
@@ -142,9 +136,9 @@ function circles_terminal_cmd_bip()
             else if ( _p.stricmp( "eps" ) ) _params_assoc_array['eps'] = YES ;
             else if ( _p.testME( _glob_positive_float_regex_pattern ) )
             {
-                if ( _params_assoc_array['xextent'] == null || _params_assoc_array['inputparamlabel'] == "xextent" ) _params_assoc_array['xextent'] = safe_float( _p, 0 );
-                else if ( _params_assoc_array['yextent'] == null || _params_assoc_array['inputparamlabel'] == "yextent" ) _params_assoc_array['yextent'] = safe_float( _p, 0 );
-                else if ( _params_assoc_array['minside'] == null || _params_assoc_array['inputparamlabel'] == "minside" ) _params_assoc_array['minside'] = safe_float( _p, 0 );
+                if ( _params_assoc_array['inputparamlabel'] == "xextent" ) _params_assoc_array['xextent'] = safe_float( _p, 0 );
+                else if ( _params_assoc_array['inputparamlabel'] == "yextent" ) _params_assoc_array['yextent'] = safe_float( _p, 0 );
+                else if ( _params_assoc_array['inputparamlabel'] == "shorterside" ) _params_assoc_array['shorterside'] = safe_float( _p, 0 );
                 _params_assoc_array['action'] = "apply" ;
             }
             else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
@@ -184,7 +178,7 @@ function circles_terminal_cmd_bip()
         if ( _params_assoc_array['help'] )
 		{
 			circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
-			_output_channel = _OUTPUT_TERMINAL ;
+			_output_channel = OUTPUT_TERMINAL ;
 		}
         else if ( _params_assoc_array['keywords'] )
         {
@@ -226,41 +220,36 @@ function circles_terminal_cmd_bip()
 				   
                    if ( _coords_rect != null && _display_rect != null )
                    {
-					   var _tmp_applied_settings_mask = 0 ;
-					   if ( _params_assoc_array['coordsdiagram'] != null ) _tmp_applied_settings_mask |= 1 ;
+					  var _tmp_applied_settings_mask = 0 ;
+					  if ( _params_assoc_array['coordsdiagram'] != null ) _tmp_applied_settings_mask |= 1 ;
 
-					  console.log( _coords_rect, _display_rect );
 					  var _corners = bipbox_sm.get_coords_corners();
                       _glob_bip_x_extent = _coords_rect.width();
                       _glob_bip_y_extent = _coords_rect.height();
-					  console.log( "BIP X/Y#1", _glob_bip_x_extent, _glob_bip_y_extent );
                       _glob_bip_box_center_pt = _coords_rect.center_pt();
                       _glob_bip_shorterside_pixels = Math.min( _display_rect.width(), _display_rect.height() );
 
-                      var _ret_chunk = circles_lib_terminal_bip_apply( _output_channel, _tmp_applied_settings_mask, _par_1, _cmd_tag );
-					  console.log( "BIP X/Y#2", _glob_bip_x_extent, _glob_bip_y_extent );
+                      var _ret_chunk = circles_lib_terminal_bip_apply( OUTPUT_TERMINAL, _tmp_applied_settings_mask, _par_1, _cmd_tag );
                       var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                       var _ret_msg = is_array( _ret_chunk ) ? new String( _ret_chunk[1] ).trim() : "Apply settings: memory failure" ;
+						  circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                       var _ret_errmask = is_array( _ret_chunk ) ? _ret_chunk[2] : null ;
-                          _ret_msg += circles_lib_terminal_bip_apply_error_manager( _tmp_applied_settings_mask, _ret_id, _ret_errmask );
-                          _ret_msg = _ret_msg.trim();
+                          _ret_msg = circles_lib_terminal_bip_apply_error_manager( _tmp_applied_settings_mask, _ret_id, _ret_errmask );
 
-                      circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Bip box coordinates has been acquired from " + circles_lib_plane_get_def( _glob_bip_original_plane_coords ) + " with success", _par_1, _cmd_tag );
+					  circles_lib_output( _output_channel, DISPATCH_INFO, _ret_msg, _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, "Bip box coordinates has been acquired from " + circles_lib_plane_get_def( _glob_bip_original_plane_coords ) + " with success", _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - cartesian X extent is "+_glob_bip_x_extent, _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - cartesian Y extent is "+_glob_bip_y_extent, _par_1, _cmd_tag );
-					  console.log( "BIP X/Y#3", _glob_bip_x_extent, _glob_bip_y_extent );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box is centered at cartesian "+_glob_bip_box_center_pt.output(), _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box shorter side in pixels : "+_glob_bip_shorterside_pixels, _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - left up corner : "+( _corners['lu'] != null ? ( ( _corners['lu'].x + ", " + _corners['lu'].y ) ) : "undefined" ), _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - right down corner : "+( _corners['rd'] != null ? ( ( _corners['rd'].x + ", " + _corners['rd'].y ) ) : "undefined" ), _par_1, _cmd_tag );
-					  circles_lib_output( _output_channel, _ret_id ? DISPATCH_INFO : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                    }
                    else if ( _glob_bip_original_plane_coords == BIP_BOX )
                        circles_lib_output( _output_channel, DISPATCH_WARNING, "Current coords are user defined, thus they have to be manually input", _par_1, _cmd_tag );
                    else { _b_fail = YES, _error_str = "Can't acquire coords because the BIP source for coords is not a conventional plane ('Z-plane' or 'W-plane')" ; }
                    break;
                    case "apply":
-				   console.log( "APPLY" );
                    var _tmp_applied_settings_mask = 0 ;
                    if ( _params_assoc_array['coordsdiagram'] != null ) _tmp_applied_settings_mask |= 1 ;
                    if ( _params_assoc_array['datadiagram'] != null ) _tmp_applied_settings_mask |= 2 ;
@@ -268,7 +257,7 @@ function circles_terminal_cmd_bip()
                    if ( _params_assoc_array['background'] != null ) _tmp_applied_settings_mask |= 8 ;
                    if ( _params_assoc_array['xextent'] != null ) _tmp_applied_settings_mask |= 16 ;
                    if ( _params_assoc_array['yextent'] != null ) _tmp_applied_settings_mask |= 32 ;
-                   if ( _params_assoc_array['minside'] != null ) _tmp_applied_settings_mask |= 64 ;
+                   if ( _params_assoc_array['shorterside'] != null ) _tmp_applied_settings_mask |= 64 ;
 
                    //_glob_bip_original_plane_coords ... already set up during params scan
                    //_glob_bip_original_plane_data ... already set up during params scan
@@ -280,25 +269,21 @@ function circles_terminal_cmd_bip()
 				   }
                    _glob_bip_box_center_pt = ( _params_assoc_array['center'] != null ) ? _params_assoc_array['center'] : _glob_bip_box_center_pt ;
                    _glob_bip_bk = ( _params_assoc_array['background'] != null ) ? _params_assoc_array['background'] : _glob_bip_bk ;
-				   console.log( "BIP BK", _glob_bip_bk, _params_assoc_array['background'] );
                    _glob_bip_x_extent = ( _params_assoc_array['xextent'] != null ) ? _params_assoc_array['xextent'] : _glob_bip_x_extent ;
                    _glob_bip_y_extent = ( _params_assoc_array['yextent'] != null ) ? _params_assoc_array['yextent'] : _glob_bip_y_extent ;
-                   _glob_bip_shorterside_pixels = ( _params_assoc_array['minside'] != null ) ? _params_assoc_array['minside'] : _glob_bip_shorterside_pixels ;
-console.log( "OK#2", _tmp_applied_settings_mask );
-                   if ( _tmp_applied_settings_mask )
+                   _glob_bip_shorterside_pixels = ( _params_assoc_array['shorterside'] != null ) ? _params_assoc_array['shorterside'] : _glob_bip_shorterside_pixels ;
+                   if ( _tmp_applied_settings_mask > 0 )
                    {
-                      var _ret_chunk = circles_lib_terminal_bip_apply( _output_channel, _tmp_applied_settings_mask, _par_1, _cmd_tag );
-console.log( "OK#2.1" );
+                      var _ret_chunk = circles_lib_terminal_bip_apply( OUTPUT_TERMINAL, _tmp_applied_settings_mask, _par_1, _cmd_tag );
                       var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                       var _ret_msg = is_array( _ret_chunk ) ? new String( _ret_chunk[1] ).trim() : "Apply settings: memory failure" ;
+						  circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                       var _ret_errmask = is_array( _ret_chunk ) ? _ret_chunk[2] : null ;
-console.log( "OK#3" );
-                    _ret_msg += circles_lib_terminal_bip_apply_error_manager( _tmp_applied_settings_mask, _ret_id, _ret_errmask );
-console.log( "OK#4" );
-                    _ret_msg = _ret_msg.trim();
-                    circles_lib_output( _output_channel, _ret_id ? DISPATCH_INFO : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
-					_ret_msg = "<white>Type 'bip settings' to resume all settings</white>" ;
-                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _ret_msg, _par_1, _cmd_tag );
+						  _ret_msg = circles_lib_terminal_bip_apply_error_manager( _tmp_applied_settings_mask, _ret_id, _ret_errmask );
+						  _ret_msg = _ret_msg.trim();
+					  circles_lib_output( _output_channel, DISPATCH_INFO, _ret_msg, _par_1, _cmd_tag );
+					  _ret_msg = "<white>Type 'bip settings' to resume all settings</white>" ;
+					  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _ret_msg, _par_1, _cmd_tag );
                    }
                    else { _b_fail = YES, _error_str = "Missing or invalid input BIP params" ; }
                    break ;
@@ -318,7 +303,6 @@ console.log( "OK#4" );
                    else { _b_fail = YES, _error_str = "Memory failure: cannot get the bip canvas to clean up" ; }
                    break ;
                    case "settings":
-				   console.log( _params_assoc_array['html'] );
                    var _html = _params_assoc_array['html'] ;
                    var _canvas_w = is_html_canvas( _glob_bip_canvas ) ? _glob_bip_canvas.get_width() : 0 ;
                    var _canvas_h = is_html_canvas( _glob_bip_canvas ) ? _glob_bip_canvas.get_height() : 0 ;
@@ -404,7 +388,7 @@ console.log( "OK#4" );
 						var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
      					circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                     }
-					_output_channel = _OUTPUT_TERMINAL ;
+					_output_channel = OUTPUT_TERMINAL ;
                    break ;
                    case "preview":
                    var _canvas_id = "TERMINALbipCANVAS" + unixtime();
@@ -430,15 +414,14 @@ console.log( "OK#4" );
                    var _ret_msg = is_array( _ret_chunk ) ? new String( _ret_chunk[1] ) : "Rendering: memory failure" ;
                        _ret_msg = _ret_msg.trim();
                    circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
-                   if ( _ret_id ) circles_lib_output( _output_channel, DISPATCH_INFO, "Bip session has been closed after rendering", _par_1, _cmd_tag );
+				   _ret_msg = "Bip session has been closed after rendering, for data safety reasons." ;
+				   _ret_msg += "\nIf you want to save it, please open the bip session again" ;
+                   if ( _ret_id ) circles_lib_output( _output_channel, DISPATCH_INFO, _ret_msg, _par_1, _cmd_tag );
                    break ;
                    case "save":
                    var _err_mask = circles_lib_bip_check_params();
                    _glob_bip_halt = ( _err_mask ) ? YES : NO ;
-                   if ( _glob_bip_halt )
-                   {
-                       _b_fail = YES, _error_str = "An error occurred while setting params: please, check that all values are valid" ;
-                   }
+                   if ( _glob_bip_halt ) { _b_fail = YES, _error_str = "An error occurred while setting params: please, check that all values are valid" ; }
                    else
                    {
                        var _filename = "circles.bip."  ;
@@ -528,13 +511,11 @@ function circles_lib_terminal_bip_apply_error_manager( _tmp_applied_settings_mas
       return _ret_msg ;
 }
 
-function circles_lib_terminal_bip_apply( _output_channel, _par_1 )
+function circles_lib_terminal_bip_apply( _output_channel = OUTPUT_TERMINAL, _par_1 )
 {
     var _tmp_applied_settings_mask = 0 ;
-	console.log( "TBA#1" );
     var _ret_chunk = circles_lib_bip_apply_settings( _output_channel, !_glob_terminal_silent, _glob_terminal_silent, NO,
         _glob_bip_box_center_pt, _glob_bip_x_extent, _glob_bip_y_extent,
         _glob_bip_shorterside_pixels, _glob_bip_original_plane_coords, _glob_bip_original_plane_data, _glob_bip_bk );
-	console.log( "TBA#2" );
     return _ret_chunk ;
 }

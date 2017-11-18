@@ -14,12 +14,9 @@ function circles_lib_bip_activate( bACTIVATE )
 
 function circles_lib_bip_calc_pixel_side( _update = NO )
 {
-	console.log( "BCPS#0", _update );
     _update = safe_int( _update, NO );
     var _bip_area = is_html_canvas( _glob_bip_canvas ) ? ( _glob_bip_canvas.get_width() * _glob_bip_canvas.get_height() ) : 0 ;
-	console.log( "BCPS#1", _bip_area );
     var _canvas = circles_lib_canvas_layer_find( _glob_bip_original_plane_data, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
-	console.log( "BCPS#2" );
     var _diagram_area = _canvas.get_width() * _canvas.get_height();
     // this proportion grows with squared factor, so we compute the root
     _glob_bip_pixel_size = Math.floor( Math.sqrt( _bip_area * _glob_pixel_size / _diagram_area ) );
@@ -27,21 +24,17 @@ function circles_lib_bip_calc_pixel_side( _update = NO )
     if ( _update && $( "#BIPcanvasPIXELsize" ).get(0) != null ) $( "#BIPcanvasPIXELsize" ).val( _glob_bip_pixel_size );
 }
 
-function circles_lib_bip_apply_settings( _output_channel = OUTPUT_SCREEN, _question = YES, _silent = NO, _update,
-			                             _center, _x_extent = 0, _y_extent = 0,
-			                             _smallerside, _coords_diagram, _data_diagram, _bk = "" )
+function circles_lib_bip_apply_settings( _output_channel = OUTPUT_SCREEN, _question = YES, _silent = NO, _update = NO,
+			                             _center, _x_extent = 1, _y_extent = 1,
+			                             _shorterside = 0, _coords_diagram, _data_diagram, _bk = "" )
 {
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _x_extent = safe_float( _x_extent, 0 ), _y_extent = safe_float( _y_extent, 0 );
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
-	console.log( "BAS#1", _bk );
-    var MSG = "Do you confirm to apply these settings ?" ;
-    var _b_go = ( _output_channel == OUTPUT_SCREEN && _question ) ? ( confirm( MSG ) ? YES : NO ) : YES ;
-	console.log( "BAS#2", _b_go );
+    var _b_go = ( _output_channel == OUTPUT_SCREEN && _question ) ? ( confirm( "Do you confirm to apply these settings ?" ) ? YES : NO ) : YES ;
     var _b_fail = 0, _error_str = "", _memo = [] ;
     if ( _b_go )
     {
-	console.log( "BAS#2.1", _output_channel == OUTPUT_SCREEN );
         if ( _output_channel == OUTPUT_SCREEN )
         {
             hideCOLORTABLE();
@@ -54,7 +47,6 @@ function circles_lib_bip_apply_settings( _output_channel = OUTPUT_SCREEN, _quest
             else if ( $("#CIRCLESdiagramRADIO_03").is( ":checked" ) ) _glob_bip_original_plane_coords = D_LOCUS ;
             else if ( $("#CIRCLESdiagramRADIO_04").is( ":checked" ) ) _glob_bip_original_plane_coords = BIP_BOX ;
 
-	console.log( "BAS#3", _b_go );
             _glob_bip_shorterside_pixels = safe_float( $("#BIPcanvasSHORTERSIDEpixels").val(), 0 );
             _glob_bip_pixel_size = safe_float( $("#BIPcanvasPIXELsize").val(), 0 );
             _glob_bip_x_extent = safe_float( $("#BIPcanvasEXTENTx").val(), 0 );
@@ -62,28 +54,23 @@ function circles_lib_bip_apply_settings( _output_channel = OUTPUT_SCREEN, _quest
             _glob_bip_box_center_pt = new point( safe_float( $("#BIPcanvasCENTERx").val(), 0 ), safe_float( $("#BIPcanvasCENTERy").val(), 0 ) );
             _glob_bip_bk = $("#canvas_bk_color").css( "background-color" );
             _glob_bip_bk = safe_size( _glob_bip_bk, 0 ) > 0 ? _glob_bip_bk : "transparent" ;
-	console.log( "BAS#4", _b_go );
         }
         else
         {
-	console.log( "BAS#5" );
             if ( _data_diagram.is_one_of( Z_PLANE, W_PLANE ) ) _glob_bip_original_plane_data = safe_int( _data_diagram, Z_PLANE );
             if ( _coords_diagram.is_one_of( Z_PLANE, W_PLANE, D_LOCUS, BIP_BOX ) ) _glob_bip_original_plane_coords = safe_int( _coords_diagram, Z_PLANE );
-            if ( _smallerside > 0 ) _glob_bip_shorterside_pixels = safe_int( _smallerside, 1 );
+            if ( _shorterside > 0 ) _glob_bip_shorterside_pixels = safe_int( _shorterside, 1 );
             if ( _x_extent > 0 ) _glob_bip_x_extent = safe_float( _x_extent, 0 );
             if ( _y_extent > 0 ) _glob_bip_y_extent = safe_float( _y_extent, 0 );
             if ( is_point( _center ) ) _glob_bip_box_center_pt = _center ;
             if ( is_string( _bk ) ) _glob_bip_bk = _bk.length > 0 ? _bk : "transparent" ;
-	console.log( "BAS#5.1", _bk, _glob_bip_bk );
         }
 
         if ( _b_fail == 0 && _glob_bip_halt == NO )
         {
-	console.log( "BAS#6" );
             var _canvas_width = 0, _canvas_height = 0 ;
             // settings coordinates
             _glob_target_plane = BIP_BOX ;
-	console.log( "BAS#6.1", is_point( _glob_bip_box_center_pt ) );
             if ( is_point( _glob_bip_box_center_pt ) )
             {
                 _glob_bipLEFT = _glob_bip_box_center_pt.x - _glob_bip_x_extent / 2.0 ;
@@ -93,33 +80,27 @@ function circles_lib_bip_apply_settings( _output_channel = OUTPUT_SCREEN, _quest
                 bipbox_sm.set_coords_corners( new point( _glob_bipLEFT, _glob_bipTOP ), new point( _glob_bipRIGHT, _glob_bipBOTTOM ) );
             }
 
-console.log( "BAS#6.2", _glob_bip_shorterside_pixels > 0 && _glob_bip_x_extent > 0 && _glob_bip_y_extent > 0 );			
             if ( _glob_bip_shorterside_pixels > 0 && _glob_bip_x_extent > 0 && _glob_bip_y_extent > 0 )
             {
-                var _choice = _glob_bip_x_extent <= _glob_bip_y_extent ? 1 : 2 ;
+				var _ratio = _glob_bip_y_extent > 0 ? ( _glob_bip_x_extent / _glob_bip_y_extent ) : 1 ;
                 // resize canvas width/height
-                if ( _choice == 1 )
+                if ( _glob_bip_x_extent <= _glob_bip_y_extent )
                 {
                     _canvas_width = _glob_bip_shorterside_pixels ;
-                    _canvas_height = _glob_bip_shorterside_pixels * _glob_bip_y_extent / _glob_bip_x_extent ;
+                    _canvas_height = _canvas_width / _ratio ;
                     _canvas_height = safe_int( _canvas_height, DEFAULT_BIP_SIZE );
                 }
-                else if ( _choice == 2 )
+                else
                 {
                     _canvas_height = _glob_bip_shorterside_pixels ;
-                    _canvas_width = _glob_bip_shorterside_pixels * _glob_bip_x_extent / _glob_bip_y_extent ;
+                    _canvas_width = _canvas_height * _ratio ;
                     _canvas_width = safe_int( _canvas_width, DEFAULT_BIP_SIZE );
                 }
             }
 
-console.log( "BAS#6.3.0", _update ) ;
-console.log( "BAS#6.3.1", circles_lib_bip_calc_pixel_side( _update ) );
             circles_lib_bip_calc_pixel_side( _update );
-console.log( "BAS#6.3.1", is_html_canvas( _glob_bip_canvas ) );
-            
             if ( is_html_canvas( _glob_bip_canvas ) )
             {
-console.log( "BAS#6.4.0" );
                 $('[id$=renderBTN]').css('color',COLOR_ERROR) ;
                 _glob_bip_canvas.set_label( "bip" ) ;
                 _glob_bip_canvas.set_width( _canvas_width );

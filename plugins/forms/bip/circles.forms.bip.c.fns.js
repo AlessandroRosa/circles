@@ -108,8 +108,7 @@ function CIRCLESformsBIPtrigger( _opcode, _silent, _render, _update, _output_cha
            else circles_lib_bip_render( _silent, _output_channel );
         }
         break ;
-        default:
-        break ;
+        default: break ;
     }
 }
 

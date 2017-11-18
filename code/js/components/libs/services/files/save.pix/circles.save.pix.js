@@ -50,21 +50,18 @@ function circles_lib_files_pix_save_canvas_from_ref( _plane_type, _role, _filena
 function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge, _silent, _output_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-		if ( _merge ) _tmp_save_canvas_obj = circles_lib_canvas_merge_all_per_plane( _plane_type, 0 );
+	if ( _merge ) _tmp_save_canvas_obj = circles_lib_canvas_merge_all_per_plane( _plane_type, 0 );
     else if ( is_html_canvas( _canvas ) ) _tmp_save_canvas_obj = _canvas ;
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
-    _silent = safe_int( _silent, NO );
-    _merge = safe_int( _merge, NO );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN ), _silent = safe_int( _silent, NO ), _merge = safe_int( _merge, NO );
     _filename = safe_string( _filename, "circles.pix" ).replaceAll( [ "..", "-", "_" ], "." ) ;
     var _export_format = circles_lib_files_get_export_format() ;
-    
     var _param_add_01 = arguments[6] ;
 
-    var _is_png = _export_format == EXPORT_PNG || _filename.toLowerCase().right(4).stricmp( ".png" );
+    var _is_png = _export_format.is_one_of( EXPORT_NONE, EXPORT_PNG ) || _filename.toLowerCase().right(4).stricmp( ".png" );
     var _is_svg = _export_format == EXPORT_SVG || _filename.toLowerCase().right(4).stricmp( ".svg" );
     var _is_ps = _export_format == EXPORT_PS || _filename.toLowerCase().right(3).stricmp( ".ps" );
     var _is_eps = _export_format == EXPORT_EPS || _filename.toLowerCase().right(4).stricmp( ".eps" );
-    var _is_pdf = _filename.toLowerCase().right(4).stricmp( ".pdf" );
+    var _is_pdf = _export_format == EXPORT_PDF || _filename.toLowerCase().right(4).stricmp( ".pdf" );
     var _save_fn = "" ;
 
     if ( ( _is_svg || _is_ps || _is_eps ) && safe_size( _glob_export_code_array, 0 ) == 0 )
@@ -84,10 +81,10 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge
     else if ( _is_ps || _is_eps ) _save_fn += "circles_lib_canvas_save_to_e_ps( '" + _filename + "' )"
     else if ( _is_pdf )
     {
-    		if ( _merge ) _glob_canvas_obj_ref = _tmp_save_canvas_obj ;
-				else if ( is_html_canvas( _canvas ) ) _glob_canvas_obj_ref = _canvas ;
-				_save_fn += "circles_lib_canvas_save_to_pdf( _glob_canvas_obj_ref, '" + _filename + "', "+_silent+", "+_output_channel+" );" ;
-		}
+    	if ( _merge ) _glob_canvas_obj_ref = _tmp_save_canvas_obj ;
+		else if ( is_html_canvas( _canvas ) ) _glob_canvas_obj_ref = _canvas ;
+		_save_fn += "circles_lib_canvas_save_to_pdf( _glob_canvas_obj_ref, '" + _filename + "', "+_silent+", "+_output_channel+" );" ;
+	}
     else if ( _is_png ) _save_fn += "circles_lib_files_pix_save( "+_plane_type+", '"+_tmp_save_canvas_obj.id+"', '" + _filename + "', "+_merge+", "+_silent+", "+_output_channel+" )" ;
     else
     {
@@ -185,9 +182,14 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge
         alert_plug_fn( ALERT_NO, "alertCLOSE();" );
         alert_set_btns_width( "70px" );
         alert_msg( ALERT_QUESTION | ALERT_YESNO, HTMLcode, _glob_app_title, 480 );
-        return YES ;
+        return [ YES, "success" ] ;
     }
-    else return eval( _save_fn );
+    else
+	{
+		var _ret_chunk = null ;
+		eval( "_ret_chunk = "+_save_fn );
+		return _ret_chunk ;
+	}
 }
 
 function circles_lib_files_pix_save_enable_radio_ctrls( _b_enable )

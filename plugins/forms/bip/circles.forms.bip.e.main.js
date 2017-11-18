@@ -180,23 +180,23 @@ function CIRCLESbipFORMtabMAINhtml( _show_entries_array, _return_html )
      HTMLcode += "<table>" ;
      HTMLcode += "<tr>" ;
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
-	   HTMLcode += "<td WIDTH=\"120\">Pick up data from</td>" ;
-	   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-	   HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_data == Z_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESapplytoRADIO\" ID=\"CIRCLESapplytoRADIO_01\" ONCLICK=\"javascript:_glob_bip_original_plane_data = Z_PLANE;CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
-	   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-	   HTMLcode += "<td>Z-plane</td>" ;
-	   HTMLcode += "<td WIDTH=\"15\"></td>" ;
-	   HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_data == W_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESapplytoRADIO\" ID=\"CIRCLESapplytoRADIO_02\" ONCLICK=\"javascript:_glob_bip_original_plane_data = W_PLANE;CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
-	   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-	   HTMLcode += "<td>W-plane</td>" ;
+     HTMLcode += "<td WIDTH=\"120\">Pick up data from</td>" ;
+     HTMLcode += "<td WIDTH=\"5\"></td>" ;
+     HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_data == Z_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESapplytoRADIO\" ID=\"CIRCLESapplytoRADIO_01\" ONCLICK=\"javascript:_glob_bip_original_plane_data = Z_PLANE;CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
+     HTMLcode += "<td WIDTH=\"5\"></td>" ;
+     HTMLcode += "<td>Z-plane</td>" ;
+     HTMLcode += "<td WIDTH=\"15\"></td>" ;
+	 HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_data == W_PLANE ? "CHECKED" : "" )+" NAME=\"CIRCLESapplytoRADIO\" ID=\"CIRCLESapplytoRADIO_02\" ONCLICK=\"javascript:_glob_bip_original_plane_data = W_PLANE;CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
+	 HTMLcode += "<td WIDTH=\"5\"></td>" ;
+	 HTMLcode += "<td>W-plane</td>" ;
      HTMLcode += "<td WIDTH=\"15\"></td>" ;
      HTMLcode += "<td><INPUT TYPE=\"radio\" "+( _glob_bip_original_plane_data == D_LOCUS ? "CHECKED" : "" )+" NAME=\"CIRCLESdiagramRADIO\" ID=\"CIRCLESapplytoRADIO_03\" ONCLICK=\"javascript:_glob_bip_original_plane_data = D_LOCUS;CIRCLESformsBIPcolorBTNS(YES);\"></td>" ;
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
      HTMLcode += "<td>Discreteness locus</td>" ;
-	   HTMLcode += "</tr>" ;
-	   HTMLcode += "</table>" ;
-	   HTMLcode += "</td>" ;
-	   HTMLcode += "</tr>" ;
+	 HTMLcode += "</tr>" ;
+	 HTMLcode += "</table>" ;
+	 HTMLcode += "</td>" ;
+	 HTMLcode += "</tr>" ;
    }
 
    if ( _show_entries_array.includes( "pickcoords" ) || _empty_filter )
@@ -238,11 +238,12 @@ function CIRCLESbipFORMtabMAINhtml( _show_entries_array, _return_html )
      HTMLcode += "<td WIDTH=\"5\"></td>" ;
      HTMLcode += "<td><SELECT ID=\"BIPexportCOMBO\" ONCHANGE=\"javascript:_glob_export_format=$('#BIPexportCOMBO').val();$('[id$=exportCOMBO]').val(this.selectedIndex);\">" ;
      HTMLcode += "<OPTION VALUE=\""+EXPORT_NONE+"\" "+( _glob_export_format == EXPORT_NONE ? "SELECTED=\"selected\"" : "" )+">None" ;
-     HTMLcode += "<OPTION VALUE=\""+EXPORT_PNG+"\" "+( _glob_export_format == EXPORT_PNG ? "SELECTED=\"selected\"" : "" )+">LaTeX" ;
+     HTMLcode += "<OPTION VALUE=\""+EXPORT_PNG+"\" "+( _glob_export_format == EXPORT_PNG ? "SELECTED=\"selected\"" : "" )+">PNG" ;
      HTMLcode += "<OPTION VALUE=\""+EXPORT_EPS+"\" "+( _glob_export_format == EXPORT_EPS ? "SELECTED=\"selected\"" : "" )+">EPS" ;
      HTMLcode += "<OPTION VALUE=\""+EXPORT_PS+"\" "+( _glob_export_format == EXPORT_PS ? "SELECTED=\"selected\"" : "" )+">PS" ;
-     HTMLcode += "<OPTION VALUE=\""+EXPORT_SVG+"\" "+( _glob_export_format == EXPORT_SVG ? "SELECTED=\"selected\"" : "" )+">SVG" ;
+     HTMLcode += "<OPTION VALUE=\""+EXPORT_PDF+"\" "+( _glob_export_format == EXPORT_PDF ? "SELECTED=\"selected\"" : "" )+">PDF" ;
      HTMLcode += "<OPTION VALUE=\""+EXPORT_LATEX+"\" "+( _glob_export_format == EXPORT_LATEX ? "SELECTED=\"selected\"" : "" )+">LaTeX" ;
+     HTMLcode += "<OPTION VALUE=\""+EXPORT_SVG+"\" "+( _glob_export_format == EXPORT_SVG ? "SELECTED=\"selected\"" : "" )+">SVG" ;
      HTMLcode += "</SELECT></td>" ;
      HTMLcode += "</tr>" ;
      HTMLcode += "</table>" ;
