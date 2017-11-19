@@ -246,7 +246,7 @@ function CIRCLESformsBIPsavePIX()
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
         HTMLcode += "</table>" ;
 
-    alert_plug_fn( ALERT_YES, "_glob_export_format=EXPORT_NONE;circles_lib_files_pix_save_ask( BIP_BOX, _glob_bip_canvas, 'circles.bip.png', NO, YES, OUTPUT_NONE );" );
+    alert_plug_fn( ALERT_YES, "_glob_export_format=EXPORT_NONE;circles_lib_files_pix_save_ask( BIP_BOX, _glob_bip_canvas.id, 'circles.bip.png', NO, YES, OUTPUT_NONE );" );
     alert_plug_fn( ALERT_NO, "alertCLOSE();" );
 
     circles_lib_output( OUTPUT_SCREEN, DISPATCH_YESNO | DISPATCH_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_get_def( BIP_BOX ) );

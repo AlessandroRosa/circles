@@ -1,13 +1,14 @@
-<banana>perform the rendering into a canvas of custom dimensions</banana>
+<banana>BIP box allows to render pictures of arbitrary size</banana>
+<banana>BIP stands for Batch Image Processing</banana>
 <white>Type param /k to return all available keywords</white>
-<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+<white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
 <lightblue>usage</lightblue> <snow>bip %switch% %plane% %diagram% %action% %export% %bk%</snow>
 
 <lightblue>%param%</lightblue> <snow>xextent | yextent | shorterside | coords | data</snow>
 <lightblue>%switch%</lightblue> <snow>on | off | list</snow>
 <lightblue>%coords-plane%</lightblue> <snow>zplane | wplane (input)</snow>
-<lightblue>%data-plane%</lightblue> <snow>zplane | wplane | userdef (output)</snow>
+<lightblue>%data-plane%</lightblue> <snow>zplane | wplane | bipbox (output)</snow>
 <lightblue>%action%</lightblue> <snow>acquire | apply | render | save</snow>
 <lightblue>%export%</lightblue> <snow>svg | ps | eps | latex</snow>
 <lightblue>%shorterside%</lightblue> <snow>short side of the bip box (longer side is recomputed along the current ratio)</snow>
@@ -18,7 +19,7 @@
 <cadetblue>open bip mode</cadetblue> <orange>(required)</orange>
 
 <lightblue>bip acquire %coords-plane%</lightblue>
-<cadetblue>get coordinates from selected plane</cadetblue>
+<cadetblue>configure all settings according to the selected plane</cadetblue>
 
 <lightblue>bip settings</lightblue>
 <cadetblue>resume current bip settings</cadetblue>
@@ -36,7 +37,7 @@
 <cadetblue>parameters can be also input one by one, mentioning their type, as follows</cadetblue>
 <cadetblue>-----------------------------</cadetblue>
 
-<lightblue>bip coords zplane | wplane | userdef</lightblue>
+<lightblue>bip coords zplane | wplane | bipbox</lightblue>
 <cadetblue>the bip box will keep the same coordinates as of the input plane</cadetblue>
 
 <lightblue>bip data zplane | wplane</lightblue>

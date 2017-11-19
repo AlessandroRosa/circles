@@ -88,12 +88,14 @@ function circles_terminal_cmd_savepix()
                   else if ( _glob_export_format == EXPORT_PS ) _ext = ".ps" ;
                   else if ( _glob_export_format == EXPORT_EPS ) _ext = ".eps" ;
                   else if ( _glob_export_format == EXPORT_LATEX ) _ext = ".tex" ;
+                  else if ( _glob_export_format == EXPORT_PDF ) _ext = ".pdf" ;
+                  else if ( _glob_export_format == EXPORT_PNG ) _ext = ".png" ;
                   else _ext = ".png" ;
+
                   var _out_filename = _plane_label + _ext ;
-    
                   if ( !_b_fail && !_help )
                   {
-                      var _ret_chunk = circles_lib_files_pix_save_ask( _plane_type, _canvas, _out_filename, NO, YES, _output_channel );
+                      var _ret_chunk = circles_lib_files_pix_save_ask( _plane_type, _canvas.id, _out_filename, NO, YES, _output_channel );
                       var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                       var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure" ;
                       if ( _ret_id ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );

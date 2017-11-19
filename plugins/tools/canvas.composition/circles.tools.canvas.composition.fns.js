@@ -90,9 +90,9 @@ function CIRCLEStoolsCANVASCOMPOSITIONcompositionDELETE( _question, _silent )
 		}
 }
 
-function CIRCLEStoolsCANVASCOMPOSITIONcompositionREVERSE( _question, _silent )
+function CIRCLEStoolsCANVASCOMPOSITIONcompositionREVERSE( _question = YES, _silent = NO )
 {
-    _silent = safe_int( _silent, NO );
+    _question = safe_int( _silent, NO ), _question = safe_int( _silent, NO );
     var _layers_array = CIRCLEStoolsCANVASCOMPOSITIONlayersARRAY ;
     if ( safe_size( _layers_array, 0 ) > 0 )
     {
@@ -108,16 +108,16 @@ function CIRCLEStoolsCANVASCOMPOSITIONcompositionREVERSE( _question, _silent )
     else if ( !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Can't swap layers up: the composition pile is empty", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 }
 
-function CIRCLEStoolsCANVASCOMPOSITIONcanvasSAVEASform() { circles_lib_canvas_save_to_file( NO_PLANE, $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0), "circles.composition.png", NO, NO ) ; }
-function CIRCLEStoolsCANVASCOMPOSITIONcompositionCLEAN( _silent )
+function CIRCLEStoolsCANVASCOMPOSITIONcanvasSAVEASform() { circles_lib_canvas_save_to_file( NO_PLANE, "CIRCLEStoolsCANVASCOMPOSITIONcanvas", "circles.composition.png", NO, NO ) ; }
+function CIRCLEStoolsCANVASCOMPOSITIONcompositionCLEAN( _silent = NO )
 {
     _silent = safe_int( _silent, NO );
-		$( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).clean();
+	$( "#CIRCLEStoolsCANVASCOMPOSITIONcanvas" ).get(0).clean();
     if ( !_silent )
     circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Layers composition has been cleaned with success", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 }
 
-function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUswapup( _silent )
+function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUswapup( _silent = NO )
 {
     _silent = safe_int( _silent, NO );
     var _layers_array = CIRCLEStoolsCANVASCOMPOSITIONlayersARRAY ;

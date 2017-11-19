@@ -34,9 +34,9 @@ function circles_terminal_cmd_bip()
         _params_array.clean_from( " " ); 
         // pre-scan for levenshtein correction
     	var _local_cmds_params_array = [];
-    	_local_cmds_params_array.push( "center", "clean", "close", "coords", "data",
-                                       "eps", "help", "html", "off", "on", "open", "ps",
-                                       "render", "save", "settings", "shorterside", "silent", "svg", "userdef",
+    	_local_cmds_params_array.push( "center", "clean", "close", "coords",
+                                       "eps", "help", "html", "objects", "off", "on", "open", "ps",
+                                       "render", "save", "settings", "shorterside", "silent", "svg", "bipbox",
 									   "wplane", "xextent", "yextent", "zplane" );
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -49,7 +49,7 @@ function circles_terminal_cmd_bip()
 		// gather all dump parameters into one array
         if ( _params_assoc_array['dump'] )
         {
-            _params_assoc_array['coordsdiagram'] = "userdef" ;
+            _params_assoc_array['coordsdiagram'] = "bipbox" ;
             circles_lib_output( _output_channel, DISPATCH_INFO, "BIP params are being set up according to user-defined input", _par_1, _cmd_tag );
             for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
     		if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
@@ -59,10 +59,11 @@ function circles_terminal_cmd_bip()
         var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
         for( var _i = 0 ; _i < _up_to_index ; _i++ )
         {
-            _p = _params_array[_i].toLowerCase();
-            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
+            _p = _params_array[_i];
+            if ( _p.toLowerCase().is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+			else if ( _params_assoc_array['action'] == "save" ) _params_assoc_array['filename'] = safe_string( _p, "" );
             else if ( _p.is_one_of_i( "on", "open" ) )
             {
                 _params_assoc_array['activation'] = YES ;
@@ -71,21 +72,21 @@ function circles_terminal_cmd_bip()
             else if ( _p.is_one_of_i( "close", "off" ) )
             {
                 _params_assoc_array['activation'] = NO ;
-                _params_assoc_array['toggle'] = _p ;
+                _params_assoc_array['toggle'] = _p.toLowerCase() ;
             }
             else if ( _p.stricmp( "silent" ) ) _params_assoc_array['silent'] = YES ;
-            else if ( _p.is_one_of_i( "data", "center", "coords", "xextent", "yextent", "shorterside", "background" ) )
-                _params_assoc_array['inputparamlabel'] = _p ;
-            else if ( _p.is_one_of_i( "zplane", "wplane", "userdef" ) )
+            else if ( _p.is_one_of_i( "objects", "center", "coords", "xextent", "yextent", "shorterside", "background" ) )
+                 _params_assoc_array['inputparamlabel'] = _p.toLowerCase() ;
+            else if ( _p.is_one_of_i( "zplane", "wplane", "bipbox" ) )
             {
 				switch( _params_assoc_array['action'] )
 				{
 					case "acquire":
 					switch( _p.toLowerCase() )
 					{
-					   case "zplane": _glob_bip_original_plane_coords = Z_PLANE ; break ;
-					   case "wplane": _glob_bip_original_plane_coords = W_PLANE ; break ;
-					   case "userdef": _glob_bip_original_plane_coords = BIP_BOX ; break ;
+					   case "zplane": _glob_bip_original_plane_coords = _glob_bip_original_plane_data = Z_PLANE ; break ;
+					   case "wplane": _glob_bip_original_plane_coords = _glob_bip_original_plane_data = W_PLANE ; break ;
+					   case "bipbox": _glob_bip_original_plane_coords = _glob_bip_original_plane_data = BIP_BOX ; break ;
 					   default: _glob_bip_original_plane_coords = NO_PLANE ; break ;
 					}
 					break ;
@@ -95,13 +96,13 @@ function circles_terminal_cmd_bip()
 						switch( _params_assoc_array['inputparamlabel'] )
 						{
 							case "coords":
-							if ( _p.is_one_of_i( "zplane", "wplane", "userdef" ) ) _params_assoc_array['coordsdiagram'] = _p ;
+							if ( _p.is_one_of_i( "zplane", "wplane", "bipbox" ) ) _params_assoc_array['coordsdiagram'] = _p.toLowerCase() ;
 							break ;
-							case "data":
-							if ( _p.is_one_of_i( "zplane", "wplane" ) ) _params_assoc_array['datadiagram'] = _p ;
+							case "objects":
+							if ( _p.is_one_of_i( "zplane", "wplane" ) ) _params_assoc_array['datadiagram'] = _p.toLowerCase() ;
 							break ;
 							default:
-							if ( _p.is_one_of_i( "zplane", "wplane", "userdef" ) ) _params_assoc_array['coordsdiagram'] = _p ;
+							if ( _p.is_one_of_i( "zplane", "wplane", "bipbox" ) ) _params_assoc_array['coordsdiagram'] = _p.toLowerCase() ;
 							break ;
 						}
 					}
@@ -123,7 +124,7 @@ function circles_terminal_cmd_bip()
 						{
 						   case "zplane": _glob_bip_original_plane_coords = Z_PLANE ; break ;
 						   case "wplane": _glob_bip_original_plane_coords = W_PLANE ; break ;
-						   case "userdef": _glob_bip_original_plane_coords = BIP_BOX ; break ;
+						   case "bipbox": _glob_bip_original_plane_coords = BIP_BOX ; break ;
 						   default: _glob_bip_original_plane_coords = NO_PLANE ; break ;
 						}
 						_params_assoc_array['action'] = "apply" ;
@@ -228,6 +229,7 @@ function circles_terminal_cmd_bip()
                       _glob_bip_y_extent = _coords_rect.height();
                       _glob_bip_box_center_pt = _coords_rect.center_pt();
                       _glob_bip_shorterside_pixels = Math.min( _display_rect.width(), _display_rect.height() );
+					  var _tmp_applied_settings_mask = 1|2|4|8|16|32 ; // all settings
 
                       var _ret_chunk = circles_lib_terminal_bip_apply( OUTPUT_TERMINAL, _tmp_applied_settings_mask, _par_1, _cmd_tag );
                       var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
@@ -244,6 +246,11 @@ function circles_terminal_cmd_bip()
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box shorter side in pixels : "+_glob_bip_shorterside_pixels, _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - left up corner : "+( _corners['lu'] != null ? ( ( _corners['lu'].x + ", " + _corners['lu'].y ) ) : "undefined" ), _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - right down corner : "+( _corners['rd'] != null ? ( ( _corners['rd'].x + ", " + _corners['rd'].y ) ) : "undefined" ), _par_1, _cmd_tag );
+
+					  _ret_msg = "<white>Type 'bip settings' to resume all settings</white>" ;
+					  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _ret_msg, _par_1, _cmd_tag );
+					  _ret_msg = "<white>Type 'bip render' to accomplish last changes</white>" ;
+					  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _ret_msg, _par_1, _cmd_tag );
                    }
                    else if ( _glob_bip_original_plane_coords == BIP_BOX )
                        circles_lib_output( _output_channel, DISPATCH_WARNING, "Current coords are user defined, thus they have to be manually input", _par_1, _cmd_tag );
@@ -284,6 +291,8 @@ function circles_terminal_cmd_bip()
 					  circles_lib_output( _output_channel, DISPATCH_INFO, _ret_msg, _par_1, _cmd_tag );
 					  _ret_msg = "<white>Type 'bip settings' to resume all settings</white>" ;
 					  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _ret_msg, _par_1, _cmd_tag );
+					  _ret_msg = "<white>Type 'bip render' to accomplish last changes</white>" ;
+					  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _ret_msg, _par_1, _cmd_tag );
                    }
                    else { _b_fail = YES, _error_str = "Missing or invalid input BIP params" ; }
                    break ;
@@ -304,14 +313,16 @@ function circles_terminal_cmd_bip()
                    break ;
                    case "settings":
                    var _html = _params_assoc_array['html'] ;
-                   var _canvas_w = is_html_canvas( _glob_bip_canvas ) ? _glob_bip_canvas.get_width() : 0 ;
-                   var _canvas_h = is_html_canvas( _glob_bip_canvas ) ? _glob_bip_canvas.get_height() : 0 ;
-                   var _canvas_bk = is_html_canvas( _glob_bip_canvas ) ? ( ( _glob_bip_canvas.get_backgroundcolor() != null && _glob_bip_canvas.get_backgroundcolor() != UNDEF ) ? _glob_bip_canvas.get_backgroundcolor() : "transparent" ) : "transparent" ;
-                       _canvas_bk = ( _canvas_bk.replaceAll( " ", "").strcmp( "rgba(0,0,0,0)" ) ) ? "transparent" : _canvas_bk ;
+				   var _is_canvas = is_html_canvas( _glob_bip_canvas ) ;
+				   var _bk_color = _glob_bip_canvas.get_backgroundcolor() ;
+                   var _canvas_w = _is_canvas ? _glob_bip_canvas.get_width() : 0 ;
+                   var _canvas_h = _is_canvas ? _glob_bip_canvas.get_height() : 0 ;
+                   var _canvas_bk = _is_canvas ? ( ( _bk_color != null && _bk_color != UNDEF ) ? _bk_color : "transparent" ) : "transparent" ;
+                       _canvas_bk = _canvas_bk.replaceAll( " ", "").strcmp( "rgba(0,0,0,0)" ) ? "transparent" : _canvas_bk ;
                    var _bk_tag = ( circles_lib_colors_get_formats( _canvas_bk ) )[COLOR_TAG] ;
                    var _corners = bipbox_sm.get_coords_corners();
-                   var _center_x = ( is_point( _glob_bip_box_center_pt ) ) ? _glob_bip_box_center_pt.x : "none" ;
-                   var _center_y = ( is_point( _glob_bip_box_center_pt ) ) ? _glob_bip_box_center_pt.y : "none" ;
+                   var _center_x = is_point( _glob_bip_box_center_pt ) ? _glob_bip_box_center_pt.x : "none" ;
+                   var _center_y = is_point( _glob_bip_box_center_pt ) ? _glob_bip_box_center_pt.y : "none" ;
                    var _data_diagram_label = "" ;
                    var _coords_diagram_label = "" ;
                    switch( _glob_bip_original_plane_data )
@@ -330,42 +341,43 @@ function circles_terminal_cmd_bip()
                    }
 
                         var _open_fontcolor_tag = "", _close_fontcolor_tag = "", _MSG = "" ;
-                        _MSG += "<snow>Bip Box activated</snow> " + ( _glob_bip_use ? "<greenshock>Yes</greenshock>" : "<orange>No</orange>" ) + _glob_crlf ;
+                        _MSG += "<snow>Bip box service activated</snow> " + ( _glob_bip_use ? "<greenshock>Yes</greenshock>" : "<orange>No</orange>" ) + _glob_crlf ;
 
                         _open_fontcolor_tag = _canvas_w == 0 ? "<red>" : "<greenshock>" ;
                         _close_fontcolor_tag = _canvas_w == 0 ? "</red>" : "</greenshock>" ;
-                        _MSG += "<snow>BIP region logical width</snow> " + _open_fontcolor_tag + _canvas_w + " pixel" + ( ( _canvas_w == 1 ) ? "" : "s" ) + _close_fontcolor_tag + _glob_crlf;
+                        _MSG += "<snow>BIP box logical width</snow> " + _open_fontcolor_tag + _canvas_w + " pixel" + ( ( _canvas_w == 1 ) ? "" : "s" ) + _close_fontcolor_tag + _glob_crlf;
 
                         _open_fontcolor_tag = _canvas_h == 0 ? "<red>" : "<greenshock>" ;
                         _close_fontcolor_tag = _canvas_h == 0 ? "</red>" : "</greenshock>" ;
-                        _MSG += "<snow>BIP region logical height</snow> " + _open_fontcolor_tag + _canvas_h + " pixel" + ( ( _canvas_h == 1 ) ? "" : "s" ) + _close_fontcolor_tag + _glob_crlf ;
+                        _MSG += "<snow>BIP box logical height</snow> " + _open_fontcolor_tag + _canvas_h + " pixel" + ( ( _canvas_h == 1 ) ? "" : "s" ) + _close_fontcolor_tag + _glob_crlf ;
 
                         _open_fontcolor_tag = _glob_bip_shorterside_pixels == 0 ? "<red>" : "<greenshock>" ;
                         _close_fontcolor_tag = _glob_bip_shorterside_pixels == 0 ? "</red>" : "</greenshock>" ;
-                        _MSG += "<snow>Bip region shorter logical side</snow> " + _open_fontcolor_tag + _glob_bip_shorterside_pixels + " pixel" + ( _canvas_w == 1 ? "" : "s" ) + _close_fontcolor_tag + _glob_crlf ;
-                        _MSG += "<snow>Bip region is centered at</snow> " + ( is_point( _glob_bip_box_center_pt ) ? ( "<greenshock>x:" + _center_x + ", y:" + _center_y + "</greenshock>" ) : "<red>none</red>" )  + _glob_crlf ;
+                        _MSG += "<snow>Bip box shorter logical side</snow> " + _open_fontcolor_tag + _glob_bip_shorterside_pixels + " pixel" + ( _canvas_w == 1 ? "" : "s" ) + _close_fontcolor_tag + _glob_crlf ;
+                        
+						_MSG += "<snow>Bip cartesian region is centered at</snow> " + ( is_point( _glob_bip_box_center_pt ) ? ( "<greenshock>x:" + _center_x + ", y:" + _center_y + "</greenshock>" ) : "<red>none</red>" )  + _glob_crlf ;
 
                         _open_fontcolor_tag = _glob_bip_x_extent == 0 ? "<red>" : "<greenshock>" ;
                         _close_fontcolor_tag = _glob_bip_x_extent == 0 ? "</red>" : "</greenshock>" ;
-                        _MSG += "<snow>Bip region - cartesian X-extent</snow> " + _open_fontcolor_tag + _glob_bip_x_extent + _close_fontcolor_tag + _glob_crlf ;
+                        _MSG += "<snow>Bip cartesian region - X-extent</snow> " + _open_fontcolor_tag + _glob_bip_x_extent + _close_fontcolor_tag + _glob_crlf ;
 
                         _open_fontcolor_tag = _glob_bip_y_extent == 0 ? "<red>" : "<greenshock>" ;
                         _close_fontcolor_tag = _glob_bip_y_extent == 0 ? "</red>" : "</greenshock>" ;
-                        _MSG += "<snow>Bip region - cartesian Y-extent</snow> " + _open_fontcolor_tag + _glob_bip_y_extent + _close_fontcolor_tag + _glob_crlf ;
+                        _MSG += "<snow>Bip cartesian region - Y-extent</snow> " + _open_fontcolor_tag + _glob_bip_y_extent + _close_fontcolor_tag + _glob_crlf ;
 
-                        _MSG += "<snow>Bip region - cartesian Left-up corner</snow> " + ( _corners['lu'] != null ? ( "<greenshock>" + ( _corners['lu'].x + ", " + _corners['lu'].y ) + "</greenshock>" ) : "<red>Undetermined</red>" );
+                        _MSG += "<snow>Bip cartesian region - cartesian Left-up corner</snow> " + ( _corners['lu'] != null ? ( "<greenshock>" + ( _corners['lu'].x + ", " + _corners['lu'].y ) + "</greenshock>" ) : "<red>Undetermined</red>" );
                         _MSG += _glob_crlf ;
-                        _MSG += "<snow>Bip region - cartesian Right-down corner</snow> " + ( _corners['rd'] != null ? ( "<greenshock>" + ( _corners['rd'].x + ", " + _corners['rd'].y ) + "</greenshock>" ) : "<red>Undetermined</red>" );
+                        _MSG += "<snow>Bip cartesian region - cartesian Right-down corner</snow> " + ( _corners['rd'] != null ? ( "<greenshock>" + ( _corners['rd'].x + ", " + _corners['rd'].y ) + "</greenshock>" ) : "<red>Undetermined</red>" );
                         _MSG += _glob_crlf ;
-                        _MSG += "<snow>Bip region - Background color is</snow> " + (_canvas_bk=="transparent"?"<white>"+_canvas_bk+"</white>":_canvas_bk) + ( ( _bk_tag.length > 0 && _bk_tag != "tag.transparent" ) ? " ("+_bk_tag+")" : "" ) + _glob_crlf;
+                        _MSG += "<snow>Bip cartesian region - Background color is</snow> " + (_canvas_bk=="transparent"?"<white>"+_canvas_bk+"</white>":_canvas_bk) + ( ( _bk_tag.length > 0 && _bk_tag != "tag.transparent" ) ? " ("+_bk_tag+")" : "" ) + _glob_crlf;
 
-                        _open_fontcolor_tag = ( _glob_bip_original_plane_coords == NO_PLANE ) ? "<red>" : "<greenshock>" ;
-                        _close_fontcolor_tag = ( _glob_bip_original_plane_coords == NO_PLANE ) ? "</red>" : "</greenshock>" ;
-                        _MSG += "<snow>Coords source is</snow> " + _open_fontcolor_tag + _coords_diagram_label + _close_fontcolor_tag + _glob_crlf ;
+                        _open_fontcolor_tag = _glob_bip_original_plane_coords == NO_PLANE ? "<red>" : "<greenshock>" ;
+                        _close_fontcolor_tag = _glob_bip_original_plane_coords == NO_PLANE ? "</red>" : "</greenshock>" ;
+                        _MSG += "<snow>Pick coordinates from</snow> " + _open_fontcolor_tag + _coords_diagram_label + _close_fontcolor_tag + _glob_crlf ;
 
                         _open_fontcolor_tag = _glob_bip_original_plane_data == NO_PLANE ? "<red>" : "<greenshock>" ;
                         _close_fontcolor_tag = _glob_bip_original_plane_data == NO_PLANE ? "</red>" : "</greenshock>" ;
-                        _MSG += "<snow>Data source is</snow> " + _open_fontcolor_tag + _data_diagram_label + _close_fontcolor_tag + _glob_crlf ;
+                        _MSG += "<snow>Pick objects from </snow> " + _open_fontcolor_tag + _data_diagram_label + _close_fontcolor_tag + _glob_crlf ;
 
                         switch( _glob_export_format )
                         {
@@ -394,13 +406,10 @@ function circles_terminal_cmd_bip()
                    var _canvas_id = "TERMINALbipCANVAS" + unixtime();
                    circles_lib_terminal_html_display( _glob_terminal, "<table><tr><td HEIGHT=\"12\"></td></tr><tr><td><CANVAS WIDTH=\""+CANVAS_SIZE+"\" HEIGHT=\""+CANVAS_SIZE+"\" STYLE=\"width:100%;height:70px;\" ID=\""+_canvas_id+"\"></CANVAS></td></tr><tr><td HEIGHT=\"12\"></td></tr></table>" );
                    var _ret_chunk = circles_lib_canvas_layer_copy( "CIRCLESbipCANVAS", _canvas_id, UNDET, 70 );
-       						 var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
-          				 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
-          				 if ( _ret_id == 0 )
-          				 {
-        							_b_fail = YES, _error_str = _ret_msg ;
-          				 }
-          				 else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+       			   var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
+          		   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
+          		   if ( _ret_id == 0 ) { _b_fail = YES, _error_str = _ret_msg ; }
+          		   else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                    break ;
                    case "release":
                    circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
@@ -408,34 +417,43 @@ function circles_terminal_cmd_bip()
                    case "render":
                    _glob_persistent_vars['old_plane_type'] = _glob_target_plane ;
                    _glob_target_plane = BIP_BOX ;
-                   var _silent = ( _params_assoc_array['silent'] != null ) ? _params_assoc_array['silent'] : _glob_terminal_silent ;
+                   var _silent = _params_assoc_array['silent'] != null ? _params_assoc_array['silent'] : _glob_terminal_silent ;
                    var _ret_chunk = circles_lib_bip_render( _silent, _output_channel );
                    var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                    var _ret_msg = is_array( _ret_chunk ) ? new String( _ret_chunk[1] ) : "Rendering: memory failure" ;
                        _ret_msg = _ret_msg.trim();
                    circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
-				   _ret_msg = "Bip session has been closed after rendering, for data safety reasons." ;
-				   _ret_msg += "\nIf you want to save it, please open the bip session again" ;
-                   if ( _ret_id ) circles_lib_output( _output_channel, DISPATCH_INFO, _ret_msg, _par_1, _cmd_tag );
+				   if ( _ret_id )
+				   {
+					   _ret_msg = "Bip session has been closed after rendering, for data safety reasons." ;
+					   circles_lib_output( _output_channel, DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+					   _ret_msg = "\nIf you want to save it, please open the bip session again" ;
+					   circles_lib_output( _output_channel, DISPATCH_INFO, _ret_msg, _par_1, _cmd_tag );
+				   }
+                   else circles_lib_output( _output_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                    break ;
                    case "save":
                    var _err_mask = circles_lib_bip_check_params();
-                   _glob_bip_halt = ( _err_mask ) ? YES : NO ;
+                   _glob_bip_halt = _err_mask ? YES : NO ;
                    if ( _glob_bip_halt ) { _b_fail = YES, _error_str = "An error occurred while setting params: please, check that all values are valid" ; }
                    else
                    {
-                       var _filename = "circles.bip."  ;
-                       switch( _glob_export_format )
-                       {
-                          case EXPORT_NONE: case EXPORT_PNG: _filename += "png" ; break ;
-                          case EXPORT_SVG: _filename += "svg" ; break ;
-                          case EXPORT_PS: _filename += "ps" ; break ;
-                          case EXPORT_EPS: _filename += "eps" ; break ;
-                          case EXPORT_LATEX: _filename += "tex" ; break ;
-						  default: break ;
-                       }
-
-                       var _ret_chunk = circles_lib_files_pix_save_ask( BIP_BOX, _glob_bip_canvas, _filename );
+                       var _filename = ""  ;
+					   if ( _params_assoc_array['filename'] != null ) _filename = _params_assoc_array['filename'] ;
+					   else
+					   {
+						   _filename = "circles.bip." ;
+						   switch( _glob_export_format )
+						   {
+							  case EXPORT_NONE: case EXPORT_PNG: _filename += "png" ; break ;
+							  case EXPORT_SVG: _filename += "svg" ; break ;
+							  case EXPORT_PS: _filename += "ps" ; break ;
+							  case EXPORT_EPS: _filename += "eps" ; break ;
+							  case EXPORT_LATEX: _filename += "tex" ; break ;
+							  default: break ;
+						   }
+					   }
+                       var _ret_chunk = circles_lib_files_pix_save_ask( BIP_BOX, _glob_bip_canvas.id, _filename, YES, YES, _output_channel );
                        var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                        var _ret_msg = is_array( _ret_chunk ) ? new String( _ret_chunk[1] ).trim() : "Saving: Memory failure" ;
                        circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
@@ -472,7 +490,7 @@ function circles_terminal_cmd_bip()
                     }
                 }
                 break ;
-			          default: break ;
+			    default: break ;
             }
          }
     }
@@ -492,20 +510,20 @@ function circles_lib_terminal_bip_apply_error_manager( _tmp_applied_settings_mas
           if ( _ret_errmask & 1 ) _ret_msg += _glob_crlf + "- BIP box width is not positive" ;
           if ( _ret_errmask & 2 ) _ret_msg += _glob_crlf + "- BIP box height is not positive" ;
           if ( _ret_errmask & 4 ) _ret_msg += _glob_crlf + "- BIP box center has not been input" ;
-          if ( _ret_errmask & 8 ) _ret_msg += _glob_crlf + "- BIP box minimum side has not been input" ;
+          if ( _ret_errmask & 8 ) _ret_msg += _glob_crlf + "- BIP box shorter side has not been input" ;
           if ( _ret_errmask & 16 ) _ret_msg += _glob_crlf + "- BIP box plane has not been input" ;
           if ( _ret_errmask & 32 ) _ret_msg += _glob_crlf + "- BIP box diagram side has not been input" ;
       }
       else
       {
           _ret_msg = _glob_crlf + "The following settings have been applied:" ;
-          if ( _tmp_applied_settings_mask & 1 ) _ret_msg += _glob_crlf + "* Coords plane" ;
-          if ( _tmp_applied_settings_mask & 2 ) _ret_msg += _glob_crlf + "* Data plane" ;
+          if ( _tmp_applied_settings_mask & 1 ) _ret_msg += _glob_crlf + "* Coordinates plane" ;
+          if ( _tmp_applied_settings_mask & 2 ) _ret_msg += _glob_crlf + "* Objects plane" ;
           if ( _tmp_applied_settings_mask & 4 ) _ret_msg += _glob_crlf + "* Center" ;
           if ( _tmp_applied_settings_mask & 8 ) _ret_msg += _glob_crlf + "* Background color" ;
           if ( _tmp_applied_settings_mask & 16 ) _ret_msg += _glob_crlf + "* X-extent" ;
           if ( _tmp_applied_settings_mask & 32 ) _ret_msg += _glob_crlf + "* Y-extent" ;
-          if ( _tmp_applied_settings_mask & 64 ) _ret_msg += _glob_crlf + "* Minimum side" ;
+          if ( _tmp_applied_settings_mask & 64 ) _ret_msg += _glob_crlf + "* Shorter side" ;
       }
 
       return _ret_msg ;

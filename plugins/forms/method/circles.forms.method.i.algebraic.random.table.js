@@ -234,7 +234,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONsaveGRAPH()
 {
     html2canvas( $('#METHODprobabilityGRAPHtable').get(0),
     {
-       onrendered: function(canvas) { circles_lib_files_pix_save( NO_PLANE, canvas, "random.distribution.png" ); }
+       onrendered: function(canvas) { circles_lib_files_pix_save( NO_PLANE, canvas.id, "random.distribution.png" ); }
     });
 }
 

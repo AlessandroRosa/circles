@@ -1,34 +1,20 @@
 var _tmp_save_canvas_obj = null ;
 
-function circles_lib_files_pix_quick_save_ask( _plane_type, _merge, _filename )
+function circles_lib_files_pix_save( _plane_type, _canvas_id = "", _filename = "", _merge, _silent, _output_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    _merge = safe_int( _merge, NO );
-    if ( safe_string( _filename, _glob_export_filename ).length == 0 )
-    _filename = _glob_export_filename.length == 0 ? "circles.pix.png" : _glob_export_filename ;
-    if ( !( _filename.trim().toLowerCase().right( 4 ).is_one_of( ".png", ".pdf", ".svg", ".eps", ".ps" ) ) ) _filename += ".png" ;
-    circles_lib_files_pix_save_ask( _plane_type, _tmp_save_canvas_obj, _filename, _merge );
-}
-
-function circles_lib_files_pix_save( _plane_type, _filename, _merge, _silent, _output_channel )
-{
-    _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    _filename = safe_string( _filename, "circle.pix.png" ).toLowerCase();
-    _merge = safe_int( _merge, NO );
-    _silent = safe_int( _silent, NO );
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+	_canvas_id = safe_string( _canvas_id, "" ), _filename = safe_string( _filename, "" );
+    _merge = safe_int( _merge, NO ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _index = _plane_type == Z_PLANE ? _glob_zplane_selected_canvas_index_for_merging : _glob_wplane_selected_canvas_index_for_merging ;
+	var _canvas = $( "#"+safe_string( _canvas_id, "" ) ).get(0) ;
+	if ( _canvas_id && is_html_canvas( _canvas ) ) { _tmp_save_canvas_obj = _canvas ; _merge = NO ; }
     if ( _merge ) _tmp_save_canvas_obj = circles_lib_canvas_merge_all_per_plane( _plane_type, _index );
     
-    if ( _tmp_save_canvas_obj != null )
+	if ( _filename.length == 0 ) return [ RET_OK, "Missing file name for saving" ] ;
+    else if ( _tmp_save_canvas_obj != null )
     {
-        _tmp_save_canvas_obj.toBlob(
-        function(blob, _filename)
-        {
-             saveAs( blob, _filename );
-        }, _filename );
-
-        var _msg = "Diagram has been saved into a file with success" ;
+        _tmp_save_canvas_obj.toBlob( function(blob) { saveAs( blob, _filename ); }, _filename );
+        var _msg = "Picture has been saved into a file with success" ;
         if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
         return [ RET_OK, _msg ];
     }
@@ -40,31 +26,35 @@ function circles_lib_files_pix_save( _plane_type, _filename, _merge, _silent, _o
     }
 }
 
-function circles_lib_files_pix_save_canvas_from_ref( _plane_type, _role, _filename )
+function circles_lib_files_pix_save_canvas_from_ref( _plane_type, _role = "", _filename = "" )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     var _canvas = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_INDEX, _role );
-    circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, NO, YES, OUTPUT_SCREEN );
+    return circles_lib_files_pix_save_ask( _plane_type, _canvas.id, _filename, NO, YES, OUTPUT_SCREEN );
 }
 
-function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge, _silent, _output_channel )
+function circles_lib_files_pix_save_ask( _plane_type, _canvas_id = "", _filename = "", _merge = NO, _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-	if ( _merge ) _tmp_save_canvas_obj = circles_lib_canvas_merge_all_per_plane( _plane_type, 0 );
-    else if ( is_html_canvas( _canvas ) ) _tmp_save_canvas_obj = _canvas ;
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN ), _silent = safe_int( _silent, NO ), _merge = safe_int( _merge, NO );
+    if ( _canvas_id )
+	{
+		_tmp_save_canvas_obj = $("#"+_canvas_id).get(0) ;
+		if ( !is_html_canvas( _tmp_save_canvas_obj ) ) return [ RET_ERROR, "Invalid input canvas" ];
+		_merge = NO ;
+	}
+	if ( _merge ) _tmp_save_canvas_obj = circles_lib_canvas_merge_all_per_plane( _plane_type, 0 );
     _filename = safe_string( _filename, "circles.pix" ).replaceAll( [ "..", "-", "_" ], "." ) ;
     var _export_format = circles_lib_files_get_export_format() ;
-    var _param_add_01 = arguments[6] ;
 
     var _is_png = _export_format.is_one_of( EXPORT_NONE, EXPORT_PNG ) || _filename.toLowerCase().right(4).stricmp( ".png" );
-    var _is_svg = _export_format == EXPORT_SVG || _filename.toLowerCase().right(4).stricmp( ".svg" );
-    var _is_ps = _export_format == EXPORT_PS || _filename.toLowerCase().right(3).stricmp( ".ps" );
-    var _is_eps = _export_format == EXPORT_EPS || _filename.toLowerCase().right(4).stricmp( ".eps" );
-    var _is_pdf = _export_format == EXPORT_PDF || _filename.toLowerCase().right(4).stricmp( ".pdf" );
+    var _is_svg = _export_format == EXPORT_SVG || _filename.right(4).stricmp( ".svg" );
+    var _is_ps = _export_format == EXPORT_PS || _filename.right(3).stricmp( ".ps" );
+    var _is_eps = _export_format == EXPORT_EPS || _filename.right(4).stricmp( ".eps" );
+    var _is_pdf = _export_format == EXPORT_PDF || _filename.right(4).stricmp( ".pdf" );
     var _save_fn = "" ;
 
-    if ( ( _is_svg || _is_ps || _is_eps ) && safe_size( _glob_export_code_array, 0 ) == 0 )
+    if ( ( _is_svg || _is_ps || _is_eps || _is_pdf ) && safe_size( _glob_export_code_array, 0 ) == 0 )
     {
         var _FMT = "" ;
         if ( _is_svg ) _FMT = "SVG" ;
@@ -74,23 +64,24 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge
         var _msg = "Can't export to "+_FMT+" format: data are empty." ;
             _msg += _glob_crlf + "Please, rendering the picture again." ;
         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
-        return NO ;
+        return [ RET_ERROR, _msg ] ;
     }
 
-    if ( _is_svg ) _save_fn += "circles_lib_canvas_save_to_svg( '" + _filename + "' )"
-    else if ( _is_ps || _is_eps ) _save_fn += "circles_lib_canvas_save_to_e_ps( '" + _filename + "' )"
+    if ( _is_svg ) _save_fn += "circles_lib_canvas_save_to_svg('"+_filename+"')" ;
+    else if ( _is_ps || _is_eps ) _save_fn += "circles_lib_canvas_save_to_e_ps('"+_filename+"')" ;
     else if ( _is_pdf )
     {
     	if ( _merge ) _glob_canvas_obj_ref = _tmp_save_canvas_obj ;
 		else if ( is_html_canvas( _canvas ) ) _glob_canvas_obj_ref = _canvas ;
 		_save_fn += "circles_lib_canvas_save_to_pdf( _glob_canvas_obj_ref, '" + _filename + "', "+_silent+", "+_output_channel+" );" ;
 	}
-    else if ( _is_png ) _save_fn += "circles_lib_files_pix_save( "+_plane_type+", '"+_tmp_save_canvas_obj.id+"', '" + _filename + "', "+_merge+", "+_silent+", "+_output_channel+" )" ;
+    else if ( _is_png ) _save_fn += "circles_lib_files_pix_save( "+_plane_type+", '"+_canvas_id+"', '" + _filename + "', "+_merge+", "+_silent+", "+_output_channel+" )" ;
     else
     {
-         var _ext = _filename.includes( "." ) ? _filename.trim().split( "." ) : [];
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Unable to save: " + ( _ext.length > 0 ) ? "unknown format '"+_ext+"'" : "missing file format", _glob_app_title );
-         return ;
+        var _ext = _filename.includes( "." ) ? _filename.trim().split( "." ) : [];
+		var _msg = "Unable to save: " + ( _ext.length > 0 ) ? "unknown format '"+_ext+"'" : "missing file format" ;
+        circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        return [ RET_ERROR, _msg ] ;
     }
 
     var HTMLcode = "<table>" ;
@@ -115,7 +106,7 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge
                   HTMLcode += "<tr>" ;
                   HTMLcode += "<td><INPUT TYPE=\"checkbox\" "+( _merge ? "CHECKED" : "" )+" ONCLICK=\"javascript:"+_checkbox_cmd+"\"></td>" ;
                   HTMLcode += "<td WIDTH=\"5\"></td>" ;
-									HTMLcode += "<td>Merge layers "+( _merge ? "(the selection below will be used for merging)" : "" )+"</td>" ;
+				HTMLcode += "<td>Merge layers "+( _merge ? "(the selection below will be used for merging)" : "" )+"</td>" ;
                   HTMLcode += "</tr>" ;
                   HTMLcode += "</table>" ;
                   HTMLcode += "</td>" ;

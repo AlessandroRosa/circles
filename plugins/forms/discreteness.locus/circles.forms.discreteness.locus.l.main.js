@@ -817,7 +817,7 @@ function CIRCLESformsDISCRETENESSLOCUSsaveCOMBOonchange()
        CIRCLESformsDISCRETENESSLOCUSsaveCOORDS(NO);
        break ;
        case 2:
-       circles_lib_files_pix_save(D_LOCUS,$('#CIRCLESdlocusdiagramCANVAS').get(0),'circles.discreteness.locus.png');
+       circles_lib_files_pix_save(D_LOCUS,'CIRCLESdlocusdiagramCANVAS','circles.discreteness.locus.png');
        break ;
        case 3:
        CIRCLESformsDISCRETENESSLOCUSsaveEPSask(NO);

@@ -1,4 +1,4 @@
-function circles_lib_canvas_save_to_file( _plane_type, _canvas, _filename, _merge, _silent, _output_channel )
+function circles_lib_canvas_save_to_file( _plane_type, _canvas_id, _filename, _merge, _silent, _output_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
@@ -10,6 +10,6 @@ function circles_lib_canvas_save_to_file( _plane_type, _canvas, _filename, _merg
     else if ( _glob_export_format == EXPORT_PS ) _filename = _filename.replaceAll( ".png", ".ps" );
     else if ( _glob_export_format == EXPORT_EPS ) _filename = _filename.replaceAll( ".png", ".eps" );
     else if ( _glob_export_format == EXPORT_LATEX ) _filename = _filename.replaceAll( ".png", ".tex" );
-    var _ret = circles_lib_files_pix_save_ask( _plane_type, _canvas, _filename, _merge, _silent, _output_channel );
-    return _ret ;
+    else _filename += ".png" ;
+    return circles_lib_files_pix_save_ask( _plane_type, _canvas_id, _filename, _merge, _silent, _output_channel );
 }

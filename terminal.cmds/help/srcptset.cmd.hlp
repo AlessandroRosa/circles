@@ -1,6 +1,6 @@
 <banana>build a set of source points to feed to a word</banana>
 <white>Type param /k to return all available keywords</white>
-<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+<white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
 <lightblue>usage</lightblue> <snow>srcptset %action% %datakeywords%</snow>
 <lightblue>action</lightblue> <snow>config | del | destroy | init | ins | plane | release | run | shape | word</snow>

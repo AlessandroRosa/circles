@@ -111,6 +111,7 @@ var saveAs = saveAs
 				, slice
 			;
 			filesaver.readyState = filesaver.INIT;
+			console.log( "SAVE AS", name );
 			if (!name) {
 				name = "download";
 			}

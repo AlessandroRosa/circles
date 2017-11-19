@@ -1,6 +1,6 @@
 <banana>Mobius maps management</banana>
 <white>Type param /k to return all available keywords</white>
-<white>Type param /h for help in the terminal or /h html in a separate pop-up</white>
+<white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
 <lightblue>usage</lightblue> <snow>mobius %action% %property% %label% %all% %invlabel% %index% %a% %b% %c% %d% %linethickness% %fill% %draw% %file%</snow>
 
