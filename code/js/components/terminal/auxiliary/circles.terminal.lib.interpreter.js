@@ -98,7 +98,7 @@ function circles_lib_terminal_load_cmd( _expression, _params_str, _output_channe
 
        return _ret_cmd ;
     }
-    else return [ RET_ERROR, "Fail to load cmd " + _cmd_tag + " : missing or corrupted component" ] ;
+    else return [ RET_ERROR, "Fail to load cmd " + _cmd_tag + " : missing or corrupted command" ] ;
 }
 
 function circles_lib_process_cmd( _cmd_tag, _params_str, _output_channel, _cmd_mode, _caller_id )

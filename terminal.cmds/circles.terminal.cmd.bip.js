@@ -145,6 +145,7 @@ function circles_terminal_cmd_bip()
             else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
             {
                 _params_assoc_array['center'] = _p ;
+				console.log( _params_assoc_array['center'] );
                 var _str = _params_assoc_array['center'].replaceAll( [ "(", ")" ], "" );
                 var _separator = ( _str.includes( "," ) ) ? "," : ( _str.includes( ";" ) ? ";" : "" );
                 if ( _separator.length == 1 )
@@ -242,7 +243,7 @@ function circles_terminal_cmd_bip()
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip box coordinates has been acquired from " + circles_lib_plane_get_def( _glob_bip_original_plane_coords ) + " with success", _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - cartesian X extent is "+_glob_bip_x_extent, _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - cartesian Y extent is "+_glob_bip_y_extent, _par_1, _cmd_tag );
-                      circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box is centered at cartesian "+_glob_bip_box_center_pt.output(), _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - center at "+_glob_bip_box_center_pt.output(), _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box shorter side in pixels : "+_glob_bip_shorterside_pixels, _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - left up corner : "+( _corners['lu'] != null ? ( ( _corners['lu'].x + ", " + _corners['lu'].y ) ) : "undefined" ), _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - right down corner : "+( _corners['rd'] != null ? ( ( _corners['rd'].x + ", " + _corners['rd'].y ) ) : "undefined" ), _par_1, _cmd_tag );
@@ -355,7 +356,7 @@ function circles_terminal_cmd_bip()
                         _close_fontcolor_tag = _glob_bip_shorterside_pixels == 0 ? "</red>" : "</greenshock>" ;
                         _MSG += "<snow>Bip box shorter logical side</snow> " + _open_fontcolor_tag + _glob_bip_shorterside_pixels + " pixel" + ( _canvas_w == 1 ? "" : "s" ) + _close_fontcolor_tag + _glob_crlf ;
                         
-						_MSG += "<snow>Bip cartesian region is centered at</snow> " + ( is_point( _glob_bip_box_center_pt ) ? ( "<greenshock>x:" + _center_x + ", y:" + _center_y + "</greenshock>" ) : "<red>none</red>" )  + _glob_crlf ;
+						_MSG += "<snow>Bip cartesian region - center at</snow> " + ( is_point( _glob_bip_box_center_pt ) ? ( "<greenshock>x:" + _center_x + ", y:" + _center_y + "</greenshock>" ) : "<red>none</red>" )  + _glob_crlf ;
 
                         _open_fontcolor_tag = _glob_bip_x_extent == 0 ? "<red>" : "<greenshock>" ;
                         _close_fontcolor_tag = _glob_bip_x_extent == 0 ? "</red>" : "</greenshock>" ;
@@ -436,6 +437,7 @@ function circles_terminal_cmd_bip()
                    var _err_mask = circles_lib_bip_check_params();
                    _glob_bip_halt = _err_mask ? YES : NO ;
                    if ( _glob_bip_halt ) { _b_fail = YES, _error_str = "An error occurred while setting params: please, check that all values are valid" ; }
+				   else if ( _glob_worker_lock ) { _b_fail = YES, _error_str = "Fail to save BIP box data into a picture: a process is still running" ; }
                    else
                    {
                        var _filename = ""  ;

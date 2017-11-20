@@ -337,23 +337,23 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
 		}
 		else if ( _workarea == MULTITHREADING_OBJ_WORKAREA_DICTIONARY ) // dictionary operations
 		{
-		   _glob_worker = new Worker( "code/js/components/multi.threading/circles.multi.threading.worker.dictionary.core.js" );
- 			 CIRCLESmultithreadingADDresizingLISTENER();
-			 _startINDEX = 0;
-       _glob_process_running_flag = YES ;
-       var _caller_id = _options_chunk[ _startINDEX ] ;
-			 _startINDEX++ ;
-       _opcode = safe_float( _options_chunk[ _startINDEX ], 0 );
+			_glob_worker = new Worker( "code/js/components/multi.threading/circles.multi.threading.worker.dictionary.core.js" );
+ 			CIRCLESmultithreadingADDresizingLISTENER();
+			_startINDEX = 0;
+			_glob_process_running_flag = YES ;
+			var _caller_id = _options_chunk[ _startINDEX ] ;
+			_startINDEX++ ;
+			_opcode = safe_float( _options_chunk[ _startINDEX ], 0 );
 
-			 CIRCLESmultithreadingADDdictionaryLISTENER();
-			 var _msg = "" ;
-			 if( _opcode == 0.1 ) _msg = "Building the dictionary" ;
-			 else if ( _opcode >= 1.1 && _opcode <= 3.3 ) _msg = "Filtering the dictionary" ;
-			 else if( _opcode == 4.0 ) _msg = "Inversion of the dictionary" ;
-			 else _msg = "Unknown operation" ;
+			CIRCLESmultithreadingADDdictionaryLISTENER();
+			var _msg = "" ;
+			if( _opcode == 0.1 ) _msg = "Building the dictionary" ;
+			else if ( _opcode >= 1.1 && _opcode <= 3.3 ) _msg = "Filtering the dictionary" ;
+			else if( _opcode == 4.0 ) _msg = "Inversion of the dictionary" ;
+			else _msg = "Unknown operation" ;
 
- 			 if ( _output_channel == OUTPUT_SCREEN )
-       {
+ 			if ( _output_channel == OUTPUT_SCREEN )
+			{
            var HTMLcode = "<table STYLE=\"background-color:white;width:100%;\" ALIGN=\"center\">" ;
 							 HTMLcode += "<tr><td HEIGHT=\"15\"></td></tr>" ;
     					 HTMLcode += "<tr><td WIDTH=\"15\"></td><td VALIGN=\"top\"><IMG SRC=\""+_glob_path_to_support+"img/wait/wait.animated.gif\"></td><td WIDTH=\"25\"></td><td VALIGN=\"middle\">"+_msg+"</td></tr>" ;

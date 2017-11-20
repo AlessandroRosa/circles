@@ -50,6 +50,9 @@
 <lightblue>bip yextent 12</lightblue>
 <cadetblue>set height 4 units for coords diagram</cadetblue>
 
+<lightblue>bip center (0,-0.5)</lightblue>
+<cadetblue>set the center of the cartesian region for the BIP box at x:0 and y:-0.5</cadetblue>
+
 <lightblue>bip shorterside 400</lightblue>
 <cadetblue>set 400 pixels for the shortest side of the bip box</cadetblue>
 

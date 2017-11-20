@@ -2,11 +2,8 @@
 * plugin : after dropdown selections of preset config, grid of
   z-plane and of w-plane shall be redrawn again
 
-* bip cmd : bip shorterside 400
-            sets x-extent instead
-
 * terminal cmds:
-  last cmd checked: benchmark
+  last cmd checked: bip
 
 * Listings:
   - run and test all listings

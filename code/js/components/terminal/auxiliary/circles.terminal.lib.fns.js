@@ -230,8 +230,7 @@ function circles_lib_terminal_cmdfile_exists( _expression )
     }
     else
     {
-       var _msg = "Missing or corrupted component '"+_cmd_tag+"'" ;
-       circles_lib_log_add_entry( _msg, LOG_ERROR );
+       circles_lib_log_add_entry( "Missing or corrupted command '"+_cmd_tag+"'", LOG_ERROR );
        return NO ;
     }
 }

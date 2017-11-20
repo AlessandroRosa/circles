@@ -27,11 +27,11 @@ function CIRCLESformsTRIGGERSmain( _base_id, _move )
        HTMLcode += "<td WIDTH=\"15\"></td>" ;
        HTMLcode += "<td>Run</td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td WIDTH=\"20\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_triggers_open_all();\">All</td>" ;
+       HTMLcode += "<td WIDTH=\"20\" CLASS=\"link_rounded\" ID=\"circles_lib_triggers_allBTN\" ONCLICK=\"javascript:circles_lib_triggers_open_all();\">All</td>" ;
        HTMLcode += "<td WIDTH=\"1\"></td>" ;
-       HTMLcode += "<td WIDTH=\"50\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_triggers_open_all_automated_entries();\">Auto only</td>" ;
+       HTMLcode += "<td WIDTH=\"50\" CLASS=\"link_rounded\" ID=\"circles_lib_triggers_autoonlyBTN\" ONCLICK=\"javascript:circles_lib_triggers_open_all_automated_entries();\">Auto only</td>" ;
        HTMLcode += "<td WIDTH=\"10\"></td>" ;
-       HTMLcode += "<td WIDTH=\"35\" CLASS=\"link_rounded\" ID=\"circles_lib_triggers__renderBTN\" ONCLICK=\"javascript:circles_lib_canvas_process_ask(YES,NO,_glob_target_plane,YES,YES,CHECK);\">Render</td>" ;
+       HTMLcode += "<td WIDTH=\"35\" CLASS=\"link_rounded\" ID=\"circles_lib_triggers_renderBTN\" ONCLICK=\"javascript:circles_lib_canvas_process_ask(YES,NO,_glob_target_plane,YES,YES,CHECK);\">Render</td>" ;
        HTMLcode += "</tr></table>" ;
 			 HTMLcode += "</td>" ;
        HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;

@@ -205,7 +205,7 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
                 break ;
 		        }
 
-            $('[id$=renderBTN]').css('color',DEFAULT_COLOR_STD);
+            $("[id$=renderBTN]").css('color',DEFAULT_COLOR_STD);
             $("[id$=renderBTN]").filter( function(){ return !this.id.start_with( "PLUGIN" ) } ).attr( "class", "link_rounded" );
 		        break ;
 		        case "finish" :
