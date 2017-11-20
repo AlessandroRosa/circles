@@ -1,4 +1,7 @@
 ------------ APP -------------------------------------------------
+* merge features of 'bk' and 'color' cmd into 'console' cmd
+  and remove both 'bk' and 'color', together with respective .hlp files
+
 * plugin : after dropdown selections of preset config, grid of
   z-plane and of w-plane shall be redrawn again
 

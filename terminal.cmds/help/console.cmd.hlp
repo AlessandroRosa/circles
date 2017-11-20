@@ -2,7 +2,8 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>console %where% %action%</snow>
+<lightblue>usage</lightblue>
+<slategray>Console position</slategray> <snow>console %where% %action%</snow>
 
 <lightblue>%action%</lightblue> <snow>history | resize</snow>
 <lightblue>%where%</lightblue> <snow>left | right | top | bottom</snow>
@@ -12,6 +13,8 @@
 
 <lightblue>console bottom left</lightblue>
 <cadetblue>move console to the bottom left corner of the screen</cadetblue>
+
+<slategray>Actions</slategray> <snow>console %action def% %action value%</snow>
 
 <lightblue>console history 10</lightblue>
 <cadetblue>return the latest 10 cmds in the batch compiler tab</cadetblue>
@@ -27,6 +30,24 @@
 
 <lightblue>console resize 50% 300</lightblue>
 <cadetblue>(mixed) resize terminal viewport width to 80% of browser viewport and height to 300px respectively</cadetblue>
+
+<lightblue>console reset</lightblue>
+<cadetblue>restore default graphic settings of the console</cadetblue>
+
+<lightblue>console colorlist</lightblue>
+<cadetblue>show the complete list of available color tags</cadetblue>
+
+<lightblue>console font arial</lightblue>
+<cadetblue>set console font family</cadetblue>
+
+<lightblue>console textcolor lime</lightblue>
+<cadetblue>set console font color (color tag)</cadetblue>
+
+<lightblue>console bk #121212</lightblue>
+<cadetblue>set console background color (hex syntax)</cadetblue>
+
+<lightblue>console textcolor rgb(0,255,255)</lightblue>
+<cadetblue>set console background color (rgb syntax)</cadetblue>
 
 <lightblue>console release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>

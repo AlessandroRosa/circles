@@ -27,7 +27,6 @@ function circles_terminal_cmd_console()
              _params_assoc_array['y'] = null ;
              _params_assoc_array['w'] = null ;
              _params_assoc_array['h'] = null ;
-             _params_assoc_array['reset'] = 0 ;
              _params_assoc_array['action'] = "" ;
              _params_assoc_array['history'] = 0 ;
 
@@ -35,8 +34,9 @@ function circles_terminal_cmd_console()
          _params_array.clean_from( " " ); 
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "bottom", "default", "history", "left", "nohelp",
+    				 _local_cmds_params_array.push( "bottom", "default", "history", "left", "nohelp", "colorlist",
                                             "right", "reset", "resize", "screenfit", "top",
+											"font", "textcolor", "bk", "fontsize",
                                             "maxi", "mini", "wide", "long", "release", "html" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
@@ -46,16 +46,14 @@ function circles_terminal_cmd_console()
               if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "history", "resize", "release" ) ) _params_assoc_array['action'] = _p ;
+              else if ( _p.is_one_of_i( "colorlist", "history", "resize", "release", "reset" ) ) _params_assoc_array['action'] = _p ;
+			  else if ( _p.is_one_of( "font", "textcolor", "bk", "fontsize" ) )
+			  {
+				  _params_assoc_array['propdef'] = _p ;
+				  _params_assoc_array['action'] = "apply" ;
+			  }
+			  else if ( _params_assoc_array['propdef'] != null ) _params_assoc_array['propval'] = _p ;
               else if ( _p.stricmp( "nohelp" ) ) _params_assoc_array['nohelp'] = YES ;
-              else if ( _p.stricmp( "reset" ) )
-              {
-                   _params_assoc_array['reset'] = 1 ;
-                   _params_assoc_array['color'] = DEFAULT_FONT_COLOR ;
-                   _params_assoc_array['bk'] = DEFAULT_BK_COLOR ;
-                   _params_assoc_array['family'] = DEFAULT_FONT_FAMILY ;
-                   _params_assoc_array['size'] = DEFAULT_FONT_SIZE ;
-              }
               else if ( _p.is_one_of_i( "left", "right" ) ) _params_assoc_array['x'] = _p ;
               else if ( _p.is_one_of_i( "maxi", "mini", "wide", "long" ) ) _params_assoc_array['consolesize'] = _p ;
               else if ( _p.is_one_of_i( "top", "bottom", "default", "screenfit" ) ) _params_assoc_array['y'] = _p ;
@@ -120,7 +118,7 @@ function circles_terminal_cmd_console()
                        circles_lib_output( _output_channel, DISPATCH_INFO, "Invalid Y-pos for '"+_consolesize+"': reset to 'top'", _par_1, _cmd_tag );
                        _params_assoc_array['y'] = "top" ;
                        break ;
-							         default: break ;
+					   default: break ;
                    }
 
                    CIRCLESformsTERMINALresize( _w, _h, _glob_terminal_form_suffix, _output_channel );
@@ -128,8 +126,61 @@ function circles_terminal_cmd_console()
               else
               {
                    var _action = _params_assoc_array['action'].toLowerCase();
+				  console.log( "IN", _action );
                    switch( _action )
                    {
+					   case "apply":
+					   switch( _params_assoc_array['propdef'] )
+					   {
+						   case "font":
+						  $("#"+_glob_terminal_current_id).css( "font-family", _params_assoc_array['propval'] );
+						   break ;
+						   case "textcolor":
+						  $("#"+_glob_terminal_current_id).css( "color", _params_assoc_array['propval'] );
+						   break ;
+						   case "bk":
+						   $("#"+_glob_terminal_current_id).css( "background-color", _params_assoc_array['propval'] );
+						   break ;
+						   case "fontsize":
+						  $("#"+_glob_terminal_current_id).css( "font-size", _params_assoc_array['propval'] );
+						   break ;
+						   default:
+						   break ;
+					   }
+					   break ;
+					   case "colorlist":
+                          var _columns = 5, _counter = 0, _color_name = "", _row = "", _text = "" ;
+						  
+                               for( var _key in def_clrs_tags )
+                               {
+								   console.log( _key );
+                                   if ( _key.start_with( "tag." ) )
+                                   {
+                                      _color_name = _key.replaceAll( "tag.", "" );
+                                      _p_color = def_clrs_tags[_key] ;
+                                      _color_tagged_entry = "<"+_color_name+">" + _color_name + "</"+_color_name+">" ;
+                                      _color_name = _color_tagged_entry + ( new String( " ").repeat( 16 - _color_name.length ) );
+                                      _row += _color_name ;
+                                      _counter++ ;
+                                      if ( _counter == _columns )
+                                      {
+                                         _text += _row + _glob_crlf ;
+                                         _counter = 0 ;
+                                         _row = "" ;
+                                      }
+                                   }
+                               }
+
+                               if ( _counter != _columns )
+                               {
+                                  _text += _row + _glob_crlf ;
+                                  _counter = 0 ;
+                                  _row = "" ;
+                               }
+
+                             if ( _params_assoc_array['html'] ) circles_lib_output( _output_channel, DISPATCH_INFO, LANG_MSG_00, _par_1, _cmd_tag );
+                             _params_assoc_array['html'] ? circles_lib_terminal_color_decode_htmltext( _text, _cmd_tag ) : circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _text, _par_1, _cmd_tag );
+					   break ;
                        case "history":
                        if ( _output_channel == OUTPUT_TERMINAL )
                        {
@@ -154,6 +205,13 @@ function circles_terminal_cmd_console()
                       case "release":
                       circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                       break ;
+					  case "reset":
+					  $("#"+_glob_terminal_current_id).css( "background-color", DEFAULT_TERMINAL_BKCOLOR );
+					  $("#"+_glob_terminal_current_id).css( "color", DEFAULT_TERMINAL_PROMPTCOLOR );
+					  $("#"+_glob_terminal_current_id).css( "font-family", DEFAULT_TERMINAL_FONT_FAMILY );
+					  $("#"+_glob_terminal_current_id).css( "font-size", DEFAULT_TERMINAL_FONT_SIZE );
+					  circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Console parameters have been reset with success", _par_1, _cmd_tag );
+					  break ;
                        case "resize":
                        if ( _params_assoc_array['w'] != null && _params_assoc_array['h'] != null )
                        {
@@ -194,7 +252,7 @@ function circles_terminal_cmd_console()
                            _b_fail = YES, _error_str = "Missing input size params" ;
                        }
                        break ;
-								       default:
+					   default:
                        if ( _params_assoc_array['x'].length > 0 || _params_assoc_array['y'].length > 0 )
                        move_div( circles_lib_plugin_build_divid( "forms", "terminal" ) + _glob_terminal_form_suffix, _params_assoc_array['x'], _params_assoc_array['y'] );
                        else circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to apply command 'console'.\nMissing action specification", _par_1, _cmd_tag );

@@ -43,7 +43,7 @@
         background-color: #000;
         color: #aaa;
   }
-  50% {
+  50%{
         background-color: #bbb; /* not #aaa because it's seem there is Google Chrome bug */
         color: #000;
   }

@@ -54,7 +54,7 @@ function circles_terminal_cmd_color()
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else if ( _p.is_one_of_i( "bk", "colorize", "decolorize", "release", "show" ) ) _params_assoc_array['action'] = _p ;
-            else if ( _p.is_one_of_i( "default", "reset" ) ) _params_assoc_array['color'] = DEFAULT_FONT_COLOR ;
+            else if ( _p.is_one_of_i( "default", "reset" ) ) _params_assoc_array['color'] = DEFAULT_TERMINAL_PROMPTCOLOR ;
             else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
             else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
             else if ( circles_lib_colors_is_def( _p ) ) _params_assoc_array['color'] = _p ;

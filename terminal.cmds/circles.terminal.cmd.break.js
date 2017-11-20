@@ -18,13 +18,12 @@ function circles_terminal_cmd_break()
      var _fn_ret_val = null ;
      var _params_assoc_array = [];
 
-     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     else if ( _output_channel != OUTPUT_SCRIPT )
-     {
-		 			_b_fail = YES, _error_str = "Invalid context: "+_cmd_tag+" cmd can be used inside scripts only" ;
-	   }
-     
-		 if ( _params.length > 0 )
+    if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    else if ( _output_channel != OUTPUT_SCRIPT )
+    {
+		_b_fail = YES, _error_str = "Invalid context: '"+_cmd_tag+"' cmd can be used inside scripts exclusively" ;
+	}
+	else if ( _params.length > 0 )
      {
          _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['keywords'] = NO ;
