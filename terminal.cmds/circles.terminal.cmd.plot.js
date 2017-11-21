@@ -293,11 +293,11 @@ function circles_terminal_cmd_plot()
                       {
                            case "zplane":
 													 _mapper = zplane_sm ;
-													 _context = _glob_zplane_work_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode ) ;
+													 _context = _glob_zplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ) ;
                            break ;
                            case "wplane":
 													 _mapper = wplane_sm ;
-													 _context = _glob_wplane_work_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode ) ;
+													 _context = _glob_wplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ) ;
                            break ;
 				 					         default: break ;
                       }

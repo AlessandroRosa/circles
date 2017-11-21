@@ -1,6 +1,6 @@
 function circles_lib_canvas_after_process_main()
 {
-     _glob_last_pt = _glob_density_scan_flag ? CIRCLESmultithreadingDENSITYscanner(_glob_wplane_rendering_canvas_placeholder,_glob_density_weight_coeff) : _glob_rec_canvas_entities_array.get_last() ;
+     _glob_last_pt = _glob_density_scan_flag ? CIRCLESmultithreadingDENSITYscanner(_glob_wplane_rendering_layer_placeholder,_glob_density_weight_coeff) : _glob_rec_canvas_entities_array.get_last() ;
      // _glob_last_pt is returned as an object, not as a complex number
      _glob_last_pt = ( _glob_last_pt != null && _glob_last_pt.x != null ) ? new complex( _glob_last_pt.x, _glob_last_pt.y ) : null ;
      if ( _glob_scheduled_rendering_flag )
@@ -54,9 +54,9 @@ function circles_lib_canvas_after_process_main()
      var _canvas = null ; 
 		 if (_glob_bip_use) _canvas = _glob_bip_canvas ;
 		 else if ( _glob_target_plane == D_LOCUS ) _canvas = $( "#CIRCLESdlocusdiagramCANVAS" ).get(0) ;
-		 else if ( _glob_target_plane == W_PLANE ) _canvas = _glob_wplane_rendering_canvas_placeholder ;
-		 else if ( _glob_target_plane == Z_PLANE ) _canvas = _glob_zplane_rendering_canvas_placeholder ;
-		 else _canvas = _glob_wplane_rendering_canvas_placeholder ;
+		 else if ( _glob_target_plane == W_PLANE ) _canvas = _glob_wplane_rendering_layer_placeholder ;
+		 else if ( _glob_target_plane == Z_PLANE ) _canvas = _glob_zplane_rendering_layer_placeholder ;
+		 else _canvas = _glob_wplane_rendering_layer_placeholder ;
 		 
      var _plane_type = safe_size( _canvas.get_type(), NO_PLANE ), _sm = _glob_bip_use ? bipbox_sm : wplane_sm ;
      
@@ -130,13 +130,13 @@ function circles_lib_canvas_after_process_figures( _filter_array, _b_clean, _pla
     if ( !is_array( _filter_array ) ) _filter_array = [] ;
     _b_clean = safe_int( _b_clean, NO );
 
-    if ( _b_clean && _plane_type.is_one_of( NO_PLANE, Z_PLANE ) ) circles_lib_canvas_clean( _glob_zplane_freedraw_canvas_placeholder );
-    if ( _b_clean && _plane_type.is_one_of( NO_PLANE, W_PLANE ) ) circles_lib_canvas_clean( _glob_wplane_freedraw_canvas_placeholder );
+    if ( _b_clean && _plane_type.is_one_of( NO_PLANE, Z_PLANE ) ) circles_lib_canvas_clean( _glob_zplane_freedraw_layer_placeholder );
+    if ( _b_clean && _plane_type.is_one_of( NO_PLANE, W_PLANE ) ) circles_lib_canvas_clean( _glob_wplane_freedraw_layer_placeholder );
     if ( _b_clean && _plane_type.is_one_of( NO_PLANE, BIP_BOX ) ) circles_lib_canvas_clean( _glob_bip_canvas );
 
      if ( safe_size( _glob_figures_array, 0 ) > 0 )
      {
-          var _canvas = circles_lib_canvas_get_exists( _plane_type, "figures" ) ? circles_lib_canvas_get_target( _plane_type, "figures" ) : ( _plane_type == Z_PLANE ? _glob_zplane_freedraw_canvas_placeholder : _glob_wplane_freedraw_canvas_placeholder );
+          var _canvas = circles_lib_canvas_get_exists( _plane_type, "figures" ) ? circles_lib_canvas_get_target( _plane_type, "figures" ) : ( _plane_type == Z_PLANE ? _glob_zplane_freedraw_layer_placeholder : _glob_wplane_freedraw_layer_placeholder );
           switch( _glob_export_format )
           {
               case EXPORT_SVG: _svg_comment( _glob_export_code_array, "DRAWING ADDITIONAL FIGURES" ); break ;

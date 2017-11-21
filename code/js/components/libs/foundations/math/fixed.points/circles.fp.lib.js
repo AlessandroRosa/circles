@@ -296,15 +296,15 @@ function circles_lib_fixedpoints_connect( _plane_type, _clean, _showtext, _outpu
     else
     {
           var _b_fail = NO, POINTSarray = [], _context, _sm, _chunk, _pt, _word ;
-          var _canvas = circles_lib_canvas_get_exists( _plane_type, "fixedpoints" ) ? circles_lib_canvas_get_target( _plane_type, "fixedpoints" ) : ( _plane_type == Z_PLANE ? _glob_zplane_freedraw_canvas_placeholder : _glob_wplane_freedraw_canvas_placeholder );
+          var _canvas = circles_lib_canvas_get_exists( _plane_type, "fixedpoints" ) ? circles_lib_canvas_get_target( _plane_type, "fixedpoints" ) : ( _plane_type == Z_PLANE ? _glob_zplane_freedraw_layer_placeholder : _glob_wplane_freedraw_layer_placeholder );
           var _fontsize = Math.min( 12, Math.max( 5, safe_int( _canvas.get_width() / 12, 10 ) ) );
           var _shift_x_canvas = 5, _shift_y_canvas = 5 ;
           var _fontstyle = _fontsize + + "pt " + DEFAULT_FONT_FAMILY ;
 
           if ( _clean )
           {
-              if ( _plane_type == Z_PLANE ) circles_lib_canvas_clean( _glob_zplane_freedraw_canvas_placeholder, "transparent" );
-              if ( _plane_type == W_PLANE ) circles_lib_canvas_clean( _glob_wplane_freedraw_canvas_placeholder, "transparent" );
+              if ( _plane_type == Z_PLANE ) circles_lib_canvas_clean( _glob_zplane_freedraw_layer_placeholder, "transparent" );
+              if ( _plane_type == W_PLANE ) circles_lib_canvas_clean( _glob_wplane_freedraw_layer_placeholder, "transparent" );
           }
 
           for( var _x = 0 ; _x < _fp_n ; _x++ )
@@ -322,12 +322,12 @@ function circles_lib_fixedpoints_connect( _plane_type, _clean, _showtext, _outpu
                {
                    if ( _plane_type == Z_PLANE )
                    {
-                       _context = _glob_zplane_freedraw_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                       _context = _glob_zplane_freedraw_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
                        _sm = zplane_sm ;
                    }
                    else if ( _plane_type == W_PLANE )
                    {
-                       _context = _glob_wplane_freedraw_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                       _context = _glob_wplane_freedraw_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
                        _sm = wplane_sm ;
                    }
 
@@ -344,12 +344,12 @@ function circles_lib_fixedpoints_connect( _plane_type, _clean, _showtext, _outpu
           {
                if ( _plane_type == Z_PLANE )
                {
-                    _context = _glob_zplane_freedraw_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                    _context = _glob_zplane_freedraw_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
                     circles_lib_draw_polyline( _context, zplane_sm, POINTSarray, DEFAULT_FREEDRAW_COLOR, "transparent", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
                }
                else if ( _plane_type == W_PLANE )
                {
-                    _context = _glob_wplane_freedraw_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                    _context = _glob_wplane_freedraw_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
                     circles_lib_draw_polyline( _context, wplane_sm, POINTSarray, DEFAULT_FREEDRAW_COLOR, "transparent", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
                }
           }
@@ -368,10 +368,10 @@ function circles_lib_fixedpoints_locate( _i, _plane_type, _clean, _showtext, _ou
     else if ( !_plane_type.is_one_of( Z_PLANE, W_PLANE ) ) return [ RET_WARNING, "Missing plane reference" ];
     else
     {
-          if ( _plane_type == Z_PLANE && _clean ) circles_lib_canvas_clean( _glob_wplane_freedraw_canvas_placeholder, "transparent" );
-          if ( _plane_type == W_PLANE && _clean ) circles_lib_canvas_clean( _glob_zplane_freedraw_canvas_placeholder, "transparent" );
+          if ( _plane_type == Z_PLANE && _clean ) circles_lib_canvas_clean( _glob_wplane_freedraw_layer_placeholder, "transparent" );
+          if ( _plane_type == W_PLANE && _clean ) circles_lib_canvas_clean( _glob_zplane_freedraw_layer_placeholder, "transparent" );
           var chunk, _pt, _context, _shift_x_canvas = 5, _shift_y_canvas = 5, _word ;
-          var _canvas = circles_lib_canvas_get_exists( _plane_type, "fixedpoints" ) ? circles_lib_canvas_get_target( _plane_type, "fixedpoints" ) : ( _plane_type == Z_PLANE ? _glob_zplane_freedraw_canvas_placeholder : _glob_wplane_freedraw_canvas_placeholder );
+          var _canvas = circles_lib_canvas_get_exists( _plane_type, "fixedpoints" ) ? circles_lib_canvas_get_target( _plane_type, "fixedpoints" ) : ( _plane_type == Z_PLANE ? _glob_zplane_freedraw_layer_placeholder : _glob_wplane_freedraw_layer_placeholder );
           var _fontsize = Math.min( 12, Math.max( 5, safe_int( _canvas.get_width() / 12, 10 ) ) );
           var _check_fp ;
 
@@ -391,7 +391,7 @@ function circles_lib_fixedpoints_locate( _i, _plane_type, _clean, _showtext, _ou
                       _fp_coords.push( _pt );
                       if ( _plane_type == Z_PLANE )
                       {
-                          _context = _glob_zplane_freedraw_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                          _context = _glob_zplane_freedraw_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
                           circles_lib_draw_point( _context, zplane_sm, _pt.x, _pt.y,
                                             YES, _glob_draw_seed_color, YES, _glob_fill_seed_color,
                                             _glob_pt_border, _glob_pt_radius, DEFAULT_MAX_OPACITY, 0 );
@@ -403,7 +403,7 @@ function circles_lib_fixedpoints_locate( _i, _plane_type, _clean, _showtext, _ou
                       }
                       else if ( _plane_type == W_PLANE )
                       {
-                          _context = _glob_wplane_freedraw_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                          _context = _glob_wplane_freedraw_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
                           circles_lib_draw_point( _context, wplane_sm, _pt.x, _pt.y,
                                             YES, _glob_draw_seed_color, YES, _glob_fill_seed_color,
                                             _glob_pt_border, _glob_pt_radius, DEFAULT_MAX_OPACITY, 0 );

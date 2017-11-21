@@ -76,8 +76,8 @@ function circles_terminal_cmd_savepix()
                   var _canvas = null ;
                   switch( _plane_type )
                   {
-                       case Z_PLANE: _canvas = _glob_zplane_rendering_canvas_placeholder; break ;
-                       case W_PLANE: _canvas = _glob_wplane_rendering_canvas_placeholder ; break ;
+                       case Z_PLANE: _canvas = _glob_zplane_rendering_layer_placeholder; break ;
+                       case W_PLANE: _canvas = _glob_wplane_rendering_layer_placeholder ; break ;
                        case BIP_BOX: _canvas = _glob_bip_canvas ; break ;
                        case D_LOCUS: _canvas = $( "#CIRCLESdlocusdiagramCANVAS" ).get(0) ; break ;
                        default: _b_fail = YES, _error_str = "Can't save: please, choose Z-plane or W-plane" ; break ;

@@ -258,7 +258,7 @@ function CIRCLESformsINTERSECTIONPOINTSfind( _mark_points )
               $("#intersectionpointsRESULTcontainer").html( HTMLcode );
               if ( _mark_points && N > 0 )
               {
-                   var context = _glob_zplane_rendering_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                   var context = _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
                    if ( N >= 1 )
                    {
                         var pt = RET['pt1'] ;

@@ -455,7 +455,7 @@ function CIRCLESformsGENERALOPTIONSextrasTAB()
           HTMLcode += "</tr>" ;
           HTMLcode += "<tr><td HEIGHT=\"3\"></td><tr>" ;
 
-  				var _smpr_perc = safe_int( _glob_smpr / _glob_zplane_rendering_canvas_placeholder.get_width() * 100.0, 1 );
+  				var _smpr_perc = safe_int( _glob_smpr / _glob_zplane_rendering_layer_placeholder.get_width() * 100.0, 1 );
           HTMLcode += "<tr>" ;
           HTMLcode += "<td VALIGN=\"top\">" ;
           HTMLcode += "<table>" ;

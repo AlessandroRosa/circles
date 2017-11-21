@@ -395,7 +395,7 @@ function circles_lib_coordinates_reset_core( _plane_type, _render, _question, _s
     {
         var _canvas = null ;
         if ( _plane_type == BIP_BOX ) _canvas = _glob_bip_canvas ;
-        else if ( _plane_type.is_one_of( W_PLANE, ALL_PLANES ) ) _canvas = _glob_wplane_rendering_canvas_placeholder ;
+        else if ( _plane_type.is_one_of( W_PLANE, ALL_PLANES ) ) _canvas = _glob_wplane_rendering_layer_placeholder ;
           
         if ( _glob_interface_index == INTERFACE_EXTEND_NONE )
         {

@@ -42,18 +42,18 @@ var _glob_mouse_prev = [ 0, 0 ], _glob_mouse_curr = [ 0, 0 ] ;
 var _glob_mouse_dx = 0, _glob_mouse_dy = 0 ;
 var _glob_canvas_bounding_rect = null ;
 
-var _glob_zplane_topmost_canvas_placeholder = null ;
-var _glob_wplane_topmost_canvas_placeholder = null ;
+var _glob_zplane_topmost_layer_placeholder = null ;
+var _glob_wplane_topmost_layer_placeholder = null ;
 
-var _glob_zplane_grid_canvas_placeholder = null ;
-var _glob_zplane_rendering_canvas_placeholder = null ;
-var _glob_zplane_freedraw_canvas_placeholder = null ;
-var _glob_zplane_work_canvas_placeholder = null ;
+var _glob_zplane_grid_layer_placeholder = null ;
+var _glob_zplane_rendering_layer_placeholder = null ;
+var _glob_zplane_freedraw_layer_placeholder = null ;
+var _glob_zplane_work_layer_placeholder = null ;
 
-var _glob_wplane_grid_canvas_placeholder = null ;
-var _glob_wplane_rendering_canvas_placeholder = null ;
-var _glob_wplane_freedraw_canvas_placeholder = null ;
-var _glob_wplane_work_canvas_placeholder = null ;
+var _glob_wplane_grid_layer_placeholder = null ;
+var _glob_wplane_rendering_layer_placeholder = null ;
+var _glob_wplane_freedraw_layer_placeholder = null ;
+var _glob_wplane_work_layer_placeholder = null ;
 
 var _glob_canvas_width = 0 ;
 var _glob_extra_height = 0 ;

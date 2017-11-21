@@ -76,7 +76,7 @@ function circles_lib_canvas_layer_create( _init_properties_array )
                  _glob_zplane_layers_pile_role_array.push_safe( _role_index );
                  _glob_zplane_layers_pile_role_array.unique();
                  _glob_zplane_layers_pile_array.push( _new_layer );
-                 _glob_zplane_topmost_canvas_placeholder = _new_layer ;
+                 _glob_zplane_topmost_layer_placeholder = _new_layer ;
                  if ( function_exists( "circles_lib_statusbar_init" ) ) circles_lib_statusbar_init( NO ); // recomputes z-index
               }
               else if ( _plane_type == W_PLANE )
@@ -85,7 +85,7 @@ function circles_lib_canvas_layer_create( _init_properties_array )
                  _glob_wplane_layers_pile_role_array.push_safe( _role_index );
                  _glob_wplane_layers_pile_role_array.unique();
                  _glob_wplane_layers_pile_array.push( _new_layer );
-                 _glob_wplane_topmost_canvas_placeholder = _new_layer ;
+                 _glob_wplane_topmost_layer_placeholder = _new_layer ;
                  if ( function_exists( "circles_lib_statusbar_init" ) ) circles_lib_statusbar_init( NO ); // recomputes z-index
               }
               else return null ;
@@ -556,12 +556,12 @@ function circles_lib_canvas_layer_pile_reset( _plane_type )
     var _top_canvas = circles_lib_canvas_get_topmost( _plane_type );
     if ( _plane_type == Z_PLANE && is_html_canvas( _top_canvas ) )
     {
-        _glob_zplane_topmost_canvas_placeholder = _top_canvas ;
+        _glob_zplane_topmost_layer_placeholder = _top_canvas ;
         circles_lib_events_bind_to_zplane( _top_canvas );
     }
     else if ( _plane_type == W_PLANE && is_html_canvas( _top_canvas ) )
     {
-        _glob_wplane_topmost_canvas_placeholder = _top_canvas ;
+        _glob_wplane_topmost_layer_placeholder = _top_canvas ;
         circles_lib_events_bind_to_wplane( _top_canvas );
     }
 

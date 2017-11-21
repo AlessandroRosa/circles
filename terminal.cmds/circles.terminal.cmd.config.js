@@ -173,7 +173,7 @@ function circles_terminal_cmd_config()
   
            if ( _params_assoc_array['group'].is_one_of( "all", "graphix" ) )
            {
-          		var _smpr_perc = safe_int( _glob_smpr / _glob_zplane_rendering_canvas_placeholder.get_width() * 100.0, 1 );
+          		var _smpr_perc = safe_int( _glob_smpr / _glob_zplane_rendering_layer_placeholder.get_width() * 100.0, 1 );
                 _row_array.push( "<banana>Graphix</banana>" );
                 _row_array.push( "<lavender>disk dashed border (non-Z-planes)</lavender> <skyblue>" + ( _glob_activate_dashed_border ? Y : N ) + "</skyblue>" );
                 _row_array.push( "<lavender>use palette</lavender> <skyblue>" + ( _glob_palette_use ? Y : N ) + "</skyblue>" );
@@ -341,7 +341,7 @@ function circles_terminal_cmd_config()
                                   _outval = get_os();
                                   break ;
                                   case "mapprecision":
-                         				  var _smpr_perc = safe_int( _glob_smpr / _glob_zplane_rendering_canvas_placeholder.get_width() * 100.0, 1 );
+                         				  var _smpr_perc = safe_int( _glob_smpr / _glob_zplane_rendering_layer_placeholder.get_width() * 100.0, 1 );
                                   _outlabel = "Map precision" ;
                                   _outval = _smpr_perc + "%" ;
                                   break ;
@@ -695,7 +695,7 @@ function circles_terminal_cmd_config()
                                 _value = safe_float( _value, 0 );
                                 if ( _value.ranges_in( 1, 100, YES ) )
                                 {
-                                   _glob_smpr = _value * _glob_zplane_rendering_canvas_placeholder.get_width() / 100.0 ;
+                                   _glob_smpr = _value * _glob_zplane_rendering_layer_placeholder.get_width() / 100.0 ;
                                    _resp = [ 1, "<lime>Map draw precision is " + _value + "%</lime>" ] ;
                                 }
                                 else _resp = [ 0, "<orange>Input value must range from 1 to 100 %.</orange>" ] ;

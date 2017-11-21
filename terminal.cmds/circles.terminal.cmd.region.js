@@ -351,13 +351,13 @@ function circles_terminal_cmd_region()
                   if ( _plane_type == Z_PLANE )
                   {
 											_plane_rect = zplane_sm.get_coords_rect();
-											_mapper = zplane_sm, _canvas = _params_assoc_array['settings']['layer'] != null ? _params_assoc_array['settings']['layer'] : _glob_zplane_work_canvas_placeholder ;
+											_mapper = zplane_sm, _canvas = _params_assoc_array['settings']['layer'] != null ? _params_assoc_array['settings']['layer'] : _glob_zplane_work_layer_placeholder ;
 											_context = _canvas.getContext( _glob_canvas_ctx_2D_mode ) ;
 									}
                   else if ( _plane_type == W_PLANE )
                   {
 											_plane_rect = wplane_sm.get_coords_rect();
-											_mapper = wplane_sm, _canvas = _params_assoc_array['settings']['layer'] != null ? _params_assoc_array['settings']['layer'] : _glob_wplane_work_canvas_placeholder ;
+											_mapper = wplane_sm, _canvas = _params_assoc_array['settings']['layer'] != null ? _params_assoc_array['settings']['layer'] : _glob_wplane_work_layer_placeholder ;
 											_context = _canvas.getContext( _glob_canvas_ctx_2D_mode ) ;
 									}
                   

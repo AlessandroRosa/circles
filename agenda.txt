@@ -1,10 +1,12 @@
 ------------ APP -------------------------------------------------
-* terminal cmds:
-  last cmd checked: bye
+* terminal cmd 'canvas':
+  - add action 'reversepile'
+  - think about the chance to add custom placeholders for
+    custom canvas
 
-* new terminal cmd: triggers
-  write down .hlp file
-  
+* terminal cmds:
+  last cmd checked: canvas
+
 * plugin : after dropdown selections of preset config, grid of
   z-plane and of w-plane shall be redrawn again
 

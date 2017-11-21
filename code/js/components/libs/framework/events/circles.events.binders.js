@@ -55,8 +55,8 @@ function circles_lib_events_bind_to_zplane( canvas )
 
          canvas.onmousemove = function( event )
          {
-              if ( !is_html_canvas( _glob_zplane_rendering_canvas_placeholder ) )
-              _glob_zplane_rendering_canvas_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+              if ( !is_html_canvas( _glob_zplane_rendering_layer_placeholder ) )
+              _glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
 							if ( event.type.toLowerCase() == "click" )
 							{ // prevent both event bubbling or propagation
@@ -89,8 +89,8 @@ function circles_lib_events_bind_to_zplane( canvas )
 
          canvas.onmouseup = function( event )
          {
-              if ( !is_html_canvas( _glob_zplane_rendering_canvas_placeholder ) )
-              _glob_zplane_rendering_canvas_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+              if ( !is_html_canvas( _glob_zplane_rendering_layer_placeholder ) )
+              _glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
 							if ( event.type.toLowerCase() == "click" )
 							{ // prevent both event bubbling or propagation
@@ -109,8 +109,8 @@ function circles_lib_events_bind_to_zplane( canvas )
 
          canvas.ondblclick = function( event )
          {
-              if ( !is_html_canvas( _glob_zplane_rendering_canvas_placeholder ) )
-              _glob_zplane_rendering_canvas_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+              if ( !is_html_canvas( _glob_zplane_rendering_layer_placeholder ) )
+              _glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
 							if ( event.type.toLowerCase() == "click" )
 							{ // prevent both event bubbling or propagation

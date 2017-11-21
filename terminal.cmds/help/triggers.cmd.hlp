@@ -1,1 +1,25 @@
 <banana>manage triggers list</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
+
+<lightblue>triggers list</lightblue>
+<cadetblue>display the triggers list (short mode)</cadetblue>
+
+<lightblue>triggers list verbose</lightblue>
+<cadetblue>display the triggers list (verbose mode with description)</cadetblue>
+
+<lightblue>triggers all-flag</lightblue>
+<cadetblue>flag all triggers for automatic run before the rendering</cadetblue>
+
+<lightblue>triggers no-flag</lightblue>
+<cadetblue>unflag all triggers: none would run before the rendering</cadetblue>
+
+<lightblue>triggers run</lightblue>
+<cadetblue>run all flagged triggers</cadetblue>
+
+<lightblue>triggers check 1</lightblue>
+<cadetblue>check the trigger with index 1</cadetblue>
+
+<lightblue>triggers check 1 3</lightblue>
+<cadetblue>check the triggers with index 1 and index 3</cadetblue>
+

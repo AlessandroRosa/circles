@@ -77,6 +77,17 @@ function circles_lib_canvas_layer_update( _plane_type, _pos_index, _field_name, 
     else return NO ;
 }
 
+function circles_lib_canvas_layer_roledef_get( _canvas_id )
+{
+	var _canvas = $( "#"+_canvas_id ).get(0) ;
+	if ( is_html_canvas( _canvas ) )
+	{
+		var _ctx = _canvas.getContext( _glob_canvas_ctx_2D_mode ) ;
+		return _ctx != null ? _ctx.role_def : "" ;
+	}
+	else return "" ;
+}
+
 function circles_lib_canvas_layer_find( _plane_type, _field_search_index, _field_value )
 {
     _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
@@ -108,7 +119,6 @@ function circles_lib_canvas_layer_find( _plane_type, _field_search_index, _field
           }
        }
     }
-
     return _ret_layer ;
 }
 
@@ -175,8 +185,8 @@ function circles_lib_canvas_layer_show( _plane_type, _role, _b_show )
 
 function circles_lib_canvas_layer_init( _base_container_id, _recalc_coords, _div_id, _canvas_id, _visible, _role, bkcolor, _b_clean, _output_channel )
 {
-		_visible = safe_int( _visible, YES ), _role = safe_float( _role, 0 );
-		_b_clean = safe_int( _b_clean, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+	_visible = safe_int( _visible, YES ), _role = safe_float( _role, 0 );
+	_b_clean = safe_int( _b_clean, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _div = $( "#"+_div_id ).get(0);
     var base_container = $("#"+_base_container_id ).get(0);
     var _canvas = $("#"+_canvas_id ).get(0);
@@ -186,24 +196,17 @@ function circles_lib_canvas_layer_init( _base_container_id, _recalc_coords, _div
         var LEFT = _visible ? _pos_chunk['left'] : 0 ;
         var TOP = _visible ? _pos_chunk['top'] + getViewportScrollOffset() : 0 ;
         _div.style.left = LEFT + "px", _div.style.top = TOP + "px" ;
-        if ( _recalc_coords )
+        if ( _recalc_coords ) { _div.style.width = _glob_canvas_width + "px", _div.style.height = _glob_canvas_width + "px" ; }
+        _canvas.left = LEFT + "px", _canvas.top = TOP + "px" ;
+		_div.style.display = _visible ? "block" : "none" ;
+        if ( _b_clean )
         {
-            _div.style.width = _glob_canvas_width + "px", _div.style.height = _glob_canvas_width + "px" ;
-        }
-
-       _canvas.left = LEFT + "px", _canvas.top = TOP + "px" ;
-			 _div.style.display = _visible ? "block" : "none" ;
-       if ( _b_clean )
-       {
-           if ( _recalc_coords )
-           {
-                _canvas.set_width( _glob_canvas_width ), _canvas.set_height( _glob_canvas_width );
-           }
+           if ( _recalc_coords ) { _canvas.set_width( _glob_canvas_width ), _canvas.set_height( _glob_canvas_width ); }
            _canvas.set_visible( _visible ), _canvas.set_role_id( _role ) ;
            circles_lib_canvas_clean( _canvas, bkcolor, _output_channel );
            if ( _canvas.get_type().is_one_of( Z_PLANE ) ) circles_lib_zplane_mapper_init( _glob_canvas_width, DEFAULT_CANVAS_BORDER_SIZE, _recalc_coords );
            else if ( _canvas.get_type().is_one_of( W_PLANE ) ) circles_lib_wplane_mapper_init( _glob_canvas_width, DEFAULT_CANVAS_BORDER_SIZE, _recalc_coords );
-		   }
+		}
     }
 }
 
@@ -287,7 +290,6 @@ function circles_lib_canvas_layer_get_topmost( _plane_type )
             }
         }
     }
-
     return { id : _ret_div_id, _role : _ret_canvas_role, zindex : _max, idcanvas : _ret_canvas_id } ;
 }
 
@@ -310,9 +312,9 @@ function circles_lib_canvas_layer_refresh( _plane_type, _layer_role_index, _bkco
     var _layer = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_INDEX, _layer_role_index );
     if ( _layers_pile_ref[ _layer_pos_index ] != null )
     {
-         _layers_pile_ref[ _layer_pos_index ].getContext( _glob_canvas_ctx_2D_mode ).backgroundColor = _bkcolor ;
-         $( "#" + _layer.get_idcanvas() ).css( {'background-color': _bkcolor } );
-         return _plane_type == Z_PLANE ? circles_lib_canvas_render_zplane( null, _sm, [ _layer_role_index ], YES, NO, YES, NO, YES, YES, _output_channel ) : circles_lib_canvas_render_wplane( null, _sm, [ _layer_role_index ], YES, YES, YES, YES, NO, YES, _output_channel );
+        _layers_pile_ref[ _layer_pos_index ].getContext( _glob_canvas_ctx_2D_mode ).backgroundColor = _bkcolor ;
+        $( "#" + _layer.get_idcanvas() ).css( {'background-color': _bkcolor } );
+        return _plane_type == Z_PLANE ? circles_lib_canvas_render_zplane( null, _sm, [ _layer_role_index ], YES, NO, YES, NO, YES, YES, _output_channel ) : circles_lib_canvas_render_wplane( null, _sm, [ _layer_role_index ], YES, YES, YES, YES, NO, YES, _output_channel );
     }
     else return [ RET_ERROR, "missing plane ref" ] ;
 }

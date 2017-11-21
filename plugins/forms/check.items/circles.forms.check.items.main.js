@@ -139,7 +139,7 @@ function CIRCLESformsCHECKITEMSmain( _base_id, _move, _items_switch )
             {
               HTMLcode += "<td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\">Some circles need to be re-computed</td>" ;
               HTMLcode += "<td WIDTH=\"10\"></td>" ;
-              HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:if ( confirm( _QUESTION_20_03 ) ) { circles_lib_items_init_group_from_maps( YES, NO );circles_lib_canvas_render_zplane(_glob_zplane_rendering_canvas_placeholder,zplane_sm,null,YES,YES,YES,NO,YES);CIRCLESformsCHECKITEMSmain(CIRCLESformsCHECKITEMSbaseid);}\">Create circles</td>" ;
+              HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:if ( confirm( _QUESTION_20_03 ) ) { circles_lib_items_init_group_from_maps( YES, NO );circles_lib_canvas_render_zplane(_glob_zplane_rendering_layer_placeholder,zplane_sm,null,YES,YES,YES,NO,YES);CIRCLESformsCHECKITEMSmain(CIRCLESformsCHECKITEMSbaseid);}\">Create circles</td>" ;
             }
             HTMLcode += "</tr>" ;
             HTMLcode += "</table>" ;

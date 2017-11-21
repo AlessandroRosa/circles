@@ -31,7 +31,7 @@ function circles_terminal_cmd_triggers()
 		_params_array.clean_from( " " );
 		// pre-scan for levenshtein correction
 		var _local_cmds_params_array = [];
-			_local_cmds_params_array.push( "all-run", "check", "no-run", "html", "help", "list", "release", "run" );
+			_local_cmds_params_array.push( "all-flag", "check", "no-flag", "html", "help", "list", "release", "run", "verbose" );
 		circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 		var _p ;
         for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -39,8 +39,9 @@ function circles_terminal_cmd_triggers()
             _p = _params_array[_i].toLowerCase();
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-            else if ( _p.is_one_of_i( "all-run", "check", "list", "no-run", "release", "run" ) ) _params_assoc_array['action'] = _p ;
-			else if ( _params_assoc_array['action'] == "check" )
+            else if ( _p.is_one_of_i( "all-flag", "check", "list", "no-flag", "release", "run" ) ) _params_assoc_array['action'] = _p ;
+			else if ( _p.stricmp( "verbose" ) ) _params_assoc_array['verbose'] = YES ;
+			else if ( _p.stricmp( "check" ) )
 			{
 				if ( _params_assoc_array['checklist'] == null ) _params_assoc_array['checklist'] = [] ;
 				if ( _p.testME( _glob_positive_integer_regex_pattern ) ) _params_assoc_array['checklist'].push( _p );
@@ -70,7 +71,7 @@ function circles_terminal_cmd_triggers()
          var _action = _params_assoc_array['action'] != null ? _params_assoc_array['action'] : "" ;
          switch( _action )
          {
-			case "all-run":
+			case "all-flag":
 			var _keys = _glob_triggers_table.is_associative() ? _glob_triggers_table.keys_associative() : _glob_triggers_table ;
 			var _n_triggers = safe_size( _keys, 0 );
 			if ( _n_triggers > 0 )
@@ -108,6 +109,7 @@ function circles_terminal_cmd_triggers()
 			else circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing indexed list to check the triggers", _par_1, _cmd_tag );
 			break ;
 			case "list":
+			var _v = safe_int( _params_assoc_array['verbose'], 0 ) ;
 			var _keys = _glob_triggers_table.is_associative() ? _glob_triggers_table.keys_associative() : _glob_triggers_table ;
 			var _n_triggers = safe_size( _keys, 0 );
 		    var _trigger_chunk, _title, _desc, _k ;
@@ -118,18 +120,18 @@ function circles_terminal_cmd_triggers()
 				if ( _trigger_chunk != null )
 				{
 				   _title = _trigger_chunk[0].stripslashes(), _desc = _trigger_chunk[1].stripslashes(), _auto = safe_int( _trigger_chunk[4], 0 );
-				   circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, (_k+1)+") <yellow>"+_title+"</yellow> <"+(_auto?"green":"orange")+">"+(_auto?"":"no ")+"autorun</"+(_auto?"green":"orange")+">", _par_1, _cmd_tag );
-				   circles_lib_output( _output_channel, DISPATCH_INFO, _desc, _par_1, _cmd_tag );
+				   circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, (_k+1)+") <yellow>"+_title+"</yellow> | <"+(_auto?"green":"orange")+">"+(_auto?"":"no ")+"autorun</"+(_auto?"green":"orange")+">", _par_1, _cmd_tag );
+				   if ( _v ) circles_lib_output( _output_channel, DISPATCH_INFO, _desc, _par_1, _cmd_tag );
 				}
 		    }
 			break ;
-			case "no-run":
+			case "no-flag":
 			var _keys = _glob_triggers_table.is_associative() ? _glob_triggers_table.keys_associative() : _glob_triggers_table ;
 			var _n_triggers = safe_size( _keys, 0 );
 			if ( _n_triggers > 0 )
 			{
 				for( _k = 0 ; _k < _n_triggers ; _k++ ) _glob_triggers_table[''+_keys[_k]][4] = NO ;
-				circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All triggers have been set to 'no-run'", _par_1, _cmd_tag );
+				circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All triggers have been set to 'no-flag'", _par_1, _cmd_tag );
 				if ( _plugin_on ) CIRCLESformsTRIGGERSremotectrl( [ "updatelist" ] );
 			}
 			else circles_lib_output( _output_channel, DISPATCH_WARNING, "Fail to perform operation: no triggers found", _par_1, _cmd_tag );

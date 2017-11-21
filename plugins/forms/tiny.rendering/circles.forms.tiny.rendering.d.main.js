@@ -207,7 +207,7 @@ function CIRCLESformsTINYRENDERINGcopyCANVAS( _div_id, _REF_ID, _clean )
     if ( _dest_context != null )
     {
         if ( _clean ) circles_lib_canvas_clean( _dest_canvas, "transparent" );
-        circles_lib_canvas_copy( _glob_wplane_rendering_canvas_placeholder, _dest_canvas ) ;
+        circles_lib_canvas_copy( _glob_wplane_rendering_layer_placeholder, _dest_canvas ) ;
     }
 }
 

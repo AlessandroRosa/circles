@@ -65,11 +65,11 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
          var _rnd_sum = safe_float( _glob_rnd_probability_array.sum().toFixed( _glob_accuracy ), 0 ).clean_round_off( 2 );
          var _rnd_sum_check = _rnd_sum == 1.0 ? YES : NO ;
 
-         if ( !is_html_canvas( _glob_zplane_rendering_canvas_placeholder ) )
-         _glob_zplane_rendering_canvas_placeholder = _glob_zplane_rendering_canvas_placeholder ;
-         if ( is_html_canvas( _glob_wplane_rendering_canvas_placeholder ) )
-         _glob_wplane_rendering_canvas_placeholder = _glob_wplane_rendering_canvas_placeholder ;
-         if ( is_html_canvas( _glob_bip_canvas_placeholder ) ) _glob_bip_canvas_placeholder = _glob_bip_canvas ;
+         if ( !is_html_canvas( _glob_zplane_rendering_layer_placeholder ) )
+         _glob_zplane_rendering_layer_placeholder = _glob_zplane_rendering_layer_placeholder ;
+         if ( is_html_canvas( _glob_wplane_rendering_layer_placeholder ) )
+         _glob_wplane_rendering_layer_placeholder = _glob_wplane_rendering_layer_placeholder ;
+         if ( is_html_canvas( _glob_bip_layer_placeholder ) ) _glob_bip_layer_placeholder = _glob_bip_canvas ;
 
          if ( _question )
          {
@@ -272,9 +272,9 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                   
              if ( _plane_type != BIP_BOX )
              {
-                HTMLcode += "<tr><td>Z-plane rendering redirected to <b>"+circles_lib_canvas_layer_explain_role( Z_PLANE, _glob_zplane_rendering_canvas_placeholder.get_role_id() )+"</b> layer</td></tr>" ;
+                HTMLcode += "<tr><td>Z-plane rendering redirected to <b>"+circles_lib_canvas_layer_explain_role( Z_PLANE, _glob_zplane_rendering_layer_placeholder.get_role_id() )+"</b> layer</td></tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                HTMLcode += "<tr><td>W-plane rendering redirected to <b>"+circles_lib_canvas_layer_explain_role( W_PLANE, _glob_wplane_rendering_canvas_placeholder.get_role_id() )+"</b> layer</td></tr>" ;
+                HTMLcode += "<tr><td>W-plane rendering redirected to <b>"+circles_lib_canvas_layer_explain_role( W_PLANE, _glob_wplane_rendering_layer_placeholder.get_role_id() )+"</b> layer</td></tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
              }
 
@@ -444,11 +444,11 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
               }
               else
               {
-                 if ( !is_html_canvas( _glob_zplane_rendering_canvas_placeholder ) )
-                 _glob_zplane_rendering_canvas_placeholder = _glob_zplane_rendering_canvas_placeholder ;
-                 if ( is_html_canvas( _glob_wplane_rendering_canvas_placeholder ) )
-                 _glob_wplane_rendering_canvas_placeholder = _glob_wplane_rendering_canvas_placeholder ;
-                 if ( is_html_canvas( _glob_bip_canvas_placeholder ) ) _glob_bip_canvas_placeholder = _glob_bip_canvas ;
+                 if ( !is_html_canvas( _glob_zplane_rendering_layer_placeholder ) )
+                 _glob_zplane_rendering_layer_placeholder = _glob_zplane_rendering_layer_placeholder ;
+                 if ( is_html_canvas( _glob_wplane_rendering_layer_placeholder ) )
+                 _glob_wplane_rendering_layer_placeholder = _glob_wplane_rendering_layer_placeholder ;
+                 if ( is_html_canvas( _glob_bip_layer_placeholder ) ) _glob_bip_layer_placeholder = _glob_bip_canvas ;
 
                   var _plane_def = circles_lib_plane_get_def( _plane_type );
                   if ( _plane_type.is_one_of( Z_PLANE, ALL_PLANES ) )

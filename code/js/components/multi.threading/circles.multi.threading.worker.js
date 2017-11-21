@@ -147,7 +147,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
            _startINDEX++ ;
   	   var _working_plane = safe_int( _options_chunk[ _startINDEX ], _glob_target_plane );
            _startINDEX++ ;
-  	   var _canvas = _options_chunk[ _startINDEX ]; if ( !is_html_canvas( _canvas ) ) _canvas = _glob_wplane_rendering_canvas_placeholder ;
+  	   var _canvas = _options_chunk[ _startINDEX ]; if ( !is_html_canvas( _canvas ) ) _canvas = _glob_wplane_rendering_layer_placeholder ;
            _startINDEX++ ;
   	   var _mapper = _options_chunk[ _startINDEX ];
  	   var _depth = safe_int( _glob_depth, 1 );
@@ -164,18 +164,18 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
  			 switch( _working_plane )
 			 {
 				 case Z_PLANE:
-				 _glob_opacity = $( "#"+_glob_zplane_rendering_canvas_placeholder.get_iddiv() ).get(0).style.opacity ;
-         _canvas_w = is_html_canvas( _glob_zplane_rendering_canvas_placeholder ) ? _glob_zplane_rendering_canvas_placeholder.get_width() : 0 ;
-         _canvas_h = is_html_canvas( _glob_zplane_rendering_canvas_placeholder) ? _glob_zplane_rendering_canvas_placeholder.get_height() : 0 ;
-         _glob_multithread_canvas = _glob_zplane_rendering_canvas_placeholder ;
+				 _glob_opacity = $( "#"+_glob_zplane_rendering_layer_placeholder.get_iddiv() ).get(0).style.opacity ;
+         _canvas_w = is_html_canvas( _glob_zplane_rendering_layer_placeholder ) ? _glob_zplane_rendering_layer_placeholder.get_width() : 0 ;
+         _canvas_h = is_html_canvas( _glob_zplane_rendering_layer_placeholder) ? _glob_zplane_rendering_layer_placeholder.get_height() : 0 ;
+         _glob_multithread_canvas = _glob_zplane_rendering_layer_placeholder ;
          _glob_multithread_mapper = zplane_sm.copy() ;
          _glob_multithread_pixelsize = 1 ;
 				 break ;
 				 case W_PLANE:
-				 _glob_opacity = $( "#"+_glob_wplane_rendering_canvas_placeholder.get_iddiv() ).get(0).style.opacity ;
-         _canvas_w = is_html_canvas( _glob_wplane_rendering_canvas_placeholder ) ? _glob_wplane_rendering_canvas_placeholder.get_width() : 0 ;
-         _canvas_h = is_html_canvas( _glob_wplane_rendering_canvas_placeholder ) ? _glob_wplane_rendering_canvas_placeholder.get_height() : 0 ;
-         _glob_multithread_canvas = _glob_wplane_rendering_canvas_placeholder ;
+				 _glob_opacity = $( "#"+_glob_wplane_rendering_layer_placeholder.get_iddiv() ).get(0).style.opacity ;
+         _canvas_w = is_html_canvas( _glob_wplane_rendering_layer_placeholder ) ? _glob_wplane_rendering_layer_placeholder.get_width() : 0 ;
+         _canvas_h = is_html_canvas( _glob_wplane_rendering_layer_placeholder ) ? _glob_wplane_rendering_layer_placeholder.get_height() : 0 ;
+         _glob_multithread_canvas = _glob_wplane_rendering_layer_placeholder ;
          _glob_multithread_mapper = wplane_sm.copy() ;
          _glob_multithread_pixelsize = 1 ;
 				 break ;

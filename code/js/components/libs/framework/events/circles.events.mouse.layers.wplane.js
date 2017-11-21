@@ -3,10 +3,10 @@ function W_PLANE_work_canvas_onmouseover( obj, event )
     _glob_canvas_obj_ref = obj ;
 		if ( _glob_wplane_canvas_timerID == null ) circles_lib_canvas_wplane_start_timer();
     if ( _glob_wplaneMOUSEprocSWITCH == MOUSE_ZOOM_PROC_ID )
-		$( "#"+_glob_wplane_work_canvas_placeholder.id ).css('cursor','zoom-in');
+		$( "#"+_glob_wplane_work_layer_placeholder.id ).css('cursor','zoom-in');
     else if ( _glob_wplaneMOUSEprocSWITCH == MOUSE_PICK_LASTPT_PROC_ID )
-		$( "#" + _glob_wplane_work_canvas_placeholder.id ).css('cursor', "url("+_glob_path_to_img+"icons/picker/picker.icon.01.20x20.png), auto" );
-    else $( "#" + _glob_wplane_work_canvas_placeholder.id ).css('cursor','default');
+		$( "#" + _glob_wplane_work_layer_placeholder.id ).css('cursor', "url("+_glob_path_to_img+"icons/picker/picker.icon.01.20x20.png), auto" );
+    else $( "#" + _glob_wplane_work_layer_placeholder.id ).css('cursor','default');
 }
 
 function W_PLANE_work_canvas_onmouseout( obj, event )
@@ -202,7 +202,7 @@ function W_PLANE_work_canvas_onmouseup( obj, event )
            alert_msg( ALERT_YESNO | ALERT_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_get_def( W_PLANE ), 430 );
            var screen_left_top_pt = wplane_sm.from_cartesian_to_client( _glob_zoom_rect.x1, _glob_zoom_rect.y1 );
            var screen_right_bottom_pt = wplane_sm.from_cartesian_to_client( _glob_zoom_rect.x2, _glob_zoom_rect.y2 );
-           circles_lib_canvas_blowup( _glob_wplane_rendering_canvas_placeholder,
+           circles_lib_canvas_blowup( _glob_wplane_rendering_layer_placeholder,
                                $('#ZOOMthumbCANVAS').get(0),
                                screen_left_top_pt.x, screen_left_top_pt.y,
                                Math.abs( screen_left_top_pt.x - screen_right_bottom_pt.x ),

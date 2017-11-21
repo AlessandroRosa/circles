@@ -371,7 +371,7 @@ function circles_terminal_cmd_tessellator()
 																		 }
 																	}
                                   else if ( _params_assoc_array['plane'] == W_PLANE )
-                                  circles_lib_draw_all_screen_disks( _glob_wplane_rendering_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, null, YES, YES, _output_channel );
+                                  circles_lib_draw_all_screen_disks( _glob_wplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, null, YES, YES, _output_channel );
                                   var _plane_def = circles_lib_plane_get_def( _params_assoc_array['plane'] );
                                   circles_lib_output( _output_channel, DISPATCH_SUCCESS, _plane_def + ": " + _tessellation + " tessellation performed with success", _par_1, _cmd_tag );
                               }

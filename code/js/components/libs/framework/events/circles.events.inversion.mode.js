@@ -7,9 +7,9 @@ function Z_PLANE_rendering_layer_canvas_play_inversion_onmousemove( obj, event )
       var _mm, _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
       if ( _glob_disk_sel_index != UNDET )
       {
-           circles_lib_canvas_clean( _glob_zplane_rendering_canvas_placeholder );
-           circles_lib_grid_draw( _glob_zplane_grid_canvas_placeholder, zplane_sm, Z_PLANE, YES, _glob_ticks_count );
-           circles_lib_draw_all_complex_disks( _glob_zplane_rendering_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, [ _glob_disk_sel_index ], NO );
+           circles_lib_canvas_clean( _glob_zplane_rendering_layer_placeholder );
+           circles_lib_grid_draw( _glob_zplane_grid_layer_placeholder, zplane_sm, Z_PLANE, YES, _glob_ticks_count );
+           circles_lib_draw_all_complex_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, [ _glob_disk_sel_index ], NO );
            
            _mm = circles_lib_items_create_from_disk( 2, _items_array[_glob_disk_sel_index].complex_circle );
 
@@ -28,7 +28,7 @@ function Z_PLANE_rendering_layer_canvas_play_inversion_onmousemove( obj, event )
            _glob_play_inversion_dx = _glob_play_inversion_screen_pt_ret.x - _glob_play_inversion_screen_pt1_ret.x, dY = _glob_play_inversion_screen_pt_ret.y - _glob_play_inversion_screen_pt1_ret.y ;
            _glob_play_inversion_radius_ret = Math.sqrt( _glob_play_inversion_dx * _glob_play_inversion_dx + dY * dY );
 
-           _mouse_event_context = _glob_zplane_rendering_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+           _mouse_event_context = _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
 
            _mouse_event_context.beginPath();
            _mouse_event_context.lineWidth = 2 ;

@@ -152,7 +152,7 @@ function circles_lib_complexdisk_select_all( _output_channel )
     _glob_zplane_selected_items_array = [];
     circles_lib_helper_div_remove();
     for( var _i = 0 ; _i < _items_n ; _i++ ) _glob_zplane_selected_items_array.push( _i );
-    circles_lib_canvas_clean( _glob_zplane_rendering_canvas_placeholder );
+    circles_lib_canvas_clean( _glob_zplane_rendering_layer_placeholder );
     return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
 }
 

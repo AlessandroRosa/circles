@@ -21,8 +21,8 @@ function circles_lib_files_pdf_add_pix( doc, _left, _top, _display_zplane, _disp
 {
      var _tmp_canvas = document.createElement( "canvas" );
          _left = 130, _top = 25 ;
-     var _zplane_rendering_canvas = _glob_zplane_rendering_canvas_placeholder ;
-     var _wplane_rendering_canvas = _glob_wplane_rendering_canvas_placeholder ;
+     var _zplane_rendering_canvas = _glob_zplane_rendering_layer_placeholder ;
+     var _wplane_rendering_canvas = _glob_wplane_rendering_layer_placeholder ;
      
      _display_zplane = safe_int( _display_zplane, NO );
      _display_wplane = safe_int( _display_wplane, NO );
@@ -198,8 +198,8 @@ function circles_lib_files_pdf_save_text()
      {
           var _tmp_canvas = document.createElement( "canvas" );
               _left = 130, _top = 25 ;
-          var _zplane_rendering_canvas = _glob_zplane_rendering_canvas_placeholder ;
-          var _wplane_rendering_canvas = _glob_wplane_rendering_canvas_placeholder ;
+          var _zplane_rendering_canvas = _glob_zplane_rendering_layer_placeholder ;
+          var _wplane_rendering_canvas = _glob_wplane_rendering_layer_placeholder ;
 
           // display Z-plane on the pdf
           doc.setTextColor(0, 0, 212);
@@ -280,8 +280,8 @@ function circles_lib_files_pdf_save_report()
     var _zplane_rendering_canvas = null, _wplane_rendering_canvas = null, _bip_canvas = null ;
     var _str = circles_lib_plane_get_def( _plane_type );
 
-    _zplane_rendering_canvas = _glob_zplane_rendering_canvas_placeholder ;
-    _wplane_rendering_canvas = _plane_type.is_one_of( W_PLANE ) ? _glob_wplane_rendering_canvas_placeholder : ( $("#" + _canvas_id ).get(0) != null ? $("#" + _canvas_id ).get(0) : _glob_bip_canvas_placeholder );
+    _zplane_rendering_canvas = _glob_zplane_rendering_layer_placeholder ;
+    _wplane_rendering_canvas = _plane_type.is_one_of( W_PLANE ) ? _glob_wplane_rendering_layer_placeholder : ( $("#" + _canvas_id ).get(0) != null ? $("#" + _canvas_id ).get(0) : _glob_bip_layer_placeholder );
 			
 		var _alphabet =  circles_lib_alphabet_get();
 		var _reduced_words = _dictionary_init_settings_array['use_reduced_words'] ;

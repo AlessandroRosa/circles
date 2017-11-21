@@ -849,10 +849,10 @@ function circles_terminal_cmd_mobius()
                     if ( is_array( _selection_indexes_array ) ) _glob_zplane_selected_items_array = _selection_indexes_array.clone();
                     if ( _glob_zplane_selected_items_array.length > 0 && is_array( _items_array ) )
                     {
-                        var _canvas_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
-                        if ( is_html_canvas( _canvas_placeholder ) )
+                        var _layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+                        if ( is_html_canvas( _layer_placeholder ) )
                         {
-                             var _ret_chunk = circles_lib_canvas_render_zplane( _canvas_placeholder, zplane_sm, null, YES, YES, YES, NO, YES, _output_channel );
+                             var _ret_chunk = circles_lib_canvas_render_zplane( _layer_placeholder, zplane_sm, null, YES, YES, YES, NO, YES, _output_channel );
 												     var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 													   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "50Unknown error" ;
 													   if ( _ret_id == RET_ERROR )

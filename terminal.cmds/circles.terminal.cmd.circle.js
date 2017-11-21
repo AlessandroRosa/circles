@@ -255,11 +255,11 @@ function circles_terminal_cmd_circle()
                    switch( _params_assoc_array['settings']['plane'] )
                    {
                        case Z_PLANE:
-                       _canvas_context = _glob_zplane_work_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                       _canvas_context = _glob_zplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
                        _mapper = zplane_sm ;
                        break ;
                        case W_PLANE:
-                       _canvas_context = _glob_wplane_work_canvas_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                       _canvas_context = _glob_wplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
                        _mapper = wplane_sm ;
                        break ;
                        case BIP_BOX:

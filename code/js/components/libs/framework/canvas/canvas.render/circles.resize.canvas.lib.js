@@ -14,7 +14,7 @@ function circles_lib_canvas_redraw_wplane_entities( _update_plane, _process_titl
 			 }
        var _options_chunk = [] ;
        var _corners = wplane_sm.get_coords_corners() ;
-       var _canvas = _glob_wplane_rendering_canvas_placeholder ;
+       var _canvas = _glob_wplane_rendering_layer_placeholder ;
        _options_chunk['plane_type'] = W_PLANE ;
        _options_chunk['draw_entity'] = _glob_drawentity ;
        _options_chunk['canvas_id'] = _canvas.get_idcanvas() ;
