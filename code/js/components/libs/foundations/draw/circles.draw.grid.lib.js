@@ -10,11 +10,10 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
         var LEFT = _corners['lu'].x, TOP = _corners['lu'].y, RIGHT = _corners['rd'].x, BOTTOM = _corners['rd'].y ;
         if ( ( _glob_show_grid_zplane && _plane_type.is_one_of( Z_PLANE, ALL_PLANES ) ) ||
              ( _glob_show_grid_wplane && _plane_type.is_one_of( W_PLANE, ALL_PLANES ) ) ||
-             _plane_type.is_one_of( BIP_BOX, CUSTOM_PLANE, D_LOCUS )
-           )
+             _plane_type.is_one_of( BIP_BOX, CUSTOM_PLANE, D_LOCUS ) )
         {
             if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) ) _canvas = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
-						var _pixel_size = 1 ;
+			var _pixel_size = 1 ;
             switch( _plane_type )
             {
                 case Z_PLANE: case W_PLANE: _pixel_size = _glob_pixel_size ; break ;
@@ -24,7 +23,7 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
             
             var _bip_area = _plane_type.is_one_of( BIP_BOX ) ? ( _glob_bip_canvas.getContext(_glob_canvas_ctx_2D_mode) != null ? _glob_bip_canvas.getContext(_glob_canvas_ctx_2D_mode).area() : 0 ) : 0 ;
             var _canvas_area = _canvas.area(), _ratio = _plane_type.is_one_of( BIP_BOX ) ? _bip_area / _canvas_area : 1 ;
-					  _mapper.set_client_rect( new rect( 0, 0, _canvas.get_width(), _canvas.get_height() ) );
+			_mapper.set_client_rect( new rect( 0, 0, _canvas.get_width(), _canvas.get_height() ) );
             _mapper.set_display_rect( new rect( 0, 0, _canvas.get_width(), _canvas.get_height() ) );
             
             switch( _glob_export_format )
@@ -106,8 +105,7 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
                 
                 if ( ( cartesian_pt.y >= 0 && _next_cartesian_pt.y <= 0 )
                      ||
-                     ( cartesian_pt.y <= 0 && _next_cartesian_pt.y >= 0 )
-                   ) Xaxis_visible = YES ;
+                     ( cartesian_pt.y <= 0 && _next_cartesian_pt.y >= 0 ) ) Xaxis_visible = YES ;
                    
                 _context.lineWidth = _pixel_size ;
                 _context.beginPath();
@@ -130,7 +128,7 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
                     case EXPORT_LATEX:
                     _glob_js_latex_obj.line( axis_left_pt.x, _screenY, axis_right_pt.x, _screenY, 'gray' );
                     break ;
-	                 case EXPORT_NONE: default: break ;
+	                case EXPORT_NONE: default: break ;
                 }
             }
             
@@ -146,8 +144,7 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
                 // grid goes from left to right
                 if ( ( cartesian_pt.x <= 0 && _next_cartesian_pt.x >= 0 )
                      ||
-                     ( cartesian_pt.x >= 0 && _next_cartesian_pt.x <= 0 )
-                   ) Yaxis_visible = YES ;
+                     ( cartesian_pt.x >= 0 && _next_cartesian_pt.x <= 0 ) ) Yaxis_visible = YES ;
 
                 _context.lineWidth = _pixel_size ;
                 _context.beginPath();

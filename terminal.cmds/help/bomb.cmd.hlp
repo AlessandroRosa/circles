@@ -4,10 +4,10 @@
 
 <lightblue>usage</lightblue> <snow>bomb %objects%</snow>
 
-<lightblue>%objects%</lightblue> <snow>figures | labels | disks | seeds | items | repetends | gens | gensmodel | probabilities | everything</snow>
+<lightblue>%objects%</lightblue> <snow>all | figures | labels | disks | seeds | items | repetends | gens | gensmodel | probabilities | everything</snow>
 
 <cadetblue>Gens : gens</cadetblue>
-<cadetblue>Items : both seeds and gens</cadetblue>
+<cadetblue>Items : both seeds and generators</cadetblue>
 
 <lightblue>bomb release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>

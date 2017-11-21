@@ -3,7 +3,7 @@ function circles_lib_terminal_html_display( _term, _html_code ) { _term.echo( _h
 function circles_lib_terminal_close( _output_channel )
 {
     if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_STANDARD, "close" );
-    circles_lib_plugin_activate( YES, "terminal", "", "", "forms", CLOSE, "POPUPterminalDIV" + _glob_terminal_form_suffix );
+    circles_lib_plugin_activate( YES, "terminal", "", "", "forms", CLOSE, CIRCLESformsTERMINALdivid );
 }
 
 function circles_lib_terminal_tabular_arrange_data( _array )
@@ -13,14 +13,10 @@ function circles_lib_terminal_tabular_arrange_data( _array )
     $.each( _array, function( _i, _key ) { _max_len = Math.max( _key.length, _max_len ) ; } ) ;
     _max_len += 5 ;
     var _columns = Math.floor( _glob_terminal.cols() / _max_len );
-    $.each( _array,
-            function( _i, _key )
-            {
+    $.each( _array, function( _i, _key ) {
                _row += _key.rpad( " ", _max_len ), _counter++ ;
                if ( _counter == _columns ) { _msg += _row + _glob_crlf, _counter = 0, _row = "" ; }
-            }
-          ) ;
-         
+            } ) ;
     if ( _counter != _columns ) { _msg += _row + _glob_crlf, _counter = 0, _row = "" ; }
     return _msg ;
 }

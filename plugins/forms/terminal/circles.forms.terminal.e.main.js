@@ -58,7 +58,7 @@ function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _te
     HEIGHT = Math.max( 0, Math.min( HEIGHT, $(window).height() ) ) ;
 
     var _suffix = _glob_terminal_form_suffix = _glob_terminal_windows_counter, _subset = "forms" ;
-    var _div_id = CIRCLESformsTERMINALdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) + _suffix ;
+    var _div_id = CIRCLESformsTERMINALdivid = circles_lib_plugin_build_divid( _subset, _base_id ) + _suffix ;
     var HTMLcode = CIRCLESformsTERMINALgetHTML( _div_id, YES, WIDTH, HEIGHT, _suffix, _glob_popups_array.length );
     var _caption = CIRCLESformsTERMINALcaption + " #" + ( _glob_terminal_popup_active + 1 );
 
@@ -95,8 +95,8 @@ function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _te
        else move_div( _div.id, "LEFT", "TOP" );
     }
 
-	$("#"+CIRCLESformsTERMINALdiv_id ).bind( "keypress keydown keyup", function() { _glob_wnd_onkeyup_event_halt = YES ; } );
-	$("#"+CIRCLESformsTERMINALdiv_id ).bind( "mousedown mouseup click", function() { _glob_wnd_onkeyup_event_halt = YES ; } );
+	$("#"+CIRCLESformsTERMINALdivid ).bind( "keypress keydown keyup", function() { _glob_wnd_onkeyup_event_halt = YES ; } );
+	$("#"+CIRCLESformsTERMINALdivid ).bind( "mousedown mouseup click", function() { _glob_wnd_onkeyup_event_halt = YES ; } );
 
     if ( $("#"+_div_id ).resizable('instance') != undefined )
     $("#"+_div_id).resizable('destroy').resizable(
@@ -273,7 +273,7 @@ function CIRCLESformsTERMINALstopresize( _new_width, _new_height ) {}
 function CIRCLESformsTERMINALresize( _new_width, _new_height, _suffix, _output_channel )
 {
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
-    var _terminal_div_id = CIRCLESformsTERMINALdiv_id ;
+    var _terminal_div_id = CIRCLESformsTERMINALdivid ;
     if ( _glob_terminal == null || $("#" + _terminal_div_id ).get(0) == null )
     return [ RET_ERROR, "Can't resize: console not available" ] ;
 
@@ -395,6 +395,6 @@ function CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix )
 
     circles_lib_statusbar_set_output_stream( OUTPUT_TERMINAL );
     if ( safe_size( _glob_terminal_codelist, "" ).length > 0 ) $("#CIRCLESbatchcompilerTEXT"+_suffix ).val( _glob_terminal_codelist );
-    $("#"+CIRCLESformsTERMINALdiv_id+_suffix).resizable({ resize: function( event, ui ) { CIRCLESformsTERMINALresize( ui.size.width, ui.size.height, _suffix ); } });
-    $("#"+CIRCLESformsTERMINALdiv_id+_suffix).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });
+    $("#"+CIRCLESformsTERMINALdivid+_suffix).resizable({ resize: function( event, ui ) { CIRCLESformsTERMINALresize( ui.size.width, ui.size.height, _suffix ); } });
+    $("#"+CIRCLESformsTERMINALdivid+_suffix).resizable().on('resize', function (event) { if ( event.stopPropagation ) event.stopPropagation(); if ( event.cancelBubble != null ) event.cancelBubble = true; });
 }

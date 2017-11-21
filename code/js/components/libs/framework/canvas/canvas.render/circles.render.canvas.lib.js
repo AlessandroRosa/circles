@@ -1,7 +1,7 @@
 function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _question, _silent, _b_reset_coords, _output_channel )
 {
-		circles_lib_menu_entries_update() ;
-		if ( _glob_interface_index == INTERFACE_EXTEND_WPLANE ) return [ RET_IRRELEVANT, "Z-plane rendering skipped for extended interface" ] ;
+	circles_lib_menu_entries_update() ;
+	if ( _glob_interface_index == INTERFACE_EXTEND_WPLANE ) return [ RET_IRRELEVANT, "Z-plane rendering skipped for extended interface" ] ;
     // layers can be input as an array or a string of indexes separated by comma
     if ( !is_array( _selected_layers_array ) )
     {

@@ -235,8 +235,8 @@ function circles_lib_plugin_register( _calling_params, _div_id, _caption, _statu
 }
 
 function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _calling_fn, _calling_args,
-								_subset, _b_open, _div_id, _caption, _append_fns_at_close,
-					      _normalize_fns, _minimize_fns, _maximize_fns, _caption_class )
+				_subset, _b_open, _div_id, _caption, _append_fns_at_close,
+				_normalize_fns, _minimize_fns, _maximize_fns, _caption_class )
 {
 		var _tmp_args = [] ; for( var _a = 0 ; _a < _calling_args.length ; _a++ ) _tmp_args.push( _calling_args[_a] );
 				_calling_args = _tmp_args.work( function( _tok ) { return "'"+( ( new String( _tok ) ).addslashes() )+"'" ; } ) ;

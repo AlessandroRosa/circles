@@ -8,7 +8,7 @@ var CIRCLESformsTERMINALform_magnified = NO ;
 var CIRCLESformsTERMINALform_original_width = 0 ;
 var CIRCLESformsTERMINALform_tab_index = UNDET ;
 var CIRCLESformsTERMINALcaption = "Terminal" ;
-var CIRCLESformsTERMINALdiv_id = "" ;
+var CIRCLESformsTERMINALdivid = "" ;
 var CIRCLESformsTERMINALbaseid = "" ;
 var CIRCLESformsTERMINALfirstresize = 1 ;
 

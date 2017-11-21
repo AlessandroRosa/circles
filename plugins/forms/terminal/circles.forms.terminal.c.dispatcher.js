@@ -34,7 +34,7 @@ function CIRCLESformsTERMINALdispatcher()
            break ;
            case POPUP_DISPATCHER_UNICAST_EVENT_FOCUS:
            _glob_wnd_onkeyup_event_halt = YES ;
-           _glob_terminal_current_id = CIRCLESformsTERMINALdiv_id ;
+           _glob_terminal_current_id = CIRCLESformsTERMINALdivid ;
            $("#customloader").get(0).onchange = function() { circles_lib_files_open_upload_dialog( CIRCLESformsTERMINALlistingsLOAD ) } ;
            var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
            break ;

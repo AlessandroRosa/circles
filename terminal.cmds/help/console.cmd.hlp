@@ -14,6 +14,10 @@
 <lightblue>console bottom left</lightblue>
 <cadetblue>move console to the bottom left corner of the screen</cadetblue>
 
+<lightblue>console %predefined-resize%</lightblue>
+<cadetblue>console can be resize to predefined size</cadetblue>
+<slategray>%predefined-resize% can be set to 'mini', 'maxi', 'wide', 'tall'</slategray>
+
 <slategray>Actions</slategray> <snow>console %action def% %action value%</snow>
 
 <lightblue>console history 10</lightblue>
@@ -34,20 +38,26 @@
 <lightblue>console reset</lightblue>
 <cadetblue>restore default graphic settings of the console</cadetblue>
 
-<lightblue>console colorlist</lightblue>
-<cadetblue>show the complete list of available color tags</cadetblue>
-
 <lightblue>console font arial</lightblue>
 <cadetblue>set console font family</cadetblue>
 
+<lightblue>console colorlist</lightblue>
+<cadetblue>show the complete list of available color tags</cadetblue>
+
+<slategray>Colors can be input in 3 modes:</slategray>
+<yellow>Tag mode</yellow> <aquamarine>aquamarine</aquamarine>
+<yellow>Hex mode</yellow> <gray>#E4E4E4</gray>
+<yellow>RGB mode</yellow> <cyan>rgb(0,255,255)</cyan>
+
+
 <lightblue>console textcolor lime</lightblue>
-<cadetblue>set console font color (color tag)</cadetblue>
+<cadetblue>set console font color (tag mode)</cadetblue>
 
 <lightblue>console bk #121212</lightblue>
-<cadetblue>set console background color (hex syntax)</cadetblue>
+<cadetblue>set console background color (hex mode)</cadetblue>
 
 <lightblue>console textcolor rgb(0,255,255)</lightblue>
-<cadetblue>set console background color (rgb syntax)</cadetblue>
+<cadetblue>set console text color (rgb mode)</cadetblue>
 
 <lightblue>console release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>
