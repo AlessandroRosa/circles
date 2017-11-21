@@ -39,6 +39,14 @@ function CIRCLESformsTRIGGERSremotectrl( _options, _return_fn, _ret_array, _outp
         _ret_array.push( 1, "<green>Plug-in has been opened with success</green>" ) ;
         return YES ;
 		break ;
+		case "updatelist":
+		var _keys = _glob_triggers_table.is_associative() ? _glob_triggers_table.keys_associative() : _glob_triggers_table ;
+		var _n_triggers = safe_size( _keys, 0 );
+		var WIDTH = 320, _triggers_list_height = Math.min( _n_triggers * 40 + 24, 240 ) ;
+		CIRCLESformsTRIGGERSupdatelist(WIDTH,_triggers_list_height);
+        _ret_array.push( 1, "<green>Triggers list has been updated with success</green>" ) ;
+		return YES ;
+		break ;
 		default:
         _ret_array.push( 0, "<orange>Unknown remote control command '"+_options[0].toLowerCase()+"'</orange>" ) ;
         return NO ;

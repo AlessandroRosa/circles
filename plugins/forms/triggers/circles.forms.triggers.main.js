@@ -33,31 +33,9 @@ function CIRCLESformsTRIGGERSmain( _base_id, _move )
        HTMLcode += "<td WIDTH=\"10\"></td>" ;
        HTMLcode += "<td WIDTH=\"35\" CLASS=\"link_rounded\" ID=\"circles_lib_triggers_renderBTN\" ONCLICK=\"javascript:circles_lib_canvas_process_ask(YES,NO,_glob_target_plane,YES,YES,CHECK);\">Render</td>" ;
        HTMLcode += "</tr></table>" ;
-			 HTMLcode += "</td>" ;
+	   HTMLcode += "</td>" ;
        HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
-			 HTMLcode += "<tr><td VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#EDEDF8;padding:4px;\">" ;
-       HTMLcode += "<DIV STYLE=\"position:relative;width:"+(WIDTH-10)+"px;height:"+_triggers_list_height+"px;overflow:auto;\">" ;
-       HTMLcode += "<table>" ;
-       HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-			 HTMLcode += "<tr><td COLSPAN=\"2\">Title and action </td><td ALIGN=\"center\" WIDTH=\"50\">Auto run<br>at render</td></tr>" ;
-       HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-       var _trigger_chunk, _title, _desc, _k ;
-       for( _k = 0 ; _k < _n_triggers ; _k++ )
-       {
-         _trigger_chunk = _glob_triggers_table[ ''+_keys[_k] ] ;
-         if ( _trigger_chunk != null )
-         {
-            _title = _trigger_chunk[0].stripslashes(), _desc = _trigger_chunk[1].stripslashes(), _auto = safe_int( _trigger_chunk[4], 0 );
-            HTMLcode += "<tr><td ROWSPAN=\"2\" VALIGN=\"top\">"+(_k+1)+".&nbsp;"+"</td><td VALIGN=\"top\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_triggers_open('"+_keys[_k]+"');\"><b>"+_title+"</b></td><td ALIGN=\"center\"><INPUT ID=\"CIRCLES"+_subset+"TRIGGERScheckbox"+_k+"\" TYPE=\"checkbox\" "+( _auto ? "CHECKED" : "" )+" ONCLICK=\"javascript:_glob_triggers_table['"+_keys[_k]+"'][4] = this.checked?1:0;\"></td></tr>" ;
-            HTMLcode += "<tr><td VALIGN=\"top\" STYLE=\"color:#606060;\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_triggers_open('"+_keys[_k]+"');\">"+_desc+"</td></tr>" ;
-            HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-         }
-       }
-
-       HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
-       HTMLcode += "</table>" ;
-       HTMLcode += "</DIV>" ;
-       HTMLcode += "</td></tr>" ;
+	   HTMLcode += "<tr><td VALIGN=\"top\" ID=\"CIRCLEStriggersLISTcontainer\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#EDEDF8;padding:4px;\"></td></tr>" ;
        HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
        HTMLcode += "<tr>" ;
        HTMLcode += "<td VALIGN=\"top\"><table WIDTH=\"100%\"><tr>" ;
@@ -81,5 +59,35 @@ function CIRCLESformsTRIGGERSmain( _base_id, _move )
     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsTRIGGERScaption );
     if ( _move && _div != null ) move_div( _div.id, "LEFT", "BOTTOM", WIDTH, HEIGHT );
 
+	CIRCLESformsTRIGGERSupdatelist(WIDTH,_triggers_list_height);
     CIRCLESformsTRIGGERSdispatcher();
+}
+
+function CIRCLESformsTRIGGERSupdatelist( WIDTH = "auto", HEIGHT = "auto", _subset = "forms", _update_div = YES, _return = NO )
+{
+    var _keys = _glob_triggers_table.is_associative() ? _glob_triggers_table.keys_associative() : _glob_triggers_table ;
+    var _n_triggers = safe_size( _keys, 0 );
+    var HTMLcode = "<DIV STYLE=\"position:relative;width:"+(WIDTH-10)+"px;height:"+HEIGHT+"px;overflow:auto;\">" ;
+	HTMLcode += "<table>" ;
+    HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+	HTMLcode += "<tr><td COLSPAN=\"2\">Title and action </td><td ALIGN=\"center\" WIDTH=\"50\">Auto run<br>at render</td></tr>" ;
+    HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+       var _trigger_chunk, _title, _desc, _k ;
+       for( _k = 0 ; _k < _n_triggers ; _k++ )
+       {
+         _trigger_chunk = _glob_triggers_table[ ''+_keys[_k] ] ;
+         if ( _trigger_chunk != null )
+         {
+            _title = _trigger_chunk[0].stripslashes(), _desc = _trigger_chunk[1].stripslashes(), _auto = safe_int( _trigger_chunk[4], 0 );
+            HTMLcode += "<tr><td ROWSPAN=\"2\" VALIGN=\"top\">"+(_k+1)+".&nbsp;"+"</td><td VALIGN=\"top\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_triggers_open('"+_keys[_k]+"');\"><b>"+_title+"</b></td><td ALIGN=\"center\"><INPUT ID=\"CIRCLES"+_subset+"TRIGGERScheckbox"+_k+"\" TYPE=\"checkbox\" "+( _auto ? "CHECKED" : "" )+" ONCLICK=\"javascript:_glob_triggers_table['"+_keys[_k]+"'][4] = this.checked?1:0;\"></td></tr>" ;
+            HTMLcode += "<tr><td VALIGN=\"top\" STYLE=\"color:#606060;\" CLASS=\"link\" ONCLICK=\"javascript:circles_lib_triggers_open('"+_keys[_k]+"');\">"+_desc+"</td></tr>" ;
+            HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
+         }
+       }
+
+       HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
+       HTMLcode += "</table>" ;
+       HTMLcode += "</DIV>" ;
+	   if ( _update_div ) $( "#CIRCLEStriggersLISTcontainer" ).html( HTMLcode );
+	   return _return ? HTMLcode : "" ;
 }
