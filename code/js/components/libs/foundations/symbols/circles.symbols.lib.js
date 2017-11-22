@@ -127,7 +127,7 @@ function circles_lib_symbol_get_err_def( _ret, _output_channel )
        case GROUP_TEST_ERR_MISSING_INVERSE_ITEM: MSG = "At least one inverse symbol is missing" ; break ;
        case GROUP_TEST_ERR_INCONSISTENT_ITEM_OBJ: MSG = "At least one entry is not a valid item" ; break ;
        case GROUP_TEST_ERR_UNMATCHING_ITEM_SYMBOL: MSG = "At least one symbol and its inverse symbol do not match" ; break ;
-       default: MSG = "31Unknown error" ; break ;
+       default: MSG = "Unknown error" ; break ;
     }
 
     if ( _ret != GROUP_TEST_ERR_OK && _output_channel == OUTPUT_SCREEN ) MSG += _glob_crlf + "Open the <a href=\"#\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','seeds.list',NO,"+UNDET+");\">circles list</a> to set it" ;
@@ -292,7 +292,7 @@ function circles_lib_symbol_zplane_display( _items_array, _canvas, _symbol, _b_i
         if ( _refresh_zplane && !( arguments.callee.caller.callername(1).strcmp( "circles_lib_canvas_render_zplane" ) ) ) // prevent looping in any case
         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
 		    var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-		    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "32Unknown error" ;
+		    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
         if ( _ret_id == RET_ERROR )
         {
 						 circles_lib_log_add_entry( _ret_msg, LOG_ERROR );

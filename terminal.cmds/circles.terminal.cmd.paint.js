@@ -151,7 +151,7 @@ function circles_terminal_cmd_paint()
                            circles_lib_output( _output_channel, DISPATCH_INFO, "Refreshing the Z-plane", _par_1, _cmd_tag );
                            _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
 											     var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-												   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "54Unknown error" ;
+												   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 												   if ( _ret_id == RET_ERROR )
 												   {
 													 		 _b_fail = YES, _error_str = _ret_msg ;

@@ -21,6 +21,7 @@ var _glob_region_regex_pattern = "^\\[([0-9\.\-]{1,})\,([0-9\.\-]{1,})\,([0-9\.\
 //var _glob_repetend_regex_pattern = "^([\\[]{0,})([a-zA-Z]{1,})([1-9\\*]{1,})([\\]]{0,})$" ;
 var _glob_repetend_regex_pattern = "^(\[)?([a-zA-Z]{1,})((\\*+[1-9]{1,})?)(\])?$" ;
 var _glob_rgbhex_regex_pattern = "^\\#([A-Fa-f0-9]{6})$" ;
+var _glob_regalpha_regex_pattern = "^rgb\(([0-9]{1,3})\,([0-9]{1,3})\,([0-9]{1,3})\,([0-9\.]{1,})\)$" ;
 var _glob_rgbdec_regex_pattern = "^rgb\\(([0-9]{1,3})\,([0-9]{1,3})\,([0-9]{1,3})\\)$" ;
 var _glob_sector_regex_pattern = "^\\[([0-9\.\+\-]{1,})([\,]{1})([0-9\.\+\-]{1,})\\]$" ;
 var _glob_simple_string_regex_pattern = "^([A-Za-z0-9\ ]{1,})$" ;

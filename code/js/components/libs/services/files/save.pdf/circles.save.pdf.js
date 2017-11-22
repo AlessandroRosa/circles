@@ -278,7 +278,7 @@ function circles_lib_files_pdf_save_report()
     var _display_wplane = arguments[4] != null ? safe_int( arguments[4], YES ) : YES ;
     
     var _zplane_rendering_canvas = null, _wplane_rendering_canvas = null, _bip_canvas = null ;
-    var _str = circles_lib_plane_get_def( _plane_type );
+    var _str = circles_lib_plane_def_get( _plane_type );
 
     _zplane_rendering_canvas = _glob_zplane_rendering_layer_placeholder ;
     _wplane_rendering_canvas = _plane_type.is_one_of( W_PLANE ) ? _glob_wplane_rendering_layer_placeholder : ( $("#" + _canvas_id ).get(0) != null ? $("#" + _canvas_id ).get(0) : _glob_bip_layer_placeholder );

@@ -54,7 +54,7 @@ function CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( _options_array, _silent )
 						{
 				        var _canvas_w = safe_int( _diagram_canvas.get_width(), 0 ), _canvas_h = safe_int( _diagram_canvas.get_height(), 0 );
 								_diagram_canvas.clean( "#EAEAEA" );
-								var _target_plane_def = circles_lib_plane_get_def( _glob_target_plane ) ;
+								var _target_plane_def = circles_lib_plane_def_get( _glob_target_plane ) ;
 								var _textcolor = COLOR_DISABLED, _metrics ;
 								var _font_size = Math.floor( _canvas_h / 16 ) ;
 								var _font_style = _font_size + "px Arial" ;

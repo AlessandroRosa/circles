@@ -72,7 +72,7 @@ function circles_terminal_cmd_savepix()
                   break ;
                   default:
                   var _plane_type = safe_int( _params_assoc_array['plane'], NO_PLANE );
-                  var _plane_label = circles_lib_plane_get_def( _svg_editor_coords_ref ).toLowerCase().replaceAll( [ ".", "-" ], "" );
+                  var _plane_label = circles_lib_plane_def_get( _svg_editor_coords_ref ).toLowerCase().replaceAll( [ ".", "-" ], "" );
                   var _canvas = null ;
                   switch( _plane_type )
                   {

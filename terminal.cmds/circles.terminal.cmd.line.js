@@ -219,7 +219,7 @@ function circles_terminal_cmd_line()
                   }
                   
                   circles_lib_draw_polyline( _canvas_context, _mapper, _params_assoc_array['settings']['polyline'], _drawcolor, _fillcolor, _linewidth, _params_assoc_array['settings']['close'], _opacity, UNDET, _params_assoc_array['settings']['propertiesmask'], YES );
-                  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_get_def( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Line processed with success</green>", _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Line processed with success</green>", _par_1, _cmd_tag );
 
                   if ( _params_assoc_array['settings']['rec'] == YES )
                   {

@@ -148,12 +148,12 @@ function circles_terminal_cmd_console()
 					   case "colorlist":
                           var _columns = 5, _counter = 0, _color_name = "", _row = "", _text = "" ;
 						  
-                               for( var _key in def_clrs_tags )
+                               for( var _key in _glob_def_clrs_tags )
                                {
                                    if ( _key.start_with( "tag." ) )
                                    {
                                       _color_name = _key.replaceAll( "tag.", "" );
-                                      _p_color = def_clrs_tags[_key] ;
+                                      _p_color = _glob_def_clrs_tags[_key] ;
                                       _color_tagged_entry = "<"+_color_name+">" + _color_name + "</"+_color_name+">" ;
                                       _color_name = _color_tagged_entry + ( new String( " ").repeat( 16 - _color_name.length ) );
                                       _row += _color_name ;

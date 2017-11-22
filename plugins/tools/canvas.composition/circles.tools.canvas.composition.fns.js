@@ -1,7 +1,7 @@
 function CIRCLEStoolsCANVASCOMPOSITIONactionCOMBOselect( _plane_type, _silent )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ), _silent = safe_int( _silent, NO );
-    var _plane_def = circles_lib_plane_get_def_for_cmds( _plane_type ) ;
+    var _plane_def = circles_lib_plane_def_get_for_cmds( _plane_type ) ;
 		var _ctrl_id = "CIRCLEStoolsCANVASCOMPOSITION"+_plane_def+"actionCOMBO" ;
 		var _sel = safe_int( $( "#" + _ctrl_id + " option:selected" ).val(), 0 );
 		if ( _plane_type == Z_PLANE )
@@ -39,7 +39,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUupdate()
                     {
                         _chunk = _layer_chunk.split( "@" );
                         // 0: idcanvas, 1 : role def, 2: plane type
-                        HTMLcode += "<OPTION VALUE=\""+_layer_chunk+"\">" + circles_lib_plane_get_def( _chunk[1] ) + " - " + _chunk[2] ;
+                        HTMLcode += "<OPTION VALUE=\""+_layer_chunk+"\">" + circles_lib_plane_def_get( _chunk[1] ) + " - " + _chunk[2] ;
                     } } ) ;
         HTMLcode += "</SELECT>" ;
         $( "#CIRCLEStoolsCANVASCOMPOSITIONcanvasCOMBOcontainer" ).html( HTMLcode );
@@ -169,7 +169,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUremove()
     if ( _chunk.length > 0 && _chunk.includes( "@" ) )
     {
          var _unpacked = _chunk.split( "@" );
-         if ( confirm( "Confirm to remove the layer " + circles_lib_plane_get_def( _unpacked[1] ) + " - " + _unpacked[2] + " from canvas composition ?" ) )
+         if ( confirm( "Confirm to remove the layer " + circles_lib_plane_def_get( _unpacked[1] ) + " - " + _unpacked[2] + " from canvas composition ?" ) )
          CIRCLEStoolsCANVASCOMPOSITIONremovefrom() ;
     }
 }
@@ -179,7 +179,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONaddto( _plane_type, _silent )
     _plane_type = circles_lib_return_plane_type( _plane_type ), _silent = safe_int( _silent, NO );
     if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) )
     {
-         var _plane_def = circles_lib_plane_get_def_for_cmds( _plane_type ) ;
+         var _plane_def = circles_lib_plane_def_get_for_cmds( _plane_type ) ;
          var _id = "CIRCLEStoolsCANVASCOMPOSITION"+_plane_def+"COMBO" ;
          var _sel = $( "#" + _id + " option:selected" ).val() ;
          if ( !CIRCLEStoolsCANVASCOMPOSITIONlayersARRAY.includes( _sel ) )
@@ -203,7 +203,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONpreview( _plane_type, _silent )
     _silent = safe_int( _silent, NO );
     if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) )
     {
-        var _plane_def = circles_lib_plane_get_def_for_cmds( _plane_type ) ;
+        var _plane_def = circles_lib_plane_def_get_for_cmds( _plane_type ) ;
         var _id = "CIRCLEStoolsCANVASCOMPOSITION"+_plane_def+"COMBO" ;
         var _chunk_packed = $( "#" + _id + " option:selected" ).val() ;
         if ( _chunk_packed.includes( "@" ) )

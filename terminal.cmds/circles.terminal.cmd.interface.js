@@ -80,7 +80,7 @@ function circles_terminal_cmd_interface()
 										  var _plane_type = circles_lib_plane_get_value( _params_assoc_array['settings']['plane'] ) ;
 										  if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) )
 										  {
-													var _plane_def = circles_lib_plane_get_def( _plane_type ) ;
+													var _plane_def = circles_lib_plane_def_get( _plane_type ) ;
 													var _opt = 0 ;
 													if ( _plane_type == Z_PLANE ) _opt = INTERFACE_EXTEND_ZPLANE ;
 													else if ( _plane_type == W_PLANE ) _opt = INTERFACE_EXTEND_WPLANE ;
@@ -116,7 +116,7 @@ function circles_terminal_cmd_interface()
 										  var _plane_type = circles_lib_plane_get_value( _params_assoc_array['settings']['plane'] ) ;
 										  if ( _plane_type != NO_PLANE )
 										  {
-													var _plane_def = circles_lib_plane_get_def( _plane_type ) ;
+													var _plane_def = circles_lib_plane_def_get( _plane_type ) ;
 													var _opt = 0 ;
 													if ( _plane_type == Z_PLANE ) _opt = INTERFACE_EXTEND_ZPLANE ;
 													else if ( _plane_type == W_PLANE ) _opt = INTERFACE_EXTEND_WPLANE ;

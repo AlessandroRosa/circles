@@ -102,7 +102,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             case FIGURE_CLASS_CIRCLE:
             _text_array.push( "Circle" );
             _text_array.push( _fig_obj['class'].output() );
-            _text_array.push( "Plane " + circles_lib_plane_get_def( _fig_obj['plane'] ) );
+            _text_array.push( "Plane " + circles_lib_plane_def_get( _fig_obj['plane'] ) );
             _text_array.push( "Draw " + ( _fig_obj['draw'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['drawcolor'] );
@@ -116,7 +116,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             case FIGURE_CLASS_LINE:
             _text_array.push( "Line" );
             _text_array.push( _fig_obj['class'].output() );
-            _text_array.push( "Plane " + circles_lib_plane_get_def( _fig_obj['plane'] ) );
+            _text_array.push( "Plane " + circles_lib_plane_def_get( _fig_obj['plane'] ) );
             _text_array.push( "Draw " + ( _fig_obj['draw'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['drawcolor'] );
@@ -128,7 +128,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             case FIGURE_CLASS_POINT:
             _text_array.push( "Point" );
             _text_array.push( _fig_obj['class'].output() );
-            _text_array.push( "Plane " + circles_lib_plane_get_def( _fig_obj['plane'] ) );
+            _text_array.push( "Plane " + circles_lib_plane_def_get( _fig_obj['plane'] ) );
             _text_array.push( "Draw " + ( _fig_obj['draw'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['drawcolor'] );
@@ -140,7 +140,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             case FIGURE_CLASS_RECT:
             _text_array.push( "Rectangle" );
             _text_array.push( _fig_obj['class'].output() );
-            _text_array.push( "Plane " + circles_lib_plane_get_def( _fig_obj['plane'] ) );
+            _text_array.push( "Plane " + circles_lib_plane_def_get( _fig_obj['plane'] ) );
             _text_array.push( "Draw " + ( _fig_obj['draw'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['drawcolor'] );
@@ -572,7 +572,7 @@ function circles_lib_figures_update_manager( _output_channel, _options, _param_0
 
            if ( _ret_flag )
            {
-                _glob_figures_array[ _zerobased_index ] = _rec_chunk, _plane_def = circles_lib_plane_get_def( _plane );
+                _glob_figures_array[ _zerobased_index ] = _rec_chunk, _plane_def = circles_lib_plane_def_get( _plane );
                 if ( _glob_terminal_echo_flag && _plane != NO_PLANE )
                 {
                      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>("+_plane_def+")</snow> <green>obj "+_figure_label+" #"+( _i + 1 )+" updated</green>", _param_01 );
@@ -636,7 +636,7 @@ function circles_lib_figures_action( _output_channel, _action, _index_vals_array
                             case "transfer":
                             _glob_figures_array[_x]['plane'] = _plane ;
                             if ( _glob_terminal_echo_flag )
-                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" transfered to " + circles_lib_plane_get_def(_plane), _param_01 );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" transfered to " + circles_lib_plane_def_get(_plane), _param_01 );
                             _refresh = YES ;
                             break ;
 						                default: break ;

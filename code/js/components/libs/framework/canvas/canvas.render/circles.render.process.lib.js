@@ -25,7 +25,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
     var _ok_plane_type = _plane_type.is_one_of( Z_PLANE, W_PLANE, BIP_BOX, ALL_PLANES ) ? YES : NO ;
     _glob_bip_use = _plane_type == BIP_BOX ? YES : NO ;
       
-    var _plane_type_label = circles_lib_plane_get_def( _plane_type );
+    var _plane_type_label = circles_lib_plane_def_get( _plane_type );
     var _items_n = circles_lib_count_items(), _draw_all = YES, _fill_all = YES, _HALT = NO ;
     for( var _i = 0 ; _i < _items_n ; _i++ )
     {
@@ -256,8 +256,8 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
              {
                 HTMLcode += "<tr><td>Bip activated : <b>Yes</b></td></tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                var _bip_coords_src_plane = circles_lib_plane_get_def( _glob_bip_original_plane_coords ) ;
-                var _bip_data_src_plane = circles_lib_plane_get_def( _glob_bip_original_plane_data ) ;
+                var _bip_coords_src_plane = circles_lib_plane_def_get( _glob_bip_original_plane_coords ) ;
+                var _bip_data_src_plane = circles_lib_plane_def_get( _glob_bip_original_plane_data ) ;
                 HTMLcode += "<tr><td>Bip coords source : <b>"+_bip_coords_src_plane+"</b></td></tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                 HTMLcode += "<tr><td>Bip data source : <b>"+_bip_data_src_plane+"</b></td></tr>" ;
@@ -450,7 +450,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                  _glob_wplane_rendering_layer_placeholder = _glob_wplane_rendering_layer_placeholder ;
                  if ( is_html_canvas( _glob_bip_layer_placeholder ) ) _glob_bip_layer_placeholder = _glob_bip_canvas ;
 
-                  var _plane_def = circles_lib_plane_get_def( _plane_type );
+                  var _plane_def = circles_lib_plane_def_get( _plane_type );
                   if ( _plane_type.is_one_of( Z_PLANE, ALL_PLANES ) )
                   {
                      var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, _b_clean, YES, _render, _question, YES, _output_channel );
@@ -485,7 +485,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
           }
           else
           {
-             var _plane_def = circles_lib_plane_get_def( _plane_type );
+             var _plane_def = circles_lib_plane_def_get( _plane_type );
              if ( _plane_type.is_one_of( Z_PLANE, ALL_PLANES ) )
              {
                  var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, _b_clean, YES, _render, _question, YES, _output_channel );
@@ -549,7 +549,7 @@ function circles_lib_canvas_render_process( canvas, mapper, _plane_type, _silent
          if ( _err < 0 )
          {
               _ret_chunk = circles_lib_items_group_return_msg( _err, _entries_n );
-              var _ret_id = _ret_chunk[0], _ret_msg = safe_string( _ret_chunk[1], "20Unknown error" );
+              var _ret_id = _ret_chunk[0], _ret_msg = safe_string( _ret_chunk[1], "Unknown error" );
               if ( _output_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, _ret_id >= 0 ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _glob_app_title );
               return [ RET_ERROR, _msg ];
          }
@@ -580,5 +580,5 @@ function circles_lib_canvas_render_process( canvas, mapper, _plane_type, _silent
            }
          }
      }
-     else return [ RET_ERROR, "21Unknown error" ] ;
+     else return [ RET_ERROR, "Unknown error" ] ;
 }

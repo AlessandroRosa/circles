@@ -168,7 +168,7 @@ function circles_terminal_cmd_init()
                     _init_mask = safe_int( _params_assoc_array['initoptions'], INIT_NONE );
                     _ret_chunk = circles_lib_items_init( null, NO, YES, _init_mask | INIT_SYMBOLS, YES, YES, _output_channel );
                     _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-                    _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "55Unknown error" ;
+                    _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
             				if ( _ret_id == RET_OK ) circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _ret_msg, _par_1, _cmd_tag );
                     else
             				{

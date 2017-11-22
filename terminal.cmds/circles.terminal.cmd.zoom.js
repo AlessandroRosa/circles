@@ -115,8 +115,8 @@ function circles_terminal_cmd_zoom()
       if ( safe_size( _params_assoc_array['planes'], 0 ) == 0 ) _params_assoc_array['planes'].push( _glob_target_plane ) ;
       var _action = safe_string( _params_assoc_array['action'], "" ) ;
       var _plane_type = safe_int( _params_assoc_array['planes'][0], NO_PLANE );
-      var _plane_def = circles_lib_plane_get_def( _plane_type );
-      var _plane_cmd = circles_lib_plane_get_def_for_cmds( _plane_type );
+      var _plane_def = circles_lib_plane_def_get( _plane_type );
+      var _plane_cmd = circles_lib_plane_def_get_for_cmds( _plane_type );
       var _tofit = safe_int( _params_assoc_array['tofit'], NO ) ;
       var _zf = safe_float( _params_assoc_array['zoomfactor'], 0 );
       var _clean = _params_assoc_array['params'].includes( "clean" ) ;
@@ -124,10 +124,10 @@ function circles_terminal_cmd_zoom()
       var _silent = _params_assoc_array['params'].includes( "silent" ) ? YES : ( _glob_terminal_silent == DISABLED ? NO : _glob_terminal_silent ) ;
       var _side = safe_float( _params_assoc_array['side'], 0 );
       var _center_pt = is_point( _params_assoc_array['center'] ) ? _params_assoc_array['center'] : new point( 0, 0 ) ;
-      var _src_plane_def = _params_assoc_array['planes'][0] != null ? circles_lib_plane_get_def( _params_assoc_array['planes'][0] ) : _undef_plane ;
-      var _src_plane_cmd = _params_assoc_array['planes'][0] != null ? circles_lib_plane_get_def_for_cmds( _params_assoc_array['planes'][0] ) : _undef_plane ;
-      var _dest_plane_def = _params_assoc_array['planes'][1] != null ? circles_lib_plane_get_def( _params_assoc_array['planes'][1] ) : _undef_plane ;
-      var _dest_plane_cmd = _params_assoc_array['planes'][1] != null ? circles_lib_plane_get_def_for_cmds( _params_assoc_array['planes'][1] ) : _undef_plane ;
+      var _src_plane_def = _params_assoc_array['planes'][0] != null ? circles_lib_plane_def_get( _params_assoc_array['planes'][0] ) : _undef_plane ;
+      var _src_plane_cmd = _params_assoc_array['planes'][0] != null ? circles_lib_plane_def_get_for_cmds( _params_assoc_array['planes'][0] ) : _undef_plane ;
+      var _dest_plane_def = _params_assoc_array['planes'][1] != null ? circles_lib_plane_def_get( _params_assoc_array['planes'][1] ) : _undef_plane ;
+      var _dest_plane_cmd = _params_assoc_array['planes'][1] != null ? circles_lib_plane_def_get_for_cmds( _params_assoc_array['planes'][1] ) : _undef_plane ;
              
       if ( _glob_terminal_run_code_from == RUN_CODE_FROM_OUTER_SRC && _plane_type.is_one_of( W_PLANE, ALL_PLANES ) )
       {

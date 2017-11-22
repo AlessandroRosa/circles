@@ -587,7 +587,7 @@ function _map_cmd_init( _par_1, _output_channel )
      _glob_init_mask |= INIT_FROM_MAPS ;
      var _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, YES, YES, _output_channel );
      var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-     var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "39Unknown error" ;
+     var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 		 if ( _ret_id == RET_OK )
 		 {
      		 _b_fail = YES, _error_str = _ret_msg ;

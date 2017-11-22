@@ -271,7 +271,7 @@ function circles_terminal_cmd_palette()
                      {
                         var _ret_chunk = circles_lib_colors_colorize_group( _dest_ref, YES, YES, _output_channel );
                         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-                        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "51Unknown error" ;
+                        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                         circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                      }
 
@@ -293,7 +293,7 @@ function circles_terminal_cmd_palette()
                      {
                         var _ret_chunk = circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel );
                         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-                        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "52Unknown error" ;
+                        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                         circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                      }
             				 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel ); }
@@ -489,11 +489,11 @@ function circles_terminal_cmd_palette()
                   var _entry_max_length = 15 ;
                   var _cols = Math.floor( _glob_terminal.cols() / _entry_max_length ), _counter = 0, _row = "" ;
                   circles_lib_output( _output_channel, DISPATCH_INFO, "Default color tags are:", _par_1, _cmd_tag );
-                  for( var _key in def_clrs_tags )
+                  for( var _key in _glob_def_clrs_tags )
                   {
                      if ( _key.includes( "tag." ) )
                      {
-                        _p_color = def_clrs_tags[_key] ;
+                        _p_color = _glob_def_clrs_tags[_key] ;
                         _key = _key.replaceAll( "tag.", "" );
                         var _entry = "<"+_key+">"+_key+"</"+_key+">" ;
                             _entry += ( new String( " " ) ).repeat( _entry_max_length - _key.length );

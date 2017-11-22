@@ -357,14 +357,14 @@ function circles_terminal_cmd_tessellator()
                               _glob_items_to_init = YES ;
                               var _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, _glob_verbose, YES, YES, _output_channel );
                               var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-                              var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "35Unknown error" ;
+                              var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                               if ( _ret_id == RET_OK )
                               {
                                   if ( _params_assoc_array['plane'] == Z_PLANE )
                                   {
                                   	 var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
 																     var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-																	   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "36Unknown error" ;
+																	   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 																	   if ( _ret_id == RET_ERROR )
 																	   {
 																		 		 _b_fail = YES, _error_str = _ret_msg ;
@@ -372,7 +372,7 @@ function circles_terminal_cmd_tessellator()
 																	}
                                   else if ( _params_assoc_array['plane'] == W_PLANE )
                                   circles_lib_draw_all_screen_disks( _glob_wplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, null, YES, YES, _output_channel );
-                                  var _plane_def = circles_lib_plane_get_def( _params_assoc_array['plane'] );
+                                  var _plane_def = circles_lib_plane_def_get( _params_assoc_array['plane'] );
                                   circles_lib_output( _output_channel, DISPATCH_SUCCESS, _plane_def + ": " + _tessellation + " tessellation performed with success", _par_1, _cmd_tag );
                               }
                               else

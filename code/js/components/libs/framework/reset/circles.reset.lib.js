@@ -10,7 +10,7 @@ function circles_lib_reset_coords()
 function circles_lib_reset_canvas()
 {
      _glob_bip_opacity = DEFAULT_MAX_OPACITY, _glob_context_dims = DIMS_2D ;
-     var _layers = circles_lib_canvas_layer_pile_get_per_plane( Z_PLANE ), _ret_pos_index, _ret ;
+     var _layers = circles_lib_canvas_layer_pile_per_plane_get( Z_PLANE ), _ret_pos_index, _ret ;
      for( var _i = 0 ; _i < _layers.length ; _i++ )
      {
          _ret_pos_index = circles_lib_canvas_layer_find_pos_index( Z_PLANE, FIND_LAYER_BY_ROLE_DEF, _layers[_i].get_role_def() );
@@ -19,7 +19,7 @@ function circles_lib_reset_canvas()
          _ret = circles_lib_canvas_layer_update( Z_PLANE, _ret_pos_index, "visible", YES );
      }
 
-     _layers = circles_lib_canvas_layer_pile_get_per_plane( W_PLANE );
+     _layers = circles_lib_canvas_layer_pile_per_plane_get( W_PLANE );
      for( var _i = 0 ; _i < _layers.length ; _i++ )
      {
          _ret_pos_index = circles_lib_canvas_layer_find_pos_index( W_PLANE, FIND_LAYER_BY_ROLE_DEF, _layers[_i].get_role_def() );

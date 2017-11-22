@@ -1,0 +1,62 @@
+<banana>layers data management</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>layer %action% %params%</snow>
+
+<lightblue>%action%</lightblue> <snow>copy | clean | create | default | delete | info | list | merge | redirect | split | update</snow>
+<lightblue>%plane%</lightblue> <snow>zplane | wplane</snow>
+<lightblue>%visibility%</lightblue> <snow>show | hide</snow>
+
+<lightblue>layer redirect zplane rendering to zplane freedraw</lightblue>
+<cadetblue>set Z-plane freedraw layer for Z-plane rendering</cadetblue>
+
+<lightblue>layer default</lightblue>
+<cadetblue>restore layers default settings</cadetblue>
+
+<lightblue>layer %plane% list</lightblue>
+<cadetblue>return current layers list for the input plane</cadetblue>
+
+<lightblue>layer info</lightblue>
+<cadetblue>return redirection assignment report about all layers</cadetblue>
+
+<lightblue>layer create %plane% mynewlayer</lightblue>
+<cadetblue>create a new layer on the input plane and tag it as 'mynewlayer'</cadetblue>
+
+<lightblue>layer clean %plane%</lightblue>
+<cadetblue>clean all layers belonging to the input plane</cadetblue>
+
+<lightblue>layer update %plane% %layer id% %param% %value%</lightblue>
+<lightblue>%param%</lightblue> <snow>bkcolor | opacity | visible</snow>
+
+<lightblue>layer update zplane mynewlayer bkcolor aquamarine</lightblue>
+<cadetblue>update layer background clr (rgb hex or decimal triplets are allowed too)</cadetblue>
+
+<lightblue>layer update zplane mynewlayer opacity 80</lightblue>
+<cadetblue>update layer background opacity (values ranges from 0 to 100)</cadetblue>
+
+<lightblue>layer update zplane mynewlayer visible %visibility%</lightblue>
+<cadetblue>toggle layer visibility</cadetblue>
+
+<lightblue>layer delete %plane% mynewlayer</lightblue>
+<cadetblue>delete layer tagged as 'mynewlayer' from the plane pile</cadetblue>
+
+<lightblue>layer merge %plane%</lightblue>
+<cadetblue>merge all input plane layers into one (i.e. outputs are redirected to one only layer)</cadetblue>
+
+<lightblue>layer split %plane%</lightblue>
+<cadetblue>split all input plane layers if already merged (i.e. outputs are redirected to fitting layers)</cadetblue>
+
+<lightblue>layer thumbnail zplane rendering 100</lightblue>
+<cadetblue>display a thumbnail of Z-plane rendering layer, whose side is 100 pixels long</cadetblue>
+
+<lightblue>layer release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<yellow>------------- NOTES ----------------</yellow>
+<yellow>Special mode</yellow>
+<cadetblue>Can be de/activated by 'open' / 'close' commands respectively</cadetblue>
+<lightblue>layer open</lightblue>
+<cadetblue>open special mode</cadetblue>
+<lightblue>close</lightblue>
+<cadetblue>close special mode (warning: just write 'close')</cadetblue>

@@ -1,24 +1,24 @@
-_glob_terminal_cmd_files_include[ "canvas" ] = [ "keepcmd" ] ;
+_glob_terminal_cmd_files_include[ "layer" ] = [ "keepcmd" ] ;
 
-function circles_terminal_cmd_canvas()
+function circles_terminal_cmd_layer()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+	var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _params_assoc_array = [];
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _params_assoc_array = [];
 
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      else if ( _params.length > 0 )
@@ -31,7 +31,7 @@ function circles_terminal_cmd_canvas()
 		var _local_cmds_params_array = [];
     	_local_cmds_params_array.push( "apply", "bip", "bkcolor", "clean", "close", "copy", "create",
                 "default", "delete", "from", "hide", "info", "list", "merge",
-                "open", "opacity", "rec", "redirect", "resize", "show", "split",
+                "open", "opacity", "rec", "redirect", "resize", "reversepile", "show", "split",
                 "to", "thumbnail", "update", "visible", "wplane", "zplane", "html", "help" );
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
@@ -48,7 +48,7 @@ function circles_terminal_cmd_canvas()
         }
 				 
          // distribute all input values into arrays of categories
-         _params_assoc_array['plane'] = _glob_target_plane != NO_PLANE ? circles_lib_plane_get_def( _glob_target_plane ) : "zplane" ;
+         _params_assoc_array['plane'] = _glob_target_plane != NO_PLANE ? circles_lib_plane_def_get( _glob_target_plane ) : "zplane" ;
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['action'] = "" ;
          _params_assoc_array['params'] = [];
@@ -86,7 +86,7 @@ function circles_terminal_cmd_canvas()
                 else if ( _params_assoc_array['h'] == null ) _params_assoc_array['h'] = safe_int( _p, 0 );
             }
             else if ( _p.is_one_of_i( "apply", "clean", "create", "default", "delete", "info", "list", "merge",
-                                      "redirect", "release", "resize", "split", "thumbnail", "update" ) )
+                                      "redirect", "release", "resize", "reversepile", "split", "thumbnail", "update" ) )
             {
 				if ( _params_assoc_array['action'].strcmp( "redirect" ) && _p.stricmp( "list" ) ) _params_assoc_array['action'] += _p ;
 				else
@@ -97,46 +97,46 @@ function circles_terminal_cmd_canvas()
             }
             else if ( _p.is_one_of_i( "copy" ) )
             {
-                  // works in special mode only
-                  if ( _glob_storage[_cmd_tag]['open'] )
-                  {
-                       _glob_storage[_cmd_tag]['action'] = _p ;
-                       if ( _output_channel == OUTPUT_TERMINAL )
-                       circles_lib_output( _output_channel, DISPATCH_STANDARD, "Insert source canvas for copy (e.g. 'zplane work')", _par_1, _cmd_tag );
-                  }
-                  else
-                  {
-                       _b_fail = YES ;
-                       _error = _p + " action works in special mode exclusively" ;
-                  }
+                // works in special mode only
+                if ( _glob_storage[_cmd_tag]['open'] )
+                {
+                    _glob_storage[_cmd_tag]['action'] = _p ;
+                    if ( _output_channel == OUTPUT_TERMINAL )
+                    circles_lib_output( _output_channel, DISPATCH_STANDARD, "Insert source layer for copy (e.g. 'zplane work')", _par_1, _cmd_tag );
+                }
+                else
+                {
+                    _b_fail = YES ;
+                    _error = _p + " action works in special mode exclusively" ;
+                }
               }
               else if ( _glob_storage[_cmd_tag] != null )
               {
-                  if ( _glob_storage[_cmd_tag]['action'].strcmp( "copy" ) )
-                  {
-                      if ( _p.is_one_of_i( "zplane", "wplane" ) )
-                      {
-                           if ( _glob_storage[_cmd_tag]['from_plane'] == null )
-                           _glob_storage[_cmd_tag]['from_plane'] = _p ;
-                           else if ( _glob_storage[_cmd_tag]['to_plane'] == null )
-                           _glob_storage[_cmd_tag]['to_plane'] = _p ;
-                      }
-                      else
-                      {
-                           if ( _glob_storage[_cmd_tag]['from_layer'] == null )
-                           {
-                               _glob_storage[_cmd_tag]['from_layer'] = _p ;
-                               if ( _output_channel == OUTPUT_TERMINAL )
-                               circles_lib_output( _output_channel, DISPATCH_STANDARD, "Insert destination canvas for copy (e.g. 'wplane work')", _par_1, _cmd_tag );
-                           }
-                           else if ( _glob_storage[_cmd_tag]['to_plane'] == null )
-                           {
-                               _glob_storage[_cmd_tag]['to_plane'] = _p ;
-                               if ( _output_channel == OUTPUT_TERMINAL )
-                               circles_lib_output( _output_channel, DISPATCH_STANDARD, "Type 'apply' to proceed", _par_1, _cmd_tag );
-                           }
-                      }
-                  }
+                if ( _glob_storage[_cmd_tag]['action'].strcmp( "copy" ) )
+                {
+                    if ( _p.is_one_of_i( "zplane", "wplane" ) )
+                    {
+                        if ( _glob_storage[_cmd_tag]['from_plane'] == null )
+                        _glob_storage[_cmd_tag]['from_plane'] = _p ;
+                        else if ( _glob_storage[_cmd_tag]['to_plane'] == null )
+                        _glob_storage[_cmd_tag]['to_plane'] = _p ;
+                    }
+                    else
+                    {
+                        if ( _glob_storage[_cmd_tag]['from_layer'] == null )
+                        {
+                            _glob_storage[_cmd_tag]['from_layer'] = _p ;
+                            if ( _output_channel == OUTPUT_TERMINAL )
+                            circles_lib_output( _output_channel, DISPATCH_STANDARD, "Insert destination layer for copy (e.g. 'wplane work')", _par_1, _cmd_tag );
+                        }
+                        else if ( _glob_storage[_cmd_tag]['to_plane'] == null )
+                        {
+                            _glob_storage[_cmd_tag]['to_plane'] = _p ;
+                            if ( _output_channel == OUTPUT_TERMINAL )
+                            circles_lib_output( _output_channel, DISPATCH_STANDARD, "Type 'apply' to proceed", _par_1, _cmd_tag );
+                        }
+                    }
+                }
             }
             else if ( _params_assoc_array['action'].strcmp( "redirect" ) )
             {
@@ -214,8 +214,8 @@ function circles_terminal_cmd_canvas()
            {
                 case "clean":
                 var _plane_type = circles_lib_plane_get_value( _params_assoc_array['plane'] );
-                var _plane_def = circles_lib_plane_get_def( _plane_type );
-                var _default_pile = circles_lib_canvas_layer_pile_get_default( _plane_type );
+                var _plane_def = circles_lib_plane_def_get( _plane_type );
+                var _default_pile = circles_lib_canvas_layer_pile_default_get( _plane_type );
                 var _layers_role_pile = [];
                 if ( _default_pile != null )
                 {
@@ -224,7 +224,7 @@ function circles_terminal_cmd_canvas()
                     {
 	                    var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, _layers_role_pile.clone(), YES, YES, YES, NO, YES, YES, _output_channel );
 					    var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-					    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "53Unknown error" ;
+					    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 					    if ( _ret_id == RET_ERROR ) { _b_fail = YES, _error_str = _ret_msg ; }
 					}
                     else if ( _plane_type == W_PLANE )
@@ -264,7 +264,7 @@ function circles_terminal_cmd_canvas()
                 case "update":
                 var _required_n_params = _params.length ;
                 if      ( _action.is_one_of( "create", "delete" ) ) _required_n_params = 2 ;
-                else if ( _action.strcmp( "update" ) ) _required_n_params = 4 ; // 2 canvas ref + 2 params values
+                else if ( _action.strcmp( "update" ) ) _required_n_params = 4 ; // 2 layer ref + 2 params values
                 if ( _params.length == _required_n_params )
                 {
                     var _action_params_array = [];
@@ -399,10 +399,10 @@ function circles_terminal_cmd_canvas()
                 case "default":
                 var _restore_defaults = function()
                 {
-                    circles_lib_output( _output_channel, DISPATCH_INFO, "Restoring canvas properties", _par_1, _cmd_tag );
-                    circles_lib_output( _output_channel, DISPATCH_INFO, "Restoring canvas redirection assignments", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_INFO, "Restoring layer properties", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_INFO, "Restoring layer redirection assignments", _par_1, _cmd_tag );
                     circles_lib_reset_canvas();
-                    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All default canvas settings restored with success", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All default layer settings restored with success", _par_1, _cmd_tag );
                 }
 
                 if ( _glob_terminal_silent ) _restore_defaults();
@@ -450,23 +450,23 @@ function circles_terminal_cmd_canvas()
                 var _plane_type = _params_assoc_array['plane'] != null ? ( _params_assoc_array['plane'].stricmp( "zplane" ) ? Z_PLANE : W_PLANE ) : NO_PLANE ;
                 if ( _plane_type != NO_PLANE )
                 {
-                    var _layers_list = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+                    var _layers_list = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
                     if ( safe_size( _layers_list, 0 ) > 0 )
                     {
-                        var _layer = null, _canvas = null ;
-                        var _id = "", _canvas_id, _div_id, _index = 0.0, _role = "", _role_def, _output_row = "", _z_index ;
-						var _plane_def = circles_lib_plane_get_def( _plane_type ) ;                        
+                        var _layer = null, _canvas = null, _clr_chunk = null ;
+                        var _id = "", _canvas_id, _div_id, _index = 0.0, _role = "", _role_def, _output_row = "", _z_index = -1, _bkcolor = "" ;
+						var _plane_def = circles_lib_plane_def_get( _plane_type ) ;                        
 						
                         var _caption = "<khaki>Scanning the layers list on</khaki> <orange>"+_plane_def+"</orange>\n<white>Found " + _layers_list.length + " entr" + ( _layers_list.length == 1 ? "y" : "ies" ) + "</white>" ;
                         circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _caption, _par_1, _cmd_tag );
-						var _max_len = 0 ; // 
+						var _max_len = 0 ; // compute max string length among the layer ids in the list, prior to display
 						_layers_list.forEach( function( _layer ){
 							if ( _layer != null )
 							{
 								_max_len = Math.max( _max_len, _layer.get_idcanvas().replaceAll( [ "_layer_canvas", "zplane", "wplane", "plane", "DIV", "_" ], "").trim().length ) ;
 							} } );
 						
-						var COLSsizeARRAY = [ _max_len+2, 8, 6, 15, 8, 8, 7 ] ;
+						var COLSsizeARRAY = [ _max_len+2, 8, 6, 15, 8, 8, 10, 10 ] ;
 
                         _output_row  = ( new String( "ID" ) ).rpad( " ", COLSsizeARRAY[0] );
                         _output_row += ( new String( "DEFAULT" ) ).rpad( " ", COLSsizeARRAY[1] );
@@ -475,6 +475,7 @@ function circles_terminal_cmd_canvas()
                         _output_row += ( new String( "OPACITY" ) ).rpad( " ", COLSsizeARRAY[4] );
                         _output_row += ( new String( "VISIBLE" ) ).rpad( " ", COLSsizeARRAY[5] );
                         _output_row += ( new String( "DIMS" ) ).rpad( " ", COLSsizeARRAY[6] );
+                        _output_row += ( new String( "BK COLOR" ) ).rpad( " ", COLSsizeARRAY[7] );
                         circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_output_row+"</lightblue>", _par_1, _cmd_tag );
 
                         _out_text_string = _output_row ;
@@ -491,6 +492,9 @@ function circles_terminal_cmd_canvas()
                                 _role = _layer.get_role_id() ;
                                 _role_def = _layer.get_role_def().trim();
                                 _opacity = $("#"+_div_id ).css( "opacity" );
+                                _bkcolor = $("#"+_div_id ).css( "background-color" );
+								_clr_chunk = circles_lib_colors_get_formats( _bkcolor )
+								if ( _clr_chunk[3].length > 0 ) _bkcolor = _clr_chunk[3] ;
                                 _canvas = $("#"+_canvas_id ).get(0);
                                        
                                 _output_row  = "<yellow>"+( ""+_id ).rpad( " ", COLSsizeARRAY[0] )+"</yellow>" ;
@@ -500,20 +504,17 @@ function circles_terminal_cmd_canvas()
                                 _output_row += ( ( _opacity * 100.0 ) + "%").rpad( " ", COLSsizeARRAY[4] );
                                 _output_row += _layer.is_visible() ? "<green>"+("yes").rpad( " ", COLSsizeARRAY[5] )+"</green>" : "<red>"+("no").rpad( " ", COLSsizeARRAY[5] )+"</red>" ;
                                 _output_row += is_html_canvas( _canvas ) ? ( _canvas.get_width()+"x"+_canvas.get_height() ).rpad( " ", COLSsizeARRAY[6] ) : "-------"
+                                _output_row += ( "" + _bkcolor ).rpad( " ", COLSsizeARRAY[7] );
 
                                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _output_row, _par_1, _cmd_tag );
                                 _out_text_string += _glob_crlf + _output_row ;
                             }
-                            else circles_lib_output( _output_channel, DISPATCH_WARNING, "Memory leak while returning layers list list", _par_1, _cmd_tag );
+                            else circles_lib_output( _output_channel, DISPATCH_WARNING, "Detected memory leak while returning layers list", _par_1, _cmd_tag );
                         }
                     }
                     else { _b_fail = YES ; _error_str = "No list returned: incoherent input plane type" ; }
                 }
-                else
-                {
-                     _b_fail = YES ;
-                     _error_str = "No list returned: missing input plane type" ;
-                }
+                else { _b_fail = YES ; _error_str = "No list returned: missing input plane type" ; }
                 break ;
                 case "merge":
                 var _plane = NO_PLANE ;
@@ -549,13 +550,10 @@ function circles_terminal_cmd_canvas()
                 circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 case "redirect":
-				console.log( _params_assoc_array );
                 var _candidate_from_layer = circles_lib_canvas_layer_find( _params_assoc_array['from_plane'], FIND_LAYER_BY_ROLE_DEF, _params_assoc_array['from_service'], _output_channel );
-				console.log( _candidate_from_layer );
                 if ( is_html_canvas( _candidate_from_layer ) )
                 {
                     var _to_service = _params_assoc_array['to_service'] ;
-					console.log( "TO SERVICE", _to_service, _params_assoc_array['to_plane'], Z_PLANE );
                     switch( _params_assoc_array['to_plane'] )
                     {
                         case Z_PLANE:
@@ -580,12 +578,11 @@ function circles_terminal_cmd_canvas()
                 else
                 {
                     _b_fail = YES ;
-                    _error_str = "Inconsistent canvas references:" ;
-                    _error_str += "\nmissing " + circles_lib_plane_get_def( _params_assoc_array['to_plane'] ) + " " + _params_assoc_array['to_plane'] ;
+                    _error_str = "Inconsistent layer references:" ;
+                    _error_str += "\nmissing " + circles_lib_plane_def_get( _params_assoc_array['to_plane'] ) + " " + _params_assoc_array['to_plane'] ;
                 }
                 break ;
 				case "redirectlist":
-				console.log( _params_assoc_array['plane'], Z_PLANE );
 				switch( circles_lib_plane_get_value( _params_assoc_array['plane'] ) )
 				{
 					case Z_PLANE:
@@ -615,8 +612,8 @@ function circles_terminal_cmd_canvas()
 				break ;
                 case "resize":
                 var _plane = NO_PLANE, _default = safe_int( _params_assoc_array['default'], NO );
-                if ( _params_assoc_array['plane'].strcmp( "zplane" ) ) _plane = Z_PLANE ;
-                else if ( _params_assoc_array['plane'].strcmp( "wplane" ) ) _plane = W_PLANE ;
+                if ( _params_assoc_array['plane'].stricmp( "zplane" ) ) _plane = Z_PLANE ;
+                else if ( _params_assoc_array['plane'].stricmp( "wplane" ) ) _plane = W_PLANE ;
                 var _width_percentage = safe_int( _params_assoc_array['w'], 50 );
 
                 if ( _plane == NO_PLANE ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Resize failure: missing selected plane", _par_1, _cmd_tag );
@@ -631,6 +628,23 @@ function circles_terminal_cmd_canvas()
                     circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Resize to "+_width_percentage+"% completed", _par_1, _cmd_tag );
                 }
                 break ;
+				case "reversepile":
+                var _plane = NO_PLANE, _default = safe_int( _params_assoc_array['default'], NO );
+                if ( _params_assoc_array['plane'].stricmp( "zplane" ) ) _plane = Z_PLANE ;
+                else if ( _params_assoc_array['plane'].stricmp( "wplane" ) ) _plane = W_PLANE ;
+				if ( _plane == NO_PLANE ) circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to reverse the layers pile: missing input plane specification", _par_1, _cmd_tag );
+				else
+				{
+					var _layers_pile = circles_lib_canvas_layer_pile_get(_plane) ;
+					if ( _layers_pile == null ) circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to reverse the layers pile: invalid data", _par_1, _cmd_tag );
+					else
+					{
+						_layers_pile.reverse();
+						var _plane_def = circles_lib_plane_def_get(_plane);
+						circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The layers pile, in the "+_plane_def+", has been reverted with success", _par_1, _cmd_tag );
+					}
+				}
+				break ;
                 case "split":
                 var _plane = NO_PLANE ;
                 if ( _params_assoc_array['plane'].strcmp( "all" ) ) _plane = ALL_PLANES ;
@@ -679,40 +693,31 @@ function circles_terminal_cmd_canvas()
                 else _side = Math.max( _w, _h );
 
                 var _ret_layer = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _role_def, _output_channel );
-                if ( _ret_layer == null )
-                {
-                     _b_fail = YES ;
-                     _error_str = "Can't display thumbnail: incorrect canvas reference" ;
-                }
+                if ( _ret_layer == null ) { _b_fail = YES ; _error_str = "Can't display thumbnail: incorrect layer reference" ; }
                 else
                 {
-                     var _src_canvas_id = _ret_layer.get_idcanvas() ;
-                     var _copy_canvas_id = "TERMINALcmdCANVAS" + unixtime();
-                     circles_lib_terminal_html_display( _glob_terminal, "<table><tr><td HEIGHT=\"12\"></td></tr><tr><td><CANVAS ID=\""+_copy_canvas_id+"\" WIDTH=\""+CANVAS_SIZE+"\" HEIGHT=\""+CANVAS_SIZE+"\" STYLE=\"width:"+_side+"px;height:"+_side+"px;\"></CANVAS></td></tr><tr><td HEIGHT=\"12\"></td></tr></table>" );
-                     var _ret_chunk = circles_lib_canvas_layer_copy( _src_canvas_id, _copy_canvas_id, _side, _side );
-       							 var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
-          					 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to make a copy of input canvas" ;
-          					 
-          					 circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
+                    var _src_canvas_id = _ret_layer.get_idcanvas() ;
+                    var _copy_canvas_id = "TERMINALcmdCANVAS" + unixtime();
+                    circles_lib_terminal_html_display( _glob_terminal, "<table><tr><td HEIGHT=\"12\"></td></tr><tr><td><CANVAS ID=\""+_copy_canvas_id+"\" WIDTH=\""+CANVAS_SIZE+"\" HEIGHT=\""+CANVAS_SIZE+"\" STYLE=\"width:"+_side+"px;height:"+_side+"px;\"></CANVAS></td></tr><tr><td HEIGHT=\"12\"></td></tr></table>" );
+                    var _ret_chunk = circles_lib_canvas_layer_copy( _src_canvas_id, _copy_canvas_id, _side, _side );
+       				var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
+          			var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to make a copy of input layer" ;
+          			circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                 }
                 break ;
                 default:
-                if ( _glob_storage[_cmd_tag] == null )
-                {
-                    _b_fail = YES ;
-                    _error_str = "Missing action param" ;
-                }
+                if ( _glob_storage[_cmd_tag] == null ) { _b_fail = YES ; _error_str = "Missing action parameter" ; }
                 break ;
            }
      }
 
      if ( _glob_storage[_cmd_tag] != null )
      {
-          if ( _glob_storage[_cmd_tag]['open'] == PENDING )
-          {
-              circles_terminal_cmd_keepcmd( "off", _output_channel, YES );
-              _glob_storage.remove_key( _cmd_tag );
-          }
+        if ( _glob_storage[_cmd_tag]['open'] == PENDING )
+        {
+            circles_terminal_cmd_keepcmd( "off", _output_channel, YES );
+            _glob_storage.remove_key( _cmd_tag );
+        }
      }
 
      if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );

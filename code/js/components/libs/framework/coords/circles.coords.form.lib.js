@@ -2,7 +2,7 @@ function circles_lib_coordinates_shift( _where, _plane_type, _scalar_shift, _sil
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _where = safe_string( _where, "" ).toLowerCase();
-    var _plane_def = circles_lib_plane_get_def( _plane_type );
+    var _plane_def = circles_lib_plane_def_get( _plane_type );
     _scalar_shift = safe_float( _scalar_shift, UNDET );
     _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var left = null, right = null, top = null, bottom = null ;
@@ -228,7 +228,7 @@ function circles_lib_coordinates_reset( _plane_type, _render, _question, _silent
     _render = safe_int( _render, YES );
 		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
-    var MSG = "Confirm to reset coordinates for the " + circles_lib_plane_get_def( _plane_type ) + " plane ?";
+    var MSG = "Confirm to reset coordinates for the " + circles_lib_plane_def_get( _plane_type ) + " plane ?";
     var _b_go = !_question ? YES : confirm( MSG );
     if ( _b_go )
     {
@@ -246,7 +246,7 @@ function circles_lib_coordinates_set_core( _input_canvas, _mapper, _plane_type, 
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
 		_silent = safe_int( _silent, NO ), _render = safe_int( _render, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-    var _plane_label = circles_lib_plane_get_def( _plane_type );
+    var _plane_label = circles_lib_plane_def_get( _plane_type );
     var LEFT, TOP, RIGHT, BOTTOM ;
     switch( _plane_type )
     {

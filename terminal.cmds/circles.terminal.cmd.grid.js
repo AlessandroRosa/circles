@@ -29,7 +29,7 @@ function circles_terminal_cmd_grid()
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['action'] = "" ;
          _params_assoc_array['planeindex'] = _glob_target_plane ;
-         _params_assoc_array['plane'] = circles_lib_plane_get_def( _glob_target_plane ) ;
+         _params_assoc_array['plane'] = circles_lib_plane_def_get( _glob_target_plane ) ;
 
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " ); 
@@ -105,10 +105,10 @@ function circles_terminal_cmd_grid()
                   circles_lib_output( _output_channel, DISPATCH_INFO, "Axes color reset to " + ( _tag ? _tag : _glob_axis_color ), _par_1, _cmd_tag );
                   
                   _glob_show_grid_zplane = YES ;
-                  circles_lib_output( _output_channel, DISPATCH_INFO, circles_lib_plane_get_def( Z_PLANE )+" grid reset to " + ( _glob_show_grid_zplane ? "visible" : "hidden" ), _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, circles_lib_plane_def_get( Z_PLANE )+" grid reset to " + ( _glob_show_grid_zplane ? "visible" : "hidden" ), _par_1, _cmd_tag );
                   
                   _glob_show_grid_wplane = YES ;
-                  circles_lib_output( _output_channel, DISPATCH_INFO, circles_lib_plane_get_def( W_PLANE )+"grid set to " + ( _glob_show_grid_zplane ? "visible" : "hidden" ), _par_1, _cmd_tag );
+                  circles_lib_output( _output_channel, DISPATCH_INFO, circles_lib_plane_def_get( W_PLANE )+"grid set to " + ( _glob_show_grid_zplane ? "visible" : "hidden" ), _par_1, _cmd_tag );
                   circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Default settings have been restored with success", _par_1, _cmd_tag );
              }
              else
@@ -144,7 +144,7 @@ function circles_terminal_cmd_grid()
                       {
                           var _mode = _params_assoc_array['mode'] ;
                           var _working_plane = _all ? ALL_PLANES : _params_assoc_array['planeindex'] ;
-                          var _plane_def = circles_lib_plane_get_def( _working_plane );
+                          var _plane_def = circles_lib_plane_def_get( _working_plane );
                           if ( _working_plane.is_one_of( Z_PLANE, ALL_PLANES ) ) _glob_show_grid_zplane = _mode ;
                           if ( _working_plane.is_one_of( W_PLANE, ALL_PLANES ) ) _glob_show_grid_wplane = _mode ;
                           circles_lib_output( _output_channel, DISPATCH_SUCCESS, _plane_def + " "+( _all ? "have" : "has" )+" been set to "+( _mode ? "visible" : "hidden" )+"", _par_1, _cmd_tag );

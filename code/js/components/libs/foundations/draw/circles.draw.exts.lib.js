@@ -91,7 +91,7 @@ function circles_lib_draw_all_complex_disks( _context, _mapper, _selected_items_
 						default: _opacity = _glob_opacity ; break ;
 				}
           
-        if ( _glob_export_format == EXPORT_SVG ) _svg_comment( _glob_export_code_array, "Drawing the complex disks over the "+circles_lib_plane_get_def( _canvas.get_type() ) );
+        if ( _glob_export_format == EXPORT_SVG ) _svg_comment( _glob_export_code_array, "Drawing the complex disks over the "+circles_lib_plane_def_get( _canvas.get_type() ) );
         for( var _i = 0 ; _i < _items_n ; _i++ )
         {
             ITEM = _items_array[_i] ;

@@ -213,7 +213,7 @@ function circles_lib_canvas_layer_init( _base_container_id, _recalc_coords, _div
 function circles_lib_canvas_layer_with_max_role_get( _plane_type )
 {
     _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
-    var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+    var _layers_array = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
     var _L = safe_size( _layers_array, 0 ), _role = 0, _canvas ;
     for( var i = 0 ; i < _L ; i++ )
     {
@@ -230,7 +230,7 @@ function circles_lib_canvas_layer_with_max_role_get( _plane_type )
 function circles_lib_canvas_layer_with_min_role_get( _plane_type )
 {
     _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
-    var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+    var _layers_array = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
     var _L = safe_size( _layers_array, 0 ), _role = 0, _canvas ;
     for( var i = 0 ; i < _L ; i++ )
     {
@@ -248,7 +248,7 @@ function circles_lib_canvas_layer_with_min_role_get( _plane_type )
 function circles_lib_canvas_layer_bottom_get( _plane_type )
 {
     _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
-    var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+    var _layers_array = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
     var _L = safe_size( _layers_array, 0 ), _canvas, _div_id, _div, _z_index ;
     var _min = 0, _ret_canvas_id = "", _ret_canvas_role = 0 ;
     for( var i = 0 ; i < _L ; i++ )
@@ -272,7 +272,7 @@ function circles_lib_canvas_layer_bottom_get( _plane_type )
 function circles_lib_canvas_layer_get_topmost( _plane_type )
 {
     _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
-    var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+    var _layers_array = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
     var _L = safe_size( _layers_array, 0 ), _layer, _div_id, _div, _z_index ;
     var _max = 0, _ret_div_id = "", _ret_canvas_id = "", _ret_canvas_role = 0 ;
     for( var i = 0 ; i < _L ; i++ )

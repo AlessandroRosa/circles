@@ -152,7 +152,7 @@ function CIRCLESembeddingsEARLE_OUTPUT( MM_01, MM_02, _init )
     {
         var _ret_chunk = circles_lib_items_init( null, NO, YES, _glob_init_mask, NO, NO, _glob_output_channel );
         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "62Unknown error" ;
+        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
         if ( _ret_id == RET_OK )
         {
             $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);

@@ -70,7 +70,7 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
 
     if ( _b_render_bk )
     {
-        circles_lib_canvas_layer_pile_clean_per_plane( Z_PLANE, UNDET, _silent, _output_channel );
+        circles_lib_canvas_layer_pile_per_plane_clean( Z_PLANE, UNDET, _silent, _output_channel );
         circles_lib_canvas_layer_pile_reset( Z_PLANE, _b_clean, NO );
     }
 
@@ -194,7 +194,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
         if ( !is_array( _selected_layers_array ) )
         {
             if ( _b_render_bk && _glob_wplane_grid_layer_placeholder.is_visible() ) circles_lib_canvas_layer_pile_init( W_PLANE, _b_clean, NO );
-            circles_lib_canvas_layer_pile_clean_per_plane( W_PLANE, UNDET, _silent, _output_channel );
+            circles_lib_canvas_layer_pile_per_plane_clean( W_PLANE, UNDET, _silent, _output_channel );
             circles_lib_canvas_layer_pile_reset( W_PLANE );
         }
 
@@ -227,22 +227,22 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
        case EXPORT_SVG:
        if ( _glob_svg_open == 0 ) _glob_export_code_array = [];
        _svg_open( _glob_export_code_array, _w, _h, _desc, _base_canvas );
-       _svg_comment( _glob_export_code_array, "Rendering " + circles_lib_plane_get_def( _base_canvas.get_type() ) );
+       _svg_comment( _glob_export_code_array, "Rendering " + circles_lib_plane_def_get( _base_canvas.get_type() ) );
        break ;
        case EXPORT_PS:
        if ( _glob_e_ps_open == 0 ) _glob_js_e_ps_obj.init( _glob_e_ps_language_level, NO, "", 0, 0, _w, _h, "Exporting the W-plane", YES );
        _glob_js_e_ps_obj.comment( _desc );
-       _glob_js_e_ps_obj.comment( "Rendering " + circles_lib_plane_get_def( _base_canvas.get_type() ) );
+       _glob_js_e_ps_obj.comment( "Rendering " + circles_lib_plane_def_get( _base_canvas.get_type() ) );
        break ;
        case EXPORT_EPS:
        if ( _glob_e_ps_open == 0 ) _glob_js_e_ps_obj.init( _glob_e_ps_language_level, YES, "", 0, 0, _w, _h, "Exporting the W-plane", YES );
        _glob_js_e_ps_obj.comment( _desc );
-       _glob_js_e_ps_obj.comment( "Rendering " + circles_lib_plane_get_def( _base_canvas.get_type() ) );
+       _glob_js_e_ps_obj.comment( "Rendering " + circles_lib_plane_def_get( _base_canvas.get_type() ) );
        break ;
        case EXPORT_LATEX:
        if ( _glob_latex_open == 0 ) _glob_js_latex_obj.init( _w, _h, _glob_latex_options, YES, YES, "Exporting the W-plane" );
        _glob_js_latex_obj.comment( _desc );
-       _glob_js_latex_obj.comment( "Rendering " + circles_lib_plane_get_def( _base_canvas.get_type() ) );
+       _glob_js_latex_obj.comment( "Rendering " + circles_lib_plane_def_get( _base_canvas.get_type() ) );
        break ;
        case EXPORT_NONE: default: break ;
     }
@@ -347,7 +347,7 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
 
     _glob_apply_dashed_border = _glob_bip_original_plane_data == Z_PLANE ? YES : _glob_activate_dashed_border ;
 
-    var _plane_def = circles_lib_plane_get_def( _plane_type );
+    var _plane_def = circles_lib_plane_def_get( _plane_type );
     var _w = _canvas.get_width(), _h = _canvas.get_height();
     var _label = "Exporting " + _plane_def ;
     switch( _glob_export_format )

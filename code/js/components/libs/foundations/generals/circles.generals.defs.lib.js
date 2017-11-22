@@ -44,8 +44,8 @@ function circles_lib_plane_get_value( _plane_def )
     else return NO_PLANE ;
 }
 
-function circles_lib_plane_get_def( _plane_type ) { return _glob_plane_defs_array[''+_plane_type] != null ? _glob_plane_defs_array[''+_plane_type] : "unknown" ; }
-function circles_lib_plane_get_def_for_cmds( _plane_type ) { return _glob_plane_cmd_defs_array[''+_plane_type] != null ? _glob_plane_cmd_defs_array[''+_plane_type] : "unknown" ; }
+function circles_lib_plane_def_get( _plane_type ) { return _glob_plane_defs_array[''+_plane_type] != null ? _glob_plane_defs_array[''+_plane_type] : "unknown" ; }
+function circles_lib_plane_def_get_for_cmds( _plane_type ) { return _glob_plane_cmd_defs_array[''+_plane_type] != null ? _glob_plane_cmd_defs_array[''+_plane_type] : "unknown" ; }
 function circles_lib_items_get_def()
 {
     if ( _glob_items_switch & ITEMS_SWITCH_SEEDS ) return "seeds" ;

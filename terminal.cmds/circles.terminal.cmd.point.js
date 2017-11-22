@@ -223,7 +223,7 @@ function circles_terminal_cmd_point()
                       {
                           circles_lib_draw_point( _canvas_context, _mapper, _pt_obj.x, _pt_obj.y,
                                             _draw, _drawcolor, _fill, _fillcolor, _border, _glob_pt_radius, _opacity, _params_assoc_array['settings']['propertiesmask'] );
-                          circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_get_def( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Point "+_pt_obj.output("cartesian")+" processed with success</green>", _par_1, _cmd_tag );
+                          circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Point "+_pt_obj.output("cartesian")+" processed with success</green>", _par_1, _cmd_tag );
         
                           if ( _params_assoc_array['settings']['rec'] == YES || _storage_queue_request )
                           {

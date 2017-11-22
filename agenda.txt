@@ -1,11 +1,10 @@
 ------------ APP -------------------------------------------------
 * terminal cmd 'canvas':
-  - add action 'reversepile'
   - think about the chance to add custom placeholders for
     custom canvas
 
-* terminal cmds:
-  last cmd checked: canvas
+* terminal cmds check:
+  last cmd: canvas
 
 * plugin : after dropdown selections of preset config, grid of
   z-plane and of w-plane shall be redrawn again

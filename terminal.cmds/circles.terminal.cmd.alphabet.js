@@ -266,7 +266,7 @@ function circles_terminal_cmd_alphabet()
     				_params_array['yes_fn'] = function() {
 					  var _ret_chunk = circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel );
 					  var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-					  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "34Unknown error" ;
+					  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 					  circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 					}
     			_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel ); }

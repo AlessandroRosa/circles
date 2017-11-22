@@ -397,7 +397,7 @@ function circles_terminal_cmd_isometric_draw( _plane_type, _word, _isometric_cc,
      var _fill = ( _fillcolor.length > 0 ) ? YES : NO ;
      if ( _plane_type.is_one_of( W_PLANE, Z_PLANE ) && ( _draw || _fill ) )
      {
-        circles_lib_output( _output_channel, DISPATCH_INFO, "Plot circle '"+_word+"' on the " + circles_lib_plane_get_def( _plane ), _par_1, _cmd_tag );
+        circles_lib_output( _output_channel, DISPATCH_INFO, "Plot circle '"+_word+"' on the " + circles_lib_plane_def_get( _plane ), _par_1, _cmd_tag );
         var _mapper = null ;
         var _canvas = circles_lib_canvas_get_exists( _plane_type, "work" ) ? circles_lib_canvas_get_target( _plane_type, "work" ) : ( _plane_type == Z_PLANE ? _glob_zplane_work_layer_placeholder : _glob_wplane_work_layer_placeholder );
         if ( _plane == W_PLANE ) _mapper = wplane_sm ;

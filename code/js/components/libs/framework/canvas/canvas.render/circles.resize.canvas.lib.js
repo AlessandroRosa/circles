@@ -9,7 +9,7 @@ function circles_lib_canvas_redraw_wplane_entities( _update_plane, _process_titl
 			 {
 					var _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, NO, NO, NO, YES, NO, YES, _output_channel );
 	        var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-				  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "27Unknown error" ;
+				  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 				  if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
 			 }
        var _options_chunk = [] ;

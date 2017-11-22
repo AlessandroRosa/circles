@@ -78,7 +78,7 @@ function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _outpu
 		_output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     if ( !is_point( _center_pt ) ) _center_pt = null ;
 		var _menu_width = $( "#menu" ).width();
-		var _zplane_def = circles_lib_plane_get_def_for_cmds( Z_PLANE ), _wplane_def = circles_lib_plane_get_def_for_cmds( W_PLANE );
+		var _zplane_def = circles_lib_plane_def_get_for_cmds( Z_PLANE ), _wplane_def = circles_lib_plane_def_get_for_cmds( W_PLANE );
 		var _layers_ref = null ;
 		_glob_interface_index = _opt ;
     switch( _opt )
@@ -90,7 +90,7 @@ function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _outpu
         {
             var _ret_chunk = circles_lib_canvas_render_wplane(null,null,null,_clean,NO,NO,NO,NO,YES,_output_channel);
 	          var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-					  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "24Unknown error" ;
+					  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 					  if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
     				circles_lib_canvas_redraw_wplane_entities( YES, null, _output_channel ) ;
         }
@@ -152,7 +152,7 @@ function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _outpu
 		    circles_lib_plugin_dispatcher_unicast_message( "coordinates", "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
         var _ret_chunk = circles_lib_canvas_render_zplane(null,null,null,_clean,YES,_render,NO,YES,YES,_output_channel);
 	      var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-	      var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "25Unknown error" ;
+	      var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 	      if ( _ret_id == RET_ERROR ) CIRCLESaddLOG( _ret_msg, LOG_ERROR );
 				break ;
 				case INTERFACE_EXTEND_WPLANE:
@@ -212,7 +212,7 @@ function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _outpu
 		    circles_lib_coordinates_set_core( null, null, W_PLANE, YES, YES ) ;
         var _ret_chunk = circles_lib_canvas_render_wplane(null, null, [ ROLE_GRID ], _clean,_clean,_render,NO,NO,YES,_output_channel);
         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-			  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "26Unknown error" ;
+			  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 			  if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
         if ( _render ) circles_lib_canvas_redraw_wplane_entities( YES, null, _output_channel ) ;
 				break ;

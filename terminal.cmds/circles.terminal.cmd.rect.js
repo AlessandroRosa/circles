@@ -280,7 +280,7 @@ function circles_terminal_cmd_rect()
               else
               circles_lib_draw_rect( _canvas_context, _mapper, _rect_obj, _draw, _drawcolor, _fill, _fillcolor, _linewidth, YES, _opacity, _params_assoc_array['settings']['propertiesmask'] );
 
-              circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_get_def( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Rect processed with success</green>", _par_1, _cmd_tag );
+              circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Rect processed with success</green>", _par_1, _cmd_tag );
               if ( _params_assoc_array['settings']['rec'] == YES || _storage_queue_request )
               {
                    var _rec_chunk = [];

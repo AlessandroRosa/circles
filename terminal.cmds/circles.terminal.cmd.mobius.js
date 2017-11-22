@@ -496,7 +496,7 @@ function circles_terminal_cmd_mobius()
                        {
                           var _ret_chunk = circles_lib_colors_colorize_group( _dest_ref, YES, YES, _output_channel );
                           var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-                          var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "47Unknown error" ;
+                          var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                           circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                        }
              					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _output_channel ); }
@@ -529,7 +529,7 @@ function circles_terminal_cmd_mobius()
                        {
                           var _ret_chunk = circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel );
                           var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-                          var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "48Unknown error" ;
+                          var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                           circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                        }
             					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel ); }
@@ -599,7 +599,7 @@ function circles_terminal_cmd_mobius()
                         {
                             _ret_chunk = circles_lib_items_init( null, !_glob_terminal_silent, _glob_terminal_silent, _glob_init_mask, NO, YES, _output_channel );
                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-                            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "49Unknown error" ;
+                            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                             if ( _ret_id == RET_OK )
                             {
                                 if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init all", _glob_terminal, _output_channel );
@@ -854,7 +854,7 @@ function circles_terminal_cmd_mobius()
                         {
                              var _ret_chunk = circles_lib_canvas_render_zplane( _layer_placeholder, zplane_sm, null, YES, YES, YES, NO, YES, _output_channel );
 												     var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-													   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "50Unknown error" ;
+													   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 													   if ( _ret_id == RET_ERROR )
 													   {
 														 		 _b_fail = YES, _error_str = _ret_msg ;

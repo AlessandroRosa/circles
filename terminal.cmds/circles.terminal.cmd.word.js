@@ -386,7 +386,7 @@ function circles_terminal_cmd_word()
                    for( var _w = 0 ; _w < _word.length ; _w++ )
                    {
                       _color_tag = _glob_lower_alphabet_colorization_array[ _default_color_tags[ _w ] ] ;
-                      _extracted_color_tags.push( def_clrs_tags[ "tag." + _color_tag ] ) ;
+                      _extracted_color_tags.push( _glob_def_clrs_tags[ "tag." + _color_tag ] ) ;
                    }
                       
                    var _context = _glob_wplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ) ;

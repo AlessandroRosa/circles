@@ -180,12 +180,12 @@ function circles_lib_terminal_color_decode_htmltext( _html_code, _cmd_tag, _x_po
     _html_code = _html_code.replaceAll( [ CRLF_WIN, CRLF_NO_WIN, '<br>' ], "<br>" );
     _cmd_tag = safe_string( _cmd_tag, "" );
     _return_html = safe_int( _return_html, NO );
-    var _color_tags_array = def_clrs_tags.keys_associative();
+    var _color_tags_array = _glob_def_clrs_tags.keys_associative();
     var _color_tag = "", _color_def = "" ;
     for( var _x = 0 ; _x < _color_tags_array.length ; _x++ )
     {
        _color_tag = _color_tags_array[ _x ] ;
-       _color_def = def_clrs_tags[ _color_tag ] ;
+       _color_def = _glob_def_clrs_tags[ _color_tag ] ;
        _html_code = _html_code.replaceAll( "<" + _color_tag.replaceAll( "tag.", "" )+">", "<span STYLE=\"color:"+_color_def+";\">" );
        _html_code = _html_code.replaceAll( "</" + _color_tag.replaceAll( "tag.", "" ) + ">", "</span>" );
     }
@@ -236,7 +236,7 @@ function circles_lib_terminal_multicolor_echo( _colorcoded_message, _return_msg 
     _return_msg = safe_int( _return_msg, NO );
     _colorcoded_message += "" ;
     if ( !object_exists( _colorcoded_message ) ) return ;
-	  var _keys_array = def_clrs_tags.keys_associative();
+	  var _keys_array = _glob_def_clrs_tags.keys_associative();
 		_keys_array = _keys_array.map( function( _value ) { return _value.replaceAll( "tag.", "" ); } );
 			
 		var _clean_tag = "" ;
@@ -245,7 +245,7 @@ function circles_lib_terminal_multicolor_echo( _colorcoded_message, _return_msg 
 			 _clean_tag = _keys_array[_i].trim();
        if ( _colorcoded_message.includes_i( _clean_tag ) )
        {
-   		    _colorcoded_message = _colorcoded_message.replaceAll( "<"+_clean_tag+">", "[[;"+def_clrs_tags["tag."+_clean_tag]+";]" );
+   		    _colorcoded_message = _colorcoded_message.replaceAll( "<"+_clean_tag+">", "[[;"+_glob_def_clrs_tags["tag."+_clean_tag]+";]" );
    		    _colorcoded_message = _colorcoded_message.replaceAll( "</"+_clean_tag+">", "]" );
        }
 		}

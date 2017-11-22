@@ -87,7 +87,7 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas_id = "", _filename
     var HTMLcode = "<table>" ;
         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
 
-        var _merge_switch_plane = circles_lib_plane_get_def( _plane_type );
+        var _merge_switch_plane = circles_lib_plane_def_get( _plane_type );
         if ( !_is_svg && !_glob_bip_use )
         {
              if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) )
@@ -115,7 +115,7 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas_id = "", _filename
         
                   if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) )
                   {
-                      var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+                      var _layers_array = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
                       if ( !_merge )
                       {
                           HTMLcode += "<tr>" ;

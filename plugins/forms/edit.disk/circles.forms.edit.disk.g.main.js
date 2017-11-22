@@ -336,7 +336,7 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
         circles_lib_helper_div_remove();
         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCREEN );
         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "11Unknown error" ;
+        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
         if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
     }
          

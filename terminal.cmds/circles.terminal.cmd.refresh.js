@@ -347,7 +347,7 @@ function circles_terminal_cmd_refresh()
                           default: break ;
                        }
                             
-                      var _plane_def = circles_lib_plane_get_def( _plane );
+                      var _plane_def = circles_lib_plane_def_get( _plane );
                       if ( _clean ) circles_lib_output( _output_channel, DISPATCH_INFO, _plane_def + " has been cleaned", _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, _plane_def + ( ( _layer_ref != null ) ? "/" + _layer_ref + " " : "" ) + " has been refreshed", _par_1, _cmd_tag );
                   }

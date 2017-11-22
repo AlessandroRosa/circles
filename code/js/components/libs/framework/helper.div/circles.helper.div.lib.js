@@ -28,7 +28,7 @@ function circles_lib_helper_div_create( _plane_type, _title, _text, _force_width
             HTMLcode += "<td valign=\"top\" COLSPAN=\"4\">" ;
             HTMLcode += "<table>" ;
             HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-            HTMLcode += "<tr><td CLASS=\"helper_div_plane_ref_box\">"+( circles_lib_plane_get_def( _plane_type ) )+"</td></tr>" ;
+            HTMLcode += "<tr><td CLASS=\"helper_div_plane_ref_box\">"+( circles_lib_plane_def_get( _plane_type ) )+"</td></tr>" ;
             HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
             HTMLcode += "<tr><td ID=\"ZOOMINGREGIONlabel\" CLASS=\"helper_div_plane_contents_box\">"+_text+"</td></tr>" ;
             HTMLcode += "</table>" ;

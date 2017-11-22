@@ -61,7 +61,7 @@ function CIRCLESformsTANGENTCIRCLEdispatcher()
               _glob_zplaneMOUSEprocSWITCH = MOUSE_NO_PROC_ID;
 				      circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, OUTPUT_SCREEN );
 					    var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-						  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "19Unknown error" ;
+						  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 						  if ( _ret_id == RET_ERROR )
 						  {
 								 circles_lib_log_add_entry( _ret_msg, LOG_ERROR );

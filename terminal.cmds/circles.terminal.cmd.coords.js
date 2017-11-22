@@ -76,8 +76,8 @@ function circles_terminal_cmd_coords()
              var _clean = _params_assoc_array['params'].includes( "clean" ) ;
              var _render = _params_assoc_array['params'].includes( "render" ) ;
              var _silent = _params_assoc_array['params'].includes( "silent" ) ? YES : ( _glob_terminal_silent == DISABLED ? NO : _glob_terminal_silent ) ;
-             var _src_plane_def = _params_assoc_array['planes'][0] != null ? circles_lib_plane_get_def( _params_assoc_array['planes'][0] ) : "undefined plane" ;
-             var _dest_plane_def = _params_assoc_array['planes'][1] != null ? circles_lib_plane_get_def( _params_assoc_array['planes'][1] ) : "undefined plane" ;
+             var _src_plane_def = _params_assoc_array['planes'][0] != null ? circles_lib_plane_def_get( _params_assoc_array['planes'][0] ) : "undefined plane" ;
+             var _dest_plane_def = _params_assoc_array['planes'][1] != null ? circles_lib_plane_def_get( _params_assoc_array['planes'][1] ) : "undefined plane" ;
              switch( _action )
              {
                   case "copy":
@@ -134,7 +134,7 @@ function circles_terminal_cmd_coords()
                   break ;
                   default:
                   var _curr_plane = _params_assoc_array['planes'][0] ;
-                  var _plane_def = circles_lib_plane_get_def( _curr_plane );
+                  var _plane_def = circles_lib_plane_def_get( _curr_plane );
                   if ( _curr_plane == NO_PLANE )
                   {
                        _b_fail = YES, _error_str = "Select a valid plane to return its coords info" ;

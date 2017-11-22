@@ -208,7 +208,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
                  _glob_disk_sel_index = _selected_index ;
                  var _ret_chunk = circles_lib_canvas_render_zplane( null,zplane_sm,null,YES,YES,YES,NO,YES);
 				         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-				         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "15Unknown error" ;
+				         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 				         if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
              }
     }

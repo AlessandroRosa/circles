@@ -1,6 +1,6 @@
 var LANG_MSG_00 = "opening a pop-up to display help text in html version" ;
 
-var _ERR_00_00 = "28Unknown error" ;
+var _ERR_00_00 = "Unknown error" ;
 var _ERR_00_01 = "Operation perfomed with success" ;
 var _ERR_00_02 = "Group consistence failed:\n " + _ERR_33_01 ;
 var _ERR_00_03 = "Run-time error.\nPlease, reload this page." ;

@@ -1,7 +1,7 @@
 function circles_lib_canvas_get_topmost( _plane_type )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+    var _layers_array = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
     var _L = safe_size( _layers_array, 0 ), _canvas, _z_index, _max = 0, _ret_canvas = null ;
     for( var i = 0 ; i < _L ; i++ )
     {
@@ -83,7 +83,7 @@ function circles_lib_canvas_plane_refresh( _plane_type, _question, _output_chann
 {
 		if ( circles_lib_count_seeds() == 0 ) return ;
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-		var _plane_def = circles_lib_plane_get_def( _plane_type ) ;
+		var _plane_def = circles_lib_plane_def_get( _plane_type ) ;
     _question = safe_int( _question, YES );
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _b_go = _question ? ( confirm( "Confirm to update the " + _plane_def + " ?" ) ) : YES ;
@@ -107,7 +107,7 @@ function circles_lib_canvas_plane_refresh( _plane_type, _question, _output_chann
 					 {
 						  var _ret_chunk = circles_lib_canvas_render_wplane(null,null,null,YES,NO,NO,NO,NO,YES,_output_channel);
 				      var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-					    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "14Unknown error" ;
+					    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 					 }
 					 else circles_lib_interface_extend( _plane_type, YES, null, _output_channel ) ;
         }

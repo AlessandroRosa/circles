@@ -78,8 +78,8 @@ function circles_terminal_cmd_plane()
              }
              
              var _plane_type = _params_assoc_array['plane'] ;
-             _context_plane_label = "Selected plane: " + circles_lib_plane_get_def( _plane_type );
-             var _plane_cmd = circles_lib_plane_get_def_for_cmds( _plane_type );
+             _context_plane_label = "Selected plane: " + circles_lib_plane_def_get( _plane_type );
+             var _plane_cmd = circles_lib_plane_def_get_for_cmds( _plane_type );
              if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init all", _glob_terminal, _output_channel );
              if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh "+_plane_cmd+" clean silent", _glob_terminal, _output_channel );
 
@@ -87,7 +87,7 @@ function circles_terminal_cmd_plane()
              {
                  case NO_PLANE :
                  _context_plane_label = "Warning! No selected plane(s)" ;
-                 var _plane_ref = circles_lib_plane_get_def( _plane_type );
+                 var _plane_ref = circles_lib_plane_def_get( _plane_type );
                  circles_lib_output( _output_channel, DISPATCH_INFO, "Deselection of "+_plane_ref+" context", _par_1, _cmd_tag );
                  break ;
                  default :
@@ -100,7 +100,7 @@ function circles_terminal_cmd_plane()
      }
      else
      {
-          var _plane_ref = "Current selected plane : " + circles_lib_plane_get_def( _plane_type );
+          var _plane_ref = "Current selected plane : " + circles_lib_plane_def_get( _plane_type );
           circles_lib_output( _output_channel, DISPATCH_INFO, _plane_ref, _par_1, _cmd_tag );
      }
      

@@ -285,7 +285,7 @@ function circles_terminal_cmd_circle()
                        }
                        else
                        {
-                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_get_def( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Circle processed with success</green>", _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Circle processed with success</green>", _par_1, _cmd_tag );
                            if ( _params_assoc_array['settings']['rec'] == YES || _storage_queue_request )
                            {
                                var _rec_chunk = [];

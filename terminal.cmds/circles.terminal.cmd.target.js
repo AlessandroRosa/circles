@@ -70,7 +70,7 @@ function circles_terminal_cmd_target()
          {
              var _action = _params_assoc_array['action'] ;
              var _plane_ref = _params_assoc_array['plane'] ;
-             var _plane_type = circles_lib_plane_get_def( _plane_ref );
+             var _plane_type = circles_lib_plane_def_get( _plane_ref );
              var _layer_ref = safe_string( _params_assoc_array['layer'], "" );
              var _service_ref = safe_string( _params_assoc_array['service'], "" );
              if ( _action.length > 0 )
@@ -157,7 +157,7 @@ function circles_terminal_cmd_target()
                        _values = _glob_target_zplane_layers_array.values_associative();
                        
                        var _html_table = "<table>" ;
-                           _html_table += "<tr><td COLSPAN=\"5\">Current plane target is : "+circles_lib_plane_get_def( _glob_target_plane )+"</td></tr>" ;
+                           _html_table += "<tr><td COLSPAN=\"5\">Current plane target is : "+circles_lib_plane_def_get( _glob_target_plane )+"</td></tr>" ;
                            _html_table += "<tr><td COLSPAN=\"5\" STYLE=\"color:lightblue;\">Target Z-plane layers list</td></tr>" ;
                            _html_table += "<tr>" ;
                            _html_table += "<td STYLE=\"color:yellow;\">Service</td>" ;

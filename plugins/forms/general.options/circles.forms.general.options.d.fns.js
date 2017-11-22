@@ -49,7 +49,7 @@ function CIRCLESformsGENERALOPTIONSlayersTOGGLEvisibility( _plane_type, _role, _
     _plane_type = safe_int( _plane_type, NO_PLANE ), _role = safe_float( _role, ROLE_NONE );
     _visible = safe_float( _visible, YES );
     var _index = circles_lib_canvas_layer_find_pos_index( _plane_type, FIND_LAYER_BY_ROLE_INDEX, _role );
-    var _layers = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+    var _layers = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
     var _layer = _layers[_index] ;
     if ( _layer != null )
     {
@@ -76,7 +76,7 @@ function CIRCLESformsGENERALOPTIONSlayersTOGGLEvisibilityALL( _plane_type, _visi
 function CIRCLESformsGENERALOPTIONSlayersINITsliders( _plane_type )
 {
     _plane_type = safe_int( _plane_type, NO_PLANE );
-    var _layers = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+    var _layers = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
     if ( safe_size( _layers, 0 ) > 0 )
     {
         var _layer = null, _div, _label_index, _layer_sliderbox_id, _div_opacity ;
@@ -100,7 +100,7 @@ function CIRCLESformsGENERALOPTIONSlayersINITsliders( _plane_type )
 function CIRCLESformsGENERALOPTIONSlayersDELETE( _plane_type, _i )
 {
     _plane_type = safe_int( _plane_type, NO_PLANE );
-    var _layers = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+    var _layers = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
     if ( safe_size( _layers, 0 ) > 0 )
     {
        var _layer = _layers[_i] ;
@@ -140,7 +140,7 @@ function CIRCLESformsGENERALOPTIONSlayersINITcanvasTHUMBNAILS( _plane_type, _sel
     }
     var _n_selected = safe_size( _selected_layers_array, 0 );
     _plane_type = safe_int( _plane_type, NO_PLANE );
-    var _layers = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+    var _layers = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
     if ( safe_size( _layers, 0 ) > 0 )
     {
        var _layer = null, _div, _label_index, _thumbnail_canvas, _thumbnail_context, _idcanvas, _canvas ;
@@ -175,7 +175,7 @@ function CIRCLESformsGENERALOPTIONSlayersCREATE( _plane_type )
     circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Detected illegal chars in input layer role definition.", "CIRCLESformsGENERALOPTIONSoutputBOX" ) ;
     else
     {
-       var _plane_def = circles_lib_plane_get_def( _plane_type );
+       var _plane_def = circles_lib_plane_def_get( _plane_type );
        var _ret = circles_lib_canvas_layer_create( [ _plane_def, _role_def, NO, null, _plane_type, YES ] );
        if ( _ret == UNDET )
        circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "There exists another layer with definition '"+_role_def+"' in the "+_plane_def+" layers list.", "CIRCLESformsGENERALOPTIONSoutputBOX" ) ;
@@ -242,7 +242,7 @@ function CIRCLESformsGENERALOPTIONSlayersLIST( _plane_type, _reloader_fn )
 {
     _plane_type = safe_int( _plane_type, NO_PLANE );
     var HTMLcode = "" ;
-    var _layers = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+    var _layers = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
     var _role_array = _plane_type == Z_PLANE ? _glob_zplane_layers_pile_role_array : ( _plane_type == W_PLANE ? _glob_wplane_layers_pile_role_array : null );
     var _err_count = 0 ;
     if ( safe_size( _layers, 0 ) > 0 && safe_size( _role_array, 0 ) > 0 )
@@ -562,8 +562,8 @@ function CIRCLESformsGENERALOPTIONSapply( _question, _silent )
               var _final_ret = YES, _ret_msg = [];
               if ( _b_go )
               {
-                  circles_lib_canvas_layer_pile_clean_per_plane( Z_PLANE, UNDET, YES, OUTPUT_SCREEN );
-                  circles_lib_canvas_layer_pile_clean_per_plane( W_PLANE, UNDET, YES, OUTPUT_SCREEN );
+                  circles_lib_canvas_layer_pile_per_plane_clean( Z_PLANE, UNDET, YES, OUTPUT_SCREEN );
+                  circles_lib_canvas_layer_pile_per_plane_clean( W_PLANE, UNDET, YES, OUTPUT_SCREEN );
                   var _ret_chunk_zplane = circles_lib_canvas_render_zplane( null, null, null, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
                   if ( _ret_chunk_zplane != null ) _ret_msg.push( _ret_chunk_zplane[1] );
                   var _ret_chunk_ask = circles_lib_canvas_process_ask(NO, YES, _glob_bip_use?BIP_BOX:_glob_target_plane, YES, YES, CHECK, null, OUTPUT_SCREEN );
@@ -615,7 +615,7 @@ function CIRCLESformsGENERALOPTIONSdisksfillOPTIONSask( _question, _silent, _out
                  alert_plug_fn( ALERT_YES, "alertCLOSE();$('#CIRCLEScheckboxPALETTEuse').prop('checked',YES);_glob_palette_use=YES;" );
                  alert_plug_fn( ALERT_NO, "alertCLOSE();$('#CIRCLEScheckboxPALETTEuse').prop('checked',NO);_glob_palette_use=NO;" )
                  alert_set_btns_width( "70px" );
-                 alert_msg( ALERT_YESNO | ALERT_QUESTION, MSG, _glob_app_title + " - " + circles_lib_plane_get_def( W_PLANE ) );
+                 alert_msg( ALERT_YESNO | ALERT_QUESTION, MSG, _glob_app_title + " - " + circles_lib_plane_def_get( W_PLANE ) );
              }
              else
              {
@@ -746,8 +746,8 @@ function CIRCLESformsGENERALOPTIONSreset( _question, _silent, _output_channel )
         $("#CIRCLESgeneraloptionsSETTINGSticksEDIT").val( _glob_ticks_count );
 
         circles_lib_plugin_load('forms','general.options', NO, 0 );
-        circles_lib_canvas_layer_pile_clean_per_plane( Z_PLANE, UNDET, YES, _output_channel );
-        circles_lib_canvas_layer_pile_clean_per_plane( W_PLANE, UNDET, YES, _output_channel );
+        circles_lib_canvas_layer_pile_per_plane_clean( Z_PLANE, UNDET, YES, _output_channel );
+        circles_lib_canvas_layer_pile_per_plane_clean( W_PLANE, UNDET, YES, _output_channel );
           
         var _ret_chunk_zplane= circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
         var _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, YES, YES, NO, YES, _output_channel );

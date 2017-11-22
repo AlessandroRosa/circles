@@ -36,7 +36,7 @@ function CIRCLESformsCOORDINATESinputMANAGER( _plane_type, _render, _callback_fn
     _input_type = safe_int( _input_type, ZOOM_PULL_COORDS );
 		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
-    var _plane_label = circles_lib_plane_get_def( _plane_type );
+    var _plane_label = circles_lib_plane_def_get( _plane_type );
     var MSG = "Confirm to set these coordinates for the " + _plane_label + "? " ;
     var _b_go = !_question ? YES : confirm( MSG );
     if ( _b_go )

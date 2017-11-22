@@ -1,25 +1,31 @@
-function circles_lib_colors_is_tag( _clr ) { return ( def_clrs_tags[ 'tag.' + _clr.toLowerCase() ] != null ) ? YES : NO ; }
-function circles_lib_colors_get_def_from_tag( _clr ) { return def_clrs_tags[ 'tag.' + _clr.toLowerCase() ] ; }
-function circles_lib_colors_is_def( _clr )
+function circles_lib_colors_is_tag( _clr = "" ) { return ( _glob_def_clrs_tags[ 'tag.' + _clr.toLowerCase() ] != null ) ? YES : NO ; }
+function circles_lib_colors_get_def_from_tag( _clr = "" ) { return _glob_def_clrs_tags[ 'tag.' + _clr.toLowerCase() ] ; }
+function circles_lib_colors_is_def( _clr = "" )
 {
     _clr = safe_string( _clr, "" );
-    return ( _clr.stricmp( "noclr" ) ||
-             _clr.testME( _glob_rgbhex_regex_pattern, _glob_rgbdec_regex_pattern ) ||
-             def_clrs_tags['tag.'+_clr.toLowerCase()] != null ) ? YES : NO ;
+    return ( _clr.stricmp( "noclr" ) || _clr.testME( _glob_rgbhex_regex_pattern, _glob_rgbdec_regex_pattern, _glob_regalpha_regex_pattern ) ||
+             _glob_def_clrs_tags['tag.'+_clr.toLowerCase()] != null ) ? YES : NO ;
 }
 
-function circles_lib_colors_get_formats( _p_color )
+function circles_lib_colors_get_formats( _p_color = "" )
 {
     // return an array with rgb/hex color formats and tag
     _p_color = ( new String( _p_color ) ).toLowerCase().trim().replaceAll( " ", "" );
     if ( _p_color.length > 0 )
     {
        var _out_rgb_dec = "", _out_rgb_hex = "", _out_tag = "" ;
-       var _final_array = [], _b_fail = 0, _b_tag_found = 0 ;
+       var _final_array = [], _b_fail = 0, _b_tag_found = NO ;
        var _is_tag = _p_color.testME( _glob_simple_string_regex_pattern );
-       var _is_rgb_dec = _p_color.testME( _glob_rgbdec_regex_pattern, "^([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3})$" ) ;
+       var _is_rgb_alpha = _p_color.testME( _glob_regalpha_regex_pattern ) ;
+       var _is_rgb_dec = _p_color.testME( "^([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3})$", _glob_rgbdec_regex_pattern ) ;
        var _is_rgb_hex = _p_color.testME( _glob_rgbhex_regex_pattern );
-       if ( _is_rgb_dec ) // ex: rgb( 192, 201, 122 ) or 255,255,255
+       if ( _p_color.stricmp( "rgba(0,0,0,0)" ) )
+       {
+          _out_tag = "transparent", _out_rgb_hex = "", _out_rgb_dec = "" ;
+          _b_tag_found = YES ;
+       }
+
+	   if ( _is_rgb_dec ) // ex: rgb( 192, 201, 122 ) or 255,255,255
        {
             _out_rgb_dec = _p_color ;
             _out_rgb_hex = circles_lib_colors_rgb_dec_to_hex( _p_color );
@@ -36,12 +42,12 @@ function circles_lib_colors_get_formats( _p_color )
             if ( _out_rgb_dec.length > 0 ) _is_rgb_dec = YES ;
        }
           
-       for( var _key in def_clrs_tags )
+       for( var _key in _glob_def_clrs_tags )
        {
           if ( _is_tag && _key.stricmp( "tag." + _p_color ) )
           {
              if ( !_key.start_with( "tag." ) ) _key = "tag." + _key ;
-             _out_rgb_hex = def_clrs_tags[_key] ;
+             _out_rgb_hex = _glob_def_clrs_tags[_key] ;
              _out_rgb_dec = circles_rgb_hex_to_dec( _out_rgb_hex );
              _out_tag = _key ;
              _b_tag_found = YES ;
@@ -51,9 +57,9 @@ function circles_lib_colors_get_formats( _p_color )
           {
              if ( _key.start_with( "tag." ) )
              {
-                if ( def_clrs_tags[ _key ].stricmp( _p_color ) )
+                if ( _glob_def_clrs_tags[ _key ].stricmp( _p_color ) )
                 {
-                   _out_rgb_hex = def_clrs_tags[_key] ;
+                   _out_rgb_hex = _glob_def_clrs_tags[_key] ;
                    _out_rgb_dec = circles_rgb_hex_to_dec( _out_rgb_hex );
                    _out_tag = _key.replaceAll( "tag.", "" );
                 }
@@ -66,7 +72,7 @@ function circles_lib_colors_get_formats( _p_color )
           }
         }
           
-        if ( !_is_rgb_hex && _is_rgb_dec && !_is_tag ) _b_fail = YES ;
+        if ( !_is_rgb_hex && _is_rgb_dec && !_is_tag && !_is_rgb_alpha ) _b_fail = YES ;
         if ( _b_fail ) _out_rgb_dec = _out_rgb_hex = _out_tag = "" ;
     }
     else _out_rgb_dec = _out_rgb_hex = _out_tag = "" ;
@@ -169,7 +175,7 @@ function circles_lib_colors_decode_tags( _data )
 {
     var _color ;
 	$.each( def_clrs_tags_keys, function( _i, _key ) {
-            _color = def_clrs_tags['tag.'+_key] ;
+            _color = _glob_def_clrs_tags['tag.'+_key] ;
             _data = _data.replaceAll( "color:"+_key, "color:"+_color, YES ) ;
     		_data = _data.replaceAll( "<"+_key+">", "<SPAN STYLE=\"color:"+_color+"\">", YES ) ;
     		_data = _data.replaceAll( "</"+_key+">", "</SPAN>", YES ) ; } ) ;

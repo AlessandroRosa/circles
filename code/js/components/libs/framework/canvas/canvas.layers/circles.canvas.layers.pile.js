@@ -9,17 +9,17 @@ function circles_lib_canvas_layer_create( _init_properties_array )
     */
     var _startINDEX = 0 ;
     var _plane_def = _init_properties_array[_startINDEX];
-    		_startINDEX++ ;
+    	_startINDEX++ ;
     var _role_def = _init_properties_array[_startINDEX] ;
-    		_startINDEX++ ;
+    	_startINDEX++ ;
     var _default_canvas = _init_properties_array[_startINDEX] ;
-    		_startINDEX++ ;
+    	_startINDEX++ ;
     var _role_index = _init_properties_array[_startINDEX] ;
-    		_startINDEX++ ;
+    	_startINDEX++ ;
     var _plane_type = _init_properties_array[_startINDEX] ;
-    		_startINDEX++ ;
+    	_startINDEX++ ;
     var _visible = _init_properties_array[_startINDEX] ;
-    		_startINDEX++ ;
+    	_startINDEX++ ;
     var _layer = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _role_def );
     if ( _layer != null ) return null ;
     else
@@ -53,49 +53,49 @@ function circles_lib_canvas_layer_create( _init_properties_array )
           var _new_layer = $("#"+_canvas_id ).get(0);
           if ( is_html_canvas( _new_layer ) )
           {
-        	    if ( isNaN( _role_index ) ) _role_index = circles_lib_canvas_layer_with_max_role_get( _plane_type ) + 1 ;
-              else if ( _role_index.is_one_of( 0, UNDET ) ) _role_index = circles_lib_canvas_layer_with_max_role_get( _plane_type ) + 1 ;
+        	if ( isNaN( _role_index ) ) _role_index = circles_lib_canvas_layer_with_max_role_get( _plane_type ) + 1 ;
+            else if ( _role_index.is_one_of( 0, UNDET ) ) _role_index = circles_lib_canvas_layer_with_max_role_get( _plane_type ) + 1 ;
 
-              _new_layer.set_width( _grid_w ) ;
-              _new_layer.set_height( _grid_h ) ;
-              _new_layer.zIndex = safe_int( _div.style.zIndex, 0 ) ;
-              _new_layer.getContext(_glob_canvas_ctx_2D_mode).idcanvas = _canvas_id ;
-        	    _new_layer.getContext(_glob_canvas_ctx_2D_mode).iddiv = _div_id ;
-        		  _new_layer.getContext(_glob_canvas_ctx_2D_mode).type = _plane_type ;
-        		  _new_layer.getContext(_glob_canvas_ctx_2D_mode).role = _role_index ;
-        		  _new_layer.getContext(_glob_canvas_ctx_2D_mode).role_def = _role_def ;
-        		  _new_layer.getContext(_glob_canvas_ctx_2D_mode).label = _plane_def + " " + _role_def ;
-        		  _new_layer.getContext(_glob_canvas_ctx_2D_mode).plane_def = _plane_def ;
-        		  _new_layer.getContext(_glob_canvas_ctx_2D_mode).defaultcanvas = _default_canvas ;
-        		  _new_layer.getContext(_glob_canvas_ctx_2D_mode).visible = _visible ;
-              _new_layer.getContext(_glob_canvas_ctx_2D_mode).backgroundColor = "transparent" ;
+            _new_layer.set_width( _grid_w ) ;
+            _new_layer.set_height( _grid_h ) ;
+            _new_layer.zIndex = safe_int( _div.style.zIndex, 0 ) ;
+            _new_layer.getContext(_glob_canvas_ctx_2D_mode).idcanvas = _canvas_id ;
+        	_new_layer.getContext(_glob_canvas_ctx_2D_mode).iddiv = _div_id ;
+        	_new_layer.getContext(_glob_canvas_ctx_2D_mode).type = _plane_type ;
+        	_new_layer.getContext(_glob_canvas_ctx_2D_mode).role = _role_index ;
+        	_new_layer.getContext(_glob_canvas_ctx_2D_mode).role_def = _role_def ;
+        	_new_layer.getContext(_glob_canvas_ctx_2D_mode).label = _plane_def + " " + _role_def ;
+        	_new_layer.getContext(_glob_canvas_ctx_2D_mode).plane_def = _plane_def ;
+        	_new_layer.getContext(_glob_canvas_ctx_2D_mode).defaultcanvas = _default_canvas ;
+        	_new_layer.getContext(_glob_canvas_ctx_2D_mode).visible = _visible ;
+            _new_layer.getContext(_glob_canvas_ctx_2D_mode).backgroundColor = "transparent" ;
 
-              if ( _plane_type == Z_PLANE )
-              {
-            	   _new_layer.complex_rect = new rect( _glob_zplaneLEFT, _glob_zplaneTOP, _glob_zplaneRIGHT, _glob_zplaneBOTTOM, _RECT_ORIENTATION_CARTESIAN );
-                 _glob_zplane_layers_pile_role_array.push_safe( _role_index );
-                 _glob_zplane_layers_pile_role_array.unique();
-                 _glob_zplane_layers_pile_array.push( _new_layer );
-                 _glob_zplane_topmost_layer_placeholder = _new_layer ;
-                 if ( function_exists( "circles_lib_statusbar_init" ) ) circles_lib_statusbar_init( NO ); // recomputes z-index
-              }
-              else if ( _plane_type == W_PLANE )
-              {
-            		 _new_layer.complex_rect = new rect( _glob_wplaneLEFT, _glob_wplaneTOP, _glob_wplaneRIGHT, _glob_wplaneBOTTOM, _RECT_ORIENTATION_CARTESIAN );
-                 _glob_wplane_layers_pile_role_array.push_safe( _role_index );
-                 _glob_wplane_layers_pile_role_array.unique();
-                 _glob_wplane_layers_pile_array.push( _new_layer );
-                 _glob_wplane_topmost_layer_placeholder = _new_layer ;
-                 if ( function_exists( "circles_lib_statusbar_init" ) ) circles_lib_statusbar_init( NO ); // recomputes z-index
-              }
-              else return null ;
+            if ( _plane_type == Z_PLANE )
+            {
+                _new_layer.complex_rect = new rect( _glob_zplaneLEFT, _glob_zplaneTOP, _glob_zplaneRIGHT, _glob_zplaneBOTTOM, _RECT_ORIENTATION_CARTESIAN );
+                _glob_zplane_layers_pile_role_array.push_safe( _role_index );
+                _glob_zplane_layers_pile_role_array.unique();
+                _glob_zplane_layers_pile_array.push( _new_layer );
+                _glob_zplane_topmost_layer_placeholder = _new_layer ;
+                if ( function_exists( "circles_lib_statusbar_init" ) ) circles_lib_statusbar_init( NO ); // recomputes z-index
+            }
+            else if ( _plane_type == W_PLANE )
+            {
+				_new_layer.complex_rect = new rect( _glob_wplaneLEFT, _glob_wplaneTOP, _glob_wplaneRIGHT, _glob_wplaneBOTTOM, _RECT_ORIENTATION_CARTESIAN );
+                _glob_wplane_layers_pile_role_array.push_safe( _role_index );
+                _glob_wplane_layers_pile_role_array.unique();
+                _glob_wplane_layers_pile_array.push( _new_layer );
+                _glob_wplane_topmost_layer_placeholder = _new_layer ;
+                if ( function_exists( "circles_lib_statusbar_init" ) ) circles_lib_statusbar_init( NO ); // recomputes z-index
+            }
+            else return null ;
           }
           return _div ;
        }
     }
 }
 
-function circles_lib_canvas_layer_pile_resize_to_default( _set_default_coords, _render, _output_channel )
+function circles_lib_canvas_layer_pile_resize_to_default( _set_default_coords = NO, _render = YES, _output_channel = OUTPUT_SCREEN )
 {
     _set_default_coords = safe_int( _set_default_coords, NO );
     _render = safe_int( _render, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
@@ -115,14 +115,13 @@ function circles_lib_canvas_layer_pile_resize_to_default( _set_default_coords, _
     var _viewport_w = _menu_width, _viewport_h = _sh ;
     var _new_main_canvas_w = Math.floor( ( _viewport_w - 60 ) / 2 );
     var _new_main_canvas_h = _viewport_h - _extra_height ;
-
     var _dim = _glob_canvas_width = Math.min( _new_main_canvas_w, _new_main_canvas_h );
 
     _panel_left_width = _panel_left_height = _dim ;
     _panel_right_width = _panel_right_height = _dim ;
 
-		$( "#PANELleft" ).show();
-		$( "#PANELright" ).show();
+	$( "#PANELleft" ).show();
+	$( "#PANELright" ).show();
 
     $( "#ZPLANEtd" ).width( _dim );
     $( "#WPLANEtd" ).width( _dim );
@@ -159,21 +158,20 @@ function circles_lib_canvas_layer_pile_resize_to_default( _set_default_coords, _
     var resize_pile_fn = function( _plane_type, _ref_array )
     {
         $.each( _ref_array, function( _index, _layer )
-                {
-                    $( "#" + _layer.get_iddiv() ).css( "left", _plane_type == Z_PLANE ? _z_pile_left : _w_pile_left );
-                    $( "#" + _layer.get_iddiv() ).css( "top", _plane_type == W_PLANE ? _w_pile_top : _z_pile_top );
-                    $( "#" + _layer.get_idcanvas() ).css( "left", _plane_type == Z_PLANE ? _z_pile_left : _w_pile_left );
-                    $( "#" + _layer.get_idcanvas() ).css( "top", _plane_type == W_PLANE ? _w_pile_top : _z_pile_top );
+        {
+            $( "#" + _layer.get_iddiv() ).css( "left", _plane_type == Z_PLANE ? _z_pile_left : _w_pile_left );
+            $( "#" + _layer.get_iddiv() ).css( "top", _plane_type == W_PLANE ? _w_pile_top : _z_pile_top );
+            $( "#" + _layer.get_idcanvas() ).css( "left", _plane_type == Z_PLANE ? _z_pile_left : _w_pile_left );
+            $( "#" + _layer.get_idcanvas() ).css( "top", _plane_type == W_PLANE ? _w_pile_top : _z_pile_top );
 
-                    _w = _plane_type == Z_PLANE ? _panel_left_width : _panel_right_width ;
-                    _h = _plane_type == Z_PLANE ? _panel_left_height : _panel_right_height ;
-                    $( "#" + _layer.get_idcanvas() ).get(0).set_width( _w );
-                    $( "#" + _layer.get_idcanvas() ).get(0).set_height( _h );
-                    $( "#" + _layer.get_idcanvas() ).get(0).set_visible(YES);
-
-                    $( "#" + _layer.get_iddiv() ).width( _w );
-                    $( "#" + _layer.get_iddiv() ).height( _h );
-                } );
+            _w = _plane_type == Z_PLANE ? _panel_left_width : _panel_right_width ;
+            _h = _plane_type == Z_PLANE ? _panel_left_height : _panel_right_height ;
+            $( "#" + _layer.get_idcanvas() ).get(0).set_width( _w );
+            $( "#" + _layer.get_idcanvas() ).get(0).set_height( _h );
+            $( "#" + _layer.get_idcanvas() ).get(0).set_visible(YES);
+            $( "#" + _layer.get_iddiv() ).width( _w );
+            $( "#" + _layer.get_iddiv() ).height( _h );
+        } );
     }
 
     resize_pile_fn( Z_PLANE, _glob_zplane_layers_pile_array );
@@ -209,15 +207,15 @@ function circles_lib_canvas_layer_pile_resize_to_default( _set_default_coords, _
 
     if ( _render )
     {
-       var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
-       var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-       var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
-       if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
-       {
-			 		 var _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, YES, NO, YES, _output_channel );
-		       var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-					 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "3Unknown error" ;
-			 }
+        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
+        var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
+        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
+        if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
+        {
+			var _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, YES, NO, YES, _output_channel );
+		    var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
+			var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
+		}
     }
 }
 
@@ -366,137 +364,134 @@ function circles_lib_canvas_layer_pile_resize( _plane_type, _width_percentage, _
     var _w, _h ;
 
     $.each( _other_ref_array, function( _index, _layer )
-            {
-                $( "#" + _layer.get_iddiv() ).css( "left", _plane_type == Z_PLANE ? _w_pile_left : _z_pile_left );
-                $( "#" + _layer.get_iddiv() ).css( "top", _plane_type == W_PLANE ? _z_pile_top : _w_pile_top );
-                $( "#" + _layer.get_idcanvas() ).css( "left", _plane_type == Z_PLANE ? _w_pile_left : _z_pile_left );
-                $( "#" + _layer.get_idcanvas() ).css( "top", _plane_type == W_PLANE ? _z_pile_top : _w_pile_top );
+    {
+        $( "#" + _layer.get_iddiv() ).css( "left", _plane_type == Z_PLANE ? _w_pile_left : _z_pile_left );
+        $( "#" + _layer.get_iddiv() ).css( "top", _plane_type == W_PLANE ? _z_pile_top : _w_pile_top );
+        $( "#" + _layer.get_idcanvas() ).css( "left", _plane_type == Z_PLANE ? _w_pile_left : _z_pile_left );
+        $( "#" + _layer.get_idcanvas() ).css( "top", _plane_type == W_PLANE ? _z_pile_top : _w_pile_top );
 
-                _w = _plane_type == Z_PLANE ? _panel_right_width : _panel_left_width ;
-                _h = _plane_type == Z_PLANE ? _panel_right_height : _panel_left_height ;
-                $( "#" + _layer.get_idcanvas() ).get(0).set_width( _w ) ;
-                $( "#" + _layer.get_idcanvas() ).get(0).set_height( _h ) ;
+        _w = _plane_type == Z_PLANE ? _panel_right_width : _panel_left_width ;
+        _h = _plane_type == Z_PLANE ? _panel_right_height : _panel_left_height ;
+        $( "#" + _layer.get_idcanvas() ).get(0).set_width( _w ) ;
+        $( "#" + _layer.get_idcanvas() ).get(0).set_height( _h ) ;
+        $( "#"+_chunk.get_iddiv() ).width( _w ) ;
+        $( "#"+_chunk.get_iddiv() ).height( _h ) ;
+    } );
 
-                $( "#"+_chunk.get_iddiv() ).width( _w ) ;
-                $( "#"+_chunk.get_iddiv() ).height( _h ) ;
-            } );
+    if ( _plane_type.is_one_of( Z_PLANE ) && _resize_zplane_mode == 2 )
+    {
+        _extent_x = _glob_zplaneRIGHT - _glob_zplaneLEFT ;
+        _extent_y = _glob_zplaneTOP - _glob_zplaneBOTTOM ;
+        _center.x = ( _glob_zplaneRIGHT + _glob_zplaneLEFT ) / 2.0 ;
+        _center.y = ( _glob_zplaneTOP + _glob_zplaneBOTTOM ) / 2.0 ;
+        var _canvas_w = $( "#" + _grid_zplane_canvas_id ).get(0).get_width();
+        var _new_extent_x = _extent_x * _canvas_w / _original_main_canvas_w ;
+        _glob_zplaneLEFT = _center.x - _new_extent_x / 2.0 ;
+        _glob_zplaneRIGHT = _center.x + _new_extent_x / 2.0 ;
 
-     if ( _plane_type.is_one_of( Z_PLANE ) && _resize_zplane_mode == 2 )
-     {
-          _extent_x = _glob_zplaneRIGHT - _glob_zplaneLEFT ;
-          _extent_y = _glob_zplaneTOP - _glob_zplaneBOTTOM ;
-          _center.x = ( _glob_zplaneRIGHT + _glob_zplaneLEFT ) / 2.0 ;
-          _center.y = ( _glob_zplaneTOP + _glob_zplaneBOTTOM ) / 2.0 ;
-          var _canvas_w = $( "#" + _grid_zplane_canvas_id ).get(0).get_width();
-          var _new_extent_x = _extent_x * _canvas_w / _original_main_canvas_w ;
-          _glob_zplaneLEFT = _center.x - _new_extent_x / 2.0 ;
-          _glob_zplaneRIGHT = _center.x + _new_extent_x / 2.0 ;
+        var src_left_up_pt = new point( _glob_zplaneLEFT, _glob_zplaneTOP );
+        var src_right_down_pt = new point( _glob_zplaneRIGHT, _glob_zplaneBOTTOM );
 
-          var src_left_up_pt = new point( _glob_zplaneLEFT, _glob_zplaneTOP );
-          var src_right_down_pt = new point( _glob_zplaneRIGHT, _glob_zplaneBOTTOM );
+        var display_rect = new rect( 0, 0, _canvas_w, _panel_left_height, _RECT_ORIENTATION_SCREEN, "display rect" );
+        var client_rect = new rect( 0, 0, _canvas_w, _panel_left_height, _RECT_ORIENTATION_SCREENN, "client rect" );
 
-          var display_rect = new rect( 0, 0, _canvas_w, _panel_left_height, _RECT_ORIENTATION_SCREEN, "display rect" );
-          var client_rect = new rect( 0, 0, _canvas_w, _panel_left_height, _RECT_ORIENTATION_SCREENN, "client rect" );
-
-          zplane_sm.set_coords_corners( src_left_up_pt, src_right_down_pt );
-          zplane_sm.set_client_rect( client_rect );
-          zplane_sm.set_display_rect( display_rect );
-          zplane_sm.accuracy = DEFAULT_MAX_ACCURACY ;
+        zplane_sm.set_coords_corners( src_left_up_pt, src_right_down_pt );
+        zplane_sm.set_client_rect( client_rect );
+        zplane_sm.set_display_rect( display_rect );
+        zplane_sm.accuracy = DEFAULT_MAX_ACCURACY ;
           //
-          _extent_x = _glob_wplaneRIGHT - _glob_wplaneLEFT ;
-          _extent_y = _glob_wplaneTOP - _glob_wplaneBOTTOM ;
-          _center.x = ( _glob_wplaneRIGHT + _glob_wplaneLEFT ) / 2.0 ;
-          _center.y = ( _glob_wplaneTOP + _glob_wplaneBOTTOM ) / 2.0 ;
-          _canvas_w = $( "#" + _grid_wplane_canvas_id ).get(0).get_width();
-          _new_extent_x = _extent_x * _canvas_w / _original_other_canvas_w ;
-          _glob_wplaneLEFT = _center.x - _new_extent_x / 2.0 ;
-          _glob_wplaneRIGHT = _center.x + _new_extent_x / 2.0 ;
+        _extent_x = _glob_wplaneRIGHT - _glob_wplaneLEFT ;
+        _extent_y = _glob_wplaneTOP - _glob_wplaneBOTTOM ;
+        _center.x = ( _glob_wplaneRIGHT + _glob_wplaneLEFT ) / 2.0 ;
+        _center.y = ( _glob_wplaneTOP + _glob_wplaneBOTTOM ) / 2.0 ;
+        _canvas_w = $( "#" + _grid_wplane_canvas_id ).get(0).get_width();
+        _new_extent_x = _extent_x * _canvas_w / _original_other_canvas_w ;
+        _glob_wplaneLEFT = _center.x - _new_extent_x / 2.0 ;
+        _glob_wplaneRIGHT = _center.x + _new_extent_x / 2.0 ;
 
-          src_left_up_pt = new point( _glob_wplaneLEFT, _glob_wplaneTOP );
-          src_right_down_pt = new point( _glob_wplaneRIGHT, _glob_wplaneBOTTOM );
+        src_left_up_pt = new point( _glob_wplaneLEFT, _glob_wplaneTOP );
+        src_right_down_pt = new point( _glob_wplaneRIGHT, _glob_wplaneBOTTOM );
 
-          display_rect = new rect( 0, 0, _canvas_w, _panel_right_height, _RECT_ORIENTATION_SCREEN, "display rect" );
-          client_rect = new rect( 0, 0, _canvas_w, _panel_right_height, _RECT_ORIENTATION_SCREEN, "client rect" );
+        display_rect = new rect( 0, 0, _canvas_w, _panel_right_height, _RECT_ORIENTATION_SCREEN, "display rect" );
+        client_rect = new rect( 0, 0, _canvas_w, _panel_right_height, _RECT_ORIENTATION_SCREEN, "client rect" );
 
-          wplane_sm.set_coords_corners( src_left_up_pt, src_right_down_pt );
-          wplane_sm.set_client_rect( client_rect );
-          wplane_sm.set_display_rect( display_rect );
-          wplane_sm.accuracy = DEFAULT_MAX_ACCURACY ;
-     }
+        wplane_sm.set_coords_corners( src_left_up_pt, src_right_down_pt );
+        wplane_sm.set_client_rect( client_rect );
+        wplane_sm.set_display_rect( display_rect );
+        wplane_sm.accuracy = DEFAULT_MAX_ACCURACY ;
+    }
 
-     if ( _plane_type.is_one_of( W_PLANE ) && _resize_wplane_mode == 2 )
-     {
-          _extent_x = _glob_wplaneRIGHT - _glob_wplaneLEFT ;
-          _extent_y = _glob_wplaneTOP - _glob_wplaneBOTTOM ;
-          _center.x = ( _glob_wplaneRIGHT + _glob_wplaneLEFT ) / 2.0 ;
-          _center.y = ( _glob_wplaneTOP + _glob_wplaneBOTTOM ) / 2.0 ;
-          var _canvas_w = $( "#" + _grid_wplane_canvas_id ).get(0).get_width();
-          var _new_extent_x = _extent_x * _canvas_w / _original_main_canvas_w ;
-          _glob_wplaneLEFT = _center.x - _new_extent_x / 2.0 ;
-          _glob_wplaneRIGHT = _center.x + _new_extent_x / 2.0 ;
+    if ( _plane_type.is_one_of( W_PLANE ) && _resize_wplane_mode == 2 )
+    {
+        _extent_x = _glob_wplaneRIGHT - _glob_wplaneLEFT ;
+        _extent_y = _glob_wplaneTOP - _glob_wplaneBOTTOM ;
+        _center.x = ( _glob_wplaneRIGHT + _glob_wplaneLEFT ) / 2.0 ;
+        _center.y = ( _glob_wplaneTOP + _glob_wplaneBOTTOM ) / 2.0 ;
+        var _canvas_w = $( "#" + _grid_wplane_canvas_id ).get(0).get_width();
+        var _new_extent_x = _extent_x * _canvas_w / _original_main_canvas_w ;
+        _glob_wplaneLEFT = _center.x - _new_extent_x / 2.0 ;
+        _glob_wplaneRIGHT = _center.x + _new_extent_x / 2.0 ;
 
-          var src_left_up_pt = new point( _glob_wplaneLEFT, _glob_wplaneTOP );
-          var src_right_down_pt = new point( _glob_wplaneRIGHT, _glob_wplaneBOTTOM );
+        var src_left_up_pt = new point( _glob_wplaneLEFT, _glob_wplaneTOP );
+        var src_right_down_pt = new point( _glob_wplaneRIGHT, _glob_wplaneBOTTOM );
 
-          var display_rect = new rect( 0, 0, _canvas_w, _panel_right_height, _RECT_ORIENTATION_SCREEN, "display rect" );
-          var client_rect = new rect( 0, 0, _canvas_w, _panel_right_height, _RECT_ORIENTATION_SCREEN, "client rect" );
+        var display_rect = new rect( 0, 0, _canvas_w, _panel_right_height, _RECT_ORIENTATION_SCREEN, "display rect" );
+        var client_rect = new rect( 0, 0, _canvas_w, _panel_right_height, _RECT_ORIENTATION_SCREEN, "client rect" );
 
-          wplane_sm.set_coords_corners( src_left_up_pt, src_right_down_pt );
-          wplane_sm.set_client_rect( client_rect );
-          wplane_sm.set_display_rect( display_rect );
-          wplane_sm.accuracy = DEFAULT_MAX_ACCURACY ;
+        wplane_sm.set_coords_corners( src_left_up_pt, src_right_down_pt );
+        wplane_sm.set_client_rect( client_rect );
+        wplane_sm.set_display_rect( display_rect );
+        wplane_sm.accuracy = DEFAULT_MAX_ACCURACY ;
 
-          $( "#WPLANElayers_pile" ).height( _panel_right_height );
+        $( "#WPLANElayers_pile" ).height( _panel_right_height );
 
-          _extent_x = _glob_zplaneRIGHT - _glob_zplaneLEFT ;
-          _extent_y = _glob_zplaneTOP - _glob_zplaneBOTTOM ;
-          _center.x = ( _glob_zplaneRIGHT + _glob_zplaneLEFT ) / 2.0 ;
-          _center.y = ( _glob_zplaneTOP + _glob_zplaneBOTTOM ) / 2.0 ;
-          _canvas_w = $( "#" + _grid_zplane_canvas_id ).get(0).get_width();
-          _new_extent_x = _extent_x * _canvas_w / _original_other_canvas_w ;
-          _glob_zplaneLEFT = _center.x - _new_extent_x / 2.0 ;
-          _glob_zplaneRIGHT = _center.x + _new_extent_x / 2.0 ;
+        _extent_x = _glob_zplaneRIGHT - _glob_zplaneLEFT ;
+        _extent_y = _glob_zplaneTOP - _glob_zplaneBOTTOM ;
+        _center.x = ( _glob_zplaneRIGHT + _glob_zplaneLEFT ) / 2.0 ;
+        _center.y = ( _glob_zplaneTOP + _glob_zplaneBOTTOM ) / 2.0 ;
+        _canvas_w = $( "#" + _grid_zplane_canvas_id ).get(0).get_width();
+        _new_extent_x = _extent_x * _canvas_w / _original_other_canvas_w ;
+        _glob_zplaneLEFT = _center.x - _new_extent_x / 2.0 ;
+        _glob_zplaneRIGHT = _center.x + _new_extent_x / 2.0 ;
 
-          src_left_up_pt = new point( _glob_zplaneLEFT, _glob_zplaneTOP );
-          src_right_down_pt = new point( _glob_zplaneRIGHT, _glob_zplaneBOTTOM );
+        src_left_up_pt = new point( _glob_zplaneLEFT, _glob_zplaneTOP );
+        src_right_down_pt = new point( _glob_zplaneRIGHT, _glob_zplaneBOTTOM );
 
-          display_rect = new rect( 0, 0, _canvas_w, _panel_left_height, _RECT_ORIENTATION_SCREEN, "display rect" );
-          client_rect = new rect( 0, 0, _canvas_w, _panel_left_height, _RECT_ORIENTATION_SCREEN, "client rect" );
+        display_rect = new rect( 0, 0, _canvas_w, _panel_left_height, _RECT_ORIENTATION_SCREEN, "display rect" );
+        client_rect = new rect( 0, 0, _canvas_w, _panel_left_height, _RECT_ORIENTATION_SCREEN, "client rect" );
 
-          zplane_sm.set_coords_corners( src_left_up_pt, src_right_down_pt );
-          zplane_sm.set_client_rect( client_rect );
-          zplane_sm.set_display_rect( display_rect );
-          zplane_sm.accuracy = DEFAULT_MAX_ACCURACY ;
-     }
+        zplane_sm.set_coords_corners( src_left_up_pt, src_right_down_pt );
+        zplane_sm.set_client_rect( client_rect );
+        zplane_sm.set_display_rect( display_rect );
+        zplane_sm.accuracy = DEFAULT_MAX_ACCURACY ;
+    }
 
-     if ( _render )
-     {
-         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
-         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
-         if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
-         var _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, YES, NO, YES, _output_channel );
-         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-				 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "4Unknown error" ;
-         if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
-     }
+    if ( _render )
+    {
+        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
+        var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
+        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
+        if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
+        var _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, YES, NO, YES, _output_channel );
+        var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
+		var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
+        if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
+    }
 }
 
 function circles_lib_canvas_layer_pile_init( _plane_type, _b_clean, _recalc_coords )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-		_b_clean = safe_int( _b_clean, YES ), _recalc_coords = safe_int( _recalc_coords, NO );
+	_b_clean = safe_int( _b_clean, YES ), _recalc_coords = safe_int( _recalc_coords, NO );
     if ( _plane_type.is_one_of( Z_PLANE, ALL_PLANES ) )
     {
         var _canvas = null, _div_id = "" ;
         for( var _i = 0 ; _i < _glob_zplane_layers_pile_array.length ; _i++ )
         {
-             _canvas = _glob_zplane_layers_pile_array[_i] ;
-             if ( is_html_canvas( _canvas ) )
-             {
-                  circles_lib_canvas_layer_init( Z_PLANE_LAYERS_PILE_ID, _recalc_coords,
-                                    _canvas.get_iddiv(), _canvas.get_idcanvas(), _canvas.is_visible(), _canvas.get_role_id(), _canvas.get_backgroundcolor(), _b_clean );
-             }
+            _canvas = _glob_zplane_layers_pile_array[_i] ;
+            if ( is_html_canvas( _canvas ) )
+            circles_lib_canvas_layer_init( Z_PLANE_LAYERS_PILE_ID, _recalc_coords,
+					   _canvas.get_iddiv(), _canvas.get_idcanvas(), _canvas.is_visible(), _canvas.get_role_id(), _canvas.get_backgroundcolor(), _b_clean );
         }
     }
 
@@ -505,12 +500,10 @@ function circles_lib_canvas_layer_pile_init( _plane_type, _b_clean, _recalc_coor
         var _canvas = null, _div_id = "" ;
         for( var _i = 0 ; _i < _glob_wplane_layers_pile_array.length ; _i++ )
         {
-             _canvas = _glob_wplane_layers_pile_array[_i] ;
-             if ( is_html_canvas( _canvas ) )
-             {
-                  circles_lib_canvas_layer_init( W_PLANE_LAYERS_PILE_ID, _recalc_coords,
-                                    _canvas.get_iddiv(), _canvas.get_idcanvas(), _canvas.is_visible(), _canvas.get_role_id(), _canvas.get_backgroundcolor(), _b_clean );
-             }
+            _canvas = _glob_wplane_layers_pile_array[_i] ;
+            if ( is_html_canvas( _canvas ) )
+            circles_lib_canvas_layer_init( W_PLANE_LAYERS_PILE_ID, _recalc_coords,
+                       _canvas.get_iddiv(), _canvas.get_idcanvas(), _canvas.is_visible(), _canvas.get_role_id(), _canvas.get_backgroundcolor(), _b_clean );
         }
     }
 }
@@ -564,11 +557,10 @@ function circles_lib_canvas_layer_pile_reset( _plane_type )
         _glob_wplane_topmost_layer_placeholder = _top_canvas ;
         circles_lib_events_bind_to_wplane( _top_canvas );
     }
-
     return YES ;
 }
 
-function circles_lib_canvas_layer_pile_get_default( _plane_type )
+function circles_lib_canvas_layer_pile_default_get( _plane_type )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     var _layers_pile = circles_lib_canvas_layer_pile_get( _plane_type );
@@ -581,7 +573,7 @@ function circles_lib_canvas_layer_pile_get_default( _plane_type )
     }
 }
 
-function circles_lib_canvas_layer_pile_get_per_plane( _plane_type )
+function circles_lib_canvas_layer_pile_per_plane_get( _plane_type )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     if ( _plane_type.is_one_of( Z_PLANE ) ) // Z-plane
@@ -591,7 +583,7 @@ function circles_lib_canvas_layer_pile_get_per_plane( _plane_type )
     else return null ;
 }
 
-function circles_lib_canvas_layer_pile_clean_per_plane( _plane_type, _role, _silent, _output_channel )
+function circles_lib_canvas_layer_pile_per_plane_clean( _plane_type, _role, _silent, _output_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _role = safe_float( _role, UNDET ), _silent = safe_float( _silent, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
@@ -608,27 +600,27 @@ function circles_lib_canvas_layer_pile_clean_per_plane( _plane_type, _role, _sil
     var _L = safe_size( _layers_array, 0 );
     if ( _L > 0 )
     {
-         var _canvas = null, _bkcolor ;
-         for( var _i = 0 ; _i < _L ; _i++ )
-         {
-             _canvas = _layers_array[_i] ;
-             _bkcolor = _canvas.get_backgroundcolor() != null ? _canvas.get_backgroundcolor() : "rgba( 255, 255, 255, 0 )" ;
-             if ( is_html_canvas( _canvas ) && ( _role == UNDET || _canvas.get_role_id() == _role ) ) circles_lib_canvas_clean( _canvas, _bkcolor, _output_channel );
-         }
+        var _canvas = null, _bkcolor ;
+        for( var _i = 0 ; _i < _L ; _i++ )
+        {
+            _canvas = _layers_array[_i] ;
+            _bkcolor = _canvas.get_backgroundcolor() != null ? _canvas.get_backgroundcolor() : "rgba( 255, 255, 255, 0 )" ;
+            if ( is_html_canvas( _canvas ) && ( _role == UNDET || _canvas.get_role_id() == _role ) ) circles_lib_canvas_clean( _canvas, _bkcolor, _output_channel );
+        }
 
-         var _msg = "Layers have been cleaned with success" ;
-         if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
-         return [ RET_OK, _msg ] ;
+        var _msg = "Layers have been cleaned with success" ;
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+        return [ RET_OK, _msg ] ;
     }
     else
     {
-         var _msg = circles_lib_plane_get_def( _plane_type ) + " layers list is empty" ;
-         if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
-         return [ RET_ERROR, _msg ] ;
+        var _msg = circles_lib_plane_def_get( _plane_type ) + " layers list is empty" ;
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        return [ RET_ERROR, _msg ] ;
     }
 }
 
-function circles_lib_canvas_layer_pile_build_dropdown( _dropdown_id, _onchangecode, _plane_type )
+function circles_lib_canvas_layer_pile_dropdown_build( _dropdown_id, _onchangecode, _plane_type )
 {
     /*
       _new_layer.getContext(_glob_canvas_ctx_2D_mode).idcanvas = _canvas_id ;
@@ -647,17 +639,16 @@ function circles_lib_canvas_layer_pile_build_dropdown( _dropdown_id, _onchangeco
     _onchangecode = safe_string( _onchangecode, "" ).trim() ;
     if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) && _dropdown_id.length > 0 )
     {
-         var _layers_pile = circles_lib_canvas_layer_pile_get( _plane_type ), _ctx, _chunk ;
-         var HTMLcode = "<SELECT ID=\""+_dropdown_id+"\" "+( _onchangecode.length > 0 ? "ONCHANGE=\"javascript:"+_onchangecode+"\"" : "" )+">" ;
-         $.each( _layers_pile, function( _i, _layer )
-                 {
-                    _ctx = _layer.getContext( _glob_canvas_ctx_2D_mode );
-                    _chunk = [ _ctx.idcanvas, _ctx.type, _ctx.role_def ] ;
-                    HTMLcode += "<OPTION STYLE=\"color:"+( _ctx.visible ? DEFAULT_COLOR_STD : "#D0D0D0" )+";\" ; VALUE=\""+_chunk.join( "@" )+"\">" + _ctx.role_def ;
-                 }
-               ) ;
-         HTMLcode += "</SELECT>" ;
-         return HTMLcode ;
+        var _layers_pile = circles_lib_canvas_layer_pile_get( _plane_type ), _ctx, _chunk ;
+        var HTMLcode = "<SELECT ID=\""+_dropdown_id+"\" "+( _onchangecode.length > 0 ? "ONCHANGE=\"javascript:"+_onchangecode+"\"" : "" )+">" ;
+        $.each( _layers_pile, function( _i, _layer )
+                {
+                   _ctx = _layer.getContext( _glob_canvas_ctx_2D_mode );
+                   _chunk = [ _ctx.idcanvas, _ctx.type, _ctx.role_def ] ;
+                   HTMLcode += "<OPTION STYLE=\"color:"+( _ctx.visible ? DEFAULT_COLOR_STD : "#D0D0D0" )+";\" ; VALUE=\""+_chunk.join( "@" )+"\">" + _ctx.role_def ;
+                } ) ;
+        HTMLcode += "</SELECT>" ;
+        return HTMLcode ;
     }
     else return "" ;
 }

@@ -202,7 +202,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
        {
          circles_lib_progressbar_div_show( NO );
          var _MSG = "Can't run the rendering process." + _glob_crlf.repeat(2) ;
-             _MSG += "Plane selection has been previously switched to : <b>" + circles_lib_plane_get_def( _working_plane ) + "</b>" + _glob_crlf ;
+             _MSG += "Plane selection has been previously switched to : <b>" + circles_lib_plane_def_get( _working_plane ) + "</b>" + _glob_crlf ;
              _MSG += "and thus rendering destination is not well determined." + _glob_crlf.repeat(2) ;
              _MSG += "Please, select the destination plane from buttons below" ;
                 
@@ -328,7 +328,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
             'rnd_reps_depth' : _glob_rnd_reps_depth,
             'right_down_pt' : ( _glob_multithread_mapper.get_coords_corners() )['rd'],
             'use_last_pt' : _glob_use_last_pt,
-            'workingplane_def' : circles_lib_plane_get_def( _working_plane ) } ;
+            'workingplane_def' : circles_lib_plane_def_get( _working_plane ) } ;
   		   _glob_worker.postMessage( _json );
 
          if ( _glob_dict_check != SKIP ) _glob_dict_create = NO ;

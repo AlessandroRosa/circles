@@ -199,7 +199,7 @@ function W_PLANE_work_canvas_onmouseup( obj, event )
            HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
            HTMLcode += "</table>" ;
 
-           alert_msg( ALERT_YESNO | ALERT_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_get_def( W_PLANE ), 430 );
+           alert_msg( ALERT_YESNO | ALERT_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_def_get( W_PLANE ), 430 );
            var screen_left_top_pt = wplane_sm.from_cartesian_to_client( _glob_zoom_rect.x1, _glob_zoom_rect.y1 );
            var screen_right_bottom_pt = wplane_sm.from_cartesian_to_client( _glob_zoom_rect.x2, _glob_zoom_rect.y2 );
            circles_lib_canvas_blowup( _glob_wplane_rendering_layer_placeholder,

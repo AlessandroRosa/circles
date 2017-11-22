@@ -234,7 +234,7 @@ function circles_terminal_cmd_matrix()
                                                             circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _output_channel );
                                                             var _ret_chunk = circles_lib_items_init( null, NO, NO, _glob_init_mask, NO, NO, _output_channel );
                                                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-                                                            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "57Unknown error" ;
+                                                            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                                                             if ( _ret_id == RET_OK )
                                                             {
                                                                 $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
@@ -401,7 +401,7 @@ function circles_terminal_cmd_matrix()
                                             circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _output_channel );
                                             var _ret_chunk = circles_lib_items_init( null, NO, NO, _glob_init_mask, NO, NO, _output_channel );
                                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-                                            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "58Unknown error" ;
+                                            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                                             if ( _ret_id == RET_OK )
                                             {
                                                 $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);

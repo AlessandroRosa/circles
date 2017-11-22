@@ -354,7 +354,7 @@ function circles_lib_fixedpoints_connect( _plane_type, _clean, _showtext, _outpu
                }
           }
 
-        return [ RET_OK, "Fixed points connected on the " + circles_lib_plane_get_def( _plane_type ) ];
+        return [ RET_OK, "Fixed points connected on the " + circles_lib_plane_def_get( _plane_type ) ];
     }
 }
 
@@ -417,7 +417,7 @@ function circles_lib_fixedpoints_locate( _i, _plane_type, _clean, _showtext, _ou
               }
           }
           
-        return [ RET_OK, "Fixed point #"+_i+" localized on the " + circles_lib_plane_get_def( _plane_type ), _fp_coords.clone() ];
+        return [ RET_OK, "Fixed point #"+_i+" localized on the " + circles_lib_plane_def_get( _plane_type ), _fp_coords.clone() ];
     }
 }
 

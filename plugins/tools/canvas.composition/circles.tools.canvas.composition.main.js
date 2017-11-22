@@ -63,7 +63,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, _move )
         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
-        HTMLcode += "<td>"+circles_lib_canvas_layer_pile_build_dropdown( "CIRCLEStoolsCANVASCOMPOSITIONzplaneCOMBO", "", Z_PLANE )+"</td>" ;
+        HTMLcode += "<td>"+circles_lib_canvas_layer_pile_dropdown_build( "CIRCLEStoolsCANVASCOMPOSITIONzplaneCOMBO", "", Z_PLANE )+"</td>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td>" ;
         HTMLcode += "<SELECT ID=\"CIRCLEStoolsCANVASCOMPOSITIONzplaneactionCOMBO\" ONCHANGE=\"javascript:CIRCLEStoolsCANVASCOMPOSITIONactionCOMBOselect("+Z_PLANE+");\">" ;
@@ -86,7 +86,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, _move )
         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
-        HTMLcode += "<td>"+circles_lib_canvas_layer_pile_build_dropdown( "CIRCLEStoolsCANVASCOMPOSITIONwplaneCOMBO", "", W_PLANE )+"</td>" ;
+        HTMLcode += "<td>"+circles_lib_canvas_layer_pile_dropdown_build( "CIRCLEStoolsCANVASCOMPOSITIONwplaneCOMBO", "", W_PLANE )+"</td>" ;
         HTMLcode += "<td WIDTH=\"5\"></td>" ;
         HTMLcode += "<td>" ;
         HTMLcode += "<SELECT ID=\"CIRCLEStoolsCANVASCOMPOSITIONwplaneactionCOMBO\" ONCHANGE=\"javascript:CIRCLEStoolsCANVASCOMPOSITIONactionCOMBOselect("+W_PLANE+");\">" ;

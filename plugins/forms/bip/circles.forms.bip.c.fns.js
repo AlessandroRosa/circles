@@ -249,7 +249,7 @@ function CIRCLESformsBIPsavePIX()
     alert_plug_fn( ALERT_YES, "_glob_export_format=EXPORT_NONE;circles_lib_files_pix_save_ask( BIP_BOX, _glob_bip_canvas.id, 'circles.bip.png', NO, YES, OUTPUT_NONE );" );
     alert_plug_fn( ALERT_NO, "alertCLOSE();" );
 
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_YESNO | DISPATCH_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_get_def( BIP_BOX ) );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_YESNO | DISPATCH_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_def_get( BIP_BOX ) );
     circles_lib_canvas_blowup( _glob_bip_canvas, $('#CIRCLESbipthumbCANVAS').get(0), 0, 0, _canvas_w, _canvas_h );
 }
 

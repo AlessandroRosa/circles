@@ -240,7 +240,7 @@ function circles_terminal_cmd_bip()
                           _ret_msg = circles_lib_terminal_bip_apply_error_manager( _tmp_applied_settings_mask, _ret_id, _ret_errmask );
 
 					  circles_lib_output( _output_channel, DISPATCH_INFO, _ret_msg, _par_1, _cmd_tag );
-                      circles_lib_output( _output_channel, DISPATCH_INFO, "Bip box coordinates has been acquired from " + circles_lib_plane_get_def( _glob_bip_original_plane_coords ) + " with success", _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, "Bip box coordinates has been acquired from " + circles_lib_plane_def_get( _glob_bip_original_plane_coords ) + " with success", _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - cartesian X extent is "+_glob_bip_x_extent, _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - cartesian Y extent is "+_glob_bip_y_extent, _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "Bip Box - center at "+_glob_bip_box_center_pt.output(), _par_1, _cmd_tag );

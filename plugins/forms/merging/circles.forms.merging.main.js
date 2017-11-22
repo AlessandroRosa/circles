@@ -7,8 +7,8 @@ function CIRCLESformsMERGINGmain( _base_id, _move, _plane_type )
     if ( _plane_type == NO_PLANE ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing plane ref", _glob_app_title );
     else
     {
-         var _plane_def = circles_lib_plane_get_def( _plane_type );
-         var _layers_array = circles_lib_canvas_layer_pile_get_per_plane( _plane_type );
+         var _plane_def = circles_lib_plane_def_get( _plane_type );
+         var _layers_array = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
          var _n_layers = safe_size( _layers_array, 0 );
          var WIDTH = 260, HEIGHT = "auto", _subset = "forms" ;
          var _div_id = CIRCLESformsMERGINGdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
@@ -110,7 +110,7 @@ function CIRCLESformsMERGINGrender( _plane_type, _n_layers )
          {
 		         var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, _glob_zplane_merging_array, YES, YES, YES, NO, YES, YES, OUTPUT_SCREEN );
 		         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-		         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "16Unknown error" ;
+		         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 		         if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
 				 }
          else if ( _plane_type == W_PLANE )

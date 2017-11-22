@@ -11,13 +11,13 @@ function CIRCLESobjectsINIT( _mask )
 		if ( _mask == 0 || _mask & 4 )
 		{
 		    zplane_sm = new screen_mapper();
-		    zplane_sm.label = circles_lib_plane_get_def_for_cmds( Z_PLANE );
+		    zplane_sm.label = circles_lib_plane_def_get_for_cmds( Z_PLANE );
 		    wplane_sm = new screen_mapper();
-		    wplane_sm.label = circles_lib_plane_get_def_for_cmds( W_PLANE );
+		    wplane_sm.label = circles_lib_plane_def_get_for_cmds( W_PLANE );
 		    bipbox_sm = new screen_mapper();
-		    bipbox_sm.label = circles_lib_plane_get_def_for_cmds( BIP_BOX );
+		    bipbox_sm.label = circles_lib_plane_def_get_for_cmds( BIP_BOX );
 		    dlocus_sm = new screen_mapper();
-		    dlocus_sm.label = circles_lib_plane_get_def_for_cmds( D_LOCUS );
+		    dlocus_sm.label = circles_lib_plane_def_get_for_cmds( D_LOCUS );
 		}
 
     CIRCLESinitLETTERS( _mask );
@@ -75,11 +75,11 @@ function CIRCLESinitLETTERS( _mask )
 
 function CIRCLESinitCOLORS()
 {
-    COLOR_STD = def_clrs_tags['tag.black'] ;
-    COLOR_DISABLED = def_clrs_tags['tag.disabled'] ;
-    COLOR_INFO = def_clrs_tags['tag.info'] ;
-    COLOR_ERROR = def_clrs_tags['tag.error'] ;
-    COLOR_SUCCESS = def_clrs_tags['tag.success'] ;
-    COLOR_WARNING = def_clrs_tags['tag.warning'] ;
-    def_clrs_tags_keys = def_clrs_tags.keys_associative().work( function( _key ){ return _key.replaceAll( "tag.", "" ) ; } ) ;
+    COLOR_STD = _glob_def_clrs_tags['tag.black'] ;
+    COLOR_DISABLED = _glob_def_clrs_tags['tag.disabled'] ;
+    COLOR_INFO = _glob_def_clrs_tags['tag.info'] ;
+    COLOR_ERROR = _glob_def_clrs_tags['tag.error'] ;
+    COLOR_SUCCESS = _glob_def_clrs_tags['tag.success'] ;
+    COLOR_WARNING = _glob_def_clrs_tags['tag.warning'] ;
+    def_clrs_tags_keys = _glob_def_clrs_tags.keys_associative().work( function( _key ){ return _key.replaceAll( "tag.", "" ) ; } ) ;
 }
