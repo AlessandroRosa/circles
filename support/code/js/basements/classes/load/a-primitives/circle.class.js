@@ -30,7 +30,7 @@ if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) 
 
 function circle()
 {
-		this.customclass = arguments.callee.name ;
+	this.customclass = arguments.callee.name ;
     if ( is_circle( arguments[0] ) )
     {
        this.center = is_point( arguments[0].center ) ? arguments[0].center : new point( 0, 0 ) ;

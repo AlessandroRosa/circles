@@ -1,26 +1,26 @@
 function circles_terminal_cmd_circle()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _params_assoc_array = [];
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _params_assoc_array = [];
 
-     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     else if ( _params.length > 0 )
-     {
+    if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    else if ( _params.length > 0 )
+    {
          _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
@@ -61,18 +61,18 @@ function circles_terminal_cmd_circle()
          var _index_associations = [], _i, _l ;
          for( _i = 0 ; _i < _up_to_index ; _i++ )
          {
-              _p = _params_array[_i] ;
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p.toLowerCase();
-              else if ( _p.stricmp( "rec" ) ) _params_assoc_array['settings']['rec'] = YES ;
-              else if ( _p.is_one_of_i( "storagein" ) ) _params_assoc_array['settings']['params'].push( _p ) ;
-              else if ( _p.start_with( "storagesubset:" ) ) _params_assoc_array['settings']['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
-              else if ( _p.start_with_i( "$" ) )
-              {
-                 for( _l = 0 ; _l < _glob_figures_array.length ; _l++ )
-                 {
+            _p = _params_array[_i] ;
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p.toLowerCase();
+            else if ( _p.stricmp( "rec" ) ) _params_assoc_array['settings']['rec'] = YES ;
+            else if ( _p.is_one_of_i( "storagein" ) ) _params_assoc_array['settings']['params'].push( _p ) ;
+            else if ( _p.start_with( "storagesubset:" ) ) _params_assoc_array['settings']['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
+            else if ( _p.start_with_i( "$" ) )
+            {
+                for( _l = 0 ; _l < _glob_figures_array.length ; _l++ )
+                {
                     if ( _p.stricmp( _glob_figures_array[_l]['label'] ) )
                     {
                        var _class = _glob_figures_array[_l]['class'] ;
@@ -80,161 +80,151 @@ function circles_terminal_cmd_circle()
                        else if ( _class == FIGURE_CLASS_LINE ) _class = "line" ;
                        else if ( _class == FIGURE_CLASS_POINT ) _class = "point" ;
                        else if ( _class == FIGURE_CLASS_RECT ) _class = "rect" ;
-                       _b_fail = YES ;
-                       _error_str = "There exists "+_class+" already labelled as '"+_p+"'" ;
+                       
+					   _b_fail = YES ; _error_str = "There exists "+_class+" already labelled as '"+_p+"'" ;
                        break ;
                     }
-                 }
+                }
 
-                 if ( !_b_fail ) _params_assoc_array['settings']['label'] = _p ;
-              }
-              else if ( _p.is_one_of_i( "zplane", "wplane", "bip" ) )
-              {
-                  if ( _p.stricmp( "zplane" ) ) _params_assoc_array['settings']['plane'] = Z_PLANE ;
-                  else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['settings']['plane'] = W_PLANE ;
-                  else if ( _p.stricmp( "bip" ) ) _params_assoc_array['settings']['plane'] = BIP_BOX ;
+                if ( !_b_fail ) _params_assoc_array['settings']['label'] = _p ;
+            }
+            else if ( _p.is_one_of_i( "zplane", "wplane", "bip" ) )
+            {
+                if ( _p.stricmp( "zplane" ) ) _params_assoc_array['settings']['plane'] = Z_PLANE ;
+                else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['settings']['plane'] = W_PLANE ;
+                else if ( _p.stricmp( "bip" ) ) _params_assoc_array['settings']['plane'] = BIP_BOX ;
 
-								  _msg = "<lightblue>Plane has been set to</lightblue> <snow>"+_p+"</snow>" ;
-									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-              }
-							else if ( circles_lib_colors_is_def( _p ) )
-							{
-								 if ( _params_assoc_array['settings']['drawcolor'] == null )
-								 {
-									 _params_assoc_array['settings']['drawcolor'] = _p ;
-									 _msg = "<lightblue>Border color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-								 }
-								 else if ( _params_assoc_array['settings']['fillcolor'] == null )
-								 {
-									 _params_assoc_array['settings']['fillcolor'] = _p ;
-									 _msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-								 }
-								 else
-								 {
-									 _msg = "<orange>Redundant input color params found in '"+_p+"': skipped</orange>" ;
-									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-								 }
-							}
-              else if ( _p.testME( _glob_sector_regex_pattern ) )
-              {
-                   _p = _p.replaceAll( [ "[", "]" ], "" );
-                   _p = _p.split( "," );
-									 _msg = "<lightblue>Detected sector range syntax</lightblue> <snow>from "+_p[0]+"</snow> to <snow>"+_p[1]+"</snow>" ;
-									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-                   // before converting to radians, values will be adapted for
-                   // rendering sectors according to the standard counter-clockwise orientation
-                   _params_assoc_array['settings']['sector_start'] = radians( -_p[1] );
-                   _params_assoc_array['settings']['sector_end'] = radians( -_p[0] );
-              }
-              else if ( _p.testME( _glob_positive_float_regex_pattern ) )
-              {
-                   if ( _params_assoc_array['settings']['radius'] == null )
-                   {
-                       _params_assoc_array['settings']['radius'] = safe_float( _p, 1 );
-											 _msg = "<lightblue>Radius has been set to</lightblue> <snow>"+_p+"</snow>" ;
-											 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-                   }
-                   else if ( _params_assoc_array['settings']['linewidth'] == null )
-                   {
-                       _params_assoc_array['settings']['linewidth'] = safe_int( _p, 1 );
-											 _msg = "<lightblue>Line width has been set to</lightblue> <snow>"+_p+"</snow>" ;
-											 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-                   }
-                   else if ( _params_assoc_array['settings']['opacity'] == null )
-                   {
-                       _params_assoc_array['settings']['opacity'] = safe_float( _p, 1 );
-											 _msg = "<lightblue>Opacity has been set to</lightblue> <snow>"+_p+"</snow>" ;
-											 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-                   }
-              }
-              else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
-              {
-                  if ( !is_point( _params_assoc_array['settings']['center'] ) )
-                  {
-                      _p = _p.replaceAll( [ "(", ")" ], "" );
-                      var _pt_array = _p.split( "," );
-                      _params_assoc_array['settings']['center'] = new point( parseFloat( _pt_array[0] ), parseFloat( _pt_array[1] ) );
-    								  _msg = "<lightblue>Circle center has been set to</lightblue> <snow>"+_p+"</snow>" ;
-    									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-                  }
-              }
+				_msg = "<lightblue>Plane has been set to</lightblue> <snow>"+_p+"</snow>" ;
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+            }
+			else if ( _p.toLowerCase().start_with( "sector:" ) )
+			{
+				_p = safe_string( _p.replace( /sector:/gi, "" ), 1 ) ;
+				if ( _p.testME( _glob_sector_regex_pattern ) )
+				{
+					_p = _p.replaceAll( [ "[", "]" ], "" ).split( "," );
+					_msg = "<lightblue>Detected sector range syntax</lightblue> <snow>from "+_p[0]+"</snow> to <snow>"+_p[1]+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+					//before converting to radians, values will be adapted for
+					//rendering sectors according to the standard counter-clockwise orientation
+					_params_assoc_array['settings']['sector_start'] = radians( -_p[1] );
+					_params_assoc_array['settings']['sector_end'] = radians( -_p[0] );
+					_msg = "<lightblue>Sector has been set </lightblue> <snow>from "+_p[1]+" to "+_p[0]+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES ; _error_str = "Bad circle sector format: '"+_p+"'" ; }
+			}
+			else if ( _p.toLowerCase().start_with( "radius:" ) && _params_assoc_array['settings']['radius'] == null )
+			{
+				_params_assoc_array['settings']['radius'] = safe_float( _p.replace( /radius:/gi, "" ), 1 ) ;
+				_msg = "<lightblue>Radius has been set to</lightblue> <snow>"+_params_assoc_array['settings']['radius']+"</snow>" ;
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+			}
+			else if ( _p.toLowerCase().start_with( "drawcolor:" ) && _params_assoc_array['settings']['drawcolor'] == null )
+			{
+				_params_assoc_array['settings']['drawcolor'] = safe_string( _p.replace( /drawcolor:/gi, "" ), "" ) ;
+				_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['drawcolor']+"</snow>" ;
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+			}
+			else if ( _p.toLowerCase().start_with( "fillcolor:" ) && _params_assoc_array['settings']['fillcolor'] == null )
+			{
+				_params_assoc_array['settings']['fillcolor'] = safe_string( _p.replace( /fillcolor:/gi, "" ), "" ) ;
+				_msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['fillcolor']+"</snow>" ;
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+			}
+			else if ( _p.toLowerCase().start_with( "border:" ) && _params_assoc_array['settings']['border'] == null )
+			{
+				_params_assoc_array['settings']['border'] = safe_int( _p.replace( /border:/gi, "" ), 1 ) ;
+				_msg = "<lightblue>Border has been set to</lightblue> <snow>"+_params_assoc_array['settings']['border']+"</snow>" ;
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+			}
+			else if ( _p.toLowerCase().start_with( "opacity:" ) && _params_assoc_array['settings']['opacity'] == null )
+			{
+				_params_assoc_array['settings']['opacity'] = safe_float( _p.replace( /opacity:/gi, "" ), 1 ) ;
+				_msg = "<lightblue>Opacity has been set to</lightblue> <snow>"+_params_assoc_array['settings']['opacity']+"</snow>" ;
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+			}
+			else if ( _p.toLowerCase().start_with( "label:" ) )
+			{
+				_params_assoc_array['settings']['label'] = safe_string( _p.replace( /label:/gi, "" ), "" ) ;
+				_msg = "<lightblue>Label has been set to</lightblue> <snow>"+_params_assoc_array['settings']['label']+"</snow>" ;
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+			}
+            else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
+            {
+                if ( !is_point( _params_assoc_array['settings']['center'] ) )
+                {
+                    var _pt_array = _p.replaceAll( [ "(", ")" ], "" ).split( "," );
+                    _params_assoc_array['settings']['center'] = new point( safe_float( _pt_array[0], 0 ), safe_float( _pt_array[1], 0 ) );
+					_msg = "<lightblue>Circle center has been set to</lightblue> <snow>"+_p+"</snow>" ;
+    				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                }
+            }
          }
-     }
-     else
-     {
-         _b_fail = YES ;
-         _error_str = "Missing input params" ;
-     }
+    }
+    else { _b_fail = YES ; _error_str = "Missing input params" ; }
 
-     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
-     else if ( _params_assoc_array['keywords'] )
-     {
+    if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
+    else if ( _params_assoc_array['keywords'] )
+    {
          var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
          if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
          else
          {
-             _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-             circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+            _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
+            circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
          }
-     }
-     else if ( !_b_fail )
-     {
+    }
+    else if ( !_b_fail )
+    {
          var _action = _params_assoc_array['action'] ;
-         var _storage_queue_request = _params_assoc_array['settings']['params'].includes_i( "storagein" ) ? YES : NO ;
-
+         var _storage_queue_request = _params_assoc_array['settings']['params'] != null ? ( _params_assoc_array['settings']['params'].includes_i( "storagein" ) ? YES : NO ) : NO ;
          switch( _action )
          {
-              case "release":
-              circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-              break ;
-              default:
-              // checking input errors
-              if ( _params_assoc_array['help'] == NO && !_b_fail )
-              {
+            case "release":
+            circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+            break ;
+            default:
+            // checking input errors
+            if ( _params_assoc_array['help'] == NO && !_b_fail )
+            {
                    if ( _params_assoc_array['settings']['label'].length > 0 && _params_assoc_array['settings']['rec'] == NO )
                    {
-                      circles_lib_output( _output_channel, DISPATCH_INFO, "Skipped symbol param. Mismatch setting: no rec param input", _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, "Skipped 'label' param. Mismatch setting: no rec param input", _par_1, _cmd_tag );
                       if ( _glob_verbose && _glob_terminal_echo_flag )
-                      circles_lib_output( _output_channel, DISPATCH_INFO, "Symbol param is useless if this figure is not going to be recorded", _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_INFO, "'Label' param has been skipped because this circle is not going to be recorded", _par_1, _cmd_tag );
                    }
                    else if ( _params_assoc_array['settings']['plane'] == NO_PLANE )
                    {
                       _b_fail = YES ;
-                      _error_str = "Can't plot circle: missing plane reference" ; 
+                      _error_str = "Can't plot the circle: missing plane reference" ; 
                    }
                    else if ( !is_point( _params_assoc_array['settings']['center'] ) )
                    {
                       _b_fail = YES ;
-                      _error_str = "Can't plot circle: missing center coords" ;
+                      _error_str = "Can't plot the circle: missing center coords" ;
                    }
                    else if ( _params_assoc_array['settings']['radius'] == null )
                    {
                       _b_fail = YES ;
-                      _error_str = "Can't plot circle: missing radius" ;
+                      _error_str = "Can't plot the circle: missing radius" ;
                    }
           
                    // beware of some missing color param, so let's check'em deeper
                    if ( _params_assoc_array['settings']['drawcolor'] == null &&
                         _params_assoc_array['settings']['fillcolor'] == null )
                    {
-                       _b_fail = YES ;
-                       _error_str = "Missing draw and filling colors: this circle won't be visible" ;
+                       _b_fail = YES ; _error_str = "Missing draw and filling colors: this circle won't be visible" ;
                    }
                    else
                    {
                        var _drawcolor = _params_assoc_array['settings']['drawcolor'] ;
-                       var _draw = _drawcolor != null ? ( ( _drawcolor.length > 0 && !_drawcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
+                       var _draw = _drawcolor != null ? ( ( _drawcolor.length > 0 && !_drawcolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
                        var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
-                       var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
-                       if ( _draw == NO && _fill == NO )
-                       {
-                            _b_fail = YES ;
-                            _error_str = "Missing draw and filling colors: this circle won't be visible" ; 
-                       }
+                       var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
+                       if ( _draw == NO && _fill == NO ) { _b_fail = YES ; _error_str = "Missing draw and filling colors: this circle won't be visible" ; }
                    }
-              }
+            }
 
               // elaborating the params
               if ( !_b_fail && _params_assoc_array['help'] == NO )
@@ -245,47 +235,41 @@ function circles_terminal_cmd_circle()
                    var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
                    var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
           
-                   var _linewidth = ( _params_assoc_array['settings']['linethick'] == null ) ? 1 : safe_int( _params_assoc_array['settings']['linethick'], 1 );
+                   var _linewidth = ( _params_assoc_array['settings']['border'] == null ) ? 1 : safe_int( _params_assoc_array['settings']['border'], 1 );
                    if ( _linewidth == 0 ) { _draw = NO ; _drawcolor = "" ; }
-                   var _border_radius = ( _params_assoc_array['settings']['borderradius'] == null ) ? 0 : safe_int( _params_assoc_array['settings']['borderradius'], 0 );
                    var _opacity = ( _params_assoc_array['settings']['opacity'] == null ) ? 1.0 : safe_float( _params_assoc_array['settings']['opacity'], DEFAULT_MAX_OPACITY );
                     
                    var _circle_obj = new circle( _params_assoc_array['settings']['center'], _params_assoc_array['settings']['radius'],
-                   															 _draw, _fill, _drawcolor, _fillcolor, _linewidth );
+                   								 _draw, _fill, _drawcolor, _fillcolor, _linewidth );
                    switch( _params_assoc_array['settings']['plane'] )
                    {
-                       case Z_PLANE:
-                       _canvas_context = _glob_zplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
-                       _mapper = zplane_sm ;
-                       break ;
-                       case W_PLANE:
-                       _canvas_context = _glob_wplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
-                       _mapper = wplane_sm ;
-                       break ;
-                       case BIP_BOX:
-                       _canvas_context = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode );
-                       _mapper = bipbox_sm ;
-                       break ;
-								       default: break ;
+                        case Z_PLANE:
+                        _canvas_context = _glob_zplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                        _mapper = zplane_sm ;
+                        break ;
+                        case W_PLANE:
+                        _canvas_context = _glob_wplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                        _mapper = wplane_sm ;
+                        break ;
+                        case BIP_BOX:
+                        _canvas_context = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode );
+                        _mapper = bipbox_sm ;
+                        break ;
+						default: break ;
                    }
           
                    if ( is_circle( _circle_obj ) )
                    {
                        var _screen_circle = circles_lib_draw_complex_disk( _canvas_context, _mapper,
-                                                                    _circle_obj.center.x, _circle_obj.center.y, _circle_obj.radius,
-                                                                    _draw, _drawcolor, _fill, _fillcolor,
-                                                                    _linewidth, _opacity,
-                                                                    _params_assoc_array['settings']['sector_start'],
-																																		_params_assoc_array['settings']['sector_end'],
-																																		"", _params_assoc_array['settings']['propertiesmask'] );
-                       if ( !is_circle( _screen_circle ) )
-                       {
-                           _b_fail = YES ;
-                           _error_str = "Fail to draw the circle: invalid object declation" ;
-                       }
+								_circle_obj.center.x, _circle_obj.center.y, _circle_obj.radius,
+                                _draw, _drawcolor, _fill, _fillcolor, _linewidth, _opacity,
+                                _params_assoc_array['settings']['sector_start'],
+								_params_assoc_array['settings']['sector_end'],
+								"", _params_assoc_array['settings']['propertiesmask'] );
+                       if ( !is_circle( _screen_circle ) ) { _b_fail = YES ; _error_str = "Fail to draw the circle: invalid object declation" ; }
                        else
                        {
-                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Circle processed with success</green>", _par_1, _cmd_tag );
+                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Circle drawn with success</green>", _par_1, _cmd_tag );
                            if ( _params_assoc_array['settings']['rec'] == YES || _storage_queue_request )
                            {
                                var _rec_chunk = [];
@@ -316,22 +300,18 @@ function circles_terminal_cmd_circle()
                                        else circles_lib_output( _output_channel, DISPATCH_WARNING, "'"+_subset+"' does not refer to any valid storage space subset", _par_1, _cmd_tag );
                                    }
           
-                                   circles_lib_output( _output_channel, DISPATCH_INFO, "Circle recorded", _par_1, _cmd_tag );
+                                   circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Circle recorded with success", _par_1, _cmd_tag );
                             }
                        }
                    }
-                   else
-                   {
-                       _b_fail = YES ;
-                       _error_str = "Can't draw circle: memory failure. Free some resources" ;
-                   }
+                   else { _b_fail = YES ; _error_str = "Can't draw circle: memory failure. Free some resources" ; }
               }
               break ;
          }
-     }
+    }
 
-     if ( _b_fail )
-     circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+    if ( _b_fail )
+    circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

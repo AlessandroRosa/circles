@@ -1,10 +1,10 @@
 ------------ APP -------------------------------------------------
 * terminal cmd 'canvas':
-  - think about the chance to add custom placeholders for
-    custom canvas
+  - think about the chance to add custom placeholders for custom canvas
 
-* terminal cmds check:
-  last cmd: canvas
+* _glob_figures_array is not drawn for objects lying on the w-plane	
+	
+* Last terminal cmd check: circle
 
 * plugin : after dropdown selections of preset config, grid of
   z-plane and of w-plane shall be redrawn again
