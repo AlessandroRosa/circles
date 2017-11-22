@@ -140,31 +140,29 @@ function circles_lib_files_load_environment( _filename, _file_contents )
 function circles_lib_files_load_default_fn_lib()
 {
     var _abs_folder_path = "libs/default.load/" ;
-    var _rel_folder_path = "libs/default.load/" ;
     var vars = { tip: "",
                  folder : _abs_folder_path,
                  filter : "/[?.lib]$/",
-						     exact : 0,
+				 exact : 0,
                  search_params : "0,0,1,0" } ;
     var _result = get_filedata_from_folder( "support/code/phpcode/svc/svc.filelist.php", "POST", false, vars );
     if ( _result.length > 0 )
     {
-				var _res_array = _result.includes( "@@@" ) ? _result.split( "@@@" ) : [ _result ] ;
+		var _res_array = _result.includes( "@@@" ) ? _result.split( "@@@" ) : [ _result ] ;
         var _rl = safe_size( _res_array, 0 ), _load_failure = NO, _src_code_load_failures = [] ;
         for( _i = 0 ; _i < _rl ; _i++ )
         {
            $.ajaxSetup( { async:false } );
-           $.get( _rel_folder_path + _res_array[_i] ).done( function( data ){ circles_lib_files_parse_lib_file( data ); } ).fail( function(){ circles_lib_log_add_entry( "'"+_res_array[_i]+"' can't be loaded: suspected invalid filename or internal code error", LOG_ERROR ) ; _src_code_load_failures.push( _res_array[_i] ) ; } );
+           $.get( _abs_folder_path + _res_array[_i] ).done( function( data ){ circles_lib_files_parse_lib_file( data ); } ).fail( function(){ circles_lib_log_add_entry( "'"+_res_array[_i]+"' can't be loaded: suspected invalid filename or internal code error", LOG_ERROR ) ; _src_code_load_failures.push( _res_array[_i] ) ; } );
         }
-
         _load_failure = safe_size( _src_code_load_failures, 0 ) > 0 ? YES : NO ;
     }
 }
 
 function circles_lib_files_parse_js_file( _data )
 {
-		var _data_rows = _data.includes( CRLF_WIN ) ? _data.split( CRLF_WIN ) : ( _data.includes( CRLF_NO_WIN ) ? _data.split( CRLF_NO_WIN ) : [ _data ] );
-		var _row, _ret_chunk = [ [], "" ] ;
+	var _data_rows = _data.includes( CRLF_WIN ) ? _data.split( CRLF_WIN ) : ( _data.includes( CRLF_NO_WIN ) ? _data.split( CRLF_NO_WIN ) : [ _data ] );
+	var _row, _ret_chunk = [ [], "" ] ;
     for( var _i = 0 ; _i < _data_rows.length ; _i++ )
     {
          _row = _data_rows[_i] ;
@@ -285,7 +283,7 @@ function circles_lib_files_load_default_datatypes()
         vars = { tip: "",
                  folder : _scan_folders[_sf].abs,
                  filter : _scan_folders[_sf].filter,
-    				     exact : 0,
+    		     exact : 0,
                  search_params : "0,0,1,0" } ;
         _result = get_filedata_from_folder( "support/code/phpcode/svc/svc.filelist.php", "POST", false, vars );
         if ( _result.length > 0 )

@@ -9,8 +9,8 @@
 <lightblue>config save -> config.txt</lightblue>
 <cadetblue>dump config parameters list into a plain text file entitled as 'config.txt'</cadetblue>
 
-<lightblue>config keywords</lightblue>
-<cadetblue>return keywords for params get | set</cadetblue>
+<lightblue>config groups</lightblue>
+<cadetblue>return a list with identifiers for obtaining further group info</cadetblue>
 
 <lightblue>config rendering</lightblue>
 <cadetblue>return params under 'rendering' group</cadetblue>

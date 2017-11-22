@@ -27,7 +27,7 @@ function circles_terminal_cmd_config()
 
      var _keywords = [ 'accuracy', 'automaton', 'canvasmode', 'circle', 'construction', 'depth', 'diskdash', 'diskdraw', 'diskfill',
                        'drawentity', 'fixedpoints', 'gens', 'init', 'interface', 'items', 'mapprecision', 'menu', 'method', 'os',
-                       'pixel', 'plugin', 'point', 'save', 'html', 'help', 'release',
+                       'groups', 'pixel', 'plugin', 'point', 'save', 'html', 'help', 'release',
                        'terminal', 'title', 'usepalette', 'warnings' ] ;
      var _readonly = [ 'gens', 'init', 'method', 'os', 'plugin', 'terminal' ] ;
      var _groups = [ "generals", "graphix", "rendering", "terminal" ] ;
@@ -68,7 +68,7 @@ function circles_terminal_cmd_config()
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-            else if ( _p.is_one_of_i( "get", "keywords", "save", "set", "release" ) )
+            else if ( _p.is_one_of_i( "get", "groups", "keywords", "release", "save", "set" ) )
             {
                if ( _p.stricmp( "save" ) ) _params_assoc_array['dump'] = YES ;
                _params_assoc_array['action'] = _p.toLowerCase() ;
@@ -217,44 +217,9 @@ function circles_terminal_cmd_config()
            var _action = _params_assoc_array['action'] ;
            switch( _action )
            {
-                case "keywords":
-                var _cols = 6 ;
-                var _colors = [ "cadetblue", "lightblue", "snow" ] ;
-                var _MSG = "<yellow>Read/write keywords to get/set</yellow> <snow>values via config cmd:</snow>" + _glob_crlf ;
-                var _runner = 0 ;
-                for( var _i = 0 ; _i < _keywords.length ; _i++ )
-                {
-                    if ( !_readonly.includes( _keywords[_i] ) )
-                    {
-                        _runner++ ;
-                        _MSG += "<"+_colors[_i%_colors.length]+">" + _keywords[_i] + "</"+_colors[_i%_colors.length]+">  "  ;
-                        if ( _i != 0 && _runner % _cols == 0 )
-                        {
-                            _MSG += "" + _glob_crlf ;
-                            _runner = 0 ;
-                        }
-                    }
-                }
-  
-                _colors = [ "orange", "salmon" ] ;
-                _MSG += "\n\n<yellow>Read-only keywords</yellow> <snow>to get values via config cmd:</snow>" + _glob_crlf ;
-                _runner = 0 ;
-                for( var _i = 0 ; _i < _readonly.length ; _i++ )
-                {
-                     _runner++ ;
-                     _MSG += "<"+_colors[_i%_colors.length]+">" + _readonly[_i] + "</"+_colors[_i%_colors.length]+">  "  ;
-                     if ( _i != 0 && _runner % _cols == 0 )
-                     {
-                        _MSG += "" + _glob_crlf ;
-                        _runner = 0 ;
-                     }
-                }
-  
-                _out_text_string = _MSG ;
-  
-                if ( _params_assoc_array['html'] ) circles_lib_output( _output_channel, DISPATCH_INFO, LANG_MSG_00, _par_1, _cmd_tag );
-                _params_assoc_array['html'] ? circles_lib_terminal_color_decode_htmltext( _MSG ) : circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _MSG, _par_1, _cmd_tag );
-                break ;
+			   case "groups":
+			   circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Config groups are</lightblue> <white>"+_groups.join(", ")+"</white>", _par_1, _cmd_tag );
+			   break ;
                 case "get":
                 if ( _params_assoc_array['params'].length == 0 )
                 {

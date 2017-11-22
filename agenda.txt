@@ -4,8 +4,6 @@
 
 * _glob_figures_array is not drawn for objects lying on the w-plane	
 	
-* Last terminal cmd check: circle
-
 * plugin : after dropdown selections of preset config, grid of
   z-plane and of w-plane shall be redrawn again
 
@@ -13,6 +11,9 @@
   close each console per call.
   Find a solution to save somewhere and get the current terminal plug-in window ID
   later, when required.
+
+* Last terminal cmd check: config
+
   
 * Listings:
   - run and test all listings

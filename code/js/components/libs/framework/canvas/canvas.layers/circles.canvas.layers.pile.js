@@ -622,18 +622,6 @@ function circles_lib_canvas_layer_pile_per_plane_clean( _plane_type, _role, _sil
 
 function circles_lib_canvas_layer_pile_dropdown_build( _dropdown_id, _onchangecode, _plane_type )
 {
-    /*
-      _new_layer.getContext(_glob_canvas_ctx_2D_mode).idcanvas = _canvas_id ;
-      _new_layer.getContext(_glob_canvas_ctx_2D_mode).iddiv = _div_id ;
-      _new_layer.getContext(_glob_canvas_ctx_2D_mode).type = _plane_type ;
-      _new_layer.getContext(_glob_canvas_ctx_2D_mode).role = _role_index ;
-      _new_layer.getContext(_glob_canvas_ctx_2D_mode).role_def = _role_def ;
-      _new_layer.getContext(_glob_canvas_ctx_2D_mode).label = _plane_def + " " + _role_def ;
-      _new_layer.getContext(_glob_canvas_ctx_2D_mode).plane_def = _plane_def ;
-      _new_layer.getContext(_glob_canvas_ctx_2D_mode).defaultcanvas = _default_canvas ;
-      _new_layer.getContext(_glob_canvas_ctx_2D_mode).visible = _visible ;
-      _new_layer.getContext(_glob_canvas_ctx_2D_mode).backgroundColor = "transparent" ;
-    */
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _dropdown_id = safe_string( _dropdown_id, "" ).trim() ;
     _onchangecode = safe_string( _onchangecode, "" ).trim() ;

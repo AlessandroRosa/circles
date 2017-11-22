@@ -1,4 +1,4 @@
-function circles_terminal_cmd_bye()
+function circles_terminal_cmd_exit()
 {
     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
     var _params = arguments[0] ;

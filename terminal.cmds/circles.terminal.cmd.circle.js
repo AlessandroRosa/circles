@@ -21,46 +21,46 @@ function circles_terminal_cmd_circle()
     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
     else if ( _params.length > 0 )
     {
-         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-         _params_assoc_array['help'] = NO ;
-         _params_assoc_array['keywords'] = NO ;
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); 
+        _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
+        _params_assoc_array['help'] = NO ;
+        _params_assoc_array['keywords'] = NO ;
+        var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+        _params_array.clean_from( " " ); 
 
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "draw", "drawcolor", "fill", "fillcolor", "opacity", "radius",
+    	var _local_cmds_params_array = [];
+    		_local_cmds_params_array.push( "draw", "drawcolor", "fill", "fillcolor", "opacity", "radius",
 						 																"wplane", "zplane", "bip", "rec", "thick", "release", "html" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
-				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-				 _params_assoc_array['dump_operator_index'] = _dump_operator_index ;
-				 _params_assoc_array['dump_array'] = [];
+		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
+		_params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+		_params_assoc_array['dump_operator_index'] = _dump_operator_index ;
+		_params_assoc_array['dump_array'] = [];
 
-				 // gather all dump parameters into one array
-         if ( _params_assoc_array['dump'] )
-         {
-    				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-    				 if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
-         }
+		// gather all dump parameters into one array
+        if ( _params_assoc_array['dump'] )
+        {
+    		for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+			if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
+        }
 				 
-         // distribute all input values into arrays of categories
- 				 _params_assoc_array['settings'] = [] ;
-         _params_assoc_array['settings']['rec'] = NO ;
-         _params_assoc_array['settings']['copy'] = NO ;
-         _params_assoc_array['settings']['label'] = "" ;
-         _params_assoc_array['settings']['propertiesmask'] = 0 ;
-         _params_assoc_array['settings']['plane'] = NO_PLANE ;
-         _params_assoc_array['settings']['sector_start'] = 0 ;
-         _params_assoc_array['settings']['sector_end'] = CIRCLES_TWO_PI ;
-         _params_assoc_array['settings']['storagequeue'] = [] ;
-         _params_assoc_array['settings']['storagesubset'] = "circles" ;
-         var _p,  _b_cmd_open = NO ;
-         // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
-         var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
-         var _index_associations = [], _i, _l ;
-         for( _i = 0 ; _i < _up_to_index ; _i++ )
-         {
+        // distribute all input values into arrays of categories
+ 		_params_assoc_array['settings'] = [] ;
+        _params_assoc_array['settings']['rec'] = NO ;
+        _params_assoc_array['settings']['copy'] = NO ;
+        _params_assoc_array['settings']['label'] = "" ;
+        _params_assoc_array['settings']['propertiesmask'] = 0 ;
+        _params_assoc_array['settings']['plane'] = NO_PLANE ;
+        _params_assoc_array['settings']['sector_start'] = 0 ;
+        _params_assoc_array['settings']['sector_end'] = CIRCLES_TWO_PI ;
+        _params_assoc_array['settings']['storagequeue'] = [] ;
+        _params_assoc_array['settings']['storagesubset'] = "circles" ;
+        var _p,  _b_cmd_open = NO ;
+        // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
+        var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
+        var _index_associations = [], _i, _l ;
+        for( _i = 0 ; _i < _up_to_index ; _i++ )
+        {
             _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
@@ -160,20 +160,20 @@ function circles_terminal_cmd_circle()
     				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                 }
             }
-         }
+        }
     }
     else { _b_fail = YES ; _error_str = "Missing input params" ; }
 
     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
     else if ( _params_assoc_array['keywords'] )
     {
-         var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-         if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
-         else
-         {
+        var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+        if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+        else
+        {
             _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
             circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-         }
+        }
     }
     else if ( !_b_fail )
     {

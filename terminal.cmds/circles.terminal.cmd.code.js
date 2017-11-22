@@ -10,162 +10,158 @@ function circles_terminal_cmd_code()
     if ( _glob_verbose && _glob_terminal_echo_flag )
     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
 
-     var _params_assoc_array = [];
-         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-         _params_assoc_array['help'] = NO ;
-         _params_assoc_array['keywords'] = NO ;
-         _params_assoc_array['action'] = "" ;
-         _params_assoc_array['dump'] = NO ;
-         _params_assoc_array['dump_array'] = null ;
-         _params_assoc_array['dump_operator_index'] = UNDET ;
+    var _params_assoc_array = [];
+        _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
+        _params_assoc_array['help'] = NO ;
+        _params_assoc_array['keywords'] = NO ;
+        _params_assoc_array['action'] = "" ;
+        _params_assoc_array['dump'] = NO ;
+        _params_assoc_array['dump_array'] = null ;
+        _params_assoc_array['dump_operator_index'] = UNDET ;
 
-     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     else if ( _output_channel == OUTPUT_SCRIPT )
-     {
+    if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    else if ( _output_channel == OUTPUT_SCRIPT )
+    {
          _b_fail = YES, _error_str = "This command doesn't run in script mode, thus it will be skipped" ;
-     }
-     else
-     {
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); 
+    }
+    else
+    {
+        var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+        _params_array.clean_from( " " ); 
 
-				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-				 _params_assoc_array['dump_operator_index'] = _dump_operator_index ;
-				 _params_assoc_array['dump_array'] = [];
+		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
+		_params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+		_params_assoc_array['dump_operator_index'] = _dump_operator_index ;
+		_params_assoc_array['dump_array'] = [];
 
-				 // gather all dump parameters into one array
-         if ( _params_assoc_array['dump'] )
-         {
-    				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-    				 if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
-         }
+		// gather all dump parameters into one array
+        if ( _params_assoc_array['dump'] )
+        {
+    		for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+    		if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
+        }
 
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-						 _local_cmds_params_array.push( "html" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+        // pre-scan for levenshtein correction
+    	var _local_cmds_params_array = [];
+			_local_cmds_params_array.push( "html" );
+        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
-         var _p ;
-         // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
-         var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
-         for( var _i = 0 ; _i < _up_to_index ; _i++ )
-         {
+        var _p ;
+        // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
+        var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
+        for( var _i = 0 ; _i < _up_to_index ; _i++ )
+        {
             _p = _params_array[_i].toLowerCase();
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-         }
-     }
+        }
+    }
 
-     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
-     else if ( _params_assoc_array['keywords'] )
-     {
-         var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-         if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
-         else
-         {
-             _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-             circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-         }
-     }
-     else if ( !_b_fail )
-     {
-         var _action = _params_assoc_array['action'] ;
-         var _html = _params_assoc_array['html'] ;
-         if ( _action == "run" )
-         {
-              _glob_terminal_run_code_from = RUN_CODE_FROM_TERMINAL ;
-              circles_lib_batch_compiler_run();
-         }
-         else
-         {
-              /* code : generate a listing of current settings and flush'em into a file
-                 1st step: new, method, construction, silent, tiling, drawentity,
-                           echo, accuracy, auto setting, depth, layers
-                 2nd step: coords, ticks, palette, repetends
-                 3rd step: disk coords / mobius params
-                 4th step: refresh zplane, refresh wplane
-                 5th step: add filter (not implemented yet)
-              */
+    if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
+    else if ( _params_assoc_array['keywords'] )
+    {
+        var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+        if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+        else
+        {
+            _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
+            circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+        }
+    }
+    else if ( !_b_fail )
+    {
+        var _action = _params_assoc_array['action'] ;
+        var _html = _params_assoc_array['html'] ;
+        if ( _action == "run" )
+        {
+            _glob_terminal_run_code_from = RUN_CODE_FROM_TERMINAL ;
+            circles_lib_batch_compiler_run();
+        }
+        else
+        {
+            /* code : generate a listing of current settings and flush'em into a file
+               1st step: new, method, construction, silent, tiling, drawentity,
+                         echo, accuracy, auto setting, depth, layers
+               2nd step: coords, ticks, palette, repetends
+               3rd step: disk coords / mobius params
+               4th step: refresh zplane, refresh wplane
+               5th step: add filter (not implemented yet)
+            */
 
-              var code_fn = function( _opt, _output_channel )
-              {
-                  var _plain_code = _out_text_string = circles_terminal_cmd_code_assemble( _opt );
-                  if ( _params_assoc_array['dump'] )
-									{
-											_params_assoc_array['dump_array'] = _params_assoc_array['dump_array'] != null ? _params_assoc_array['dump_array'][0] : "circles.code.txt" ;
-											var _ret_chunk = circles_lib_dump_data_to_format( _plain_code, _params_assoc_array['dump_array'], "savepix" );
-											var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
-											var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation";
-											if ( _ret_id == 0 )
-  										{
-													_b_fail = YES, _error_str = _ret_msg ;
-											}
-											else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
-									}
+            var code_fn = function( _opt, _output_channel )
+            {
+                var _plain_code = _out_text_string = circles_terminal_cmd_code_assemble( _opt );
+                if ( _params_assoc_array['dump'] )
+				{
+					_params_assoc_array['dump_array'] = _params_assoc_array['dump_array'] != null ? _params_assoc_array['dump_array'][0] : "circles.code.txt" ;
+					var _ret_chunk = circles_lib_dump_data_to_format( _plain_code, _params_assoc_array['dump_array'], "savepix" );
+					var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
+					var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation";
+					if ( _ret_id == 0 ) { _b_fail = YES, _error_str = _ret_msg ; }
+					else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+				}
 
-                  if ( _output_channel == OUTPUT_HTML ) circles_lib_terminal_color_decode_htmltext( "<gray>"+_plain_code+"</gray>", 'code', 'right', 'top' );
-                  else if ( _output_channel == OUTPUT_TEXT ) return _plain_code ;
-                  else if ( _output_channel.match_bit_mask( TERMINAL_SCRIPT_INPUT, OUTPUT_TERMINAL ) )
-                  {
-                      $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val( _plain_code );
-                      if ( $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val().length == 0 )
-                      circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't flush the resulting code into the script tab.\nPlease, close and re-open the terminal pop-up", _par_1, _cmd_tag );
-                      else
-                      circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The resulting code has been flushed into the script tab", _par_1, _cmd_tag );
-                  }
-              }
+                if ( _output_channel == OUTPUT_HTML ) circles_lib_terminal_color_decode_htmltext( "<gray>"+_plain_code+"</gray>", 'code', 'right', 'top' );
+                else if ( _output_channel == OUTPUT_TEXT ) return _plain_code ;
+                else if ( _output_channel.match_bit_mask( TERMINAL_SCRIPT_INPUT, OUTPUT_TERMINAL ) )
+                {
+                    $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val( _plain_code );
+                    if ( $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val().length == 0 )
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't flush the resulting code into the 'Batch Script' tab.\nPlease, close and re-open the terminal pop-up", _par_1, _cmd_tag );
+                    else
+                    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The resulting code has been copied into the 'Batch Script' tab", _par_1, _cmd_tag );
+                }
+            }
 
-              if ( _plugin_last_ref == 0 ) code_fn( 1, _output_channel );
-              else
-              {
-                   var _pre_prompt = "System detected one active gens plug-in." + _glob_crlf ;
-                       _pre_prompt += "The related configuration code can be generated, depending to the choice below:" + _glob_crlf ;
-                       _pre_prompt += "1. extract Mobius maps parameters" + _glob_crlf ;
-                       _pre_prompt += "2. write the plug-in settings" + _glob_crlf ;
-                   var _prompt_question  = "Select: " ;
-                   var _question_counter = 1 ;
+            if ( _plugin_last_ref == 0 ) code_fn( 1, _output_channel );
+            else
+            {
+                var _pre_prompt = "System detected one active gens plug-in." + _glob_crlf ;
+                    _pre_prompt += "The related configuration code can be generated, depending to the choice below:" + _glob_crlf ;
+                    _pre_prompt += "1. extract Mobius maps parameters" + _glob_crlf ;
+                    _pre_prompt += "2. write the plug-in settings" + _glob_crlf ;
+                var _prompt_question  = "Select: " ;
+                var _question_counter = 1 ;
+                var _fn = function( command, _rows_of_code )
+                {
+                    if (command.match(/\b(1)\b/g))
+                    {
+                        code_fn( 1, _output_channel );
+                        for( var _i = 0 ; _i < _question_counter ; _i++ ) _glob_terminal_out_stream.pop();
+                    }
+                    else if (command.match(/\b(2)\b/g))
+                    {
+                        code_fn( 2, _output_channel );
+                        for( var _i = 0 ; _i < _question_counter ; _i++ ) _glob_terminal_out_stream.pop();
+                    }
+                    else if (command.match(/\b(quit)\b/g))
+                    {
+                        circles_lib_terminal_info_echo('running code aborted by user');
+                        for( var _i = 0 ; _i < _question_counter ; _i++ ) _glob_terminal_out_stream.pop();
+                    }
+                    else
+                    {
+                        var _response = "Please, reply with '1','2' or 'quit'" ;
+                        circles_lib_terminal_info_echo( _response );
+                        _glob_terminal_out_stream.push( _fn, { prompt: _prompt_question } );
+                    }
+                } ;
 
-                        var _fn = function( command, _rows_of_code )
-                        {
-                            if (command.match(/\b(1)\b/g))
-                            {
-                                code_fn( 1, _output_channel );
-                                for( var _i = 0 ; _i < _question_counter ; _i++ ) _glob_terminal_out_stream.pop();
-                            }
-                            else if (command.match(/\b(2)\b/g))
-                            {
-                                code_fn( 2, _output_channel );
-                                for( var _i = 0 ; _i < _question_counter ; _i++ ) _glob_terminal_out_stream.pop();
-                            }
-                            else if (command.match(/\b(quit)\b/g))
-                            {
-                                circles_lib_terminal_info_echo('running code aborted by user');
-                                for( var _i = 0 ; _i < _question_counter ; _i++ ) _glob_terminal_out_stream.pop();
-                            }
-                            else
-                            {
-                               var _response = "Please, reply with '1','2' or 'quit'" ;
-                               circles_lib_terminal_info_echo( _response );
-                               _glob_terminal_out_stream.push( _fn, { prompt: _prompt_question } );
-                            }
-                        } ;
-
-                        if ( _glob_terminal_questions_enabled && _output_channel == OUTPUT_TERMINAL )
-                        {
-                           circles_lib_output( _output_channel, DISPATCH_INFO, _pre_prompt, _par_1, _cmd_tag );
-                           _glob_terminal_out_stream.push( _fn, { prompt: _prompt_question });
-                        }
-                        else code_fn( 1, _output_channel );
-              }
-         }
+                if ( _glob_terminal_questions_enabled && _output_channel == OUTPUT_TERMINAL )
+                {
+                    circles_lib_output( _output_channel, DISPATCH_INFO, _pre_prompt, _par_1, _cmd_tag );
+                    _glob_terminal_out_stream.push( _fn, { prompt: _prompt_question });
+                }
+                else code_fn( 1, _output_channel );
+            }
+        }
      }
 
      if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
@@ -200,9 +196,8 @@ function circles_terminal_cmd_code_1st_step( _opt, _settings_array, _rows_of_cod
        _rows_of_code.push( "/*\n" + _desc + _glob_crlf + _info + "\n*/" );
     }
 
-		if ( _glob_comment.length > 0 ) _rows_of_code.push( "comment:", "[", _glob_comment, "]", "" );
-
-		// 1ST STEP
+	if ( _glob_comment.length > 0 ) _rows_of_code.push( "comment:", "[", _glob_comment, "]", "" );
+	// 1ST STEP
     var _params = "" ;
     var _target = _settings_array['target_plane_type'] != null ? _settings_array['target_plane_type'] : "" ;
     if ( _target.stricmp( "bip" ) ) _rows_of_code.push( "new generals coords terminal" );
@@ -240,7 +235,6 @@ function circles_terminal_cmd_code_1st_step( _opt, _settings_array, _rows_of_cod
     _rows_of_code.push( "grid ticks " + _glob_ticks_count );
     _rows_of_code.push( "config set accuracy " + _glob_accuracy );
     _rows_of_code.push( "config set depth " + _glob_depth );
-
     return _rows_of_code ;
 }
 
@@ -285,8 +279,8 @@ function circles_terminal_cmd_code_3rd_step( _opt, _settings_array, _rows_of_cod
         if ( _glob_process == PROCESS_BREADTHFIRST ) _str += " breadthfirst" ;
         else if ( _glob_process == PROCESS_INDEXSEARCH ) _str += " indexsearch" ;
         else if ( _glob_process == PROCESS_RANDOM ) _str += " random" ;
-	      _rows_of_code.push( _str );
-				break ;
+		_rows_of_code.push( _str );
+		break ;
         default: break ;
     }
 
@@ -387,10 +381,9 @@ function circles_terminal_cmd_code_3rd_step( _opt, _settings_array, _rows_of_cod
                 else _rows_of_code.push( "Failure - no disk object resident in memory" );
             }
             break ;
-		        default: break ;
+	        default: break ;
         }
     }
-
     return _rows_of_code ;
 }
 
@@ -420,18 +413,18 @@ function circles_terminal_cmd_code_4th_step( _opt, _settings_array, _rows_of_cod
     if ( circles_lib_gens_model_exists() && !circles_lib_gens_model_is_exact() )
     {
         _rows_of_code.push( "gensset flush" );
-		  	var _sch_n = circles_lib_count_gens_set_model(), _symbol ;
-			  if ( _sch_n > 0 )
+	  	var _sch_n = circles_lib_count_gens_set_model(), _symbol ;
+		if ( _sch_n > 0 )
         {
             var _symbols_array = [];
             for( var _i = 0 ; _i < _sch_n ; _i++ )
-        		{
-       		     _symbol = _glob_gens_set_model_array[_i] ;
-       		     if ( _symbol.length > 0 ) _symbols_array.push( _symbol );
-        		}
+        	{
+       		    _symbol = _glob_gens_set_model_array[_i] ;
+       		    if ( _symbol.length > 0 ) _symbols_array.push( _symbol );
+        	}
 
             _rows_of_code.push( "gensset add " + _symbols_array.join( " " ) + " gens" );
-        		_rows_of_code.push( "gensset init force" );
+        	_rows_of_code.push( "gensset init force" );
         }
     }
 
@@ -440,7 +433,7 @@ function circles_terminal_cmd_code_4th_step( _opt, _settings_array, _rows_of_cod
         if ( _glob_process.is_one_of( PROCESS_BREADTHFIRST ) &&
              safe_size( _glob_repetends_array, 0 ) > 0 && _items_n > 0 )
         {
-       		  var _symbol, _rep ;
+      		var _symbol, _rep ;
             for( var _i = 0 ; _i < _glob_repetends_array.length ; _i++ )
             {
                 _symbol = ( _glob_seeds_array[_i] != null ) ? _glob_seeds_array[_i].symbol.trim() : "" ;
@@ -452,61 +445,60 @@ function circles_terminal_cmd_code_4th_step( _opt, _settings_array, _rows_of_cod
         if ( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM &&
              safe_size( _glob_rnd_probability_array, 0 ) > 0 )
         {
-        		 var _rng_method = "" ;
-    				 switch( _glob_probabilityRNGmethod )
-    				 {
-    						case RNG_BUILT_IN: _rng_method = "built-in" ; break ;
-    						case RNG_UNIFORM: _rng_method = "uniform" ; break ;
-    						case RNG_NORMAL: _rng_method = "normal" ; break ;
-    						case RNG_EXPONENTIAL: _rng_method = "exponential" ; break ;
-    					  case RNG_POISSON: _rng_method = "poisson" ; break ;
-    						case RNG_GAMMA: _rng_method = "gamma" ; break ;
-    						case RNG_MERSENNE_TWISTER: _rng_method = "mersenne" ; break ;
-    						case RNG_SINE: _rng_method = "sine" ; break ;
-    						case RNG_COMPLEMENTARY_MULTIPLY_WITH_CARRY: _rng_method = "cmwc" ; break ;
-    						case RNG_LINEAR_CONGRUENT: _rng_method = "lcg" ; break ;
-    						case RNG_MARSAGLIA_ZAMAN: _rng_method = "marz" ; break ;
-    						default: _rng_method = "built-in" ; break ;
-    				 }
+      		var _rng_method = "" ;
+    		switch( _glob_probabilityRNGmethod )
+    		{
+    			case RNG_BUILT_IN: _rng_method = "built-in" ; break ;
+    			case RNG_UNIFORM: _rng_method = "uniform" ; break ;
+    			case RNG_NORMAL: _rng_method = "normal" ; break ;
+    			case RNG_EXPONENTIAL: _rng_method = "exponential" ; break ;
+				case RNG_POISSON: _rng_method = "poisson" ; break ;
+    			case RNG_GAMMA: _rng_method = "gamma" ; break ;
+    			case RNG_MERSENNE_TWISTER: _rng_method = "mersenne" ; break ;
+    			case RNG_SINE: _rng_method = "sine" ; break ;
+    			case RNG_COMPLEMENTARY_MULTIPLY_WITH_CARRY: _rng_method = "cmwc" ; break ;
+    			case RNG_LINEAR_CONGRUENT: _rng_method = "lcg" ; break ;
+    			case RNG_MARSAGLIA_ZAMAN: _rng_method = "marz" ; break ;
+    			default: _rng_method = "built-in" ; break ;
+    		}
 
-             // arrays are passed / copied by reference in javascript
-             var _rf_l = safe_size( _glob_rnd_probability_array, 0 );
-             if ( _rf_l > 0 )
-             {
-                 for( var _p = 0 ; _p < _rf_l ; _p++ )
-                 {
-                     _glob_rnd_probability_array[_p] = safe_float( _glob_rnd_probability_array[_p], 0.0 );
-                     _glob_rnd_probability_array[_p] = _glob_rnd_probability_array[_p].clean_round_off( _glob_accuracy );
-                 }
+            // arrays are passed / copied by reference in javascript
+            var _rf_l = safe_size( _glob_rnd_probability_array, 0 );
+            if ( _rf_l > 0 )
+            {
+                for( var _p = 0 ; _p < _rf_l ; _p++ )
+                {
+                    _glob_rnd_probability_array[_p] = safe_float( _glob_rnd_probability_array[_p], 0.0 );
+                    _glob_rnd_probability_array[_p] = _glob_rnd_probability_array[_p].clean_round_off( _glob_accuracy );
+                }
 
-                 var _str = [] ;
-                 for( _p = 0 ; _p < _rf_l ; _p++ ) _str.push( _glob_rnd_probability_array[_p] + " " + _glob_gens_set_symbols_map_array[ _glob_gens_set_model_array[_p] ] ) ;
-      					 _str = _str.join( " " );
+                var _str = [] ;
+                for( _p = 0 ; _p < _rf_l ; _p++ ) _str.push( _glob_rnd_probability_array[_p] + " " + _glob_gens_set_symbols_map_array[ _glob_gens_set_model_array[_p] ] ) ;
+				_str = _str.join( " " );
 
-                 var _set_cmd_string = _str + " " + _rng_method ;
-                 if ( _glob_rnd_reps_threshold != DEFAULT_RND_REPS_THRESHOLD ) _set_cmd_string += " repsthreshold:" + _glob_rnd_reps_threshold ;
-                 if ( _glob_rnd_reps_depth != DEFAULT_RND_REPS_DEPTH ) _set_cmd_string += " repsdepth:" + _glob_rnd_reps_depth ;
-                 _set_cmd_string += " force" ;
-                 _rows_of_code.push( "probability clean force" );
-                 _rows_of_code.push( "probability set " + _set_cmd_string );
-             }
+                var _set_cmd_string = _str + " " + _rng_method ;
+                if ( _glob_rnd_reps_threshold != DEFAULT_RND_REPS_THRESHOLD ) _set_cmd_string += " repsthreshold:" + _glob_rnd_reps_threshold ;
+                if ( _glob_rnd_reps_depth != DEFAULT_RND_REPS_DEPTH ) _set_cmd_string += " repsdepth:" + _glob_rnd_reps_depth ;
+                _set_cmd_string += " force" ;
+                _rows_of_code.push( "probability clean force" );
+                _rows_of_code.push( "probability set " + _set_cmd_string );
+            }
 
-             _rows_of_code.push( "probability repsthreshold:" + _glob_rnd_reps_threshold + " repsdepth:" + _glob_rnd_reps_depth );
+            _rows_of_code.push( "probability repsthreshold:" + _glob_rnd_reps_threshold + " repsdepth:" + _glob_rnd_reps_depth );
         }
     }
 
     var _n_fp = circles_lib_count_fixed_points();
     if ( _n_fp > 0 && _glob_fixedpt_io == FIXEDPOINTS_IO_INPUT )
     {
-         _rows_of_code.push( "fp bomb force" );
-         $.each( _glob_input_fixed_pts_array,
-         function( _i, _chunk )
-         {
-            var _word = _chunk[0] ;
-            var _pt_formula = ( new complex( _chunk[1].x, _chunk[1].y ) ).formula();
-            _rows_of_code.push( "fp add " + _pt_formula + " " + _word );
-         }
-       );
+        _rows_of_code.push( "fp bomb force" );
+        $.each( _glob_input_fixed_pts_array,
+        function( _i, _chunk )
+        {
+           var _word = _chunk[0] ;
+           var _pt_formula = ( new complex( _chunk[1].x, _chunk[1].y ) ).formula();
+           _rows_of_code.push( "fp add " + _pt_formula + " " + _word );
+        } );
     }
 
     if ( _glob_terminal_autorefresh && _glob_terminal_autoinit_enable ) _rows_of_code.push( "auto all on" );
@@ -533,10 +525,7 @@ function circles_terminal_cmd_code_4th_step( _opt, _settings_array, _rows_of_cod
         _rows_of_code.push( "zoom "+_settings_array['target_plane_type']+" ("+_bip_mid_pt_x+","+_bip_mid_pt_y+") side:" + _bip_side + " silent" );
     }
 
-    if ( _settings_array['target_plane_type'] != null )
-    {
-        _rows_of_code.push( "refresh "+_settings_array['target_plane_type']+" silent clean" );
-    }
+    if ( _settings_array['target_plane_type'] != null ) _rows_of_code.push( "refresh "+_settings_array['target_plane_type']+" silent clean" );
     else
     {
         _rows_of_code.push( "refresh zplane silent clean" );
