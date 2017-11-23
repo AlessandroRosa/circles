@@ -326,7 +326,7 @@ function CIRCLESformsTERMINALresize( _new_width, _new_height, _suffix, _output_c
     $("#"+_terminal_div_id+"_caption_container" ).css( "width", _new_width + "px" );
     $("#"+_terminal_div_id+"_caption" ).css( "width", _new_width + "px" );
 
-    return [ RET_OK, "Console resized" ] ;
+    return [ RET_OK, "Console resized with success" ] ;
 }
 
 function CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix )

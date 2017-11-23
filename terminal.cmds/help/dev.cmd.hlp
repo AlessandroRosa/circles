@@ -10,4 +10,4 @@
 <cadetblue>return the latest release date for this command</cadetblue>
 
 <lightblue>dev datatypes</lightblue>
-<cadetblue>return the list of registered data types to be used in </cadetblue> <white>add</white> <cadetblue>action</cadetblue>
+<cadetblue>return the list of registered data types to be used in</cadetblue> <white>add</white> <cadetblue>action</cadetblue>

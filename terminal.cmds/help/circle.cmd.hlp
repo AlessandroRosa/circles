@@ -39,11 +39,13 @@
 
 <lightgray>-------------------------------</lightgray>
 <turquoise>Note (1)</turquoise>
-<cadetblue>radius, line thickness and opacity must be input according to the above params sequence</cadetblue>
+<cadetblue>If you need to work with inversion or with isometric disks, use cmd 'disk' instead</cadetblue>
 <turquoise>Note (2)</turquoise>
+<cadetblue>radius, line thickness and opacity must be input according to the above params sequence</cadetblue>
+<turquoise>Note (3)</turquoise>
 <cadetblue>params must follow the reported input order to work</cadetblue>
-<turquoise>Note (3)</turquoise> <cadetblue>$labels can be used to refer to figures, as alternative to indexes</cadetblue>
-<turquoise>Note (4)</turquoise>
+<turquoise>Note (4)</turquoise> <cadetblue>$labels can be used to refer to figures, as alternative to indexes</cadetblue>
+<turquoise>Note (5)</turquoise>
 <cadetblue>if you want to update later a circle entry, use these parameters</cadetblue>
 <cadetblue>in'</cadetblue><white>figures</white><cadetblue>' cmd with '</cadetblue><white>update</white><cadetblue>' action</cadetblue>
 <snow>center radius draw drawcolor fill fillcolor opacity thick</snow>

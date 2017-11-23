@@ -12,8 +12,7 @@
   Find a solution to save somewhere and get the current terminal plug-in window ID
   later, when required.
 
-* Last terminal cmd check: config
-
+* Last terminal cmd check: dg
   
 * Listings:
   - run and test all listings

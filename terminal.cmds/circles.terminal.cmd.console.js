@@ -36,7 +36,7 @@ function circles_terminal_cmd_console()
    		var _local_cmds_params_array = [];
     	_local_cmds_params_array.push( "bottom", "history", "left", "nohelp", "colorlist",
             "right", "reset", "resize", "top",
-			"font", "textcolor", "bk", "fontsize",
+			"font", "promptcolor", "bk", "fontsize",
             "maxi", "mini", "wide", "tall", "release", "html" );
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
         var _p ;
@@ -47,7 +47,7 @@ function circles_terminal_cmd_console()
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else if ( _p.is_one_of_i( "colorlist", "history", "resize", "release", "reset" ) ) _params_assoc_array['action'] = _p ;
-			else if ( _p.is_one_of( "font", "textcolor", "bk", "fontsize" ) )
+			else if ( _p.is_one_of( "font", "promptcolor", "bk", "fontsize" ) )
 			{
 				_params_assoc_array['propdef'] = _p ;
 				_params_assoc_array['action'] = "apply" ;
@@ -133,7 +133,7 @@ function circles_terminal_cmd_console()
 						   case "font":
 						   $("#"+_glob_terminal_current_id).css( "font-family", _params_assoc_array['propval'] );
 						   break ;
-						   case "textcolor":
+						   case "promptcolor":
 						  $("#"+_glob_terminal_current_id).css( "color", _params_assoc_array['propval'] );
 						   break ;
 						   case "bk":
@@ -206,7 +206,12 @@ function circles_terminal_cmd_console()
 					  $("#"+_glob_terminal_current_id).css( "color", DEFAULT_TERMINAL_PROMPTCOLOR );
 					  $("#"+_glob_terminal_current_id).css( "font-family", DEFAULT_TERMINAL_FONT_FAMILY );
 					  $("#"+_glob_terminal_current_id).css( "font-size", DEFAULT_TERMINAL_FONT_SIZE );
+					  var _msg = "<white>Background color</white> has been reset to <white>"+DEFAULT_TERMINAL_BKCOLOR+"</white>" ;
+						  _msg += "\n<white>Prompt color</white> has been reset to <white>"+DEFAULT_TERMINAL_PROMPTCOLOR+"</white>" ;
+						  _msg += "\n<white>Font family</white> has been reset to <white>"+DEFAULT_TERMINAL_FONT_FAMILY+"</white>" ;
+						  _msg += "\n<white>Font size</white> has been reset to <white>"+DEFAULT_TERMINAL_FONT_SIZE+"</white>" ;
 					  circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Console parameters have been reset with success", _par_1, _cmd_tag );
+					  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 					  break ;
                        case "resize":
                        if ( _params_assoc_array['w'] != null && _params_assoc_array['h'] != null )
@@ -233,17 +238,11 @@ function circles_terminal_cmd_console()
                                  var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
                                  
                                  if ( _ret_id == RET_ERROR ) { _b_fail = YES, _error_str = _ret_msg ; }
-                                 else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg + " New width / height are " + _params_assoc_array['w'] + "px / " + _params_assoc_array['h'] + "px", _par_1, _cmd_tag );
+                                 else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg + "\nNew width / height are " + _params_assoc_array['w'] + "px / " + _params_assoc_array['h'] + "px respectively", _par_1, _cmd_tag );
                             }
-                            else
-                            {
-                                 _b_fail = YES, _error_str = "Both input size params must be strictly positive" ;
-                            }
+                            else { _b_fail = YES, _error_str = "Both input size params must be strictly positive" ; }
                        }
-                       else
-                       {
-                           _b_fail = YES, _error_str = "Missing input size params" ;
-                       }
+                       else { _b_fail = YES, _error_str = "Missing input size params" ; }
                        break ;
 					   default:
                        if ( _params_assoc_array['x'].length > 0 || _params_assoc_array['y'].length > 0 )

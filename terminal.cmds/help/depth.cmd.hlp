@@ -7,7 +7,7 @@
 <lightblue>depth</lightblue>
 <cadetblue>returns the current rendering depth</cadetblue>
 
-<lightblue>depth set 9</lightblue>
+<lightblue>depth 9</lightblue>
 <cadetblue>set the rendering depth to 9</cadetblue>
 
 <lightblue>depth release</lightblue>

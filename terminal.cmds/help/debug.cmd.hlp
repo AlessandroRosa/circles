@@ -3,11 +3,11 @@
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
 <lightblue>usage</lightblue> <snow>debug clean | file</snow>
-
 <lightblue>file</lightblue> <snow>export the list into a plain text file</snow>
-<lightblue>debug clean</lightblue>
 
+<lightblue>debug clean</lightblue>
 <cadetblue>clean all text in the debug window</cadetblue>
+
 <lightblue>debug -> debug.txt</lightblue>
 <cadetblue>flush all debug contents into a plain text file</cadetblue>
 
