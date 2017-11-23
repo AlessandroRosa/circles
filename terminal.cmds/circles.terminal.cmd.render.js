@@ -44,10 +44,7 @@ function circles_terminal_cmd_render()
               else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p.toLowerCase();
               else if ( _p.is_one_of_i( "zplane", "wplane" ) ) _params_assoc_array['plane'] = _p ;
               else if ( _p.is_one_of_i( "clean", "silent" ) ) _params_assoc_array['settings'].push( _p ) ;
-              else
-              {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
-              }
+              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 ); }
          }
 
          var _already = _glob_verbose == _params_assoc_array['mode'] ? YES : NO ;
@@ -73,10 +70,7 @@ function circles_terminal_cmd_render()
                   circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
                   default:
-                  if ( _params_assoc_array['plane'].length == 0 )
-                  {
-                      _b_fail = YES, _error_str = "Missing plane target for rendering" ;
-                  }
+                  if ( _params_assoc_array['plane'].length == 0 ) { _b_fail = YES, _error_str = "Missing plane target for rendering" ; }
                   else
                   {
                        var _params_str = _params_assoc_array['plane'] ;
@@ -88,13 +82,10 @@ function circles_terminal_cmd_render()
              }
          }
      }
-     else
-     {
-		 		 _b_fail = YES, _error_str = "Missing input params" ;
-		 }
+     else { _b_fail = YES, _error_str = "Missing input params" ; }
 
-     if ( _b_fail )
-     circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+    if ( _b_fail )
+    circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

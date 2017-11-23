@@ -125,8 +125,8 @@ function circles_terminal_cmd_bomb()
                                  if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb figures: no entries found", _par_1, _cmd_tag );
                                  else
                                  {
-                                     if ( is_array( _glob_figures_array ) ) _glob_figures_array.flush();
-                                     circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Figures entries have been bombed with success", _par_1, _cmd_tag );
+                                    if ( is_array( _glob_figures_array ) ) _glob_figures_array.flush();
+                                    circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Figures entries have been bombed with success", _par_1, _cmd_tag );
                                  }
                               }
   
@@ -136,9 +136,9 @@ function circles_terminal_cmd_bomb()
                                  if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb items: " + _ERR_33_01, _par_1, _cmd_tag );
                                  else
                                  {
-                              	     if ( is_array( _glob_gens_array ) ) _glob_gens_array = [];
-                                     if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
-                                     circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Items (seeds and generators) have been bombed with success", _par_1, _cmd_tag );
+                             	     if ( is_array( _glob_gens_array ) ) _glob_gens_array = [];
+                                    if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
+                                    circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Items (seeds and generators) have been bombed with success", _par_1, _cmd_tag );
                                  }
                               }
   
@@ -213,14 +213,17 @@ function circles_terminal_cmd_bomb()
                                        circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Repetends have been bombed with success", _par_1, _cmd_tag );
                                    }
                               }
+							
+							circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _output_channel );
+							circles_lib_terminal_interpreter( "refresh wplane clean silent", _glob_terminal, _output_channel );
                           }
   
-                     		  var _params_array = [], _pre_prompt = null ;
-  									       	  _params_array['prepromptquestion'] = null ;
-                     		 		  _params_array['promptquestion'] = _prompt_question ;
-                     		 		  _params_array['yes_fn'] = function() { _bombing( _bomb_mask ); }
-                     		 		  _params_array['ifquestiondisabled_fn'] = function() { _bombing( _bomb_mask ); }
-                     		  circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+                     	var _params_array = [], _pre_prompt = null ;
+						_params_array['prepromptquestion'] = null ;
+                     	_params_array['promptquestion'] = _prompt_question ;
+                     	_params_array['yes_fn'] = function() { _bombing( _bomb_mask ); }
+                     	_params_array['ifquestiondisabled_fn'] = function() { _bombing( _bomb_mask ); }
+                     	circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                      }
                 }
                 break ;

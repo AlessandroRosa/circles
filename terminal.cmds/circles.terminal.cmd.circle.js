@@ -29,7 +29,7 @@ function circles_terminal_cmd_circle()
 
     	var _local_cmds_params_array = [];
     		_local_cmds_params_array.push( "draw", "drawcolor", "fill", "fillcolor", "opacity", "radius",
-						 																"wplane", "zplane", "bip", "rec", "thick", "release", "html" );
+						 				   "wplane", "zplane", "bip", "rec", "thick", "release", "html" );
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -123,14 +123,22 @@ function circles_terminal_cmd_circle()
 			else if ( _p.toLowerCase().start_with( "drawcolor:" ) && _params_assoc_array['settings']['drawcolor'] == null )
 			{
 				_params_assoc_array['settings']['drawcolor'] = safe_string( _p.replace( /drawcolor:/gi, "" ), "" ) ;
-				_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['drawcolor']+"</snow>" ;
-				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				if ( circles_lib_colors_is_def( _params_assoc_array['settings']['drawcolor'] ) )
+				{
+					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['drawcolor']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; }
 			}
 			else if ( _p.toLowerCase().start_with( "fillcolor:" ) && _params_assoc_array['settings']['fillcolor'] == null )
 			{
 				_params_assoc_array['settings']['fillcolor'] = safe_string( _p.replace( /fillcolor:/gi, "" ), "" ) ;
-				_msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['fillcolor']+"</snow>" ;
-				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				if ( circles_lib_colors_is_def( _params_assoc_array['settings']['fillcolor'] ) )
+				{
+					_msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['fillcolor']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid fill color definition" ; }
 			}
 			else if ( _p.toLowerCase().start_with( "border:" ) && _params_assoc_array['settings']['border'] == null )
 			{
