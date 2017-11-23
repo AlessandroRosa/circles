@@ -56,7 +56,7 @@ function circles_terminal_cmd_pixels()
               else if ( _p.is_one_of_i( "bomb", "size", "release" ) ) _params_assoc_array['action'] = _p ;
               else
               {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
               }
          }
      }

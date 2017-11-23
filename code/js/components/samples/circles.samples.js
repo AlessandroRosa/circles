@@ -1,6 +1,6 @@
 function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 {
-		_silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+	_silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _items_n = circles_lib_count_items();
     if (_glob_bip_use)
     {
@@ -39,12 +39,11 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         case METHOD_INVERSION + 0.1:
         if ( _glob_interface_index == INTERFACE_EXTEND_NONE )
         {
-		        _glob_zplaneLEFT = -1, _glob_zplaneTOP = 1 ;
-		        _glob_zplaneRIGHT = 1, _glob_zplaneBOTTOM = -1 ;
-
-		        _glob_bipLEFT = _glob_wplaneLEFT = -3, _glob_bipTOP = _glob_wplaneTOP = 3 ;
-		        _glob_bipRIGHT = _glob_wplaneRIGHT = 3, _glob_bipBOTTOM = _glob_wplaneBOTTOM = -3 ;
-				}
+		    _glob_zplaneLEFT = -1, _glob_zplaneTOP = 1 ;
+		    _glob_zplaneRIGHT = 1, _glob_zplaneBOTTOM = -1 ;
+		    _glob_bipLEFT = _glob_wplaneLEFT = -3, _glob_bipTOP = _glob_wplaneTOP = 3 ;
+		    _glob_bipRIGHT = _glob_wplaneRIGHT = 3, _glob_bipBOTTOM = _glob_wplaneBOTTOM = -3 ;
+		}
 
         _glob_seeds_array = [];
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 0.038 ), 0.865 ), null, "A", 0, NO, circles_lib_alphabet_get_color_from_symbol('A'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );

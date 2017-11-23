@@ -14,7 +14,7 @@ function CIRCLESembeddingsGENERALPURPOSE_PRESETS( _opcode = 0 )
         case 1: // display
         var _html = "<SELECT ID=\"PLUGINpresetsCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsGENERALPURPOSE_PRESETS(2);\">" ;
         _html += "<OPTION VALUE=\""+UNDET+"\" SELECTED=\"selected\">" ;
-        $.each( CIRCLESembeddingsGENERALPURPOSEpresets, function( _i, _v ) { _html += "<OPTION VALUE=\""+_i+"\">#" + ( _i + 1 ) + ( _v[6] != null ? " - " + _v[6] : "" ) } );
+        $.each( CIRCLESembeddingsGENERALPURPOSEpresets, function( _i, _v ) { _html += "<OPTION VALUE=\""+_i+"\">#"+(_i+1) + ( _v[6] != null ? " - " + _v[6] : "" ) } );
         _html += "</SELECT>" ;
         return _html ;
         break ;

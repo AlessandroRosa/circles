@@ -90,7 +90,7 @@ function circles_terminal_cmd_normalize()
             else if ( _p.length == 1 && _p.isAlpha() ) _symbols_array.push( _p );
             else
             {
-               _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+               _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
             }
          }
          

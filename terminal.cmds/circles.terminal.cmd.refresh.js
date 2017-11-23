@@ -58,7 +58,7 @@ function circles_terminal_cmd_refresh()
               else if ( _p.is_one_of_i( "grid", "rendering", "freedraw", "work" ) ) _params_assoc_array['layer'] = _p ;
               else
               {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
               }
          }
 

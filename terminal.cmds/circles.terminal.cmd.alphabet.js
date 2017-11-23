@@ -79,9 +79,9 @@ function circles_terminal_cmd_alphabet()
                          else { _b_fail = YES, _error_str = "Candidate symbol '"+_symbol+"' must be 1-char long" ; }
                     } );
                   }
-                  else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 ); }
+                  else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
 				}
-				else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 ); }
+				else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
             }
         }
     }
@@ -337,12 +337,12 @@ function circles_terminal_cmd_alphabet()
                       _inv_symbol = ITEM.inverse_symbol.rpad( " ", _long_mode ? 5 : 0 );
                       if ( _symbol.length == 0 )
                       {
-                          _out_array.push( "<orange>Seed #" + ( _i + 1 ) + " has not been matched with the symbol</orange>" );
+                          _out_array.push( "<orange>Seed #"+(_i+1) + " has not been matched with the symbol</orange>" );
                           _symbol = "(none)" ;
                       }
                       else if ( _inv_symbol.length == 0 )
                       {
-                          _out_array.push( "<orange>Seed #" + ( _i + 1 ) + " has not been matched with the inverse symbol</orange>" );
+                          _out_array.push( "<orange>Seed #"+(_i+1) + " has not been matched with the inverse symbol</orange>" );
                           _inv_symbol = "(none)" ;
                       }
                       else if ( _symbol.length > 0 && _inv_symbol.length > 0 )
@@ -361,9 +361,9 @@ function circles_terminal_cmd_alphabet()
 						  }
                           else _out_array.push( _symbol );
                       }
-                      else circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning ! Generator with index " + ( _i + 1 ) + " has not been tagged.\nTry to init all again", _par_1, _cmd_tag );
+                      else circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning ! Generator with index "+(_i+1) + " has not been tagged.\nTry to init all again", _par_1, _cmd_tag );
                   }
-                  else circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning ! Generator with index " + ( _i + 1 ) + " does not exist.\nTry to init all again", _par_1, _cmd_tag );
+                  else circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning ! Generator with index "+(_i+1) + " does not exist.\nTry to init all again", _par_1, _cmd_tag );
               }
       
               _glob_alphabet = circles_lib_alphabet_get();

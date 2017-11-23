@@ -167,7 +167,7 @@ function circles_terminal_cmd_bip()
                 _params_assoc_array['action'] = "apply" ;
 			}
             else if ( _p.is_one_of_i( "acquire", "apply", "clean", "settings", "preview", "render", "release", "save" ) ) _params_assoc_array['action'] = _p ;
-            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 ); }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
         }
 
         if ( _params_assoc_array['svg'] != null ) _glob_export_format = EXPORT_SVG ;

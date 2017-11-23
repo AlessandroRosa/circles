@@ -429,7 +429,7 @@ function circle_terminal_cmd_display_disk_item( ITEM, _i, _output_channel, _para
        circles_lib_terminal_multicolor_echo( _symbol );
        if ( _what.is_one_of( "all", "attr" ) )
        {
-          _out_string  = "Index " + ( _i + 1 );
+          _out_string  = "Index "+(_i+1);
           _out_string += "  Fill <snow>" + ( _fill ? "yes" : "no" ) + "</snow>" ;
           _out_string += "  Draw <snow>" + ( _draw ? "yes" : "no" ) + "</snow>" ;
           _out_string += "  Line thickness <snow>" + _linewidth + " pixel" + ( _linewidth == 1 ? "" : "s" ) + "</snow>" ;

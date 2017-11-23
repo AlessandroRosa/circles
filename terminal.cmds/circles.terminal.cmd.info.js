@@ -71,7 +71,7 @@ function circles_terminal_cmd_info()
               else if ( _p.testME( _glob_filename_regex_pattern ) ) _params_assoc_array['settings']['filename'] = _p ;
               else
               {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
               }
          }
 

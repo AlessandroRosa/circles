@@ -47,7 +47,7 @@ function circles_terminal_cmd_savepix()
               else if ( _p.stricmp( "dlocus" ) ) _params_assoc_array['plane'] = D_LOCUS ;
               else
               {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
               }
          }
 

@@ -80,7 +80,7 @@ function CIRCLESmethodMANAGERrandomtableCOMBOcreate()
         var _html_code = "<SELECT ID=\"RANDOMtableCOMBO\" ONCHANGE=\"javascript:CIRCLESmethodMANAGERrandomtableCOMBOselect();\">" ;
             _html_code += "<OPTION SELECTED=\"selected\" VALUE=\"\">" ;
             $.each( _glob_random_table_store,
-            function( _i, _packed_item ) { _html_code += "<OPTION VALUE=\""+_packed_item+"\">#" + ( _i + 1 ); } );
+            function( _i, _packed_item ) { _html_code += "<OPTION VALUE=\""+_packed_item+"\">#"+(_i+1); } );
             _html_code += "</SELECT>" ;
 
         $( "#ALGEBRAICrandomTABLEcomboCONTAINER" ).html( _html_code );

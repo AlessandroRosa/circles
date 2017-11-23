@@ -45,7 +45,7 @@ function circles_terminal_cmd_verbose()
               else if ( _p.stricmp( "on" ) ) _params_assoc_array['mode'] = ON ;
               else
               {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
               }
          }
 

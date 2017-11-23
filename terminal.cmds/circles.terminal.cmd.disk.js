@@ -166,6 +166,7 @@ function circles_terminal_cmd_disk()
 				_params_assoc_array['drawcolor'] = safe_string( _p.replace( /drawcolor:/gi, "" ), "" ) ;
 				if ( circles_lib_colors_is_def( _params_assoc_array['drawcolor'] ) )
 				{
+					_params_assoc_array['draw'] = _params_assoc_array['drawcolor'].stricmp("transparent") ? 0 : 1 ;
 					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['drawcolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
@@ -176,6 +177,7 @@ function circles_terminal_cmd_disk()
 				_params_assoc_array['fillcolor'] = safe_string( _p.replace( /fillcolor:/gi, "" ), "" ) ;
 				if ( circles_lib_colors_is_def( _params_assoc_array['fillcolor'] ) )
 				{
+					_params_assoc_array['fill'] = _params_assoc_array['fillcolor'].stricmp("transparent") ? 0 : 1 ;
 					_msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_params_assoc_array['fillcolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
@@ -215,7 +217,7 @@ function circles_terminal_cmd_disk()
             {
                 if ( _params_assoc_array['settings']['action'].stricmp( "notes" ) && _params_assoc_array['notesflag'] )
                 _params_assoc_array['notes'].push( _p ) ;
-                else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 ); }
+                else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
             }
         }
 
@@ -1296,7 +1298,7 @@ function circles_terminal_cmd_disk()
 								_items_array[_i].complex_circle.center = new point( _rotated_center.real, _rotated_center.imag );
  								circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Disk '"+_symbol+"' rotated", _par_1, _cmd_tag );
                             }
-                            else circles_lib_output( _output_channel, DISPATCH_WARNING, "No circles found at index " + ( _i + 1 ), _par_1, _cmd_tag );         
+                            else circles_lib_output( _output_channel, DISPATCH_WARNING, "No circles found at index "+(_i+1), _par_1, _cmd_tag );         
 
                             if ( _storage_queue_request )
                             _params_assoc_array['settings']['storagequeue'].push( _items_array[_index].copy() );

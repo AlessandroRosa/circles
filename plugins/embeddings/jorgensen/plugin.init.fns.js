@@ -51,7 +51,7 @@ function CIRCLESembeddingsJORGENSEN_PRESETS( _opcode, _init )
         case 1: // display
         var _html = "<SELECT ID=\"PLUGINpresetsCOMBO\" ONCHANGE=\"javascript:CIRCLESembeddingsJORGENSEN_PRESETS(2,YES);\">" ;
             _html += "<OPTION VALUE=\""+UNDET+"\" SELECTED=\"selected\">" ;
-            $.each( CIRCLESembeddingsJORGENSEN_PRESETSarray, function( _i, _v ) { _html += "<OPTION VALUE=\""+_i+"\">#" + ( _i + 1 ) + ( _v[4] != null ? " - " + _v[4] : "" ) } );
+            $.each( CIRCLESembeddingsJORGENSEN_PRESETSarray, function( _i, _v ) { _html += "<OPTION VALUE=\""+_i+"\">#"+(_i+1) + ( _v[4] != null ? " - " + _v[4] : "" ) } );
             _html += "</SELECT>" ;
         return _html ;
         break ;

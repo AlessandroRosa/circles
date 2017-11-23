@@ -97,7 +97,7 @@ function circles_terminal_cmd_map()
               else if ( _p.start_with_i( "d:" ) ) _params_assoc_array['mobius']['d'] = _p.replaceAll( "d:", "" ).trim();
               else
               {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
               }
          }
 

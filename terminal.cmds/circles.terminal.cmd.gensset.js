@@ -178,7 +178,7 @@ function circles_terminal_cmd_gensset()
                }
                else
                {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
                }
             }
          }
@@ -590,7 +590,7 @@ function circles_terminal_cmd_gensset()
                        _rec_chunk['linewidth'] = _items_array[_i].complex_circle.line_thickness ;
                        _rec_chunk['enabled'] = YES ;
                        _rec_chunk['label'] = "$" + _items_array[_i].symbol ;
-                       _rec_chunk['myhash'] = "rec" + ( _i + 1 );
+                       _rec_chunk['myhash'] = "rec"+(_i+1);
                        _rec_chunk['propertiesmask'] = 0 ;
                        _glob_figures_array.push( _rec_chunk );
 

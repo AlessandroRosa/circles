@@ -80,7 +80,9 @@
 <banana>LIMITSET | TILING</banana>
 <banana>set construction mode to limit set | tiling</banana>
 <lightblue>usage</lightblue> <snow>%cmd% %operator% %threshold-disk-radius% %reset% %settings%</snow>
-<lightblue>%cmd%</lightblue> limitset | tiling</snow>
+<lightblue>%cmd%</lightblue> <snow>limitset | tiling</snow>
+<yellow>example</yellow> <lightblue> set construction tiling</lightblue>
+
 <lightblue>%operator%</lightblue> <snow>'<', '=', '>'</snow>
 <lightblue>%threshold-disk-radius%</lightblue> <snow>any positive rational number</snow>
 <lightblue>%cmd%</lightblue>

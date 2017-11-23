@@ -14,16 +14,14 @@
 
 -------------- FIX SOON -----------------------
   
+* terminal cmd 'symbol show' does not work
 * rework terminal 'auto' cmd, according to help file
+* rework terminal 'init' cmd, according to help file
 
-* new demo: create 4 disks group via terminal cmd 'disk', init and render
-  auto refresh on
-  disk add a ...
-  disk add A ...
-  disk add b ...
-  disk add B ...
-  init
-  render
+* give examples inside config.cmd.hlp for each parameter, write them in yellow and lightblue
+  as reported here: <yellow>example</yellow> <lightblue> set construction tiling</lightblue>
+
+* Write labels explaining each step in demo #15
   
 * Last checked terminal cmd: dg
   

@@ -92,18 +92,18 @@ function CIRCLEStoolsRAWPOINTSLISTcopyintoSTORAGE()
                             if ( is_point( _pt ) )
                             {
                                  CIRCLEStoolsRAWPOINTSLISTpoints.push( _pt );
-                                 CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:lime;\">Correctly parsed point syntax at row #" + ( _i + 1 ) + "</SPAN>" ) ;
+                                 CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:lime;\">Correctly parsed point syntax at row #"+(_i+1) + "</SPAN>" ) ;
                             }
                             else
                             {
                                  _n_errors++ ;
-                                 CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:orange;\">Inconsistent point syntax at row #" + ( _i + 1 ) + "</SPAN>" ) ;
+                                 CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:orange;\">Inconsistent point syntax at row #"+(_i+1) + "</SPAN>" ) ;
                             }
                         }
                         else
                         {
                             _n_errors++ ;
-                            CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:orange;\">Missing point params at row #" + ( _i + 1 ) + "</SPAN>" ) ;
+                            CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:orange;\">Missing point params at row #"+(_i+1) + "</SPAN>" ) ;
                         }
                     }
                   ) ;
@@ -180,18 +180,18 @@ function CIRCLEStoolsRAWPOINTSLISTdraw()
                             if ( is_point( _pt ) )
                             {
                                 CIRCLEStoolsRAWPOINTSLISTpoints.push( _pt );
-                                CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:lime;\">Correctly parsed point syntax at row #" + ( _i + 1 ) + "</SPAN>" ) ;
+                                CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:lime;\">Correctly parsed point syntax at row #"+(_i+1) + "</SPAN>" ) ;
                             }
                             else
                             {
                                  _n_errors++ ;
-                                 CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:orange;\">Inconsistent point syntax at row #" + ( _i + 1 ) + "</SPAN>" ) ;
+                                 CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:orange;\">Inconsistent point syntax at row #"+(_i+1) + "</SPAN>" ) ;
                             }
                         }
                         else
                         {
                             _n_errors++ ;
-                            CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:orange;\">Missing point params at row #" + ( _i + 1 ) + "</SPAN>" ) ;
+                            CIRCLEStoolsRAWPOINTSLISTreport.push( "<SPAN STYLE=\"color:orange;\">Missing point params at row #"+(_i+1) + "</SPAN>" ) ;
                         }
                     } ) ;
             var _errors_exist = _n_errors > 0 ? YES : NO ;

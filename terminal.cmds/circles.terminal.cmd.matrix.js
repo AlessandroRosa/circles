@@ -105,7 +105,7 @@ function circles_terminal_cmd_matrix()
               }
               else
               {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
               }
          }
 
@@ -178,9 +178,9 @@ function circles_terminal_cmd_matrix()
                                     _matrix.set_params( _mm_params );
 
                                     if ( !_params_assoc_array['silent'] )
-                                    circles_lib_output( _output_channel, DISPATCH_INFO, "Input entry #" + ( _i + 1 ) + _glob_crlf + _matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
+                                    circles_lib_output( _output_channel, DISPATCH_INFO, "Input entry #"+(_i+1) + _glob_crlf + _matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
                                     else
-                                    circles_lib_output( _output_channel, DISPATCH_INFO, "Elaborating input entry #" + ( _i + 1 ) + " : " + _dump_symbol, _par_1, _cmd_tag );
+                                    circles_lib_output( _output_channel, DISPATCH_INFO, "Elaborating input entry #"+(_i+1) + " : " + _dump_symbol, _par_1, _cmd_tag );
 
                                     switch( _action )
                                     {
@@ -215,7 +215,7 @@ function circles_terminal_cmd_matrix()
 																        default: break ;
                                     }
 
-                                    circles_lib_output( _output_channel, DISPATCH_WARNING, _ret_action_label+" of entry #" + ( _i + 1 ) + " is " + _glob_crlf + _ret_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
+                                    circles_lib_output( _output_channel, DISPATCH_WARNING, _ret_action_label+" of entry #"+(_i+1) + " is " + _glob_crlf + _ret_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
 
                                     if ( _params_assoc_array['dump'] )
                                     {

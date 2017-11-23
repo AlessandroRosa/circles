@@ -51,7 +51,7 @@ function circles_terminal_cmd_coords()
             else if ( _p.is_one_of_i( "clean", "render", "silent" ) ) _params_assoc_array['params'].push( _p ) ;
             else if ( _p.stricmp( "wplane" ) && _params_assoc_array['planes'].not_includes( W_PLANE ) ) _params_assoc_array['planes'].push( W_PLANE ) ;
             else if ( _p.stricmp( "zplane" ) && _params_assoc_array['planes'].not_includes( Z_PLANE ) ) _params_assoc_array['planes'].push( Z_PLANE ) ;
-            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 ); }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
         }
 
         if ( safe_size( _params_assoc_array['planes'], 0 ) == 0 ) _params_assoc_array['planes'].push( _glob_target_plane ) ;

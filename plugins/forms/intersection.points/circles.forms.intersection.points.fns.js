@@ -76,7 +76,7 @@ function CIRCLESformsINTERSECTIONPOINTScopyPOINTS( packed_pts )
                            _tmp_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
                            _tmp_chunk['linewidth'] = 1 ;
                            _tmp_chunk['enabled'] = YES ;
-                           _tmp_chunk['myhash'] = "rec" + ( _i + 1 );
+                           _tmp_chunk['myhash'] = "rec"+(_i+1);
                            _tmp_chunk['label'] = "" ;
                            _tmp_chunk['propertiesmask'] = 0 ;
                            _glob_storage['points'].push( _tmp_chunk );

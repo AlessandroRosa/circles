@@ -257,7 +257,7 @@ function circles_lib_fixedpoints_create_figures_from( _index, _plane_type, _outp
                  if ( !is_point( _chunk ) )
                  {
                      _b_fail = YES ;
-                     return [ RET_WARNING, "Conversion has been halted: invalid object reference at entry #" + ( _i + 1 ) ];
+                     return [ RET_WARNING, "Conversion has been halted: invalid object reference at entry #"+(_i+1) ];
                      break ;
                  }
                  else

@@ -127,7 +127,7 @@ function circles_terminal_cmd_palette()
                    }
                    else
                    {
-                       _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                       _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
                    }
               }
          }
@@ -334,7 +334,7 @@ function circles_terminal_cmd_palette()
                         }
                         else
                         {
-                           _b_fail = YES, _error_str = "Failed inversion: the color format is not correct (index " + ( _i + 1 ) + " )" ;
+                           _b_fail = YES, _error_str = "Failed inversion: the color format is not correct (index "+(_i+1) + " )" ;
                            break ;
                         }
                      }

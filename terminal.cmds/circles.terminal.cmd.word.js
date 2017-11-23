@@ -176,7 +176,7 @@ function circles_terminal_cmd_word()
                   }
                   else
                   {
-                     _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                     _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
                   }
               }
          }
@@ -850,7 +850,7 @@ function circles_terminal_cmd_word()
 											 $.each( _ret_pts,
 											 				 function( _i, _chunk )
 											 				 {
-																		circles_lib_output( _output_channel, DISPATCH_INFO, "Fixed point #" + ( _i + 1 ) + " - " + _chunk[2], _par_1, _cmd_tag );
+																		circles_lib_output( _output_channel, DISPATCH_INFO, "Fixed point #"+(_i+1) + " - " + _chunk[2], _par_1, _cmd_tag );
 																		circles_lib_output( _output_channel, DISPATCH_INFO, _chunk[0].formula(YES,YES,_round_to), _par_1, _cmd_tag );
 															 }
 											 			 ) ;

@@ -110,7 +110,7 @@ function circles_terminal_cmd_storage()
               }
 							else
               {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
               }
          }
          
@@ -571,7 +571,7 @@ function circles_terminal_cmd_storage()
 						                                               if ( _dump ) _glob_text.push( _row );
 						                                          }
 						                                          else 
-						                                          circles_lib_output( _output_channel, DISPATCH_WARNING, "Fail to display figure item indexed at " + ( _i + 1 ), _par_1, _cmd_tag );
+						                                          circles_lib_output( _output_channel, DISPATCH_WARNING, "Fail to display figure item indexed at "+(_i+1), _par_1, _cmd_tag );
 						                                          break ;
 						                                          case "mobius map":
 						                                          if ( is_mobius_map( _item ) )

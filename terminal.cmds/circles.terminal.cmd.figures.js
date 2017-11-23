@@ -453,7 +453,7 @@ function circles_terminal_cmd_figures()
                      circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding hash tags", _par_1, _cmd_tag );
 
                      for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ )
-                     _glob_figures_array[_i]['myhash'] = "rec" + ( _i + 1 );
+                     _glob_figures_array[_i]['myhash'] = "rec"+(_i+1);
                 }
                 else if ( _n_input_index == 0 )
                 {
@@ -538,7 +538,7 @@ function circles_terminal_cmd_figures()
 
                          for( _i = 0 ; _i < _glob_figures_array.length ; _i++ )
                          {
-                              _glob_figures_array[_i]['myhash'] = "rec" + ( _i + 1 );
+                              _glob_figures_array[_i]['myhash'] = "rec"+(_i+1);
                               _glob_figures_array[_i]['label'] = "" ;
                          }
 
@@ -704,7 +704,7 @@ function circles_terminal_cmd_figures()
                          if ( safe_size( _row, 0 ) > 0 )
                          circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                          else 
-                         circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to display figure item indexed at " + ( _i + 1 ), _par_1, _cmd_tag );
+                         circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to display figure item indexed at "+(_i+1), _par_1, _cmd_tag );
                     }
                 }
                 else if ( _n == 0 )
@@ -1178,10 +1178,10 @@ function circles_terminal_cmd_figures()
                     for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ )
                     {
                          if ( _glob_figures_array.check_descendent_properties( _i, 'myhash' ) != null )
-                              _glob_figures_array[_i]['myhash'] = "rec" + ( _i + 1 );
+                              _glob_figures_array[_i]['myhash'] = "rec"+(_i+1);
                          else
                          {
-                             _b_fail = YES, _error_str = "Can't rebuild: memory failure at index " + ( _i + 1 );
+                             _b_fail = YES, _error_str = "Can't rebuild: memory failure at index "+(_i+1);
                              break ;
                          }
                     }

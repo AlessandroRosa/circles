@@ -53,7 +53,7 @@ function circles_terminal_cmd_new()
              else if ( _p.stricmp( "silent" ) ) _params_assoc_array['silent'] = YES ;
              else
              {
-                 _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                 _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
              }
      }
 

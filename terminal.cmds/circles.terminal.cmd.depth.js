@@ -45,7 +45,7 @@ function circles_terminal_cmd_depth()
             else if ( _p.testME( _glob_positive_integer_regex_pattern ) ) _params_assoc_array['settings']['depth'] = Math.max( 0, safe_int( _p, 0 ) );
             else
             {
-               _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+               _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
             }
          }
 

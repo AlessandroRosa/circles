@@ -51,7 +51,7 @@ function circles_terminal_cmd_plane()
               else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['plane'] = _glob_target_plane = W_PLANE ;
               else
               {
-                 _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                 _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
               }
          }
 

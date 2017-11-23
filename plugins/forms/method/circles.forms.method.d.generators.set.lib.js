@@ -279,7 +279,7 @@ function CIRCLESgenssetMANAGERgensCOMBOcreate()
    {
        var _html_code = "<SELECT ID=\"GENERATORSsetCOMBO\" ONCHANGE=\"javascript:CIRCLESgenssetMANAGERgensCOMBOselect();\">" ;
            _html_code += "<OPTION SELECTED=\"selected\" VALUE=\"\">" ;
-       $.each( _glob_gens_set_store, function( _i, _packed_item ) { _html_code += "<OPTION VALUE=\""+_packed_item+"\">#" + ( _i + 1 ); } );
+       $.each( _glob_gens_set_store, function( _i, _packed_item ) { _html_code += "<OPTION VALUE=\""+_packed_item+"\">#"+(_i+1); } );
            _html_code += "</SELECT>" ;
        $( "#ALGEBRAICgeneratorsSETcomboCONTAINER" ).html( _html_code );
    }

@@ -49,7 +49,7 @@ function circles_terminal_cmd_bomb()
             else
             {
                _b_fail = YES ;
-               _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+               _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
             }
         }
 

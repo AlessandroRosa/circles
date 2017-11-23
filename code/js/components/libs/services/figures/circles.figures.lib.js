@@ -653,7 +653,7 @@ function circles_lib_figures_action( _output_channel, _action, _index_vals_array
              {
                  // rebuild hash tags after previous operations
                  if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding hash tags", _param_01 );
-                 for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ ) _glob_figures_array[_i]['myhash'] = "rec" + ( _i + 1 );
+                 for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ ) _glob_figures_array[_i]['myhash'] = "rec"+(_i+1);
              }
 
              circles_lib_canvas_after_process_figures( null, YES, _plane_type );

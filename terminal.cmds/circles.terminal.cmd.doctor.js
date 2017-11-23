@@ -46,7 +46,7 @@ function circles_terminal_cmd_doctor()
             else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
             else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 ); }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
         }
     }
      
@@ -204,7 +204,7 @@ function _doctor_scan_items_integrity( _items_array, _output_channel, _par_1, _s
             _current_symbol = ITEM.symbol ;
             _symbol = " - symbol '" + ( ITEM.symbol.length == 0 ? "missing" : _current_symbol )+"'" ;
 
-            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, ( _i > 0 ? _glob_crlf : "" ) + "<yellow>Item #" + ( _i + 1 )+"</yellow>" + _symbol, _par_1, _src );
+            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, ( _i > 0 ? _glob_crlf : "" ) + "<yellow>Item #"+(_i+1)+"</yellow>" + _symbol, _par_1, _src );
             circles_lib_output( _output_channel, DISPATCH_INFO, "* scan for alphabet errors", _par_1, _src );
             if ( ITEM.symbol.length == 0 || ITEM.symbol.length != 1 )
             {

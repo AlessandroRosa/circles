@@ -72,7 +72,7 @@ function circles_terminal_cmd_paint()
               else if ( circles_lib_colors_is_def( _p ) ) _params_assoc_array['color'] = _p ;
               else
               {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
               }
          }
 

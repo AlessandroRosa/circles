@@ -188,7 +188,7 @@ function circles_terminal_cmd_mobius()
                if ( _params_assoc_array['settings']['action'].stricmp( "notes" ) ) _params_assoc_array['notes'].push( _p ) ;
                else
                {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 );
+                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
                }
             }
          }

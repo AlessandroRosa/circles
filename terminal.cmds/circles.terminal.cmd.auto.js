@@ -31,7 +31,7 @@ function circles_terminal_cmd_auto()
         _params_assoc_array['mode'] = 0 ;
         _params_assoc_array['action'] = "" ;
         _params_assoc_array['all'] = NO ;
-        _params_assoc_array['plane'] = "w-plane" ;
+        _params_assoc_array['plane'] = "wplane" ;
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); 
         // pre-scan for levenshtein correction
@@ -46,10 +46,11 @@ function circles_terminal_cmd_auto()
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else if ( _p.is_one_of_i( "html", "init", "refresh", "release" ) ) _params_assoc_array['action'] = _p ;
+            else if ( _p.is_one_of_i( "zplane", "wplane" ) ) _params_assoc_array['plane'] = _p ;
             else if ( _p.stricmp( "off" ) ) _params_assoc_array['mode'] = OFF ;
             else if ( _p.stricmp( "on" ) ) _params_assoc_array['mode'] = ON ;
             else if ( _p.stricmp( "all" ) ) _params_assoc_array['all'] = YES ;
-            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + ( _i + 1 ); }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
         }
          
         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
