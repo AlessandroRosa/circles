@@ -79,9 +79,9 @@ function circles_terminal_cmd_alphabet()
                          else { _b_fail = YES, _error_str = "Candidate symbol '"+_symbol+"' must be 1-char long" ; }
                     } );
                   }
-                  else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
+                  else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
 				}
-				else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
+				else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
             }
         }
     }

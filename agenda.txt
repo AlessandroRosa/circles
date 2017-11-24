@@ -14,8 +14,8 @@
 
 -------------- FIX SOON -----------------------
   
-* rework terminal 'auto' cmd, according to help file
-* rework terminal 'init' cmd, according to help file
+* correct in all cmds starting with 'f' to end
+  { _b_fail = YES ; _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
 
 * give examples inside config.cmd.hlp for each parameter, write them in yellow and lightblue
   as reported here: <yellow>example</yellow> <lightblue> set construction tiling</lightblue>

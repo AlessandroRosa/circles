@@ -8,18 +8,18 @@
 <lightblue>triggers list verbose</lightblue>
 <cadetblue>display the triggers list (verbose mode with description)</cadetblue>
 
-<lightblue>triggers all-flag</lightblue>
+<lightblue>triggers all-on</lightblue>
 <cadetblue>flag all triggers for automatic run before the rendering</cadetblue>
 
-<lightblue>triggers no-flag</lightblue>
+<lightblue>triggers all-off</lightblue>
 <cadetblue>unflag all triggers: none would run before the rendering</cadetblue>
 
 <lightblue>triggers run</lightblue>
 <cadetblue>run all flagged triggers</cadetblue>
 
-<lightblue>triggers check 1</lightblue>
-<cadetblue>check the trigger with index 1</cadetblue>
+<lightblue>triggers check | uncheck 1</lightblue>
+<cadetblue>uncheck | check the trigger with index 1</cadetblue>
 
-<lightblue>triggers check 1 3</lightblue>
-<cadetblue>check the triggers with index 1 and index 3</cadetblue>
+<lightblue>triggers check | uncheck 1 3</lightblue>
+<cadetblue>uncheck | check the triggers with index 1 and index 3</cadetblue>
 

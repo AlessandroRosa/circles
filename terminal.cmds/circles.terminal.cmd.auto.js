@@ -2,30 +2,30 @@ _glob_terminal_cmd_files_include[ "auto" ] = [ "refresh" ] ;
 
 function circles_terminal_cmd_auto()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-	 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _curr_autorefresh_set = _glob_terminal_autorefresh ;
-     var _curr_autoinit_set = _glob_terminal_autoinit_enable ;
-     var _fail_flag_array = [];
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _params_assoc_array = [];
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _curr_autorefresh_set = _glob_terminal_autorefresh ;
+    var _curr_autoinit_set = _glob_terminal_autoinit_enable ;
+    var _fail_flag_array = [];
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _params_assoc_array = [];
 
-     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     else if ( _params.length > 0 )
-     {
+    if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    else if ( _params.length > 0 )
+    {
         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
         _params_assoc_array['keywords'] = NO ;
         _params_assoc_array['mode'] = 0 ;
@@ -50,9 +50,10 @@ function circles_terminal_cmd_auto()
             else if ( _p.stricmp( "off" ) ) _params_assoc_array['mode'] = OFF ;
             else if ( _p.stricmp( "on" ) ) _params_assoc_array['mode'] = ON ;
             else if ( _p.stricmp( "all" ) ) _params_assoc_array['all'] = YES ;
-            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
          
+        var _items_n = circles_lib_count_items(), _action = _params_assoc_array['action'] ;
         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
         else if ( _params_assoc_array['keywords'] )
         {
@@ -64,13 +65,11 @@ function circles_terminal_cmd_auto()
                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
             }
         }
-        else if ( !_b_fail )
+        else if ( _action.strcmp( "release" ) ) circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+        else if ( !_b_fail && _items_n > 0 )
         {
-            var _action = _params_assoc_array['action'] ;
-            if ( _action.strcmp( "release" ) )
-            circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-
             var _all = _params_assoc_array['all'], _mode = _params_assoc_array['mode'] ;
+
             if ( _action.stricmp( "init" ) || _all )
             {
                 if ( _glob_method == METHOD_NONE && _mode == 1 )
@@ -132,7 +131,7 @@ function circles_terminal_cmd_auto()
 
                 if ( _mode )
                 {
-                    var _tmp_array = [];
+					var _tmp_array = []
                     if ( _params_assoc_array['plane'] != null ) _tmp_array.push( _params_assoc_array['plane'] );
                     else if ( _params_assoc_array['all'] ) _tmp_array.push( "all" );
 
@@ -141,9 +140,10 @@ function circles_terminal_cmd_auto()
                 }
             }
         }
-     }
-     else { _b_fail = YES, _error_str = "Missing input params" ; }
-     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+		else if ( _items_n == 0 ) { _b_fail = YES, _error_str = "'Auto' cmd aborted: the list of seeds is empty." ; }
+    }
+    else { _b_fail = YES, _error_str = "Missing input params" ; }
+    if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

@@ -31,23 +31,23 @@ function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*m
 {
     _out_channel_type = safe_int( _out_channel_type, OUTPUT_NONE );
     _out_msg_type = safe_int( _out_msg_type, DISPATCH_INFO );
-    _out_msg_text = is_array( _out_msg_text ) ? _out_msg_text.work( function( _t ) { return safe_string( _t, "" ) ; } ) : safe_string( _out_msg_text, "" ) ;
+    _out_msg_text = is_array( _out_msg_text ) ? _out_msg_text.join( _out_channel_type == OUTPUT_SCREEN ? "<br/>" : "\n" ) : safe_string( _out_msg_text, "" ) ;
     
     if ( _out_channel_type & OUTPUT_SPECIAL_FX )
     {
-   		 var _color = "" ;
-   		 var _ctrl_id = arguments[3] ;
-   		 var _milliseconds_duration = arguments[4] ;
-   		 var _mutex = arguments[5] ;
-   		 switch( _out_msg_type )
-   		 {
-		 			case DISPATCH_WARNING: _color = "orange" ; break ;
-		 			case DISPATCH_SUCCESS: _color = "green" ; break ;
-		 			case DISPATCH_CRITICAL: case DISPATCH_ERROR: _color = "rederror" ; break ;
-		 			case DISPATCH_INFO: default: _color = "lightgray" ; break ;
-		 }
-			 _color = get_rgb_from_color_tag( _color ) ;
-			 circles_lib_extras_special_fx_msg( _ctrl_id, _out_msg_text, _color, _milliseconds_duration, _mutex ) ;
+   		var _color = "" ;
+   		var _ctrl_id = arguments[3] ;
+   		var _milliseconds_duration = arguments[4] ;
+   		var _mutex = arguments[5] ;
+   		switch( _out_msg_type )
+   		{
+			case DISPATCH_WARNING: _color = "orange" ; break ;
+			case DISPATCH_SUCCESS: _color = "green" ; break ;
+			case DISPATCH_CRITICAL: case DISPATCH_ERROR: _color = "rederror" ; break ;
+			case DISPATCH_INFO: default: _color = "lightgray" ; break ;
+		}
+		_color = get_rgb_from_color_tag( _color ) ;
+		circles_lib_extras_special_fx_msg( _ctrl_id, _out_msg_text, _color, _milliseconds_duration, _mutex ) ;
 	}
     
     if ( _out_channel_type & OUTPUT_SCREEN )

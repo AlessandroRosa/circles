@@ -112,7 +112,7 @@ function circles_terminal_cmd_circle()
 					_msg = "<lightblue>Sector has been set </lightblue> <snow>from "+_p[1]+" to "+_p[0]+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
-				else { _b_fail = YES ; _error_str = "Bad circle sector format: '"+_p+"'" ; }
+				else { _b_fail = YES ; _error_str = "Bad circle sector format: '"+_p+"'" ; break ; }
 			}
 			else if ( _p.toLowerCase().start_with( "radius:" ) && _params_assoc_array['settings']['radius'] == null )
 			{
@@ -138,7 +138,7 @@ function circles_terminal_cmd_circle()
 					_msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['fillcolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
-				else { _b_fail = YES, _error_str = "Invalid fill color definition" ; }
+				else { _b_fail = YES, _error_str = "Invalid fill color definition" ; break ; }
 			}
 			else if ( _p.toLowerCase().start_with( "border:" ) && _params_assoc_array['settings']['border'] == null )
 			{

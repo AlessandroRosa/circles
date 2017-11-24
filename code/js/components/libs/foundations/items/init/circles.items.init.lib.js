@@ -159,7 +159,7 @@ function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_ma
        {
           $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
           if ( _init_mask.match_bit_mask( INIT_NONE, INIT_AUTO_RECOGNITION ) ) _glob_init_mask = _init_mask = circles_lib_items_auto_recognition_group_params();
-				  var _build_gens_set_opt = circles_lib_gens_model_exists();
+		  var _build_gens_set_opt = circles_lib_gens_model_exists();
           var _ret_chunk = circles_lib_items_init( _index, _question, _silent, _init_mask );
           var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
           var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
@@ -197,7 +197,7 @@ function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_ma
     }
 }
 
-function circles_lib_items_init( _index, _question, _silent, _init_mask, _report, _force_init, _output_channel )
+function circles_lib_items_init( _index = UNDET, _question = YES, _silent = NO, _init_mask = _glob_init_mask, _report = NO, _force_init = NO, _output_channel = OUTPUT_SCREEN )
 {
     _index = safe_int( _index, UNDET ), _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _init_mask = safe_int( _init_mask, _glob_init_mask );
@@ -205,6 +205,7 @@ function circles_lib_items_init( _index, _question, _silent, _init_mask, _report
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     if ( _init_mask == INIT_AUTO_RECOGNITION ) _init_mask = circles_lib_items_auto_recognition_group_params();
     var _report_text = "", _items_n = circles_lib_count_items();
+	if ( _force_init ) _glob_items_to_init = 1 ;
     if ( _glob_method == METHOD_NONE )
     {
        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_24_03, _glob_app_title );
@@ -212,15 +213,15 @@ function circles_lib_items_init( _index, _question, _silent, _init_mask, _report
     }
     else if ( _items_n == 0 )
     {
-			 var _msg = _ERR_33_02 ;
-			 if ( _plugin_last_ref != 0 ) _msg += _glob_crlf + "Push 'set' in the plug-in window" ;
+	   var _msg = _ERR_33_02 ;
+	   if ( _plugin_last_ref != 0 ) _msg += _glob_crlf + "Push 'set' in the plug-in window" ;
        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else if ( !_glob_items_to_init && _items_n > 0 && !_force_init )
     {
        var _msg = "<gray>Items have been already initialized</gray>" ;
-       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app_title );
+       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_MULTICOLOR, _msg, _glob_app_title );
        return [ RET_IRRELEVANT, _msg ] ;
     }
     else
@@ -239,8 +240,8 @@ function circles_lib_items_init( _index, _question, _silent, _init_mask, _report
        var _ret_chunk = null ;
        if ( _init_mask & INIT_SYMBOLS || _init_mask & INIT_AUTO_RECOGNITION )
        {
-          //_ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( _question, _glob_terminal_silent, YES, NO, _output_channel );
-    		  if ( _ret_chunk[0] == RET_ERROR ) return _ret_chunk ;
+          _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( _question, _glob_terminal_silent, YES, NO, _output_channel );
+		  if ( _ret_chunk[0] == RET_ERROR ) return _ret_chunk ;
        }
         
        if ( _init_mask & INIT_FROM_DISKS ) _ret_chunk = circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, _force_init, _output_channel );
@@ -258,47 +259,47 @@ function circles_lib_items_init( _index, _question, _silent, _init_mask, _report
           return [ RET_ERROR, _msg ] ;
        }
 
-			 var _err_str = "" ;
-       var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
-       var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown response" ;
+		var _err_str = "" ;
+        var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
+		var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown response" ;
 
-       if ( _ret_id == 0 )
-       {
+		if ( _ret_id == 0 )
+		{
           if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg, _glob_app_title );
           return [ RET_ERROR, _ret_msg ] ;
-       }
+		}
 
-       var _gens_exist = circles_lib_gens_model_exists();
-       if ( !_gens_exist ) _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _output_channel );
-       else if ( _init_mask != IF_NOT_EXISTING )
-       {
-          _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_GENS, _silent, _output_channel );
+		var _gens_exist = circles_lib_gens_model_exists();
+		if ( !_gens_exist ) _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _output_channel );
+		else if ( _init_mask != IF_NOT_EXISTING )
+		{
+			_ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_GENS, _silent, _output_channel );
+			_ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], 0 ) : 0 ;
+			_ret_msg += _glob_crlf + ( is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown response" );
+			if ( _ret_id == RET_OK )
+			{
+				_ret_chunk = circles_lib_gens_set_build( OUTPUT_NONE, NO, YES, _question, _silent ) ;
 			    _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], 0 ) : 0 ;
 			    _ret_msg += _glob_crlf + ( is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown response" );
-			    if ( _ret_id == RET_OK )
-			    {
-						 _ret_chunk = circles_lib_gens_set_build( OUTPUT_NONE, NO, YES, _question, _silent ) ;
-				     _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], 0 ) : 0 ;
-				     _ret_msg += _glob_crlf + ( is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown response" );
-					}
-          else circles_lib_log_add_entry( _ret_msg, LOG_WARNING );
-			 }
+			}
+			else circles_lib_log_add_entry( _ret_msg, LOG_WARNING );
+		}
 
-       _glob_init_mask = _init_mask, _glob_items_to_init = _ret_id == RET_OK ? NO : YES ;
-       _glob_dict_check = _glob_process == PROCESS_RANDOM ? SKIP : YES ;
-       _glob_dict_create = _glob_process == PROCESS_BREADTHFIRST ? ( _ret_id ? YES : NO ) : NO ;
-       if( _glob_process == PROCESS_INDEXSEARCH ) _glob_construction_mode = CONSTRUCTION_TILING ;
+        _glob_init_mask = _init_mask, _glob_items_to_init = _ret_id == RET_OK ? NO : YES ;
+        _glob_dict_check = _glob_process == PROCESS_RANDOM ? SKIP : YES ;
+        _glob_dict_create = _glob_process == PROCESS_BREADTHFIRST ? ( _ret_id ? YES : NO ) : NO ;
+        if( _glob_process == PROCESS_INDEXSEARCH ) _glob_construction_mode = CONSTRUCTION_TILING ;
 
-       $('[id$=initBTN]').css('color',_glob_items_to_init ?COLOR_ERROR:DEFAULT_COLOR_STD);
-       _glob_alphabet = circles_lib_alphabet_get();
-       if ( _ret_id == RET_OK )
-       {
+        $('[id$=initBTN]').css('color',_glob_items_to_init ?COLOR_ERROR:DEFAULT_COLOR_STD);
+        _glob_alphabet = circles_lib_alphabet_get();
+        if ( _ret_id == RET_OK )
+        {
           if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
           if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
-       }
+        }
 
-       //circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
-       return [ _ret_id, ( _report_text.length > 0 ? _report_text + _glob_crlf : "" ) + _ret_msg ] ;
+        //circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
+        return [ _ret_id, ( _report_text.length > 0 ? _report_text + _glob_crlf : "" ) + _ret_msg ] ;
     }
 }
 

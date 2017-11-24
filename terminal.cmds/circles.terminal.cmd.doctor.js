@@ -46,7 +46,7 @@ function circles_terminal_cmd_doctor()
             else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
             else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
     }
      

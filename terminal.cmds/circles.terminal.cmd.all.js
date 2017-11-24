@@ -46,10 +46,7 @@ function circles_terminal_cmd_all()
             else if ( _p.stricmp( "off" ) ) _params_assoc_array['mode'] = OFF ;
             else if ( _p.stricmp( "on" ) ) _params_assoc_array['mode'] = ON ;
             else if ( _p.is_one_of_i( "draw", "fill", "release" ) ) _params_assoc_array['action'] = _p ;
-            else
-            {
-               _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-            }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
          
         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

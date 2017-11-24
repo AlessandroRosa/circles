@@ -31,7 +31,7 @@ function circles_terminal_cmd_triggers()
 		_params_array.clean_from( " " );
 		// pre-scan for levenshtein correction
 		var _local_cmds_params_array = [];
-			_local_cmds_params_array.push( "all-flag", "check", "no-flag", "html", "help", "list", "release", "run", "verbose" );
+			_local_cmds_params_array.push( "all-on", "check", "all-off", "html", "help", "list", "release", "run", "uncheck", "verbose" );
 		circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 		var _p ;
         for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -39,19 +39,18 @@ function circles_terminal_cmd_triggers()
             _p = _params_array[_i].toLowerCase();
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-            else if ( _p.is_one_of_i( "all-flag", "check", "list", "no-flag", "release", "run" ) ) _params_assoc_array['action'] = _p ;
+            else if ( _p.is_one_of_i( "all-off", "all-on", "check", "list", "release", "run", "uncheck" ) ) _params_assoc_array['action'] = _p ;
 			else if ( _p.stricmp( "verbose" ) ) _params_assoc_array['verbose'] = YES ;
-			else if ( _p.stricmp( "check" ) )
+			else if ( is_string( _params_assoc_array['action'] ) )
 			{
-				if ( _params_assoc_array['checklist'] == null ) _params_assoc_array['checklist'] = [] ;
-				if ( _p.testME( _glob_positive_integer_regex_pattern ) ) _params_assoc_array['checklist'].push( _p );
+				if ( _params_assoc_array['action'].is_one_of_i( "check", "uncheck" ) )
+				{
+					if ( _params_assoc_array['checklist'] == null ) _params_assoc_array['checklist'] = [] ;
+					if ( _p.testME( _glob_positive_integer_regex_pattern ) ) _params_assoc_array['checklist'].push( _p );
+				}
 			}
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-            else
-            {
-                _b_fail = YES ;
-                _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-            }
+            else { _b_fail = YES ; _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
     }
 
@@ -71,13 +70,24 @@ function circles_terminal_cmd_triggers()
          var _action = _params_assoc_array['action'] != null ? _params_assoc_array['action'] : "" ;
          switch( _action )
          {
-			case "all-flag":
+			case "all-off":
+			var _keys = _glob_triggers_table.is_associative() ? _glob_triggers_table.keys_associative() : _glob_triggers_table ;
+			var _n_triggers = safe_size( _keys, 0 );
+			if ( _n_triggers > 0 )
+			{
+				for( _k = 0 ; _k < _n_triggers ; _k++ ) _glob_triggers_table[''+_keys[_k]][4] = NO ;
+				circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All triggers have been set to 'off'", _par_1, _cmd_tag );
+				if ( _plugin_on ) CIRCLESformsTRIGGERSremotectrl( [ "updatelist" ] );
+			}
+			else circles_lib_output( _output_channel, DISPATCH_WARNING, "Fail to perform operation: no triggers found", _par_1, _cmd_tag );
+			break ;
+			case "all-on":
 			var _keys = _glob_triggers_table.is_associative() ? _glob_triggers_table.keys_associative() : _glob_triggers_table ;
 			var _n_triggers = safe_size( _keys, 0 );
 			if ( _n_triggers > 0 )
 			{
 				for( _k = 0 ; _k < _n_triggers ; _k++ ) _glob_triggers_table[''+_keys[_k]][4] = YES ;
-				circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All triggers have been set to 'auto-run'", _par_1, _cmd_tag );
+				circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All triggers have been set to 'on'", _par_1, _cmd_tag );
 				if ( _plugin_on ) CIRCLESformsTRIGGERSremotectrl( [ "updatelist" ] );
 			}
 			else circles_lib_output( _output_channel, DISPATCH_WARNING, "Fail to perform operation: no triggers found", _par_1, _cmd_tag );
@@ -97,7 +107,8 @@ function circles_terminal_cmd_triggers()
 							if ( _glob_triggers_table[''+_keys[_i-1]] != null )
 							{
 								_glob_triggers_table[''+_keys[_i-1]][4] = YES ;
-								circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Trigger #"+_i+" has been checked with success", _par_1, _cmd_tag );
+								var _title = _glob_triggers_table[''+_keys[_i-1]][0] ;
+								circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lime>Trigger #"+_i+"</lime> <white>"+_title+"</white> <lime>has been checked with success</lime>", _par_1, _cmd_tag );
 							}
 							else circles_lib_output( _output_channel, DISPATCH_WARNING, "No trigger matches to index #"+_i, _par_1, _cmd_tag );
 						}
@@ -125,23 +136,40 @@ function circles_terminal_cmd_triggers()
 				}
 		    }
 			break ;
-			case "no-flag":
-			var _keys = _glob_triggers_table.is_associative() ? _glob_triggers_table.keys_associative() : _glob_triggers_table ;
-			var _n_triggers = safe_size( _keys, 0 );
-			if ( _n_triggers > 0 )
-			{
-				for( _k = 0 ; _k < _n_triggers ; _k++ ) _glob_triggers_table[''+_keys[_k]][4] = NO ;
-				circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All triggers have been set to 'no-flag'", _par_1, _cmd_tag );
-				if ( _plugin_on ) CIRCLESformsTRIGGERSremotectrl( [ "updatelist" ] );
-			}
-			else circles_lib_output( _output_channel, DISPATCH_WARNING, "Fail to perform operation: no triggers found", _par_1, _cmd_tag );
-			break ;
             case "release":
             circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
             break ;
 			case "run":
 			var _ret_chunk = circles_lib_triggers_open_all_automated_entries(NO, _output_channel);
 			circles_lib_output( _output_channel, _ret_chunk[0] == RET_OK ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_chunk[1], _par_1, _cmd_tag ) ;
+			circles_lib_output( _output_channel, _ret_chunk[0] == RET_OK ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_chunk[4], _par_1, _cmd_tag ) ;
+			break ;
+			case "uncheck":
+			if ( is_consistent_array( _params_assoc_array['checklist'] ) )
+			{	
+				_params_assoc_array['checklist'].sort();
+				var _keys = _glob_triggers_table.is_associative() ? _glob_triggers_table.keys_associative() : _glob_triggers_table ;
+				var _n_triggers = safe_size( _keys, 0 );
+				if ( _n_triggers > 0 )
+				{
+					_params_assoc_array['checklist'].forEach( function( _i )
+					{
+						if ( _i > 0 )
+						{
+							if ( _glob_triggers_table[''+_keys[_i-1]] != null )
+							{
+								_glob_triggers_table[''+_keys[_i-1]][4] = NO ;
+								var _title = _glob_triggers_table[''+_keys[_i-1]][0] ;
+								circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lime>Trigger #"+_i+"</lime> <white>"+_title+"</white> <lime>has been unchecked with success</lime>", _par_1, _cmd_tag );
+							}
+							else circles_lib_output( _output_channel, DISPATCH_WARNING, "No trigger matches to index #"+_i, _par_1, _cmd_tag );
+						}
+					} );
+					if ( _plugin_on ) CIRCLESformsTRIGGERSremotectrl( [ "updatelist" ] );
+				}
+				else circles_lib_output( _output_channel, DISPATCH_WARNING, "Fail to perform uncheck: no triggers found", _par_1, _cmd_tag );
+			}
+			else circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing indexed list to uncheck the triggers", _par_1, _cmd_tag );
 			break ;
             default:
 			_b_fail = YES, _error_str = _action ? "Unknown action '"+_action+"'" : "Missing action specification" ;

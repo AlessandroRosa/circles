@@ -2,10 +2,9 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>init %initfrom% %initpickupmode% %action% options auto</snow>
+<lightblue>usage</lightblue> <snow>init %initfrom% %initpickupmode% %action% auto force</snow>
 
 <lightblue>%action%</lightblue> <snow>labels | show | lock | unlock</snow>
-<cadetblue>prevent options from modifications</cadetblue>
 <lightblue>%initfrom%</lightblue> <snow>disks | maps</snow>
 <cadetblue>values to take up for attempting items initialization</cadetblue>
 <lightblue>%initpickupmode%</lightblue> <snow>singly | paired</snow>
@@ -13,6 +12,9 @@
 
 <lightblue>init auto</snow>
 <cadetblue>set up the best init options fitting both method and the current items configuration</cadetblue>
+
+<lightblue>init force</snow>
+<cadetblue>force input init action to be performed, altough the group has been already initialized</cadetblue>
 
 <lightblue>init disks paired</snow>
 <cadetblue>init items by inverse symbols pairing and calculating maps from disks</cadetblue>

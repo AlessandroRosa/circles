@@ -46,11 +46,7 @@ function circles_terminal_cmd_bomb()
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else if ( _p.is_one_of_i( "all", "figures", "symbols", "disks", "freedraw", "seeds", "items", "repetends", "generators", "gensmodel", "probabilities", "everything" ) )
             _params_assoc_array['bomb'].push( _p );
-            else
-            {
-               _b_fail = YES ;
-               _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-            }
+            else { _b_fail = YES ; _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
 
         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
@@ -79,7 +75,7 @@ function circles_terminal_cmd_bomb()
                     var _prompt_question = "<lightblue>The following objects have been selected for bombing:</lightblue>" + _glob_crlf ;
                         _prompt_question += "<snow>"+_params_assoc_array['bomb'].join( _glob_crlf )+"</snow>" ;
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _prompt_question, _par_1, _cmd_tag );
-                    _prompt_question = "Confirm to bomb the above objects ?" ;
+                    _prompt_question = "Confirm to bomb the above entries ? " ;
   
                     for( var _i = 0 ; _i < _params_assoc_array['bomb'].length ; _i++ )
                     {

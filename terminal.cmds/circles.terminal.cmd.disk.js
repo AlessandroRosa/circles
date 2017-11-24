@@ -170,7 +170,7 @@ function circles_terminal_cmd_disk()
 					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['drawcolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
-				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; }
+				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; break ; }
 			}
 			else if ( _p.toLowerCase().start_with( "fillcolor:" ) && _params_assoc_array['fillcolor'] == null )
 			{
@@ -181,7 +181,7 @@ function circles_terminal_cmd_disk()
 					_msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_params_assoc_array['fillcolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
-				else { _b_fail = YES, _error_str = "Invalid fill color definition" ; }
+				else { _b_fail = YES, _error_str = "Invalid fill color definition" ; break ; }
 			}
             else if ( _p.toLowerCase().start_with( "radius:" ) )
                 _params_assoc_array['radius'] = safe_float( _p.replaceAll( "radius:", "" ), 0 );
@@ -200,7 +200,7 @@ function circles_terminal_cmd_disk()
                 _params_assoc_array['linewidth'] = safe_float( _p.replaceAll( "linewidth:", "" ), 0 );
                 if ( _params_assoc_array['linewidth'] < 0 )
                 {
-                    _b_fail = YES, _error_str = "input line thickness is not a number or it is not strictly positive" ;
+                    _b_fail = YES, _error_str = "input line thickness is not a number or it is not strictly positive" ; break ;
                 }
             }
             else if ( _p.toLowerCase().start_with( "center:" ) && _p.includes_i( "," ) )
@@ -217,7 +217,7 @@ function circles_terminal_cmd_disk()
             {
                 if ( _params_assoc_array['settings']['action'].stricmp( "notes" ) && _params_assoc_array['notesflag'] )
                 _params_assoc_array['notes'].push( _p ) ;
-                else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
+                else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
             }
         }
 

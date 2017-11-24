@@ -70,7 +70,7 @@ function circles_terminal_cmd_console()
                 if ( _p.testME( _glob_integer_regex_pattern ) )
                 _params_assoc_array['history'] = safe_int( _p, 0 );
             }
-            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
          
         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

@@ -50,17 +50,13 @@ function circles_terminal_cmd_dev()
          var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
-              _p = _params_array[_i].trim() ;
-              if ( safe_size( _p, 0 ) == 0 ) continue ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.is_one_of_i( "datatypes" ) )
-                   _params_assoc_array['action'] = _p.toLowerCase();
-							else
-              {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+            _p = _params_array[_i].trim() ;
+            if ( safe_size( _p, 0 ) == 0 ) continue ;
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.is_one_of_i( "datatypes" ) ) _params_assoc_array['action'] = _p.toLowerCase();
+			else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
          
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

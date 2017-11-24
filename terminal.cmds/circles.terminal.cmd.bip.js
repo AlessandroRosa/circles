@@ -145,7 +145,6 @@ function circles_terminal_cmd_bip()
             else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
             {
                 _params_assoc_array['center'] = _p ;
-				console.log( _params_assoc_array['center'] );
                 var _str = _params_assoc_array['center'].replaceAll( [ "(", ")" ], "" );
                 var _separator = ( _str.includes( "," ) ) ? "," : ( _str.includes( ";" ) ? ";" : "" );
                 if ( _separator.length == 1 )
@@ -167,7 +166,7 @@ function circles_terminal_cmd_bip()
                 _params_assoc_array['action'] = "apply" ;
 			}
             else if ( _p.is_one_of_i( "acquire", "apply", "clean", "settings", "preview", "render", "release", "save" ) ) _params_assoc_array['action'] = _p ;
-            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
 
         if ( _params_assoc_array['svg'] != null ) _glob_export_format = EXPORT_SVG ;

@@ -89,7 +89,7 @@ function circles_terminal_cmd_calc()
 				}
 				else circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "'" + _p + "' skipped: it's not a valid point signature", _par_1, _cmd_tag );
             }
-            else { _b_fail = YES ; _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
+            else { _b_fail = YES ; _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
 
 		if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
