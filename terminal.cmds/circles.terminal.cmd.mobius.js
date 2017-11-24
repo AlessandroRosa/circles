@@ -877,8 +877,8 @@ function circles_terminal_cmd_mobius()
                     }
                     break ;
                     case "symbol" :
-                    _glob_show_symbols_zplane = _params_assoc_array['on'] ;
-                    circles_lib_symbol_zplane_display(null,null, null, YES );
+                    _glob_show_symbols_zplane = _params_assoc_array['on'] ? 1 : 0 ;
+                    circles_lib_symbol_zplane_display();
                     break ;
                     case "update" :
                     var _all = _params_assoc_array['all'] ;

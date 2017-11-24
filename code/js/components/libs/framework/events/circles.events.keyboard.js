@@ -55,7 +55,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 
         _glob_items_to_init = YES ;
         $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-   		if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
+   		if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
     }
 
     if ( !_shift_pressed && !_canc_pressed && !_glob_alt_key ) // shift released
@@ -132,7 +132,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 		               
               circles_lib_helper_div_remove();
               circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
-				 			if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
+				 			if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
               _glob_items_to_init = YES ;
 		    }
 		}
@@ -150,7 +150,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
               circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
 							_glob_zplane_grid_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_GRID );
 				      circles_lib_grid_draw( _glob_zplane_grid_layer_placeholder, zplane_sm, Z_PLANE, YES, _glob_ticks_count );
-							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
+							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
 					}
 		}
 		else if( _event.keyCode == 37 && _sel_length > 0 ) // left arrow key
@@ -175,7 +175,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 
               _glob_items_to_init = YES, _glob_init_mask = circles_lib_items_verify_init_mask( INIT_FROM_DISKS );
               $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
+							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
 					}
 		}
 		else if( _event.keyCode == 39 && _sel_length > 0 ) // right arrow key
@@ -200,7 +200,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 
               _glob_items_to_init = YES, _glob_init_mask = circles_lib_items_verify_init_mask( INIT_FROM_DISKS );
               $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
+							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
 					}
 		}
 		else if( _event.keyCode == 38 && _sel_length > 0 ) // up arrow key
@@ -225,7 +225,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 
               _glob_items_to_init = YES, _glob_init_mask = circles_lib_items_verify_init_mask( INIT_FROM_DISKS );
               $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
+							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
 					}
 		}
 		else if( _event.keyCode == 40 && _sel_length > 0 ) // down arrow key
@@ -250,7 +250,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 
               _glob_items_to_init = YES, _glob_init_mask = circles_lib_items_verify_init_mask( INIT_FROM_DISKS );
               $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
+							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
 					}
 		}
 		else if( _event.keyCode == 187 && _sel_length > 0 && !_alt_pressed ) // plus arrow key
@@ -275,7 +275,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 
               _glob_items_to_init = YES, _glob_init_mask = circles_lib_items_verify_init_mask( INIT_FROM_DISKS );
               $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
+							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
 					}
 		}
 		else if( _event.keyCode == 189 && _sel_length > 0 && !_alt_pressed ) // minus arrow key
@@ -300,7 +300,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 
               _glob_items_to_init = YES, _glob_init_mask = circles_lib_items_verify_init_mask( INIT_FROM_DISKS );
               $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
+							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
 					}
 		}
 }
@@ -349,7 +349,7 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
 						   		if ( _glob_disk_sel_index < 0 ) _glob_disk_sel_index = _sd_n - 1 ;
 
 						      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, null, YES );
-							    if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display(null,null,null,NO);
+							    if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
 							}
 					 }
       }

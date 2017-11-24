@@ -60,7 +60,7 @@ function CIRCLESformsSEEDSLISTbarHTMLCODE( _selected_index, _index )
         HTMLcode += "<td WIDTH=\"45\">Symbols</td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_alphabet_autoconfig_all_symbols(YES,NO,NO);CIRCLESformsSEEDSLISTmain(CIRCLESformsSEEDSLISTbaseid,NO,"+_selected_index+");\">Set</td>" ;
         HTMLcode += "<td WIDTH=\"1\"></td>" ;
-        HTMLcode += "<td ID=\"CIRCLESlistPANELshowsymbolsBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_symbol_zplane_display(null,null,null,YES,YES,YES);\">"+( _glob_show_symbols_zplane ? "Hide" : "Show" )+"</td>" ;
+        HTMLcode += "<td ID=\"CIRCLESlistPANELshowsymbolsBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_symbol_zplane_display(null,null,null,YES,YES);circles_lib_menu_entries_update();circles_lib_canvas_render_zplane();\">"+( _glob_show_symbols_zplane ? "Hide" : "Show" )+"</td>" ;
         HTMLcode += "<td WIDTH=\"1\"></td>" ;
         HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_items_to_init=YES;$('[id$=initBTN]').css('color',COLOR_ERROR) ;circles_lib_symbol_swap(null,null,NO,YES);\">Swap</td>" ;
 

@@ -1,4 +1,4 @@
------------- THEY CAN WAIT---------------------------------------------
+------------ THEY CAN WAIT --------------------
 * terminal cmd 'canvas':
   - think about the chance to add custom placeholders for custom canvas
 
@@ -14,15 +14,12 @@
 
 -------------- FIX SOON -----------------------
   
-* terminal cmd 'symbol show' does not work
 * rework terminal 'auto' cmd, according to help file
 * rework terminal 'init' cmd, according to help file
 
 * give examples inside config.cmd.hlp for each parameter, write them in yellow and lightblue
   as reported here: <yellow>example</yellow> <lightblue> set construction tiling</lightblue>
 
-* Write labels explaining each step in demo #15
-  
 * Last checked terminal cmd: dg
   
 * Listings:
@@ -31,8 +28,6 @@
   
 - srcptset terminal cmd:
   * build point set according to input params
-
-* terminal cmds: test'em all
 
 * FORMS
   - method

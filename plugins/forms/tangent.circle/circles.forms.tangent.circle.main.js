@@ -69,7 +69,7 @@ function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
                   HTMLcode += "<td WIDTH=\"10\"></td>" ;
                   HTMLcode += "<td ID=\"CONSTRUCTTANGENTinitBTN\" "+( ( _items_n == 0 || _glob_method == METHOD_NONE ) ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);circles_lib_items_init();circles_lib_plugin_load('forms','construct.tangent.circle');\"" )+">Init</td>";
                   HTMLcode += "<td WIDTH=\"10\"></td>" ;
-                  HTMLcode += "<td ID=\"CONSTRUCTTANGENTsymbolsBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_symbol_zplane_display(null,null,null,YES,YES,YES);\">"+( _glob_show_symbols_zplane ? "Hide seeds" : "Show seeds" )+"</td>" ;
+                  HTMLcode += "<td ID=\"CONSTRUCTTANGENTsymbolsBTN\" CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_symbol_zplane_display(null,null,null,YES,YES);circles_lib_menu_entries_update();circles_lib_canvas_render_zplane();\">"+( _glob_show_symbols_zplane ? "Hide seeds" : "Show seeds" )+"</td>" ;
                   HTMLcode += "<td WIDTH=\"10\"></td>" ;
                   HTMLcode += "<td "+( _items_n == 0 ? "CLASS=\"link_rounded_dead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','seeds.list');\"" )+">List</td>" ;
                   HTMLcode += "</tr>" ;

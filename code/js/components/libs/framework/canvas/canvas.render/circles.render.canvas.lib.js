@@ -1,5 +1,10 @@
-function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _question, _silent, _b_reset_coords, _output_channel )
+function circles_lib_canvas_render_zplane( _canvas, _mapper = zplane_sm, _selected_layers_array, _b_clean = NO, _b_render_bk = YES, _b_render_objs = YES, _question = NO, _silent = YES, _b_reset_coords = YES, _output_channel )
 {
+    _b_clean = safe_int( _b_clean, NO );
+    _b_render_bk = safe_int( _b_render_bk, YES ), _b_render_objs = safe_int( _b_render_objs, YES );
+    _b_reset_coords = safe_int( _b_reset_coords, YES );
+    _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
+    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
 	circles_lib_menu_entries_update() ;
 	if ( _glob_interface_index == INTERFACE_EXTEND_WPLANE ) return [ RET_IRRELEVANT, "Z-plane rendering skipped for extended interface" ] ;
     // layers can be input as an array or a string of indexes separated by comma
@@ -10,18 +15,11 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
     }
     
     if ( safe_size( _selected_layers_array, 0 ) == 0 ) _selected_layers_array = null ;
-    
-    _b_clean = safe_int( _b_clean, NO );
-    _b_render_bk = safe_int( _b_render_bk, YES ), _b_render_objs = safe_int( _b_render_objs, YES );
-    _b_reset_coords = safe_int( _b_reset_coords, YES );
-    _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
-    
     if ( _question && !_silent )
     {
-			 if( !confirm( "Do you confirm to " + ( _b_clean ? "clean" : "render" ) + " the z-plane ?" ) )
-			 return [ RET_IRRELEVANT, "Z-plane rendering aborted by user" ] ; 
-		}
+		if( !confirm( "Do you confirm to " + ( _b_clean ? "clean" : "render" ) + " the z-plane ?" ) )
+		return [ RET_IRRELEVANT, "Z-plane rendering aborted by user" ] ; 
+	}
     
     var _items_n = circles_lib_count_items();
     if ( !is_screen_mapper( _mapper ) )
@@ -116,12 +114,12 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper, _selected_layers_ar
             break ;
             case ROLE_WORK: // work
             if ( _glob_zplane_work_layer_placeholder.is_visible() || is_html_canvas( _work_canvas ) )
-						{
-                if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display( null, _work_canvas, null, NO, NO, YES, _output_channel );
+			{
+                if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display( null, _work_canvas, null, NO, NO, _output_channel );
                 circles_lib_canvas_after_process_figures( null, NO, Z_PLANE );
-						}
+			}
             break ;
-		        default: break ;
+		    default: break ;
         }
    }
 

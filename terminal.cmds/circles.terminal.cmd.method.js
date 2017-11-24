@@ -2,27 +2,27 @@ _glob_terminal_cmd_files_include[ "method" ] = [ "init", "refresh" ] ;
 
 function circles_terminal_cmd_method()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _params_assoc_array = [];
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _params_assoc_array = [];
 
-     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _params.length > 0 )
-     {
+    if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    if ( _params.length > 0 )
+    {
          _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
@@ -122,26 +122,22 @@ function circles_terminal_cmd_method()
                   break ;
              }
          }
-     }
+    }
      
-     if ( !_b_fail )
-     {
-          var _method_label = circles_lib_method_get_def( _glob_method ), _process_label = circles_lib_process_get_def( _glob_process );
-          var _prefix = _params.length == 0 ? "Current" : "New" ;
-          var _MSG_TYPE = _params.length == 0 ? DISPATCH_INFO : DISPATCH_SUCCESS ;
-          if ( _glob_method == METHOD_NONE )
-               circles_lib_output( _output_channel, DISPATCH_WARNING, "Current method is none", _par_1, _cmd_tag );
-          else 
-					{
-							circles_lib_output( _output_channel, _MSG_TYPE, _prefix + " method is " + _method_label, _par_1, _cmd_tag );
-              if ( _glob_method == METHOD_ALGEBRAIC )
-							circles_lib_output( _output_channel, _glob_process == PROCESS_NONE ? DISPATCH_WARNING : DISPATCH_SUCCESS , _prefix + " process is " + _process_label, _par_1, _cmd_tag );
-					}
-     }
-     else if ( _b_fail )
-     {
-         circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     }
-     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+    if ( !_b_fail )
+    {
+        var _method_label = circles_lib_method_get_def( _glob_method ), _process_label = circles_lib_process_get_def( _glob_process );
+        var _prefix = _params.length == 0 ? "Current" : "New" ;
+        var _MSG_TYPE = _params.length == 0 ? DISPATCH_INFO : DISPATCH_SUCCESS ;
+        if ( _glob_method == METHOD_NONE ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Current method is none", _par_1, _cmd_tag );
+        else 
+		{
+			circles_lib_output( _output_channel, _MSG_TYPE, _prefix + " method is " + _method_label, _par_1, _cmd_tag );
+            if ( _glob_method == METHOD_ALGEBRAIC )
+			circles_lib_output( _output_channel, _glob_process == PROCESS_NONE ? DISPATCH_WARNING : DISPATCH_SUCCESS , _prefix + " process is " + _process_label, _par_1, _cmd_tag );
+		}
+    }
+    else if ( _b_fail ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

@@ -212,31 +212,27 @@ function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent
         }
         else
         {
-           var _msg = "Swap halted by user" ;
-           if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+           if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Swap halted by user", _glob_app_title );
            return [ RET_ERROR, _msg ] ;
         }
     }
     else
     {
-        var _msg = "An unknown exception has been caught" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "An unknown exception has been caught", _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }
 }
 
-function circles_lib_symbol_remove_all( _items_array, _caller, _question, _silent, _output_channel )
+function circles_lib_symbol_remove_all( _items_array = [], _caller = 0, _question = YES, _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
-		_items_array = circles_lib_items_set( _items_array ) ;
-    var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
+	_items_array = circles_lib_items_set( _items_array ) ;
     _caller = safe_int( _caller, 0 );
     _question = safe_int( _question, NO ), _silent = safe_int( _silent, YES );
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _array = [], _items_n = circles_lib_count_items( _items_array );
+    var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     for( var _i = 0 ; _i < _items_n ; _i++ ) _array.push( _i );
-    var MSG = _QUESTION_10_03 ;
-    var _b_go = _question ? ( confirm( MSG ) ? YES : NO ) : YES ;
-    if ( _b_go )
+    if ( _question ? ( confirm( _QUESTION_10_03 ) ? YES : NO ) : YES )
     {
        circles_lib_symbol_remove( _array, 0, NO, YES );
        circles_lib_symbol_remove( _array, _caller, YES, YES );
@@ -245,19 +241,18 @@ function circles_lib_symbol_remove_all( _items_array, _caller, _question, _silen
     else return [ RET_IRRELEVANT, "Operation aborted by user" ] ;
 }
 
-function circles_lib_symbol_remove( _items_array, a, _caller, _b_inverse, _question, _silent, _output_channel )
+function circles_lib_symbol_remove( _items_array = [], a, _caller, _b_inverse = NO, _question = YES, _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
-		_items_array = circles_lib_items_set( _items_array ) ;
-    var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
+	_items_array = circles_lib_items_set( _items_array ) ;
     _b_inverse = safe_int( _b_inverse, NO );
-    _question = safe_int( _question, NO ), _silent = safe_int( _silent, YES );
+    _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _caller = safe_int( _caller, 0 ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     var _a_length = safe_size( a, 0 );
     if ( _a_length > 0 && _test )
     {
        var MSG = _a_length == 1 ? _QUESTION_10_01 : _QUESTION_10_02 ;
-       var _b_go = _question ? confirm( MSG ) : YES ;
-       if ( _b_go )
+       if ( _question ? confirm( MSG ) : YES )
        {
           for( var i = 0 ; i < _a_length ; i++ )
           {
@@ -269,50 +264,37 @@ function circles_lib_symbol_remove( _items_array, a, _caller, _b_inverse, _quest
        }
     }
     else return NO ;
-    
     return YES ;
 }
 
-function circles_lib_symbol_zplane_display( _items_array, _canvas, _symbol, _b_invert, _refresh_zplane, _silent, _output_channel )
+function circles_lib_symbol_zplane_display( _items_array = [], _canvas = null, _symbol = "", _b_invert = NO, _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
-		_items_array = circles_lib_items_set( _items_array ) ;
-    var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
+	_items_array = circles_lib_items_set( _items_array ) ;
     _canvas = !is_html_canvas( _canvas ) ? _glob_zplane_work_layer_placeholder : _canvas ;
     _symbol = safe_string( _symbol, "" ), _b_invert = safe_int( _b_invert, NO );
-    _refresh_zplane = safe_int( _refresh_zplane, YES );
-    _silent = safe_int( _silent, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     var zplane_context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
     var _inv_symbol = _symbol.length > 0 ? circles_lib_word_inverse_get( _symbol ) : "" ;
     var _items_n = circles_lib_count_items( _items_array );
-    if ( _items_n > 0 && _test )
-    {
-        if ( _b_invert ) _glob_show_symbols_zplane = !_glob_show_symbols_zplane ;
-        CELLsetCONTENTS('[id$=symbolsBTN]', _glob_show_symbols_zplane ? "Hide symbols" : "Show symbols" );
+    if ( _b_invert ) _glob_show_symbols_zplane = !_glob_show_symbols_zplane ;
+    CELLsetCONTENTS('[id$=symbolsBTN]', _glob_show_symbols_zplane ? "Hide symbols" : "Show symbols" );
     
-        if ( _refresh_zplane && !( arguments.callee.caller.callername(1).strcmp( "circles_lib_canvas_render_zplane" ) ) ) // prevent looping in any case
-        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
-		    var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-		    var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
-        if ( _ret_id == RET_ERROR )
+	if ( _glob_show_symbols_zplane && _items_n && _test )
+    {
+        var ITEM, _circle_obj, _center_pt, _radius, _symbol, _linewidth, _check_sc ;
+        for( var i = 0 ; i < _items_n ; i++ )
         {
-						 circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
-						 return _ret_chunk ;
-				}
-				if ( _glob_show_symbols_zplane )
-        {
-           var ITEM, _circle_obj, _center_pt, _radius, _symbol, _linewidth, _check_sc ;
-           for( var i = 0 ; i < _items_n ; i++ )
-           {
-              ITEM = _items_array[i] ;
-              _circle_obj = is_item_obj( ITEM ) ? ITEM.complex_circle : null ;
-              if ( !is_circle( _circle_obj ) ) continue ;
-              _check_sc = is_circle( ITEM.screen_circle ) ;
-              _center_pt = _check_sc ? ITEM.screen_circle.center : new point( 0, 0 );
-              _radius = _check_sc ? safe_int( ITEM.screen_circle.radius, 0 ) : 0 ;
-              _linewidth = _check_sc ? safe_int( ITEM.screen_circle.linewidth, 0 ) : 0 ;
-              _symbol = safe_string( ITEM.symbol, "N/D" );
-              if ( _symbol.length > 0 && is_circle( _circle_obj ) )
-              {
+            ITEM = _items_array[i] ;
+            _circle_obj = is_item_obj( ITEM ) ? ITEM.complex_circle : null ;
+            if ( !is_circle( _circle_obj ) ) continue ;
+            _check_sc = is_circle( ITEM.screen_circle ) ;
+            _center_pt = _check_sc ? ITEM.screen_circle.center : new point( 0, 0 );
+            _radius = _check_sc ? safe_int( ITEM.screen_circle.radius, 0 ) : 0 ;
+            _linewidth = _check_sc ? safe_int( ITEM.screen_circle.linewidth, 0 ) : 0 ;
+            _symbol = safe_string( ITEM.symbol, "N/D" );
+            if ( _symbol.length > 0 && is_circle( _circle_obj ) )
+            {
                  // display lines crossing the center in order to lock the selected circle to view
                  zplane_context.beginPath();
                  if ( isCHROME() || isIE() ) zplane_context.setLineDash([4,6]);
@@ -337,18 +319,10 @@ function circles_lib_symbol_zplane_display( _items_array, _canvas, _symbol, _b_i
                  zplane_context.stroke();
                  zplane_context.fill();
                  zplane_context.closePath();
-              }
-           }
+            }
         }
-         
-        circles_lib_menu_entries_update();
-        return [ RET_OK, _glob_show_symbols_zplane ? "Symbols are visible" : "Symbols are hidden" ];
     }
-    else
-    {
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_00_04, _glob_app_title );
-        return [ RET_ERROR, _ERR_00_04 ];
-    }
+    return [ RET_OK, _glob_show_symbols_zplane ? "Symbols are visible" : "Symbols are hidden" ];
 }
 
 function circles_lib_symbol_get_indexes_mapping_array( _items_array, _init_items, _output_channel )
