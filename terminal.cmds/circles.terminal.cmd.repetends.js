@@ -258,28 +258,20 @@ function circles_terminal_cmd_repetends()
                                  circles_lib_output( _output_channel, DISPATCH_ERROR, _ERR_33_01, _par_1, _cmd_tag );
                             else
                             {
-                                 _glob_repetends_array.flush();
-                                 for( var _a = 0 ; _a < _alphabet.length ; _a++ )
-                                 _glob_repetends_array[ _alphabet[ _a ] ] = "["+_alphabet[_a]+"*"+_repetend_length+"]" ;
-
-                                 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Repetends list has been filled with suggestions", _par_1, _cmd_tag );
+                                _glob_repetends_array.flush();
+                                for( var _a = 0 ; _a < _alphabet.length ; _a++ ) _glob_repetends_array[ _alphabet[ _a ] ] = "["+_alphabet[_a]+"*"+_repetend_length+"]" ;
+                                circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Repetends list has been filled with suggestions", _par_1, _cmd_tag );
                             }
                             break ;
-			                      default: break ;
+			                default: break ;
                       }
               }
-              else
-              {
-									_b_fail = YES, _error_str = _ERR_33_01 ;
-							}
+              else { _b_fail = YES, _error_str = _ERR_33_01 ; }
          }	
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
+     else { _b_fail = YES, _error_str = "Missing input params" ; }
 
-     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

@@ -89,48 +89,53 @@ function circles_terminal_cmd_line()
                   else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['settings']['plane'] = W_PLANE ;
                   else if ( _p.stricmp( "bip" ) ) _params_assoc_array['settings']['plane'] = BIP_BOX ;
               }
-              else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
-              {
-                  _p = _p.replaceAll( [ "(", ")" ], "" );
-                  var _pt = _p.split( "," );
-                  _pt = new point( parseFloat( _pt[0] ), parseFloat( _pt[1] ) );
-                  _params_assoc_array['settings']['polyline'].push( _pt );
-              }
-   						else if ( circles_lib_colors_is_def( _p ) )
-  						{
-  							 if ( _params_assoc_array['settings']['drawcolor'] == null )
-  							 {
-  						 		   _params_assoc_array['settings']['drawcolor'] = _p ;
-  						 		   _msg = "<lightblue>Border color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-  						 			 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-  							 }
-  							 else if ( _params_assoc_array['settings']['fillcolor'] == null )
-  							 {
-  									 _params_assoc_array['settings']['fillcolor'] = _p ;
-  									 _msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-  									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-  							 }
-  							 else
-  							 {
-  									 _msg = "<orange>Redundant input color params found in '"+_p+"': skipped</orange>" ;
-  									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-  							 }
-  						}
-              else if ( _p.testME( _glob_positive_float_regex_pattern ) )
-              {
-                   if ( _params_assoc_array['settings']['linethick'] == null )
-    							 {
-    									 _params_assoc_array['settings']['linethick'] = safe_float( _p, 0 ) ;
-    									 _msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_p+"</snow>" ;
-    									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-    							 }
-                   else if ( _params_assoc_array['settings']['opacity'] == null )
-    							 {
-    									 _params_assoc_array['settings']['opacity'] = safe_float( _p, 0 ) ;
-    									 _msg = "<lightblue>Opacity has been set to</lightblue> <snow>"+_p+"</snow>" ;
-    									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-    							 }
-              }
+            else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
+            {
+                _p = _p.replaceAll( [ "(", ")" ], "" );
+                var _pt = _p.split( "," );
+                _pt = new point( safe_float( _pt[0], 0 ), safe_float( _pt[1], 0 ) );
+                _params_assoc_array['settings']['polyline'].push( _pt );
+            }
+			else if ( _p.toLowerCase().start_with( "drawcolor:" ) && _params_assoc_array['settings']['drawcolor'] == null )
+			{
+				_params_assoc_array['settings']['drawcolor'] = safe_string( _p.replace( /drawcolor:/gi, "" ), "" ) ;
+				if ( circles_lib_colors_is_def( _params_assoc_array['settings']['drawcolor'] ) )
+				{
+					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['drawcolor']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; }
+			}
+			else if ( _p.toLowerCase().start_with( "fillcolor:" ) && _params_assoc_array['settings']['fillcolor'] == null )
+			{
+				_params_assoc_array['settings']['fillcolor'] = safe_string( _p.replace( /fillcolor:/gi, "" ), "" ) ;
+				if ( circles_lib_colors_is_def( _params_assoc_array['settings']['fillcolor'] ) )
+				{
+					_msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['fillcolor']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid fill color definition" ; break ; }
+			}
+			else if ( _p.toLowerCase().start_with( "opacity:" ) && _params_assoc_array['settings']['opacity'] == null )
+			{
+				_params_assoc_array['settings']['opacity'] = safe_string( _p.replace( /opacity:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['opacity'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Opacity has been set to</lightblue> <snow>"+_params_assoc_array['settings']['opacity']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid opacity definition" ; break ; }
+			}
+			else if ( _p.toLowerCase().start_with( "thickness:" ) && _params_assoc_array['settings']['thickness'] == null )
+			{
+				_params_assoc_array['settings']['thickness'] = safe_string( _p.replace( /thickness:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['thickness'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['thickness']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid line thickness definition" ; break ; }
+			}
          }
          
          var _storage_queue_request = _params_assoc_array['settings']['params'].includes_i( "storagein" ) ? YES : NO ;
@@ -187,10 +192,7 @@ function circles_terminal_cmd_line()
                   {
                      var _drawcolor = _params_assoc_array['settings']['drawcolor'] ;
                      var _draw = _drawcolor != null ? ( ( _drawcolor.length > 0 && !_drawcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
-                     if ( _draw == NO )
-                     {
-                        _b_fail = YES, _error_str = "Missing draw color: this line won't be visible" ;
-                     }
+                     if ( _draw == NO ) { _b_fail = YES, _error_str = "Missing draw color: this line won't be visible" ; }
                   }
 
                   var _canvas_context, _mapper, _line_obj ;
@@ -198,7 +200,7 @@ function circles_terminal_cmd_line()
                   var _draw = _drawcolor != null ? ( ( _drawcolor.length > 0 && !_drawcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
                   var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
                   var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
-                  var _linewidth = _params_assoc_array['settings']['linethick'] == null ? 1 : safe_int( _params_assoc_array['settings']['linethick'], 1 );
+                  var _linewidth = _params_assoc_array['settings']['thickness'] == null ? 1 : safe_int( _params_assoc_array['settings']['thickness'], 1 );
                   if ( _linewidth == 0 ) { _draw = NO ; _drawcolor = "" ; }
                   var _opacity = _params_assoc_array['settings']['opacity'] == null ? 1.0 : _params_assoc_array['settings']['opacity'] ;
                   switch( _params_assoc_array['settings']['plane'] )
@@ -215,7 +217,7 @@ function circles_terminal_cmd_line()
                      _canvas_context = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode );
                      _mapper = bipbox_sm ;
                      break ;
-							       default: break ;
+					 default: break ;
                   }
                   
                   circles_lib_draw_polyline( _canvas_context, _mapper, _params_assoc_array['settings']['polyline'], _drawcolor, _fillcolor, _linewidth, _params_assoc_array['settings']['close'], _opacity, UNDET, _params_assoc_array['settings']['propertiesmask'], YES );
@@ -260,11 +262,9 @@ function circles_terminal_cmd_line()
              }
          }
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
-     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     else { _b_fail = YES, _error_str = "Missing input params" ; }
+	 
+     if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

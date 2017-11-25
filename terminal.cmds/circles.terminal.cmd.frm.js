@@ -305,14 +305,11 @@ function circles_terminal_cmd_frm()
              }
          }
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input expression" ;
-     }
+     else { _b_fail = YES, _error_str = "Missing input expression" ; }
 
      if ( _output_channel == OUTPUT_FUNCTION ) return _b_fail ? null : _fn_ret_val ;
      else if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     else if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
 }
 
 function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _formula_in, _accuracy, _output_channel, _classification )

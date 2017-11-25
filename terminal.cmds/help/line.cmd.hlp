@@ -17,18 +17,21 @@
 <lightblue>%rec%</lightblue>
 <cadetblue>If mentioned, record this line for further display after renderings</cadetblue>
 
-<lightblue>line (0,0) (1,2) drawcolor blue zplane</lightblue>
+<lightblue>line (0,0) (1,2) drawcolor:blue zplane</lightblue>
 <cadetblue>draw a segment on the Z-plane in blue</cadetblue>
 
-<lightblue>line (0,0) (1,2) drawcolor blue zplane rec storagesubset:lines</lightblue>
+<lightblue>line (0,0) (1,2) drawcolor:blue zplane rec storagesubset:lines</lightblue>
 <cadetblue>same as above, but the line is recorded into the 'lines' storage space (if existing)</cadetblue>
 <white>same as above, but the line is recorded into the 'lines' storage space (if existing)</white>
 
-<lightblue>line (0,0) (1,2) (0.4,-0.4) drawcolor blue fillcolor cyan zplane $line1 rec</lightblue>
+<lightblue>line (0,0) (1,2) (0.4,-0.4) drawcolor:blue fillcolor:cyan zplane $line1 rec</lightblue>
 <cadetblue>draw a broken line on the Z-plane in blue, close it and paint the interior in cyan, recorded as $line1</cadetblue>
 
-<lightblue>line (0,0) (1,2) (1,-2) drawcolor blue zplane fillcolor yellow close rec</lightblue>
-<cadetblue>one more example</cadetblue>
+<lightblue>line (0,0) (1,2) (1,-2) drawcolor:blue zplane fillcolor:yellow close rec</lightblue>
+<cadetblue>one more example, here recorded into the</cadetblue> <snow>preset figures array</snow>
+
+<lightblue>line (0,0) (1,2) drawcolor:blue zplane thickness:4 opacity:0.8 rec</lightblue>
+<cadetblue>another example with opacity (ranging from 0 to 1 )</cadetblue>
 
 <lightblue>Line release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>
@@ -38,7 +41,7 @@
 
 <yellow>------------- NOTES ----------------</yellow>
 <turquoise>Note (1)</turquoise>
-<cadetblue>%linethickness% %opacity% must be input according to the above params sequence</cadetblue>
+<cadetblue>%thickness% %opacity% must be input according to the above params sequence</cadetblue>
 <turquoise>Note (2)</turquoise> <cadetblue>$labels can be used to refer to figures, as alternative to indexes</cadetblue>
 <turquoise>Note (3)</turquoise>
 <cadetblue>if you want to update later a line entry, use these parameters</cadetblue>

@@ -66,7 +66,7 @@ function circles_terminal_cmd_auto()
             }
         }
         else if ( _action.strcmp( "release" ) ) circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-        else if ( !_b_fail && _items_n > 0 )
+        else if ( !_b_fail )
         {
             var _all = _params_assoc_array['all'], _mode = _params_assoc_array['mode'] ;
 
@@ -140,10 +140,10 @@ function circles_terminal_cmd_auto()
                 }
             }
         }
-		else if ( _items_n == 0 ) { _b_fail = YES, _error_str = "'Auto' cmd aborted: the list of seeds is empty." ; }
     }
     else { _b_fail = YES, _error_str = "Missing input params" ; }
-    if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+	
+    if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

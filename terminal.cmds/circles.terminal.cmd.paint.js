@@ -147,24 +147,18 @@ function circles_terminal_cmd_paint()
                        {
                            circles_lib_output( _output_channel, DISPATCH_INFO, "Refreshing the Z-plane", _par_1, _cmd_tag );
                            _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
-											     var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-												   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
-												   if ( _ret_id == RET_ERROR )
-												   {
-													 		 _b_fail = YES, _error_str = _ret_msg ;
-													 }
+							var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
+							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
+							if ( _ret_id == RET_ERROR ) { _b_fail = YES, _error_str = _ret_msg ; }
                        }
                   }
                   break ;
              }
          }
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
+     else { _b_fail = YES, _error_str = "Missing input params" ; }
 
-     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

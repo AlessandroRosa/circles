@@ -560,10 +560,7 @@ function circles_terminal_cmd_probability()
               }
          }
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
+     else { _b_fail = YES, _error_str = "Missing input params" ; }
 
      if ( _b_fail && _error_str.length > 0 && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;

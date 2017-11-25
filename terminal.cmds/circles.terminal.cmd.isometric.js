@@ -28,47 +28,47 @@ function circles_terminal_cmd_isometric()
 		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
-         _params_assoc_array['action'] = "" ;
-         _params_assoc_array['all'] = 0 ;
-         _params_assoc_array["copy"] = NO ;
-         _params_assoc_array['draw'] = NO ;
-         _params_assoc_array['drawcolor'] = "" ;
-         _params_assoc_array['dump'] = NO ;
-         _params_assoc_array['dump_array'] = null ;
-         _params_assoc_array['dump_operator_index'] = UNDET ;
-         _params_assoc_array['fillcolor'] = "" ;
-         _params_assoc_array['help'] = NO ;
-         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-         _params_assoc_array['keywords'] = NO ;
-         _params_assoc_array['index'] = null ;
-         _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-         _params_assoc_array['symbol'] = null ;
-         _params_assoc_array['plane'] = _glob_target_plane ;
-         _params_assoc_array['table'] = 0 ;
-         _params_assoc_array['params'] = [] ;
-         _params_assoc_array['roundto'] = _glob_accuracy ;
-         _params_assoc_array['word'] = "" ;
-         _params_assoc_array['rec'] = NO ;
+        _params_assoc_array['action'] = "" ;
+        _params_assoc_array['all'] = 0 ;
+        _params_assoc_array["copy"] = NO ;
+        _params_assoc_array['draw'] = NO ;
+        _params_assoc_array['drawcolor'] = "" ;
+        _params_assoc_array['dump'] = NO ;
+        _params_assoc_array['dump_array'] = null ;
+        _params_assoc_array['dump_operator_index'] = UNDET ;
+        _params_assoc_array['fillcolor'] = "" ;
+        _params_assoc_array['help'] = NO ;
+        _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
+        _params_assoc_array['keywords'] = NO ;
+        _params_assoc_array['index'] = null ;
+        _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
+        _params_assoc_array['symbol'] = null ;
+        _params_assoc_array['plane'] = _glob_target_plane ;
+        _params_assoc_array['table'] = 0 ;
+        _params_assoc_array['params'] = [] ;
+        _params_assoc_array['roundto'] = _glob_accuracy ;
+        _params_assoc_array['word'] = "" ;
+        _params_assoc_array['rec'] = NO ;
 
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " ); 
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "show", "compute", "wplane", "zplane", "rec", "copy", "all",
-                                            "draw", "table", "release", "html", "seeds", "generators" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+        // pre-scan for levenshtein correction
+    	var _local_cmds_params_array = [];
+    	_local_cmds_params_array.push( "show", "compute", "wplane", "zplane", "rec", "copy", "all",
+                                       "draw", "table", "release", "html", "seeds", "generators" );
+        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
-				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-				 _params_assoc_array['dump_operator_index'] = _dump_operator_index ;
-				 _params_assoc_array['dump_array'] = [];
+		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
+		_params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+		_params_assoc_array['dump_operator_index'] = _dump_operator_index ;
+		_params_assoc_array['dump_array'] = [];
 				
-				 // gather all dump params into one array
-         if ( _params_assoc_array['dump'] )
-         {
-    				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-    				 if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
-         }
+		// gather all dump params into one array
+        if ( _params_assoc_array['dump'] )
+        {
+			for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+			if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
+        }
 				 
          var _p ;
          // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
@@ -369,21 +369,15 @@ function circles_terminal_cmd_isometric()
                           circles_lib_output( _output_channel, _b_fail ? DISPATCH_ERROR : DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                        }
                   }
-                  else
-                  {
-                      _b_fail = YES, _error_str = _ERR_00_00 ;
-                  }
+                  else { _b_fail = YES, _error_str = _ERR_00_00 ; }
                   break ;
                   default: _b_fail = YES, _error_str = "Missing input action" ; break ;
              }
          }
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
-
-     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     else { _b_fail = YES, _error_str = "Missing input params" ; }
+	 
+     if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

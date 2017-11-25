@@ -414,7 +414,7 @@ function circles_terminal_cmd_figures()
                          _rec_chunk['propertiesmask'] = 0 ;
                          circles_lib_figures_add( _rec_chunk );
                          circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Items #"+( _params_assoc_array['input_values'].join( "," ) )+" connected into a new polyline figure", _par_1, _cmd_tag );
-                         circles_lib_canvas_after_process_figures( null, YES, _current_figures_plane_type );
+                         circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                     }
                 }
                 else if ( _n_input_index == 0 )
@@ -536,7 +536,7 @@ function circles_terminal_cmd_figures()
                               _glob_figures_array[_i]['label'] = "" ;
                          }
 
-                         circles_lib_canvas_after_process_figures( null, YES, _current_figures_plane_type );
+                         circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                          circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Disconnection performed", _par_1, _cmd_tag );
                     }
                 }
@@ -585,11 +585,11 @@ function circles_terminal_cmd_figures()
                      }
                 }
                 
-                circles_lib_canvas_after_process_figures( _filter_array, YES, _current_figures_plane_type );
+                circles_lib_canvas_afterrender_figures_draw( _filter_array, YES, _current_figures_plane_type );
                 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Drawing "+( ( _n_input_index > 0 ) ? "filtered" : "" )+" figures list", _par_1, _cmd_tag );
                 break ;
                 case "filter":
-                if ( safe_size( _index_vals_array, 0 ) > 0 ) circles_lib_canvas_after_process_figures( _index_vals_array, YES, _current_figures_plane_type );
+                if ( safe_size( _index_vals_array, 0 ) > 0 ) circles_lib_canvas_afterrender_figures_draw( _index_vals_array, YES, _current_figures_plane_type );
                 else
                 {
                      _b_fail = YES, _error_str = "Can't isolate: no input entries" ;
@@ -673,7 +673,7 @@ function circles_terminal_cmd_figures()
 
                              _rec_chunk['obj'] = _rect ;
                              circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Input rects have been merged", _par_1, _cmd_tag );
-                             circles_lib_canvas_after_process_figures( null, YES, _current_figures_plane_type );
+                             circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                          }
                      }
                 }
@@ -767,7 +767,7 @@ function circles_terminal_cmd_figures()
                                _b_fail = YES, _error_str = _msg ;
                             }
 
-                            if ( _b_go ) circles_lib_canvas_after_process_figures( null, YES, _current_figures_plane_type );
+                            if ( _b_go ) circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                          }
                     }
                 }
@@ -835,7 +835,7 @@ function circles_terminal_cmd_figures()
                                         if ( _params_assoc_array['close'] != null ) _rec_chunk['close'] = YES ;
                                         else if ( _params_assoc_array['open'] != null ) _rec_chunk['close'] = NO ;
                                         circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Polydelete of nodes "+_nodes_values_array.join( "," )+" performed on entry " + _item_index, _par_1, _cmd_tag );
-                                        circles_lib_canvas_after_process_figures( null, YES, _current_figures_plane_type );
+                                        circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                                     }
                                }
                                else
@@ -943,7 +943,7 @@ function circles_terminal_cmd_figures()
                                            }
     
                                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Shift performed with success", _par_1, _cmd_tag );
-                                           circles_lib_canvas_after_process_figures( null, YES, _current_figures_plane_type );
+                                           circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                                        }
                                    }
                                    else if ( _is_rect || _is_circle || _is_point )
@@ -966,7 +966,7 @@ function circles_terminal_cmd_figures()
                                            circles_lib_output( _output_channel, DISPATCH_INFO, "Shifting "+( ( _all ) ? "all" : "input" )+" input "+_figure_label+" by " + _shift_point.output( "cartesian" ), _par_1, _cmd_tag );
                                            if ( _is_rect || _is_circle || _is_point ) _primitive_obj.shift( _shift_point.x, _shift_point.y );
                                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Shift performed with success", _par_1, _cmd_tag );
-                                           circles_lib_canvas_after_process_figures( null, YES, _current_figures_plane_type );
+                                           circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                                        }
                                    }
                                    else
@@ -1053,7 +1053,7 @@ function circles_terminal_cmd_figures()
                                         {
                                             _rec_chunk['obj'] = _accepted_array.clone().concat( _discarded_array.clone() );
                                             circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Polysort performed on entry " + _item_index, _par_1, _cmd_tag );
-                                            circles_lib_canvas_after_process_figures( null, YES, _current_figures_plane_type );
+                                            circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                                         }
                                    }
                                    else
@@ -1145,7 +1145,7 @@ function circles_terminal_cmd_figures()
                                    {
                                        _ret_flag = YES ;
                                        circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+_item_index+" (poly)updated", _par_1, _cmd_tag );
-                                       circles_lib_canvas_after_process_figures( null, YES, _current_figures_plane_type );
+                                       circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                                    }
                                }
                                else
@@ -1249,7 +1249,7 @@ function circles_terminal_cmd_figures()
                          circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding hash tags", _par_1, _cmd_tag );
                          circles_lib_figures_rehash();
                          circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Sort performed with success", _par_1, _cmd_tag );
-                         circles_lib_canvas_after_process_figures( null, YES, _current_figures_plane_type );
+                         circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                     }
                 }
                 else
@@ -1273,7 +1273,7 @@ function circles_terminal_cmd_figures()
                         _glob_figures_array[ _zerobased_index_1 ] = _entry_2 ;
                         _glob_figures_array[ _zerobased_index_2 ] = _entry_1 ;
                         circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Swap performed", _par_1, _cmd_tag );
-                        circles_lib_canvas_after_process_figures( null, YES, _current_figures_plane_type );
+                        circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                     }
                     else
                     {
@@ -1292,11 +1292,11 @@ function circles_terminal_cmd_figures()
 		 								 _b_fail = _ret_chunk[0], _error_str = _ret_chunk[1] ;
 								}
                 break ;
-			          default: break ;
+			    default: break ;
            }
      }
 
-     if ( _b_fail )
+     if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION )
      circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;

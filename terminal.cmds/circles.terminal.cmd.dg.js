@@ -627,10 +627,7 @@ function circles_terminal_cmd_dg()
                        _error_str += _glob_crlf + "The word '"+_word+"' includes letters not matching current alphabet: " + _alphabet.join( ", " );
                     }
                 }
-                else
-                {
-                    _b_fail = YES, _error_str = "Missing words to build up the new subgroup" ;
-                }
+                else { _b_fail = YES, _error_str = "Missing words to build up the new subgroup" ; }
                 break ;
                 default:
                 _b_fail = YES, _error_str = "Unknown action '"+_action+"'" ;
@@ -638,12 +635,9 @@ function circles_terminal_cmd_dg()
            }
         }
     }
-    else
-    {
-        _b_fail = YES, _error_str = "Missing input params" ;
-    }
+    else { _b_fail = YES, _error_str = "Missing input params" ; }
 
-    if ( _b_fail )
+    if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION )
     circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
@@ -817,10 +811,7 @@ function _dg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
                if ( _b_ret != RET_ERROR && _service_array.includes( "refresh" ) )
                circles_lib_terminal_interpreter( "refresh zplane silent clean", _glob_terminal, _output_channel );
           }
-          else
-          {
-               _b_fail = YES, _error_str = "Input params validation has failed. Check entries again." ;
-          }
+          else { _b_fail = YES, _error_str = "Input params validation has failed. Check entries again." ; }
     }
 
     return [ _b_fail ? RET_ERROR : RET_OK, _error_str ] ;

@@ -50,19 +50,19 @@ function circles_terminal_cmd_interface()
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
-             else
-             {
+            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+            else
+            {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
                  circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-             }
+            }
          }
          else
          {
-             var _action = _params_assoc_array['action'] ;
-             switch( _action )
-             {
+            var _action = _params_assoc_array['action'] ;
+            switch( _action )
+            {
                   case "default":
 									var _params_array = [] ;
 									 	  _params_array['prepromptquestion'] = null ;
@@ -147,15 +147,12 @@ function circles_terminal_cmd_interface()
 							    circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                   break ;
                   default: break ;
-             }
+            }
          }
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing params" ;
-     }
+     else { _b_fail = YES, _error_str = "Missing params" ; }
      
-     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

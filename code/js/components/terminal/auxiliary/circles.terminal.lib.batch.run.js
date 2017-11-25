@@ -132,7 +132,7 @@ function circles_lib_batch_compiler_run( _script_ctrl_id, _debug_ctrl_id, _id_bo
              circles_lib_output( OUTPUT_SCRIPT, DISPATCH_INFO, "Run has been aborted by user.", _debug_ctrl_id );
              break ;
           }
-          else if ( _glob_terminal_critical_halt == YES && _output_flag )
+          else if ( _glob_terminal_critical_halt == YES && _glob_terminal_errors_switch && _output_flag )
           {
              _msg = "A critical error has been caught.\nCode run has been halted.\n" ;
              _msg += _glob_terminal_critical_halt_msg.length > 0 ? _glob_terminal_critical_halt_msg : "unknown reason" ;

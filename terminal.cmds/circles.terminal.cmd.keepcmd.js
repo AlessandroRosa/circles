@@ -1,29 +1,29 @@
 function circles_terminal_cmd_keepcmd()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-         // 1: toggle echo off (temporaneously, i.e. this cmd run life)
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    // 1: toggle echo off (temporaneously, i.e. this cmd run life)
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-     var _this_cmd_tag = "keepcmd" ;
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-		 var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _help = NO ;
-     var _fn_ret_val = null ;
-     var _params_assoc_array = [];
+    var _this_cmd_tag = "keepcmd" ;
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+	var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _help = NO ;
+    var _fn_ret_val = null ;
+    var _params_assoc_array = [];
 
-		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _params.length > 0 )
-     {
+	if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    if ( _params.length > 0 )
+    {
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
@@ -107,16 +107,13 @@ function circles_terminal_cmd_keepcmd()
                   default: break ;
              }
          }
-     }
-		 else
-		 {
-		 		 _b_fail = YES, _error_str = "No input cmd to keep" ;
-		 }	
+    }
+	else { _b_fail = YES, _error_str = "No input cmd to keep" ; }	
 				
-     if ( !_b_fail && _glob_terminal_echo_flag && !_help && _glob_terminal_keepcmd.length > 0 )
-         circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Currently kept command is</lightgray> <white>" + _glob_terminal_keepcmd + "</white>", _par_1, _this_cmd_tag );
-     else if ( _b_fail && _glob_terminal_echo_flag )
-         circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _this_cmd_tag );
-     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+    if ( !_b_fail && _glob_terminal_echo_flag && !_help && _glob_terminal_keepcmd.length > 0 )
+        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Currently kept command is</lightgray> <white>" + _glob_terminal_keepcmd + "</white>", _par_1, _this_cmd_tag );
+    else if ( _b_fail && _glob_terminal_echo_flag )
+        circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _this_cmd_tag );
+    if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

@@ -157,33 +157,30 @@ function circles_terminal_cmd_ifs()
          }
          else if ( !_b_fail )
          {
-						 var _action = _params_assoc_array['action'] ;
-             switch( _action )
-             {
-           			case "options":
-           			var _msg  = "<lightblue>Use last point feature</lightblue> "+( _glob_use_last_pt ? "<snow>Active</snow>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
-           					_msg += "<lightblue>Last recorded point</lightblue> <snow>"+_glob_last_pt.formula()+"</snow>" + _glob_crlf ;
-           					_msg += "<lightblue>Scheduled rendering timer</lightblue> "+( _glob_scheduled_rendering_flag ? "<snow>Active</snow>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
-           					_msg += "<lightblue>Scheduled rendering interval</lightblue> "+( _glob_scheduled_rendering_interval + " minute" + ( _glob_scheduled_rendering_interval==1?"":"s" ) )+ _glob_crlf ;
-           					_msg += "<lightblue>Density scanner</lightblue> "+( _glob_density_scan_flag ? "<snow>Active</snow>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
+			var _action = _params_assoc_array['action'] ;
+            switch( _action )
+            {
+           		case "options":
+           		var _msg  = "<lightblue>Use last point feature</lightblue> "+( _glob_use_last_pt ? "<snow>Active</snow>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
+           			_msg += "<lightblue>Last recorded point</lightblue> <snow>"+_glob_last_pt.formula()+"</snow>" + _glob_crlf ;
+           			_msg += "<lightblue>Scheduled rendering timer</lightblue> "+( _glob_scheduled_rendering_flag ? "<snow>Active</snow>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
+           			_msg += "<lightblue>Scheduled rendering interval</lightblue> "+( _glob_scheduled_rendering_interval + " minute" + ( _glob_scheduled_rendering_interval==1?"":"s" ) )+ _glob_crlf ;
+           			_msg += "<lightblue>Density scanner</lightblue> "+( _glob_density_scan_flag ? "<snow>Active</snow>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
    	            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-           			break ;
-           			case "panel":
+           		break ;
+           		case "panel":
                 circles_lib_plugin_load('forms','general.options', NO, 1 ) ;
-           			break ;
+           		break ;
    	            case "release":
    	            circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
    	            break ;
-				        default: break ;
-             }
+				default: break ;
+            }
          }
      }
-     else if ( _params.length == 0 )
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
+     else if ( _params.length == 0 ) { _b_fail = YES, _error_str = "Missing input params" ; }
      
-     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 } 

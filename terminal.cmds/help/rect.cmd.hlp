@@ -23,16 +23,16 @@
 <lightblue>%rec%</lightblue></snow>
 <cadetblue>If mentioned, record this rect for further display after renderings</cadetblue>
 
-<lightblue>rect (0,0) (1,2) drawcolor blue fillcolor yellow zplane</lightblue>
+<lightblue>rect (0,0) (1,2) drawcolor:blue fillcolor:yellow zplane opacity:0.7</lightblue>
 <cadetblue>(corner points input) plot rect in the Z-plane and paint it yellow with blue border</cadetblue>
 
-<lightblue>rect (0,0) 1 4 drawcolor blue fillcolor yellow thick 3 zplane $rect1 rec</lightblue>
-<cadetblue>(width/height input) plot rect with sides 1 and 4 in the Z-plane, paint it yellow with blue border and set line thickness to 3, then record it with label '$rect1'</cadetblue>
+<lightblue>rect (0,0) 1 4 drawcolor:blue fillcolor:yellow thickness:3 zplane $rect1 rec</lightblue>
+<cadetblue>(width/height input) plot rect with sides 1 and 4 in the Z-plane, paint it yellow with blue border and set line thickness to 3, then record it with label '$rect1' into the </cadetblue> <snow>preset figures array</snow>
 
-<lightblue>rect (0,0) 1 4 drawcolor blue fillcolor yellow thick 3 zplane $rect1 storagein</lightblue>
+<lightblue>rect (0,0) 1 4 drawcolor:blue fillcolor:yellow thickness:3 zplane $rect1 storagein</lightblue>
 <cadetblue>same as above, but the line is saved into the default storage space</cadetblue>
 
-<lightblue>rect (0,0) 1 4 drawcolor blue fillcolor yellow thick 3 zplane $rect1 storagein storagesubset:rects</lightblue>
+<lightblue>rect (0,0) 1 4 drawcolor:blue fillcolor:yellow thickness:3 zplane $rect1 storagein storagesubset:rects</lightblue>
 <cadetblue>same as above, but the line is saved into the 'rects' storage space (if existing)</cadetblue>
 
 <lightblue>rect release</lightblue>
@@ -45,4 +45,4 @@
 <turquoise>Note (3)</turquoise> <cadetblue>$labels can be used to refer to figures, as alternative to indexes</cadetblue>
 <turquoise>Note (4)</turquoise> <cadetblue>if you want to update later a rect entry, use these parameters</cadetblue>
 <cadetblue>in'</cadetblue><white>figures</white><cadetblue>' cmd with '</cadetblue><white>update</white><cadetblue>' action</cadetblue>
-<snow>lefttop rightbottom center width height draw drawcolor fill fillcolor opacity linethickness borderradius</snow>
+<snow>lefttop rightbottom center width height draw drawcolor:fill fillcolor:opacity linethickness borderradius</snow>

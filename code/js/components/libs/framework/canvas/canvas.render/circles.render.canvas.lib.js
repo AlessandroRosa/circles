@@ -116,7 +116,7 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper = zplane_sm, _select
             if ( _glob_zplane_work_layer_placeholder.is_visible() || is_html_canvas( _work_canvas ) )
 			{
                 if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display( null, _work_canvas, null, NO, NO, _output_channel );
-                circles_lib_canvas_after_process_figures( null, NO, Z_PLANE );
+                circles_lib_canvas_afterrender_figures_draw( null, NO, Z_PLANE );
 			}
             break ;
 		    default: break ;
@@ -312,7 +312,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
             case ROLE_WORK: // work layer
             if ( _glob_wplane_work_layer_placeholder.is_visible() )
             {
-                circles_lib_canvas_after_process_figures( null, NO, W_PLANE );
+                circles_lib_canvas_afterrender_figures_draw( null, NO, W_PLANE );
             }
             break ;
 		        default: break ;

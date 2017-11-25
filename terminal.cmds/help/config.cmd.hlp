@@ -116,12 +116,19 @@
 
 <yellow>config set title these-disks-are-made-for-packing</yellow>
 
+<banana>ERRORS</banana>
+<banana>toggle on/off the errors in the terminal and in the script debug windows</banana>
+<lightblue>usage</lightblue> <snow>errors yes | no</snow>
+
+<yellow>config set errors no</yellow>
+<cadetblue>suppress error messages</cadetblue>
+
 <banana>WARNINGS</banana>
-<banana>toggle on/off the warnings in debug window</banana>
+<banana>toggle on/off the warnings in the terminal and in the script debug windows</banana>
 <lightblue>usage</lightblue> <snow>warnings yes | no</snow>
 
 <yellow>config set warnings no</yellow>
-<cadetblue>disable warnings: it could be useful to skip them while debugging batch scripts</cadetblue>
+<cadetblue>suppress warning messages: it could be useful to skip them while debugging batch scripts</cadetblue>
 
 <banana>RESET</banana>
 <lightblue>config set %property% reset</lightblue>

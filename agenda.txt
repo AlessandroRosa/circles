@@ -2,8 +2,6 @@
 * terminal cmd 'canvas':
   - think about the chance to add custom placeholders for custom canvas
 
-* _glob_figures_array is not drawn for objects lying on the w-plane	
-	
 * plugin : after dropdown selections of preset config, grid of
   z-plane and of w-plane shall be redrawn again
 
@@ -14,6 +12,11 @@
 
 -------------- FIX SOON -----------------------
   
+* demo 16:
+  - label for broken line
+  - add a yellow triangle with orange fill on the left top corner
+  - add some points red draw / white fill
+
 * Last checked terminal cmd: dg
   
 * Listings:

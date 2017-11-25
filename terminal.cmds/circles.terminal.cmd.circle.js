@@ -116,9 +116,13 @@ function circles_terminal_cmd_circle()
 			}
 			else if ( _p.toLowerCase().start_with( "radius:" ) && _params_assoc_array['settings']['radius'] == null )
 			{
-				_params_assoc_array['settings']['radius'] = safe_float( _p.replace( /radius:/gi, "" ), 1 ) ;
-				_msg = "<lightblue>Radius has been set to</lightblue> <snow>"+_params_assoc_array['settings']['radius']+"</snow>" ;
-				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				_params_assoc_array['settings']['radius'] = safe_string( _p.replace( /radius:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['radius'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['radius']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid radius definition" ; break ; }
 			}
 			else if ( _p.toLowerCase().start_with( "drawcolor:" ) && _params_assoc_array['settings']['drawcolor'] == null )
 			{
@@ -142,15 +146,23 @@ function circles_terminal_cmd_circle()
 			}
 			else if ( _p.toLowerCase().start_with( "border:" ) && _params_assoc_array['settings']['border'] == null )
 			{
-				_params_assoc_array['settings']['border'] = safe_int( _p.replace( /border:/gi, "" ), 1 ) ;
-				_msg = "<lightblue>Border has been set to</lightblue> <snow>"+_params_assoc_array['settings']['border']+"</snow>" ;
-				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				_params_assoc_array['settings']['border'] = safe_string( _p.replace( /border:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['border'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['border']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid line thickness definition" ; break ; }
 			}
 			else if ( _p.toLowerCase().start_with( "opacity:" ) && _params_assoc_array['settings']['opacity'] == null )
 			{
-				_params_assoc_array['settings']['opacity'] = safe_float( _p.replace( /opacity:/gi, "" ), 1 ) ;
-				_msg = "<lightblue>Opacity has been set to</lightblue> <snow>"+_params_assoc_array['settings']['opacity']+"</snow>" ;
-				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				_params_assoc_array['settings']['opacity'] = safe_string( _p.replace( /opacity:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['opacity'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Opacity has been set to</lightblue> <snow>"+_params_assoc_array['settings']['opacity']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid opacity definition" ; break ; }
 			}
 			else if ( _p.toLowerCase().start_with( "label:" ) )
 			{
@@ -158,7 +170,7 @@ function circles_terminal_cmd_circle()
 				_msg = "<lightblue>Label has been set to</lightblue> <snow>"+_params_assoc_array['settings']['label']+"</snow>" ;
 				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 			}
-            else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
+            else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) && _params_assoc_array['settings']['center'] == null )
             {
                 if ( !is_point( _params_assoc_array['settings']['center'] ) )
                 {
@@ -247,6 +259,8 @@ function circles_terminal_cmd_circle()
                    if ( _linewidth == 0 ) { _draw = NO ; _drawcolor = "" ; }
                    var _opacity = ( _params_assoc_array['settings']['opacity'] == null ) ? 1.0 : safe_float( _params_assoc_array['settings']['opacity'], DEFAULT_MAX_OPACITY );
                     
+					console.log( "circle", _params_assoc_array['settings']['center'], _params_assoc_array['settings']['radius'],
+                   								 _draw, _fill, _drawcolor, _fillcolor, _linewidth );
                    var _circle_obj = new circle( _params_assoc_array['settings']['center'], _params_assoc_array['settings']['radius'],
                    								 _draw, _fill, _drawcolor, _fillcolor, _linewidth );
                    switch( _params_assoc_array['settings']['plane'] )
@@ -318,8 +332,7 @@ function circles_terminal_cmd_circle()
          }
     }
 
-    if ( _b_fail )
-    circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

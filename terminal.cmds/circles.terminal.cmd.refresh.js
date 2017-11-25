@@ -1,86 +1,85 @@
 function circles_terminal_cmd_refresh()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _params_assoc_array = [];
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _params_assoc_array = [];
 
-		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _params.length > 0 || _glob_target_plane != NO_PLANE )
-     {
-         _params_assoc_array['help'] = NO ;
-         _params_assoc_array['keywords'] = NO ;
-         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-         _params_assoc_array['plane'] = _glob_target_plane ;
-         _params_assoc_array['clean'] = NO ;
-         _params_assoc_array['render'] = YES ;
-         _params_assoc_array['createdict'] = YES ;
-         _params_assoc_array['silent'] = _glob_terminal_silent == DISABLED ? NO : _glob_terminal_silent ;
+	if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    if ( _params.length > 0 || _glob_target_plane != NO_PLANE )
+    {
+        _params_assoc_array['help'] = NO ;
+        _params_assoc_array['keywords'] = NO ;
+        _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
+        _params_assoc_array['plane'] = _glob_target_plane ;
+        _params_assoc_array['clean'] = NO ;
+        _params_assoc_array['render'] = YES ;
+        _params_assoc_array['createdict'] = YES ;
+        _params_assoc_array['silent'] = _glob_terminal_silent == DISABLED ? NO : _glob_terminal_silent ;
          
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); 
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "all", "freedraw", "bip", "clean", "createdict", "keepdict",
-                                            "freedraw", "grid", "wplane", "norender", "rendering", "silent",
-                                            "wplane", "zplane", "work", "release", "html", "help" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
-         var _p ;
-         for( var _i = 0 ; _i < _params_array.length ; _i++ )
-         {
-              _p = _params_array[_i] ;
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = YES ;
-              else if ( _p.is_one_of_i( "createdict", "keepdict" ) ) _glob_dict_create = _params_assoc_array['createdict'] = _p.stricmp( "createdict" );
-              else if ( _p.stricmp( "all" ) ) _params_assoc_array['plane'] = ALL_PLANES ;
-              else if ( _p.stricmp( "zplane" ) ) _params_assoc_array['plane'] = Z_PLANE ;
-              else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['plane'] = W_PLANE ;
-              else if ( _p.stricmp( "bip" ) ) _params_assoc_array['plane'] = BIP_BOX ;
-              else if ( _p.stricmp( "clean" ) ) _params_assoc_array['clean'] = YES ;
-              else if ( _p.stricmp( "silent" ) ) _params_assoc_array['silent'] = YES ;
-              else if ( _p.stricmp( "norender" ) ) _params_assoc_array['render'] = NO ;
-              else if ( _p.stricmp( "nodict" ) ) _params_assoc_array['dict'] = YES ;
-              else if ( _p.is_one_of_i( "grid", "rendering", "freedraw", "work" ) ) _params_assoc_array['layer'] = _p ;
-              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
-         }
+        var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+        _params_array.clean_from( " " ); 
+        // pre-scan for levenshtein correction
+    	var _local_cmds_params_array = [];
+    		_local_cmds_params_array.push( "all", "freedraw", "bip", "clean", "createdict", "keepdict",
+			"freedraw", "grid", "wplane", "norender", "rendering", "silent",
+            "wplane", "zplane", "work", "release", "html", "help" );
+        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+        var _p ;
+        for( var _i = 0 ; _i < _params_array.length ; _i++ )
+        {
+            _p = _params_array[_i] ;
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = YES ;
+            else if ( _p.is_one_of_i( "createdict", "keepdict" ) ) _glob_dict_create = _params_assoc_array['createdict'] = _p.stricmp( "createdict" );
+            else if ( _p.stricmp( "all" ) ) _params_assoc_array['plane'] = ALL_PLANES ;
+            else if ( _p.stricmp( "zplane" ) ) _params_assoc_array['plane'] = Z_PLANE ;
+            else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['plane'] = W_PLANE ;
+            else if ( _p.stricmp( "bip" ) ) _params_assoc_array['plane'] = BIP_BOX ;
+            else if ( _p.stricmp( "clean" ) ) _params_assoc_array['clean'] = YES ;
+            else if ( _p.stricmp( "silent" ) ) _params_assoc_array['silent'] = YES ;
+            else if ( _p.stricmp( "norender" ) ) _params_assoc_array['render'] = NO ;
+            else if ( _p.stricmp( "nodict" ) ) _params_assoc_array['dict'] = YES ;
+            else if ( _p.is_one_of_i( "grid", "rendering", "freedraw", "work" ) ) _params_assoc_array['layer'] = _p ;
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
+        }
 
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
-         else if ( _params_assoc_array['keywords'] )
-         {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
-             else
-             {
-                 _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-             }
-         }
-         else if ( _glob_method == METHOD_NONE && !_clean )
-         {
-             _glob_terminal_critical_halt = _b_fail = YES ;
-             _glob_terminal_critical_halt_msg = _error_str = "Missing method declaration" ;
-				 }
-         else if ( !_b_fail )
-         {
-             var _action = _params_assoc_array['action'] ;
-             var _clean = _params_assoc_array['clean'] ;
-             switch( _action )
-             {
+        if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
+        else if ( _params_assoc_array['keywords'] )
+        {
+            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+            else
+            {
+                _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
+                circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+            }
+        }
+        else if ( _glob_method == METHOD_NONE && !_clean && _glob_terminal_errors_switch )
+        {
+            _glob_terminal_critical_halt = _b_fail = YES ;
+            _glob_terminal_critical_halt_msg = _error_str = "Missing method declaration" ;
+		}
+        else if ( !_b_fail )
+        {
+            var _action = _params_assoc_array['action'], _clean = _params_assoc_array['clean'] ;
+            switch( _action )
+            {
                   case "release":
                   circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
@@ -93,10 +92,7 @@ function circles_terminal_cmd_refresh()
                   if ( circles_lib_count_dict() == 0 && _glob_dict_create == NO &&
                        _glob_method.is_one_of( METHOD_INVERSION, METHOD_ALGEBRAIC ) &&
                        _glob_process != PROCESS_RANDOM )
-                  {
-                      var _msg = "Current input dictionary is empty" ;
-                      circles_lib_output( _output_channel, DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
-                  }
+                      circles_lib_output( _output_channel, DISPATCH_WARNING, "Current input dictionary is empty", _par_1, _cmd_tag );
                   
                   if ( _glob_terminal_run_code_from == RUN_CODE_FROM_TERMINAL && _plane == BIP_BOX )
                   {
@@ -104,10 +100,7 @@ function circles_terminal_cmd_refresh()
                        circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: 'bip' param running in terminal mode: correction to W-plane", _par_1, _cmd_tag );
                   }
                   else if ( _glob_terminal_run_code_from == RUN_CODE_FROM_OUTER_SRC && _plane.is_one_of( W_PLANE, ALL_PLANES ) )
-                  {
-                       //_plane = BIP_BOX ;
                        circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: 'wplane' param running in tiny rendering mode: correction to BIP box", _par_1, _cmd_tag );
-                  }
                   
                   if ( _plane != NO_PLANE )
                   {
@@ -185,7 +178,7 @@ function circles_terminal_cmd_refresh()
                                   if ( _ret_id )
                                   {
                                        circles_lib_canvas_after_process_main();
-                                       circles_lib_canvas_after_process_figures( null, _clean, W_PLANE );
+                                       circles_lib_canvas_afterrender_figures_draw( null, _clean, W_PLANE );
                                   }
                                   circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                               }
@@ -232,7 +225,7 @@ function circles_terminal_cmd_refresh()
                                    _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_work_layer_placeholder, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _output_channel );
                                    _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                                    _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
-                                   if ( _ret_id ) circles_lib_canvas_after_process_figures( null, _clean, W_PLANE );
+                                   if ( _ret_id ) circles_lib_canvas_afterrender_figures_draw( null, _clean, W_PLANE );
     
                                    circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                               }
@@ -348,19 +341,19 @@ function circles_terminal_cmd_refresh()
                       if ( _clean ) circles_lib_output( _output_channel, DISPATCH_INFO, _plane_def + " has been cleaned", _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, _plane_def + ( ( _layer_ref != null ) ? "/" + _layer_ref + " " : "" ) + " has been refreshed", _par_1, _cmd_tag );
                   }
-                  else
+                  else if ( _glob_terminal_errors_switch )
                   {
                       _b_fail = YES, _error_str = "Missing input plane" ;
                       _glob_terminal_critical_halt = YES ;
                       _glob_terminal_critical_halt_msg = _error_str ;
                   }
                   break ;
-             }
-         }
-     }
+            }
+        }
+    }
 
-     _error_str = $.terminal.escape_brackets( _error_str ) ;
-     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+    _error_str = $.terminal.escape_brackets( _error_str ) ;
+    if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

@@ -225,7 +225,7 @@ function circles_terminal_cmd_init()
 		$('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
     }
      
-    if ( _b_fail )
+    if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION )
     {
 		_glob_items_to_init = YES ;
         $('[id$=initBTN]').css('color',COLOR_ERROR) ;

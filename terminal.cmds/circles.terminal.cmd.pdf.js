@@ -1,84 +1,84 @@
 function circles_terminal_cmd_pdf()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _context_plane_label = "" ;
-     var _help = NO ;
-     var _fn_ret_val = null ;
-     var _out_text_string = "" ;
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _context_plane_label = "" ;
+    var _help = NO ;
+    var _fn_ret_val = null ;
+    var _out_text_string = "" ;
 
-     var _params_assoc_array = [];
-         _params_assoc_array['dump'] = NO ;
-         _params_assoc_array['dump_array'] = null ;
-         _params_assoc_array['dump_operator_index'] = UNDET ;
-         _params_assoc_array['help'] = NO ;
-         _params_assoc_array['keywords'] = NO ;
-         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
+    var _params_assoc_array = [];
+        _params_assoc_array['dump'] = NO ;
+        _params_assoc_array['dump_array'] = null ;
+        _params_assoc_array['dump_operator_index'] = UNDET ;
+        _params_assoc_array['help'] = NO ;
+        _params_assoc_array['keywords'] = NO ;
+        _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
 
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); 
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "bip", "wplane", "zplane", "none", "showcanvas", "silent", "release", "html" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+    var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+    _params_array.clean_from( " " ); 
+    // pre-scan for levenshtein correction
+    var _local_cmds_params_array = [];
+		_local_cmds_params_array.push( "bip", "wplane", "zplane", "none", "showcanvas", "silent", "release", "html" );
+    circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
-				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_FROM );
-				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-				 _params_assoc_array['dump_operator_index'] = _dump_operator_index ;
-				 _params_assoc_array['dump_array'] = [];
-				 _params_assoc_array['dump_cmd_mode'] = TERMINAL_CMD_MODE_PASSIVE ;
+	var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_FROM );
+	_params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+	_params_assoc_array['dump_operator_index'] = _dump_operator_index ;
+	_params_assoc_array['dump_array'] = [];
+	_params_assoc_array['dump_cmd_mode'] = TERMINAL_CMD_MODE_PASSIVE ;
 
-         var _p ;
-         var _limit = ( _params_assoc_array['dump'] ) ? _dump_operator_index : _params_array.length ;
-         for( var _i = 0 ; _i < _limit ; _i++ )
-         {
-              _p = _params_array[_i].toLowerCase();
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.stricmp( "showcanvas" ) ) _params_assoc_array['showcanvas'] = YES ;
-              else if ( _p.stricmp( "silent" ) ) _params_assoc_array['silent'] = YES ;
-         }
+    var _p ;
+    var _limit = ( _params_assoc_array['dump'] ) ? _dump_operator_index : _params_array.length ;
+    for( var _i = 0 ; _i < _limit ; _i++ )
+    {
+        _p = _params_array[_i].toLowerCase();
+        if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
+        else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+        else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
+        else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+        else if ( _p.stricmp( "showcanvas" ) ) _params_assoc_array['showcanvas'] = YES ;
+        else if ( _p.stricmp( "silent" ) ) _params_assoc_array['silent'] = YES ;
+    }
 
-         if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-         else if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
-         else if ( _params_assoc_array['keywords'] )
-         {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
-             else
-             {
-                 _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-             }
-         }
-         else if ( !_params_assoc_array['dump'] && !_b_fail )
-         {
-             _b_fail = YES, _error_str = "Syntax error: no dump-from (<-) operator input" ;
-         }
-         else
-         {
-             var _action = _params_assoc_array['action'] ;
-             switch( _action )
-             {
-                 case "release":
-                 circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-                 break ;
-                 default:
-        				 // gather all dump parameters into one array
+    if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    else if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
+    else if ( _params_assoc_array['keywords'] )
+    {
+        var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+        if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+        else
+        {
+            _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
+            circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+        }
+    }
+    else if ( !_params_assoc_array['dump'] && !_b_fail )
+    {
+        _b_fail = YES, _error_str = "Syntax error: no dump-from (<-) operator input" ;
+    }
+    else
+    {
+        var _action = _params_assoc_array['action'] ;
+        switch( _action )
+        {
+            case "release":
+            circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+            break ;
+            default:
+			// gather all dump parameters into one array
                  var _token ;
                  var _caller_type = CALLER_TYPE_CMD ;
          				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
@@ -181,29 +181,22 @@ function circles_terminal_cmd_pdf()
                             var _canvas_role = "" ; // find role
     
                             var _ret_layer = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _layers_role_def );
-                            if ( _ret_layer == null )
-                            {
-                                _b_fail = YES, _error_str = "Missing canvas role reference" ;
-                            }
+                            if ( _ret_layer == null ) { _b_fail = YES, _error_str = "Missing canvas role reference" ; }
                             else
                             {
                                  var _canvas_role = _ret_layer.get_role_id() ;
                                  circles_lib_files_pdf_save_ask( circles_lib_files_pdf_save_canvas, _silent, _output_channel, CALLER_TYPE_CANVAS, _filename, _canvas_role, _cmd_ref );
                             }
                             break ;
-										        default: break ;
+							default: break ;
                        }
                  }
-                 else
-                 {
-                    _b_fail = YES, _error_str = "Missing data origin on the right of dump-from operator" ;
-                 }
+                 else { _b_fail = YES, _error_str = "Missing data origin on the right of dump-from operator" ; }
                  break ;
-             }
-         }
-         
+        }
+	}
 
-     if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+	if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

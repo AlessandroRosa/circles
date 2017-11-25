@@ -255,7 +255,7 @@ function circles_terminal_cmd_console()
     }
     else { _b_fail = YES, _error_str = "Missing input params" ; }
 
-    if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to apply command '"+_cmd_tag+"'.\nType '"+_cmd_tag+" /h' for syntax help", _par_1, _cmd_tag );
+    if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to apply command '"+_cmd_tag+"'.\nType '"+_cmd_tag+" /h' for syntax help", _par_1, _cmd_tag );
     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

@@ -124,98 +124,94 @@ function circles_lib_canvas_after_process_main()
 		 circles_lib_junctions_collection_destroy( 'after.render' ) ;
 }
 
-function circles_lib_canvas_after_process_figures( _filter_array, _b_clean, _plane_type )
+function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_clean = NO, _plane_type = NO_PLANE )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type ) ;
+    _plane_type = circles_lib_return_plane_type( _plane_type ), _b_clean = safe_int( _b_clean, NO );
     if ( !is_array( _filter_array ) ) _filter_array = [] ;
-    _b_clean = safe_int( _b_clean, NO );
+    if ( _b_clean && _plane_type.is_one_of( Z_PLANE ) ) circles_lib_canvas_clean( _glob_zplane_freedraw_layer_placeholder );
+    if ( _b_clean && _plane_type.is_one_of( W_PLANE ) ) circles_lib_canvas_clean( _glob_wplane_freedraw_layer_placeholder );
+    if ( _b_clean && _plane_type.is_one_of( BIP_BOX ) ) circles_lib_canvas_clean( _glob_bip_canvas );
 
-    if ( _b_clean && _plane_type.is_one_of( NO_PLANE, Z_PLANE ) ) circles_lib_canvas_clean( _glob_zplane_freedraw_layer_placeholder );
-    if ( _b_clean && _plane_type.is_one_of( NO_PLANE, W_PLANE ) ) circles_lib_canvas_clean( _glob_wplane_freedraw_layer_placeholder );
-    if ( _b_clean && _plane_type.is_one_of( NO_PLANE, BIP_BOX ) ) circles_lib_canvas_clean( _glob_bip_canvas );
+    if ( safe_size( _glob_figures_array, 0 ) > 0 )
+    {
+        var _canvas = circles_lib_canvas_get_exists( _plane_type, "figures" ) ? circles_lib_canvas_get_target( _plane_type, "figures" ) : ( _plane_type == Z_PLANE ? _glob_zplane_freedraw_layer_placeholder : _glob_wplane_freedraw_layer_placeholder );
+        switch( _glob_export_format )
+        {
+            case EXPORT_SVG: _svg_comment( _glob_export_code_array, "DRAWING ADDITIONAL FIGURES" ); break ;
+            case EXPORT_PS: case EXPORT_EPS: _glob_js_e_ps_obj.comment( "DRAWING ADDITIONAL FIGURES" ); break ;
+            case EXPORT_LATEX: _glob_js_latex_obj.comment( "DRAWING ADDITIONAL FIGURES" ); break ;
+		    default: break ;
+        }
 
-     if ( safe_size( _glob_figures_array, 0 ) > 0 )
-     {
-          var _canvas = circles_lib_canvas_get_exists( _plane_type, "figures" ) ? circles_lib_canvas_get_target( _plane_type, "figures" ) : ( _plane_type == Z_PLANE ? _glob_zplane_freedraw_layer_placeholder : _glob_wplane_freedraw_layer_placeholder );
-          switch( _glob_export_format )
-          {
-              case EXPORT_SVG: _svg_comment( _glob_export_code_array, "DRAWING ADDITIONAL FIGURES" ); break ;
-              case EXPORT_PS: case EXPORT_EPS: _glob_js_e_ps_obj.comment( "DRAWING ADDITIONAL FIGURES" ); break ;
-              case EXPORT_LATEX: _glob_js_latex_obj.comment( "DRAWING ADDITIONAL FIGURES" ); break ;
-			        default: break ;
-          }
+        var _rec_chunk, _plane, _enabled, _filtered ;
+        var _class, _obj, _draw, _drawcolor, _fill, _fillcolor, _opacity, _linewidth, _border_radius, _properties_mask, _close, _canvas_context, _mapper ;
+        for( var _x = 0 ; _x < _glob_figures_array.length ; _x++ )
+        {
+            _rec_chunk = _glob_figures_array[_x], safe_int( _plane = _rec_chunk['plane'], NO_PLANE ) ;
+            _enabled = _rec_chunk != null ? safe_int( _rec_chunk['enabled'], NO ) : NO ;
+            _filtered = ( _filter_array.length == 0 || _filter_array.includes( _rec_chunk['myhash'] ) ) ? YES : NO ;
+            if ( _enabled && _filtered && _plane.is_one_of( _plane_type ) )
+            {
+                _class = _rec_chunk['class'] ;
+                _obj = _rec_chunk['obj'] ;
+                _draw = _rec_chunk['draw'], _drawcolor = _rec_chunk['drawcolor'] ;
+                _fill = _rec_chunk['fill'], _fillcolor = _rec_chunk['fillcolor'] ;
+                _opacity = _rec_chunk['opacity'] ;
+                _linewidth = _rec_chunk['linewidth'];
+                _border_radius = _rec_chunk['borderradius'];
+                _properties_mask = _rec_chunk['propertiesmask'];
+                _close = _rec_chunk['close'] != null ? _rec_chunk['close'] : NO ;
+                _canvas_context = null, _mapper = null ;
 
-          var _rec_chunk, _plane, _enabled, _filtered ;
-          var _class, _obj, _draw, _drawcolor, _fill, _fillcolor, _opacity, _linewidth, _border_radius, _properties_mask, _close, _canvas_context, _mapper ;
-          for( var _x = 0 ; _x < _glob_figures_array.length ; _x++ )
-          {
-               _rec_chunk = _glob_figures_array[_x] ;
-               _plane = _rec_chunk['plane'] ;
-               _enabled = _rec_chunk != null ? safe_int( _rec_chunk['enabled'], NO ) : NO ;
-               _filtered = ( _filter_array.length == 0 || _filter_array.includes( _rec_chunk['myhash'] ) ) ? YES : NO ;
-               if ( _enabled && _filtered && _plane.is_one_of( _plane_type, UNDET ) )
-               {
-                    _class = _rec_chunk['class'] ;
-                    _obj = _rec_chunk['obj'] ;
-                    _draw = _rec_chunk['draw'] ;
-                    _drawcolor = _rec_chunk['drawcolor'] ;
-                    _fill = _rec_chunk['fill'] ;
-                    _fillcolor = _rec_chunk['fillcolor'] ;
-                    _opacity = _rec_chunk['opacity'] ;
-                    _linewidth = _rec_chunk['linewidth'];
-                    _border_radius = _rec_chunk['borderradius'];
-                    _properties_mask = _rec_chunk['propertiesmask'];
-                    _close = _rec_chunk['close'] != null ? _rec_chunk['close'] : NO ;
-                    _canvas_context = null, _mapper = null ;
+                switch( _plane )
+                {
+                    case Z_PLANE:
+                    _canvas_context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
+                    _mapper = zplane_sm ;
+                    break ;
+                    case W_PLANE:
+                    _canvas_context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
+                    _mapper = wplane_sm ;
+                    break ;
+                    case BIP_BOX:
+                    _canvas_context = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode );
+                    _mapper = bipbox_sm ;
+                    break ;
+				    default: break ;
+                }
 
-                    switch( _plane )
-                    {
-                        case Z_PLANE:
-                        _canvas_context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
-                        _mapper = zplane_sm ;
-                        break ;
-                        case W_PLANE:
-                        _canvas_context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
-                        _mapper = wplane_sm ;
-                        break ;
-                        case BIP_BOX:
-                        _canvas_context = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode );
-                        _mapper = bipbox_sm ;
-                        break ;
-								        default: break ;
-                    }
-
-                    switch( _class )
-                    {
-                        case FIGURE_CLASS_REGION:
-                        circles_lib_draw_rect( _canvas_context, _mapper, _obj,
-                                   _draw, _drawcolor, _fill, _fillcolor, _linewidth, YES, _opacity, 0 );
-                        break ;
-                        case FIGURE_CLASS_POINT:
-                        circles_lib_draw_point( _canvas_context, _mapper, _obj.x, _obj.y,
-                                   _draw, _drawcolor, _fill, _fillcolor, _glob_pt_border, _glob_pt_radius, _opacity, _properties_mask );
-                        break ;
-                        case FIGURE_CLASS_LINE:
-                        circles_lib_draw_polyline( _canvas_context, _mapper, _obj,
-                                   _drawcolor, _fillcolor, _linewidth, _close, _opacity, UNDET, _properties_mask, YES );
-                        break ;
-                        case FIGURE_CLASS_RECT:
-                        if ( _border_radius )
-                        circles_lib_draw_rounded_rect( _canvas_context, _mapper,
-                                   _obj, _draw, _drawcolor, _fill, _fillcolor,
-                                   _linewidth, _border_radius, YES, _opacity, _properties_mask );
-                        else
-                        circles_lib_draw_rect( _canvas_context, _mapper, _obj, _draw, _drawcolor, _fill, _fillcolor, _linewidth, YES, _opacity, _properties_mask );
-                        break ;
-                        case FIGURE_CLASS_CIRCLE:
-                        circles_lib_draw_complex_disk( _canvas_context, _mapper,
-                                   _obj.center.x, _obj.center.y, _obj.radius,
-                                   _draw, _drawcolor, _fill, _fillcolor,
-                                   _linewidth, _opacity, null, null, "", _properties_mask );
-                        break ;
-								        default: break ;
-                    }
-               }
-          }
-     }
+                switch( _class )
+                {
+                    case FIGURE_CLASS_REGION:
+                    circles_lib_draw_rect( _canvas_context, _mapper, _obj,
+                    _draw, _drawcolor, _fill, _fillcolor, _linewidth, YES, _opacity, 0 );
+                    break ;
+                    case FIGURE_CLASS_POINT:
+                    circles_lib_draw_point( _canvas_context, _mapper, _obj.x, _obj.y,
+                    _draw, _drawcolor, _fill, _fillcolor, _glob_pt_border, _glob_pt_radius, _opacity, _properties_mask );
+                    break ;
+                    case FIGURE_CLASS_LINE:
+                    circles_lib_draw_polyline( _canvas_context, _mapper, _obj,
+                    _drawcolor, _fillcolor, _linewidth, _close, _opacity, UNDET, _properties_mask, YES );
+                    break ;
+                    case FIGURE_CLASS_RECT:
+                    if ( _border_radius )
+                    circles_lib_draw_rounded_rect( _canvas_context, _mapper,
+                    _obj, _draw, _drawcolor, _fill, _fillcolor, _linewidth, _border_radius, YES, _opacity, _properties_mask );
+                    else
+                    circles_lib_draw_rect( _canvas_context, _mapper, _obj, _draw, _drawcolor, _fill, _fillcolor, _linewidth, YES, _opacity, _properties_mask );
+                    break ;
+                    case FIGURE_CLASS_CIRCLE:
+                    circles_lib_draw_complex_disk( _canvas_context, _mapper,
+                    _obj.center.x, _obj.center.y, _obj.radius,
+                    _draw, _drawcolor, _fill, _fillcolor, _linewidth, _opacity, null, null, "", _properties_mask );
+                    break ;
+				    default: break ;
+                }
+            }
+			else return NO ;
+        }
+    }
+	else return NO ;
+	return YES ;
 }

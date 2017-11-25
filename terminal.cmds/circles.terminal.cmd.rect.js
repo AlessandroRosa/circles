@@ -81,82 +81,111 @@ function circles_terminal_cmd_rect()
                    if ( !_b_fail ) _params_assoc_array['settings']['label'] = _p ;
               }
               else if ( _p.stricmp( "rec" ) ) _params_assoc_array['settings']['rec'] = YES ;
-              else if ( _p.is_one_of_i( "zplane", "wplane", "bip" ) )
-              {
-                  if ( _p.stricmp( "zplane" ) ) _params_assoc_array['settings']['plane'] = Z_PLANE ;
-                  else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['settings']['plane'] = W_PLANE ;
-                  else if ( _p.stricmp( "bip" ) ) _params_assoc_array['settings']['plane'] = BIP_BOX ;
-              }
-   						else if ( circles_lib_colors_is_def( _p ) )
-  						{
-  							 if ( _params_assoc_array['settings']['drawcolor'] == null )
-  							 {
-  						 		   _params_assoc_array['settings']['drawcolor'] = _p ;
-  						 		   _msg = "<lightblue>Border color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-  						 			 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-  							 }
-  							 else if ( _params_assoc_array['settings']['fillcolor'] == null )
-  							 {
-  									 _params_assoc_array['settings']['fillcolor'] = _p ;
-  									 _msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_p+"</snow>" ;
-  									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-  							 }
-  							 else
-  							 {
-  									 _msg = "<orange>Redundant input color params found in '"+_p+"': skipped</orange>" ;
-  									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-  							 }
-  						}
-              else if ( _p.testME( _glob_positive_float_regex_pattern ) )
-              {
-                   if ( _params_assoc_array['settings']['width'] == null )
-    							 {
-    									 _params_assoc_array['settings']['width'] = safe_float( _p, 0 ) ;
-    									 _msg = "<lightblue>Width has been set to</lightblue> <snow>"+_p+"</snow>" ;
-    									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-    							 }
-                   else if ( _params_assoc_array['settings']['height'] == null )
-    							 {
-    									 _params_assoc_array['settings']['height'] = safe_float( _p, 0 ) ;
-    									 _msg = "<lightblue>Height has been set to</lightblue> <snow>"+_p+"</snow>" ;
-    									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-    							 }
-                   else if ( _params_assoc_array['settings']['opacity'] == null )
-    							 {
-    									 _params_assoc_array['settings']['opacity'] = safe_float( _p, 0 ) ;
-    									 _msg = "<lightblue>Opacity has been set to</lightblue> <snow>"+_p+"</snow>" ;
-    									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-    							 }
-                   else if ( _params_assoc_array['settings']['linethick'] == null )
-    							 {
-    									 _params_assoc_array['settings']['linethick'] = safe_float( _p, 0 ) ;
-    									 _msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_p+"</snow>" ;
-    									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-    							 }
-                   else if ( _params_assoc_array['settings']['borderradius'] == null )
-    							 {
-    									 _params_assoc_array['settings']['borderradius'] = safe_float( _p, 0 ) ;
-    									 _msg = "<lightblue>Border radius has been set to</lightblue> <snow>"+_p+"</snow>" ;
-    									 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-    							 }
-              }
-              else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
-              {
-                  if ( _params_assoc_array['settings']['start_pt'] == null )
-                  {
-                       _p = _p.replaceAll( [ "(", ")" ], "" );
-                       var _pt_array = _p.split( "," );
-                       _params_assoc_array['settings']['start_pt'] = new point( parseFloat( _pt_array[0] ), parseFloat( _pt_array[1] ) );
-                       _index_associations['start_pt'] = _i ;
-                  }
-                  else if ( _params_assoc_array['settings']['end_pt'] == null )
-                  {
-                       _p = _p.replaceAll( [ "(", ")" ], "" );
-                       var _pt_array = _p.split( "," );
-                       _params_assoc_array['settings']['end_pt'] = new point( parseFloat( _pt_array[0] ), parseFloat( _pt_array[1] ) );
-                       _index_associations['end_pt'] = _i ;
-                  }
-              }
+            else if ( _p.is_one_of_i( "zplane", "wplane", "bip" ) )
+            {
+                if ( _p.stricmp( "zplane" ) ) _params_assoc_array['settings']['plane'] = Z_PLANE ;
+                else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['settings']['plane'] = W_PLANE ;
+                else if ( _p.stricmp( "bip" ) ) _params_assoc_array['settings']['plane'] = BIP_BOX ;
+            }
+			else if ( _p.toLowerCase().start_with( "drawcolor:" ) && _params_assoc_array['settings']['drawcolor'] == null )
+			{
+				_params_assoc_array['settings']['drawcolor'] = safe_string( _p.replace( /drawcolor:/gi, "" ), "" ) ;
+				if ( circles_lib_colors_is_def( _params_assoc_array['settings']['drawcolor'] ) )
+				{
+					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['drawcolor']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; }
+			}
+			else if ( _p.toLowerCase().start_with( "fillcolor:" ) && _params_assoc_array['settings']['fillcolor'] == null )
+			{
+				_params_assoc_array['settings']['fillcolor'] = safe_string( _p.replace( /fillcolor:/gi, "" ), "" ) ;
+				if ( circles_lib_colors_is_def( _params_assoc_array['settings']['fillcolor'] ) )
+				{
+					_msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['fillcolor']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid fill color definition" ; break ; }
+			}
+			else if ( _p.toLowerCase().start_with( "width:" ) && _params_assoc_array['settings']['width'] == null )
+			{
+				_params_assoc_array['settings']['width'] = safe_string( _p.replace( /width:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['width'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Width has been set to</lightblue> <snow>"+_params_assoc_array['settings']['width']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid width definition" ; break ; }
+			}
+			else if ( _p.toLowerCase().start_with( "height:" ) && _params_assoc_array['settings']['height'] == null )
+			{
+				_params_assoc_array['settings']['height'] = safe_string( _p.replace( /height:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['height'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Height has been set to</lightblue> <snow>"+_params_assoc_array['settings']['height']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid height definition" ; break ; }
+			}
+			else if ( _p.toLowerCase().start_with( "opacity:" ) && _params_assoc_array['settings']['opacity'] == null )
+			{
+				_params_assoc_array['settings']['opacity'] = safe_string( _p.replace( /opacity:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['opacity'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Opacity has been set to</lightblue> <snow>"+_params_assoc_array['settings']['opacity']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid opacity definition" ; break ; }
+			}
+			else if ( _p.toLowerCase().start_with( "thickness:" ) && _params_assoc_array['settings']['thickness'] == null )
+			{
+				_params_assoc_array['settings']['thickness'] = safe_string( _p.replace( /linethick:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['thickness'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['thickness']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid line thickness definition" ; break ; }
+			}
+			else if ( _p.toLowerCase().start_with( "borderradius:" ) && _params_assoc_array['settings']['borderradius'] == null )
+			{
+				_params_assoc_array['settings']['borderradius'] = safe_string( _p.replace( /borderradius:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['borderradius'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Border radius has been set to</lightblue> <snow>"+_params_assoc_array['settings']['borderradius']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid border radius definition" ; break ; }
+			}
+			else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
+			{
+				if ( _params_assoc_array['settings']['start_pt'] == null )
+				{
+					_p = safe_string( _p.replace( /startpt:/gi, "" ), "" ) ;
+					if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
+					{
+						_p = _p.replaceAll( [ "(", ")" ], "" );
+						var _pt_array = _p.split( "," );
+						_params_assoc_array['settings']['start_pt'] = new point( safe_float( _pt_array[0] ), safe_float( _pt_array[1] ) );
+						_msg = "<lightblue>Start point has been set to</lightblue> <snow>"+_params_assoc_array['settings']['start_pt']+"</snow>" ;
+						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+					}
+					else { _b_fail = YES, _error_str = "Invalid start point definition" ; break ; }
+				}
+				else if ( _params_assoc_array['settings']['end_pt'] == null )
+				{
+					_p = safe_string( _p.replace( /endpt:/gi, "" ), "" ) ;
+					if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
+					{
+						_p = _p.replaceAll( [ "(", ")" ], "" );
+						var _pt_array = _p.split( "," );
+						_params_assoc_array['settings']['end_pt'] = new point( safe_float( _pt_array[0] ), safe_float( _pt_array[1] ) );
+						_msg = "<lightblue>End point has been set to</lightblue> <snow>"+_params_assoc_array['settings']['end_pt']+"</snow>" ;
+						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+					}
+					else { _b_fail = YES, _error_str = "Invalid end point definition" ; break ; }
+				}
+			}
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
@@ -227,7 +256,7 @@ function circles_terminal_cmd_rect()
           var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
           var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
 
-          var _linewidth = ( _params_assoc_array['settings']['linethick'] == null ) ? 1 : safe_int( _params_assoc_array['settings']['linethick'], 1 );
+          var _linewidth = ( _params_assoc_array['settings']['thickness'] == null ) ? 1 : safe_int( _params_assoc_array['settings']['thickness'], 1 );
               if ( _linewidth == 0 ) { _draw = NO ; _drawcolor = "" ; }
           
           var _border_radius = ( _params_assoc_array['settings']['borderradius'] == null ) ? 0 : safe_int( _params_assoc_array['settings']['borderradius'], 0 );
@@ -314,22 +343,16 @@ function circles_terminal_cmd_rect()
                    circles_lib_output( _output_channel, DISPATCH_INFO, "Rect recorded", _par_1, _cmd_tag );
               }
           }
-          else
-          {
-              _b_fail = YES, _error_str = "Can't plot rect: memory failure. Free some resources" ;
-          }
+          else { _b_fail = YES, _error_str = "Can't plot rect: memory failure. Free some resources" ; }
 
                   break ;
              }
          }
 
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
+     else { _b_fail = YES, _error_str = "Missing input params" ; }
 
-     if ( _b_fail )
+     if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION )
      circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;

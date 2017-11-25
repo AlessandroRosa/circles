@@ -25,11 +25,11 @@
 <lightblue>%sector_range%</lightblue> <snow>[from_radians,to_radians]</snow>
 <cadetblue>Sector for the current circle.</cadetblue>
 
-<lightblue>circle (0,0) radius:1 drawcolor:yellow fillcolor: blue border:7 opacity:0.5 zplane sector:[30,120]</lightblue>
+<lightblue>circle (0,0) radius:1 drawcolor:yellow fillcolor:blue border:7 opacity:0.5 zplane sector:[30,120]</lightblue>
 <cadetblue>Plot the arc of sector with blue border, from 30 degrees to 120 degrees and on the Z-plane</cadetblue>
 
 <lightblue>circle (0,0) radius:1 drawcolor:blue fillcolor:yellow border:7 zplane label:<anything-without-blank-space> rec</lightblue>
-<cadetblue>plot circle in the Z-plane, paint it yellow with blue border and set border thickness to 3 units, then record it with label $circle1</cadetblue>
+<cadetblue>plot it on the Z-plane, paint it yellow with blue border and set border thickness to 3 units, then record it with label $circle1 into the</cadetblue> <snow>preset figures array</snow>
 
 <lightblue>circle (0,0) radius:1 drawcolor:blue fillcolor:yellow border:7 zplane label:<anything-without-blank-space> storagein</lightblue>
 <cadetblue>same as before, but the circle is recorded into the dedicated storage space</cadetblue>

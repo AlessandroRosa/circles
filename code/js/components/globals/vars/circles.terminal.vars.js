@@ -12,6 +12,7 @@ var _glob_terminal_current_cmd = "" ;
 var _glob_terminal_current_id = "" ;
 var _glob_terminal_echo_flag = ENABLED ;
 var _glob_terminal_errors_counter = 0 ;
+var _glob_terminal_errors_switch = ON ;
 var _glob_terminal_keepcmd = "" ;
 var _glob_terminal_change = NO ;
 var _glob_terminal_questions_enabled = YES ;

@@ -577,7 +577,7 @@ function circles_lib_figures_update_manager( _output_channel, _options, _param_0
                 {
                      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>("+_plane_def+")</snow> <green>obj "+_figure_label+" #"+( _i + 1 )+" updated</green>", _param_01 );
                      circles_lib_output( _output_channel, DISPATCH_INFO, "Refreshing "+_plane_def, _param_01 );
-                     circles_lib_canvas_after_process_figures( null, YES, _plane );
+                     circles_lib_canvas_afterrender_figures_draw( null, YES, _plane );
                 }
            }
         }
@@ -656,7 +656,7 @@ function circles_lib_figures_action( _output_channel, _action, _index_vals_array
                  for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ ) _glob_figures_array[_i]['myhash'] = "rec"+(_i+1);
              }
 
-             circles_lib_canvas_after_process_figures( null, YES, _plane_type );
+             circles_lib_canvas_afterrender_figures_draw( null, YES, _plane_type );
          }
          else
          {
