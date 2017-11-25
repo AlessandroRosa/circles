@@ -1,30 +1,30 @@
 function circles_terminal_cmd_fp()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0, _cnt = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _symbols_array = [] ;
-     var _inv_symbols_array = [] ;
-     var _items_n = circles_lib_count_items();
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _params_assoc_array = [];
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0, _cnt = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _symbols_array = [] ;
+    var _inv_symbols_array = [] ;
+    var _items_n = circles_lib_count_items();
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _params_assoc_array = [];
 
-     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     else if ( _params.length > 0 )
-     {
+    if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    else if ( _params.length > 0 )
+    {
          _params_assoc_array['action'] = "" ;
          _params_assoc_array['all'] = NO ;
          _params_assoc_array['category'] = "" ;
@@ -137,10 +137,7 @@ function circles_terminal_cmd_fp()
                  else if ( _p.testME( _glob_pqword_regex_pattern ) || circles_lib_repetends_check_syntax( null, _p ) )
                  _params_assoc_array['words'].push( _p );
               }
-              else
-              {
-                 _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
@@ -154,10 +151,7 @@ function circles_terminal_cmd_fp()
                  circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
-         else if ( _params_assoc_array['action'].length == 0 )
-         {
-             _b_fail = YES, _error_str = "Missing action specification" ;
-         }
+         else if ( _params_assoc_array['action'].length == 0 ) { _b_fail = YES, _error_str = "Missing action specification" ; break ; }
          else if ( _params_assoc_array['action'].length > 0 && !_b_fail )
          {
              var _round_to = _params_assoc_array['roundto'], _options = _params_assoc_array['settings']['options'] ;
@@ -182,8 +176,7 @@ function circles_terminal_cmd_fp()
                  {
                       var _add_sources = function()
                       {
-                          $.each( _params_assoc_array['source'],
-                                  function( _index, _val )
+                          $.each( _params_assoc_array['source'], function( _index, _val )
                                   {
                                       var _ret_chunk ;
                                       if ( _val.strcmp( "commutator" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_commutators( 0, _output_channel );
@@ -461,17 +454,14 @@ function circles_terminal_cmd_fp()
                  case "release":
                  circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                  break ;
-				         default: break ;
+				default: break ;
              }
              
              if ( _glob_fixedpt_io != FIXEDPOINTS_IO_INPUT )
              circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning! Fixed point option is not flagged to 'input' category", _par_1, _cmd_tag );
          }
-     }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
+    }
+    else { _b_fail = YES, _error_str = "Missing input params" ; }
 
      if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;

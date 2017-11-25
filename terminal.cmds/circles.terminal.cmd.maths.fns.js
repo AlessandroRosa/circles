@@ -28,15 +28,15 @@ function circles_terminal_cmd_deg()
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
-              _p = _params_array[_i];
-              switch( _p.toLowerCase() )
-              {
-                  case "/h" : _params_assoc_array['help'] = YES ; break ;
-                  case "html" : _params_assoc_array['html'] = YES ; break ;
-                  case "release":
-                  circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-					        default: break ;
-              }
+             _p = _params_array[_i];
+            switch( _p.toLowerCase() )
+            {
+                case "/h" : _params_assoc_array['help'] = YES ; break ;
+                case "html" : _params_assoc_array['html'] = YES ; break ;
+                case "release":
+                circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+				default: break ;
+            }
          }
 
          if ( _params_assoc_array['help'] )

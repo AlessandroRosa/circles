@@ -115,33 +115,24 @@ function circles_terminal_cmd_palette()
                             _index_array = circles_lib_terminal_parse_input_index( _index );
                         var _index_array_ret = is_array( _index_array ) ? safe_int( _index_array[0], UNDET ) : UNDET ;
                         var _index_array_chunk = is_array( _index_array ) ? _index_array[1] : [] ;
-                        if ( _index_array_ret == UNDET )
-                        {
-                            _b_fail = YES, _error_str = "Memory failure" ;
-                        }
-                        else if ( _index_array_ret == 0 )
-                        {
-                            _b_fail = YES, _error_str = _index_array_chunk ;
-                        }
+                        if ( _index_array_ret == UNDET ) { _b_fail = YES, _error_str = "Memory failure" ; break ; }
+                        else if ( _index_array_ret == 0 ) { _b_fail = YES, _error_str = _index_array_chunk ; break ; }
                         else if ( _index_array_ret == 1 ) _params_assoc_array['index'] = _index_array_chunk ;
                    }
-                   else
-                   {
-                       _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-                   }
+                   else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
               }
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
-             else
-             {
-                 _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-             }
+            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+            else
+            {
+                _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
+                circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+            }
          }
          else
          {

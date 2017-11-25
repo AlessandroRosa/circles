@@ -69,10 +69,7 @@ function circles_terminal_cmd_info()
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.testME( _glob_positive_integer_regex_pattern ) ) _params_assoc_array['accuracy'] = Math.max( 0, Math.min( safe_int( _p, _glob_accuracy ), DEFAULT_MAX_ACCURACY ) );
               else if ( _p.testME( _glob_filename_regex_pattern ) ) _params_assoc_array['settings']['filename'] = _p ;
-              else
-              {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
          }
 
          if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;

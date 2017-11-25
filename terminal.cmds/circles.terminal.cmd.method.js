@@ -57,10 +57,7 @@ function circles_terminal_cmd_method()
                if ( _params_assoc_array['method'] != null ) _params_assoc_array['method'] = METHOD_NONE ;
                else if ( _params_assoc_array['process'] != null ) _params_assoc_array['process'] = PROCESS_NONE ;
             }
-            else
-            {
-               _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + (_i+1);
-            }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #" + (_i+1); break ; }
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

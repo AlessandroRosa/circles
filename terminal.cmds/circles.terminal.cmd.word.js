@@ -174,17 +174,11 @@ function circles_terminal_cmd_word()
                        _params_assoc_array['service'] = "trace" ;
                      }
                   }
-                  else
-                  {
-                     _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-                  }
+                  else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
               }
          }
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-   	 }
+     else { _b_fail = YES, _error_str = "Missing input params" ; }
 
      if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
      else if ( _params_assoc_array['keywords'] )
@@ -199,14 +193,14 @@ function circles_terminal_cmd_word()
      }
      else if ( !_b_fail )
      {
-         var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
-         var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
-		     var _items_n = circles_lib_count_items( _items_array );
-         circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
-         // convert input indexes or symbols into an array of indexes to be applied to next actions
-         var _selection_indexes_array = [] ;
-         var _all = _params_assoc_array['all'] != null ? _params_assoc_array['all'] : NO ;
+        var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+        var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+        var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
+		var _items_n = circles_lib_count_items( _items_array );
+        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
+        // convert input indexes or symbols into an array of indexes to be applied to next actions
+        var _selection_indexes_array = [] ;
+        var _all = _params_assoc_array['all'] != null ? _params_assoc_array['all'] : NO ;
          if ( _all )
          {
              if ( is_array( _symbols_array ) ) _symbols_array.flush();

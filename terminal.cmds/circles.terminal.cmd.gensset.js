@@ -171,15 +171,12 @@ function circles_terminal_cmd_gensset()
                    else
                    {
                        circles_lib_output( _output_channel, DISPATCH_INFO, "Acquiring word '"+_gen_symbol+"'", _par_1, _cmd_tag );
-											 _params_assoc_array['gens'].push( _gen_symbol );
-									 }
+					   _params_assoc_array['gens'].push( _gen_symbol );
+					}
 
                    if ( safe_size( _report, 0 ) > 0 ) _error_str = _report.join( _glob_crlf );
                }
-               else
-               {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-               }
+               else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
             }
          }
 

@@ -65,16 +65,10 @@ function circles_terminal_cmd_font()
                    else if ( _p.isNumber() )
                    {
                        var _fs = safe_float( _p, 6 );
-                       if ( _fs <= 0 )
-                       {
-                           _b_fail = YES, _error_str = "Font size must be strictly positive" ;
-                       }
+                       if ( _fs <= 0 ) { _b_fail = YES, _error_str = "Font size must be strictly positive" ; break ; }
                        else _params_assoc_array['size'] = _fs ;
                    }
-                   else
-                   {
-                       _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-                   } 
+                   else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; } 
               }
          }
          

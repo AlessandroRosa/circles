@@ -49,10 +49,7 @@ function circles_terminal_cmd_plane()
               else if ( _p.stricmp( "none" ) ) _params_assoc_array['plane'] = NO_PLANE ;
               else if ( _p.stricmp( "zplane" ) ) _params_assoc_array['plane'] = _glob_target_plane = Z_PLANE ;
               else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['plane'] = _glob_target_plane = W_PLANE ;
-              else
-              {
-                 _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

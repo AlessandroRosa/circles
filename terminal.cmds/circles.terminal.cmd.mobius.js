@@ -108,14 +108,12 @@ function circles_terminal_cmd_mobius()
             _params_assoc_array['settings']['action'] = _p.toLowerCase();
             else if ( _p.is_one_of_i( "characteristic", "class", "determinant", "fixedpoints", "circle", "multiplier", "normalize", "trace" ) )
             _params_assoc_array['properties'].push( _p.toLowerCase() );
-            else if ( _p.is_one_of_i( "plot", "attr", "params" ) )
-            _params_assoc_array['extras'].push( _p.toLowerCase() );
+            else if ( _p.is_one_of_i( "plot", "attr", "params" ) ) _params_assoc_array['extras'].push( _p.toLowerCase() );
             else if ( ( _p.length == 1 && _p.isAlpha() ) || _p.isNumber() )
             _symbols_array.push( _p );
             else if ( ( ( _p.length == 1 && _p.isAlpha() ) || _p.isNumber() )
                       &&
-                      !( _params_assoc_array['settings']['action'].stricmp( "notes" ) )
-                    ) _symbols_array.push( _p );
+                      !( _params_assoc_array['settings']['action'].stricmp( "notes" ) ) ) _symbols_array.push( _p );
             else if ( _p.toLowerCase().start_with( "notes:" ) )
             {
                _p = safe_string( _p.replaceAll( "notes:", "" ), "" ) ;
@@ -171,37 +169,27 @@ function circles_terminal_cmd_mobius()
                   _value = _value.replaceAll( "(", "").replaceAll( ")", "" );
                   var _v_array = _value.split( "," );
                   if ( ( _letter == "a" || _letter == "b" || _letter == "c" || _letter == "d" ) && is_array( _v_array ) )
-                  _params_assoc_array[_letter] = new complex( parseFloat( _v_array[0] ), parseFloat( _v_array[1] ) );
-                  else
-                  {
-                     _b_fail = YES, _error_str = "Input Mobius map param tag '"+_letter+"' is incorrect (ex. 'a','b','c','d')" ;
-                  }
+                  _params_assoc_array[_letter] = new complex( safe_float( _v_array[0], 0 ), safe_float( _v_array[1], 0 ) );
+                  else { _b_fail = YES, _error_str = "Input Mobius map param tag '"+_letter+"' is incorrect (ex. 'a','b','c','d')" ; break ; }
                }
-               else
-               {
-                  _b_fail = YES, _error_str = "Input symbol shall be 1-letter long" ;
-                  break ;
-               }
+               else { _b_fail = YES, _error_str = "Input symbol shall be 1-letter long" ; break ; }
             }
             else
             {
                if ( _params_assoc_array['settings']['action'].stricmp( "notes" ) ) _params_assoc_array['notes'].push( _p ) ;
-               else
-               {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-               }
+               else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
             }
          }
 
-         var _action = _params_assoc_array['settings']['action'] ;
-         var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-		     var _items_n = circles_lib_count_items( _items_array );
-         var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
-         var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
-         var _round_to = _params_assoc_array['roundto'] ;
-         var _mm = new mobius_map( _params_assoc_array['a'], _params_assoc_array['b'], _params_assoc_array['c'], _params_assoc_array['d'] );
-         var _storage_queue_request = _params_assoc_array['settings']['params'].includes_i( "storagein" ) ? YES : NO ;
-         circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
+        var _action = _params_assoc_array['settings']['action'] ;
+        var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+		var _items_n = circles_lib_count_items( _items_array );
+        var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+        var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
+        var _round_to = _params_assoc_array['roundto'] ;
+        var _mm = new mobius_map( _params_assoc_array['a'], _params_assoc_array['b'], _params_assoc_array['c'], _params_assoc_array['d'] );
+        var _storage_queue_request = _params_assoc_array['settings']['params'].includes_i( "storagein" ) ? YES : NO ;
+        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )

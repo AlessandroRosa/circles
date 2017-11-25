@@ -36,17 +36,14 @@ function circles_terminal_cmd_verbose()
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
-              _p = _params_array[_i].toLowerCase();
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.stricmp( "off" ) ) _params_assoc_array['mode'] = OFF ;
-              else if ( _p.stricmp( "on" ) ) _params_assoc_array['mode'] = ON ;
-              else
-              {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+            _p = _params_array[_i].toLowerCase();
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.stricmp( "off" ) ) _params_assoc_array['mode'] = OFF ;
+            else if ( _p.stricmp( "on" ) ) _params_assoc_array['mode'] = ON ;
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
          var _already = ( _glob_verbose == _params_assoc_array['mode'] ) ? YES : NO ;

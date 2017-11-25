@@ -2,60 +2,59 @@ _glob_terminal_cmd_files_include['config'] = [ 'init', 'refresh' ];
 
 function circles_terminal_cmd_config()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-	 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var Y = "yes", N = "no" ;
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var Y = "yes", N = "no" ;
 
-     var _params_assoc_array = [];
-         _params_assoc_array['params'] = [] ;
-         _params_assoc_array['group'] = "" ;
-     var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+    var _params_assoc_array = [];
+        _params_assoc_array['params'] = [] ;
+        _params_assoc_array['group'] = "" ;
+    var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
 
-     var _keywords = [ 'accuracy', 'automaton', 'canvasmode', 'circle', 'construction', 'depth', 'diskdash', 'diskdraw', 'diskfill',
-                       'drawentity', 'fixedpoints', 'gens', 'init', 'interface', 'items', 'mapprecision', 'menu', 'method', 'os',
-                       'groups', 'pixel', 'plugin', 'point', 'save', 'html', 'help', 'release',
-                       'terminal', 'title', 'usepalette', 'warnings' ] ;
-     var _readonly = [ 'gens', 'init', 'method', 'os', 'plugin', 'terminal' ] ;
-     var _groups = [ "generals", "graphix", "rendering", "terminal" ] ;
-     var _adds = [ "seeds", "byref", "byval" ] ;
+    var _keywords = [ 'accuracy', 'automaton', 'canvasmode', 'circle', 'construction', 'depth', 'diskdash', 'diskdraw', 'diskfill',
+                      'drawentity', 'fixedpoints', 'gens', 'init', 'interface', 'items', 'mapprecision', 'menu', 'method', 'os',
+                      'groups', 'pixel', 'plugin', 'point', 'save', 'html', 'help', 'release',
+                      'terminal', 'title', 'usepalette', 'warnings' ] ;
+    var _readonly = [ 'gens', 'init', 'method', 'os', 'plugin', 'terminal' ] ;
+    var _groups = [ "generals", "graphix", "rendering", "terminal" ] ;
+    var _adds = [ "seeds", "byref", "byval" ] ;
 
-         _params_assoc_array['help'] = NO ;
-         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-         _params_assoc_array['keywords'] = NO ;
+    _params_assoc_array['help'] = NO ;
+    _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
+    _params_assoc_array['keywords'] = NO ;
 
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array = _keywords.concat( _readonly ).concat( _groups ).concat( _adds );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+    // pre-scan for levenshtein correction
+    var _local_cmds_params_array = [];
+    _local_cmds_params_array = _keywords.concat( _readonly ).concat( _groups ).concat( _adds );
+    circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
- 		 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-   		   _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-   		   _params_assoc_array['dump_array'] = [];
-    		 _params_assoc_array['dump_operator_index'] = _dump_operator_index ;
+ 	var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
+   	_params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+   	_params_assoc_array['dump_array'] = [];
+    _params_assoc_array['dump_operator_index'] = _dump_operator_index ;
 
-	 		  _params_assoc_array['transfer_to'] = ( _params_array.indexOf( TERMINAL_TRANSFER_TO_OPERATOR ) != UNFOUND ) ? YES : NO ;
-	 		  _params_assoc_array['transfer_from'] = ( _params_array.indexOf( TERMINAL_TRANSFER_FROM_OPERATOR ) != UNFOUND ) ? YES : NO ;
-
-		// gather all dump parameters into one array
-        if ( _params_assoc_array['dump'] )
-        {
-			for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-  			if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
-        }
+	_params_assoc_array['transfer_to'] = ( _params_array.indexOf( TERMINAL_TRANSFER_TO_OPERATOR ) != UNFOUND ) ? YES : NO ;
+	_params_assoc_array['transfer_from'] = ( _params_array.indexOf( TERMINAL_TRANSFER_FROM_OPERATOR ) != UNFOUND ) ? YES : NO ;
+	// gather all dump parameters into one array
+    if ( _params_assoc_array['dump'] )
+    {
+		for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+  		if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
+    }
 
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      else if ( _params.length > 0 )
@@ -81,10 +80,7 @@ function circles_terminal_cmd_config()
             }
         }
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
+     else { _b_fail = YES, _error_str = "Missing input params" ; }
 
      if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
      else if ( _params_assoc_array['keywords'] )
@@ -204,10 +200,7 @@ function circles_terminal_cmd_config()
                var _ret_chunk = circles_lib_dump_data_to_format( _config_str, _params_assoc_array['dump_array'] );
   			   var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
   			   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation";
-  			   if ( _ret_id == 0 )
-  			   {
-  				  _b_fail = YES, _error_str = _ret_msg ;
-  			   }
+  			   if ( _ret_id == 0 ) { _b_fail = YES, _error_str = _ret_msg ; }
   			   else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
            }
        }
@@ -221,10 +214,7 @@ function circles_terminal_cmd_config()
 			   circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Config groups are</lightblue> <white>"+_groups.join(", ")+"</white>", _par_1, _cmd_tag );
 			   break ;
                 case "get":
-                if ( _params_assoc_array['params'].length == 0 )
-                {
-					_b_fail = YES, _error_str = "Please, enter at least one param to get" ;
-                }
+                if ( _params_assoc_array['params'].length == 0 ) { _b_fail = YES, _error_str = "Please, enter at least one param to get" ; }
                 else
                 {
                     var _param = "", _outlabel = "", _outval = "" ;
@@ -306,7 +296,7 @@ function circles_terminal_cmd_config()
                                   _outval = get_os();
                                   break ;
                                   case "mapprecision":
-                         				  var _smpr_perc = safe_int( _glob_smpr / _glob_zplane_rendering_layer_placeholder.get_width() * 100.0, 1 );
+                         		  var _smpr_perc = safe_int( _glob_smpr / _glob_zplane_rendering_layer_placeholder.get_width() * 100.0, 1 );
                                   _outlabel = "Map precision" ;
                                   _outval = _smpr_perc + "%" ;
                                   break ;
@@ -364,29 +354,19 @@ function circles_terminal_cmd_config()
                 {
                     if ( is_array( _params_assoc_array['dump_array'] ) ) _params_assoc_array['dump_array'].push( "circles.config.list.txt" );
       				var _ret_chunk = circles_lib_dump_data_to_format( _config_list, _params_assoc_array['dump_array'][0] );
-  									var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
-  									var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
-  									if ( _ret_id == 0 )
-  									{
-  											_b_fail = YES, _error_str = _ret_msg ;
-  									}
-  									else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+  					var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
+  					var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
+  					if ( _ret_id == 0 ) { _b_fail = YES, _error_str = _ret_msg ; }
+  					else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                 }
                 else circles_lib_output( _output_channel, DISPATCH_INFO, _config_list, _par_1, _cmd_tag );
                 break ;
                 case "set":
-                if ( _params_assoc_array['params'].length == 0 )
-                {
-					_b_fail = YES, _error_str = "Please, enter one param to set" ;
-                }
-                else if ( _params_assoc_array['params'].length == 1 )
-                {
-    				_b_fail = YES, _error_str = "Incomplete set syntax" ;
-                }
+                if ( _params_assoc_array['params'].length == 0 ) { _b_fail = YES, _error_str = "Please, enter one param to set" ; }
+                else if ( _params_assoc_array['params'].length == 1 ) { _b_fail = YES, _error_str = "Incomplete set syntax" ; }
                 else
                 {
                     var _resp = [], _param = _params_assoc_array['params'][0], _value = _params_assoc_array['params'][1] ;
-  
                     if ( _readonly.includes( _param ) )
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<orange>Param '"+_param+"' is read-only here.</orange>\n<gray>Use specific command '"+_param+"' instead.</gray>", _par_1, _cmd_tag );
                     else if ( _keywords.includes( _param ) )
@@ -413,16 +393,29 @@ function circles_terminal_cmd_config()
   
                         if ( _param.strcmp( "canvasmode" ) )
                         {
-                            if ( _value.strcmp( "circlesdraw" ) ) _glob_src_canvas_mode = ZPLANE_CANVAS_CIRCLESDRAW_MODE ;
-                            else _glob_src_canvas_mode = ZPLANE_CANVAS_NULL_MODE ;
-  
-                            if ( _glob_src_canvas_mode == ZPLANE_CANVAS_NULL_MODE ) _resp = [ 0, "<orange>Failure: input canvas mode is unknown</orange>" ] ;
-                            else _resp = [ 1, "<greenshock>Canvasmode is "+_value+"</greenshock>" ] ;
+                            if ( _value.strcmp( "reset" ) )
+                            {
+                                _glob_src_canvas_mode = FIXEDPOINTS_IO_NONE ;
+                                _resp = [ 1, "<greenshock>Canvas mode reset to default value 'none'</greenshock>" ] ;
+                            }
+							else
+							{
+								if ( _value.strcmp( "circlesdraw" ) ) _glob_src_canvas_mode = ZPLANE_CANVAS_CIRCLESDRAW_MODE ;
+								else _glob_src_canvas_mode = ZPLANE_CANVAS_NULL_MODE ;
+	  
+								if ( _glob_src_canvas_mode == ZPLANE_CANVAS_NULL_MODE ) _resp = [ 0, "<orange>Failure: input canvas mode is unknown</orange>" ] ;
+								else _resp = [ 1, "<greenshock>Canvasmode is "+_value+"</greenshock>" ] ;
+							}
                         }
   
                         if ( _param.strcmp( "fixedpoints" ) )
                         {
-                            if ( _value.strcmp( "input" ) )
+                            if ( _value.strcmp( "reset" ) )
+                            {
+                                _glob_fixedpt_io = FIXEDPOINTS_IO_NONE ;
+                                _resp = [ 1, "<greenshock>Fixed points mode reset to default value 'none'</greenshock>" ] ;
+                            }
+                            else if ( _value.strcmp( "input" ) )
                             {
                                 _glob_fixedpt_io = FIXEDPOINTS_IO_INPUT;
                                 _resp = [ 1, "<greenshock>Fixed point i/o has been set to '"+_value+"' with success</greenshock>" ] ;
@@ -433,7 +426,12 @@ function circles_terminal_cmd_config()
   
                         if ( _param.strcmp( "construction" ) )
                         {
-                            if ( _value.strcmp( "limitset" ) )
+                            if ( _value.strcmp( "reset" ) )
+                            {
+                                circles_lib_construction_mode_set( CONSTRUCTION_NONE );
+                                _resp = [ 1, "<greenshock>Construction mode reset to default value 'none'</greenshock>" ] ;
+                            }
+                            else if ( _value.strcmp( "limitset" ) )
                             {
                                 circles_lib_construction_mode_set( CONSTRUCTION_LIMITSET );
                                 _resp = [ 1, "<greenshock>Construction is limitset now</greenshock>" ] ;
@@ -504,9 +502,14 @@ function circles_terminal_cmd_config()
   
                         if ( _param.strcmp( "depth" ) )
                         {
-                            if ( _value.testME( _glob_positive_integer_regex_pattern ) )
+                            if ( _value.strcmp( "reset" ) )
                             {
-                                circles_lib_depth_set( _value )
+                                circles_lib_depth_set( DEFAULT_DEPTH );
+                                _resp = [ 1, "<greenshock>Depth value reset to default value '"+DEFAULT_DEPTH+"'</greenshock>" ] ;
+                            }
+                            else if ( _value.testME( _glob_positive_integer_regex_pattern ) )
+                            {
+                                circles_lib_depth_set( _value );
                                 _resp = [ 1, "<greenshock>Depth is " + _glob_depth + "</greenshock>" ] ;
                             }
                             else
@@ -519,7 +522,12 @@ function circles_terminal_cmd_config()
   
                         if ( _param.strcmp( "diskdash" ) )
                         {
-                            if ( _value.testME( "^yes|no|y|n$" ) )
+                            if ( _value.strcmp( "reset" ) )
+                            {
+                                _glob_activate_dashed_border = YES ;
+                                _resp = [ 1, "<greenshock>Dashed border reset to default value 'yes'</greenshock>" ] ;
+                            }
+                            else if ( _value.testME( "^yes|no|y|n$" ) )
                             {
                                 _glob_activate_dashed_border = ( _value.is_one_of( "yes", "y" ) ? YES : NO );
                                 _value = ( _value.is_one_of( "yes", "y" ) ? "yes" : ( _value.is_one_of( "no", "n" ) ? "no" : "???" ) );
@@ -535,7 +543,12 @@ function circles_terminal_cmd_config()
   
                         if ( _param.strcmp( "diskdraw" ) )
                         {
-                            if ( _value.testME( "^yes|no|y|n$" ) )
+                            if ( _value.strcmp( "reset" ) )
+                            {
+                                _glob_wplane_disk_draw = YES ;
+                                _resp = [ 1, "<greenshock>W-plane diskdraw reset to default value 'yes'</greenshock>" ] ;
+                            }
+                            else if ( _value.testME( "^yes|no|y|n$" ) )
                             {
                                 _glob_wplane_disk_draw = ( _value.is_one_of( "yes", "y" ) ? YES : NO );
                                 _value = ( _value.is_one_of( "yes", "y" ) ? "yes" : ( _value.is_one_of( "no", "n" ) ? "no" : "???" ) );
@@ -551,7 +564,12 @@ function circles_terminal_cmd_config()
   
                         if ( _param.strcmp( "diskfill" ) )
                         {
-                            if ( _value.testME( "^yes|no|y|n$" ) )
+                            if ( _value.strcmp( "reset" ) )
+                            {
+                                _glob_wplane_disk_fill = YES ;
+                                _resp = [ 1, "<greenshock>Diskfill reset to default value 'yes'</greenshock>" ] ;
+                            }
+                            else if ( _value.testME( "^yes|no|y|n$" ) )
                             {
                                 _glob_wplane_disk_fill = ( _value.is_one_of( "yes", "y" ) ? YES : NO );
                                 _value = ( _value.is_one_of( "yes", "y" ) ? "yes" : ( _value.is_one_of( "no", "n" ) ? "no" : "???" ) );
@@ -567,44 +585,53 @@ function circles_terminal_cmd_config()
   
                         if ( _param.strcmp( "drawentity" ) )
                         {
-                            var _d, _p, _MSG ;
-                            for( _d = 1 ; _d < _params_assoc_array['params'].length ; _d++ )
+                            if ( _value.strcmp( "reset" ) )
                             {
-                                _p = _params_assoc_array['params'][_d] ;
-                                if ( _p.stricmp( DRAWENTITY_ISOMETRIC_CIRCLE_CMD ) ) _p = DRAWENTITY_ISOMETRIC_CIRCLE ;
-                                else if ( _p.stricmp( DRAWENTITY_INVERSION_CIRCLE_CMD ) ) _p = DRAWENTITY_INVERSION_CIRCLE ;
-                                else if ( _p.stricmp( DRAWENTITY_POINT_CMD ) ) _p = DRAWENTITY_POINT ;
-                                else if ( _p.stricmp( DRAWENTITY_PIXEL_CMD ) ) _p = DRAWENTITY_PIXEL ;
-  
-                                if ( _p.is_one_of( DRAWENTITY_ISOMETRIC_CIRCLE, DRAWENTITY_INVERSION_CIRCLE, DRAWENTITY_POINT, DRAWENTITY_PIXEL ) )
-                                {
-                                    _glob_drawentity = _params_assoc_array['drawentity'] = _p ;
-                                    _resp = [ 1, "<greenshock>Draw entity is now</greenshock> <snow>" + circles_lib_drawentity_get_def( _glob_drawentity ) + "</snow>" ] ;
-                                }
-                                
-                                if ( _value.stricmp( DRAWENTITY_PIXEL_CMD ) )
-                                {
-                                     if ( _d == 2 )
-                                     {
-                                         _glob_pixel_size = safe_int( _p, 1 );
-                                         if ( _glob_pixel_size < 0 )
-                                         {
-                                             _glob_pixel_size = 1 ;
-                                             var _MSG = "Incorrect value: reset to " + _glob_pixel_size ;
-                                             _resp = [ 0, _MSG ] ;
-                                         }
-                                     }
-                                     
-                                     circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Pixel size is now " + _glob_pixel_size, _par_1, _cmd_tag );
-                                }
+                                _glob_drawentity = DRAWENTITY_NONE ;
+                                _resp = [ 1, "<greenshock>Draw entity reset to default value 'none'</greenshock>" ] ;
                             }
-  
-                            if ( !_resp[0] && _glob_verbose )
-                            {
-                                _resp[1] += "\n<gray>The input value should be set to one of the following values:</gray>" ;
-                                _resp[1] += "\n<snow>"+DRAWENTITY_ISOMETRIC_CIRCLE+" "+DRAWENTITY_POINT+" "+DRAWENTITY_PIXEL+" "+DRAWENTITY_PIXEL+" "+DRAWENTITY_POLYLINE+"</snow>" ;
-                            }
-							else circles_lib_menu_entries_update();
+							else
+							{
+								var _d, _p, _MSG ;
+								for( _d = 1 ; _d < _params_assoc_array['params'].length ; _d++ )
+								{
+									_p = _params_assoc_array['params'][_d] ;
+									if ( _p.stricmp( DRAWENTITY_ISOMETRIC_CIRCLE_CMD ) ) _p = DRAWENTITY_ISOMETRIC_CIRCLE ;
+									else if ( _p.stricmp( DRAWENTITY_INVERSION_CIRCLE_CMD ) ) _p = DRAWENTITY_INVERSION_CIRCLE ;
+									else if ( _p.stricmp( DRAWENTITY_POINT_CMD ) ) _p = DRAWENTITY_POINT ;
+									else if ( _p.stricmp( DRAWENTITY_PIXEL_CMD ) ) _p = DRAWENTITY_PIXEL ;
+	  
+									if ( _p.is_one_of( DRAWENTITY_ISOMETRIC_CIRCLE, DRAWENTITY_INVERSION_CIRCLE, DRAWENTITY_POINT, DRAWENTITY_PIXEL ) )
+									{
+										_glob_drawentity = _params_assoc_array['drawentity'] = _p ;
+										_resp = [ 1, "<greenshock>Draw entity is now</greenshock> <snow>" + circles_lib_drawentity_get_def( _glob_drawentity ) + "</snow>" ] ;
+									}
+									
+									if ( _value.stricmp( DRAWENTITY_PIXEL_CMD ) )
+									{
+										 if ( _d == 2 )
+										 {
+											 _glob_pixel_size = safe_int( _p, 1 );
+											 if ( _glob_pixel_size < 0 )
+											 {
+												 _glob_pixel_size = 1 ;
+												 var _MSG = "Incorrect value: reset to " + _glob_pixel_size ;
+												 _resp = [ 0, _MSG ] ;
+											 }
+										 }
+										 
+										 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Pixel size is now " + _glob_pixel_size, _par_1, _cmd_tag );
+									}
+								}
+	  
+								if ( !_resp[0] && _glob_verbose )
+								{
+									_resp[1] += "\n<gray>The input value should be set to one of the following values:</gray>" ;
+									_resp[1] += "\n<snow>"+DRAWENTITY_ISOMETRIC_CIRCLE+" "+DRAWENTITY_POINT+" "+DRAWENTITY_PIXEL+" "+DRAWENTITY_PIXEL+" "+DRAWENTITY_POLYLINE+"</snow>" ;
+								}
+								else circles_lib_menu_entries_update();
+							}
+                            
                         }
   
                         if ( _param.strcmp( "interface" ) )
@@ -616,7 +643,7 @@ function circles_terminal_cmd_config()
                             }
                             else
                             {
-                                if ( _value.strcmp( "default" ) ) { _glob_interface_index = INTERFACE_DEFAULT ; circles_lib_interface_default(); }
+                                if ( _value.is_one_of_i( "default", "reset" ) ) { _glob_interface_index = INTERFACE_DEFAULT ; circles_lib_interface_default(); }
                                 _resp = [ 1, "<greenshock>Interface layout has been correctly set to '" + _value + "'</greenshock>" ] ;
                             }
                         }
@@ -655,7 +682,12 @@ function circles_terminal_cmd_config()
   
                         if ( _param.strcmp( "mapprecision" ) )
                         {
-                            if ( _value.testME( _glob_percentage_regex_pattern ) )
+                            if ( _value.strcmp( "reset" ) )
+                            {
+								_glob_smpr = 100.0 ;
+                                _resp = [ 1, "<greenshock>Map precision reset to default value '100%'</greenshock>" ] ;
+                            }
+							else if ( _value.testME( _glob_percentage_regex_pattern ) )
                             {
                                 _value = safe_float( _value, 0 );
                                 if ( _value.ranges_in( 1, 100, YES ) )
@@ -688,22 +720,35 @@ function circles_terminal_cmd_config()
   
                         if ( _param.strcmp( "title" ) )
                         {
-                        		_value = _params_assoc_array['params'].from_to( 1, _params_assoc_array['params'].length ).join( " " ) ;
-                            if ( _value.testME( _glob_illegalchars_regex_pattern ) )
+                        	if ( _value.strcmp( "reset" ) )
                             {
-                                _resp = [ 0, "<orange>Illegal chars found: fail to set param 'title' to '" + _value + "'</orange>" ] ;
-                                if ( _glob_verbose && _glob_terminal_echo_flag ) _resp[1] += "\n<gray>Only alphanumeric chars are allowed.</gray>" ;
+								_glob_title = "" ;
+                                _resp = [ 1, "<greenshock>Title reset to default empty value</greenshock>" ] ;
                             }
-                            else
-                            {
-                                _glob_title = _value ;
-                                _resp = [ 1, "<greenshock>Current configuration title is '" + _value + "'</greenshock>" ] ;
-                            }
+							else
+							{
+								_value = _params_assoc_array['params'].from_to( 1, _params_assoc_array['params'].length ).join( " " ) ;
+								if ( _value.testME( _glob_illegalchars_regex_pattern ) )
+								{
+									_resp = [ 0, "<orange>Illegal chars found: fail to set param 'title' to '" + _value + "'</orange>" ] ;
+									if ( _glob_verbose && _glob_terminal_echo_flag ) _resp[1] += "\n<gray>Only alphanumeric chars are allowed.</gray>" ;
+								}
+								else
+								{
+									_glob_title = _value ;
+									_resp = [ 1, "<greenshock>Current configuration title is '" + _value + "'</greenshock>" ] ;
+								}
+							}
                         }
   
                         if ( _param.strcmp( "usepalette" ) )
                         {
-                            if ( _value.testME( "^yes|no|y|n$" ) )
+                            if ( _value.strcmp( "reset" ) )
+                            {
+								_glob_palette_use = NO ;
+                                _resp = [ 1, "<greenshock>Palette use reset to default value 'no'</greenshock>" ] ;
+                            }
+							else if ( _value.testME( "^yes|no|y|n$" ) )
                             {
                                 _glob_palette_use = ( _value.is_one_of( "yes", "y" ) ? YES : NO );
                                 _value = ( _value.is_one_of( "yes", "y" ) ? "yes" : ( _value.is_one_of( "no", "n" ) ? "no" : "???" ) );
@@ -719,7 +764,12 @@ function circles_terminal_cmd_config()
   
                         if ( _param.strcmp( "warnings" ) )
                         {
-                            if ( _value.testME( "^yes|no|y|n$" ) )
+                            if ( _value.strcmp( "reset" ) )
+                            {
+								_glob_terminal_warnings_switch = YES ;
+                                _resp = [ 1, "<greenshock>Warnings use reset to default value 'yes'</greenshock>" ] ;
+                            }
+							else if ( _value.testME( "^yes|no|y|n$" ) )
                             {
                                 _glob_terminal_warnings_switch = ( _value.is_one_of( "yes", "y" ) ? YES : NO );
                                 _value = ( _value.is_one_of( "yes", "y" ) ? "yes" : ( _value.is_one_of( "no", "n" ) ? "no" : "???" ) );
@@ -734,10 +784,10 @@ function circles_terminal_cmd_config()
   
                         circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _resp[1], _par_1, _cmd_tag );
                         if ( circles_lib_terminal_batch_script_exists() && _glob_verbose && _output_channel == OUTPUT_TERMINAL )
-             						{
-           									_glob_terminal_change = YES ;
+             			{
+           					_glob_terminal_change = YES ;
            	                circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-           							}
+           				}
                     }
                     else circles_lib_output( _output_channel, DISPATCH_WARNING, "Param '"+_param+"' is unknown", _par_1, _cmd_tag );
                 }

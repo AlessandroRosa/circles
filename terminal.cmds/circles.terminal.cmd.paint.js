@@ -61,19 +61,16 @@ function circles_terminal_cmd_paint()
          var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
-              _p = _params_array[_i] ;
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p.toLowerCase();
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.stricmp( "all" ) ) _params_assoc_array['all'] = YES ;
-              else if ( _p.length == 1 && _p.isAlpha() ) _symbols_array.push( _p );
-              else if ( _p.stricmp( "none" ) ) _params_assoc_array['color'] = "transparent" ;
-              else if ( circles_lib_colors_is_def( _p ) ) _params_assoc_array['color'] = _p ;
-              else
-              {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+            _p = _params_array[_i] ;
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p.toLowerCase();
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.stricmp( "all" ) ) _params_assoc_array['all'] = YES ;
+            else if ( _p.length == 1 && _p.isAlpha() ) _symbols_array.push( _p );
+            else if ( _p.stricmp( "none" ) ) _params_assoc_array['color'] = "transparent" ;
+            else if ( circles_lib_colors_is_def( _p ) ) _params_assoc_array['color'] = _p ;
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

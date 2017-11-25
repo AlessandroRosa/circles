@@ -46,10 +46,7 @@ function circles_terminal_cmd_unselect()
              else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
              else if ( _p.stricmp( "zplane" ) ) _params_assoc_array['plane'] = _p.trim();
-             else
-             {
-                _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-             }
+             else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
@@ -72,20 +69,14 @@ function circles_terminal_cmd_unselect()
                   circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
                   default:
-                   if ( _items_n == 0 )
-                   {
-                        _b_fail = YES, _error_str = "Can't unselect: " + _ERR_33_01 ;         
-                   }
+                   if ( _items_n == 0 ) { _b_fail = YES, _error_str = "Can't unselect: " + _ERR_33_01 ; }
                    else
                    {
                         var _plane_str = "" ;
                         if ( _glob_target_plane != NO_PLANE )
                         {
                              if ( _glob_target_plane.is_one_of( Z_PLANE, ALL_PLANES ) ) _plane_str = "zplane" ;
-                             else
-                             {
-                                  _b_fail = YES, _error_str = "Unselect is available for Z-plane exclusively" ;                   
-                             }
+                             else { _b_fail = YES, _error_str = "Unselect is available for Z-plane exclusively" ; }
                         }
                         else
                         {
@@ -95,7 +86,6 @@ function circles_terminal_cmd_unselect()
                         }
                         
                         _plane_str += " silent" ; // no need to confirm anything for unselection
-                        
                         if ( _plane_str.length > 0 )
                         {
                             circles_lib_terminal_interpreter( "refresh "+_plane_str, _glob_terminal, _output_channel );
@@ -106,10 +96,7 @@ function circles_terminal_cmd_unselect()
              }
          }
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-   	 }
+     else{ _b_fail = YES, _error_str = "Missing input params" ; }
 
      if ( _b_fail && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;

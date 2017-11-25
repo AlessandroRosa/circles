@@ -46,10 +46,7 @@ function circles_terminal_cmd_select()
               else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.length == 1 && _p.isAlpha() ) _params_assoc_array['symbol'].push( _p );
-              else
-              {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

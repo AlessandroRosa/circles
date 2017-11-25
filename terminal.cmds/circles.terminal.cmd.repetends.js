@@ -42,27 +42,26 @@ function circles_terminal_cmd_repetends()
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
-              _p = _params_array[_i] ;
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.stricmp( "copy" ) ) _params_assoc_array["copy"] = YES ;
-              else if ( _p.is_one_of_i( "set", "remove", "flush", "list", "suggest", "release" ) ) _params_assoc_array['action'] = _p ;
-              else
-              {
-                   switch( _params_assoc_array['action'].toLowerCase() )
-                   {
-                        case "remove": if ( _counter == 0 ) _termination = _p.trim(); break ;
-                        case "set":
-                        if ( _counter == 0 ) _termination = _p.trim();
-                        else if ( _counter == 1 ) _repetend = _p.trim();
-                        break ;
-                        case "suggest": if ( _counter == 0 ) _repetend_length = safe_int( _p.trim(), 0 ); break ;
-                        default: _b_fail = YES _error_str = "Unknown parameter '"+_p+"'" ; break ;
-                   }
-
-                   _counter++ ;
-              }
+            _p = _params_array[_i] ;
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.stricmp( "copy" ) ) _params_assoc_array["copy"] = YES ;
+            else if ( _p.is_one_of_i( "set", "remove", "flush", "list", "suggest", "release" ) ) _params_assoc_array['action'] = _p ;
+            else
+            {
+                switch( _params_assoc_array['action'].toLowerCase() )
+                {
+                    case "remove": if ( _counter == 0 ) _termination = _p.trim(); break ;
+                    case "set":
+                    if ( _counter == 0 ) _termination = _p.trim();
+                    else if ( _counter == 1 ) _repetend = _p.trim();
+                    break ;
+                    case "suggest": if ( _counter == 0 ) _repetend_length = safe_int( _p.trim(), 0 ); break ;
+                    default: _b_fail = YES _error_str = "Unknown parameter '"+_p+"'" ; break ;
+                }
+                _counter++ ;
+            }
          }
          
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

@@ -68,10 +68,7 @@ function circles_terminal_cmd_grid()
               else if ( _p.stricmp( "hide" ) ) _params_assoc_array['mode'] = 0 ;
               else if ( _p.testME( _glob_positive_integer_regex_pattern ) ) _params_assoc_array['ticks'] = safe_int( _p, 2 );
               else if ( circles_lib_colors_is_def( _p ) ) _params_assoc_array['color'] = _p ;
-              else
-              {
-                   _b_fail = YES, _error_str = "Unknown param '"+_p+"'" ;
-              }
+              else { _b_fail = YES, _error_str = "Unknown param '"+_p+"'" ; break ; }
          }
          
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

@@ -194,16 +194,10 @@ function circles_terminal_cmd_figures()
                        _params_assoc_array['input_values'].push( _p );
                    }
               }
-              else
-              {
-                  _b_fail = YES, _error_str = "Unknown parameter " + _p ;
-              }
+              else { _b_fail = YES, _error_str = "Unknown parameter " + _p ; break ; }
          }
      }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
+     else { _b_fail = YES, _error_str = "Missing input params" ; }
 
      if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
      else if ( _params_assoc_array['keywords'] )

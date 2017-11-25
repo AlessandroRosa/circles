@@ -258,10 +258,7 @@ function circles_terminal_cmd_region()
                    
                    _params_assoc_array['props']['border'] = _border ;
               }
-              else
-              {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
          var _x_syntax_flag = _params_assoc_array['settings']['xsyntax'].associative_key_exists('status') ? ( _params_assoc_array['settings']['xsyntax']['status'] == CLOSE ? YES : NO ) : NO ;

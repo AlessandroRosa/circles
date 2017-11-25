@@ -45,10 +45,7 @@ function circles_terminal_cmd_savepix()
               else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['plane'] = W_PLANE ;
               else if ( _p.stricmp( "zplane" ) ) _params_assoc_array['plane'] = Z_PLANE ;
               else if ( _p.stricmp( "dlocus" ) ) _params_assoc_array['plane'] = D_LOCUS ;
-              else
-              {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

@@ -61,11 +61,7 @@ function circles_terminal_cmd_init()
         else if ( _p.stricmp( "symbols" ) ) _params_assoc_array['settings']['symbols'] = YES ;
         else if ( _p.stricmp( "show" ) ) _params_assoc_array['showoptions'] = YES ;
         else if ( _p.is_one_of_i( "and", "from" ) ) _params_assoc_array['grammars'].push( _p );
-        else if ( _p.length > 0 )
-        {
-            _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-            break ;
-        }
+        else if ( _p.length > 0 ) { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
     }
 
     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;

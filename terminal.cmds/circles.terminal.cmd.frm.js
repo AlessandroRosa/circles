@@ -82,14 +82,14 @@ function circles_terminal_cmd_frm()
             else if ( _p.start_with_i( "approx:" ) ) _params_assoc_array['approx'] = safe_int( _p.replaceAll( "approx", "" ), DEFAULT_MAX_ACCURACY ); 
             else if ( _p.start_with_i( "roundto:" ) )
             {
-							 _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
-               if ( _p <= 0 || _p > DEFAULT_MAX_ACCURACY )
-               {
-                  _p = _glob_accuracy ;
-                  if ( _p <= 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'accuracy' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
-                  else circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'accuracy' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
-               }
-							 _params_assoc_array['settings']['accuracy'] = _p ;
+				_p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
+			    if ( _p <= 0 || _p > DEFAULT_MAX_ACCURACY )
+				{
+					_p = _glob_accuracy ;
+					if ( _p <= 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'accuracy' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+					else circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'accuracy' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+				}
+				_params_assoc_array['settings']['accuracy'] = _p ;
             }
             else _params_assoc_array['frm'].push( _p.trim() );
          }

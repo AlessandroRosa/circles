@@ -89,8 +89,7 @@ function circles_terminal_cmd_matrix()
               else if ( _params_assoc_array['all'] && _p.stricmp( "dump" ) ) _params_assoc_array['dump'] = YES ;
               else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
               else if ( _p.is_one_of_i( "adjoint", "check", "conjugate", "inverse", "negative", "normalize", "transpose",
-                                        "add", "prod", "sub", "div",
-                                        "determinant", "trace", "power", "pull", "release" ) )
+                                        "add", "prod", "sub", "div", "determinant", "trace", "power", "pull", "release" ) )
                   _params_assoc_array['action'] = _p.toLowerCase();
               else if ( _params_assoc_array['action'].is_one_of_i( "power" ) && _p.testME( _glob_integer_regex_pattern ) )
                   _params_assoc_array['inputs'].push( _p );
@@ -100,13 +99,10 @@ function circles_terminal_cmd_matrix()
               {
                   if( !circles_terminal_cmd_matrix_parse_str( _p, _params_assoc_array, _output_channel, _par_1 ) )
                   {
-                      _b_fail = YES, _error_str = "Invalid input param '"+_p+"' for "+_params_assoc_array['action']+" action"  ;
+                      _b_fail = YES, _error_str = "Invalid input param '"+_p+"' for "+_params_assoc_array['action']+" action"  ; break ;
                   }
               }
-              else
-              {
-                  _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

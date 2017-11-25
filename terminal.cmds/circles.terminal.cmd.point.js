@@ -70,16 +70,16 @@ function circles_terminal_cmd_point()
              else if ( _p.start_with( "storagesubset:" ) ) _params_assoc_array['settings']['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
              else if ( _p.start_with_i( "$" ) )
              {
-                   for( _l = 0 ; _l < _glob_figures_array.length ; _l++ )
-                   {
-                        if ( _p.stricmp( _glob_figures_array[_l]['label'] ) )
-                        {
-                             _b_fail = YES, _error_str = "There exists already another figure labelled as '"+_p+"'" ;
-                             break ;
-                        }
-                   }
+                for( _l = 0 ; _l < _glob_figures_array.length ; _l++ )
+                {
+                    if ( _p.stricmp( _glob_figures_array[_l]['label'] ) )
+                    {
+                        _b_fail = YES, _error_str = "There exists already another figure labelled as '"+_p+"'" ;
+                        break ;
+                    }
+                }
 
-                   if ( !_b_fail ) _params_assoc_array['settings']['label'] = _p ;
+                if ( !_b_fail ) _params_assoc_array['settings']['label'] = _p ;
              }
              else if ( _p.is_one_of_i( "zplane", "wplane", "bip" ) )
              {

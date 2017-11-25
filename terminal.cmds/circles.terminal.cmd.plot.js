@@ -132,10 +132,7 @@ function circles_terminal_cmd_plot()
 									 else if ( _p.stricmp( "wplane" ) ) _p = "W-plane" ;
                    circles_lib_output( _output_channel, DISPATCH_INFO, "Selected plane for plot : " + _p, _par_1, _cmd_tag );
 							}
-              else
-              {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
          var _selection_indexes_array = [], _obj_to_draw = [] ;

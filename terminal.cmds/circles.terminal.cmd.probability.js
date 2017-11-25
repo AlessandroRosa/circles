@@ -62,48 +62,36 @@ function circles_terminal_cmd_probability()
               {
                   var _w = safe_int( _p.replaceAll( "warmup:", "" ), DEFAULT_RND_WARMUP );
                   if ( _w > 0 ) _params_assoc_array['settings']['warmup'] = _w ;
-                  else 
-                  {
-                      _b_fail = YES, _error_str = "warm-up must be strictly positive" ;
-                  }
+                  else { _b_fail = YES, _error_str = "warm-up must be strictly positive" ; break ; }
               }
               else if ( _p.start_with_i( "repsthreshold:" ) )
               {
                   var _w = safe_float( _p.replaceAll( "repsthreshold:", "" ), DEFAULT_RND_REPS_THRESHOLD );
                   var _min = 0, _max = 1 ;
                   if ( _w.ranges_in( _min, _max, YES ) ) _params_assoc_array['settings']['repsthreshold'] = _w ;
-                  else 
-                  {
-                      _b_fail = YES, _error_str = "repetends threshold must range from "+_min+" to " + _max ;
-                  }
+                  else { _b_fail = YES, _error_str = "repetends threshold must range from "+_min+" to " + _max ; break ; }
               }
               else if ( _p.start_with_i( "repsdepth:" ) )
               {
                   var _d = safe_int( _p.replaceAll( "repsdepth:", "" ), DEFAULT_RND_REPS_DEPTH );
                   if ( _d > 0 ) _params_assoc_array['settings']['repsdepth'] = _d ;
-                  else 
-                  {
-                      _b_fail = YES, _error_str = "repetends depth must be strictly positive" ;
-                  }
+                  else { _b_fail = YES, _error_str = "repetends depth must be strictly positive" ; }
               }
               else if ( _p.is_one_of_i( "clean", "default", "exact", "list", "release", "set" ) ) _params_assoc_array['action'] = _p ;
               else if ( _p.testME( _glob_float_regex_pattern ) )
               {
-                   if ( _p.includes(".") )
-                   {
-                      if ( ( _p.split(".")[1] ).length > _decimals )
-                      circles_lib_output( _output_channel, DISPATCH_WARNING, "Probability "+_p+" will be rounded to default "+_decimals+" decimal"+(_decimals==1?"":"s"), _par_1, _cmd_tag );
-                   }
-                   _p = Math.max( safe_float( _p, 0 ), 0 ) ;
-                   if ( _p > 0 && _p < FULL_SUM )
-                   {
-                       if ( !is_array( _params_assoc_array['settings']['probs'] ) ) _params_assoc_array['settings']['probs'] = [] ;
-                       _params_assoc_array['settings']['probs'].push( _p ) ;
-                   }
-                   else
-                   {
-                       _b_fail = YES, _error_str = "The input probability "+_p+" is illegal: it has to be included inside the open unit interval ]0, "+FULL_SUM+"[" ;
-                   }
+                if ( _p.includes(".") )
+                {
+                    if ( ( _p.split(".")[1] ).length > _decimals )
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Probability "+_p+" will be rounded to default "+_decimals+" decimal"+(_decimals==1?"":"s"), _par_1, _cmd_tag );
+                }
+                _p = Math.max( safe_float( _p, 0 ), 0 ) ;
+                if ( _p > 0 && _p < FULL_SUM )
+                {
+                    if ( !is_array( _params_assoc_array['settings']['probs'] ) ) _params_assoc_array['settings']['probs'] = [] ;
+                    _params_assoc_array['settings']['probs'].push( _p ) ;
+                }
+                else { _b_fail = YES, _error_str = "The input probability "+_p+" is illegal: it shall range in ]0, "+FULL_SUM+"[" ; break ; }
               }
               else if ( _p.testME( _glob_word_regex_pattern ) )
               {
@@ -131,11 +119,7 @@ function circles_terminal_cmd_probability()
                           }
                        }
               }
-              else
-              {
-                   _b_fail = YES, _error_str = "Unknown parameter '"+_p+"' : input has been halted" ;
-                   break ;
-              }
+              else { _b_fail = YES, _error_str = "Unknown parameter '"+_p+"' : input has been halted" ; break ; }
         }
          
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

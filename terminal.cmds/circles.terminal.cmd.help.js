@@ -89,8 +89,7 @@ function circles_terminal_cmd_help()
                       _index_associations['tip'] = _i ;
                   }
               }
-              else if ( _params_assoc_array['action'].length == 0 )
-              _params_assoc_array['exec'].push( _p );
+              else if ( _params_assoc_array['action'].length == 0 ) _params_assoc_array['exec'].push( _p );
          }
 
          if ( _params_assoc_array['help'] != null )

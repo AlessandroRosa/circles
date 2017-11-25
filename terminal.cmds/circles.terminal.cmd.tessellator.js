@@ -40,8 +40,7 @@ function circles_terminal_cmd_tessellator()
     				 _local_cmds_params_array.push( "grid", "radial", "span", "wave", "rec", "zplane", "wplane", "release",
 						 															  "startcenter", "radius", "html", "shiftvert", "shifthorz", "cols", "rows",
 						 															  "amplitude", "height", "reps", "circles",
-						 															  "radial", "sector", "html", "help"
-																					);
+						 															  "radial", "sector", "html", "help" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -60,19 +59,13 @@ function circles_terminal_cmd_tessellator()
               {
                    _p = _p.replaceAll( "startcenter:", "" );
                    if ( _p.testME( _glob_cartesian_coords_regex_pattern ) ) _params_assoc_array['startcenter'] = _p ;
-                   else
-                   {
-                       _b_fail = YES, _error_str = "Incorrect syntax for start center coords" ;
-                   }
+                   else { _b_fail = YES, _error_str = "Incorrect syntax for start center coords" ; break ; }
               }
               else if ( _p.start_with_i( "radius:" ) )
               {
                    _p = _p.replaceAll( "radius:", "" );
                    if ( _p.testME( _glob_float_regex_pattern ) ) _params_assoc_array['radius'] = Math.max( safe_float( _p, 0 ), 0 );
-                   else
-                   {
-                       _b_fail = YES, _error_str = "Incorrect syntax for disk radius" ;
-                   }
+                   else { _b_fail = YES, _error_str = "Incorrect syntax for disk radius" ; break ; }
               }
               else if ( _params_assoc_array['tessellation'].strcmp( "grid" ) )
               {
@@ -98,28 +91,19 @@ function circles_terminal_cmd_tessellator()
                             var _sec = circles_lib_math_parse_formula( _p );
                             _params_assoc_array['sector'] = safe_float( _sec, 0 ).roundTo( 6 ) ;
                        }
-                       else
-                       {
-                           _b_fail = YES, _error_str = "Incorrect syntax for sector amplitude" ;
-                       }
+                       else { _b_fail = YES, _error_str = "Incorrect syntax for sector amplitude" ; break ; }
                    }
 
                    if ( _p.start_with_i( "rotationcenter:" ) )
                    {
                        _p = _p.replaceAll( "rotationcenter:", "" );
                        if ( _p.testME( _glob_cartesian_coords_regex_pattern ) ) _params_assoc_array['rotationcenter'] = _p ;
-                       else
-                       {
-                           _b_fail = YES, _error_str = "Incorrect syntax for circles number" ;
-                       }
+                       else { _b_fail = YES, _error_str = "Incorrect syntax for circles number" ; break ; }
                    }
 
                    if ( _p.start_with_i( "circles:" ) ) _params_assoc_array['circles'] = Math.abs( safe_int( _p.replaceAll( "circles:", "" ), 0 ) );
               }
-              else
-              {
-                   _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1);
-              }
+              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );

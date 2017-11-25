@@ -104,11 +104,7 @@ function circles_terminal_cmd_layer()
                     if ( _output_channel == OUTPUT_TERMINAL )
                     circles_lib_output( _output_channel, DISPATCH_STANDARD, "Insert source layer for copy (e.g. 'zplane work')", _par_1, _cmd_tag );
                 }
-                else
-                {
-                    _b_fail = YES ;
-                    _error = _p + " action works in special mode exclusively" ;
-                }
+                else { _b_fail = YES ; _error = _p + " action works in special mode exclusively" ; break ; }
               }
               else if ( _glob_storage[_cmd_tag] != null )
               {
@@ -186,11 +182,7 @@ function circles_terminal_cmd_layer()
             else if ( _p.is_one_of_i( "zplane", "wplane" ) ) _params_assoc_array['plane'] = _p ;
          }
      }
-     else
-     {
-         _b_fail = YES ;
-         _error_str = "Missing input params" ;
-     }
+     else { _b_fail = YES ; _error_str = "Missing input params" ; }
 	 
      // elaborating the params
      if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
