@@ -70,11 +70,6 @@ function circles_terminal_cmd_refresh()
                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
             }
         }
-        else if ( _glob_method == METHOD_NONE && !_clean && _glob_terminal_errors_switch )
-        {
-            _glob_terminal_critical_halt = _b_fail = YES ;
-            _glob_terminal_critical_halt_msg = _error_str = "Missing method declaration" ;
-		}
         else if ( !_b_fail )
         {
             var _action = _params_assoc_array['action'], _clean = _params_assoc_array['clean'] ;
@@ -89,11 +84,6 @@ function circles_terminal_cmd_refresh()
                   var _render = _params_assoc_array['render'] ;
                   var _context_label = "", _plane_label = "" ;
     
-                  if ( circles_lib_count_dict() == 0 && _glob_dict_create == NO &&
-                       _glob_method.is_one_of( METHOD_INVERSION, METHOD_ALGEBRAIC ) &&
-                       _glob_process != PROCESS_RANDOM )
-                      circles_lib_output( _output_channel, DISPATCH_WARNING, "Current input dictionary is empty", _par_1, _cmd_tag );
-                  
                   if ( _glob_terminal_run_code_from == RUN_CODE_FROM_TERMINAL && _plane == BIP_BOX )
                   {
                        _plane = W_PLANE ;
@@ -154,14 +144,14 @@ function circles_terminal_cmd_refresh()
                           break ;
                           case W_PLANE :
                           var _ret_chunk = null, _ret_id = YES, _ret_msg ;
-                          if ( _glob_drawentity == DRAWENTITY_NONE )
+                          if ( _glob_drawentity == DRAWENTITY_NONE && _glob_terminal_errors_switch )
                           {
                                _b_fail = YES, _error_str = "Missing input 'drawentity' parameter for W-plane" ;
                                _error_str += _glob_crlf + "Use cmd 'config' to set 'drawentity' param" ;
                                _glob_terminal_critical_halt = YES ;
                                _glob_terminal_critical_halt_msg = _error_str + _glob_crlf + "Insufficient params: refresh halted" ;
                           }
-                          else if ( _glob_construction_mode == CONSTRUCTION_NONE )
+                          else if ( _glob_construction_mode == CONSTRUCTION_NONE && _glob_terminal_errors_switch )
                           {
                                _b_fail = YES, _error_str = "Missing input 'construction' parameter for W-plane" ;
                                _error_str += _glob_crlf + "Use cmd 'config' to set 'construction' param" ;
@@ -234,14 +224,14 @@ function circles_terminal_cmd_refresh()
                           }
                           break ;
                           case BIP_BOX :
-                          if ( _glob_drawentity == DRAWENTITY_NONE )
+                          if ( _glob_drawentity == DRAWENTITY_NONE && _glob_terminal_errors_switch )
                           {
                                _b_fail = YES, _error_str = "Missing input 'drawentity' parameter for W-plane" ;
                                _error_str += _glob_crlf + "Use cmd 'config' to set 'drawentity' param" ;
                                _glob_terminal_critical_halt = YES ;
                                _glob_terminal_critical_halt_msg = _error_str + _glob_crlf + "Insufficient params: refresh halted" ;
                           }
-                          else if ( _glob_construction_mode == CONSTRUCTION_NONE )
+                          else if ( _glob_construction_mode == CONSTRUCTION_NONE && _glob_terminal_errors_switch )
                           {
                                _b_fail = YES, _error_str = "Missing input 'construction' parameter for W-plane" ;
                                _error_str += _glob_crlf + "Use cmd 'config' to set 'construction' param" ;
@@ -258,14 +248,14 @@ function circles_terminal_cmd_refresh()
                           }
                           break ;
                           case ALL_PLANES :
-                          if ( _glob_drawentity == DRAWENTITY_NONE )
+                          if ( _glob_drawentity == DRAWENTITY_NONE && _glob_terminal_errors_switch )
                           {
                                _b_fail = YES, _error_str = "Missing input 'drawentity' parameter for W-plane" ;
                                _error_str += _glob_crlf + "Use cmd 'config' to set 'drawentity' param" ;
                                _glob_terminal_critical_halt = YES ;
                                _glob_terminal_critical_halt_msg = _error_str + _glob_crlf + "Insufficient params: refresh halted" ;
                           }
-                          else if ( _glob_construction_mode == CONSTRUCTION_NONE )
+                          else if ( _glob_construction_mode == CONSTRUCTION_NONE && _glob_terminal_errors_switch )
                           {
                                _b_fail = YES, _error_str = "Missing input 'construction' parameter for W-plane" ;
                                _error_str += _glob_crlf + "Use cmd 'config' to set 'construction' param" ;

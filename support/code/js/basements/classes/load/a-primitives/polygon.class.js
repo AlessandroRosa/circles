@@ -14,7 +14,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Code by Alessandro Rosa - zandor_zz@yahoo.it
+// Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
   /* framework data type
      datatype_dev : polygon
@@ -204,13 +204,26 @@ polygon.prototype.output = function( _round_digits, _linebreak_cmd )
 }
 
 polygon.prototype.move = function() { this.shift.apply( this, arguments ) ; }
-polygon.prototype.shift = function()
+polygon.prototype.shift = function( _x = 0, _y = 0, _self = YES )
 {
-		var _pt = null ;
+	var _pt = null ;
+	if ( is_point( arguments[0] ) ) _pt = arguments[0] ;
+	else if ( is_array( arguments[0] ) ) _pt = new point( arguments[0][0], arguments[0][1] );
+	else if ( arguments.length == 0 && arguments.length == 2 ) _pt = new point( safe_float( arguments[0], 0 ), safe_float( arguments[1], 0 ) );
+	if ( _self )
+	{
+		for( var _i = 0 ; _i < this.vertex_array.length ; _i++ ) this.vertex_array[_i].shift( _pt.x, _pt.y );
+		return 1 ;
+	}
+	else
+	{
+		var _p = this.copy();
 		if ( is_point( arguments[0] ) ) _pt = arguments[0] ;
 		else if ( is_array( arguments[0] ) ) _pt = new point( arguments[0][0], arguments[0][1] );
-		else if ( arguments.length == 0 ) _pt = new point( safe_float( arguments[0], 0 ), safe_float( arguments[1], 0 ) );
-    for( var _i = 0 ; _i < this.vertex_array.length ; _i++ ) this.vertex_array[_i].shift( _pt.x, _pt.y );
+		else if ( arguments.length == 0 && arguments.length == 2 ) _pt = new point( safe_float( arguments[0], 0 ), safe_float( arguments[1], 0 ) );
+		for( var _i = 0 ; _i < this.vertex_array.length ; _i++ ) _p.vertex_array[_i].shift( _pt.x, _pt.y );
+		return _p ;
+	}
 }
 
 polygon.prototype.rotate = function( _rad )

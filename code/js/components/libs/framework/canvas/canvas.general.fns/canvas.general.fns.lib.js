@@ -26,19 +26,19 @@ function circles_lib_canvas_get_from_role( _plane_type, _role )
     return circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_INDEX, _role );
 }
 
-function circles_lib_canvas_clean( _canvas, _color, _output_channel )
+function circles_lib_canvas_clean( _canvas, _color = "", _output_channel = OUTPUT_SCREEN )
 {
     _color = safe_string( _color, "" ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _bk = is_html_canvas( _canvas ) ? safe_string( _canvas.get_backgroundcolor(), "" ) : "" ;
     var _context = is_html_canvas( _canvas ) ? _canvas.getContext( _glob_canvas_ctx_2D_mode ) : null ;
     if ( _context != null )
     {
-       var W = is_html_canvas( _canvas ) ? _canvas.get_width() : 0, H = is_html_canvas( _canvas ) ? _canvas.get_height() : 0 ;
+       var W = _canvas.get_width(), H = _canvas.get_height() ;
        _context.clearRect( 0, 0, W, H );
        _context.fillStyle = _color.length > 0 ? _color : ( _bk.length > 0 ? _bk : "rgba( 255, 255, 255, 0 )" ) ;
        _canvas.set_backgroundcolor( _context.fillStyle ) ;
        _context.fillRect( 0, 0, W, H );
-       return [ RET_OK, "Canvas cleaned up to color: " + _context.fillStyle ];
+       return [ RET_OK, "Canvas cleaned up with color: " + _context.fillStyle ];
     }
     else return [ RET_ERROR, "Canvas is not available" ];
 }

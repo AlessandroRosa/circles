@@ -211,38 +211,38 @@ function circles_terminal_cmd_repetends()
                                         }
 
                                         var _new_counter = circles_lib_repetends_count();
-                                             var _b_go = ( _new_counter >= _old_counter ) ? YES : NO ;
-                                             var _msg_type = _b_go ? DISPATCH_SUCCESS : DISPATCH_ERROR ;
-                                             var _msg = _b_go ? "Repetend '"+_repetend+"' has been set up with success" : "Memory failure: can't set the repetend '"+_repetend+"'" ;
-                                             circles_lib_output( _output_channel, _msg_type, _msg, _par_1, _cmd_tag );
-                                             if ( _b_go ) circles_lib_repetends_resolve_array();
+                                        var _b_go = ( _new_counter >= _old_counter ) ? YES : NO ;
+                                        var _msg_type = _b_go ? DISPATCH_SUCCESS : DISPATCH_ERROR ;
+                                        var _msg = _b_go ? "Repetend '"+_repetend+"' has been set up with success" : "Memory failure: can't set the repetend '"+_repetend+"'" ;
+                                        circles_lib_output( _output_channel, _msg_type, _msg, _par_1, _cmd_tag );
+                                        if ( _b_go ) circles_lib_repetends_resolve_array();
 
-																             if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
-																  					 {
-																									_glob_terminal_change = YES ;
-																	                circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-																						 }
+										if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
+										{
+											_glob_terminal_change = YES ;
+										    circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+										}
                                     }
-                                    else
+                                    else if ( _glob_terminal_errors_switch )
                                     {
                                         var _add_error_str = "Can't set this repetend: " ;
                                         switch( _ret )
                                         {
-                                              case -4:
-                                              circles_lib_output( _output_channel, DISPATCH_ERROR, _add_error_str + "syntax error", _par_1, _cmd_tag );
-                                              break ;
-                                              case -3:
-                                              circles_lib_output( _output_channel, DISPATCH_ERROR, _add_error_str + "the input repetend is an empty string", _par_1, _cmd_tag );
-                                              break ;
-                                              case -2:
-                                              circles_lib_output( _output_channel, DISPATCH_ERROR, _add_error_str + "the alphabet is empty, maybe the disks list is either", _par_1, _cmd_tag );
-                                              break ;
-                                              case -1:
-                                              circles_lib_output( _output_channel, DISPATCH_ERROR, _add_error_str + _ERR_33_01, _par_1, _cmd_tag );
-                                              break ;
-                                              case 0:
-                                              break ;
-				          				                    default: break ;
+                                            case -4:
+                                            circles_lib_output( _output_channel, DISPATCH_ERROR, _add_error_str + "syntax error", _par_1, _cmd_tag );
+                                            break ;
+                                            case -3:
+                                            circles_lib_output( _output_channel, DISPATCH_ERROR, _add_error_str + "the input repetend is an empty string", _par_1, _cmd_tag );
+                                            break ;
+                                            case -2:
+                                            circles_lib_output( _output_channel, DISPATCH_ERROR, _add_error_str + "the alphabet is empty, maybe the disks list is either", _par_1, _cmd_tag );
+                                            break ;
+                                            case -1:
+                                            circles_lib_output( _output_channel, DISPATCH_ERROR, _add_error_str + _ERR_33_01, _par_1, _cmd_tag );
+                                            break ;
+                                            case 0:
+                                            break ;
+         				                    default: break ;
                                         }
 
                                         _glob_terminal_critical_halt = YES ;

@@ -115,7 +115,7 @@ function circles_terminal_cmd_init()
                 _b_fail = YES, _error_str = "Memory failure: init mode has not been switched to seeds nor to gens yet" ;
                 _error_str += _glob_crlf + "Use cmd 'config set items seeds' or 'config set items gens'" ;
             }
-            else if ( _items_n == 0 )
+            else if ( _items_n == 0 && _glob_terminal_errors_switch )
             {
                 _b_fail = YES, _error_str = "the maps list is empty" ;
                 _glob_terminal_critical_halt = YES ;
@@ -174,7 +174,7 @@ function circles_terminal_cmd_init()
                         _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                         _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure" ;
                         if ( _ret_id ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg.strip_tags(), _par_1, _cmd_tag );
-                        else
+                        else if ( _glob_terminal_errors_switch )
                         {
                           _b_fail = YES, _error_str = _ret_msg.strip_tags();
                           _glob_terminal_critical_halt = _ret_msg ;
@@ -203,7 +203,7 @@ function circles_terminal_cmd_init()
 									$('[id$=renderBTN]').css('color',COLOR_ERROR) ;
 								}
 								else if ( _ret_id == RET_WARNING ) circles_lib_output( _output_channel, DISPATCH_WARNING, _ret_msg.strip_tags(), _par_1, _cmd_tag );
-								else if ( _ret_id == RET_ERROR )
+								else if ( _ret_id == RET_ERROR && _glob_terminal_errors_switch )
 								{
 									_glob_terminal_critical_halt = _b_fail = YES ;
 									_glob_terminal_critical_halt_msg = _ret_msg.strip_tags();

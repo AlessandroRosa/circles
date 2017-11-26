@@ -74,7 +74,7 @@ function circles_terminal_cmd_process()
                 circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 default:
-           		if ( _current_method == METHOD_NONE )
+           		if ( _current_method == METHOD_NONE && _glob_terminal_errors_switch )
            		{
 					_glob_terminal_critical_halt = _b_fail = YES ;
       				_glob_terminal_critical_halt_msg = _error_str = "No method has been chosen yet" ;

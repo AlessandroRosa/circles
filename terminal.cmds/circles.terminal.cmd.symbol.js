@@ -321,7 +321,7 @@ function circles_terminal_cmd_symbol()
                 var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
                 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Symbols setting proc: memory failure" ;
                 if ( _ret_id == 1 ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
-                else if ( _ret_id == 0 )
+                else if ( _ret_id == 0 && _glob_terminal_errors_switch )
                 {
                     _b_fail = YES, _glob_terminal_critical_halt_msg = _error_str = _ret_msg ;
                     _glob_terminal_critical_halt = YES ;
@@ -380,7 +380,7 @@ function circles_terminal_cmd_symbol()
     					    circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
     					}
                     }
-                    else if ( _ret_id == 0 )
+                    else if ( _ret_id == 0 && _glob_terminal_errors_switch )
                     {
                         _b_fail = YES, _glob_terminal_critical_halt_msg = _error_str = _ret_msg ;
                         _glob_terminal_critical_halt = YES ;

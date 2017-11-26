@@ -12,7 +12,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Code by Alessandro Rosa - zandor_zz@yahoo.it
+// Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
 var _DLOCUS_NONE = 0 ;
 var _DLOCUS_MASKIT = 1 ;

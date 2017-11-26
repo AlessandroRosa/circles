@@ -371,7 +371,7 @@ function circles_terminal_cmd_probability()
                         var _diff = _n_letters - _n_probabilities ;
                         var _min = Math.min( _n_letters, _n_probabilities ) ;
 						
-						if ( _ks.length == 0 )
+						if ( _ks.length == 0 && _glob_terminal_errors_switch )
 						{
                             _b_fail = _glob_terminal_coderun_break = _glob_terminal_critical_halt = YES ;
 							_error_str = "" ;
@@ -401,7 +401,7 @@ function circles_terminal_cmd_probability()
                             circles_lib_output( _output_channel, DISPATCH_INFO, "Missing probability table: attempting to recover it from input params", _par_1, _cmd_tag );
                             
                             var _input_rnd_array = is_consistent_array( _probabilities_array ) ? _probabilities_array.clone() : _glob_rnd_probability_array.clone() ;
-                            if ( safe_size( _input_rnd_array, 0 ) == 0 )
+                            if ( safe_size( _input_rnd_array, 0 ) == 0 && _glob_terminal_errors_switch )
                             {
                               _b_fail = YES, _error_str = "Missing input probabilities" ;
                               _glob_terminal_coderun_break = _glob_terminal_critical_halt = YES ;
@@ -520,7 +520,7 @@ function circles_terminal_cmd_probability()
                                     circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The probability table has been changed with success", _par_1, _cmd_tag );
                                     if ( circles_lib_plugin_is_visible( "method" ) ) circles_lib_plugin_dispatcher_unicast_message( 'method', 'forms', 3.31 ) ;
                                 }
-                                else
+                                else if ( _glob_terminal_errors_switch )
                                 {
                                    _b_fail = YES, _error_str = "No changes applied: the sum "+_checksum+" of probabilities is not "+FULL_SUM ;
 								   _glob_terminal_critical_halt = _glob_terminal_coderun_break = YES ;

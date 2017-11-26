@@ -700,8 +700,8 @@ function _dg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
             circles_lib_output( _output_channel, DISPATCH_INFO, "Validating input params", _par_1, _cmd_tag );
         }
 
-        if ( _params[0].includes( "$" ) || _params[1].includes( "$" ) ||
-             _params[2].includes( "$" ) || _params[3].includes( "$" ) )
+        if ( ( _params[0].includes( "$" ) || _params[1].includes( "$" ) ||
+               _params[2].includes( "$" ) || _params[3].includes( "$" ) ) && _glob_terminal_errors_switch )
         {
             _b_fail = _glob_terminal_critical_halt = 1 ;
             _glob_terminal_critical_halt_msg = "Validation failure: var patterns need to be replaced with complex values" ;

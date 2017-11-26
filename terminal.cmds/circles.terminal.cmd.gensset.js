@@ -447,16 +447,16 @@ function circles_terminal_cmd_gensset()
                case "init":
                if ( circles_lib_gens_model_exists() )
                {
-                   var _ret_chunk = circles_lib_gens_set_build( _output_channel, YES, _params_assoc_array['force'], NO, YES );
-    						 	 var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
-    							 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure : unknown response" ;
-    							 if ( _ret_id == NO )
-    							 {
-    									_glob_terminal_critical_halt = _b_fail = YES ;
-    									_glob_terminal_critical_halt_msg = _error_str = _ret_msg ;
-    							 }
-    							 else if ( _ret_id == YES ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
-    							 else circles_lib_output( _output_channel, DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                    var _ret_chunk = circles_lib_gens_set_build( _output_channel, YES, _params_assoc_array['force'], NO, YES );
+    				var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
+    				var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure : unknown response" ;
+    				if ( _ret_id == NO && _glob_terminal_errors_switch )
+    				{
+    					_glob_terminal_critical_halt = _b_fail = YES ;
+    					_glob_terminal_critical_halt_msg = _error_str = _ret_msg ;
+    				}
+    				else if ( _ret_id == YES ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+    				else circles_lib_output( _output_channel, DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                }
                else
                {

@@ -12,7 +12,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Code by Alessandro Rosa - zandor_zz@yahoo.it
+// Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
 var _CM_UNDEF = "undefined" ;
 var _CM_NO_FILL = 0 ;

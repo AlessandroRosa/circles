@@ -49,8 +49,9 @@ function circles_terminal_cmd_circle()
         _params_assoc_array['settings']['rec'] = NO ;
         _params_assoc_array['settings']['copy'] = NO ;
         _params_assoc_array['settings']['label'] = "" ;
+		_params_assoc_array['settings']['layer'] = "work" ;
         _params_assoc_array['settings']['propertiesmask'] = 0 ;
-        _params_assoc_array['settings']['plane'] = NO_PLANE ;
+        _params_assoc_array['settings']['plane'] = Z_PLANE ;
         _params_assoc_array['settings']['sector_start'] = 0 ;
         _params_assoc_array['settings']['sector_end'] = CIRCLES_TWO_PI ;
         _params_assoc_array['settings']['storagequeue'] = [] ;
@@ -114,12 +115,18 @@ function circles_terminal_cmd_circle()
 				}
 				else { _b_fail = YES ; _error_str = "Bad circle sector format: '"+_p+"'" ; break ; }
 			}
+			else if ( _p.toLowerCase().start_with( "layer:" ) && _params_assoc_array['settings']['layer'] == null )
+			{
+				_params_assoc_array['settings']['layer'] = safe_string( _p.replace( /layer:/gi, "" ), "" ) ;
+				_msg = "<lightblue>Layer has been set to</lightblue> <snow>"+_params_assoc_array['settings']['layer']+"</snow>" ;
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+			}
 			else if ( _p.toLowerCase().start_with( "radius:" ) && _params_assoc_array['settings']['radius'] == null )
 			{
 				_params_assoc_array['settings']['radius'] = safe_string( _p.replace( /radius:/gi, "" ), "" ) ;
 				if ( _params_assoc_array['settings']['radius'].testME( _glob_positive_float_regex_pattern ) )
 				{
-					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['radius']+"</snow>" ;
+					_msg = "<lightblue>Radius has been set to</lightblue> <snow>"+_params_assoc_array['settings']['radius']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
 				else { _b_fail = YES, _error_str = "Invalid radius definition" ; break ; }
@@ -144,12 +151,12 @@ function circles_terminal_cmd_circle()
 				}
 				else { _b_fail = YES, _error_str = "Invalid fill color definition" ; break ; }
 			}
-			else if ( _p.toLowerCase().start_with( "border:" ) && _params_assoc_array['settings']['border'] == null )
+			else if ( _p.toLowerCase().start_with( "linethick:" ) && _params_assoc_array['settings']['linethick'] == null )
 			{
-				_params_assoc_array['settings']['border'] = safe_string( _p.replace( /border:/gi, "" ), "" ) ;
-				if ( _params_assoc_array['settings']['border'].testME( _glob_positive_float_regex_pattern ) )
+				_params_assoc_array['settings']['linethick'] = safe_string( _p.replace( /linethick:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['linethick'].testME( _glob_positive_float_regex_pattern ) )
 				{
-					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['border']+"</snow>" ;
+					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['linethick']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
 				else { _b_fail = YES, _error_str = "Invalid line thickness definition" ; break ; }
@@ -216,18 +223,15 @@ function circles_terminal_cmd_circle()
                    }
                    else if ( _params_assoc_array['settings']['plane'] == NO_PLANE )
                    {
-                      _b_fail = YES ;
-                      _error_str = "Can't plot the circle: missing plane reference" ; 
+                      _b_fail = YES ; _error_str = "Can't plot the circle: missing plane reference" ; 
                    }
                    else if ( !is_point( _params_assoc_array['settings']['center'] ) )
                    {
-                      _b_fail = YES ;
-                      _error_str = "Can't plot the circle: missing center coords" ;
+                      _b_fail = YES ; _error_str = "Can't plot the circle: missing center coords" ;
                    }
                    else if ( _params_assoc_array['settings']['radius'] == null )
                    {
-                      _b_fail = YES ;
-                      _error_str = "Can't plot the circle: missing radius" ;
+                      _b_fail = YES ; _error_str = "Can't plot the circle: missing radius" ;
                    }
           
                    // beware of some missing color param, so let's check'em deeper
@@ -255,36 +259,38 @@ function circles_terminal_cmd_circle()
                    var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
                    var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
           
-                   var _linewidth = ( _params_assoc_array['settings']['border'] == null ) ? 1 : safe_int( _params_assoc_array['settings']['border'], 1 );
-                   if ( _linewidth == 0 ) { _draw = NO ; _drawcolor = "" ; }
+                   var _linethick = ( _params_assoc_array['settings']['linethick'] == null ) ? 1 : safe_int( _params_assoc_array['settings']['linethick'], 1 );
+                   if ( _linethick == 0 ) { _draw = NO ; _drawcolor = "" ; }
                    var _opacity = ( _params_assoc_array['settings']['opacity'] == null ) ? 1.0 : safe_float( _params_assoc_array['settings']['opacity'], DEFAULT_MAX_OPACITY );
-                    
-					console.log( "circle", _params_assoc_array['settings']['center'], _params_assoc_array['settings']['radius'],
-                   								 _draw, _fill, _drawcolor, _fillcolor, _linewidth );
                    var _circle_obj = new circle( _params_assoc_array['settings']['center'], _params_assoc_array['settings']['radius'],
-                   								 _draw, _fill, _drawcolor, _fillcolor, _linewidth );
-                   switch( _params_assoc_array['settings']['plane'] )
-                   {
-                        case Z_PLANE:
-                        _canvas_context = _glob_zplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
-                        _mapper = zplane_sm ;
-                        break ;
-                        case W_PLANE:
-                        _canvas_context = _glob_wplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
-                        _mapper = wplane_sm ;
-                        break ;
-                        case BIP_BOX:
-                        _canvas_context = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode );
-                        _mapper = bipbox_sm ;
-                        break ;
-						default: break ;
-                   }
-          
-                   if ( is_circle( _circle_obj ) )
+                   								 _draw, _fill, _drawcolor, _fillcolor, _linethick );
+				   var _layer = circles_lib_canvas_layer_find( _params_assoc_array['settings']['plane'], FIND_LAYER_BY_ROLE_DEF, _params_assoc_array['settings']['layer'], _output_channel );
+				   if ( is_html_canvas( _layer ) )
+				   {
+					   switch( _params_assoc_array['settings']['plane'] )
+					   {
+							case Z_PLANE:
+							_canvas_context = _layer.getContext( _glob_canvas_ctx_2D_mode );
+							_mapper = zplane_sm ;
+							break ;
+							case W_PLANE:
+							_canvas_context = _layer.getContext( _glob_canvas_ctx_2D_mode );
+							_mapper = wplane_sm ;
+							break ;
+							case BIP_BOX:
+							_canvas_context = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode );
+							_mapper = bipbox_sm ;
+							break ;
+							default: break ;
+					   }
+				   }
+				   else { _b_fail = YES ; _error_str = "Invalid input layer '"+_params_assoc_array['settings']['layer']+"'" ; }
+
+                   if ( !_b_fail && is_circle( _circle_obj ) )
                    {
                        var _screen_circle = circles_lib_draw_complex_disk( _canvas_context, _mapper,
 								_circle_obj.center.x, _circle_obj.center.y, _circle_obj.radius,
-                                _draw, _drawcolor, _fill, _fillcolor, _linewidth, _opacity,
+                                _draw, _drawcolor, _fill, _fillcolor, _linethick, _opacity,
                                 _params_assoc_array['settings']['sector_start'],
 								_params_assoc_array['settings']['sector_end'],
 								"", _params_assoc_array['settings']['propertiesmask'] );
@@ -298,12 +304,13 @@ function circles_terminal_cmd_circle()
                                    _rec_chunk['class'] = FIGURE_CLASS_CIRCLE ;
                                    _rec_chunk['obj'] = _circle_obj ;
                                    _rec_chunk['plane'] = _params_assoc_array['settings']['plane'] ;
+                                   _rec_chunk['layer'] = _params_assoc_array['settings']['layer'] ;
                                    _rec_chunk['draw'] = _draw ;
                                    _rec_chunk['drawcolor'] = _drawcolor ;
                                    _rec_chunk['fill'] = _fill ;
                                    _rec_chunk['fillcolor'] = _fillcolor ;
                                    _rec_chunk['opacity'] = _opacity ;
-                                   _rec_chunk['linewidth'] = _linewidth ;
+                                   _rec_chunk['linethick'] = _linethick ;
                                    _rec_chunk['enabled'] = YES ;
                                    _rec_chunk['label'] = _params_assoc_array['settings']['label'].length > 0 ? _params_assoc_array['settings']['label'] : new String( "" );
                                    _rec_chunk['myhash'] = "rec" + _glob_figures_array.length ;

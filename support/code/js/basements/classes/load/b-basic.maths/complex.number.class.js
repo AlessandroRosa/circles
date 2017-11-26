@@ -12,7 +12,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Code by Alessandro Rosa - zandor_zz@yahoo.it
+// Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
 var COMPLEX_MAX_FLOAT = Number.MAX_VALUE / Math.pow( 10, 3 ), COMPLEX_MIN_FLOAT = Number.MIN_VALUE * Math.pow( 10, 3 ) ;
 var COMPLEX_CLASS_MAX_ACCURACY = 12 ; // suggested value for all accuracy tests. Never exceed 20, which is max value allowed by javascript .toPrecision built-in function

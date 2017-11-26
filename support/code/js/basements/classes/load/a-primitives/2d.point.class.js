@@ -12,7 +12,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Code by Alessandro Rosa - zandor_zz@yahoo.it
+// Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
 var _POINT_2D_CLS_ERR = 0 ;
 var _POINT_2D_CLS_EUCLIDEAN_ENV = 1 ;
@@ -149,16 +149,32 @@ point.prototype.distance = function( _pt )
     }
 }
 
-point.prototype.shift = function()
+point.prototype.shift = function( _x = 0, _y = 0, _self = 1 )
 {
-    if ( arguments.length == 1 && is_point( arguments[0] ) )
-    {
-       this.x += arguments[0].x, this.y += arguments[0].y ;
-    }
-    else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
-    {
-       this.x += arguments[0], this.y += arguments[1] ;
+	if ( _self )
+	{
+		if ( arguments.length == 1 && is_point( arguments[0] ) )
+		{
+		   this.x += arguments[0].x, this.y += arguments[0].y ;
 		}
+		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
+		{
+		   this.x += arguments[0], this.y += arguments[1] ;
+		}
+	}
+	else
+	{
+		var _c = this.copy();
+		if ( arguments.length == 1 && is_point( arguments[0] ) )
+		{
+		   _c.x += arguments[0].x, _c.y += arguments[0].y ;
+		}
+		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
+		{
+		   _c.x += arguments[0], _c.y += arguments[1] ;
+		}
+		return _c ;
+	}
 }
 
 point.prototype.rotate = function( center_pt, _rot_rad )

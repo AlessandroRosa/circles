@@ -1,7 +1,6 @@
 function circles_lib_canvas_render_zplane( _canvas, _mapper = zplane_sm, _selected_layers_array, _b_clean = NO, _b_render_bk = YES, _b_render_objs = YES, _question = NO, _silent = YES, _b_reset_coords = YES, _output_channel )
 {
-    _b_clean = safe_int( _b_clean, NO );
-    _b_render_bk = safe_int( _b_render_bk, YES ), _b_render_objs = safe_int( _b_render_objs, YES );
+    _b_clean = safe_int( _b_clean, NO ), _b_render_bk = safe_int( _b_render_bk, YES ), _b_render_objs = safe_int( _b_render_objs, YES );
     _b_reset_coords = safe_int( _b_reset_coords, YES );
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
@@ -48,8 +47,7 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper = zplane_sm, _select
                        {
                           _tmp_canvas = $( "#" + _layer.get_idcanvas() ).get(0);
                           if ( is_html_canvas( _tmp_canvas ) ) circles_lib_canvas_clean( _tmp_canvas, _layer.get_backgroundcolor(), _output_channel );
-                       }
-                    } );
+                       } } );
         }
         else
         {

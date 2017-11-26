@@ -12,7 +12,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Code by Alessandro Rosa - zandor_zz@yahoo.it
+// Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
 var _CIRCLE_OBJ_MAX_ACCURACY = 10 ; // the orthogonality test fails for accuracy > 10, but 20 is max value allowed by javascript .toPrecision built-in function
 
@@ -34,7 +34,7 @@ function circle()
     if ( is_circle( arguments[0] ) )
     {
        this.center = is_point( arguments[0].center ) ? arguments[0].center : new point( 0, 0 ) ;
-       this.radius = arguments[0].radius ;
+       this.radius = safe_float( arguments[0].radius, 0 ) ;
        this.draw = safe_int( arguments[0].draw, 1 ) ;
        this.fill = safe_int( arguments[0].fill, 0 ) ;
        this.drawcolor = safe_string( arguments[0].drawcolor, "blue" ) ;
@@ -45,7 +45,7 @@ function circle()
     else if ( is_point( arguments[0] ) && !isNaN( arguments[1] ) )
     {
        this.center = is_point( arguments[0] ) ? arguments[0] : new point( 0, 0 ) ;
-       this.radius = arguments[1] ;
+       this.radius = safe_float( arguments[1], 0 ) ;
        this.draw = safe_int( arguments[2], 1 ) ;
        this.fill = safe_int( arguments[3], 0 ) ;
        this.drawcolor = safe_string( arguments[4], "blue" ) ;
@@ -56,7 +56,7 @@ function circle()
     else if ( !isNaN( arguments[0] ) && !isNaN( arguments[1] ) && !isNaN( arguments[2] ) )
     {
        this.center = new point( arguments[0], arguments[1] ) ;
-       this.radius = arguments[2] ;
+       this.radius = safe_float( arguments[2], 0 ) ;
        this.draw = safe_int( arguments[3], 1 ) ;
        this.fill = safe_int( arguments[4], 0 ) ;
        this.drawcolor = safe_string( arguments[5], "blue" ) ;
@@ -149,16 +149,37 @@ circle.prototype.area = function()            { return Math.PI * this.radius * t
 circle.prototype.get_curvature = function() { return this.radius == 0 ? 0 : ( 1.0 / this.radius ) ; }
 circle.prototype.set_curvature = function( c ) { this.radius = c == 0 ? 0 : ( 1.0 / c ) ; }
 circle.prototype.rotate = function( center_pt, rot_rad ) { this.center = this.center.rotate( center_pt, rot_rad ); }
-circle.prototype.move = function( _move_x, _move_y )
+circle.prototype.shift = function( _x = 0, _y = 0, _self = YES )
 {
+	if ( _self ) 
+	{
 		if ( arguments.length == 1 && is_point( arguments[0] ) )
 		{
-				this.center.x += arguments[0].x, this.center.y += arguments[0].y ;
+			this.center.x += arguments[0].x, this.center.y += arguments[0].y ;
+			return 1 ;
 		}
 		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
 		{
-				this.center.x += arguments[0], this.center.y += arguments[1] ;
+			this.center.x += arguments[0], this.center.y += arguments[1] ;
+			return 1 ;
 		}
+	}
+	else
+	{
+		var _c = this.copy();
+			_c.center.x += arguments[0], _c.center.y += arguments[1] ;
+		if ( arguments.length == 1 && is_point( arguments[0] ) )
+		{
+			_c.center.x += arguments[0].x, _c.center.y += arguments[0].y ;
+			return _c ;
+		}
+		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
+		{
+			_c.center.x += arguments[0], _c.center.y += arguments[1] ;
+			return _c ;
+		}
+	}
+	return 0 ;
 }
 
 circle.prototype.include = function( C2 ) { return ( ( this.center.distance( C1.center ) + C2.radius ) <= this.radius ) ? 1 : 0 ; }
@@ -208,7 +229,7 @@ circle.prototype.unpack = function( _packed_input )
     else return NO ;
 }
 
-circle.prototype.roundTo = function( _round_digits )
+circle.prototype.roundTo = function( _round_digits = _CIRCLE_OBJ_MAX_ACCURACY )
 {
     _round_digits = safe_int( _round_digits, _CIRCLE_OBJ_MAX_ACCURACY );
     return new circle( this.center.roundTo( _round_digits ), this.radius.roundTo( _round_digits ),
@@ -216,11 +237,10 @@ circle.prototype.roundTo = function( _round_digits )
                      );
 }
 
-circle.prototype.output = function( _format, _round_digits, _include_notes )
+circle.prototype.output = function( _format = "", _round_digits = _CIRCLE_OBJ_MAX_ACCURACY, _include_notes = NO )
 {
     _round_digits = safe_int( _round_digits, _CIRCLE_OBJ_MAX_ACCURACY );
-    _include_notes = safe_int( _include_notes, YES );
-    _format = safe_string( _format, "" ) ;
+    _include_notes = safe_int( _include_notes, YES ), _format = safe_string( _format, "" ) ;
     var _out = "" ;
  		if ( !is_point( this.center ) || isNaN( this.radius ) ) return "" ;
     var _center_x = this.center.x == 0 ? this.center.x : this.center.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ;
@@ -239,7 +259,7 @@ circle.prototype.output = function( _format, _round_digits, _include_notes )
        _out = ( "center: (" + _center_x + "," + _center_y + ") radius:" + _radius ) ;
        break ;
     }
-    
+
     if ( safe_size( this.notes, 0 ) > 0 && _include_notes ) _out += " - notes : " + this.notes ;
     return _out ;
 }

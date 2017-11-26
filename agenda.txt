@@ -11,10 +11,8 @@
   later, when required.
 
 -------------- FIX SOON -----------------------
-  
+
 * demo 16:
-  - label for broken line
-  - add a yellow triangle with orange fill on the left top corner
   - add some points red draw / white fill
 
 * Last checked terminal cmd: dg

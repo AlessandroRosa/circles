@@ -1,28 +1,27 @@
 function circles_terminal_cmd_rect()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _params_assoc_array = [];
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _params_assoc_array = [];
 
-		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _params.length > 0 )
-     {
+	if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    if ( _params.length > 0 )
+    {
              _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); 
 
@@ -49,7 +48,8 @@ function circles_terminal_cmd_rect()
              _params_assoc_array['settings'] = [] ;
              _params_assoc_array['settings']['copy'] = NO ;
              _params_assoc_array['settings']['label'] = "" ;
-             _params_assoc_array['settings']['plane'] = NO_PLANE ;
+             _params_assoc_array['settings']['layer'] = "work" ;
+             _params_assoc_array['settings']['plane'] = Z_PLANE ;
              _params_assoc_array['settings']['propertiesmask'] = 0 ;
              _params_assoc_array['settings']['rec'] = NO ;
          _params_assoc_array['settings']['storagequeue'] = [] ;
@@ -60,33 +60,38 @@ function circles_terminal_cmd_rect()
          var _index_associations = [], _i, _l ;
          for( _i = 0 ; _i < _up_to_index ; _i++ )
          {
-              _p = _params_array[_i] ;
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p.ToLowerCase();
-              else if ( _p.is_one_of_i( "storagein" ) ) _params_assoc_array['settings']['params'].push( _p ) ;
-              else if ( _p.start_with( "storagesubset:" ) ) _params_assoc_array['settings']['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
-              else if ( _p.start_with_i( "$" ) )
-              {
-                   for( _l = 0 ; _l < _glob_figures_array.length ; _l++ )
-                   {
-                        if ( _p.stricmp( _glob_figures_array[_l]['label'] ) )
-                        {
-                             _b_fail = YES, _error_str = "There exists already another figure labelled as '"+_p+"'" ;
-                             break ;
-                        }
-                   }
-
-                   if ( !_b_fail ) _params_assoc_array['settings']['label'] = _p ;
-              }
-              else if ( _p.stricmp( "rec" ) ) _params_assoc_array['settings']['rec'] = YES ;
+            _p = _params_array[_i] ;
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p.ToLowerCase();
+            else if ( _p.is_one_of_i( "storagein" ) ) _params_assoc_array['settings']['params'].push( _p ) ;
+            else if ( _p.start_with( "storagesubset:" ) ) _params_assoc_array['settings']['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
+            else if ( _p.start_with_i( "$" ) )
+            {
+                for( _l = 0 ; _l < _glob_figures_array.length ; _l++ )
+                {
+                    if ( _p.stricmp( _glob_figures_array[_l]['label'] ) )
+                    {
+                        _b_fail = YES, _error_str = "There exists already another figure labelled as '"+_p+"'" ;
+                        break ;
+                    }
+                }
+                if ( !_b_fail ) _params_assoc_array['settings']['label'] = _p ;
+            }
+            else if ( _p.stricmp( "rec" ) ) _params_assoc_array['settings']['rec'] = YES ;
             else if ( _p.is_one_of_i( "zplane", "wplane", "bip" ) )
             {
                 if ( _p.stricmp( "zplane" ) ) _params_assoc_array['settings']['plane'] = Z_PLANE ;
                 else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['settings']['plane'] = W_PLANE ;
                 else if ( _p.stricmp( "bip" ) ) _params_assoc_array['settings']['plane'] = BIP_BOX ;
             }
+			else if ( _p.toLowerCase().start_with( "layer:" ) && _params_assoc_array['settings']['layer'] == null )
+			{
+				_params_assoc_array['settings']['layer'] = safe_string( _p.replace( /layer:/gi, "" ), "" ) ;
+				_msg = "<lightblue>Layer has been set to</lightblue> <snow>"+_params_assoc_array['settings']['layer']+"</snow>" ;
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+			}
 			else if ( _p.toLowerCase().start_with( "drawcolor:" ) && _params_assoc_array['settings']['drawcolor'] == null )
 			{
 				_params_assoc_array['settings']['drawcolor'] = safe_string( _p.replace( /drawcolor:/gi, "" ), "" ) ;
@@ -137,12 +142,12 @@ function circles_terminal_cmd_rect()
 				}
 				else { _b_fail = YES, _error_str = "Invalid opacity definition" ; break ; }
 			}
-			else if ( _p.toLowerCase().start_with( "thickness:" ) && _params_assoc_array['settings']['thickness'] == null )
+			else if ( _p.toLowerCase().start_with( "linethick:" ) && _params_assoc_array['settings']['linethick'] == null )
 			{
-				_params_assoc_array['settings']['thickness'] = safe_string( _p.replace( /linethick:/gi, "" ), "" ) ;
-				if ( _params_assoc_array['settings']['thickness'].testME( _glob_positive_float_regex_pattern ) )
+				_params_assoc_array['settings']['linethick'] = safe_string( _p.replace( /linethick:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['linethick'].testME( _glob_positive_float_regex_pattern ) )
 				{
-					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['thickness']+"</snow>" ;
+					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['linethick']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
 				else { _b_fail = YES, _error_str = "Invalid line thickness definition" ; break ; }
@@ -167,7 +172,7 @@ function circles_terminal_cmd_rect()
 						_p = _p.replaceAll( [ "(", ")" ], "" );
 						var _pt_array = _p.split( "," );
 						_params_assoc_array['settings']['start_pt'] = new point( safe_float( _pt_array[0] ), safe_float( _pt_array[1] ) );
-						_msg = "<lightblue>Start point has been set to</lightblue> <snow>"+_params_assoc_array['settings']['start_pt']+"</snow>" ;
+						_msg = "<lightblue>Start point has been set to</lightblue> <snow>"+_params_assoc_array['settings']['start_pt'].output()+"</snow>" ;
 						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 					}
 					else { _b_fail = YES, _error_str = "Invalid start point definition" ; break ; }
@@ -180,14 +185,14 @@ function circles_terminal_cmd_rect()
 						_p = _p.replaceAll( [ "(", ")" ], "" );
 						var _pt_array = _p.split( "," );
 						_params_assoc_array['settings']['end_pt'] = new point( safe_float( _pt_array[0] ), safe_float( _pt_array[1] ) );
-						_msg = "<lightblue>End point has been set to</lightblue> <snow>"+_params_assoc_array['settings']['end_pt']+"</snow>" ;
+						_msg = "<lightblue>End point has been set to</lightblue> <snow>"+_params_assoc_array['settings']['end_pt'].output()+"</snow>" ;
 						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 					}
 					else { _b_fail = YES, _error_str = "Invalid end point definition" ; break ; }
 				}
 			}
          }
-
+		 
          if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
          else if ( _params_assoc_array['keywords'] )
          {
@@ -202,13 +207,17 @@ function circles_terminal_cmd_rect()
          else if ( !_b_fail )
          {
              var _action = _params_assoc_array['action'] ;
-             var _storage_queue_request = _params_assoc_array['settings']['params'].includes_i( "storagein" ) ? YES : NO ;
+             var _storage_queue_request = _params_assoc_array['settings']['params'] != null ? ( _params_assoc_array['settings']['params'].includes_i( "storagein" ) ? YES : NO ) : NO ;
              switch( _action )
              {
                   case "release":
                   circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
                   default:
+				  var _check_coords_mask = _params_assoc_array['settings']['start_pt'] != null ? 1 : 0 ;
+					  _check_coords_mask |= _params_assoc_array['settings']['end_pt'] != null ? 2 : 0 ;
+					  _check_coords_mask |= _params_assoc_array['settings']['width'] != null ? 4 : 0 ;
+					  _check_coords_mask |= _params_assoc_array['settings']['height'] != null ? 8 : 0 ;
      // checking input errors
          if ( _params_assoc_array['settings']['label'].length > 0 && _params_assoc_array['settings']['rec'] == NO )
          {
@@ -216,21 +225,16 @@ function circles_terminal_cmd_rect()
               if ( _glob_verbose && _glob_terminal_echo_flag )
               circles_lib_output( _output_channel, DISPATCH_INFO, "Label param is useless if this figure is not going to be recorded", _par_1, _cmd_tag );
          }
-         else if ( _params_assoc_array['settings']['plane'] == NO_PLANE )
-         {
-              _b_fail = YES, _error_str = "Can't plot rect: missing plane reference" ;
-         }
-         else if ( _params_assoc_array['settings']['start_pt'] != null )
-         {
-              if ( _params_assoc_array['settings']['end_pt'] == null &&
-                   _params_assoc_array['settings']['width'] == null &&
-                   _params_assoc_array['settings']['height'] == null
-                 )
-              {
-                  _b_fail = YES, _error_str = "Can't plot rect: missing coordinates" ;
-              }
-         }
-         
+         else if ( _params_assoc_array['settings']['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Can't plot rect: missing plane reference" ; }
+         else if ( _check_coords_mask & 1 ) { _b_fail = YES, _error_str = "Can't plot rect: missing coordinates" ; }
+
+		 if ( _check_coords_mask == (1|4|8) )
+		 {
+			_params_assoc_array['settings']['end_pt'] = _params_assoc_array['settings']['start_pt'].shift( _params_assoc_array['settings']['width'], _params_assoc_array['settings']['height'], NO );
+			_check_coords_mask |= 2 ;
+            circles_lib_output( _output_channel, DISPATCH_INFO, "Rectangle end point missing and recalculated, from width and height, to "+_params_assoc_array['settings']['end_pt'].output(), _par_1, _cmd_tag );
+		 }
+		 
          // beware of some missing color param, so let's check'em deeper
          if ( _params_assoc_array['settings']['drawcolor'] == null && _params_assoc_array['settings']['fillcolor'] == null )
          {
@@ -243,10 +247,7 @@ function circles_terminal_cmd_rect()
              var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
              var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
 
-             if ( _draw == NO && _fill == NO )
-             {
-                  _b_fail = YES, _error_str = "Missing draw and filling colors: this rect won't be visible" ;
-             }
+             if ( _draw == NO && _fill == NO ) { _b_fail = YES, _error_str = "Missing draw and filling colors: this rect won't be visible" ; }
          }
 
      // elaborating the params
@@ -256,8 +257,8 @@ function circles_terminal_cmd_rect()
           var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
           var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
 
-          var _linewidth = ( _params_assoc_array['settings']['thickness'] == null ) ? 1 : safe_int( _params_assoc_array['settings']['thickness'], 1 );
-              if ( _linewidth == 0 ) { _draw = NO ; _drawcolor = "" ; }
+          var _linethick = ( _params_assoc_array['settings']['thickness'] == null ) ? 1 : safe_int( _params_assoc_array['settings']['thickness'], 1 );
+              if ( _linethick == 0 ) { _draw = NO ; _drawcolor = "" ; }
           
           var _border_radius = ( _params_assoc_array['settings']['borderradius'] == null ) ? 0 : safe_int( _params_assoc_array['settings']['borderradius'], 0 );
               if ( _border_radius < 0 ) _border_radius = -_border_radius ;
@@ -285,29 +286,34 @@ function circles_terminal_cmd_rect()
               _rect_obj.correct( _RECT_ORIENTATION_CARTESIAN );
           }
           
-          switch( _params_assoc_array['settings']['plane'] )
-          {
-              case Z_PLANE:
-              _canvas_context = _glob_zplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
-              _mapper = zplane_sm ;
-              break ;
-              case W_PLANE:
-              _canvas_context = _glob_wplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
-              _mapper = wplane_sm ;
-              break ;
-              case BIP_BOX:
-              _canvas_context = _glob_BIP_BOX.getContext( _glob_canvas_ctx_2D_mode );
-              _mapper = bipbox_sm ;
-              break ;
-              default: break ;
-          }
+		  var _layer = circles_lib_canvas_layer_find( _params_assoc_array['settings']['plane'], FIND_LAYER_BY_ROLE_DEF, _params_assoc_array['settings']['layer'], _output_channel );
+		  if ( is_html_canvas( _layer ) )
+		  {
+			  switch( _params_assoc_array['settings']['plane'] )
+			  {
+				  case Z_PLANE:
+				  _canvas_context = _layer.getContext( _glob_canvas_ctx_2D_mode );
+				  _mapper = zplane_sm ;
+				  break ;
+				  case W_PLANE:
+				  _canvas_context = _layer.getContext( _glob_canvas_ctx_2D_mode );
+				  _mapper = wplane_sm ;
+				  break ;
+				  case BIP_BOX:
+				  _canvas_context = _glob_BIP_BOX.getContext( _glob_canvas_ctx_2D_mode );
+				  _mapper = bipbox_sm ;
+				  break ;
+				  default: break ;
+			  }
+		  }
+		  else { _b_fail = YES ; _error_str = "Invalid input layer '"+_params_assoc_array['settings']['layer']+"'" ; }
           
-          if ( is_rect( _rect_obj ) )
+          if ( !_b_fail && is_rect( _rect_obj ) )
           {
               if ( _border_radius )
-              circles_lib_draw_rounded_rect( _canvas_context, _mapper, _rect_obj, _draw, _drawcolor, _fill, _fillcolor, _linewidth, _border_radius, YES, _opacity, _params_assoc_array['settings']['propertiesmask'] );
+              circles_lib_draw_rounded_rect( _canvas_context, _mapper, _rect_obj, _draw, _drawcolor, _fill, _fillcolor, _linethick, _border_radius, YES, _opacity, _params_assoc_array['settings']['propertiesmask'] );
               else
-              circles_lib_draw_rect( _canvas_context, _mapper, _rect_obj, _draw, _drawcolor, _fill, _fillcolor, _linewidth, YES, _opacity, _params_assoc_array['settings']['propertiesmask'] );
+              circles_lib_draw_rect( _canvas_context, _mapper, _rect_obj, _draw, _drawcolor, _fill, _fillcolor, _linethick, YES, _opacity, _params_assoc_array['settings']['propertiesmask'] );
 
               circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Rect processed with success</green>", _par_1, _cmd_tag );
               if ( _params_assoc_array['settings']['rec'] == YES || _storage_queue_request )
@@ -316,12 +322,13 @@ function circles_terminal_cmd_rect()
                    _rec_chunk['class'] = FIGURE_CLASS_RECT ;
                    _rec_chunk['obj'] = _rect_obj ;
                    _rec_chunk['plane'] = _params_assoc_array['settings']['plane'] ;
+                   _rec_chunk['layer'] = _params_assoc_array['settings']['layer'] ;
                    _rec_chunk['draw'] = _draw ;
                    _rec_chunk['drawcolor'] = _drawcolor ;
                    _rec_chunk['fill'] = _fill ;
                    _rec_chunk['fillcolor'] = _fillcolor ;
                    _rec_chunk['opacity'] = _opacity ;
-                   _rec_chunk['linewidth'] = _linewidth ;
+                   _rec_chunk['linethick'] = _linethick ;
                    _rec_chunk['label'] = _params_assoc_array['settings']['label'].length > 0 ? _params_assoc_array['settings']['label'] : "" ;
                    _rec_chunk['borderradius'] = _border_radius ;
                    _rec_chunk['enabled'] = YES ;
@@ -349,11 +356,11 @@ function circles_terminal_cmd_rect()
              }
          }
 
-     }
-     else { _b_fail = YES, _error_str = "Missing input params" ; }
+    }
+    else { _b_fail = YES, _error_str = "Missing input params" ; }
 
-     if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION )
-     circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+    if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION )
+    circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

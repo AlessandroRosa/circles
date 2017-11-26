@@ -2,7 +2,7 @@
 
 # ini handler class
 # coded by Alessandro Rosa
-# e-mail : zandor_zz@yahoo.it
+# e-mail : alessandro.a.rosa@gmail.com
 # site : http://malilla.supereva.it
 
 # Copyright (C) 2006  Alessandro Rosa

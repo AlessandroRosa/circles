@@ -12,7 +12,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Code by Alessandro Rosa - zandor_zz@yahoo.it
+// Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
 var _POINT_3D_MAX_ACCURACY = 12 ; // suggested value for all accuracy tests. Never exceed 20, which is max value allowed by javascript .toPrecision built-in function
 
@@ -131,16 +131,32 @@ point_3d.prototype.infinity_pt = function() { return new point( Infinity, Infini
 point_3d.prototype.origin = function() { return new point_3d( 0, 0, 0 ) ; }
 
 point_3d.prototype.move = function() { this.shift.apply( this, arguments ) ; }
-point_3d.prototype.shift = function()
+point_3d.prototype.shift = function( _x = 0, _y = 0, _z = 0, _self = 1 )
 {
-    if ( arguments.length == 1 && is_point_3d( arguments[0] ) )
-    {
-       this.x += arguments[0].x, this.y += arguments[0].y, this.z += arguments[0].z ;
-    }
-    else if ( arguments.length == 3 && is_number( arguments[0] ) && is_number( arguments[1] ) && is_number( arguments[2] ) )
-    {
-       this.x += arguments[0], this.y += arguments[1], this.z += arguments[2] ;
+	if ( _self )
+	{
+		if ( arguments.length == 1 && is_point_3d( arguments[0] ) )
+		{
+		   this.x += arguments[0].x, this.y += arguments[0].y, this.z += arguments[0].z ;
 		}
+		else if ( arguments.length == 3 && is_number( arguments[0] ) && is_number( arguments[1] ) && is_number( arguments[2] ) )
+		{
+		   this.x += arguments[0], this.y += arguments[1], this.z += arguments[2] ;
+		}
+	}
+	else
+	{
+		var _p = this.copy();
+		if ( arguments.length == 1 && is_point_3d( arguments[0] ) )
+		{
+		   _p.x += arguments[0].x, _p.y += arguments[0].y, _p.z += arguments[0].z ;
+		}
+		else if ( arguments.length == 3 && is_number( arguments[0] ) && is_number( arguments[1] ) && is_number( arguments[2] ) )
+		{
+		   _p.x += arguments[0], _p.y += arguments[1], _p.z += arguments[2] ;
+		}
+		return _p ;
+	}
 }
 
 point_3d.prototype.rotate = function( center_pt, _rot_x_rad, _rot_y_rad, _rot_z_rad )

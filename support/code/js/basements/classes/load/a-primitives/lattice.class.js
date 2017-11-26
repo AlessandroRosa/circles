@@ -14,7 +14,7 @@
 		WARNING : coords are oriented in cartesian mode
 */
 
-// Code by Alessandro Rosa - zandor_zz@yahoo.it
+// Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
 /* such a container shall be set to tag this custom datatype for registration
    * The capital letters on the left are used to detect the tag ; 

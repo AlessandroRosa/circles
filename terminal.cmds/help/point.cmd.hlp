@@ -2,26 +2,37 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>point %plane% %coords% %drawcolor% %fillcolor% %borderradius% %linethickness% %opacity% $label</snow>
+<lightblue>usage</lightblue> <snow>point %plane% %layerrole% %coords% %drawcolor% %fillcolor% %radius% %borderradius% %linethick% %opacity% $label</snow>
 
-<lightblue>%plane%</lightblue> <snow>zplane | wplane</snow>
 <lightblue>%draw|fillcolor%</lightblue> <snow>tag or rgb triplets</snow>
 <lightblue>%opacity%</lightblue> <snow>0.0-1.0 range</snow>
+<lightblue>%radius% %borderradius%</lightblue> <snow>in logical coordinates</snow>
 
-<lightblue>point (0,0) drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethickness:2 $point1 rec</lightblue>
+<lightblue>%plane%</lightblue> <snow>zplane | wplane | bip</snow>
+<cadetblue>the point will belong to this layer</cadetblue>
+<cadetblue>plane includes multiple layers</cadetblue>
+
+<lightblue>%layerrole%</lightblue>
+<cadetblue>the layer on which the point will be drawn</cadetblue>
+<cadetblue>run 'layer list %plane%' to check available 'role' property definitions for the input plane</cadetblue>
+
+<yellow>point (0,0) drawcolor:orange fillcolor:yellow zplane layer:work</yellow>
+<cadetblue>the point will be plot in the 'work' layer belonging to the Z-plane</cadetblue>
+
+<yellow>point (0,0) drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethick:2 $point1 rec</yellow>
 <cadetblue>plot point in the Z-plane, paint it yellow with orange border and record it as $point1 into the</cadetblue> <snow>preset figures array</snow>
 <cadetblue>then set opacity:level to 0.4 and line thickness to 2 units</cadetblue>
 
-<lightblue>point (0,0) drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethickness:2 $point1 storagein</lightblue>
+<yellow>point (0,0) drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethick:2 $point1 storagein</yellow>
 <cadetblue>same as above, but the point is save into the default storage subset space</cadetblue>
 
-<lightblue>point (0,0) drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethickness:2 $point1 storagein storagesubset:points</lightblue>
+<yellow>point (0,0) drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethick:2 $point1 storagein storagesubset:points</yellow>
 <cadetblue>same as above, but the point is save into the 'points' storage subset space (if existing)</cadetblue>
 
-<lightblue>point (0,0) (1,1) (2,2) drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethickness:2</lightblue>
+<yellow>point (0,0) (1,1) (2,2) radius:6 drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethick:2</yellow>
 <cadetblue>multiple points input</cadetblue>
 
-<lightblue>point release</lightblue>
+<yellow>point release</yellow>
 <cadetblue>return the latest release date for this command</cadetblue>
 
 <lightgray>-------------------------------</lightgray>

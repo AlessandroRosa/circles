@@ -76,25 +76,21 @@ function circles_terminal_cmd_method()
              var _action = _params_assoc_array['action'] ;
              switch( _action )
              {
-                  case "release":
-                  circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-                  break ;
-                  default:
-              		if ( _params_assoc_array['method'] == UNDET )
-               		{
-      							 _glob_terminal_critical_halt = _b_fail = YES ;
-      							 _glob_terminal_critical_halt_msg = _error_str = "Invalid input method" ;
-      						}
-      						else
-      						{
-      		           var _method_str = "", _m = _params_assoc_array['method'], _pr = _params_assoc_array['process'] ;
+                case "release":
+                circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                break ;
+                default:
+              	if ( _params_assoc_array['method'] == UNDET && _glob_terminal_errors_switch )
+               	{
+      				_glob_terminal_critical_halt = _b_fail = YES ;
+      				_glob_terminal_critical_halt_msg = _error_str = "Invalid input method" ;
+      			}
+      			else
+      			{
+      		        var _method_str = "", _m = _params_assoc_array['method'], _pr = _params_assoc_array['process'] ;
       		           if ( _params_assoc_array['reset'] != null || ( _m == METHOD_NONE && _pr == PROCESS_NONE ) )
       		           {
-      		               if ( _params_assoc_array['reset'] != null )
-      		               {
-      		                   _m = METHOD_NONE, _pr = PROCESS_NONE ;
-      		               }
-      		                 
+      		               if ( _params_assoc_array['reset'] != null ) { _m = METHOD_NONE, _pr = PROCESS_NONE ; }
       		               circles_lib_process_set( _pr ), circles_lib_method_set( _m ) ;
       		           }
       		           else if ( _m != METHOD_ALGEBRAIC && _pr != PROCESS_NONE )

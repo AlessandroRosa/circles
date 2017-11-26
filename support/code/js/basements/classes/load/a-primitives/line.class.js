@@ -12,7 +12,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Code by Alessandro Rosa - zandor_zz@yahoo.it
+// Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
 var LINE_MAX_ACCURACY = 12 ; // suggested value for all accuracy tests. Never exceed 20, which is max value allowed by javascript .toPrecision built-in function
 var LINE_CLASS_ERROR_NONE = 0, LINE_CLASS_ERROR_PARALLEL = 1, LINE_CLASS_ERROR_COINCIDENT = 2, LINE_CLASS_ERROR_UNKNOWN = 3 ;
@@ -117,45 +117,67 @@ line.prototype.slope = function()
     return this.slope ;
 }
 
-line.prototype.shift = function()
+line.prototype.shift = function( _x = 0, _y = 0, _self = YES )
 {
+	if ( _self )
+	{
 		if ( arguments.length == 1 && is_point( arguments[0] ) )
 		{
-				this.start_pt.shift( arguments[0] );
-				this.end_pt.shift( arguments[0] );
+			this.start_pt.shift( arguments[0] );
+			this.end_pt.shift( arguments[0] );
+			return 1 ;
 		}
 		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
 		{
-				this.start_pt.shift( arguments[0], arguments[1] );
-				this.end_pt.shift( arguments[0], arguments[1] );
+			this.start_pt.shift( arguments[0], arguments[1] );
+			this.end_pt.shift( arguments[0], arguments[1] );
+			return 1 ;
 		}
+	}
+	else
+	{
+		var _l = this.copy();
+		if ( arguments.length == 1 && is_point( arguments[0] ) )
+		{
+			_l.start_pt.shift( arguments[0] );
+			_l.end_pt.shift( arguments[0] );
+			return _l ;
+		}
+		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
+		{
+			_l.start_pt.shift( arguments[0], arguments[1] );
+			_l.end_pt.shift( arguments[0], arguments[1] );
+			return _l ;
+		}
+	}
+	return 0 ;
 }
 
 line.prototype.rotate = function( center_pt, rot_rad )
 {
-		this.start_pt = this.start_pt.rotate( center_pt, rot_rad );
-		this.end_pt = this.end_pt.rotate( center_pt, rot_rad );
+	this.start_pt = this.start_pt.rotate( center_pt, rot_rad );
+	this.end_pt = this.end_pt.rotate( center_pt, rot_rad );
 }
 
 line.prototype.intersection = function()
 {
-		var _start_pt = null, _end_pt = null, _line = null ;
-		if ( arguments.length == 0 ) return NO ;
-		else if ( is_line( arguments[0] ) )
-		{
-				_start_pt = arguments[0].start_pt, _end_pt = arguments[0].end_pt ;
-		}
-		else if ( is_point( arguments[0] ) && is_point( arguments[1] ) )
-		{
-				_start_pt = arguments[0], _end_pt = arguments[1] ;
-		}
-		else if ( arguments.length == 4 ) // supposed they are all float values
-		{
-				_start_pt = new point(), _end_pt = new point();
-				_start_pt.x = arguments[0], _start_pt.y = arguments[1] ;
-				_end_pt.x = arguments[2], _end_pt.y = arguments[3] ;
-		}
-		else return NO ;
+	var _start_pt = null, _end_pt = null, _line = null ;
+	if ( arguments.length == 0 ) return NO ;
+	else if ( is_line( arguments[0] ) )
+	{
+		_start_pt = arguments[0].start_pt, _end_pt = arguments[0].end_pt ;
+	}
+	else if ( is_point( arguments[0] ) && is_point( arguments[1] ) )
+	{
+		_start_pt = arguments[0], _end_pt = arguments[1] ;
+	}
+	else if ( arguments.length == 4 ) // supposed they are all float values
+	{
+		_start_pt = new point(), _end_pt = new point();
+		_start_pt.x = arguments[0], _start_pt.y = arguments[1] ;
+		_end_pt.x = arguments[2], _end_pt.y = arguments[3] ;
+	}
+	else return NO ;
 
     var x1 = this.start_pt.x, y1 = this.start_pt.y ;
     var x2 = this.end_pt.x, y2 = this.end_pt.y ;
@@ -188,29 +210,28 @@ line.prototype.intersection = function()
 
 line.prototype.intersect_test = function()
 {
-		var _start_pt = null, _end_pt = null, _line = null ;
-		if ( arguments.length == 0 ) return NO ;
-		else if ( is_line( arguments[0] ) )
-		{
-				_start_pt = arguments[0].start_pt, _end_pt = arguments[0].end_pt ;
-		}
-		else if ( is_point( arguments[0] ) && is_point( arguments[1] ) )
-		{
-				_start_pt = arguments[0], _end_pt = arguments[1] ;
-		}
-		else if ( arguments.length == 4 ) // supposed they are all float values
-		{
-				_start_pt = new point(), _end_pt = new point();
-				_start_pt.x = arguments[0], _start_pt.y = arguments[1] ;
-				_end_pt.x = arguments[2], _end_pt.y = arguments[3] ;
-		}
-		else return NO ;
+	var _start_pt = null, _end_pt = null, _line = null ;
+	if ( arguments.length == 0 ) return NO ;
+	else if ( is_line( arguments[0] ) )
+	{
+		_start_pt = arguments[0].start_pt, _end_pt = arguments[0].end_pt ;
+	}
+	else if ( is_point( arguments[0] ) && is_point( arguments[1] ) )
+	{
+		_start_pt = arguments[0], _end_pt = arguments[1] ;
+	}
+	else if ( arguments.length == 4 ) // supposed they are all float values
+	{
+		_start_pt = new point(), _end_pt = new point();
+		_start_pt.x = arguments[0], _start_pt.y = arguments[1] ;
+		_end_pt.x = arguments[2], _end_pt.y = arguments[3] ;
+	}
+	else return NO ;
 		
-		_line = new line( _start_pt.x, _start_pt.y, _end_pt.x, _end_pt.y ) ;
-
-		var _cross_prod = ( this.start_pt.x - this.end_pt.x ) * ( _line.start_pt.y - _line.end_pt.y ) ;
-				_cross_prod -= ( this.start_pt.y - this.end_pt.y ) * ( _line.start_pt.x - _line.end_pt.x ) ;
-		return _cross_prod == 0 ? 0 : 1 ;
+	_line = new line( _start_pt.x, _start_pt.y, _end_pt.x, _end_pt.y ) ;
+	var _cross_prod = ( this.start_pt.x - this.end_pt.x ) * ( _line.start_pt.y - _line.end_pt.y ) ;
+		_cross_prod -= ( this.start_pt.y - this.end_pt.y ) * ( _line.start_pt.x - _line.end_pt.x ) ;
+	return _cross_prod == 0 ? 0 : 1 ;
 }
 
 line.prototype.get_equation = function( _point1, _point2 )

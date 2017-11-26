@@ -28,7 +28,7 @@
     Check also the correct() member for further info about coords management
 */
 
-// Code by Alessandro Rosa - zandor_zz@yahoo.it
+// Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
 var _RECT_MAX_ACCURACY = 12 ; // suggested value for all accuracy tests. Never exceed 20, which is max value allowed by javascript .toPrecision built-in function
 var _RECT_ORIENTATION_SCREEN = 0, _RECT_ORIENTATION_CARTESIAN = 1 ;
@@ -380,37 +380,41 @@ rect.prototype.side = function()
 		return _x_side == _y_side ? [ _x_side ] : [ _x_side, _y_side ] ;
 }
 
-rect.prototype.move = function( _move_x, _move_y, _overwrite )
+rect.prototype.shift = function( _shift_x, _shift_y, _self = YES )
 {
-		if ( arguments.length < 2 ) return null ;
+	if ( arguments.length < 2 ) return null ;
     var _point = ( arguments.length == 2 && is_point( arguments[0] ) ) ? arguments[0] : null ;
-		_overwrite = safe_int( arguments.length == 2 ? arguments[1] : arguments[2], 0 );
-    if ( _overwrite )
+		_self = safe_int( arguments.length == 2 ? arguments[1] : arguments[2], 0 );
+    if ( _self )
     {
         if ( is_point( _point ) )
         {
-	         this.x1 += _point.x, this.x2 += _point.x, this.y1 += _point.y, this.y2 += _point.y ;
-			  }
-				else
-				{
-					 this.x1 += arguments[0], this.x2 += arguments[0], this.y1 += arguments[1], this.y2 += arguments[1] ;
-				}
+	        this.x1 += _point.x, this.x2 += _point.x, this.y1 += _point.y, this.y2 += _point.y ;
+			return 1 ;
+		}
+		else
+		{
+			this.x1 += arguments[0], this.x2 += arguments[0], this.y1 += arguments[1], this.y2 += arguments[1] ;
+			return 1 ;
+		}
     }
     else
     {
-       var _r = new rect() ;
-       _r.from_rect( this );
-       if ( is_point( _point ) )
-       {
-		       _r.x1 += _point.x, _r.x2 += _point.x, _r.y1 += _point.y, _r.y2 += _point.y ;
-			 }
-       else
-			 {
-					 _r.x1 += arguments[0], _r.x2 += arguments[0], _r.y1 += arguments[1], _r.y2 += arguments[1] ;
-			 }
-       return _r ;
+        var _r = new rect() ;
+        _r.from_rect( this );
+        if ( is_point( _point ) )
+        {
+		    _r.x1 += _point.x, _r.x2 += _point.x, _r.y1 += _point.y, _r.y2 += _point.y ;
+		}
+		else
+		{
+			_r.x1 += arguments[0], _r.x2 += arguments[0], _r.y1 += arguments[1], _r.y2 += arguments[1] ;
+		}
+        return _r ;
     }
+	return 0 ;
 }
+
 rect.prototype.write = function() { document.write( this.output() ) ; }
 rect.prototype.array = function() { return [ this.x1, this.x2, this.y1, this.y2 ] ; } ;
 rect.prototype.roundTo = function( _round_digits )
