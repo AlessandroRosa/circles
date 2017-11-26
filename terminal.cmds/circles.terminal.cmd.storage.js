@@ -684,7 +684,8 @@ function circles_terminal_cmd_storage()
     																															}
     																														) ;
     																									  }
-    					          circles_lib_terminal_cmd_ask_yes_no( _question_array, _output_channel );
+						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+    					else circles_lib_terminal_cmd_ask_yes_no( _question_array, _output_channel );
                         circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     }
                     break ;
@@ -731,7 +732,8 @@ function circles_terminal_cmd_storage()
 																									     				}
 																									     );
 																									}
-					          circles_lib_terminal_cmd_ask_yes_no( _question_array, _output_channel );
+					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					else circles_lib_terminal_cmd_ask_yes_no( _question_array, _output_channel );
                     circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     break ;
                     case "reset":
@@ -749,7 +751,8 @@ function circles_terminal_cmd_storage()
                                                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<green>Storage space now includes "+_new_keys_n+" new key" + ( _new_keys_n == 1 ? "" : "s" )+ "</green>", _par_1, _cmd_tag );
                                                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<green>The new keys are</green> <snow>"+_new_keys.join( "</snow><green>,</green><snow>" )+"</snow>", _par_1, _cmd_tag );
 																									  }
-					          circles_lib_terminal_cmd_ask_yes_no( _question_array, _output_channel );
+					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					else circles_lib_terminal_cmd_ask_yes_no( _question_array, _output_channel );
                     circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     break ;
                     case "restore":
@@ -829,7 +832,8 @@ function circles_terminal_cmd_storage()
                     														}
                     												  );
                                                   }
-					          circles_lib_terminal_cmd_ask_yes_no( _question_array, _output_channel );
+					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					else circles_lib_terminal_cmd_ask_yes_no( _question_array, _output_channel );
                     circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     break ;
                     case "search":

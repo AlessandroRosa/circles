@@ -287,7 +287,7 @@ function circles_terminal_cmd_gensset()
                                   if ( _new_size == _old_size + 2 )
                                   {
                                      _glob_items_to_init = YES ;
-                                     circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _output_channel );
+                                     circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_echo_flag, _output_channel );
                                      circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Map #"+(_i+1)+" '"+_map_tag+"' has been parsed and added with success to "+_dest_ref+" with symbol '"+_symbol_lowercase+"'", _par_1, _cmd_tag );
                                   }
                                   else
@@ -380,7 +380,7 @@ function circles_terminal_cmd_gensset()
                if ( _force ) _bomb_set();
                else if ( _sch_n > 0 )
                {
-                      if ( _glob_terminal_silent ) _bomb_set();
+                      if ( _glob_terminal_echo_flag ) _bomb_set();
                       else
                       {
 		                   		  var _params_array = [] ;
@@ -388,7 +388,8 @@ function circles_terminal_cmd_gensset()
 			                   		 		_params_array['promptquestion'] = "Confirm to flush the generator set away ?" ;
 			                   		 		_params_array['yes_fn'] = function() { _bomb_set(); }
 			                   		 		_params_array['ifquestiondisabled_fn'] = function() { _bomb_set(); }
-			                   		circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+			            else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                       }
                }
                else circles_lib_output( _output_channel, DISPATCH_INFO, "The generators set has been already flushed away", _par_1, _cmd_tag );
@@ -423,7 +424,8 @@ function circles_terminal_cmd_gensset()
 										                                      circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
 																											 }
 									     _q_params_array['ifquestiondisabled_fn'] = function() { _exact_fn(); }
-        							 circles_lib_terminal_cmd_ask_yes_no( _q_params_array, _output_channel );
+						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+        				else circles_lib_terminal_cmd_ask_yes_no( _q_params_array, _output_channel );
                    }
                    else
                    {

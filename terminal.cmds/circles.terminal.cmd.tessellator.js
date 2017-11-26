@@ -328,7 +328,7 @@ function circles_terminal_cmd_tessellator()
 
                           if ( !_b_fail )
                           {
-                              var _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _output_channel );
+                              var _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_echo_flag, _output_channel );
                               circles_lib_recalc_screen_disks_coords( zplane_sm );
                               if ( _glob_method.is_one_of( METHOD_INVERSION ) )
                               circles_lib_alphabet_autoconfig_all_symbols( NO, YES, NO, YES, _output_channel );
@@ -376,7 +376,8 @@ function circles_terminal_cmd_tessellator()
    							        _params_array['promptquestion'] = _prompt_question ;
    							        _params_array['yes_fn'] = function() { _tessellate_fn(); }
    							        _params_array['ifquestiondisabled_fn'] = function() { _tessellate_fn(); }
-   						      circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+   					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                  }
                  else _tessellate_fn();
     

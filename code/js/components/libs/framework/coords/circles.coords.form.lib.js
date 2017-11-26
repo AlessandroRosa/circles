@@ -131,11 +131,10 @@ function circles_lib_coordinates_shift( _where, _plane_type, _scalar_shift, _sil
     }
 }
 
-function circles_lib_coordinates_zoomtofit( _plane_type, _render, _question, _silent, _output_channel )
+function circles_lib_coordinates_zoomtofit( _plane_type = NO_PLANE, _render = YES, _question = YES, _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-		_render = safe_int( _render, YES );
-		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _plane_type = circles_lib_return_plane_type( _plane_type ), _render = safe_int( _render, YES );
+	_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var MAXleft = 0, MAXright = 0, MAXup = 0, MAXdown = 0, ERR = 0 ;
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     if ( _plane_type.is_one_of( Z_PLANE, ALL_PLANES ) )
@@ -160,11 +159,7 @@ function circles_lib_coordinates_zoomtofit( _plane_type, _render, _question, _si
                   MAXup = MAXup == 0 ? cross_up : Math.max( MAXup, cross_up );
                   MAXdown = MAXdown == 0 ? cross_down : Math.min( MAXdown, cross_down );
                }
-               else
-               {
-                  ERR = 1 ;
-                  break ;
-               }
+               else { ERR = 1 ; break ; }
            }
         }
         else ERR = 2 ;
@@ -179,12 +174,12 @@ function circles_lib_coordinates_zoomtofit( _plane_type, _render, _question, _si
 
     if ( ERR != 0 )
     {
-	      var MSG = "" ;
-	      if ( ERR == 1 )      MSG = "Can't perform this operation."+_glob_crlf+"Circles shall be initialized first" ;
-	      else if ( ERR == 2 ) MSG = "Can't perform this operation."+_glob_crlf+_ERR_33_01 ;
-	      else if ( ERR == 3 ) MSG = "Can't perform this operation."+_glob_crlf+"It seems that no W-plane diagram has been processed yet" ;
-	      if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
-	      return [ RET_ERROR, MSG ] ;
+		var MSG = "" ;
+	    if ( ERR == 1 ) MSG = "Can't perform this operation."+_glob_crlf+"Circles shall be initialized first" ;
+	    else if ( ERR == 2 ) MSG = "Can't perform this operation."+_glob_crlf+_ERR_33_01 ;
+	    else if ( ERR == 3 ) MSG = "Can't perform this operation."+_glob_crlf+"It seems that no W-plane diagram has been processed yet" ;
+	    if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
+	    return [ RET_ERROR, MSG ] ;
     }
     else if ( ERR == 0 )
     {

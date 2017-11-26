@@ -308,7 +308,8 @@ function circles_terminal_cmd_figures()
                    	_params_array['promptquestion'] = _prompt_question ;
                    	_params_array['yes_fn'] = function() { _glob_figures_array = []; }
                    	_params_array['ifquestiondisabled_fn'] = function() { _glob_figures_array = []; }
-                   	circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+                   	else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
 				}
 				break ;
                 case "connect":
@@ -604,7 +605,8 @@ function circles_terminal_cmd_figures()
 						var _ret_chunk = circles_lib_figures_action( _output_channel, _action, _index_vals_array, _params_assoc_array['plane'], YES, _par_1, _cmd_tag );
 						_b_fail = _ret_chunk[0], _error_str = _ret_chunk[1] ;
 					}
-					circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
                 case "render":

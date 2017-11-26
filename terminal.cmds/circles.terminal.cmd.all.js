@@ -66,8 +66,8 @@ function circles_terminal_cmd_all()
             var _items_n = circles_lib_count_items();
             if ( _action.length == 0 )
             {
-                _glob_terminal_silent = _mode ;
-                circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Silent mode is " + ( _glob_terminal_silent == ENABLED ? "on" : "off" ), _par_1, _cmd_tag );
+                _glob_terminal_echo_flag = _mode ;
+                circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Silent mode is " + ( _glob_terminal_echo_flag == ENABLED ? "on" : "off" ), _par_1, _cmd_tag );
 
                 if ( _glob_target_plane == NO_PLANE && _mode == 1 )
                 circles_lib_output( _output_channel, DISPATCH_WARNING, "A plane must be chosen before setting the autorefresh on", _par_1, _cmd_tag );

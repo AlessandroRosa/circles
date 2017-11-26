@@ -10,7 +10,7 @@ var _demon = new demo_n();
                      $( "<div ID=\"presentation_div\" CLASS=\"general_rounded_corners\" STYLE=\"position:absolute;z-index:2000;font-size:14pt;font-family:arial;width:340px;height:auto;padding:6px;text-align:center;color:white;\"></div>" ).appendTo("body");
                      $( "#presentation_div" ).css( "background-color", "#538BB4" ) ;
                      $( "#presentation_div" ).height( "auto" ) ;
-                     $( "#presentation_div" ).html( "CIRCLES DEMO #<?php echo $GLOBALS["DEMO_IDX"]; ?><br/>Popups windows interaction" ) ;
+                     $( "#presentation_div" ).html( "CIRCLES DEMO #<?php echo $GLOBALS["DEMO_IDX"]; ?><br/>Pop-ups windows interaction" ) ;
                   },
                   ctrl_id : "presentation_div", time : 3, time_unit : "s",
                   action : "fadein", set_value : { to_x : "center", to_y : "center", speed : "slow" }, showlabel : false, desclabel : ""
@@ -39,7 +39,7 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
                      $( "#presentation_div" ).width( 270 ) ;
                      $( "#presentation_div" ).height( "auto" ) ;
-                     var _html = "Popups can be moved, focused and <SPAN STYLE=\"color:lightblue;\">remotely controlled</SPAN> and <SPAN STYLE=\"color:lightblue;\">respond to dispatched framework messages</SPAN> of two kinds:" ;
+                     var _html = "Pop-ups can be moved, focused and <SPAN STYLE=\"color:lightblue;\">remotely controlled</SPAN> and <SPAN STYLE=\"color:lightblue;\">respond to dispatched framework messages</SPAN> of two kinds:" ;
                          _html += "<br><SPAN STYLE=\"color:yellow;\">unicast</SPAN> (sent to that only window) and <SPAN STYLE=\"color:yellow;\">multicast</SPAN> (sent to all open windows)" ;
                      $( "#presentation_div" ).html( _html ) ;
                   },

@@ -52,27 +52,27 @@ function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*m
     
     if ( _out_channel_type & OUTPUT_SCREEN )
     {
-    		var _alert_type = 0, _caption = safe_string( arguments[3], _glob_app_title ) ;
-    		if ( _out_msg_type & DISPATCH_SUCCESS ) _alert_type |= ALERT_SUCCESS ;
-    		if ( _out_msg_type & DISPATCH_YESNO ) _alert_type |= ALERT_YESNO ;
-				if ( _out_msg_type & DISPATCH_YESNOCANCEL ) _alert_type |= ALERT_YESNOCANCEL ;
-				if ( _out_msg_type & DISPATCH_OKCANCEL ) _alert_type |= ALERT_OKCANCEL ;
-				if ( _out_msg_type & DISPATCH_WARNING ) _alert_type |= ALERT_WARNING ;
-				if ( _out_msg_type & DISPATCH_QUESTION ) _alert_type |= ALERT_QUESTION ;
-				if ( _out_msg_type & DISPATCH_CRITICAL ) _alert_type |= ALERT_CRITICAL ;
-				if ( _out_msg_type & DISPATCH_NOBUTTON ) _alert_type |= ALERT_NOBUTTON ;
-				if ( _out_msg_type & DISPATCH_ONCLOSE ) _alert_type |= ALERT_ONCLOSE ;
-				if ( _out_msg_type & DISPATCH_NOICON ) _alert_type |= ALERT_NOICON ;
-				if ( _out_msg_type & DISPATCH_NOCAPTION ) _alert_type |= ALERT_NOCAPTION ;
-				if ( _out_msg_type & DISPATCH_INFO ) _alert_type |= ALERT_INFO ;
-				if ( _out_msg_type & DISPATCH_HELP ) _alert_type |= ALERT_HELP ;
-				if ( _out_msg_type & DISPATCH_ERROR ) _alert_type |= ALERT_ERROR ;
-				if ( _out_msg_type & DISPATCH_HALT ) _alert_type |= ALERT_HALT ;
-
+   		var _alert_type = 0, _caption = safe_string( arguments[3], _glob_app_title ) ;
+   		if ( _out_msg_type & DISPATCH_SUCCESS ) _alert_type |= ALERT_SUCCESS ;
+   		if ( _out_msg_type & DISPATCH_YESNO ) _alert_type |= ALERT_YESNO ;
+		if ( _out_msg_type & DISPATCH_YESNOCANCEL ) _alert_type |= ALERT_YESNOCANCEL ;
+		if ( _out_msg_type & DISPATCH_OKCANCEL ) _alert_type |= ALERT_OKCANCEL ;
+		if ( _out_msg_type & DISPATCH_WARNING ) _alert_type |= ALERT_WARNING ;
+		if ( _out_msg_type & DISPATCH_QUESTION ) _alert_type |= ALERT_QUESTION ;
+		if ( _out_msg_type & DISPATCH_CRITICAL ) _alert_type |= ALERT_CRITICAL ;
+		if ( _out_msg_type & DISPATCH_NOBUTTON ) _alert_type |= ALERT_NOBUTTON ;
+		if ( _out_msg_type & DISPATCH_ONCLOSE ) _alert_type |= ALERT_ONCLOSE ;
+		if ( _out_msg_type & DISPATCH_NOICON ) _alert_type |= ALERT_NOICON ;
+		if ( _out_msg_type & DISPATCH_NOCAPTION ) _alert_type |= ALERT_NOCAPTION ;
+		if ( _out_msg_type & DISPATCH_INFO ) _alert_type |= ALERT_INFO ;
+		if ( _out_msg_type & DISPATCH_HELP ) _alert_type |= ALERT_HELP ;
+		if ( _out_msg_type & DISPATCH_ERROR ) _alert_type |= ALERT_ERROR ;
+		if ( _out_msg_type & DISPATCH_HALT ) _alert_type |= ALERT_HALT ;
         alert_msg( _alert_type, _out_msg_text, _caption );
     }
 
-    if ( _out_channel_type & OUTPUT_TERMINAL && _glob_terminal_echo_flag ) // console terminal
+	var _force_output = safe_int( arguments[5], _glob_terminal_echo_flag ) ;
+    if ( ( _out_channel_type & OUTPUT_TERMINAL ) && _force_output ) // console terminal
     {
        switch( _out_msg_type )
        {

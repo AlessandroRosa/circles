@@ -10,10 +10,50 @@
   Find a solution to save somewhere and get the current terminal plug-in window ID
   later, when required.
 
--------------- FIX SOON -----------------------
+-------- CMD FIX ( as you meet that cmd during the check ) --------
 
-* demo 16:
-  - add some points red draw / white fill
+* savepix : filename is again 'wplane.png' even if 'zplane' is input
+* zoom : add param "reset" :
+  it takes coords back to default values
+  no plane params all
+  zplane > Z_PLANE only
+  wplane > W_PLANE only
+  bipbox > BIP_BOX only
+
+* clean : manage also planes_type (zplane, wplane, bipbox)
+  clean zplane > clean the z-plane
+
+* mobius :
+  > assemble :
+    >> copy input word in the output file
+    >> input word is not correctly parsed
+       try "mobius assemble a a B B"
+
+* region
+  > it does not update canvas when 'auto refresh on'
+  > add 'rec' and manage the region as if it's figure
+    (thus declare a new CONSTANT value and new switch cases)
+
+* new cmd 'alias'
+  Ex01 : alias def:myaliascmd refresh zplane clean
+  Ex02 : alias list
+  Ex03 : alias bomb
+
+  save "refresh zplane clean" into the associative
+  array _glob_terminal_aliases_cmds array
+
+  the interpreter would first check the above array for
+  aliases. If not found, keeps on running as usual. Otherwise
+  take the corresponding "cmd" and run into the interpreter.
+
+-------------- FIX SOON -----------------------
+* DEMO #9 : anti-homography is not updated
+* DEMO#13: js error _step_start.add
+           discreteness.locus.class line 738
+
+* terminal focus is taken only if pop-up is resized or
+  caption is pressed.
+  Suggestion: copy that same code as it runs when focusing on caption
 
 * Last checked terminal cmd: dg
   

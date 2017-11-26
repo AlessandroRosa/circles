@@ -161,7 +161,7 @@ function circles_lib_batch_compiler_run( _script_ctrl_id, _debug_ctrl_id, _id_bo
 
        // silent mode default status is always resumed to default value at the end of the run
        // in order to preserve question in the beginning, if any
-       _glob_terminal_silent = DISABLED ;
+       _glob_terminal_echo_flag = DISABLED ;
        _glob_terminal_current_cmd = "" ;
        if ( _output_flag ) circles_lib_output( OUTPUT_SCRIPT, DISPATCH_INFO, "Code end", _debug_ctrl_id );
    }

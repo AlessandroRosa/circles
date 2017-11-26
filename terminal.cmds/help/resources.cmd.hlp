@@ -4,7 +4,7 @@
 
 <lightblue>usage</lightblue> <snow>resources %type%</snow>
 
-<lightblue>%type%</lightblue> <snow>recipes | listings</snow>
+<lightblue>%type%</lightblue> <snow>listings</snow>
 
 <lightblue>resources release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>

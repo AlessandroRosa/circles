@@ -53,11 +53,7 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.2, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "dict createflag on" ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.2, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
-				  _demon.add( { post_fn : function() { _glob_terminal.exec( "depth 8" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "depth 8" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.2, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 

@@ -214,12 +214,13 @@ function circles_terminal_cmd_bomb()
 							circles_lib_terminal_interpreter( "refresh wplane clean silent", _glob_terminal, _output_channel );
                           }
   
-                     	var _params_array = [], _pre_prompt = null ;
+						var _params_array = [], _pre_prompt = null ;
 						_params_array['prepromptquestion'] = null ;
-                     	_params_array['promptquestion'] = _prompt_question ;
-                     	_params_array['yes_fn'] = function() { _bombing( _bomb_mask ); }
-                     	_params_array['ifquestiondisabled_fn'] = function() { _bombing( _bomb_mask ); }
-                     	circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+						_params_array['promptquestion'] = _prompt_question ;
+						_params_array['yes_fn'] = function() { _bombing( _bomb_mask ); }
+						_params_array['ifquestiondisabled_fn'] = function() { _bombing( _bomb_mask ); }
+						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                      }
                 }
                 break ;

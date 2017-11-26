@@ -202,7 +202,7 @@ function circles_terminal_cmd_code_1st_step( _opt, _settings_array, _rows_of_cod
 
     if ( _glob_title ) _rows_of_code.push( "title " + _glob_title );
 
-    if( _glob_terminal_silent == ENABLED ) _rows_of_code.push( "silent on" );
+    if( _glob_terminal_echo_flag == ENABLED ) _rows_of_code.push( "silent on" );
     else _rows_of_code.push( "silent off" );
 
     if( _glob_terminal_echo_flag == ENABLED ) _rows_of_code.push( "echo on" );

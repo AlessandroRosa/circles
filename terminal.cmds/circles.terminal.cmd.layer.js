@@ -331,7 +331,7 @@ function circles_terminal_cmd_layer()
                                 else { var _msg = "Layer '"+_action_params_array['roledef']+"' has been deleted with success from the "+_action_params_array['plane']+" list" ; circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag ); }
                             };
 
-                            if ( _glob_terminal_silent ) _delete_layer();
+                            if ( _glob_terminal_echo_flag ) _delete_layer();
                             else if ( is_array( _glob_seeds_array ) )
                             {
 								var _params_array = [] ;
@@ -340,7 +340,8 @@ function circles_terminal_cmd_layer()
 									_params_array['promptquestion'] = "Confirm to delete "+_action_params_array['plane']+" layer '"+_action_params_array['roledef']+"' ?" ;
 									_params_array['yes_fn'] = function() { _delete_layer(); }
 									_params_array['ifquestiondisabled_fn'] = function() { _delete_layer(); }
-								circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+								if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+								else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                             }
                           }
                     }
@@ -397,7 +398,7 @@ function circles_terminal_cmd_layer()
                     circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All default layer settings restored with success", _par_1, _cmd_tag );
                 }
 
-                if ( _glob_terminal_silent ) _restore_defaults();
+                if ( _glob_terminal_echo_flag ) _restore_defaults();
                 else if ( is_array( _glob_seeds_array ) )
                 {
 					var _params_array = [] ;
@@ -405,7 +406,8 @@ function circles_terminal_cmd_layer()
 					_params_array['promptquestion'] = "Restore default settings ?" ;
 					_params_array['yes_fn'] = function() { _restore_defaults(); }
 					_params_array['ifquestiondisabled_fn'] = function() { _restore_defaults(); }
-					circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
                 case "info":

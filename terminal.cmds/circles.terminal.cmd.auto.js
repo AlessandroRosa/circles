@@ -80,28 +80,25 @@ function circles_terminal_cmd_auto()
                 else _glob_terminal_autoinit_enable = _mode ;
             }
 
+            var _autorefresh_label = "" ;
             if ( _action.stricmp( "refresh" ) || _all )
             {
-                _glob_target_plane = _params_assoc_array['all'] ? ALL_PLANES : circles_lib_plane_get_value( _params_assoc_array['plane'] );
-                if ( _glob_target_plane == NO_PLANE && _mode == 1 )
+				_glob_terminal_autorefresh = _mode ;
+				var _already_refresh = ( _curr_autorefresh_set == _glob_terminal_autorefresh && _fail_flag_array['refresh'] != 1 ) ? "already " : "" ;
+				var _already_init = ( _curr_autoinit_set == _glob_terminal_autoinit_enable && _fail_flag_array['init'] != 1 ) ? "already " : "" ;
+
+				switch( _glob_terminal_autorefresh )
+				{
+					case 1 : _autorefresh_label = "Autorefresh mode is "+_already_refresh+"on" ; break ;
+					default : _autorefresh_label = "Autorefresh mode is "+_already_refresh+"off" ; break ;
+				}
+
+                if ( _fail_flag_array['refresh'] != 1 )
                 {
-                    _fail_flag_array['refresh'] = 1 ;
-                    circles_lib_output( _output_channel, DISPATCH_WARNING, "At least one plane shall be chosen before setting autorefresh on", _par_1, _cmd_tag );
+                    if ( _params.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, _autorefresh_label, _par_1, _cmd_tag );
+                    else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _autorefresh_label, _par_1, _cmd_tag );
                 }
-                else if ( _glob_target_plane != NO_PLANE ) _glob_terminal_autorefresh = _mode ;
             }
-
-            var _already_refresh = ( _curr_autorefresh_set == _glob_terminal_autorefresh && _fail_flag_array['refresh'] != 1 ) ? "already " : "" ;
-            var _already_init = ( _curr_autoinit_set == _glob_terminal_autoinit_enable && _fail_flag_array['init'] != 1 ) ? "already " : "" ;
-
-            var _autorefresh_label = "" ;
-            switch( _glob_terminal_autorefresh )
-            {
-                case 1 : _autorefresh_label = "Autorefresh mode is "+_already_refresh+"on" ; break ;
-                default : _autorefresh_label = "Autorefresh mode is "+_already_refresh+"off" ; break ;
-            }
-
-            if ( _params.length == 0 ) _autorefresh_label = "Current " + _autorefresh_label.toLowerCase();
 
             var _autoinit_label = "" ;
             switch( _glob_terminal_autoinit_enable )
@@ -117,26 +114,6 @@ function circles_terminal_cmd_auto()
                 {
                     if ( _params.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, _autoinit_label, _par_1, _cmd_tag );
                     else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _autoinit_label, _par_1, _cmd_tag );
-                }
-            }
-
-            if ( _all || _action.stricmp( "refresh" ) )
-            {
-                if ( _params.length == 0 ) _autorefresh_label = "Current " + _autorefresh_label.toLowerCase();
-                if ( _fail_flag_array['refresh'] != 1 )
-                {
-                    if ( _params.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, _autorefresh_label, _par_1, _cmd_tag );
-                    else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _autorefresh_label, _par_1, _cmd_tag );
-                }
-
-                if ( _mode )
-                {
-					var _tmp_array = []
-                    if ( _params_assoc_array['plane'] != null ) _tmp_array.push( _params_assoc_array['plane'] );
-                    else if ( _params_assoc_array['all'] ) _tmp_array.push( "all" );
-
-                    _tmp_array.push( "silent" );
-                    circles_lib_terminal_interpreter( "refresh "+_tmp_array.join( " " ), _glob_terminal, _output_channel );
                 }
             }
         }

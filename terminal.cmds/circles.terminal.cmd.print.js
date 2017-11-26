@@ -35,7 +35,7 @@ function circles_terminal_cmd_print()
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
-              _p = _params_array[_i].toLowerCase();
+              _p = _params_array[_i] ;
               if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
               else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;

@@ -179,13 +179,14 @@ function circles_terminal_cmd_alphabet()
 				   var _size = safe_size( _glob_alphabet, 0 ) ;
 				   circles_lib_output( _output_channel, DISPATCH_INFO, "Current alphabet includes "+_size+" element"+(_size==1?"":"s"), _par_1, _cmd_tag );
                 }
-    
-			    var _params_array = [] ;
+
+				var _params_array = [] ;
 				_params_array['prepromptquestion'] = null ;
 				_params_array['promptquestion'] = "Confirm to delete all entries in the current alphabet ?" ;
 				_params_array['yes_fn'] = function() { _bomb_alphabet(); }
 				_params_array['ifquestiondisabled_fn'] = function() { _bomb_alphabet(); }
-				circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+				if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+				else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
             }
             _fn_ret_val = _glob_alphabet.clone() ;
             break ;
@@ -253,7 +254,8 @@ function circles_terminal_cmd_alphabet()
 					circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 					}
     			_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _output_channel ); }
-     			circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+				if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+     			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
             }
             else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
             break ;
@@ -270,7 +272,8 @@ function circles_terminal_cmd_alphabet()
 					  circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 					}
     			_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel ); }
-     			circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+				if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+     			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
             }
             else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
             break ;

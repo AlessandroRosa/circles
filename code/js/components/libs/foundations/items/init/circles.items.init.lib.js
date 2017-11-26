@@ -240,7 +240,7 @@ function circles_lib_items_init( _index = UNDET, _question = YES, _silent = NO, 
        var _ret_chunk = null ;
        if ( _init_mask & INIT_SYMBOLS || _init_mask & INIT_AUTO_RECOGNITION )
        {
-          _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( _question, _glob_terminal_silent, YES, NO, _output_channel );
+          _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( _question, _glob_terminal_echo_flag, YES, NO, _output_channel );
 		  if ( _ret_chunk[0] == RET_ERROR ) return _ret_chunk ;
        }
         
@@ -403,7 +403,7 @@ function circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, 
                if ( _failure_mask ) return [ RET_ERROR, "Inconsistent item symbols ("+_symbol+","+_inv_symbol+","+_candidate_inv_symbol+") pair at index #"+_i ] ;
 
                _failure_mask = ( !_paired_disk_required && _symbol.length == 0 ) ? YES : NO ;
-               if ( _failure_mask ) return [ RET_ERROR, "Inconsistent item symbol at index #"+_i+"\n\nSet up the symbols <SPAN STYLE=\"cursor:pointer;font-weight:bold;color:blue;\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','edit.disk',NO,UNDET,ITEMS_SWITCH_SEEDS);\">manually</SPAN> or click <SPAN STYLE=\"cursor:pointer;font-weight:bold;color:blue;\" ONCLICK=\"javascript:alertCLOSE();circles_lib_alphabet_autoconfig_all_symbols(!_glob_terminal_silent,_glob_terminal_silent,NO,YES,OUTPUT_SCREEN);\">here</SPAN> for &lsquo;auto-config&rsquo;" ] ;
+               if ( _failure_mask ) return [ RET_ERROR, "Inconsistent item symbol at index #"+_i+"\n\nSet up the symbols <SPAN STYLE=\"cursor:pointer;font-weight:bold;color:blue;\" ONCLICK=\"javascript:alertCLOSE();circles_lib_plugin_load('forms','edit.disk',NO,UNDET,ITEMS_SWITCH_SEEDS);\">manually</SPAN> or click <SPAN STYLE=\"cursor:pointer;font-weight:bold;color:blue;\" ONCLICK=\"javascript:alertCLOSE();circles_lib_alphabet_autoconfig_all_symbols(!_glob_terminal_echo_flag,_glob_terminal_echo_flag,NO,YES,OUTPUT_SCREEN);\">here</SPAN> for &lsquo;auto-config&rsquo;" ] ;
 
                _final_inverse_symbol = _paired_disk_required ? ( _inv_symbol.strcmp( _candidate_inv_symbol ) ? _inv_symbol : _candidate_inv_symbol ) : "" ;
                _index_inverse = _paired_disk_required ? circles_lib_find_item_index_by_symbol( _items_array, _final_inverse_symbol ) : UNDET ;

@@ -143,7 +143,7 @@ function circles_terminal_cmd_pdf()
 																         default: break ;
                                      }
     
-                                     var _silent = _params_assoc_array['silent'] != null ? _params_assoc_array['silent'] : _glob_terminal_silent ;
+                                     var _silent = _params_assoc_array['silent'] != null ? _params_assoc_array['silent'] : _glob_terminal_echo_flag ;
                                      var _include_canvas = _params_assoc_array['showcanvas'] != null ? YES : NO
                                      _glob_text = _ret_data ;
                                      if ( _glob_text.length > 0 )

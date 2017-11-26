@@ -14,7 +14,7 @@ function circles_terminal_cmd_zoom()
   if ( _glob_verbose && _glob_terminal_echo_flag )
   circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+  var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
   var _b_fail = 0 ;
   var _error_str = "", _undef_plane = "undefined plane" ;
   var _out_text_string = "" ;
@@ -55,6 +55,8 @@ function circles_terminal_cmd_zoom()
       if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
       else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
       else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+      else if ( _p.is_one_of( "clean", "render", "silent" ) ) _params_assoc_array[_p] = YES ;
+      else if ( _p.stricmp( "norender" ) ) _params_assoc_array["render"] = null ;
       else if ( _p.stricmp( "all" ) )
       {
          circles_lib_output( _output_channel, DISPATCH_INFO, "'All' param found: subsequent operation(s) will involve all plane environments", _par_1, _cmd_tag );
@@ -64,7 +66,6 @@ function circles_terminal_cmd_zoom()
       else if ( _p.is_one_of_i( "copy", "shift", "release" ) ) _params_assoc_array['action'] = _p ;
       else if ( _p.is_one_of_i( "left", "top", "right", "bottom" ) ) _params_assoc_array['params'].push( _p );
       else if ( _p.stricmp( "bip" ) ) _params_assoc_array['planes'].push( BIP_BOX ) ;
-      else if ( _p.is_one_of_i( "clean", "render", "silent" ) ) _params_assoc_array['params'].push( _p ) ;
       else if ( _p.stricmp( "default" ) )
       {
         circles_lib_output( _output_channel, DISPATCH_INFO, "'Default' param detected: coords will be restored to original values", _par_1, _cmd_tag );
@@ -74,7 +75,6 @@ function circles_terminal_cmd_zoom()
         _planeTOP = DEFAULT_PLANE_COORD ;
         _planeBOTTOM = -DEFAULT_PLANE_COORD ;
    		}
-      else if ( _p.stricmp( "silent" ) ) _params_assoc_array['silent'] = YES ;
       else if ( _p.stricmp( "tofit" ) ) _params_assoc_array['tofit'] = YES ;
       else if ( _p.stricmp( "wplane" ) ) _params_assoc_array['planes'].push( W_PLANE ) ;
       else if ( _p.stricmp( "zplane" ) ) _params_assoc_array['planes'].push( Z_PLANE ) ;
@@ -116,9 +116,9 @@ function circles_terminal_cmd_zoom()
       var _plane_cmd = circles_lib_plane_def_get_for_cmds( _plane_type );
       var _tofit = safe_int( _params_assoc_array['tofit'], NO ) ;
       var _zf = safe_float( _params_assoc_array['zoomfactor'], 0 );
-      var _clean = _params_assoc_array['params'].includes( "clean" ) ;
-      var _render = _params_assoc_array['params'].includes( "render" ) ;
-      var _silent = _params_assoc_array['params'].includes( "silent" ) ? YES : ( _glob_terminal_silent == DISABLED ? NO : _glob_terminal_silent ) ;
+      var _clean = _params_assoc_array['clean'] != null ? YES : NO ;
+      var _render = _params_assoc_array['render'] != null ? YES : _glob_terminal_autorefresh ;
+      var _silent = _params_assoc_array['silent'] != null ? YES : _glob_terminal_echo_flag ;
       var _side = safe_float( _params_assoc_array['side'], 0 );
       var _center_pt = is_point( _params_assoc_array['center'] ) ? _params_assoc_array['center'] : new point( 0, 0 ) ;
       var _src_plane_def = _params_assoc_array['planes'][0] != null ? circles_lib_plane_def_get( _params_assoc_array['planes'][0] ) : _undef_plane ;
@@ -179,60 +179,46 @@ function circles_terminal_cmd_zoom()
                                            [ _src_coords[0], _src_coords[1], _src_coords[2], _src_coords[3] ] );
 				                  bipbox_sm.set_coords_rect( new rect( _glob_bipLEFT, _glob_bipLEFT, _glob_bipRIGHT, _glob_bipBOTTOM, _RECT_ORIENTATION_CARTESIAN ) ) ;
                           break ;
-					                default: break ;
+					      default: break ;
                       }
                       
-     		              circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Coords have been copied from "+_src_plane_def+" to "+_dest_plane_def + " with success", _par_1, _cmd_tag );
+     		circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Coords have been copied from "+_src_plane_def+" to "+_dest_plane_def + " with success", _par_1, _cmd_tag );
         }
         break ;
-		    case "release":
-		    circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-		    break ;
-		    case "shift":
+		case "release":
+		circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+		break ;
+		case "shift":
 		    var _p_len = safe_size( _params_assoc_array['params'], 0 );
-		    if ( _p_len == 0 )
-		    {
-	         _b_fail = YES, _error_str = "Can't shift coords: no input params" ;
-		    }
-		    else if ( _plane_type.is_one_of( NO_PLANE, ALL_PLANES ) )
-		    {
-	         _b_fail = YES, _error_str = "Can't shift coords: no specific input plane" ;
-		    }
+		    if ( _p_len == 0 ) { _b_fail = YES, _error_str = "Can't shift coords: no input params" ; }
+		    else if ( _plane_type.is_one_of( NO_PLANE, ALL_PLANES ) ) { _b_fail = YES, _error_str = "Can't shift coords: no specific input plane" ; }
 		    else
 		    {
        		 var _ret_chunk = null ;
 	         for( var _i = 0 ; _i < _p_len ; _i++ )
 	         {
-             _ret_chunk = circles_lib_coordinates_shift( _params_assoc_array['params'][_i], _plane_type, Math.abs( _zf ), _glob_terminal_silent, _output_channel );
+             _ret_chunk = circles_lib_coordinates_shift( _params_assoc_array['params'][_i], _plane_type, Math.abs( _zf ), _glob_terminal_echo_flag, _output_channel );
              _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
              _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error while shifting coords" ;
              circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 	         }
 		    }
-		    break ;
-		    default: // set coords
-		    if ( _tofit == NO && _side == 0 && _zf == 0 )
-		    {
-		      _b_fail = YES, _error_str = "Can't zoom: invalid 'side' param and zoom factor" ;
-		    }
-		    else if ( _plane_type.is_one_of( NO_PLANE, ALL_PLANES ) )
-		    {
-		      _b_fail = YES, _error_str = "Can't perform zoom: no specific input plane" ;
-		    }
+		break ;
+		default: // set coords
+		    if ( _tofit == NO && _side == 0 && _zf == 0 ) { _b_fail = YES, _error_str = "Can't zoom: invalid 'side' param and zoom factor" ; }
+		    else if ( _plane_type.is_one_of( NO_PLANE, ALL_PLANES ) ) { _b_fail = YES, _error_str = "Can't perform zoom: no specific input plane" ; }
 		    else
 		    {
 		      var _ret_chunk, _ret_id, _ret_msg ;
 		      if ( _tofit )
 		      {
-				     circles_lib_output( _output_channel, DISPATCH_INFO, "Detected 'to fit' input param", _par_1, _cmd_tag );
+				 circles_lib_output( _output_channel, DISPATCH_INFO, "Detected 'to fit' input param", _par_1, _cmd_tag );
 		         _ret_chunk = circles_lib_coordinates_zoomtofit( _plane_type, YES, NO, YES, _output_channel );
+				 console.log( _ret_chunk );
 		         _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], RET_ERROR ) : RET_ERROR ;
 		         _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
-		         if ( _ret_id == RET_ERROR )
-		         {
-							 _b_fail = YES, _error_str = _ret_msg ;
-						 }
-						 else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+		         if ( _ret_id == RET_ERROR ) { _b_fail = YES, _error_str = _ret_msg ; }
+				 else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
 		      }
 		      else
 		      {
@@ -303,6 +289,7 @@ function circles_terminal_cmd_zoom()
                  _glob_zplaneTOP = _center_pt.y + _side / 2.0 ;
                  _glob_zplaneBOTTOM = _center_pt.y - _side / 2.0 ;
                  zplane_sm.set_coords_rect( new rect( _glob_zplaneLEFT, _glob_zplaneTOP, _glob_zplaneRIGHT, _glob_zplaneBOTTOM, _RECT_ORIENTATION_CARTESIAN ) ) ;
+			              var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _glob_terminal_autorefresh, !_silent, _silent, NO, _output_channel );
 							 }
 
 							 if ( _plane_type.is_one_of( W_PLANE, ALL_PLANES ) )
@@ -312,6 +299,7 @@ function circles_terminal_cmd_zoom()
                  _glob_wplaneTOP = _center_pt.y + _side / 2.0 ;
                  _glob_wplaneBOTTOM = _center_pt.y - _side / 2.0 ;
                  wplane_sm.set_coords_rect( new rect( _glob_wplaneLEFT, _glob_wplaneTOP, _glob_wplaneRIGHT, _glob_wplaneBOTTOM, _RECT_ORIENTATION_CARTESIAN ) ) ;
+			              var _ret_chunk = circles_lib_canvas_render_zplane( null, wplane_sm, null, YES, YES, _glob_terminal_autorefresh, !_silent, _silent, NO, _output_channel );
 							 }
 
 							 if ( _plane_type.is_one_of( BIP_BOX, ALL_PLANES ) )
@@ -325,16 +313,16 @@ function circles_terminal_cmd_zoom()
              }
 
              _ret_chunk = function_exists( "CIRCLESformsCOORDINATESinputMANAGER" ) ? CIRCLESformsCOORDINATESinputMANAGER( _plane_type, _render, null,
-													ZOOM_SET_COORDS, new complex( _center_pt.x, _center_pt.y ), _viewport_width, NO, YES, _output_channel ) : null ;
+							ZOOM_SET_COORDS, new complex( _center_pt.x, _center_pt.y ), _viewport_width, NO, YES, _output_channel ) : null ;
              if ( is_array( _ret_chunk ) )
              {
-               _ret_id = safe_int( _ret_chunk[0], NO ), _ret_msg = _ret_chunk[1] ;
-  			       circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_WARNING, _plane_def + " : " + _ret_msg, _par_1, _cmd_tag );
-  						 if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
-  						 {
-  							 _glob_terminal_change = YES ;
-  						   circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-  						 }
+                _ret_id = safe_int( _ret_chunk[0], NO ), _ret_msg = _ret_chunk[1] ;
+  			    circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_WARNING, _plane_def + " : " + _ret_msg, _par_1, _cmd_tag );
+  				if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
+  				{
+					_glob_terminal_change = YES ;
+  					circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+  				}
              }
 					}
 				}
@@ -350,9 +338,9 @@ function circles_terminal_cmd_zoom()
           if ( _clean )  _new_params += " clean" ;
           if ( _silent ) _new_params += " silent" ;
           circles_lib_terminal_interpreter( "refresh " + _new_params, _glob_terminal, _output_channel );
-          circles_lib_output( _output_channel, DISPATCH_INFO, "Now render the " + _plane_def, _par_1, _cmd_tag );
+          if ( !_silent ) circles_lib_output( _output_channel, DISPATCH_INFO, "Now render the " + _plane_def, _par_1, _cmd_tag );
         }
-        else circles_lib_output( _output_channel, DISPATCH_WARNING, "Rendering has been skipped: no registered seeds", _par_1, _cmd_tag );
+        else if ( !_silent ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Rendering has been skipped: no registered seeds", _par_1, _cmd_tag );
       }
 		}
   }

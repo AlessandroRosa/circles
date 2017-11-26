@@ -1,24 +1,24 @@
 function circles_terminal_cmd_resources()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _output_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _params_assoc_array = [];
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _params_assoc_array = [];
 
-		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+	if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
              _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;

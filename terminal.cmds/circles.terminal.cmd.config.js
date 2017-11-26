@@ -656,7 +656,7 @@ function circles_terminal_cmd_config()
 							if ( _params_assoc_array['reset'] )
 							{
                                 _glob_items_switch = ITEM_SWITCH_TO_NONE ;
-                                var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
+                                var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
          						var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
        							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
 								var _msg = _ret_id ? "<greenshock>Items switch params have been correctly set to 'none'</greenshock>" : "<red>"+_ret_msg+"</red>" ;
@@ -686,7 +686,7 @@ function circles_terminal_cmd_config()
                                 if ( _glob_items_switch & ITEM_BYREF ) _resume_params_array.push( "by reference" );
                                 else if ( _glob_items_switch & ITEM_BYVAL ) _resume_params_array.push( "by value" );
   
-                                var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
+                                var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
          						var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
        							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
 								var _msg = _ret_id ? "<greenshock>Items switch params have been correctly set to '" + _resume_params_array.join( "," ) + "'</greenshock>" : "<red>"+_ret_msg+"</red>" ;

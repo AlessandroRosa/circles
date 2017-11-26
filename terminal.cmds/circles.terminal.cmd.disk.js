@@ -420,7 +420,7 @@ function circles_terminal_cmd_disk()
                             _items_array[_obj_index].complex_circle.linewidth = ( _params_assoc_array['linewidth'] != null ) ? _params_assoc_array['linewidth'] : 1 ;
                             if ( _new_sd_n == _old_sd_n + 1 ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The new disk '"+_last_item_obj_symbol+"' has been added", _par_1, _cmd_tag );
 
-                            var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
+                            var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                             var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                             if ( _ret_id == RET_OK )
@@ -536,7 +536,8 @@ function circles_terminal_cmd_disk()
                   circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                }
     					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _output_channel ); }
-     			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+ 				if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+    			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
            }
            else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
 				break ;
@@ -603,8 +604,8 @@ function circles_terminal_cmd_disk()
                                                               ( _items_array[_dest_index] != null ) ? "Disk copy from '"+_src_symbol+"' to '"+_dest_symbol+"' has been performed with success" : "Disk copy from '"+_src_symbol+"' to '"+_dest_symbol+"' has failed", _par_1, _cmd_tag );
                               }
 
-                              circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
-                              var _ret_chunk = circles_lib_items_init( null, !_glob_terminal_silent, _glob_terminal_silent, _glob_init_mask, NO, YES, _output_channel );
+                              circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
+                              var _ret_chunk = circles_lib_items_init( null, !_glob_terminal_echo_flag, _glob_terminal_echo_flag, _glob_init_mask, NO, YES, _output_channel );
                               var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                               var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                               if ( _ret_id == RET_OK )
@@ -613,20 +614,11 @@ function circles_terminal_cmd_disk()
                                   if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _output_channel );
                                   _glob_alphabet = _glob_alphabet.unique();
                               }
-                              else
-                              {
-                                  _b_fail = YES, _error_str = _ret_msg ;
-                              }
+                              else { _b_fail = YES, _error_str = _ret_msg ; }
                          }
                     }
-                    else if ( _symbols_array.length == 0 )
-                    {
-                         _b_fail = YES, _error_str = "Missing input params for disk copy" ;
-                    }
-                    else
-                    {
-                         _b_fail = YES, _error_str = "Input parameters for disk copy must be two" ;
-                    }
+                    else if ( _symbols_array.length == 0 ) { _b_fail = YES, _error_str = "Missing input params for disk copy" ; }
+                    else { _b_fail = YES, _error_str = "Input parameters for disk copy must be two" ; }
                 break ;
  			    case "decolorize":
  			    if ( _items_n > 0 )
@@ -641,7 +633,8 @@ function circles_terminal_cmd_disk()
 					  circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 					}
 					_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel ); }
-					circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
 			    }
 			    else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
 			    break ;
@@ -689,8 +682,8 @@ function circles_terminal_cmd_disk()
                             circles_lib_output( _output_channel, DISPATCH_INFO, "Refresh Z-plane for deletion to take effect", _par_1, _cmd_tag );
                         }
                         
-                        circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
-                        var _ret_chunk = circles_lib_items_init( null, !_glob_terminal_silent, _glob_terminal_silent, _glob_init_mask, NO, YES, _output_channel );
+                        circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
+                        var _ret_chunk = circles_lib_items_init( null, !_glob_terminal_echo_flag, _glob_terminal_echo_flag, _glob_init_mask, NO, YES, _output_channel );
                         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                         if ( _ret_id == RET_OK )
@@ -703,27 +696,22 @@ function circles_terminal_cmd_disk()
     						                circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
     												}
                         }
-                        else
-                        {
-                            _b_fail = YES, _error_str = _ret_msg ;
-                        }
+                        else { _b_fail = YES, _error_str = _ret_msg ; }
                     }
                     
                     if ( _sel_n == 0 && _all == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: no group element matches the input selection", _par_1, _cmd_tag );
-                    else if ( _glob_terminal_silent ) _delete_disk();
+                    else if ( _glob_terminal_echo_flag ) _delete_disk();
                     else if ( is_array( _items_array ) )
                     {
-								     		var _params_array = [] ;
-										     	  _params_array['prepromptquestion'] = null ;
-							     		 			_params_array['promptquestion'] = "Confirm to delete "+( ( _sel_n == 1 && _all == 0 ) ? "this disk and the one of the related inverse group element" : ( ( _all ) ? "all disks" : "these disks and the ones of the related inverse group elements" ) )+"? " ;
-											     	_params_array['yes_fn'] = function() { _delete_disk(); }
-											     	_params_array['ifquestiondisabled_fn'] = function() { _delete_disk(); }
-										    circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+						var _params_array = [] ;
+						_params_array['prepromptquestion'] = null ;
+						_params_array['promptquestion'] = "Confirm to delete "+( ( _sel_n == 1 && _all == 0 ) ? "this disk and the one of the related inverse group element" : ( ( _all ) ? "all disks" : "these disks and the ones of the related inverse group elements" ) )+"? " ;
+						_params_array['yes_fn'] = function() { _delete_disk(); }
+						_params_array['ifquestiondisabled_fn'] = function() { _delete_disk(); }
+						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                     }
-                    else
-                    {
-                        _b_fail = YES, _error_str = "Memory failure: can't get current disks" ;
-                    }
+                    else { _b_fail = YES, _error_str = "Memory failure: can't get current disks" ; }
                 break ;
                 case "find":
                     var ITEM = null, _b_found = NO, a = [], _sel ;
@@ -952,7 +940,7 @@ function circles_terminal_cmd_disk()
                                     
                                 _items_array.push( ITEM );
                                 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Disk '"+_old_symbol+"' mirrored to '"+_new_symbol+"' with success", _par_1, _cmd_tag );
-                                circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
+                                circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
                                 if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init all", _glob_terminal, _output_channel );
                                 if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _output_channel );
     							              if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
@@ -1004,7 +992,7 @@ function circles_terminal_cmd_disk()
                             }
                             else circles_lib_output( _output_channel, DISPATCH_ERROR, "Can't move the chosen element: please check parameters syntax", _par_1, _cmd_tag );
     
-                            _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
+                            _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
         										_ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
          										_ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                             if ( _ret_id )
@@ -1304,7 +1292,7 @@ function circles_terminal_cmd_disk()
                             _params_assoc_array['settings']['storagequeue'].push( _items_array[_index].copy() );
                         }
 
-                        circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
+                        circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
                         if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init all", _glob_terminal, _output_channel );
                         if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _output_channel );
 					    if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
@@ -1394,7 +1382,7 @@ function circles_terminal_cmd_disk()
                                 _params_assoc_array['settings']['storagequeue'].push( _items_array[_obj_index].copy() );
                             }
 
-                            var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
+                            var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
    							var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
          					var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                             if ( _ret_id )

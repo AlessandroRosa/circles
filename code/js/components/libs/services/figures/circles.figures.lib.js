@@ -182,8 +182,7 @@ function circles_lib_figures_find_duplicates( _class, _plane, _obj, _haystack )
 
 function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _options = [], _param_01 = "", _refresh = YES )
 {
-    var _b_fail = 0, _ret_flag = 0, _error_str = "", _zerobased_index ;
-    var _figure_label = "", _value = null, _rec_chunk = null ;
+    var _b_fail = 0, _ret_flag = 0, _error_str = "", _zerobased_index, _figure_label = "", _value = null, _rec_chunk = null ;
     var _n_update_values = Math.min( safe_size( _options['input_params'], 0 ), safe_size( _options['input_values'], 0 ) );
     if ( _options['input_values'] == null ) { _b_fail = YES ; _error_str = "Incomplete cmd: missing input value (uninitialized)" ; }
     else if ( _options['input_values'].length == 0 ) { _b_fail = YES ; _error_str = "Incomplete cmd: missing input value (empty)" ; }
@@ -193,11 +192,7 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
         var _index_array = [], _other_params = [], _other_values = [];
         $.each( _options['input_params'], function( _i, _param ) {
                 if ( _param.stricmp( "entryindex" ) ) _index_array.push( _options['input_values'][_i] );
-                else
-                {
-                    _other_params.push( _param );
-                    _other_values.push( _options['input_values'][_i] );
-                } } );
+                else { _other_params.push( _param ); _other_values.push( _options['input_values'][_i] ); } } );
 
         // check input params to be coherent with each obj properties
         var _point_params_table_array = [ 'coords', 'drawcolor', 'fillcolor', 'opacity', 'linewidth' ];
@@ -536,21 +531,23 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
 
                if ( !_ret_flag && _glob_terminal_echo_flag )
                circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: unknown param '"+_param+"' for " + _figure_label + " obj", _param_01 );
+			   else
+			   {
+					_glob_figures_array[ _zerobased_index ] = _rec_chunk, _plane_def = circles_lib_plane_def_get( _plane );
+					if ( _plane != NO_PLANE && _refresh )
+					{
+						var _layer = circles_lib_canvas_layer_find( _rec_chunk['plane'], FIND_LAYER_BY_ROLE_DEF, _rec_chunk['layer'] );
+						console.log( "REFRESH", _rec_chunk['plane'], _layer );
+						if ( _glob_terminal_echo_flag )
+						{
+							circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>("+_plane_def+")</snow> <green>obj "+_figure_label+" #"+( _i + 1 )+" updated</green>", _param_01 );
+							circles_lib_output( _output_channel, DISPATCH_INFO, "Refreshing "+_plane_def, _param_01 );
+						}
+						circles_lib_canvas_afterrender_figures_draw( null, YES, _rec_chunk['plane'], _layer );
+					}
+			   }
            }
 
-           if ( _ret_flag )
-           {
-                _glob_figures_array[ _zerobased_index ] = _rec_chunk, _plane_def = circles_lib_plane_def_get( _plane );
-                if ( _plane != NO_PLANE && _refresh )
-                {
-					if ( _glob_terminal_echo_flag )
-					{
-						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>("+_plane_def+")</snow> <green>obj "+_figure_label+" #"+( _i + 1 )+" updated</green>", _param_01 );
-						circles_lib_output( _output_channel, DISPATCH_INFO, "Refreshing "+_plane_def, _param_01 );
-					}
-                    circles_lib_canvas_afterrender_figures_draw( null, YES, _plane );
-                }
-           }
         }
     }
 

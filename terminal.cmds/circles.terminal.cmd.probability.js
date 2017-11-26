@@ -163,7 +163,7 @@ function circles_terminal_cmd_probability()
 
                         if ( _entries_n > 0 )
                         {
-		                        if ( _force ) removal_fn();
+		                    if ( _force ) removal_fn();
                             else
                             {
                                 var _prompt_question = "Are you sure to remove all values ?" ;
@@ -172,7 +172,8 @@ function circles_terminal_cmd_probability()
     									             	_params_array['promptquestion'] = _prompt_question ;
     									             	_params_array['yes_fn'] = function() { removal_fn(); }
     									             	_params_array['ifquestiondisabled_fn'] = function() { removal_fn(); }
-    									          circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+								if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+    							else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                             }
                         }
                         else circles_lib_output( _output_channel, DISPATCH_INFO, "The probability list is already empty", _par_1, _cmd_tag );
@@ -213,7 +214,8 @@ function circles_terminal_cmd_probability()
     															                              circles_lib_output( _output_channel, DISPATCH_INFO, "Please, init gens for modifications to take effect", _par_1, _cmd_tag );
     																												 }
    									             	 _params_array['ifquestiondisabled_fn'] = function() { default_fn(); }
-    									         circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+								if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+    							else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                             }
                             else circles_lib_output( _output_channel, DISPATCH_INFO, _ERR_33_01, _par_1, _cmd_tag );
                         }

@@ -72,7 +72,7 @@ function circles_terminal_cmd_coords()
             var _action = _params_assoc_array['action'] ;
             var _clean = _params_assoc_array['params'].includes( "clean" ) ;
             var _render = _params_assoc_array['params'].includes( "render" ) ;
-            var _silent = _params_assoc_array['params'].includes( "silent" ) ? YES : ( _glob_terminal_silent == DISABLED ? NO : _glob_terminal_silent ) ;
+            var _silent = _params_assoc_array['params'].includes( "silent" ) ? YES : ( _glob_terminal_echo_flag == DISABLED ? NO : _glob_terminal_echo_flag ) ;
             var _src_plane_def = _params_assoc_array['planes'][0] != null ? circles_lib_plane_def_get( _params_assoc_array['planes'][0] ) : "undefined plane" ;
             var _dest_plane_def = _params_assoc_array['planes'][1] != null ? circles_lib_plane_def_get( _params_assoc_array['planes'][1] ) : "undefined plane" ;
             switch( _action )

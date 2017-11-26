@@ -227,7 +227,7 @@ function circles_terminal_cmd_matrix()
                                                        {
                                                             _glob_seeds_array[_mm_index].map.set_params( _ret_matrix.array() );
                                                             _glob_items_to_init = YES, _glob_init_mask = INIT_FROM_MAPS | _elements_init ;
-                                                            circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _output_channel );
+                                                            circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_echo_flag, _output_channel );
                                                             var _ret_chunk = circles_lib_items_init( null, NO, NO, _glob_init_mask, NO, NO, _output_channel );
                                                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                                                             var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
@@ -394,7 +394,7 @@ function circles_terminal_cmd_matrix()
                                        {
                                             _glob_seeds_array[_mm_index].map.set_params( _ret_matrix.array() );
                                             _glob_items_to_init = YES, _glob_init_mask = INIT_FROM_MAPS | _elements_init ;
-                                            circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_silent, _output_channel );
+                                            circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_echo_flag, _output_channel );
                                             var _ret_chunk = circles_lib_items_init( null, NO, NO, _glob_init_mask, NO, NO, _output_channel );
                                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                                             var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;

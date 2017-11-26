@@ -1003,7 +1003,7 @@ function circles_terminal_cmd_word()
 													 																						YES, _start_x, _start_y,
                                                                       _input_word, YES, _params_assoc_array['connect'],
 																																			YES, _params_assoc_array['drawcolor'], _params_assoc_array['fillcolor'],
-                                                                      YES, _glob_terminal_silent, _glob_drawentity, _output_channel );
+                                                                      YES, _glob_terminal_echo_flag, _glob_drawentity, _output_channel );
                            var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure - Err. 0.2" ;
                                if ( _ret_id == 0 ) circles_lib_output( _output_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );

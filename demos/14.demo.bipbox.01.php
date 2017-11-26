@@ -133,9 +133,25 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
+    _demon.add( { pre_fn : function()
+                  {
+					 var _msg = "Waiting for the render to finish" ;
+						 _msg += "<br>(it depends on your CPU speed)" ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 6.5, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 200 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
     _demon.add( { post_fn : function() { _glob_terminal.exec( "bip render" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 24.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "bip on" ); _glob_terminal.exec( "bip save bip.sample.png" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.0, time_unit : "s",

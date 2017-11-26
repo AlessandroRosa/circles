@@ -206,7 +206,7 @@ function circles_lib_reset_vars( _reset_mask, _silent, _output_channel )
         _glob_terminal_keepcmd = "" ;
     		_glob_terminal_change = NO ;
     		_glob_terminal_questions_enabled = YES ;
-        _glob_terminal_silent = DISABLED ;
+        _glob_terminal_echo_flag = DISABLED ;
         _glob_terminal_user_halt = NO ;
         _glob_terminal_warnings_counter = 0 ;
         _glob_terminal_warnings_switch = ON ;

@@ -28,7 +28,7 @@ function circles_terminal_cmd_refresh()
         _params_assoc_array['clean'] = NO ;
         _params_assoc_array['render'] = YES ;
         _params_assoc_array['createdict'] = YES ;
-        _params_assoc_array['silent'] = _glob_terminal_silent == DISABLED ? NO : _glob_terminal_silent ;
+        _params_assoc_array['silent'] = _glob_terminal_echo_flag == DISABLED ? NO : _glob_terminal_echo_flag ;
          
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); 

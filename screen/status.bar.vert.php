@@ -76,7 +76,7 @@
 
     <tr>
     <td WIDTH="2"></td>
-    <td HEIGHT="20" WIDTH="50" CLASS="link_rounded" ALIGN="center" ID="STATUSBARdrawdisksBTN" ONCLICK="javascript:circles_lib_alphabet_autoconfig_all_symbols(!_glob_terminal_silent,_glob_terminal_silent,NO);">Auto-config</td>
+    <td HEIGHT="20" WIDTH="50" CLASS="link_rounded" ALIGN="center" ID="STATUSBARdrawdisksBTN" ONCLICK="javascript:circles_lib_alphabet_autoconfig_all_symbols(!_glob_terminal_echo_flag,_glob_terminal_echo_flag,NO);">Auto-config</td>
     </tr>
     <tr><td HEIGHT="2"></td></tr>
 

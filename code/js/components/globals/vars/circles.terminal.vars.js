@@ -16,7 +16,6 @@ var _glob_terminal_errors_switch = ON ;
 var _glob_terminal_keepcmd = "" ;
 var _glob_terminal_change = NO ;
 var _glob_terminal_questions_enabled = YES ;
-var _glob_terminal_silent = DISABLED ;
 var _glob_terminal_warnings_counter = 0 ;
 var _glob_terminal_warnings_switch = ON ;
 var _glob_terminal_user_halt = NO ;

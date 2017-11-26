@@ -296,7 +296,7 @@ function circles_terminal_cmd_mobius()
                              if ( _storage_queue_request ) _params_assoc_array['settings']['storagequeue'].push( _items_array[_obj_index].copy() );
                          }
                          
-                         var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
+                         var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
    										   var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
 												 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
                          if ( _ret_id )
@@ -488,7 +488,8 @@ function circles_terminal_cmd_mobius()
                           circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                        }
              					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _output_channel ); }
-             			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+             			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                     }
                     else
                     {
@@ -521,7 +522,8 @@ function circles_terminal_cmd_mobius()
                           circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                        }
             					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel ); }
-             			     circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+             			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                     }
                     else
                     {
@@ -580,12 +582,12 @@ function circles_terminal_cmd_mobius()
                              if ( _new_sd_n == 0 ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The Mobius maps list has been emptied with success", _par_1, _cmd_tag );
                         }
 
-                        var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
+                        var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
  											  var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
 											  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
                         if( _ret_id )
                         {
-                            _ret_chunk = circles_lib_items_init( null, !_glob_terminal_silent, _glob_terminal_silent, _glob_init_mask, NO, YES, _output_channel );
+                            _ret_chunk = circles_lib_items_init( null, !_glob_terminal_echo_flag, _glob_terminal_echo_flag, _glob_init_mask, NO, YES, _output_channel );
                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                             var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                             if ( _ret_id == RET_OK )
@@ -606,7 +608,7 @@ function circles_terminal_cmd_mobius()
 
                     if ( _old_sd_n == 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning! No deletion can be performed: the Mobius maps list is empty", _par_1, _cmd_tag );
                     else if ( _sel_n == 0 && _all == NO ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning! No Mobius map fits the input selection", _par_1, _cmd_tag );
-                    else if ( _glob_terminal_silent ) _delete_map();
+                    else if ( _glob_terminal_echo_flag ) _delete_map();
                     else if ( is_array( _items_array ) )
                     {
 				           		  var _params_array = [] ;
@@ -614,12 +616,10 @@ function circles_terminal_cmd_mobius()
 				             		 		_params_array['promptquestion'] = _prompt_question ;
 				             		 		_params_array['yes_fn'] = function() { _delete_map(); }
 				             		 		_params_array['ifquestiondisabled_fn'] = function() { _delete_map(); }
-				             		circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+				        else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                     }
-                    else if ( !is_array( _items_array ) )
-                    {
-                        _b_fail = YES, _error_str = "Memory failure: can't get current items" ;
-                    }
+                    else if ( !is_array( _items_array ) ) { _b_fail = YES, _error_str = "Memory failure: can't get current items" ; }
                     break ;
                     case "find":
                     var ITEM = null, a = [], _sel ;
@@ -697,7 +697,7 @@ function circles_terminal_cmd_mobius()
                            ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Inverse Mobius map with symbol '"+_candidate_symbol+"' has been "+( _cand_index == UNFOUND ? "added" : "replaced" )+" with success", _par_1, _cmd_tag );
                         else circles_lib_output( _output_channel, DISPATCH_ERROR, "Failure while inserting the inverse Mobius map", _par_1, _cmd_tag );
 
-                        circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
+                        circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
                         if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
                  			  {
                          		_glob_terminal_change = YES ;
@@ -737,7 +737,8 @@ function circles_terminal_cmd_mobius()
 													             		 		_params_array['promptquestion'] = _prompt_question ;
 													             		 		_params_array['yes_fn'] = function() { _insert_inverse_mm_obj( ITEM, _obj_index, _output_channel ); }
 													             		 		_params_array['ifquestiondisabled_fn'] = function() { _insert_inverse_mm_obj( ITEM, _obj_index, _output_channel ); }
-													             		circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+										if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+										else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                                      }
                                 }
                             }
@@ -905,7 +906,7 @@ function circles_terminal_cmd_mobius()
                                 else circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: there's no element with that symbol or index", _par_1, _cmd_tag );
                             }
                             
-                            var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_silent, _output_channel );
+                            var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
 														var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
 														var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
                             if ( _ret_id )

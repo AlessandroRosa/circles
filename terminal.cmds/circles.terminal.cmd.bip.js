@@ -417,7 +417,7 @@ function circles_terminal_cmd_bip()
                    case "render":
                    _glob_persistent_vars['old_plane_type'] = _glob_target_plane ;
                    _glob_target_plane = BIP_BOX ;
-                   var _silent = _params_assoc_array['silent'] != null ? _params_assoc_array['silent'] : _glob_terminal_silent ;
+                   var _silent = _params_assoc_array['silent'] != null ? _params_assoc_array['silent'] : _glob_terminal_echo_flag ;
                    var _ret_chunk = circles_lib_bip_render( _silent, _output_channel );
                    var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                    var _ret_msg = is_array( _ret_chunk ) ? new String( _ret_chunk[1] ) : "Rendering: memory failure" ;
@@ -534,7 +534,7 @@ function circles_lib_terminal_bip_apply_error_manager( _tmp_applied_settings_mas
 function circles_lib_terminal_bip_apply( _output_channel = OUTPUT_TERMINAL, _par_1 )
 {
     var _tmp_applied_settings_mask = 0 ;
-    var _ret_chunk = circles_lib_bip_apply_settings( _output_channel, !_glob_terminal_silent, _glob_terminal_silent, NO,
+    var _ret_chunk = circles_lib_bip_apply_settings( _output_channel, !_glob_terminal_echo_flag, _glob_terminal_echo_flag, NO,
         _glob_bip_box_center_pt, _glob_bip_x_extent, _glob_bip_y_extent,
         _glob_bip_shorterside_pixels, _glob_bip_original_plane_coords, _glob_bip_original_plane_data, _glob_bip_bk );
     return _ret_chunk ;

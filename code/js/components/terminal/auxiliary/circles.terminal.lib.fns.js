@@ -167,8 +167,8 @@ function circles_lib_terminal_help_cmd( _html_flag, _cmd_tag, _param_01, _output
                 function( _help_text )
                 {
                 		_help_text = $.terminal.escape_brackets( _help_text ) ;
-                    if ( _html_flag ) circles_lib_output( _output_channel, DISPATCH_INFO, LANG_MSG_00, _param_01 );
-                    _html_flag ? circles_lib_terminal_color_decode_htmltext( _help_text, _cmd_tag ) : circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _help_text, _param_01 );
+                    if ( _html_flag ) circles_lib_output( _output_channel, DISPATCH_INFO, LANG_MSG_00, _param_01, _cmd_tag, 1 );
+                    _html_flag ? circles_lib_terminal_color_decode_htmltext( _help_text, _cmd_tag ) : circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _help_text, _param_01, _cmd_tag, 1 );
                 },
                 'html');
 }
@@ -203,7 +203,7 @@ function circles_lib_terminal_color_decode_htmltext( _html_code, _cmd_tag, _x_po
        _y_pos = !object_exists( _y_pos ) ? ( _popup_ypos == UNDET ? "TOP" : _popup_ypos  ) : _y_pos ;
        _bk = safe_string( _bk, "#343434" ), _cmd_tag = safe_string( _cmd_tag, "" );
        CIRCLESgeneralpurposeFORM( 'forms', 'general.purpose', YES, _popup_width, _popup_height, "Help "+_cmd_tag+" (html version)",
-																  _x_pos, _y_pos, _bk, YES, _html_code, YES );
+								  _x_pos, _y_pos, _bk, YES, _html_code, YES );
     }
     else return "" ;
 }
