@@ -118,8 +118,7 @@ var custom_check_stream_fn = function( stream )
 		for( _i = 0 ; _i < _editor_settings.length ; _i++ )
     {
         _ret = stream.match( _editor_settings[_i][1] ) ? 1 : 0 ;
-        console.log( _editor_settings[_i][0], _editor_settings[_i][1], _ret );
-    		if ( _ret ) return _editor_settings[_i][0] ;
+   		if ( _ret ) return _editor_settings[_i][0] ;
     }
 
 		for( _i = 0 ; _i < _glob_script_editor_reserved_javascript.length ; _i++ )
@@ -149,7 +148,6 @@ CodeMirror.defineMode("custom.mode", function()
         token: function(stream,state)
 				{
 						var _ret = custom_check_stream_fn( stream ) ;
-            console.log( "RET", _ret );
 						if ( _ret.length > 0 ) return _ret ;
 	          else { stream.next(); return null; }
         }

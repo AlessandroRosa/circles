@@ -57,7 +57,6 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn, _ret_arr
 			_found = 1 ;
 			break ;
 			case "calcs":
-			console.log( "CALCS" );
 			$('#CIRCLESformsDISCRETENESSLOCUSmainDIV').get(0).tabber.tabShow(1);
 			_found = 1 ;
 			break ;

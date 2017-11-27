@@ -537,7 +537,6 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
 					if ( _plane != NO_PLANE && _refresh )
 					{
 						var _layer = circles_lib_canvas_layer_find( _rec_chunk['plane'], FIND_LAYER_BY_ROLE_DEF, _rec_chunk['layer'] );
-						console.log( "REFRESH", _rec_chunk['plane'], _layer );
 						if ( _glob_terminal_echo_flag )
 						{
 							circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>("+_plane_def+")</snow> <green>obj "+_figure_label+" #"+( _i + 1 )+" updated</green>", _param_01 );

@@ -56,7 +56,6 @@ function circles_lib_triggers_open_all_automated_entries( _silent = NO, _output_
     _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _triggers_ids = _glob_triggers_table.keys_associative(), _ret = RET_OK, _ret_chunk = null ;
     var _fails = [], _report = [], _msg, _run_counter = 0, _auto ;
-	console.log( "IN" );
     $.each( _triggers_ids, function( _i, _trig_id )
             {
                _auto = safe_int( _glob_triggers_table[''+_trig_id][4], 0 ) ;
@@ -75,7 +74,6 @@ function circles_lib_triggers_open_all_automated_entries( _silent = NO, _output_
     _msg += ( _ret == RET_ERROR ? ": " + _glob_crlf + _fails.join( ", " ) : "" ) ;
     if ( !_silent && _output_channel == OUTPUT_SCREEN )
 	circles_lib_output( OUTPUT_SPECIAL_FX, _ret == RET_OK ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, "circles_lib_triggers_outbox" ) ;
-console.log( _report );
     return [ _ret, _msg, _fails, _run_counter, _report ] ;
 }
 

@@ -1,4 +1,4 @@
-function circles_lib_canvas_render_zplane( _canvas, _mapper = zplane_sm, _selected_layers_array, _b_clean = NO, _b_render_bk = YES, _b_render_objs = YES, _question = NO, _silent = YES, _b_reset_coords = YES, _output_channel )
+function circles_lib_canvas_render_zplane( _canvas = null, _mapper = zplane_sm, _selected_layers_array = [], _b_clean = NO, _b_render_bk = YES, _b_render_objs = YES, _question = NO, _silent = YES, _b_reset_coords = YES, _output_channel )
 {
     _b_clean = safe_int( _b_clean, NO ), _b_render_bk = safe_int( _b_render_bk, YES ), _b_render_objs = safe_int( _b_render_objs, YES );
     _b_reset_coords = safe_int( _b_reset_coords, YES );
@@ -39,15 +39,14 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper = zplane_sm, _select
     {
         if ( _selected_layers_array != null )
         {
-         		var _layer, _tmp_canvas ;
-            $.each( _selected_layers_array, function( _i, _layer_role_index )
+         	var _layer, _tmp_canvas ;
+            $.each( _selected_layers_array, function( _i, _layer_role_index ) {
+                    _layer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, _layer_role_index );
+                    if ( _layer != null )
                     {
-                       _layer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, _layer_role_index );
-                       if ( _layer != null )
-                       {
-                          _tmp_canvas = $( "#" + _layer.get_idcanvas() ).get(0);
-                          if ( is_html_canvas( _tmp_canvas ) ) circles_lib_canvas_clean( _tmp_canvas, _layer.get_backgroundcolor(), _output_channel );
-                       } } );
+                        _tmp_canvas = $( "#" + _layer.get_idcanvas() ).get(0);
+                        if ( is_html_canvas( _tmp_canvas ) ) circles_lib_canvas_clean( _tmp_canvas, _layer.get_backgroundcolor(), _output_channel );
+                    } } );
         }
         else
         {
@@ -123,16 +122,10 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper = zplane_sm, _select
 
    switch( _glob_export_format )
    {
-       case EXPORT_SVG:
-       _svg_close( _glob_export_code_array );
-       break ;
+       case EXPORT_SVG: _svg_close( _glob_export_code_array ); break ;
        case EXPORT_PS:
-       case EXPORT_EPS:
-       if ( _glob_e_ps_open == 1 ) _glob_js_e_ps_obj.close();
-       break ;
-       case EXPORT_LATEX:
-       if ( _glob_latex_open == 1 ) _glob_js_latex_obj.close();
-       break ;
+       case EXPORT_EPS: if ( _glob_e_ps_open == 1 ) _glob_js_e_ps_obj.close(); break ;
+       case EXPORT_LATEX: if ( _glob_latex_open == 1 ) _glob_js_latex_obj.close(); break ;
        case EXPORT_NONE: default: break ;
    }
 
@@ -148,10 +141,10 @@ function circles_lib_canvas_render_zplane( _canvas, _mapper = zplane_sm, _select
    return [ RET_OK, "Z-plane rendered with success" ] ;
 }
 
-function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _b_init_items, _question, _silent, _output_channel )
+function circles_lib_canvas_render_wplane( _canvas = null, _mapper = wplane_sm, _selected_layers_array = [], _b_clean = YES, _b_render_bk = YES, _b_render_objs = YES, _b_init_items = YES, _question, _silent, _output_channel )
 {
-		circles_lib_menu_entries_update() ;
-		if ( _glob_interface_index == INTERFACE_EXTEND_ZPLANE ) return [ RET_IRRELEVANT, "W-plane rendering skipped for extended interface" ] ;
+	circles_lib_menu_entries_update() ;
+	if ( _glob_interface_index == INTERFACE_EXTEND_ZPLANE ) return [ RET_IRRELEVANT, "W-plane rendering skipped for extended interface" ] ;
     // layers can be input as an array or a string of indexes separated by comma
     _selected_layers_array = ( is_array( _selected_layers_array ) || _selected_layers_array == null ) ? _selected_layers_array : ( _selected_layers_array.includes( "," ) ? _selected_layers_array.split( "," ) : _selected_layers_array );
     if ( safe_size( _selected_layers_array, 0 ) == 0 ) _selected_layers_array = null ;
@@ -199,10 +192,8 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
         // in any case, it cleans the basic layers, cause they stand behind the depth layers pile
         if ( is_array( _selected_layers_array ) )
         {
-        	  var _layer, _tmp_canvas ;
-            $.each( _selected_layers_array,
-                    function( _i, _layer_role_index )
-                    {
+        	var _layer, _tmp_canvas ;
+            $.each( _selected_layers_array, function( _i, _layer_role_index ) {
                        _layer = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, _layer_role_index );
                        if ( _layer != null )
                        {
@@ -252,7 +243,6 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
     // Part (a) runs up to the multi-threading process included.
     // Part (b) runs after the multi-threading process is over and it is called
     // in circles_lib_canvas_after_process_main() function
-      
     if ( !is_array( _layers_array ) )
     {
        _layers_array = [] ;
@@ -266,7 +256,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
        _layers_array.push( ROLE_RENDERING );
     }
 
-		if ( _b_init_items )
+	if ( _b_init_items )
     {
         circles_lib_items_switch_to( circles_lib_gens_model_exists() ? ITEMS_SWITCH_GENS : ITEMS_SWITCH_SEEDS, _silent, _output_channel );
         var _ret_chunk = circles_lib_items_init( null, _question, _silent, _glob_init_mask, NO, YES, _output_channel );
@@ -322,7 +312,7 @@ function circles_lib_canvas_render_wplane( _canvas, _mapper, _selected_layers_ar
 
 function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, _b_clean, _b_render_bk, _b_render_objs, _b_init_items, _question, _silent, _output_channel )
 {
-		circles_lib_menu_entries_update() ;
+	circles_lib_menu_entries_update() ;
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     // layers can be input as an array or a string of indexes separated by comma
     _selected_layers_array = ( is_array( _selected_layers_array ) || _selected_layers_array == null ) ? _selected_layers_array : ( _selected_layers_array.includes( "," ) ? _selected_layers_array.split( "," ) : _selected_layers_array );

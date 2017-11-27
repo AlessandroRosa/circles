@@ -380,10 +380,8 @@ function circles_terminal_cmd_config()
                     {
                         if ( _param.strcmp( "accuracy" ) || _params_assoc_array['reset'] )
                         {
-								console.log( "RESET" );
                             if ( _params_assoc_array['reset'] )
                             {
-								console.log( "RESET" );
                                 _glob_accuracy = DEFAULT_MAX_ACCURACY ;
                                 _resp.push( [ 1, "<greenshock>Accuracy reset to default value " + _glob_accuracy + "</greenshock>" ] ) ;
                             }

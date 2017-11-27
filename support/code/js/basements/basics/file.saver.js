@@ -111,10 +111,7 @@ var saveAs = saveAs
 				, slice
 			;
 			filesaver.readyState = filesaver.INIT;
-			console.log( "SAVE AS", name );
-			if (!name) {
-				name = "download";
-			}
+			if (!name) { name = "download"; }
 			if (can_use_save_link) {
 				object_url = get_object_url(blob);
 				save_link.href = object_url;

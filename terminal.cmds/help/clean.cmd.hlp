@@ -1,8 +1,11 @@
-<banana>clean the terminal console viewport</banana>
+<banana>clean input object</banana>
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>clean</snow>
+<lightblue>usage</lightblue> <snow>clean %plane%</snow>
 
-<lightblue>clean release</lightblue>
+<yellow>clean %plane%</yellow>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<yellow>clean release</yellow>
 <cadetblue>return the latest release date for this command</cadetblue>

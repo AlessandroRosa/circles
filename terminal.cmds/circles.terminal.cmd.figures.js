@@ -1112,7 +1112,7 @@ function circles_terminal_cmd_figures()
                                                 _index = _nodes_values_array[_i] - 1 ;
 												if ( is_point( _points_array[_index] ) )
 												_points_array[_index].shift( _shift_point.x, _shift_point.y );
-												else console.log( "NOT A POINT" );
+												else circles_lib_output( _output_channel, DISPATCH_WARNING, "Node #"+_i+" is not a valid point object", _par_1, _cmd_tag );
                                            }
     
                                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Shift performed with success", _par_1, _cmd_tag );

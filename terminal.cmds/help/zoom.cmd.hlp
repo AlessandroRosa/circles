@@ -2,7 +2,7 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>zoom %action% %center% %plane% %side% %zoomfactor% silent clean render</snow>
+<lightblue>usage</lightblue> <snow>zoom %action% %center% %plane% %side% %zoomfactor% silent clean render reset</snow>
 
 <lightblue>%action%</lightblue> <snow>copy | release | shift | %blank field%</snow>
 <lightblue>%plane%</lightblue> <snow>zplane | wplane | bip</snow>
@@ -19,11 +19,14 @@
 <lightblue>zoom zplane shift left|top|right|bottom 0.2</lightblue>
 <cadetblue>shift the z-plane to the left (or to the top, or to the right or to the bottom) left by 0.2</cadetblue>
 
+<lightblue>zoom %plane% reset</lightblue>
+<cadetblue>restore the Z-plane coordinates to default values</cadetblue>
+
 <lightblue>zoom zplane tofit</lightblue>
 <cadetblue>zoom to the smallest square region including all seed circles</cadetblue>
 
 <lightblue>zoom copy zplane wplane</lightblue>
-<cadetblue>copy and set coords of the W-plane (dest) to the Z-plane (src)</cadetblue>
+<cadetblue>copy and set coords of the Z-plane (src) to the W-plane (dest)</cadetblue>
 
 <lightblue>zoom wplane +0.3 clean</lightblue>
 <cadetblue>the input region is cleaned and then zoomed in by 0.3 factor (*) units</cadetblue>
