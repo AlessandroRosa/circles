@@ -191,8 +191,7 @@ function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*m
 
 function circles_lib_dump_data_to_format( /* additional arguments will be processed further, separately*/ )
 {
-    var _obj = arguments[0], _destination = "", _cols = 1 ;
-    var _is_txtfile = NO, _is_pdffile = NO, _save_pix = NO ;
+    var _obj = arguments[0], _destination = "", _cols = 1, _is_txtfile = NO, _is_pdffile = NO, _save_pix = NO ;
     // scan for _destination param
     for ( var _i = 1 ; _i < arguments.length ; _i++ )
     {
@@ -233,38 +232,38 @@ function circles_lib_dump_data_to_format( /* additional arguments will be proces
         else if ( is_array( _obj ) ) $.each( _obj, function( _i, _chunk ) { _out_obj_data += _glob_crlf + _chunk ; } );
         else _out_obj_data = _obj ;
 
-        var pdf_header = function( doc, _page_no )
+        var pdf_header = function( _pdf_obj, _page_no )
         {
-             doc.setFillColor( 244, 244, 244 );
-             doc.rect( 0, 0, 70, 297, 'F');
+            _pdf_obj.setFillColor( 244, 244, 244 );
+            _pdf_obj.rect( 0, 0, 70, 297, 'F');
 
-             doc.setFontSize( 7 );
-             doc.text( 130, 15, "Page "+_page_no+" - Document printed on " + now() )
+            _pdf_obj.setFontSize( 7 );
+            _pdf_obj.text( 130, 15, "Page "+_page_no+" - Document printed on " + now() )
 
-             doc.setFontSize( 14 );
-             var _left = 10, _top = 15 ;
-             doc.text( _left, _top, _glob_app_title );
-             doc.setFontSize( 8 );
-             _top += 4 ;
-             doc.text( _left, _top, _glob_appSUBTITLE );
-             _top += 10 ;
+            _pdf_obj.setFontSize( 14 );
+            var _left = 10, _top = 15 ;
+            _pdf_obj.text( _left, _top, _glob_app_title );
+            _pdf_obj.setFontSize( 8 );
+            _top += 4 ;
+            _pdf_obj.text( _left, _top, _glob_appSUBTITLE );
+            _top += 10 ;
 
-             doc.setFontSize( 8 );
-             doc.setTextColor(0, 0, 0);
-             return _top ;
+            _pdf_obj.setFontSize( 8 );
+            _pdf_obj.setTextColor(0, 0, 0);
+            return _top ;
         }
 
-        var pdf_pix = function( doc, _left, _top )
+        var pdf_pix = function( _pdf_obj, _left, _top )
         {
             var _tmp_canvas = document.createElement( "canvas" );
                 _left = 130, _top = 25 ;
             var _zplane_rendering_canvas = _glob_zplane_rendering_layer_placeholder ;
             var _wplane_rendering_canvas = _glob_wplane_rendering_layer_placeholder ;
               // display Z-plane on the pdf
-            doc.setTextColor(0, 0, 212);
-            doc.setFontSize( 9 );
-            doc.text( _left, _top, "Z-plane configuration (isometric circles)" );
-            doc.setFontSize( 8 );
+            _pdf_obj.setTextColor(0, 0, 212);
+            _pdf_obj.setFontSize( 9 );
+            _pdf_obj.text( _left, _top, "Z-plane configuration (isometric circles)" );
+            _pdf_obj.setFontSize( 8 );
             _top += 3 ;
             _tmp_canvas.set_width( _zplane_rendering_canvas.get_width() );
             _tmp_canvas.set_height( _zplane_rendering_canvas.get_height() );
@@ -274,25 +273,25 @@ function circles_lib_dump_data_to_format( /* additional arguments will be proces
             _tmp_context.fill();
             _tmp_context.drawImage( _zplane_rendering_canvas, 0, 0, _tmp_canvas.get_width(), _tmp_canvas.get_height() );
             var PIXDATA = _tmp_canvas.toDataURL( 'image/jpeg', 1.0 );
-         		doc.addImage( PIXDATA, 'JPEG', _left, _top, 60, 60 );
-            doc.setDrawColor(212, 212, 212);
-            doc.roundedRect( _left, _top, 60, 60, 5, 5, 'D');
+         		_pdf_obj.addImage( PIXDATA, 'JPEG', _left, _top, 60, 60 );
+            _pdf_obj.setDrawColor(212, 212, 212);
+            _pdf_obj.roundedRect( _left, _top, 60, 60, 5, 5, 'D');
             _top += 66 ;
-            doc.text( _left, _top, "Left : " + _glob_zplaneLEFT );
+            _pdf_obj.text( _left, _top, "Left : " + _glob_zplaneLEFT );
             _top += 4 ;
-            doc.text( _left, _top, "Right : " + _glob_zplaneRIGHT );
+            _pdf_obj.text( _left, _top, "Right : " + _glob_zplaneRIGHT );
             _top += 4 ;
-            doc.text( _left, _top, "Top : " + _glob_zplaneTOP );
+            _pdf_obj.text( _left, _top, "Top : " + _glob_zplaneTOP );
             _top += 4 ;
-            doc.text( _left, _top, "Bottom : " + _glob_zplaneBOTTOM );
+            _pdf_obj.text( _left, _top, "Bottom : " + _glob_zplaneBOTTOM );
 
             var PIXDATA = null ;
             _top += 12 ;
 
             // display W-plane on the pdf
-            doc.setFontSize( 9 );
-            doc.text( _left, _top, "W-plane rendering" );
-            doc.setFontSize( 8 );
+            _pdf_obj.setFontSize( 9 );
+            _pdf_obj.text( _left, _top, "W-plane rendering" );
+            _pdf_obj.setFontSize( 8 );
             _top += 3 ;
             _tmp_canvas.set_width( _wplane_rendering_canvas.get_width() );
             _tmp_canvas.set_height( _wplane_rendering_canvas.get_height() );
@@ -302,36 +301,34 @@ function circles_lib_dump_data_to_format( /* additional arguments will be proces
             _tmp_context.fill();
             _tmp_context.drawImage( _wplane_rendering_canvas, 0, 0, _tmp_canvas.get_width(), _tmp_canvas.get_height() );
             PIXDATA = _tmp_canvas.toDataURL( 'image/jpeg', 1.0 );
-            doc.addImage( PIXDATA, 'JPEG', _left, _top, 60, 60 );
-            doc.setDrawColor(212, 212, 212);
+            _pdf_obj.addImage( PIXDATA, 'JPEG', _left, _top, 60, 60 );
+            _pdf_obj.setDrawColor(212, 212, 212);
             _top += 66 ;
-            doc.text( _left, _top, "Left : " + _glob_wplaneLEFT );
+            _pdf_obj.text( _left, _top, "Left : " + _glob_wplaneLEFT );
             _top += 4 ;
-            doc.text( _left, _top, "Right : " + _glob_wplaneRIGHT );
+            _pdf_obj.text( _left, _top, "Right : " + _glob_wplaneRIGHT );
             _top += 4 ;
-            doc.text( _left, _top, "Top : " + _glob_wplaneTOP );
+            _pdf_obj.text( _left, _top, "Top : " + _glob_wplaneTOP );
             _top += 4 ;
-            doc.text( _left, _top, "Bottom : " + _glob_wplaneBOTTOM );
-            doc.setTextColor(0, 0, 0);
+            _pdf_obj.text( _left, _top, "Bottom : " + _glob_wplaneBOTTOM );
+            _pdf_obj.setTextColor(0, 0, 0);
         }
 
         if ( _out_obj_data.length > 0 )
         {
             //save pdf
-            var _left = 10, _top = 0, _page_no = 1 ;
-            var doc = new jsPDF();
-            _top = pdf_header( doc, _page_no );
-            if ( _save_pix ) pdf_pix( doc, 50, 20 );
+            var _left = 10, _top = 0, _page_no = 1, _pdf_obj = new jsPDF();
+            _top = pdf_header( _pdf_obj, _page_no );
+            if ( _save_pix ) pdf_pix( _pdf_obj, 50, 20 );
 
             var _rows_array = is_array( _out_obj_data ) ? _out_obj_data : _out_obj_data.split( _glob_crlf );
             var _max_length = 1 ;
             _rows_array.work( function( _w ) { _max_length = Math.max( _max_length, _w.length ); } );
             var _shift_x = _max_length * 3.5, _count = 0 ;
-            $.each( _rows_array, function( _i, _row )
-                    {
+            $.each( _rows_array, function( _i, _row ) {
                        if ( _row.trim().length > 0 )
                        {
-                          doc.text( _left, _top, _row );
+                          _pdf_obj.text( _left, _top, _row );
                           if ( _count % _cols == ( _cols - 1 ) )
                           {
                               _top += 4, _left = 10 ;
@@ -341,15 +338,12 @@ function circles_lib_dump_data_to_format( /* additional arguments will be proces
                           if ( _top > 280 )
                           {
                              _top = 0, _left = 10 ;
-                             doc.addPage();
+                             _pdf_obj.addPage();
                              _page_no++ ;
-                             _top = pdf_header( doc, _page_no );
+                             _top = pdf_header( _pdf_obj, _page_no );
                           }
-                       }
-                    }
-                  );
-
-            doc.output( "save", _destination );
+                       } } );
+            _pdf_obj.output( "save", _destination );
             return [ RET_OK, "Output data exported to the pdf file '"+_destination+"'" ] ;
         }
         else return [ RET_ERROR, "Missing data or file path" ] ;
@@ -359,7 +353,7 @@ function circles_lib_dump_data_to_format( /* additional arguments will be proces
        var _out_obj_data = "" ;
        if ( is_number( _obj ) ) _out_obj_data = _obj.roundTo( _glob_accuracy ) + "" ;
        else if ( is_complex( _obj ) ) _out_obj_data = _obj.formula( 0, YES, _glob_accuracy );
-       else if ( is_mobius_map( _obj ) ) _out_obj_data = _obj.output( " ", "coeffs", _glob_accuracy );
+       else if ( is_mobius_map( _obj ) ) _out_obj_data = _obj.output( _glob_crlf, "coeffs", _glob_accuracy );
        else if ( is_string( _obj ) ) _out_obj_data = _obj ;
        else if ( is_array( _obj ) ) $.each( _obj, function( _i, _chunk ) { _out_obj_data += _glob_crlf + _chunk ; } );
        else _out_obj_data = _obj ;

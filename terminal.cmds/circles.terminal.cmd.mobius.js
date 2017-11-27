@@ -13,7 +13,7 @@ function circles_terminal_cmd_mobius()
     if ( _glob_verbose && _glob_terminal_echo_flag )
     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-	  var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
     var _b_fail = 0, _cnt = 0 ;
     var _error_str = "" ;
     var _out_text_string = "" ;
@@ -27,64 +27,61 @@ function circles_terminal_cmd_mobius()
     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
     if ( _params.length > 0 )
     {
-         _params_assoc_array['settings'] = [] ;
-         _params_assoc_array['settings']['params'] = [] ;
-         _params_assoc_array['settings']['action'] = "" ;
-         _params_assoc_array['all'] = NO ;
-         _params_assoc_array['draw'] = UNDET ;
-         _params_assoc_array['drawcolor'] = null ;
-         _params_assoc_array['dump'] = NO ;
-         _params_assoc_array['dump_array'] = null ;
-         _params_assoc_array['dump_operator_index'] = UNDET ;
-         _params_assoc_array['extras'] = [] ;
-         _params_assoc_array['fill'] = UNDET ;
-         _params_assoc_array['fillcolor'] = null ;
-		 _params_assoc_array['generator'] = NO ;
-         _params_assoc_array['help'] = NO ;
-         _params_assoc_array['keywords'] = NO ;
-         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-         _params_assoc_array['index'] = null ;
-         _params_assoc_array['inv_symbol'] = null ;
-         _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-         _params_assoc_array['symbol'] = null ;
-         _params_assoc_array['linewidth'] = null ;
-         _params_assoc_array['off'] = NO ;
-         _params_assoc_array['on'] = NO ;
-         _params_assoc_array['properties'] = [] ;
-         _params_assoc_array['roundto'] = _glob_accuracy ;
-         _params_assoc_array['settings']['storagequeue'] = [] ;
-         _params_assoc_array['settings']['storagesubset'] = "seeds" ;
-         _params_assoc_array['vars'] = [] ;
-         _params_assoc_array['notes'] = [] ;
+        _params_assoc_array['settings'] = [] ;
+        _params_assoc_array['settings']['params'] = [] ;
+        _params_assoc_array['settings']['action'] = "" ;
+        _params_assoc_array['all'] = NO ;
+        _params_assoc_array['draw'] = UNDET ;
+        _params_assoc_array['drawcolor'] = null ;
+        _params_assoc_array['dump'] = NO ;
+        _params_assoc_array['dump_array'] = null ;
+        _params_assoc_array['dump_operator_index'] = UNDET ;
+        _params_assoc_array['extras'] = [] ;
+        _params_assoc_array['fill'] = UNDET ;
+        _params_assoc_array['fillcolor'] = null ;
+		_params_assoc_array['generator'] = NO ;
+        _params_assoc_array['help'] = NO ;
+        _params_assoc_array['keywords'] = NO ;
+        _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
+        _params_assoc_array['index'] = null ;
+        _params_assoc_array['inv_symbol'] = null ;
+        _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
+        _params_assoc_array['symbol'] = null ;
+        _params_assoc_array['linewidth'] = null ;
+        _params_assoc_array['off'] = NO ;
+        _params_assoc_array['on'] = NO ;
+        _params_assoc_array['properties'] = [] ;
+        _params_assoc_array['roundto'] = _glob_accuracy ;
+        _params_assoc_array['settings']['storagequeue'] = [] ;
+        _params_assoc_array['settings']['storagesubset'] = "seeds" ;
+        _params_assoc_array['vars'] = [] ;
+        _params_assoc_array['notes'] = [] ;
 
-         _params_assoc_array['a'] = null ;
-         _params_assoc_array['b'] = null ;
-         _params_assoc_array['c'] = null ;
-         _params_assoc_array['d'] = null ;
+        _params_assoc_array['a'] = null, _params_assoc_array['b'] = null, _params_assoc_array['c'] = null, _params_assoc_array['d'] = null ;
 
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); 
-         // pre-scan for levenshtein correction
-    	 var _local_cmds_params_array = [];
-    		 _local_cmds_params_array.push( "fill", "nofill", "draw", "nodraw", "on", "off", "disabled" );
-    		 _local_cmds_params_array.push( "add", "check", "class", "copy", "delete", "generators", "notes", "find", "fixedpoints", "list",
+        var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+        _params_array.clean_from( " " ); 
+        // pre-scan for levenshtein correction
+    	var _local_cmds_params_array = [];
+    		_local_cmds_params_array.push( "fill", "nofill", "draw", "nodraw", "on", "off", "disabled" );
+			_local_cmds_params_array.push( "add", "check", "class", "copy", "delete", "generators", "notes", "find", "fixedpoints", "list",
 				 							"generator", "group", "plot", "select", "seeds", "update", "html", "colorize", "decolorize" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
-				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-				 _params_assoc_array['dump_operator_index'] = _dump_operator_index ;
-				 _params_assoc_array['dump_array'] = [];
+		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
+		_params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+		_params_assoc_array['dump_operator_index'] = _dump_operator_index ;
+		_params_assoc_array['dump_array'] = [];
 				
-				 // gather all dump parameters into one array
-         if ( _params_assoc_array['dump'] )
-         {
-    		for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+		// gather all dump parameters into one array
+        if ( _params_assoc_array['dump'] )
+        {
+			for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
     		if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
-         }
+        }
 				 
-         var _p ;
-         // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
+        var _p ;
+        // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
          var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
@@ -109,11 +106,15 @@ function circles_terminal_cmd_mobius()
             else if ( _p.is_one_of_i( "characteristic", "class", "determinant", "fixedpoints", "circle", "multiplier", "normalize", "trace" ) )
             _params_assoc_array['properties'].push( _p.toLowerCase() );
             else if ( _p.is_one_of_i( "plot", "attr", "params" ) ) _params_assoc_array['extras'].push( _p.toLowerCase() );
-            else if ( ( _p.length == 1 && _p.isAlpha() ) || _p.isNumber() )
-            _symbols_array.push( _p );
-            else if ( ( ( _p.length == 1 && _p.isAlpha() ) || _p.isNumber() )
-                      &&
-                      !( _params_assoc_array['settings']['action'].stricmp( "notes" ) ) ) _symbols_array.push( _p );
+            else if ( _p.isAlpha() || _p.isNumber() )
+			{
+				if ( _p.isAlpha() && _params_assoc_array['settings']['action'].stricmp( "assemble" ) )
+				{
+					if ( _params_assoc_array['settings']['assemble'] == null ) _params_assoc_array['settings']['assemble'] = [] ;
+					_params_assoc_array['settings']['assemble'].push( _p );
+				}
+				else if ( !_params_assoc_array['settings']['action'].stricmp( "notes" ) ) _symbols_array.push( _p );
+			}
             else if ( _p.toLowerCase().start_with( "notes:" ) )
             {
                _p = safe_string( _p.replaceAll( "notes:", "" ), "" ) ;
@@ -270,163 +271,136 @@ function circles_terminal_cmd_mobius()
 
             switch( _action )
             {
-                    case "add" :
-                    if ( !is_array( _symbols_array ) ) _symbols_array = [];
-                    if ( safe_size( _symbols_array, 0 ) == 0 )
-                    {
-                          _symbols_array.push( "auto" );
-                          circles_lib_output( _output_channel, DISPATCH_INFO, "Missing input symbol: set to 'auto' definition", _par_1, _cmd_tag );
-                    }
-                    var _symbol = ( _symbols_array.includes_i( "auto" ) ) ? circles_lib_alphabet_suggest_symbol() : _symbols_array[0] ;
-                    if ( _selection_indexes_array.length == 0 && is_array( _items_array ) && _symbol.length == 1 )
-                    {
-                         var _inv_symbol = ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) ) ? circles_lib_word_inverse_get( _symbol ) : "" ;
-                         var _old_sd_n = circles_lib_count_items( _items_array );
-                         var _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
-                         var _screen_cc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
-                         _items_array.push( new item_obj( _mm, _cc, _screen_cc, _symbol, 0,
-                                                               _params_assoc_array['draw'] != UNDET ? YES : NO, "",
-                                                               _params_assoc_array['fill'] != UNDET ? YES : NO, "",
-                                                               _inv_symbol, 1, ITEM_TYPE_MOBIUS ) );
+                case "add" :
+                if ( !is_array( _symbols_array ) ) _symbols_array = [];
+                if ( safe_size( _symbols_array, 0 ) == 0 )
+                {
+                    _symbols_array.push( "auto" );
+                    circles_lib_output( _output_channel, DISPATCH_INFO, "Missing input symbol: set to 'auto' definition", _par_1, _cmd_tag );
+                }
+                var _symbol = ( _symbols_array.includes_i( "auto" ) ) ? circles_lib_alphabet_suggest_symbol() : _symbols_array[0] ;
+                if ( _selection_indexes_array.length == 0 && is_array( _items_array ) && _symbol.length == 1 )
+                {
+                        var _inv_symbol = ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) ) ? circles_lib_word_inverse_get( _symbol ) : "" ;
+                        var _old_sd_n = circles_lib_count_items( _items_array );
+                        var _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
+                        var _screen_cc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
+                        _items_array.push( new item_obj( _mm, _cc, _screen_cc, _symbol, 0,
+                                                         _params_assoc_array['draw'] != UNDET ? YES : NO, "",
+                                                         _params_assoc_array['fill'] != UNDET ? YES : NO, "",
+                                                         _inv_symbol, 1, ITEM_TYPE_MOBIUS ) );
     
-                         var _new_sd_n = circles_lib_count_items( _items_array );
-                         if ( _new_sd_n == _old_sd_n + 1 )
-                         {
-                             circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The new Mobius map"+( ( _symbol.length > 0 ) ? " '"+_symbol+"'" : "" )+" has been added", _par_1, _cmd_tag );
-                             if ( _storage_queue_request ) _params_assoc_array['settings']['storagequeue'].push( _items_array[_obj_index].copy() );
-                         }
+                        var _new_sd_n = circles_lib_count_items( _items_array );
+                        if ( _new_sd_n == _old_sd_n + 1 )
+                        {
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The new Mobius map"+( ( _symbol.length > 0 ) ? " '"+_symbol+"'" : "" )+" has been added", _par_1, _cmd_tag );
+                            if ( _storage_queue_request ) _params_assoc_array['settings']['storagequeue'].push( _items_array[_obj_index].copy() );
+                        }
                          
-                         var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
-   										   var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
-												 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
-                         if ( _ret_id )
-                         {
-                             //if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _output_channel );
-    							           if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
-    							  				 {
-    															_glob_terminal_change = YES ;
-    								              circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-    												 }
-                         }
-                         else
-                         {
-                             _b_fail = YES, _error_str = _ret_msg ;
-                         }
-                    }
-                    else if ( _symbol.length == 0 )
-                    {
-                        _b_fail = YES, _error_str = "Can't add: symbol is missing" ;
-                    }
-                    else if ( !is_array( _items_array ) )
-                    {
-                        _b_fail = YES, _error_str = "Memory failure: can't get current items" ;
-                    }
-                    else 
-                    {
-                        var _msg = "Warning: there's already one element with that same symbol ("+_symbol+") or index ("+_selection_indexes_array+")" ;
-                        circles_lib_output( _output_channel, DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
-                    }
+                        var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
+   						var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
+						var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
+                        if ( _ret_id )
+                        {
+				            if ( circles_lib_terminal_batch_script_exists() && _output_channel == OUTPUT_TERMINAL )
+    						{
+    							_glob_terminal_change = YES ;
+    						    circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+    						}
+                        }
+                        else { _b_fail = YES, _error_str = _ret_msg ; }
+                }
+                else if ( _symbol.length == 0 ) { _b_fail = YES, _error_str = "Can't add: symbol is missing" ; }
+                else if ( !is_array( _items_array ) ) { _b_fail = YES, _error_str = "Memory failure: can't get current items" ; }
+                else 
+                {
+                    var _msg = "Warning: there's already one element with that same symbol ("+_symbol+") or index ("+_selection_indexes_array+")" ;
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
+                }
                     
-                    if ( _glob_method == METHOD_NONE ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: a method has to be set up", _par_1, _cmd_tag ); 
-                    break ;
-                    case "assemble" :
-                    if ( is_array( _symbols_array ) && is_array( _symbols_array ) )
+                if ( _glob_method == METHOD_NONE ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: a method has to be set up", _par_1, _cmd_tag ); 
+                break ;
+                case "assemble" :
+				var _input_array = _params_assoc_array['settings']['assemble'] ;
+                    if ( is_array( _input_array ) )
                     {
-												 var ALPHABET = circles_lib_alphabet_get();
-												 // repetends syntax is allowed
-									 			 if ( is_array( ALPHABET ) ) ALPHABET.push( "[", ":", "]" );
-                         else
-                         {
+						var ALPHABET = circles_lib_alphabet_get();
+						// repetends syntax is allowed
+						if ( is_array( ALPHABET ) ) ALPHABET.push( "[", ":", "]" );
+                        else
+                        {
                              _b_fail = YES, _error_str = "Alphabet is not available" ;
                              _sd_n = circles_lib_count_items( _items_array );
                              if ( _sd_n.is_one_of( 0, UNDET ) )
                              _error_str += "\nNo seeds have been input or initialized" ;
-                         }
-                         
-												 if ( _symbols_array.length > 0 && !_b_fail )
-												 {
-								              var _words_array = [], _mobius_maps_array = [];
-															var _passed, WORD, _resolved_gen ;
-												 			// check valid syntax
-															for( var _i = 0 ; _i < _symbols_array.length ; _i++ )
-												 			{
-                                   // if the dump operator is met, then the arguments sequence is over
-                                   if ( _symbols_array[_i].strcmp( TERMINAL_OPERATOR_DUMP_TO ) ) break ;
+                        }
+                        
+						if ( _input_array.length > 0 && !_b_fail )
+						{
+							var _words_array = [], _mobius_maps_array = [];
+							var _passed, WORD, _resolved_gen ;
+							// check valid syntax
+							for( var _i = 0 ; _i < _input_array.length ; _i++ )
+							{
+                                // if the dump operator is met, then the arguments sequence is over
+                                if ( _input_array[_i].strcmp( TERMINAL_OPERATOR_DUMP_TO ) ) break ;
                                    
-												 					 _resolved_gen = circles_lib_repetends_resolve( _symbols_array[_i] );
-															 		 _passed = circles_lib_word_check( _resolved_gen, ALPHABET );
-															 		 if ( _passed ) _words_array.push( _resolved_gen );
-  																 else
-																	 {
-																			 _b_fail = YES, _error_str = "Syntax error in input word '"+_symbols_array[_i]+"'" ;
-																	 }
-															}
+								_resolved_gen = circles_lib_repetends_resolve( _input_array[_i] );
+								_passed = circles_lib_word_check( _resolved_gen, ALPHABET );
+								if ( _passed ) _words_array.push( _resolved_gen );
+  								else { _b_fail = YES, _error_str = "Syntax error in input word '"+_input_array[_i]+"'" ; }
+							}
                               
-															if ( !_b_fail )
-															{
-																	var G = null, _mm = null, INDEX = 0 ;
-                                  for( _i = 0 ; _i < _words_array.length ; _i++ )
-																	{
-				 		                          WORD = ( new String( _words_array[_i] ) ).trim();
-				 		                          if ( WORD.length > 0 )
-				 		                          {
-																					// construction must be pursued using seeds
-                                          _mm = circles_lib_word_mobiusmap_get( WORD, _items_array, _output_channel );
-								                          _mobius_maps_array.push( _mm );
-																			}
-																			else circles_lib_output( _output_channel, DISPATCH_WARNING, "An empty word has been detected", _par_1, _cmd_tag ); 
-																	}
+							if ( !_b_fail )
+							{
+								var G = null, _mm = null, INDEX = 0 ;
+                                for( _i = 0 ; _i < _words_array.length ; _i++ )
+								{
+				 		            WORD = ( new String( _words_array[_i] ) ).trim();
+				 		            if ( WORD.length > 0 )
+				 		            {
+										// construction must be pursued using seeds
+                                        _mm = circles_lib_word_mobiusmap_get( WORD, _items_array, _output_channel );
+							            _mobius_maps_array.push( _mm );
+									}
+									else circles_lib_output( _output_channel, DISPATCH_WARNING, "An empty word has been detected", _par_1, _cmd_tag ); 
+								}
 																	
-																	var _work_mobius_map = new mobius_map();
-																	_work_mobius_map = _work_mobius_map.advanced_composition( _mobius_maps_array );
+								var _work_mobius_map = new mobius_map();
+								_work_mobius_map = _work_mobius_map.advanced_composition( _mobius_maps_array );
 
-                                  if ( _storage_queue_request )
-                                  {
-                                      var ITEM = new item_obj( _work_mobius_map ) ;
-                                      ITEM.validate( INIT_FROM_MAPS );
-                                      _params_assoc_array['settings']['storagequeue'].push( ITEM );
-                                  }
+                                if ( _storage_queue_request )
+                                {
+                                    var ITEM = new item_obj( _work_mobius_map ) ;
+                                    ITEM.validate( INIT_FROM_MAPS );
+                                    _params_assoc_array['settings']['storagequeue'].push( ITEM );
+                                }
 
-                                  var _msg = "Word '"+( _words_array.join( "" ) )+"' was assembled into a Mobius map and params were calculated:" + _glob_crlf ;
-                                      _msg += _work_mobius_map.output( null, null, _round_to );
-   																circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-
-																	if ( _params_assoc_array['dump'] )
-																	{
-																			 var _ret_chunk = circles_lib_dump_data_to_format( _work_mobius_map,
-																		 																							  _params_assoc_array['dump_array'][0],
-																																									  _params_assoc_array['dump_array'][1],
-																																									  _params_assoc_array['dump_array'][2],
-                                                                                    _params_assoc_array['dump_array'][3] );
-																			 var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
-																			 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
-																			 if ( _ret_id == 0 )
-																			 {
-																						_b_fail = YES, _error_str = _ret_msg ;
-																			 }
-																			 else circles_lib_output( _output_channel, ( _ret_id == UNDET ) ? DISPATCH_MULTICOLOR : DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
-																	}
-															}
-												 }
-										}
-										else
-										{
-                        _b_fail = YES, _error_str = "No input Mobius maps" ;
-										}
+                                var _msg = "Word '"+_words_array.join( "" )+"' was assembled into one new Mobius map:" + _glob_crlf ;
+                                    _msg += _work_mobius_map.output( _glob_crlf, "coeffs", _round_to );
+   								circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+								if ( _params_assoc_array['dump'] )
+								{
+									var _text = "Word to assemble : " + _input_array.join( "" );
+										_text += _glob_crlf.repeat(2) + "Resulting Mobius map:";
+										_text += _glob_crlf + _work_mobius_map.output( "\n", "coeffs" );
+									var _ret_chunk = circles_lib_dump_data_to_format( _text,
+										_params_assoc_array['dump_array'][0], _params_assoc_array['dump_array'][1],
+										_params_assoc_array['dump_array'][2], _params_assoc_array['dump_array'][3] );
+								    var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
+									var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
+									if ( _ret_id == 0 ) { _b_fail = YES, _error_str = _ret_msg ; }
+									else circles_lib_output( _output_channel, ( _ret_id == UNDET ) ? DISPATCH_MULTICOLOR : DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+								}
+							}
+						}
+					}
+					else { _b_fail = YES, _error_str = "No input Mobius maps" ; }
                     break ;
                     case "changesymbol":
-                    if ( !is_array( _symbols_array ) )
-                    {
-                         _b_fail = YES, _error_str = "Missing input symbols" ;
-                    }
-                    else if ( _symbols_array.length == 0 )
-                    {
-                         _b_fail = YES, _error_str = "Missing input symbols" ;
-                    }
-                    else if ( _symbols_array.length != 2 )
-                    {
-                         _b_fail = YES, _error_str = "Two input symbols must be input" ;
-                    }
+                    if ( !is_array( _symbols_array ) ) { _b_fail = YES, _error_str = "Missing input symbols" ; }
+                    else if ( _symbols_array.length == 0 ) { _b_fail = YES, _error_str = "Missing input symbols" ; }
+                    else if ( _symbols_array.length != 2 ) { _b_fail = YES, _error_str = "Two input symbols must be input" ; }
                     else
                     {
                          var _old_symbol = _symbols_array[0], _new_symbol = _symbols_array[1] ;
@@ -787,14 +761,11 @@ function circles_terminal_cmd_mobius()
                         else if ( _params_assoc_array['dump'] )
                         {
                             if ( is_array( _params_assoc_array['dump_array'] ) ) _params_assoc_array['dump_array'].push( "circles.mobius.list.txt" );
-														var _ret_chunk = circles_lib_dump_data_to_format( _out_file_txt.strip_tags(), _params_assoc_array['dump_array'][0], "savepix" );
-														var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
-														var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
-														if ( _ret_id == 0 )
-														{
-																_b_fail = YES, _error_str = _ret_msg ;
-														}
-														else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+							var _ret_chunk = circles_lib_dump_data_to_format( _out_file_txt.strip_tags(), _params_assoc_array['dump_array'][0], "savepix" );
+							var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
+							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
+							if ( _ret_id == 0 ) { _b_fail = YES, _error_str = _ret_msg ; }
+							else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                         }
 
                         _out_text_string = _out_file_txt ;
@@ -1119,19 +1090,16 @@ function circles_terminal_cmd_mobius()
             						 else circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing map with symbol '"+_symbol+"' was found in the archive", _par_1, _par_1, _cmd_tag );
                      }
 
-                     if ( _params_assoc_array['dump'] && !_b_fail )
-                     {
-            						  var _ret_chunk = circles_lib_dump_data_to_format( _out_text_array.join( _glob_crlf ).strip_tags(), _params_assoc_array['dump_array'][0] );
-            							var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO
-            							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
-            							if ( _ret_id ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
-            							else
-                          {
-                              _b_fail = YES, _error_str = _ret_msg ;
-                          }
-            				 }
+                    if ( _params_assoc_array['dump'] && !_b_fail )
+                    {
+						var _ret_chunk = circles_lib_dump_data_to_format( _out_text_array.join( _glob_crlf ).strip_tags(), _params_assoc_array['dump_array'][0] );
+            			var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO
+            			var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
+            			if ( _ret_id ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+            			else { _b_fail = YES, _error_str = _ret_msg ; }
             		}
-            		else circles_lib_output( _output_channel, DISPATCH_ERROR, "Can't compute fixed points: missing input symbols", _par_1, _cmd_tag );
+            	}
+            	else circles_lib_output( _output_channel, DISPATCH_ERROR, "Can't compute fixed points: missing input symbols", _par_1, _cmd_tag );
             }
          }
     }

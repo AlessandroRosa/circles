@@ -4,6 +4,8 @@
 
 * plugin : after dropdown selections of preset config, grid of
   z-plane and of w-plane shall be redrawn again
+  (in particular, the grid rendering does not match the input coords
+   coming from the dropdown selection)
 
 * given more than one terminal console, the terminal cmd 'bye' does not
   close each console per call.
@@ -11,6 +13,11 @@
   later, when required.
 
 -------- CMD FIX ( as you meet that cmd during the check ) --------
+
+* region
+  > it does not update canvas when 'auto refresh on'
+  > add 'rec' and manage the region as if it's figure
+    (thus declare a new CONSTANT value and new switch cases)
 
 * new cmd 'alias'
   Ex01 : alias def:myaliascmd refresh zplane clean
@@ -23,17 +30,6 @@
   the interpreter would first check the above array for
   aliases. If not found, keeps on running as usual. Otherwise
   take the corresponding "cmd" and run into the interpreter.
-
-* mobius :
-  > assemble :
-    >> copy input word in the output file
-    >> input word is not correctly parsed
-       try "mobius assemble a a B B"
-
-* region
-  > it does not update canvas when 'auto refresh on'
-  > add 'rec' and manage the region as if it's figure
-    (thus declare a new CONSTANT value and new switch cases)
 
 -------------- FIX SOON -----------------------
 * DEMO #9 : anti-homography is not updated

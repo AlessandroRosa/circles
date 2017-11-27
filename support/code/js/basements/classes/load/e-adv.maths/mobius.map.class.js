@@ -13,7 +13,6 @@
 */
 
 // Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
-
 /*
     az + b
     ------
@@ -114,12 +113,12 @@ mobius_map.prototype.is_consistent = function() { return ( this.a == null || thi
 mobius_map.prototype.is_constant = function() { return ( this.det.radius() == 0 ) ? 1 : 0 ; }
 mobius_map.prototype.is_anti_homography = function() { return this.anti_homography_mask & ( 1|2 ) ? 1 : 0 ; }
 mobius_map.prototype.is_upper_half_plane_preserving = function() { return ( this.a.is_real() && this.b.is_real() && this.c.is_real() && this.d.is_real() ) ? 1 : 0 ; }
-mobius_map.prototype.output = function( _sep, _fmt, _accuracy, _style_for_html )
+mobius_map.prototype.output = function( _sep = "\n", _fmt = "coeffs", _accuracy, _style_for_html )
 {
-		_accuracy = Math.min( safe_int( Math.abs( _accuracy ), COMPLEX_CLASS_MAX_ACCURACY ), COMPLEX_CLASS_MAX_ACCURACY ) ;
+	_accuracy = Math.min( safe_int( Math.abs( _accuracy ), COMPLEX_CLASS_MAX_ACCURACY ), COMPLEX_CLASS_MAX_ACCURACY ) ;
     _sep = safe_string( _sep, "\n" ), _fmt = safe_string( _fmt, "coeffs" ).toLowerCase() ;
     if ( _fmt.length == 0 ) _fmt = "coeffs" ;
-    if ( _sep.length == 0 ) _sep = " " ;
+    if ( _sep.length == 0 ) _sep = "\n" ;
     var _floatREGEXpattern = "^([0-9\.\+\-]{1,})$" ;
     var _a_mask = 0, _b_mask = 0, _c_mask = 0, _d_mask = 0 ;
 
