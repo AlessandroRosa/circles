@@ -164,7 +164,6 @@ function GLOB_PLUGIN_VARS_PATTERN_RESTORE( _plugin_ref )
        for( var _k in _plugin_rec_configs_array[_index_ref] )
        _plugin_tmp_vars_array[ _k ] = _plugin_rec_configs_array[_index_ref][_k] ;
     }
-
     return YES ;
 }
 
@@ -181,7 +180,7 @@ function GLOB_PLUGIN_WIZARD_STEP( _step_index, _init_items, _clean, _target_plan
     {
       _glob_alphabet.flush();
       GLOB_PLUGIN_GENS_SHOW(YES);
-      circles_lib_plugin_dispatcher_unicast_message( 'alphabet.colorization', 'tools', POPUP_DISPATCHER_UNICAST_EVENT_UPDATE );
+      circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_REFRESH_CONTENTS );
       circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES );
       if ( _init_items )
       {

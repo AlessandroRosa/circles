@@ -20,7 +20,7 @@ function CIRCLESformsDISCRETENESSLOCUSpleatingrayLIST( _out_stream )
         var _eq_solution = circles_lib_math_parse_formula( $( "#CIRCLESformsDISCRETENESSLOCUSeqSOLUTION" ).val() );
             _eq_solution = parse_complex_from_string( _eq_solution + "" );
     
-        var _pl_ray_orbit = _tmp_discreteness_locus.pleating_positive_ray( _pq_farey, cusp_value,
+       var _pl_ray_orbit = _tmp_discreteness_locus.pleating_positive_ray( _pq_farey, cusp_value,
                             _eq_solution, _pl_rays_max_steps, _bounding_rect, null, _pl_rays_keepgoing, _pl_rays_correction );
         var _n_orbit = safe_size( _pl_ray_orbit, 0 );
 				if ( _n_orbit > 0 )

@@ -200,7 +200,11 @@ var _demon = new demo_n();
                 } );
 
 	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures update @5 drawcolor:pink fillcolor:red" ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures update @10 drawcolor:yellow fillcolor:orange" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
     _demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",

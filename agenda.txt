@@ -18,9 +18,6 @@
   > check 'rec' and auto refresh
 
 -------------- FIX SOON -----------------------
-* DEMO #9 : anti-homography is not updated
-* DEMO#13: js error _step_start.add
-           discreteness.locus.class line 738
 
 * terminal focus is taken only if pop-up is resized or
   caption is pressed.

@@ -353,42 +353,39 @@ function CIRCLESformsDISCRETENESSLOCUSpleatingrayDRAW( _cusp_value )
     if ( _init_mode == DISCRETENESS_LOCUS_NONE ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Missing slice specification", "CIRCLESformsDLOCUSoutMSG" ) ;
     else if ( is_complex( _cusp_value ) )
     {
-         var _tmp_discreteness_locus = new discreteness_locus();
-             _tmp_discreteness_locus.set_init_mode( _init_mode );
-         var _pq_farey = new farey( $( "#CIRCLESformsDISCRETENESSLOCUScuspFRAC" ).val() );
-         var _bounding_rect = new rect( _glob_dlocusLEFT, _glob_dlocusTOP, _glob_dlocusRIGHT, _glob_dlocusBOTTOM, _RECT_ORIENTATION_CARTESIAN );
-         var _pl_rays_keepgoing = $( "#CIRCLESformsDISCRETENESSLOCUSpleatingrayskeepgoingCHECKBOX" ).prop( "checked" ) ? YES : NO ;
-         var _pl_rays_correction = $( "#CIRCLESformsDISCRETENESSLOCUSpleatingrayscorrectionCHECKBOX" ).prop( "checked" ) ? YES : NO ;
-     		 var _pl_rays_max_steps = safe_int( $( "#CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITmaxsteps" ).val(), _tmp_discreteness_locus.get_pleating_rays_max_iterate() );
-     		 		 _pl_rays_max_steps = Math.max( _pl_rays_max_steps, _tmp_discreteness_locus.get_pleating_rays_max_iterate() );
-    		 var _pl_rays_step_rate = safe_float( $( "#CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITsteprate" ).val(), _tmp_discreteness_locus.get_pleating_rays_step_rate() );
-    		 var _pl_rays_threshold_accuracy = safe_float( $( "#CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITaccuracy" ).val(), _tmp_discreteness_locus.get_pleating_rays_threshold_accuracy() );
-    		 var _pl_rays_forward_factor = safe_float( $( "#CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITforwardfactor" ).val(), _tmp_discreteness_locus.get_pleating_rays_forward_factor() );
-    		 var _pl_rays_backward_factor = safe_float( $( "#CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITbackwardfactor" ).val(), _tmp_discreteness_locus.get_pleating_rays_backward_factor() );
+        var _tmp_discreteness_locus = new discreteness_locus();
+            _tmp_discreteness_locus.set_init_mode( _init_mode );
+        var _pq_farey = new farey( $( "#CIRCLESformsDISCRETENESSLOCUScuspFRAC" ).val() );
+        var _bounding_rect = new rect( _glob_dlocusLEFT, _glob_dlocusTOP, _glob_dlocusRIGHT, _glob_dlocusBOTTOM, _RECT_ORIENTATION_CARTESIAN );
+        var _pl_rays_keepgoing = $( "#CIRCLESformsDISCRETENESSLOCUSpleatingrayskeepgoingCHECKBOX" ).prop( "checked" ) ? YES : NO ;
+        var _pl_rays_correction = $( "#CIRCLESformsDISCRETENESSLOCUSpleatingrayscorrectionCHECKBOX" ).prop( "checked" ) ? YES : NO ;
+     	var _pl_rays_max_steps = safe_int( $( "#CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITmaxsteps" ).val(), _tmp_discreteness_locus.get_pleating_rays_max_iterate() );
+     		_pl_rays_max_steps = Math.max( _pl_rays_max_steps, _tmp_discreteness_locus.get_pleating_rays_max_iterate() );
+    	var _pl_rays_step_rate = safe_float( $( "#CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITsteprate" ).val(), _tmp_discreteness_locus.get_pleating_rays_step_rate() );
+    	var _pl_rays_threshold_accuracy = safe_float( $( "#CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITaccuracy" ).val(), _tmp_discreteness_locus.get_pleating_rays_threshold_accuracy() );
+    	var _pl_rays_forward_factor = safe_float( $( "#CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITforwardfactor" ).val(), _tmp_discreteness_locus.get_pleating_rays_forward_factor() );
+    	var _pl_rays_backward_factor = safe_float( $( "#CIRCLESformsDISCRETENESSLOCUSpleatingraysEDITbackwardfactor" ).val(), _tmp_discreteness_locus.get_pleating_rays_backward_factor() );
 
-         var _eq_solution = circles_lib_math_parse_formula( $( "#CIRCLESformsDISCRETENESSLOCUSeqSOLUTION" ).val() );
-             _eq_solution = parse_complex_from_string( _eq_solution + "" );
+        var _eq_solution = circles_lib_math_parse_formula( $( "#CIRCLESformsDISCRETENESSLOCUSeqSOLUTION" ).val() );
+            _eq_solution = parse_complex_from_string( _eq_solution + "" );
     
-         var _pl_ray_orbit = _tmp_discreteness_locus.pleating_positive_ray( _pq_farey, _cusp_value, _eq_solution,
-                                                                _pl_rays_max_steps, _bounding_rect, null,
-                                                                _pl_rays_keepgoing, _pl_rays_correction );
-         if ( safe_size( _pl_ray_orbit, 0 ) > 0 )
-         {
+        var _pl_ray_orbit = _tmp_discreteness_locus.pleating_positive_ray( _pq_farey, _cusp_value, _eq_solution,
+                            _pl_rays_max_steps, _bounding_rect, null, _pl_rays_keepgoing, _pl_rays_correction );
+        if ( safe_size( _pl_ray_orbit, 0 ) > 0 )
+        {
             var _canvas_id = _glob_target_plane == BIP_BOX ? "CIRCLESbipCANVAS" : "CIRCLESdlocusdiagramCANVAS" ;
             var _canvas_sm = dlocus_sm.copy() ;
             var _canvas = $( "#" + _canvas_id ).get(0);
-		        var _context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
+	        var _context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
 		        _pl_ray_orbit = _pl_ray_orbit.work( function( _pt ){ return new point( _pt.real, _pt.imag ); } );
-						circles_lib_draw_polyline( _context, _canvas_sm, _pl_ray_orbit,
-		                             _glob_default_pleating_ray_clr, "", 1, NO, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
+			circles_lib_draw_polyline( _context, _canvas_sm, _pl_ray_orbit,
+            _glob_default_pleating_ray_clr, "", 1, NO, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
 
             _glob_current_tab['dlocus'] = 0 ;
             $( "#CIRCLESformsDISCRETENESSLOCUSmainDIV" ).get(0).tabber.tabShow(0);
             CIRCLESformsDISCRETENESSLOCUSdispatcher( POPUP_DISPATCHER_UNICAST_EVENT_FOCUS ) ;
-         }
-         else
-				 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Returning invalid data output while computing the pleating ray", "CIRCLESformsDLOCUSoutMSG" ) ;
+        }
+        else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Returning invalid data output while computing the pleating ray", "CIRCLESformsDLOCUSoutMSG" ) ;
     }
-    else
-		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Missing or invalid input cusp value. Please, compute it first.", "CIRCLESformsDLOCUSoutMSG" ) ;
+    else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Missing or invalid input cusp value. Please, compute it first.", "CIRCLESformsDLOCUSoutMSG" ) ;
 }

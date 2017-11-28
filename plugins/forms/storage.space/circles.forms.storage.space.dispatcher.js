@@ -34,6 +34,7 @@ function CIRCLESformsSTORAGESPACEdispatcher()
           var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
           circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
           break ;
+		    case POPUP_DISPATCHER_MULTICAST_EVENT_REFRESH_CONTENTS:
 					case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
 					$( "#CIRCLESformsSTORAGESPACElistCONTAINER" ).html( CIRCLESformsSTORAGESPACElist() );
 					break ;				 

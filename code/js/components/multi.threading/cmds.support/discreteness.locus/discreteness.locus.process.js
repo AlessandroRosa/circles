@@ -1,7 +1,4 @@
-function multithread_discreteness_locus_stop()
-{
-    _glob_inline_worker_discreteness_locus.run = _glob_inline_worker_run_flag = 0 ;
-}
+function multithread_discreteness_locus_stop() { _glob_inline_worker_discreteness_locus.run = _glob_inline_worker_run_flag = 0 ; }
 
 function multithread_discreteness_locus_process()
 {
@@ -61,7 +58,7 @@ function multithread_discreteness_locus_process()
     var _pleatingrays_threshold_accuracy = safe_float( _features['pleatingrays'][4], _glob_inline_worker_discreteness_locus.get_pleating_rays_threshold_accuracy() );
     var _pleatingrays_forward_factor = safe_float( _features['pleatingrays'][5], _glob_inline_worker_discreteness_locus.get_pleating_rays_forward_factor() );
     var _pleatingrays_backward_factor = safe_float( _features['pleatingrays'][6], _glob_inline_worker_discreteness_locus.get_pleating_rays_backward_factor() );
-    var _pleatingrays_correction = safe_int( _features['pleatingrays'][7], 0 );
+    var _pleatingrays_correction = new complex( safe_int( _features['pleatingrays'][7], 0 ), 0 );
     var _pleatingrays_keepgoing = safe_int( _features['pleatingrays'][8], 0 );
 
     _glob_inline_worker_discreteness_locus.set_pleating_rays_max_iterate( _pleatingrays_max_steps );
@@ -172,10 +169,10 @@ function multithread_discreteness_locus_process()
 		            {
 						if ( _pleatingrays_mask & _DLOCUS_PLEATING_RAY_POSITIVE_CLASS )
 						_pl_rays_array.push( _glob_inline_worker_discreteness_locus.pleating_positive_ray( new farey( _keys[_i] ), _boundary[ _keys[_i] ],
-										     _pleatingrays_correction, _pleatingrays_keepgoing ) );
+										     _eq_solution, _pleatingrays_max_steps, _bounding_rect, null, _pleatingrays_correction, _pleatingrays_keepgoing ) );
 						if ( _pleatingrays_mask & _DLOCUS_PLEATING_RAY_NEGATIVE_CLASS )
 						_pl_rays_array.push( _glob_inline_worker_discreteness_locus.pleating_negative_ray( new farey( _keys[_i] ), _boundary[ _keys[_i] ],
-											 _eq_solution, _pleatingrays_correction, _pleatingrays_keepgoing ) );
+											 _eq_solution, _pleatingrays_max_steps, _bounding_rect, null, _pleatingrays_correction, _pleatingrays_keepgoing ) );
 					}
 
 					self.postMessage( { id : "output", ret : { out_channel : _output_channel,
@@ -269,10 +266,10 @@ var _cusp_callback_fn = function( _current_frac, _runner, _sequence_length )
 		    {
 				if ( _pleatingrays_mask & _DLOCUS_PLEATING_RAY_POSITIVE_CLASS )
 				_pl_rays_array.push( _glob_inline_worker_discreteness_locus.pleating_positive_ray( new farey( _keys[_i] ), _boundary[ _keys[_i] ],
-									 _eq_solution, _pleatingrays_max_steps, _bounding_rect, null ) );
+									 _eq_solution, _pleatingrays_max_steps, _bounding_rect, null, _pleatingrays_correction, _pleatingrays_keepgoing ) );
          		if ( _pleatingrays_mask & _DLOCUS_PLEATING_RAY_NEGATIVE_CLASS )
 				_pl_rays_array.push( _glob_inline_worker_discreteness_locus.pleating_negative_ray( new farey( _keys[_i] ), _boundary[ _keys[_i] ],
-								     _eq_solution, _pleatingrays_max_steps, _bounding_rect, null ) );
+								     _eq_solution, _pleatingrays_max_steps, _bounding_rect, null, _pleatingrays_correction, _pleatingrays_keepgoing ) );
 			}
 
 			self.postMessage( { id : "output", ret : { out_channel : _output_channel, features : _features,

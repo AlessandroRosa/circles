@@ -22,7 +22,7 @@ var _demon = new demo_n();
                      $( "#presentation_div" ).width( 260 ) ;
                      $( "#presentation_div" ).height( "auto" ) ;
                      var _html = "We are going to look at some interactions<br>between pop-up windows." ;
-                         _html += "<br>Pop-ups are managed here by a framework, like in your operating system." ;
+                         _html += "<br>Pop-ups are managed here by a framework, where messgaes are dispatched like in your operating system." ;
                      $( "#presentation_div" ).html( _html ) ;
                   },
                   ctrl_id : "presentation_div", time : 8, time_unit : "s",

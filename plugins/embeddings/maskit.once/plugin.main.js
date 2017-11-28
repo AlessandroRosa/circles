@@ -2,36 +2,31 @@ function CIRCLESembeddingsMASKITONCEclose() { circles_lib_plugin_dispatcher_unic
 function CIRCLESembeddingsMASKITONCEfocus() { circles_lib_plugin_dispatcher_unicast_message( "maskit.once", "embeddings", POPUP_DISPATCHER_UNICAST_EVENT_FOCUS ); }
 function CIRCLESembeddingsMASKITONCE_EVENTS( ctrl_id, event )
 {
-	  if ( event.stopPropagation )      event.stopPropagation();
-	  if ( event.cancelBubble != null ) event.cancelBubble = true;
+	if ( event.stopPropagation )      event.stopPropagation();
+	if ( event.cancelBubble != null ) event.cancelBubble = true;
     switch( event.keyCode )
+	{
+		case 13: // return
+		if ( ctrl_id == "PLUGIN_PARAM_MU" )
 		{
-		   case 13: // return
-			 if ( ctrl_id == "PLUGIN_PARAM_MU" )
-			 {
-    			if ( _plugin_step_index == 0 )
-          {
-             CIRCLESembeddingsMASKITONCE_INIT(NO,YES);
-      			 CIRCLESembeddingsMASKITONCE_COMP();
-          }
-
-          if ( _plugin_step_index == 0 ) GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
-          else if ( _plugin_step_index == 0.1 ) { CIRCLESembeddingsMASKITONCE_CONFIG(); GLOB_PLUGIN_WIZARD_STEP(1.1,YES); GLOB_PLUGIN_GENS_SHOW(YES); }
-          else if ( _plugin_step_index.is_one_of( 1.1, 2.1 ) )
-          {
-             if ( _plugin_step_index == 1.1 ) CIRCLESembeddingsMASKITONCE_RECORD_PARAMS();
-             GLOB_PLUGIN_WIZARD_STEP(2.1);
-             GLOB_PLUGIN_GENS_SHOW(YES);
-					   circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
-          }
-			 }
-			 break ;
-       default:
-       if ( _plugin_step_index.is_one_of( UNDET, 2.1 ) ) GLOB_PLUGIN_WIZARD_STEP(0,NO);
-       _plugin_step_index = 0 ;
-       GLOB_PLUGIN_WIZARD_STEP(0,NO);
-       break ;
+    		if ( _plugin_step_index == 0 ) { CIRCLESembeddingsMASKITONCE_INIT(NO,YES); CIRCLESembeddingsMASKITONCE_COMP(); }
+			if ( _plugin_step_index == 0 ) GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
+			else if ( _plugin_step_index == 0.1 ) { CIRCLESembeddingsMASKITONCE_CONFIG(); GLOB_PLUGIN_WIZARD_STEP(1.1,YES); GLOB_PLUGIN_GENS_SHOW(YES); }
+			else if ( _plugin_step_index.is_one_of( 1.1, 2.1 ) )
+			{
+				if ( _plugin_step_index == 1.1 ) CIRCLESembeddingsMASKITONCE_RECORD_PARAMS();
+				GLOB_PLUGIN_WIZARD_STEP(2.1);
+				GLOB_PLUGIN_GENS_SHOW(YES);
+				circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
+			}
 		}
+		break ;
+        default:
+        if ( _plugin_step_index.is_one_of( UNDET, 2.1 ) ) GLOB_PLUGIN_WIZARD_STEP(0,NO);
+        _plugin_step_index = 0 ;
+        GLOB_PLUGIN_WIZARD_STEP(0,NO);
+        break ;
+	}
 }
 
 function CIRCLESembeddingsMASKITONCE_PATTERNS()
@@ -247,15 +242,15 @@ function CIRCLESembeddingsMASKITONCEmain( _base_id, _move, _restore )
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsMASKITONCE_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsMASKITONCE_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsMASKITONCE_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )
+	{
+		if ( is_string( _move ) )
 		{
-				if ( is_string( _move ) )
-				{
-						_move = _move.replace( /[\|\;\:]/, "," );
-						_move = _move.includes( "," ) ? _move.split( "," ) : [ _move, "TOP" ];
-						move_div( _div.id, _move[0], _move[1] );
-				}
-				else move_div( _div.id, "LEFT", "TOP" );
+			_move = _move.replace( /[\|\;\:]/, "," );
+			_move = _move.includes( "," ) ? _move.split( "," ) : [ _move, "TOP" ];
+			move_div( _div.id, _move[0], _move[1] );
 		}
+		else move_div( _div.id, "LEFT", "TOP" );
+	}
     $("#"+_div_id).bind( "click", function() { GLOB_PLUGIN_FOCUS( _base_id ); } );
 
     if ( CIRCLESembeddingsMASKITONCE_active )

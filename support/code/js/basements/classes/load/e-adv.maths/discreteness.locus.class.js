@@ -713,70 +713,69 @@ discreteness_locus.prototype.fix_discreteness_locus_pt = function( _pq_frac, _pt
     }
 }
 
-discreteness_locus.prototype.pleating_positive_ray = function( _pq, _ray_start_pt, _step_start, _max_steps, _bounding_rect, _callback_fn, _correct, _keep_going )
+discreteness_locus.prototype.pleating_positive_ray = function( _pq, _ray_start_pt, _step_start, _max_steps, _bounding_rect, _callback_fn, _correct = 0, _keep_going = 0 )
 {
     _correct = safe_int( _correct, 0 ), _keep_going = safe_int( _keep_going, 0 );
-		var _ray_pts_array = [], _ray_pt = _ray_start_pt, _new_ray_pt, _func ;
-		var _steps = safe_int( _max_steps, this.get_pleating_rays_max_iterate() ), _counter = 0 ;
-		var _threshold_accuracy = this.get_pleating_rays_threshold_accuracy(), _dist ;
-		var _step_rate = this.get_pleating_rays_step_rate(), _go = 1 ;
-				_ray_pts_array.push( _ray_pt );
-		while( true )
-		{
-				_func = this.pq_equation( _pq, _ray_pt, _step_start ) ;
-				_new_ray_pt = this.pq_newton( _func, _pq, _ray_pt ) ;
-				_dist = _new_ray_pt.distance( _ray_pt ) ;
+	var _ray_pts_array = [], _ray_pt = _ray_start_pt, _new_ray_pt, _func ;
+	var _steps = safe_int( _max_steps, this.get_pleating_rays_max_iterate() ), _counter = 0 ;
+	var _threshold_accuracy = this.get_pleating_rays_threshold_accuracy(), _dist ;
+	var _step_rate = this.get_pleating_rays_step_rate(), _go = 1 ;
+		_ray_pts_array.push( _ray_pt );
+	while( true )
+	{
+		_func = this.pq_equation( _pq, _ray_pt, _step_start ) ;
+		_new_ray_pt = this.pq_newton( _func, _pq, _ray_pt ) ;
+		_dist = _new_ray_pt.distance( _ray_pt ) ;
         if ( _correct && _dist > _step_rate )
         {
-					  _ray_pts_array.push( _ray_pts_array.get_last() );
-						_step_rate *= this.pleating_ray_backward_factor ;
-						_step_start = _step_start.sub( _step_rate );
-				}
-				if ( !_go || _counter > _steps || ( _dist > _step_rate && _keep_going ) ) break ;
-				if ( _dist < _threshold_accuracy ) _step_rate *= this.pleating_ray_forward_factor ;
-				else if ( _dist > _threshold_accuracy ) _step_rate *= this.pleating_ray_backward_factor ;
-				_step_start = _step_start.add( _step_rate );
-				_counter++ ;
-				_ray_pt = _new_ray_pt ;
-				_ray_pts_array.push( _ray_pt );
-				_go = _bounding_rect != null ? ( _bounding_rect.is_pt_inside( _ray_pt.real, _ray_pt.imag ) ? 1 : 0 ) : 1 ;
+			_ray_pts_array.push( _ray_pts_array.get_last() );
+			_step_rate *= this.pleating_ray_backward_factor ;
+			_step_start = _step_start.sub( _step_rate );
 		}
-		return _ray_pts_array ;
+		if ( !_go || _counter > _steps || ( _dist > _step_rate && _keep_going ) ) break ;
+		if ( _dist < _threshold_accuracy ) _step_rate *= this.pleating_ray_forward_factor ;
+		else if ( _dist > _threshold_accuracy ) _step_rate *= this.pleating_ray_backward_factor ;
+		_step_start = _step_start.add( _step_rate );
+		_counter++ ;
+		_ray_pt = _new_ray_pt ;
+		_ray_pts_array.push( _ray_pt );
+		_go = _bounding_rect != null ? ( _bounding_rect.is_pt_inside( _ray_pt.real, _ray_pt.imag ) ? 1 : 0 ) : 1 ;
+	}
+	return _ray_pts_array ;
 }
 
-discreteness_locus.prototype.pleating_negative_ray = function( _pq, _ray_start_pt, _step_start, _max_steps, _bounding_rect, _callback_fn, _correct, _keep_going )
+discreteness_locus.prototype.pleating_negative_ray = function( _pq, _ray_start_pt, _step_start, _max_steps, _bounding_rect, _callback_fn, _correct = 0, _keep_going = 0 )
 {
-    _correct = safe_int( _correct, 0 );
-    _keep_going = safe_int( _keep_going, 0 );
-		var _ray_pts_array = [], _func, _ray_pt = _ray_start_pt, _new_ray_pt ;
-		var _steps = safe_int( _max_steps, this.get_pleating_rays_max_iterate() ), _counter = 0 ;
-		var _threshold_accuracy = this.get_pleating_rays_threshold_accuracy(), _dist ;
-		var _step_rate = this.get_pleating_rays_step_rate(), _go = 1 ;
-				_ray_pts_array.push( _ray_pt );
-		while( true )
-		{
-				_func = this.pq_equation( _pq, _ray_pt, _step_start ) ;
-				_new_ray_pt = this.pq_newton( _func, _pq, _ray_pt ) ;
-				_dist = _new_ray_pt.distance( _ray_pt ) ;
+    _correct = safe_int( _correct, 0 ), _keep_going = safe_int( _keep_going, 0 );
+	var _ray_pts_array = [], _func, _ray_pt = _ray_start_pt, _new_ray_pt ;
+	var _steps = safe_int( _max_steps, this.get_pleating_rays_max_iterate() ), _counter = 0 ;
+	var _threshold_accuracy = this.get_pleating_rays_threshold_accuracy(), _dist ;
+	var _step_rate = this.get_pleating_rays_step_rate(), _go = 1 ;
+		_ray_pts_array.push( _ray_pt );
+	while( true )
+	{
+		_func = this.pq_equation( _pq, _ray_pt, _step_start ) ;
+		_new_ray_pt = this.pq_newton( _func, _pq, _ray_pt ) ;
+		_dist = _new_ray_pt.distance( _ray_pt ) ;
         if ( _correct && _dist > _step_rate )
         {
-					  _ray_pts_array.push( _ray_pts_array.get_last() );
-						_step_rate *= this.pleating_ray_backward_factor ;
-						_step_start = _step_start.sub( _step_rate );
-				}
-				if ( !_go || _counter > _steps || ( _dist > _step_rate && _keep_going ) ) break ;
-				if ( _dist < _threshold_accuracy ) _step_rate *= this.pleating_ray_forward_factor ;
-				else if ( _dist > _threshold_accuracy ) _step_rate *= this.pleating_ray_backward_factor ;
-				_step_start = _step_start.sub( _step_rate );
-				_counter++ ;
-				_ray_pt = _new_ray_pt ;
-				_ray_pts_array.push( _ray_pt );
-				_go = _bounding_rect != null ? ( _bounding_rect.is_pt_inside( _ray_pt.real, _ray_pt.imag ) ? 1 : 0 ) : 1 ;
+			_ray_pts_array.push( _ray_pts_array.get_last() );
+			_step_rate *= this.pleating_ray_backward_factor ;
+			_step_start = _step_start.sub( _step_rate );
 		}
-		return _ray_pts_array ;
+		if ( !_go || _counter > _steps || ( _dist > _step_rate && _keep_going ) ) break ;
+		if ( _dist < _threshold_accuracy ) _step_rate *= this.pleating_ray_forward_factor ;
+		else if ( _dist > _threshold_accuracy ) _step_rate *= this.pleating_ray_backward_factor ;
+		_step_start = _step_start.sub( _step_rate );
+		_counter++ ;
+		_ray_pt = _new_ray_pt ;
+		_ray_pts_array.push( _ray_pt );
+		_go = _bounding_rect != null ? ( _bounding_rect.is_pt_inside( _ray_pt.real, _ray_pt.imag ) ? 1 : 0 ) : 1 ;
+	}
+	return _ray_pts_array ;
 }
 
-discreteness_locus.prototype.pq_cusp = function( _pq, _seq, _order, _start_frac, _end_frac, _callback_fn )
+discreteness_locus.prototype.pq_cusp = function( _pq, _seq, _order = 0, _start_frac, _end_frac, _callback_fn )
 {
     if ( _pq instanceof farey )
     {

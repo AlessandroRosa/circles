@@ -27,7 +27,7 @@ function CIRCLESembeddingsMASKITONCE_PRESETS_INIT()
     CIRCLESembeddingsMASKITONCE_PRESETSarray.push( [ "2i-1", 1, [ -2, 2, 2, -2 ], "" ] );
 }
 
-function CIRCLESembeddingsMASKITONCE_PRESETS( _opcode, _init )
+function CIRCLESembeddingsMASKITONCE_PRESETS( _opcode = UNDET, _init = NO )
 {
     _opcode = safe_float( _opcode, UNDET ), _init = safe_int( _init, NO );
     switch( _opcode )
@@ -64,11 +64,11 @@ function CIRCLESembeddingsMASKITONCE_PRESETS( _opcode, _init )
 
             circles_lib_canvas_coords_acquire( ALL_PLANES );
             CIRCLESembeddingsMASKITONCE_INIT(NO,YES);
-					  CIRCLESembeddingsMASKITONCE_COMP(_init);
+			CIRCLESembeddingsMASKITONCE_COMP(_init);
             CIRCLESembeddingsMASKITONCE_CONFIG();
             GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
             GLOB_PLUGIN_WIZARD_STEP(1.1,YES);
-						circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
+			circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
 
             if( $( "#CIRCLESembeddingsMASKITONCE_CANVAS" ).is( ":visible" ) )
             {
@@ -86,9 +86,9 @@ function CIRCLESembeddingsMASKITONCE_PRESETS( _opcode, _init )
     return null ;
 }
 
-function CIRCLESembeddingsMASKITONCE_COMP( _init )
+function CIRCLESembeddingsMASKITONCE_COMP( _init = YES )
 {
-		_init = safe_int( _init, YES );
+	_init = safe_int( _init, YES );
     var _mu = CIRCLESembeddingsMASKITONCE_mu_complex ;
     if ( !is_complex( _mu ) ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "The input trace is not a complex formula.", 'PLUGIN_OUTMSG') ;
     else
@@ -115,9 +115,9 @@ function CIRCLESembeddingsMASKITONCE_COMP( _init )
     }
 }
 
-function CIRCLESembeddingsMASKITONCE_OUTPUT( MM_01, MM_02, _init )
+function CIRCLESembeddingsMASKITONCE_OUTPUT( MM_01 = new mobius_map(), MM_02 = new mobius_map(), _init = YES )
 {
-		_init = safe_int( _init, YES );
+	_init = safe_int( _init, YES );
     var inverse_MM_01 = MM_01.inv(), inverse_MM_02 = MM_02.inv();
     var _mm01_trace_squared = MM_01.trace().pow( 2.0 ).radius();
     var _mm02_trace_squared = MM_02.trace().pow( 2.0 ).radius();
@@ -165,7 +165,6 @@ function CIRCLESembeddingsMASKITONCE_OUTPUT( MM_01, MM_02, _init )
         {
             $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
             $("#PLUGIN_CONTAINER_PARAMS").html( GLOB_PLUGIN_GENS_TABLE_SHOW('maskit.once') );
-            
         }
         else
         {

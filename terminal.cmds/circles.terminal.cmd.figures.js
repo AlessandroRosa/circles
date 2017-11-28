@@ -735,7 +735,7 @@ function circles_terminal_cmd_figures()
                 else if ( _n == 0 )
                 {
                     var _msg = "<orange>The list of figures is empty.</orange>" + _glob_crlf ;
-                        _msg += "<lightgray>To fulfill this list, include 'rec' param"  + _glob_crlf + "in circle | rect | line | point cmds</lightgray>" ;
+                        _msg += "<lightgray>To fill this list, include 'rec' param"  + _glob_crlf + "in circle | rect | line | point | region cmds</lightgray>" ;
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                 }
                 break ;

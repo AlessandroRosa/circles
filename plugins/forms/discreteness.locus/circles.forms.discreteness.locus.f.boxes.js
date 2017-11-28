@@ -50,7 +50,7 @@ function CIRCLESformsDISCRETENESSLOCUSfareyBOX()
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
         HTMLcode += "<tr><td WIDTH=\"3\"></td><td COLSPAN=\"3\">Farey sequence</td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
-        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Order</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\"48\" ID=\"CIRCLESformsDISCRETENESSLOCUSorder\" STYLE=\"width:32px;text-align:center;\"></td></tr>" ;
+        HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Order</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" VALUE=\"32\" ID=\"CIRCLESformsDISCRETENESSLOCUSorder\" STYLE=\"width:32px;text-align:center;\"></td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
         HTMLcode += "<tr><td WIDTH=\"3\"></td><td>Start frac</td><td WIDTH=\"3\"></td><td><INPUT TYPE=\"edit\" ID=\"CIRCLESformsDISCRETENESSLOCUSstartFRAC\" STYLE=\"text-align:center;width:50px;\" ONKEYUP=\"javascript:CIRCLESformsDISCRETENESSLOCUSeventsHANDLER(event,this.id);\" ALIGN=\"center\"></td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;

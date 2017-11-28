@@ -34,6 +34,7 @@ function CIRCLESformsEDITDISKdispatcher()
             var _subset = _glob_popups_array[_idx][8], _base_id = _glob_popups_array[_idx][12] ;
 		        circles_lib_plugin_load( _subset, _base_id, NO ) ;
 		        break ;
+		    case POPUP_DISPATCHER_MULTICAST_EVENT_REFRESH_CONTENTS:
             case POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS:
             break ;
             case POPUP_DISPATCHER_MULTICAST_EVENT_REMOTE_CONTROL:

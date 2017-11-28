@@ -1,5 +1,5 @@
 function CIRCLESformsANTIHOMOGRAPHYclose() { return circles_lib_plugin_dispatcher_unicast_message( 'anti.homography', "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
-function CIRCLESformsANTIHOMOGRAPHYapply( _items_switch )
+function CIRCLESformsANTIHOMOGRAPHYapply( _items_switch = ITEMS_SWITCH_SEEDS )
 {
     _items_switch = safe_int( _items_switch, ITEMS_SWITCH_SEEDS ) ;
     var _items_info = circles_lib_items_set( _items_switch, YES ) ;
@@ -8,23 +8,18 @@ function CIRCLESformsANTIHOMOGRAPHYapply( _items_switch )
     if ( _items_n > 0 )
     {
         _glob_items_anti_homography_mask_map = [] ;
-		    $.each( _items_array,
-		            function( _i, _item )
-		            {
-		               _mask = 0 ;
-		               _mask |= $( "#CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_num_" + _item.symbol ).prop( "checked" ) ? 1 : 0 ;
-		               _mask |= $( "#CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_den_" + _item.symbol ).prop( "checked" ) ? 2 : 0 ;
-									 _items_array[_i].map.set_anti_homography_mask( _mask );
-                   _glob_items_anti_homography_mask_map[_item.symbol] = _mask ;
-		            }
-		          ) ;
-              
-		    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Complex conjugation settings have been applied to var z", "CIRCLESformsANTIHOMOGRAPHYoutMSG") ;
-		}
-		else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, (_items_switch == ITEMS_SWITCH_SEEDS?"Seeds":"Generators")+" set is empty", 'CIRCLESformsANTIHOMOGRAPHYoutMSG' ) ;
+		$.each( _items_array, function( _i, _item ) {
+		        _mask = 0 ;
+		        _mask |= $( "#CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_num_" + _item.symbol ).prop( "checked" ) ? 1 : 0 ;
+		        _mask |= $( "#CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_den_" + _item.symbol ).prop( "checked" ) ? 2 : 0 ;
+				_items_array[_i].map.set_anti_homography_mask( _mask );
+                _glob_items_anti_homography_mask_map[_item.symbol] = _mask ; } );
+	    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Complex conjugation settings have been applied to var z", "CIRCLESformsANTIHOMOGRAPHYoutMSG") ;
+	}
+	else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, (_items_switch == ITEMS_SWITCH_SEEDS?"Seeds":"Generators")+" set is empty", 'CIRCLESformsANTIHOMOGRAPHYoutMSG' ) ;
 }
 
-function CIRCLESformsANTIHOMOGRAPHYlist( _items_switch, _update )
+function CIRCLESformsANTIHOMOGRAPHYlist( _items_switch = ITEMS_SWITCH_SEEDS, _update = NO )
 {
     _items_switch = safe_int( _items_switch, ITEMS_SWITCH_SEEDS ), _update = safe_int( _update, NO );
     var _items_info = circles_lib_items_set( _items_switch, YES ) ;
@@ -43,8 +38,7 @@ function CIRCLESformsANTIHOMOGRAPHYlist( _items_switch, _update )
     else
     {
         var _num_cnt = 0, _den_cnt = 0 ;
-        $.each( _items_array, function( _i, _item )
-                {
+        $.each( _items_array, function( _i, _item ) {
                     if ( _item.map.get_anti_homography_mask() & 1 ) _num_cnt++ ;
                     if ( _item.map.get_anti_homography_mask() & 2 ) _den_cnt++ ;
                 } );
@@ -80,9 +74,7 @@ function CIRCLESformsANTIHOMOGRAPHYlist( _items_switch, _update )
         HTMLcode += "</tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
 
-        $.each( _items_array,
-               function( _i, _item )
-               {
+        $.each( _items_array, function( _i, _item ) {
                   HTMLcode += "<tr>" ;
                   HTMLcode += "<td WIDTH=\"5\"></td>" ;
                   HTMLcode += "<td ALIGN=\"center\" STYLE=\"color:yellow;\">"+_item.symbol+"</td>" ;
@@ -92,8 +84,7 @@ function CIRCLESformsANTIHOMOGRAPHYlist( _items_switch, _update )
                   HTMLcode += "<td ALIGN=\"center\"><INPUT ID=\"CIRCLESformsANTIHOMOGRAPHYcheckbox_mask_den_"+_item.symbol+"\" TYPE=\"checkbox\" "+( _item.map.anti_homography_mask & 2 ? "CHECKED" : "" )+"></td>" ;
                   HTMLcode += "</tr>" ;
                   HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
-               }
-             ) ;
+               } ) ;
     }
     
     HTMLcode += "</table>" ;

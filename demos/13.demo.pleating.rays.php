@@ -23,20 +23,24 @@ var _demon = new demo_n();
     _demon.add( { pre_fn : function()
                   {
                      $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
-                     $( "#presentation_div" ).html( "I'm opening the Terminal Console." ) ;
+                     $( "#presentation_div" ).html( "I open the Terminal Console." ) ;
                   },
-                  ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  ctrl_id : "presentation_div", time : 2.0, time_unit : "s",
                   action : "move", set_value : { to_x : $(window).width() - 410, to_y : 100 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
-    _demon.add( { ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
+    _demon.add( { ctrl_id : "presentation_div", time : 0.5, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
                   action : "click", set_value : -1, showlabel : false, desclabel : "",
                   post_fn : function() { circles_lib_plugin_load('forms','terminal',YES,0,YES); circles_lib_plugin_move_wnd( 'CIRCLESformsTERMINALpopupWND1', 'RIGHT', '' ); }
                 }
               );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms discreteness.locus" ); _glob_terminal.exec( "plugin open" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms discreteness.locus" ); _glob_terminal.exec( "plugin open" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -59,12 +63,15 @@ var _demon = new demo_n();
     _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSembeddingCOMBO", time : 2.0, time_unit : "s",
                   action : "select", set_text : "Maskit T1,1", showlabel : true, desclabel : "Select the embedding Maskit T1,1" } );
 
-    _demon.add( { ctrl_id : "presentation_div", time : 1.5, time_unit : "s",
+    _demon.add( { ctrl_id : "presentation_div", time : 1.0, time_unit : "s",
                   action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
                 } );
 
-    _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSrenderBTN", time : 7.0, time_unit : "s",
-                  action : "click", set_text : null, showlabel : true, desclabel : "Render a &lsquo;bare&rsquo; version of the discreteness locus\nfor the embedding Maskit T1,1" } );
+    _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSrenderBTN", time : 4.0, time_unit : "s",
+                  action : "focus", set_text : null, showlabel : true, desclabel : "Render a &lsquo;bare&rsquo; version of the discreteness locus\nfor the embedding Maskit T1,1" } );
+
+    _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSrenderBTN", time : 1.0, time_unit : "s",
+                  action : "click", set_text : null, showlabel : true, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin set forms terminal" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.0, time_unit : "s",
@@ -114,8 +121,11 @@ var _demon = new demo_n();
                   action : "click", set_value : -1, showlabel : true, desclabel : "Choose to display positive rays only"
                 } );
 
-    _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSrenderBTN", time : 60.0, time_unit : "s",
-                  action : "click", set_text : null, showlabel : true, desclabel : "... there we go again !" } );
+    _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSrenderBTN", time : 2.0, time_unit : "s",
+                  action : "focus", set_text : null, showlabel : true, desclabel : "... there we go again !" } );
+				  
+    _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSrenderBTN", time : 35.0, time_unit : "s",
+                  action : "click", set_text : null, showlabel : true, desclabel : "" } );
 
     _demon.add( { post_fn : function() { _glob_terminal.exec( "plugin send tab tunings" ); },
                   ctrl_id : "CIRCLESformsTERMINALpopupWND1", time : 2.5, time_unit : "s",
@@ -125,8 +135,11 @@ var _demon = new demo_n();
                   action : "click", set_value : -1, showlabel : true, desclabel : "Add colors to the next rendering"
                 } );
 
-    _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSrenderBTN", time : 60.0, time_unit : "s",
-                  action : "click", set_text : null, showlabel : true, desclabel : "... enjoy the colors!" } );
+    _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSrenderBTN", time : 2.0, time_unit : "s",
+                  action : "focus", set_text : null, showlabel : true, desclabel : "... enjoy the colors!" } );
+
+    _demon.add( { ctrl_id : "CIRCLESformsDISCRETENESSLOCUSrenderBTN", time : 35.0, time_unit : "s",
+                  action : "click", set_text : null, showlabel : true, desclabel : "" } );
 
 	_demon.add( { pre_fn : function()
                   {
