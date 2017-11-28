@@ -167,7 +167,7 @@ function circles_terminal_cmd_refresh()
                                   _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                                   if ( _ret_id )
                                   {
-                                       circles_lib_canvas_after_process_main();
+                                       circles_lib_canvas_after_render_main();
                                        circles_lib_canvas_afterrender_figures_draw( null, _clean, W_PLANE );
                                   }
                                   circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
@@ -198,7 +198,7 @@ function circles_terminal_cmd_refresh()
                                    _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_rendering_layer_placeholder, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _output_channel );
                                    _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                                    _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
-                                   if ( _ret_id ) circles_lib_canvas_after_process_main();
+                                   if ( _ret_id ) circles_lib_canvas_after_render_main();
                                    circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                               }
                               

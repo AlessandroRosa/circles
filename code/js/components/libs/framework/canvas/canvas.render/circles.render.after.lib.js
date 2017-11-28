@@ -1,4 +1,4 @@
-function circles_lib_canvas_after_process_main()
+function circles_lib_canvas_after_render_main()
 {
      _glob_last_pt = _glob_density_scan_flag ? CIRCLESmultithreadingDENSITYscanner(_glob_wplane_rendering_layer_placeholder,_glob_density_weight_coeff) : _glob_rec_canvas_entities_array.get_last() ;
      // _glob_last_pt is returned as an object, not as a complex number

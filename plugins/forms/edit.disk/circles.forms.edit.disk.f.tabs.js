@@ -65,7 +65,7 @@ function CIRCLESformsEDITDISKgraphixCODE( _index, _items_switch )
     var _b_exists = is_item_obj( ITEM );
     var complex_circle = _b_exists ? ITEM.complex_circle : null ;
     var _b_circle_exists = _b_exists && is_circle( complex_circle ) ;
-    var linewidth = _b_circle_exists ? ITEM.complex_circle.linewidth : 1 ;
+    var linethick = _b_circle_exists ? ITEM.complex_circle.linethick : 1 ;
     var fill = _b_circle_exists ? ITEM.complex_circle.fill : NO ;
     var draw = _b_circle_exists ? ITEM.complex_circle.draw : NO ;
     var drawcolor = _b_circle_exists ? ITEM.complex_circle.drawcolor : _glob_draw_seed_color ;
@@ -111,7 +111,7 @@ function CIRCLESformsEDITDISKgraphixCODE( _index, _items_switch )
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
     HTMLcode += "<td>Line thickness</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td WIDTH=\"25\"><INPUT ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);\" TYPE=\"edit\" STYLE=\"width:42px;text-align:center;\" ID=\"CIRCLEselectedLINETHICKNESS\" VALUE=\""+linewidth+"\"></td>" ;
+    HTMLcode += "<td WIDTH=\"25\"><INPUT ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);\" TYPE=\"edit\" STYLE=\"width:42px;text-align:center;\" ID=\"CIRCLEselectedLINETHICKNESS\" VALUE=\""+linethick+"\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
     HTMLcode += "</table>" ;

@@ -520,10 +520,10 @@ polygon.prototype.midpoint = function()
     else return null ;
 }
 
-polygon.prototype.draw = function( _drawcolor, _fillcolor, _linewidth, _remap_to_canvas )
+polygon.prototype.draw = function( _drawcolor, _fillcolor, _linethick, _remap_to_canvas )
 {
     _remap_to_canvas = safe_int( _remap_to_canvas, 0 ); // should remap points according to canvas size
-    _linewidth = safe_int( _linewidth, 1 );
+    _linethick = safe_int( _linethick, 1 );
     _drawcolor = safe_string( _drawcolor, "" );
     _fillcolor = safe_string( _fillcolor, "" );
     if ( is_html_canvas( this.canvas_obj ) )
@@ -552,7 +552,7 @@ polygon.prototype.draw = function( _drawcolor, _fillcolor, _linewidth, _remap_to
 
 					 if ( _drawcolor.length > 0 )
 					 {
-							 _ctx.lineWidth = _linewidth ;
+							 _ctx.lineWidth = _linethick ;
 							 _ctx.strokeStyle = _drawcolor ;
 							 _ctx.stroke();
 					 }

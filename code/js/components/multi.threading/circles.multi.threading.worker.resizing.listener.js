@@ -88,7 +88,7 @@ function CIRCLESmultithreadingADDresizingLISTENER()
                               {
                                  circles_lib_draw_screen_disk( _context, "", _circle,
                                                         _circle.draw, _circle.drawcolor,
-                                                        _circle.fill, _circle.fillcolor, _circle.linewidth, _glob_opacity, 0 ) ;
+                                                        _circle.fill, _circle.fillcolor, _circle.linethick, _glob_opacity, 0 ) ;
                               }
                             );
                       break ;

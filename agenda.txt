@@ -15,21 +15,7 @@
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 
 * region
-  > it does not update canvas when 'auto refresh on'
-  > add 'rec' and manage the region as if it's figure
-    (thus declare a new CONSTANT value and new switch cases)
-
-* new cmd 'alias'
-  Ex01 : alias def:myaliascmd refresh zplane clean
-  Ex02 : alias list
-  Ex03 : alias bomb
-
-  save "refresh zplane clean" into the associative
-  array _glob_terminal_aliases_cmds array
-
-  the interpreter would first check the above array for
-  aliases. If not found, keeps on running as usual. Otherwise
-  take the corresponding "cmd" and run into the interpreter.
+  > check 'rec' and auto refresh
 
 -------------- FIX SOON -----------------------
 * DEMO #9 : anti-homography is not updated

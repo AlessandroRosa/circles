@@ -535,7 +535,7 @@ function circles_lib_canvas_render_process( canvas, mapper, _plane_type, _silent
      else if ( _sd_n == 0 )
      {
          // straight call of the procedures ending the drawing process
-         circles_lib_canvas_after_process_main();
+         circles_lib_canvas_after_render_main();
          return [ RET_ERROR, _ERR_33_01 ] ;
      }
      else if ( _sd_n > 0 )

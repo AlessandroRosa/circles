@@ -47,7 +47,7 @@ function circles_terminal_cmd_mobius()
         _params_assoc_array['inv_symbol'] = null ;
         _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
         _params_assoc_array['symbol'] = null ;
-        _params_assoc_array['linewidth'] = null ;
+        _params_assoc_array['linethick'] = null ;
         _params_assoc_array['off'] = NO ;
         _params_assoc_array['on'] = NO ;
         _params_assoc_array['properties'] = [] ;
@@ -138,8 +138,8 @@ function circles_terminal_cmd_mobius()
                    
                _params_assoc_array['roundto'] = _p ;
             }
-            else if ( _p.toLowerCase().start_with( "linewidth:" ) )
-            _params_assoc_array['linewidth'] = safe_int( _p.toLowerCase().replaceAll( "linewidth:", "" ), 1 );
+            else if ( _p.toLowerCase().start_with( "linethick:" ) )
+            _params_assoc_array['linethick'] = safe_int( _p.toLowerCase().replaceAll( "linethick:", "" ), 1 );
 			else if ( _p.toLowerCase().start_with( "drawcolor:" )  )
 			{
                _p = _p.replaceAll( "drawcolor:", "" );
@@ -864,7 +864,7 @@ function circles_terminal_cmd_mobius()
                                       _items_array[_obj_index].complex_circle.draw = 1 ;
                                     }
                                     if ( _params_assoc_array['fillcolor'] != null ) { _items_array[_obj_index].complex_circle.fillcolor = _params_assoc_array['fillcolor'] ; _items_array[_obj_index].complex_circle.fill = 1 ; }
-                                    if ( _params_assoc_array['linewidth'] != null ) _items_array[_obj_index].complex_circle.linewidth = _params_assoc_array['linewidth'] ;
+                                    if ( _params_assoc_array['linethick'] != null ) _items_array[_obj_index].complex_circle.linethick = _params_assoc_array['linethick'] ;
                                     if ( _params_assoc_array['a'] != null ) _items_array[_obj_index].map.a = _params_assoc_array['a'] ;
                                     if ( _params_assoc_array['b'] != null ) _items_array[_obj_index].map.b = _params_assoc_array['b'] ;
                                     if ( _params_assoc_array['c'] != null ) _items_array[_obj_index].map.c = _params_assoc_array['c'] ;

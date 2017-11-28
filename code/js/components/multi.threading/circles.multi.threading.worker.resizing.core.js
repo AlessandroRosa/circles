@@ -121,7 +121,7 @@ self.addEventListener( 'message', function(e)
                       _tmp_entities.push( new circle( _center_pt, Math.abs( _center_pt.x - _radius_pt.x ),
                                                       _entities_array[_i].draw, _entities_array[_i].fill,
                                                       _entities_array[_i].drawcolor, _entities_array[_i].fillcolor,
-                                                      _entities_array[_i].linewidth, _entities_array[_i].label ) ) ;
+                                                      _entities_array[_i].linethick, _entities_array[_i].label ) ) ;
                       _counter++ ;
                       if ( _counter % PROGRESS_REFRESH_AT_EACH == 0 )
                       {

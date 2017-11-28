@@ -5,7 +5,7 @@ function circles_lib_get_complexdisk_from_screen( _mapper, _screen_circle )
     var complex_center_pt = _mapper.from_client_to_cartesian( _screen_circle.center.x, _screen_circle.center.y );
     var complex_radius_pt = _mapper.from_client_to_cartesian( _radius_pt.x, _radius_pt.y );
     var complex_radius = Math.abs( complex_center_pt.x - complex_radius_pt.x );
-    return new circle( complex_center_pt, complex_radius, _screen_circle.draw, _screen_circle.fill, _screen_circle.drawcolor, _screen_circle.fillcolor, _screen_circle.linewidth, _screen_circle.notes );
+    return new circle( complex_center_pt, complex_radius, _screen_circle.draw, _screen_circle.fill, _screen_circle.drawcolor, _screen_circle.fillcolor, _screen_circle.linethick, _screen_circle.notes );
 }
 
 function circles_lib_complexdisk_move_tangency( _items_array, _index1, _index2, _output_channel )
@@ -258,7 +258,7 @@ function circles_lib_complexdisk_update( _items_array, _screen_circle, _index, _
     else
     {
        if ( !is_circle( _screen_circle ) ) _screen_circle = new circle( new point( 0, 0 ), 0 );
-       var _linewidth = safe_int( _screen_circle.linewidth, 0 );
+       var _linethick = safe_int( _screen_circle.linethick, 0 );
        var _complex_circle = circles_lib_get_complexdisk_from_screen( zplane_sm, _screen_circle );
        _items_array[_index] = circles_lib_items_create_from_disk( _index, _complex_circle, _screen_circle );
        _glob_items_to_init = YES ;
@@ -311,7 +311,7 @@ function circles_lib_complexdisk_add( _items_array, _complex_circle, _symbol, _o
        {
           _items_array[_last_index].original_word = _items_array[_last_index].symbol = _symbol.length > 0 ? _symbol.trim() : "" ;
           _items_array[_last_index].item_type = ITEM_TYPE_CIRCLE ;
-          _items_array[_last_index].complex_circle.linewidth = 1 ;
+          _items_array[_last_index].complex_circle.linethick = 1 ;
           _glob_items_to_init = YES ;
           $('[id$=initBTN]').css('color',COLOR_ERROR) ;
           return [ RET_OK, "A new disk has been added with success", _last_index ] ;

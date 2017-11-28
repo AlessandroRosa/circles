@@ -34,7 +34,7 @@ function CIRCLESformsGEOMETRICTRANSFORMshift( _question, _silent, _output_channe
                circle_center = circle_center.add( complexSHIFT );
                _items_array[INDEX].complex_circle.center.x = circle_center.r();
                _items_array[INDEX].complex_circle.center.y = circle_center.i();
-               _screen_circle = circles_lib_get_screendisk_from_complexdisk( zplane_sm, new circle( new point( circle_center.r(), circle_center.i() ), circle_radius ), complex_circle.draw, complex_circle.fill, complex_circle.drawcolor, complex_circle.fillcolor, complex_circle.linewidth, complex_circle.notes );
+               _screen_circle = circles_lib_get_screendisk_from_complexdisk( zplane_sm, new circle( new point( circle_center.r(), circle_center.i() ), circle_radius ), complex_circle.draw, complex_circle.fill, complex_circle.drawcolor, complex_circle.fillcolor, complex_circle.linethick, complex_circle.notes );
                _items_array[INDEX].screen_circle = _screen_circle.copy();
              }
            }
@@ -98,7 +98,7 @@ function CIRCLESformsGEOMETRICTRANSFORMrotate( _question, _silent, _output_chann
                   _items_array[INDEX].screen_circle.fill = complex_circle.fill ;
                   _items_array[INDEX].screen_circle.drawcolor = complex_circle.drawcolor ;
                   _items_array[INDEX].screen_circle.fillcolor = complex_circle.fillcolor ;
-                  _items_array[INDEX].screen_circle.linewidth = complex_circle.linewidth ;
+                  _items_array[INDEX].screen_circle.linethick = complex_circle.linethick ;
                   _items_array[INDEX].screen_circle.notes = complex_circle.notes ;
                }
             }

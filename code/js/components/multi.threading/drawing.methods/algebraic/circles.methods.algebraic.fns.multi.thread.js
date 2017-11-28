@@ -120,7 +120,7 @@ function CIRCLESalgebraicMARK( _glob_limitset_array, index )
                          'draw_fn_id' : 2.4,
                          'draw' : YES, 'drawcolor' : DEFAULT_PT_BORDER_COLOR,
                          'fill' : YES, 'fillcolor' : DEFAULT_PT_INTERIOR_COLOR,
-                         'linewidth' : 2, 'word' : WORD } ;
+                         'linethick' : 2, 'word' : WORD } ;
                                         
                  write = { "text_corpus" : _fp_type,
                            "text_fontcolor" : DEFAULT_TEXT_COLOR,

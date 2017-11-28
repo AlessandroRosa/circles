@@ -403,7 +403,7 @@ function circles_terminal_cmd_tessellator()
                                    _tmp_chunk['fill'] = _chunk.complex_circle.fill ;
                                    _tmp_chunk['fillcolor'] = _chunk.complex_circle.fillcolor ;
                                    _tmp_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-                                   _tmp_chunk['linewidth'] = _chunk.complex_circle.linewidth ;
+                                   _tmp_chunk['linethick'] = _chunk.complex_circle.linethick ;
                                    _tmp_chunk['enabled'] = _chunk.enabled ;
                                    _tmp_chunk['symbol'] = "" ;
                                    circles_lib_figures_add( _tmp_chunk );

@@ -271,7 +271,7 @@ function circles_lib_fixedpoints_create_figures_from( _index, _plane_type, _outp
                      _rec_chunk['fill'] = YES ;
                      _rec_chunk['fillcolor'] = _glob_fill_seed_color ;
                      _rec_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-                     _rec_chunk['linewidth'] = 1 ;
+                     _rec_chunk['linethick'] = 1 ;
                      _rec_chunk['enabled'] = YES ;
                      _rec_chunk['label'] = _chunk[0] ;
                      _rec_chunk['myhash'] = "rec" + _glob_figures_array.length ;

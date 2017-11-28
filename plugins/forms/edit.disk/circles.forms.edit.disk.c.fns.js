@@ -20,12 +20,12 @@ function CIRCLESformsEDITDISKcreate_inverse_element( _items_array, _i, _silent, 
        var fill = _items_array[_i].complex_circle.fill ;
        var drawcolor = _items_array[_i].complex_circle.drawcolor ;
        var fillcolor = _items_array[_i].complex_circle.fillcolor ;
-       var linewidth = _items_array[_i].complex_circle.linewidth ;
+       var linethick = _items_array[_i].complex_circle.linethick ;
        var inv_map = _mm.inv();
        var inverse_symbol = _symbol.length > 0 ? circles_lib_word_inverse_get( _symbol ) : "" ;
        if ( !is_item_obj( circles_lib_find_item_obj_by_symbol( _items_array, inverse_symbol ) ) ) // if it does not exist, it is created
        {
-          _items_array.push( new item_obj( inv_map, null, null, inverse_symbol, 0, draw, drawcolor, fill, fillcolor, _symbol, linewidth, item_type, inverse_symbol ) );
+          _items_array.push( new item_obj( inv_map, null, null, inverse_symbol, 0, draw, drawcolor, fill, fillcolor, _symbol, linethick, item_type, inverse_symbol ) );
           _items_array[ _i ].inverse_symbol = safe_string( inverse_symbol, "" ) ;
           if ( _output_channel == OUTPUT_SCREEN && !_silent )
           circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "The inverse item has been created with success", 'CIRCLESformsEDITDISKoutMSG' )
@@ -206,7 +206,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
     var FILLCOLOR = safe_string( $("#CIRCLEScircleSELECTEDfillcolor").css( 'background-color' ), _glob_fill_seed_color );
     var draw = $("#CIRCLEScirclesDRAWcheckbox").is( ":checked" ) ? YES : NO ;
     var fill = $("#CIRCLEScirclesFILLcheckbox").is( ":checked" ) ? YES : NO ;
-    var linewidth = safe_int( $("#CIRCLEselectedLINETHICKNESS").val(), 1 );
+    var linethick = safe_int( $("#CIRCLEselectedLINETHICKNESS").val(), 1 );
     var PARAMSinputTYPEmask = 0 ; // bit : 0 --> orthogonal, 1 : radial
           
     // params a, b, c, d are complex numbers
@@ -296,7 +296,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                   _mm = new mobius_map( A, B, C, D );
                   
 	                _items_array.push( new item_obj( _mm, _complex_circle, _screen_circle, _symbol, PARAMSinputTYPEmask,
-	                   		                           draw, DRAWCOLOR, fill, FILLCOLOR, _inv_symbol, linewidth, _item_type, _symbol ) );
+	                   		                           draw, DRAWCOLOR, fill, FILLCOLOR, _inv_symbol, linethick, _item_type, _symbol ) );
                   if ( _b_colorize ) circles_lib_colors_colorize_group( _items_array, YES, YES, _output_channel ) ;
                }
 
@@ -340,7 +340,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                     _items_array[_item_index].complex_circle.drawcolor = DRAWCOLOR ;
                     _items_array[_item_index].complex_circle.fill = fill ;
                     _items_array[_item_index].complex_circle.fillcolor = FILLCOLOR ;
-                    _items_array[_item_index].complex_circle.linewidth = linewidth ;
+                    _items_array[_item_index].complex_circle.linethick = linethick ;
                  }
   
 	               if ( !is_circle( _items_array[_item_index].screen_circle ) )

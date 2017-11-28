@@ -65,7 +65,7 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     var _mm_exists = is_mobius_map( _mm ) ? 1 : 0 ;
     var complex_circle = _b_exists ? ITEM.complex_circle : new circle( new point( 0, 0 ), 0 );
     var PARAMSinputTYPEmask = _b_exists ? ITEM.params_mask : 0 ;
-    var linewidth = ( _b_exists && is_circle( complex_circle ) ) ? ITEM.complex_circle.linewidth : "" ;
+    var linethick = ( _b_exists && is_circle( complex_circle ) ) ? ITEM.complex_circle.linethick : "" ;
     var symbol = _b_exists ? safe_string( ITEM.symbol, "" ) : "" ;
     var inv_symbol = _b_exists ? ITEM.inverse_symbol : "" ;
     var fill = ( _b_exists && is_circle( complex_circle ) ) ? ITEM.complex_circle.fill : NO ;

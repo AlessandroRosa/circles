@@ -540,7 +540,7 @@ function CIRCLESformsGENERALOPTIONSextrasTAB()
           HTMLcode += "<td WIDTH=\"10\"></td>" ;
           HTMLcode += "<td WIDTH=\"100\">Line width</td>" ;
           HTMLcode += "<td WIDTH=\"5\"></td>" ;
-          HTMLcode += "<td><INPUT ID=\"CIRCLESgeneraloptionsSETTINGSlinewidthEDIT\" STYLE=\"width:40px;text-align:center;\" TYPE=\"edit\" VALUE=\""+_glob_line_width+"\" ONCHANGE=\"javascript:_glob_line_width=Math.max(0,safe_int(this.value,0));this.value=_glob_line_width;\" ONKEYUP=\"javascript:CIRCLESformsGENERALOPTIONSeventHANDLER( this.id, event );\"></td>" ;
+          HTMLcode += "<td><INPUT ID=\"CIRCLESgeneraloptionsSETTINGSlinethickEDIT\" STYLE=\"width:40px;text-align:center;\" TYPE=\"edit\" VALUE=\""+_glob_line_width+"\" ONCHANGE=\"javascript:_glob_line_width=Math.max(0,safe_int(this.value,0));this.value=_glob_line_width;\" ONKEYUP=\"javascript:CIRCLESformsGENERALOPTIONSeventHANDLER( this.id, event );\"></td>" ;
           HTMLcode += "</tr>" ;
           HTMLcode += "</table>" ;
           HTMLcode += "</td>" ;

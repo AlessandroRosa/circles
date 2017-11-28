@@ -87,9 +87,9 @@ function circles_terminal_cmd_plot()
 							}
               else if ( _p.testME( _glob_number_regex_pattern ) )
               {
-                   if ( _params_assoc_array['extras']['linewidth'] == null )
+                   if ( _params_assoc_array['extras']['linethick'] == null )
                    {
-											 _params_assoc_array['extras']['linewidth'] = safe_float( _p, 0 ) ;
+											 _params_assoc_array['extras']['linethick'] = safe_float( _p, 0 ) ;
 			                 circles_lib_output( _output_channel, DISPATCH_INFO, "Detected integer #1: border thickness has been set to " + _p, _par_1, _cmd_tag );
 									 }
 									 else if ( _params_assoc_array['extras']['radius'] == null )
@@ -139,7 +139,7 @@ function circles_terminal_cmd_plot()
          var _all = _params_assoc_array['extras']['all'] != null ? _params_assoc_array['extras']['all'] : NO ;
          var _action = safe_string( _params_assoc_array['action'], "" ).trim() ;
          var _map_it = _params_assoc_array['extras'].includes_i( "map" ) ? YES : NO ;
-         var _linewidth = safe_float( _params_assoc_array['extras']['linewidth'], UNDET ) ;
+         var _linethick = safe_float( _params_assoc_array['extras']['linethick'], UNDET ) ;
          var _radius = safe_float( _params_assoc_array['extras']['radius'], UNDET ) ;
          if ( _action.length == 0 )
          {
@@ -315,7 +315,7 @@ function circles_terminal_cmd_plot()
     																																	  _obj.screen_circle,
     																																		_obj.screen_circle.draw, _drawcolor,
     																																		_obj.screen_circle.fill, _fillcolor,
-    																																		_linewidth > UNDET ? _linewidth : _obj.screen_circle.linewidth,
+    																																		_linethick > UNDET ? _linethick : _obj.screen_circle.linethick,
 																																				_glob_opacity, 0 ) ;
     																				}
     																				else if ( is_point( _obj ) )
@@ -327,7 +327,7 @@ function circles_terminal_cmd_plot()
               																															 _obj.x, _obj.y,
               																															 _drawcolor.length > 0 ? YES : NO, _drawcolor,
               																															 _fillcolor.length > 0 ? YES : NO, _fillcolor,
-              																															 _linewidth > UNDET ? _linewidth : DEFAULT_PT_BORDER,
+              																															 _linethick > UNDET ? _linethick : DEFAULT_PT_BORDER,
               																															 safe_float( _obj.radius, DEFAULT_PT_RADIUS ),
               																															 _glob_opacity, 0, _map_it ) ;
     																				}
@@ -339,7 +339,7 @@ function circles_terminal_cmd_plot()
     																															 _obj.real, _obj.imag,
     																															 _drawcolor.length > 0 ? YES : NO, _drawcolor,
                                                                    _fillcolor.length > 0 ? YES : NO, _fillcolor,
-    																															 _linewidth > UNDET ? _linewidth : DEFAULT_PT_BORDER,
+    																															 _linethick > UNDET ? _linethick : DEFAULT_PT_BORDER,
     																															 safe_float( _obj.radius, DEFAULT_PT_RADIUS ),
     																															 _glob_opacity, 0, YES ) ;
     																				}
@@ -351,13 +351,13 @@ function circles_terminal_cmd_plot()
     																						 circles_lib_draw_screen_disk( _context, "", _obj,
     																																	  _drawcolor.length > 0 ? YES : NO, _drawcolor,
                                                                         _fillcolor.length > 0 ? YES : NO, _fillcolor,
-    																																		_linewidth > UNDET ? _linewidth : _obj.linewidth, _glob_opacity, 0 ) ;
+    																																		_linethick > UNDET ? _linethick : _obj.linethick, _glob_opacity, 0 ) ;
     																						 else
     																						 circles_lib_draw_complex_disk( _context, _mapper,
     																								 										 _obj.center.x, _obj.center.y, _obj.radius,
     																																		 _drawcolor.length > 0 ? YES : NO, _drawcolor,
                                                                          _fillcolor.length > 0 ? YES : NO, _fillcolor,
-    																																		 _linewidth > UNDET ? _linewidth : _obj.linewidth, _glob_opacity, null, null "", 0 ) ;
+    																																		 _linethick > UNDET ? _linethick : _obj.linethick, _glob_opacity, null, null "", 0 ) ;
     																				}
     																				else if ( is_line( _obj ) )
     																				{
@@ -366,7 +366,7 @@ function circles_terminal_cmd_plot()
     																						 										 _obj.start_pt.x, _obj.start_pt.y,
     																																 _obj.end_pt.x, _obj.end_pt.y,
     																																 _drawcolor,
-																																		 _linewidth > UNDET ? _linewidth : _obj.linewidth,
+																																		 _linethick > UNDET ? _linethick : _obj.linethick,
 																																		 _glob_opacity, 0, _map_it ) ;
     																				}
     																		}

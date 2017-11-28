@@ -282,7 +282,7 @@ function circles_lib_symbol_zplane_display( _items_array = [], _canvas = null, _
     
 	if ( _glob_show_symbols_zplane && _items_n && _test )
     {
-        var ITEM, _circle_obj, _center_pt, _radius, _symbol, _linewidth, _check_sc ;
+        var ITEM, _circle_obj, _center_pt, _radius, _symbol, _linethick, _check_sc ;
         for( var i = 0 ; i < _items_n ; i++ )
         {
             ITEM = _items_array[i] ;
@@ -291,7 +291,7 @@ function circles_lib_symbol_zplane_display( _items_array = [], _canvas = null, _
             _check_sc = is_circle( ITEM.screen_circle ) ;
             _center_pt = _check_sc ? ITEM.screen_circle.center : new point( 0, 0 );
             _radius = _check_sc ? safe_int( ITEM.screen_circle.radius, 0 ) : 0 ;
-            _linewidth = _check_sc ? safe_int( ITEM.screen_circle.linewidth, 0 ) : 0 ;
+            _linethick = _check_sc ? safe_int( ITEM.screen_circle.linethick, 0 ) : 0 ;
             _symbol = safe_string( ITEM.symbol, "N/D" );
             if ( _symbol.length > 0 && is_circle( _circle_obj ) )
             {
@@ -300,10 +300,10 @@ function circles_lib_symbol_zplane_display( _items_array = [], _canvas = null, _
                  if ( isCHROME() || isIE() ) zplane_context.setLineDash([4,6]);
                  zplane_context.lineWidth = 1 ;
                  zplane_context.strokeStyle = _glob_label_text_color ;
-                 zplane_context.moveTo( _center_pt.x - ( _radius + _linewidth ), _center_pt.y );
-                 zplane_context.lineTo( _center_pt.x + ( _radius - _linewidth ), _center_pt.y );
-                 zplane_context.moveTo( _center_pt.x, _center_pt.y - ( _radius + _linewidth ) );
-                 zplane_context.lineTo( _center_pt.x, _center_pt.y + ( _radius - _linewidth ) );
+                 zplane_context.moveTo( _center_pt.x - ( _radius + _linethick ), _center_pt.y );
+                 zplane_context.lineTo( _center_pt.x + ( _radius - _linethick ), _center_pt.y );
+                 zplane_context.moveTo( _center_pt.x, _center_pt.y - ( _radius + _linethick ) );
+                 zplane_context.lineTo( _center_pt.x, _center_pt.y + ( _radius - _linethick ) );
                  zplane_context.stroke();
                  if ( isCHROME() || isIE() ) zplane_context.setLineDash([0,0]);
                  zplane_context.closePath();

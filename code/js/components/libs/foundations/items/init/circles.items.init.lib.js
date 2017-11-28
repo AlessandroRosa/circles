@@ -331,7 +331,7 @@ function circles_lib_items_create_from_disk( _index, complex_circle, screen_circ
                          _check ? complex_circle.fill : _items_array[_index].complex_circle.fill,
                          _check ? complex_circle.fillcolor : _items_array[_index].complex_circle.fillcolor,
 												 _check ? _inv_symbol : _items_array[_index].inverse_symbol,
-                         _check ? complex_circle.lineiwdth : _items_array[_index].complex_circle.linewidth,
+                         _check ? complex_circle.lineiwdth : _items_array[_index].complex_circle.linethick,
                          ITEM_TYPE_CIRCLE, "", _symbol );
 }
 
@@ -519,7 +519,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
        if ( _items_n % 2 == 0 )
        {
         	 var ITEM = null, _symbol = "", _index, _index_inverse, _complex_circle, screen_circle ;
-        	 var _draw, _fill, _drawcolor, _fillcolor, _linewidth, _inv_symbol, coords ;
+        	 var _draw, _fill, _drawcolor, _fillcolor, _linethick, _inv_symbol, coords ;
            if ( _report )
            {
               if ( _glob_verbose && _glob_terminal_echo_flag ) _report_array.push( "<gray>Verbose mode is one: init stages will be reported below</gray>" );
@@ -545,7 +545,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
                    _fill = _items_array[_i].complex_circle.fill ;
                    _drawcolor = _items_array[_i].complex_circle.drawcolor ;
                    _fillcolor = _items_array[_i].complex_circle.fillcolor ;
-                   _linewidth = _items_array[_i].complex_circle.linewidth ;
+                   _linethick = _items_array[_i].complex_circle.linethick ;
                    if ( !_locked )
                    {
                        if ( _report ) _report_array.push( "<white>Calculating the isometric circle of map "+_symbol+"</white>" );
@@ -559,7 +559,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
                        _items_array[_i].complex_circle.drawcolor = _drawcolor ;
                        _items_array[_i].complex_circle.fill = _fill ;
                        _items_array[_i].complex_circle.fillcolor = _fillcolor ;
-                       _items_array[_i].complex_circle.linewidth = _linewidth ;
+                       _items_array[_i].complex_circle.linethick = _linethick ;
 					             _items_array[_i].screen_circle = circles_lib_get_screendisk_from_complexdisk( zplane_sm, _items_array[_i].complex_circle );
 
                        if ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) )
@@ -576,7 +576,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
   	  												 screen_circle = circles_lib_get_screendisk_from_complexdisk( zplane_sm, _complex_circle ) ;
                                _inverse_mm_obj = new item_obj( _inverse_mm, _complex_circle, screen_circle, _inv_symbol, 0,
                                                                _draw, _drawcolor, _fill, _fillcolor,
-                                                               _symbol, _linewidth, ITEM_TYPE_CIRCLE, "", _inv_symbol );
+                                                               _symbol, _linethick, ITEM_TYPE_CIRCLE, "", _inv_symbol );
                                _items_array.push( _inverse_mm_obj );
                                _index_inverse = circles_lib_find_item_index_by_symbol( _items_array, _inv_symbol );
                                if ( _index_inverse != UNFOUND )
@@ -587,7 +587,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
                                      _items_array[_index_inverse].complex_circle.drawcolor = _drawcolor ;
                                      _items_array[_index_inverse].complex_circle.fill = _fill ;
                                      _items_array[_index_inverse].complex_circle.fillcolor = _fillcolor ;
-                                     _items_array[_index_inverse].complex_circle.linewidth = _linewidth ;
+                                     _items_array[_index_inverse].complex_circle.linethick = _linethick ;
                                      _items_array[_index_inverse].complex_circle.label = _symbol ;
                					             _items_array[_index_inverse].screen_circle = circles_lib_get_screendisk_from_complexdisk( zplane_sm, _items_array[_index_inverse].complex_circle );
                                   }

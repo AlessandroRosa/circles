@@ -13,7 +13,7 @@ function CIRCLESformsGENERALOPTIONSeventHANDLER( _ctrl_id, _event )
               case "CIRCLESgeneraloptionsSETTINGSpixelsizeEDIT":
               $( "#" + _ctrl_id ).val( _glob_pixel_size );
               break ;
-              case "CIRCLESgeneraloptionsSETTINGSlinewidthEDIT":
+              case "CIRCLESgeneraloptionsSETTINGSlinethickEDIT":
               $( "#" + _ctrl_id ).val( _glob_line_width );
               break ;
               case "CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeEDIT":

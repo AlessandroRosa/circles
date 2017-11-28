@@ -167,13 +167,13 @@ jseps.prototype.comment = function( _text )
     }
 }
 
-jseps.prototype.rounded_rect = function( _start_x, _start_y, _width, _height, _corner_radius, _linewidth, _drawcolor, _fillcolor, _comment )
+jseps.prototype.rounded_rect = function( _start_x, _start_y, _width, _height, _corner_radius, _linethick, _drawcolor, _fillcolor, _comment )
 {
     if ( this.encapsulated )
     {
         _comment = safe_string( _comment, "" ) ;
         _drawcolor = safe_string( _drawcolor, "" ) ;
-        _linewidth = safe_int( _linewidth, 0 );
+        _linethick = safe_int( _linethick, 0 );
         _corner_radius = safe_int( _corner_radius, 1 );
         if ( this.flip_y ) _start_y = this.bb_height - _start_y ;
         var _reduced_width = _width - 2 * _corner_radius ;
@@ -210,7 +210,7 @@ jseps.prototype.rounded_rect = function( _start_x, _start_y, _width, _height, _c
             _drawcolor = _jseps_palette[ "" + _drawcolor ] ;
 
             if ( _fillcolor.length > 0 ) this.eps_code.push( "gsave" );
-            if ( _linewidth > 0 ) this.eps_code.push( _linewidth + " setlinewidth" );
+            if ( _linethick > 0 ) this.eps_code.push( _linethick + " setlinethick" );
             var _rgb_triplet = get_rgb_dec_triplet( _drawcolor ) ;
             this.set_rgb_color( _rgb_triplet[0], _rgb_triplet[1], _rgb_triplet[2] ) ;
             this.eps_code.push( "stroke" );
@@ -228,11 +228,11 @@ jseps.prototype.rounded_rect = function( _start_x, _start_y, _width, _height, _c
     else this.comment( "rounded rects are available for encapsulated formats exclusively" );
 }
 
-jseps.prototype.rect = function( _start_x, _start_y, _width, _height, _linewidth, _drawcolor, _fillcolor, _comment )
+jseps.prototype.rect = function( _start_x, _start_y, _width, _height, _linethick, _drawcolor, _fillcolor, _comment )
 {
     _comment = safe_string( _comment, "" ) ;
     _drawcolor = safe_string( _drawcolor, "" ) ;
-    _linewidth = safe_int( _linewidth, 0 );
+    _linethick = safe_int( _linethick, 0 );
     if ( this.flip_y ) _start_y = this.bb_height - _start_y ;
     if ( _comment.length > 0 ) this.comment( _comment );
     this.eps_code.push( "newpath" );
@@ -248,7 +248,7 @@ jseps.prototype.rect = function( _start_x, _start_y, _width, _height, _linewidth
         _drawcolor = _jseps_palette[ "" + _drawcolor ] ;
 
         if ( _fillcolor.length > 0 ) this.eps_code.push( "gsave" );
-        if ( _linewidth > 0 ) this.eps_code.push( _linewidth + " setlinewidth" );
+        if ( _linethick > 0 ) this.eps_code.push( _linethick + " setlinethick" );
         var _rgb_triplet = get_rgb_dec_triplet( _drawcolor ) ;
         this.set_rgb_color( _rgb_triplet[0], _rgb_triplet[1], _rgb_triplet[2] ) ;
         this.eps_code.push( "stroke" );
@@ -264,10 +264,10 @@ jseps.prototype.rect = function( _start_x, _start_y, _width, _height, _linewidth
     }
 }
 
-jseps.prototype.point = function( _x, _y, _linewidth, _drawcolor, _fillcolor, _comment )
+jseps.prototype.point = function( _x, _y, _linethick, _drawcolor, _fillcolor, _comment )
 {
     if ( this.flip_y ) _y = this.bb_height - _y ;
-    this.circle( _x, _y, 3, _linewidth, _drawcolor, _fillcolor, _comment ) ;
+    this.circle( _x, _y, 3, _linethick, _drawcolor, _fillcolor, _comment ) ;
 }
 
 jseps.prototype.pixel = function( _x, _y, _drawcolor, _comment )
@@ -276,10 +276,10 @@ jseps.prototype.pixel = function( _x, _y, _drawcolor, _comment )
     this.rect( _x, _y, 0.3, 0.3, 1, _drawcolor, "", _comment ) ;
 }
 
-jseps.prototype.line = function( _from_x, _from_y, _to_x, _to_y, _linewidth, _drawcolor, _dash_values, _caps_style, _comment )
+jseps.prototype.line = function( _from_x, _from_y, _to_x, _to_y, _linethick, _drawcolor, _dash_values, _caps_style, _comment )
 {
     _comment = safe_string( _comment, "" ) ;
-    _linewidth = safe_int( _linewidth, 0 );
+    _linethick = safe_int( _linethick, 0 );
     _caps_style = safe_int( _caps_style, -1 );
     _dash_values = safe_string( _dash_values, "" ) ;
     if ( this.flip_y ) _from_y = this.bb_height - _from_y ;
@@ -288,7 +288,7 @@ jseps.prototype.line = function( _from_x, _from_y, _to_x, _to_y, _linewidth, _dr
     if ( _caps_style != -1 && _caps_style >= 0 && _caps_style <= 2 ) this.eps_code.push( _caps_style + " setlinecap" );
     if ( _dash_values.length > 0 ) this.eps_code.push( _dash_values + " 0 setdash" );
     this.eps_code.push( "newpath" );
-    if ( _linewidth > 0 ) this.eps_code.push( _linewidth + " setlinewidth" );
+    if ( _linethick > 0 ) this.eps_code.push( _linethick + " setlinethick" );
     this.eps_code.push( _from_x + " " + _from_y + " moveto" );
     this.eps_code.push( _to_x + " " + _to_y + " lineto" );
     this.eps_code.push( "closepath" );
@@ -303,7 +303,7 @@ jseps.prototype.line = function( _from_x, _from_y, _to_x, _to_y, _linewidth, _dr
     this.eps_code.push( "stroke" );
 }
 
-jseps.prototype.broken_line = function( _pts_array, _linewidth, _close, _drawcolor, _fillcolor, _dash_values, _comment )
+jseps.prototype.broken_line = function( _pts_array, _linethick, _close, _drawcolor, _fillcolor, _dash_values, _comment )
 {
     if ( is_array( _pts_array ) )
     {
@@ -312,9 +312,9 @@ jseps.prototype.broken_line = function( _pts_array, _linewidth, _close, _drawcol
             _dash_values = safe_string( _dash_values, "" ) ;
             _comment = safe_string( _comment, "" ) ;
             _close = safe_int( _close, 0 );
-            _linewidth = safe_int( _linewidth, 0 );
+            _linethick = safe_int( _linethick, 0 );
             if ( _comment.length > 0 ) this.comment( _comment );
-            if ( _linewidth > 0 ) this.eps_code.push( _linewidth + " setlinewidth" );
+            if ( _linethick > 0 ) this.eps_code.push( _linethick + " setlinethick" );
             if ( _dash_values.length > 0 ) this.eps_code.push( _dash_values + " 0 setdash" );
             this.eps_code.push( "newpath" );
             for( var _i = 0 ; _i < _pts_array.length ; _i++ )
@@ -350,12 +350,12 @@ jseps.prototype.broken_line = function( _pts_array, _linewidth, _close, _drawcol
     }
 }
 
-jseps.prototype.arc = function( _center_x, _center_y, _radius, _start_degree, _end_degree, _linewidth, _drawcolor, _dash_values, _comment )
+jseps.prototype.arc = function( _center_x, _center_y, _radius, _start_degree, _end_degree, _linethick, _drawcolor, _dash_values, _comment )
 {
     _dash_values = safe_string( _dash_values, "" ) ;
     _comment = safe_string( _comment, "" ) ;
     _drawcolor = safe_string( _drawcolor, "" ) ;
-    _linewidth = safe_int( _linewidth, 0 );
+    _linethick = safe_int( _linethick, 0 );
     if ( this.flip_y ) _center_y = this.bb_height - _center_y ;
     if ( _comment.length > 0 ) this.comment( _comment );
     if ( _dash_values.length > 0 ) this.eps_code.push( _dash_values + " 0 setdash" );
@@ -369,18 +369,18 @@ jseps.prototype.arc = function( _center_x, _center_y, _radius, _start_degree, _e
         var _rgb_triplet = get_rgb_dec_triplet( _drawcolor ) ;
         this.set_rgb_color( _rgb_triplet[0], _rgb_triplet[1], _rgb_triplet[2] ) ;
 
-        if ( _linewidth > 0 ) this.eps_code.push( _linewidth + " setlinewidth" );
+        if ( _linethick > 0 ) this.eps_code.push( _linethick + " setlinethick" );
         this.eps_code.push( "stroke" );
     }
 }
 
-jseps.prototype.circle = function( _center_x, _center_y, _radius, _linewidth, _drawcolor, _fillcolor, _dash_values, _comment )
+jseps.prototype.circle = function( _center_x, _center_y, _radius, _linethick, _drawcolor, _fillcolor, _dash_values, _comment )
 {
     _dash_values = safe_string( _dash_values, "" ) ;
     _comment = safe_string( _comment, "" ) ;
     _drawcolor = safe_string( _drawcolor, "" ) ;
     _fillcolor = safe_string( _fillcolor, "" ) ;
-    _linewidth = safe_int( _linewidth, 0 );
+    _linethick = safe_int( _linethick, 0 );
     if ( this.flip_y ) _center_y = this.bb_height - _center_y ;
     if ( _comment.length > 0 ) this.comment( _comment );
     if ( _dash_values.length > 0 ) this.eps_code.push( _dash_values + " 0 setdash" );
@@ -392,7 +392,7 @@ jseps.prototype.circle = function( _center_x, _center_y, _radius, _linewidth, _d
         if ( _drawcolor[0] != "#" && _jseps_palette[ "" + _drawcolor ] != null ) _drawcolor = _jseps_palette[ "" + _drawcolor ] ;
 
         if ( _fillcolor.length > 0 ) this.eps_code.push( "gsave" );
-        if ( _linewidth > 0 ) this.eps_code.push( _linewidth + " setlinewidth" );
+        if ( _linethick > 0 ) this.eps_code.push( _linethick + " setlinethick" );
         var _rgb_triplet = get_rgb_dec_triplet( _drawcolor ) ;
         this.set_rgb_color( _rgb_triplet[0], _rgb_triplet[1], _rgb_triplet[2] ) ;
         this.eps_code.push( "stroke" );

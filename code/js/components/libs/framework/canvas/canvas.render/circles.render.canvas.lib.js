@@ -242,7 +242,7 @@ function circles_lib_canvas_render_wplane( _canvas = null, _mapper = wplane_sm, 
     // Thus I split the layers piling into two parts: (a) one before the multi-threading, (b) one after the multi-threading.
     // Part (a) runs up to the multi-threading process included.
     // Part (b) runs after the multi-threading process is over and it is called
-    // in circles_lib_canvas_after_process_main() function
+    // in circles_lib_canvas_after_render_main() function
     if ( !is_array( _layers_array ) )
     {
        _layers_array = [] ;

@@ -587,7 +587,7 @@ mobius_map.prototype.invert_circle = function( C1 )    // C1 is the circle objec
     var z1 = this.compute( z );
     var radius = z1.distance( ( this.compute( complexC1center.add( complexR1 ) ) ) ) ;
     return new circle( new point( z1.real, z1.imag ), radius,
-                       C1.draw, C1.fill, C1.drawcolor, C1.fillcolor, C1.linewidth, C1.notes );
+                       C1.draw, C1.fill, C1.drawcolor, C1.fillcolor, C1.linethick, C1.notes );
 }
 
 mobius_map.prototype.map_circle = function( C1 )   // C1 is the be circle object mapped onto
@@ -600,7 +600,7 @@ mobius_map.prototype.map_circle = function( C1 )   // C1 is the be circle object
     var z1 = this.compute( z );
     return new circle( new point( z1.real, z1.imag ),
                        z1.distance( this.compute( complexC1center.add( complexR1 ) ) ),
-                       C1.draw, C1.fill, C1.drawcolor, C1.fillcolor, C1.linewidth, C1.notes );
+                       C1.draw, C1.fill, C1.drawcolor, C1.fillcolor, C1.linethick, C1.notes );
 }
 
 // compositions

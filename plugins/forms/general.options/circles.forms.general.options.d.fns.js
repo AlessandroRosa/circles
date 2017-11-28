@@ -690,7 +690,7 @@ function CIRCLESformsGENERALOPTIONSscheduledrenderingAPPLY()
 		{
        var _ctrl_id = "CIRCLESgeneraloptionsSETTINGSpixelsizeEDIT" ;
               $( "#" + _ctrl_id ).val( _glob_pixel_size );
-              		_ctrl_id = "CIRCLESgeneraloptionsSETTINGSlinewidthEDIT" ;
+              		_ctrl_id = "CIRCLESgeneraloptionsSETTINGSlinethickEDIT" ;
               $( "#" + _ctrl_id ).val( _glob_line_width );
               		_ctrl_id = "CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeEDIT" ;
               var _min_t = 1, _max_t = 15 ;

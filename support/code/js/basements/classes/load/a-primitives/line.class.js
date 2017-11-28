@@ -36,7 +36,7 @@ function line()
     {
         this.start_pt = arguments[0] ;
         this.end_pt = arguments[1] ;
-        this.linewidth = safe_int( arguments[2], 1 ) ;
+        this.linethick = safe_int( arguments[2], 1 ) ;
         this.drawcolor = safe_string( arguments[3], "" ) ;
         this.slope = this.slope() ;
         this.length = this.get_length() ;
@@ -46,7 +46,7 @@ function line()
     {
         this.start_pt = arguments[0].start_pt ;
         this.end_pt = arguments[0].end_pt ;
-        this.linewidth = arguments[0].linewidth ;
+        this.linethick = arguments[0].linethick ;
         this.drawcolor = arguments[0].drawcolor ;
         this.slope = this.slope() ;
         this.length = this.get_length() ;
@@ -56,7 +56,7 @@ function line()
     {
         this.start_pt = new point( arguments[0], arguments[1] ) ;
         this.end_pt = new point( arguments[2], arguments[3] ) ;
-        this.linewidth = safe_int( arguments[3], 1 ) ;
+        this.linethick = safe_int( arguments[3], 1 ) ;
         this.drawcolor = safe_string( arguments[4], "" ) ;
         this.slope = this.slope() ;
         this.length = this.get_length() ;
@@ -64,11 +64,11 @@ function line()
     }
 }
 
-line.prototype.set_coords = function( startX, startY, endX, endY, linewidth, drawcolor )
+line.prototype.set_coords = function( startX, startY, endX, endY, linethick, drawcolor )
 {
     this.start_pt = new point( startX, startY ) ;
     this.end_pt = new point( endX, endY ) ;
-    this.linewidth = safe_int( linewidth, 1 ) ;
+    this.linethick = safe_int( linethick, 1 ) ;
     this.drawcolor = safe_string( drawcolor, "" ) ;
     this.slope = this.slope() ;
     this.length = this.get_length() ;
@@ -81,13 +81,13 @@ line.prototype.get_start_pt = function() { return this.start_pt ; }
 line.prototype.get_end_pt = function() { return this.end_pt ; }
 line.prototype.get_both_end_pts = function() { return [ this.start_pt, this.end_pt ]; }
 line.prototype.get_error = function() { return this.error ; }
-line.prototype.copy = function() { return new line( this.start_pt.x, this.start_pt.y, this.end_pt.x, this.end_pt.y, this.linewidth, this.drawcolor ); }
+line.prototype.copy = function() { return new line( this.start_pt.x, this.start_pt.y, this.end_pt.x, this.end_pt.y, this.linethick, this.drawcolor ); }
 line.prototype.is_parallel_to = function() { return !this.intersect_test.apply( this, arguments ) ; }
 line.prototype.is_equal_to = function( L2 ) { return is_line( L2 ) ? ( ( this.start_pt.is_equal_to( L2.start_pt ) && this.end_pt.is_equal_to( L2.end_pt ) ) ? 1 : 0 ) : 0 ; }
 line.prototype.roundTo = function( _round_digits )
 {
     _round_digits = safe_int( _round_digits, LINE_MAX_ACCURACY );
-    return new line( this.start_pt, this.end_pt, this.linewidth, this.drawcolor );
+    return new line( this.start_pt, this.end_pt, this.linethick, this.drawcolor );
 }
 
 line.prototype.output = function( _round_digits )

@@ -74,7 +74,7 @@ function CIRCLESformsINTERSECTIONPOINTScopyPOINTS( packed_pts )
                            _tmp_chunk['fill'] = YES ;
                            _tmp_chunk['fillcolor'] = DEFAULT_INTERSECTION_POINT_INTERIOR_COLOR ;
                            _tmp_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-                           _tmp_chunk['linewidth'] = 1 ;
+                           _tmp_chunk['linethick'] = 1 ;
                            _tmp_chunk['enabled'] = YES ;
                            _tmp_chunk['myhash'] = "rec"+(_i+1);
                            _tmp_chunk['label'] = "" ;

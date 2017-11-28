@@ -2,26 +2,34 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>region %plane% %color#1% %color#2% %coords%</snow>
+<lightblue>usage</lightblue> <snow>region %plane% %coords% drawcolor:%drawcolor% linethick:%linethick% fillcolor:%fillcolor% roundto:%roundto% %rec%</snow>
 
 <lightblue>%plane%</lightblue> <snow>zplane | wplane</snow> (mandatory)
-<lightblue>%color#1%</lightblue> <snow>border color</snow> (optional)
-<lightblue>%color#2%</lightblue> <snow>fill color</snow> (optional)
+
+<lightblue>%drawcolor%</lightblue> <snow>draw color (border)</snow> (optional)
+
+<lightblue>%fillcolor%</lightblue> <snow>fill color</snow> (optional)
+
+<lightblue>%linethick%</lightblue> <snow>border line thickness</snow> (optional)
+
 <lightblue>%coords%</lightblue> <snow>coordinates syntax</snow> (mandatory)
 
+<lightblue>%roundto%</lightblue> <snow>round output values</snow> (optional)
+
+<lightblue>%rec%</lightblue> (optional)
+
 <yellow>Example for straight syntax coords</yellow>
-<lightblue>region zplane yellow cyan 0,2,1,0 opaq:0.2</lightblue>
+<lightblue>region zplane 0,2,1,0 drawcolor:yellow fillcolor:cyan opacity:0.2</lightblue>
 <cadetblue>paints a bounded portion of the z-plane and defined by input coords (x1,y1,x2,y2)<br>
 Border and interior are painted yellow and cyan, respectively.<br>
 The interior is painted with opacity set to 0.2
 </cadetblue>
 
 <yellow>Example #1 for inequality (simple)</yellow>
-<lightblue>region zplane yellow y < 2</lightblue>
+<lightblue>region zplane yellow y < 2 rec</lightblue>
 <cadetblue>paints yellow the unbounded rect region in the z-plane, given y < 2</cadetblue>
+<cadetblue>this region will be recorded in the figures storage space</cadetblue>
 
 <yellow>Example #2 for inequality (composite)</yellow>
 <lightblue>region wplane blue x > 2 y < 1</lightblue>
 <cadetblue>paints blue the unbounded rect region of the w-plane, given x > 2 and y < 1</cadetblue>
-
-<lightgray>Use 'roundto:n' to round output values to 10E-n</lightgray>

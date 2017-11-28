@@ -483,7 +483,7 @@ function circles_terminal_cmd_word()
                        _fill = _rec_chunk['fill'] ;
                        _fillcolor = _rec_chunk['fillcolor'] ;
                        _opacity = _rec_chunk['opacity'] ;
-                       _linewidth = _rec_chunk['linewidth'];
+                       _linethick = _rec_chunk['linethick'];
                        _border_radius = _rec_chunk['borderradius'];
                        _properties_mask = _rec_chunk['propertiesmask'];
                        _close = ( _rec_chunk['close'] != null ) ? _rec_chunk['close'] : NO ;
@@ -523,7 +523,7 @@ function circles_terminal_cmd_word()
                           case FIGURE_CLASS_LINE:
                           _pts_array.push( _obj.get_both_end_pts().clone() );
                           circles_lib_draw_polyline( _canvas_context, _mapper, _obj,
-                                               _drawcolor, _fillcolor, _linewidth,
+                                               _drawcolor, _fillcolor, _linethick,
                                                _close, _opacity, UNDET,
                                                _properties_mask, YES );
                           break ;
@@ -532,19 +532,19 @@ function circles_terminal_cmd_word()
                           if ( _border_radius )
                           circles_lib_draw_rounded_rect( _canvas_context, _mapper, _obj,
                                                   _draw, _drawcolor, _fill, _fillcolor,
-                                                  _linewidth, _border_radius, YES,
+                                                  _linethick, _border_radius, YES,
                                                   _opacity, _properties_mask );
                           else
                           circles_lib_draw_rect( _canvas_context, _mapper, _obj,
                                            _draw, _drawcolor, _fill, _fillcolor,
-                                           _linewidth, YES, _opacity, _properties_mask );
+                                           _linethick, YES, _opacity, _properties_mask );
                           break ;
                           case FIGURE_CLASS_CIRCLE:
                           _pts_array.push( _obj.get_representative_pts().clone() );
                           circles_lib_draw_complex_disk( _canvas_context, _mapper,
                                                   _obj.center.x, _obj.center.y, _obj.radius,
                                                   _draw, _drawcolor, _fill, _fillcolor,
-                                                  _linewidth, _opacity, null, null, "", _properties_mask );
+                                                  _linethick, _opacity, null, null, "", _properties_mask );
                           break ;
 					                default: break ;
                       }
@@ -565,7 +565,7 @@ function circles_terminal_cmd_word()
                                 _obj.set_start_pt( _pts_array[0] );
                                 _obj.set_end_pt( _pts_array[1] );
                                 circles_lib_draw_polyline( _canvas_context, _mapper, _obj,
-                                                     _drawcolor, _fillcolor, _linewidth,
+                                                     _drawcolor, _fillcolor, _linethick,
                                                      _close, _opacity, UNDET,
                                                      _properties_mask, YES );
                                 break ;
@@ -578,12 +578,12 @@ function circles_terminal_cmd_word()
                                 if ( _border_radius )
                                 circles_lib_draw_rounded_rect( _canvas_context, _mapper, _obj,
                                                         _draw, _drawcolor, _fill, _fillcolor,
-                                                        _linewidth, _border_radius, YES,
+                                                        _linethick, _border_radius, YES,
                                                         _opacity, _properties_mask );
                                 else
                                 circles_lib_draw_rect( _canvas_context, _mapper, _obj,
                                                  _draw, _drawcolor, _fill, _fillcolor,
-                                                 _linewidth, YES, _opacity, _properties_mask );
+                                                 _linethick, YES, _opacity, _properties_mask );
                                 break ;
                                 case FIGURE_CLASS_CIRCLE:
                                 _obj.set_center( _pts_array[0] );
@@ -591,7 +591,7 @@ function circles_terminal_cmd_word()
                                 circles_lib_draw_complex_disk( _canvas_context, _mapper,
                                                         _obj.center.x, _obj.center.y, _obj.radius,
                                                         _draw, _drawcolor, _fill, _fillcolor,
-                                                        _linewidth, _opacity, null, null, "", _properties_mask );
+                                                        _linethick, _opacity, null, null, "", _properties_mask );
                                 break ;
 								                default: break ;
                             }

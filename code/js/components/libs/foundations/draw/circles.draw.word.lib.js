@@ -98,7 +98,7 @@ function circles_lib_draw_word_circlewise( _context, _mapper, _items_array, _cle
         var INDEX = circles_lib_find_item_index_by_symbol( _items_array, _glob_persistent_vars['word'] ) ;
         var ITEM = INDEX >= 0 ? _items_array[INDEX] : null ;
         var complex_circle = is_item_obj( ITEM ) ? ITEM.complex_circle : null ;
-        var linewidth = _context.get_canvas().get_type().is_one_of( Z_PLANE, W_PLANE ) ? _glob_pixel_size : _glob_bip_pixel_size ;
+        var linethick = _context.get_canvas().get_type().is_one_of( Z_PLANE, W_PLANE ) ? _glob_pixel_size : _glob_bip_pixel_size ;
         var fill = is_circle( complex_circle ) ? complex_circle.fill : NO ;
         var draw = is_circle( complex_circle ) ? complex_circle.draw : NO ;
         var drawcolor = is_circle( complex_circle ) ? complex_circle.drawcolor : "" ;
@@ -123,7 +123,7 @@ function circles_lib_draw_word_circlewise( _context, _mapper, _items_array, _cle
             FILLCLR = w < ORBITcolorsGRADIENT.length ? ORBITcolorsGRADIENT[w] : ORBITcolorsGRADIENT[ORBITcolorsGRADIENT.length-1] ;
             _screen_circle = circles_lib_draw_complex_disk( _context, _mapper,
 			                                                      _cc.center.x, _cc.center.y, _cc.radius,
-			                                                      1, FILLCLR, 1, "", 2 * linewidth, _glob_opacity, null, null, _input_word, 0 );
+			                                                      1, FILLCLR, 1, "", 2 * linethick, _glob_opacity, null, null, _input_word, 0 );
             if ( _glob_symbols_display_wplane )
             {
                _context.font = DEFAULT_FONT_SIZE + " " + DEFAULT_FONT_FAMILY ;
@@ -243,7 +243,7 @@ function circles_lib_draw_word_inversion( _context, _mapper, _items_array, _clea
         // and consult it later, by inputting the symbol as the key to the array element
         _glob_symbols_index_array = circles_lib_symbol_get_indexes_mapping_array( null,  NO, _output_channel );
         _glob_persistent_vars['word'] = _input_word.charAt(0);
-        var linewidth = _items_array[INDEX]._cc.linewidth ;
+        var linethick = _items_array[INDEX]._cc.linethick ;
         var fill = _items_array[INDEX]._cc.fill ;
         var draw = _items_array[INDEX]._cc.draw ;
         var drawcolor = _items_array[INDEX]._cc.drawcolor ;

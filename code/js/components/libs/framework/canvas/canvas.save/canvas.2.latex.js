@@ -57,13 +57,13 @@ function _latex_line( _screen_line, _dashed )
          _dashed = safe_int( _dashed, 0 ); 
          var _x1 = _screen_line.start_pt.x, _y1 = _screen_line.start_pt.y ;
          var _x2 = _screen_line.end_pt.x, _y2 = _screen_line.end_pt.y ;
-         var _linewidth = _screen_line.lw, _clr = _screen_line.drawcolor ;
+         var _linethick = _screen_line.lw, _clr = _screen_line.drawcolor ;
     
          _glob_js_latex_obj.line( _x1, _y1, _x2, _y2, _clr );
      }
 }
 
-function _latex_point( _screen_pt, _draw, _drawcolor, _fill, _fillcolor, _linewidth, _radius )
+function _latex_point( _screen_pt, _draw, _drawcolor, _fill, _fillcolor, _linethick, _radius )
 {
      if ( _glob_latex_open == 1 )
      {
@@ -71,13 +71,13 @@ function _latex_point( _screen_pt, _draw, _drawcolor, _fill, _fillcolor, _linewi
           _drawcolor = safe_string( _drawcolor, "" ); 
           _fill = safe_int( _fill, NO );
           _fillcolor = safe_string( _fillcolor, "" ); 
-          _linewidth = safe_int( _linewidth, 0 );
+          _linethick = safe_int( _linethick, 0 );
           _radius = safe_int( _radius, 0 );
-          _glob_js_latex_obj.point( _screen_pt.x, _screen_pt.y, _linewidth, _fill, _fill ? _fillcolor : "" );
+          _glob_js_latex_obj.point( _screen_pt.x, _screen_pt.y, _linethick, _fill, _fill ? _fillcolor : "" );
      }
 }
 
-function _latex_pixel( _screen_pt, _opacity, _draw, _drawcolor, _fill, _fillcolor, _linewidth )
+function _latex_pixel( _screen_pt, _opacity, _draw, _drawcolor, _fill, _fillcolor, _linethick )
 {
      if ( _glob_latex_open == 1 )
      {
@@ -97,7 +97,7 @@ function _latex_circle( _screen_circle, _dashed, _opacity )
          if ( _dashed && _screen_circle.drawcolor.length == 0 ) _screen_circle.drawcolor = DEFAULT_EDIT_COLOR_DISABLED ;
 
          var _dash_attr = _dashed ? "[2,2]" : "" ;
-         var _linewidth_attr = ( _screen_circle.draw && _screen_circle.linewidth > 0 ) ? " stroke-width=\""+_screen_circle.linewidth+"\"" : "" ;
+         var _linethick_attr = ( _screen_circle.draw && _screen_circle.linethick > 0 ) ? " stroke-width=\""+_screen_circle.linethick+"\"" : "" ;
          var _draw_attr = ( ( _screen_circle.draw || _dashed ) && _screen_circle.drawcolor.length > 0 ) ? " stroke=\""+_screen_circle.drawcolor+"\"" : "" ;
          var _fill_attr = ( _screen_circle.fill && _screen_circle.fillcolor.length > 0 ) ? " fill=\""+_screen_circle.fillcolor+"\"" : " fill=\"transparent\"" ;
          
@@ -107,7 +107,7 @@ function _latex_circle( _screen_circle, _dashed, _opacity )
      }
 }
 
-function _latex_rect( _screen_rect, _opacity, _draw, _drawcolor, _fill, _fillcolor, _linewidth, _borderradius )
+function _latex_rect( _screen_rect, _opacity, _draw, _drawcolor, _fill, _fillcolor, _linethick, _borderradius )
 {
      if ( _glob_latex_open == 1 )
      {
@@ -115,7 +115,7 @@ function _latex_rect( _screen_rect, _opacity, _draw, _drawcolor, _fill, _fillcol
          _draw = safe_int( _draw, 0 );
          _fill = safe_int( _fill, 0 );
          _borderradius = safe_int( _borderradius, 0 );
-         _linewidth = safe_int( _linewidth, 0 );
+         _linethick = safe_int( _linethick, 0 );
          var _x = _screen_rect.x1, _y = _screen_rect.y1;
          var _w = _screen_rect.w, _h = _screen_rect.h;
          if ( _borderradius == 0 )

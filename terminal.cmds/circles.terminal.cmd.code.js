@@ -325,7 +325,7 @@ function circles_terminal_cmd_code_3rd_step( _opt, _settings_array, _rows_of_cod
                     if ( _inv_symbol.length > 0 ) _cmd += " " + _inv_symbol ;
                     if ( _cc.draw == 0 ) _cmd += " nodraw" ;
                     if ( _cc.fill ) _cmd += " fill" ;
-                    if ( _cc.linewidth != 1 ) _cmd += " linewidth:" + _cc.linewidth ;
+                    if ( _cc.linethick != 1 ) _cmd += " linethick:" + _cc.linethick ;
 
                     _drawcolor_chunk = circles_lib_colors_get_formats( _cc.drawcolor );
                     _drawcolor_out = ( _drawcolor_chunk[3] != "no tag" ) ? _drawcolor_chunk[3] : _drawcolor_chunk[2] ;
@@ -360,7 +360,7 @@ function circles_terminal_cmd_code_3rd_step( _opt, _settings_array, _rows_of_cod
                     _cmd = "mobius update" ;
                     _cmd += " " + _symbol ;
                     if ( _inv_symbol.length > 0 ) _cmd += " " + _inv_symbol ;
-                    if ( _cc.linewidth != 1 ) _cmd += " linewidth:" + _cc.linewidth ;
+                    if ( _cc.linethick != 1 ) _cmd += " linethick:" + _cc.linethick ;
                     _cmd += _cc.draw == 0 ? " nodraw" : " draw" ;
                     if ( _cc.fill ) _cmd += " fill" ;
 

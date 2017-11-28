@@ -121,7 +121,7 @@ function CIRCLESdrawPROCESSbyINVERSION( objs, settings )
              														_POINT_2D_CLS_EUCLIDEAN_ENV,
              														_items_array[INDEX].complex_circle.drawcolor,
              														_items_array[INDEX].complex_circle.fillcolor,
-             														_items_array[INDEX].complex_circle.linewidth
+             														_items_array[INDEX].complex_circle.linethick
 						 													) );
              words_array.push( WORD );
              circles_array.push( complex_circle );

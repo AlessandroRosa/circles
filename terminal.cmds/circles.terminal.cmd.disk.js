@@ -50,7 +50,7 @@ function circles_terminal_cmd_disk()
         _params_assoc_array['inv_symbol'] = null ;
         _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
         _params_assoc_array['symbol'] = null ;
-        _params_assoc_array['linewidth'] = null ;
+        _params_assoc_array['linethick'] = null ;
         _params_assoc_array['mirrorx'] = null ;
         _params_assoc_array['mirrory'] = null ;
         _params_assoc_array['off'] = NO ;
@@ -195,10 +195,10 @@ function circles_terminal_cmd_disk()
                 _params_assoc_array['y'] = safe_float( _p.replaceAll( "y:", "" ), 0 );
             else if ( _p.stricmp( "x" ) ) _params_assoc_array['mirrorx'] = 1 ;
             else if ( _p.stricmp( "y" ) ) _params_assoc_array['mirrory'] = 1 ;
-            else if ( _p.toLowerCase().start_with( "linewidth:" ) )
+            else if ( _p.toLowerCase().start_with( "linethick:" ) )
             {
-                _params_assoc_array['linewidth'] = safe_float( _p.replaceAll( "linewidth:", "" ), 0 );
-                if ( _params_assoc_array['linewidth'] < 0 )
+                _params_assoc_array['linethick'] = safe_float( _p.replaceAll( "linethick:", "" ), 0 );
+                if ( _params_assoc_array['linethick'] < 0 )
                 {
                     _b_fail = YES, _error_str = "input line thickness is not a number or it is not strictly positive" ; break ;
                 }
@@ -417,7 +417,7 @@ function circles_terminal_cmd_disk()
                             if ( _params_assoc_array['draw'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _params_assoc_array['draw'] ;
                             if ( _params_assoc_array['drawcolor'] != null ) _items_array[_obj_index].complex_circle.drawcolor = _params_assoc_array['drawcolor'] ;
                             if ( _params_assoc_array['fillcolor'] != null ) _items_array[_obj_index].complex_circle.fillcolor = _params_assoc_array['fillcolor'] ;
-                            _items_array[_obj_index].complex_circle.linewidth = ( _params_assoc_array['linewidth'] != null ) ? _params_assoc_array['linewidth'] : 1 ;
+                            _items_array[_obj_index].complex_circle.linethick = ( _params_assoc_array['linethick'] != null ) ? _params_assoc_array['linethick'] : 1 ;
                             if ( _new_sd_n == _old_sd_n + 1 ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The new disk '"+_last_item_obj_symbol+"' has been added", _par_1, _cmd_tag );
 
                             var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
@@ -1363,7 +1363,7 @@ function circles_terminal_cmd_disk()
                                     if ( _params_assoc_array['radius'] != null ) _items_array[_obj_index].complex_circle.radius = _params_assoc_array['radius'] ;
                                     if ( _params_assoc_array['fill'] != UNDET ) _items_array[_obj_index].complex_circle.fill = _params_assoc_array['fill'] ;
                                     if ( _params_assoc_array['draw'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _params_assoc_array['draw'] ;
-                                    if ( _params_assoc_array['linewidth'] != null ) _items_array[_obj_index].complex_circle.linewidth = _params_assoc_array['linewidth'] ;
+                                    if ( _params_assoc_array['linethick'] != null ) _items_array[_obj_index].complex_circle.linethick = _params_assoc_array['linethick'] ;
                                     if ( _params_assoc_array['drawcolor'] != null ) _items_array[_obj_index].complex_circle.drawcolor = _params_assoc_array['drawcolor'] ;
                                     if ( _params_assoc_array['fillcolor'] != null ) _items_array[_obj_index].complex_circle.fillcolor = _params_assoc_array['fillcolor'] ;
 

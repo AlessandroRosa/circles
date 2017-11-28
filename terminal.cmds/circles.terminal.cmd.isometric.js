@@ -222,7 +222,7 @@ function circles_terminal_cmd_isometric()
                                 _rec_chunk['fill'] = _fill ;
                                 _rec_chunk['fillcolor'] = _params_assoc_array['fillcolor'] ;
                                 _rec_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-                                _rec_chunk['linewidth'] = 1 ;
+                                _rec_chunk['linethick'] = 1 ;
                                 _rec_chunk['symbol'] = "$" + _word ;
                                 _rec_chunk['myhash'] = "" ;
                                 _rec_chunk['enabled'] = YES ;
@@ -318,7 +318,7 @@ function circles_terminal_cmd_isometric()
                                       _rec_chunk['fill'] = _fill ;
                                       _rec_chunk['fillcolor'] = _params_assoc_array['fillcolor'] ;
                                       _rec_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-                                      _rec_chunk['linewidth'] = 1 ;
+                                      _rec_chunk['linethick'] = 1 ;
                                       _rec_chunk['enabled'] = YES ;
                                       _rec_chunk['myhash'] = "" ;
                                       _rec_chunk['symbol'] = "$" + _symbol ;

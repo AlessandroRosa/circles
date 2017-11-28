@@ -4,7 +4,7 @@ var _glob_multithread_obj_draw = 0 ;
 var _glob_multithread_obj_fill = 0 ;
 var _glob_multithread_obj_drawcolor = "" ;
 var _glob_multithread_obj_fillcolor = "" ;
-var _glob_multithread_obj_linewidth = 0 ;
+var _glob_multithread_obj_linethick = 0 ;
 var _glob_multithread_obj_word = "" ;
 var _glob_multithread_obj_screen_pt = null ;
 var _glob_multithread_obj_screen_circle = null ;
@@ -96,7 +96,7 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
                                                         _glob_multithread_obj.circles_array[_i].radius,
    		                                                  _glob_multithread_obj.circles_array[_i].draw, _glob_multithread_obj.circles_array[_i].drawcolor,
 																												_glob_multithread_obj.circles_array[_i].fill, _glob_multithread_obj.circles_array[_i].fillcolor,
-                                                        _glob_multithread_obj.circles_array[_i].linewidth, _glob_opacity, null, null, _glob_multithread_obj_word, 0 );
+                                                        _glob_multithread_obj.circles_array[_i].linethick, _glob_opacity, null, null, _glob_multithread_obj_word, 0 );
                                 _glob_rec_canvas_entities_array[ _glob_multithread_obj_screen_circle.output('plain',0,NO) ] = _glob_multithread_obj.circles_array[_i] ;
              		            }
                             break ;
@@ -231,7 +231,7 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
             _glob_original_dict = _glob_dict_processor.sliced_dictionary = msg.dict.clone();
 		        _glob_process_running_flag = _glob_multithread_running = _glob_worker_lock = NO ;
 		        var BTN = $( "#refreshWPLANEbtn" ).get(0);        if ( BTN != null ) BTN.disabled = 0 ;
-		        circles_lib_canvas_after_process_main();
+		        circles_lib_canvas_after_render_main();
 					  // last method shall be recorded after the process has started
 						_glob_last_method = _glob_method ;
             $('[id$=renderBTN]').css('color',DEFAULT_COLOR_STD);
