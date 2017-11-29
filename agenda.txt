@@ -14,6 +14,15 @@
 
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 
+1 merge infos inside region and rect .hlp files
+2 delete rect cmd .hlp file
+3 rename rect cmd into something else for disabilitation
+4 rename 'region' cmd into 'rect'
+5 replace all occurrances of FIGURE_CLASS_REGION with FIGURE_CLASS_RECT
+6 delete FIGURE_CLASS_REGION declaration
+7 complete test of new 'rect' cmd
+8 delete old rect cmd (3)
+
 -------------- FIX SOON -----------------------
 
 * terminal focus is taken only if pop-up is resized or

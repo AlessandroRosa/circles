@@ -21,52 +21,46 @@ function circles_terminal_cmd_region()
 	if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
     if ( _params.length > 0 )
     {
+        _params_assoc_array['coords'] = [] ;
+        _params_assoc_array['copy'] = NO ;
         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
         _params_assoc_array['help'] = NO ;
         _params_assoc_array['keywords'] = NO ;
+        _params_assoc_array['label'] = "" ;
+		_params_assoc_array['layerdef'] = "work" ;
+        _params_assoc_array['plane'] = Z_PLANE ;
         _params_assoc_array['roundto'] = _glob_accuracy ;
         _params_assoc_array['syntax'] = [] ;
-        _params_assoc_array['coords'] = [] ;
         _params_assoc_array['syntax']['inequality'] = [] ;
-        _params_assoc_array['label'] = "" ;
         _params_assoc_array['rec'] = NO ;
-        _params_assoc_array['storagesubset'] = "regions" ;
+        _params_assoc_array['storagesubset'] = "" ;
         _params_assoc_array['xsyntax'] = [] ;
         _params_assoc_array['ysyntax'] = [] ;
-		_params_assoc_array['layerdef'] = "work" ;
 
 		var _labels = [ "x1", "y1", "x2", "y2" ], _got_it = [] ;
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); 
         // pre-scan for levenshtein correction
-    	var _local_cmds_params_array = [];
-    		_local_cmds_params_array.push( "release", "clean", "zplane", "wplane", "html", "rec" );
+    	var _local_cmds_params_array = [ "release", "clean", "zplane", "wplane", "html", "rec" ];
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
         var _p, _layer ;
         for( var _i = 0 ; _i < _params_array.length ; _i++ )
         {
             _p = _params_array[_i].toLowerCase();
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
-            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-            else if ( _p.toLowerCase().start_with( "roundto:" ) )
+            else if ( _p.start_with_i( "$" ) )
             {
-                _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
-                if ( _p <= 0 )
+                for( _l = 0 ; _l < _glob_figures_array.length ; _l++ )
                 {
-                    _p = _glob_accuracy ;
-                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                    if ( _p.stricmp( _glob_figures_array[_l]['label'] ) )
+                    {
+                        _b_fail = YES, _error_str = "There exists already another figure labelled as '"+_p+"'" ;
+                        break ;
+                    }
                 }
-                else if ( _p > DEFAULT_MAX_ACCURACY )
-                {
-                    _p = DEFAULT_MAX_ACCURACY ;
-                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
-                }
-                _params_assoc_array['roundto'] = _p ;
+                if ( !_b_fail ) _params_assoc_array['label'] = _p ;
             }
-            else if ( _p.stricmp( "rec" ) ) _params_assoc_array['rec'] = YES ;
-            else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
-            else if ( _p.is_one_of_i( "clean" ) ) _params_assoc_array.push( "clean" ) ;
+            else if ( _p.start_with( "storagesubset:" ) ) _params_assoc_array['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
             else if ( _p.is_one_of_i( "x", "y" ) )
             {
                 if ( _p.stricmp( "x" ) )
@@ -116,11 +110,27 @@ function circles_terminal_cmd_region()
                 }
 				else { _b_fail = YES ; _error_str = "Invalid string '"+_p+"' during input X-syntax" ; }
             }
-            else if ( _p.is_one_of_i( "zplane", "wplane" ) )
+            else if ( _p.toLowerCase().start_with( "roundto:" ) )
+            {
+                _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
+                if ( _p <= 0 )
+                {
+                    _p = _glob_accuracy ;
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                }
+                else if ( _p > DEFAULT_MAX_ACCURACY )
+                {
+                    _p = DEFAULT_MAX_ACCURACY ;
+                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                }
+                _params_assoc_array['roundto'] = _p ;
+            }
+            else if ( _p.is_one_of_i( "zplane", "wplane", "z-plane", "w-plane", "bip", "bipbox" ) )
             {
            		switch( _p.toLowerCase() )
               	{
 					case "zplane":
+					case "z-plane":
 					if ( _params_assoc_array['plane'] == null )
 					{
 						_params_assoc_array['plane'] = _p ;
@@ -136,6 +146,7 @@ function circles_terminal_cmd_region()
 					}
 					break ;
 					case "wplane":
+					case "w-plane":
 					if ( _params_assoc_array['plane'] == null )
 					{
 						_params_assoc_array['plane'] = _p ;
@@ -148,6 +159,22 @@ function circles_terminal_cmd_region()
 						var _pt = _glob_plane_cmd_type_array[ _params_assoc_array['plane'] ] ;
 						_msg = "<orange>Skipped param '"+_p+"' : input plane has been already set to "+_glob_plane_defs_array[_pt]+"</orange>" ;
 						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+					}
+					break ;
+					case "bip":
+					case "bipbox":
+					if ( _params_assoc_array['plane'] == null )
+					{
+						_params_assoc_array['plane'] = _p ;
+                        _params_assoc_array['planeval'] = BIP_BOX ;
+						_msg = "<lightblue>Selected work layer on the </lightblue> <snow>Bip box</snow>" ;
+						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+					}
+					else
+					{
+						var _pt = _glob_plane_cmd_type_array[ _params_assoc_array['plane'] ] ;
+						_msg = "Skipped param '"+_p+"' : input plane has been already set to "+_glob_plane_defs_array[_pt];
+						circles_lib_output( _output_channel, DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
 					}
 					break ;
 					default: break ;
@@ -164,6 +191,36 @@ function circles_terminal_cmd_region()
 					else { _b_fail = 1 ; _error_str = "Invalid layer '"+_p+"' definition: check the correct spelling or the belonging to the proper plane" ; }
 				}
             }
+			else if ( _p.toLowerCase().start_with( "width:" ) && _params_assoc_array['width'] == null )
+			{
+				_params_assoc_array['width'] = safe_string( _p.replace( /width:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['width'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Width has been set to</lightblue> <snow>"+_params_assoc_array['width']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid width definition" ; break ; }
+			}
+			else if ( _p.toLowerCase().start_with( "height:" ) && _params_assoc_array['height'] == null )
+			{
+				_params_assoc_array['height'] = safe_string( _p.replace( /height:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['height'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Height has been set to</lightblue> <snow>"+_params_assoc_array['height']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid height definition" ; break ; }
+			}
+			else if ( _p.toLowerCase().start_with( "borderradius:" ) && _params_assoc_array['borderradius'] == null )
+			{
+				_params_assoc_array['borderradius'] = safe_string( _p.replace( /borderradius:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['borderradius'].testME( _glob_positive_float_regex_pattern ) )
+				{
+					_msg = "<lightblue>Border radius has been set to</lightblue> <snow>"+_params_assoc_array['borderradius']+"</snow>" ;
+					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				}
+				else { _b_fail = YES, _error_str = "Invalid border radius definition" ; break ; }
+			}
 			else if ( _p.toLowerCase().start_with( "drawcolor:" ) && _params_assoc_array['drawcolor'] == null )
 			{
 				_params_assoc_array['drawcolor'] = safe_string( _p.replace( /drawcolor:/gi, "" ), "" ) ;
@@ -220,9 +277,8 @@ function circles_terminal_cmd_region()
 					_coord = isNaN( _p ) ? "nan" : safe_float( _p, 0 ) ;
 					if ( _coord == "nan" )
 					{
-						_msg = "<orange>Invalid input coord operand '"+_p+"' at param #"+(++_i)+"</orange>" ;
 						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-						_b_fail = YES, _error_str = "Process aborted" ;
+						_b_fail = YES, _error_str = "Invalid input coord operand '"+_p+"' at param #"+(++_i) ;
 					}
 					else
 					{
@@ -238,8 +294,39 @@ function circles_terminal_cmd_region()
 						_msg = "<lime>Detected region coord</lime> <snow>"+_coord+"</snow> <lime>and saved with success as</lime> <snow>"+_def+"</snow>" ;
 						_got_it.push( _i ) ;
 						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+					} } );
+			}
+            else if ( _p.is_one_of_i( "clean", "html", "rec" ) ) _params_assoc_array[_p] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
+			else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
+			{
+				if ( _params_assoc_array['start_pt'] == null )
+				{
+					_p = safe_string( _p.replace( /startpt:/gi, "" ), "" ) ;
+					if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
+					{
+						_p = _p.replaceAll( [ "(", ")" ], "" );
+						var _pt_array = _p.split( "," );
+						_params_assoc_array['start_pt'] = new point( safe_float( _pt_array[0] ), safe_float( _pt_array[1] ) );
+						_msg = "<lightblue>Start point has been set to</lightblue> <snow>"+_params_assoc_array['start_pt'].output()+"</snow>" ;
+						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 					}
-				} );
+					else { _b_fail = YES, _error_str = "Invalid start point definition" ; break ; }
+				}
+				else if ( _params_assoc_array['end_pt'] == null )
+				{
+					_p = safe_string( _p.replace( /endpt:/gi, "" ), "" ) ;
+					if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
+					{
+						_p = _p.replaceAll( [ "(", ")" ], "" );
+						var _pt_array = _p.split( "," );
+						_params_assoc_array['end_pt'] = new point( safe_float( _pt_array[0] ), safe_float( _pt_array[1] ) );
+						_msg = "<lightblue>End point has been set to</lightblue> <snow>"+_params_assoc_array['end_pt'].output()+"</snow>" ;
+						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+					}
+					else { _b_fail = YES, _error_str = "Invalid end point definition" ; break ; }
+				}
 			}
             else if ( _p.testME( _glob_float_regex_pattern ) )
             {
@@ -280,30 +367,46 @@ function circles_terminal_cmd_region()
         else if ( _action.strcmp( "draw" ) && _params_assoc_array['plane'] == null ) { _b_fail = YES, _error_str = "Missing input plane" ; }
         else if ( !_b_fail )
 		{
+            var _storage_queue_request = _params_assoc_array['params'] != null ? ( _params_assoc_array['params'].includes_i( "storagein" ) ? YES : NO ) : NO ;
             var _round_to = _params_assoc_array['roundto'] ;
 		    switch( _action )
 		    {
                 case "draw":
-                circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>End of input stage</snow>", _par_1, _cmd_tag );
+				var _check_coords_mask = _params_assoc_array['start_pt'] != null ? 1 : 0 ;
+					_check_coords_mask |= _params_assoc_array['end_pt'] != null ? 2 : 0 ;
+					_check_coords_mask |= _params_assoc_array['width'] != null ? 4 : 0 ;
+					_check_coords_mask |= _params_assoc_array['height'] != null ? 8 : 0 ;
+
+				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>End of input stage</snow>", _par_1, _cmd_tag );
                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "", _par_1, _cmd_tag );
                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>Begin to process region data</snow>", _par_1, _cmd_tag );
-                if ( safe_size( _got_it, 0 ) > 0 )
+
+				if ( _check_coords_mask == (1|4|8) ) // compute the end point from the start point
+				{
+					_params_assoc_array['end_pt'] = _params_assoc_array['start_pt'].shift( _params_assoc_array['width'], _params_assoc_array['height'], NO );
+					_rect_obj = new rect( _params_assoc_array['start_pt'], _params_assoc_array['end_pt'], _RECT_ORIENTATION_CARTESIAN );
+					_check_coords_mask |= 2 ;
+					circles_lib_output( _output_channel, DISPATCH_INFO, "Rectangle end point missing and recalculated, from width and height, to "+_params_assoc_array['end_pt'].output(), _par_1, _cmd_tag );
+				}
+                else if ( safe_size( _got_it, 0 ) > 0 )
                 {
-					_params_assoc_array['left_top_flag'] = _got_it.includes(0) && _got_it.includes( 1 ) ? YES : NO ;
-               		_params_assoc_array['right_bottom_flag'] = _got_it.includes( 2 ) && _got_it.includes( 3 ) ? YES : NO ;
-					if ( _params_assoc_array['left_top_flag'] )
+					_params_assoc_array['start_pt_flag'] = _got_it.includes(0) && _got_it.includes( 1 ) ? YES : NO ;
+               		_params_assoc_array['end_pt_flag'] = _got_it.includes( 2 ) && _got_it.includes( 3 ) ? YES : NO ;
+					if ( _params_assoc_array['start_pt_flag'] )
     				{
-    					_params_assoc_array['left_top_pt'] = new point( _params_assoc_array['coords'][0], _params_assoc_array['coords'][1] );
-						_msg = "<lightblue>Region left top corner</lightblue> <lime>has been filled with success</lime> <lightblue>"+_params_assoc_array['left_top_pt'].output("cartesian",_round_to)+"</lightblue>" ;
+    					_params_assoc_array['start_pt'] = new point( _params_assoc_array['coords'][0], _params_assoc_array['coords'][1] );
+						_msg = "<lightblue>Region left top corner</lightblue> <lime>has been filled with success</lime> <lightblue>"+_params_assoc_array['start_pt'].output("cartesian",_round_to)+"</lightblue>" ;
     					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
      				}
 
-     				if ( _params_assoc_array['right_bottom_flag'] )
+     				if ( _params_assoc_array['end_pt_flag'] )
      				{
-     					_params_assoc_array['right_bottom_pt'] = new point( _params_assoc_array['coords'][2], _params_assoc_array['coords'][3] );
-     					_msg = "<lightblue>Region right bottom corner</lightblue> <lime>has been filled with success and set at</lime> <lightblue>"+_params_assoc_array['right_bottom_pt'].output("cartesian",_round_to)+"</lightblue>" ;
+     					_params_assoc_array['end_pt'] = new point( _params_assoc_array['coords'][2], _params_assoc_array['coords'][3] );
+     					_msg = "<lightblue>Region right bottom corner</lightblue> <lime>has been filled with success and set at</lime> <lightblue>"+_params_assoc_array['end_pt'].output("cartesian",_round_to)+"</lightblue>" ;
      					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
      				}
+					
+					_rect_obj = new rect( _params_assoc_array['start_pt'], _params_assoc_array['end_pt'], _RECT_ORIENTATION_CARTESIAN );
                 }
 
                 if ( _params_assoc_array['xsyntax']['status'] == CLOSE )
@@ -319,7 +422,11 @@ function circles_terminal_cmd_region()
                         if ( _ret_mask & 4 ) _error_str += _glob_crlf + "Missing operator symbol" ;
                         if ( _ret_mask & 8 ) _error_str += _glob_crlf + "Missing operand identifier" ;
                     }
-                    else circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lime>Coord X-syntax has been validated with success</lime>", _par_1, _cmd_tag );
+                    else
+					{
+						_check_coords_mask |= 16 ;
+						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lime>Coord X-syntax has been validated with success</lime>", _par_1, _cmd_tag );
+					}
                 }
 
                 if ( _params_assoc_array['ysyntax']['status'] == CLOSE )
@@ -335,11 +442,18 @@ function circles_terminal_cmd_region()
                         if ( _ret_mask & 4 ) _error_str += _glob_crlf + "Missing operator symbol" ;
                         if ( _ret_mask & 8 ) _error_str += _glob_crlf + "Missing operand identifier" ;
                     }
-                    else circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lime>Coord Y-syntax has been validated with success</lime>", _par_1, _cmd_tag );
+                    else
+					{
+						_check_coords_mask |= 32 ;
+						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lime>Coord Y-syntax has been validated with success</lime>", _par_1, _cmd_tag );
+					}
                 }
 
+				if ( _params_assoc_array['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Can't plot rect: missing plane reference" ; }
+				else if ( _check_coords_mask == 0 ) { _b_fail = YES, _error_str = "Can't plot rect: missing coordinates" ; }
+
       		    var _plane_type = circles_lib_plane_get_value( _params_assoc_array['plane'] ) ;
-                var _rect_region = null, _canvas, _mapper = null, _context = null, _plane_rect = null ;
+                var _rect_obj = null, _canvas, _mapper = null, _context = null, _plane_rect = null ;
                 if ( _plane_type == Z_PLANE )
                 {
 					_plane_rect = zplane_sm.get_coords_rect();
@@ -363,7 +477,7 @@ function circles_terminal_cmd_region()
 					_context = _canvas.getContext( _glob_canvas_ctx_2D_mode ) ;
 				}
                   
-                if ( _params_assoc_array.includes( "clean" ) )
+                if ( safe_int( _params_assoc_array["clean"], 0 ) )
                 {
                     circles_lib_canvas_clean( _canvas, _canvas.get_backgroundcolor(), _output_channel );
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>"+_params_assoc_array['plane']+"</snow> <lightblue>has been cleaned before drawing</lightblue>", _par_1, _cmd_tag );
@@ -375,17 +489,19 @@ function circles_terminal_cmd_region()
              	var _fillcolor = _fill ? _params_assoc_array['fillcolor'] : "transparent" ;
              	var _opacity = _params_assoc_array['opacity'] != null ? safe_float( _params_assoc_array['opacity'], DEFAULT_OPACITY ) : DEFAULT_OPACITY ;
              	var _linethick = _params_assoc_array['linethick'] != null ? safe_int( _params_assoc_array['linethick'], 0 ) : 0 ;
+				var _border_radius = ( _params_assoc_array['borderradius'] == null ) ? 0 : safe_int( _params_assoc_array['borderradius'], 0 );
+				if ( _border_radius < 0 ) _border_radius = -_border_radius ;
 
 				if ( !_draw && !_fill )
 				circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing both draw and fill colors: region won't be visible", _par_1, _cmd_tag );
                 
 				if ( _input_rect_flag )
                 {
-                    _rect_region = ( new rect( _params_assoc_array['coords'], _RECT_ORIENTATION_CARTESIAN ) ) ;
-					_rect_region.correct();
-                    var _area = _rect_region.area() ;
+                    _rect_obj = ( new rect( _params_assoc_array['coords'], _RECT_ORIENTATION_CARTESIAN ) ) ;
+					_rect_obj.correct();
+                    var _area = _rect_obj.area() ;
                     if ( _area == 0 ) { _b_fail = YES, _error_str = "Input rect region is of zero area: process aborted" ; }
-                    else circles_lib_draw_rect( _context, _mapper, _rect_region, _draw, _drawcolor, _fill, _fillcolor, _draw ? _linethick : 0, YES, _opacity, 0 ) ;
+                    else circles_lib_draw_rect( _context, _mapper, _rect_obj, _draw, _drawcolor, _fill, _fillcolor, _draw ? _linethick : 0, YES, _opacity, 0 ) ;
                 }
                 else if ( _x_syntax_flag || _y_syntax_flag )
                 {
@@ -407,48 +523,58 @@ function circles_terminal_cmd_region()
                         else if ( _operator.is_one_of( ">", ">=" ) ) _rect[3] = _operand ;
                     }
 
-                    _rect_region = ( new rect( _rect, _RECT_ORIENTATION_CARTESIAN ) );
-					//_rect_region.correct();
-					var _area = _rect_region.area() ;
+                    _rect_obj = ( new rect( _rect, _RECT_ORIENTATION_CARTESIAN ) );
+					_rect_obj.correct();
+					var _area = _rect_obj.area() ;
                     if ( _area == 0 ) { _b_fail = YES, _error_str = "Input rect region is of zero area: process aborted" ; }
-                    else circles_lib_draw_rect( _context, _mapper, _rect_region, _draw, _drawcolor, _fill, _fillcolor, _draw ? _linethick : 0, YES, _opacity, 0 ) ;
+                    else
+					{
+						if ( _border_radius )
+						circles_lib_draw_rounded_rect( _context, _mapper, _rect_obj, _draw, _drawcolor, _fill, _fillcolor, _draw ? _linethick : 0, _border_radius, YES, _opacity, 0 );
+						else
+						circles_lib_draw_rect( _context, _mapper, _rect_obj, _draw, _drawcolor, _fill, _fillcolor, _draw ? _linethick : 0, YES, _opacity, 0 ) ;
+					}
 				}
                 else { _b_fail = YES, _error_str = "Missing input reference plane: process aborted" ; }
 
                 if ( _params_assoc_array['rec'] == YES && !_b_fail )
                 {
-                     var _rec_chunk = [];
-                     _rec_chunk['class'] = FIGURE_CLASS_REGION ;
-                     _rec_chunk['draw'] = _fill ;
-                     _rec_chunk['drawcolor'] = _drawcolor ;
-                     _rec_chunk['enabled'] = YES ;
-                     _rec_chunk['fill'] = _fill ;
-                     _rec_chunk['fillcolor'] = _fillcolor ;
-                     _rec_chunk['label'] = _params_assoc_array['label'] ;
-                     _rec_chunk['linethick'] = _linethick ;
-                     _rec_chunk['myhash'] = "rec" + _glob_figures_array.length ;
-                     _rec_chunk['obj'] = _rect_region ;
-                     _rec_chunk['opacity'] = _opacity ;
-                     _rec_chunk['plane'] = _params_assoc_array['planeval'] ;
-					 _rec_chunk['layer'] = _params_assoc_array['layerdef'] ;
-                     _glob_figures_array.push( _rec_chunk );
+                    var _rec_chunk = [];
+					_rec_chunk['borderradius'] = _border_radius ;
+                    _rec_chunk['class'] = FIGURE_CLASS_RECT ;
+                    _rec_chunk['draw'] = _fill ;
+                    _rec_chunk['drawcolor'] = _drawcolor ;
+                    _rec_chunk['enabled'] = YES ;
+                    _rec_chunk['fill'] = _fill ;
+                    _rec_chunk['fillcolor'] = _fillcolor ;
+                    _rec_chunk['label'] = _params_assoc_array['label'] ;
+					_rec_chunk['layer'] = _params_assoc_array['layerdef'] ;
+                    _rec_chunk['linethick'] = _linethick ;
+                    _rec_chunk['myhash'] = "rec" + _glob_figures_array.length ;
+                    _rec_chunk['obj'] = _rect_obj ;
+                    _rec_chunk['opacity'] = _opacity ;
+                    _rec_chunk['plane'] = _params_assoc_array['planeval'] ;
+                    _glob_figures_array.push( _rec_chunk );
 
-                     var _subset = _params_assoc_array['storagesubset'] ;
-                     if ( !is_array( _glob_storage[_subset] ) )
-                     {
-                        _glob_storage[_subset] = [] ;
-                        var _msg = "Storage space <white>'"+_subset+"'</white> has been created with success" ;
-                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-                     }
+                     var _subset = safe_string( _params_assoc_array['storagesubset'], "" ).trim() ;
+					 if ( _subset.length > 0 )
+					 {
+						 if ( !is_array( _glob_storage[_subset] ) )
+						 {
+							_glob_storage[_subset] = [] ;
+							var _msg = "Storage space <white>'"+_subset+"'</white> has been created with success" ;
+							circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+						 }
 
-                     if ( is_array( _glob_storage[_subset] ) )
-                     {
-                        _glob_storage[_subset].push( _rec_chunk );
-                        var _default_space = _subset == "regions" ? 1 : 0 ;
-                        var _msg = "<green>Region "+( _rec_chunk['label'].length > 0 ? "'"+_rec_chunk['label']+"' " : "" )+"has been recorded into "+(_default_space?"default ":"")+"'"+_subset+"' storage space</green>" ;
-                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-                     }
-                     else circles_lib_output( _output_channel, DISPATCH_WARNING, "Storage space '"+_subset+"' does not exist", _par_1, _cmd_tag );
+						 if ( is_array( _glob_storage[_subset] ) )
+						 {
+							_glob_storage[_subset].push( _rec_chunk );
+							var _default_space = _subset == "regions" ? 1 : 0 ;
+							var _msg = "<green>Region "+( _rec_chunk['label'].length > 0 ? "'"+_rec_chunk['label']+"' " : "" )+"has been recorded into "+(_default_space?"default ":"")+"'"+_subset+"' storage space</green>" ;
+							circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+						 }
+						 else circles_lib_output( _output_channel, DISPATCH_WARNING, "Storage space '"+_subset+"' does not exist", _par_1, _cmd_tag );
+					 }
                 }
                 break ;
 		        case "release":

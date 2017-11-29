@@ -2,7 +2,7 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>region %plane% %coords% drawcolor:%drawcolor% linethick:%linethick% fillcolor:%fillcolor% roundto:%roundto% %rec%</snow>
+<lightblue>usage</lightblue> <snow>region %plane% %coords% drawcolor:%drawcolor% fillcolor:%fillcolor% linethick:%linethick% roundto:%roundto% %clean% %rec%</snow>
 
 <lightblue>%plane%</lightblue> <snow>zplane | wplane</snow> (mandatory)
 
@@ -31,5 +31,5 @@ The interior is painted with opacity set to 0.2
 <cadetblue>this region will be recorded in the figures storage space</cadetblue>
 
 <yellow>Example #2 for inequality (composite)</yellow>
-<lightblue>region wplane blue x > 2 y < 1</lightblue>
-<cadetblue>paints blue the unbounded rect region of the w-plane, given x > 2 and y < 1</cadetblue>
+<lightblue>region wplane blue x > 2 y < 1 clean</lightblue>
+<cadetblue>clean the (default: no input choice) work layer of the wplane and paint blue the unbounded rect region of the w-plane, given x > 2 and y < 1</cadetblue>
