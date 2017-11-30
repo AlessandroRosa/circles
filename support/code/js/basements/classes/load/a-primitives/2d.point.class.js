@@ -37,13 +37,13 @@ if ( typeof safe_int != "function" ) function safe_int( _val, _set_if_nan ) { _v
 if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) { _val = parseFloat( _val ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
 if ( typeof safe_size != "function" )
 {
-		function safe_size( _obj, _ret_val )
-		{
-		   if ( _ret_val == "undefined" || _ret_val == null ) _ret_val = 0 ;
-		   if ( _obj == null || _obj == "undefined" ) return _ret_val ;
-		   else if ( typeof _obj == "string" || _obj instanceof String || is_array( _obj ) || _obj instanceof Object ) return _obj.length ;
-		   else return _ret_val ;
-		}
+	function safe_size( _obj, _ret_val )
+	{
+	   if ( _ret_val == "undefined" || _ret_val == null ) _ret_val = 0 ;
+	   if ( _obj == null || _obj == "undefined" ) return _ret_val ;
+	   else if ( typeof _obj == "string" || _obj instanceof String || is_array( _obj ) || _obj instanceof Object ) return _obj.length ;
+	   else return _ret_val ;
+	}
 }
 
 function point()
@@ -149,29 +149,26 @@ point.prototype.distance = function( _pt )
     }
 }
 
-point.prototype.shift = function( _x = 0, _y = 0, _self = 1 )
+point.prototype.shift = function()
 {
+	var _self = 1, _mask = 0 ;
+	if ( is_point( arguments[0] ) ) { _self = safe_int( arguments[1], 0 ) ; _mask = 1 ; }
+	else if ( is_number( arguments[0] ) && is_number( arguments[1] ) ) { _self = safe_int( arguments[2], 0 ) ; _mask = 2 ; }
 	if ( _self )
 	{
-		if ( arguments.length == 1 && is_point( arguments[0] ) )
+		switch( _mask )
 		{
-		   this.x += arguments[0].x, this.y += arguments[0].y ;
-		}
-		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
-		{
-		   this.x += arguments[0], this.y += arguments[1] ;
+			case 1: this.x += arguments[0].x, this.y += arguments[0].y ; break ;
+			case 2: this.x += arguments[0], this.y += arguments[1] ; break ;
 		}
 	}
 	else
 	{
 		var _c = this.copy();
-		if ( arguments.length == 1 && is_point( arguments[0] ) )
+		switch( _mask )
 		{
-		   _c.x += arguments[0].x, _c.y += arguments[0].y ;
-		}
-		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
-		{
-		   _c.x += arguments[0], _c.y += arguments[1] ;
+			case 1: _c.x += arguments[0].x, _c.y += arguments[0].y ; break ;
+			case 2: _c.x += arguments[0], _c.y += arguments[1] ; break ;
 		}
 		return _c ;
 	}

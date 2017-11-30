@@ -389,7 +389,7 @@ function circles_lib_coordinates_reset_core( _plane_type, _render, _question, _s
     else if ( _plane_type.is_one_of( W_PLANE, ALL_PLANES ) )
     {
         var _canvas = null ;
-        if ( _plane_type == BIP_BOX ) _canvas = _glob_bip_canvas ;
+        if ( _plane_type == BIP_BOX ) _canvas = _glob_bipbox_canvas ;
         else if ( _plane_type.is_one_of( W_PLANE, ALL_PLANES ) ) _canvas = _glob_wplane_rendering_layer_placeholder ;
           
         if ( _glob_interface_index == INTERFACE_EXTEND_NONE )
@@ -409,7 +409,7 @@ function circles_lib_coordinates_reset_core( _plane_type, _render, _question, _s
     else if ( _plane_type == BIP_BOX )
     {
         var _canvas = null ;
-        if ( _plane_type == BIP_BOX ) _canvas = _glob_bip_canvas ;
+        if ( _plane_type == BIP_BOX ) _canvas = _glob_bipbox_canvas ;
         else if ( _plane_type.is_one_of( W_PLANE, ALL_PLANES ) ) _canvas = BIP_BOX_rendering_layer_canvas ;
           
         _glob_bipLEFT = -DEFAULT_PLANE_COORD, _glob_bipRIGHT = DEFAULT_PLANE_COORD;

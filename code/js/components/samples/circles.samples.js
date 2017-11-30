@@ -27,7 +27,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
     var _zplane_canvas = _glob_zplane_rendering_layer_placeholder != null ? _glob_zplane_rendering_layer_placeholder : _glob_zplane_rendering_layer_placeholder;
     var _zplane_mapper = zplane_sm ;
-    var _wplane_canvas = _glob_bip_use ? _glob_bip_canvas : _glob_wplane_rendering_layer_placeholder ;
+    var _wplane_canvas = _glob_bip_use ? _glob_bipbox_canvas : _glob_wplane_rendering_layer_placeholder ;
     var _wplane_mapper = _glob_bip_use ? bipbox_sm : wplane_sm ;
 
     var _reset_mask = ( ~RESET_NONE ) & ( ~RESET_BIP );

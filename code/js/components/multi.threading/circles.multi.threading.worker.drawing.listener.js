@@ -220,7 +220,7 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
                 $.each( _layers_pile, function( _i, _layer ) { _layers_pile[_i].complex_rect = new rect( _glob_wplaneLEFT, _glob_wplaneTOP, _glob_wplaneRIGHT, _glob_wplaneBOTTOM, _RECT_ORIENTATION_CARTESIAN ); } );
                 break ;
                 case BIP_BOX:
-                _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode ).complex_rect = new rect( _glob_bipLEFT, _glob_bipTOP, _glob_bipRIGHT, _glob_bipBOTTOM, _RECT_ORIENTATION_CARTESIAN );
+                _glob_bipbox_canvas.getContext( _glob_canvas_ctx_2D_mode ).complex_rect = new rect( _glob_bipLEFT, _glob_bipTOP, _glob_bipRIGHT, _glob_bipBOTTOM, _RECT_ORIENTATION_CARTESIAN );
                 break ;
 				        default: break ;
             }

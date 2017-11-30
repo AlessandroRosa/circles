@@ -131,31 +131,28 @@ point_3d.prototype.infinity_pt = function() { return new point( Infinity, Infini
 point_3d.prototype.origin = function() { return new point_3d( 0, 0, 0 ) ; }
 
 point_3d.prototype.move = function() { this.shift.apply( this, arguments ) ; }
-point_3d.prototype.shift = function( _x = 0, _y = 0, _z = 0, _self = 1 )
+point_3d.prototype.shift = function()
 {
+	var _self = 1, _mask = 0 ;
+	if ( is_point_3d( arguments[0] ) ) { _self = safe_int( arguments[1], 0 ) ; _mask = 1 ; }
+	else if ( is_number( arguments[0] ) && is_number( arguments[1] )&& is_number( arguments[2] ) ) { _self = safe_int( arguments[2], 0 ) ; _mask = 2 ; }
 	if ( _self )
 	{
-		if ( arguments.length == 1 && is_point_3d( arguments[0] ) )
+		switch( _mask )
 		{
-		   this.x += arguments[0].x, this.y += arguments[0].y, this.z += arguments[0].z ;
-		}
-		else if ( arguments.length == 3 && is_number( arguments[0] ) && is_number( arguments[1] ) && is_number( arguments[2] ) )
-		{
-		   this.x += arguments[0], this.y += arguments[1], this.z += arguments[2] ;
+			case 1: this.x += arguments[0].x, this.y += arguments[0].y, this.z += arguments[0].z ; break ;
+			case 2: this.x += arguments[0], this.y += arguments[1], this.z += arguments[2] ; break ;
 		}
 	}
 	else
 	{
-		var _p = this.copy();
-		if ( arguments.length == 1 && is_point_3d( arguments[0] ) )
+		var _c = this.copy();
+		switch( _mask )
 		{
-		   _p.x += arguments[0].x, _p.y += arguments[0].y, _p.z += arguments[0].z ;
+			case 1: _c.x += arguments[0].x, _c.y += arguments[0].y, _c.z += arguments[0].z ; break ;
+			case 2: _c.x += arguments[0], _c.y += arguments[1], _c.z += arguments[2] ; break ;
 		}
-		else if ( arguments.length == 3 && is_number( arguments[0] ) && is_number( arguments[1] ) && is_number( arguments[2] ) )
-		{
-		   _p.x += arguments[0], _p.y += arguments[1], _p.z += arguments[2] ;
-		}
-		return _p ;
+		return _c ;
 	}
 }
 

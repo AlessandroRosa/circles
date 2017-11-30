@@ -326,7 +326,7 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
 
     if ( !_plane_type.is_one_of( Z_PLANE, W_PLANE ) ) return [ RET_ERROR, "Unknown source plane" ] ;
 
-    var _canvas = _glob_bip_canvas, _mapper = bipbox_sm.copy() ;
+    var _canvas = _glob_bipbox_canvas, _mapper = bipbox_sm.copy() ;
     var bip_left_up_pt = new point( _glob_bipLEFT, _glob_bipTOP );
     var bip_right_down_pt = new point( _glob_bipRIGHT, _glob_bipBOTTOM );
     _mapper.set_coords_corners( bip_left_up_pt, bip_right_down_pt );
@@ -358,7 +358,7 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
         case EXPORT_NONE: default: break ;
     }
 
-    if ( _b_clean ) circles_lib_canvas_clean( _glob_bip_canvas, _glob_bip_canvas.get_backgroundcolor(), _output_channel );
+    if ( _b_clean ) circles_lib_canvas_clean( _glob_bipbox_canvas, _glob_bipbox_canvas.get_backgroundcolor(), _output_channel );
     if ( _plane_type == Z_PLANE )
     {
         if ( safe_size( _glob_seeds_array, 0 ) > 0 ) circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _output_channel );

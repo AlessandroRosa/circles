@@ -1267,10 +1267,6 @@ function _figures_cmd_display_list_item( _i, _rec_chunk, _options )
             _row += "<snow>" + ( new String( "point" ) ).rpad( " ", 9 ) + "</snow>" ;
             _row += ( new String( _plane_str ) ).rpad( " ", 14 );
             break ;
-            case FIGURE_CLASS_REGION:
-            _row += "<snow>" + ( new String( "region" ) ).rpad( " ", 9 ) + "</snow>" ;
-            _row += ( new String( _plane_str ) ).rpad( " ", 14 );
-            break ;
 			default: break ;
          }
 
@@ -1291,7 +1287,6 @@ function _figures_cmd_display_list_item( _i, _rec_chunk, _options )
                     else _row += "<red>(missing)</red> " ;
                 }
 				break ;
-				case FIGURE_CLASS_REGION: _row += "<snow>" + _obj.output( "cartesian" ) + "</snow>" ; break ;
 				default: _row += "<red>unknown primitive object</red> " ; break ;
 			}
          }

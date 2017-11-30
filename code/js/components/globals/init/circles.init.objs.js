@@ -39,16 +39,16 @@ function CIRCLESinitLAYERS( _mask )
         circles_lib_canvas_layer_create( [ "wplane", "freedraw", YES, ROLE_FREEDRAW, W_PLANE, YES ] );
         circles_lib_canvas_layer_create( [ "wplane", "work", YES, ROLE_WORK, W_PLANE, YES ] );
 
-    		_glob_bip_canvas = $("#CIRCLESbipCANVAS").get(0);
-    		_glob_bip_canvas.set_type( BIP_BOX ) ;
-    		_glob_bip_canvas.set_role_id( ROLE_BIP ) ;
-    		_glob_bip_canvas.set_role_def( "BIP canvas" ) ;
-    		_glob_bip_canvas.set_label( "BIP canvas" ) ;
-	      _glob_bip_canvas.set_plane_def( "bip" ) ;
-	      _glob_bip_canvas.set_defaultcanvas( NO ) ;
-	      _glob_bip_canvas.set_visible( NO ) ;
-        _glob_bip_canvas.set_backgroundcolor( "transparent" ) ;
-	      _glob_bip_canvas.set_complex_rect( new rect() );
+    		_glob_bipbox_canvas = $("#CIRCLESbipCANVAS").get(0);
+    		_glob_bipbox_canvas.set_type( BIP_BOX ) ;
+    		_glob_bipbox_canvas.set_role_id( ROLE_BIP ) ;
+    		_glob_bipbox_canvas.set_role_def( "BIP canvas" ) ;
+    		_glob_bipbox_canvas.set_label( "BIP canvas" ) ;
+	      _glob_bipbox_canvas.set_plane_def( "bip" ) ;
+	      _glob_bipbox_canvas.set_defaultcanvas( NO ) ;
+	      _glob_bipbox_canvas.set_visible( NO ) ;
+        _glob_bipbox_canvas.set_backgroundcolor( "transparent" ) ;
+	      _glob_bipbox_canvas.set_complex_rect( new rect() );
 
     		_glob_svg_canvas = null ;
 

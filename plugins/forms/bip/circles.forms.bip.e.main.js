@@ -11,8 +11,8 @@ function CIRCLESformsBIPhelp()
 
 function CIRCLESformsBIPproperties()
 {
-   var _canvas_w = safe_int( _glob_bip_canvas.get_width(), 0 );
-   var _canvas_bk_color = _glob_bip_canvas ? _glob_bip_canvas.get_backgroundcolor() + "" : "" ;
+   var _canvas_w = safe_int( _glob_bipbox_canvas.get_width(), 0 );
+   var _canvas_bk_color = _glob_bipbox_canvas ? _glob_bipbox_canvas.get_backgroundcolor() + "" : "" ;
    if ( _canvas_bk_color.length == 0 || _canvas_bk_color == UNDEF ) _canvas_bk_color = "transparent" ;
 
    var _center_x = is_point( _glob_bip_box_center_pt ) ? ( ( _glob_bip_use || _glob_bip_box_center_pt.x > 0 ) ? _glob_bip_box_center_pt.x : ( wplane_sm.get_coords_rect().center() )['x'] ) : 0 ;
@@ -37,7 +37,7 @@ function CIRCLESformsBIPmain( _base_id, _move )
    circles_lib_bip_mapper_init();
       
    var CLOSE_FN = "CIRCLESformsBIPclose();" ;
-   var WIDTH = Math.max( Math.min( safe_int( _glob_bip_canvas.get_width(), 0 ), 450 ), 450 ) + 20, HEIGHT = "auto", _subset = "forms" ;
+   var WIDTH = Math.max( Math.min( safe_int( _glob_bipbox_canvas.get_width(), 0 ), 450 ), 450 ) + 20, HEIGHT = "auto", _subset = "forms" ;
    var _div_id = CIRCLESformsBIPdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
    var _run = _items_n > 0 ;
    var _properties = CIRCLESformsBIPproperties() ;
@@ -278,7 +278,7 @@ function CIRCLESbipFORMtabPROPERTIEShtml( _properties, _return_html )
       HTMLcode += "<td WIDTH=\"5\"></td>" ;
       HTMLcode += "<td>Background color</td>" ;
       HTMLcode += "<td WIDTH=\"5\"></td>";
-      HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"height:18px;width:30px;text-align:center;background-color:"+_canvas_bk_color+";\" ID=\"canvas_bk_color\">"+( ( _glob_bip_canvas.get_backgroundcolor().length == 0 || _canvas_bk_color == "transparent" ) ? "none" : "" )+"</td>";
+      HTMLcode += "<td CLASS=\"general_rounded_corners\" STYLE=\"height:18px;width:30px;text-align:center;background-color:"+_canvas_bk_color+";\" ID=\"canvas_bk_color\">"+( ( _glob_bipbox_canvas.get_backgroundcolor().length == 0 || _canvas_bk_color == "transparent" ) ? "none" : "" )+"</td>";
       HTMLcode += "<td WIDTH=\"5\"></td>";
       HTMLcode += "<td ONMOUSEOVER=\"javascript:this.style.cursor='pointer';\"";
       HTMLcode += "    ONCLICK=\"javascript:displayCOLORTABLE( 'canvas_bk_colorICON', 'canvas_bk_color' );\"";

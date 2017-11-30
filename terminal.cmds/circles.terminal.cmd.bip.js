@@ -297,13 +297,13 @@ function circles_terminal_cmd_bip()
                    else { _b_fail = YES, _error_str = "Missing or invalid input BIP params" ; }
                    break ;
                    case "clean":
-                   if ( is_html_canvas( _glob_bip_canvas ) )
+                   if ( is_html_canvas( _glob_bipbox_canvas ) )
                    {
-                      _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode ).label = "bip" ;
-                      var _canvas_width = _glob_bip_canvas.get_width(), _canvas_height = _glob_bip_canvas.get_height();
-                      var _ret_chunk = circles_lib_canvas_clean( _glob_bip_canvas, _glob_bip_bk, _output_channel );
+                      _glob_bipbox_canvas.getContext( _glob_canvas_ctx_2D_mode ).label = "bip" ;
+                      var _canvas_width = _glob_bipbox_canvas.get_width(), _canvas_height = _glob_bipbox_canvas.get_height();
+                      var _ret_chunk = circles_lib_canvas_clean( _glob_bipbox_canvas, _glob_bip_bk, _output_channel );
                       _glob_bip_bk = ( circles_lib_colors_get_formats( _glob_bip_bk ) )[COLOR_RGB_HEX] ;
-                      _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode ).backgroundColor = _glob_bip_bk ;
+                      _glob_bipbox_canvas.getContext( _glob_canvas_ctx_2D_mode ).backgroundColor = _glob_bip_bk ;
 
                       var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                       var _ret_msg = is_array( _ret_chunk ) ? new String( _ret_chunk[1] ).trim() : "Fail to clean" ;
@@ -313,10 +313,10 @@ function circles_terminal_cmd_bip()
                    break ;
                    case "settings":
                    var _html = _params_assoc_array['html'] ;
-				   var _is_canvas = is_html_canvas( _glob_bip_canvas ) ;
-				   var _bk_color = _glob_bip_canvas.get_backgroundcolor() ;
-                   var _canvas_w = _is_canvas ? _glob_bip_canvas.get_width() : 0 ;
-                   var _canvas_h = _is_canvas ? _glob_bip_canvas.get_height() : 0 ;
+				   var _is_canvas = is_html_canvas( _glob_bipbox_canvas ) ;
+				   var _bk_color = _glob_bipbox_canvas.get_backgroundcolor() ;
+                   var _canvas_w = _is_canvas ? _glob_bipbox_canvas.get_width() : 0 ;
+                   var _canvas_h = _is_canvas ? _glob_bipbox_canvas.get_height() : 0 ;
                    var _canvas_bk = _is_canvas ? ( ( _bk_color != null && _bk_color != UNDEF ) ? _bk_color : "transparent" ) : "transparent" ;
                        _canvas_bk = _canvas_bk.replaceAll( " ", "").strcmp( "rgba(0,0,0,0)" ) ? "transparent" : _canvas_bk ;
                    var _bk_tag = ( circles_lib_colors_get_formats( _canvas_bk ) )[COLOR_TAG] ;
@@ -454,7 +454,7 @@ function circles_terminal_cmd_bip()
 							  default: break ;
 						   }
 					   }
-                       var _ret_chunk = circles_lib_files_pix_save_ask( BIP_BOX, _glob_bip_canvas.id, _filename, YES, YES, _output_channel );
+                       var _ret_chunk = circles_lib_files_pix_save_ask( BIP_BOX, _glob_bipbox_canvas.id, _filename, YES, YES, _output_channel );
                        var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                        var _ret_msg = is_array( _ret_chunk ) ? new String( _ret_chunk[1] ).trim() : "Saving: Memory failure" ;
                        circles_lib_output( _output_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );

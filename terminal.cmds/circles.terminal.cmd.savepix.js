@@ -89,7 +89,7 @@ function circles_terminal_cmd_savepix()
 					{
 						case Z_PLANE: _canvas = _glob_zplane_rendering_layer_placeholder; circles_lib_output( _output_channel, DISPATCH_INFO, "saving the z-plane rendering layer ...", _par_1, _cmd_tag ); break ;
 						case W_PLANE: _canvas = _glob_wplane_rendering_layer_placeholder; circles_lib_output( _output_channel, DISPATCH_INFO, "saving the w-plane rendering layer ...", _par_1, _cmd_tag ); break ;
-						case BIP_BOX: _canvas = _glob_bip_canvas ; circles_lib_output( _output_channel, DISPATCH_INFO, "saving the bip box ...", _par_1, _cmd_tag ); break ;
+						case BIP_BOX: _canvas = _glob_bipbox_canvas ; circles_lib_output( _output_channel, DISPATCH_INFO, "saving the bip box ...", _par_1, _cmd_tag ); break ;
 						case D_LOCUS: _canvas = $( "#CIRCLESdlocusdiagramCANVAS" ).get(0);  circles_lib_output( _output_channel, DISPATCH_INFO, "saving the discreteness locus ...", _par_1, _cmd_tag ); break ;
 						default: _b_fail = YES, _error_str = "Can't save: please, choose Z-plane or W-plane"; break ;
 					}

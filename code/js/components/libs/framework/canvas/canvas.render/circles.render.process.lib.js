@@ -69,7 +69,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
          _glob_zplane_rendering_layer_placeholder = _glob_zplane_rendering_layer_placeholder ;
          if ( is_html_canvas( _glob_wplane_rendering_layer_placeholder ) )
          _glob_wplane_rendering_layer_placeholder = _glob_wplane_rendering_layer_placeholder ;
-         if ( is_html_canvas( _glob_bip_layer_placeholder ) ) _glob_bip_layer_placeholder = _glob_bip_canvas ;
+         if ( is_html_canvas( _glob_bip_layer_placeholder ) ) _glob_bip_layer_placeholder = _glob_bipbox_canvas ;
 
          if ( _question )
          {
@@ -448,7 +448,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                  _glob_zplane_rendering_layer_placeholder = _glob_zplane_rendering_layer_placeholder ;
                  if ( is_html_canvas( _glob_wplane_rendering_layer_placeholder ) )
                  _glob_wplane_rendering_layer_placeholder = _glob_wplane_rendering_layer_placeholder ;
-                 if ( is_html_canvas( _glob_bip_layer_placeholder ) ) _glob_bip_layer_placeholder = _glob_bip_canvas ;
+                 if ( is_html_canvas( _glob_bip_layer_placeholder ) ) _glob_bip_layer_placeholder = _glob_bipbox_canvas ;
 
                   var _plane_def = circles_lib_plane_def_get( _plane_type );
                   if ( _plane_type.is_one_of( Z_PLANE, ALL_PLANES ) )

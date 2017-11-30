@@ -87,7 +87,7 @@ function circles_terminal_cmd_clean()
 					break ;
 					case "bip":
 					case "bipbox":
-					circles_lib_canvas_clean( _glob_bip_canvas, _glob_bip_canvas.get_backgroundcolor(), _output_channel );
+					circles_lib_canvas_clean( _glob_bipbox_canvas, _glob_bipbox_canvas.get_backgroundcolor(), _output_channel );
 					circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Bip Box has been cleaned with success", _par_1, _cmd_tag );
 					break ;
 					default:

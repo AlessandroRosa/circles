@@ -224,7 +224,7 @@ function circles_terminal_cmd_line()
 						 _mapper = wplane_sm ;
 						 break ;
 						 case BIP_BOX:
-						 _canvas_context = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode );
+						 _canvas_context = _glob_bipbox_canvas.getContext( _glob_canvas_ctx_2D_mode );
 						 _mapper = bipbox_sm ;
 						 break ;
 						 default: break ;

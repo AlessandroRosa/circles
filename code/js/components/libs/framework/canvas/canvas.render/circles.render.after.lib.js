@@ -52,7 +52,7 @@ function circles_lib_canvas_after_render_main()
      
 		 if (_glob_bip_use) _glob_target_plane = _glob_persistent_vars['old_plane_type'] ;
      var _canvas = null ; 
-		 if (_glob_bip_use) _canvas = _glob_bip_canvas ;
+		 if (_glob_bip_use) _canvas = _glob_bipbox_canvas ;
 		 else if ( _glob_target_plane == D_LOCUS ) _canvas = $( "#CIRCLESdlocusdiagramCANVAS" ).get(0) ;
 		 else if ( _glob_target_plane == W_PLANE ) _canvas = _glob_wplane_rendering_layer_placeholder ;
 		 else if ( _glob_target_plane == Z_PLANE ) _canvas = _glob_zplane_rendering_layer_placeholder ;
@@ -138,7 +138,7 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
 		if ( _layer == null ) _layer : _glob_wplane_work_layer_placeholder ;
 		circles_lib_canvas_clean( _layer, _layer.get_backgroundcolor() );
 	}
-    else if ( _b_clean && _plane_type == BIP_BOX ) circles_lib_canvas_clean( _glob_bip_canvas, _glob_bip_canvas.get_backgroundcolor() );
+    else if ( _b_clean && _plane_type == BIP_BOX ) circles_lib_canvas_clean( _glob_bipbox_canvas, _glob_bipbox_canvas.get_backgroundcolor() );
 
     if ( safe_size( _glob_figures_array, 0 ) > 0 )
     {
@@ -182,7 +182,7 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
                     _mapper = wplane_sm ;
                     break ;
                     case BIP_BOX:
-                    _canvas_context = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode );
+                    _canvas_context = _glob_bipbox_canvas.getContext( _glob_canvas_ctx_2D_mode );
                     _mapper = bipbox_sm ;
                     break ;
 				    default: break ;
@@ -190,10 +190,6 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
 
                 switch( _class )
                 {
-                    case FIGURE_CLASS_REGION:
-                    circles_lib_draw_rect( _canvas_context, _mapper, _obj,
-                    _draw, _drawcolor, _fill, _fillcolor, _linethick, YES, _opacity, 0 );
-                    break ;
                     case FIGURE_CLASS_POINT:
                     circles_lib_draw_point( _canvas_context, _mapper, _obj.x, _obj.y,
                     _draw, _drawcolor, _fill, _fillcolor, _linethick, _radius, _opacity, _properties_mask );

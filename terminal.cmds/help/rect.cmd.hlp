@@ -1,6 +1,38 @@
-<banana>plot a rectangle</banana>
+<banana>region management</banana>
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>region %plane% %coords% drawcolor:%drawcolor% fillcolor:%fillcolor% linethick:%linethick% roundto:%roundto% %clean% %rec%</snow>
+
+<lightblue>%plane%</lightblue> <snow>zplane | wplane</snow> (mandatory)
+
+<lightblue>%drawcolor%</lightblue> <snow>draw color (border)</snow> (optional)
+
+<lightblue>%fillcolor%</lightblue> <snow>fill color</snow> (optional)
+
+<lightblue>%linethick%</lightblue> <snow>border line thickness</snow> (optional)
+
+<lightblue>%coords%</lightblue> <snow>coordinates syntax</snow> (mandatory)
+
+<lightblue>%roundto%</lightblue> <snow>round output values</snow> (optional)
+
+<lightblue>%rec%</lightblue> (optional)
+
+<yellow>Example for straight syntax coords</yellow>
+<lightblue>region zplane 0,2,1,0 drawcolor:yellow fillcolor:cyan opacity:0.2</lightblue>
+<cadetblue>paints a bounded portion of the z-plane and defined by input coords (x1,y1,x2,y2)<br>
+Border and interior are painted yellow and cyan, respectively.<br>
+The interior is painted with opacity set to 0.2
+</cadetblue>
+
+<yellow>Example #1 for inequality (simple)</yellow>
+<lightblue>region zplane yellow y < 2 rec</lightblue>
+<cadetblue>paints yellow the unbounded rect region in the z-plane, given y < 2</cadetblue>
+<cadetblue>this region will be recorded in the figures storage space</cadetblue>
+
+<yellow>Example #2 for inequality (composite)</yellow>
+<lightblue>region wplane blue x > 2 y < 1 clean</lightblue>
+<cadetblue>clean the (default: no input choice) work layer of the wplane and paint blue the unbounded rect region of the w-plane, given x > 2 and y < 1</cadetblue>
 
 <lightblue>usage</lightblue> <snow>rect %lefttop pt% %rightbottom pt% %width% %height% %opacity% %linethick% %borderradius% %plane% %layerrole% %drawcolor% %fillcolor% %rec% $label</snow>
 
@@ -50,14 +82,3 @@
 <yellow>rect (0,0) 1 4 drawcolor:blue fillcolor:yellow linethick:3 zplane $rect1 storagein storagesubset:rects</yellow>
 <cadetblue>same as above, but the line is saved into the 'rects' storage space (if existing)</cadetblue>
 
-<yellow>rect release</yellow>
-<cadetblue>return the latest release date for this command</cadetblue>
-
-<lightgray>-------------------------------</lightgray>
-<turquoise>Note (1)</turquoise>
-<cadetblue>width, height, opacity, linethick, borderradius must be input according to the above params sequence</cadetblue>
-<turquoise>Note (2)</turquoise> <cadetblue>params must follow the reported input order to work</cadetblue>
-<turquoise>Note (3)</turquoise> <cadetblue>$labels can be used to refer to figures, as alternative to indexes</cadetblue>
-<turquoise>Note (4)</turquoise> <cadetblue>if you want to update later a rect entry, use these parameters</cadetblue>
-<cadetblue>in'</cadetblue><white>figures</white><cadetblue>' cmd with '</cadetblue><white>update</white><cadetblue>' action</cadetblue>
-<snow>lefttop rightbottom center width height draw drawcolor:fill fillcolor:opacity linethick borderradius</snow>

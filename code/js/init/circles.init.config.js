@@ -18,7 +18,7 @@ _glob_wplane_rendering_layer_placeholder = circles_lib_canvas_layer_find( W_PLAN
 _glob_wplane_freedraw_layer_placeholder = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
 _glob_wplane_work_layer_placeholder = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_WORK );
 
-_glob_bip_layer_placeholder = _glob_bip_canvas ;
+_glob_bip_layer_placeholder = _glob_bipbox_canvas ;
 
 var _glob_custom_div = document.createElement("div");
 

@@ -181,9 +181,9 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
 				 break ;
 				 case BIP_BOX:
 				 _glob_opacity = _glob_bip_opacity ;
-         _canvas_w = is_html_canvas( _glob_bip_canvas ) ? _glob_bip_canvas.get_width() : 0 ;
-         _canvas_h = is_html_canvas( _glob_bip_canvas ) ? _glob_bip_canvas.get_height() : 0 ;
-         _glob_multithread_canvas = _glob_bip_canvas ;
+         _canvas_w = is_html_canvas( _glob_bipbox_canvas ) ? _glob_bipbox_canvas.get_width() : 0 ;
+         _canvas_h = is_html_canvas( _glob_bipbox_canvas ) ? _glob_bipbox_canvas.get_height() : 0 ;
+         _glob_multithread_canvas = _glob_bipbox_canvas ;
          _glob_multithread_mapper = bipbox_sm.copy() ;
          _glob_multithread_pixelsize = _glob_bip_pixel_size ;
 				 break ;

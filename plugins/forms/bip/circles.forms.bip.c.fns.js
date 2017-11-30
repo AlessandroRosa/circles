@@ -29,7 +29,7 @@ function CIRCLESformsBIPtips( _silent, _output_channel )
 function CIRCLESformsBIPreviewSETTINGS( _silent, _output_channel )
 {
     _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
-    if ( is_html_canvas( _glob_bip_canvas ) )
+    if ( is_html_canvas( _glob_bipbox_canvas ) )
     {
         var _memo = [] ;
         if ( _glob_bip_original_plane_data == Z_PLANE ) _memo.push( "Objects to draw: from Z-plane." );
@@ -40,8 +40,8 @@ function CIRCLESformsBIPreviewSETTINGS( _silent, _output_channel )
         else if ( _glob_bip_original_plane_coords == BIP_BOX ) _memo.push( "Coordinates from : user-defined region." );
         else if ( _glob_bip_original_plane_coords == NO_PLANE ) _memo.push( "Coordinates from : Undetermined." );
 
-        var _canvas_width = _glob_bip_canvas.get_width(), _canvas_height = _glob_bip_canvas.get_height();
-            _glob_bip_bk = _glob_bip_canvas.getContext( _glob_canvas_ctx_2D_mode ).backgroundColor ;
+        var _canvas_width = _glob_bipbox_canvas.get_width(), _canvas_height = _glob_bipbox_canvas.get_height();
+            _glob_bip_bk = _glob_bipbox_canvas.getContext( _glob_canvas_ctx_2D_mode ).backgroundColor ;
         var _bip_color_tag = ( circles_lib_colors_get_formats( _glob_bip_bk ) )[COLOR_TAG] ;
         var _open_fontcolor_tag = "", _close_fontcolor_tag = "" ;
         var _msg = "Settings applied.\n" ;
@@ -235,7 +235,7 @@ function CIRCLESformsBIPcoordsMANAGER( _diagram_type, _compute )
 
 function CIRCLESformsBIPsavePIX()
 {
-    var _canvas_w = safe_int( _glob_bip_canvas.get_width(), 0 ), _canvas_h = safe_int( _glob_bip_canvas.get_height(), 0 );
+    var _canvas_w = safe_int( _glob_bipbox_canvas.get_width(), 0 ), _canvas_h = safe_int( _glob_bipbox_canvas.get_height(), 0 );
     var _aspect_ratio = _canvas_w / _canvas_h ;
     var _bip_thumb_canvas_w = 200, _bip_thumb_canvas_h = Math.ceil( _bip_thumb_canvas_w / _aspect_ratio );
     var HTMLcode = "<table>" ;
@@ -246,11 +246,11 @@ function CIRCLESformsBIPsavePIX()
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
         HTMLcode += "</table>" ;
 
-    alert_plug_fn( ALERT_YES, "_glob_export_format=EXPORT_NONE;circles_lib_files_pix_save_ask( BIP_BOX, _glob_bip_canvas.id, 'circles.bip.png', NO, YES, OUTPUT_NONE );" );
+    alert_plug_fn( ALERT_YES, "_glob_export_format=EXPORT_NONE;circles_lib_files_pix_save_ask( BIP_BOX, _glob_bipbox_canvas.id, 'circles.bip.png', NO, YES, OUTPUT_NONE );" );
     alert_plug_fn( ALERT_NO, "alertCLOSE();" );
 
     circles_lib_output( OUTPUT_SCREEN, DISPATCH_YESNO | DISPATCH_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_def_get( BIP_BOX ) );
-    circles_lib_canvas_blowup( _glob_bip_canvas, $('#CIRCLESbipthumbCANVAS').get(0), 0, 0, _canvas_w, _canvas_h );
+    circles_lib_canvas_blowup( _glob_bipbox_canvas, $('#CIRCLESbipthumbCANVAS').get(0), 0, 0, _canvas_w, _canvas_h );
 }
 
 function CIRCLESformsBIPupdateCOORDS()

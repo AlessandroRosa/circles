@@ -218,9 +218,9 @@ function CIRCLESformsTINYRENDERINGscriptRUN( _div_id, _REF_ID )
     var _tiny_canvas = $( "#CANVASrendering" + _REF_ID ).get(0);
     _glob_tiny_rendering_ref_id = _REF_ID ;
 		_glob_output_channel = OUTPUT_SCRIPT ;
-    _glob_bip_canvas = _tiny_canvas ;
-    _glob_bip_canvas.set_dims( _tiny_canvas.get_width(), _tiny_canvas.get_height() );
-    _glob_bip_canvas.set_type( BIP_BOX ) ;
+    _glob_bipbox_canvas = _tiny_canvas ;
+    _glob_bipbox_canvas.set_dims( _tiny_canvas.get_width(), _tiny_canvas.get_height() );
+    _glob_bipbox_canvas.set_type( BIP_BOX ) ;
     _glob_bip_use = YES ;
     _glob_persistent_vars['old_plane_type'] = _glob_target_plane ;
     _glob_target_plane = BIP_BOX ;
@@ -231,7 +231,7 @@ function CIRCLESformsTINYRENDERINGscriptRUN( _div_id, _REF_ID )
     var _lu_pt = coords_pts_array['lu'], _rd_pt = coords_pts_array['rd'] ;
     bipbox_sm.set_coords_corners( _lu_pt, _rd_pt );
 
-    var _canvas_side = _glob_bip_canvas.get_width(), _rect = new rect();
+    var _canvas_side = _glob_bipbox_canvas.get_width(), _rect = new rect();
     _rect.width_height_constructor( 0, 0, _canvas_side, _canvas_side );
     bipbox_sm.set_client_rect( _rect );
     bipbox_sm.set_display_rect( _rect );

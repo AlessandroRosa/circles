@@ -15,7 +15,7 @@ function circles_lib_bip_activate( bACTIVATE )
 function circles_lib_bip_calc_pixel_side( _update = NO )
 {
     _update = safe_int( _update, NO );
-    var _bip_area = is_html_canvas( _glob_bip_canvas ) ? ( _glob_bip_canvas.get_width() * _glob_bip_canvas.get_height() ) : 0 ;
+    var _bip_area = is_html_canvas( _glob_bipbox_canvas ) ? ( _glob_bipbox_canvas.get_width() * _glob_bipbox_canvas.get_height() ) : 0 ;
     var _canvas = circles_lib_canvas_layer_find( _glob_bip_original_plane_data, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
     var _diagram_area = _canvas.get_width() * _canvas.get_height();
     // this proportion grows with squared factor, so we compute the root
@@ -99,14 +99,14 @@ function circles_lib_bip_apply_settings( _output_channel = OUTPUT_SCREEN, _quest
             }
 
             circles_lib_bip_calc_pixel_side( _update );
-            if ( is_html_canvas( _glob_bip_canvas ) )
+            if ( is_html_canvas( _glob_bipbox_canvas ) )
             {
                 $('[id$=renderBTN]').css('color',COLOR_ERROR) ;
-                _glob_bip_canvas.set_label( "bip" ) ;
-                _glob_bip_canvas.set_width( _canvas_width );
-                _glob_bip_canvas.set_height( _canvas_height );
-                _glob_bip_canvas.set_backgroundcolor( _glob_bip_bk ) ;
-                circles_lib_canvas_clean( _glob_bip_canvas, _glob_bip_bk, _output_channel );
+                _glob_bipbox_canvas.set_label( "bip" ) ;
+                _glob_bipbox_canvas.set_width( _canvas_width );
+                _glob_bipbox_canvas.set_height( _canvas_height );
+                _glob_bipbox_canvas.set_backgroundcolor( _glob_bip_bk ) ;
+                circles_lib_canvas_clean( _glob_bipbox_canvas, _glob_bip_bk, _output_channel );
                 var _rect = new rect( 0, 0, _canvas_width, _canvas_height );
 				circles_lib_bip_mapper_init() ;
                 return [ RET_OK, "BIP settings have been applied with success." + _glob_crlf + "You can start the rendering now.", 0 ];
@@ -159,7 +159,7 @@ function circles_lib_bip_render( _silent, _output_channel )
         if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
     }
-    else if ( is_html_canvas( _glob_bip_canvas ) )
+    else if ( is_html_canvas( _glob_bipbox_canvas ) )
     {
         var _ret_chunk = null ;
         switch( _glob_bip_original_plane_data )
@@ -167,14 +167,14 @@ function circles_lib_bip_render( _silent, _output_channel )
             case Z_PLANE:
             _plane_label = "Z-plane" ;
             _svg_destroy( _glob_export_code_array );
-            circles_lib_canvas_clean( _glob_bip_canvas, "", _output_channel );
+            circles_lib_canvas_clean( _glob_bipbox_canvas, "", _output_channel );
             _ret_chunk = circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, null, YES, YES, YES, YES, !_silent, _silent, _output_channel );
             break ;
             case W_PLANE:
             _plane_label = "W-plane" ;
             _svg_destroy( _glob_export_code_array );
             // _glob_bip_original_plane_data
-            circles_lib_canvas_clean( _glob_bip_canvas, "", _output_channel );
+            circles_lib_canvas_clean( _glob_bipbox_canvas, "", _output_channel );
             _ret_chunk = circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, null, YES, YES, YES, YES, !_silent, _silent, _output_channel );
             break ;
             default: _plane_label = "Undetermined" ; break ;

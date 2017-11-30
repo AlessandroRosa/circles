@@ -15,7 +15,7 @@ function circles_lib_draw_all_screen_disks( _context, _mapper, _selected_items_a
 				var _opacity = DEFAULT_MAX_OPACITY ;
             _canvas = circles_lib_canvas_layer_find( _canvas.get_type(), FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
         var _pixel_size = _canvas.get_type().is_one_of( Z_PLANE, W_PLANE ) ? _glob_pixel_size : _glob_bip_pixel_size ;
-        var _bip_area = _glob_bip_canvas.get_width() * _glob_bip_canvas.get_height();
+        var _bip_area = _glob_bipbox_canvas.get_width() * _glob_bipbox_canvas.get_height();
 				var _errors = 0, _errors_array = [] ;
         var _plane_type = _canvas.get_type() ;
 				switch( _plane_type )
@@ -82,7 +82,7 @@ function circles_lib_draw_all_complex_disks( _context, _mapper, _selected_items_
 				var _opacity = DEFAULT_OPACITY ;
         if ( _canvas.get_type().is_one_of( Z_PLANE, W_PLANE ) ) _canvas = circles_lib_canvas_layer_find( _canvas.get_type(), FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
         var _pixel_size = _canvas.get_type().is_one_of( Z_PLANE, W_PLANE ) ? _glob_pixel_size : _glob_bip_pixel_size ;
-        var _bip_area = _glob_bip_canvas.get_width() * _glob_bip_canvas.get_height();
+        var _bip_area = _glob_bipbox_canvas.get_width() * _glob_bipbox_canvas.get_height();
         var _plane_type = _canvas.get_type() ;
 				switch( _plane_type )
 				{
