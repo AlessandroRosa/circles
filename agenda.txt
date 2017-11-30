@@ -14,9 +14,6 @@
 
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 
-* region
-  > check that all input formats are working properly
-
 -------------- FIX SOON -----------------------
 
 * terminal focus is taken only if pop-up is resized or

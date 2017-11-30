@@ -11,7 +11,7 @@ var COLOR_RGB_INT = 1, COLOR_RGB_HEX = 2, COLOR_TAG = 3 ;
 var CAPS_LETTER = 0, SMALL_LETTER = 1 ;
 
 var CIRCLES_TWO_PI = 2.0 * Math.PI ;
-var CIRCLES_MAX_COORD = Math.pow( 2, 24 ) ;
+var CIRCLES_MAX_COORD = Math.pow( 2, 20 ) ;
 
 var DIMS_NONE = 0, DIMS_1D = 1, DIMS_2D = 2, DIMS_3D = 3 ;
 

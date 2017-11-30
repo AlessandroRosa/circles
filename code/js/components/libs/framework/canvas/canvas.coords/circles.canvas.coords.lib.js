@@ -1,4 +1,4 @@
-function circles_lib_canvas_coords_toggle_remap( _plane_type, _remap_category )
+function circles_lib_canvas_coords_toggle_remap( _plane_type = NO_PLANE, _remap_category )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     switch( _plane_type )
@@ -13,12 +13,29 @@ function circles_lib_canvas_coords_toggle_remap( _plane_type, _remap_category )
         circles_lib_menu_entries_update();
         $( "#WPLANEcoordsCATEGORY" ).html( _glob_wplane_coords_map == CANVAS_CARTESIAN_MAP ? "cartesian" : "screen" );
         break ;
-        default:
-        break ;
+        default: break ;
     }
 }
 
-function circles_lib_canvas_coords_acquire( _plane_type )
+function circles_lib_canvas_get_coords_rect( _plane_type = NO_PLANE )
+{
+    _plane_type = circles_lib_return_plane_type( _plane_type ) ;
+    switch( _plane_type )
+    {
+        case Z_PLANE:
+        return new rect( _glob_zplaneLEFT, _glob_zplaneTOP, _glob_zplaneRIGHT, _glob_zplaneBOTTOM, _RECT_ORIENTATION_CARTESIAN );
+        break ;
+        case W_PLANE:
+        return new rect( _glob_wplaneLEFT, _glob_wplaneTOP, _glob_wplaneRIGHT, _glob_wplaneBOTTOM, _RECT_ORIENTATION_CARTESIAN );
+        break ;
+		case BIP_BOX:
+        return new rect( _glob_bipLEFT, _glob_bipTOP, _glob_bipRIGHT, _glob_bipBOTTOM, _RECT_ORIENTATION_CARTESIAN );
+		break ;
+        default: return null ; break ;
+    }
+}
+
+function circles_lib_canvas_coords_acquire( _plane_type = NO_PLANE )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     if ( _plane_type.is_one_of( Z_PLANE, ALL_PLANES ) )
@@ -31,7 +48,7 @@ function circles_lib_canvas_coords_acquire( _plane_type )
     bipbox_sm.set_coords_corners( new point( _glob_bipLEFT, _glob_bipTOP ), new point( _glob_bipRIGHT, _glob_bipBOTTOM ) );
 }
 
-function circles_lib_canvas_coords_correct_aspectratio( _plane_type )
+function circles_lib_canvas_coords_correct_aspectratio( _plane_type = NO_PLANE )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     // 1. take global vars related to plane type

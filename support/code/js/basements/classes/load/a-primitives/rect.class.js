@@ -48,13 +48,13 @@ if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) 
 
 if ( typeof safe_size != "function" )
 {
-		function safe_size( _obj, _ret_val )
-		{
-		   if ( _ret_val == "undefined" || _ret_val == null ) _ret_val = 0 ;
-		   if ( _obj == null || _obj == "undefined" ) return _ret_val ;
-		   else if ( typeof _obj == "string" || _obj instanceof String || is_array( _obj ) || _obj instanceof Object ) return _obj.length ;
-		   else return _ret_val ;
-		}
+	function safe_size( _obj, _ret_val )
+	{
+	    if ( _ret_val == "undefined" || _ret_val == null ) _ret_val = 0 ;
+	    if ( _obj == null || _obj == "undefined" ) return _ret_val ;
+	    else if ( typeof _obj == "string" || _obj instanceof String || is_array( _obj ) || _obj instanceof Object ) return _obj.length ;
+	    else return _ret_val ;
+	}
 }
 
 function rect()
