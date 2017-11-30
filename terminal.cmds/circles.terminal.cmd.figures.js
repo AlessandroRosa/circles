@@ -769,17 +769,11 @@ function circles_terminal_cmd_figures()
 
                     if ( !_b_fail )
                     {
-                         _rec_chunk = _glob_figures_array[ _index - 1 ] ;
-                         if ( _rec_chunk == null )
-                         {
-                            _b_fail = YES, _error_str = "Input index " + _index + " does not refer to any consistent entry" ;
-                         }
-                         else if ( _rec_chunk['class'] != FIGURE_CLASS_LINE )
-                         {
-                            _b_fail = YES, _error_str = "Input index " + _index + " does not refer a (poly)line entry" ;
-                         }
-                         else
-                         {
+                        _rec_chunk = _glob_figures_array[ _index - 1 ] ;
+                        if ( _rec_chunk == null ) { _b_fail = YES, _error_str = "Input index " + _index + " does not refer to any consistent entry" ; }
+                        else if ( _rec_chunk['class'] != FIGURE_CLASS_LINE ) { _b_fail = YES, _error_str = "Input index " + _index + " does not refer a (poly)line entry" ; }
+                        else
+                        {
                             var _polyline_array = _rec_chunk['obj'] ;
                             var _old_n = safe_size( _polyline_array, 0 ), _n_coords = safe_size( _coords_array, 0 );
                             if ( _polyline_array == null || !is_array( _polyline_array ) ) _polyline_array = [];
@@ -788,14 +782,14 @@ function circles_terminal_cmd_figures()
                             _rec_chunk['obj'] = _resulting_array.clone();
 
                             var _new_n = _resulting_array.length ;
-                            var _b_go = ( _new_n > _old_n ) ? YES : NO ;
+                            var _b_go = _new_n > _old_n ? YES : NO ;
                             var _msg = _b_go ? ( "Item #"+ (_index) + ":" + + _n_coords + " entr" + ( ( _n_coords == 1 ) ? "y" : "ies" ) + " added" ) : "No entries added" ;
 
                             if ( _b_go )
                             circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                             else { _b_fail = YES, _error_str = _msg ; }
                             if ( _b_go ) circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
-                         }
+                        }
                     }
                 }
                 break ;
@@ -806,69 +800,62 @@ function circles_terminal_cmd_figures()
                 $.each( _nodes_index_array, function( _i, _v ){ _nodes_values_array.push( _params_assoc_array['input_values'][ _v ] ); } )
                 _nodes_values_array = _nodes_values_array.unique();
                 var _n_nodes = _nodes_index_array.length ;
-                if ( _n_nodes == 0 )
-                {
-                     _b_fail = YES, _error_str = "Missing input nodes: each node index shall be announced by prefix '#'" ;
-                }
+                if ( _n_nodes == 0 ) { _b_fail = YES, _error_str = "Missing input nodes: each node index shall be announced by prefix '#'" ; }
                 else if ( _n_input_index > 0 )
                 {
-                     var _item_index = safe_int( _index_vals_array[0], 0 );
-                     if ( _item_index == 0 )
-                     {
-                          _b_fail = YES, _error_str = "Unreferenced input item" ;
-                     }
-                     else
-                     {
-                          var _zerobased_index = _item_index - 1 ;
-                          var _rec_chunk = _glob_figures_array[_zerobased_index] ;
-                          if ( _rec_chunk != null )
-                          {
-                               var _is_polyline = ( _rec_chunk['class'] == FIGURE_CLASS_LINE ) ? ( _rec_chunk['obj'].length > 2 ? YES : NO ) : NO ;
-                               if ( _is_polyline )
-                               {
-                                   var _points_array = _rec_chunk['obj'], _i ;
-                                   var _index = UNDET, _accepted_array = [], _discarded_array = [] ;
-                                   circles_lib_output( _output_channel, DISPATCH_INFO, "Checking input index(es) to be coherent with archived items", _par_1, _cmd_tag );
-                                   // check existence of all nodes
-                                   for( _i = 0 ; _i < _n_nodes.length ; _i++ )
-                                   {
-                                        _index = _other_values[ _nodes_index_array[_i] ] - 1 ;
-                                        if ( _points_array[ _index ] == null )
-                                        {
-                                             _b_fail = YES, _error_str = "Incomplete cmd: missing item indexed at " + _params_assoc_array['input_values'][_i] ;
-                                             break ;
-                                        }
-                                   }
-
-                                   if ( !_b_fail )
-                                   {
-                                        for( _i = 0 ; _i < _points_array.length ; _i++ )
-                                        {
-                                             if ( _points_array[ _i ] != null )
-                                             {
-                                                 _other_values.includes( _i + 1 ) ? _discarded_array.push( _points_array[ _i ] ) : _accepted_array.push( _points_array[ _i ] );
-                                             }
-                                             else
-                                             {
-                                                 _b_fail = YES, _error_str = "Incomplete cmd: missing item indexed at " + _params_assoc_array['input_values'][_i] ;
-                                                 break ;
-                                             }
-                                        }
-                                    }
-
-                                    if ( !_b_fail )
+                    var _item_index = safe_int( _index_vals_array[0], 0 );
+                    if ( _item_index == 0 ) { _b_fail = YES, _error_str = "Unreferenced input item" ; }
+                    else
+                    {
+                        var _zerobased_index = _item_index - 1, _rec_chunk = _glob_figures_array[_zerobased_index] ;
+                        if ( _rec_chunk != null )
+                        {
+                            var _is_polyline = ( _rec_chunk['class'] == FIGURE_CLASS_LINE ) ? ( _rec_chunk['obj'].length > 2 ? YES : NO ) : NO ;
+                            if ( _is_polyline )
+                            {
+                                var _points_array = _rec_chunk['obj'], _i ;
+                                var _index = UNDET, _accepted_array = [], _discarded_array = [] ;
+                                circles_lib_output( _output_channel, DISPATCH_INFO, "Checking input index(es) to be coherent with archived items", _par_1, _cmd_tag );
+                                // check existence of all nodes
+                                for( _i = 0 ; _i < _n_nodes.length ; _i++ )
+                                {
+                                    _index = _other_values[ _nodes_index_array[_i] ] - 1 ;
+                                    if ( _points_array[ _index ] == null )
                                     {
-                                        _rec_chunk['obj'] = _accepted_array.clone();
-                                        if ( _params_assoc_array['close'] != null ) _rec_chunk['close'] = YES ;
-                                        else if ( _params_assoc_array['open'] != null ) _rec_chunk['close'] = NO ;
-                                        circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Polydelete of nodes "+_nodes_values_array.join( "," )+" performed on entry " + _item_index, _par_1, _cmd_tag );
-                                        circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
+                                        _b_fail = YES, _error_str = "Incomplete cmd: missing item indexed at " + _params_assoc_array['input_values'][_i] ;
+                                        break ;
                                     }
-                               }
-                               else { _b_fail = YES, _error_str = "Input item is not a polyline" ; }
-                          }
-                          else { _b_fail = YES, _error_str = "Memory failure" ; }
-                     }
+                                }
+
+                                if ( !_b_fail )
+                                {
+                                    for( _i = 0 ; _i < _points_array.length ; _i++ )
+                                    {
+                                        if ( _points_array[ _i ] != null )
+                                        {
+                                            _other_values.includes( _i + 1 ) ? _discarded_array.push( _points_array[ _i ] ) : _accepted_array.push( _points_array[ _i ] );
+                                        }
+                                        else
+                                        {
+                                            _b_fail = YES, _error_str = "Incomplete cmd: missing item indexed at " + _params_assoc_array['input_values'][_i] ;
+                                            break ;
+                                        }
+                                    }
+                                }
+
+                                if ( !_b_fail )
+                                {
+                                    _rec_chunk['obj'] = _accepted_array.clone();
+                                    if ( _params_assoc_array['close'] != null ) _rec_chunk['close'] = YES ;
+                                    else if ( _params_assoc_array['open'] != null ) _rec_chunk['close'] = NO ;
+                                    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Polydelete of nodes "+_nodes_values_array.join( "," )+" performed on entry " + _item_index, _par_1, _cmd_tag );
+                                    circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
+                                }
+                            }
+                            else { _b_fail = YES, _error_str = "Input item is not a polyline" ; }
+                        }
+                        else { _b_fail = YES, _error_str = "Memory failure" ; }
+                    }
                 }
                 else { _b_fail = YES, _error_str = "Incomplete cmd: missing input indexes" ; }
                 break;
@@ -1280,6 +1267,10 @@ function _figures_cmd_display_list_item( _i, _rec_chunk, _options )
             _row += "<snow>" + ( new String( "point" ) ).rpad( " ", 9 ) + "</snow>" ;
             _row += ( new String( _plane_str ) ).rpad( " ", 14 );
             break ;
+            case FIGURE_CLASS_REGION:
+            _row += "<snow>" + ( new String( "region" ) ).rpad( " ", 9 ) + "</snow>" ;
+            _row += ( new String( _plane_str ) ).rpad( " ", 14 );
+            break ;
 			default: break ;
          }
 
@@ -1300,6 +1291,7 @@ function _figures_cmd_display_list_item( _i, _rec_chunk, _options )
                     else _row += "<red>(missing)</red> " ;
                 }
 				break ;
+				case FIGURE_CLASS_REGION: _row += "<snow>" + _obj.output( "cartesian" ) + "</snow>" ; break ;
 				default: _row += "<red>unknown primitive object</red> " ; break ;
 			}
          }

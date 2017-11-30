@@ -88,7 +88,7 @@ function circles_lib_canvas_layer_roledef_get( _canvas_id )
 	else return "" ;
 }
 
-function circles_lib_canvas_layer_find( _plane_type, _field_search_index, _field_value )
+function circles_lib_canvas_layer_find( _plane_type = NO_PLANE, _field_search_index, _field_value )
 {
     _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
     var _array_scan = _plane_type == Z_PLANE ? _glob_zplane_layers_pile_array : ( _plane_type == W_PLANE ? _glob_wplane_layers_pile_array : null );
@@ -106,7 +106,7 @@ function circles_lib_canvas_layer_find( _plane_type, _field_search_index, _field
                 _ret_layer = _array_scan[_i] ;
                 break ;
              }
-             else if ( _field_search_index == FIND_LAYER_BY_ROLE_DEF && _candidate_context.role_def.strcmp( _field_value ) )
+             else if ( _field_search_index == FIND_LAYER_BY_ROLE_DEF && _candidate_context.role_def.stricmp( _field_value ) )
              {
                 _ret_layer = _array_scan[_i] ;
                 break ;

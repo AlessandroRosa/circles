@@ -15,7 +15,7 @@
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 
 * region
-  > check 'rec' and auto refresh
+  > check that all input formats are working properly
 
 -------------- FIX SOON -----------------------
 
