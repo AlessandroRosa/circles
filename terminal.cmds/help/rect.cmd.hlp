@@ -2,83 +2,58 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>region %plane% %coords% drawcolor:%drawcolor% fillcolor:%fillcolor% linethick:%linethick% roundto:%roundto% %clean% %rec%</snow>
+<lightblue>usage</lightblue> <snow>rect %plane% %coords% %bordercolor% %fillcolor% %opacity% %bordersize% %borderradius% %layerrole% %rec% </snow>
 
-<lightblue>%plane%</lightblue> <snow>zplane | wplane</snow> (mandatory)
+<lightblue>%plane%</lightblue> <snow>zplane | wplane | bipbox</snow> (mandatory)
 
-<lightblue>%drawcolor%</lightblue> <snow>draw color (border)</snow> (optional)
+<lightblue>%layer%</lightblue> <snow>run 'layer %plane% list' to check layers definitions</snow> (mandatory)
+
+<lightblue>%coords%</lightblue> <snow>coordinates syntax</snow> (mandatory)
+<cadetblue>available formats are the following:</cadetblue>
+<cadetblue>1. Cartesian coordinates</cadetblue> <white>%left-top pt% %right-bottom pt%</white>
+<cadetblue>2. Cartesian coordinate + width and height</cadetblue> <white>%left-top pt% %width% %height%</white>
+<cadetblue>3. four comma-separated decimal values </cadetblue> <white>%left%,%top%,%right%,%bottom%</white>
+<cadetblue>4. inequalities </cadetblue> <white>x %inequality-operator% %value% y %inequality-operator% %value%</white>
+
+<lightblue>%bordercolor%</lightblue> <snow>border color (border)</snow> (optional)
+
+<lightblue>%bordersize%</lightblue> <snow>border size in pixels</snow> (optional)
+
+<lightblue>%borderradius%</lightblue> <snow>for rectangles with rounded corners</snow> (optional)
 
 <lightblue>%fillcolor%</lightblue> <snow>fill color</snow> (optional)
 
-<lightblue>%linethick%</lightblue> <snow>border line thickness</snow> (optional)
-
-<lightblue>%coords%</lightblue> <snow>coordinates syntax</snow> (mandatory)
-
-<lightblue>%roundto%</lightblue> <snow>round output values</snow> (optional)
+<lightblue>%opacity%</lightblue> <snow>opacity belonging to [0,1]</snow> (optional)
 
 <lightblue>%rec%</lightblue> (optional)
 
-<yellow>Example for straight syntax coords</yellow>
-<lightblue>region zplane 0,2,1,0 drawcolor:yellow fillcolor:cyan opacity:0.2</lightblue>
-<cadetblue>paints a bounded portion of the z-plane and defined by input coords (x1,y1,x2,y2)<br>
-Border and interior are painted yellow and cyan, respectively.<br>
-The interior is painted with opacity set to 0.2
-</cadetblue>
+<lightblue>%clean%</lightblue> <snow>clean the working layer</snow> (optional)
 
-<yellow>Example #1 for inequality (simple)</yellow>
-<lightblue>region zplane yellow y < 2 rec</lightblue>
-<cadetblue>paints yellow the unbounded rect region in the z-plane, given y < 2</cadetblue>
-<cadetblue>this region will be recorded in the figures storage space</cadetblue>
+<lightblue>$label</lightblue> <snow>a text, starting with '$', to tag the working rect</snow> (optional)
 
-<yellow>Example #2 for inequality (composite)</yellow>
-<lightblue>region wplane blue x > 2 y < 1 clean</lightblue>
-<cadetblue>clean the (default: no input choice) work layer of the wplane and paint blue the unbounded rect region of the w-plane, given x > 2 and y < 1</cadetblue>
+<lightblue>%rec%</lightblue> <snow>record the rectangle in a storage space</snow> (optional)
 
-<lightblue>usage</lightblue> <snow>rect %lefttop pt% %rightbottom pt% %width% %height% %opacity% %linethick% %borderradius% %plane% %layerrole% %drawcolor% %fillcolor% %rec% $label</snow>
+<lightblue>%storagesubset%</lightblue> <snow>select a storage space to record the rectangle</snow> (optional)
 
-<lightblue>%lefttop pt%</lightblue> <snow>starting corner point - example: (0,0)</snow>
-<cadetblue>left up is required for any construction</cadetblue>
 
-<lightblue>%rightbottom pt%</lightblue> <snow>ending corner point - example: (1,2)</snow>
-<cadetblue>rightbottom pt is optional for corners construction</cadetblue>
+<yellow>Examples</yellow>
 
-<lightblue>%width height%</lightblue> <snow>rect extents</snow>
-<cadetblue>width and height are optional for width/height construction</cadetblue>
+<yellow>rect zplane 0,2,1,0 bordercolor:yellow fillcolor:cyan opacity:0.2</yellow>
 
-<lightblue>%plane%</lightblue> <snow>zplane | wplane | bip</snow>
-<cadetblue>where the rect will be drawn</cadetblue>
+<yellow>rect wplane (0,0) (1,1) fillcolor:cyan</yellow>
 
-<lightblue>%layerrole%</lightblue>
-<cadetblue>the layer on which the point will be drawn</cadetblue>
-<cadetblue>run 'layer list %plane%' to check available 'role' property definitions for the input plane</cadetblue>
+<yellow>rect wplane (0,0) width:2 height:2 fillcolor:pink</yellow>
 
-<lightblue>%borderradius%</lightblue></snow>
-<cadetblue>set it if rect has rounded borders</cadetblue>
+<yellow>rect zplane layer:freedraw fillcolor:yellow y < 2 rec opacity:0.3 clean</yellow>
 
-<lightblue>%drawcolor% %fillcolor%</lightblue> <snow>red | #FF0000 | rgb(255,0,0)</snow>
-<cadetblue>Colors can be input by tags, rgb hex or rgb integer triplets. Type 'noclr' to skip it</cadetblue>
+<yellow>rect wplane bordercolor:blue x < 2 y < 1 clean</yellow>
+<cadetblue>A rectangle extending from (2,1) leftward and downwards to infinity</cadetblue>
 
-<lightblue>%linethick%</lightblue> <snow>integer value</snow>
-<cadetblue>Rectangle border line thickness in pixels. Zero value means no border</cadetblue>
+<yellow>rect wplane fillcolor:blue x > -1 x < 1 y < 2 opacity:0.4 clean</yellow>
+<cadetblue>A band delimited by the lines x = -1 and x = 1, extending from y = 2 downwards to infinity</cadetblue>
 
-<lightblue>%opacity%</lightblue> <snow>from 0 to 1</snow>
-<cadetblue>Set opacity level for current rect. It follows %drawcolor% or %fillcolor%</cadetblue>
+<yellow>rect zplane (0,0) (1,2) bordercolor:blue fillcolor:yellow opacity:0.7</yellow>
 
-<lightblue>%rec%</lightblue></snow>
-<cadetblue>If mentioned, record this rect for further display after renderings</cadetblue>
+<yellow>rect zplane (0,0) width:1 height:4 bordercolor:blue bordersize:3 fillcolor:yellow $rect1 rec</yellow>
 
-<yellow>point (0,0) drawcolor:orange fillcolor:yellow zplane layer:work</yellow>
-<cadetblue>the point will be plot in the 'work' layer belonging to the Z-plane</cadetblue>
-
-<yellow>rect (0,0) (1,2) drawcolor:blue fillcolor:yellow zplane opacity:0.7</yellow>
-<cadetblue>(corner points input) plot rect in the Z-plane and paint it yellow with blue border</cadetblue>
-
-<yellow>rect (0,0) 1 4 drawcolor:blue fillcolor:yellow linethick:3 zplane $rect1 rec</yellow>
-<cadetblue>(width/height input) plot rect with sides 1 and 4 in the Z-plane, paint it yellow with blue border and set line thickness to 3, then record it with label '$rect1' into the </cadetblue> <snow>preset figures array</snow>
-
-<yellow>rect (0,0) 1 4 drawcolor:blue fillcolor:yellow linethick:3 zplane $rect1 storagein</yellow>
-<cadetblue>same as above, but the line is saved into the default storage space</cadetblue>
-
-<yellow>rect (0,0) 1 4 drawcolor:blue fillcolor:yellow linethick:3 zplane $rect1 storagein storagesubset:rects</yellow>
-<cadetblue>same as above, but the line is saved into the 'rects' storage space (if existing)</cadetblue>
-
+<yellow>rect zplane (0,0) width:4 height:1 bordercolor:blue bordersize:3 fillcolor:yellow $rect1 storagesubset:rects</yellow>

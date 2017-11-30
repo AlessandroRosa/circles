@@ -34,7 +34,7 @@ function circles_terminal_cmd_disk()
         _params_assoc_array['all'] = NO ;
         _params_assoc_array['center'] = null ;
         _params_assoc_array['draw'] = UNDET ;
-        _params_assoc_array['drawcolor'] = null ;
+        _params_assoc_array['bordercolor'] = null ;
         _params_assoc_array['dump'] = NO ;
         _params_assoc_array['dump_array'] = null ;
         _params_assoc_array['dump_operator_index'] = UNDET ;
@@ -50,7 +50,7 @@ function circles_terminal_cmd_disk()
         _params_assoc_array['inv_symbol'] = null ;
         _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
         _params_assoc_array['symbol'] = null ;
-        _params_assoc_array['linethick'] = null ;
+        _params_assoc_array['bordersize'] = null ;
         _params_assoc_array['mirrorx'] = null ;
         _params_assoc_array['mirrory'] = null ;
         _params_assoc_array['off'] = NO ;
@@ -161,13 +161,13 @@ function circles_terminal_cmd_disk()
                  _rotation_degree = safe_float( _p.replaceAll( "deg:", "" ), 0 );
             else if ( _p.toLowerCase().start_with( "rad:" ) )
                  _rotation_radians = safe_float( _p.replaceAll( "rad:", "" ), 0 );
-			else if ( _p.toLowerCase().start_with( "drawcolor:" ) && _params_assoc_array['drawcolor'] == null )
+			else if ( _p.toLowerCase().start_with( "bordercolor:" ) && _params_assoc_array['bordercolor'] == null )
 			{
-				_params_assoc_array['drawcolor'] = safe_string( _p.replace( /drawcolor:/gi, "" ), "" ) ;
-				if ( circles_lib_colors_is_def( _params_assoc_array['drawcolor'] ) )
+				_params_assoc_array['bordercolor'] = safe_string( _p.replace( /bordercolor:/gi, "" ), "" ) ;
+				if ( circles_lib_colors_is_def( _params_assoc_array['bordercolor'] ) )
 				{
-					_params_assoc_array['draw'] = _params_assoc_array['drawcolor'].stricmp("transparent") ? 0 : 1 ;
-					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['drawcolor']+"</snow>" ;
+					_params_assoc_array['draw'] = _params_assoc_array['bordercolor'].stricmp("transparent") ? 0 : 1 ;
+					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['bordercolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
 				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; break ; }
@@ -195,10 +195,10 @@ function circles_terminal_cmd_disk()
                 _params_assoc_array['y'] = safe_float( _p.replaceAll( "y:", "" ), 0 );
             else if ( _p.stricmp( "x" ) ) _params_assoc_array['mirrorx'] = 1 ;
             else if ( _p.stricmp( "y" ) ) _params_assoc_array['mirrory'] = 1 ;
-            else if ( _p.toLowerCase().start_with( "linethick:" ) )
+            else if ( _p.toLowerCase().start_with( "bordersize:" ) )
             {
-                _params_assoc_array['linethick'] = safe_float( _p.replaceAll( "linethick:", "" ), 0 );
-                if ( _params_assoc_array['linethick'] < 0 )
+                _params_assoc_array['bordersize'] = safe_float( _p.replaceAll( "bordersize:", "" ), 0 );
+                if ( _params_assoc_array['bordersize'] < 0 )
                 {
                     _b_fail = YES, _error_str = "input line thickness is not a number or it is not strictly positive" ; break ;
                 }
@@ -415,9 +415,9 @@ function circles_terminal_cmd_disk()
                             var _last_item_obj_symbol = is_item_obj( _items_array[_obj_index] ) ? _items_array[_obj_index].symbol : "" ;
                             if ( _params_assoc_array['fill'] != UNDET ) _items_array[_obj_index].complex_circle.fill = _params_assoc_array['fill'] ;
                             if ( _params_assoc_array['draw'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _params_assoc_array['draw'] ;
-                            if ( _params_assoc_array['drawcolor'] != null ) _items_array[_obj_index].complex_circle.drawcolor = _params_assoc_array['drawcolor'] ;
+                            if ( _params_assoc_array['bordercolor'] != null ) _items_array[_obj_index].complex_circle.bordercolor = _params_assoc_array['bordercolor'] ;
                             if ( _params_assoc_array['fillcolor'] != null ) _items_array[_obj_index].complex_circle.fillcolor = _params_assoc_array['fillcolor'] ;
-                            _items_array[_obj_index].complex_circle.linethick = ( _params_assoc_array['linethick'] != null ) ? _params_assoc_array['linethick'] : 1 ;
+                            _items_array[_obj_index].complex_circle.bordersize = ( _params_assoc_array['bordersize'] != null ) ? _params_assoc_array['bordersize'] : 1 ;
                             if ( _new_sd_n == _old_sd_n + 1 ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "The new disk '"+_last_item_obj_symbol+"' has been added", _par_1, _cmd_tag );
 
                             var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
@@ -1205,17 +1205,17 @@ function circles_terminal_cmd_disk()
 																	 _src_items_set_ref[ _zero_based_indexes[0] ].map = _mm.copy();
 																	 _src_items_set_ref[ _zero_based_indexes[0] ].original_word = _src_items_set_ref[ _zero_based_indexes[0] ].symbol = _new_symbol ;
 																	 _src_items_set_ref[ _zero_based_indexes[0] ].inverse_symbol = circles_lib_word_inverse_get( _new_symbol ) ;
-																	 _src_items_set_ref[ _zero_based_indexes[0] ].complex_circle.drawcolor = DEFAULT_DRAW_SEED_COLOR ;
+																	 _src_items_set_ref[ _zero_based_indexes[0] ].complex_circle.bordercolor = DEFAULT_DRAW_SEED_COLOR ;
 																	 _src_items_set_ref[ _zero_based_indexes[0] ].complex_circle.fillcolor = DEFAULT_FILL_SEED_COLOR ;
-																	 _src_items_set_ref[ _zero_based_indexes[0] ].screen_circle.drawcolor = DEFAULT_DRAW_SEED_COLOR ;
+																	 _src_items_set_ref[ _zero_based_indexes[0] ].screen_circle.bordercolor = DEFAULT_DRAW_SEED_COLOR ;
 																	 _src_items_set_ref[ _zero_based_indexes[0] ].screen_circle.fillcolor = DEFAULT_FILL_SEED_COLOR ;
 
                                    _src_items_set_ref[ _zero_based_indexes[1] ].map = _mm.inv().copy();
 																	 _src_items_set_ref[ _zero_based_indexes[1] ].original_word = _src_items_set_ref[ _zero_based_indexes[1] ].symbol = circles_lib_word_inverse_get( _new_symbol ) ;
 																	 _src_items_set_ref[ _zero_based_indexes[1] ].inverse_symbol = _new_symbol ;
-																	 _src_items_set_ref[ _zero_based_indexes[1] ].complex_circle.drawcolor = DEFAULT_DRAW_INVERSE_SEED_COLOR ;
+																	 _src_items_set_ref[ _zero_based_indexes[1] ].complex_circle.bordercolor = DEFAULT_DRAW_INVERSE_SEED_COLOR ;
 																	 _src_items_set_ref[ _zero_based_indexes[1] ].complex_circle.fillcolor = DEFAULT_FILL_INVERSE_SEED_COLOR ;
-																	 _src_items_set_ref[ _zero_based_indexes[1] ].screen_circle.drawcolor = DEFAULT_DRAW_SEED_COLOR ;
+																	 _src_items_set_ref[ _zero_based_indexes[1] ].screen_circle.bordercolor = DEFAULT_DRAW_SEED_COLOR ;
 																	 _src_items_set_ref[ _zero_based_indexes[1] ].screen_circle.fillcolor = DEFAULT_FILL_SEED_COLOR ;
 
                                    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "This Mobius map has been correctly linked to disks", _par_1, _cmd_tag );
@@ -1363,8 +1363,8 @@ function circles_terminal_cmd_disk()
                                     if ( _params_assoc_array['radius'] != null ) _items_array[_obj_index].complex_circle.radius = _params_assoc_array['radius'] ;
                                     if ( _params_assoc_array['fill'] != UNDET ) _items_array[_obj_index].complex_circle.fill = _params_assoc_array['fill'] ;
                                     if ( _params_assoc_array['draw'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _params_assoc_array['draw'] ;
-                                    if ( _params_assoc_array['linethick'] != null ) _items_array[_obj_index].complex_circle.linethick = _params_assoc_array['linethick'] ;
-                                    if ( _params_assoc_array['drawcolor'] != null ) _items_array[_obj_index].complex_circle.drawcolor = _params_assoc_array['drawcolor'] ;
+                                    if ( _params_assoc_array['bordersize'] != null ) _items_array[_obj_index].complex_circle.bordersize = _params_assoc_array['bordersize'] ;
+                                    if ( _params_assoc_array['bordercolor'] != null ) _items_array[_obj_index].complex_circle.bordercolor = _params_assoc_array['bordercolor'] ;
                                     if ( _params_assoc_array['fillcolor'] != null ) _items_array[_obj_index].complex_circle.fillcolor = _params_assoc_array['fillcolor'] ;
 
                                     _l_array = _symbols_array.filtering( function( _p ){ return _p.isAlpha() } );

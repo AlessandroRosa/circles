@@ -37,9 +37,9 @@ function circle()
        this.radius = safe_float( arguments[0].radius, 0 ) ;
        this.draw = safe_int( arguments[0].draw, 1 ) ;
        this.fill = safe_int( arguments[0].fill, 0 ) ;
-       this.drawcolor = safe_string( arguments[0].drawcolor, "blue" ) ;
+       this.bordercolor = safe_string( arguments[0].bordercolor, "blue" ) ;
        this.fillcolor = safe_string( arguments[0].fillcolor, "" ) ;
-       this.linethick = safe_int( arguments[0].linethick, 1 ) ;
+       this.bordersize = safe_int( arguments[0].bordersize, 1 ) ;
        this.notes = safe_string( arguments[0].notes, "" ) ;
     }
     else if ( is_point( arguments[0] ) && !isNaN( arguments[1] ) )
@@ -48,9 +48,9 @@ function circle()
        this.radius = safe_float( arguments[1], 0 ) ;
        this.draw = safe_int( arguments[2], 1 ) ;
        this.fill = safe_int( arguments[3], 0 ) ;
-       this.drawcolor = safe_string( arguments[4], "blue" ) ;
+       this.bordercolor = safe_string( arguments[4], "blue" ) ;
        this.fillcolor = safe_string( arguments[5], "" ) ;
-       this.linethick = safe_int( arguments[6], 1 ) ;
+       this.bordersize = safe_int( arguments[6], 1 ) ;
        this.notes = safe_string( arguments[7], "" ) ;
     }
     else if ( !isNaN( arguments[0] ) && !isNaN( arguments[1] ) && !isNaN( arguments[2] ) )
@@ -59,9 +59,9 @@ function circle()
        this.radius = safe_float( arguments[2], 0 ) ;
        this.draw = safe_int( arguments[3], 1 ) ;
        this.fill = safe_int( arguments[4], 0 ) ;
-       this.drawcolor = safe_string( arguments[5], "blue" ) ;
+       this.bordercolor = safe_string( arguments[5], "blue" ) ;
        this.fillcolor = safe_string( arguments[6], "" ) ;
-       this.linethick = safe_int( arguments[7], 1 ) ;
+       this.bordersize = safe_int( arguments[7], 1 ) ;
        this.notes = safe_string( arguments[8], "" ) ;
     }
     else if ( is_string( arguments[0] ) )
@@ -76,9 +76,9 @@ function circle()
 
        this.draw = safe_int( arguments[1], 1 ) ;
        this.fill = safe_int( arguments[2], 0 ) ;
-       this.drawcolor = safe_string( arguments[3], "blue" ) ;
+       this.bordercolor = safe_string( arguments[3], "blue" ) ;
        this.fillcolor = safe_string( arguments[4], "" ) ;
-       this.linethick = safe_int( arguments[5], 1 ) ;
+       this.bordersize = safe_int( arguments[5], 1 ) ;
        this.notes = safe_string( arguments[6], "" ) ;
     }
     else
@@ -97,9 +97,9 @@ circle.prototype.init_from_obj = function( c )
     this.radius = c.radius ;
     this.fill = c.fill ;
     this.draw = c.draw ;
-    this.drawcolor = c.drawcolor ;
+    this.bordercolor = c.bordercolor ;
     this.fillcolor = c.fillcolor ;
-    this.linethick = c.linethick ;
+    this.bordersize = c.bordersize ;
     this.notes = c.notes ;
 }
 
@@ -107,9 +107,9 @@ circle.prototype.init_properties_from_obj = function( c )
 {
     this.fill = c.fill ;
     this.draw = c.draw ;
-    this.drawcolor = c.drawcolor ;
+    this.bordercolor = c.bordercolor ;
     this.fillcolor = c.fillcolor ;
-    this.linethick = c.linethick ;
+    this.bordersize = c.bordersize ;
     this.notes = c.notes ;
 }
 
@@ -136,7 +136,7 @@ circle.prototype.fixer = function( _max )
 }
 
 circle.prototype.get_representative_pts = function() { return [ this.center, this.center.shift( this.radius, 0, 0 ) ] ; }
-circle.prototype.copy = function()            { return new circle( this.center, this.radius, this.draw, this.fill, this.drawcolor, this.fillcolor, this.linethick, this.notes ); }
+circle.prototype.copy = function()            { return new circle( this.center, this.radius, this.draw, this.fill, this.bordercolor, this.fillcolor, this.bordersize, this.notes ); }
 circle.prototype.is_null = function() { return ( ( this.center.is_null() || !this.center.is_consistent() ) && this.radius == 0 ) ? 1 : 0 ; }
 circle.prototype.is_point = function() { return this.radius == 0 ? 1 : 0 ; }
 circle.prototype.is_equal_to = function( C )  { return ( C.center.is_equal_to( this.center ) && this.radius == C.radius ) ? 1 : 0 ; }
@@ -210,7 +210,7 @@ circle.prototype.is_internally_tangent = function( C2 )
 }
 
 circle.prototype.write = function() { document.write( this.output() ) ; }
-circle.prototype.fulloutput = function() { return ( this.output() + " Draw : " + this.draw + "/" + this.drawcolor + " Fill : " + this.fill + "/" + this.fillcolor ) ; }
+circle.prototype.fulloutput = function() { return ( this.output() + " Draw : " + this.draw + "/" + this.bordercolor + " Fill : " + this.fill + "/" + this.fillcolor ) ; }
 circle.prototype.pack = function() { return this.center.x + "@" + this.center.y + "@" + this.radius ; }
 circle.prototype.unpack = function( _packed_input )
 {
@@ -233,7 +233,7 @@ circle.prototype.roundTo = function( _round_digits = _CIRCLE_OBJ_MAX_ACCURACY )
 {
     _round_digits = safe_int( _round_digits, _CIRCLE_OBJ_MAX_ACCURACY );
     return new circle( this.center.roundTo( _round_digits ), this.radius.roundTo( _round_digits ),
-                       this.draw, this.fill, this.drawcolor, this.fillcolor, this.linethick, this.notes
+                       this.draw, this.fill, this.bordercolor, this.fillcolor, this.bordersize, this.notes
                      );
 }
 

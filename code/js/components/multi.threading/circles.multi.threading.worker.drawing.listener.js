@@ -2,9 +2,9 @@ var _glob_multithread_tmp_array_len = 0 ;
 var _glob_multithread_obj = null ;
 var _glob_multithread_obj_draw = 0 ;
 var _glob_multithread_obj_fill = 0 ;
-var _glob_multithread_obj_drawcolor = "" ;
+var _glob_multithread_obj_bordercolor = "" ;
 var _glob_multithread_obj_fillcolor = "" ;
-var _glob_multithread_obj_linethick = 0 ;
+var _glob_multithread_obj_bordersize = 0 ;
 var _glob_multithread_obj_word = "" ;
 var _glob_multithread_obj_screen_pt = null ;
 var _glob_multithread_obj_screen_circle = null ;
@@ -87,16 +87,16 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
 
 				                 	      if ( _glob_palette_use )
 				                 	      {
-																	 _glob_multithread_obj.circles_array[_i].drawcolor = _glob_palette_array[ _glob_multithread_obj_word.length % _glob_palette_array.length ] ;
+																	 _glob_multithread_obj.circles_array[_i].bordercolor = _glob_palette_array[ _glob_multithread_obj_word.length % _glob_palette_array.length ] ;
 																	 _glob_multithread_obj.circles_array[_i].fillcolor = _glob_palette_array[ _glob_multithread_obj_word.length % _glob_palette_array.length ] ;
 																}
         		                    _glob_multithread_obj_screen_circle = circles_lib_draw_complex_disk( _glob_multithread_context, _glob_multithread_mapper,
                                                         _glob_multithread_obj.circles_array[_i].center.x,
                                                         _glob_multithread_obj.circles_array[_i].center.y,
                                                         _glob_multithread_obj.circles_array[_i].radius,
-   		                                                  _glob_multithread_obj.circles_array[_i].draw, _glob_multithread_obj.circles_array[_i].drawcolor,
+   		                                                  _glob_multithread_obj.circles_array[_i].draw, _glob_multithread_obj.circles_array[_i].bordercolor,
 																												_glob_multithread_obj.circles_array[_i].fill, _glob_multithread_obj.circles_array[_i].fillcolor,
-                                                        _glob_multithread_obj.circles_array[_i].linethick, _glob_opacity, null, null, _glob_multithread_obj_word, 0 );
+                                                        _glob_multithread_obj.circles_array[_i].bordersize, _glob_opacity, null, null, _glob_multithread_obj_word, 0 );
                                 _glob_rec_canvas_entities_array[ _glob_multithread_obj_screen_circle.output('plain',0,NO) ] = _glob_multithread_obj.circles_array[_i] ;
              		            }
                             break ;
@@ -110,17 +110,17 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
 																_glob_multithread_obj.pts_array[_i].y = _glob_multithread_vars['fz.formula.result.complex'].imag ;
                             }
 
-		                   	    if ( _glob_palette_use ) _glob_multithread_obj.pts_array[_i].drawcolor = _glob_palette_array[ _glob_multithread_obj_word.length % _glob_palette_array.length ] ;
+		                   	    if ( _glob_palette_use ) _glob_multithread_obj.pts_array[_i].bordercolor = _glob_palette_array[ _glob_multithread_obj_word.length % _glob_palette_array.length ] ;
                             _glob_multithread_obj_screen_pt = circles_lib_draw_pixel( _glob_multithread_context, _glob_multithread_mapper,
                                          _glob_multithread_obj.pts_array[_i].x, _glob_multithread_obj.pts_array[_i].y,
-                                         _glob_multithread_obj.pts_array[_i].drawcolor,
+                                         _glob_multithread_obj.pts_array[_i].bordercolor,
 																				 _glob_multithread_pixelsize, _glob_opacity );
                             _glob_rec_canvas_entities_array[ _glob_multithread_obj_screen_pt.output('plain',0,NO) ] = _glob_multithread_obj.pts_array[_i] ;
                             break ;
                             case DRAWENTITY_POINT :
 		                   	    if ( _glob_palette_use )
 		                   	    {
-															 _glob_multithread_obj.circles_array[_i].drawcolor = _glob_palette_array[ _glob_multithread_obj_word.length % _glob_palette_array.length ] ;
+															 _glob_multithread_obj.circles_array[_i].bordercolor = _glob_palette_array[ _glob_multithread_obj_word.length % _glob_palette_array.length ] ;
 															 _glob_multithread_obj.circles_array[_i].fillcolor = _glob_palette_array[ _glob_multithread_obj_word.length % _glob_palette_array.length ] ;
 														}
 
@@ -135,7 +135,7 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
 
                             _glob_multithread_obj_screen_pt = circles_lib_draw_point( _glob_multithread_context, _glob_multithread_mapper,
                                                  _glob_multithread_obj.pts_array[_i].x, _glob_multithread_obj.pts_array[_i].y,
-                                                 1, _glob_multithread_obj.pts_array[_i].drawcolor,
+                                                 1, _glob_multithread_obj.pts_array[_i].bordercolor,
 																								 _glob_multithread_obj.pts_array[_i].fill, _glob_multithread_obj.pts_array[_i].fillcolor,
                                                  _glob_multithread_pixelsize, _glob_pt_radius * _glob_multithread_pixelsize, _glob_opacity );
                             _glob_rec_canvas_entities_array[ _glob_multithread_obj_screen_pt.output('plain',0,NO) ] = _glob_multithread_obj.pts_array[_i] ;
@@ -148,7 +148,7 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
 		             {
 		                 _glob_multithread_vars['screen_pt'] = circles_lib_draw_point( _glob_multithread_context, _glob_multithread_mapper,
 		                                                                         _glob_multithread_obj.x, _glob_multithread_obj.y,
-                                                                             _glob_multithread_obj.draw, _glob_multithread_obj_drawcolor, _glob_multithread_obj.fill, _glob_multithread_obj_fillcolor,
+                                                                             _glob_multithread_obj.draw, _glob_multithread_obj_bordercolor, _glob_multithread_obj.fill, _glob_multithread_obj_fillcolor,
                                                                              _glob_pt_border, _glob_pt_radius, _glob_opacity );
 		                 circles_lib_draw_text( _glob_multithread_canvas, _glob_multithread_mapper,
 		                                  _glob_multithread_vars['screen_pt'].x, _glob_multithread_vars['screen_pt'].y,

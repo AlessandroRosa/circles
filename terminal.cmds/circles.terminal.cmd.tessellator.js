@@ -399,11 +399,11 @@ function circles_terminal_cmd_tessellator()
                                    _tmp_chunk['obj'] = new circle( _complex_circle.get_center(), _complex_circle.get_radius() );
                                    _tmp_chunk['plane'] = _params_assoc_array['plane'] ;
                                    _tmp_chunk['draw'] = _chunk.complex_circle.draw ;
-                                   _tmp_chunk['drawcolor'] = _chunk.complex_circle.drawcolor ;
+                                   _tmp_chunk['bordercolor'] = _chunk.complex_circle.bordercolor ;
                                    _tmp_chunk['fill'] = _chunk.complex_circle.fill ;
                                    _tmp_chunk['fillcolor'] = _chunk.complex_circle.fillcolor ;
                                    _tmp_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-                                   _tmp_chunk['linethick'] = _chunk.complex_circle.linethick ;
+                                   _tmp_chunk['bordersize'] = _chunk.complex_circle.bordersize ;
                                    _tmp_chunk['enabled'] = _chunk.enabled ;
                                    _tmp_chunk['symbol'] = "" ;
                                    circles_lib_figures_add( _tmp_chunk );

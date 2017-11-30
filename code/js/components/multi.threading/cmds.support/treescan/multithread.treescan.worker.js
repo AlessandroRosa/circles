@@ -29,11 +29,11 @@ function inline_worker_output_member( ret )
             var _word = ret.data ;
                 _word = _word.right(1);
             var _lastpt = ret.lastpt ;
-            var _drawcolor = ret.drawcolor ;
+            var _bordercolor = ret.bordercolor ;
             var _fillcolor = ret.fillcolor ;
             circles_lib_draw_point( _glob_wplane_freedraw_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm,
                               _lastpt.x, _lastpt.y,
-                              YES, _drawcolor, YES, _fillcolor, 1, 2, _glob_opacity, 0 );
+                              YES, _bordercolor, YES, _fillcolor, 1, 2, _glob_opacity, 0 );
 
             if ( ret.copy )
             {
@@ -45,11 +45,11 @@ function inline_worker_output_member( ret )
                          _tmp_chunk['obj'] = _lastpt ;
                          _tmp_chunk['plane'] = W_PLANE ;
                          _tmp_chunk['draw'] = YES ;
-                         _tmp_chunk['drawcolor'] = DEFAULT_INTERSECTION_POINT_BORDER_COLOR ;
+                         _tmp_chunk['bordercolor'] = DEFAULT_INTERSECTION_POINT_BORDER_COLOR ;
                          _tmp_chunk['fill'] = YES ;
                          _tmp_chunk['fillcolor'] = DEFAULT_INTERSECTION_POINT_INTERIOR_COLOR ;
                          _tmp_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-                         _tmp_chunk['linethick'] = 1 ;
+                         _tmp_chunk['bordersize'] = 1 ;
                          _tmp_chunk['enabled'] = YES ;
                          _tmp_chunk['myhash'] = "rec"+(_i+1);
                          _tmp_chunk['symbols'] = "" ;
@@ -65,7 +65,7 @@ function inline_worker_output_member( ret )
         if ( _stage == 2 )
         {
             var _word = ret.data ;
-            var _drawcolor = ret.drawcolor ;
+            var _bordercolor = ret.bordercolor ;
             var _fillcolor = ret.fillcolor ;
             if ( _glob_method == METHOD_INVERSION )
             {
@@ -76,7 +76,7 @@ function inline_worker_output_member( ret )
                  var _start_x = safe_float( ret.startpt.x, 0 ), _start_y = safe_float( ret.startpt.y, 0 );
                  var _ret_chunk = circles_lib_draw_word_pointwise( _glob_wplane_freedraw_layer_placeholder, wplane_sm, null, NO,
                                                             _word, _start_x, _start_y,
-                                                            YES, NO, YES, _drawcolor, _fillcolor, YES, YES, _output_channel );
+                                                            YES, NO, YES, _bordercolor, _fillcolor, YES, YES, _output_channel );
             }
         }
         break;

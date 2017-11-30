@@ -87,9 +87,9 @@ function circles_terminal_cmd_plot()
 							}
               else if ( _p.testME( _glob_number_regex_pattern ) )
               {
-                   if ( _params_assoc_array['extras']['linethick'] == null )
+                   if ( _params_assoc_array['extras']['bordersize'] == null )
                    {
-											 _params_assoc_array['extras']['linethick'] = safe_float( _p, 0 ) ;
+											 _params_assoc_array['extras']['bordersize'] = safe_float( _p, 0 ) ;
 			                 circles_lib_output( _output_channel, DISPATCH_INFO, "Detected integer #1: border thickness has been set to " + _p, _par_1, _cmd_tag );
 									 }
 									 else if ( _params_assoc_array['extras']['radius'] == null )
@@ -100,9 +100,9 @@ function circles_terminal_cmd_plot()
               }
               else if ( _p.stricmp( "none" ) )
               {
-                   if ( _params_assoc_array['extras']['drawcolor'] == null )
+                   if ( _params_assoc_array['extras']['bordercolor'] == null )
                    {
-                       _params_assoc_array['extras']['drawcolor'] = "transparent" ;
+                       _params_assoc_array['extras']['bordercolor'] = "transparent" ;
                        circles_lib_output( _output_channel, DISPATCH_INFO, "The color shade for drawing has been set to 'transparent'", _par_1, _cmd_tag );
                    }
                    else if ( _params_assoc_array['extras']['fillcolor'] == null )
@@ -113,9 +113,9 @@ function circles_terminal_cmd_plot()
               }
               else if ( circles_lib_colors_is_def( _p ) )
               {
-                   if ( _params_assoc_array['extras']['drawcolor'] == null )
+                   if ( _params_assoc_array['extras']['bordercolor'] == null )
                    {
-                       _params_assoc_array['extras']['drawcolor'] = _p ;
+                       _params_assoc_array['extras']['bordercolor'] = _p ;
                        circles_lib_output( _output_channel, DISPATCH_INFO, "'" + _p + "' has been acquired as color shade for drawing", _par_1, _cmd_tag );
                    }
                    else if ( _params_assoc_array['extras']['fillcolor'] == null )
@@ -139,7 +139,7 @@ function circles_terminal_cmd_plot()
          var _all = _params_assoc_array['extras']['all'] != null ? _params_assoc_array['extras']['all'] : NO ;
          var _action = safe_string( _params_assoc_array['action'], "" ).trim() ;
          var _map_it = _params_assoc_array['extras'].includes_i( "map" ) ? YES : NO ;
-         var _linethick = safe_float( _params_assoc_array['extras']['linethick'], UNDET ) ;
+         var _bordersize = safe_float( _params_assoc_array['extras']['bordersize'], UNDET ) ;
          var _radius = safe_float( _params_assoc_array['extras']['radius'], UNDET ) ;
          if ( _action.length == 0 )
          {
@@ -179,11 +179,11 @@ function circles_terminal_cmd_plot()
 					                {
 					                    if ( is_circle( ITEM.complex_circle ) && is_circle( ITEM.screen_circle ) )
 					                    {
-					                         if ( safe_size( _params_assoc_array['extras']['drawcolor'], 0 ) > 0 )
+					                         if ( safe_size( _params_assoc_array['extras']['bordercolor'], 0 ) > 0 )
 					                         {
 					                             ITEM.screen_circle.draw = ITEM.complex_circle.draw = YES ;
-					                             ITEM.screen_circle.drawcolor = ITEM.complex_circle.drawcolor = _params_assoc_array['extras']['drawcolor'] ;
-					                             circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Draw color set up to '"+_params_assoc_array['extras']['drawcolor']+"' with success for item '"+_symbol+"'", _par_1, _cmd_tag );
+					                             ITEM.screen_circle.bordercolor = ITEM.complex_circle.bordercolor = _params_assoc_array['extras']['bordercolor'] ;
+					                             circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Draw color set up to '"+_params_assoc_array['extras']['bordercolor']+"' with success for item '"+_symbol+"'", _par_1, _cmd_tag );
 					                         }
 					
 					                         if ( safe_size( _params_assoc_array['extras']['fillcolor'], 0 ) > 0 )
@@ -285,7 +285,7 @@ function circles_terminal_cmd_plot()
 							        circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
 							        break ;
 							        case "draw":
-							        var _mapper = null, _context = null, _drawcolor = "", _fillcolor = "" ;
+							        var _mapper = null, _context = null, _bordercolor = "", _fillcolor = "" ;
                       switch( _plane.toLowerCase() )
                       {
                            case "zplane":
@@ -309,64 +309,64 @@ function circles_terminal_cmd_plot()
     									           				{
     																				if ( is_item_obj( _obj ) )
     																				{
-                                                 _drawcolor = _obj.screen_circle.drawcolor.length == 0 ? safe_string( _params_assoc_array['extras']['drawcolor'], "" ) : _obj.screen_circle.drawcolor ;
+                                                 _bordercolor = _obj.screen_circle.bordercolor.length == 0 ? safe_string( _params_assoc_array['extras']['bordercolor'], "" ) : _obj.screen_circle.bordercolor ;
                                                  _fillcolor = _obj.screen_circle.fillcolor.length == 0 ? safe_string( _params_assoc_array['extras']['fillcolor'], "" ) : _obj.screen_circle.fillcolor ;
     																						 circles_lib_draw_screen_disk( _context, "",
     																																	  _obj.screen_circle,
-    																																		_obj.screen_circle.draw, _drawcolor,
+    																																		_obj.screen_circle.draw, _bordercolor,
     																																		_obj.screen_circle.fill, _fillcolor,
-    																																		_linethick > UNDET ? _linethick : _obj.screen_circle.linethick,
+    																																		_bordersize > UNDET ? _bordersize : _obj.screen_circle.bordersize,
 																																				_glob_opacity, 0 ) ;
     																				}
     																				else if ( is_point( _obj ) )
     																				{
-                                                 _drawcolor = _obj.drawcolor.length == 0 ? safe_string( _params_assoc_array['extras']['drawcolor'], "" ) : _obj.drawcolor ;
+                                                 _bordercolor = _obj.bordercolor.length == 0 ? safe_string( _params_assoc_array['extras']['bordercolor'], "" ) : _obj.bordercolor ;
                                                  _fillcolor = _obj.fillcolor.length == 0 ? safe_string( _params_assoc_array['extras']['fillcolor'], "" ) : _obj.fillcolor ;
                                                  _obj.radius = ( _obj.radius == 0 && _radius > 0 ) ? _radius : DEFAULT_PT_RADIUS ;
                                                  var _pt = circles_lib_draw_point( _context, _mapper,
               																															 _obj.x, _obj.y,
-              																															 _drawcolor.length > 0 ? YES : NO, _drawcolor,
+              																															 _bordercolor.length > 0 ? YES : NO, _bordercolor,
               																															 _fillcolor.length > 0 ? YES : NO, _fillcolor,
-              																															 _linethick > UNDET ? _linethick : DEFAULT_PT_BORDER,
+              																															 _bordersize > UNDET ? _bordersize : DEFAULT_PT_BORDER,
               																															 safe_float( _obj.radius, DEFAULT_PT_RADIUS ),
               																															 _glob_opacity, 0, _map_it ) ;
     																				}
     																				else if ( is_complex( _obj ) )
     																				{
-                                                 _drawcolor = _obj.drawcolor.length == 0 ? safe_string( _params_assoc_array['extras']['drawcolor'], "" ) : DEFAULT_PT_BORDER_COLOR ;
+                                                 _bordercolor = _obj.bordercolor.length == 0 ? safe_string( _params_assoc_array['extras']['bordercolor'], "" ) : DEFAULT_PT_BORDER_COLOR ;
                                                  _fillcolor = _obj.fillcolor.length == 0 ? safe_string( _params_assoc_array['extras']['fillcolor'], "" ) : DEFAULT_PT_INTERIOR_COLOR ;
     																						 circles_lib_draw_point( _context, _mapper,
     																															 _obj.real, _obj.imag,
-    																															 _drawcolor.length > 0 ? YES : NO, _drawcolor,
+    																															 _bordercolor.length > 0 ? YES : NO, _bordercolor,
                                                                    _fillcolor.length > 0 ? YES : NO, _fillcolor,
-    																															 _linethick > UNDET ? _linethick : DEFAULT_PT_BORDER,
+    																															 _bordersize > UNDET ? _bordersize : DEFAULT_PT_BORDER,
     																															 safe_float( _obj.radius, DEFAULT_PT_RADIUS ),
     																															 _glob_opacity, 0, YES ) ;
     																				}
     																				else if ( is_circle( _obj ) )
     																				{
-                                                 _drawcolor = _obj.drawcolor.length == 0 ? safe_string( _params_assoc_array['extras']['drawcolor'], "" ) : _obj.drawcolor ;
+                                                 _bordercolor = _obj.bordercolor.length == 0 ? safe_string( _params_assoc_array['extras']['bordercolor'], "" ) : _obj.bordercolor ;
                                                  _fillcolor = _obj.fillcolor.length == 0 ? safe_string( _params_assoc_array['extras']['fillcolor'], "" ) : _obj.fillcolor ;
    																							 if ( !_map_it )
     																						 circles_lib_draw_screen_disk( _context, "", _obj,
-    																																	  _drawcolor.length > 0 ? YES : NO, _drawcolor,
+    																																	  _bordercolor.length > 0 ? YES : NO, _bordercolor,
                                                                         _fillcolor.length > 0 ? YES : NO, _fillcolor,
-    																																		_linethick > UNDET ? _linethick : _obj.linethick, _glob_opacity, 0 ) ;
+    																																		_bordersize > UNDET ? _bordersize : _obj.bordersize, _glob_opacity, 0 ) ;
     																						 else
     																						 circles_lib_draw_complex_disk( _context, _mapper,
     																								 										 _obj.center.x, _obj.center.y, _obj.radius,
-    																																		 _drawcolor.length > 0 ? YES : NO, _drawcolor,
+    																																		 _bordercolor.length > 0 ? YES : NO, _bordercolor,
                                                                          _fillcolor.length > 0 ? YES : NO, _fillcolor,
-    																																		 _linethick > UNDET ? _linethick : _obj.linethick, _glob_opacity, null, null "", 0 ) ;
+    																																		 _bordersize > UNDET ? _bordersize : _obj.bordersize, _glob_opacity, null, null "", 0 ) ;
     																				}
     																				else if ( is_line( _obj ) )
     																				{
-                                                 _drawcolor = _obj.drawcolor.length == 0 ? safe_string( _params_assoc_array['extras']['drawcolor'], "" ) : DEFAULT_PT_BORDER_COLOR ;
+                                                 _bordercolor = _obj.bordercolor.length == 0 ? safe_string( _params_assoc_array['extras']['bordercolor'], "" ) : DEFAULT_PT_BORDER_COLOR ;
     																						 circles_lib_draw_segment( _context, _mapper,
     																						 										 _obj.start_pt.x, _obj.start_pt.y,
     																																 _obj.end_pt.x, _obj.end_pt.y,
-    																																 _drawcolor,
-																																		 _linethick > UNDET ? _linethick : _obj.linethick,
+    																																 _bordercolor,
+																																		 _bordersize > UNDET ? _bordersize : _obj.bordersize,
 																																		 _glob_opacity, 0, _map_it ) ;
     																				}
     																		}

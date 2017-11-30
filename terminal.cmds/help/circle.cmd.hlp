@@ -2,18 +2,18 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>circle %center% radius:%value% linethick:%value% opacity:%value% drawcolor:%value% fillcolor:%value% %plane% %layerrole% %rec% $label %sector_range%</snow>
+<lightblue>usage</lightblue> <snow>circle %center% radius:%value% bordersize:%value% opacity:%value% bordercolor:%value% fillcolor:%value% %plane% %layerrole% %rec% $label %sector_range%</snow>
 
 <lightblue>%center%</lightblue> <snow>circle center - example: (0,0)</snow>
 <lightblue>%radius%</lightblue> <snow>any positive decimal value</snow>
 
-<lightblue>%linethick%</lightblue> <snow>integer value</snow>
+<lightblue>%bordersize%</lightblue> <snow>integer value</snow>
 <cadetblue>Circle line thickness in pixels. 0 means 'no border'</cadetblue>
 
 <lightblue>%opacity%</lightblue> <snow>from 0 to 1</snow>
-<cadetblue>Opacity level for current circle. It follows %drawcolor% or %fillcolor%</cadetblue>
+<cadetblue>Opacity level for current circle. It follows %bordercolor% or %fillcolor%</cadetblue>
 
-<lightblue>%drawcolor% %fillcolor%</lightblue> <snow>red | #FF0000 | rgb(255,0,0)</snow>
+<lightblue>%bordercolor% %fillcolor%</lightblue> <snow>red | #FF0000 | rgb(255,0,0)</snow>
 <cadetblue>Colors can be input by tags, rgb hex or rgb integer triplets. Type 'noclr' to skip it</cadetblue>
 
 <lightblue>%plane%</lightblue> <snow>zplane | wplane | bip</snow>
@@ -30,19 +30,19 @@
 <lightblue>%sector_range%</lightblue> <snow>[from_radians,to_radians]</snow>
 <cadetblue>Sector for the current circle.</cadetblue>
 
-<yellow>circle (0,0) radius:1.4 drawcolor:orange fillcolor:yellow zplane layer:work</yellow>
+<yellow>circle (0,0) radius:1.4 bordercolor:orange fillcolor:yellow zplane layer:work</yellow>
 <cadetblue>the circle will be plot in the 'work' layer belonging to the Z-plane</cadetblue>
 
-<yellow>circle (0,0) radius:1 drawcolor:yellow fillcolor:blue linethick:7 opacity:0.5 zplane sector:[30,120]</yellow>
+<yellow>circle (0,0) radius:1 bordercolor:yellow fillcolor:blue bordersize:7 opacity:0.5 zplane sector:[30,120]</yellow>
 <cadetblue>Plot the arc of sector with blue border, from 30 degrees to 120 degrees and on the Z-plane</cadetblue>
 
-<yellow>circle (0,0) radius:1 drawcolor:blue fillcolor:yellow linethick:7 zplane label:<anything-without-blank-space> rec</yellow>
+<yellow>circle (0,0) radius:1 bordercolor:blue fillcolor:yellow bordersize:7 zplane label:<anything-without-blank-space> rec</yellow>
 <cadetblue>plot it on the Z-plane, paint it yellow with blue border and set border thickness to 3 units, then record it with label $circle1 into the</cadetblue> <snow>preset figures array</snow>
 
-<yellow>circle (0,0) radius:1 drawcolor:blue fillcolor:yellow linethick:7 zplane label:<anything-without-blank-space> storagein</yellow>
+<yellow>circle (0,0) radius:1 bordercolor:blue fillcolor:yellow bordersize:7 zplane label:<anything-without-blank-space> storagein</yellow>
 <cadetblue>same as before, but the circle is recorded into the dedicated storage space</cadetblue>
 
-<yellow>circle (0,0) radius:1 drawcolor:blue fillcolor:yellow linethick:7 zplane label:<anything-without-blank-space> storagein storagesubset:circles</yellow>
+<yellow>circle (0,0) radius:1 bordercolor:blue fillcolor:yellow bordersize:7 zplane label:<anything-without-blank-space> storagein storagesubset:circles</yellow>
 <cadetblue>same as above, but the line is saved into the 'circles' storage space (if existing)</cadetblue>
 
 <lightgray>-------------------------------</lightgray>
@@ -56,6 +56,6 @@
 <turquoise>Note (5)</turquoise>
 <cadetblue>if you want to update later a circle entry, use these parameters</cadetblue>
 <cadetblue>in'</cadetblue><white>figures</white><cadetblue>' cmd with '</cadetblue><white>update</white><cadetblue>' action</cadetblue>
-<snow>center radius draw drawcolor fill fillcolor opacity thick</snow>
+<snow>center radius draw bordercolor fill fillcolor opacity thick</snow>
 <lightblue>circle release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>

@@ -84,39 +84,39 @@ function _svg_line( _code_array, _screen_line, _dashed )
          _dashed = safe_int( _dashed, 0 ); 
          var _x1 = _screen_line.start_pt.x, _y1 = _screen_line.start_pt.y ;
          var _x2 = _screen_line.end_pt.x, _y2 = _screen_line.end_pt.y ;
-         var _linethick = _screen_line.lw, _clr = _screen_line.drawcolor ;
+         var _bordersize = _screen_line.lw, _clr = _screen_line.bordercolor ;
     
          var _dash_attr = _dashed ? " stroke-dasharray=\"2,2,2\"" : "" ;
-         var _draw_attr = _linethick != 0 ? " stroke=\""+_clr+"\"" : " stroke=\"transparent\"" ;
-         var _linethick_attr = " stroke-width=\""+_linethick+"\"" ;
+         var _draw_attr = _bordersize != 0 ? " stroke=\""+_clr+"\"" : " stroke=\"transparent\"" ;
+         var _bordersize_attr = " stroke-width=\""+_bordersize+"\"" ;
          
-         _code_array.push( "<line"+_linethick_attr+_draw_attr+_dash_attr+" x1=\""+_x1+"\" y1=\""+_y1+"\" x2=\""+_x2+"\" y2=\""+_y2+"\" />" + _glob_crlf );
+         _code_array.push( "<line"+_bordersize_attr+_draw_attr+_dash_attr+" x1=\""+_x1+"\" y1=\""+_y1+"\" x2=\""+_x2+"\" y2=\""+_y2+"\" />" + _glob_crlf );
      }
 }
 
-function _svg_point( _code_array, _screen_pt, _draw, _drawcolor, _fill, _fillcolor, _linethick, _radius )
+function _svg_point( _code_array, _screen_pt, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _radius )
 {
      if ( _glob_svg_open == 1 )
      {
           _draw = safe_int( _draw, NO );
-          _drawcolor = safe_string( _drawcolor, "" ); 
+          _bordercolor = safe_string( _bordercolor, "" ); 
           _fill = safe_int( _fill, NO );
           _fillcolor = safe_string( _fillcolor, "" ); 
-          _linethick = safe_int( _linethick, 0 );
+          _bordersize = safe_int( _bordersize, 0 );
           _radius = safe_int( _radius, 0 );
 
-          var _circle = new circle( _screen_pt, _radius, _drawcolor, _fillcolor, _linethick );
+          var _circle = new circle( _screen_pt, _radius, _bordercolor, _fillcolor, _bordersize );
           _circle.draw = _draw, _circle.fill = _fill ;
           _svg_circle( _code_array, _circle, 0 );
      }
 }
 
-function _svg_pixel( _code_array, _screen_pt, _opacity, _draw, _drawcolor, _fill, _fillcolor, _linethick )
+function _svg_pixel( _code_array, _screen_pt, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize )
 {
      if ( _glob_svg_open == 1 )
      {
           var _screen_rect = new rect( _screen_pt.x, _screen_pt.y, _screen_pt.x + 0.2, _screen_pt.y + 0.2 );
-          _svg_rect( _code_array, _screen_rect, _opacity, _draw, _drawcolor, _fill, _fillcolor, _linethick, 0, YES );
+          _svg_rect( _code_array, _screen_rect, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize, 0, YES );
      }
 }
 
@@ -127,19 +127,19 @@ function _svg_circle( _code_array, _screen_circle, _dashed, _opacity )
          _dashed = safe_int( _dashed, NO );
          _opacity = safe_int( _opacity, DEFAULT_MAX_OPACITY );
     
-         _dashed = ( ( _screen_circle.fill == 0 || _screen_circle.fillcolor.length == 0 || _screen_circle.fillcolor.stricmp( "transparent" ) ) && ( _screen_circle.draw == 0 || _screen_circle.drawcolor.length == 0 || _screen_circle.drawcolor.stricmp( "transparent" ) ) ) ? YES : NO ;
-         if ( _dashed && _screen_circle.drawcolor.length == 0 ) _screen_circle.drawcolor = DEFAULT_EDIT_COLOR_DISABLED ;
+         _dashed = ( ( _screen_circle.fill == 0 || _screen_circle.fillcolor.length == 0 || _screen_circle.fillcolor.stricmp( "transparent" ) ) && ( _screen_circle.draw == 0 || _screen_circle.bordercolor.length == 0 || _screen_circle.bordercolor.stricmp( "transparent" ) ) ) ? YES : NO ;
+         if ( _dashed && _screen_circle.bordercolor.length == 0 ) _screen_circle.bordercolor = DEFAULT_EDIT_COLOR_DISABLED ;
 
          var _dash_attr = _dashed ? " stroke-dasharray=\"2,2,2\"" : "" ;
-         var _linethick_attr = ( _screen_circle.draw && _screen_circle.linethick > 0 ) ? " stroke-width=\""+_screen_circle.linethick+"\"" : "" ;
-         var _draw_attr = ( ( _screen_circle.draw || _dashed ) && _screen_circle.drawcolor.length > 0 ) ? " stroke=\""+_screen_circle.drawcolor+"\"" : "" ;
+         var _bordersize_attr = ( _screen_circle.draw && _screen_circle.bordersize > 0 ) ? " stroke-width=\""+_screen_circle.bordersize+"\"" : "" ;
+         var _draw_attr = ( ( _screen_circle.draw || _dashed ) && _screen_circle.bordercolor.length > 0 ) ? " stroke=\""+_screen_circle.bordercolor+"\"" : "" ;
          var _fill_attr = ( _screen_circle.fill && _screen_circle.fillcolor.length > 0 ) ? " fill=\""+_screen_circle.fillcolor+"\"" : " fill=\"transparent\"" ;
 
-         _code_array.push( "<circle"+_dash_attr+_linethick_attr+_draw_attr+_fill_attr+" cx=\""+_screen_circle.center.x+"\" cy=\""+_screen_circle.center.y+"\" r=\""+_screen_circle.radius+"\" fill-opacity=\""+_opacity+"\" />" + _glob_crlf );
+         _code_array.push( "<circle"+_dash_attr+_bordersize_attr+_draw_attr+_fill_attr+" cx=\""+_screen_circle.center.x+"\" cy=\""+_screen_circle.center.y+"\" r=\""+_screen_circle.radius+"\" fill-opacity=\""+_opacity+"\" />" + _glob_crlf );
      }
 }
 
-function _svg_rect( _code_array, _screen_rect, _opacity, _draw, _drawcolor, _fill, _fillcolor, _linethick, _borderradius, _is_pixel )
+function _svg_rect( _code_array, _screen_rect, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _borderradius, _is_pixel )
 {
      if ( _glob_svg_open == 1 )
      {
@@ -148,16 +148,16 @@ function _svg_rect( _code_array, _screen_rect, _opacity, _draw, _drawcolor, _fil
          _fill = safe_int( _fill, 0 );
          _is_pixel = safe_int( _is_pixel, 0 );
          _borderradius = safe_int( _borderradius, 0 );
-         _linethick = safe_int( _linethick, 0 );
+         _bordersize = safe_int( _bordersize, 0 );
          
          var _x = _screen_rect.x1, _y = _screen_rect.y1;
          var _w = _screen_rect.w, _h = _screen_rect.h;
          
          var _borderradius = _borderradius > 0 ? "rx=\""+_borderradius+"\" ry=\""+_borderradius+"\"" : "" ;
          var _style = "style=\"" ;
-             if ( _draw && _drawcolor.length > 0 ) _style += "stroke:" + _drawcolor + ";" ;
+             if ( _draw && _bordercolor.length > 0 ) _style += "stroke:" + _bordercolor + ";" ;
              if ( _fill && _fillcolor.length > 0 ) _style += "fill:" + _fillcolor + ";" ;
-             if ( _linethick )                _style += "stroke-width:" + _linethick + ";" ;
+             if ( _bordersize )                _style += "stroke-width:" + _bordersize + ";" ;
              _style += "\"" ;
 
          _code_array.push( "<rect x=\""+_x.roundTo(2)+"\" y=\""+_y.roundTo(2)+"\" width=\""+_w.roundTo(2)+"\" height=\""+_h.roundTo(2)+"\" "+( _borderradius.length > 0 ? _borderradius + " " : "" )+""+_style+" fill-opacity=\""+_opacity+"\" />" + _glob_crlf );

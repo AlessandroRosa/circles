@@ -2,7 +2,7 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>disk %action | property% %label | index% %center% %radius% %linethickness% %fill% %draw% %file%</snow>
+<lightblue>usage</lightblue> <snow>disk %action | property% %label | index% %center% %radius% %bordersizeness% %fill% %draw% %file%</snow>
 
 <lightblue>%action%</lightblue> <snow>add | check | update | delete | list | select | find | rotate</snow>
 <lightblue>%property%</lightblue> <snow>area | center | circumference | curvature | diameter | radius</snow>
@@ -11,12 +11,12 @@
 <lightblue>%draw%</lightblue> <snow>nodraw or draw</snow>
 <lightblue>%file%</lightblue> <snow>export the list into a plain text file</snow>
 
-<lightblue>disk add a center:0,0 radius:1 draw fill fillcolor:255,255,255 drawcolor:#E0E0F0</lightblue>
+<lightblue>disk add a center:0,0 radius:1 draw fill fillcolor:255,255,255 bordercolor:#E0E0F0</lightblue>
 
-<lightblue>disk add a center:0,0 radius:1 draw fill fillcolor:255,255,255 drawcolor:#E0E0F0 storagein</lightblue>
+<lightblue>disk add a center:0,0 radius:1 draw fill fillcolor:255,255,255 bordercolor:#E0E0F0 storagein</lightblue>
 <cadetblue>same as above, but the disk is saved into the default storage subset</cadetblue>
 
-<lightblue>disk add a center:0,0 radius:1 draw fill fillcolor:255,255,255 drawcolor:#E0E0F0 storagein storagesubset:disks</lightblue>
+<lightblue>disk add a center:0,0 radius:1 draw fill fillcolor:255,255,255 bordercolor:#E0E0F0 storagein storagesubset:disks</lightblue>
 <cadetblue>same as above, but the map is saved into the 'disks' storage subset (if existing)</cadetblue>
 
 <lightblue>disk changelabel a b</lightblue>
@@ -104,7 +104,7 @@
 <lightblue>disk update a radius:1.2 nofill nodraw</lightblue>
 <lightblue>disk update A fillcolor:brown</lightblue>
 <lightblue>disk update b fillcolor:255,255,255</lightblue>
-<lightblue>disk update B drawcolor:#E0E0F0</lightblue>
+<lightblue>disk update B bordercolor:#E0E0F0</lightblue>
 <lightblue>disk update A</lightblue>
 <lightblue>disk update a disabled</lightblue>
 

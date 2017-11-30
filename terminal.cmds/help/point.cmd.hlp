@@ -2,7 +2,7 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>point %plane% %layerrole% %coords% %drawcolor% %fillcolor% %radius% %borderradius% %linethick% %opacity% $label</snow>
+<lightblue>usage</lightblue> <snow>point %plane% %layerrole% %coords% %bordercolor% %fillcolor% %radius% %borderradius% %bordersize% %opacity% $label</snow>
 
 <lightblue>%draw|fillcolor%</lightblue> <snow>tag or rgb triplets</snow>
 <lightblue>%opacity%</lightblue> <snow>0.0-1.0 range</snow>
@@ -16,20 +16,20 @@
 <cadetblue>the layer on which the point will be drawn</cadetblue>
 <cadetblue>run 'layer list %plane%' to check available 'role' property definitions for the input plane</cadetblue>
 
-<yellow>point (0,0) drawcolor:orange fillcolor:yellow zplane layer:work</yellow>
+<yellow>point (0,0) bordercolor:orange fillcolor:yellow zplane layer:work</yellow>
 <cadetblue>the point will be plot in the 'work' layer belonging to the Z-plane</cadetblue>
 
-<yellow>point (0,0) drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethick:2 $point1 rec</yellow>
+<yellow>point (0,0) bordercolor:orange fillcolor:yellow zplane opacity:0.4 bordersize:2 $point1 rec</yellow>
 <cadetblue>plot point in the Z-plane, paint it yellow with orange border and record it as $point1 into the</cadetblue> <snow>preset figures array</snow>
 <cadetblue>then set opacity:level to 0.4 and line thickness to 2 units</cadetblue>
 
-<yellow>point (0,0) drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethick:2 $point1 storagein</yellow>
+<yellow>point (0,0) bordercolor:orange fillcolor:yellow zplane opacity:0.4 bordersize:2 $point1 storagein</yellow>
 <cadetblue>same as above, but the point is save into the default storage subset space</cadetblue>
 
-<yellow>point (0,0) drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethick:2 $point1 storagein storagesubset:points</yellow>
+<yellow>point (0,0) bordercolor:orange fillcolor:yellow zplane opacity:0.4 bordersize:2 $point1 storagein storagesubset:points</yellow>
 <cadetblue>same as above, but the point is save into the 'points' storage subset space (if existing)</cadetblue>
 
-<yellow>point (0,0) (1,1) (2,2) radius:6 drawcolor:orange fillcolor:yellow zplane opacity:0.4 linethick:2</yellow>
+<yellow>point (0,0) (1,1) (2,2) radius:6 bordercolor:orange fillcolor:yellow zplane opacity:0.4 bordersize:2</yellow>
 <cadetblue>multiple points input</cadetblue>
 
 <yellow>point release</yellow>
@@ -43,4 +43,4 @@
 <turquoise>Note (3)</turquoise> <cadetblue>$labels can be used to refer to figures, as alternative to indexes</cadetblue>
 <turquoise>Note (4)</turquoise> <cadetblue>if you want to update later a point entry, use these parameters</cadetblue>
 <cadetblue>in'</cadetblue><white>figures</white><cadetblue>' cmd with '</cadetblue><white>update</white><cadetblue>' action</cadetblue>
-<snow>coords draw drawcolor:fill fillcolor:opacity:thick</snow>
+<snow>coords draw bordercolor:fill fillcolor:opacity:thick</snow>

@@ -37,7 +37,7 @@ function circles_terminal_cmd_word()
          _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
          _params_assoc_array['objectref'] = "" ;
          _params_assoc_array['list'] = NO ;
-         _params_assoc_array['drawcolor'] = null ;
+         _params_assoc_array['bordercolor'] = null ;
          _params_assoc_array['fillcolor'] = null ;
          _params_assoc_array['dump'] = NO ;
          _params_assoc_array['dump_array'] = null ;
@@ -135,7 +135,7 @@ function circles_terminal_cmd_word()
               }
               else if ( circles_lib_colors_is_def( _p ) )
               {
-                 if ( _params_assoc_array['drawcolor'] == null ) _params_assoc_array['drawcolor'] = _p ;
+                 if ( _params_assoc_array['bordercolor'] == null ) _params_assoc_array['bordercolor'] = _p ;
                  else if ( _params_assoc_array['fillcolor'] == null ) _params_assoc_array['fillcolor'] = _p ;
               }
               else if ( _p.toLowerCase().start_with( "startpt:" ) && _p.includes_i( "(", ",", ")" ) &&
@@ -220,7 +220,7 @@ function circles_terminal_cmd_word()
          var _action = _params_assoc_array['action'] ;
          var _round_to = _params_assoc_array['roundto'] ;
 
-         if ( _params_assoc_array['drawcolor'] == null ) _params_assoc_array['drawcolor'] = _glob_draw_seed_color ;
+         if ( _params_assoc_array['bordercolor'] == null ) _params_assoc_array['bordercolor'] = _glob_draw_seed_color ;
          if ( _params_assoc_array['fillcolor'] == null ) _params_assoc_array['fillcolor'] = _glob_fill_seed_color ;
          switch( _action )
          {
@@ -479,12 +479,12 @@ function circles_terminal_cmd_word()
                        _class = _rec_chunk['class'] ;
                        _obj = _rec_chunk['obj'] ;
                        _draw = _rec_chunk['draw'] ;
-                       _drawcolor = _rec_chunk['drawcolor'] ;
+                       _bordercolor = _rec_chunk['bordercolor'] ;
                        _fill = _rec_chunk['fill'] ;
                        _fillcolor = _rec_chunk['fillcolor'] ;
                        _opacity = _rec_chunk['opacity'] ;
-                       _linethick = _rec_chunk['linethick'];
-                       _border_radius = _rec_chunk['borderradius'];
+                       _bordersize = _rec_chunk['bordersize'];
+                       _borderradius = _rec_chunk['borderradius'];
                        _properties_mask = _rec_chunk['propertiesmask'];
                        _close = ( _rec_chunk['close'] != null ) ? _rec_chunk['close'] : NO ;
 
@@ -516,35 +516,35 @@ function circles_terminal_cmd_word()
                           case FIGURE_CLASS_POINT:
                           _pts_array.push( _obj );
                           circles_lib_draw_point( _canvas_context, _mapper, _obj.x, _obj.y,
-                                            _draw, _drawcolor, _fill, _fillcolor,
+                                            _draw, _bordercolor, _fill, _fillcolor,
                                             _glob_pt_border, _glob_pt_radius,
                                             _opacity, _properties_mask );
                           break ;
                           case FIGURE_CLASS_LINE:
                           _pts_array.push( _obj.get_both_end_pts().clone() );
                           circles_lib_draw_polyline( _canvas_context, _mapper, _obj,
-                                               _drawcolor, _fillcolor, _linethick,
+                                               _bordercolor, _fillcolor, _bordersize,
                                                _close, _opacity, UNDET,
                                                _properties_mask, YES );
                           break ;
                           case FIGURE_CLASS_RECT:
                           _pts_array.push( _obj.corners().clone() );
-                          if ( _border_radius )
+                          if ( _borderradius )
                           circles_lib_draw_rounded_rect( _canvas_context, _mapper, _obj,
-                                                  _draw, _drawcolor, _fill, _fillcolor,
-                                                  _linethick, _border_radius, YES,
+                                                  _draw, _bordercolor, _fill, _fillcolor,
+                                                  _bordersize, _borderradius, YES,
                                                   _opacity, _properties_mask );
                           else
                           circles_lib_draw_rect( _canvas_context, _mapper, _obj,
-                                           _draw, _drawcolor, _fill, _fillcolor,
-                                           _linethick, YES, _opacity, _properties_mask );
+                                           _draw, _bordercolor, _fill, _fillcolor,
+                                           _bordersize, YES, _opacity, _properties_mask );
                           break ;
                           case FIGURE_CLASS_CIRCLE:
                           _pts_array.push( _obj.get_representative_pts().clone() );
                           circles_lib_draw_complex_disk( _canvas_context, _mapper,
                                                   _obj.center.x, _obj.center.y, _obj.radius,
-                                                  _draw, _drawcolor, _fill, _fillcolor,
-                                                  _linethick, _opacity, null, null, "", _properties_mask );
+                                                  _draw, _bordercolor, _fill, _fillcolor,
+                                                  _bordersize, _opacity, null, null, "", _properties_mask );
                           break ;
 					                default: break ;
                       }
@@ -557,7 +557,7 @@ function circles_terminal_cmd_word()
                                 case FIGURE_CLASS_POINT:
                                 _obj = _pts_array[0] ;
                                 circles_lib_draw_point( _canvas_context, _mapper, _obj.x, _obj.y,
-                                                  _draw, _drawcolor, _fill, _fillcolor,
+                                                  _draw, _bordercolor, _fill, _fillcolor,
                                                   _glob_pt_border, _glob_pt_radius,
                                                   _opacity, _properties_mask );
                                 break ;
@@ -565,7 +565,7 @@ function circles_terminal_cmd_word()
                                 _obj.set_start_pt( _pts_array[0] );
                                 _obj.set_end_pt( _pts_array[1] );
                                 circles_lib_draw_polyline( _canvas_context, _mapper, _obj,
-                                                     _drawcolor, _fillcolor, _linethick,
+                                                     _bordercolor, _fillcolor, _bordersize,
                                                      _close, _opacity, UNDET,
                                                      _properties_mask, YES );
                                 break ;
@@ -575,23 +575,23 @@ function circles_terminal_cmd_word()
                                 _obj.set_top( _pts_array[0].y );
                                 _obj.set_bottom( _pts_array[2].y );
 
-                                if ( _border_radius )
+                                if ( _borderradius )
                                 circles_lib_draw_rounded_rect( _canvas_context, _mapper, _obj,
-                                                        _draw, _drawcolor, _fill, _fillcolor,
-                                                        _linethick, _border_radius, YES,
+                                                        _draw, _bordercolor, _fill, _fillcolor,
+                                                        _bordersize, _borderradius, YES,
                                                         _opacity, _properties_mask );
                                 else
                                 circles_lib_draw_rect( _canvas_context, _mapper, _obj,
-                                                 _draw, _drawcolor, _fill, _fillcolor,
-                                                 _linethick, YES, _opacity, _properties_mask );
+                                                 _draw, _bordercolor, _fill, _fillcolor,
+                                                 _bordersize, YES, _opacity, _properties_mask );
                                 break ;
                                 case FIGURE_CLASS_CIRCLE:
                                 _obj.set_center( _pts_array[0] );
                                 _obj.set_radius( _pts_array[1] );
                                 circles_lib_draw_complex_disk( _canvas_context, _mapper,
                                                         _obj.center.x, _obj.center.y, _obj.radius,
-                                                        _draw, _drawcolor, _fill, _fillcolor,
-                                                        _linethick, _opacity, null, null, "", _properties_mask );
+                                                        _draw, _bordercolor, _fill, _fillcolor,
+                                                        _bordersize, _opacity, null, null, "", _properties_mask );
                                 break ;
 								                default: break ;
                             }
@@ -668,14 +668,14 @@ function circles_terminal_cmd_word()
                                       var _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
                                       var _sc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
                                       var _draw = is_circle( _cc ) ? _cc.draw : NO ;
-                                      var _drawcolor = is_circle( _sc )  ? _sc.drawcolor : _glob_draw_seed_color ;
+                                      var _bordercolor = is_circle( _sc )  ? _sc.bordercolor : _glob_draw_seed_color ;
                                       var _fill = is_circle( _cc )  ? _cc.fill : YES ;
                                       var _fillcolor = is_circle( _sc )  ? _sc.fillcolor : "" ;
                                       if ( !_glob_gens_set_model_array.includes( _word ) && !_glob_gens_set_model_array.includes( circles_lib_word_inverse_get( _word ) ) )
                                       {
                                           _glob_gens_set_model_array.push( _word );
                                           _glob_gens_array.push( new item_obj( _mm, _cc, _sc, _word, 0,
-                                      		                                           _draw, _drawcolor, _fill, _fillcolor,
+                                      		                                           _draw, _bordercolor, _fill, _fillcolor,
                                       		                                           circles_lib_word_inverse_get( _word ), 1, ITEM_TYPE_MOBIUS ) );
     
                                           _glob_gens_set_model_array.push( circles_lib_word_inverse_get( _word ) );
@@ -683,11 +683,11 @@ function circles_terminal_cmd_word()
                                           _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
                                           _sc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
                                           _draw = is_circle( _cc ) ? _cc.draw : NO ;
-                                          _drawcolor = is_circle( _sc ) ? _sc.drawcolor : _glob_draw_seed_color ;
+                                          _bordercolor = is_circle( _sc ) ? _sc.bordercolor : _glob_draw_seed_color ;
                                           _fill = is_circle( _cc ) ? _cc.fill : YES ;
                                           _fillcolor = is_circle( _sc ) ? _sc.fillcolor : "" ;
                                           _glob_gens_array.push( new item_obj( _mm, _cc, _sc, circles_lib_word_inverse_get( _word ), 0,
-                                        		                                         _draw, _drawcolor, _fill, _fillcolor,
+                                        		                                         _draw, _bordercolor, _fill, _fillcolor,
                                         		                                         _word, 1, ITEM_TYPE_MOBIUS ) )
                                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Generator has been computed from word '"+_word+"' with success", _par_1, _cmd_tag );
                                            circles_lib_output( _output_channel, DISPATCH_INFO, "Inverse generator has been also computed with success", _par_1, _cmd_tag );
@@ -1002,7 +1002,7 @@ function circles_terminal_cmd_word()
                            var _ret_chunk = circles_lib_draw_orbit_from_word( _freedraw_canvas.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, _items_array,
 													 																						YES, _start_x, _start_y,
                                                                       _input_word, YES, _params_assoc_array['connect'],
-																																			YES, _params_assoc_array['drawcolor'], _params_assoc_array['fillcolor'],
+																																			YES, _params_assoc_array['bordercolor'], _params_assoc_array['fillcolor'],
                                                                       YES, _glob_terminal_echo_flag, _glob_drawentity, _output_channel );
                            var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure - Err. 0.2" ;
@@ -1276,7 +1276,7 @@ function circles_terminal_cmd_word()
 		                                   inverse_symbols : _inverse_symbols.join( "@" ),
 		                                   alphabet : _alphabet.join( "@" ),
 		                                   list : _list,
-		                                   drawcolor : _params_assoc_array['drawcolor'],
+		                                   bordercolor : _params_assoc_array['bordercolor'],
 		                                   fillcolor : _params_assoc_array['fillcolor'],
 		                                   crlf : _glob_crlf,
 		                                   copy : _params_assoc_array["copy"],

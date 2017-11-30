@@ -4,7 +4,7 @@ function circles_lib_get_screendisk_from_complexdisk( _mapper, _complex_circle )
     var screen_center_pt = _mapper.from_cartesian_to_client( _complex_circle.center.x, _complex_circle.center.y );
     var screen_radius_pt = _mapper.from_cartesian_to_client( _radius_pt.x, _radius_pt.y );
     var screen_radius = Math.abs( screen_center_pt.x - screen_radius_pt.x );
-    return new circle( screen_center_pt, screen_radius, _complex_circle.draw, _complex_circle.fill, _complex_circle.drawcolor, _complex_circle.fillcolor, _complex_circle.linethick, _complex_circle.notes );
+    return new circle( screen_center_pt, screen_radius, _complex_circle.draw, _complex_circle.fill, _complex_circle.bordercolor, _complex_circle.fillcolor, _complex_circle.bordersize, _complex_circle.notes );
 }
 
 function circles_lib_screendisk_add_from_coords( X, Y, RADIUS, _output_channel )

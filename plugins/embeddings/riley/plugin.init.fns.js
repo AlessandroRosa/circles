@@ -136,10 +136,10 @@ function CIRCLESembeddingsRILEY_OUTPUT( MM_01, MM_02, _init )
     var screen_INV_CC_02 = circles_lib_complex_to_screen_disk( _inv_circle02, zplane_sm, circles_lib_alphabet_get_color_from_symbol('B') );
 
     _glob_seeds_array = [];
-    _glob_seeds_array.push( new item_obj( MM_01, _circle01, screen_CC_01, "a", 0, YES, screen_CC_01.drawcolor, NO, screen_CC_01.drawcolor, "A", 1, ITEM_TYPE_CIRCLE ) );
-    _glob_seeds_array.push( new item_obj( MM_02, _circle02, screen_CC_02, "b", 0, YES, screen_CC_02.drawcolor, NO, screen_CC_02.drawcolor, "B", 1, ITEM_TYPE_CIRCLE ) );
-    _glob_seeds_array.push( new item_obj( inverse_MM_01, _inv_circle01, screen_INV_CC_01, "A", 0, YES, screen_INV_CC_01.drawcolor, NO, screen_INV_CC_01.drawcolor, "a", 1, ITEM_TYPE_CIRCLE ) );
-    _glob_seeds_array.push( new item_obj( inverse_MM_02, _inv_circle02, screen_INV_CC_02, "B", 0, YES, screen_INV_CC_02.drawcolor, NO, screen_INV_CC_02.drawcolor, "b", 1, ITEM_TYPE_CIRCLE ) );
+    _glob_seeds_array.push( new item_obj( MM_01, _circle01, screen_CC_01, "a", 0, YES, screen_CC_01.bordercolor, NO, screen_CC_01.bordercolor, "A", 1, ITEM_TYPE_CIRCLE ) );
+    _glob_seeds_array.push( new item_obj( MM_02, _circle02, screen_CC_02, "b", 0, YES, screen_CC_02.bordercolor, NO, screen_CC_02.bordercolor, "B", 1, ITEM_TYPE_CIRCLE ) );
+    _glob_seeds_array.push( new item_obj( inverse_MM_01, _inv_circle01, screen_INV_CC_01, "A", 0, YES, screen_INV_CC_01.bordercolor, NO, screen_INV_CC_01.bordercolor, "a", 1, ITEM_TYPE_CIRCLE ) );
+    _glob_seeds_array.push( new item_obj( inverse_MM_02, _inv_circle02, screen_INV_CC_02, "B", 0, YES, screen_INV_CC_02.bordercolor, NO, screen_INV_CC_02.bordercolor, "b", 1, ITEM_TYPE_CIRCLE ) );
 
  		_glob_dict_create = _glob_items_to_init = YES ;
     var _index_ref = _plugin_last_ref;

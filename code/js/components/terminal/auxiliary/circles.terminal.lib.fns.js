@@ -36,17 +36,17 @@ function circles_lib_terminal_put_item_in( _obj, _symbol = "", _method = _glob_m
     _item.map = _obj.copy();
     _item.complex_circle = _obj.isometric_circle();
     _item.complex_circle.draw = YES;
-    _item.complex_circle.drawcolor = circles_lib_alphabet_get_color_from_symbol( _symbol ) ;
+    _item.complex_circle.bordercolor = circles_lib_alphabet_get_color_from_symbol( _symbol ) ;
     _item.complex_circle.fill = NO;
     _item.complex_circle.fillcolor = '' ;
-    _item.complex_circle.linethick = 1 ;
+    _item.complex_circle.bordersize = 1 ;
     var screen_CC = circles_lib_complex_to_screen_disk( _item.complex_circle, zplane_sm );
     _item.screen_circle = screen_CC.copy() ;
     _item.screen_circle.draw = YES ;
-    _item.screen_circle.drawcolor = circles_lib_alphabet_get_color_from_symbol( _symbol );
+    _item.screen_circle.bordercolor = circles_lib_alphabet_get_color_from_symbol( _symbol );
     _item.screen_circle.fill = NO ;
     _item.screen_circle.fillcolor = '' ;
-    _item.screen_circle.linethick = 1 ;
+    _item.screen_circle.bordersize = 1 ;
 		_item.original_word = _item.symbol = _symbol ;
     if ( _method.is_one_of( METHOD_ALGEBRAIC ) )
     _item.inverse_symbol = _symbol.length > 0 ? circles_lib_word_inverse_get( _symbol ) : circles_lib_alphabet_suggest_inverse_symbol() ; 
@@ -393,11 +393,11 @@ function circle_terminal_cmd_display_disk_item( ITEM, _i, _output_channel, _para
     var _inv_symbol = new String( is_item_obj( ITEM ) ? ITEM.inverse_symbol.trim() : "" );
     var _cc = is_item_obj( ITEM ) ? ITEM.complex_circle : null ;
     var _cc_check = is_circle( _cc ) ? YES : NO ;
-    var _linethick = _cc_check ? _cc.linethick : 0 ;
+    var _bordersize = _cc_check ? _cc.bordersize : 0 ;
     var _fill = _cc_check ? _cc.fill : 0 ;
     var _draw = _cc_check ? _cc.draw : 0 ;
-    var _drawcolor = new String( _cc_check ? _cc.drawcolor.trim() : "" );
-    if ( _drawcolor.length == 0 ) _drawcolor = "none" ;
+    var _bordercolor = new String( _cc_check ? _cc.bordercolor.trim() : "" );
+    if ( _bordercolor.length == 0 ) _bordercolor = "none" ;
     var _fillcolor = new String( _cc_check ? _cc.fillcolor.trim() : "" );
     if ( _fillcolor.length == 0 ) _fillcolor = "none" ;
     var _notes = safe_string( ITEM.notes, "" ).trim() ;
@@ -430,15 +430,15 @@ function circle_terminal_cmd_display_disk_item( ITEM, _i, _output_channel, _para
           _out_string  = "Index "+(_i+1);
           _out_string += "  Fill <snow>" + ( _fill ? "yes" : "no" ) + "</snow>" ;
           _out_string += "  Draw <snow>" + ( _draw ? "yes" : "no" ) + "</snow>" ;
-          _out_string += "  Line thickness <snow>" + _linethick + " pixel" + ( _linethick == 1 ? "" : "s" ) + "</snow>" ;
+          _out_string += "  Line thickness <snow>" + _bordersize + " pixel" + ( _bordersize == 1 ? "" : "s" ) + "</snow>" ;
           _out_string += _glob_crlf + "Original word <snow>" + _original_word + "</snow>" ;
 
-          var _drawcolor_array = _drawcolor != "none" ? circles_lib_colors_get_formats( _drawcolor ) : null ;
-          var _drawcolor_tag = _drawcolor_array != null ? _drawcolor_array[3] : "" ;
+          var _bordercolor_array = _bordercolor != "none" ? circles_lib_colors_get_formats( _bordercolor ) : null ;
+          var _bordercolor_tag = _bordercolor_array != null ? _bordercolor_array[3] : "" ;
           var _fillcolor_array = _fillcolor != "none" ? circles_lib_colors_get_formats( _fillcolor ) : null ;
           var _fillcolor_tag = _fillcolor_array != null ? _fillcolor_array[3] : "" ;
 
-          _out_string += _glob_crlf + "Draw color <snow>" + _drawcolor + ( _drawcolor_tag.length > 0 ? " ( "+_drawcolor_tag+" )" : "" ) + "</snow>" ;
+          _out_string += _glob_crlf + "Draw color <snow>" + _bordercolor + ( _bordercolor_tag.length > 0 ? " ( "+_bordercolor_tag+" )" : "" ) + "</snow>" ;
           _out_string += _glob_crlf + "Fill color <snow>" + _fillcolor + ( _fillcolor_tag.length > 0 ? " ( "+_fillcolor_tag+" )" : "" ) + "</snow>" ;
        }
                  
@@ -466,14 +466,14 @@ function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _output_channel, 
     var _inv_symbol = new String( is_item_obj( ITEM ) ? ITEM.inverse_symbol.trim() : "" );
     var _cc = is_item_obj( ITEM ) ? ITEM.complex_circle : null ;
     var _cc_check = _cc != null ? YES : NO ;
-    var _linethick = _cc_check ? _cc.linethick : 0 ;
+    var _bordersize = _cc_check ? _cc.bordersize : 0 ;
     var _fill = _cc_check ? _cc.fill : UNDET ;
     var _draw = _cc_check ? _cc.draw : UNDET ;
     var _mm = is_item_obj( ITEM ) ? ITEM.map : null ;
 		var _anti_homography_mask = is_item_obj( ITEM ) ? ITEM.map.anti_homography_mask : UNDET ;
 
-    var _drawcolor = new String( _cc_check ? _cc.drawcolor.trim() : "" );
-    if ( _drawcolor.length == 0 ) _drawcolor = "none" ;
+    var _bordercolor = new String( _cc_check ? _cc.bordercolor.trim() : "" );
+    if ( _bordercolor.length == 0 ) _bordercolor = "none" ;
     var _fillcolor = new String( _cc_check ? _cc.fillcolor.trim() : "" );
     if ( _fillcolor.length == 0 ) _fillcolor = "none" ;
     var _notes = safe_string( ITEM.notes, "" ).trim() ;
@@ -505,16 +505,16 @@ function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _output_channel, 
              _params += " Normalized <snow>" + ( _mm.is_normalized() ? "yes" : "no" ) + "</snow>" ;
              _params += _glob_crlf + "Class <snow>" + _mm.classification(NO) + "</snow>  Kind <snow>" + _mm.kind(NO) + "</snow>" ;
 
-             var _drawcolor_array = _drawcolor != "none" ? circles_lib_colors_get_formats( _drawcolor ) : null ;
-             var _drawcolor_tag = _drawcolor_array != null ? _drawcolor_array[3] : "" ;
+             var _bordercolor_array = _bordercolor != "none" ? circles_lib_colors_get_formats( _bordercolor ) : null ;
+             var _bordercolor_tag = _bordercolor_array != null ? _bordercolor_array[3] : "" ;
              var _fillcolor_array = _fillcolor != "none" ? circles_lib_colors_get_formats( _fillcolor ) : null ;
              var _fillcolor_tag = _fillcolor_array != null ? _fillcolor_array[3] : "" ;
 
              _params += _glob_crlf + "Draw <snow>" + ( _draw == UNDET ? "? " : ( _draw ? "yes" : "no" ) ) + "</snow>" ;
-             _params += "  color: " + _drawcolor + ( _drawcolor_tag.length > 0 ? " ( "+_drawcolor_tag+" )" : "" );
+             _params += "  color: " + _bordercolor + ( _bordercolor_tag.length > 0 ? " ( "+_bordercolor_tag+" )" : "" );
              _params += _glob_crlf + "Fill <snow>" + ( _fill == UNDET ? "? " : ( _fill ? "yes" : "no" ) ) + "</snow>" ;
              _params += "  color: " + _fillcolor + ( _fillcolor_tag.length > 0 ? " ( "+_fillcolor_tag+" )" : "" );
-             _params += _glob_crlf + "Line thickness <snow>" + _linethick + " pixel" + ( _linethick == 1 ? "" : "s" ) + "</snow>" ;
+             _params += _glob_crlf + "Line thickness <snow>" + _bordersize + " pixel" + ( _bordersize == 1 ? "" : "s" ) + "</snow>" ;
              _params += _glob_crlf + "Original word <snow>" + _original_word + "</snow>" ;
           }
 

@@ -242,8 +242,8 @@ function CIRCLESformsDISCRETENESSLOCUSdrawBOUNDARY( _canvas, _remap_pts, _silent
         				_arrow_head_size = Math.max( 1, _arrow_head_size );
         				$( "#CIRCLESformsDISCRETENESSLOCUSarrowheadsizeEDIT" ).val( _arrow_head_size );
             var _arrow_color = $( "#CIRCLESformsDISCRETENESSLOCUSarrowcolor" ).css( "background-color" );
-            var _arrow_linethick = $( "#CIRCLESformsDISCRETENESSLOCUSarrowlinethick" ).val();
-        				_arrow_linethick = Math.max( 1, _arrow_linethick );
+            var _arrow_bordersize = $( "#CIRCLESformsDISCRETENESSLOCUSarrowbordersize" ).val();
+        				_arrow_bordersize = Math.max( 1, _arrow_bordersize );
             var _draw_shaft = $( "#CIRCLESformsDISCRETENESSLOCUSarrowsdrawshaftCHECKBOX" ).prop( "checked" ) ? YES : NO ;
 				}
 
@@ -259,7 +259,7 @@ function CIRCLESformsDISCRETENESSLOCUSdrawBOUNDARY( _canvas, _remap_pts, _silent
 													 circles_lib_draw_arrow( _context,
 													 									 _pts_array[_i-1].x, _pts_array[_i-1].y,
 																						 _screen_pt.x, _screen_pt.y,
-																						 _arrow_head_size, _arrow_linethick, _arrow_color, _draw_shaft );
+																						 _arrow_head_size, _arrow_bordersize, _arrow_color, _draw_shaft );
 											 }
 												 
 											 if ( _display_fracs && ( _i % _display_fracs_mod == 0 ) && _i > 0 )

@@ -103,12 +103,12 @@ function circles_terminal_cmd_line()
 				_msg = "<lightblue>Layer has been set to</lightblue> <snow>"+_params_assoc_array['settings']['layer']+"</snow>" ;
 				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 			}
-			else if ( _p.toLowerCase().start_with( "drawcolor:" ) && _params_assoc_array['settings']['drawcolor'] == null )
+			else if ( _p.toLowerCase().start_with( "bordercolor:" ) && _params_assoc_array['settings']['bordercolor'] == null )
 			{
-				_params_assoc_array['settings']['drawcolor'] = safe_string( _p.replace( /drawcolor:/gi, "" ), "" ) ;
-				if ( circles_lib_colors_is_def( _params_assoc_array['settings']['drawcolor'] ) )
+				_params_assoc_array['settings']['bordercolor'] = safe_string( _p.replace( /bordercolor:/gi, "" ), "" ) ;
+				if ( circles_lib_colors_is_def( _params_assoc_array['settings']['bordercolor'] ) )
 				{
-					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['drawcolor']+"</snow>" ;
+					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['bordercolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
 				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; }
@@ -133,12 +133,12 @@ function circles_terminal_cmd_line()
 				}
 				else { _b_fail = YES, _error_str = "Invalid opacity definition" ; break ; }
 			}
-			else if ( _p.toLowerCase().start_with( "thickness:" ) && _params_assoc_array['settings']['linethick'] == null )
+			else if ( _p.toLowerCase().start_with( "thickness:" ) && _params_assoc_array['settings']['bordersize'] == null )
 			{
-				_params_assoc_array['settings']['linethick'] = safe_string( _p.replace( /thickness:/gi, "" ), "" ) ;
-				if ( _params_assoc_array['settings']['linethick'].testME( _glob_positive_float_regex_pattern ) )
+				_params_assoc_array['settings']['bordersize'] = safe_string( _p.replace( /thickness:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['bordersize'].testME( _glob_positive_float_regex_pattern ) )
 				{
-					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['linethick']+"</snow>" ;
+					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['bordersize']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
 				else { _b_fail = YES, _error_str = "Invalid line thickness definition" ; break ; }
@@ -191,24 +191,24 @@ function circles_terminal_cmd_line()
                   }
           
                   // beware of some missing color param, so let's check'em deeper
-                  if ( _params_assoc_array['settings']['drawcolor'] == null )
+                  if ( _params_assoc_array['settings']['bordercolor'] == null )
                   {
-                     _b_fail = YES, _error_str = "Missing 'drawcolor' attribute: this line won't be visible" ;
+                     _b_fail = YES, _error_str = "Missing 'bordercolor' attribute: this line won't be visible" ;
                   }
                   else
                   {
-                     var _drawcolor = _params_assoc_array['settings']['drawcolor'] ;
-                     var _draw = _drawcolor != null ? ( ( _drawcolor.length > 0 && !_drawcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
+                     var _bordercolor = _params_assoc_array['settings']['bordercolor'] ;
+                     var _draw = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
                      if ( _draw == NO ) { _b_fail = YES, _error_str = "Missing draw color: this line won't be visible" ; }
                   }
 
                   var _canvas_context, _mapper, _line_obj ;
-                  var _drawcolor = _params_assoc_array['settings']['drawcolor'] ;
-                  var _draw = _drawcolor != null ? ( ( _drawcolor.length > 0 && !_drawcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
+                  var _bordercolor = _params_assoc_array['settings']['bordercolor'] ;
+                  var _draw = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
                   var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
                   var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
-                  var _linethick = _params_assoc_array['settings']['linethick'] == null ? 1 : safe_int( _params_assoc_array['settings']['linethick'], 1 );
-                  if ( _linethick == 0 ) { _draw = NO ; _drawcolor = "" ; }
+                  var _bordersize = _params_assoc_array['settings']['bordersize'] == null ? 1 : safe_int( _params_assoc_array['settings']['bordersize'], 1 );
+                  if ( _bordersize == 0 ) { _draw = NO ; _bordercolor = "" ; }
                   var _opacity = _params_assoc_array['settings']['opacity'] == null ? 1.0 : _params_assoc_array['settings']['opacity'] ;
 				  var _layer = circles_lib_canvas_layer_find( _params_assoc_array['settings']['plane'], FIND_LAYER_BY_ROLE_DEF, _params_assoc_array['settings']['layer'], _output_channel );
 				  if ( is_html_canvas( _layer ) )
@@ -234,7 +234,7 @@ function circles_terminal_cmd_line()
 				  
 				  if ( !_b_fail )
 				  {
-					  circles_lib_draw_polyline( _canvas_context, _mapper, _params_assoc_array['settings']['polyline'], _drawcolor, _fillcolor, _linethick, _params_assoc_array['settings']['close'], _opacity, UNDET, _params_assoc_array['settings']['propertiesmask'], YES );
+					  circles_lib_draw_polyline( _canvas_context, _mapper, _params_assoc_array['settings']['polyline'], _bordercolor, _fillcolor, _bordersize, _params_assoc_array['settings']['close'], _opacity, UNDET, _params_assoc_array['settings']['propertiesmask'], YES );
 					  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Line processed with success</green>", _par_1, _cmd_tag );
 
 					  if ( _params_assoc_array['settings']['rec'] == YES )
@@ -243,12 +243,12 @@ function circles_terminal_cmd_line()
 						_rec_chunk['class'] = FIGURE_CLASS_LINE ;
 						_rec_chunk['close'] = _params_assoc_array['settings']['close'] ;
 						_rec_chunk['draw'] = _draw ;
-						_rec_chunk['drawcolor'] = _drawcolor ;
+						_rec_chunk['bordercolor'] = _bordercolor ;
 						_rec_chunk['enabled'] = YES ;
 						_rec_chunk['fill'] = _fill ;
 						_rec_chunk['fillcolor'] = _fillcolor ;
 						_rec_chunk['label'] = _params_assoc_array['settings']['label'] ;
-						_rec_chunk['linethick'] = _linethick ;
+						_rec_chunk['bordersize'] = _bordersize ;
 						_rec_chunk['myhash'] = "rec" + _glob_figures_array.length ;
 						_rec_chunk['obj'] = _params_assoc_array['settings']['polyline'].clone();
 						_rec_chunk['opacity'] = _opacity ;

@@ -135,8 +135,8 @@ function circles_lib_colors_colorize_group( _items_array = [], _update = NO, _si
          var _color = "" ;
          $.each( _items_array, function( _i, _item ) {
                      _color = circles_lib_alphabet_get_color_from_symbol( _item.symbol ) ;
-                     if ( _item.complex_circle.draw ) _items_array[_i].complex_circle.drawcolor = _color ;
-                     if ( _item.screen_circle.draw ) _items_array[_i].screen_circle.drawcolor = _color ;
+                     if ( _item.complex_circle.draw ) _items_array[_i].complex_circle.bordercolor = _color ;
+                     if ( _item.screen_circle.draw ) _items_array[_i].screen_circle.bordercolor = _color ;
                      if ( _item.complex_circle.fill ) _items_array[_i].complex_circle.fillcolor = _color ;
                      if ( _item.screen_circle.fill ) _items_array[_i].screen_circle.cillcolor = _color ;
                  } );
@@ -158,8 +158,8 @@ function circles_lib_colors_decolorize( _items_array = [], _update = NO, _silent
     {
          var _color = "" ;
          $.each( _items_array, function( _i, _item ) {
-                     if ( _item.complex_circle.draw ) _items_array[_i].complex_circle.drawcolor = DEFAULT_DRAW_SEED_COLOR ;
-                     if ( _item.screen_circle.draw ) _items_array[_i].screen_circle.drawcolor = DEFAULT_DRAW_SEED_COLOR ;
+                     if ( _item.complex_circle.draw ) _items_array[_i].complex_circle.bordercolor = DEFAULT_DRAW_SEED_COLOR ;
+                     if ( _item.screen_circle.draw ) _items_array[_i].screen_circle.bordercolor = DEFAULT_DRAW_SEED_COLOR ;
                      if ( _item.complex_circle.fill ) _items_array[_i].complex_circle.fillcolor = DEFAULT_FILL_SEED_COLOR ;
                      if ( _item.screen_circle.fill ) _items_array[_i].screen_circle.fillcolor = DEFAULT_FILL_SEED_COLOR ;
                  } );

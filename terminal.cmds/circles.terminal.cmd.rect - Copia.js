@@ -90,8 +90,6 @@ function circles_terminal_cmd_rect()
                     _params_assoc_array['xsyntax']['status'] = CLOSE ;
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected operand</lightblue> <snow>"+_p+"</snow> <lightblue>for input X-syntax</lightblue>", _par_1, _cmd_tag );
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<gray>end of input X-syntax</gray>", _par_1, _cmd_tag );
-					if ( _params_assoc_array['syntax']['inequality']['x'] == null ) _params_assoc_array['syntax']['inequality']['x'] = [] ;
-					_params_assoc_array['syntax']['inequality']['x'].push( [ "x", _params_assoc_array['xsyntax']['operator'], _params_assoc_array['xsyntax']['operand'] ] )
                 }
 				else { _b_fail = YES ; _error_str = "Invalid string '"+_p+"' during input X-syntax" ; }
             }
@@ -108,8 +106,6 @@ function circles_terminal_cmd_rect()
                     _params_assoc_array['ysyntax']['status'] = CLOSE ;
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected operand</lightblue> <snow>"+_p+"</snow> <lightblue>for input Y-syntax</lightblue>", _par_1, _cmd_tag );
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<gray>end of input Y-syntax</gray>", _par_1, _cmd_tag );
-					if ( _params_assoc_array['syntax']['inequality']['y'] == null ) _params_assoc_array['syntax']['inequality']['y'] = [] ;
-					_params_assoc_array['syntax']['inequality']['y'].push( [ "y", _params_assoc_array['ysyntax']['operator'], _params_assoc_array['ysyntax']['operand'] ] )
                 }
 				else { _b_fail = YES ; _error_str = "Invalid string '"+_p+"' during input X-syntax" ; }
             }
@@ -393,26 +389,22 @@ function circles_terminal_cmd_rect()
 				else if ( _x_syntax_flag || _y_syntax_flag ) // syntax x,y inequality coordinate
                 {
                     var MAX = CIRCLES_MAX_COORD, _operand, _operator, _rect_coords = [ -MAX, MAX, MAX, -MAX ] ;
-					var _x_array = _params_assoc_array['syntax']['inequality']['x'], _y_array = _params_assoc_array['syntax']['inequality']['y'] ;
-					if ( is_consistent_array( _x_array ) )
-					{
-						_x_array.forEach( function( _chunk )
-						{
-							_operator = _chunk[1], _operand = _chunk[2] ;
-							if ( _operator.is_one_of( "<", "<=" ) ) _rect_coords[2] = _operand ;
-							else if ( _operator.is_one_of( ">", ">=" ) ) _rect_coords[0] = _operand ;
-						} ) ;
-					}
+                    if ( _x_syntax_flag )
+                    {
+                        _operand = _params_assoc_array['xsyntax']['operand'] ;
+                        _operator = _params_assoc_array['xsyntax']['operator'] ;
+                        if ( _operator.is_one_of( "<", "<=" ) ) _rect_coords[2] = _operand ;
+                        else if ( _operator.is_one_of( ">", ">=" ) ) _rect_coords[0] = _operand ;
+                    }
 
-					if ( is_consistent_array( _y_array ) )
-					{
-						_y_array.forEach( function( _chunk )
-						{
-							_operator = _chunk[1], _operand = _chunk[2] ;
-							if ( _operator.is_one_of( "<", "<=" ) ) _rect_coords[1] = _operand ;
-							else if ( _operator.is_one_of( ">", ">=" ) ) _rect_coords[3] = _operand ;
-						} ) ;
-					}
+                    if ( _y_syntax_flag )
+                    {
+                        _operand = _params_assoc_array['ysyntax']['operand'] ;
+                        _operator = _params_assoc_array['ysyntax']['operator'] ;
+                        if ( _operator.is_one_of( "<", "<=" ) ) _rect_coords[1] = _operand ;
+                        else if ( _operator.is_one_of( ">", ">=" ) ) _rect_coords[3] = _operand ;
+                    }
+
                     _rect_obj = ( new rect( _rect_coords, _RECT_ORIENTATION_CARTESIAN ) );
 					_rect_obj.correct();
 					_check_coords_mask |= 32 ;

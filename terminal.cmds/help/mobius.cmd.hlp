@@ -2,7 +2,7 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>mobius %action% %property% %label% %all% %invlabel% %index% %a% %b% %c% %d% %linethickness% %fill% %draw% %file%</snow>
+<lightblue>usage</lightblue> <snow>mobius %action% %property% %label% %all% %invlabel% %index% %a% %b% %c% %d% %bordersizeness% %fill% %draw% %file%</snow>
 
 <lightblue>%property%</lightblue> <snow>characteristic | determinant | fixedpoints | isometric | kind | multiplier | normalize | trace</snow>
 <lightblue>%action%</lightblue> <snow>add | copy | check | delete | find | list | select | update</snow>
@@ -112,5 +112,5 @@
 
 <lightblue>mobius update A fillcolor:brown</lightblue>
 <lightblue>mobius update b fillcolor:255,255,255</lightblue>
-<lightblue>mobius update B drawcolor:#E0E0F0</lightblue>
+<lightblue>mobius update B bordercolor:#E0E0F0</lightblue>
 <cadetblue>examples about other properties</cadetblue>

@@ -74,11 +74,11 @@ function Z_PLANE_work_layer_onmousedown( obj, event )
          _tmp_chunk['obj'] = _pt ;
          _tmp_chunk['plane'] = Z_PLANE ;
          _tmp_chunk['draw'] = YES ;
-         _tmp_chunk['drawcolor'] = DEFAULT_INTERSECTION_POINT_BORDER_COLOR ;
+         _tmp_chunk['bordercolor'] = DEFAULT_INTERSECTION_POINT_BORDER_COLOR ;
          _tmp_chunk['fill'] = YES ;
          _tmp_chunk['fillcolor'] = DEFAULT_INTERSECTION_POINT_INTERIOR_COLOR ;
          _tmp_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-         _tmp_chunk['linethick'] = 2 ;
+         _tmp_chunk['bordersize'] = 2 ;
          _tmp_chunk['enabled'] = YES ;
          _tmp_chunk['myhash'] = "rec" + ( safe_size( _glob_storage['figures'], UNDET ) + 1 );
          _tmp_chunk['label'] = "" ;
@@ -86,7 +86,7 @@ function Z_PLANE_work_layer_onmousedown( obj, event )
          _glob_storage['figures'].push( _tmp_chunk );
          circles_lib_draw_point( _glob_canvas_obj_ref.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm,
                 _pt.x, _pt.y, YES, DEFAULT_INTERSECTION_POINT_BORDER_COLOR, YES, DEFAULT_INTERSECTION_POINT_INTERIOR_COLOR,
-                _tmp_chunk['linethick'], 3, DEFAULT_MAX_OPACITY, 0 );
+                _tmp_chunk['bordersize'], 3, DEFAULT_MAX_OPACITY, 0 );
       }
     }
 }

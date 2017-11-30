@@ -147,10 +147,10 @@ function CIRCLESembeddingsMASKITONCE_OUTPUT( MM_01 = new mobius_map(), MM_02 = n
     var screen_INV_CC_02 = circles_lib_complex_to_screen_disk( _inv_circle02, zplane_sm, circles_lib_alphabet_get_color_from_symbol('B') );
 
     _glob_seeds_array = [];
-    _glob_seeds_array.push( new item_obj( MM_01, _circle01, screen_CC_01, "a", 0, YES, screen_CC_01.drawcolor, NO, screen_CC_01.drawcolor, "A", 1, ITEM_TYPE_CIRCLE ) );
-    _glob_seeds_array.push( new item_obj( MM_02, _circle02, screen_CC_02, "b", 0, YES, screen_CC_02.drawcolor, NO, screen_CC_02.drawcolor, "B", 1, ITEM_TYPE_CIRCLE ) );
-    _glob_seeds_array.push( new item_obj( inverse_MM_01, _inv_circle01, screen_INV_CC_01.drawcolor, "A", 0, YES, screen_INV_CC_01.drawcolor, NO, _glob_fill_inverse_seed_color, "a", 1, ITEM_TYPE_CIRCLE ) );
-    _glob_seeds_array.push( new item_obj( inverse_MM_02, _inv_circle02, screen_INV_CC_02.drawcolor, "B", 0, YES, screen_INV_CC_02.drawcolor, NO, _glob_fill_inverse_seed_color, "b", 1, ITEM_TYPE_CIRCLE ) );
+    _glob_seeds_array.push( new item_obj( MM_01, _circle01, screen_CC_01, "a", 0, YES, screen_CC_01.bordercolor, NO, screen_CC_01.bordercolor, "A", 1, ITEM_TYPE_CIRCLE ) );
+    _glob_seeds_array.push( new item_obj( MM_02, _circle02, screen_CC_02, "b", 0, YES, screen_CC_02.bordercolor, NO, screen_CC_02.bordercolor, "B", 1, ITEM_TYPE_CIRCLE ) );
+    _glob_seeds_array.push( new item_obj( inverse_MM_01, _inv_circle01, screen_INV_CC_01.bordercolor, "A", 0, YES, screen_INV_CC_01.bordercolor, NO, _glob_fill_inverse_seed_color, "a", 1, ITEM_TYPE_CIRCLE ) );
+    _glob_seeds_array.push( new item_obj( inverse_MM_02, _inv_circle02, screen_INV_CC_02.bordercolor, "B", 0, YES, screen_INV_CC_02.bordercolor, NO, _glob_fill_inverse_seed_color, "b", 1, ITEM_TYPE_CIRCLE ) );
 
  		CIRCLESembeddingsMASKITONCE_active = _glob_dict_create = _glob_items_to_init = YES ;
     var _index_ref = _plugin_last_ref;

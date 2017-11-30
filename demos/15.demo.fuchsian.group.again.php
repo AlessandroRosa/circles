@@ -112,11 +112,11 @@ var _demon = new demo_n();
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 				
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "disk add a center:0.7,0.7 radius:0.7 drawcolor:blue" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "disk add a center:0.7,0.7 radius:0.7 bordercolor:blue" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "disk add b center:-0.7,-0.7 radius:0.7 drawcolor:blue" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "disk add b center:-0.7,-0.7 radius:0.7 bordercolor:blue" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -135,11 +135,11 @@ var _demon = new demo_n();
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 				
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "disk add c center:-0.7,0.7 radius:0.7 drawcolor:red" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "disk add c center:-0.7,0.7 radius:0.7 bordercolor:red" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "disk add d center:0.7,-0.7 radius:0.7 drawcolor:red" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "disk add d center:0.7,-0.7 radius:0.7 bordercolor:red" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -170,7 +170,7 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "click", set_value : -1, showlabel : true, desclabel : "Opening the Terminal console" } );
 
-    _demon.add( { post_fn : function() { _glob_terminal.exec( "disk add e center:0,0 radius:0.3 drawcolor:lime" ); },
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "disk add e center:0,0 radius:0.3 bordercolor:lime" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 

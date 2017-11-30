@@ -31,7 +31,7 @@ function circles_terminal_cmd_figures()
 
     	var _local_cmds_params_array = [];
     	_local_cmds_params_array.push( "begin", "bomb", "close", "connect", "copy",
-                "delete", "disable", "disconnect", "drawcolor",
+                "delete", "disable", "disconnect", "bordercolor",
                 "end", "enable", "fill", "fillcolor", "filter",
                 "keep", "list", "long", "mark", "mergerect", "open",
                 "polyadd", "polydelete", "polysort", "polyupdate",
@@ -151,12 +151,12 @@ function circles_terminal_cmd_figures()
               }
               else if ( _p.is_one_of_i( "center", "fillcolor", "opacity", "width", "height", "thick" ) )
 				  _index_associations[''+_p] = _i ;
-			  else if ( _p.toLowerCase().start_with( "drawcolor:" ) && !_params_assoc_array['input_params'].includes('drawcolor') )
+			  else if ( _p.toLowerCase().start_with( "bordercolor:" ) && !_params_assoc_array['input_params'].includes('bordercolor') )
 			  {
-				_p = safe_string( _p.replace( /drawcolor:/gi, "" ), "" ) ;
+				_p = safe_string( _p.replace( /bordercolor:/gi, "" ), "" ) ;
 				if ( circles_lib_colors_is_def( _p ) )
 				{
-                    _params_assoc_array['input_params'].push( "drawcolor" );
+                    _params_assoc_array['input_params'].push( "bordercolor" );
                     _params_assoc_array['input_values'].push( _p );
 				}
 				else { _b_fail = YES, _error_str = "Invalid draw color '"+_p+"' definition" ; }
@@ -375,7 +375,7 @@ function circles_terminal_cmd_figures()
                               {
                                    _params_assoc_array['plane'] = _rec_chunk['plane'] ;
                                    _params_assoc_array['draw'] = _rec_chunk['draw'] ;
-                                   _params_assoc_array['drawcolor'] = _rec_chunk['drawcolor'] ;
+                                   _params_assoc_array['bordercolor'] = _rec_chunk['bordercolor'] ;
                                    _params_assoc_array['fill'] = _rec_chunk['fill'] ;
                                    _params_assoc_array['fillcolor'] = _rec_chunk['fillcolor'] ;
                               }
@@ -414,8 +414,8 @@ function circles_terminal_cmd_figures()
           circles_lib_figures_rehash();
 
           var _plane = _params_assoc_array['plane'] ;
-          var _drawcolor = _params_assoc_array['drawcolor'] ;
-          var _draw = _drawcolor != null ? ( ( _drawcolor.length > 0 && !_drawcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
+          var _bordercolor = _params_assoc_array['bordercolor'] ;
+          var _draw = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
           var _fillcolor = _params_assoc_array['fillcolor'] ;
           var _fill = ( _fillcolor != null ) ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
 
@@ -427,7 +427,7 @@ function circles_terminal_cmd_figures()
                               _rec_chunk['plane'] = _params_assoc_array['plane'] ;
                               _rec_chunk['draw'] = _draw ;
                               _rec_chunk['fill'] = _fill ;
-                              _rec_chunk['drawcolor'] = ( _draw ) ? _drawcolor : "" ;
+                              _rec_chunk['bordercolor'] = ( _draw ) ? _bordercolor : "" ;
                               _rec_chunk['fillcolor'] = ( _fill ) ? _fillcolor : "" ;
                               _rec_chunk['opacity'] = ( _params_assoc_array['opacity'] != null ) ? _params_assoc_array['opacity'] : 1.0 ;
                               _rec_chunk['thickness'] = ( _params_assoc_array['thickness'] != null ) ? _params_assoc_array['thickness'] : 1 ;
@@ -441,7 +441,7 @@ function circles_terminal_cmd_figures()
                               _rec_chunk['plane'] = _params_assoc_array['plane'] ;
                               _rec_chunk['draw'] = _reference_rec_chunk['draw'] ;
                               _rec_chunk['fill'] = NO ;
-                              _rec_chunk['drawcolor'] = ( _draw ) ? _drawcolor : ( ( _reference_rec_chunk['drawcolor'] ? _reference_rec_chunk['drawcolor'] : "" ) );
+                              _rec_chunk['bordercolor'] = ( _draw ) ? _bordercolor : ( ( _reference_rec_chunk['bordercolor'] ? _reference_rec_chunk['bordercolor'] : "" ) );
                               _rec_chunk['fillcolor'] = ( _fill ) ? _fillcolor : ( ( _reference_rec_chunk['fillcolor'] ? _reference_rec_chunk['fillcolor'] : "" ) );
                               _rec_chunk['opacity'] = ( _params_assoc_array['opacity'] != null ) ? _params_assoc_array['opacity'] : _reference_rec_chunk['opacity'] ;
                               _rec_chunk['thickness'] = ( _params_assoc_array['thickness'] != null ) ? _params_assoc_array['thickness'] : ( _reference_rec_chunk['opacity'] != null ? _reference_rec_chunk['opacity'] : 1 );
@@ -1295,15 +1295,15 @@ function _figures_cmd_display_list_item( _i, _rec_chunk, _options )
 
         if ( _options['long'] )
         {
-            var _drawcolor = _rec_chunk['drawcolor'] != null ? _rec_chunk['drawcolor'].trim() : "" ;
-            if ( circles_lib_colors_is_tag( _drawcolor ) ) _drawcolor = circles_lib_colors_get_def_from_tag( _drawcolor );
+            var _bordercolor = _rec_chunk['bordercolor'] != null ? _rec_chunk['bordercolor'].trim() : "" ;
+            if ( circles_lib_colors_is_tag( _bordercolor ) ) _bordercolor = circles_lib_colors_get_def_from_tag( _bordercolor );
             var _fillcolor = _rec_chunk['fillcolor'] != null ? _rec_chunk['fillcolor'].trim() : "" ;
             if ( circles_lib_colors_is_tag( _fillcolor ) ) _fillcolor = circles_lib_colors_get_def_from_tag( _fillcolor );
             var _properties = [];
             _properties.push( _glob_crlf + _margin_str );
-            _properties.push( ( _rec_chunk['draw'] == YES && _drawcolor.length > 0 ) ? "<yellow>Draw</yellow> ("+_drawcolor+")" : "<gray>No draw</gray>" );
+            _properties.push( ( _rec_chunk['draw'] == YES && _bordercolor.length > 0 ) ? "<yellow>Draw</yellow> ("+_bordercolor+")" : "<gray>No draw</gray>" );
             _properties.push( ( _rec_chunk['fill'] == YES && _fillcolor.length > 0 ) ? "<yellow>Fill</yellow> ("+_fillcolor+")" : "<gray>No fill</gray>" );
-            if ( _rec_chunk['linethick'] != null ) _properties.push( "<yellow>Line thickness</yellow> " + _rec_chunk['linethick'] );
+            if ( _rec_chunk['bordersize'] != null ) _properties.push( "<yellow>Line thickness</yellow> " + _rec_chunk['bordersize'] );
             if ( _rec_chunk['borderradius'] != null && _rec_chunk['class'].is_one_of( FIGURE_CLASS_RECT ) )
             _properties.push( "<yellow>Rect border radius</yellow> " + _rec_chunk['borderradius'] );
             if ( _rec_chunk['opacity'] != null ) _properties.push( "<yellow>Opacity</yellow> " + _rec_chunk['opacity'] );

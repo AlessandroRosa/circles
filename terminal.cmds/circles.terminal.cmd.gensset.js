@@ -582,11 +582,11 @@ function circles_terminal_cmd_gensset()
                        _rec_chunk['obj'] = new circle( _items_array[_i].complex_circle.center, _items_array[_i].complex_circle.radius );
                        _rec_chunk['plane'] = _params_assoc_array['plane'] ;
                        _rec_chunk['draw'] = _items_array[_i].complex_circle.draw ;
-                       _rec_chunk['drawcolor'] = _items_array[_i].complex_circle.drawcolor ;
+                       _rec_chunk['bordercolor'] = _items_array[_i].complex_circle.bordercolor ;
                        _rec_chunk['fill'] = _items_array[_i].complex_circle.fill ;
                        _rec_chunk['fillcolor'] = _items_array[_i].complex_circle.fillcolor ;
                        _rec_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-                       _rec_chunk['linethick'] = _items_array[_i].complex_circle.line_thickness ;
+                       _rec_chunk['bordersize'] = _items_array[_i].complex_circle.line_thickness ;
                        _rec_chunk['enabled'] = YES ;
                        _rec_chunk['label'] = "$" + _items_array[_i].symbol ;
                        _rec_chunk['myhash'] = "rec"+(_i+1);

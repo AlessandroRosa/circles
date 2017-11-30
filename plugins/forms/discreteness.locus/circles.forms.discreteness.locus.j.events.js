@@ -29,8 +29,8 @@ function CIRCLESformsDISCRETENESSLOCUSarrowsCHECKBOX_CLICK()
 	 $( "#CIRCLESformsDISCRETENESSLOCUSarrowheadsizeEDIT" ).prop( "disabled", _checked ? NO : YES );
 	 $( "#CIRCLESformsDISCRETENESSLOCUSarrowheadsizeEDIT" ).css( "color", _checked ? DEFAULT_COLOR_STD : DEFAULT_EDIT_COLOR_DISABLED );
 
-	 $( "#CIRCLESformsDISCRETENESSLOCUSarrowlinethick" ).prop( "disabled", _checked ? NO : YES );
-	 $( "#CIRCLESformsDISCRETENESSLOCUSarrowlinethick" ).css( "color", _checked ? DEFAULT_COLOR_STD : DEFAULT_EDIT_COLOR_DISABLED );
+	 $( "#CIRCLESformsDISCRETENESSLOCUSarrowbordersize" ).prop( "disabled", _checked ? NO : YES );
+	 $( "#CIRCLESformsDISCRETENESSLOCUSarrowbordersize" ).css( "color", _checked ? DEFAULT_COLOR_STD : DEFAULT_EDIT_COLOR_DISABLED );
     
    $( "#CIRCLESformsDISCRETENESSLOCUSarrowsdrawshaftCHECKBOX" ).prop( "disabled", _checked ? NO : YES );
 }

@@ -105,7 +105,7 @@ function multithread_treescan_process()
     var _alphabet = _glob_inline_workers_input_data.alphabet.split( "@" );
     var _symbols = _glob_inline_workers_input_data.symbols.split( "@" );
     var _inverse_symbols = _glob_inline_workers_input_data.inverse_symbols.split( "@" );
-    var _drawcolor = _glob_inline_workers_input_data.drawcolor ;
+    var _bordercolor = _glob_inline_workers_input_data.bordercolor ;
     var _fillcolor = _glob_inline_workers_input_data.fillcolor ;
     var _crlf = _glob_inline_workers_input_data.crlf ;
     var _copy = _glob_inline_workers_input_data.copy ;
@@ -146,7 +146,7 @@ function multithread_treescan_process()
                                 progress : 0,
                                 service : _service,
                                 startpt : _startpt,
-                                drawcolor : _drawcolor,
+                                bordercolor : _bordercolor,
                                 fillcolor : _fillcolor,
                                 out_channel : _output_channel,
                                 stage : 1
@@ -230,7 +230,7 @@ function multithread_treescan_process()
                                                  progress : _loop ? "Loop" : Math.ceil( _i / _depth * 100.0 ),
                                                  service : _service,
                                                  startpt : _startpt,
-                                                 drawcolor : _drawcolor,
+                                                 bordercolor : _bordercolor,
                                                  fillcolor : _fillcolor,
                                                  out_channel : _output_channel,
                                                  stage : 2,
@@ -254,7 +254,7 @@ function multithread_treescan_process()
                                           progress : 0,
                                           service : _service,
                                           startpt : _startpt,
-                                          drawcolor : _drawcolor,
+                                          bordercolor : _bordercolor,
                                           fillcolor : _fillcolor,
                                           out_channel : _output_channel,
                                           stage : 3
@@ -277,7 +277,7 @@ function multithread_treescan_process()
                                     progress : 0,
                                     service : _service,
                                     startpt : _startpt,
-                                    drawcolor : _drawcolor,
+                                    bordercolor : _bordercolor,
                                     fillcolor : _fillcolor,
                                     out_channel : _output_channel
                                   }

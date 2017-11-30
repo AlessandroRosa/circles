@@ -1,7 +1,7 @@
 function circles_lib_draw_orbit_from_word( _context, _mapper, _items_array,
 																					 _clean, _x, _y,
 																					 _input_word, _mark_points, _connect,
-																					 _return_orbit, _drawcolor, _fillcolor,
+																					 _return_orbit, _bordercolor, _fillcolor,
 																					 _plot_index, _silent, _drawentity, _output_channel )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
@@ -35,7 +35,7 @@ function circles_lib_draw_orbit_from_word( _context, _mapper, _items_array,
         switch( _drawentity )
         {
            case DRAWENTITY_POINT:
-           return circles_lib_draw_word_pointwise( _context, _mapper, _items_array, _clean, _input_word, _x, _y, _mark_points, _connect, _return_orbit, _drawcolor, _fillcolor, _plot_index, _silent, _output_channel );
+           return circles_lib_draw_word_pointwise( _context, _mapper, _items_array, _clean, _input_word, _x, _y, _mark_points, _connect, _return_orbit, _bordercolor, _fillcolor, _plot_index, _silent, _output_channel );
            break ;
            case DRAWENTITY_ISOMETRIC_CIRCLE:
            return circles_lib_draw_word_circlewise( _context, _mapper, _items_array, _clean, _input_word, _return_orbit, _silent, _output_channel );
@@ -98,10 +98,10 @@ function circles_lib_draw_word_circlewise( _context, _mapper, _items_array, _cle
         var INDEX = circles_lib_find_item_index_by_symbol( _items_array, _glob_persistent_vars['word'] ) ;
         var ITEM = INDEX >= 0 ? _items_array[INDEX] : null ;
         var complex_circle = is_item_obj( ITEM ) ? ITEM.complex_circle : null ;
-        var linethick = _context.get_canvas().get_type().is_one_of( Z_PLANE, W_PLANE ) ? _glob_pixel_size : _glob_bip_pixel_size ;
+        var bordersize = _context.get_canvas().get_type().is_one_of( Z_PLANE, W_PLANE ) ? _glob_pixel_size : _glob_bip_pixel_size ;
         var fill = is_circle( complex_circle ) ? complex_circle.fill : NO ;
         var draw = is_circle( complex_circle ) ? complex_circle.draw : NO ;
-        var drawcolor = is_circle( complex_circle ) ? complex_circle.drawcolor : "" ;
+        var bordercolor = is_circle( complex_circle ) ? complex_circle.bordercolor : "" ;
         var fillcolor = is_circle( complex_circle ) ? complex_circle.fillcolor : "" ;
         var depth = safe_int( _glob_depth, 1 );
         var RGBstart = _glob_orbit_rgb_start, RGBend = _glob_orbit_rgb_end ;
@@ -123,7 +123,7 @@ function circles_lib_draw_word_circlewise( _context, _mapper, _items_array, _cle
             FILLCLR = w < ORBITcolorsGRADIENT.length ? ORBITcolorsGRADIENT[w] : ORBITcolorsGRADIENT[ORBITcolorsGRADIENT.length-1] ;
             _screen_circle = circles_lib_draw_complex_disk( _context, _mapper,
 			                                                      _cc.center.x, _cc.center.y, _cc.radius,
-			                                                      1, FILLCLR, 1, "", 2 * linethick, _glob_opacity, null, null, _input_word, 0 );
+			                                                      1, FILLCLR, 1, "", 2 * bordersize, _glob_opacity, null, null, _input_word, 0 );
             if ( _glob_symbols_display_wplane )
             {
                _context.font = DEFAULT_FONT_SIZE + " " + DEFAULT_FONT_FAMILY ;
@@ -141,7 +141,7 @@ function circles_lib_draw_word_circlewise( _context, _mapper, _items_array, _cle
     }
 }
 
-function circles_lib_draw_word_pointwise( _context, _mapper, _items_array, _clean, _input_word, _start_x, _start_y, _mark_points, _connect, _return_orbit, _drawcolor, _fillcolor, _plot_index, _silent, _output_channel )
+function circles_lib_draw_word_pointwise( _context, _mapper, _items_array, _clean, _input_word, _start_x, _start_y, _mark_points, _connect, _return_orbit, _bordercolor, _fillcolor, _plot_index, _silent, _output_channel )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } )
@@ -192,12 +192,12 @@ function circles_lib_draw_word_pointwise( _context, _mapper, _items_array, _clea
         for( _glob_persistent_vars['word_len'] = 0 ; _glob_persistent_vars['word_len'] < POINTSarray.length ; _glob_persistent_vars['word_len']++ )
         {
            _input_pt = POINTSarray[_glob_persistent_vars['word_len']] ;
-           if ( _mark_points ) circles_lib_draw_point( _context, _mapper, _input_pt.x, _input_pt.y, YES, _drawcolor, YES, _fillcolor, _glob_pt_border, _glob_pt_radius );
+           if ( _mark_points ) circles_lib_draw_point( _context, _mapper, _input_pt.x, _input_pt.y, YES, _bordercolor, YES, _fillcolor, _glob_pt_border, _glob_pt_radius );
            if ( _plot_index ) circles_lib_draw_text( _context, _mapper, _input_pt.x - _shift_x, _input_pt.y + _shift_y, "#" + ( _glob_persistent_vars['word_len'] + 1 ), DEFAULT_ORBIT_TEXT_COLOR, "" );
            if ( _return_orbit ) _glob_persistent_vars['orbit_array'].push( new point( _input_pt.x, _input_pt.y ) );
         }
            
-        if ( _connect ) circles_lib_draw_polyline( _context, _mapper, POINTSarray, _drawcolor, "", 1, NO, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
+        if ( _connect ) circles_lib_draw_polyline( _context, _mapper, POINTSarray, _bordercolor, "", 1, NO, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
         return [ RET_OK, "Orbit plot for word '"+_input_word+"'", _glob_persistent_vars['orbit_array'] ];
     }
 }
@@ -243,10 +243,10 @@ function circles_lib_draw_word_inversion( _context, _mapper, _items_array, _clea
         // and consult it later, by inputting the symbol as the key to the array element
         _glob_symbols_index_array = circles_lib_symbol_get_indexes_mapping_array( null,  NO, _output_channel );
         _glob_persistent_vars['word'] = _input_word.charAt(0);
-        var linethick = _items_array[INDEX]._cc.linethick ;
+        var bordersize = _items_array[INDEX]._cc.bordersize ;
         var fill = _items_array[INDEX]._cc.fill ;
         var draw = _items_array[INDEX]._cc.draw ;
-        var drawcolor = _items_array[INDEX]._cc.drawcolor ;
+        var bordercolor = _items_array[INDEX]._cc.bordercolor ;
         var fillcolor = _items_array[INDEX]._cc.fillcolor ;
         var depth = safe_int( _glob_depth, 1 );
         var RGBstart = _glob_orbit_rgb_start, RGBend = _glob_orbit_rgb_end ;

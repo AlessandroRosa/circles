@@ -281,26 +281,26 @@ function _doctor_scan_items_integrity( _items_array, _output_channel, _par_1, _s
                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: disk '"+_current_symbol+"' center coords are invalid", _par_1, _src );
                 circles_lib_output( _output_channel, DISPATCH_INFO, "Manual setting needed", _par_1, _src );
             }
-            else if ( ITEM.complex_circle.drawcolor.length == 0 &&
+            else if ( ITEM.complex_circle.bordercolor.length == 0 &&
                       ITEM.complex_circle.fillcolor.length == 0 && !_glob_palette_use )
             {
                 _error_scan |= 4 ;
                 _error_counter++ ;
                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: disk '"+_current_symbol+"' colors are empty and palette is not flagged for use", _par_1, _src );
                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Draw color reset to 'black'. Fill color, if required, could be manually set", _par_1, _src );
-                _items_array[_i].complex_circle.drawcolor = DEFAULT_COLOR_STD ;
+                _items_array[_i].complex_circle.bordercolor = DEFAULT_COLOR_STD ;
             }
 
             circles_lib_output( _output_channel, DISPATCH_INFO, "* scan for draw errors", _par_1, _src );
             // scan for drawing property conflicts (i.e. draw but no color, fill but no color)
             _error_scan = 0 ;
-            if ( ITEM.complex_circle.draw && ITEM.complex_circle.drawcolor.length == 0 ) _error_scan |= 1 ;
-            if ( !( ITEM.complex_circle.draw ) && ITEM.complex_circle.drawcolor.length > 0 ) _error_scan |= 2 ;
+            if ( ITEM.complex_circle.draw && ITEM.complex_circle.bordercolor.length == 0 ) _error_scan |= 1 ;
+            if ( !( ITEM.complex_circle.draw ) && ITEM.complex_circle.bordercolor.length > 0 ) _error_scan |= 2 ;
             if ( _error_scan & 1 || _error_scan & 2 )
             {
                 _error_counter++ ;
                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Found incongruent draw settings for item '"+_current_symbol+"'", _par_1, _src );
-                if ( _error_scan & 1 ) _items_array[_i].screen_circle.drawcolor = _items_array[_i].complex_circle.drawcolor = _glob_draw_seed_color ;
+                if ( _error_scan & 1 ) _items_array[_i].screen_circle.bordercolor = _items_array[_i].complex_circle.bordercolor = _glob_draw_seed_color ;
                 if ( _error_scan & 2 ) _items_array[_i].screen_circle.draw = _items_array[_i].complex_circle.draw = YES ;
                 circles_lib_output( _output_channel, DISPATCH_INFO, "Fixed", _par_1, _src );
             }

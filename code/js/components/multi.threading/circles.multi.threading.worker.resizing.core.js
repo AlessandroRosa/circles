@@ -79,7 +79,7 @@ self.addEventListener( 'message', function(e)
                  {
                       if ( _glob_multithread_running == 0 ) break ;
                       _pt = _sm.from_cartesian_to_client( _entities_array[_i].x, _entities_array[_i].y ) ;
-                      _pt.drawcolor = _entities_array[_i].drawcolor ;
+                      _pt.bordercolor = _entities_array[_i].bordercolor ;
                       _pt.fillcolor = _entities_array[_i].fillcolor ;
                       _pt.radius = _entities_array[_i].radius ;
                       _tmp_entities.push( _pt );
@@ -120,8 +120,8 @@ self.addEventListener( 'message', function(e)
                       _radius_pt = _sm.from_cartesian_to_client( _entities_array[_i].center.x + _entities_array[_i].radius, _entities_array[_i].center.y ) ;
                       _tmp_entities.push( new circle( _center_pt, Math.abs( _center_pt.x - _radius_pt.x ),
                                                       _entities_array[_i].draw, _entities_array[_i].fill,
-                                                      _entities_array[_i].drawcolor, _entities_array[_i].fillcolor,
-                                                      _entities_array[_i].linethick, _entities_array[_i].label ) ) ;
+                                                      _entities_array[_i].bordercolor, _entities_array[_i].fillcolor,
+                                                      _entities_array[_i].bordersize, _entities_array[_i].label ) ) ;
                       _counter++ ;
                       if ( _counter % PROGRESS_REFRESH_AT_EACH == 0 )
                       {

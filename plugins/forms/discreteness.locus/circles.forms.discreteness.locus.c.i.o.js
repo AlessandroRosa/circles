@@ -32,7 +32,7 @@ function CIRCLESformsDISCRETENESSLOCUSsaveCONFIG()
     _out_stream.push( "displayfracsteps=" + $( "#CIRCLESformsDISCRETENESSLOCUSdisplayfracstepsEDIT" ).val() );
     _out_stream.push( "showarrows=" + ( $( "#CIRCLESformsDISCRETENESSLOCUSarrowsCHECKBOX" ).prop( "checked" ) ? "1" : "0" ) );
     _out_stream.push( "arrowheadsize=" + $( "#CIRCLESformsDISCRETENESSLOCUSarrowheadsizeEDIT" ).val() );
-    _out_stream.push( "arrowlinethick=" + $( "#CIRCLESformsDISCRETENESSLOCUSarrowlinethick" ).val() );
+    _out_stream.push( "arrowbordersize=" + $( "#CIRCLESformsDISCRETENESSLOCUSarrowbordersize" ).val() );
     _out_stream.push( "arrowdrawshaft=" + ( $( "#CIRCLESformsDISCRETENESSLOCUSarrowsdrawshaftCHECKBOX" ).prop( "checked" ) ? "1" : "0" ) );
     _out_stream.push( "arrowcolor=" + CIRCLESformsDISCRETENESSLOCUSarrow_color );
     
@@ -98,7 +98,7 @@ function CIRCLESformsDISCRETENESSLOCUSloadCONFIG( _filename, _file_contents )
               case "displayfracsteps": $( "#CIRCLESformsDISCRETENESSLOCUSdisplayfracstepsEDIT" ).val( _value ); break ;
               case "showarrows": $( "#CIRCLESformsDISCRETENESSLOCUSarrowsCHECKBOX" ).prop( "checked", safe_int( _value, 0 ) ? true : false ); break ;
               case "arrowheadsize": $( "#CIRCLESformsDISCRETENESSLOCUSarrowheadsizeEDIT" ).val( _value ); break ;
-              case "arrowlinethick": $( "#CIRCLESformsDISCRETENESSLOCUSarrowlinethick" ).val( _value ); break ;
+              case "arrowbordersize": $( "#CIRCLESformsDISCRETENESSLOCUSarrowbordersize" ).val( _value ); break ;
               case "arrowdrawshaft": $( "#CIRCLESformsDISCRETENESSLOCUSarrowsdrawshaftCHECKBOX" ).prop( "checked", safe_int( _value, 0 ) ? true : false ); break ;
               case "arrowcolor":
                   $( "#CIRCLESformsDISCRETENESSLOCUSarrowcolor" ).css( "background-color", _value );

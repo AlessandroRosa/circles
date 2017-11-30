@@ -50,7 +50,7 @@ function point()
 {
 		this.customclass = arguments.callee.name ;
     this.notes = "" ;
-    // standard arguments sequence : x, y, environment, drawcolor, fillcolor, radius, notes
+    // standard arguments sequence : x, y, environment, bordercolor, fillcolor, radius, notes
 		if ( is_array( arguments[0] ) )
 		{
        var _i = 0 ;
@@ -58,7 +58,7 @@ function point()
        _i++ ;
 		   this.env = safe_int( arguments[0][_i], _POINT_2D_CLS_EUCLIDEAN_ENV ) ;
        _i++ ;
-		   if ( is_string( arguments[0][_i] ) ) this.drawcolor = safe_string( arguments[0][_i], "blue" ) ;
+		   if ( is_string( arguments[0][_i] ) ) this.bordercolor = safe_string( arguments[0][_i], "blue" ) ;
        _i++ ;
 		   if ( is_string( arguments[0][_i] ) ) this.fillcolor = safe_string( arguments[0][_i], "" ) ;
        _i++ ;
@@ -70,7 +70,7 @@ function point()
     {
        this.x = arguments[0].x, this.y = arguments[0].y ;
        this.env = safe_int( arguments[0].env, _POINT_2D_CLS_EUCLIDEAN_ENV ) ;
-       this.drawcolor = safe_string( arguments[0].drawcolor, "blue" ) ;
+       this.bordercolor = safe_string( arguments[0].bordercolor, "blue" ) ;
        this.fillcolor = safe_string( arguments[0].fillcolor, "" ) ;
        this.radius = safe_float( arguments[0].radius, 0 ) ;
        if ( is_string( arguments[0] ) ) this.notes = safe_string( arguments[0].notes, "" ) ;
@@ -90,7 +90,7 @@ function point()
        }
 			 this.env = safe_int( arguments[_i], _POINT_2D_CLS_EUCLIDEAN_ENV ) ;
        _i++ ;
-			 this.drawcolor = is_string( arguments[_i] ) ? safe_string( arguments[_i], "blue" ) : "" ;
+			 this.bordercolor = is_string( arguments[_i] ) ? safe_string( arguments[_i], "blue" ) : "" ;
        _i++ ;
 			 this.fillcolor = is_string( arguments[_i] ) ? safe_string( arguments[_i], "" ) : "" ;
        _i++ ;
@@ -102,12 +102,12 @@ function point()
 
 point.prototype.set_env = function( _env ) { this.env = safe_float( _env, _POINT_2D_CLS_EUCLIDEAN_ENV ) ; }
 point.prototype.set_radius = function( _r ) { this.radius = safe_float( _r, 0 ) ; }
-point.prototype.set_drawcolor = function( _clr ) { this.drawcolor = safe_string( _clr, "" ) ; }
+point.prototype.set_bordercolor = function( _clr ) { this.bordercolor = safe_string( _clr, "" ) ; }
 point.prototype.set_fillcolor = function( _clr ) { this.fillcolor = safe_string( _clr, "" ) ; }
 point.prototype.set_notes = function( _l ) { this.notes = safe_string( _l, "" ) ; }
 point.prototype.get_env = function()             { return this.env ; }
 point.prototype.get_radius = function() { return this.radius ; }
-point.prototype.get_drawcolor = function() { return this.drawcolor ; }
+point.prototype.get_bordercolor = function() { return this.bordercolor ; }
 point.prototype.get_fillcolor = function() { return this.fillcolor ; }
 point.prototype.get_notes = function() { return this.notes ; }
 point.prototype.get_angle = function() { return Math.atan2( this.x, this.y ) > 0 ? Math.PI * 2.0 - Math.atan2( this.x, this.y ) : 0.0 ; } // returns in radians from 0 to + 2PI
@@ -191,7 +191,7 @@ point.prototype.roundTo = function( _round_digits )
 {
     _round_digits = safe_int( _round_digits, Math.PI );
     return new point( this.x.roundTo( _round_digits ), this.y.roundTo( _round_digits ),
-                      this.env, this.drawcolor, this.fillcolor, this.radius, this.notes );
+                      this.env, this.bordercolor, this.fillcolor, this.radius, this.notes );
 }
 
 point.prototype.output = function( _format, _round_digits, _include_notes )

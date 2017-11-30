@@ -18,14 +18,14 @@ function CIRCLESformsEDITDISKcreate_inverse_element( _items_array, _i, _silent, 
        var _complex_circle = _items_array[i].complex_circle.copy() ;
        var draw = _items_array[_i].complex_circle.draw ;
        var fill = _items_array[_i].complex_circle.fill ;
-       var drawcolor = _items_array[_i].complex_circle.drawcolor ;
+       var bordercolor = _items_array[_i].complex_circle.bordercolor ;
        var fillcolor = _items_array[_i].complex_circle.fillcolor ;
-       var linethick = _items_array[_i].complex_circle.linethick ;
+       var bordersize = _items_array[_i].complex_circle.bordersize ;
        var inv_map = _mm.inv();
        var inverse_symbol = _symbol.length > 0 ? circles_lib_word_inverse_get( _symbol ) : "" ;
        if ( !is_item_obj( circles_lib_find_item_obj_by_symbol( _items_array, inverse_symbol ) ) ) // if it does not exist, it is created
        {
-          _items_array.push( new item_obj( inv_map, null, null, inverse_symbol, 0, draw, drawcolor, fill, fillcolor, _symbol, linethick, item_type, inverse_symbol ) );
+          _items_array.push( new item_obj( inv_map, null, null, inverse_symbol, 0, draw, bordercolor, fill, fillcolor, _symbol, bordersize, item_type, inverse_symbol ) );
           _items_array[ _i ].inverse_symbol = safe_string( inverse_symbol, "" ) ;
           if ( _output_channel == OUTPUT_SCREEN && !_silent )
           circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "The inverse item has been created with success", 'CIRCLESformsEDITDISKoutMSG' )
@@ -202,11 +202,11 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
     var _symbol = safe_string( $("#CIRCLEselectedSYMBOL").val(), "" );
     if ( _symbol.length == 0 ) _symbol = circles_lib_alphabet_suggest_symbol( null, SMALL_LETTER );
     var _inv_symbol = safe_string($("#CIRCLEselectedINVERSESYMBOL").val(), _glob_method.is_one_of( METHOD_ALGEBRAIC ) ? circles_lib_word_inverse_get( _symbol ) : "" );
-    var DRAWCOLOR = safe_string( $("#CIRCLEScircleSELECTEDdrawcolor").css( 'background-color' ), _glob_draw_seed_color );
+    var DRAWCOLOR = safe_string( $("#CIRCLEScircleSELECTEDbordercolor").css( 'background-color' ), _glob_draw_seed_color );
     var FILLCOLOR = safe_string( $("#CIRCLEScircleSELECTEDfillcolor").css( 'background-color' ), _glob_fill_seed_color );
     var draw = $("#CIRCLEScirclesDRAWcheckbox").is( ":checked" ) ? YES : NO ;
     var fill = $("#CIRCLEScirclesFILLcheckbox").is( ":checked" ) ? YES : NO ;
-    var linethick = safe_int( $("#CIRCLEselectedLINETHICKNESS").val(), 1 );
+    var bordersize = safe_int( $("#CIRCLEselectedLINETHICKNESS").val(), 1 );
     var PARAMSinputTYPEmask = 0 ; // bit : 0 --> orthogonal, 1 : radial
           
     // params a, b, c, d are complex numbers
@@ -296,7 +296,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                   _mm = new mobius_map( A, B, C, D );
                   
 	                _items_array.push( new item_obj( _mm, _complex_circle, _screen_circle, _symbol, PARAMSinputTYPEmask,
-	                   		                           draw, DRAWCOLOR, fill, FILLCOLOR, _inv_symbol, linethick, _item_type, _symbol ) );
+	                   		                           draw, DRAWCOLOR, fill, FILLCOLOR, _inv_symbol, bordersize, _item_type, _symbol ) );
                   if ( _b_colorize ) circles_lib_colors_colorize_group( _items_array, YES, YES, _output_channel ) ;
                }
 
@@ -337,10 +337,10 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                  if ( is_circle( _items_array[_item_index].complex_circle ) )
                  {
                     _items_array[_item_index].complex_circle.draw = draw ;
-                    _items_array[_item_index].complex_circle.drawcolor = DRAWCOLOR ;
+                    _items_array[_item_index].complex_circle.bordercolor = DRAWCOLOR ;
                     _items_array[_item_index].complex_circle.fill = fill ;
                     _items_array[_item_index].complex_circle.fillcolor = FILLCOLOR ;
-                    _items_array[_item_index].complex_circle.linethick = linethick ;
+                    _items_array[_item_index].complex_circle.bordersize = bordersize ;
                  }
   
 	               if ( !is_circle( _items_array[_item_index].screen_circle ) )
@@ -400,7 +400,7 @@ function CIRCLESformsEDITDISKsetTRANSPARENTfillcolor( _index )
     circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't set the fill color: archival error 0.1", 'CIRCLESformsEDITDISKoutMSG' )
 }
 
-function CIRCLESformsEDITDISKsetTRANSPARENTdrawcolor( _index )
+function CIRCLESformsEDITDISKsetTRANSPARENTbordercolor( _index )
 {
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     _index = safe_int( _index, UNFOUND );
@@ -409,12 +409,12 @@ function CIRCLESformsEDITDISKsetTRANSPARENTdrawcolor( _index )
        if ( is_circle( _items_array[_index].complex_circle ) )
        {
           _items_array[_index].complex_circle.draw = NO;
-          _items_array[_index].complex_circle.drawcolor = '' ;
+          _items_array[_index].complex_circle.bordercolor = '' ;
           _glob_to_save = YES;
           circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);
           $('#CIRCLEScirclesDRAWcheckbox').prop( "checked", NO );
-          $('#CIRCLEScircleSELECTEDdrawcolor').css( "background-color", "" );
-          $('#CIRCLEScircleSELECTEDdrawcolor').html( 'none' );
+          $('#CIRCLEScircleSELECTEDbordercolor').css( "background-color", "" );
+          $('#CIRCLEScircleSELECTEDbordercolor').html( 'none' );
        }
        else
        circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't set the draw color: archival error 0.1", 'CIRCLESformsEDITDISKoutMSG' )

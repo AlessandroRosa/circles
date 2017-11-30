@@ -170,7 +170,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONreset( _silent, _question )
               ITEM = _arr[_i] ;
               if ( is_item_obj( ITEM ) )
               {
-                   ITEM.complex_circle.drawcolor = _glob_draw_seed_color ;
+                   ITEM.complex_circle.bordercolor = _glob_draw_seed_color ;
                    _count++ ;
               }
          }
@@ -214,7 +214,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONapply( _silent, _question )
               if ( is_item_obj( ITEM ) )
               {
                    _symbol = ITEM.symbol ;
-                   ITEM.complex_circle.drawcolor = _symbol.isAlphaLower() ? _glob_lower_alphabet_colorization_array[_symbol] : _glob_upper_alphabet_colorization_array[_symbol] ;
+                   ITEM.complex_circle.bordercolor = _symbol.isAlphaLower() ? _glob_lower_alphabet_colorization_array[_symbol] : _glob_upper_alphabet_colorization_array[_symbol] ;
                    _count++ ;
               }
          }

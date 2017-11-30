@@ -77,7 +77,7 @@ var _demon = new demo_n();
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "circle zplane (0,0) radius:0.5 drawcolor:blue fillcolor:transparent rec" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "circle zplane (0,0) radius:0.5 bordercolor:blue fillcolor:transparent rec" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -96,7 +96,7 @@ var _demon = new demo_n();
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "point (-1,0) (-0.5,0) (0,0) (0.5,0) (1,0) radius:5 drawcolor:black fillcolor:lightgray opacity:0.7 rec" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "point (-1,0) (-0.5,0) (0,0) (0.5,0) (1,0) radius:5 bordercolor:black fillcolor:lightgray opacity:0.7 rec" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -115,7 +115,7 @@ var _demon = new demo_n();
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "line zplane (0,0) (1,1) drawcolor:blue rec" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "line zplane (0,0) (1,1) bordercolor:blue rec" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -134,7 +134,7 @@ var _demon = new demo_n();
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "line zplane (0,0) (-0.7,-0.5) (1,-1) drawcolor:red rec" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "line zplane (0,0) (-0.7,-0.5) (1,-1) bordercolor:red rec" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -153,11 +153,11 @@ var _demon = new demo_n();
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "line zplane (-1,1) (-1.7,-1.5) (2,-2) (0.5,1.2) close drawcolor:lime rec" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "line zplane (-1,1) (-1.7,-1.5) (2,-2) (0.5,1.2) close bordercolor:lime rec" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "line zplane (-2,0.2) (-0.5,0.2) (-1.25,1) close thickness:7 drawcolor:orange $triangle fillcolor:yellow rec" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "line zplane (-2,0.2) (-0.5,0.2) (-1.25,1) close thickness:7 bordercolor:orange $triangle fillcolor:yellow rec" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
@@ -199,11 +199,11 @@ var _demon = new demo_n();
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures update @5 drawcolor:pink fillcolor:red" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures update @5 bordercolor:pink fillcolor:red" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures update @10 drawcolor:yellow fillcolor:orange" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures update @10 bordercolor:yellow fillcolor:orange" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 

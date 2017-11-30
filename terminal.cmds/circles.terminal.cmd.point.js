@@ -27,7 +27,7 @@ function circles_terminal_cmd_point()
 
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "fill", "draw", "rec", "zplane", "wplane", "bip",
-                                            "drawcolor", "fillcolor", "opacity", "thick", "release", "html", "help" );
+                                            "bordercolor", "fillcolor", "opacity", "thick", "release", "html", "help" );
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -94,12 +94,12 @@ function circles_terminal_cmd_point()
 				_msg = "<lightblue>Layer has been set to</lightblue> <snow>"+_params_assoc_array['settings']['layer']+"</snow>" ;
 				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 			}
-			else if ( _p.toLowerCase().start_with( "drawcolor:" ) && _params_assoc_array['settings']['drawcolor'] == null )
+			else if ( _p.toLowerCase().start_with( "bordercolor:" ) && _params_assoc_array['settings']['bordercolor'] == null )
 			{
-				_params_assoc_array['settings']['drawcolor'] = safe_string( _p.replace( /drawcolor:/gi, "" ), "" ) ;
-				if ( circles_lib_colors_is_def( _params_assoc_array['settings']['drawcolor'] ) )
+				_params_assoc_array['settings']['bordercolor'] = safe_string( _p.replace( /bordercolor:/gi, "" ), "" ) ;
+				if ( circles_lib_colors_is_def( _params_assoc_array['settings']['bordercolor'] ) )
 				{
-					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['drawcolor']+"</snow>" ;
+					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['bordercolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
 				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; }
@@ -134,12 +134,12 @@ function circles_terminal_cmd_point()
 				}
 				else { _b_fail = YES, _error_str = "Invalid radius definition" ; break ; }
 			}
-			else if ( _p.toLowerCase().start_with( "linethick:" ) && _params_assoc_array['settings']['linethick'] == null )
+			else if ( _p.toLowerCase().start_with( "bordersize:" ) && _params_assoc_array['settings']['bordersize'] == null )
 			{
-				_params_assoc_array['settings']['linethick'] = safe_string( _p.replace( /linethick:/gi, "" ), "" ) ;
-				if ( _params_assoc_array['settings']['linethick'].testME( _glob_positive_float_regex_pattern ) )
+				_params_assoc_array['settings']['bordersize'] = safe_string( _p.replace( /bordersize:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['settings']['bordersize'].testME( _glob_positive_float_regex_pattern ) )
 				{
-					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['linethick']+"</snow>" ;
+					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['bordersize']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
 				else { _b_fail = YES, _error_str = "Invalid line thickness definition" ; break ; }
@@ -183,15 +183,15 @@ function circles_terminal_cmd_point()
                  else if ( _params_assoc_array['settings']['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Can't plot point: missing plane reference" ; }
         
                 // beware of some missing color param, so let's check'em deeper
-                if ( _params_assoc_array['settings']['drawcolor'] == null && _params_assoc_array['settings']['fillcolor'] == null )
+                if ( _params_assoc_array['settings']['bordercolor'] == null && _params_assoc_array['settings']['fillcolor'] == null )
                 {
                     _b_fail = YES, _error_str = "Missing draw and filling colors: this circle won't be visible" ;
                 }
                 else if ( _params_assoc_array['settings']['pt'].length == 0 ) { _b_fail = YES, _error_str = "Missing point(s) coordinate(s)" ; }
                 else
                 {
-                    var _drawcolor = _params_assoc_array['settings']['drawcolor'] ;
-                    var _draw = _drawcolor != null ? ( ( _drawcolor.length > 0 && !_drawcolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
+                    var _bordercolor = _params_assoc_array['settings']['bordercolor'] ;
+                    var _draw = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
                     var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
                     var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
                     if ( _draw == NO && _fill == NO ) { _b_fail = YES, _error_str = "Missing colors: this point won't be visible" ; }
@@ -221,13 +221,13 @@ function circles_terminal_cmd_point()
         		}
 				else { _b_fail = YES ; _error_str = "Invalid input layer '"+_params_assoc_array['settings']['layer']+"'" ; }
 
-				var _drawcolor = _params_assoc_array['settings']['drawcolor'] ;
-                var _draw = _drawcolor != null ? ( ( _drawcolor.length > 0 && !_drawcolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
+				var _bordercolor = _params_assoc_array['settings']['bordercolor'] ;
+                var _draw = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
                 var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
                 var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
                 var _opacity = safe_float( _params_assoc_array['settings']['opacity'], DEFAULT_MAX_OPACITY ) ;
-                var _linethick = safe_int( _params_assoc_array['settings']['linethick'], _glob_pt_border );
-                if ( _linethick == 0 ) { _draw = NO ; _drawcolor = "" ; }
+                var _bordersize = safe_int( _params_assoc_array['settings']['bordersize'], _glob_pt_border );
+                if ( _bordersize == 0 ) { _draw = NO ; _bordercolor = "" ; }
                 var _radius = safe_float( _params_assoc_array['settings']['radius'], _glob_pt_radius ) ;
         
                 var _pt_obj = null ;
@@ -238,7 +238,7 @@ function circles_terminal_cmd_point()
                       if ( is_point( _pt_obj ) )
                       {
                           circles_lib_draw_point( _canvas_context, _mapper, _pt_obj.x, _pt_obj.y,
-                                            _draw, _drawcolor, _fill, _fillcolor, _linethick, _radius, _opacity, _params_assoc_array['settings']['propertiesmask'] );
+                                            _draw, _bordercolor, _fill, _fillcolor, _bordersize, _radius, _opacity, _params_assoc_array['settings']['propertiesmask'] );
                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['settings']['plane'] ) + ")</snow> <green>Point "+_pt_obj.output("cartesian")+" processed with success</green>", _par_1, _cmd_tag );
         
                           if ( _params_assoc_array['settings']['rec'] == YES || _storage_queue_request )
@@ -249,11 +249,11 @@ function circles_terminal_cmd_point()
                                _rec_chunk['plane'] = _params_assoc_array['settings']['plane'] ;
                                _rec_chunk['layer'] = _params_assoc_array['settings']['layer'] ;
                                _rec_chunk['draw'] = _draw ;
-                               _rec_chunk['drawcolor'] = _drawcolor ;
+                               _rec_chunk['bordercolor'] = _bordercolor ;
                                _rec_chunk['fill'] = _fill ;
                                _rec_chunk['fillcolor'] = _fillcolor ;
                                _rec_chunk['opacity'] = _opacity ;
-                               _rec_chunk['linethick'] = _linethick ;
+                               _rec_chunk['bordersize'] = _bordersize ;
                                _rec_chunk['enabled'] = YES ;
                                _rec_chunk['radius'] = _radius ;
                                _rec_chunk['label'] = _params_assoc_array['settings']['label'].length > 0 ? _params_assoc_array['settings']['label'] : "" ;

@@ -2,14 +2,14 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>figures %action% %indexes% %all% %params% %opacity% %linethickness% %pos%</snow>
+<lightblue>usage</lightblue> <snow>figures %action% %indexes% %all% %params% %opacity% %bordersizeness% %pos%</snow>
 
 <lightblue>%action%</lightblue> <snow>connect | copy | delete | disable | enable | disconnect | hide | show | render | mergerect | filter | list | transfer | update</snow>
 <lightblue>%pos%</lightblue> <snow>begin | end</snow>
 <lightblue>%indexes%</lightblue> <snow>input index for the figures to be managed</snow>
 <lightblue>%params%</lightblue> <snow>close | open | reverse | noinherit</snow> <orange>(optional)</orange>
 <lightblue>%opacity%</lightblue> <snow>from 0.0 to 1.0</snow> <orange>(required if line thickness is input)</orange>
-<lightblue>%linethickness%</lightblue> <snow>any positive integer</snow>
+<lightblue>%bordersizeness%</lightblue> <snow>any positive integer</snow>
 
 <lightblue>figures bomb</lightblue>
 <cadetblue>delete all recorded figures</cadetblue>
@@ -89,8 +89,8 @@
 <lightblue>figures update @2 close | open </lightblue>
 <cadetblue>if figure 2 is a (poly)line, it will be closed | opened</cadetblue>
 
-<lightblue>figures update all drawcolor:red fillcolor:white</lightblue>
-<cadetblue>set 'drawcolor' to red and 'fillcolor' to white for all recorded figures</cadetblue>
+<lightblue>figures update all bordercolor:red fillcolor:white</lightblue>
+<cadetblue>set 'bordercolor' to red and 'fillcolor' to white for all recorded figures</cadetblue>
 
 <yellow>------- SPECIAL OPERATIONS FOR POLYLINES -------</yellow>
 <lightblue>figures polyadd @1 (2,1) (3,2) %pos%</lightblue>

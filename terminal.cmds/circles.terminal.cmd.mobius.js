@@ -32,7 +32,7 @@ function circles_terminal_cmd_mobius()
         _params_assoc_array['settings']['action'] = "" ;
         _params_assoc_array['all'] = NO ;
         _params_assoc_array['draw'] = UNDET ;
-        _params_assoc_array['drawcolor'] = null ;
+        _params_assoc_array['bordercolor'] = null ;
         _params_assoc_array['dump'] = NO ;
         _params_assoc_array['dump_array'] = null ;
         _params_assoc_array['dump_operator_index'] = UNDET ;
@@ -47,7 +47,7 @@ function circles_terminal_cmd_mobius()
         _params_assoc_array['inv_symbol'] = null ;
         _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
         _params_assoc_array['symbol'] = null ;
-        _params_assoc_array['linethick'] = null ;
+        _params_assoc_array['bordersize'] = null ;
         _params_assoc_array['off'] = NO ;
         _params_assoc_array['on'] = NO ;
         _params_assoc_array['properties'] = [] ;
@@ -138,14 +138,14 @@ function circles_terminal_cmd_mobius()
                    
                _params_assoc_array['roundto'] = _p ;
             }
-            else if ( _p.toLowerCase().start_with( "linethick:" ) )
-            _params_assoc_array['linethick'] = safe_int( _p.toLowerCase().replaceAll( "linethick:", "" ), 1 );
-			else if ( _p.toLowerCase().start_with( "drawcolor:" )  )
+            else if ( _p.toLowerCase().start_with( "bordersize:" ) )
+            _params_assoc_array['bordersize'] = safe_int( _p.toLowerCase().replaceAll( "bordersize:", "" ), 1 );
+			else if ( _p.toLowerCase().start_with( "bordercolor:" )  )
 			{
-               _p = _p.replaceAll( "drawcolor:", "" );
+               _p = _p.replaceAll( "bordercolor:", "" );
                if ( circles_lib_colors_is_def( _p ) )
                {
-				 _params_assoc_array['drawcolor'] = _p ;
+				 _params_assoc_array['bordercolor'] = _p ;
 				 _msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_p+"</snow>" ;
 				 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                }
@@ -858,13 +858,13 @@ function circles_terminal_cmd_mobius()
                                     if ( _params_assoc_array['inv_symbol'] != null ) _items_array[_obj_index].inverse_symbol = _params_assoc_array['inv_symbol'][0] ;
                                     if ( _params_assoc_array['draw'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _params_assoc_array['draw'] ;
                                     if ( _params_assoc_array['fill'] != UNDET ) _items_array[_obj_index].complex_circle.fill = _params_assoc_array['fill'] ;
-                                    if ( _params_assoc_array['drawcolor'] != null )
+                                    if ( _params_assoc_array['bordercolor'] != null )
                                     {
-                                      _items_array[_obj_index].complex_circle.drawcolor = _params_assoc_array['drawcolor'] ;
+                                      _items_array[_obj_index].complex_circle.bordercolor = _params_assoc_array['bordercolor'] ;
                                       _items_array[_obj_index].complex_circle.draw = 1 ;
                                     }
                                     if ( _params_assoc_array['fillcolor'] != null ) { _items_array[_obj_index].complex_circle.fillcolor = _params_assoc_array['fillcolor'] ; _items_array[_obj_index].complex_circle.fill = 1 ; }
-                                    if ( _params_assoc_array['linethick'] != null ) _items_array[_obj_index].complex_circle.linethick = _params_assoc_array['linethick'] ;
+                                    if ( _params_assoc_array['bordersize'] != null ) _items_array[_obj_index].complex_circle.bordersize = _params_assoc_array['bordersize'] ;
                                     if ( _params_assoc_array['a'] != null ) _items_array[_obj_index].map.a = _params_assoc_array['a'] ;
                                     if ( _params_assoc_array['b'] != null ) _items_array[_obj_index].map.b = _params_assoc_array['b'] ;
                                     if ( _params_assoc_array['c'] != null ) _items_array[_obj_index].map.c = _params_assoc_array['c'] ;

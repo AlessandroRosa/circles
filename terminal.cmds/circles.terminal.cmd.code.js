@@ -306,7 +306,7 @@ function circles_terminal_cmd_code_3rd_step( _opt, _settings_array, _rows_of_cod
         {
             case METHOD_INVERSION :
             var ITEM, _mobius_map, _cc, _symbol, _inv_symbol, _cmd ;
-            var _drawcolor_out, _drawcolor_chunk, _fillcolor_out, _fillcolor_chunk ;
+            var _bordercolor_out, _bordercolor_chunk, _fillcolor_out, _fillcolor_chunk ;
             for( var _i = 0 ; _i < _items_n ; _i++ )
             {
                 ITEM = _glob_seeds_array[_i] ;
@@ -325,14 +325,14 @@ function circles_terminal_cmd_code_3rd_step( _opt, _settings_array, _rows_of_cod
                     if ( _inv_symbol.length > 0 ) _cmd += " " + _inv_symbol ;
                     if ( _cc.draw == 0 ) _cmd += " nodraw" ;
                     if ( _cc.fill ) _cmd += " fill" ;
-                    if ( _cc.linethick != 1 ) _cmd += " linethick:" + _cc.linethick ;
+                    if ( _cc.bordersize != 1 ) _cmd += " bordersize:" + _cc.bordersize ;
 
-                    _drawcolor_chunk = circles_lib_colors_get_formats( _cc.drawcolor );
-                    _drawcolor_out = ( _drawcolor_chunk[3] != "no tag" ) ? _drawcolor_chunk[3] : _drawcolor_chunk[2] ;
+                    _bordercolor_chunk = circles_lib_colors_get_formats( _cc.bordercolor );
+                    _bordercolor_out = ( _bordercolor_chunk[3] != "no tag" ) ? _bordercolor_chunk[3] : _bordercolor_chunk[2] ;
                     _fillcolor_chunk = circles_lib_colors_get_formats( _cc.fillcolor );
                     _fillcolor_out = ( _fillcolor_chunk[3] != "no tag" ) ? _fillcolor_chunk[3] : _fillcolor_chunk[2] ;
 
-                    if ( _cc.draw && _drawcolor_out.length > 0 ) _cmd += " drawcolor:" + _drawcolor_out ;
+                    if ( _cc.draw && _bordercolor_out.length > 0 ) _cmd += " bordercolor:" + _bordercolor_out ;
                     if ( _cc.fill && _fillcolor_out.length > 0 ) _cmd += " fillcolor:" + _fillcolor_out ;
                     _rows_of_code.push( _cmd );
                     if ( _cc.notes.length > 0 )
@@ -360,18 +360,18 @@ function circles_terminal_cmd_code_3rd_step( _opt, _settings_array, _rows_of_cod
                     _cmd = "mobius update" ;
                     _cmd += " " + _symbol ;
                     if ( _inv_symbol.length > 0 ) _cmd += " " + _inv_symbol ;
-                    if ( _cc.linethick != 1 ) _cmd += " linethick:" + _cc.linethick ;
+                    if ( _cc.bordersize != 1 ) _cmd += " bordersize:" + _cc.bordersize ;
                     _cmd += _cc.draw == 0 ? " nodraw" : " draw" ;
                     if ( _cc.fill ) _cmd += " fill" ;
 
-                    var _drawcolor_out = "" ;
-                    var _drawcolor_chunk = circles_lib_colors_get_formats( _cc.drawcolor );
-                        _drawcolor_out = ( _drawcolor_chunk[3] != "transparent" && _drawcolor_chunk[3].length > 0 ) ? _drawcolor_chunk[3] : _drawcolor_chunk[2] ;
+                    var _bordercolor_out = "" ;
+                    var _bordercolor_chunk = circles_lib_colors_get_formats( _cc.bordercolor );
+                        _bordercolor_out = ( _bordercolor_chunk[3] != "transparent" && _bordercolor_chunk[3].length > 0 ) ? _bordercolor_chunk[3] : _bordercolor_chunk[2] ;
                     var _fillcolor_out = "" ;
                     var _fillcolor_chunk = circles_lib_colors_get_formats( _cc.fillcolor );
                         _fillcolor_out = ( _fillcolor_chunk[3] != "transparent" && _fillcolor_chunk[3].length > 0 ) ? _fillcolor_chunk[3] : _fillcolor_chunk[2] ;
 
-                    if ( _cc.draw && _drawcolor_out.length > 0 ) _cmd += " drawcolor:" + _drawcolor_out ;
+                    if ( _cc.draw && _bordercolor_out.length > 0 ) _cmd += " bordercolor:" + _bordercolor_out ;
                     if ( _cc.fill && _fillcolor_out.length > 0 ) _cmd += " fillcolor:" + _fillcolor_out ;
                     _rows_of_code.push( _cmd );
                 }

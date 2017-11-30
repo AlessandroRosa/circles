@@ -72,13 +72,13 @@ function CIRCLESmultithreadingADDresizingLISTENER()
                       case DRAWENTITY_PIXEL:
                       for( var _i = 0 ; _i < _glob_redraw_pass_counter ; _i++ )
                       $.each( _entities_array,
-                              function( _i, _pixel ) { circles_lib_draw_pixel( _context, _mapper, _pixel.x, _pixel.y, _pixel.drawcolor, 1, _glob_opacity, 0, NO ) ; }
+                              function( _i, _pixel ) { circles_lib_draw_pixel( _context, _mapper, _pixel.x, _pixel.y, _pixel.bordercolor, 1, _glob_opacity, 0, NO ) ; }
                             );
                       break ;
                       case DRAWENTITY_POINT:
                       for( var _i = 0 ; _i < _glob_redraw_pass_counter ; _i++ )
                       $.each( _entities_array,
-                              function( _i, _point ) { circles_lib_draw_point( _context, _mapper, _point.x, _point.y, YES, _point.drawcolor, YES, _point.fillcolor, _glob_pt_border, _point.radius, _glob_opacity, 0, NO ) ; }
+                              function( _i, _point ) { circles_lib_draw_point( _context, _mapper, _point.x, _point.y, YES, _point.bordercolor, YES, _point.fillcolor, _glob_pt_border, _point.radius, _glob_opacity, 0, NO ) ; }
                             );
                       break ;
                       case DRAWENTITY_ISOMETRIC_CIRCLE:
@@ -87,8 +87,8 @@ function CIRCLESmultithreadingADDresizingLISTENER()
                               function( _i, _circle )
                               {
                                  circles_lib_draw_screen_disk( _context, "", _circle,
-                                                        _circle.draw, _circle.drawcolor,
-                                                        _circle.fill, _circle.fillcolor, _circle.linethick, _glob_opacity, 0 ) ;
+                                                        _circle.draw, _circle.bordercolor,
+                                                        _circle.fill, _circle.fillcolor, _circle.bordersize, _glob_opacity, 0 ) ;
                               }
                             );
                       break ;

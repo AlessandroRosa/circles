@@ -535,7 +535,7 @@ function CIRCLESformsGENERALOPTIONSapply( _question, _silent )
                               $.each( _glob_seeds_array,
                                       function( _i, _item_obj )
                                       {
-                                          if( is_item_obj( _glob_seeds_array[_i] ) ) _glob_seeds_array[_i].complex_circle.drawcolor = _tmp_clr ;
+                                          if( is_item_obj( _glob_seeds_array[_i] ) ) _glob_seeds_array[_i].complex_circle.bordercolor = _tmp_clr ;
                                       }
                                     ) ;
                               break ;
@@ -690,7 +690,7 @@ function CIRCLESformsGENERALOPTIONSscheduledrenderingAPPLY()
 		{
        var _ctrl_id = "CIRCLESgeneraloptionsSETTINGSpixelsizeEDIT" ;
               $( "#" + _ctrl_id ).val( _glob_pixel_size );
-              		_ctrl_id = "CIRCLESgeneraloptionsSETTINGSlinethickEDIT" ;
+              		_ctrl_id = "CIRCLESgeneraloptionsSETTINGSbordersizeEDIT" ;
               $( "#" + _ctrl_id ).val( _glob_line_width );
               		_ctrl_id = "CIRCLESgeneraloptionsSCHEDULEDRENDERINGtimeEDIT" ;
               var _min_t = 1, _max_t = 15 ;

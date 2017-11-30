@@ -2,7 +2,7 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>line %points coords% %close% %drawcolor% %fillcolor% %linethick% %opacity% %plane% %layerrole% %rec% $label %properties%</snow>
+<lightblue>usage</lightblue> <snow>line %points coords% %close% %bordercolor% %fillcolor% %bordersize% %opacity% %plane% %layerrole% %rec% $label %properties%</snow>
 
 <lightblue>%points coords%</lightblue> <snow>a sequence of points - example: (0,0) (0.1,0.2) (0.2,0.3)</snow>
 
@@ -11,11 +11,11 @@
 <lightblue>%plane%</lightblue> <snow>zplane | wplane | bip</snow>
 <cadetblue>where the line will be drawn</cadetblue>
 
-<lightblue>%drawcolor%</lightblue> <snow>red | #FF0000 | rgb(255,0,0)</snow>
+<lightblue>%bordercolor%</lightblue> <snow>red | #FF0000 | rgb(255,0,0)</snow>
 <cadetblue>Colors can be input by tags, rgb hex or integer triplets. Type 'noclr' to skip it</cadetblue>
 
 <lightblue>%opacity%</lightblue> <snow>from 0 to 1</snow>
-<cadetblue>Set opacity level for current line. It follows %drawcolor%</cadetblue>
+<cadetblue>Set opacity level for current line. It follows %bordercolor%</cadetblue>
 
 <lightblue>%close%</lightblue>
 <cadetblue>Close the (poly)line</cadetblue>
@@ -31,20 +31,20 @@
 <cadetblue>the layer on which the point will be drawn</cadetblue>
 <cadetblue>run 'layer list %plane%' to check available 'role' property definitions for the input plane</cadetblue>
 
-<yellow>line (0,0) (1,2) linethick:4 drawcolor:blue zplane layer:freedraw</yellow>
+<yellow>line (0,0) (1,2) bordersize:4 bordercolor:blue zplane layer:freedraw</yellow>
 <cadetblue>draw a segment on the 'freedraw' layer of the Z-plane in blue</cadetblue>
 
-<yellow>line (0,0) (1,2) drawcolor:blue zplane rec storagesubset:lines</yellow>
+<yellow>line (0,0) (1,2) bordercolor:blue zplane rec storagesubset:lines</yellow>
 <cadetblue>same as above, but the line is recorded into the 'lines' storage space (if existing)</cadetblue>
 <white>same as above, but the line is recorded into the 'lines' storage space (if existing)</white>
 
-<yellow>line (0,0) (1,2) (0.4,-0.4) drawcolor:blue fillcolor:cyan zplane $line1 rec</yellow>
+<yellow>line (0,0) (1,2) (0.4,-0.4) bordercolor:blue fillcolor:cyan zplane $line1 rec</yellow>
 <cadetblue>draw a broken line on the Z-plane in blue, close it and paint the interior in cyan, recorded as $line1</cadetblue>
 
-<yellow>line (0,0) (1,2) (1,-2) drawcolor:blue zplane fillcolor:yellow close rec</yellow>
+<yellow>line (0,0) (1,2) (1,-2) bordercolor:blue zplane fillcolor:yellow close rec</yellow>
 <cadetblue>one more example, here recorded into the</cadetblue> <snow>preset figures array</snow>
 
-<yellow>line (0,0) (1,2) drawcolor:blue zplane thickness:4 opacity:0.8 rec</yellow>
+<yellow>line (0,0) (1,2) bordercolor:blue zplane thickness:4 opacity:0.8 rec</yellow>
 <cadetblue>another example with opacity (ranging from 0 to 1 )</cadetblue>
 
 <yellow>line release</yellow>
@@ -60,4 +60,4 @@
 <turquoise>Note (3)</turquoise>
 <cadetblue>if you want to update later a line entry, use these parameters</cadetblue>
 <cadetblue>in '</cadetblue><white>figures</white><cadetblue>' cmd with '</cadetblue><white>update</white><cadetblue>' action</cadetblue>
-<snow>points close draw drawcolor fillcolor opacity thick</snow>
+<snow>points close draw bordercolor fillcolor opacity thick</snow>

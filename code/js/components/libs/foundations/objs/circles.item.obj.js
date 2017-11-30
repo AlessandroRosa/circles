@@ -4,9 +4,9 @@ if ( typeof is_item_obj != "function" ) function is_item_obj( _obj ) { return _o
 function item_obj( mobius_map,
                    complex_circle, screen_circle,
                    symbol, params_mask,
-                   draw, drawcolor, fill, fillcolor,
+                   draw, bordercolor, fill, fillcolor,
                    inverse_symbol,
-                   linethick, item_type, notes, _original_word )
+                   bordersize, item_type, notes, _original_word )
 {
    this.map = is_mobius_map( mobius_map ) ? mobius_map.copy() : null ;
    this.complex_circle = new circle();
@@ -15,11 +15,11 @@ function item_obj( mobius_map,
    else if ( is_circle( complex_circle ) )
    {
       this.complex_circle = complex_circle.copy();
-      this.complex_circle.drawcolor = safe_string( drawcolor, _glob_draw_seed_color );
+      this.complex_circle.bordercolor = safe_string( bordercolor, _glob_draw_seed_color );
       this.complex_circle.fillcolor = safe_string( fillcolor, _glob_fill_seed_color );
       this.complex_circle.draw = safe_int( draw, YES );
       this.complex_circle.fill = safe_int( fill, NO );
-      this.complex_circle.linethick = safe_int( linethick, 1 );
+      this.complex_circle.bordersize = safe_int( bordersize, 1 );
       this.complex_circle.fixer( CIRCLES_MAX_COORD );
    }
 
@@ -81,10 +81,10 @@ item_obj.prototype.output = function( _sep, _roundto )
       _out += _sep + "Mobius map : " + ( is_mobius_map( this.map ) ? this.map.output( _sep, "coeffs", _roundto ) : "(none)" );
       _out += _sep + "Circle : " + ( _check_c ? this.complex_circle.output( "", _roundto ) : "(none)" );
       _out += _sep + "Draw : " + ( _check_c ? ( this.complex_circle.draw ? "yes" : "no" ) : "(invalid)" );
-      _out += _sep + "Draw color : " + ( _check_c ? ( this.complex_circle.drawcolor ) : "(invalid)" );
+      _out += _sep + "Draw color : " + ( _check_c ? ( this.complex_circle.bordercolor ) : "(invalid)" );
       _out += _sep + "Fill : " + ( _check_c ? ( this.complex_circle.fill ? "yes" : "no" ) : "(invalid)" );
       _out += _sep + "Fill color : " + ( _check_c ? ( this.complex_circle.fillcolor ) : "(invalid)" );
-      _out += _sep + "Line thickness : " + ( _check_c ? ( this.complex_circle.linethick + " px" ) : "(invalid)" );
+      _out += _sep + "Line thickness : " + ( _check_c ? ( this.complex_circle.bordersize + " px" ) : "(invalid)" );
       _out += _sep + "Notes : " + ( safe_string( this.notes, 0 ).trim().length > 0 ? this.notes : "(none)" ) ;
    return _out ;
 }

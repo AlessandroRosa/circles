@@ -119,9 +119,9 @@ function CIRCLESdrawPROCESSbyINVERSION( objs, settings )
              _bunch_counter++ ;
              pts_array.push( new point( complex_circle.center.x, complex_circle.center.y,
              														_POINT_2D_CLS_EUCLIDEAN_ENV,
-             														_items_array[INDEX].complex_circle.drawcolor,
+             														_items_array[INDEX].complex_circle.bordercolor,
              														_items_array[INDEX].complex_circle.fillcolor,
-             														_items_array[INDEX].complex_circle.linethick
+             														_items_array[INDEX].complex_circle.bordersize
 						 													) );
              words_array.push( WORD );
              circles_array.push( complex_circle );

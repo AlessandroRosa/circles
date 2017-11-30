@@ -401,7 +401,7 @@ polygon.prototype.triangulation = function()
        if ( is_html_canvas( this.canvas_obj ) )
        {
            var _centroid = this.centroid ;
-           var _drawcolor = safe_string( arguments[0], "" );
+           var _bordercolor = safe_string( arguments[0], "" );
            if ( this.vertex_array.length > 0 )
            {
               var _ctx = this.canvas_obj.getContext( "2d" ), _pt ;
@@ -411,7 +411,7 @@ polygon.prototype.triangulation = function()
                  _pt = this.vertex_array[_v] ;
                  _ctx.moveTo( _centroid.x, _centroid.y );
                  _ctx.lineTo( _pt.x, _pt.y );
-                 _ctx.strikeStyle( _drawcolor );
+                 _ctx.strikeStyle( _bordercolor );
                  _ctx.strike();
               }
               _ctx.closePath();
@@ -479,13 +479,13 @@ polygon.prototype.draw_point = function()
 		{
 			 var _ctx = this.canvas_obj.getContext( "2d" );
 			 var _radius = safe_int( arguments[1], 1 );
-			 var _drawcolor = safe_int( arguments[2], "" );
+			 var _bordercolor = safe_int( arguments[2], "" );
 			 var _fillcolor = safe_int( arguments[3], "orange" );
 			 _ctx.beginPath() ;
 			 _ctx.arc( _pt.x, _pt.y, _radius, 0, 2 * Math.PI, false);
-			 if ( _drawcolor.length > 0 )
+			 if ( _bordercolor.length > 0 )
 			 {
-			 	  _ctx.strokeStyle = _drawcolor ;
+			 	  _ctx.strokeStyle = _bordercolor ;
 		 	    _ctx.stroke();
 			 }
 			 if ( _fillcolor.length > 0 )
@@ -520,11 +520,11 @@ polygon.prototype.midpoint = function()
     else return null ;
 }
 
-polygon.prototype.draw = function( _drawcolor, _fillcolor, _linethick, _remap_to_canvas )
+polygon.prototype.draw = function( _bordercolor, _fillcolor, _bordersize, _remap_to_canvas )
 {
     _remap_to_canvas = safe_int( _remap_to_canvas, 0 ); // should remap points according to canvas size
-    _linethick = safe_int( _linethick, 1 );
-    _drawcolor = safe_string( _drawcolor, "" );
+    _bordersize = safe_int( _bordersize, 1 );
+    _bordercolor = safe_string( _bordercolor, "" );
     _fillcolor = safe_string( _fillcolor, "" );
     if ( is_html_canvas( this.canvas_obj ) )
     {
@@ -550,10 +550,10 @@ polygon.prototype.draw = function( _drawcolor, _fillcolor, _linethick, _remap_to
 							 _ctx.fill();
 					 }
 
-					 if ( _drawcolor.length > 0 )
+					 if ( _bordercolor.length > 0 )
 					 {
-							 _ctx.lineWidth = _linethick ;
-							 _ctx.strokeStyle = _drawcolor ;
+							 _ctx.lineWidth = _bordersize ;
+							 _ctx.strokeStyle = _bordercolor ;
 							 _ctx.stroke();
 					 }
 

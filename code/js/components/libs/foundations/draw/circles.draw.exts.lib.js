@@ -11,7 +11,7 @@ function circles_lib_draw_all_screen_disks( _context, _mapper, _selected_items_a
         var _canvas = _context.canvas ;
         if ( _clean ) circles_lib_canvas_clean( _canvas, "transparent", _output_channel );
         if ( _glob_export_format == EXPORT_SVG ) _svg_comment( _glob_export_code_array, "Drawing the disks" );
-      	var ITEM, complex_circle, screen_circle, fill, fillcolor, draw, drawcolor, linethick, bFOUND ;
+      	var ITEM, complex_circle, screen_circle, fill, fillcolor, draw, bordercolor, bordersize, bFOUND ;
 				var _opacity = DEFAULT_MAX_OPACITY ;
             _canvas = circles_lib_canvas_layer_find( _canvas.get_type(), FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
         var _pixel_size = _canvas.get_type().is_one_of( Z_PLANE, W_PLANE ) ? _glob_pixel_size : _glob_bip_pixel_size ;
@@ -42,15 +42,15 @@ function circles_lib_draw_all_screen_disks( _context, _mapper, _selected_items_a
               screen_circle = ITEM.screen_circle ;
               complex_circle = ITEM.complex_circle ;
 		          draw = ITEM.complex_circle.draw ;
-		          drawcolor = ITEM.complex_circle.drawcolor ;
+		          bordercolor = ITEM.complex_circle.bordercolor ;
 		          fill = ITEM.complex_circle.fill ;
 		          fillcolor = ITEM.complex_circle.fillcolor ;
-		          linethick = _pixel_size ;
+		          bordersize = _pixel_size ;
 		          bFOUND = ( i == _glob_disk_sel_index || _selected_items_array.includes( ""+i ) ) ? YES : NO ;
-		          if ( bFOUND ) linethick = 3 * _pixel_size, drawcolor = DEFAULT_SELECTED_ITEM_COLOR ;
+		          if ( bFOUND ) bordersize = 3 * _pixel_size, bordercolor = DEFAULT_SELECTED_ITEM_COLOR ;
 					 }
                
-           if ( is_circle( screen_circle ) ) circles_lib_draw_screen_disk( _context, "", screen_circle, draw, drawcolor, fill, fillcolor, linethick, _opacity );
+           if ( is_circle( screen_circle ) ) circles_lib_draw_screen_disk( _context, "", screen_circle, draw, bordercolor, fill, fillcolor, bordersize, _opacity );
         }
 
      	  var _msg = _errors == 0 ? "All disks drawn with success" : "Can't draw all screen disks: memory failure for item"+(_errors_array.length==1?"":"s")+" indexed at "+_errors_array.join( ", " );
@@ -78,7 +78,7 @@ function circles_lib_draw_all_complex_disks( _context, _mapper, _selected_items_
     var _items_n = circles_lib_count_items( _items_array );
     if ( _items_n > 0 && _context != null )
     {
-     		var ITEM, complex_circle = new circle(), fill, fillcolor, draw, drawcolor, linethick, bFOUND ;
+     		var ITEM, complex_circle = new circle(), fill, fillcolor, draw, bordercolor, bordersize, bFOUND ;
 				var _opacity = DEFAULT_OPACITY ;
         if ( _canvas.get_type().is_one_of( Z_PLANE, W_PLANE ) ) _canvas = circles_lib_canvas_layer_find( _canvas.get_type(), FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
         var _pixel_size = _canvas.get_type().is_one_of( Z_PLANE, W_PLANE ) ? _glob_pixel_size : _glob_bip_pixel_size ;
@@ -98,14 +98,14 @@ function circles_lib_draw_all_complex_disks( _context, _mapper, _selected_items_
             if ( !is_item_obj( ITEM ) ) continue ;
 
             draw = ITEM.complex_circle.draw ;
-            drawcolor = ITEM.complex_circle.drawcolor ;
+            bordercolor = ITEM.complex_circle.bordercolor ;
             fill = ITEM.complex_circle.fill ;
             fillcolor = ITEM.complex_circle.fillcolor ;
-            linethick = safe_int( ITEM.complex_circle.linethick, 1 );
+            bordersize = safe_int( ITEM.complex_circle.bordersize, 1 );
             bFOUND = _selected_items_array.includes( _i ) ? YES : NO ;
             if ( bFOUND )
             {
-                linethick = 3 * _pixel_size, drawcolor = DEFAULT_SELECTED_ITEM_COLOR ;
+                bordersize = 3 * _pixel_size, bordercolor = DEFAULT_SELECTED_ITEM_COLOR ;
             }
 
             if ( is_circle( ITEM.complex_circle ) && is_point( ITEM.complex_circle.center ) )
@@ -113,8 +113,8 @@ function circles_lib_draw_all_complex_disks( _context, _mapper, _selected_items_
                _items_array[ _i ].screen_circle = circles_lib_draw_complex_disk( _context, _mapper,
 																								                                 ITEM.complex_circle.center.x, ITEM.complex_circle.center.y,
 																																								 ITEM.complex_circle.radius,
-                                   																							 draw, drawcolor, fill, fillcolor,
-																																								 linethick, _opacity, null, null, "", 0 );
+                                   																							 draw, bordercolor, fill, fillcolor,
+																																								 bordersize, _opacity, null, null, "", 0 );
             }
         }
           
@@ -143,7 +143,7 @@ function circles_lib_recalc_screen_disks_coords( _mapper )
              screen_center_pt = _mapper.from_cartesian_to_client( complex_circle.center.x, complex_circle.center.y );
              screen_radius_pt = _mapper.from_cartesian_to_client( complex_circle.center.x + complex_circle.radius, complex_circle.center.y );
              screen_radius = Math.abs( screen_center_pt.x - screen_radius_pt.x );
-             screen_circle = new circle( screen_center_pt, screen_radius, complex_circle.draw, complex_circle.fill, complex_circle.drawcolor, complex_circle.fillcolor, complex_circle.linethick, complex_circle.notes );
+             screen_circle = new circle( screen_center_pt, screen_radius, complex_circle.draw, complex_circle.fill, complex_circle.bordercolor, complex_circle.fillcolor, complex_circle.bordersize, complex_circle.notes );
              _items_array[_i].screen_circle = screen_circle ;
           }
        }
@@ -152,17 +152,17 @@ function circles_lib_recalc_screen_disks_coords( _mapper )
     else return NO ;
 }
 
-function circles_lib_complex_to_screen_disk( _complex_circle, _mapper, _drawcolor )
+function circles_lib_complex_to_screen_disk( _complex_circle, _mapper, _bordercolor )
 {
     if ( !is_screen_mapper( _mapper ) ) _mapper = null ;
     if ( is_screen_mapper( _mapper ) )
     {
-       _drawcolor = safe_string( _drawcolor, "" );
+       _bordercolor = safe_string( _bordercolor, "" );
        var screen_center_pt, screen_radius_pt, screen_radius, screen_circle ;
            screen_center_pt = _mapper.from_cartesian_to_client( _complex_circle.center.x, _complex_circle.center.y );
            screen_radius_pt = _mapper.from_cartesian_to_client( _complex_circle.center.x + _complex_circle.radius, _complex_circle.center.y );
            screen_radius = Math.abs( screen_center_pt.x - screen_radius_pt.x );
-           screen_circle = new circle( screen_center_pt, screen_radius, _complex_circle.draw, _complex_circle.fill, _drawcolor, _complex_circle.fillcolor, _complex_circle.linethick, _complex_circle.notes );
+           screen_circle = new circle( screen_center_pt, screen_radius, _complex_circle.draw, _complex_circle.fill, _bordercolor, _complex_circle.fillcolor, _complex_circle.bordersize, _complex_circle.notes );
        return screen_circle ;
     }
     else return null ;

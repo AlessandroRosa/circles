@@ -65,12 +65,12 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     var _mm_exists = is_mobius_map( _mm ) ? 1 : 0 ;
     var complex_circle = _b_exists ? ITEM.complex_circle : new circle( new point( 0, 0 ), 0 );
     var PARAMSinputTYPEmask = _b_exists ? ITEM.params_mask : 0 ;
-    var linethick = ( _b_exists && is_circle( complex_circle ) ) ? ITEM.complex_circle.linethick : "" ;
+    var bordersize = ( _b_exists && is_circle( complex_circle ) ) ? ITEM.complex_circle.bordersize : "" ;
     var symbol = _b_exists ? safe_string( ITEM.symbol, "" ) : "" ;
     var inv_symbol = _b_exists ? ITEM.inverse_symbol : "" ;
     var fill = ( _b_exists && is_circle( complex_circle ) ) ? ITEM.complex_circle.fill : NO ;
     var draw = ( _b_exists && is_circle( complex_circle ) ) ? ITEM.complex_circle.draw : NO ;
-    var drawcolor = ( _b_exists && is_circle( complex_circle ) ) ? ITEM.complex_circle.drawcolor : "" ;
+    var bordercolor = ( _b_exists && is_circle( complex_circle ) ) ? ITEM.complex_circle.bordercolor : "" ;
     var fillcolor = ( _b_exists && is_circle( complex_circle ) ) ? ITEM.complex_circle.fillcolor : "" ;
     var null_map_flag = _b_exists ? ( is_mobius_map( ITEM.map ) ? NO : YES ) : NO ;
                  

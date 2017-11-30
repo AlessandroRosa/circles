@@ -73,20 +73,20 @@ halfplane_model.prototype.bisector = function( _z0, _radius, _z1, _z2 )
 		else return null ;
 }
 
-halfplane_model.prototype.polyline = function( _context, _mapper, _pts_array, _draw, _drawcolor, _fill, _fillcolor, _linethick, _close )
+halfplane_model.prototype.polyline = function( _context, _mapper, _pts_array, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _close )
 {
     if ( !object_exists( _context ) || !object_exists( _mapper ) ) return false ;
 		if ( !is_array( _pts_array ) ) return false ;
     _draw = safe_int( _draw, YES ), _fill = safe_int( _fill, NO );
     _opacity = safe_float( _opacity, DEFAULT_MAX_OPACITY );
-    _linethick = safe_int( _linethick, 1 );
+    _bordersize = safe_int( _bordersize, 1 );
 		_close = safe_int( _close, 0 );
 		if ( _close ) _pts_array.push( _pts_array[0] );
 
 	  _context.globalAlpha = _opacity ;
-		_context.strokeStyle = safe_string( _drawcolor, "transparent" );
+		_context.strokeStyle = safe_string( _bordercolor, "transparent" );
 		_context.fillStyle = safe_string( _fillcolor, "transparent" );
-	  _context.lineWidth = _linethick ;
+	  _context.lineWidth = _bordersize ;
 
 		_context.beginPath();
 		var _z0, _z1, _z2, _ret_data ;

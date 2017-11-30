@@ -356,8 +356,8 @@ function circles_terminal_cmd_alphabet()
                           if ( _long_mode )
 						  {
 							  var _ret = "<snow>"+_symbol + "</snow> <-> <lightblue>" + _inv_symbol + "</lightblue>           " + _check ;
-								  _ret += "   "+ITEM.complex_circle.drawcolor ;
-								  _ret += "  "+ITEM.screen_circle.drawcolor ;
+								  _ret += "   "+ITEM.complex_circle.bordercolor ;
+								  _ret += "  "+ITEM.screen_circle.bordercolor ;
 								  _ret += "  "+ITEM.complex_circle.fillcolor ;
 								  _ret += "  "+ITEM.screen_circle.fillcolor ;
 							  _out_array.push( _ret );

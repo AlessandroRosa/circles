@@ -57,22 +57,22 @@ function point_3d()
     if ( is_point_3d( arguments[0] ) )
     {
        this.x = arguments[0].x, this.y = arguments[0].y, this.z = arguments[0].z ;
-    	 this.drawcolor = safe_string( arguments[0].drawcolor, "blue" ) ;
+    	 this.bordercolor = safe_string( arguments[0].bordercolor, "blue" ) ;
     	 this.fillcolor = safe_string( arguments[0].fillcolor, "" ) ;
        this.notes = safe_string( arguments[0].notes, "" ) ;
     }
     else
     {
        this.x = arguments[0], this.y = arguments[1], this.z = arguments[2] ;
-    	 this.drawcolor = safe_string( arguments[3], "blue" ) ;
+    	 this.bordercolor = safe_string( arguments[3], "blue" ) ;
     	 this.fillcolor = safe_string( arguments[4], "" ) ;
        this.notes = safe_string( arguments[5], "" ) ;
     }
 }
 
-point_3d.prototype.set_drawcolor = function( _clr ) { this.drawcolor = _clr ; }
+point_3d.prototype.set_bordercolor = function( _clr ) { this.bordercolor = _clr ; }
 point_3d.prototype.set_fillcolor = function( _clr ) { this.fillcolor = _clr ; }
-point_3d.prototype.get_drawcolor = function() { return this.drawcolor ; }
+point_3d.prototype.get_bordercolor = function() { return this.bordercolor ; }
 point_3d.prototype.get_fillcolor = function() { return this.fillcolor ; }
 
 point_3d.prototype.copy = function() { return new point_3d( this.x, this.y, this.z, this.color, this.notes ) ; }
@@ -88,7 +88,7 @@ point_3d.prototype.roundTo = function( _round_digits )
 {
     _round_digits = safe_int( _round_digits, _POINT_3D_MAX_ACCURACY );
     return new point_3d( this.x.roundTo( _round_digits ), this.y.roundTo( _round_digits ),
-                         this.drawcolor, this.fillcolor, this.notes
+                         this.bordercolor, this.fillcolor, this.notes
                        );
 }
 

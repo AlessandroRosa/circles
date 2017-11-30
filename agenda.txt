@@ -14,8 +14,6 @@
 
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 
-1 merge infos inside region and rect .hlp files
-2 complete test of new 'rect' cmd
 
 -------------- FIX SOON -----------------------
 

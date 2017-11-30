@@ -122,12 +122,12 @@ function CIRCLESalgebraicPROCESSrandomINPUTFP( objs, settings )
       			  {
 		 			pts_array.push( new point( _fp.real, _fp.imag,
 									_POINT_2D_CLS_EUCLIDEAN_ENV,
-		 						 	_items_array[INDEX].complex_circle.drawcolor,
+		 						 	_items_array[INDEX].complex_circle.bordercolor,
 		 						 	_items_array[INDEX].complex_circle.fillcolor,
-									_items_array[INDEX].complex_circle.linethick ) );
+									_items_array[INDEX].complex_circle.bordersize ) );
                     G_COMP_CIRCLE = _drawentity == DRAWENTITY_INVERSION_CIRCLE ? G_COMP.inversion_circle() : G_COMP.isometric_circle();
 					G_COMP_CIRCLE.draw = _items_array[INDEX].complex_circle.draw ;
-					G_COMP_CIRCLE.drawcolor = _items_array[INDEX].complex_circle.drawcolor ;
+					G_COMP_CIRCLE.bordercolor = _items_array[INDEX].complex_circle.bordercolor ;
 					G_COMP_CIRCLE.fill = _items_array[INDEX].complex_circle.fill ;
 					G_COMP_CIRCLE.fillcolor = _items_array[INDEX].complex_circle.fillcolor ;
 		            circles_array.push( G_COMP_CIRCLE );

@@ -88,7 +88,7 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
               if ( _glob_multithread_operations_counter > 0 )
               {
                     self.postMessage( { "id" : "update", "text" : "["+_glob_multithread_working_plane_def+"] - " + _method_def + " / " + _process_def + " / " + _construction_mode_def + " / " + _fixedpoints_io_def } );
-                    var WORD = "", INDEX = 0, _p, _i, runner, drawcolor = "", draw = 0 ;
+                    var WORD = "", INDEX = 0, _p, _i, runner, bordercolor = "", draw = 0 ;
                     var _bunch_limit = _glob_multithread_bunch_limit, _bunch_counter = 0 ;
                     var i = 0, _found_repetends_index = 0, runner = 0, _dict_size = _glob_original_dict.size_recursive();
                     var complex_circle = null, first_circle = _items_array[0].complex_circle ;
@@ -129,9 +129,9 @@ function CIRCLESalgebraicPROCESSdeterministicBREADTHFIRSTfixedpointsinput( objs,
                              if( _current_region.is_pt_inside( _fp.real, _fp.imag ) )
                              {
                                  pts_array.push( new point( _fp.real, _fp.imag, _POINT_2D_CLS_EUCLIDEAN_ENV,
-                                 				 _items_array[INDEX].complex_circle.drawcolor,
+                                 				 _items_array[INDEX].complex_circle.bordercolor,
                                  				 _items_array[INDEX].complex_circle.fillcolor,
-                                 				 _items_array[INDEX].complex_circle.linethick ) );
+                                 				 _items_array[INDEX].complex_circle.bordersize ) );
                                  words_array.push( WORD );
                                  circles_array.push( complex_circle );
                              }

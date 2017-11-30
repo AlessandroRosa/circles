@@ -53,7 +53,7 @@ function CIRCLESalgebraicPROCESSdeterministicINDEXSEARCHfixedpointsinput( objs, 
            _glob_multithread_operations_counter = _n_entries ;
            self.postMessage( { "id" : "update", "text" : "["+_glob_multithread_working_plane_def+"] - " + _method_def + " / " + _process_def + " / " + _construction_mode_def + " / " + _fixedpoints_io_def } );
 
-           var WORD = "", INDEX = 0, _p, drawcolor = "", draw = 0, i = 0 ;
+           var WORD = "", INDEX = 0, _p, bordercolor = "", draw = 0, i = 0 ;
            var _fp = null, obj = null, G = null, GM = null ;
            var _bunch_limit = _glob_multithread_bunch_limit, _bunch_counter = 0 ;
            var complex_circle = null, first_circle = _items_array[0].complex_circle ;
@@ -119,9 +119,9 @@ function get_RL_path( _n, _digits_n, _depth )
                      {
                         pts_array.push( new point( _fp.real, _fp.imag,
                         													 _POINT_2D_CLS_EUCLIDEAN_ENV,
-                                     							 _items_array[INDEX].complex_circle.drawcolor,
+                                     							 _items_array[INDEX].complex_circle.bordercolor,
                                      							 _items_array[INDEX].complex_circle.fillcolor,
-                                     							 _items_array[INDEX].complex_circle.linethick ) );
+                                     							 _items_array[INDEX].complex_circle.bordersize ) );
                         words_array.push( WORD );
                         circles_array.push( complex_circle );
                      }

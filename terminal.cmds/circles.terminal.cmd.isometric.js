@@ -32,7 +32,7 @@ function circles_terminal_cmd_isometric()
         _params_assoc_array['all'] = 0 ;
         _params_assoc_array["copy"] = NO ;
         _params_assoc_array['draw'] = NO ;
-        _params_assoc_array['drawcolor'] = "" ;
+        _params_assoc_array['bordercolor'] = "" ;
         _params_assoc_array['dump'] = NO ;
         _params_assoc_array['dump_array'] = null ;
         _params_assoc_array['dump_operator_index'] = UNDET ;
@@ -112,7 +112,7 @@ function circles_terminal_cmd_isometric()
               else if ( _p.length == 1 && _p.isAlpha() ) _symbols_array.push( _p ); // assumed Mobius map symbol
               else if ( circles_lib_colors_is_def( _p ) )
               {
-                   if ( _params_assoc_array['drawcolor'].length == 0 ) _params_assoc_array['drawcolor'] = _p ;
+                   if ( _params_assoc_array['bordercolor'].length == 0 ) _params_assoc_array['bordercolor'] = _p ;
                    else if ( _params_assoc_array['fillcolor'].length == 0 ) _params_assoc_array['fillcolor'] = _p ;
               }
               else if ( _p.testME( _glob_simple_string_regex_pattern ) )
@@ -177,7 +177,7 @@ function circles_terminal_cmd_isometric()
                   else if ( _params_assoc_array['word'].length > 0 )
                   {
                        var _word = _params_assoc_array['word'] ;
-                       var _draw = ( _params_assoc_array['draw'] || _params_assoc_array['drawcolor'].length > 0 || _params_assoc_array['fillcolor'].length > 0 ) ? YES : NO ;
+                       var _draw = ( _params_assoc_array['draw'] || _params_assoc_array['bordercolor'].length > 0 || _params_assoc_array['fillcolor'].length > 0 ) ? YES : NO ;
                        var G, _mm ;
                        circles_lib_output( _output_channel, DISPATCH_INFO, "Computing the isometric circle for word '"+_word+"' ", _par_1, _cmd_tag );
                        circles_lib_output( _output_channel, DISPATCH_INFO, "Checking '"+_word+"' for coherence with current alphabet ", _par_1, _cmd_tag );
@@ -208,7 +208,7 @@ function circles_terminal_cmd_isometric()
 
                            if ( _draw )
                            circles_terminal_cmd_isometric_draw( _params_assoc_array['plane'], _word, _isometric_cc,
-                                                                 _params_assoc_array['drawcolor'], _params_assoc_array['fillcolor'],
+                                                                 _params_assoc_array['bordercolor'], _params_assoc_array['fillcolor'],
                                                                  2, _output_channel, _par_1, _cmd_tag );
 
                            if ( _params_assoc_array['rec'] || _params_assoc_array["copy"] )
@@ -218,11 +218,11 @@ function circles_terminal_cmd_isometric()
                                 _rec_chunk['obj'] = new circle( _isometric_cc.center, _isometric_cc.radius );
                                 _rec_chunk['plane'] = _plane ;
                                 _rec_chunk['draw'] = _draw ;
-                                _rec_chunk['drawcolor'] = _params_assoc_array['drawcolor'] ;
+                                _rec_chunk['bordercolor'] = _params_assoc_array['bordercolor'] ;
                                 _rec_chunk['fill'] = _fill ;
                                 _rec_chunk['fillcolor'] = _params_assoc_array['fillcolor'] ;
                                 _rec_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-                                _rec_chunk['linethick'] = 1 ;
+                                _rec_chunk['bordersize'] = 1 ;
                                 _rec_chunk['symbol'] = "$" + _word ;
                                 _rec_chunk['myhash'] = "" ;
                                 _rec_chunk['enabled'] = YES ;
@@ -249,7 +249,7 @@ function circles_terminal_cmd_isometric()
                        var _index = UNFOUND, _inverse_index = UNFOUND, _check = "" ;
                        var _cx_str, _cy_str, _rad_str ;
                        var sc_center_pt, sc_radius_pt, sc_radius = 0 ;
-                       var _draw = ( _params_assoc_array['draw'] || _params_assoc_array['drawcolor'].length > 0 || _params_assoc_array['fillcolor'].length > 0 ) ? YES : NO ;
+                       var _draw = ( _params_assoc_array['draw'] || _params_assoc_array['bordercolor'].length > 0 || _params_assoc_array['fillcolor'].length > 0 ) ? YES : NO ;
                        var _report = [];
 
                        for( var _i = 0 ; _i < _symbols_array.length ; _i++ )
@@ -304,7 +304,7 @@ function circles_terminal_cmd_isometric()
 
                                  if ( _draw )
                                  circles_terminal_cmd_isometric_draw( _params_assoc_array['plane'], ITEM.symbol, _isometric_cc,
-                                                                      _params_assoc_array['drawcolor'], _params_assoc_array['fillcolor'],
+                                                                      _params_assoc_array['bordercolor'], _params_assoc_array['fillcolor'],
                                                                       2, _output_channel, _par_1, _cmd_tag );
 
                                  if ( _params_assoc_array['rec'] || _params_assoc_array["copy"] )
@@ -314,11 +314,11 @@ function circles_terminal_cmd_isometric()
                                       _rec_chunk['obj'] = new circle( _isometric_cc.center, _isometric_cc.radius );
                                       _rec_chunk['plane'] = _plane ;
                                       _rec_chunk['draw'] = _draw ;
-                                      _rec_chunk['drawcolor'] = _params_assoc_array['drawcolor'] ;
+                                      _rec_chunk['bordercolor'] = _params_assoc_array['bordercolor'] ;
                                       _rec_chunk['fill'] = _fill ;
                                       _rec_chunk['fillcolor'] = _params_assoc_array['fillcolor'] ;
                                       _rec_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-                                      _rec_chunk['linethick'] = 1 ;
+                                      _rec_chunk['bordersize'] = 1 ;
                                       _rec_chunk['enabled'] = YES ;
                                       _rec_chunk['myhash'] = "" ;
                                       _rec_chunk['symbol'] = "$" + _symbol ;
@@ -382,9 +382,9 @@ function circles_terminal_cmd_isometric()
      else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
 
-function circles_terminal_cmd_isometric_draw( _plane_type, _word, _isometric_cc, _drawcolor, _fillcolor, _bordersize, _output_channel, _par_1 )
+function circles_terminal_cmd_isometric_draw( _plane_type, _word, _isometric_cc, _bordercolor, _fillcolor, _bordersize, _output_channel, _par_1 )
 {
-     var _draw = ( _drawcolor.length > 0 ) ? YES : NO ;
+     var _draw = ( _bordercolor.length > 0 ) ? YES : NO ;
      var _fill = ( _fillcolor.length > 0 ) ? YES : NO ;
      if ( _plane_type.is_one_of( W_PLANE, Z_PLANE ) && ( _draw || _fill ) )
      {
@@ -395,7 +395,7 @@ function circles_terminal_cmd_isometric_draw( _plane_type, _word, _isometric_cc,
         else if ( _plane == Z_PLANE ) _mapper = zplane_sm ;
         var _screen_circle = circles_lib_draw_complex_disk( _canvas.getContext( _glob_canvas_ctx_2D_mode ), _mapper,
                                                      _isometric_cc.center.x, _isometric_cc.center.y, _isometric_cc.radius,
-                                                     _draw, _drawcolor, _fill, _fillcolor, _bordersize, null, null, null, _word, 0 );
+                                                     _draw, _bordercolor, _fill, _fillcolor, _bordersize, null, null, null, _word, 0 );
      }
      else circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing color params: the isometric circle '"+_word+"' has not been plot", _par_1, _cmd_tag );
 }

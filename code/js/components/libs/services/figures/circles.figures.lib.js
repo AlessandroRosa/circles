@@ -44,11 +44,11 @@ function circles_lib_figures_disconnect( _output_channel, _figures_array, _param
                          _tmp_chunk['obj'] = new point( _points[_x].x, _points[_x].y );
                          _tmp_chunk['plane'] = _rec_chunk['plane'] ;
                          _tmp_chunk['draw'] = _rec_chunk['draw'] ;
-                         _tmp_chunk['drawcolor'] = _rec_chunk['drawcolor'] ;
+                         _tmp_chunk['bordercolor'] = _rec_chunk['bordercolor'] ;
                          _tmp_chunk['fill'] = _rec_chunk['fill'] ;
                          _tmp_chunk['fillcolor'] = _rec_chunk['fillcolor'] ;
                          _tmp_chunk['opacity'] = _rec_chunk['opacity'] ;
-                         _tmp_chunk['linethick'] = _rec_chunk['linethick'] ;
+                         _tmp_chunk['bordersize'] = _rec_chunk['bordersize'] ;
                          _tmp_chunk['enabled'] = _rec_chunk['enabled'] ;
                          _tmp_chunk['myhash'] = _rec_chunk['myhash'] ;
                          _tmp_chunk['label'] = "" ;
@@ -69,11 +69,11 @@ function circles_lib_figures_disconnect( _output_channel, _figures_array, _param
                         _tmp_chunk['obj'] = new point( _points[_x].x, _points[_x].y );
                         _tmp_chunk['plane'] = _rec_chunk['plane'] ;
                         _tmp_chunk['draw'] = _rec_chunk['draw'] ;
-                        _tmp_chunk['drawcolor'] = _rec_chunk['drawcolor'] ;
+                        _tmp_chunk['bordercolor'] = _rec_chunk['bordercolor'] ;
                         _tmp_chunk['fill'] = _rec_chunk['fill'] ;
                         _tmp_chunk['fillcolor'] = _rec_chunk['fillcolor'] ;
                         _tmp_chunk['opacity'] = _rec_chunk['opacity'] ;
-                        _tmp_chunk['linethick'] = _rec_chunk['linethick'] ;
+                        _tmp_chunk['bordersize'] = _rec_chunk['bordersize'] ;
                         _tmp_chunk['enabled'] = _rec_chunk['enabled'] ;
                         _tmp_chunk['myhash'] = _rec_chunk['myhash'] ;
                         _tmp_chunk['propertiesmask'] = 0 ;
@@ -103,12 +103,12 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             _text_array.push( "Plane " + circles_lib_plane_def_get( _fig_obj['plane'] ) );
             _text_array.push( "Draw " + ( _fig_obj['draw'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
-            _clr_formats = circles_lib_colors_get_formats( _fig_obj['drawcolor'] );
+            _clr_formats = circles_lib_colors_get_formats( _fig_obj['bordercolor'] );
             _text_array.push( "Draw color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['fillcolor'] );
             _text_array.push( "Fill color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _text_array.push( "Opacity " + _fig_obj['opacity'] );
-            _text_array.push( "Line width " + _fig_obj['linethick'] );
+            _text_array.push( "Line width " + _fig_obj['bordersize'] );
             _text_array.push( "Enabled " + ( _fig_obj['enabled'] ? "yes" : "no" ) );
             break ;
             case FIGURE_CLASS_LINE:
@@ -117,7 +117,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             _text_array.push( "Plane " + circles_lib_plane_def_get( _fig_obj['plane'] ) );
             _text_array.push( "Draw " + ( _fig_obj['draw'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
-            _clr_formats = circles_lib_colors_get_formats( _fig_obj['drawcolor'] );
+            _clr_formats = circles_lib_colors_get_formats( _fig_obj['bordercolor'] );
             _text_array.push( "Draw color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['fillcolor'] );
             _text_array.push( "Fill color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
@@ -129,7 +129,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             _text_array.push( "Plane " + circles_lib_plane_def_get( _fig_obj['plane'] ) );
             _text_array.push( "Draw " + ( _fig_obj['draw'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
-            _clr_formats = circles_lib_colors_get_formats( _fig_obj['drawcolor'] );
+            _clr_formats = circles_lib_colors_get_formats( _fig_obj['bordercolor'] );
             _text_array.push( "Draw color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['fillcolor'] );
             _text_array.push( "Fill color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
@@ -141,7 +141,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             _text_array.push( "Plane " + circles_lib_plane_def_get( _fig_obj['plane'] ) );
             _text_array.push( "Draw " + ( _fig_obj['draw'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
-            _clr_formats = circles_lib_colors_get_formats( _fig_obj['drawcolor'] );
+            _clr_formats = circles_lib_colors_get_formats( _fig_obj['bordercolor'] );
             _text_array.push( "Draw color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['fillcolor'] );
             _text_array.push( "Fill color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
@@ -195,10 +195,10 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
                 else { _other_params.push( _param ); _other_values.push( _options['input_values'][_i] ); } } );
 
         // check input params to be coherent with each obj properties
-        var _point_params_table_array = [ 'coords', 'drawcolor', 'fillcolor', 'opacity', 'linethick' ];
-        var _rect_params_table_array = [ 'lefttop', 'rightbottom', 'center', 'width', 'height', 'draw', 'drawcolor', 'fill', 'fillcolor', 'opacity', 'linethick', 'borderradius' ];
-        var _line_params_table_array = [ 'coords', 'points', 'draw', 'fill', 'drawcolor', 'fillcolor', 'opacity', 'linethick', 'mark', 'close' ];
-        var _circle_params_table_array = [ 'center', 'radius', 'draw', 'fill', 'drawcolor', 'fillcolor', 'opacity', 'linethick' ];
+        var _point_params_table_array = [ 'coords', 'bordercolor', 'fillcolor', 'opacity', 'bordersize' ];
+        var _rect_params_table_array = [ 'lefttop', 'rightbottom', 'center', 'width', 'height', 'draw', 'bordercolor', 'fill', 'fillcolor', 'opacity', 'bordersize', 'borderradius' ];
+        var _line_params_table_array = [ 'coords', 'points', 'draw', 'fill', 'bordercolor', 'fillcolor', 'opacity', 'bordersize', 'mark', 'close' ];
+        var _circle_params_table_array = [ 'center', 'radius', 'draw', 'fill', 'bordercolor', 'fillcolor', 'opacity', 'bordersize' ];
         var _i, _x ;
 
         for( _i = 0 ; _i < _index_array.length ; _i++ )
@@ -260,10 +260,10 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
                         _rec_chunk['fill'] = safe_int( _value, NO );
                         _ret_flag &= 1 ;
                     }
-                    else if ( _param.stricmp( "drawcolor" ) )
+                    else if ( _param.stricmp( "bordercolor" ) )
                     {
                         _rec_chunk['draw'] = _value.stricmp( "noclr" ) ? NO : YES ;
-                        _rec_chunk['drawcolor'] = _value ;
+                        _rec_chunk['bordercolor'] = _value ;
                         _ret_flag &= 1 ;
                     }
                     else if ( _param.stricmp( "fillcolor" ) )
@@ -272,9 +272,9 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
                         _rec_chunk['fillcolor'] = _value ;
                         _ret_flag &= 1 ;
                     }
-                    else if ( _param.stricmp( "linethick" ) )
+                    else if ( _param.stricmp( "bordersize" ) )
                     {
-                        _rec_chunk['linethick'] = safe_int( _value, 0 );
+                        _rec_chunk['bordersize'] = safe_int( _value, 0 );
                         _ret_flag &= 1 ;
                     }
                     else _ret_flag = 0 ;
@@ -323,10 +323,10 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
                         _rec_chunk['fill'] = safe_int( _value, YES );
                         _ret_flag &= 1 ;
                     }
-                    else if ( _param.stricmp( "drawcolor" ) )
+                    else if ( _param.stricmp( "bordercolor" ) )
                     {
                         _rec_chunk['draw'] = _value.stricmp( "noclr" ) ? NO : YES ;
-                        _rec_chunk['drawcolor'] = _value ;
+                        _rec_chunk['bordercolor'] = _value ;
                         _ret_flag &= 1 ;
                     }
                     else if ( _param.stricmp( "fillcolor" ) )
@@ -335,9 +335,9 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
                         _rec_chunk['fillcolor'] = _value ;
                         _ret_flag &= 1 ;
                     }
-                    else if ( _param.stricmp( "linethick" ) )
+                    else if ( _param.stricmp( "bordersize" ) )
                     {
-                        _rec_chunk['linethick'] = safe_int( _value, 0 );
+                        _rec_chunk['bordersize'] = safe_int( _value, 0 );
                         _ret_flag &= 1 ;
                     }
                     else _ret_flag = 0 ;
@@ -401,10 +401,10 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
                         _rec_chunk['draw'] = safe_int( _value, YES );
                         _ret_flag &= 1 ;
                     }
-                    else if ( _param.stricmp( "drawcolor" ) )
+                    else if ( _param.stricmp( "bordercolor" ) )
                     {
                         _rec_chunk['draw'] = _value.stricmp( "noclr" ) ? NO : YES ;
-                        _rec_chunk['drawcolor'] = _value ;
+                        _rec_chunk['bordercolor'] = _value ;
                         _ret_flag &= 1 ;
                     }
                     else if ( _param.stricmp( "fillcolor" ) )
@@ -414,9 +414,9 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
                         _rec_chunk['fillcolor'] = _value ;
                         _ret_flag &= 1 ;
                     }
-                    else if ( _param.stricmp( "linethick" ) )
+                    else if ( _param.stricmp( "bordersize" ) )
                     {
-                        _rec_chunk['linethick'] = safe_int( _value, 0 );
+                        _rec_chunk['bordersize'] = safe_int( _value, 0 );
                         _ret_flag &= 1 ;
                     }
                     else _ret_flag = 0 ;
@@ -500,10 +500,10 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
                         _rec_chunk['fill'] = safe_int( _value, NO );
                         _ret_flag &= 1 ;
                     }
-                    else if ( _param.stricmp( "drawcolor" ) )
+                    else if ( _param.stricmp( "bordercolor" ) )
                     {
                         _rec_chunk['draw'] = _value.stricmp( "noclr" ) ? NO : YES ;
-                        _rec_chunk['drawcolor'] = _value ;
+                        _rec_chunk['bordercolor'] = _value ;
                         _ret_flag &= 1 ;
                     }
                     else if ( _param.stricmp( "fillcolor" ) )
@@ -512,9 +512,9 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
                         _rec_chunk['fillcolor'] = _value ;
                         _ret_flag &= 1 ;
                     }
-                    else if ( _param.stricmp( "linethick" ) )
+                    else if ( _param.stricmp( "bordersize" ) )
                     {
-                        _rec_chunk['linethick'] = safe_int( _value, 0 );
+                        _rec_chunk['bordersize'] = safe_int( _value, 0 );
                         _ret_flag &= 1 ;
                     }
                     else if ( _param.stricmp( "borderradius" ) )
