@@ -376,43 +376,59 @@ rect.prototype.set_sides = function()
 
 rect.prototype.side = function()
 {
-		var _x_side = Math.abs( this.x1 - this.x2 ), _y_side = Math.abs( this.y1 - this.y2 );
-		return _x_side == _y_side ? [ _x_side ] : [ _x_side, _y_side ] ;
+	var _x_side = Math.abs( this.x1 - this.x2 ), _y_side = Math.abs( this.y1 - this.y2 );
+	return _x_side == _y_side ? [ _x_side ] : [ _x_side, _y_side ] ;
 }
 
-rect.prototype.shift = function( _shift_x, _shift_y, _self = YES )
+rect.prototype.rotate = function( _center = null, _rad = 0, _self = 1 )
 {
-	if ( arguments.length < 2 ) return null ;
-    var _point = ( arguments.length == 2 && is_point( arguments[0] ) ) ? arguments[0] : null ;
-		_self = safe_int( arguments.length == 2 ? arguments[1] : arguments[2], 0 );
-    if ( _self )
-    {
-        if ( is_point( _point ) )
-        {
-	        this.x1 += _point.x, this.x2 += _point.x, this.y1 += _point.y, this.y2 += _point.y ;
-			return 1 ;
-		}
-		else
+    var _cos = Math.cos( _rad ), _sin = Math.sin( _rad );
+	if ( !is_point( _center ) ) _center = new point( ( this.x1 + this.x2 ) / 2.0, ( this.y1 + this.y2 ) / 2.0 ) ;
+	var _rect = this.copy();
+	var _lt_pt = new point( _rect.x1, _rect.y1 ), _rb_pt = new point( _rect.x2, _rect.y2 );
+    _lt_pt.shift( -this.center.x, -this.center.y );
+    _rb_pt.shift( -this.center.x, -this.center.y );
+
+	_lt_pt.x = _lt_pt.x * _cos - _lt_pt.y * _sin, _lt_pt.y = _lt_pt.x * _sin - _lt_pt.y * _cos ;
+	_rb_pt.x = _rb_pt.x * _cos - _rb_pt.y * _sin, _rb_pt.y = _lt_pt.x * _sin - _rb_pt.y * _cos ;
+
+	_lt_pt.shift( this.center ) ;
+	_rb_pt.shift( this.center ) ;
+
+	if ( _self ) { this.x1 = _lt_pt.x, this.y1 = _lt_pt.y, this.x2 = _rb_pt.x, this.y2 = _rb_pt.y ; }
+	else return _rect ;
+}
+
+rect.prototype.shift = function()
+{
+	var _self = 1, _mask = 0 ;
+	if ( is_point( arguments[0] ) ) { _self = safe_int( arguments[1], 0 ) ; _mask = 1 ; }
+	else if ( is_number( arguments[0] ) && is_number( arguments[1] ) ) { _self = safe_int( arguments[2], 0 ) ; _mask = 2 ; }
+	if ( _self )
+	{
+		switch( _mask )
 		{
+			case 1: 
+			this.x1 += arguments[0].x, this.x2 += arguments[0].x, this.y1 += arguments[0].y, this.y2 += arguments[0].y ;
+			return 1;
+			break ;
+			case 2: 
 			this.x1 += arguments[0], this.x2 += arguments[0], this.y1 += arguments[1], this.y2 += arguments[1] ;
-			return 1 ;
+			return 1 ; break ;
+			default: return 0 ; break ;
 		}
-    }
-    else
-    {
-        var _r = new rect() ;
-        _r.from_rect( this );
-        if ( is_point( _point ) )
-        {
-		    _r.x1 += _point.x, _r.x2 += _point.x, _r.y1 += _point.y, _r.y2 += _point.y ;
-		}
-		else
+	}
+	else
+	{
+		var _c = this.copy();
+		switch( _mask )
 		{
-			_r.x1 += arguments[0], _r.x2 += arguments[0], _r.y1 += arguments[1], _r.y2 += arguments[1] ;
+			case 1: _c.x1 += arguments[0].x, _c.x2 += arguments[0].x, _c.y1 += arguments[0].y, _c.y2 += arguments[0].y ; break ;
+			case 2: _c.x1 += arguments[0], _c.x2 += arguments[0], _c.y1 += arguments[1], _c.y2 += arguments[1] ; break ;
+			default: return null ; break ;
 		}
-        return _r ;
-    }
-	return 0 ;
+		return _c ;
+	}
 }
 
 rect.prototype.write = function() { document.write( this.output() ) ; }

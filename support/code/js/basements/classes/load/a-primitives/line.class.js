@@ -117,46 +117,49 @@ line.prototype.slope = function()
     return this.slope ;
 }
 
-line.prototype.shift = function( _x = 0, _y = 0, _self = YES )
+line.prototype.shift = function()
 {
+	var _self = 1, _mask = 0 ;
+	if ( is_point( arguments[0] ) ) { _self = safe_int( arguments[1], 0 ) ; _mask = 1 ; }
+	else if ( is_number( arguments[0] ) && is_number( arguments[1] ) ) { _self = safe_int( arguments[2], 0 ) ; _mask = 2 ; }
 	if ( _self )
 	{
-		if ( arguments.length == 1 && is_point( arguments[0] ) )
+		switch( _mask )
 		{
-			this.start_pt.shift( arguments[0] );
-			this.end_pt.shift( arguments[0] );
-			return 1 ;
-		}
-		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
-		{
-			this.start_pt.shift( arguments[0], arguments[1] );
-			this.end_pt.shift( arguments[0], arguments[1] );
-			return 1 ;
+			case 1: this.start_pt.shift( arguments[0] ); this.end_pt.shift( arguments[0] ); return 1 ; break ;
+			case 2: this.start_pt.shift( arguments[0], arguments[1] ); this.end_pt.shift( arguments[0], arguments[1] ); return 1 ; break ;
+			default: return 0 ; break ;
 		}
 	}
 	else
 	{
-		var _l = this.copy();
-		if ( arguments.length == 1 && is_point( arguments[0] ) )
+		var _c = this.copy();
+		switch( _mask )
 		{
-			_l.start_pt.shift( arguments[0] );
-			_l.end_pt.shift( arguments[0] );
-			return _l ;
+			case 1: _c.start_pt.shift( arguments[0] ); _c.end_pt.shift( arguments[0] ); break ;
+			case 2: _c.start_pt.shift( arguments[0], arguments[1] ); _c.end_pt.shift( arguments[0], arguments[1] ); break ;
+			default: return null ; break ;
 		}
-		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
-		{
-			_l.start_pt.shift( arguments[0], arguments[1] );
-			_l.end_pt.shift( arguments[0], arguments[1] );
-			return _l ;
-		}
+		return _c ;
 	}
-	return 0 ;
 }
 
-line.prototype.rotate = function( center_pt, rot_rad )
+line.prototype.rotate = function( _center = null, _rad = 0, _self = 1 )
 {
-	this.start_pt = this.start_pt.rotate( center_pt, rot_rad );
-	this.end_pt = this.end_pt.rotate( center_pt, rot_rad );
+	if ( !is_point( _center ) ) _center = new point( ( this.start_pt.x + this.end_pt.x ) / 2.0, ( this.start_pt.y + this.end_pt.y ) / 2.0 );
+	if ( _self )
+	{
+		this.start_pt = this.start_pt.rotate( _center, _rad );
+		this.end_pt = this.end_pt.rotate( _center, _rad );
+		return is_point( this.start_pt ) && is_point( this.end_pt ) ? 1 : 0 ;
+	}
+	else
+	{
+		var _c = this.copy();
+		_c.start_pt = _c.start_pt.rotate( _center, _rad );
+		_c.end_pt = _c.end_pt.rotate( _center, _rad );
+		return _c ;
+	}
 }
 
 line.prototype.intersection = function()

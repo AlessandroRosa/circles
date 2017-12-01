@@ -158,8 +158,9 @@ point.prototype.shift = function()
 	{
 		switch( _mask )
 		{
-			case 1: this.x += arguments[0].x, this.y += arguments[0].y ; break ;
-			case 2: this.x += arguments[0], this.y += arguments[1] ; break ;
+			case 1: this.x += arguments[0].x, this.y += arguments[0].y ; return 1 ; break ;
+			case 2: this.x += arguments[0], this.y += arguments[1] ; return 1; break ;
+			default: return 0 ; break ;
 		}
 	}
 	else
@@ -174,16 +175,16 @@ point.prototype.shift = function()
 	}
 }
 
-point.prototype.rotate = function( center_pt, _rot_rad )
+point.prototype.rotate = function( _center, _rad = 0 )
 {
-    _rot_rad = safe_float( _rot_rad, 0.0 ) ;
-    if ( !is_point( center_pt ) ) return null ;
+    _rad = safe_float( _rad, 0.0 ) ;
+    if ( !is_point( _center ) ) return null ;
     var pt = this.copy();
-    pt.x -= center_pt.x, pt.y -= center_pt.y ;
-    var _tmp_x = pt.x * Math.cos( _rot_rad ) - pt.y * Math.sin( _rot_rad ) ;
-    var _tmp_y = pt.x * Math.sin( _rot_rad ) + pt.y * Math.cos( _rot_rad ) ;
+    pt.x -= _center.x, pt.y -= _center.y ;
+    var _tmp_x = pt.x * Math.cos( _rad ) - pt.y * Math.sin( _rad ) ;
+    var _tmp_y = pt.x * Math.sin( _rad ) + pt.y * Math.cos( _rad ) ;
     pt.x = _tmp_x, pt.y = _tmp_y ;
-    pt.x += center_pt.x, pt.y += center_pt.y ;
+    pt.x += _center.x, pt.y += _center.y ;
     return pt ;
 }
 

@@ -204,44 +204,62 @@ polygon.prototype.output = function( _round_digits, _linebreak_cmd )
 }
 
 polygon.prototype.move = function() { this.shift.apply( this, arguments ) ; }
-polygon.prototype.shift = function( _x = 0, _y = 0, _self = YES )
+polygon.prototype.shift = function()
 {
-	var _pt = null ;
-	if ( is_point( arguments[0] ) ) _pt = arguments[0] ;
-	else if ( is_array( arguments[0] ) ) _pt = new point( arguments[0][0], arguments[0][1] );
-	else if ( arguments.length == 0 && arguments.length == 2 ) _pt = new point( safe_float( arguments[0], 0 ), safe_float( arguments[1], 0 ) );
+	var _self = 1, _mask = 0 ;
+	if ( is_point( arguments[0] ) ) { _self = safe_int( arguments[1], 0 ) ; _mask = 1 ; }
+	else if ( is_number( arguments[0] ) && is_number( arguments[1] ) ) { _self = safe_int( arguments[2], 0 ) ; _mask = 2 ; }
 	if ( _self )
 	{
-		for( var _i = 0 ; _i < this.vertex_array.length ; _i++ ) this.vertex_array[_i].shift( _pt.x, _pt.y );
-		return 1 ;
+		switch( _mask )
+		{
+			case 1:
+			for( var _i = 0 ; _i < this.vertex_array.length ; _i++ ) this.vertex_array[_i].shift( arguments[0].x, arguments[0].y );
+			break ;
+			case 2:
+			for( var _i = 0 ; _i < this.vertex_array.length ; _i++ ) this.vertex_array[_i].shift( arguments[0], arguments[1] );
+			break ;
+			default: return 0 ; break ;
+		}
 	}
 	else
 	{
-		var _p = this.copy();
-		if ( is_point( arguments[0] ) ) _pt = arguments[0] ;
-		else if ( is_array( arguments[0] ) ) _pt = new point( arguments[0][0], arguments[0][1] );
-		else if ( arguments.length == 0 && arguments.length == 2 ) _pt = new point( safe_float( arguments[0], 0 ), safe_float( arguments[1], 0 ) );
-		for( var _i = 0 ; _i < this.vertex_array.length ; _i++ ) _p.vertex_array[_i].shift( _pt.x, _pt.y );
-		return _p ;
+		var _c = this.copy();
+		switch( _mask )
+		{
+			case 1:
+			for( var _i = 0 ; _i < _c.vertex_array.length ; _i++ ) _c.vertex_array[_i].shift( arguments[0].x, arguments[0].y );
+			break ;
+			case 2:
+			for( var _i = 0 ; _i < _c.vertex_array.length ; _i++ ) _c.vertex_array[_i].shift( arguments[0], arguments[1] );
+			break ;
+			default: return null ; break ;
+		}
+		return _c ;
 	}
 }
 
-polygon.prototype.rotate = function( _rad )
+polygon.prototype.rotate = function( _center = null, _rad = 0, _self = 1 )
 {
     var _cos = Math.cos( _rad ), _sin = Math.sin( _rad );
-    for( var _i = 0 ; _i < this.vertex_array.length ; _i++ ) this.vertex_array[_i].shift( -this.center.x, -this.center.y );
+	if ( !is_point( _center ) ) _center = this.centroid() ;
+	var _c = this.copy();
+    for( var _i = 0 ; _i < _c.vertex_array.length ; _i++ ) _c.vertex_array[_i].shift( -_center.x, -_center.y );
     
     var _pt = new point();
-		for( _i = 0 ; _i < this.vertex_array.length ; _i++ )
+	for( _i = 0 ; _i < _c.vertex_array.length ; _i++ )
     {
-			 _pt.x = this.vertex_array[_i].x * _cos - this.vertex_array[_i].y * _sin ;
-			 _pt.y = this.vertex_array[_i].x * _sin + this.vertex_array[_i].y * _cos ;
-			 this.vertex_array[_i].x = _pt.x ;
-			 this.vertex_array[_i].y = _pt.y ;
-		}
+		_pt.x = _c.vertex_array[_i].x * _cos - _c.vertex_array[_i].y * _sin ;
+		_pt.y = _c.vertex_array[_i].x * _sin + _c.vertex_array[_i].y * _cos ;
+		_c.vertex_array[_i].x = _pt.x ;
+		_c.vertex_array[_i].y = _pt.y ;
+	}
 
-    for( _i = 0 ; _i < this.vertex_array.length ; _i++ )
-		this.vertex_array[_i].shift( this.center.x, this.center.y );
+    for( _i = 0 ; _i < _c.vertex_array.length ; _i++ )
+	_c.vertex_array[_i].shift( _c.center.x, _c.center.y );
+
+	if ( _self ) { this.vertex_array = _c.vertex_array.clone() ; return 1 ; }
+	else return _c ;
 }
 
 polygon.prototype.perimeter = function()

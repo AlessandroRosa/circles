@@ -148,38 +148,46 @@ circle.prototype.arc = function( rad ) { return ( this.circumference() / ( 2.0 *
 circle.prototype.area = function()            { return Math.PI * this.radius * this.radius ; }
 circle.prototype.get_curvature = function() { return this.radius == 0 ? 0 : ( 1.0 / this.radius ) ; }
 circle.prototype.set_curvature = function( c ) { this.radius = c == 0 ? 0 : ( 1.0 / c ) ; }
-circle.prototype.rotate = function( center_pt, rot_rad ) { this.center = this.center.rotate( center_pt, rot_rad ); }
-circle.prototype.shift = function( _x = 0, _y = 0, _self = YES )
+circle.prototype.rotate = function( _center = null, _rad = 0, _self = 1 ) 
 {
+	if ( !is_point( _center ) ) return 0 ;
+	else if ( _self )
+	{
+		this.center = this.center.rotate( _center, _rad );
+		return 1 ;
+	}
+	else
+	{
+		var _c = this.copy();
+		_c.center = _c.center.rotate( _center, _rad );
+		return _c ;
+	}
+}
+circle.prototype.shift = function()
+{
+	var _self = 1, _mask = 0 ;
+	if ( is_point( arguments[0] ) ) { _self = safe_int( arguments[1], 0 ) ; _mask = 1 ; }
+	else if ( is_number( arguments[0] ) && is_number( arguments[1] ) ) { _self = safe_int( arguments[2], 0 ) ; _mask = 2 ; }
 	if ( _self ) 
 	{
-		if ( arguments.length == 1 && is_point( arguments[0] ) )
+		switch( _mask )
 		{
-			this.center.x += arguments[0].x, this.center.y += arguments[0].y ;
-			return 1 ;
-		}
-		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
-		{
-			this.center.x += arguments[0], this.center.y += arguments[1] ;
-			return 1 ;
+			case 1: this.center.x += arguments[0].x, this.center.y += arguments[0].y ; return 1 ; break ;
+			case 2: this.center.x += arguments[0], this.center.y += arguments[1] ; return 1 ; break ;
+			default: return 0 ; break ;
 		}
 	}
 	else
 	{
 		var _c = this.copy();
-			_c.center.x += arguments[0], _c.center.y += arguments[1] ;
-		if ( arguments.length == 1 && is_point( arguments[0] ) )
+		switch( _mask )
 		{
-			_c.center.x += arguments[0].x, _c.center.y += arguments[0].y ;
-			return _c ;
+			case 1: _c.center.x += arguments[0].x, _c.center.y += arguments[1].y ; break ;
+			case 2: _c.center.x += arguments[0], _c.center.y += arguments[1] ; break ;
+			default: return null ; break ;
 		}
-		else if ( arguments.length == 2 && is_number( arguments[0] ) && is_number( arguments[1] ) )
-		{
-			_c.center.x += arguments[0], _c.center.y += arguments[1] ;
-			return _c ;
-		}
+		return _c ;
 	}
-	return 0 ;
 }
 
 circle.prototype.include = function( C2 ) { return ( ( this.center.distance( C1.center ) + C2.radius ) <= this.radius ) ? 1 : 0 ; }

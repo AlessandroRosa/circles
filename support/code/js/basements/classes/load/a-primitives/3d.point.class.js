@@ -140,8 +140,9 @@ point_3d.prototype.shift = function()
 	{
 		switch( _mask )
 		{
-			case 1: this.x += arguments[0].x, this.y += arguments[0].y, this.z += arguments[0].z ; break ;
-			case 2: this.x += arguments[0], this.y += arguments[1], this.z += arguments[2] ; break ;
+			case 1: this.x += arguments[0].x, this.y += arguments[0].y, this.z += arguments[0].z ; return 1 ; break ;
+			case 2: this.x += arguments[0], this.y += arguments[1], this.z += arguments[2] ; return 1 ; break ;
+			default: return 0 ; break ;
 		}
 	}
 	else
