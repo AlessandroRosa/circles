@@ -129,17 +129,17 @@ function circles_terminal_cmd_circle()
 					_msg = "<lightblue>Radius has been set to</lightblue> <snow>"+_params_assoc_array['settings']['radius']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
-				else { _b_fail = YES, _error_str = "Invalid radius definition" ; break ; }
+				else { _b_fail = YES, _error_str = "Invalid radius value" ; break ; }
 			}
 			else if ( _p.toLowerCase().start_with( "bordercolor:" ) && _params_assoc_array['settings']['bordercolor'] == null )
 			{
 				_params_assoc_array['settings']['bordercolor'] = safe_string( _p.replace( /bordercolor:/gi, "" ), "" ) ;
 				if ( circles_lib_colors_is_def( _params_assoc_array['settings']['bordercolor'] ) )
 				{
-					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['bordercolor']+"</snow>" ;
+					_msg = "<lightblue>Border color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['bordercolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
-				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; }
+				else { _b_fail = YES, _error_str = "Invalid border color value" ; }
 			}
 			else if ( _p.toLowerCase().start_with( "fillcolor:" ) && _params_assoc_array['settings']['fillcolor'] == null )
 			{
@@ -149,17 +149,17 @@ function circles_terminal_cmd_circle()
 					_msg = "<lightblue>Fill color has been set to</lightblue> <snow>"+_params_assoc_array['settings']['fillcolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
-				else { _b_fail = YES, _error_str = "Invalid fill color definition" ; break ; }
+				else { _b_fail = YES, _error_str = "Invalid fill color value" ; break ; }
 			}
 			else if ( _p.toLowerCase().start_with( "bordersize:" ) && _params_assoc_array['settings']['bordersize'] == null )
 			{
 				_params_assoc_array['settings']['bordersize'] = safe_string( _p.replace( /bordersize:/gi, "" ), "" ) ;
 				if ( _params_assoc_array['settings']['bordersize'].testME( _glob_positive_float_regex_pattern ) )
 				{
-					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['bordersize']+"</snow>" ;
+					_msg = "<lightblue>Border size has been set to</lightblue> <snow>"+_params_assoc_array['settings']['bordersize']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
-				else { _b_fail = YES, _error_str = "Invalid line thickness definition" ; break ; }
+				else { _b_fail = YES, _error_str = "Invalid border size value" ; break ; }
 			}
 			else if ( _p.toLowerCase().start_with( "opacity:" ) && _params_assoc_array['settings']['opacity'] == null )
 			{
@@ -169,7 +169,7 @@ function circles_terminal_cmd_circle()
 					_msg = "<lightblue>Opacity has been set to</lightblue> <snow>"+_params_assoc_array['settings']['opacity']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
-				else { _b_fail = YES, _error_str = "Invalid opacity definition" ; break ; }
+				else { _b_fail = YES, _error_str = "Invalid opacity value" ; break ; }
 			}
 			else if ( _p.toLowerCase().start_with( "label:" ) )
 			{
@@ -243,10 +243,10 @@ function circles_terminal_cmd_circle()
                    else
                    {
                        var _bordercolor = _params_assoc_array['settings']['bordercolor'] ;
-                       var _draw = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
+                       var _border = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
                        var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
                        var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
-                       if ( _draw == NO && _fill == NO ) { _b_fail = YES ; _error_str = "Missing draw and filling colors: this circle won't be visible" ; }
+                       if ( _border == NO && _fill == NO ) { _b_fail = YES ; _error_str = "Missing draw and filling colors: this circle won't be visible" ; }
                    }
             }
 
@@ -255,15 +255,15 @@ function circles_terminal_cmd_circle()
               {
                    var _canvas_context, _mapper ;
                    var _bordercolor = _params_assoc_array['settings']['bordercolor'] ;
-                   var _draw = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
+                   var _border = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
                    var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
                    var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
           
                    var _bordersize = ( _params_assoc_array['settings']['bordersize'] == null ) ? 1 : safe_int( _params_assoc_array['settings']['bordersize'], 1 );
-                   if ( _bordersize == 0 ) { _draw = NO ; _bordercolor = "" ; }
+                   if ( _bordersize == 0 ) { _border = NO ; _bordercolor = "" ; }
                    var _opacity = ( _params_assoc_array['settings']['opacity'] == null ) ? 1.0 : safe_float( _params_assoc_array['settings']['opacity'], DEFAULT_MAX_OPACITY );
                    var _circle_obj = new circle( _params_assoc_array['settings']['center'], _params_assoc_array['settings']['radius'],
-                   								 _draw, _fill, _bordercolor, _fillcolor, _bordersize );
+                   								 _border, _fill, _bordercolor, _fillcolor, _bordersize );
 				   var _layer = circles_lib_canvas_layer_find( _params_assoc_array['settings']['plane'], FIND_LAYER_BY_ROLE_DEF, _params_assoc_array['settings']['layer'], _output_channel );
 				   if ( is_html_canvas( _layer ) )
 				   {
@@ -290,7 +290,7 @@ function circles_terminal_cmd_circle()
                    {
                        var _screen_circle = circles_lib_draw_complex_disk( _canvas_context, _mapper,
 								_circle_obj.center.x, _circle_obj.center.y, _circle_obj.radius,
-                                _draw, _bordercolor, _fill, _fillcolor, _bordersize, _opacity,
+                                _border, _bordercolor, _fill, _fillcolor, _bordersize, _opacity,
                                 _params_assoc_array['settings']['sector_start'],
 								_params_assoc_array['settings']['sector_end'],
 								"", _params_assoc_array['settings']['propertiesmask'] );
@@ -305,7 +305,7 @@ function circles_terminal_cmd_circle()
                                    _rec_chunk['obj'] = _circle_obj ;
                                    _rec_chunk['plane'] = _params_assoc_array['settings']['plane'] ;
                                    _rec_chunk['layer'] = _params_assoc_array['settings']['layer'] ;
-                                   _rec_chunk['draw'] = _draw ;
+                                   _rec_chunk['border'] = _border ;
                                    _rec_chunk['bordercolor'] = _bordercolor ;
                                    _rec_chunk['fill'] = _fill ;
                                    _rec_chunk['fillcolor'] = _fillcolor ;

@@ -73,11 +73,11 @@ halfplane_model.prototype.bisector = function( _z0, _radius, _z1, _z2 )
 		else return null ;
 }
 
-halfplane_model.prototype.polyline = function( _context, _mapper, _pts_array, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _close )
+halfplane_model.prototype.polyline = function( _context, _mapper, _pts_array, _border, _bordercolor, _fill, _fillcolor, _bordersize, _close )
 {
     if ( !object_exists( _context ) || !object_exists( _mapper ) ) return false ;
 		if ( !is_array( _pts_array ) ) return false ;
-    _draw = safe_int( _draw, YES ), _fill = safe_int( _fill, NO );
+    _border = safe_int( _border, YES ), _fill = safe_int( _fill, NO );
     _opacity = safe_float( _opacity, DEFAULT_MAX_OPACITY );
     _bordersize = safe_int( _bordersize, 1 );
 		_close = safe_int( _close, 0 );
@@ -105,7 +105,7 @@ halfplane_model.prototype.polyline = function( _context, _mapper, _pts_array, _d
 		    _screen_z0 = _mapper.from_cartesian_to_client( _z0.real, _z0.imag );
 		    _screen_z1 = _mapper.from_cartesian_to_client( _z1.real, _z1.imag );
 
-				if ( _draw )
+				if ( _border )
 				{
 						_context.arc( _screen_z0.x, _screen_z0.y,
 													_screen_z0.distance( _screen_z1 ),

@@ -395,7 +395,7 @@ function circle_terminal_cmd_display_disk_item( ITEM, _i, _output_channel, _para
     var _cc_check = is_circle( _cc ) ? YES : NO ;
     var _bordersize = _cc_check ? _cc.bordersize : 0 ;
     var _fill = _cc_check ? _cc.fill : 0 ;
-    var _draw = _cc_check ? _cc.draw : 0 ;
+    var _border = _cc_check ? _cc.draw : 0 ;
     var _bordercolor = new String( _cc_check ? _cc.bordercolor.trim() : "" );
     if ( _bordercolor.length == 0 ) _bordercolor = "none" ;
     var _fillcolor = new String( _cc_check ? _cc.fillcolor.trim() : "" );
@@ -429,8 +429,8 @@ function circle_terminal_cmd_display_disk_item( ITEM, _i, _output_channel, _para
        {
           _out_string  = "Index "+(_i+1);
           _out_string += "  Fill <snow>" + ( _fill ? "yes" : "no" ) + "</snow>" ;
-          _out_string += "  Draw <snow>" + ( _draw ? "yes" : "no" ) + "</snow>" ;
-          _out_string += "  Line thickness <snow>" + _bordersize + " pixel" + ( _bordersize == 1 ? "" : "s" ) + "</snow>" ;
+          _out_string += "  Draw <snow>" + ( _border ? "yes" : "no" ) + "</snow>" ;
+          _out_string += "  Border size <snow>" + _bordersize + " pixel" + ( _bordersize == 1 ? "" : "s" ) + "</snow>" ;
           _out_string += _glob_crlf + "Original word <snow>" + _original_word + "</snow>" ;
 
           var _bordercolor_array = _bordercolor != "none" ? circles_lib_colors_get_formats( _bordercolor ) : null ;
@@ -468,7 +468,7 @@ function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _output_channel, 
     var _cc_check = _cc != null ? YES : NO ;
     var _bordersize = _cc_check ? _cc.bordersize : 0 ;
     var _fill = _cc_check ? _cc.fill : UNDET ;
-    var _draw = _cc_check ? _cc.draw : UNDET ;
+    var _border = _cc_check ? _cc.draw : UNDET ;
     var _mm = is_item_obj( ITEM ) ? ITEM.map : null ;
 		var _anti_homography_mask = is_item_obj( ITEM ) ? ITEM.map.anti_homography_mask : UNDET ;
 
@@ -510,11 +510,11 @@ function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _output_channel, 
              var _fillcolor_array = _fillcolor != "none" ? circles_lib_colors_get_formats( _fillcolor ) : null ;
              var _fillcolor_tag = _fillcolor_array != null ? _fillcolor_array[3] : "" ;
 
-             _params += _glob_crlf + "Draw <snow>" + ( _draw == UNDET ? "? " : ( _draw ? "yes" : "no" ) ) + "</snow>" ;
+             _params += _glob_crlf + "Draw <snow>" + ( _border == UNDET ? "? " : ( _border ? "yes" : "no" ) ) + "</snow>" ;
              _params += "  color: " + _bordercolor + ( _bordercolor_tag.length > 0 ? " ( "+_bordercolor_tag+" )" : "" );
              _params += _glob_crlf + "Fill <snow>" + ( _fill == UNDET ? "? " : ( _fill ? "yes" : "no" ) ) + "</snow>" ;
              _params += "  color: " + _fillcolor + ( _fillcolor_tag.length > 0 ? " ( "+_fillcolor_tag+" )" : "" );
-             _params += _glob_crlf + "Line thickness <snow>" + _bordersize + " pixel" + ( _bordersize == 1 ? "" : "s" ) + "</snow>" ;
+             _params += _glob_crlf + "Border size <snow>" + _bordersize + " pixel" + ( _bordersize == 1 ? "" : "s" ) + "</snow>" ;
              _params += _glob_crlf + "Original word <snow>" + _original_word + "</snow>" ;
           }
 

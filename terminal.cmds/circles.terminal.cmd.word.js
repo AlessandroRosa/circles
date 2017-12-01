@@ -277,7 +277,7 @@ function circles_terminal_cmd_word()
                                    _solved_repetend = _is_repetend ? circles_lib_repetends_resolve( _word ) : _word ;
                                    if ( _is_repetend )
                                    {
-                                      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Detected repetend '<lightblue>"+ $.terminal.escape_brackets(_word)+"</lightblue>' resolved into '<snow>"+_solved_repetend+"</snow>'", _par_1, _cmd_tag );
+                                      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Found repetend '<lightblue>"+ $.terminal.escape_brackets(_word)+"</lightblue>' resolved into '<snow>"+_solved_repetend+"</snow>'", _par_1, _cmd_tag );
                                       _word = _solved_repetend ;
                                    }
                                 }
@@ -478,7 +478,7 @@ function circles_terminal_cmd_word()
                    {
                        _class = _rec_chunk['class'] ;
                        _obj = _rec_chunk['obj'] ;
-                       _draw = _rec_chunk['draw'] ;
+                       _border = _rec_chunk['border'] ;
                        _bordercolor = _rec_chunk['bordercolor'] ;
                        _fill = _rec_chunk['fill'] ;
                        _fillcolor = _rec_chunk['fillcolor'] ;
@@ -516,7 +516,7 @@ function circles_terminal_cmd_word()
                           case FIGURE_CLASS_POINT:
                           _pts_array.push( _obj );
                           circles_lib_draw_point( _canvas_context, _mapper, _obj.x, _obj.y,
-                                            _draw, _bordercolor, _fill, _fillcolor,
+                                            _border, _bordercolor, _fill, _fillcolor,
                                             _glob_pt_border, _glob_pt_radius,
                                             _opacity, _properties_mask );
                           break ;
@@ -531,19 +531,19 @@ function circles_terminal_cmd_word()
                           _pts_array.push( _obj.corners().clone() );
                           if ( _borderradius )
                           circles_lib_draw_rounded_rect( _canvas_context, _mapper, _obj,
-                                                  _draw, _bordercolor, _fill, _fillcolor,
+                                                  _border, _bordercolor, _fill, _fillcolor,
                                                   _bordersize, _borderradius, YES,
                                                   _opacity, _properties_mask );
                           else
                           circles_lib_draw_rect( _canvas_context, _mapper, _obj,
-                                           _draw, _bordercolor, _fill, _fillcolor,
+                                           _border, _bordercolor, _fill, _fillcolor,
                                            _bordersize, YES, _opacity, _properties_mask );
                           break ;
                           case FIGURE_CLASS_CIRCLE:
                           _pts_array.push( _obj.get_representative_pts().clone() );
                           circles_lib_draw_complex_disk( _canvas_context, _mapper,
                                                   _obj.center.x, _obj.center.y, _obj.radius,
-                                                  _draw, _bordercolor, _fill, _fillcolor,
+                                                  _border, _bordercolor, _fill, _fillcolor,
                                                   _bordersize, _opacity, null, null, "", _properties_mask );
                           break ;
 					                default: break ;
@@ -557,7 +557,7 @@ function circles_terminal_cmd_word()
                                 case FIGURE_CLASS_POINT:
                                 _obj = _pts_array[0] ;
                                 circles_lib_draw_point( _canvas_context, _mapper, _obj.x, _obj.y,
-                                                  _draw, _bordercolor, _fill, _fillcolor,
+                                                  _border, _bordercolor, _fill, _fillcolor,
                                                   _glob_pt_border, _glob_pt_radius,
                                                   _opacity, _properties_mask );
                                 break ;
@@ -577,12 +577,12 @@ function circles_terminal_cmd_word()
 
                                 if ( _borderradius )
                                 circles_lib_draw_rounded_rect( _canvas_context, _mapper, _obj,
-                                                        _draw, _bordercolor, _fill, _fillcolor,
+                                                        _border, _bordercolor, _fill, _fillcolor,
                                                         _bordersize, _borderradius, YES,
                                                         _opacity, _properties_mask );
                                 else
                                 circles_lib_draw_rect( _canvas_context, _mapper, _obj,
-                                                 _draw, _bordercolor, _fill, _fillcolor,
+                                                 _border, _bordercolor, _fill, _fillcolor,
                                                  _bordersize, YES, _opacity, _properties_mask );
                                 break ;
                                 case FIGURE_CLASS_CIRCLE:
@@ -590,7 +590,7 @@ function circles_terminal_cmd_word()
                                 _obj.set_radius( _pts_array[1] );
                                 circles_lib_draw_complex_disk( _canvas_context, _mapper,
                                                         _obj.center.x, _obj.center.y, _obj.radius,
-                                                        _draw, _bordercolor, _fill, _fillcolor,
+                                                        _border, _bordercolor, _fill, _fillcolor,
                                                         _bordersize, _opacity, null, null, "", _properties_mask );
                                 break ;
 								                default: break ;
@@ -656,7 +656,7 @@ function circles_terminal_cmd_word()
                                       var _solved_repetend = ( _is_repetend ) ? circles_lib_repetends_resolve( _word ) : _word ;
                                       if ( _is_repetend )
                                       {
-                                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Detected repetend '<lightblue>"+_word+"</lightblue>' resolved into '<snow>"+_solved_repetend+"</snow>'", _par_1, _cmd_tag );
+                                           circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Found repetend '<lightblue>"+_word+"</lightblue>' resolved into '<snow>"+_solved_repetend+"</snow>'", _par_1, _cmd_tag );
                                            _word = _solved_repetend ;
                                       }
                                   }
@@ -667,7 +667,7 @@ function circles_terminal_cmd_word()
                                   {
                                       var _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
                                       var _sc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
-                                      var _draw = is_circle( _cc ) ? _cc.draw : NO ;
+                                      var _border = is_circle( _cc ) ? _cc.draw : NO ;
                                       var _bordercolor = is_circle( _sc )  ? _sc.bordercolor : _glob_draw_seed_color ;
                                       var _fill = is_circle( _cc )  ? _cc.fill : YES ;
                                       var _fillcolor = is_circle( _sc )  ? _sc.fillcolor : "" ;
@@ -675,19 +675,19 @@ function circles_terminal_cmd_word()
                                       {
                                           _glob_gens_set_model_array.push( _word );
                                           _glob_gens_array.push( new item_obj( _mm, _cc, _sc, _word, 0,
-                                      		                                           _draw, _bordercolor, _fill, _fillcolor,
+                                      		                                           _border, _bordercolor, _fill, _fillcolor,
                                       		                                           circles_lib_word_inverse_get( _word ), 1, ITEM_TYPE_MOBIUS ) );
     
                                           _glob_gens_set_model_array.push( circles_lib_word_inverse_get( _word ) );
                                           _mm = _mm.inv();
                                           _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
                                           _sc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
-                                          _draw = is_circle( _cc ) ? _cc.draw : NO ;
+                                          _border = is_circle( _cc ) ? _cc.draw : NO ;
                                           _bordercolor = is_circle( _sc ) ? _sc.bordercolor : _glob_draw_seed_color ;
                                           _fill = is_circle( _cc ) ? _cc.fill : YES ;
                                           _fillcolor = is_circle( _sc ) ? _sc.fillcolor : "" ;
                                           _glob_gens_array.push( new item_obj( _mm, _cc, _sc, circles_lib_word_inverse_get( _word ), 0,
-                                        		                                         _draw, _bordercolor, _fill, _fillcolor,
+                                        		                                         _border, _bordercolor, _fill, _fillcolor,
                                         		                                         _word, 1, ITEM_TYPE_MOBIUS ) )
                                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Generator has been computed from word '"+_word+"' with success", _par_1, _cmd_tag );
                                            circles_lib_output( _output_channel, DISPATCH_INFO, "Inverse generator has been also computed with success", _par_1, _cmd_tag );
@@ -870,7 +870,7 @@ function circles_terminal_cmd_word()
                                   if ( _is_rep == YES )
                                   {
                                        _rep_str = circles_lib_repetends_resolve( _symbol );
-                                       circles_lib_output( _output_channel, DISPATCH_INFO, "Detected repetend syntax in "+$.terminal.escape_brackets(_symbol)+": resolved to " + _rep_str, _par_1, _cmd_tag );
+                                       circles_lib_output( _output_channel, DISPATCH_INFO, "Found repetend syntax in "+$.terminal.escape_brackets(_symbol)+": resolved to " + _rep_str, _par_1, _cmd_tag );
                                        _symbol = _rep_str ;
                                   }
 
@@ -906,7 +906,7 @@ function circles_terminal_cmd_word()
              if ( _is_repetend )
              {
                  var _encoded = $.terminal.escape_brackets( _input_word ); 
-                 circles_lib_output( _output_channel, DISPATCH_INFO, "Detected repetend syntax in '"+_encoded+"'", _par_1, _cmd_tag );
+                 circles_lib_output( _output_channel, DISPATCH_INFO, "Found repetend syntax in '"+_encoded+"'", _par_1, _cmd_tag );
                  circles_lib_output( _output_channel, DISPATCH_INFO, "Resolved repetend '"+_encoded+"' into '"+_solved_repetend+"'", _par_1, _cmd_tag );
              }
              

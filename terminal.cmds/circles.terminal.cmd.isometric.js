@@ -31,7 +31,7 @@ function circles_terminal_cmd_isometric()
         _params_assoc_array['action'] = "" ;
         _params_assoc_array['all'] = 0 ;
         _params_assoc_array["copy"] = NO ;
-        _params_assoc_array['draw'] = NO ;
+        _params_assoc_array['border'] = NO ;
         _params_assoc_array['bordercolor'] = "" ;
         _params_assoc_array['dump'] = NO ;
         _params_assoc_array['dump_array'] = null ;
@@ -100,7 +100,7 @@ function circles_terminal_cmd_isometric()
               }
               else if ( _p.stricmp( "copy" ) ) _params_assoc_array["copy"] = YES ;
               else if ( _p.stricmp( "all" ) ) _params_assoc_array['all'] = YES ;
-              else if ( _p.stricmp( "draw" ) ) _params_assoc_array['draw'] = YES ;
+              else if ( _p.stricmp( "draw" ) ) _params_assoc_array['border'] = YES ;
               else if ( _p.stricmp( "table" ) ) _params_assoc_array['table'] = YES ;
               else if ( _p.is_one_of_i( "show", "compute" ) ) _params_assoc_array['action'] = _p.toLowerCase();
               else if ( _p.is_one_of_i( "wplane", "zplane" ) )
@@ -177,7 +177,7 @@ function circles_terminal_cmd_isometric()
                   else if ( _params_assoc_array['word'].length > 0 )
                   {
                        var _word = _params_assoc_array['word'] ;
-                       var _draw = ( _params_assoc_array['draw'] || _params_assoc_array['bordercolor'].length > 0 || _params_assoc_array['fillcolor'].length > 0 ) ? YES : NO ;
+                       var _border = ( _params_assoc_array['border'] || _params_assoc_array['bordercolor'].length > 0 || _params_assoc_array['fillcolor'].length > 0 ) ? YES : NO ;
                        var G, _mm ;
                        circles_lib_output( _output_channel, DISPATCH_INFO, "Computing the isometric circle for word '"+_word+"' ", _par_1, _cmd_tag );
                        circles_lib_output( _output_channel, DISPATCH_INFO, "Checking '"+_word+"' for coherence with current alphabet ", _par_1, _cmd_tag );
@@ -200,13 +200,13 @@ function circles_terminal_cmd_isometric()
                            _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _output_channel );
                            var _isometric_cc = _mm.isometric_circle(YES);
                            circles_lib_output( _output_channel, DISPATCH_INFO, "Resulting isometric circle " + _glob_crlf + _isometric_cc.output( "", _round_to ), _par_1, _cmd_tag );
-                           if ( _draw && _params_assoc_array['plane'] == NO_PLANE )
+                           if ( _border && _params_assoc_array['plane'] == NO_PLANE )
                            {
                                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing input plane for drawing: 'zplane' is assumed by default", _par_1, _cmd_tag );
                                 _params_assoc_array['plane'] = Z_PLANE ;
                            }
 
-                           if ( _draw )
+                           if ( _border )
                            circles_terminal_cmd_isometric_draw( _params_assoc_array['plane'], _word, _isometric_cc,
                                                                  _params_assoc_array['bordercolor'], _params_assoc_array['fillcolor'],
                                                                  2, _output_channel, _par_1, _cmd_tag );
@@ -217,7 +217,7 @@ function circles_terminal_cmd_isometric()
                                 _rec_chunk['class'] = FIGURE_CLASS_CIRCLE ;
                                 _rec_chunk['obj'] = new circle( _isometric_cc.center, _isometric_cc.radius );
                                 _rec_chunk['plane'] = _plane ;
-                                _rec_chunk['draw'] = _draw ;
+                                _rec_chunk['border'] = _border ;
                                 _rec_chunk['bordercolor'] = _params_assoc_array['bordercolor'] ;
                                 _rec_chunk['fill'] = _fill ;
                                 _rec_chunk['fillcolor'] = _params_assoc_array['fillcolor'] ;
@@ -249,7 +249,7 @@ function circles_terminal_cmd_isometric()
                        var _index = UNFOUND, _inverse_index = UNFOUND, _check = "" ;
                        var _cx_str, _cy_str, _rad_str ;
                        var sc_center_pt, sc_radius_pt, sc_radius = 0 ;
-                       var _draw = ( _params_assoc_array['draw'] || _params_assoc_array['bordercolor'].length > 0 || _params_assoc_array['fillcolor'].length > 0 ) ? YES : NO ;
+                       var _border = ( _params_assoc_array['border'] || _params_assoc_array['bordercolor'].length > 0 || _params_assoc_array['fillcolor'].length > 0 ) ? YES : NO ;
                        var _report = [];
 
                        for( var _i = 0 ; _i < _symbols_array.length ; _i++ )
@@ -296,13 +296,13 @@ function circles_terminal_cmd_isometric()
                                      }
                                  }
 
-                                 if ( _draw && _params_assoc_array['plane'] == NO_PLANE )
+                                 if ( _border && _params_assoc_array['plane'] == NO_PLANE )
                                  {
                                       circles_lib_output( _output_channel, DISPATCH_WARNING, "No input plane for drawing: 'zplane' is assumed by default", _par_1, _cmd_tag );
                                       _params_assoc_array['plane'] = Z_PLANE ;
                                  }
 
-                                 if ( _draw )
+                                 if ( _border )
                                  circles_terminal_cmd_isometric_draw( _params_assoc_array['plane'], ITEM.symbol, _isometric_cc,
                                                                       _params_assoc_array['bordercolor'], _params_assoc_array['fillcolor'],
                                                                       2, _output_channel, _par_1, _cmd_tag );
@@ -313,7 +313,7 @@ function circles_terminal_cmd_isometric()
                                       _rec_chunk['class'] = FIGURE_CLASS_CIRCLE ;
                                       _rec_chunk['obj'] = new circle( _isometric_cc.center, _isometric_cc.radius );
                                       _rec_chunk['plane'] = _plane ;
-                                      _rec_chunk['draw'] = _draw ;
+                                      _rec_chunk['border'] = _border ;
                                       _rec_chunk['bordercolor'] = _params_assoc_array['bordercolor'] ;
                                       _rec_chunk['fill'] = _fill ;
                                       _rec_chunk['fillcolor'] = _params_assoc_array['fillcolor'] ;
@@ -384,9 +384,9 @@ function circles_terminal_cmd_isometric()
 
 function circles_terminal_cmd_isometric_draw( _plane_type, _word, _isometric_cc, _bordercolor, _fillcolor, _bordersize, _output_channel, _par_1 )
 {
-     var _draw = ( _bordercolor.length > 0 ) ? YES : NO ;
+     var _border = ( _bordercolor.length > 0 ) ? YES : NO ;
      var _fill = ( _fillcolor.length > 0 ) ? YES : NO ;
-     if ( _plane_type.is_one_of( W_PLANE, Z_PLANE ) && ( _draw || _fill ) )
+     if ( _plane_type.is_one_of( W_PLANE, Z_PLANE ) && ( _border || _fill ) )
      {
         circles_lib_output( _output_channel, DISPATCH_INFO, "Plot circle '"+_word+"' on the " + circles_lib_plane_def_get( _plane ), _par_1, _cmd_tag );
         var _mapper = null ;
@@ -395,7 +395,7 @@ function circles_terminal_cmd_isometric_draw( _plane_type, _word, _isometric_cc,
         else if ( _plane == Z_PLANE ) _mapper = zplane_sm ;
         var _screen_circle = circles_lib_draw_complex_disk( _canvas.getContext( _glob_canvas_ctx_2D_mode ), _mapper,
                                                      _isometric_cc.center.x, _isometric_cc.center.y, _isometric_cc.radius,
-                                                     _draw, _bordercolor, _fill, _fillcolor, _bordersize, null, null, null, _word, 0 );
+                                                     _border, _bordercolor, _fill, _fillcolor, _bordersize, null, null, null, _word, 0 );
      }
      else circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing color params: the isometric circle '"+_word+"' has not been plot", _par_1, _cmd_tag );
 }

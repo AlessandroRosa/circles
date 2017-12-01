@@ -63,11 +63,11 @@ function _latex_line( _screen_line, _dashed )
      }
 }
 
-function _latex_point( _screen_pt, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _radius )
+function _latex_point( _screen_pt, _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius )
 {
      if ( _glob_latex_open == 1 )
      {
-          _draw = safe_int( _draw, NO );
+          _border = safe_int( _border, NO );
           _bordercolor = safe_string( _bordercolor, "" ); 
           _fill = safe_int( _fill, NO );
           _fillcolor = safe_string( _fillcolor, "" ); 
@@ -77,12 +77,12 @@ function _latex_point( _screen_pt, _draw, _bordercolor, _fill, _fillcolor, _bord
      }
 }
 
-function _latex_pixel( _screen_pt, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize )
+function _latex_pixel( _screen_pt, _opacity, _border, _bordercolor, _fill, _fillcolor, _bordersize )
 {
      if ( _glob_latex_open == 1 )
      {
           var _screen_rect = new rect( _screen_pt.x, _screen_pt.y, _screen_pt.x + 0.1, _screen_pt.y + 0.1 );
-          _glob_js_latex_obj.pixel( _screen_pt.x, _screen_pt.y, _draw ? _bordercolor : "", 100 );
+          _glob_js_latex_obj.pixel( _screen_pt.x, _screen_pt.y, _border ? _bordercolor : "", 100 );
      }
 }
 
@@ -107,12 +107,12 @@ function _latex_circle( _screen_circle, _dashed, _opacity )
      }
 }
 
-function _latex_rect( _screen_rect, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _borderradius )
+function _latex_rect( _screen_rect, _opacity, _border, _bordercolor, _fill, _fillcolor, _bordersize, _borderradius )
 {
      if ( _glob_latex_open == 1 )
      {
          _opacity = safe_int( _opacity, DEFAULT_MAX_OPACITY );
-         _draw = safe_int( _draw, 0 );
+         _border = safe_int( _border, 0 );
          _fill = safe_int( _fill, 0 );
          _borderradius = safe_int( _borderradius, 0 );
          _bordersize = safe_int( _bordersize, 0 );

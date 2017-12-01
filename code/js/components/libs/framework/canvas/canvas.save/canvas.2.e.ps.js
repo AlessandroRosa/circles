@@ -68,27 +68,27 @@ function _e_ps_line( _screen_line, _dashed )
      }
 }
 
-function _e_ps_point( _screen_pt, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _radius )
+function _e_ps_point( _screen_pt, _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius )
 {
      if ( _glob_e_ps_open == 1 )
      {
-          _draw = safe_int( _draw, NO );
+          _border = safe_int( _border, NO );
           _bordercolor = safe_string( _bordercolor, "" ); 
           _fill = safe_int( _fill, NO );
           _fillcolor = safe_string( _fillcolor, "" ); 
           _bordersize = safe_int( _bordersize, 0 );
           _radius = safe_int( _radius, 0 );
 
-          _glob_js_e_ps_obj.point( _screen_pt.x, _screen_pt.y, _bordersize, _draw ? _bordercolor : "", _fill ? _fillcolor : "", "" );
+          _glob_js_e_ps_obj.point( _screen_pt.x, _screen_pt.y, _bordersize, _border ? _bordercolor : "", _fill ? _fillcolor : "", "" );
      }
 }
 
-function _e_ps_pixel( _screen_pt, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize )
+function _e_ps_pixel( _screen_pt, _opacity, _border, _bordercolor, _fill, _fillcolor, _bordersize )
 {
      if ( _glob_e_ps_open == 1 )
      {
           var _screen_rect = new rect( _screen_pt.x, _screen_pt.y, _screen_pt.x + 0.1, _screen_pt.y + 0.1 );
-          _glob_js_e_ps_obj.pixel( _screen_pt.x, _screen_pt.y, _draw ? _bordercolor : "", "" );
+          _glob_js_e_ps_obj.pixel( _screen_pt.x, _screen_pt.y, _border ? _bordercolor : "", "" );
      }
 }
 
@@ -115,12 +115,12 @@ function _e_ps_circle( _screen_circle, _dashed, _opacity )
      }
 }
 
-function _e_ps_rect( _screen_rect, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _borderradius )
+function _e_ps_rect( _screen_rect, _opacity, _border, _bordercolor, _fill, _fillcolor, _bordersize, _borderradius )
 {
      if ( _glob_e_ps_open == 1 )
      {
          _opacity = safe_int( _opacity, DEFAULT_MAX_OPACITY );
-         _draw = safe_int( _draw, 0 );
+         _border = safe_int( _border, 0 );
          _fill = safe_int( _fill, 0 );
          _borderradius = safe_int( _borderradius, 0 );
          _bordersize = safe_int( _bordersize, 0 );
@@ -129,9 +129,9 @@ function _e_ps_rect( _screen_rect, _opacity, _draw, _bordercolor, _fill, _fillco
          var _w = _screen_rect.w, _h = _screen_rect.h;
          
          if ( _borderradius == 0 )
-         global_js_e_ps_obj.rect( _x, _y, _w, _h, _bordersize, _draw ? _bordercolor : "", _fill ? _fillcolor : "", "" );
+         global_js_e_ps_obj.rect( _x, _y, _w, _h, _bordersize, _border ? _bordercolor : "", _fill ? _fillcolor : "", "" );
          else
-         global_js_e_ps_obj.rounded_rect( _x, _y, _w, _h, _borderradius, _bordersize, _draw ? _bordercolor : "", _fill ? _fillcolor : "", "" );
+         global_js_e_ps_obj.rounded_rect( _x, _y, _w, _h, _borderradius, _bordersize, _border ? _bordercolor : "", _fill ? _fillcolor : "", "" );
      }
 }
 

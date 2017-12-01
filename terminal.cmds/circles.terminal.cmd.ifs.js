@@ -128,7 +128,7 @@ function circles_terminal_cmd_ifs()
                   if ( _p > 0 )
                   {
                       _glob_scheduled_rendering_interval = _params_assoc_array['values']['mins'] = safe_int( _p, 0 );
-                      circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Detected and set "+_p+" minute"+(_p==1?"":"")+" for time interval between two successive renderings", _par_1, _cmd_tag );
+                      circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Found and set "+_p+" minute"+(_p==1?"":"")+" for time interval between two successive renderings", _par_1, _cmd_tag );
                       circles_lib_output( _output_channel, DISPATCH_INFO, "This setting will take effect after the next rendering", _par_1, _cmd_tag );
                       _b_unfound = NO ;
                       if ( circles_lib_plugin_find_index( { subset : "forms", base_id : "general.options" }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) ) circles_lib_plugin_load( 'forms', 'general.options', NO, 1 ) ;

@@ -206,7 +206,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
     var FILLCOLOR = safe_string( $("#CIRCLEScircleSELECTEDfillcolor").css( 'background-color' ), _glob_fill_seed_color );
     var draw = $("#CIRCLEScirclesDRAWcheckbox").is( ":checked" ) ? YES : NO ;
     var fill = $("#CIRCLEScirclesFILLcheckbox").is( ":checked" ) ? YES : NO ;
-    var bordersize = safe_int( $("#CIRCLEselectedLINETHICKNESS").val(), 1 );
+    var bordersize = safe_int( $("#CIRCLEselectedBORDERSIZE").val(), 1 );
     var PARAMSinputTYPEmask = 0 ; // bit : 0 --> orthogonal, 1 : radial
           
     // params a, b, c, d are complex numbers

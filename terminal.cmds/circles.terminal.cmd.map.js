@@ -154,10 +154,10 @@ function circles_terminal_cmd_map()
                         if ( _is_dupl ) _warns_array.push( "found duplicate" );
                         else if ( safe_size( _mobius_params_array, 0 ) > 0 )
                         {
-                            circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'a' as " + _mobius_params_array[0], _par_1, _cmd_tag );
-                            circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'b' as " + _mobius_params_array[1], _par_1, _cmd_tag );
-                            circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'c' as " + _mobius_params_array[2], _par_1, _cmd_tag );
-                            circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'd' as " + _mobius_params_array[3], _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "Found input param 'a' as " + _mobius_params_array[0], _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "Found input param 'b' as " + _mobius_params_array[1], _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "Found input param 'c' as " + _mobius_params_array[2], _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "Found input param 'd' as " + _mobius_params_array[3], _par_1, _cmd_tag );
 
                             _params_assoc_array['mobius']['a'] = _mobius_params_array[0] ;
                             _params_assoc_array['mobius']['b'] = _mobius_params_array[1] ;
@@ -293,7 +293,7 @@ function circles_terminal_cmd_map()
                 }
                 else
                 {
-                    if ( _auto_symbol ) circles_lib_output( _output_channel, DISPATCH_INFO, "Detected more input formulas: tags will be automatically assigned", _par_1, _cmd_tag );
+                    if ( _auto_symbol ) circles_lib_output( _output_channel, DISPATCH_INFO, "Found more input formulas: tags will be automatically assigned", _par_1, _cmd_tag );
                     $.each( _formula,
                             function( _i, _mobius_map_str )
                             {

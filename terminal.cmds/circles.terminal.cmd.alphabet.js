@@ -127,7 +127,7 @@ function circles_terminal_cmd_alphabet()
 			{
 				var _out_id, _out_msg, _mask = 0, _symbol ;
 				if ( _params_assoc_array['settings'].includes( "inv" ) )
-				circles_lib_output( _output_channel, DISPATCH_INFO, "Detected 'inv' option: symbols will be added together wth their inverses", _par_1, _cmd_tag );
+				circles_lib_output( _output_channel, DISPATCH_INFO, "Found 'inv' option: symbols will be added together wth their inverses", _par_1, _cmd_tag );
 
 				for( var _i = 0 ; _i < _symbols_array.length ; _i++ )
 				{

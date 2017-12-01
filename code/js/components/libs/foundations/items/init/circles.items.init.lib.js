@@ -381,7 +381,7 @@ function circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, 
    		 var _check = ( _items_n % 2 != 0 && _glob_method.is_one_of( METHOD_ALGEBRAIC ) ) ? NO : YES ;
 			 if ( _check )
        {
-       		 var _draw, _fill, _bordercolor, _fillcolor ;
+       		 var _border, _fill, _bordercolor, _fillcolor ;
            var _inv_symbol, _final_inverse_symbol, _candidate_inv_symbol, _index_inverse, ITEM, ITEM_INV, _work_mm = new mobius_map() ;
            if ( _report )
            {
@@ -519,7 +519,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
        if ( _items_n % 2 == 0 )
        {
         	 var ITEM = null, _symbol = "", _index, _index_inverse, _complex_circle, screen_circle ;
-        	 var _draw, _fill, _bordercolor, _fillcolor, _bordersize, _inv_symbol, coords ;
+        	 var _border, _fill, _bordercolor, _fillcolor, _bordersize, _inv_symbol, coords ;
            if ( _report )
            {
               if ( _glob_verbose && _glob_terminal_echo_flag ) _report_array.push( "<gray>Verbose mode is one: init stages will be reported below</gray>" );
@@ -541,7 +541,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
                {
                    if ( _report ) _report_array.push( "<lightgray>Initialization of item '"+_symbol+"'</lightgray>" );
                    // first save old values before initialization
-                   _draw = _items_array[_i].complex_circle.draw ;
+                   _border = _items_array[_i].complex_circle.draw ;
                    _fill = _items_array[_i].complex_circle.fill ;
                    _bordercolor = _items_array[_i].complex_circle.bordercolor ;
                    _fillcolor = _items_array[_i].complex_circle.fillcolor ;
@@ -555,7 +555,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
                           _items_array[_i].complex_circle = _complex_circle.copy();
                        }
                        // restore values
-                       _items_array[_i].complex_circle.draw = _draw ;
+                       _items_array[_i].complex_circle.draw = _border ;
                        _items_array[_i].complex_circle.bordercolor = _bordercolor ;
                        _items_array[_i].complex_circle.fill = _fill ;
                        _items_array[_i].complex_circle.fillcolor = _fillcolor ;
@@ -575,7 +575,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
                                _complex_circle = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _inverse_mm.inversion_circle() : _inverse_mm.isometric_circle();
   	  												 screen_circle = circles_lib_get_screendisk_from_complexdisk( zplane_sm, _complex_circle ) ;
                                _inverse_mm_obj = new item_obj( _inverse_mm, _complex_circle, screen_circle, _inv_symbol, 0,
-                                                               _draw, _bordercolor, _fill, _fillcolor,
+                                                               _border, _bordercolor, _fill, _fillcolor,
                                                                _symbol, _bordersize, ITEM_TYPE_CIRCLE, "", _inv_symbol );
                                _items_array.push( _inverse_mm_obj );
                                _index_inverse = circles_lib_find_item_index_by_symbol( _items_array, _inv_symbol );
@@ -583,7 +583,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
                                {
                                   if ( _items_array[_index_inverse].symbol.strcmp( _inv_symbol ) )
                                   {
-                                     _items_array[_index_inverse].complex_circle.draw = _draw ;
+                                     _items_array[_index_inverse].complex_circle.draw = _border ;
                                      _items_array[_index_inverse].complex_circle.bordercolor = _bordercolor ;
                                      _items_array[_index_inverse].complex_circle.fill = _fill ;
                                      _items_array[_index_inverse].complex_circle.fillcolor = _fillcolor ;

@@ -29,14 +29,12 @@ function circles_terminal_cmd_figures()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); 
 
-    	var _local_cmds_params_array = [];
-    	_local_cmds_params_array.push( "begin", "bomb", "close", "connect", "copy",
+    	var _local_cmds_params_array = [ "begin", "bomb", "close", "connect", "copy", "clone",
                 "delete", "disable", "disconnect", "bordercolor",
                 "end", "enable", "fill", "fillcolor", "filter",
                 "keep", "list", "long", "mark", "mergerect", "open",
                 "polyadd", "polydelete", "polysort", "polyupdate",
-                "rebuild", "render", "shift", "sort", "swap", "transfer",
-                "update", "unmark", "html" );
+                "rebuild", "render", "rotate", "shift", "sort", "swap", "transfer", "update", "unmark", "html" ];
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 			_params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -56,6 +54,7 @@ function circles_terminal_cmd_figures()
         _params_assoc_array['reverse'] = NO ;
         _params_assoc_array['all'] = NO ;
         _params_assoc_array['close'] = null ;
+        _params_assoc_array['clone'] = NO ;
         _params_assoc_array['action'] = "" ;
         _params_assoc_array['input_params'] = [] ;
         _params_assoc_array['input_values'] = [] ;
@@ -66,93 +65,73 @@ function circles_terminal_cmd_figures()
         var _p, current_stage = 0 ;
         // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
         var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
-        var _index_associations = [];
-            _index_associations['action'] = 0 ;
         for( var _i = 0 ; _i < _up_to_index ; _i++ )
         {
-              _p = _params_array[_i] ;
-              if ( _p.stricmp( "noinherit" ) ) _params_assoc_array['inherit'] = NO ;
-              else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.start_with_i( "$" ) ) _params_assoc_array['labels'].push( _p );
-              else if ( _p.start_with_i( "@" ) )
-              {
-                   var _candidate_index = safe_int( _p.replaceAll( "@", "" ), UNDET );
-                   if ( _candidate_index == UNDET || _glob_figures_array[_candidate_index-1] == null )
-                        circles_lib_output( _output_channel, DISPATCH_WARNING, _params_assoc_array['action'] + " failure: no figure indexed at '"+_candidate_index+"' has been registered", _par_1, _cmd_tag );
-                   else
-                   {
-                       _params_assoc_array['input_params'].push( "entryindex" );
-                       _params_assoc_array['input_values'].push( _candidate_index );
-                       _index_associations['index'] = _i ;
-                   }
-              }
-              else if ( _p.start_with_i( "#" ) ) // nodes refs
-              {
-                   var _candidate_index = safe_int( _p.replaceAll( "#", "" ), UNDET );
-                       _params_assoc_array['input_params'].push( "nodeindex" );
-                       _params_assoc_array['input_values'].push( _candidate_index );
-                       _index_associations['index'] = _i ;
-              }
-              else if ( _p.is_one_of_i( "bomb", "connect", "copy",
-                                        "delete", "disable", "disconnect", "render", "hide", "show",
-                                        "enable", "filter", "mergerect", "list", "transfer",
-                                        "polyadd", "polydelete", "shift", "polysort", "polyupdate", "release",
-                                        "rebuild", "swap", "sort", "update" )
-                        && _params_assoc_array['action'].length == 0 )
-              {
-                  _params_assoc_array['action'] = _p ;
-                  _index_associations['action'] = _i ;
-              }
-              else if ( _p.is_one_of_i( "zplane", "wplane", "bip", "allplanes" ) )
-              {
-                  _params_assoc_array['plane'] = circles_lib_plane_get_value( _p );
-                  _index_associations['plane'] = _i ;
-                  if ( _params_assoc_array['action'].includes( "render" ) && _p.stricmp( "allplanes" ) )
-                  _current_figures_plane_type = UNDET ;
-                  else _current_figures_plane_type = _params_assoc_array['plane'] ;
-              }
-              else if ( _p.is_one_of_i( "all", "keep", "long", "reverse" ) )
-              {
-                  _params_assoc_array[ _p ] = YES ;
-                  _index_associations[ _p ] = _i ;
-              }
-              else if ( _p.is_one_of_i( "close", "mark", "open", "unmark" ) )
-              {
-                   if ( _p.is_one_of_i( "mark", "unmark" ) )
-                   {
-                       _params_assoc_array['input_params'].push( "mark" );
-                       _params_assoc_array['input_values'].push( _p.stricmp( "mark" ) ? YES : NO );
-                   }
-                   else if ( _p.is_one_of_i( "close", "open" ) )
-                   {
-                       _params_assoc_array['input_params'].push( "close" );
-                       _params_assoc_array['input_values'].push( _p.stricmp( "close" ) ? YES : NO );
-                   }
-              }
-              else if ( _p.is_one_of_i( "begin", "end" ) )
-              {
-                  if ( _params_assoc_array['pos'] == null ) _params_assoc_array['pos'] = _p ;
-                  _index_associations['pos'] = _i ;
-              }
-              else if ( _params_assoc_array['action'].is_one_of_i( "polyadd", "polydelete", "polysort", "polyupdate", "shift" ) )
-              {
-                  if ( _p.testME( _glob_integer_regex_pattern ) )
-                  {
-                       _params_assoc_array['input_params'].push( "entryindex" );
-                       _params_assoc_array['input_values'].push( safe_int( _p, UNDET ) );
-                  }
-                  else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
-                  {
-                       _params_assoc_array['input_params'].push( "coords" );
-                       _params_assoc_array['input_values'].push( _p );
-                  }
-              }
-              else if ( _p.is_one_of_i( "center", "fillcolor", "opacity", "width", "height", "thick" ) )
-				  _index_associations[''+_p] = _i ;
-			  else if ( _p.toLowerCase().start_with( "bordercolor:" ) && !_params_assoc_array['input_params'].includes('bordercolor') )
-			  {
+            _p = _params_array[_i] ;
+            if ( _p.stricmp( "noinherit" ) ) _params_assoc_array['inherit'] = NO ;
+            else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
+            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
+            else if ( _p.start_with_i( "$" ) ) _params_assoc_array['labels'].push( _p );
+            else if ( /\@[0-9]+/g.test( _p ) )
+            {
+                var _candidate_index = safe_int( _p.replace( /\@:/gi, "" ), UNDET ) ;
+                if ( _candidate_index == UNDET || _glob_figures_array[_candidate_index-1] == null )
+                     circles_lib_output( _output_channel, DISPATCH_WARNING, _params_assoc_array['action'] + " failure: no figure indexed at '"+_candidate_index+"' has been registered", _par_1, _cmd_tag );
+                else
+                {
+                    _params_assoc_array['input_params'].push( "entryindex" );
+                    _params_assoc_array['input_values'].push( _candidate_index );
+                }
+            }
+            else if ( /\#[0-9]+/g.test( _p ) ) // nodes refs
+            {
+                var _candidate_index = safe_int( _p.replace( /\#:/gi, "" ), UNDET );
+                _params_assoc_array['input_params'].push( "nodeindex" );
+                _params_assoc_array['input_values'].push( _candidate_index );
+            }
+            else if ( _p.is_one_of_i( "bomb", "connect", "copy", "delete", "disable", "disconnect", "render", "hide", "show",
+                        "enable", "filter", "mergerect", "list", "transfer",
+                        "polyadd", "polydelete", "shift", "polysort", "polyupdate", "release",
+                        "rebuild", "swap", "sort", "update" ) && _params_assoc_array['action'].length == 0 )
+                _params_assoc_array['action'] = _p ;
+            else if ( _p.is_one_of_i( "zplane", "wplane", "bip", "allplanes" ) )
+            {
+                _params_assoc_array['plane'] = circles_lib_plane_get_value( _p );
+                if ( _params_assoc_array['action'].includes( "render" ) && _p.stricmp( "allplanes" ) )
+                _current_figures_plane_type = UNDET ;
+                else _current_figures_plane_type = _params_assoc_array['plane'] ;
+            }
+            else if ( _p.is_one_of_i( "all", "clone", "keep", "long", "reverse" ) ) _params_assoc_array[ _p ] = YES ;
+            else if ( _p.is_one_of_i( "close", "mark", "open", "unmark" ) )
+            {
+                if ( _p.is_one_of_i( "mark", "unmark" ) )
+                {
+                    _params_assoc_array['input_params'].push( "mark" );
+                    _params_assoc_array['input_values'].push( _p.stricmp( "mark" ) ? YES : NO );
+                }
+                else if ( _p.is_one_of_i( "close", "open" ) )
+                {
+                    _params_assoc_array['input_params'].push( "close" );
+                    _params_assoc_array['input_values'].push( _p.stricmp( "close" ) ? YES : NO );
+                }
+            }
+            else if ( _p.is_one_of_i( "begin", "end" ) && _params_assoc_array['pos'] == null ) _params_assoc_array['pos'] = _p ;
+            else if ( _params_assoc_array['action'].is_one_of_i( "polyadd", "polydelete", "polysort", "polyupdate", "shift" ) )
+            {
+                if ( _p.testME( _glob_integer_regex_pattern ) )
+                {
+                    _params_assoc_array['input_params'].push( "entryindex" );
+                    _params_assoc_array['input_values'].push( safe_int( _p, UNDET ) );
+                }
+                else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
+                {
+                    _params_assoc_array['input_params'].push( "coords" );
+                    _params_assoc_array['input_values'].push( _p );
+                }
+            }
+			else if ( _p.toLowerCase().start_with( "bordercolor:" ) && !_params_assoc_array['input_params'].includes('bordercolor') )
+			{
 				_p = safe_string( _p.replace( /bordercolor:/gi, "" ), "" ) ;
 				if ( circles_lib_colors_is_def( _p ) )
 				{
@@ -160,9 +139,9 @@ function circles_terminal_cmd_figures()
                     _params_assoc_array['input_values'].push( _p );
 				}
 				else { _b_fail = YES, _error_str = "Invalid draw color '"+_p+"' definition" ; }
-			  }
-			  else if ( _p.toLowerCase().start_with( "fillcolor:" ) && !_params_assoc_array['input_params'].includes('fillcolor') )
-			  {
+			}
+			else if ( _p.toLowerCase().start_with( "fillcolor:" ) && !_params_assoc_array['input_params'].includes('fillcolor') )
+			{
 				_p = safe_string( _p.replace( /fillcolor:/gi, "" ), "" ) ;
 				if ( circles_lib_colors_is_def( _p ) )
 				{
@@ -170,58 +149,66 @@ function circles_terminal_cmd_figures()
                     _params_assoc_array['input_values'].push( _p );
 				}
 				else { _b_fail = YES, _error_str = "Invalid fill color '"+_p+"' definition" ; }
-			  }
-			  else if ( _p.toLowerCase().start_with( "opacity:" ) && !_params_assoc_array['input_params'].includes('opacity') )
-			  {
+			}
+			else if ( _p.toLowerCase().start_with( "opacity:" ) && !_params_assoc_array['input_params'].includes('opacity') )
+			{
 				_p = safe_string( _p.replace( /opacity:/gi, "" ), "" ) ;
 				if ( _p.testME( _glob_positive_float_regex_pattern ) )
 				{
                     _params_assoc_array['input_params'].push( "opacity" );
                     _params_assoc_array['input_values'].push( _p );
 				}
-				else { _b_fail = YES, _error_str = "Invalid opacity '"+_p+"' definition" ; }
-			  }
-			  else if ( _p.toLowerCase().start_with( "thickness:" ) && !_params_assoc_array['input_params'].includes('thickness') )
-			  {
-				_p = safe_string( _p.replace( /thickness:/gi, "" ), "" ) ;
+				else { _b_fail = YES, _error_str = "Invalid opacity '"+_p+"' value" ; }
+			}
+			else if ( /^(?:rad|deg)\:/g.test( _p ) && _params_assoc_array['rotationangle'] == null )
+			{
+				var _is_degree = /^(?:deg)/g.test( _p ) ? 1 : 0 ;
+				_p = safe_float( _p.replace( /(?:rad|deg)\:/gi, "" ), 0 ) ;
+				if ( _is_degree ) _p = radians( _p );
+				if ( _p == 0 ) { _b_fail = YES, _error_str = "Invalid or zero input rotation angle" ; }
+				else _params_assoc_array['rotationangle'] == _p ;
+			}
+			else if ( _p.toLowerCase().start_with( "bordersize:" ) && !_params_assoc_array['input_params'].includes('bordersize') )
+			{
+				_p = safe_string( _p.replace( /bordersize:/gi, "" ), "" ) ;
 				if ( _p.testME( _glob_positive_float_regex_pattern ) )
 				{
-                    _params_assoc_array['input_params'].push( "thickness" );
+                    _params_assoc_array['input_params'].push( "bordersize" );
                     _params_assoc_array['input_values'].push( _p );
 				}
-				else { _b_fail = YES, _error_str = "Invalid line thickness '"+_p+"' definition" ; }
-			  }
-			  else if ( _p.toLowerCase().start_with( "width:" ) && !_params_assoc_array['input_params'].includes('width') )
-			  {
+				else { _b_fail = YES, _error_str = "Invalid border size "+_p ; }
+			}
+			else if ( _p.toLowerCase().start_with( "width:" ) && !_params_assoc_array['input_params'].includes('width') )
+			{
 				_p = safe_string( _p.replace( /width:/gi, "" ), "" ) ;
 				if ( _p.testME( _glob_positive_float_regex_pattern ) )
 				{
                     _params_assoc_array['input_params'].push( "width" );
                     _params_assoc_array['input_values'].push( _p );
 				}
-				else { _b_fail = YES, _error_str = "Invalid width '"+_p+"' definition" ; }
-			  }
-			  else if ( _p.toLowerCase().start_with( "height:" ) && !_params_assoc_array['input_params'].includes('height') )
-			  {
+				else { _b_fail = YES, _error_str = "Invalid width '"+_p+"' value" ; }
+			}
+			else if ( _p.toLowerCase().start_with( "height:" ) && !_params_assoc_array['input_params'].includes('height') )
+			{
 				_p = safe_string( _p.replace( /height:/gi, "" ), "" ) ;
 				if ( _p.testME( _glob_positive_float_regex_pattern ) )
 				{
                     _params_assoc_array['input_params'].push( "height" );
                     _params_assoc_array['input_values'].push( _p );
 				}
-				else { _b_fail = YES, _error_str = "Invalid height '"+_p+"' definition" ; }
-			  }
-			  else if ( _p.toLowerCase().start_with( "center:" ) && !_params_assoc_array['input_params'].includes('center') )
-			  {
-				_p = safe_string( _p.replace( /center:/gi, "" ), "" ) ;
-				if ( _p.testME( _glob_cartesian_coords_regex_pattern ) )
-				{
-                    _params_assoc_array['input_params'].push( "center" );
-                    _params_assoc_array['input_values'].push( _p );
-				}
-				else { _b_fail = YES, _error_str = "Invalid height '"+_p+"' definition" ; }
-			  }
-              else { _b_fail = YES, _error_str = "Unknown parameter " + _p ; break ; }
+				else { _b_fail = YES, _error_str = "Invalid height '"+_p+"' value" ; }
+			}
+            else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) && _params_assoc_array['center'] == null )
+            {
+                if ( !is_point( _params_assoc_array['settings']['center'] ) )
+                {
+                    var _pt_array = _p.replaceAll( [ "(", ")" ], "" ).split( "," );
+                    _params_assoc_array['center'] = new point( safe_float( _pt_array[0], 0 ), safe_float( _pt_array[1], 0 ) );
+					_msg = "<lightblue>Center has been set to</lightblue> <snow>"+_p+"</snow>" ;
+    				circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                }
+            }
+            else { _b_fail = YES, _error_str = "Unknown parameter " + _p ; break ; }
         }
     }
     else { _b_fail = YES, _error_str = "Missing input params" ; }
@@ -299,8 +286,7 @@ function circles_terminal_cmd_figures()
            {
 			    case "bomb":
 				var _n_figures = _glob_figures_array.length ;
-				if ( _n_figures == 0 ) 
-					circles_lib_output( _output_channel, DISPATCH_WARNING, "The list of recorded figures is empty: no need to delete'em all", _par_1, _cmd_tag );
+				if ( _n_figures == 0 )  circles_lib_output( _output_channel, DISPATCH_WARNING, "The list of recorded figures is empty: no need to delete'em all", _par_1, _cmd_tag );
 				else
 				{
                    	var _params_array = [], _pre_prompt = null, _prompt_question = "Confirm to delete all figures ("+_n_figures+") ? " ;
@@ -319,22 +305,22 @@ function circles_terminal_cmd_figures()
                     var _index, _i, _c ;
                     for( _i = 0 ; _i < _index_vals_array.length ; _i++ )
                     {
-                         _index = safe_int( _index_vals_array[_i], UNDET ) - 1 ;
-                         if ( _index < 0 )
-                         {
-                              _b_fail = YES, _error_str = "Connect failure: inconsistent input index " + _index ;
-                              break ;
-                         }
-                         else if ( _glob_figures_array[ _index ] == null )
-                         {
-                              _b_fail = YES, _error_str = "Connect failure: inconsistent archive index " + _index ;
-                              break ;
-                         }
-                         else if ( _index < 0 || _index > safe_size( _glob_figures_array, 0 ) )
-                         {
-                              _b_fail = YES, _error_str = "Connect failure: index " + _index + " is out of range" ;
-                              break ;
-                         }
+                        _index = safe_int( _index_vals_array[_i], UNDET ) - 1 ;
+                        if ( _index < 0 )
+                        {
+                            _b_fail = YES, _error_str = "Connect failure: inconsistent input index " + _index ;
+                            break ;
+                        }
+                        else if ( _glob_figures_array[ _index ] == null )
+                        {
+                            _b_fail = YES, _error_str = "Connect failure: inconsistent archive index " + _index ;
+                            break ;
+                        }
+                        else if ( _index < 0 || _index > safe_size( _glob_figures_array, 0 ) )
+                        {
+                            _b_fail = YES, _error_str = "Connect failure: index " + _index + " is out of range" ;
+                            break ;
+                        }
                     }
 
                     var _index, _rec_chunk ;
@@ -343,71 +329,71 @@ function circles_terminal_cmd_figures()
                          var _plane_check = 0 ;
                          for( _i = 0 ; _i < _index_vals_array.length ; _i++ )
                          {
-                              _index = safe_int( _index_vals_array[_i], 0 ) - 1 ;
-                              _rec_chunk = _glob_figures_array[_index] ;
-                              if ( _plane_check == 0 ) _plane_check = _rec_chunk['plane'] ;
-                              else if ( _rec_chunk['plane'] != _plane_check )
-                              {
-                                   _b_fail = YES, _error_str = "Not all the input items for connection belong to the same plane" ;
-                                   break ;
-                              }
+                            _index = safe_int( _index_vals_array[_i], 0 ) - 1 ;
+                            _rec_chunk = _glob_figures_array[_index] ;
+                            if ( _plane_check == 0 ) _plane_check = _rec_chunk['plane'] ;
+                            else if ( _rec_chunk['plane'] != _plane_check )
+                            {
+                                _b_fail = YES, _error_str = "Not all input items for connection belong to the same plane" ;
+                                break ;
+                            }
 
-                              if ( _rec_chunk['class'].is_one_of( FIGURE_CLASS_CIRCLE ) )
-                              {
-                                   _b_fail = YES, _error_str = "Circles can't be connected" ;
-                                   break ;
-                              }
+                            if ( _rec_chunk['class'].is_one_of( FIGURE_CLASS_CIRCLE ) )
+                            {
+                                _b_fail = YES, _error_str = "Circles can't be connected" ;
+                                break ;
+                            }
                          }
                     }
 
                     if ( !_b_fail )
                     {
-                         // collect items to be connected
-                         circles_lib_output( _output_channel, DISPATCH_INFO, "Collecting items to be connected", _par_1, _cmd_tag );
-                         var _remove_array = [], _tmp_array = [];
-                         var _reference_rec_chunk = null ;
-                         for( _i = 0 ; _i < _index_vals_array.length ; _i++ )
-                         {
-                              _index = safe_int( _index_vals_array[_i], 0 ) - 1 ;
-                              _rec_chunk = _glob_figures_array[_index] ;
+                        // collect items to be connected
+                        circles_lib_output( _output_channel, DISPATCH_INFO, "Collecting items to be connected", _par_1, _cmd_tag );
+                        var _remove_array = [], _tmp_array = [];
+                        var _reference_rec_chunk = null ;
+                        for( _i = 0 ; _i < _index_vals_array.length ; _i++ )
+                        {
+                            _index = safe_int( _index_vals_array[_i], 0 ) - 1 ;
+                            _rec_chunk = _glob_figures_array[_index] ;
 
-                              if ( _i == 0 && _params_assoc_array['inherit'] )
-                              {
-                                   _params_assoc_array['plane'] = _rec_chunk['plane'] ;
-                                   _params_assoc_array['draw'] = _rec_chunk['draw'] ;
-                                   _params_assoc_array['bordercolor'] = _rec_chunk['bordercolor'] ;
-                                   _params_assoc_array['fill'] = _rec_chunk['fill'] ;
-                                   _params_assoc_array['fillcolor'] = _rec_chunk['fillcolor'] ;
-                              }
+                            if ( _i == 0 && _params_assoc_array['inherit'] )
+                            {
+                                _params_assoc_array['plane'] = _rec_chunk['plane'] ;
+                                _params_assoc_array['border'] = _rec_chunk['border'] ;
+                                _params_assoc_array['bordercolor'] = _rec_chunk['bordercolor'] ;
+                                _params_assoc_array['fill'] = _rec_chunk['fill'] ;
+                                _params_assoc_array['fillcolor'] = _rec_chunk['fillcolor'] ;
+                            }
 
-                              if ( _rec_chunk['class'] == FIGURE_CLASS_LINE )
-                              {
-                                   _tmp_array = _tmp_array.concat( _rec_chunk['obj'] );
-                                   // if a line obj occurs, it will be taked as ref obj for properties
-                                   if ( _reference_rec_chunk == null ) _reference_rec_chunk = _rec_chunk ;
-                              }
-                              else if ( _rec_chunk['class'] == FIGURE_CLASS_POINT )
-                                   _tmp_array.push( _rec_chunk['obj'] );
-                              else if ( _rec_chunk['class'] == FIGURE_CLASS_RECT )
-                                   _tmp_array = _tmp_array.concat( _rec_chunk['obj'].corners() );
+                            if ( _rec_chunk['class'] == FIGURE_CLASS_LINE )
+                            {
+                                _tmp_array = _tmp_array.concat( _rec_chunk['obj'] );
+                                // if a line obj occurs, it will be taked as ref obj for properties
+                                if ( _reference_rec_chunk == null ) _reference_rec_chunk = _rec_chunk ;
+                            }
+                            else if ( _rec_chunk['class'] == FIGURE_CLASS_POINT )
+                                _tmp_array.push( _rec_chunk['obj'] );
+                            else if ( _rec_chunk['class'] == FIGURE_CLASS_RECT )
+                                _tmp_array = _tmp_array.concat( _rec_chunk['obj'].corners() );
 
-                              _remove_array.push( _rec_chunk['myhash'] );
-                         }
+                            _remove_array.push( _rec_chunk['myhash'] );
+                        }
 
-                         circles_lib_output( _output_channel, DISPATCH_INFO, _tmp_array.length + " item" + ( ( _tmp_array.length == 1 ) ? "" : "s" ) + " found for connection" , _par_1, _cmd_tag );
-                         // delete each single item to be connected
-                         circles_lib_output( _output_channel, DISPATCH_INFO, "Replacing connected items", _par_1, _cmd_tag );
-                         for( _i = 0 ; _i < _remove_array.length ; _i++ )
-                         {
-                              for( _c = 0 ; _c < _glob_figures_array.length ; _c++ )
-                              {
-                                 if ( _remove_array[_i].stricmp( _glob_figures_array[_c]['myhash'] ) )
-                                 {
-                                     _glob_figures_array.remove( _c, _c );
-                                     break ;
-                                 }
-                              }
-                         }
+                        circles_lib_output( _output_channel, DISPATCH_INFO, _tmp_array.length + " item" + ( ( _tmp_array.length == 1 ) ? "" : "s" ) + " found for connection" , _par_1, _cmd_tag );
+                        // delete each single item to be connected
+                        circles_lib_output( _output_channel, DISPATCH_INFO, "Replacing connected items", _par_1, _cmd_tag );
+                        for( _i = 0 ; _i < _remove_array.length ; _i++ )
+                        {
+                            for( _c = 0 ; _c < _glob_figures_array.length ; _c++ )
+                            {
+                                if ( _remove_array[_i].stricmp( _glob_figures_array[_c]['myhash'] ) )
+                                {
+                                    _glob_figures_array.remove( _c, _c );
+                                    break ;
+                                }
+                            }
+                        }
 
           // rebuild hash tags after previous deletion
           circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding hash tags", _par_1, _cmd_tag );
@@ -415,7 +401,7 @@ function circles_terminal_cmd_figures()
 
           var _plane = _params_assoc_array['plane'] ;
           var _bordercolor = _params_assoc_array['bordercolor'] ;
-          var _draw = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
+          var _border = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
           var _fillcolor = _params_assoc_array['fillcolor'] ;
           var _fill = ( _fillcolor != null ) ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
 
@@ -425,12 +411,12 @@ function circles_terminal_cmd_figures()
                          if ( _reference_rec_chunk == null ) // construct a line obj
                          {
                               _rec_chunk['plane'] = _params_assoc_array['plane'] ;
-                              _rec_chunk['draw'] = _draw ;
+                              _rec_chunk['border'] = _border ;
                               _rec_chunk['fill'] = _fill ;
-                              _rec_chunk['bordercolor'] = ( _draw ) ? _bordercolor : "" ;
-                              _rec_chunk['fillcolor'] = ( _fill ) ? _fillcolor : "" ;
+                              _rec_chunk['bordercolor'] = _border ? _bordercolor : "" ;
+                              _rec_chunk['fillcolor'] = _fill ? _fillcolor : "" ;
                               _rec_chunk['opacity'] = ( _params_assoc_array['opacity'] != null ) ? _params_assoc_array['opacity'] : 1.0 ;
-                              _rec_chunk['thickness'] = ( _params_assoc_array['thickness'] != null ) ? _params_assoc_array['thickness'] : 1 ;
+                              _rec_chunk['bordersize'] = ( _params_assoc_array['bordersize'] != null ) ? _params_assoc_array['bordersize'] : 1 ;
                               _rec_chunk['enabled'] = YES ;
                               _rec_chunk['label'] = "" ;
                               if ( _params_assoc_array['close'] != null ) _rec_chunk['close'] = YES ;
@@ -439,12 +425,12 @@ function circles_terminal_cmd_figures()
                          else
                          {
                               _rec_chunk['plane'] = _params_assoc_array['plane'] ;
-                              _rec_chunk['draw'] = _reference_rec_chunk['draw'] ;
+                              _rec_chunk['border'] = _reference_rec_chunk['border'] ;
                               _rec_chunk['fill'] = NO ;
-                              _rec_chunk['bordercolor'] = ( _draw ) ? _bordercolor : ( ( _reference_rec_chunk['bordercolor'] ? _reference_rec_chunk['bordercolor'] : "" ) );
+                              _rec_chunk['bordercolor'] = ( _border ) ? _bordercolor : ( ( _reference_rec_chunk['bordercolor'] ? _reference_rec_chunk['bordercolor'] : "" ) );
                               _rec_chunk['fillcolor'] = ( _fill ) ? _fillcolor : ( ( _reference_rec_chunk['fillcolor'] ? _reference_rec_chunk['fillcolor'] : "" ) );
                               _rec_chunk['opacity'] = ( _params_assoc_array['opacity'] != null ) ? _params_assoc_array['opacity'] : _reference_rec_chunk['opacity'] ;
-                              _rec_chunk['thickness'] = ( _params_assoc_array['thickness'] != null ) ? _params_assoc_array['thickness'] : ( _reference_rec_chunk['opacity'] != null ? _reference_rec_chunk['opacity'] : 1 );
+                              _rec_chunk['bordersize'] = ( _params_assoc_array['bordersize'] != null ) ? _params_assoc_array['bordersize'] : ( _reference_rec_chunk['opacity'] != null ? _reference_rec_chunk['opacity'] : 1 );
                               _rec_chunk['enabled'] = YES ;
                               _rec_chunk['close'] = ( _params_assoc_array['close'] == null ) ? _reference_rec_chunk['close'] : _params_assoc_array['close'] ;
                          }
@@ -455,10 +441,7 @@ function circles_terminal_cmd_figures()
                          circles_lib_canvas_afterrender_figures_draw( null, YES, _current_figures_plane_type );
                     }
                 }
-                else if ( _n_input_index == 0 )
-                {
-                    _b_fail = YES, _error_str = "Connection failure: missing input indexes" ;
-                }
+                else if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Connection failure: missing input indexes" ; }
                 break ;
                 case "copy":
                 if ( _n_input_index > 0 )
@@ -480,17 +463,12 @@ function circles_terminal_cmd_figures()
                      }
 
                      _glob_figures_array = _glob_figures_array.concat( _copy_array );
-
                      // rebuild hash tags after previous operations
                      circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding hash tags", _par_1, _cmd_tag );
-
                      for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ )
                      _glob_figures_array[_i]['myhash'] = "rec"+(_i+1);
                 }
-                else if ( _n_input_index == 0 )
-                {
-                    _b_fail = YES, _error_str = "Copy failure: missing input indexes" ;
-                }
+                else if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Copy failure: missing input indexes" ; }
                 break ;
                 case "disconnect":
                 if ( _n_input_index > 0 )
@@ -609,26 +587,34 @@ function circles_terminal_cmd_figures()
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
-                case "render":
-                var _filter_array = [] ;
-                if ( _n_input_index > 0 )
-                {
-                    circles_lib_output( _output_channel, DISPATCH_INFO, "Checking input index(es) to be coherent with archived items", _par_1, _cmd_tag );
-                    // gets input hash values
-                    for( var _x = 0 ; _x < _index_vals_array.length ; _x++ )
-                    {
-                        _index = _index_vals_array[_x] - 1 ;
-                        _rec_chunk = _glob_figures_array[_index] ;
-                        _filter_array.push( _rec_chunk['myhash'] );
-                    }
-                }
-                
-                circles_lib_canvas_afterrender_figures_draw( _filter_array, YES, _current_figures_plane_type );
-                circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Drawing "+( ( _n_input_index > 0 ) ? "filtered" : "" )+" figures list", _par_1, _cmd_tag );
-                break ;
                 case "filter":
                 if ( safe_size( _index_vals_array, 0 ) > 0 ) circles_lib_canvas_afterrender_figures_draw( _index_vals_array, YES, _current_figures_plane_type );
                 else { _b_fail = YES, _error_str = "Can't isolate: no input entries" ; }
+                break ;
+                case "list":
+                var _n = safe_size( _glob_figures_array, 0 ), _row ;
+                if ( _n > 0 )
+                {
+                    var _reverse = _params_assoc_array['reverse'] ;
+                    _row = "Found <yellow>"+_n+"</yellow> element" + ( ( _n == 1 ) ? "" : "s" ) + ( _reverse ? " - Reverse list" : "" );
+                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+                    var _counter = 1 ;
+                    for( var _i = ( _reverse ? _n - YES : NO ); _reverse ? _i >= 0 : _i < _n ; _reverse ? _i-- : _i++ )
+                    {
+                        _row = _figures_cmd_display_list_item( _counter, _glob_figures_array[_i], _params_assoc_array );
+                        _counter++ ;
+                        if ( safe_size( _row, 0 ) > 0 )
+                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
+                        else 
+                        circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to display figure item indexed at "+(_i+1), _par_1, _cmd_tag );
+                    }
+                }
+                else if ( _n == 0 )
+                {
+                    var _msg = "<orange>The list of figures is empty.</orange>" + _glob_crlf ;
+                        _msg += "<lightgray>To fill this list, include 'rec' param"  + _glob_crlf + "in circle | rect | line | point | region cmds</lightgray>" ;
+                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+                }
                 break ;
                 case "mergerect":
                 if ( _n_input_index > 0 )
@@ -713,31 +699,6 @@ function circles_terminal_cmd_figures()
                      }
                 }
                 else { _b_fail = YES, _error_str = "Incomplete cmd: missing input indexes" ; }
-                break ;
-                case "list":
-                var _n = safe_size( _glob_figures_array, 0 ), _row ;
-                if ( _n > 0 )
-                {
-                    var _reverse = _params_assoc_array['reverse'] ;
-                    _row = "Found <yellow>"+_n+"</yellow> element" + ( ( _n == 1 ) ? "" : "s" ) + ( _reverse ? " - Reverse list" : "" );
-                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
-                    var _counter = 1 ;
-                    for( var _i = ( _reverse ? _n - YES : NO ); _reverse ? _i >= 0 : _i < _n ; _reverse ? _i-- : _i++ )
-                    {
-                        _row = _figures_cmd_display_list_item( _counter, _glob_figures_array[_i], _params_assoc_array );
-                        _counter++ ;
-                        if ( safe_size( _row, 0 ) > 0 )
-                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
-                        else 
-                        circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to display figure item indexed at "+(_i+1), _par_1, _cmd_tag );
-                    }
-                }
-                else if ( _n == 0 )
-                {
-                    var _msg = "<orange>The list of figures is empty.</orange>" + _glob_crlf ;
-                        _msg += "<lightgray>To fill this list, include 'rec' param"  + _glob_crlf + "in circle | rect | line | point | region cmds</lightgray>" ;
-                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-                }
                 break ;
                 case "polyadd":
                 // separate entries of indexes from properties to be updated
@@ -859,9 +820,6 @@ function circles_terminal_cmd_figures()
                 }
                 else { _b_fail = YES, _error_str = "Incomplete cmd: missing input indexes" ; }
                 break;
-                case "release":
-                circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-                break ;
                 case "polysort":
                 var _nodes_index_array = [];
                 $.each( _params_assoc_array['input_params'], function( _i, _v ){ if ( _v.stricmp( "nodeindex" ) ) _nodes_index_array.push( _i ); } );
@@ -1005,6 +963,9 @@ function circles_terminal_cmd_figures()
                 }
                 else if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Incomplete cmd: missing input indexes" ; }
                 break;
+                case "release":
+                circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                break ;
                 case "rebuild":
                 if ( _glob_figures_array.length > 0 )
                 {
@@ -1022,6 +983,75 @@ function circles_terminal_cmd_figures()
                 }
                 else circles_lib_output( _output_channel, DISPATCH_WARNING, "Figures list is empty", _par_1, _cmd_tag );
                 break;
+                case "render":
+                var _filter_array = [] ;
+                if ( _n_input_index > 0 )
+                {
+                    circles_lib_output( _output_channel, DISPATCH_INFO, "Checking input index(es) to be coherent with archived items", _par_1, _cmd_tag );
+                    // gets input hash values
+                    for( var _x = 0 ; _x < _index_vals_array.length ; _x++ )
+                    {
+                        _index = _index_vals_array[_x] - 1 ;
+                        _rec_chunk = _glob_figures_array[_index] ;
+                        _filter_array.push( _rec_chunk['myhash'] );
+                    }
+                }
+                
+                circles_lib_canvas_afterrender_figures_draw( _filter_array, YES, _current_figures_plane_type );
+                circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Drawing "+( ( _n_input_index > 0 ) ? "filtered" : "" )+" figures list", _par_1, _cmd_tag );
+                break ;
+				case "rotate":
+				if ( _params_assoc_array['settings']['center'] == null ) { _b_fail = YES ; _error_str = "Missing rotation center" ; }
+				else if ( _params_assoc_array['rotationangle'] == null ) { _b_fail = YES ; _error_str = "Missing rotation angle" ; }
+				else
+				{
+					var _clone = _params_assoc_array['clone'], _center = _params_assoc_array['settings']['center'] ;
+					var _rot_angle = _params_assoc_array['rotationangle'] ;
+					var _idx_array = _params_assoc_array['input_values'], _params_array = _params_assoc_array['input_params'] ;
+					var _obj = null, _new_obj = null, _idx ;
+					rotateloop:
+					for( var _i = 0 ; _i < _idx_array.length ; _i++ )
+					{
+						if ( _params_array[_i] == "entryvalue" ) // it's not a node
+						{
+							_idx = _idx_array[_i] - 1, _obj = _glob_figures_array[_idx] != null ? _glob_figures_array[_idx]['obj'] : null ;
+							if ( _obj != null )
+							{
+								switch( _glob_figures_array[_idx]['class'] )
+								{
+									case FIGURE_CLASS_CIRCLE:
+									_new_obj = obj.rotate( _center, _rot_angle 0 ) ;
+									break ;
+									case FIGURE_CLASS_LINE:
+									_new_obj = obj.rotate( _center, _rot_angle, 0 ) ;
+									break ;
+									case FIGURE_CLASS_POINT:
+									_new_obj = obj.rotate( _center, _rot_angle, 0 ) ;
+									break ;
+									case FIGURE_CLASS_RECT:
+									_new_obj = obj.rotate( _center, _rot_angle, 0 ) ;
+									break ;
+									default:
+									break rotateloop ;
+									break ;
+								}
+								if ( _clone ) 
+								{
+									var _new_chunk = _glob_figures_array[_idx].clone_associative();
+									_new_chunk['obj'] = _new_obj.rotate( _center, 1 ) ;
+									circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Figure @'"+(_idx+1)+"' has been rotated and cloned with success", _par_1, _cmd_tag );
+								}
+								else
+								{
+									_glob_figures_array[_idx]['obj'] = _new_obj ;
+									circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Figure @'"+(_idx+1)+"' has been rotated with success", _par_1, _cmd_tag );
+								}
+							}
+							else circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid index '"+(_idx+1)+"'", _par_1, _cmd_tag );
+						}
+					}
+				}	
+				break ;
                 case "shift":
                 var _nodes_index_array = [];
                 $.each( _params_assoc_array['input_params'], function( _i, _v ){ if ( _v.stricmp( "nodeindex" ) ) _nodes_index_array.push( _i ); } );
@@ -1175,7 +1205,7 @@ function circles_terminal_cmd_figures()
                          
                          if ( _glob_figures_array.length > 0 )
                          {
-                              var _MSG = "Detected residual entries after sorting: input indexes don't cover the whole list" ;
+                              var _MSG = "Found residual entries after sorting: input indexes don't cover the whole list" ;
                                   _MSG += _glob_crlf + "After this partial sorting, the original sequence will follow" ;
                               circles_lib_output( _output_channel, DISPATCH_WARNING, _MSG, _par_1, _cmd_tag );
                               for( var _x = 0 ; _x < _glob_figures_array.length ; _x++ )
@@ -1301,9 +1331,9 @@ function _figures_cmd_display_list_item( _i, _rec_chunk, _options )
             if ( circles_lib_colors_is_tag( _fillcolor ) ) _fillcolor = circles_lib_colors_get_def_from_tag( _fillcolor );
             var _properties = [];
             _properties.push( _glob_crlf + _margin_str );
-            _properties.push( ( _rec_chunk['draw'] == YES && _bordercolor.length > 0 ) ? "<yellow>Draw</yellow> ("+_bordercolor+")" : "<gray>No draw</gray>" );
+            _properties.push( ( _rec_chunk['border'] == YES && _bordercolor.length > 0 ) ? "<yellow>Draw</yellow> ("+_bordercolor+")" : "<gray>No draw</gray>" );
             _properties.push( ( _rec_chunk['fill'] == YES && _fillcolor.length > 0 ) ? "<yellow>Fill</yellow> ("+_fillcolor+")" : "<gray>No fill</gray>" );
-            if ( _rec_chunk['bordersize'] != null ) _properties.push( "<yellow>Line thickness</yellow> " + _rec_chunk['bordersize'] );
+            if ( _rec_chunk['bordersize'] != null ) _properties.push( "<yellow>Border size</yellow> " + _rec_chunk['bordersize'] );
             if ( _rec_chunk['borderradius'] != null && _rec_chunk['class'].is_one_of( FIGURE_CLASS_RECT ) )
             _properties.push( "<yellow>Rect border radius</yellow> " + _rec_chunk['borderradius'] );
             if ( _rec_chunk['opacity'] != null ) _properties.push( "<yellow>Opacity</yellow> " + _rec_chunk['opacity'] );

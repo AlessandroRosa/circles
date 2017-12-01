@@ -579,7 +579,7 @@ function circles_terminal_cmd_matrix_check_str( _input_str, _input_matrix, _outp
           if ( _input_matrix.is_antidiagonal_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a anti-diagonal matrix", _par_1, _cmd_tag );
           if ( _input_matrix.is_scalar_matrix() ) circles_lib_output( _output_channel, DISPATCH_INFO, "This is a scalar matrix", _par_1, _cmd_tag );
      }
-     else circles_lib_output( _output_channel, DISPATCH_WARNING, "Detected invalid input matrix '"+_input_str+"' to check", _par_1, _cmd_tag );
+     else circles_lib_output( _output_channel, DISPATCH_WARNING, "Found invalid input matrix '"+_input_str+"' to check", _par_1, _cmd_tag );
 }
 
 function circles_terminal_cmd_matrix_parse_str( _input_str, _params_assoc_array, _output_channel, _par_1 )

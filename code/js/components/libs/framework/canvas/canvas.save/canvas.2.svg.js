@@ -94,11 +94,11 @@ function _svg_line( _code_array, _screen_line, _dashed )
      }
 }
 
-function _svg_point( _code_array, _screen_pt, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _radius )
+function _svg_point( _code_array, _screen_pt, _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius )
 {
      if ( _glob_svg_open == 1 )
      {
-          _draw = safe_int( _draw, NO );
+          _border = safe_int( _border, NO );
           _bordercolor = safe_string( _bordercolor, "" ); 
           _fill = safe_int( _fill, NO );
           _fillcolor = safe_string( _fillcolor, "" ); 
@@ -106,17 +106,17 @@ function _svg_point( _code_array, _screen_pt, _draw, _bordercolor, _fill, _fillc
           _radius = safe_int( _radius, 0 );
 
           var _circle = new circle( _screen_pt, _radius, _bordercolor, _fillcolor, _bordersize );
-          _circle.draw = _draw, _circle.fill = _fill ;
+          _circle.draw = _border, _circle.fill = _fill ;
           _svg_circle( _code_array, _circle, 0 );
      }
 }
 
-function _svg_pixel( _code_array, _screen_pt, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize )
+function _svg_pixel( _code_array, _screen_pt, _opacity, _border, _bordercolor, _fill, _fillcolor, _bordersize )
 {
      if ( _glob_svg_open == 1 )
      {
           var _screen_rect = new rect( _screen_pt.x, _screen_pt.y, _screen_pt.x + 0.2, _screen_pt.y + 0.2 );
-          _svg_rect( _code_array, _screen_rect, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize, 0, YES );
+          _svg_rect( _code_array, _screen_rect, _opacity, _border, _bordercolor, _fill, _fillcolor, _bordersize, 0, YES );
      }
 }
 
@@ -139,12 +139,12 @@ function _svg_circle( _code_array, _screen_circle, _dashed, _opacity )
      }
 }
 
-function _svg_rect( _code_array, _screen_rect, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _borderradius, _is_pixel )
+function _svg_rect( _code_array, _screen_rect, _opacity, _border, _bordercolor, _fill, _fillcolor, _bordersize, _borderradius, _is_pixel )
 {
      if ( _glob_svg_open == 1 )
      {
          _opacity = safe_int( _opacity, DEFAULT_MAX_OPACITY );
-         _draw = safe_int( _draw, 0 );
+         _border = safe_int( _border, 0 );
          _fill = safe_int( _fill, 0 );
          _is_pixel = safe_int( _is_pixel, 0 );
          _borderradius = safe_int( _borderradius, 0 );
@@ -155,7 +155,7 @@ function _svg_rect( _code_array, _screen_rect, _opacity, _draw, _bordercolor, _f
          
          var _borderradius = _borderradius > 0 ? "rx=\""+_borderradius+"\" ry=\""+_borderradius+"\"" : "" ;
          var _style = "style=\"" ;
-             if ( _draw && _bordercolor.length > 0 ) _style += "stroke:" + _bordercolor + ";" ;
+             if ( _border && _bordercolor.length > 0 ) _style += "stroke:" + _bordercolor + ";" ;
              if ( _fill && _fillcolor.length > 0 ) _style += "fill:" + _fillcolor + ";" ;
              if ( _bordersize )                _style += "stroke-width:" + _bordersize + ";" ;
              _style += "\"" ;

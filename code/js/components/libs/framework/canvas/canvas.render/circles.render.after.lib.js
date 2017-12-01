@@ -151,7 +151,7 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
         }
 
         var _rec_chunk, _plane, _enabled, _filtered, _canvas = null ;
-        var _class, _obj, _draw, _bordercolor, _fill, _fillcolor, _opacity, _bordersize, _borderradius, _properties_mask, _close, _canvas_context, _mapper ;
+        var _class, _obj, _border, _bordercolor, _fill, _fillcolor, _opacity, _bordersize, _borderradius, _properties_mask, _close, _canvas_context, _mapper ;
         for( var _x = 0 ; _x < _glob_figures_array.length ; _x++ )
         {
             _rec_chunk = _glob_figures_array[_x], _plane = safe_int( _rec_chunk['plane'], NO_PLANE ) ;
@@ -161,7 +161,7 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
             {
                 _class = _rec_chunk['class'] ;
                 _obj = _rec_chunk['obj'] ;
-                _draw = _rec_chunk['draw'], _bordercolor = _rec_chunk['bordercolor'] ;
+                _border = _rec_chunk['border'], _bordercolor = _rec_chunk['bordercolor'] ;
                 _fill = _rec_chunk['fill'], _fillcolor = _rec_chunk['fillcolor'] ;
                 _opacity = _rec_chunk['opacity'] ;
                 _bordersize = _rec_chunk['bordersize'];
@@ -192,7 +192,7 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
                 {
                     case FIGURE_CLASS_POINT:
                     circles_lib_draw_point( _canvas_context, _mapper, _obj.x, _obj.y,
-                    _draw, _bordercolor, _fill, _fillcolor, _bordersize, _radius, _opacity, _properties_mask );
+                    _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius, _opacity, _properties_mask );
                     break ;
                     case FIGURE_CLASS_LINE:
                     circles_lib_draw_polyline( _canvas_context, _mapper, _obj,
@@ -201,14 +201,14 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
                     case FIGURE_CLASS_RECT:
                     if ( _borderradius )
                     circles_lib_draw_rounded_rect( _canvas_context, _mapper,
-                    _obj, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _borderradius, YES, _opacity, _properties_mask );
+                    _obj, _border, _bordercolor, _fill, _fillcolor, _bordersize, _borderradius, YES, _opacity, _properties_mask );
                     else
-                    circles_lib_draw_rect( _canvas_context, _mapper, _obj, _draw, _bordercolor, _fill, _fillcolor, _bordersize, YES, _opacity, _properties_mask );
+                    circles_lib_draw_rect( _canvas_context, _mapper, _obj, _border, _bordercolor, _fill, _fillcolor, _bordersize, YES, _opacity, _properties_mask );
                     break ;
                     case FIGURE_CLASS_CIRCLE:
                     circles_lib_draw_complex_disk( _canvas_context, _mapper,
                     _obj.center.x, _obj.center.y, _obj.radius,
-                    _draw, _bordercolor, _fill, _fillcolor, _bordersize, _opacity, null, null, "", _properties_mask );
+                    _border, _bordercolor, _fill, _fillcolor, _bordersize, _opacity, null, null, "", _properties_mask );
                     break ;
 				    default: break ;
                 }

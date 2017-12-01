@@ -23,10 +23,10 @@ function circles_lib_draw_arrow( _context, _from_x, _from_y, _to_x, _to_y, _head
     return YES ;
 }
 
-function circles_lib_draw_screen_disk( _context, _word, _scr_circle, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _opacity, _properties_mask, _sector_rad_start, _sector_rad_end )
+function circles_lib_draw_screen_disk( _context, _word, _scr_circle, _border, _bordercolor, _fill, _fillcolor, _bordersize, _opacity, _properties_mask, _sector_rad_start, _sector_rad_end )
 {
     if ( !is_html_context( _context ) ) return null ;
-    _draw = safe_int( _draw, YES ), _fill = safe_int( _fill, NO );
+    _border = safe_int( _border, YES ), _fill = safe_int( _fill, NO );
     _properties_mask = safe_int( _properties_mask, 0 );
     _bordersize = safe_int( _bordersize, NO );
     _opacity = safe_float( _opacity, DEFAULT_MAX_OPACITY );
@@ -38,12 +38,12 @@ function circles_lib_draw_screen_disk( _context, _word, _scr_circle, _draw, _bor
     _context.beginPath();
     _context.lineWidth = _bordersize ;
     _context.strokeStyle = safe_string( _bordercolor, _glob_draw_seed_color );
-    if ( _draw )
+    if ( _border )
     {
         _context.arc( _scr_circle.center.x, _scr_circle.center.y, _scr_circle.radius, 0, CIRCLES_TWO_PI );
         if ( _bordersize > 0 ) _context.stroke();
     }
-    else if ( !_draw )
+    else if ( !_border )
     {
         // the dashed region need to be set in anycase, otherwise the fill instruction won't display any disk,
         // because the region was not set at all, nor to be drawn, nor to be filled
@@ -93,25 +93,25 @@ function circles_lib_draw_screen_disk( _context, _word, _scr_circle, _draw, _bor
    return _scr_circle ;
 }
 
-function circles_lib_draw_complex_disk( _context, _mapper, _complex_x, _complex_y, _complex_radius, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _opacity, _sector_rad_start, _sector_rad_end, _word, _properties_mask )
+function circles_lib_draw_complex_disk( _context, _mapper, _complex_x, _complex_y, _complex_radius, _border, _bordercolor, _fill, _fillcolor, _bordersize, _opacity, _sector_rad_start, _sector_rad_end, _word, _properties_mask )
 {
 	 if ( !is_html_context( _context ) || !is_screen_mapper( _mapper ) ) return null ;
    _complex_x = safe_float( _complex_x, 0 ), _complex_y = safe_float( _complex_y, 0 );
    _complex_radius = safe_float( _complex_radius, 0 ) ;
-   _bordersize = safe_int( _bordersize, 1 ), _draw = safe_int( _draw, YES ), _fill = safe_int( _fill, NO );
+   _bordersize = safe_int( _bordersize, 1 ), _border = safe_int( _border, YES ), _fill = safe_int( _fill, NO );
    _opacity = safe_float( _opacity, DEFAULT_MAX_OPACITY );
    _properties_mask = safe_int( _properties_mask, 0 );
    _bordercolor = safe_string( _bordercolor, "transparent" ), _fillcolor = safe_string( _fillcolor, "transparent" );
    _glob_persistent_vars['scr_center_pt'] = _mapper.from_cartesian_to_client( _complex_x, _complex_y );
    _glob_persistent_vars['scr_radius_pt'] = _mapper.from_cartesian_to_client( _complex_x + _complex_radius, _complex_y );
-   _glob_persistent_vars['scr_circle'] = new circle( _glob_persistent_vars['scr_center_pt'], Math.abs( _glob_persistent_vars['scr_center_pt'].x - _glob_persistent_vars['scr_radius_pt'].x ), _draw, _fill, _bordercolor, _fillcolor, _bordersize );
+   _glob_persistent_vars['scr_circle'] = new circle( _glob_persistent_vars['scr_center_pt'], Math.abs( _glob_persistent_vars['scr_center_pt'].x - _glob_persistent_vars['scr_radius_pt'].x ), _border, _fill, _bordercolor, _fillcolor, _bordersize );
    _sector_rad_start = safe_float( _sector_rad_start, 0 ), _sector_rad_end = safe_float( _sector_rad_end, CIRCLES_TWO_PI ) ;
 
    _context.globalAlpha = _opacity ;
    _context.beginPath();
    _context.lineWidth = _bordersize ;
    _context.strokeStyle = _bordercolor ;
-   if ( _draw )
+   if ( _border )
    {
        if ( _sector_rad_end != CIRCLES_TWO_PI )
        _context.moveTo( _glob_persistent_vars['scr_circle'].center.x, _glob_persistent_vars['scr_circle'].center.y );
@@ -126,7 +126,7 @@ function circles_lib_draw_complex_disk( _context, _mapper, _complex_x, _complex_
        }
        if ( _bordersize > 0 ) _context.stroke();
    }
-   else if ( !_draw )
+   else if ( !_border )
    {
        // the dashed region need to be set in anycase, otherwise the fill instruction won't display any disk,
        // because the region was not set at all, nor to be drawn, nor to be filled
@@ -178,13 +178,13 @@ function circles_lib_draw_complex_disk( _context, _mapper, _complex_x, _complex_
    switch( _glob_export_format )
    {
        case EXPORT_SVG:
-       _glob_persistent_vars['scr_circle'] = new circle( _glob_persistent_vars['scr_center_pt'], Math.abs( _glob_persistent_vars['scr_center_pt'].x - _glob_persistent_vars['scr_radius_pt'].x ), _draw, _fill, _bordercolor, _fillcolor, _bordersize );
-       _glob_persistent_vars['scr_circle'].draw = _draw ;
+       _glob_persistent_vars['scr_circle'] = new circle( _glob_persistent_vars['scr_center_pt'], Math.abs( _glob_persistent_vars['scr_center_pt'].x - _glob_persistent_vars['scr_radius_pt'].x ), _border, _fill, _bordercolor, _fillcolor, _bordersize );
+       _glob_persistent_vars['scr_circle'].draw = _border ;
        _glob_persistent_vars['scr_circle'].fill = _fill ;
        _glob_persistent_vars['scr_circle'].bordercolor = _bordercolor ;
        _glob_persistent_vars['scr_circle'].fillcolor = _fillcolor ;
        _glob_persistent_vars['scr_circle'].bordersize = _bordersize ;
-           _svg_circle( _glob_export_code_array, _glob_persistent_vars['scr_circle'], _draw == 0 ? _svg_allow_dashline_for_border_off : NO, _opacity );
+           _svg_circle( _glob_export_code_array, _glob_persistent_vars['scr_circle'], _border == 0 ? _svg_allow_dashline_for_border_off : NO, _opacity );
        break ;
        case EXPORT_PS:
        _glob_js_e_ps_obj.circle( _glob_persistent_vars['scr_center_pt'].x, _glob_persistent_vars['scr_center_pt'].y, Math.abs( _glob_persistent_vars['scr_center_pt'].x - _glob_persistent_vars['scr_radius_pt'].x ), _bordersize, _bordercolor, _fillcolor, "", "" );
@@ -237,7 +237,7 @@ function circles_lib_draw_segment( _context, _mapper, _from_x, _from_y, _to_x, _
    switch( _glob_export_format )
    {
        case EXPORT_SVG:
-       if ( _draw && is_point( _scr_start_pt ) && is_point( _scr_end_pt ) )
+       if ( _border && is_point( _scr_start_pt ) && is_point( _scr_end_pt ) )
        {
           _scr_start_pt = _mapper.from_cartesian_to_client( _scr_start_pt.x, _scr_start_pt.y );
           _scr_end_pt = _mapper.from_cartesian_to_client( _scr_end_pt.x, _scr_end_pt.y );
@@ -248,7 +248,7 @@ function circles_lib_draw_segment( _context, _mapper, _from_x, _from_y, _to_x, _
        }
        break ;
        case EXPORT_PS:
-       if ( _draw && is_point( _scr_start_pt ) && is_point( _scr_end_pt ) )
+       if ( _border && is_point( _scr_start_pt ) && is_point( _scr_end_pt ) )
        {
            _scr_start_pt = _mapper.from_cartesian_to_client( _scr_start_pt.x, _context.canvas.clientHeight - _scr_start_pt.y );
            _scr_end_pt = _mapper.from_cartesian_to_client( _scr_end_pt.x, _context.canvas.clientHeight - _scr_end_pt.y );
@@ -261,7 +261,7 @@ function circles_lib_draw_segment( _context, _mapper, _from_x, _from_y, _to_x, _
        }
        break ;
        case EXPORT_EPS:
-       if ( _draw && is_point( _scr_start_pt ) && is_point( _scr_end_pt ) )
+       if ( _border && is_point( _scr_start_pt ) && is_point( _scr_end_pt ) )
        {
            _scr_start_pt = _mapper.from_cartesian_to_client( _scr_start_pt.x, _context.canvas.clientHeight - _scr_start_pt.y );
            _scr_end_pt = _mapper.from_cartesian_to_client( _scr_end_pt.x, _context.canvas.clientHeight - _scr_end_pt.y );
@@ -274,7 +274,7 @@ function circles_lib_draw_segment( _context, _mapper, _from_x, _from_y, _to_x, _
        }
        break ;
        case EXPORT_LATEX:
-       if ( _draw && is_point( _scr_start_pt ) && is_point( _scr_end_pt ) )
+       if ( _border && is_point( _scr_start_pt ) && is_point( _scr_end_pt ) )
        {
            _scr_start_pt = _mapper.from_cartesian_to_client( _scr_start_pt.x, _context.canvas.clientHeight - _scr_start_pt.y );
            _scr_end_pt = _mapper.from_cartesian_to_client( _scr_end_pt.x, _context.canvas.clientHeight - _scr_end_pt.y );
@@ -387,7 +387,7 @@ function circles_lib_draw_polyline( _context, _mapper, _pts_array, _bordercolor,
     return YES ;
 }
 
-function circles_lib_draw_rect( _context, _mapper, _rect_obj, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _map_it, _opacity, _properties_mask )
+function circles_lib_draw_rect( _context, _mapper, _rect_obj, _border, _bordercolor, _fill, _fillcolor, _bordersize, _map_it, _opacity, _properties_mask )
 {
    if ( !is_html_context( _context ) || !is_screen_mapper( _mapper ) ) return null ;
    _properties_mask = safe_int( _properties_mask, 0 );
@@ -411,7 +411,7 @@ function circles_lib_draw_rect( _context, _mapper, _rect_obj, _draw, _bordercolo
       _context.fillRect( _rect_obj.x1, _rect_obj.y1, _glob_persistent_vars['width'], _glob_persistent_vars['height'] );
    }
 
-   if ( _draw )
+   if ( _border )
    {
       _context.rect( _rect_obj.x1, _rect_obj.y1, _glob_persistent_vars['width'], _glob_persistent_vars['height'] );
       _context.lineWidth = _bordersize ;
@@ -425,13 +425,13 @@ function circles_lib_draw_rect( _context, _mapper, _rect_obj, _draw, _bordercolo
    switch( _glob_export_format )
    {
        case EXPORT_SVG:
-       _svg_rect( _glob_export_code_array, _rect_obj, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize );
+       _svg_rect( _glob_export_code_array, _rect_obj, _opacity, _border, _bordercolor, _fill, _fillcolor, _bordersize );
        break ;
        case EXPORT_PS:
-       _glob_js_e_ps_obj.rect( _rect_obj.x1, _context.canvas.clientHeight - _rect_obj.y1, _rect_obj.width(), _rect_obj,height, _bordersize, _draw ? _bordercolor : "", _fill ? _fillcolor : "", "" );
+       _glob_js_e_ps_obj.rect( _rect_obj.x1, _context.canvas.clientHeight - _rect_obj.y1, _rect_obj.width(), _rect_obj,height, _bordersize, _border ? _bordercolor : "", _fill ? _fillcolor : "", "" );
        break ;
        case EXPORT_EPS:
-       _glob_js_e_ps_obj.rect( _rect_obj.x1, _context.canvas.clientHeight - _rect_obj.y1, _rect_obj.width(), _rect_obj,height, _bordersize, _draw ? _bordercolor : "", _fill ? _fillcolor : "", "" );
+       _glob_js_e_ps_obj.rect( _rect_obj.x1, _context.canvas.clientHeight - _rect_obj.y1, _rect_obj.width(), _rect_obj,height, _bordersize, _border ? _bordercolor : "", _fill ? _fillcolor : "", "" );
        break ;
        case EXPORT_LATEX:
        _glob_js_latex_obj.rect( _rect_obj.x1, _context.canvas.clientHeight - _rect_obj.y1, _rect_obj.width(), _rect_obj,height, _fill ? _fillcolor : "" );
@@ -442,7 +442,7 @@ function circles_lib_draw_rect( _context, _mapper, _rect_obj, _draw, _bordercolo
    return _rect_obj ;
 }
 
-function circles_lib_draw_rounded_rect( _context, _mapper, _rect_obj, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _radius, _map_it, _opacity, _properties_mask )
+function circles_lib_draw_rounded_rect( _context, _mapper, _rect_obj, _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius, _map_it, _opacity, _properties_mask )
 {
    if ( !is_html_context( _context ) || !is_screen_mapper( _mapper ) ) return null ;
     _map_it = safe_int( _map_it, NO );
@@ -472,7 +472,7 @@ function circles_lib_draw_rounded_rect( _context, _mapper, _rect_obj, _draw, _bo
     // draw left and top left corner
     _context.arcTo( _glob_persistent_vars['x'], _glob_persistent_vars['y'], _glob_persistent_vars['x'] + _radius, _glob_persistent_vars['y'], _radius );
 
-    if ( _draw )
+    if ( _border )
     {
        _context.lineWidth = _bordersize ;
        _context.strokeStyle = _bordercolor ;
@@ -491,13 +491,13 @@ function circles_lib_draw_rounded_rect( _context, _mapper, _rect_obj, _draw, _bo
     switch( _glob_export_format )
     {
        case EXPORT_SVG:
-       _svg_rect( _glob_export_code_array, _rect_obj, _opacity, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _radius );
+       _svg_rect( _glob_export_code_array, _rect_obj, _opacity, _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius );
        break ;
        case EXPORT_PS:
-       _glob_js_e_ps_obj.rounded_rect( _rect_obj.x1, _context.canvas.clientHeight - _rect_obj.y1, _rect_obj.width(), _rect_obj,height, _radius, _bordersize, _draw ? _bordercolor : "", _fill ? _fillcolor : "", "" );
+       _glob_js_e_ps_obj.rounded_rect( _rect_obj.x1, _context.canvas.clientHeight - _rect_obj.y1, _rect_obj.width(), _rect_obj,height, _radius, _bordersize, _border ? _bordercolor : "", _fill ? _fillcolor : "", "" );
        break ;
        case EXPORT_EPS:
-       _glob_js_e_ps_obj.rounded_rect( _rect_obj.x1, _context.canvas.clientHeight - _rect_obj.y1, _rect_obj.width(), _rect_obj,height, _radius, _bordersize, _draw ? _bordercolor : "", _fill ? _fillcolor : "", "" );
+       _glob_js_e_ps_obj.rounded_rect( _rect_obj.x1, _context.canvas.clientHeight - _rect_obj.y1, _rect_obj.width(), _rect_obj,height, _radius, _bordersize, _border ? _bordercolor : "", _fill ? _fillcolor : "", "" );
        break ;
        case EXPORT_LATEX:
        _glob_js_latex_obj.rounded_rect( _rect_obj.x1, _context.canvas.clientHeight - _rect_obj.y1, _rect_obj.width(), _rect_obj,height, _fill ? _fillcolor : "" );
@@ -549,11 +549,11 @@ function circles_lib_draw_pixel( _context, _mapper, _pt_x, _pt_y, _bordercolor, 
 }
 
 // in this config, the point is a different geometric object from the pixel
-function circles_lib_draw_point( _context, _mapper, _pt_x, _pt_y, _draw, _bordercolor, _fill, _fillcolor, _bordersize, _radius, _opacity, _properties_mask, _map_it )
+function circles_lib_draw_point( _context, _mapper, _pt_x, _pt_y, _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius, _opacity, _properties_mask, _map_it )
 {
    if ( !is_html_context( _context ) || !is_screen_mapper( _mapper ) ) return null ;
     _pt_x = safe_float( _pt_x, 0 ), _pt_y = safe_float( _pt_y, 0 );
-    _draw = safe_int( _draw, YES ), _fill = safe_int( _fill, YES );
+    _border = safe_int( _border, YES ), _fill = safe_int( _fill, YES );
     _bordercolor = safe_string( _bordercolor, "transparent" ), _fillcolor = safe_string( _fillcolor, "transparent" );
     _bordersize = safe_int( _bordersize, 0 ), _radius = safe_float( _radius, 1 );
     _properties_mask = safe_int( _properties_mask, 0 );
@@ -569,7 +569,7 @@ function circles_lib_draw_point( _context, _mapper, _pt_x, _pt_y, _draw, _border
     _context.beginPath();
     _context.lineWidth = _bordersize ;
     _context.arc( _glob_persistent_vars['scr_pt'].x, _glob_persistent_vars['scr_pt'].y, _radius, 0, CIRCLES_TWO_PI ); // goes along the line _drawing the arc
-    if ( _draw && _bordercolor.length > 0 )
+    if ( _border && _bordercolor.length > 0 )
     {
        _context.strokeStyle = _bordercolor ;
        _context.stroke();
@@ -585,13 +585,13 @@ function circles_lib_draw_point( _context, _mapper, _pt_x, _pt_y, _draw, _border
     switch( _glob_export_format )
     {
        case EXPORT_SVG:
-       _svg_point( _glob_export_code_array, _glob_persistent_vars['scr_pt'], _draw, _bordercolor, _fill, _fillcolor, _bordersize, _radius );
+       _svg_point( _glob_export_code_array, _glob_persistent_vars['scr_pt'], _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius );
        break ;
        case EXPORT_PS:
-       _glob_js_e_ps_obj.point( _glob_persistent_vars['scr_pt'].x, _context.canvas.clientHeight - _glob_persistent_vars['scr_pt'].y, _bordersize, _draw ? _bordercolor : "", _fill ? _fillcolor : "", "" );
+       _glob_js_e_ps_obj.point( _glob_persistent_vars['scr_pt'].x, _context.canvas.clientHeight - _glob_persistent_vars['scr_pt'].y, _bordersize, _border ? _bordercolor : "", _fill ? _fillcolor : "", "" );
        break ;
        case EXPORT_EPS:
-       _glob_js_e_ps_obj.point( _glob_persistent_vars['scr_pt'].x, _context.canvas.clientHeight - _glob_persistent_vars['scr_pt'].y, _bordersize, _draw ? _bordercolor : "", _fill ? _fillcolor : "", "" );
+       _glob_js_e_ps_obj.point( _glob_persistent_vars['scr_pt'].x, _context.canvas.clientHeight - _glob_persistent_vars['scr_pt'].y, _bordersize, _border ? _bordercolor : "", _fill ? _fillcolor : "", "" );
        break ;
        case EXPORT_LATEX:
        _glob_js_latex_obj.point( _glob_persistent_vars['scr_pt'].x, _context.canvas.clientHeight - _glob_persistent_vars['scr_pt'].y, _bordersize, _fill, _fill ? _fillcolor : "" );

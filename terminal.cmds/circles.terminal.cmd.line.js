@@ -133,15 +133,15 @@ function circles_terminal_cmd_line()
 				}
 				else { _b_fail = YES, _error_str = "Invalid opacity definition" ; break ; }
 			}
-			else if ( _p.toLowerCase().start_with( "thickness:" ) && _params_assoc_array['settings']['bordersize'] == null )
+			else if ( _p.toLowerCase().start_with( "bordersize:" ) && _params_assoc_array['settings']['bordersize'] == null )
 			{
-				_params_assoc_array['settings']['bordersize'] = safe_string( _p.replace( /thickness:/gi, "" ), "" ) ;
+				_params_assoc_array['settings']['bordersize'] = safe_string( _p.replace( /bordersize:/gi, "" ), "" ) ;
 				if ( _params_assoc_array['settings']['bordersize'].testME( _glob_positive_float_regex_pattern ) )
 				{
-					_msg = "<lightblue>Line thickness has been set to</lightblue> <snow>"+_params_assoc_array['settings']['bordersize']+"</snow>" ;
+					_msg = "<lightblue>Border size has been set to</lightblue> <snow>"+_params_assoc_array['settings']['bordersize']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
-				else { _b_fail = YES, _error_str = "Invalid line thickness definition" ; break ; }
+				else { _b_fail = YES, _error_str = "Invalid border size definition" ; break ; }
 			}
          }
          
@@ -198,17 +198,17 @@ function circles_terminal_cmd_line()
                   else
                   {
                      var _bordercolor = _params_assoc_array['settings']['bordercolor'] ;
-                     var _draw = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
-                     if ( _draw == NO ) { _b_fail = YES, _error_str = "Missing draw color: this line won't be visible" ; }
+                     var _border = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
+                     if ( _border == NO ) { _b_fail = YES, _error_str = "Missing draw color: this line won't be visible" ; }
                   }
 
                   var _canvas_context, _mapper, _line_obj ;
                   var _bordercolor = _params_assoc_array['settings']['bordercolor'] ;
-                  var _draw = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
+                  var _border = _bordercolor != null ? ( ( _bordercolor.length > 0 && !_bordercolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
                   var _fillcolor = _params_assoc_array['settings']['fillcolor'] ;
                   var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
                   var _bordersize = _params_assoc_array['settings']['bordersize'] == null ? 1 : safe_int( _params_assoc_array['settings']['bordersize'], 1 );
-                  if ( _bordersize == 0 ) { _draw = NO ; _bordercolor = "" ; }
+                  if ( _bordersize == 0 ) { _border = NO ; _bordercolor = "" ; }
                   var _opacity = _params_assoc_array['settings']['opacity'] == null ? 1.0 : _params_assoc_array['settings']['opacity'] ;
 				  var _layer = circles_lib_canvas_layer_find( _params_assoc_array['settings']['plane'], FIND_LAYER_BY_ROLE_DEF, _params_assoc_array['settings']['layer'], _output_channel );
 				  if ( is_html_canvas( _layer ) )
@@ -242,7 +242,7 @@ function circles_terminal_cmd_line()
 						var _rec_chunk = [];
 						_rec_chunk['class'] = FIGURE_CLASS_LINE ;
 						_rec_chunk['close'] = _params_assoc_array['settings']['close'] ;
-						_rec_chunk['draw'] = _draw ;
+						_rec_chunk['border'] = _border ;
 						_rec_chunk['bordercolor'] = _bordercolor ;
 						_rec_chunk['enabled'] = YES ;
 						_rec_chunk['fill'] = _fill ;

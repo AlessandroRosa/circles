@@ -32,7 +32,7 @@ function inline_worker_output_member( ret )
     var _output_channel = ret.out_channel, _data = ret.data, _text = ret.text ;
     var _coords = safe_int( ret.features['coords'], NO );
     var _copy = safe_int( ret.features['copy'], NO );
-    var _draw = safe_int( ret.features['draw'], NO );
+    var _border = safe_int( ret.features['border'], NO );
     var _fill = safe_int( ret.features['fill'], NO );
     var _init = safe_int( ret.features['init'], NO );
     var _save = safe_int( ret.save, NO );
@@ -42,7 +42,7 @@ function inline_worker_output_member( ret )
         case "dlocus":
         if ( _output_channel == OUTPUT_TERMINAL )
         {
-            if ( _draw )
+            if ( _border )
             {
                 if ( safe_size( ret.features['draw_fn'], 0 ) > 0 && safe_size( _text, 0 ) > 0 )
                 {
@@ -67,7 +67,7 @@ function inline_worker_output_member( ret )
             }
             else if ( safe_size( _text, 0 ) > 0 ) circles_lib_terminal_multicolor_echo( _text );
         }
-        else if ( _output_channel == OUTPUT_SCREEN && _draw )
+        else if ( _output_channel == OUTPUT_SCREEN && _border )
         {
             if ( safe_size( ret.features['draw_fn'], 0 ) > 0 && safe_size( _text, 0 ) > 0 )
             {

@@ -249,7 +249,7 @@ function circles_terminal_cmd_gensset()
                                   _mobius_params_array[_c] = parse_complex_from_string( _mobius_params_array[_c] + "" ) ;
                                 }
 
-                                var _out_msg = "Detected params" ;
+                                var _out_msg = "Found params" ;
                                     _out_msg += _glob_crlf + "a: " + _mobius_params_array[0].formula(YES,YES,_round_to);
                                     _out_msg += _glob_crlf + "b: " + _mobius_params_array[1].formula(YES,YES,_round_to);
                                     _out_msg += _glob_crlf + "c: " + _mobius_params_array[2].formula(YES,YES,_round_to);
@@ -581,12 +581,12 @@ function circles_terminal_cmd_gensset()
                        _rec_chunk['class'] = FIGURE_CLASS_CIRCLE ;
                        _rec_chunk['obj'] = new circle( _items_array[_i].complex_circle.center, _items_array[_i].complex_circle.radius );
                        _rec_chunk['plane'] = _params_assoc_array['plane'] ;
-                       _rec_chunk['draw'] = _items_array[_i].complex_circle.draw ;
+                       _rec_chunk['border'] = _items_array[_i].complex_circle.draw ;
                        _rec_chunk['bordercolor'] = _items_array[_i].complex_circle.bordercolor ;
                        _rec_chunk['fill'] = _items_array[_i].complex_circle.fill ;
                        _rec_chunk['fillcolor'] = _items_array[_i].complex_circle.fillcolor ;
                        _rec_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
-                       _rec_chunk['bordersize'] = _items_array[_i].complex_circle.line_thickness ;
+                       _rec_chunk['bordersize'] = _items_array[_i].complex_circle.bordersize ;
                        _rec_chunk['enabled'] = YES ;
                        _rec_chunk['label'] = "$" + _items_array[_i].symbol ;
                        _rec_chunk['myhash'] = "rec"+(_i+1);

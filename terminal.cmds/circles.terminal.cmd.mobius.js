@@ -31,7 +31,7 @@ function circles_terminal_cmd_mobius()
         _params_assoc_array['settings']['params'] = [] ;
         _params_assoc_array['settings']['action'] = "" ;
         _params_assoc_array['all'] = NO ;
-        _params_assoc_array['draw'] = UNDET ;
+        _params_assoc_array['border'] = UNDET ;
         _params_assoc_array['bordercolor'] = null ;
         _params_assoc_array['dump'] = NO ;
         _params_assoc_array['dump_array'] = null ;
@@ -96,8 +96,8 @@ function circles_terminal_cmd_mobius()
             else if ( _p.stricmp( "all" ) ) _params_assoc_array['all'] = YES ;
             else if ( _p.stricmp( "fill" ) ) _params_assoc_array['fill'] = YES ;
             else if ( _p.stricmp( "nofill" ) ) _params_assoc_array['fill'] = NO ;
-            else if ( _p.stricmp( "draw" ) ) _params_assoc_array['draw'] = YES ;
-            else if ( _p.stricmp( "nodraw" ) ) _params_assoc_array['draw'] = NO ;
+            else if ( _p.stricmp( "draw" ) ) _params_assoc_array['border'] = YES ;
+            else if ( _p.stricmp( "nodraw" ) ) _params_assoc_array['border'] = NO ;
             else if ( _p.stricmp( "off" ) ) _params_assoc_array['off'] = YES ;
             else if ( _p.stricmp( "generator" ) ) _params_assoc_array['generator'] = YES ;
             else if ( _p.is_one_of_i( "add", "assemble", "changesymbol", "check", "colorize", "decolorize", "copy", "delete",
@@ -286,7 +286,7 @@ function circles_terminal_cmd_mobius()
                         var _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
                         var _screen_cc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
                         _items_array.push( new item_obj( _mm, _cc, _screen_cc, _symbol, 0,
-                                                         _params_assoc_array['draw'] != UNDET ? YES : NO, "",
+                                                         _params_assoc_array['border'] != UNDET ? YES : NO, "",
                                                          _params_assoc_array['fill'] != UNDET ? YES : NO, "",
                                                          _inv_symbol, 1, ITEM_TYPE_MOBIUS ) );
     
@@ -856,7 +856,7 @@ function circles_terminal_cmd_mobius()
                                 {
                                     //if ( _params_assoc_array['symbol'] != null ) _items_array[_obj_index].symbol = _params_assoc_array['symbol'][0] ;
                                     if ( _params_assoc_array['inv_symbol'] != null ) _items_array[_obj_index].inverse_symbol = _params_assoc_array['inv_symbol'][0] ;
-                                    if ( _params_assoc_array['draw'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _params_assoc_array['draw'] ;
+                                    if ( _params_assoc_array['border'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _params_assoc_array['border'] ;
                                     if ( _params_assoc_array['fill'] != UNDET ) _items_array[_obj_index].complex_circle.fill = _params_assoc_array['fill'] ;
                                     if ( _params_assoc_array['bordercolor'] != null )
                                     {

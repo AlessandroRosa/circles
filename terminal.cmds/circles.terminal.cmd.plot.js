@@ -90,12 +90,12 @@ function circles_terminal_cmd_plot()
                    if ( _params_assoc_array['extras']['bordersize'] == null )
                    {
 											 _params_assoc_array['extras']['bordersize'] = safe_float( _p, 0 ) ;
-			                 circles_lib_output( _output_channel, DISPATCH_INFO, "Detected integer #1: border thickness has been set to " + _p, _par_1, _cmd_tag );
+			                 circles_lib_output( _output_channel, DISPATCH_INFO, "Found integer #1: border size has been set to " + _p, _par_1, _cmd_tag );
 									 }
 									 else if ( _params_assoc_array['extras']['radius'] == null )
 									 {
 											 _params_assoc_array['extras']['radius'] = safe_float( _p, 0 ) ;
-			                 circles_lib_output( _output_channel, DISPATCH_INFO, "Detected integer #2: point radius has been set to " + _p, _par_1, _cmd_tag );
+			                 circles_lib_output( _output_channel, DISPATCH_INFO, "Found integer #2: point radius has been set to " + _p, _par_1, _cmd_tag );
 									 }
               }
               else if ( _p.stricmp( "none" ) )
@@ -143,7 +143,7 @@ function circles_terminal_cmd_plot()
          var _radius = safe_float( _params_assoc_array['extras']['radius'], UNDET ) ;
          if ( _action.length == 0 )
          {
-              circles_lib_output( _output_channel, DISPATCH_WARNING, "No valid input action detected: auto set to 'draw'", _par_1, _cmd_tag );
+              circles_lib_output( _output_channel, DISPATCH_WARNING, "No valid input action detected: auto set to 'border'", _par_1, _cmd_tag );
               _action = "draw" ;
          }
          

@@ -162,7 +162,7 @@ function _doctor_scan_items_integrity( _items_array, _output_channel, _par_1, _s
      if ( _items_n != _n_items_safe )
      {
          var _entries_n = Math.max( _items_n, _n_items_safe );
-         circles_lib_output( _output_channel, DISPATCH_WARNING, "Detected possible memory leak in items archive", _par_1, _src );
+         circles_lib_output( _output_channel, DISPATCH_WARNING, "Found possible memory leak in items archive", _par_1, _src );
          circles_lib_output( _output_channel, DISPATCH_INFO, "Cleaning incoherent entries", _par_1, _src );
          var _method = circles_lib_method_get(), _n_incoherent = 0 ;
          // circles_lib_find_item_index_by_symbol( _items_array, _symbol )

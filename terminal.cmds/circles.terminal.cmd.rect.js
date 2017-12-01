@@ -225,7 +225,7 @@ function circles_terminal_cmd_rect()
 				var _bordersize = safe_int( _p.replace( /bordersize:/gi, "" ), 0 );
                 if ( _bordersize < 0 )
                 {
-                    _msg = "<orange>Detected invalid line thickness input</lime> <snow>"+_bordersize+"</snow> <orange>and reset to default</orange> <snow>0</snow>" ;
+                    _msg = "<orange>Detected invalid border size input</lime> <snow>"+_bordersize+"</snow> <orange>and reset to default</orange> <snow>0</snow>" ;
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                     _bordersize = 0 ;
                 }
@@ -315,7 +315,7 @@ function circles_terminal_cmd_rect()
                     var _ret_id = _ret_chunk[0], _ret_mask = _ret_chunk[1] ;
                     if ( !_ret_id )
                     {
-                        _b_fail = YES, _error_str = "Detected invalid input X-syntax: process aborted" ;
+                        _b_fail = YES, _error_str = "Found invalid input X-syntax: process aborted" ;
                         if ( _ret_mask & 1 ) _error_str += _glob_crlf + "Found incomplete syntax" ;
                         if ( _ret_mask & 2 ) _error_str += _glob_crlf + "Missing coord identifier" ;
                         if ( _ret_mask & 4 ) _error_str += _glob_crlf + "Missing operator symbol" ;
@@ -332,7 +332,7 @@ function circles_terminal_cmd_rect()
                     var _ret_id = _ret_chunk[0], _ret_mask = _ret_chunk[1] ;
                     if ( !_ret_id )
                     {
-                        _b_fail = YES, _error_str = "Detected invalid input Y-syntax: process aborted" ;
+                        _b_fail = YES, _error_str = "Found invalid input Y-syntax: process aborted" ;
                         if ( _ret_mask & 1 ) _error_str += _glob_crlf + "Found incomplete syntax" ;
                         if ( _ret_mask & 2 ) _error_str += _glob_crlf + "Missing coord identifier" ;
                         if ( _ret_mask & 4 ) _error_str += _glob_crlf + "Missing operator symbol" ;
@@ -484,31 +484,31 @@ function circles_terminal_cmd_rect()
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>"+_params_assoc_array['plane']+"</snow> <lightblue>has been cleaned before drawing</lightblue>", _par_1, _cmd_tag );
                 }
 
-             	var _draw = _params_assoc_array['bordercolor'] != null ? YES : NO ;
+             	var _border = _params_assoc_array['bordercolor'] != null ? YES : NO ;
              	var _fill = _params_assoc_array['fillcolor'] != null ? YES : NO ;
-             	var _bordercolor = _draw ? _params_assoc_array['bordercolor'] : "transparent" ;
+             	var _bordercolor = _border ? _params_assoc_array['bordercolor'] : "transparent" ;
              	var _fillcolor = _fill ? _params_assoc_array['fillcolor'] : "transparent" ;
              	var _opacity = _params_assoc_array['opacity'] != null ? safe_float( _params_assoc_array['opacity'], DEFAULT_OPACITY ) : DEFAULT_OPACITY ;
              	var _bordersize = _params_assoc_array['bordersize'] != null ? safe_int( _params_assoc_array['bordersize'], 0 ) : 0 ;
 				var _borderradius = _params_assoc_array['borderradius'] == null ? 0 : safe_int( _params_assoc_array['borderradius'], 0 );
 				if ( _borderradius < 0 ) _borderradius = -_borderradius ;
 
-				if ( !_draw && !_fill )
+				if ( !_border && !_fill )
 				circles_lib_output( _output_channel, DISPATCH_WARNING, "Missing both draw and fill colors: rectangle won't be visible", _par_1, _cmd_tag );
 
 				if ( !_b_fail )
                 {
 					if ( _borderradius )
-					circles_lib_draw_rounded_rect( _context, _mapper, _rect_obj, _draw, _bordercolor, _fill, _fillcolor, _draw ? _bordersize : 0, _borderradius, YES, _opacity, 0 );
+					circles_lib_draw_rounded_rect( _context, _mapper, _rect_obj, _border, _bordercolor, _fill, _fillcolor, _border ? _bordersize : 0, _borderradius, YES, _opacity, 0 );
 					else
-					circles_lib_draw_rect( _context, _mapper, _rect_obj, _draw, _bordercolor, _fill, _fillcolor, _draw ? _bordersize : 0, YES, _opacity, 0 ) ;
+					circles_lib_draw_rect( _context, _mapper, _rect_obj, _border, _bordercolor, _fill, _fillcolor, _border ? _bordersize : 0, YES, _opacity, 0 ) ;
 
 					if ( _params_assoc_array['rec'] == YES )
 					{
 						var _rec_chunk = [];
 						_rec_chunk['borderradius'] = _borderradius ;
 						_rec_chunk['class'] = FIGURE_CLASS_RECT ;
-						_rec_chunk['draw'] = _fill ;
+						_rec_chunk['border'] = _fill ;
 						_rec_chunk['bordercolor'] = _bordercolor ;
 						_rec_chunk['enabled'] = YES ;
 						_rec_chunk['fill'] = _fill ;

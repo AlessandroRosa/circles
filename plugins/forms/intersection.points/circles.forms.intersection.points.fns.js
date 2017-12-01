@@ -69,7 +69,7 @@ function CIRCLESformsINTERSECTIONPOINTScopyPOINTS( packed_pts )
                            _tmp_chunk['class'] = FIGURE_CLASS_POINT ;
                            _tmp_chunk['obj'] = _pt ;
                            _tmp_chunk['plane'] = Z_PLANE ;
-                           _tmp_chunk['draw'] = YES ;
+                           _tmp_chunk['border'] = YES ;
                            _tmp_chunk['bordercolor'] = DEFAULT_INTERSECTION_POINT_BORDER_COLOR ;
                            _tmp_chunk['fill'] = YES ;
                            _tmp_chunk['fillcolor'] = DEFAULT_INTERSECTION_POINT_INTERIOR_COLOR ;

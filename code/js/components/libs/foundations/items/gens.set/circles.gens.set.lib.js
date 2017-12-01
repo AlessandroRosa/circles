@@ -87,7 +87,7 @@ function circles_lib_gens_set_build( _output_channel, _init_gens, _reset_gens_se
     if ( !_silent ) circles_lib_output( _output_channel, DISPATCH_STANDARD, "--- start of generators set construction ---" );
     if ( !_silent ) circles_lib_output( _output_channel, DISPATCH_INFO, "Step 1/2: constructing the generators set" );
  	  var _unsolved_gen_word, _unsolved_inverse_gen_word, _resolved_gen_word, _resolved_inverse_gen_word, _msg ;
- 	  var _cc, _sc, _draw, _fill, _bordercolor, _fillcolor, INDEX = UNDET, _is_pqword = NO, _is_pqword_inv = NO ;
+ 	  var _cc, _sc, _border, _fill, _bordercolor, _fillcolor, INDEX = UNDET, _is_pqword = NO, _is_pqword_inv = NO ;
     var _sch_n = circles_lib_count_gens_set_model(), _sd_n = circles_lib_count_seeds();
     var _mm = null, _b_fail = NO, _symbol, _msg, _first_item_letter, _first_item_index, _first_item_obj ;
     if ( _sd_n > 0 )
@@ -193,13 +193,13 @@ function circles_lib_gens_set_build( _output_channel, _init_gens, _reset_gens_se
                _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
                _sc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
 
-               _draw = _first_item_obj.complex_circle.draw ;
+               _border = _first_item_obj.complex_circle.draw ;
                _bordercolor = _first_item_obj.complex_circle.bordercolor ;
                _fill = _first_item_obj.fill ;
                _fillcolor = _first_item_obj.complex_circle.fillcolor ;
-               _cc.draw = _draw, _cc.bordercolor = _bordercolor ;
+               _cc.draw = _border, _cc.bordercolor = _bordercolor ;
                _cc.fill = _fill, _cc.fillcolor = _fillcolor ;
-               _sc.draw = _draw, _sc.bordercolor = _bordercolor ;
+               _sc.draw = _border, _sc.bordercolor = _bordercolor ;
                _sc.fill = _fill, _sc.fillcolor = _fillcolor ;
 
 							 // add map to generators set, if not already included yet
@@ -207,7 +207,7 @@ function circles_lib_gens_set_build( _output_channel, _init_gens, _reset_gens_se
 				       if ( _ret == UNFOUND )
 					     {
                   _glob_gens_array.push( new item_obj( _mm, _cc, _sc, _resolved_gen_word, 0,
- 		                                     _draw, _bordercolor, _fill, _fillcolor,
+ 		                                     _border, _bordercolor, _fill, _fillcolor,
  		                                     _resolved_inverse_gen_word, 1, ITEM_TYPE_MOBIUS ) );
 		    			    _glob_gens_array[_glob_gens_array.length-1].map = _mm ;
 		    			    _glob_gens_array[_glob_gens_array.length-1].complex_circle = _cc ;
@@ -230,13 +230,13 @@ function circles_lib_gens_set_build( _output_channel, _init_gens, _reset_gens_se
         						if ( !_silent ) circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Attempting to creation from map</lightgray> <snow>"+_resolved_gen_word+"</snow>" );
                     _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inv().inversion_circle() : _mm.inv().isometric_circle();
                     _sc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
-                    _cc.draw = _draw, _cc.bordercolor = _bordercolor ;
+                    _cc.draw = _border, _cc.bordercolor = _bordercolor ;
                     _cc.fill = _fill, _cc.fillcolor = _fillcolor ;
-                    _sc.draw = _draw, _sc.bordercolor = _bordercolor ;
+                    _sc.draw = _border, _sc.bordercolor = _bordercolor ;
                     _sc.fill = _fill, _sc.fillcolor = _fillcolor ;
 
 										_glob_gens_array.push( new item_obj( _mm.inv(), _cc, _sc, _resolved_inverse_gen_word, 0,
-  		                                                   _draw, _bordercolor, _fill, _fillcolor,
+  		                                                   _border, _bordercolor, _fill, _fillcolor,
   		                                                   _resolved_gen_word, 1, ITEM_TYPE_MOBIUS, "", _resolved_gen_word ) );
 		    				    _glob_gens_array[_glob_gens_array.length-1].map = _mm.inv().copy() ;
 		    				    _glob_gens_array[_glob_gens_array.length-1].complex_circle = _cc.copy() ;
@@ -301,17 +301,17 @@ function circles_lib_gens_set_build( _output_channel, _init_gens, _reset_gens_se
                         _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
                         _sc = circles_lib_get_screendisk_from_complexdisk( zplane_sm, _cc );
 
-                        _draw = _first_item_obj.complex_circle.draw ;
+                        _border = _first_item_obj.complex_circle.draw ;
                         _bordercolor = _first_item_obj.complex_circle.bordercolor ;
                         _fill = _first_item_obj.fill ;
                         _fillcolor = _first_item_obj.complex_circle.fillcolor ;
-                        _cc.draw = _draw, _cc.bordercolor = _bordercolor ;
+                        _cc.draw = _border, _cc.bordercolor = _bordercolor ;
                         _cc.fill = _fill, _cc.fillcolor = _fillcolor ;
-                        _sc.draw = _draw, _sc.bordercolor = _bordercolor ;
+                        _sc.draw = _border, _sc.bordercolor = _bordercolor ;
                         _sc.fill = _fill, _sc.fillcolor = _fillcolor ;
 
          					      _glob_gens_array.push( new item_obj( _mm, _cc, _sc, _resolved_inverse_gen_word, 0,
-                                                             _draw, _bordercolor, _fill, _fillcolor,
+                                                             _border, _bordercolor, _fill, _fillcolor,
                                                              _resolved_gen_word, 1, ITEM_TYPE_MOBIUS, "", _resolved_gen_word ) );
             					  _glob_gens_array[_glob_gens_array.length-1].map = _mm ;
                        	_glob_gens_array[_glob_gens_array.length-1].notes = "generator" ;

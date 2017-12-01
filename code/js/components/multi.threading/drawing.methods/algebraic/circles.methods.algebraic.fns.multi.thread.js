@@ -118,7 +118,7 @@ function CIRCLESalgebraicMARK( _glob_limitset_array, index )
                  obj = { 'type' : '',
                          'x' : _fp.x, 'y' : _fp.y, 'r' : 3,
                          'draw_fn_id' : 2.4,
-                         'draw' : YES, 'bordercolor' : DEFAULT_PT_BORDER_COLOR,
+                         'border' : YES, 'bordercolor' : DEFAULT_PT_BORDER_COLOR,
                          'fill' : YES, 'fillcolor' : DEFAULT_PT_INTERIOR_COLOR,
                          'bordersize' : 2, 'word' : WORD } ;
                                         

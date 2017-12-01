@@ -109,9 +109,9 @@ function CIRCLESformsEDITDISKgraphixCODE( _index, _items_switch )
     HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
     HTMLcode += "<tr>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td>Line thickness</td>" ;
+    HTMLcode += "<td>Border size</td>" ;
     HTMLcode += "<td WIDTH=\"5\"></td>" ;
-    HTMLcode += "<td WIDTH=\"25\"><INPUT ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);\" TYPE=\"edit\" STYLE=\"width:42px;text-align:center;\" ID=\"CIRCLEselectedLINETHICKNESS\" VALUE=\""+bordersize+"\"></td>" ;
+    HTMLcode += "<td WIDTH=\"25\"><INPUT ONKEYUP=\"javascript:$('#CIRCLESformsEDITDISKapplyBTN').css('color','red');_glob_to_save=YES;circles_lib_extras_button_enable('APPLYchangesBTN', _glob_to_save,1);\" TYPE=\"edit\" STYLE=\"width:42px;text-align:center;\" ID=\"CIRCLEselectedBORDERSIZE\" VALUE=\""+bordersize+"\"></td>" ;
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
     HTMLcode += "</table>" ;

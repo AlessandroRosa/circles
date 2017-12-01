@@ -266,7 +266,7 @@ function circles_lib_fixedpoints_create_figures_from( _index, _plane_type, _outp
                      _rec_chunk['class'] = FIGURE_CLASS_POINT ;
                      _rec_chunk['obj'] = _chunk[1] ;
                      _rec_chunk['plane'] = _plane_type ;
-                     _rec_chunk['draw'] = YES ;
+                     _rec_chunk['border'] = YES ;
                      _rec_chunk['bordercolor'] = _glob_draw_seed_color ;
                      _rec_chunk['fill'] = YES ;
                      _rec_chunk['fillcolor'] = _glob_fill_seed_color ;

@@ -84,7 +84,7 @@ item_obj.prototype.output = function( _sep, _roundto )
       _out += _sep + "Draw color : " + ( _check_c ? ( this.complex_circle.bordercolor ) : "(invalid)" );
       _out += _sep + "Fill : " + ( _check_c ? ( this.complex_circle.fill ? "yes" : "no" ) : "(invalid)" );
       _out += _sep + "Fill color : " + ( _check_c ? ( this.complex_circle.fillcolor ) : "(invalid)" );
-      _out += _sep + "Line thickness : " + ( _check_c ? ( this.complex_circle.bordersize + " px" ) : "(invalid)" );
+      _out += _sep + "Border size : " + ( _check_c ? ( this.complex_circle.bordersize + " px" ) : "(invalid)" );
       _out += _sep + "Notes : " + ( safe_string( this.notes, 0 ).trim().length > 0 ? this.notes : "(none)" ) ;
    return _out ;
 }

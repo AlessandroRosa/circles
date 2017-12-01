@@ -157,7 +157,7 @@ var _demon = new demo_n();
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "line zplane (-2,0.2) (-0.5,0.2) (-1.25,1) close thickness:7 bordercolor:orange $triangle fillcolor:yellow rec" ); },
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "line zplane (-2,0.2) (-0.5,0.2) (-1.25,1) close bordersize:7 bordercolor:orange $triangle fillcolor:yellow rec" ); },
                   ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
                   action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 

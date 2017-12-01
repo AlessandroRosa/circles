@@ -33,7 +33,7 @@ function circles_terminal_cmd_disk()
 
         _params_assoc_array['all'] = NO ;
         _params_assoc_array['center'] = null ;
-        _params_assoc_array['draw'] = UNDET ;
+        _params_assoc_array['border'] = UNDET ;
         _params_assoc_array['bordercolor'] = null ;
         _params_assoc_array['dump'] = NO ;
         _params_assoc_array['dump_array'] = null ;
@@ -108,8 +108,8 @@ function circles_terminal_cmd_disk()
             else if ( _p.stricmp( "all" ) ) _params_assoc_array['all'] = YES ;
             else if ( _p.stricmp( "fill" ) ) _params_assoc_array['fill'] = YES ;
             else if ( _p.stricmp( "nofill" ) ) _params_assoc_array['fill'] = NO ;
-            else if ( _p.stricmp( "draw" ) ) _params_assoc_array['draw'] = YES ;
-            else if ( _p.stricmp( "nodraw" ) ) _params_assoc_array['draw'] = NO ;
+            else if ( _p.stricmp( "draw" ) ) _params_assoc_array['border'] = YES ;
+            else if ( _p.stricmp( "nodraw" ) ) _params_assoc_array['border'] = NO ;
             else if ( _p.stricmp( "table" ) ) _params_assoc_array['table'] = YES ;
             else if ( _p.stricmp( "off" ) ) _params_assoc_array['off'] = YES ;
             else if ( _p.stricmp( "on" ) ) _params_assoc_array['on'] = YES ;
@@ -166,7 +166,7 @@ function circles_terminal_cmd_disk()
 				_params_assoc_array['bordercolor'] = safe_string( _p.replace( /bordercolor:/gi, "" ), "" ) ;
 				if ( circles_lib_colors_is_def( _params_assoc_array['bordercolor'] ) )
 				{
-					_params_assoc_array['draw'] = _params_assoc_array['bordercolor'].stricmp("transparent") ? 0 : 1 ;
+					_params_assoc_array['border'] = _params_assoc_array['bordercolor'].stricmp("transparent") ? 0 : 1 ;
 					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['bordercolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
@@ -200,7 +200,7 @@ function circles_terminal_cmd_disk()
                 _params_assoc_array['bordersize'] = safe_float( _p.replaceAll( "bordersize:", "" ), 0 );
                 if ( _params_assoc_array['bordersize'] < 0 )
                 {
-                    _b_fail = YES, _error_str = "input line thickness is not a number or it is not strictly positive" ; break ;
+                    _b_fail = YES, _error_str = "input border size is not a number or it is not strictly positive" ; break ;
                 }
             }
             else if ( _p.toLowerCase().start_with( "center:" ) && _p.includes_i( "," ) )
@@ -414,7 +414,7 @@ function circles_terminal_cmd_disk()
 							var _obj_index = _ret_last_index ;
                             var _last_item_obj_symbol = is_item_obj( _items_array[_obj_index] ) ? _items_array[_obj_index].symbol : "" ;
                             if ( _params_assoc_array['fill'] != UNDET ) _items_array[_obj_index].complex_circle.fill = _params_assoc_array['fill'] ;
-                            if ( _params_assoc_array['draw'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _params_assoc_array['draw'] ;
+                            if ( _params_assoc_array['border'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _params_assoc_array['border'] ;
                             if ( _params_assoc_array['bordercolor'] != null ) _items_array[_obj_index].complex_circle.bordercolor = _params_assoc_array['bordercolor'] ;
                             if ( _params_assoc_array['fillcolor'] != null ) _items_array[_obj_index].complex_circle.fillcolor = _params_assoc_array['fillcolor'] ;
                             _items_array[_obj_index].complex_circle.bordersize = ( _params_assoc_array['bordersize'] != null ) ? _params_assoc_array['bordersize'] : 1 ;
@@ -1362,7 +1362,7 @@ function circles_terminal_cmd_disk()
                                     if ( _params_assoc_array['center'] != null ) _items_array[_obj_index].complex_circle.center = _params_assoc_array['center'] ;
                                     if ( _params_assoc_array['radius'] != null ) _items_array[_obj_index].complex_circle.radius = _params_assoc_array['radius'] ;
                                     if ( _params_assoc_array['fill'] != UNDET ) _items_array[_obj_index].complex_circle.fill = _params_assoc_array['fill'] ;
-                                    if ( _params_assoc_array['draw'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _params_assoc_array['draw'] ;
+                                    if ( _params_assoc_array['border'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _params_assoc_array['border'] ;
                                     if ( _params_assoc_array['bordersize'] != null ) _items_array[_obj_index].complex_circle.bordersize = _params_assoc_array['bordersize'] ;
                                     if ( _params_assoc_array['bordercolor'] != null ) _items_array[_obj_index].complex_circle.bordercolor = _params_assoc_array['bordercolor'] ;
                                     if ( _params_assoc_array['fillcolor'] != null ) _items_array[_obj_index].complex_circle.fillcolor = _params_assoc_array['fillcolor'] ;

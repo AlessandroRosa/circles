@@ -126,7 +126,7 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSP()
             var _features = [];
 		            _features['custom'] = YES ;
 		            _features['initmode'] = _init_mode ;
-		            _features['draw'] = NO ;
+		            _features['border'] = NO ;
 		            _features['boundingrect'] = [ _glob_dlocusLEFT, _glob_dlocusTOP, _glob_dlocusRIGHT, _glob_dlocusBOTTOM ] ;
 		            _features['pleatingrays'] = [ _pl_rays_flag, _pl_rays_mask, _pl_rays_max_steps, _pl_rays_step_rate, _pl_rays_threshold_accuracy, _pl_rays_forward_factor, _pl_rays_backward_factor, _pl_rays_correction, _pl_rays_keepgoing ] ;
                 _features['accuracy'] = $( "#CIRCLESformsDISCRETENESSLOCUSaccuracy" ).val();
@@ -264,7 +264,7 @@ function CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARY( _canvas, _screen_rect )
 		    var _features = [];
 		        _features['custom'] = YES ;
 		        _features['initmode'] = _init_mode ;
-		        _features['draw'] = YES ;
+		        _features['border'] = YES ;
 		        _features['boundingrect'] = [ _glob_dlocusLEFT, _glob_dlocusTOP, _glob_dlocusRIGHT, _glob_dlocusBOTTOM ] ;
 		        _features['pleatingrays'] = [ _pl_rays_flag, _pl_rays_mask, _pl_rays_max_steps, _pl_rays_step_rate, _pl_rays_threshold_accuracy, _pl_rays_forward_factor, _pl_rays_backward_factor, _pl_rays_correction, _pl_rays_keepgoing ] ;
             _features['accuracy'] = $( "#CIRCLESformsDISCRETENESSLOCUSaccuracy" ).val();

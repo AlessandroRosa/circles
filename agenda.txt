@@ -14,8 +14,9 @@
 
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 # figures cmd :
-  - parameter "copy" exists?
-  - try figures rotate @1 (0,0) deg/rad:val %copy%
+  - TEST figures rotate @1 center:(0,0) deg/rad:val %clone%
+     check that .rotate method is properly called for each FIGURE CLASS
+	 
 # line cmd : input 3 points close and fill?
 
 -------------- FIX SOON -----------------------

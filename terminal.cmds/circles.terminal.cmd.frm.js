@@ -107,7 +107,7 @@ function circles_terminal_cmd_frm()
 							
 							if ( _params_assoc_array['frm'].length > 0 )
 							{
-									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Detected magic entry '<lightblue>"+_params_assoc_array['settings']['magic']+"</lightblue>' and", _par_1, _cmd_tag );
+									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Found magic entry '<lightblue>"+_params_assoc_array['settings']['magic']+"</lightblue>' and", _par_1, _cmd_tag );
 									var _frm = $.terminal.escape_brackets( _params_assoc_array['frm'][0] ) ;
 									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "turned to <yellow>"+_label+"</yellow> formula" );
 									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<white>"+_frm+"</white>", _par_1, _cmd_tag );
@@ -183,7 +183,7 @@ function circles_terminal_cmd_frm()
                         var _frm = _params_assoc_array['frm'].join( "" ) ;
                         if ( _frm.includes_i( _std_var_label ) )
                         {
-                            circles_lib_output( _output_channel, DISPATCH_INFO, "Detected polynomial in var '"+_std_var_label+"'", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "Found polynomial in var '"+_std_var_label+"'", _par_1, _cmd_tag );
                             if ( _params_assoc_array[''+_std_var_label] == null )
                             {
                                _b_fail = YES, _error_str = "Missing input var '"+_std_var_label+"' value." ;
@@ -336,7 +336,7 @@ function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _form
         if ( safe_size( _alphabet, 0 ) == 0 ) return [ RET_ERROR, "Missing alphabet: register Mobius maps first" ] ;
         else if ( safe_size( _traces_word_matches, 0 ) > 0 )
         {
-           circles_lib_terminal_multicolor_echo( "Detected <white>simple trace operator</white> in input formula" );
+           circles_lib_terminal_multicolor_echo( "Found <white>simple trace operator</white> in input formula" );
            circles_lib_terminal_info_echo( "Computation in progress" );
            var _word, _exponent ;
            $.each( _traces_word_matches,
@@ -355,7 +355,7 @@ function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _form
                           if ( _exponent == 0 )
                           {
                              _exponent = 1 ;
-                             circles_lib_terminal_info_echo( "Detected exponent as zero ... skipped" );
+                             circles_lib_terminal_info_echo( "Found exponent as zero ... skipped" );
                           }
                        }
                        else _exponent = 1 ;
@@ -407,7 +407,7 @@ function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _form
 
         if ( safe_size( _traces_commutator_matches, 0 ) > 0 )
         {
-            circles_lib_terminal_multicolor_echo( "Detected <white>commutator trace operator</white> in input formula" );
+            circles_lib_terminal_multicolor_echo( "Found <white>commutator trace operator</white> in input formula" );
             circles_lib_terminal_info_echo( "Computation in progress" );
             var _ret_chunk = [], _word, _exponent ;
             $.each( _traces_commutator_matches,
@@ -426,7 +426,7 @@ function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _form
                           if ( _exponent == 0 )
                           {
                              _exponent = 1 ;
-                             circles_lib_terminal_info_echo( "Detected exponent as zero ... skipped" );
+                             circles_lib_terminal_info_echo( "Found exponent as zero ... skipped" );
                           }
                        }
                        else _exponent = 1 ;
@@ -523,7 +523,7 @@ function circles_terminal_cmd_frm_determinant_resolver( _terminal, _items_array,
         
         if ( safe_size( _determinant_word_matches, 0 ) > 0 )
         {
-             circles_lib_terminal_info_echo( "Detected determinant operator in input formula" );
+             circles_lib_terminal_info_echo( "Found determinant operator in input formula" );
              circles_lib_terminal_info_echo( "Computation in progress" );
              var _word, _exponent ;
              $.each( _determinant_word_matches,
@@ -542,7 +542,7 @@ function circles_terminal_cmd_frm_determinant_resolver( _terminal, _items_array,
                               if ( _exponent == 0 )
                               {
                                   _exponent = 1 ;
-                                  circles_lib_terminal_info_echo( "Detected exponent as zero ... skipped" );
+                                  circles_lib_terminal_info_echo( "Found exponent as zero ... skipped" );
                               }
                           }
                           else _exponent = 1 ;
@@ -583,7 +583,7 @@ function circles_terminal_cmd_frm_determinant_resolver( _terminal, _items_array,
         
         if ( safe_size( _determinant_commutator_matches, 0 ) > 0 )
         {
-            circles_lib_terminal_info_echo( "Detected commutator determinant operator" );
+            circles_lib_terminal_info_echo( "Found commutator determinant operator" );
             circles_lib_terminal_info_echo( "Computation in progress" );
             var _ret_chunk = [], _word, _exponent ;
              $.each( _determinant_commutator_matches,
@@ -602,7 +602,7 @@ function circles_terminal_cmd_frm_determinant_resolver( _terminal, _items_array,
                               if ( _exponent == 0 )
                               {
                                   _exponent = 1 ;
-                                  circles_lib_terminal_info_echo( "Detected exponent as zero ... skipped" );
+                                  circles_lib_terminal_info_echo( "Found exponent as zero ... skipped" );
                               }
                           }
                           else _exponent = 1 ;

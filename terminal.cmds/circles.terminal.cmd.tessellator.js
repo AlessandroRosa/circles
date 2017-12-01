@@ -398,7 +398,7 @@ function circles_terminal_cmd_tessellator()
                                    _tmp_chunk['class'] = FIGURE_CLASS_CIRCLE ;
                                    _tmp_chunk['obj'] = new circle( _complex_circle.get_center(), _complex_circle.get_radius() );
                                    _tmp_chunk['plane'] = _params_assoc_array['plane'] ;
-                                   _tmp_chunk['draw'] = _chunk.complex_circle.draw ;
+                                   _tmp_chunk['border'] = _chunk.complex_circle.draw ;
                                    _tmp_chunk['bordercolor'] = _chunk.complex_circle.bordercolor ;
                                    _tmp_chunk['fill'] = _chunk.complex_circle.fill ;
                                    _tmp_chunk['fillcolor'] = _chunk.complex_circle.fillcolor ;

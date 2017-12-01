@@ -70,7 +70,7 @@ function circles_terminal_cmd_dg()
                 var _n = ( _p.includes_i( "," ) ) ? _p.split( "," ).length : 1 ;
                 if ( _n == 4 )
                 {
-                    circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input syntax for possible Mobius map", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_INFO, "Found input syntax for possible Mobius map", _par_1, _cmd_tag );
                     _params_assoc_array['class'] = FN_DEF_MOBIUS ;
                 }
                 var _p1 = _p.count( "(" ), _p2 = _p.count( ")" );
@@ -531,7 +531,7 @@ function circles_terminal_cmd_dg()
                         if ( _is_repetend )
                         {
                             _word = circles_lib_repetends_resolve( _word );
-                            circles_lib_output( _output_channel, DISPATCH_INFO, "Detected repetend syntax in '"+_input_words[_i]+"' | Resolved to '"+_word+"'", _par_1, _cmd_tag );
+                            circles_lib_output( _output_channel, DISPATCH_INFO, "Found repetend syntax in '"+_input_words[_i]+"' | Resolved to '"+_word+"'", _par_1, _cmd_tag );
                             _input_words[_i] = _word ;
                         }
                         _w_len = _word.length ;
@@ -672,10 +672,10 @@ function _dg_cmd_conjugation( _params_assoc_array, _service_array, _map_tag, _pa
     }
 
     var _ref_params = ( _is_built_in ) ? _params : _mobius_params_array ;
-    circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'a' as " + _ref_params[0], _par_1, _cmd_tag );
-    circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'b' as " + _ref_params[1], _par_1, _cmd_tag );
-    circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'c' as " + _ref_params[2], _par_1, _cmd_tag );
-    circles_lib_output( _output_channel, DISPATCH_INFO, "Detected input param 'd' as " + _ref_params[3], _par_1, _cmd_tag );
+    circles_lib_output( _output_channel, DISPATCH_INFO, "Found input param 'a' as " + _ref_params[0], _par_1, _cmd_tag );
+    circles_lib_output( _output_channel, DISPATCH_INFO, "Found input param 'b' as " + _ref_params[1], _par_1, _cmd_tag );
+    circles_lib_output( _output_channel, DISPATCH_INFO, "Found input param 'c' as " + _ref_params[2], _par_1, _cmd_tag );
+    circles_lib_output( _output_channel, DISPATCH_INFO, "Found input param 'd' as " + _ref_params[3], _par_1, _cmd_tag );
 
     // check consistence of parameters
     if ( _params[0] == null || _params[1] == null || _params[2] == null || _params[3] == null )

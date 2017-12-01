@@ -93,7 +93,7 @@ function circles_terminal_cmd_pdf()
                               _caller_type = CALLER_TYPE_CANVAS ;
                               _params_assoc_array['dump_array'].push( _token );
                           }
-                          else circles_lib_output( _output_channel, DISPATCH_INFO, "Detected and skipped '"+_p+"' tag", _par_1, _cmd_tag );
+                          else circles_lib_output( _output_channel, DISPATCH_INFO, "Found and skipped '"+_p+"' tag", _par_1, _cmd_tag );
                      }
                  }
 

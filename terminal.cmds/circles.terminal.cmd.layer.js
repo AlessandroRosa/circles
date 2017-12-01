@@ -503,7 +503,7 @@ function circles_terminal_cmd_layer()
                                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _output_row, _par_1, _cmd_tag );
                                 _out_text_string += _glob_crlf + _output_row ;
                             }
-                            else circles_lib_output( _output_channel, DISPATCH_WARNING, "Detected memory leak while returning layers list", _par_1, _cmd_tag );
+                            else circles_lib_output( _output_channel, DISPATCH_WARNING, "Found memory leak while returning layers list", _par_1, _cmd_tag );
                         }
                     }
                     else { _b_fail = YES ; _error_str = "No list returned: incoherent input plane type" ; }

@@ -85,7 +85,7 @@ function circles_terminal_cmd_zoom()
 			_c_array[0] = safe_float( _c_array[0].trim(), 0 );
 			_c_array[1] = safe_float( _c_array[1].trim(), 0 );
 			_params_assoc_array['center'] = new point( _c_array[0], _c_array[1] );
-			circles_lib_output( _output_channel, DISPATCH_INFO, "Detected center coords at " + _c_array.join(","), _par_1, _cmd_tag );
+			circles_lib_output( _output_channel, DISPATCH_INFO, "Found center coords at " + _c_array.join(","), _par_1, _cmd_tag );
 		  }
 		  else if ( _p.testME( _glob_positive_float_regex_pattern, _glob_negative_float_regex_pattern ) )
 		  {
@@ -209,7 +209,7 @@ function circles_terminal_cmd_zoom()
 					var _ret_chunk, _ret_id, _ret_msg ;
 					if ( _tofit )
 					{
-						circles_lib_output( _output_channel, DISPATCH_INFO, "Detected 'to fit' input param", _par_1, _cmd_tag );
+						circles_lib_output( _output_channel, DISPATCH_INFO, "Found 'to fit' input param", _par_1, _cmd_tag );
 						_ret_chunk = circles_lib_coordinates_zoomtofit( _plane_type, YES, NO, YES, _output_channel );
 						_ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], RET_ERROR ) : RET_ERROR ;
 						_ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;

@@ -397,7 +397,7 @@ function circles_terminal_cmd_probability()
                              circles_lib_output( _output_channel, DISPATCH_WARNING, "Words ("+_n_letters+") must match probabilities ("+_n_probabilities+") in number", _par_1, _cmd_tag );
                         else if ( _n_letters > 0 && _n_probabilities > 0 )
                         {
-                            if ( _force ) circles_lib_output( _output_channel, DISPATCH_INFO, "Detected 'force' param: attempting to build the probability table from input data ...", _par_1, _cmd_tag );
+                            if ( _force ) circles_lib_output( _output_channel, DISPATCH_INFO, "Found 'force' param: attempting to build the probability table from input data ...", _par_1, _cmd_tag );
                             circles_lib_output( _output_channel, DISPATCH_INFO, "Attenpting to modify probability table ...", _par_1, _cmd_tag );
                             if ( safe_size( _glob_rnd_probability_array, 0 ) == 0 )
                             circles_lib_output( _output_channel, DISPATCH_INFO, "Missing probability table: attempting to recover it from input params", _par_1, _cmd_tag );
@@ -428,7 +428,7 @@ function circles_terminal_cmd_probability()
                                 var _rs = _input_rnd_array.clone() ;
                                 if ( _diff != 0 )
                                 {
-                                   circles_lib_output( _output_channel, DISPATCH_WARNING, "Detected mismatch between input letters and probabilities", _par_1, _cmd_tag );
+                                   circles_lib_output( _output_channel, DISPATCH_WARNING, "Found mismatch between input letters and probabilities", _par_1, _cmd_tag );
                                    circles_lib_output( _output_channel, DISPATCH_WARNING, "Associations will be set for the " + _min + " entries"+(_min==1?"":"s"), _par_1, _cmd_tag );
                                 }
     
