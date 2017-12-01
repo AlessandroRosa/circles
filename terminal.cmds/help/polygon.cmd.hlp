@@ -15,35 +15,32 @@
 <cadetblue>Colors can be input by tags, rgb hex or integer triplets. Type 'noclr' to skip it</cadetblue>
 
 <lightblue>%opacity%</lightblue> <snow>from 0 to 1</snow>
-<cadetblue>Set opacity level for current line. It follows %bordercolor%</cadetblue>
-
-<lightblue>%close%</lightblue>
-<cadetblue>Close the (poly)line</cadetblue>
+<cadetblue>Set opacity level for current polygon. It follows %bordercolor%</cadetblue>
 
 <lightblue>%rec%</lightblue>
-<cadetblue>If mentioned, record this line for further display after renderings</cadetblue>
+<cadetblue>If mentioned, record this polygon for further display after renderings</cadetblue>
 
 <lightblue>%plane%</lightblue> <snow>zplane | wplane | bip</snow>
-<cadetblue>the line will belong to this layer</cadetblue>
+<cadetblue>the polygon will belong to this layer</cadetblue>
 <cadetblue>plane includes multiple layers</cadetblue>
 
 <lightblue>%layerrole%</lightblue>
 <cadetblue>the layer on which the point will be drawn</cadetblue>
 <cadetblue>run 'layer list %plane%' to check available 'role' property definitions for the input plane</cadetblue>
 
-<yellow>line (0,0) (1,2) bordersize:4 bordercolor:blue zplane layer:freedraw</yellow>
-<cadetblue>draw a segment on the 'freedraw' layer of the Z-plane in blue</cadetblue>
+<yellow>polygon (0,0) (1,2) (2,-1) bordersize:4 bordercolor:blue zplane layer:freedraw</yellow>
+<cadetblue>draw a polygon on the 'freedraw' layer of the Z-plane in blue</cadetblue>
 
-<yellow>line (0,0) (1,2) bordercolor:blue zplane rec storagesubset:lines</yellow>
-<cadetblue>same as above, but the line is recorded into the 'lines' storage space (if existing)</cadetblue>
+<yellow>polygon (0,0) (1,2) (2,-1) bordercolor:blue zplane rec storagesubset:polygons</yellow>
+<cadetblue>same as above, but the polygon is recorded into the 'polygons' storage space (if existing)</cadetblue>
 
-<yellow>line (0,0) (1,2) (0.4,-0.4) bordercolor:blue fillcolor:cyan zplane $line1 rec</yellow>
-<cadetblue>draw a broken line on the Z-plane in blue, close it and paint the interior in cyan, recorded as $line1</cadetblue>
+<yellow>polygon (0,0) (1,2) (0.4,-0.4) bordercolor:blue fillcolor:cyan zplane $polygon1 rec</yellow>
+<cadetblue>draw a polygon on the Z-plane in blue, close it and paint the interior in cyan, recorded as $polygon1</cadetblue>
 
 <yellow>line (0,0) (1,2) (1,-2) bordercolor:blue zplane fillcolor:yellow close rec</yellow>
 <cadetblue>one more example, here recorded into the</cadetblue> <snow>preset figures array</snow>
 
-<yellow>line (0,0) (1,2) bordercolor:blue zplane bordersize:4 opacity:0.8 rec</yellow>
+<yellow>polygon (0,0) (1,2) (1,-2) bordercolor:blue zplane bordersize:4 opacity:0.8 rec</yellow>
 <cadetblue>another example with opacity (ranging from 0 to 1 )</cadetblue>
 
 <yellow>line release</yellow>

@@ -13,11 +13,9 @@
   later, when required.
 
 -------- CMD FIX ( as you meet that cmd during the check ) --------
-# figures cmd :
-  - TEST figures rotate @1 center:(0,0) deg/rad:val %clone%
-     check that .rotate method is properly called for each FIGURE CLASS
-	 
-# line cmd : input 3 points close and fill?
+
+* test all examples in the .hlp files:
+  - point, circle, line, rect, polygon, figures
 
 -------------- FIX SOON -----------------------
 

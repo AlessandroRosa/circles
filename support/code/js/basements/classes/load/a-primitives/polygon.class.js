@@ -57,20 +57,18 @@ if ( typeof safe_int != "function" ) function safe_int( _val, _set_if_nan ) { _v
 if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) { _val = parseFloat( _val ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
 if ( typeof safe_size != "function" )
 {
-		function safe_size( _obj, _ret_val )
-		{
-		   if ( _ret_val == "undefined" || _ret_val == null ) _ret_val = 0 ;
-		   if ( _obj == null || _obj == "undefined" ) return _ret_val ;
-		   else if ( typeof _obj == "string" || _obj instanceof String || is_array( _obj ) || _obj instanceof Object ) return _obj.length ;
-		   else return _ret_val ;
-		}
+	function safe_size( _obj, _ret_val )
+	{
+	    if ( _ret_val == "undefined" || _ret_val == null ) _ret_val = 0 ;
+	    if ( _obj == null || _obj == "undefined" ) return _ret_val ;
+	    else if ( typeof _obj == "string" || _obj instanceof String || is_array( _obj ) || _obj instanceof Object ) return _obj.length ;
+	    else return _ret_val ;
+	}
 }
 
 function polygon()
 {
-    this.err_no = _POLYGON_ERR_NONE ;
-    this.error_log = [];
-
+    this.err_no = _POLYGON_ERR_NONE, this.error_log = [];
     if ( arguments.length == 0 )
     {
        this.canvas_obj = null ;
@@ -144,12 +142,13 @@ function polygon()
 }
 
 polygon.prototype.array = function() { return this.vertex_array.clone() ; }
+polygon.prototype.get_vertexes = function() { return this.vertex_array.clone() ; }
+polygon.prototype.get_vertexes_ref = function() { return this.vertex_array ; }
 polygon.prototype.points = function() { return this.array() ; }
 polygon.prototype.log_add = function( _err_text ) { _err_text = safe_string( _err_text, "" ) ; if ( _err_text.length > 0 ) this.error_log.push( _err_text ) ; }
 polygon.prototype.log_return_as_string = function( _line_sep ) { _line_sep = safe_string( _line_sep, "" ) ; return this.error_log.join( _line_sep ) ; }
 polygon.prototype.log_pick_last_error = function()             { return this.error_log.length > 0 ? this.error_log[ this.error_log.length - 1 ] : "" ; }
 polygon.prototype.log_return_as_array = function()             { return this.error_log.clone() ; }
-polygon.prototype.get_vertexes = function() { return this.vertex_array.clone() ; }
 polygon.prototype.get_center = function() { return this.center ; }
 polygon.prototype.side = function() { if ( !this.is_regular() ) this.log_add( "can't return unique side value for irregular polygon" ) ; return this.is_regular() ? this.vertex_array[0].distance( this.vertex_array[1] ) : _POLYGON_ERR_INVALID_VALUE ; }
 polygon.prototype.set_canvas = function( _cnv ) { if ( is_html_canvas( _cnv ) ) this.canvas_obj = _cnv ; else this.log_add( "invalid input canvas obj" ); }

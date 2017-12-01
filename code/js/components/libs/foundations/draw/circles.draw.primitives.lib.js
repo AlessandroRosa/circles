@@ -290,7 +290,7 @@ function circles_lib_draw_segment( _context, _mapper, _from_x, _from_y, _to_x, _
    return YES ;
 }
 
-function circles_lib_draw_polyline( _context, _mapper, _pts_array, _bordercolor, _fillcolor, _bordersize, _close, _opacity, _tolerance, _properties_mask, _map_it )
+function circles_lib_draw_polyline( _context, _mapper, _pts_array = [], _bordercolor, _fillcolor, _bordersize, _close, _opacity, _tolerance, _properties_mask, _map_it )
 {
    if ( !is_html_context( _context ) || !is_screen_mapper( _mapper ) ) return null ;
     _tolerance = safe_float( _tolerance, UNDET );
@@ -662,5 +662,5 @@ function circles_lib_draw_text( _context, _mapper, X, Y, TEXT, _textcolor, _font
         break ;
     }
     
-		return YES ;
+	return YES ;
 }

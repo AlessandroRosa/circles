@@ -4,7 +4,7 @@
 
 <lightblue>usage</lightblue> <snow>figures %action% %indexes% %all% %params% %opacity% %bordersizeness% %pos%</snow>
 
-<lightblue>%action%</lightblue> <snow>connect | copy | delete | disable | enable | disconnect | hide | show | render | mergerect | filter | list | transfer | update</snow>
+<lightblue>%action%</lightblue> <snow>copy | delete | disable | enable | filter | hide | list | mergerect | render | rotate | show | transfer | update</snow>
 <lightblue>%pos%</lightblue> <snow>begin | end</snow>
 <lightblue>%indexes%</lightblue> <snow>input index for the figures to be managed</snow>
 <lightblue>%params%</lightblue> <snow>close | open | reverse | noinherit</snow> <orange>(optional)</orange>
@@ -13,13 +13,6 @@
 
 <lightblue>figures bomb</lightblue>
 <cadetblue>delete all recorded figures</cadetblue>
-
-<lightblue>figures connect @1 @2 @3 close</lightblue>
-<cadetblue>connect line, points and close the resulting polyline.</cadetblue>
-<cadetblue>render / fill properties of the first indexed entry are inherited by the connected figure</cadetblue>
-
-<lightblue>figures connect @1 @2 @3 close noinherit</lightblue>
-<cadetblue>same as above, except render / fill values are not inherited</cadetblue>
 
 <lightblue>figures copy @1 @2</lightblue>
 <cadetblue>duplicate figures 1 and 2 in the list</cadetblue>
@@ -38,10 +31,13 @@
 <cadetblue>render all recorded figures</cadetblue>
 
 <lightblue>figures render @1 @3</lightblue>
-<cadetblue>render only recorded figures with index 1 and 3</cadetblue>
+<cadetblue>render only the recorded figures with index 1 and 3</cadetblue>
 
-<lightblue>figures disconnect @1 @2 @3</lightblue>
-<cadetblue>if selected items are lines or rect, they are disconnected and re-registered as single points</cadetblue>
+<lightblue>figures rotate @1 center:(0,0) rad:val %clone%</lightblue>
+<cadetblue>rotate the recorded figure with index 1 by an angle input in radians</cadetblue>
+
+<lightblue>figures rotate @1 center:(0,0) deg:val %clone%</lightblue>
+<cadetblue>same as before, but the angle can be also input in degrees</cadetblue>
 
 <lightblue>figures show @1</lightblue>
 <lightblue>figures enable @1</lightblue>
@@ -74,9 +70,6 @@
 <lightblue>figures rebuild</lightblue>
 <cadetblue>rebuild the hash table in case of cmds failure</cadetblue>
 
-<lightblue>figures sort @3 @1 @2</lightblue>
-<cadetblue>sort figures according to input indexes: higher values refer to topmost figures</cadetblue>
-
 <lightblue>figures swap @3 @1</lightblue>
 <cadetblue>swap figures with indexes 3 and 1 inside the list</cadetblue>
 
@@ -92,32 +85,8 @@
 <lightblue>figures update all bordercolor:red fillcolor:white</lightblue>
 <cadetblue>set 'bordercolor' to red and 'fillcolor' to white for all recorded figures</cadetblue>
 
-<yellow>------- SPECIAL OPERATIONS FOR POLYLINES -------</yellow>
-<lightblue>figures polyadd @1 (2,1) (3,2) %pos%</lightblue>
-<cadetblue>if figure 1 is a polyline, two nodes - with coords (2,1) and (3,2) - are added to it</cadetblue>
-
 <lightblue>figures shift @1 (-1,1)</lightblue>
-<cadetblue>if figure 1 is a polyline, all nodes are shifted by (-1,1)</cadetblue>
-
-<lightblue>figures shift @1 #1 #2 #3 (-1,1)</lightblue>
-<cadetblue>if figure 1 is a polyline, nodes 1,2,3 are shifted by (-1,1)</cadetblue>
-
-<lightblue>figures polysort @1 #3 #1 #2</lightblue>
-<cadetblue>if figure 1 is a polyline, nodes are sorted along the sequence 3 1 2</cadetblue>
-
-<lightblue>figures polysort @1 #3 #1 #2</lightblue>
-<cadetblue>if figure 1 is a polyline, nodes connection is sorted along the 3,1,2 sequence</cadetblue>
-<orange>if the input nodes sequence does not cover the whole polyline, the remaining original sequence follows</orange>
-
-<lightblue>figures polyupdate @1 #1 (0.5,-1)</lightblue>
-<cadetblue>if figure 1 is a polyline, node 1 coords are updated with input value</cadetblue>
-
-<lightblue>figures polyupdate @1 #1 (0.5,-1) #2 (-1,2)</lightblue>
-<cadetblue>multiple inputs version for updating more points coords at once</cadetblue>
-<cadetblue>%pos% can be 'begin' | 'end': new values are added at the begin | end of the polyline</cadetblue>
-
-<lightblue>figures polydelete @1 #2 #4</lightblue>
-<cadetblue>if figure 1 is a polyline, nodes 2 and 4 are removed</cadetblue>
+<cadetblue>shift the coordinates of the points belonging to entry 1 by (-1,1)</cadetblue>
 
 <lightblue>figures release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>
@@ -126,6 +95,4 @@
 <turquoise>Note (1)</turquoise>
 <cadetblue>list also refers to the visualization priority of figures on the screen</cadetblue>
 <turquoise>Note (2)</turquoise>
-<cadetblue>figures are recorded by mentioning 'rec' param in circle, line, point, rect declarations</cadetblue>
-<turquoise>Note (3)</turquoise>
-<cadetblue>Polylines are assumed to be (broken) lines with more than two nodes</cadetblue>
+<cadetblue>primitive figures (circle, line, point, polygon, rect) are recorded by mentioning 'rec' param</cadetblue>

@@ -31,7 +31,7 @@ if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) 
 
 function line()
 {
-		this.customclass = arguments.callee.name ;
+	this.customclass = arguments.callee.name ;
     if ( is_point( arguments[0] ) && is_point( arguments[1] ) )
     {
         this.start_pt = arguments[0] ;
