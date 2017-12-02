@@ -375,6 +375,7 @@ function circles_terminal_cmd_rect()
                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "", _par_1, _cmd_tag );
                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>Begin to process rectangle data</snow>", _par_1, _cmd_tag );
 				// COORDINATES MANAGEMENT
+				console.log( _check_coords_mask );
 				if ( _check_coords_mask == (1|4|8) ) // left top pt + width + height
 				{
 					// compute the end point from the start point
@@ -394,7 +395,7 @@ function circles_terminal_cmd_rect()
                 {
                     var MAX = CIRCLES_MAX_COORD, _operand, _operator, _rect_coords = [ -MAX, MAX, MAX, -MAX ] ;
 					var _x_array = _params_assoc_array['syntax']['inequality']['x'], _y_array = _params_assoc_array['syntax']['inequality']['y'] ;
-					if ( is_consistent_array( _x_array ) )
+					if ( is_consistent_array( _x_array ) == YES )
 					{
 						_x_array.forEach( function( _chunk )
 						{
@@ -404,7 +405,7 @@ function circles_terminal_cmd_rect()
 						} ) ;
 					}
 
-					if ( is_consistent_array( _y_array ) )
+					if ( is_consistent_array( _y_array ) == YES )
 					{
 						_y_array.forEach( function( _chunk )
 						{
@@ -521,6 +522,7 @@ function circles_terminal_cmd_rect()
 						_rec_chunk['opacity'] = _opacity ;
 						_rec_chunk['plane'] = _params_assoc_array['planeval'] ;
 						_glob_figures_array.push( _rec_chunk );
+						console.log( _glob_figures_array.clone() );
 
 						 var _subset = safe_string( _params_assoc_array['storagesubset'], "" ).trim() ;
 						 if ( _subset.length > 0 )

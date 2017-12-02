@@ -555,21 +555,20 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _o
     return [ _b_fail, _error_str ] ;
 }
 
-function circles_lib_figures_action( _output_channel = OUTPUT_SCREEN, _action = "", _index_vals_array = [], _plane_type = NO_PLANE, _refresh = YES, _param_01 = 0 )
+function circles_lib_figures_action( _output_channel = OUTPUT_SCREEN, _action = "", _index_array = [], _plane_type = NO_PLANE, _refresh = YES, _param_01 = 0 )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ), _refresh = safe_int( _refresh, YES );
-    var _n_input_index = safe_size( _index_vals_array, 0 ), _b_fail = NO, _error_str = "" ;
+    var _n_input_index = safe_size( _index_array, 0 ), _b_fail = NO, _error_str = "" ;
     if ( _n_input_index > 0 )
     {
         var _n = safe_size( _glob_figures_array, 0 );
         if ( _n > 0 )
         {
              var _myhash, _hash_table = [], _plane = safe_int( _plane_type, NO_PLANE ), _p ;
-             for( var _h = 0 ; _h < _index_vals_array.length ; _h++ )
+             for( var _h = 0 ; _h < _index_array.length ; _h++ )
              {
-                _p = safe_int( _index_vals_array[_h], 0 );
-                if ( _glob_figures_array[ _h ] != null )
-                _hash_table.push( _glob_figures_array[_p-1]['myhash'] );
+                _p = safe_int( _index_array[_h]-1, 0 );
+                if ( _glob_figures_array[ _p ] != null ) _hash_table.push( _glob_figures_array[_p]['myhash'] );
              }
 
              for( var _x = 0 ; _x < _glob_figures_array.length ; _x++ )
@@ -583,25 +582,25 @@ function circles_lib_figures_action( _output_channel = OUTPUT_SCREEN, _action = 
                             case "delete":
                             _glob_figures_array.remove( _x, _x );
                             if ( _glob_terminal_echo_flag )
-                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" deleted", _param_01 );
+                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" deleted", _param_01 );
                             _x = -1 ;
                             _refresh = YES ;
                             break ;
                             case "disable":
                             case "hide":
                             _glob_figures_array[_x]['enabled'] = NO ;
-                            if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" disabled", _param_01 );
+                            if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" disabled", _param_01 );
                             _refresh = YES ;
                             break ;
                             case "enable":
                             case "show":
                             _glob_figures_array[_x]['enabled'] = YES ;
-                            if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" enabled", _param_01 );
+                            if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" enabled", _param_01 );
                             _refresh = YES ;
                             break ;
                             case "transfer":
                             _glob_figures_array[_x]['plane'] = _plane ;
-                            if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+_myhash+" transfered to " + circles_lib_plane_def_get(_plane), _param_01 );
+                            if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" transfered to " + circles_lib_plane_def_get(_plane), _param_01 );
                             _refresh = YES ;
                             break ;
 						    default: break ;
@@ -614,10 +613,10 @@ function circles_lib_figures_action( _output_channel = OUTPUT_SCREEN, _action = 
              {
                  // rebuild hash tags after previous operations
                  if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding hash tags", _param_01 );
-                 for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ ) _glob_figures_array[_i]['myhash'] = "rec"+(_i+1);
+                 for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ ) _glob_figures_array[_i]['myhash'] = "rec"+(_i-1);
              }
 
-             circles_lib_canvas_afterrender_figures_draw( null, YES, _plane_type );
+             circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
         }
         else { _b_fail = YES ; _error_str = "Can't "+_action+": the list of figures is empty" ; }
     }

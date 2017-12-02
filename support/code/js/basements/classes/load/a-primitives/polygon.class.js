@@ -206,8 +206,8 @@ polygon.prototype.move = function() { this.shift.apply( this, arguments ) ; }
 polygon.prototype.shift = function()
 {
 	var _self = 1, _mask = 0 ;
-	if ( is_point( arguments[0] ) ) { _self = safe_int( arguments[1], 0 ) ; _mask = 1 ; }
-	else if ( is_number( arguments[0] ) && is_number( arguments[1] ) ) { _self = safe_int( arguments[2], 0 ) ; _mask = 2 ; }
+	if ( is_point( arguments[0] ) ) { _self = safe_int( arguments[1], 1 ) ; _mask = 1 ; }
+	else if ( is_number( arguments[0] ) && is_number( arguments[1] ) ) { _self = safe_int( arguments[2], 1 ) ; _mask = 2 ; }
 	if ( _self )
 	{
 		switch( _mask )
@@ -254,8 +254,7 @@ polygon.prototype.rotate = function( _center = null, _rad = 0, _self = 1 )
 		_c.vertex_array[_i].y = _pt.y ;
 	}
 
-    for( _i = 0 ; _i < _c.vertex_array.length ; _i++ )
-	_c.vertex_array[_i].shift( _c.center.x, _c.center.y );
+    for( _i = 0 ; _i < _c.vertex_array.length ; _i++ ) _c.vertex_array[_i].shift( _c.center.x, _c.center.y );
 
 	if ( _self ) { this.vertex_array = _c.vertex_array.clone() ; return 1 ; }
 	else return _c ;

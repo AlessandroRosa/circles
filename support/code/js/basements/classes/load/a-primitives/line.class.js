@@ -120,8 +120,8 @@ line.prototype.slope = function()
 line.prototype.shift = function()
 {
 	var _self = 1, _mask = 0 ;
-	if ( is_point( arguments[0] ) ) { _self = safe_int( arguments[1], 0 ) ; _mask = 1 ; }
-	else if ( is_number( arguments[0] ) && is_number( arguments[1] ) ) { _self = safe_int( arguments[2], 0 ) ; _mask = 2 ; }
+	if ( is_point( arguments[0] ) ) { _self = safe_int( arguments[1], 1 ) ; _mask = 1 ; }
+	else if ( is_number( arguments[0] ) && is_number( arguments[1] ) ) { _self = safe_int( arguments[2], 1 ) ; _mask = 2 ; }
 	if ( _self )
 	{
 		switch( _mask )

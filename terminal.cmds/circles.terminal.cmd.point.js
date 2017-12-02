@@ -272,7 +272,7 @@ function circles_terminal_cmd_point()
                                    else circles_lib_output( _output_channel, DISPATCH_WARNING, "'"+_subset+"' does not refer to any valid storage space subset", _par_1, _cmd_tag );
                                }
         
-                               circles_lib_output( _output_channel, DISPATCH_INFO, "Point "+_pt_obj.output("cartesian")+" recorded", _par_1, _cmd_tag );
+                               circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Point "+_pt_obj.output("cartesian")+" recorded with success", _par_1, _cmd_tag );
                           }
                       }
                       else { _b_fail = YES, _error_str = "Can't plot point: memory failure. Free some resources" ; break ; }

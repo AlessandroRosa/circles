@@ -536,7 +536,7 @@ function circles_terminal_cmd_disk()
                   circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                }
     					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _output_channel ); }
- 				if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+ 				if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
     			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
            }
            else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
@@ -633,7 +633,7 @@ function circles_terminal_cmd_disk()
 					  circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 					}
 					_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel ); }
-					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
 			    }
 			    else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
@@ -708,7 +708,7 @@ function circles_terminal_cmd_disk()
 						_params_array['promptquestion'] = "Confirm to delete "+( ( _sel_n == 1 && _all == 0 ) ? "this disk and the one of the related inverse group element" : ( ( _all ) ? "all disks" : "these disks and the ones of the related inverse group elements" ) )+"? " ;
 						_params_array['yes_fn'] = function() { _delete_disk(); }
 						_params_array['ifquestiondisabled_fn'] = function() { _delete_disk(); }
-						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 						else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                     }
                     else { _b_fail = YES, _error_str = "Memory failure: can't get current disks" ; }

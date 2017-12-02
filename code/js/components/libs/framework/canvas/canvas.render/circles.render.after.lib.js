@@ -128,17 +128,18 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ), _b_clean = safe_int( _b_clean, NO );
     if ( !is_array( _filter_array ) ) _filter_array = [] ;
-    if ( _b_clean && _plane_type == Z_PLANE )
+    if ( _b_clean && _plane_type.is_one_of( Z_PLANE, ALL_PLANES ) )
 	{
-		if ( _layer == null ) _layer : _glob_zplane_work_layer_placeholder ;
+		if ( _layer == null ) _layer = _glob_zplane_work_layer_placeholder ;
 		circles_lib_canvas_clean( _layer, _layer.get_backgroundcolor() );
 	}
-    else if ( _b_clean && _plane_type == W_PLANE )
+    if ( _b_clean && _plane_type.is_one_of( W_PLANE, ALL_PLANES ) )
 	{
-		if ( _layer == null ) _layer : _glob_wplane_work_layer_placeholder ;
+		if ( _layer == null ) _layer = _glob_wplane_work_layer_placeholder ;
 		circles_lib_canvas_clean( _layer, _layer.get_backgroundcolor() );
 	}
-    else if ( _b_clean && _plane_type == BIP_BOX ) circles_lib_canvas_clean( _glob_bipbox_canvas, _glob_bipbox_canvas.get_backgroundcolor() );
+    if ( _b_clean && _plane_type.is_one_of( BIP_BOX, ALL_PLANES ) )
+		circles_lib_canvas_clean( _glob_bipbox_canvas, _glob_bipbox_canvas.get_backgroundcolor() );
 
     if ( safe_size( _glob_figures_array, 0 ) > 0 )
     {
@@ -157,7 +158,7 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
             _rec_chunk = _glob_figures_array[_x], _plane = safe_int( _rec_chunk['plane'], NO_PLANE ) ;
             _enabled = _rec_chunk != null ? safe_int( _rec_chunk['enabled'], NO ) : NO ;
             _filtered = ( _filter_array.length == 0 || _filter_array.includes( _rec_chunk['myhash'] ) ) ? YES : NO ;
-            if ( _enabled && _filtered && _plane.is_one_of( _plane_type ) )
+            if ( _enabled && _filtered && _plane_type.is_one_of( _plane, ALL_PLANES ) )
             {
                 _class = _rec_chunk['class'] ;
                 _obj = _rec_chunk['obj'] ;
@@ -169,7 +170,7 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
                 _close = _rec_chunk['close'] != null ? _rec_chunk['close'] : NO ;
                 _canvas_context = null, _mapper = null ;
                 _radius = _rec_chunk['radius'];
-				_canvas = circles_lib_canvas_layer_find( _rec_chunk['plane'], FIND_LAYER_BY_ROLE_DEF, _rec_chunk['layer'] );
+				_canvas = circles_lib_canvas_layer_find( _plane, FIND_LAYER_BY_ROLE_DEF, _rec_chunk['layer'] );
 
                 switch( _plane )
                 {

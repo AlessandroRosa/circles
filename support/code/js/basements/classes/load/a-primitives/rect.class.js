@@ -109,7 +109,7 @@ rect.prototype.width_height_constructor = function( x1, y1, width, height, _orie
     this.aspect_ratio = this.w / this.h ;
 }
 
-rect.prototype.set_corners = function( _pt1, _pt2, _orientation, notes )
+rect.prototype.set_corners = function( _pt1, _pt2, _orientation = this.orientation, notes = this.notes )
 {
     this.x1 = is_point( _pt1 ) ? _pt1.x : 0, this.y1 = is_point( _pt1 ) ? _pt1.y : 0 ;
     this.x2 = is_point( _pt2 ) ? _pt2.x : 0, this.y2 = is_point( _pt2 ) ? _pt2.y : 0 ;
@@ -224,18 +224,18 @@ rect.prototype.set_corner = function( _pos_str_x, _pos_str_y, _x_val, _y_val )
      
     switch( _pos_str_y )
     {
-       case "top" :
-       if ( this.orientation == _RECT_ORIENTATION_SCREEN ) this.y2 = safe_float( _y_val, 0 ) ;
-       else this.y1 = safe_float( _y_val, 0 ) ;
-       break ;
-       case "bottom" :
-       if ( this.orientation == _RECT_ORIENTATION_SCREEN ) this.y1 = safe_float( _y_val, 0 ) ;
-       else this.y2 = safe_float( _y_val, 0 ) ;
-       break ;
-       default:
-       if ( this.orientation == _RECT_ORIENTATION_SCREEN ) this.y2 = safe_float( _y_val, 0 ) ;
-       else this.y1 = safe_float( _y_val, 0 ) ;
-			 break ;
+        case "top" :
+        if ( this.orientation == _RECT_ORIENTATION_SCREEN ) this.y2 = safe_float( _y_val, 0 ) ;
+        else this.y1 = safe_float( _y_val, 0 ) ;
+        break ;
+        case "bottom" :
+        if ( this.orientation == _RECT_ORIENTATION_SCREEN ) this.y1 = safe_float( _y_val, 0 ) ;
+        else this.y2 = safe_float( _y_val, 0 ) ;
+        break ;
+        default:
+        if ( this.orientation == _RECT_ORIENTATION_SCREEN ) this.y2 = safe_float( _y_val, 0 ) ;
+        else this.y1 = safe_float( _y_val, 0 ) ;
+		break ;
     }
     
     this.correct();
@@ -258,18 +258,18 @@ rect.prototype.get_corner = function( _pos_str_x, _pos_str_y )
      
     switch( _pos_str_y )
     {
-       case "top" :
-       if ( this.orientation == _RECT_ORIENTATION_SCREEN ) _y = this.y2 ;
-       else _y = this.y1 ;
-       break ;
-       case "bottom" :
-       if ( this.orientation == _RECT_ORIENTATION_SCREEN ) _y = this.y1 ;
-       else _y = this.y2 ;
-       break ;
-       default:
-       if ( this.orientation == _RECT_ORIENTATION_SCREEN ) _y = this.y2 ;
-       else _y = this.y1 ;
-			 break ;
+        case "top" :
+        if ( this.orientation == _RECT_ORIENTATION_SCREEN ) _y = this.y2 ;
+        else _y = this.y1 ;
+        break ;
+        case "bottom" :
+        if ( this.orientation == _RECT_ORIENTATION_SCREEN ) _y = this.y1 ;
+        else _y = this.y2 ;
+        break ;
+        default:
+        if ( this.orientation == _RECT_ORIENTATION_SCREEN ) _y = this.y2 ;
+        else _y = this.y1 ;
+		break ;
     }
      
     return { "x" : _x, "y" : _y };
@@ -382,28 +382,35 @@ rect.prototype.side = function()
 
 rect.prototype.rotate = function( _center = null, _rad = 0, _self = 1 )
 {
+	_self = safe_int( _self, 1 );
     var _cos = Math.cos( _rad ), _sin = Math.sin( _rad );
 	if ( !is_point( _center ) ) _center = new point( ( this.x1 + this.x2 ) / 2.0, ( this.y1 + this.y2 ) / 2.0 ) ;
 	var _rect = this.copy();
 	var _lt_pt = new point( _rect.x1, _rect.y1 ), _rb_pt = new point( _rect.x2, _rect.y2 );
-    _lt_pt.shift( -this.center.x, -this.center.y );
-    _rb_pt.shift( -this.center.x, -this.center.y );
+    _lt_pt.shift( -_center.x, -_center.y );
+    _rb_pt.shift( -_center.x, -_center.y );
 
-	_lt_pt.x = _lt_pt.x * _cos - _lt_pt.y * _sin, _lt_pt.y = _lt_pt.x * _sin - _lt_pt.y * _cos ;
-	_rb_pt.x = _rb_pt.x * _cos - _rb_pt.y * _sin, _rb_pt.y = _lt_pt.x * _sin - _rb_pt.y * _cos ;
+	var _tmp_x = _lt_pt.x, _tmp_y = _lt_pt.y ;
+	_lt_pt.x = _tmp_x * _cos - _tmp_y * _sin, _lt_pt.y = _tmp_x * _sin - _tmp_y * _cos ;
+		_tmp_x = _rb_pt.x, _tmp_y = _rb_pt.y ;
+	_rb_pt.x = _tmp_x * _cos - _tmp_y * _sin, _rb_pt.y = _tmp_x * _sin - _tmp_y * _cos ;
 
-	_lt_pt.shift( this.center ) ;
-	_rb_pt.shift( this.center ) ;
+	_lt_pt.shift( _center ) ;
+	_rb_pt.shift( _center ) ;
 
 	if ( _self ) { this.x1 = _lt_pt.x, this.y1 = _lt_pt.y, this.x2 = _rb_pt.x, this.y2 = _rb_pt.y ; }
-	else return _rect ;
+	else
+	{
+		_rect.set_corners( _lt_pt, _rb_pt );
+		return _rect ;
+	}
 }
 
 rect.prototype.shift = function()
 {
 	var _self = 1, _mask = 0 ;
-	if ( is_point( arguments[0] ) ) { _self = safe_int( arguments[1], 0 ) ; _mask = 1 ; }
-	else if ( is_number( arguments[0] ) && is_number( arguments[1] ) ) { _self = safe_int( arguments[2], 0 ) ; _mask = 2 ; }
+	if ( is_point( arguments[0] ) ) { _self = safe_int( arguments[1], 1 ) ; _mask = 1 ; }
+	else if ( is_number( arguments[0] ) && is_number( arguments[1] ) ) { _self = safe_int( arguments[2], 1 ) ; _mask = 2 ; }
 	if ( _self )
 	{
 		switch( _mask )
@@ -414,7 +421,8 @@ rect.prototype.shift = function()
 			break ;
 			case 2: 
 			this.x1 += arguments[0], this.x2 += arguments[0], this.y1 += arguments[1], this.y2 += arguments[1] ;
-			return 1 ; break ;
+			return 1 ;
+			break ;
 			default: return 0 ; break ;
 		}
 	}

@@ -232,7 +232,7 @@ function circles_terminal_cmd_map()
              		 		_params_array['promptquestion'] = "Confirm to clean maps list ?" ;
              		 		_params_array['yes_fn'] = function() { _clean_list(); }
              		 		_params_array['ifquestiondisabled_fn'] = function() { _clean_list(); }
-					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
              		else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
 
                 if ( _output_channel == OUTPUT_TERMINAL )

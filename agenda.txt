@@ -1,3 +1,4 @@
+
 ------------ THEY CAN WAIT --------------------
 * terminal cmd 'canvas':
   - think about the chance to add custom placeholders for custom canvas
@@ -14,8 +15,11 @@
 
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 
-* test all examples in the .hlp files:
-  - point, circle, line, rect, polygon, figures
+* 
+  - figures
+    test all examples in the .hlp file ;
+	+ param isolate @1 : clean the layers and display only the fig @1
+	+ param connect @1 @2 @3 : if  @1 @2 @3 are points, then they are connected by a line bordercolor: bordersize:
 
 -------------- FIX SOON -----------------------
 

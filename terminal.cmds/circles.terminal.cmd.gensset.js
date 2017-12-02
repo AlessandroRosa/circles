@@ -388,7 +388,7 @@ function circles_terminal_cmd_gensset()
 			                   		 		_params_array['promptquestion'] = "Confirm to flush the generator set away ?" ;
 			                   		 		_params_array['yes_fn'] = function() { _bomb_set(); }
 			                   		 		_params_array['ifquestiondisabled_fn'] = function() { _bomb_set(); }
-						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 			            else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                       }
                }
@@ -424,7 +424,7 @@ function circles_terminal_cmd_gensset()
 										                                      circles_lib_output( _output_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
 																											 }
 									     _q_params_array['ifquestiondisabled_fn'] = function() { _exact_fn(); }
-						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
         				else circles_lib_terminal_cmd_ask_yes_no( _q_params_array, _output_channel );
                    }
                    else

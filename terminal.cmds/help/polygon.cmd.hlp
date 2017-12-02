@@ -37,7 +37,7 @@
 <yellow>polygon (0,0) (1,2) (0.4,-0.4) bordercolor:blue fillcolor:cyan zplane $polygon1 rec</yellow>
 <cadetblue>draw a polygon on the Z-plane in blue, close it and paint the interior in cyan, recorded as $polygon1</cadetblue>
 
-<yellow>line (0,0) (1,2) (1,-2) bordercolor:blue zplane fillcolor:yellow close rec</yellow>
+<yellow>polygon (0,0) (1,2) (1,-2) bordercolor:blue zplane fillcolor:yellow close rec</yellow>
 <cadetblue>one more example, here recorded into the</cadetblue> <snow>preset figures array</snow>
 
 <yellow>polygon (0,0) (1,2) (1,-2) bordercolor:blue zplane bordersize:4 opacity:0.8 rec</yellow>

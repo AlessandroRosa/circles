@@ -98,13 +98,13 @@ function circles_lib_terminal_cmd_ask_for_value( _params_array, _reg_expression,
     }
 }
 
-function circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel )
+function circles_lib_terminal_cmd_ask_yes_no( _params_array = [], _output_channel = OUTPUT_TERMINAL )
 {
-		if ( !is_array( _params_array ) )
-		{
-			 circles_lib_output( _output_channel, DISPATCH_ERROR, "Critical fail: no question process available", _param_01 );
-			 return ;
-		}
+	if ( !is_array( _params_array ) )
+	{
+		circles_lib_output( _output_channel, DISPATCH_ERROR, "Critical fail: no question process available", _param_01 );
+		return ;
+	}
     var _question_counter = 1 ;
     var _pre_prompt = safe_string( _params_array['prepromptquestion'], "" ) ;
     var _prompt_question = safe_string( _params_array['promptquestion'], "" ) ;
@@ -112,12 +112,12 @@ function circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel )
     var _ifquestiondisabled_fn = _params_array.associative_key_exists('ifquestiondisabled_fn') ? _params_array['ifquestiondisabled_fn'] : null ;
     var _fn = function(_command)
     {
-       if (_command.match(/\b(y)|(yes)\b/g))
+       if ( /\b(y)|(yes)\b/gi.test( _command ) )
        {
           if ( typeof _yes_fn === "function" ) _yes_fn.call( null );
           for( var _i = 0 ; _i < _question_counter ; _i++ ) _glob_terminal_out_stream.pop();
        }
-       else if (_command.match(/\b(n)|(no)\b/g))
+       else if ( /\b(n)|(no)\b/gi.test( _command ) )
        {
           circles_lib_terminal_info_echo('Operation aborted by user');
           for( var _i = 0 ; _i < _question_counter ; _i++ ) _glob_terminal_out_stream.pop();
@@ -132,8 +132,8 @@ function circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel )
 
     if ( _glob_terminal_questions_enabled && _output_channel == OUTPUT_TERMINAL )
     {
-    	 if ( safe_size( _pre_prompt.trim(), 0 ) > 0 ) _glob_terminal.echo( _pre_prompt ) ;
-       _glob_terminal_out_stream.push( _fn, { prompt: _prompt_question });
+    	if ( safe_size( _pre_prompt.trim(), 0 ) > 0 ) _glob_terminal.echo( _pre_prompt ) ;
+        _glob_terminal_out_stream.push( _fn, { prompt: _prompt_question });
     }
     else if ( _ifquestiondisabled_fn != null ) _ifquestiondisabled_fn.call( null ); //
 }

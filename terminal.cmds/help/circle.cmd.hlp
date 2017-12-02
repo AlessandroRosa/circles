@@ -39,10 +39,7 @@
 <yellow>circle (0,0) radius:1 bordercolor:blue fillcolor:yellow bordersize:7 zplane label:<anything-without-blank-space> rec</yellow>
 <cadetblue>plot it on the Z-plane, paint it yellow with blue border and set border thickness to 3 units, then record it with label $circle1 into the</cadetblue> <snow>preset figures array</snow>
 
-<yellow>circle (0,0) radius:1 bordercolor:blue fillcolor:yellow bordersize:7 zplane label:<anything-without-blank-space> storagein</yellow>
-<cadetblue>same as before, but the circle is recorded into the dedicated storage space</cadetblue>
-
-<yellow>circle (0,0) radius:1 bordercolor:blue fillcolor:yellow bordersize:7 zplane label:<anything-without-blank-space> storagein storagesubset:circles</yellow>
+<yellow>circle (0,0) radius:1 bordercolor:blue fillcolor:yellow bordersize:7 zplane label:<anything-without-blank-space> storagesubset:circles</yellow>
 <cadetblue>same as above, but the line is saved into the 'circles' storage space (if existing)</cadetblue>
 
 <lightgray>-------------------------------</lightgray>

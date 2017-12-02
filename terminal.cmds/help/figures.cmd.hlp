@@ -4,7 +4,7 @@
 
 <lightblue>usage</lightblue> <snow>figures %action% %indexes% %all% %params% %opacity% %bordersizeness% %pos%</snow>
 
-<lightblue>%action%</lightblue> <snow>copy | delete | disable | enable | filter | hide | list | mergerect | render | rotate | show | transfer | update</snow>
+<lightblue>%action%</lightblue> <snow>copy | delete | disable | enable | hide | list | render | rotate | show | transfer | update</snow>
 <lightblue>%pos%</lightblue> <snow>begin | end</snow>
 <lightblue>%indexes%</lightblue> <snow>input index for the figures to be managed</snow>
 <lightblue>%params%</lightblue> <snow>close | open | reverse | noinherit</snow> <orange>(optional)</orange>
@@ -42,17 +42,6 @@
 <lightblue>figures show @1</lightblue>
 <lightblue>figures enable @1</lightblue>
 <cadetblue>enable figure indexed as 1</cadetblue>
-
-<lightblue>figures filter @1</lightblue>
-<cadetblue>plot only that item indexed as 1</cadetblue>
-
-<lightblue>figures mergerect @1 @2</lightblue>
-<cadetblue>given items 1, 2 to be of rect type and having a side in common, they are merged into one rect</cadetblue>
-<cadetblue>the index arguments list can be of arbitrary length</cadetblue>
-<orange>merging rects will be removed from figures list</orange>
-
-<lightblue>figures mergerect @1 @2</lightblue> <orange>keep</orange>
-<orange>merging rects won't be removed from figures list</orange>
 
 <lightblue>figures list</lightblue>
 <cadetblue>return the list of recorded figures (short version)</cadetblue>

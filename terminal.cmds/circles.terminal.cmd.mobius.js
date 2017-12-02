@@ -462,7 +462,7 @@ function circles_terminal_cmd_mobius()
                           circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                        }
              					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _output_channel ); }
-						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
              			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                     }
                     else
@@ -496,7 +496,7 @@ function circles_terminal_cmd_mobius()
                           circles_lib_output( _output_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                        }
             					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _output_channel ); }
-						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
              			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                     }
                     else
@@ -590,7 +590,7 @@ function circles_terminal_cmd_mobius()
 				             		 		_params_array['promptquestion'] = _prompt_question ;
 				             		 		_params_array['yes_fn'] = function() { _delete_map(); }
 				             		 		_params_array['ifquestiondisabled_fn'] = function() { _delete_map(); }
-						if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 				        else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                     }
                     else if ( !is_array( _items_array ) ) { _b_fail = YES, _error_str = "Memory failure: can't get current items" ; }
@@ -711,7 +711,7 @@ function circles_terminal_cmd_mobius()
 													             		 		_params_array['promptquestion'] = _prompt_question ;
 													             		 		_params_array['yes_fn'] = function() { _insert_inverse_mm_obj( ITEM, _obj_index, _output_channel ); }
 													             		 		_params_array['ifquestiondisabled_fn'] = function() { _insert_inverse_mm_obj( ITEM, _obj_index, _output_channel ); }
-										if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+										if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 										else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                                      }
                                 }

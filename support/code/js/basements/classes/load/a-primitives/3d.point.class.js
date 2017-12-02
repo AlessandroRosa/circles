@@ -134,8 +134,8 @@ point_3d.prototype.move = function() { this.shift.apply( this, arguments ) ; }
 point_3d.prototype.shift = function()
 {
 	var _self = 1, _mask = 0 ;
-	if ( is_point_3d( arguments[0] ) ) { _self = safe_int( arguments[1], 0 ) ; _mask = 1 ; }
-	else if ( is_number( arguments[0] ) && is_number( arguments[1] )&& is_number( arguments[2] ) ) { _self = safe_int( arguments[2], 0 ) ; _mask = 2 ; }
+	if ( is_point_3d( arguments[0] ) ) { _self = safe_int( arguments[1], 1 ) ; _mask = 1 ; }
+	else if ( is_number( arguments[0] ) && is_number( arguments[1] )&& is_number( arguments[2] ) ) { _self = safe_int( arguments[2], 1 ) ; _mask = 2 ; }
 	if ( _self )
 	{
 		switch( _mask )
@@ -167,18 +167,20 @@ point_3d.prototype.rotate = function( center_pt, _rot_x_rad, _rot_y_rad, _rot_z_
     pt.x -= center_pt.x, pt.y -= center_pt.y, pt.z -= center_pt.z ;
       
     // rotate about z-axis
-    pt.x = pt.x * Math.cos( _rot_x_rad ) - pt.y * Math.sin( _rot_x_rad ) ;
-    pt.y = pt.x * Math.sin( _rot_x_rad ) + pt.y * Math.cos( _rot_x_rad ) ;
+	var _tmp_x = pt.x, _tmp_y = _pt.y, _tmp_z = _pt.z ;
+    pt.x = _tmp_x * Math.cos( _rot_x_rad ) - _tmp_y * Math.sin( _rot_x_rad ) ;
+    pt.y = _tmp_x * Math.sin( _rot_x_rad ) + _tmp_y * Math.cos( _rot_x_rad ) ;
 
     // rotate about y-axis
-    pt.x = pt.x * Math.cos( _rot_y_rad ) - pt.z * Math.sin( _rot_y_rad ) ;
-    pt.z = pt.x * Math.sin( _rot_y_rad ) + pt.z * Math.cos( _rot_y_rad ) ;
+    pt.x = _tmp_x * Math.cos( _rot_y_rad ) - _tmp_z * Math.sin( _rot_y_rad ) ;
+    pt.z = _tmp_x * Math.sin( _rot_y_rad ) + _tmp_z * Math.cos( _rot_y_rad ) ;
 
     // rotate about x-axis
-    pt.y = pt.y * Math.cos( _rot_z_rad ) - pt.z * Math.sin( _rot_z_rad ) ;
-    pt.z = pt.y * Math.sin( _rot_z_rad ) + pt.z * Math.cos( _rot_z_rad ) ;
+    pt.y = _tmp_y * Math.cos( _rot_z_rad ) - _tmp_z * Math.sin( _rot_z_rad ) ;
+    pt.z = _tmp_y * Math.sin( _rot_z_rad ) + _tmp_z * Math.cos( _rot_z_rad ) ;
       
-    pt.x += center_pt.x, pt.y += center_pt.y, pt.z += center_pt.z ;
+    _tmp_x += center_pt.x, _tmp_y += center_pt.y, _tmp_z += center_pt.z ;
+	pt.x = _tmp_z, pt.y = _tmp_y, pt.z = _tmp_z ;
     return pt ;
 }
 

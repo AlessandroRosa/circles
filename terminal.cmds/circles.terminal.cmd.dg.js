@@ -201,7 +201,7 @@ function circles_terminal_cmd_dg()
 					_params_array['promptquestion'] = "Confirm to delete all registered groups ? " ;
 					_params_array['yes_fn'] = function() { _glob_groups_table = []; circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All entries have been deleted", _par_1, _cmd_tag ); }
 					_params_array['ifquestiondisabled_fn'] = function() { _glob_groups_table = []; }
-					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
 				}
 				else circles_lib_output( _output_channel, DISPATCH_INFO, "No registered entries", _par_1, _cmd_tag );
@@ -259,7 +259,7 @@ function circles_terminal_cmd_dg()
 					_params_array['promptquestion'] = "Confirm to call the group #"+_index+" in ? (y/n) : " ;
 					_params_array['yes_fn'] = function() { _call_group(); }
 					_params_array['ifquestiondisabled_fn'] = function() { _call_group(); }
-					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
@@ -273,7 +273,7 @@ function circles_terminal_cmd_dg()
 						_params_array['promptquestion'] = "Confirm to clean the whole groups list ?" ;
 						_params_array['yes_fn'] = function() { _glob_groups_table.flush(); }
 						_params_array['ifquestiondisabled_fn'] = function() { _glob_groups_table.flush(); }
-					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
@@ -391,7 +391,7 @@ function circles_terminal_cmd_dg()
 					else _params_array['promptquestion'] = "Confirm to delete the registered group with index #"+_index+" ? " ;
 					_params_array['yes_fn'] = function() { _delete_group(); }
 					_params_array['ifquestiondisabled_fn'] = function() { _delete_group(); }
-					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;

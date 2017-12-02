@@ -228,7 +228,7 @@ function circles_terminal_cmd_target()
 							             _params_array['promptquestion'] = _prompt_question ;
 							             _params_array['yes_fn'] = function() { reset_fn(); }
 							             _params_array['ifquestiondisabled_fn'] = function() { reset_fn(); }
-					   if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					   if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 					   circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                        break ;
                        default: break ;

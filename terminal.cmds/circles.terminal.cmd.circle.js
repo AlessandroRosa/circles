@@ -47,6 +47,7 @@ function circles_terminal_cmd_circle()
         // distribute all input values into arrays of categories
         _params_assoc_array['rec'] = NO ;
         _params_assoc_array['copy'] = NO ;
+        _params_assoc_array['rad'] = NO ;
         _params_assoc_array['label'] = "" ;
 		_params_assoc_array['layer'] = "work" ;
         _params_assoc_array['propertiesmask'] = 0 ;
@@ -66,8 +67,7 @@ function circles_terminal_cmd_circle()
             else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
             else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
             else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p.toLowerCase();
-            else if ( _p.stricmp( "rec" ) ) _params_assoc_array['rec'] = YES ;
-            else if ( _p.is_one_of_i( "storagein" ) ) _params_assoc_array['params'].push( _p ) ;
+            else if ( _p.is_one_of_i( "deg", "rec" ) ) _params_assoc_array[_p] = YES ;
             else if ( _p.start_with( "storagesubset:" ) ) _params_assoc_array['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
             else if ( _p.start_with_i( "$" ) )
             {
@@ -103,12 +103,13 @@ function circles_terminal_cmd_circle()
 				if ( _p.testME( _glob_sector_regex_pattern ) )
 				{
 					_p = _p.replaceAll( [ "[", "]" ], "" ).split( "," );
-					_msg = "<lightblue>Detected sector range syntax</lightblue> <snow>from "+_p[0]+"</snow> to <snow>"+_p[1]+"</snow>" ;
+					_msg = "<lightblue>Found sector range syntax</lightblue> <snow>from "+_p[0]+"</snow> to <snow>"+_p[1]+"</snow>" ;
+					_msg += "<gray>\nInput angle mode in "+(_params_assoc_array['rad']?"radians":"degrees")+"</gray>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 					//before converting to radians, values will be adapted for
 					//rendering sectors according to the standard counter-clockwise orientation
-					_params_assoc_array['sector_start'] = radians( -_p[1] );
-					_params_assoc_array['sector_end'] = radians( -_p[0] );
+					_params_assoc_array['sector_start'] = _params_assoc_array['rad'] ? safe_float(-_p[1],0) : radians( -_p[1] );
+					_params_assoc_array['sector_end'] = _params_assoc_array['rad'] ? safe_float(-_p[0],0) : radians( -_p[0] );
 					_msg = "<lightblue>Sector has been set </lightblue> <snow>from "+_p[1]+" to "+_p[0]+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}

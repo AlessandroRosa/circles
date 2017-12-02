@@ -123,7 +123,7 @@ function circles_terminal_cmd_repetends()
 																															}
 																													}
 							             	_params_array['ifquestiondisabled_fn'] = function() { circles_lib_terminal_close( _output_channel ); }
-							if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+							if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 							else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                          }
                          else circles_lib_output( _output_channel, DISPATCH_WARNING, "The repetends list is already empty", _par_1, _cmd_tag );
@@ -193,7 +193,7 @@ function circles_terminal_cmd_repetends()
 													                                 }
 																											 }
 									             	_params_array['ifquestiondisabled_fn'] = function() { removal_fn( _termination ); }
-								if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+								if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 								else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                             }
                             else circles_lib_output( _output_channel, DISPATCH_WARNING, "The repetends list is already empty", _par_1, _cmd_tag );

@@ -52,7 +52,7 @@
 <yellow>rect wplane fillcolor:blue x > -1 x < 1 y < 2 opacity:0.4 clean</yellow>
 <cadetblue>A band delimited by the lines x = -1 and x = 1, extending from y = 2 downwards to infinity</cadetblue>
 
-<yellow>rect wplane fillcolor:lime x > -1 x < 1 y > -2 y < 2 opacity:0.4 clean</yellow>
+<yellow>rect zplane fillcolor:lime x > -1 x < 1 y > -2 y < 2 opacity:0.4 clean</yellow>
 <cadetblue>With four inequalities, an ordinary rectangle is given</cadetblue>
 
 <yellow>rect wplane fillcolor:lime bordercolor:green bordersize:4 x > -1 x < 1 y > -1 y < 1 opacity:0.4 clean</yellow>

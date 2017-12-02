@@ -340,7 +340,7 @@ function circles_terminal_cmd_layer()
 									_params_array['promptquestion'] = "Confirm to delete "+_action_params_array['plane']+" layer '"+_action_params_array['roledef']+"' ?" ;
 									_params_array['yes_fn'] = function() { _delete_layer(); }
 									_params_array['ifquestiondisabled_fn'] = function() { _delete_layer(); }
-								if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+								if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 								else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                             }
                           }
@@ -406,7 +406,7 @@ function circles_terminal_cmd_layer()
 					_params_array['promptquestion'] = "Restore default settings ?" ;
 					_params_array['yes_fn'] = function() { _restore_defaults(); }
 					_params_array['ifquestiondisabled_fn'] = function() { _restore_defaults(); }
-					if ( _glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
                 }
                 break ;
