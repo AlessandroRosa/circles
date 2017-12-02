@@ -203,14 +203,14 @@ function circles_terminal_cmd_polygon()
 				  
 				  if ( !_b_fail )
 				  {
-					  circles_lib_draw_polyline( _canvas_context, _mapper, _params_assoc_array['vertexes'], _bordercolor, _fillcolor, _bordersize, _params_assoc_array['close'], _opacity, UNDET, _params_assoc_array['propertiesmask'], YES );
+					  circles_lib_draw_polyline( _canvas_context, _mapper, _params_assoc_array['vertexes'], _bordercolor, _fillcolor, _bordersize, YES, _opacity, UNDET, _params_assoc_array['propertiesmask'], YES );
 					  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['plane'] ) + ")</snow> <green>Polygon processed with success</green>", _par_1, _cmd_tag );
 
 					  if ( _params_assoc_array['rec'] == YES )
 					  {
 						var _rec_chunk = [];
 						_rec_chunk['class'] = FIGURE_CLASS_POLYGON ;
-						_rec_chunk['close'] = _params_assoc_array['close'] ;
+						_rec_chunk['close'] = YES ;
 						_rec_chunk['border'] = _border ;
 						_rec_chunk['bordercolor'] = _bordercolor ;
 						_rec_chunk['enabled'] = YES ;

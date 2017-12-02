@@ -19,14 +19,13 @@ function circles_lib_canvas_get_topmost( _plane_type )
     return _ret_canvas ;
 }
 
-function circles_lib_canvas_get_from_role( _plane_type, _role )
+function circles_lib_canvas_get_from_role( _plane_type = NO_PLANE, _role = ROLE_NONE )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    _role = safe_float( _role, ROLE_NONE );
+    _plane_type = circles_lib_return_plane_type( _plane_type ), _role = safe_float( _role, ROLE_NONE );
     return circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_INDEX, _role );
 }
 
-function circles_lib_canvas_clean( _canvas, _color = "", _output_channel = OUTPUT_SCREEN )
+function circles_lib_canvas_clean( _canvas = null, _color = "", _output_channel = OUTPUT_SCREEN )
 {
     _color = safe_string( _color, "" ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     var _bk = is_html_canvas( _canvas ) ? safe_string( _canvas.get_backgroundcolor(), "" ) : "" ;

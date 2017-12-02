@@ -43,13 +43,10 @@
 <yellow>polygon (0,0) (1,2) (1,-2) bordercolor:blue zplane bordersize:4 opacity:0.8 rec</yellow>
 <cadetblue>another example with opacity (ranging from 0 to 1 )</cadetblue>
 
-<yellow>line release</yellow>
+<yellow>polygon release</yellow>
 <cadetblue>return the latest release date for this command</cadetblue>
 
-<yellow>------------- PROPERTIES ----------------</yellow>
-<lightblue>mark</lightblue> <snow>Mark the points of the input (poly)line</snow>
-
-<yellow>------------- NOTES ----------------</yellow>
+<<yellow>------------- NOTES ----------------</yellow>
 <turquoise>Note (1)</turquoise>
 <cadetblue>%thickness% %opacity% must be input according to the above params sequence</cadetblue>
 <turquoise>Note (2)</turquoise> <cadetblue>$labels can be used to refer to figures, as alternative to indexes</cadetblue>

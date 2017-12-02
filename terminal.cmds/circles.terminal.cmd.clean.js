@@ -74,14 +74,14 @@ function circles_terminal_cmd_clean()
 					case "z-plane":
 					case "zplane":
 					var _layers_pile = circles_lib_canvas_layer_pile_get(Z_PLANE) ;
-					_layers_pile.forEach( function( _layer ) { circles_lib_canvas_clean( _layer, "", _output_channel ); } );
+					_layers_pile.forEach( function( _layer ) { circles_lib_canvas_clean( _layer, _layer.get_backgroundcolor(), _output_channel ); } );
 					circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, NO, NO, YES, NO, _output_channel ) ;
 					circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Z-plane has been cleaned with success", _par_1, _cmd_tag );
 					break ;
 					case "w-plane":
 					case "wplane":
 					var _layers_pile = circles_lib_canvas_layer_pile_get(W_PLANE) ;
-					_layers_pile.forEach( function( _layer ) { circles_lib_canvas_clean( _layer, "", _output_channel ); } );
+					_layers_pile.forEach( function( _layer ) { circles_lib_canvas_clean( _layer, _layer.get_backgroundcolor(), _output_channel ); } );
 					circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, NO, NO, YES, _output_channel ) ;
 					circles_lib_output( _output_channel, DISPATCH_SUCCESS, "W-plane has been cleaned with success", _par_1, _cmd_tag );
 					break ;

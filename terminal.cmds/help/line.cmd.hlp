@@ -49,9 +49,6 @@
 <yellow>line release</yellow>
 <cadetblue>return the latest release date for this command</cadetblue>
 
-<yellow>------------- PROPERTIES ----------------</yellow>
-<lightblue>mark</lightblue> <snow>Mark the points of the input (poly)line</snow>
-
 <yellow>------------- NOTES ----------------</yellow>
 <turquoise>Note (1)</turquoise>
 <cadetblue>%thickness% %opacity% must be input according to the above params sequence</cadetblue>

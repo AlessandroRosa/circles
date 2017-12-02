@@ -45,7 +45,6 @@ function circles_terminal_cmd_circle()
         }
 				 
         // distribute all input values into arrays of categories
- 		_params_assoc_array = [] ;
         _params_assoc_array['rec'] = NO ;
         _params_assoc_array['copy'] = NO ;
         _params_assoc_array['label'] = "" ;
@@ -205,14 +204,12 @@ function circles_terminal_cmd_circle()
     else if ( !_b_fail )
     {
          var _action = _params_assoc_array['action'] ;
-         var _storage_queue_request = _params_assoc_array['params'] != null ? ( _params_assoc_array['params'].includes_i( "storagein" ) ? YES : NO ) : NO ;
          switch( _action )
          {
             case "release":
             circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
             break ;
             default:
-            // checking input errors
             if ( _params_assoc_array['help'] == NO && !_b_fail )
             {
                    if ( _params_assoc_array['label'].length > 0 && _params_assoc_array['rec'] == NO )
@@ -298,7 +295,7 @@ function circles_terminal_cmd_circle()
                        else
                        {
                            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['plane'] ) + ")</snow> <green>Circle drawn with success</green>", _par_1, _cmd_tag );
-                           if ( _params_assoc_array['rec'] == YES || _storage_queue_request )
+                           if ( _params_assoc_array['rec'] == YES )
                            {
                                var _rec_chunk = [];
                                    _rec_chunk['class'] = FIGURE_CLASS_CIRCLE ;
@@ -317,8 +314,6 @@ function circles_terminal_cmd_circle()
                                    _rec_chunk['propertiesmask'] = _params_assoc_array['propertiesmask'] ;
                                    _glob_figures_array.push( _rec_chunk );
           
-                                   if ( _storage_queue_request )
-                                   {
                                        var _subset = _params_assoc_array['storagesubset'] ;
                                        if ( is_array( _glob_storage[_subset] ) )
                                        {
@@ -327,9 +322,8 @@ function circles_terminal_cmd_circle()
                                            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                                        }
                                        else circles_lib_output( _output_channel, DISPATCH_WARNING, "'"+_subset+"' does not refer to any valid storage space subset", _par_1, _cmd_tag );
-                                   }
-          
-                                   circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Circle recorded with success", _par_1, _cmd_tag );
+
+							    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Circle recorded with success", _par_1, _cmd_tag );
                             }
                        }
                    }

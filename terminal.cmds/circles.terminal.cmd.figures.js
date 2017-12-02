@@ -201,7 +201,7 @@ function circles_terminal_cmd_figures()
 
            switch( _action )
            {
-			    case "bomb":
+				case "bomb":
 				var _n_figures = _glob_figures_array.length ;
 				if ( _n_figures == 0 )  circles_lib_output( _output_channel, DISPATCH_WARNING, "The list of recorded figures is empty: no need to delete'em all", _par_1, _cmd_tag );
 				else
@@ -388,18 +388,18 @@ function circles_terminal_cmd_figures()
                 if ( _glob_figures_array.length > 0 )
                 {
                     // rebuild hash tags after previous deletion
-                    circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding hash tags", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding the hash table", _par_1, _cmd_tag );
                     for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ )
                     {
                          if ( _glob_figures_array.check_descendent_properties( _i, 'myhash' ) != null )
                               _glob_figures_array[_i]['myhash'] = "rec"+(_i+1);
-                         else { _b_fail = YES, _error_str = "Can't rebuild: memory failure at index "+(_i+1); break ; }
+                         else { _b_fail = YES, _error_str = "Can't rebuild has table: memory failure at figure index #"+(_i+1); break ; }
                     }
     
                     if ( !_b_fail )
-                    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Hash tags rebuilt with success", _par_1, _cmd_tag );
+                    circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Hash table has been rebuilt with success", _par_1, _cmd_tag );
                 }
-                else circles_lib_output( _output_channel, DISPATCH_WARNING, "Figures list is empty", _par_1, _cmd_tag );
+                else circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't rebuild the hash table: figures list is empty", _par_1, _cmd_tag );
                 break;
                 case "render":
                 var _filter_array = [] ;
@@ -419,13 +419,13 @@ function circles_terminal_cmd_figures()
                 circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Drawing "+( ( _n_input_index > 0 ) ? "filtered" : "" )+" figures list", _par_1, _cmd_tag );
                 break ;
 				case "rotate":
-				if ( _params_assoc_array['settings']['center'] == null ) { _b_fail = YES ; _error_str = "Missing rotation center" ; }
+				if ( _params_assoc_array['center'] == null ) { _b_fail = YES ; _error_str = "Missing rotation center" ; }
 				else if ( _params_assoc_array['rotationangle'] == null ) { _b_fail = YES ; _error_str = "Missing rotation angle" ; }
 				else
 				{
-					var _clone = _params_assoc_array['clone'], _center = _params_assoc_array['settings']['center'] ;
+					var _clone = _params_assoc_array['clone'], _center = _params_assoc_array['center'] ;
 					var _rot_angle = _params_assoc_array['rotationangle'] ;
-					var _idx_array = _params_assoc_array['input_values'], _params_array = _params_assoc_array['input_params'] ;
+					var _idx_array = _params_assoc_array['figures_ref'] ;
 					var _obj = null, _new_obj = null, _idx ;
 					rotateloop:
 					for( var _i = 0 ; _i < _idx_array.length ; _i++ )
@@ -438,28 +438,31 @@ function circles_terminal_cmd_figures()
 								switch( _glob_figures_array[_idx]['class'] )
 								{
 									case FIGURE_CLASS_CIRCLE:
-									_new_obj = obj.rotate( _center, _rot_angle 0 ) ;
+									_new_obj = _obj.rotate( _center, _rot_angle, 0 ) ;
 									break ;
 									case FIGURE_CLASS_LINE:
-									_new_obj = obj.rotate( _center, _rot_angle, 0 ) ;
+									_new_obj = _obj.rotate( _center, _rot_angle, 0 ) ;
 									break ;
 									case FIGURE_CLASS_POINT:
-									_new_obj = obj.rotate( _center, _rot_angle, 0 ) ;
+									_new_obj = _obj.rotate( _center, _rot_angle, 0 ) ;
 									break ;
 									case FIGURE_CLASS_POLYGON:
-									_new_obj = obj.rotate( _center, _rot_angle, 0 ) ;
+									_new_obj = _obj.rotate( _center, _rot_angle, 0 ) ;
 									break ;
 									case FIGURE_CLASS_RECT:
-									_new_obj = obj.rotate( _center, _rot_angle, 0 ) ;
+									_new_obj = _obj.rotate( _center, _rot_angle, 0 ) ;
 									break ;
 									default:
 									break rotateloop ;
 									break ;
 								}
+								
 								if ( _clone ) 
 								{
-									var _new_chunk = _glob_figures_array[_idx].clone_associative();
-									_new_chunk['obj'] = _new_obj.rotate( _center, 1 ) ;
+									var _new_fig = _glob_figures_array[_idx].clone_associative();
+									_new_fig['obj'] = _new_obj ;
+									_new_fig['myhash'] = "rec"+(_glob_figures_array.length+1);
+									_glob_figures_array.push( _new_fig );
 									circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Figure @'"+(_idx+1)+"' has been rotated and cloned with success", _par_1, _cmd_tag );
 								}
 								else
