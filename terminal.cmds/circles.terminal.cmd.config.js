@@ -60,7 +60,7 @@ function circles_terminal_cmd_config()
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      else if ( _params.length > 0 )
      {
-        _params_array.clean_from( " " ); 
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         var _p, _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
         for( var _i = 0 ; _i < _up_to_index ; _i++ )
         {

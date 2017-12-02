@@ -27,7 +27,7 @@ function circles_terminal_cmd_pixels()
          _params_assoc_array['action'] = "" ;
          
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); 
+         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "on", "off", "bomb", "size", "release", "html" );

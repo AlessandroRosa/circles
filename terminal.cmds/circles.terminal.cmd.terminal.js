@@ -12,7 +12,7 @@ function circles_terminal_cmd_terminal()
 
          _params = safe_string( _params, "" ).trim();
      var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); _params_array.clean_from( "" );
+         _params_array.clean_from( " " ); _params_array.clean_from( "" ); _params_array.clean_from( "" );
 
      var _params_assoc_array = [];
      if ( is_array( _params ) )

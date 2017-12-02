@@ -28,7 +28,7 @@ function circles_terminal_cmd_savepix()
         _params_assoc_array['plane'] = _glob_target_plane ;
          
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-        _params_array.clean_from( " " ); 
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
     	var _local_cmds_params_array = [];
     	_local_cmds_params_array.push( "bip", "wplane", "zplane", "bipbox", "w-plane", "z-plane", "release", "html", "help" );

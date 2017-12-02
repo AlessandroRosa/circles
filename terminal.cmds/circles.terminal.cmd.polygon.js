@@ -23,7 +23,7 @@ function circles_terminal_cmd_polygon()
     {
         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-        _params_array.clean_from( " " ); 
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
     	var _local_cmds_params_array = [ "zplane", "wplane", "bip", "rec", "release", "html", "help" ];
         //circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );

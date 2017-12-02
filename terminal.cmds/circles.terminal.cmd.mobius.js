@@ -60,7 +60,7 @@ function circles_terminal_cmd_mobius()
         _params_assoc_array['a'] = null, _params_assoc_array['b'] = null, _params_assoc_array['c'] = null, _params_assoc_array['d'] = null ;
 
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-        _params_array.clean_from( " " ); 
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
     	var _local_cmds_params_array = [];
     		_local_cmds_params_array.push( "fill", "nofill", "draw", "nodraw", "on", "off", "disabled" );

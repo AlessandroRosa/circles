@@ -24,7 +24,7 @@ function circles_terminal_cmd_deg()
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); 
+         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {

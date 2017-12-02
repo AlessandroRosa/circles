@@ -36,7 +36,7 @@ function circles_terminal_cmd_symbol()
         _params_assoc_array['param'] = "" ;
          
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-        _params_array.clean_from( " " ); 
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
     	var _local_cmds_params_array = [];
     	_local_cmds_params_array.push( "all", "auto", "change", "clean", "force", "forward", "backward",

@@ -564,57 +564,57 @@ function circles_lib_figures_action( _output_channel = OUTPUT_SCREEN, _action = 
         var _n = safe_size( _glob_figures_array, 0 );
         if ( _n > 0 )
         {
-             var _myhash, _hash_table = [], _plane = safe_int( _plane_type, NO_PLANE ), _p ;
-             for( var _h = 0 ; _h < _index_array.length ; _h++ )
-             {
+            var _myhash, _hash_table = [], _plane = safe_int( _plane_type, NO_PLANE ), _p ;
+            for( var _h = 0 ; _h < _index_array.length ; _h++ )
+            {
                 _p = safe_int( _index_array[_h]-1, 0 );
                 if ( _glob_figures_array[ _p ] != null ) _hash_table.push( _glob_figures_array[_p]['myhash'] );
-             }
+            }
 
-             for( var _x = 0 ; _x < _glob_figures_array.length ; _x++ )
-             {
-                   _myhash = _glob_figures_array[_x]['myhash'] ; // zero-based index
-                   if ( _hash_table.includes( _myhash ) )
-                   {
-                        _myhash = safe_int( _myhash.replaceAll( "rec", "" ), UNDET );
-                        switch( _action )
-                        {
-                            case "delete":
-                            _glob_figures_array.remove( _x, _x );
-                            if ( _glob_terminal_echo_flag )
-                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" deleted", _param_01 );
-                            _x = -1 ;
-                            _refresh = YES ;
-                            break ;
-                            case "disable":
-                            case "hide":
-                            _glob_figures_array[_x]['enabled'] = NO ;
-                            if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" disabled", _param_01 );
-                            _refresh = YES ;
-                            break ;
-                            case "enable":
-                            case "show":
-                            _glob_figures_array[_x]['enabled'] = YES ;
-                            if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" enabled", _param_01 );
-                            _refresh = YES ;
-                            break ;
-                            case "transfer":
-                            _glob_figures_array[_x]['plane'] = _plane ;
-                            if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" transfered to " + circles_lib_plane_def_get(_plane), _param_01 );
-                            _refresh = YES ;
-                            break ;
-						    default: break ;
-                        }
-                   }
-                   else { _b_fail = YES ; _error_str = "Can't "+_action+": index must be greater than zero" ; }
-             }
+            for( var _x = 0 ; _x < _glob_figures_array.length ; _x++ )
+            {
+                _myhash = _glob_figures_array[_x]['myhash'] ; // zero-based index
+                if ( _hash_table.includes( _myhash ) )
+                {
+                    _myhash = safe_int( _myhash.replaceAll( "rec", "" ), UNDET );
+                    switch( _action )
+                    {
+                        case "delete":
+                        _glob_figures_array.remove( _x, _x );
+                        if ( _glob_terminal_echo_flag )
+                        circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" deleted", _param_01 );
+                        _x = -1 ;
+                        _refresh = YES ;
+                        break ;
+                        case "disable":
+                        case "hide":
+                        _glob_figures_array[_x]['enabled'] = NO ;
+                        if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" disabled", _param_01 );
+                        _refresh = YES ;
+                        break ;
+                        case "enable":
+                        case "show":
+                        _glob_figures_array[_x]['enabled'] = YES ;
+                        if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" enabled", _param_01 );
+                        _refresh = YES ;
+                        break ;
+                        case "transfer":
+                        _glob_figures_array[_x]['plane'] = _plane ;
+                        if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item #"+(_myhash+1)+" transfered to " + circles_lib_plane_def_get(_plane), _param_01 );
+                        _refresh = YES ;
+                        break ;
+					    default: break ;
+                    }
+                }
+                else { _b_fail = YES ; _error_str = "Can't "+_action+": index must be greater than zero" ; }
+            }
 
-             if ( _action.stricmp( "delete" ) && _glob_figures_array.length > 0 )
-             {
-                 // rebuild hash tags after previous operations
-                 if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding hash tags", _param_01 );
-                 for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ ) _glob_figures_array[_i]['myhash'] = "rec"+(_i-1);
-             }
+            if ( _action.stricmp( "delete" ) && _glob_figures_array.length > 0 )
+            {
+                // rebuild hash tags after previous operations
+                if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding hash tags", _param_01 );
+                for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ ) _glob_figures_array[_i]['myhash'] = "rec"+(_i-1);
+            }
 
              circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
         }
@@ -622,20 +622,6 @@ function circles_lib_figures_action( _output_channel = OUTPUT_SCREEN, _action = 
     }
     else { _b_fail = YES ; _error_str = "Can't "+_action+": missing index to candidate item" ; }
 
-    if ( _refresh )
-    {
-        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
-        var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-        var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
-        if ( _ret_id == RET_OK )
-        {
-           // no render, just draw other stuff
-           _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, NO, YES, NO, YES, _output_channel );
-           _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-           _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown message" ;
-           if ( _ret_id == RET_ERROR ) { _b_fail = YES, _error_str = _ret_msg ; }
-        }
-        else { _b_fail = YES, _error_str = _ret_msg ; }
-    }
+    if ( _refresh ) circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
     return [ _b_fail, _error_str ] ;
 }

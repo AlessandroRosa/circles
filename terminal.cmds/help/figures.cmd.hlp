@@ -4,7 +4,7 @@
 
 <lightblue>usage</lightblue> <snow>figures %action% %indexes% %all% %params% %opacity% %bordersizeness% %pos%</snow>
 
-<lightblue>%action%</lightblue> <snow>copy | delete | disable | enable | hide | list | render | rotate | show | transfer | update</snow>
+<lightblue>%action%</lightblue> <snow>copy | connect | delete | disable | enable | hide | isolate | list | render | rotate | show | transfer | update</snow>
 <lightblue>%pos%</lightblue> <snow>begin | end</snow>
 <lightblue>%indexes%</lightblue> <snow>input index for the figures to be managed</snow>
 <lightblue>%params%</lightblue> <snow>close | open | reverse | noinherit</snow> <orange>(optional)</orange>
@@ -27,11 +27,14 @@
 <lightblue>figures disable @1</lightblue>
 <cadetblue>disable figure indexed as 1 (disabled figures are not displayed)</cadetblue>
 
+<lightblue>figures isolate @1 @n</lightblue>
+<cadetblue>show only the input indexed figures temporarily: visibility flag for hidden figures is restored after visualization</cadetblue>
+
+<lightblue>figures isolate @1 @n permanent</lightblue>
+<cadetblue>show only the input indexed figure permanently: visibility flag for hidden figures is not restored after visualization</cadetblue>
+
 <lightblue>figures render</lightblue>
 <cadetblue>render all recorded figures</cadetblue>
-
-<lightblue>figures render @1 @3</lightblue>
-<cadetblue>render only the recorded figures with index 1 and 3</cadetblue>
 
 <lightblue>figures rotate @1 center:(0,0) rad:val %clone%</lightblue>
 <cadetblue>rotate the recorded figure with index 1 by an angle input in radians</cadetblue>

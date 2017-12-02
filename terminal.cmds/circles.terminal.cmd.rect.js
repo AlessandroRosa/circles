@@ -38,7 +38,7 @@ function circles_terminal_cmd_rect()
 
 		var _labels = [ "x1", "y1", "x2", "y2" ], _coords_got_em = [] ;
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-        _params_array.clean_from( " " ); 
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
     	var _local_cmds_params_array = [ "release", "clean", "zplane", "wplane", "html", "rec" ];
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );

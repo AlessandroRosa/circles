@@ -215,7 +215,6 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
 				    default: break ;
                 }
             }
-			else return NO ;
         }
     }
 	else return NO ;

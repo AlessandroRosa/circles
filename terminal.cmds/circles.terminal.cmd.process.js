@@ -31,7 +31,7 @@ function circles_terminal_cmd_process()
         _params_assoc_array['process_def'] = "" ;
          
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-        _params_array.clean_from( " " ); 
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
   		var _local_cmds_params_array = [];
     	_local_cmds_params_array.push( PROCESS_BREADTHFIRST_CMD_DEF, PROCESS_RANDOM_CMD_DEF, PROCESS_INDEXSEARCH_CMD_DEF,

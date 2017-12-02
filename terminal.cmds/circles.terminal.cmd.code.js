@@ -30,7 +30,7 @@ function circles_terminal_cmd_code()
     else
     {
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-        _params_array.clean_from( " " ); 
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
 
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 		_params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;

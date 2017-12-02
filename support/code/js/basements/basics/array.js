@@ -287,13 +287,13 @@ if ( !Array.prototype.clean_from )
 {
     Array.prototype.clean_from = function()
     {
-    		var _ret, _i ;
-				var _is_fn = typeof arguments[0] === "function" ? 1 : 0, _ret = 0 ;
+    	var _ret, _i ;
+		var _is_fn = typeof arguments[0] === "function" ? 1 : 0, _ret = 0 ;
         var _arg = arguments[0] ;
-			  var _ref = arguments[1] == null ? this : arguments[1] ;
-			  var _parent_ref = arguments[2] == null ? this : arguments[2] ;
-			  var _prop_key = arguments[3] == null ? "" : arguments[3] ;
-				for ( var _property in _ref )
+		var _ref = arguments[1] == null ? this : arguments[1] ;
+		var _parent_ref = arguments[2] == null ? this : arguments[2] ;
+		var _prop_key = arguments[3] == null ? "" : arguments[3] ;
+		for ( var _property in _ref )
         {
             if ( _ref.hasOwnProperty( _property ) )
             {
