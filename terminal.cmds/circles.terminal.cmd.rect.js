@@ -189,7 +189,7 @@ function circles_terminal_cmd_rect()
 				_params_assoc_array['bordercolor'] = safe_string( _p.replace( /bordercolor:/gi, "" ), "" ) ;
 				if ( circles_lib_colors_is_def( _params_assoc_array['bordercolor'] ) )
 				{
-					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['bordercolor']+"</snow>" ;
+					_msg = "<lightblue>Border color has been set to</lightblue> <snow>"+_params_assoc_array['bordercolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
 				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; }

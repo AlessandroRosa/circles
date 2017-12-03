@@ -22,8 +22,8 @@ var _demon = new demo_n();
 
     _demon.add( { pre_fn : function()
                   {
-					 var _msg = "In this example, we'll build a 2-generators Fuchsian group by constructing the pairs of disks" ;
-						 _msg += "\nGroups are termed &lsquo;Fuchsian&rsquo; when their limit set is a circle." ;
+					 var _msg = "In this example, we'll build a 2-generators Fuchsian group by constructing the pairs of disks." ;
+						 _msg += "<br>Groups are termed &lsquo;Fuchsian&rsquo; when their limit set is a circle." ;
                      $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
                      $( "#presentation_div" ).html( _msg ) ;
                   },

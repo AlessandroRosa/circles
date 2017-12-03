@@ -308,11 +308,11 @@ function CIRCLESformsDISCRETENESSLOCUS_WORK_canvas_onmousemove( obj, event )
 
        circles_lib_canvas_clean( obj );
        circles_lib_draw_polyline( obj.getContext( _glob_canvas_ctx_2D_mode ), dlocus_sm,
-			 											CIRCLESformsDISCRETENESSLOCUStmpVARS['screen_rect'].corners(),
+			 											CIRCLESformsDISCRETENESSLOCUStmpVARS['screen_rect'].get_corners(),
 														"#45D845", "", 2, YES, DEFAULT_MAX_OPACITY, UNDET, 0, NO );
        /*
        circles_lib_draw_polyline( obj.getContext( _glob_canvas_ctx_2D_mode ), dlocus_sm,
-			 											CIRCLESformsDISCRETENESSLOCUSzoom_complex_rect.corners(),
+			 											CIRCLESformsDISCRETENESSLOCUSzoom_complex_rect.get_corners(),
 														"#45D845", "", 2, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
                             */
     }

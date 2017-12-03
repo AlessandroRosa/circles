@@ -199,7 +199,7 @@ rect.prototype.stretch_top = function( _h ) { return new rect( this.x1, this.y1 
 rect.prototype.stretch_right = function( _w )  { return new rect( this.x1, this.y1, this.x2 + _w, this.y2, this.orientation, this.notes ) ; }
 rect.prototype.stretch_bottom = function( _h ) { return new rect( this.x1, this.y1, this.x2, this.y2 - _h, this.orientation, this.notes ) ; }
 rect.prototype.shrink = function( _size ) { _size = safe_float( _size, 0 ) ; return new rect( this.x1 + _size, this.y1 + _size, this.x2 - _size, this.y2 - _size, this.orientation, this.notes ) ; }
-rect.prototype.corners = function() // returns the array of corners
+rect.prototype.get_corners = function() // returns the array of get_corners
 {
      return [ new point( this.x1, this.y1 ), new point( this.x2, this.y1 ),
               new point( this.x2, this.y2 ), new point( this.x1, this.y2 ) ];
@@ -414,7 +414,7 @@ rect.prototype.rotate = function( _center = null, _rad = 0, _self = 1, _ret_rect
 									  new point( this.x2, this.y2 ), // right-bottom pt
 									  new point( this.x1, this.y2 )  // left-bottom pt
 									] );
-		_polygon.rotate( _center, _rad, 1 );
+		_polygon.rotate( _center, _rad );
 		return _polygon ;
 	}
 }
@@ -517,8 +517,8 @@ rect.prototype.join_rect = function( _rect2 )
 {
     if ( this.orientation != _rect.orientation ) return null ;
     var _b_found = 0, _match_counter = 0, _pts_array = [];
-    var _this_rect_corners = this.corners() ;
-    var _rect2_corners = _rect2.corners() ;
+    var _this_rect_corners = this.get_corners() ;
+    var _rect2_corners = _rect2.get_corners() ;
     var _r1 = 0, _r2 = 0 ;
     for( _r1 = 0 ; _r1 <= 3 ; _r1++ )
     {

@@ -9,9 +9,11 @@ function CIRCLESformsDISCRETENESSLOCUSdiagramBOX( POPUP_WIDTH, POPUP_HEIGHT )
         HTMLcode += "<table>";
         HTMLcode += "<tr>" ;
         HTMLcode += "<td WIDTH=\"3\"></td>" ;
-        HTMLcode += "<td>Complex pt<td><td WIDTH=\"4\"></td><td HEIGHT=\"22\"><INPUT TYPE=\"edit\" STYLE=\"width:240px;\" ID=\"CIRCLESformsDISCRETENESSLOCUSpickedCOMPLEXPT\"></td>";
+        HTMLcode += "<td>Type a complex value here<td><td WIDTH=\"4\"></td><td HEIGHT=\"22\"><INPUT TYPE=\"edit\" STYLE=\"width:240px;\" ID=\"CIRCLESformsDISCRETENESSLOCUSpickedCOMPLEXPT\"></td>";
         HTMLcode += "<td WIDTH=\"3\"></td>" ;
         HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPT(null,1);\"><IMG TITLE=\"Plot point\" ID=\"CIRCLESformsDISCRETENESSLOCUSplotCOMPLEXPTicon\" SRC=\"%imgpath%icons/brush/brush.icon.01.20x20.png\"></td>" ;
+        HTMLcode += "<td WIDTH=\"3\"></td>" ;
+        HTMLcode += "<td>or pick it up from the diagram below<td>";
         HTMLcode += "</tr>";
         HTMLcode += "</table>";
         HTMLcode += "</td></tr>" ;

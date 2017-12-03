@@ -15,8 +15,12 @@
 
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 
-* 'figures' cmd: check that actions are suitably endowed with 'all' param
-* improve demo #16 with figures command
+* 'figures' cmd:
+   - check that actions are suitably endowed with 'all' param
+   - figures show all does not work because function 'circles_lib_figures_action' does not
+     accept parameter 'all' to work out the whole figures_array, as done in the 'figure' command
+     for the isolate 'all' for example
+   - test 'disconnect' action with lines and polygons
 
 -------------- FIX SOON -----------------------
 

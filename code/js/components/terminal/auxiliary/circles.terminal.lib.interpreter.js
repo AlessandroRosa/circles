@@ -10,9 +10,7 @@ function circles_lib_terminal_interpreter( _cmd, _terminal, _output_channel )
        _glob_terminal_current_cmd = _cmd_tag ;
        var _ret_cmd = circles_lib_terminal_exec( _cmd_tag, _params_str, _terminal, _output_channel );
          
-       if ( function_exists( "CIRCLESformsTERMINALpurgecmdUPDATEstatus" ) )
-			 CIRCLESformsTERMINALpurgecmdUPDATEstatus( _glob_terminal_form_suffix ) ;
-
+       if ( function_exists( "CIRCLESformsTERMINALpurgecmdUPDATEstatus" ) ) CIRCLESformsTERMINALpurgecmdUPDATEstatus( _glob_terminal_form_suffix ) ;
        if ( _output_channel == OUTPUT_FUNCTION ) return _ret_cmd ;
     }
     else return null ;
@@ -49,20 +47,20 @@ function circles_lib_terminal_exec( _input_str_01, _input_str_02, _terminal, _ou
     }
     else
     {
-       var _cmd_tag = _input_str_01, _params_str = _input_str_02 ;
-	     if ( !_glob_code_run_cmds_array.includes( _cmd_tag ) )
-	     {
-          var _ret_chunk = circles_lib_terminal_load_cmd( _cmd_tag, _params_str, _output_channel, TERMINAL_CMD_MODE_ACTIVE );
-		      var _ret_id = safe_int( _ret_chunk[0], 0 );
-		      var _ret_msg = safe_string( _ret_chunk[1], "Memory failure: resource data for cmd '"+_cmd_tag+"' is not available." );
-		      if ( !_ret_id ) circles_lib_terminal_error_echo( _ret_msg );
-          if ( _output_channel == OUTPUT_FUNCTION ) return _ret_chunk ;
-			 }
-			 else
-       {
-          var _ret_cmd = circles_lib_process_cmd( _cmd_tag, _params_str, _output_channel, TERMINAL_CMD_MODE_ACTIVE );
-          if ( _output_channel == OUTPUT_FUNCTION ) return _ret_cmd ;
-       }
+        var _cmd_tag = _input_str_01, _params_str = _input_str_02 ;
+	    if ( !_glob_code_run_cmds_array.includes( _cmd_tag ) )
+	    {
+			var _ret_chunk = circles_lib_terminal_load_cmd( _cmd_tag, _params_str, _output_channel, TERMINAL_CMD_MODE_ACTIVE );
+		    var _ret_id = safe_int( _ret_chunk[0], 0 );
+		    var _ret_msg = safe_string( _ret_chunk[1], "Memory failure: resource data for cmd '"+_cmd_tag+"' is not available." );
+		    if ( !_ret_id ) circles_lib_terminal_error_echo( _ret_msg );
+			if ( _output_channel == OUTPUT_FUNCTION ) return _ret_chunk ;
+		}
+		else
+        {
+			var _ret_cmd = circles_lib_process_cmd( _cmd_tag, _params_str, _output_channel, TERMINAL_CMD_MODE_ACTIVE );
+			if ( _output_channel == OUTPUT_FUNCTION ) return _ret_cmd ;
+        }
     }
 }
 
@@ -72,8 +70,7 @@ function circles_lib_terminal_load_cmd( _expression, _params_str, _output_channe
     var _cmd_tag = _expression.includes( " " ) ? ( _expression.split( " " ) )[0] : _expression ;
     $.ajaxSetup( {async:false} );
     var _filename = "circles.terminal.cmd." + _cmd_tag + ".js", _ret_cmd = false ;
-    if ( _glob_code_run_cmds_array.includes( _cmd_tag ) )
-	  return circles_lib_process_cmd( _cmd_tag, _params_str, _output_channel, _cmd_mode, _caller_id );
+    if ( _glob_code_run_cmds_array.includes( _cmd_tag ) ) return circles_lib_process_cmd( _cmd_tag, _params_str, _output_channel, _cmd_mode, _caller_id );
     else if ( check_file_exists( _glob_terminal_cmds_path + _filename ) )
     {
 			 $.getScript( _glob_terminal_cmds_path + _filename ).done(
@@ -116,22 +113,22 @@ function circles_lib_process_cmd( _cmd_tag, _params_str, _output_channel, _cmd_m
     }
     else if ( function_exists( _sub_fn ) )
     {
-    	 var _full_cmd = _sub_fn + "( '"+_params_str+"', "+_output_channel+", '', "+_cmd_mode+", '"+_caller_id+"' )" ;
-       var _out = "" ;
-       try { _out = eval( _full_cmd ); }
-			 catch( _err )
-			 {
-					_out = "Runtime error : "+_err+_glob_crlf+" fail to execute cmd '"+_cmd_tag+"'" ;
-          _out += _glob_crlf + _err.message ;
-			 }
+	    var _full_cmd = _sub_fn + "( '"+_params_str+"', "+_output_channel+", '', "+_cmd_mode+", '"+_caller_id+"' )" ;
+        var _out = "" ;
+        try { _out = eval( _full_cmd ); }
+		catch( _err )
+		{
+			_out = "Runtime error : "+_err+_glob_crlf+" fail to execute cmd '"+_cmd_tag+"'" ;
+			_out += _glob_crlf + _err.message ;
+		}
 
-       if ( !_glob_code_run_cmds_array.includes( _cmd_tag ) ) _glob_code_run_cmds_array.push( _cmd_tag );
-       return [ RET_OK, _out ] ;
+        if ( !_glob_code_run_cmds_array.includes( _cmd_tag ) ) _glob_code_run_cmds_array.push( _cmd_tag );
+        return [ RET_OK, _out ] ;
     }
     else
     {
-       circles_lib_terminal_error_echo( "Memory failure: resource data for cmd '"+_cmd_tag+"' is not available." );
-       return [ RET_ERROR, "Memory failure: resource data for cmd '"+_cmd_tag+"' is not available" ] ;
+        circles_lib_terminal_error_echo( "Memory failure: resource data for cmd '"+_cmd_tag+"' is not available." );
+        return [ RET_ERROR, "Memory failure: resource data for cmd '"+_cmd_tag+"' is not available" ] ;
     }
 }
 

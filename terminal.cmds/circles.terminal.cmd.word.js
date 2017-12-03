@@ -528,7 +528,7 @@ function circles_terminal_cmd_word()
                                                _properties_mask, YES );
                           break ;
                           case FIGURE_CLASS_RECT:
-                          _pts_array.push( _obj.corners().clone() );
+                          _pts_array.push( _obj.get_corners().clone() );
                           if ( _borderradius )
                           circles_lib_draw_rounded_rect( _canvas_context, _mapper, _obj,
                                                   _border, _bordercolor, _fill, _fillcolor,

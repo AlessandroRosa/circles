@@ -28,7 +28,7 @@ function circles_terminal_cmd_figures()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" );
 
-    	var _local_cmds_params_array = [ "bomb", "close", "connect", "copy",
+    	var _local_cmds_params_array = [ "bomb", "close", "connect", "copy", "disconnect",
                 "delete", "disable", "bordercolor",
                 "enable", "fill", "fillcolor", "isolate",
                 "keep", "list", "long", "open", "permanent", "rec",
@@ -88,7 +88,7 @@ function circles_terminal_cmd_figures()
 					}
 				}
             }
-            else if ( _p.is_one_of_i( "bomb", "copy", "connect", "isolate", "delete", "disable", "render", "hide", "show", "rotate",
+            else if ( _p.is_one_of_i( "bomb", "copy", "connect", "disconnect", "isolate", "delete", "disable", "render", "hide", "show", "rotate",
                       "enable", "list", "transfer", "release", "shift", "rebuild", "swap", "update" ) )
 			{
 				if ( _params_assoc_array['action'] == "update" )
@@ -314,7 +314,7 @@ function circles_terminal_cmd_figures()
 						circles_lib_terminal_interpreter( _cmd.join( " " ), _glob_terminal, _output_channel );
 					}
 					
-					if ( !_b_fail ) circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
+					if ( !_b_fail && _rec ) circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
 				}
                 else if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Copy failure: missing input indexes" ; }
 				break;
@@ -352,13 +352,80 @@ function circles_terminal_cmd_figures()
                 }
                 else if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Copy failure: missing input indexes" ; }
                 break ;
+				case "disconnect":
+				_params_assoc_array['figures_ref'] = _params_assoc_array['figures_ref'].unique();
+                if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Can't "+_action+" : missing input indexes" ; }
+                else
+				{
+					var _figures_ref = _all ? _glob_figures_array : _params_assoc_array['figures_ref'] ;
+					var _virtual_index, _zerobased_index, _rec_chunk ;
+					var _pts_idx_array = [] ;
+					var _cmd_lines = [] ;
+					connectloop:
+					for( var _idx = 0 ; _idx < _figures_ref.length ; _idx++ )
+					{
+						if ( !_all )
+						{
+							_virtual_index = _figures_ref[_idx] ;
+							_zerobased_index = _virtual_index - 1, _index = UNDET ;
+							_rec_chunk = _glob_figures_array[_zerobased_index] ;
+						}
+						else { _virtual_index = _idx + 1; _rec_chunk = _glob_figures_array[_idx] ; }
+						console.log( _rec_chunk );
+                        if ( _rec_chunk != null )
+                        {
+							switch( _rec_chunk['class'] )
+							{
+								case FIGURE_CLASS_CIRCLE:
+								_b_fail = YES ; _error_str = "Fail to perform disconnection: figure @"+_virtual_index+" cannot be disconnected" ;
+								break connectloop ;
+								break ;
+								case FIGURE_CLASS_LINE:
+								var _cmd = [] ;
+									if ( is_point( _rec_chunk['obj'][0] ) ) _cmd.push( _rec_chunk['obj'][0].output("cartesian") ) ;
+									if ( is_point( _rec_chunk['obj'][1] ) ) _cmd.push( _rec_chunk['obj'][1].output("cartesian") ) ;
+									if ( _rec ) _cmd.push( "rec" );
+									if ( _rec_chunk['planedef'] != null ) _cmd.push( _rec_chunk['planedef'] );
+									if ( _rec_chunk['layer'] != null ) _cmd.push( "layer:"+_rec_chunk['layer'] );
+									if ( _rec_chunk['bordercolor'] != null ) _cmd.push( "bordercolor:"+_rec_chunk['bordercolor'] );
+									if ( _rec_chunk['bordersize'] != null ) _cmd.push( "bordersize:"+_rec_chunk['bordersize'] );
+									circles_lib_terminal_interpreter( "point "+( _cmd.join(" ") ), _glob_terminal, _output_channel );
+								break ;
+								case FIGURE_CLASS_POLYGON:
+								var _pts = _rec_chunk['obj'].get_vertexes();
+								var _cmd = [] ;
+									_pts.forEach( function( _pt ){ if ( is_point( _pt ) ) _cmd.push( _rec_chunk['obj'][0].output("cartesian") ) ; } ) ;
+									if ( _rec ) _cmd.push( "rec" );
+									if ( _rec_chunk['planedef'] != null ) _cmd.push( _rec_chunk['planedef'] );
+									if ( _rec_chunk['layer'] != null ) _cmd.push( "layer:"+_rec_chunk['layer'] );
+									if ( _rec_chunk['bordercolor'] != null ) _cmd.push( "bordercolor:"+_rec_chunk['bordercolor'] );
+									if ( _rec_chunk['bordersize'] != null ) _cmd.push( "bordersize:"+_rec_chunk['bordersize'] );
+									circles_lib_terminal_interpreter( "point "+( _cmd.join(" ") ), _glob_terminal, _output_channel );
+								break ;
+								case FIGURE_CLASS_RECT:
+								_pts_idx_array = _pts_idx_array.concat( _rec_chunk['obj'].get_corners() );
+								break ;
+								case FIGURE_CLASS_POINT:
+								_b_fail = YES ; _error_str = "Fail to perform disconnection: figure @"+_virtual_index+" is already a point cannot be disconnected" ;
+								break ;
+								default:
+								_b_fail = YES ; _error_str = "Fail to perform disconnection: figure @"+_virtual_index+" is of unknown type" ;
+								break connectloop ;
+								break ;
+							}
+						}
+					}
+
+					if ( !_b_fail && _rec ) circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
+				}
+				break ;
                 case "delete":
                 case "disable":
                 case "enable":
                 case "hide":
                 case "show":
                 case "transfer":
-                if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Can't "+_action+" : missing input indexes" ; }
+                if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Can't "+_action+" : missing input indexes" ; }
                 else
                 {
 					var _params_array = [] ;
@@ -432,7 +499,7 @@ function circles_terminal_cmd_figures()
 						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lime>Temporary graphic isolation performed with success for figures</lime> <white>"+_pts_idx_array.join( ", " )+"</white>", _par_1, _cmd_tag );
 						circles_lib_canvas_afterrender_figures_draw( [], YES, ALL_PLANES );
 
-						if ( !_permanent )
+						if ( _permanent )
 						{
 							_glob_figures_array.forEach( function( _rec_chunk ){
 								var _idx = safe_int( _rec_chunk['myhash'].replace( /^rec/g, "" ), -1 ) ;
@@ -440,7 +507,7 @@ function circles_terminal_cmd_figures()
 							} );
 							circles_lib_output( _output_channel, DISPATCH_INFO, "Permament flag is on: visibility for hidden elements has been restored after visualization", _par_1, _cmd_tag );
 						}
-						else circles_lib_output( _output_channel, DISPATCH_INFO, "Permament flag is on: visibility for hidden elements has not been restored after visualization", _par_1, _cmd_tag );
+						else circles_lib_output( _output_channel, DISPATCH_INFO, "Permament flag is off: visibility for hidden elements has not been restored after visualization", _par_1, _cmd_tag );
 					}
 				}
 				break
@@ -498,7 +565,7 @@ function circles_terminal_cmd_figures()
 					var _rot_angle = _params_assoc_array['rotationangle'] ;
 					var _figures_ref = _all ? _glob_figures_array : _params_assoc_array['figures_ref'] ;
 					var _virtual_index, _zerobased_index, _rec_chunk ;
-					var _obj = null, _new_obj = null, _idx ;
+					var _obj = null, _new_obj = null, _idx, _class ;
 					rotateloop:
 					for( var _idx = 0 ; _idx < _figures_ref.length ; _idx++ )
 					{
@@ -508,11 +575,11 @@ function circles_terminal_cmd_figures()
 							_zerobased_index = _virtual_index - 1, _index = UNDET ;
 							_rec_chunk = _glob_figures_array[_zerobased_index] ;
 						}
-						else { _virtual_index = _idx + 1; _rec_chunk = _glob_figures_array[_idx] ; }
+						else { _virtual_index = _idx + 1; _rec_chunk = _glob_figures_array[_idx].clone_associative() ; }
                         if ( _rec_chunk != null )
                         {
-							_obj = _rec_chunk['obj'] ;
-							switch( _rec_chunk['class'] )
+							_obj = _rec_chunk['obj'], _class = _rec_chunk['class'] ;
+							switch( _class )
 							{
 								case FIGURE_CLASS_CIRCLE:
 								_new_obj = _obj.rotate( _center, _rot_angle, 0 ) ;
@@ -534,18 +601,19 @@ function circles_terminal_cmd_figures()
 								
 							if ( _rec ) 
 							{
-								var _new_fig = _glob_figures_array[_idx].clone_associative();
+								var _new_fig = _glob_figures_array[_zerobased_index].clone_associative();
 								_new_fig['obj'] = _new_obj ;
-								_new_fig['myhash'] = "rec"+(_glob_figures_array.length-1);
+								if ( _class == FIGURE_CLASS_RECT ) _new_fig['class'] = FIGURE_CLASS_POLYGON ;
 								_glob_figures_array.push( _new_fig );
-								if ( _rec_chunk['class'] == FIGURE_CLASS_RECT ) _glob_figures_array[_glob_figures_array.length-1]['class'] = FIGURE_CLASS_POLYGON ;
-								circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Figure @'"+(_idx+1)+"' has been rotated and cloned with success", _par_1, _cmd_tag );
+								_new_fig['myhash'] = "rec"+(_glob_figures_array.length-1);
+								circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Figure @"+_virtual_index+" has been rotated and cloned with success", _par_1, _cmd_tag );
 							}
 							else
 							{
-								if ( _rec_chunk['class'] == FIGURE_CLASS_RECT ) _glob_figures_array[_idx]['class'] = FIGURE_CLASS_POLYGON ;
-								_glob_figures_array[_idx]['obj'] = _new_obj.clone() ;
-								circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Figure @'"+(_idx+1)+"' has been rotated with success", _par_1, _cmd_tag );
+								if ( _class == FIGURE_CLASS_RECT ) _class = FIGURE_CLASS_POLYGON ;
+								_glob_figures_array[_zerobased_index]['obj'] = _new_obj.clone() ;
+								_glob_figures_array[_zerobased_index]['class'] = _class ;
+								circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Figure @"+_virtual_index+" has been rotated with success", _par_1, _cmd_tag );
 							}
 						}
 					}
@@ -625,6 +693,7 @@ function circles_terminal_cmd_figures()
                 else
 				{
 		 			circles_lib_figures_update_manager( _output_channel, _params_assoc_array['update_props'], _par_1, _cmd_tag );
+					circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Properties have been updated with success", _par_1, _cmd_tag );
 					circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
 				}
                 break ;

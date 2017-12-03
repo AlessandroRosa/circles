@@ -33,7 +33,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             _text_array.push( "Draw " + ( _fig_obj['border'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['bordercolor'] );
-            _text_array.push( "Draw color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
+            _text_array.push( "Border color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['fillcolor'] );
             _text_array.push( "Fill color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _text_array.push( "Opacity " + _fig_obj['opacity'] );
@@ -47,7 +47,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             _text_array.push( "Draw " + ( _fig_obj['border'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['bordercolor'] );
-            _text_array.push( "Draw color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
+            _text_array.push( "Border color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['fillcolor'] );
             _text_array.push( "Fill color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _text_array.push( "Enabled " + ( _fig_obj['enabled'] ? "yes" : "no" ) );
@@ -59,7 +59,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             _text_array.push( "Draw " + ( _fig_obj['border'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['bordercolor'] );
-            _text_array.push( "Draw color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
+            _text_array.push( "Border color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['fillcolor'] );
             _text_array.push( "Fill color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _text_array.push( "Enabled " + ( _fig_obj['enabled'] ? "yes" : "no" ) );
@@ -71,7 +71,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
             _text_array.push( "Draw " + ( _fig_obj['border'] ? "yes" : "no" ) );
             _text_array.push( "Fill " + ( _fig_obj['fill'] ? "yes" : "no" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['bordercolor'] );
-            _text_array.push( "Draw color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
+            _text_array.push( "Border color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _clr_formats = circles_lib_colors_get_formats( _fig_obj['fillcolor'] );
             _text_array.push( "Fill color " + ( _clr_formats[0] == RET_OK ? ( safe_size( _clr_formats[3], 0 ) > 0 ? _clr_formats[3] : _clr_formats[1] ) : "none" ) );
             _text_array.push( "Enabled " + ( _fig_obj['enabled'] ? "yes" : "no" ) );
@@ -113,8 +113,7 @@ function circles_lib_figures_find_duplicates( _class, _plane, _obj, _haystack )
 function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _upd_props = [] )
 {
     // separate entries of indexes from properties to be updated
-	var _all = _upd_props['all'] ? 1 : 0 ;
-	var _figures_ref = _all ? _glob_figures_array : _upd_props['figures_ref'] ;
+	var _all = _upd_props['all'] ? 1 : 0, _figures_ref = _all ? _glob_figures_array : _upd_props['figures_ref'] ;
     // check input params to be coherent with each obj properties
     var _point_props_tarray = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'plane', 'enabled' ];
     var _rect_props_array = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'borderradius', 'plane', 'enabled' ];

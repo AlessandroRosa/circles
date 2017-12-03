@@ -183,7 +183,7 @@ function circles_terminal_cmd_plot()
 					                         {
 					                             ITEM.screen_circle.draw = ITEM.complex_circle.draw = YES ;
 					                             ITEM.screen_circle.bordercolor = ITEM.complex_circle.bordercolor = _params_assoc_array['extras']['bordercolor'] ;
-					                             circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Draw color set up to '"+_params_assoc_array['extras']['bordercolor']+"' with success for item '"+_symbol+"'", _par_1, _cmd_tag );
+					                             circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Border color set up to '"+_params_assoc_array['extras']['bordercolor']+"' with success for item '"+_symbol+"'", _par_1, _cmd_tag );
 					                         }
 					
 					                         if ( safe_size( _params_assoc_array['extras']['fillcolor'], 0 ) > 0 )

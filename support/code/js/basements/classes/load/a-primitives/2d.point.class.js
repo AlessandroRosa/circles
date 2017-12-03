@@ -256,7 +256,7 @@ point.prototype.circ_lattice = function( _n_sectors, _n_circles, _shift, _from_r
          {
             _rad_angle = _rot_angle * _s ;
             if ( ( _from_rad == _to_rad && _from_rad == 0 && _to_rad == 0 ) || ( _rad_angle >= _from_rad && _rad_angle <= _to_rad ) )
-            _lattice.push( _rot_pt.rotate( _start_pt, _rad_angle ) );
+            _lattice.push( _rot_pt.rotate( _start_pt, _rad_angle, 0 ) );
          }
        }
 

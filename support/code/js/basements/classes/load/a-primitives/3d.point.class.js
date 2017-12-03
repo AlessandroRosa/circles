@@ -126,7 +126,7 @@ point_3d.prototype.conj_y = function() { return new point( this.x, -this.y, this
 point_3d.prototype.conj_z = function() { return new point( this.x, this.y, -this.z ); }
 point_3d.prototype.is_finite = function()			      { return ( is_infinity( this.x ) || is_infinity( this.y ) || is_infinity( this.z ) ) ? 0 : 1 ; }
 point_3d.prototype.opposite = function() { return new point( -this.x, -this.y, -this.z ) ; }
-point_3d.prototype.antipodal = function( _center ) { return this.shift( -_center.x, -_center.y, -_center.z ).opposite().shift( _center.x, _center.y, _center.z ) ; }
+point_3d.prototype.antipodal = function( _center ) { return this.shift( -_center.x, -_center.y, -_center.z, 0 ).opposite().shift( _center.x, _center.y, _center.z, 0 ) ; }
 point_3d.prototype.infinity_pt = function() { return new point( Infinity, Infinity ) ; }
 point_3d.prototype.origin = function() { return new point_3d( 0, 0, 0 ) ; }
 

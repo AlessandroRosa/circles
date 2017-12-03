@@ -149,15 +149,15 @@ line.prototype.rotate = function( _center = null, _rad = 0, _self = 1 )
 	if ( !is_point( _center ) ) _center = new point( ( this.start_pt.x + this.end_pt.x ) / 2.0, ( this.start_pt.y + this.end_pt.y ) / 2.0 );
 	if ( _self )
 	{
-		this.start_pt = this.start_pt.rotate( _center, _rad );
-		this.end_pt = this.end_pt.rotate( _center, _rad );
+		this.start_pt.rotate( _center, _rad );
+		this.end_pt.rotate( _center, _rad );
 		return is_point( this.start_pt ) && is_point( this.end_pt ) ? 1 : 0 ;
 	}
 	else
 	{
 		var _c = this.copy();
-		_c.start_pt = _c.start_pt.rotate( _center, _rad );
-		_c.end_pt = _c.end_pt.rotate( _center, _rad );
+		_c.start_pt = _c.start_pt.rotate( _center, _rad, 1 );
+		_c.end_pt = _c.end_pt.rotate( _center, _rad, 1 );
 		return _c ;
 	}
 }

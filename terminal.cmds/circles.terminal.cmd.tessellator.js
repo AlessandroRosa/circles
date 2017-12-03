@@ -251,7 +251,7 @@ function circles_terminal_cmd_tessellator()
                                     _glob_seeds_array = [];
                                     for( var _i = 0 ; _i < _n_circles ; _i++ )
                                     {
-                                        _rotated_pt = _complex_center.rotate( new complex( _rotation_center.x, _rotation_center.y ), _i * _sector_rad );
+                                        _rotated_pt = _complex_center.rotate( new complex( _rotation_center.x, _rotation_center.y ), _i * _sector_rad, 0 );
                                         _center_pt = new point( _rotated_pt.real, _rotated_pt.imag );
                                         _glob_seeds_array.push( new item_obj( null, new circle( _center_pt, _radius ), null,
                                                                               "", 0,

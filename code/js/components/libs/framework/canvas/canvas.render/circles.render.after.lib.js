@@ -204,6 +204,7 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
                     _bordercolor, _fillcolor, _bordersize, YES, _opacity, UNDET, _properties_mask, YES );
                     break ;
                     case FIGURE_CLASS_RECT:
+					console.log( _obj );
                     if ( _borderradius )
                     circles_lib_draw_rounded_rect( _canvas_context, _mapper,
                     _obj, _border, _bordercolor, _fill, _fillcolor, _bordersize, _borderradius, YES, _opacity, _properties_mask );

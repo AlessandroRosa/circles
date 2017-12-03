@@ -153,13 +153,13 @@ circle.prototype.rotate = function( _center = null, _rad = 0, _self = 1 )
 	if ( !is_point( _center ) ) return 0 ;
 	else if ( _self )
 	{
-		this.center = this.center.rotate( _center, _rad );
+		this.center.rotate( _center, _rad );
 		return 1 ;
 	}
 	else
 	{
 		var _c = this.copy();
-		_c.center = _c.center.rotate( _center, _rad );
+		_c.center = _c.center.rotate( _center, _rad, 0 );
 		return _c ;
 	}
 }

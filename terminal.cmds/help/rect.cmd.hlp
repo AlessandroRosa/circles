@@ -19,7 +19,7 @@
 
 <lightblue>%bordersize%</lightblue> <snow>border size in pixels</snow> (optional)
 
-<lightblue>%borderradius%</lightblue> <snow>for rectangles with rounded corners</snow> (optional)
+<lightblue>%borderradius%</lightblue> <snow>for rectangles with rounded get_corners</snow> (optional)
 
 <lightblue>%fillcolor%</lightblue> <snow>fill color</snow> (optional)
 

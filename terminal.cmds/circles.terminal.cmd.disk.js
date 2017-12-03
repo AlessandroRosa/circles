@@ -167,7 +167,7 @@ function circles_terminal_cmd_disk()
 				if ( circles_lib_colors_is_def( _params_assoc_array['bordercolor'] ) )
 				{
 					_params_assoc_array['border'] = _params_assoc_array['bordercolor'].stricmp("transparent") ? 0 : 1 ;
-					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['bordercolor']+"</snow>" ;
+					_msg = "<lightblue>Border color has been set to</lightblue> <snow>"+_params_assoc_array['bordercolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
 				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; break ; }
@@ -1282,7 +1282,7 @@ function circles_terminal_cmd_disk()
                             {
                                 _complex_center = new complex( _cc.center.x, _cc.center.y );
  								_symbol = _items_array[_i].symbol ;
-                                _rotated_center = _complex_center.rotate( _rotation_center, _angle_rad );
+                                _rotated_center = _complex_center.rotate( _rotation_center, _angle_rad, 0 );
 								_items_array[_i].complex_circle.center = new point( _rotated_center.real, _rotated_center.imag );
  								circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Disk '"+_symbol+"' rotated", _par_1, _cmd_tag );
                             }

@@ -287,7 +287,7 @@ function _doctor_scan_items_integrity( _items_array, _output_channel, _par_1, _s
                 _error_scan |= 4 ;
                 _error_counter++ ;
                 circles_lib_output( _output_channel, DISPATCH_WARNING, "Warning: disk '"+_current_symbol+"' colors are empty and palette is not flagged for use", _par_1, _src );
-                circles_lib_output( _output_channel, DISPATCH_WARNING, "Draw color reset to 'black'. Fill color, if required, could be manually set", _par_1, _src );
+                circles_lib_output( _output_channel, DISPATCH_WARNING, "Border color reset to 'black'. Fill color, if required, could be manually set", _par_1, _src );
                 _items_array[_i].complex_circle.bordercolor = DEFAULT_COLOR_STD ;
             }
 

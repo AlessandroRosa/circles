@@ -438,7 +438,7 @@ function circle_terminal_cmd_display_disk_item( ITEM, _i, _output_channel, _para
           var _fillcolor_array = _fillcolor != "none" ? circles_lib_colors_get_formats( _fillcolor ) : null ;
           var _fillcolor_tag = _fillcolor_array != null ? _fillcolor_array[3] : "" ;
 
-          _out_string += _glob_crlf + "Draw color <snow>" + _bordercolor + ( _bordercolor_tag.length > 0 ? " ( "+_bordercolor_tag+" )" : "" ) + "</snow>" ;
+          _out_string += _glob_crlf + "Border color <snow>" + _bordercolor + ( _bordercolor_tag.length > 0 ? " ( "+_bordercolor_tag+" )" : "" ) + "</snow>" ;
           _out_string += _glob_crlf + "Fill color <snow>" + _fillcolor + ( _fillcolor_tag.length > 0 ? " ( "+_fillcolor_tag+" )" : "" ) + "</snow>" ;
        }
                  

@@ -285,7 +285,7 @@ to cartesian plane.
 Use "display_to_cartesian" here.
 
 Moreover , this last function shifts the new cartesian rectangle region to the center
-point of region being delimited by the left-up and right-down corners I mentioned above.
+point of region being delimited by the left-up and right-down get_corners I mentioned above.
 
   LU : left-up corner point in cartesian coordinates
   RD : Right corner point in cartesian coordinates

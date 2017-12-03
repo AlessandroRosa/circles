@@ -198,7 +198,7 @@ function Z_PLANE_work_canvas_onmousemove( obj, event )
         _glob_zoom_rect.correct();
         _mouse_event_context = obj.getContext( _glob_canvas_ctx_2D_mode );
         circles_lib_canvas_clean( obj );
-        circles_lib_draw_polyline( _mouse_event_context, zplane_sm, _glob_zoom_rect.corners(), _glob_zplaneMOUSEprocSWITCH == MOUSE_ZOOM_PROC_ID ? "lime" : "cadetblue", "", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
+        circles_lib_draw_polyline( _mouse_event_context, zplane_sm, _glob_zoom_rect.get_corners(), _glob_zplaneMOUSEprocSWITCH == MOUSE_ZOOM_PROC_ID ? "lime" : "cadetblue", "", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
     }
 }
 

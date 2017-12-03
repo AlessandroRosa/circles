@@ -82,7 +82,7 @@ function CIRCLESformsGEOMETRICTRANSFORMrotate( _question, _silent, _output_chann
                {
                   circle_center = new complex( complex_circle.center.x, complex_circle.center.y );
                   circle_radius = complex_circle.radius ;
-                  circle_center = circle_center.rotate( new complex( 0.0, 0.0 ), ROTATEangleRAD );
+                  circle_center = circle_center.rotate( new complex( 0.0, 0.0 ), ROTATEangleRAD, 0 );
                   _items_array[INDEX].complex_circle.center.x = circle_center.r();
                   _items_array[INDEX].complex_circle.center.y = circle_center.i();
 

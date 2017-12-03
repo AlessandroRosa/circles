@@ -11,7 +11,7 @@ function circles_terminal_cmd_line()
      if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
      var _error_str = "" ;
      var _out_text_string = "" ;
@@ -45,11 +45,12 @@ function circles_terminal_cmd_line()
          _params_assoc_array['help'] = NO ;
          _params_assoc_array['keywords'] = NO ;
          _params_assoc_array = [] ;
-         _params_assoc_array['polyline'] = [] ;
+         _params_assoc_array['points'] = [] ;
          _params_assoc_array['close'] = NO ;
          _params_assoc_array['propertiesmask'] = 0 ;
          _params_assoc_array['rec'] = NO ;
          _params_assoc_array['label'] = "" ;
+		 _params_assoc_array['points'] = [] ;
          _params_assoc_array['params'] = [] ;
          _params_assoc_array['plane'] = Z_PLANE ;
          _params_assoc_array['layer'] = "work" ;
@@ -95,7 +96,7 @@ function circles_terminal_cmd_line()
                 _p = _p.replaceAll( [ "(", ")" ], "" );
                 var _pt = _p.split( "," );
                 _pt = new point( safe_float( _pt[0], 0 ), safe_float( _pt[1], 0 ) );
-                _params_assoc_array['polyline'].push( _pt );
+                _params_assoc_array['points'].push( _pt );
             }
 			else if ( _p.toLowerCase().start_with( "layer:" ) && _params_assoc_array['layer'] == null )
 			{
@@ -108,7 +109,7 @@ function circles_terminal_cmd_line()
 				_params_assoc_array['bordercolor'] = safe_string( _p.replace( /bordercolor:/gi, "" ), "" ) ;
 				if ( circles_lib_colors_is_def( _params_assoc_array['bordercolor'] ) )
 				{
-					_msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_params_assoc_array['bordercolor']+"</snow>" ;
+					_msg = "<lightblue>Border color has been set to</lightblue> <snow>"+_params_assoc_array['bordercolor']+"</snow>" ;
 					circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 				}
 				else { _b_fail = YES, _error_str = "Invalid draw color definition" ; }
@@ -170,10 +171,11 @@ function circles_terminal_cmd_line()
                      circles_lib_output( _output_channel, DISPATCH_INFO, "Skipped label param. Mismatch setting: no rec param input", _par_1, _cmd_tag );
                      if ( _glob_verbose && _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_INFO, "Label param is useless if this figure is not going to be recorded", _par_1, _cmd_tag );
                   }
-                  else if ( _params_assoc_array['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Can't plot line: missing plane reference" ; }
-                  else if ( _params_assoc_array['polyline'].length == 0 ) { _b_fail = YES, _error_str = "Can't plot line: missing coordinates" ; }
-                  else if ( _params_assoc_array['polyline'].length == 1 ) { _b_fail = YES, _error_str = "Can't plot line: points must be at least 2" ; }
-                  else if ( _params_assoc_array['polyline'].length == 2 && _params_assoc_array['close'] )
+                  
+				  if ( _params_assoc_array['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Can't plot line: missing plane reference" ; }
+                  else if ( _params_assoc_array['points'].length == 0 ) { _b_fail = YES, _error_str = "Can't plot line: missing coordinates" ; }
+                  else if ( _params_assoc_array['points'].length == 1 ) { _b_fail = YES, _error_str = "Can't plot line: points must be at least 2" ; }
+                  else if ( _params_assoc_array['points'].length == 2 && _params_assoc_array['close'] )
                   {
                      _params_assoc_array['close'] = NO ;
                      circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Close param disabled because input points are just two", _par_1, _cmd_tag );
@@ -213,14 +215,14 @@ function circles_terminal_cmd_line()
 						 _canvas_context = _glob_bipbox_canvas.getContext( _glob_canvas_ctx_2D_mode );
 						 _mapper = bipbox_sm ;
 						 break ;
-						 default: break ;
+						 default: _b_fail = YES, _error_str = "Missing input plane" ; break ;
 					  }
 				  }
 				  else { _b_fail = YES ; _error_str = "Invalid input layer '"+_params_assoc_array['layer']+"'" ; }
 				  
 				  if ( !_b_fail )
 				  {
-					  circles_lib_draw_polyline( _canvas_context, _mapper, _params_assoc_array['polyline'], _bordercolor, _fillcolor, _bordersize, _params_assoc_array['close'], _opacity, UNDET, _params_assoc_array['propertiesmask'], YES );
+					  circles_lib_draw_polyline( _canvas_context, _mapper, _params_assoc_array['points'], _bordercolor, _fillcolor, _bordersize, _params_assoc_array['close'], _opacity, UNDET, _params_assoc_array['propertiesmask'], YES );
 					  circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>(" + circles_lib_plane_def_get( _params_assoc_array['plane'] ) + ")</snow> <green>Line processed with success</green>", _par_1, _cmd_tag );
 
 					  if ( _params_assoc_array['rec'] == YES )
@@ -236,7 +238,7 @@ function circles_terminal_cmd_line()
 						_rec_chunk['label'] = _params_assoc_array['label'] ;
 						_rec_chunk['bordersize'] = _bordersize ;
 						_rec_chunk['myhash'] = "rec" + _glob_figures_array.length ;
-						_rec_chunk['obj'] = _params_assoc_array['polyline'].clone();
+						_rec_chunk['obj'] = _params_assoc_array['points'].clone();
 						_rec_chunk['opacity'] = _opacity ;
 						_rec_chunk['plane'] = _params_assoc_array['plane'] ;
                         _rec_chunk['layer'] = _params_assoc_array['layer'] ;
@@ -260,7 +262,7 @@ function circles_terminal_cmd_line()
 						 else circles_lib_output( _output_channel, DISPATCH_WARNING, "Storage space '"+_subset+"' does not exist", _par_1, _cmd_tag );
 					  }
 				  }
-                  else { _b_fail = YES ; _error_str = "Can't draw circle: memory failure. Free some resources" ; }
+                  else { _b_fail = YES ; _error_str += "\nCan't draw line: memory failure. Free some resources" ; }
                   break ;
              }
          }

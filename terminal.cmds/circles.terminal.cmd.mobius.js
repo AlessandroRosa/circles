@@ -146,7 +146,7 @@ function circles_terminal_cmd_mobius()
                if ( circles_lib_colors_is_def( _p ) )
                {
 				 _params_assoc_array['bordercolor'] = _p ;
-				 _msg = "<lightblue>Draw color has been set to</lightblue> <snow>"+_p+"</snow>" ;
+				 _msg = "<lightblue>Border color has been set to</lightblue> <snow>"+_p+"</snow>" ;
 				 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                }
             }

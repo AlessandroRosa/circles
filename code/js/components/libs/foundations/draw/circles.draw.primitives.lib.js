@@ -292,22 +292,21 @@ function circles_lib_draw_segment( _context, _mapper, _from_x, _from_y, _to_x, _
 
 function circles_lib_draw_polyline( _context, _mapper, _pts_array = [], _bordercolor, _fillcolor, _bordersize, _close, _opacity, _tolerance, _properties_mask, _map_it )
 {
-   if ( !is_html_context( _context ) || !is_screen_mapper( _mapper ) ) return null ;
-    _tolerance = safe_float( _tolerance, UNDET );
-    _close = safe_int( _close, NO );
-    _properties_mask = safe_int( _properties_mask, 0 );
+	if ( !is_html_context( _context ) || !is_screen_mapper( _mapper ) ) return null ;
+    _tolerance = safe_float( _tolerance, UNDET ), _close = safe_int( _close, NO );
     _bordercolor = safe_string( _bordercolor, "transparent" ), _fillcolor = safe_string( _fillcolor, "transparent" );
+    _properties_mask = safe_int( _properties_mask, 0 );
     _map_it = safe_int( _map_it, NO );
     _glob_persistent_vars['p_len'] = safe_size( _pts_array, 0 );
     _glob_persistent_vars['scr_pts_array'] = [];
     if ( _glob_persistent_vars['p_len'] > 1 )
     {
-       _glob_persistent_vars['client_rect'] = _mapper.get_display_rect();
-  		 _context.globalAlpha = _opacity ;
-       _context.lineWidth = _bordersize ;
-       _context.strokeStyle = safe_string( _bordercolor, "" );
-       _context.fillStyle = safe_string( _fillcolor, "" );
-       _context.beginPath();
+        _glob_persistent_vars['client_rect'] = _mapper.get_display_rect();
+  		_context.globalAlpha = _opacity ;
+        _context.lineWidth = _bordersize ;
+        _context.strokeStyle = safe_string( _bordercolor, "" );
+        _context.fillStyle = safe_string( _fillcolor, "" );
+        _context.beginPath();
 
        if ( _properties_mask & 2 )
        {
@@ -321,10 +320,10 @@ function circles_lib_draw_polyline( _context, _mapper, _pts_array = [], _borderc
 
        for( var _i = 1 ; _i < _glob_persistent_vars['p_len'] ; _i++ )
        {
-           _glob_persistent_vars['to_scr_pt'] = _map_it ? _mapper.from_cartesian_to_client( _pts_array[_i].x, _pts_array[_i].y ) : _pts_array[_i] ;
-           _glob_persistent_vars['scr_pts_array'].push( _glob_persistent_vars['to_scr_pt'] );
-           if ( _tolerance == UNDET || ( _tolerance > 0.0 && _pts_array[_i].distance( _pts_array[_i-1] ) <= _tolerance ) )
-           _context.lineTo( _glob_persistent_vars['to_scr_pt'].x, _glob_persistent_vars['to_scr_pt'].y );
+            _glob_persistent_vars['to_scr_pt'] = _map_it ? _mapper.from_cartesian_to_client( _pts_array[_i].x, _pts_array[_i].y ) : _pts_array[_i] ;
+            _glob_persistent_vars['scr_pts_array'].push( _glob_persistent_vars['to_scr_pt'] );
+            if ( _tolerance == UNDET || ( _tolerance > 0.0 && _pts_array[_i].distance( _pts_array[_i-1] ) <= _tolerance ) )
+			_context.lineTo( _glob_persistent_vars['to_scr_pt'].x, _glob_persistent_vars['to_scr_pt'].y );
        }
 
        if ( _close )
@@ -342,8 +341,7 @@ function circles_lib_draw_polyline( _context, _mapper, _pts_array = [], _borderc
        {
            for( _i = 0 ; _i < _glob_persistent_vars['p_len'] ; _i++ )
            circles_lib_draw_point( _context, _mapper, _glob_persistent_vars['scr_pts_array'][_i].x, _glob_persistent_vars['scr_pts_array'][_i].y,
-                             YES, _bordercolor, YES, _fillcolor,
-                             _glob_pt_border, _glob_pt_radius, _opacity, _properties_mask, NO );
+								   YES, _bordercolor, YES, _fillcolor, _glob_pt_border, _glob_pt_radius, _opacity, _properties_mask, NO );
        }
     }
 
@@ -444,7 +442,7 @@ function circles_lib_draw_rect( _context, _mapper, _rect_obj, _border, _borderco
 
 function circles_lib_draw_rounded_rect( _context, _mapper, _rect_obj, _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius, _map_it, _opacity, _properties_mask )
 {
-   if ( !is_html_context( _context ) || !is_screen_mapper( _mapper ) ) return null ;
+    if ( !is_html_context( _context ) || !is_screen_mapper( _mapper ) ) return null ;
     _map_it = safe_int( _map_it, NO );
     _opacity = safe_float( _opacity, DEFAULT_MAX_OPACITY ), _properties_mask = safe_int( _properties_mask, 0 );
     _bordercolor = safe_string( _bordercolor, "transparent" ), _fillcolor = safe_string( _fillcolor, "transparent" );

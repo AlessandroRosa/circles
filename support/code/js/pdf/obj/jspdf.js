@@ -1338,7 +1338,7 @@ PubSub implementation
         };
 
         /**
-        Adds a rectangle with rounded corners to PDF
+        Adds a rectangle with rounded get_corners to PDF
 
         @param {Number} x Coordinate (in units declared at inception of PDF document) against left edge of the page
         @param {Number} y Coordinate (in units declared at inception of PDF document) against upper edge of the page

@@ -127,7 +127,7 @@ function W_PLANE_work_canvas_onmousemove( obj, event )
           _glob_zoom_rect.correct();
           circles_lib_canvas_clean( obj );
           _mouse_event_context = obj.getContext( _glob_canvas_ctx_2D_mode );
-          circles_lib_draw_polyline( _mouse_event_context, wplane_sm, _glob_zoom_rect.corners(), "lime", "", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
+          circles_lib_draw_polyline( _mouse_event_context, wplane_sm, _glob_zoom_rect.get_corners(), "lime", "", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
        }
     }
 }
@@ -168,7 +168,7 @@ function W_PLANE_work_canvas_onmouseup( obj, event )
                     
            circles_lib_canvas_clean( obj );
            _mouse_event_context = obj.getContext( _glob_canvas_ctx_2D_mode );
-           circles_lib_draw_polyline( _mouse_event_context, wplane_sm, _glob_zoom_rect.corners(), "lime", "", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
+           circles_lib_draw_polyline( _mouse_event_context, wplane_sm, _glob_zoom_rect.get_corners(), "lime", "", 1, YES, DEFAULT_MAX_OPACITY, UNDET, 0, YES );
 
            alert_plug_label( ALERT_YES, "Yes" );
            alert_plug_label( ALERT_NO, "No" );
