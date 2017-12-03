@@ -97,46 +97,46 @@ function polygon()
 
        if ( is_array( arguments[0] ) && arguments.length == 1 ) // array of points
        {
-					 for( var _i = 0 ; _i < arguments[0].length ; _i++ )
-					 {
-						  if ( is_point( arguments[0][_i] ) ) this.vertex_array.push( arguments[0][_i] );
-						  if ( is_complex( arguments[0][_i] ) ) this.vertex_array.push( new point( arguments[0][_i].real, arguments[0][_i].imag ) );
-						  else if ( is_array( arguments[0][_i] ) ) this.vertex_array.push( new point( arguments[0][_i][0], arguments[0][_i][1] ) );
-					 }
+			for( var _i = 0 ; _i < arguments[0].length ; _i++ )
+			{
+				if ( is_point( arguments[0][_i] ) ) this.vertex_array.push( arguments[0][_i] );
+				if ( is_complex( arguments[0][_i] ) ) this.vertex_array.push( new point( arguments[0][_i].real, arguments[0][_i].imag ) );
+				else if ( is_array( arguments[0][_i] ) ) this.vertex_array.push( new point( arguments[0][_i][0], arguments[0][_i][1] ) );
+			}
 						 
-					 this.n_sides = this.vertex_array.length ; 
-					 this.center = this.centroid() ;
+			this.n_sides = this.vertex_array.length ; 
+			this.center = this.centroid() ;
        }
        else if ( ( is_point( arguments[0] ) || is_array( arguments[0] ) ) &&  // center coords
-									is_number( arguments[1] ) && // number of sides
-								  is_number( arguments[2] ) )  // side length
+				   is_number( arguments[1] ) && // number of sides
+				   is_number( arguments[2] ) )  // side length
        {
-           /* create an equilateral polygon whose vertexes are distributed
+            /* create an equilateral polygon whose vertexes are distributed
               uniformly on a circle by an angle of PI/n and centered at a given point
-           */
+            */
 
-           this.center = is_point( arguments[0] ) ? arguments[0] : new point( safe_float( arguments[0][0], 0 ), safe_float( arguments[0][1], 0 ) ) ;
-           this.n_sides = safe_int( arguments[1], 0 ) ;
-           this.side = safe_float( arguments[2], 0 ) ;
-           // assume it's centered at the origin by default
-           var _ROTATION_ANGLE = 2.0 * Math.PI / this.n_sides ;
-           var _pt_x = safe_float( this.side, 0 ), _pt_y = 0 ;
-           var _cos = Math.cos( _ROTATION_ANGLE ), _sin = Math.sin( _ROTATION_ANGLE );
+            this.center = is_point( arguments[0] ) ? arguments[0] : new point( safe_float( arguments[0][0], 0 ), safe_float( arguments[0][1], 0 ) ) ;
+            this.n_sides = safe_int( arguments[1], 0 ) ;
+            this.side = safe_float( arguments[2], 0 ) ;
+            // assume it's centered at the origin by default
+            var _ROTATION_ANGLE = 2.0 * Math.PI / this.n_sides ;
+            var _pt_x = safe_float( this.side, 0 ), _pt_y = 0 ;
+            var _cos = Math.cos( _ROTATION_ANGLE ), _sin = Math.sin( _ROTATION_ANGLE );
              
-           this.vertex_array.push( new point( _pt_x, _pt_y ) );
-           for( var _i = 1 ; _i < this.n_sides ; _i++ )
-					 this.vertex_array.push( new point( this.vertex_array[_i-1].x * _cos - this.vertex_array[_i-1].y * _sin,
-																						  this.vertex_array[_i-1].x * _sin + this.vertex_array[_i-1].y * _cos ) );
+            this.vertex_array.push( new point( _pt_x, _pt_y ) );
+            for( var _i = 1 ; _i < this.n_sides ; _i++ )
+		    this.vertex_array.push( new point( this.vertex_array[_i-1].x * _cos - this.vertex_array[_i-1].y * _sin,
+									  this.vertex_array[_i-1].x * _sin + this.vertex_array[_i-1].y * _cos ) );
 
-					 // closing the polygon
-					 this.vertex_array.push( new point( this.vertex_array[0].x, this.vertex_array[0].y ) );
-					 // translation by center coords
-           for( _i = 0 ; _i < this.vertex_array.length ; _i++ ) this.vertex_array[_i].shift( this.center.x, this.center.y );
+			// closing the polygon
+			this.vertex_array.push( new point( this.vertex_array[0].x, this.vertex_array[0].y ) );
+			// translation by center coords
+            for( _i = 0 ; _i < this.vertex_array.length ; _i++ ) this.vertex_array[_i].shift( this.center.x, this.center.y );
        }
        else
        {
-           this.err_no = _POLYGON_ERR_MISSING_INPUT_VERTEXES ;
-           this.log_add( "missing input vertexes for class constructor" ) ;
+            this.err_no = _POLYGON_ERR_MISSING_INPUT_VERTEXES ;
+            this.log_add( "missing input vertexes for class constructor" ) ;
        }
     }
 }
@@ -152,16 +152,16 @@ polygon.prototype.log_return_as_array = function()             { return this.err
 polygon.prototype.get_center = function() { return this.center ; }
 polygon.prototype.side = function() { if ( !this.is_regular() ) this.log_add( "can't return unique side value for irregular polygon" ) ; return this.is_regular() ? this.vertex_array[0].distance( this.vertex_array[1] ) : _POLYGON_ERR_INVALID_VALUE ; }
 polygon.prototype.set_canvas = function( _cnv ) { if ( is_html_canvas( _cnv ) ) this.canvas_obj = _cnv ; else this.log_add( "invalid input canvas obj" ); }
-polygon.prototype.clone = function()
+polygon.prototype.copy = function()
 {
-		var _polygon = new polygon();
-		_polygon.canvas_obj = this.canvas_obj ;
-		_polygon.center = this.center ;
-		_polygon.n_sides = this.n_sides ;
-		_polygon.side = this.side ;
-		_polygon.err_no = _POLYGON_ERR_NONE ; 
-		_polygon.vertex_array = this.vertex_array.clone() ;
-		return _polygon ;
+	var _polygon = new polygon();
+	_polygon.canvas_obj = this.canvas_obj ;
+	_polygon.center = this.center ;
+	_polygon.n_sides = this.n_sides ;
+	_polygon.side = this.side ;
+	_polygon.err_no = _POLYGON_ERR_NONE ; 
+	_polygon.vertex_array = this.vertex_array.clone() ;
+	return _polygon ;
 }
 
 polygon.prototype.is_equal_to = function( _gon )
@@ -250,11 +250,10 @@ polygon.prototype.rotate = function( _center = null, _rad = 0, _self = 1 )
     {
 		_pt.x = _c.vertex_array[_i].x * _cos - _c.vertex_array[_i].y * _sin ;
 		_pt.y = _c.vertex_array[_i].x * _sin + _c.vertex_array[_i].y * _cos ;
-		_c.vertex_array[_i].x = _pt.x ;
-		_c.vertex_array[_i].y = _pt.y ;
+		_c.vertex_array[_i].x = _pt.x, _c.vertex_array[_i].y = _pt.y ;
 	}
 
-    for( _i = 0 ; _i < _c.vertex_array.length ; _i++ ) _c.vertex_array[_i].shift( _c.center.x, _c.center.y );
+    for( _i = 0 ; _i < _c.vertex_array.length ; _i++ ) _c.vertex_array[_i].shift( _center );
 
 	if ( _self ) { this.vertex_array = _c.vertex_array.clone() ; return 1 ; }
 	else return _c ;

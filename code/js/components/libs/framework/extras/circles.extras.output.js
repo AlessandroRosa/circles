@@ -27,7 +27,7 @@ function circles_lib_error_obj_handler( _err, _linebreak_cmd, _switch_output )
 		}
 }
 
-function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*more arguments follow, depending on the channel type */ )
+function circles_lib_output( _out_channel_type = OUTPUT_NONE, _out_msg_type = DISPATCH_INFO, _out_msg_text = "" /*more arguments follow, depending on the channel type */ )
 {
     _out_channel_type = safe_int( _out_channel_type, OUTPUT_NONE );
     _out_msg_type = safe_int( _out_msg_type, DISPATCH_INFO );
@@ -71,8 +71,8 @@ function circles_lib_output( _out_channel_type, _out_msg_type, _out_msg_text /*m
         alert_msg( _alert_type, _out_msg_text, _caption );
     }
 
-	var _force_output = safe_int( arguments[5], _glob_terminal_echo_flag ) ;
-    if ( ( _out_channel_type & OUTPUT_TERMINAL ) && _force_output ) // console terminal
+	var _force_output = safe_int( arguments[5], 1 ) ;
+    if ( ( _out_channel_type & OUTPUT_TERMINAL ) || _force_output ) // console terminal
     {
        switch( _out_msg_type )
        {

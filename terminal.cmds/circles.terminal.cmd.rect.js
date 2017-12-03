@@ -45,7 +45,7 @@ function circles_terminal_cmd_rect()
         var _p, _layer ;
         for( var _i = 0 ; _i < _params_array.length ; _i++ )
         {
-            _p = _params_array[_i].toLowerCase();
+            _p = _params_array[_i].toLowerCase().trim();
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
 			else if ( _p.start_with_i( "$" ) )
             {
@@ -375,7 +375,6 @@ function circles_terminal_cmd_rect()
                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "", _par_1, _cmd_tag );
                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>Begin to process rectangle data</snow>", _par_1, _cmd_tag );
 				// COORDINATES MANAGEMENT
-				console.log( _check_coords_mask );
 				if ( _check_coords_mask == (1|4|8) ) // left top pt + width + height
 				{
 					// compute the end point from the start point
@@ -522,7 +521,6 @@ function circles_terminal_cmd_rect()
 						_rec_chunk['opacity'] = _opacity ;
 						_rec_chunk['plane'] = _params_assoc_array['planeval'] ;
 						_glob_figures_array.push( _rec_chunk );
-						console.log( _glob_figures_array.clone() );
 
 						 var _subset = safe_string( _params_assoc_array['storagesubset'], "" ).trim() ;
 						 if ( _subset.length > 0 )

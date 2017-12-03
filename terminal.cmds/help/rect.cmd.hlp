@@ -61,5 +61,6 @@
 <yellow>rect zplane (0,0) (1,2) bordercolor:blue fillcolor:yellow opacity:0.7</yellow>
 
 <yellow>rect zplane (0,0) width:1 height:4 bordercolor:blue bordersize:3 fillcolor:yellow $rect1 rec</yellow>
+<cadetblue>The width-height construction assumes that the starting point refers to the left bottom vertex</cadetblue>
 
 <yellow>rect zplane (0,0) width:4 height:1 bordercolor:blue bordersize:3 fillcolor:yellow $rect1 storagesubset:rects</yellow>

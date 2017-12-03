@@ -380,29 +380,42 @@ rect.prototype.side = function()
 	return _x_side == _y_side ? [ _x_side ] : [ _x_side, _y_side ] ;
 }
 
-rect.prototype.rotate = function( _center = null, _rad = 0, _self = 1 )
+rect.prototype.rotate = function( _center = null, _rad = 0, _self = 1, _ret_rect = 0 )
 {
 	_self = safe_int( _self, 1 );
-    var _cos = Math.cos( _rad ), _sin = Math.sin( _rad );
 	if ( !is_point( _center ) ) _center = new point( ( this.x1 + this.x2 ) / 2.0, ( this.y1 + this.y2 ) / 2.0 ) ;
-	var _rect = this.copy();
-	var _lt_pt = new point( _rect.x1, _rect.y1 ), _rb_pt = new point( _rect.x2, _rect.y2 );
-    _lt_pt.shift( -_center.x, -_center.y );
-    _rb_pt.shift( -_center.x, -_center.y );
-
-	var _tmp_x = _lt_pt.x, _tmp_y = _lt_pt.y ;
-	_lt_pt.x = _tmp_x * _cos - _tmp_y * _sin, _lt_pt.y = _tmp_x * _sin - _tmp_y * _cos ;
-		_tmp_x = _rb_pt.x, _tmp_y = _rb_pt.y ;
-	_rb_pt.x = _tmp_x * _cos - _tmp_y * _sin, _rb_pt.y = _tmp_x * _sin - _tmp_y * _cos ;
-
-	_lt_pt.shift( _center ) ;
-	_rb_pt.shift( _center ) ;
-
-	if ( _self ) { this.x1 = _lt_pt.x, this.y1 = _lt_pt.y, this.x2 = _rb_pt.x, this.y2 = _rb_pt.y ; }
-	else
+	if ( _ret_rect )
 	{
-		_rect.set_corners( _lt_pt, _rb_pt );
-		return _rect ;
+		var _cos = Math.cos( _rad ), _sin = Math.sin( _rad );
+		var _rect = this.copy();
+		var _lt_pt = new point( _rect.x1, _rect.y1 ), _rb_pt = new point( _rect.x2, _rect.y2 );
+		_lt_pt.shift( -_center.x, -_center.y );
+		_rb_pt.shift( -_center.x, -_center.y );
+
+		var _tmp_x = _lt_pt.x, _tmp_y = _lt_pt.y ;
+		_lt_pt.x = _tmp_x * _cos - _tmp_y * _sin, _lt_pt.y = _tmp_x * _sin - _tmp_y * _cos ;
+			_tmp_x = _rb_pt.x, _tmp_y = _rb_pt.y ;
+		_rb_pt.x = _tmp_x * _cos - _tmp_y * _sin, _rb_pt.y = _tmp_x * _sin - _tmp_y * _cos ;
+
+		_lt_pt.shift( _center ) ;
+		_rb_pt.shift( _center ) ;
+
+		if ( _self ) { this.x1 = _lt_pt.x, this.y1 = _lt_pt.y, this.x2 = _rb_pt.x, this.y2 = _rb_pt.y ; }
+		else
+		{
+			_rect.set_corners( _lt_pt, _rb_pt );
+			return _rect ;
+		}
+	}
+	else if ( polygon )
+	{
+		var _polygon = new polygon( [ new point( this.x1, this.y1 ), // left-top pt
+									  new point( this.x2, this.y1 ), // right-top pt
+									  new point( this.x2, this.y2 ), // right-bottom pt
+									  new point( this.x1, this.y2 )  // left-bottom pt
+									] );
+		_polygon.rotate( _center, _rad, 1 );
+		return _polygon ;
 	}
 }
 

@@ -167,7 +167,7 @@ var _demon = new demo_n();
 
 	_demon.add( { pre_fn : function()
                   {
-					 var _msg = "We can shift each of<br>the previous primitive objects" ;
+					 var _msg = "We can shift each of<br>the previous primitive figures" ;
                      $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
                      $( "#presentation_div" ).html( _msg ) ;
                   },
@@ -176,19 +176,7 @@ var _demon = new demo_n();
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
 
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures shift @5 (1,1)" ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
-	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures shift @10 (1,-1)" ); },
-                  ctrl_id : "MENU_MAIN_EXTRAS", time : 2.5, time_unit : "s",
-                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
-
-	_demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
-                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
-                } );
-
-	_demon.add( { pre_fn : function()
+    _demon.add( { pre_fn : function()
                   {
 					 var _msg = "... or update their properties" ;
                      $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
@@ -213,7 +201,7 @@ var _demon = new demo_n();
 
 	_demon.add( { pre_fn : function()
                   {
-					 var _msg = "All figure cmds include the param 'rec'\nto save the objects and plot them again at the next display refresh" ;
+					 var _msg = "All figure cmds include the param 'rec'\nto save the figures and plot them again at the next display refresh" ;
                      $( "#presentation_div" ).css( "background-color", "#68d77b" ) ;
                      $( "#presentation_div" ).html( _msg ) ;
                   },
@@ -221,6 +209,239 @@ var _demon = new demo_n();
                   action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
                   post_fn : function() { $( "#presentation_div" ).show() ; }
                 } );
+
+	_demon.add( { pre_fn : function()
+                  {
+					 var _msg = "Now we start the 2nd part of this demo and<br>show how we can work with primitive figures through the 'figures' cmd<br>Let's reset the plane ..." ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 5.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+	_demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures bomb silent" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+				
+	_demon.add( { pre_fn : function()
+                  {
+					 var _msg = "We start with a square" ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 2.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+	_demon.add( { ctrl_id : "presentation_div", time : 2, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "rect (-0.5,-0.5) width:1 height:1 zplane fillcolor:lime rec" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+				
+	_demon.add( { pre_fn : function()
+                  {
+					 var _msg = "And we rotate it by 45 degrees, saving the resulting figure into a new entry" ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 2.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+	_demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures rotate @1 (0,0) deg:45 rec" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+				
+	_demon.add( { pre_fn : function()
+                  {
+					 var _msg = "We can update properties such as the filling color" ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 2.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+	_demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures update @2 fillcolor:blue" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+				
+	_demon.add( { pre_fn : function()
+                  {
+					 var _msg = "and swap their position into the list, affecting the visualization order" ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 2.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+	_demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures swap @1 @2" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures update @1 fillcolor:pink bordercolor:red bordersize:4" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures shift @1 (1,0)" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+				
+	_demon.add( { pre_fn : function()
+                  {
+					 var _msg = "Now we get a square and rotate it by 45 degrees around the origin multiple times" ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 4.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+	_demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures rotate @1 (0,0) deg:-45" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures rotate @1 (0,0) deg:-45" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+				
+	_demon.add( { pre_fn : function()
+                  {
+					 var _msg = "Let's hide it for one step and keep rotating" ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 4.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+	_demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures update @1 hide" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures rotate @1 (0,0) deg:-45" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+				  
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures rotate @1 (0,0) deg:-45" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+    _demon.add( { post_fn : function() { _glob_terminal.exec( "figures update @1 show" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+				
+	_demon.add( { pre_fn : function()
+                  {
+					 var _msg = "Here we go ! And we get the same object back, but not where it was supposed to be." ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 4.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+	_demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures update @2 bordercolor:cyan bordersize:4" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+	_demon.add( { pre_fn : function()
+                  {
+					 var _msg = "We can obtain new copy of any figure and work with it later" ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 3.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+				
+	_demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures copy @1" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+
+	_demon.add( { pre_fn : function()
+                  {
+					 var _msg = "For example, we transfer this copy to the W-plane" ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 3.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+				
+	_demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures transfer @3 wplane silent" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
+				
+	_demon.add( { pre_fn : function()
+                  {
+					 var _msg = "We can isolate their visibility temporarily and<br>watch only those we need at the moment" ;
+                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                     $( "#presentation_div" ).html( _msg ) ;
+                  },
+                  ctrl_id : "presentation_div", time : 4.0, time_unit : "s",
+                  action : "move", set_value : { to_x : 40, to_y : $(window).height() - 150 }, showlabel : false, desclabel : "",
+                  post_fn : function() { $( "#presentation_div" ).show() ; }
+                } );
+
+	_demon.add( { ctrl_id : "presentation_div", time : 1, time_unit : "s",
+                  action : "fadeout", set_value : "fast", showlabel : false, desclabel : ""
+                } );
+
+	_demon.add( { post_fn : function() { _glob_terminal.exec( "figures isolate @1 zplane" ); },
+                  ctrl_id : "MENU_MAIN_EXTRAS", time : 1.5, time_unit : "s",
+                  action : "nothing", set_value : -1, showlabel : false, desclabel : "" } );
 
 	_demon.add( { pre_fn : function()
                   {
@@ -239,4 +460,4 @@ var _demon = new demo_n();
                 } );
 
     _demon.run();
-</SCRIPT>        
+</SCRIPT>

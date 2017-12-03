@@ -10,7 +10,6 @@ function CIRCLESformsANTIHOMOGRAPHYdispatcher()
 	{
 		var MESSAGE_ID = safe_string( arguments[0], POPUP_DISPATCHER_UNICAST_EVENT_UNKNOWN );
         var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "anti.homography" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 )
-		console.log( arguments );
         if ( _idx == UNFOUND ) return NO ;
 		switch( MESSAGE_ID )
 		{

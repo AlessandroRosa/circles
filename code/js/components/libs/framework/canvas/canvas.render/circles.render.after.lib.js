@@ -195,10 +195,13 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
                     circles_lib_draw_point( _canvas_context, _mapper, _obj.x, _obj.y,
                     _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius, _opacity, _properties_mask );
                     break ;
-                    case FIGURE_CLASS_POLYGON:
                     case FIGURE_CLASS_LINE:
                     circles_lib_draw_polyline( _canvas_context, _mapper, _obj,
                     _bordercolor, _fillcolor, _bordersize, _close, _opacity, UNDET, _properties_mask, YES );
+                    break ;
+                    case FIGURE_CLASS_POLYGON:
+                    circles_lib_draw_polyline( _canvas_context, _mapper, _obj,
+                    _bordercolor, _fillcolor, _bordersize, YES, _opacity, UNDET, _properties_mask, YES );
                     break ;
                     case FIGURE_CLASS_RECT:
                     if ( _borderradius )

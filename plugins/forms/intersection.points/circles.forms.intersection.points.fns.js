@@ -59,8 +59,7 @@ function CIRCLESformsINTERSECTIONPOINTScopyPOINTS( packed_pts )
            var _added = 0, _duplicates = 0 ;
            if ( !is_array( _glob_storage['points'] ) ) _glob_storage['points'] = [] ;
 
-           $.each( _out_pts_array,
-                   function( _i, _pt )
+           $.each( _out_pts_array, function( _i, _pt )
                    {
                        var _is_dupl = circles_lib_figures_find_duplicates( FIGURE_CLASS_POINT, Z_PLANE, _pt, _glob_storage['figures'] );
                        if ( !_is_dupl )
@@ -76,7 +75,7 @@ function CIRCLESformsINTERSECTIONPOINTScopyPOINTS( packed_pts )
                            _tmp_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
                            _tmp_chunk['bordersize'] = 1 ;
                            _tmp_chunk['enabled'] = YES ;
-                           _tmp_chunk['myhash'] = "rec"+(_i+1);
+                           _tmp_chunk['myhash'] = "rec"+_i;
                            _tmp_chunk['label'] = "" ;
                            _tmp_chunk['propertiesmask'] = 0 ;
                            _glob_storage['points'].push( _tmp_chunk );

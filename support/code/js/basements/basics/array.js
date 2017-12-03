@@ -685,50 +685,54 @@ if ( !Array.one_in_i )
 if ( !Array.subset )
 {
     Array.prototype.subset = function( _subset_length )
+	{
+		_subset_length = safe_int( _subset_length, 0 );
+ 		var _n_array = this.length ;
+		if ( _subset_length == 0 || _n_array == 0 ) return [] ;
+	    else
 		{
-			 _subset_length = safe_int( _subset_length, 0 );
- 			 var _n_array = this.length ;
-			 if ( _subset_length == 0 || _n_array == 0 ) return [] ;
-		   else
-			 {
-					var _n_out = Math.min( Math.abs( _subset_length ), _n_array ) ;
-					return _subset_length > 0 ? this.slice( 0, _n_out ) : this.slice( _n_array - Math.abs( _n_out ), _n_array );
-			 }
+			var _n_out = Math.min( Math.abs( _subset_length ), _n_array ) ;
+			return _subset_length > 0 ? this.slice( 0, _n_out ) : this.slice( _n_array - Math.abs( _n_out ), _n_array );
 		}
+	}
 }
 
 
 if ( !Array.compare_to )
 {
-		Array.prototype.compare_to = function( _compare )
-		{
-				if ( !is_array( _compare ) ) return NO ;
-				else return this.join("").localeCompare( _compare.join("") ) == 0 ? 1 : 0 ;
-		}
+	Array.prototype.compare_to = function( _compare_obj )
+	{
+		if ( !is_array( _compare_obj ) ) return NO ;
+		else return this.join("").localeCompare( _compare_obj.join("") ) == 0 ? 1 : 0 ;
+	}
+}
+
+if ( !Array.is_equal_to )
+{
+	Array.prototype.is_equal_to = function( _compare_obj, _index_match = NO )
+	{
+		return this.deep_compare_to( _compare_obj, _index_match );
+	}
 }
 
 if ( !Array.deep_compare_to )
 {
-		Array.prototype.deep_compare_to = function( _compare, _index_match )
+	Array.prototype.deep_compare_to = function( _compare_obj, _index_match = NO )
+	{
+		if ( !is_array( _compare_obj ) ) return NO ;
+		else if ( this.length != _compare_obj.length ) return NO ;
+		else
 		{
-				if ( !is_array( _compare ) ) return NO ;
-				else if ( this.length != _compare.length ) return NO ;
-        else
-        {
-             var _ret = 1 ;
-             _index_match = safe_int( _index_match, 0 );
-             if ( _index_match )
-             {
-                 for( var _i = 0 ; _i < this.length ; _i++ ) _ret &= this[_i].localeCompare( _compare[_i] ) == 0 ? 1 : 0 ;
-             }
-             else
-             {
-                 for( var _i = 0 ; _i < this.length ; _i++ ) _ret &= _compare.includes( this[_i] ) ;
-             }
-
-             return _ret ;
+            var _ret = 1 ;
+            _index_match = safe_int( _index_match, 0 );
+            if ( _index_match )
+            {
+                for( var _i = 0 ; _i < this.length ; _i++ ) _ret &= this[_i].localeCompare( _compare_obj[_i] ) == 0 ? 1 : 0 ;
+            }
+            else for( var _i = 0 ; _i < this.length ; _i++ ) _ret &= _compare_obj.includes( this[_i] ) ;
+            return _ret ;
         }
-		}
+	}
 }
 
 if( !Array.pick_at_random )

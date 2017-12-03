@@ -14,7 +14,6 @@ function CIRCLESformsANTIHOMOGRAPHYremotectrl( _options, _return_fn, _ret_array,
 	var _out_msg = "" ;
     var _idx = circles_lib_plugin_find_index( { subset : "forms", base_id : "anti.homography" }, POPUP_SEARCH_BY_SUBSET | POPUP_SEARCH_BY_BASE_ID, 0 ) ;
     var _div_id = _idx != UNFOUND ? _glob_popups_array[_idx][1] : "" ;
-	console.log( "REMOTE CTRL", _options );
 	switch( _options[0].toLowerCase() )
 	{
         case "check":

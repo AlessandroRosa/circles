@@ -51,7 +51,7 @@ function inline_worker_output_member( ret )
                          _tmp_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
                          _tmp_chunk['bordersize'] = 1 ;
                          _tmp_chunk['enabled'] = YES ;
-                         _tmp_chunk['myhash'] = "rec"+(_i+1);
+                         _tmp_chunk['myhash'] = "rec"+_glob_storage['figures'].length;
                          _tmp_chunk['symbols'] = "" ;
                          _tmp_chunk['propertiesmask'] = 0 ;
                          _glob_storage['figures'].push( _tmp_chunk );

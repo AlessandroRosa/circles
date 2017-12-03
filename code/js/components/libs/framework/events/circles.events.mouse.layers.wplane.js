@@ -78,7 +78,7 @@ function W_PLANE_work_canvas_onmousedown( obj, event )
            _tmp_chunk['opacity'] = DEFAULT_MAX_OPACITY ;
            _tmp_chunk['bordersize'] = 2 ;
            _tmp_chunk['enabled'] = YES ;
-           _tmp_chunk['myhash'] = "rec" + ( safe_size( _glob_storage['figures'], UNDET ) + 1 );
+           _tmp_chunk['myhash'] = "rec" + ( safe_size( _glob_storage['figures'], UNDET ) );
            _tmp_chunk['label'] = "" ;
            _tmp_chunk['propertiesmask'] = 0 ;
            _glob_storage['figures'].push( _tmp_chunk );
