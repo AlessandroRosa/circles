@@ -29,8 +29,8 @@ function circles_terminal_cmd_figures()
         _params_array.clean_from( " " ); _params_array.clean_from( "" );
 
     	var _local_cmds_params_array = [ "assemble", "bomb", "close", "copy", "disassemble",
-                "delete", "disable", "bordercolor", "enable", "fill", "fillcolor", "isolate",
-                "keep", "list", "long", "open", "permanent", "rec", "remove",
+                "delete", "disable", "drop", "bordercolor", "enable", "fill", "fillcolor", "isolate",
+                "keep", "line", "list", "long", "open", "permanent", "polygon", "radius", "rec",
                 "rebuild", "render", "rotate", "shift", "swap", "transfer", "update", "html" ];
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -87,8 +87,9 @@ function circles_terminal_cmd_figures()
 					}
 				}
             }
-            else if ( _p.is_one_of_i( "bomb", "copy", "connect", "disconnect", "isolate", "delete", "disable", "render", "hide", "show", "rotate",
-                      "enable", "list", "transfer", "release", "shift", "rebuild", "swap", "update" ) )
+            else if ( _p.is_one_of_i( "assemble", "bomb", "copy", "connect", "delete", "disable", "disassemble",
+									  "disconnect", "enable", "hide", "isolate", "list", "render", "rotate", "show",
+									  "transfer", "release", "shift", "rebuild", "swap", "update" ) )
 			{
 				if ( _params_assoc_array['action'] == "update" )
 				{
@@ -103,7 +104,8 @@ function circles_terminal_cmd_figures()
 				_params_assoc_array['plane'] = circles_lib_plane_get_value( _p );
 				if ( _params_assoc_array['action'] == "update" ) _params_assoc_array['update_props']['plane'] = _params_assoc_array['plane'] ;
 			}
-            else if ( _p.is_one_of_i( "all", "keep", "long", "reverse", "rec", "close", "open", "permanent", "remove", "silent" ) )
+            else if ( _p.is_one_of_i( "all", "close", "drop", "keep", "line", "long", "open", "permanent", "polygon",
+									  "rec", "reverse", "silent" ) )
 			{
 				if ( _params_assoc_array['action'] == "update" ) _params_assoc_array['update_props'][ _p ] = YES ;
 			    _params_assoc_array[ _p ] = YES ;
@@ -133,6 +135,13 @@ function circles_terminal_cmd_figures()
 				if ( _params_assoc_array['action'] == "update" ) _params_assoc_array['update_props']['borderradius'] = _p ;
 				if ( _p.testME( _glob_positive_float_regex_pattern ) ) _params_assoc_array['borderradius'] = _p ;
 				else { _b_fail = YES, _error_str = "Invalid border radius "+_p ; }
+			}
+			else if ( _p.toLowerCase().start_with( "radius:" ) && _params_assoc_array['radius'] == null )
+			{
+				_p = safe_string( _p.replace( /^radius:/gi, "" ), "" ) ;
+				if ( _params_assoc_array['action'] == "update" ) _params_assoc_array['update_props']['radius'] = _p ;
+				if ( _p.testME( _glob_positive_float_regex_pattern ) ) _params_assoc_array['radius'] = _p ;
+				else { _b_fail = YES, _error_str = "Invalid radius "+_p ; }
 			}
 			else if ( _p.toLowerCase().start_with( "fillcolor:" ) && _params_assoc_array['fillcolor'] == null )
 			{
@@ -245,29 +254,20 @@ function circles_terminal_cmd_figures()
 
             switch( _action )
             {
-				case "bomb":
-				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _output_channel, DISPATCH_WARNING, "The list of recorded figures is empty: no need to delete'em all", _par_1, _cmd_tag );
-				else
-				{
-                   	var _params_array = [], _pre_prompt = null ;
-					_params_array['prepromptquestion'] = null ;
-                   	_params_array['promptquestion'] = _prompt_question = "Confirm to delete all figures ("+_n_figures+") ? " ;
-                   	_params_array['yes_fn'] = function() { _glob_figures_array = []; circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
-						circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All recorded figures have been deleted with success.", _par_1, _cmd_tag );
-					}
-                   	_params_array['ifquestiondisabled_fn'] = function() { _glob_figures_array = []; circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES ); }
-					if ( !_glob_terminal_echo_flag || _params_assoc_array["silent"] ) _params_array['yes_fn'].call(this);
-                   	else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
-				}
-				break ;
 				case "assemble":
 				_params_assoc_array['figures_ref'] = _params_assoc_array['figures_ref'].unique();
-                if ( _n_input_index > 0 || _all )
+				var _cmd = "line" ;
+				if ( _params_assoc_array['line'] ) _cmd = "line" ;
+				else if ( _params_assoc_array['polygon'] ) _cmd = "polygon" ;
+
+                if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Fail to assemble: missing input indexes" ; }
+                else if ( _n_input_index == 1 ) { _b_fail = YES, _error_str = "Fail to assemble: select at least two elements" ; }
+				else if ( _n_input_index < 3 && _cmd == "polygon" ) { _b_fail = YES, _error_str = "Fail to assemble: at least 3 points are required to assemble a polygon" ; }
+                else if ( _n_input_index > 1 || _all )
 				{
 					var _figures_ref = _all ? _glob_figures_array : _params_assoc_array['figures_ref'] ;
 					var _virtual_index, _zerobased_index, _rec_chunk ;
-					var _pts_idx_array = [], _remove_ids = [] ;
+					var _pts_idx_array = [], _drop_ids = [], _b_drop = _params_assoc_array['drop'] != null ;
 					assembleloop:
 					for( var _idx = 0 ; _idx < _figures_ref.length ; _idx++ )
 					{
@@ -291,7 +291,7 @@ function circles_terminal_cmd_figures()
 								break ;
 								case FIGURE_CLASS_POINT:
 								_pts_idx_array.push( _virtual_index-1 );
-								if ( _params_assoc_array["remove"] ) _remove_ids.push( _zerobased_index );
+								if ( _params_assoc_array["drop"] ) _drop_ids.push( _zerobased_index );
 								break ;
 								default:
 								_b_fail = YES ; _error_str = "Fail to assemble: figure @"+_virtual_index+" is of unknown type" ;
@@ -305,28 +305,46 @@ function circles_terminal_cmd_figures()
 					else if ( _pts_idx_array.length == 1 ) { _b_fail = YES, _error_str = "Fail to assemble: only one index refers to a point" ; }
 					else
 					{
-						var _cmd = [ 'line' ] ; _pts_idx_array.forEach( function( _idx ){ _cmd.push( _glob_figures_array[_idx]['obj'].output("cartesian") ); } ) ;
+						var _cmd = [ _cmd ] ; _pts_idx_array.forEach( function( _idx ){ _cmd.push( _glob_figures_array[_idx]['obj'].output("cartesian") ); } ) ;
 							if ( _rec ) _cmd.push( "rec" );
 							if ( _params_assoc_array['planedef'] ) _cmd.push( _params_assoc_array['planedef'] );
 							if ( _params_assoc_array['layer'] ) _cmd.push( "layer:"+_params_assoc_array['layer'] );
+
 							if ( _params_assoc_array['bordercolor'] ) _cmd.push( "bordercolor:"+_params_assoc_array['bordercolor'] );
 							if ( _params_assoc_array['bordersize'] ) _cmd.push( "bordersize:"+_params_assoc_array['bordersize'] );
+							if ( _params_assoc_array['fillcolor'] ) _cmd.push( "fillcolor:"+_params_assoc_array['fillcolor'] );
+							if ( _params_assoc_array['opacity'] ) _cmd.push( "opacity:"+_params_assoc_array['opacity'] );
 						circles_lib_terminal_interpreter( _cmd.join( " " ), _glob_terminal, _output_channel );
 					}
 					
-					if( !_b_fail && _remove_ids.length > 0 )
+					if( !_b_fail && _drop_ids.length > 0 && _b_drop )
 					{
-						_remove_ids.sort( function( _a, _b ){ return _b - _a ; } ) ; // descending order to remove index safely
-						_remove_ids.forEach( function( _i ){
+						_drop_ids.sort( function( _a, _b ){ return _b - _a ; } ) ; // descending order to drop index safely
+						_drop_ids.forEach( function( _i ){
 							_glob_figures_array.remove( _i, _i ) ;
-							circles_lib_output( _output_channel, DISPATCH_INFO, "Figure @"+(_idx+1)+" removed with success", _par_1, _cmd_tag );
+							circles_lib_output( _output_channel, DISPATCH_INFO, "Point @"+(_i+1)+" has been dropped with success", _par_1, _cmd_tag );
 							} ) ;
 					}
 
 					if ( !_b_fail && _rec ) circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
 				}
-                else if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Fail to assemble: missing input indexes" ; }
 				break;
+				case "bomb":
+				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
+				if ( _n_figures == 0 )  circles_lib_output( _output_channel, DISPATCH_WARNING, "The list of recorded figures is empty: no need to delete'em all", _par_1, _cmd_tag );
+				else
+				{
+                   	var _params_array = [], _pre_prompt = null ;
+					_params_array['prepromptquestion'] = null ;
+                   	_params_array['promptquestion'] = _prompt_question = "Confirm to delete all figures ("+_n_figures+") ? " ;
+                   	_params_array['yes_fn'] = function() { _glob_figures_array = []; circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
+						circles_lib_output( _output_channel, DISPATCH_SUCCESS, "All recorded figures have been deleted with success.", _par_1, _cmd_tag );
+					}
+                   	_params_array['ifquestiondisabled_fn'] = function() { _glob_figures_array = []; circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES ); }
+					if ( !_glob_terminal_echo_flag || _params_assoc_array["silent"] ) _params_array['yes_fn'].call(this);
+                   	else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+				}
+				break ;
                 case "copy":
 				_params_assoc_array['figures_ref'] = _params_assoc_array['figures_ref'].unique();
                 if ( _n_input_index > 0 )
@@ -368,24 +386,25 @@ function circles_terminal_cmd_figures()
 				{
 					var _figures_ref = _all ? _glob_figures_array : _params_assoc_array['figures_ref'] ;
 					var _virtual_index, _zerobased_index, _rec_chunk ;
-					var _pts_idx_array = [], _cmd_lines = [], _remove_ids = [] ;
+					var _pts_idx_array = [], _cmd_lines = [], _drop_ids = [], _b_drop = _params_assoc_array["drop"] != null ;
 					disassembleloop:
 					for( var _idx = 0 ; _idx < _figures_ref.length ; _idx++ )
 					{
 						if ( !_all )
 						{
 							_virtual_index = _figures_ref[_idx] ;
-							_zerobased_index = _virtual_index - 1, _index = UNDET ;
+							_zerobased_index = _virtual_index - 1, _index = UNDET, _b_drop = _params_assoc_array['drop'] != null ;
 							_rec_chunk = _glob_figures_array[_zerobased_index] ;
 						}
 						else { _virtual_index = _idx + 1; _zerobased_index = _idx ; _rec_chunk = _glob_figures_array[_idx] ; }
+
                         if ( _rec_chunk != null )
                         {
 							switch( _rec_chunk['class'] )
 							{
 								case FIGURE_CLASS_CIRCLE:
 								_b_fail = YES ; _error_str = "Fail to disassemble: figure @"+_virtual_index+" cannot be disconnected" ;
-								break connectloop ;
+								break disassembleloop ;
 								break ;
 								case FIGURE_CLASS_LINE:
 								var _cmd = [] ;
@@ -394,22 +413,41 @@ function circles_terminal_cmd_figures()
 									if ( _rec ) _cmd.push( "rec" );
 									if ( _rec_chunk['planedef'] != null ) _cmd.push( _rec_chunk['planedef'] );
 									if ( _rec_chunk['layer'] != null ) _cmd.push( "layer:"+_rec_chunk['layer'] );
-									if ( _rec_chunk['bordercolor'] != null ) _cmd.push( "bordercolor:"+_rec_chunk['bordercolor'] );
-									if ( _rec_chunk['bordersize'] != null ) _cmd.push( "bordersize:"+_rec_chunk['bordersize'] );
+									
+									if ( _params_assoc_array['radius'] != null ) _cmd.push( "radius:"+_params_assoc_array['radius'] );
+									else if ( _rec_chunk['radius'] != null ) _cmd.push( "radius:"+_rec_chunk['radius'] );
+
+									if ( _params_assoc_array['fillcolor'] != null ) _cmd.push( "fillcolor:"+_params_assoc_array['fillcolor'] );
+									else if ( _rec_chunk['fillcolor'] != null ) _cmd.push( "fillcolor:"+_rec_chunk['fillcolor'] );
+
+									if ( _params_assoc_array['bordercolor'] != null ) _cmd.push( "bordercolor:"+_params_assoc_array['bordercolor'] );
+									else if ( _rec_chunk['bordercolor'] != null ) _cmd.push( "bordercolor:"+_rec_chunk['bordercolor'] );
+									
+									if ( _params_assoc_array['bordersize'] != null ) _cmd.push( "bordersize:"+_params_assoc_array['bordersize'] );
+									else if ( _rec_chunk['bordersize'] != null ) _cmd.push( "bordersize:"+_rec_chunk['bordersize'] );
+
 									circles_lib_terminal_interpreter( "point "+( _cmd.join(" ") ), _glob_terminal, _output_channel );
-									if ( _params_assoc_array["remove"] ) _remove_ids.push( _zerobased_index );
+									if ( _b_drop ) _drop_ids.push( _zerobased_index );
 								break ;
 								case FIGURE_CLASS_POLYGON:
-								var _pts = _rec_chunk['obj'].get_vertexes();
+								var _pts = _rec_chunk['obj'] ;
 								var _cmd = [] ;
-									_pts.forEach( function( _pt ){ if ( is_point( _pt ) ) _cmd.push( _rec_chunk['obj'][0].output("cartesian") ) ; } ) ;
+									_pts.forEach( function( _pt ){ if ( is_point( _pt ) ) _cmd.push( _pt.output("cartesian") ) ; } ) ;
 									if ( _rec ) _cmd.push( "rec" );
 									if ( _rec_chunk['planedef'] != null ) _cmd.push( _rec_chunk['planedef'] );
 									if ( _rec_chunk['layer'] != null ) _cmd.push( "layer:"+_rec_chunk['layer'] );
-									if ( _rec_chunk['bordercolor'] != null ) _cmd.push( "bordercolor:"+_rec_chunk['bordercolor'] );
-									if ( _rec_chunk['bordersize'] != null ) _cmd.push( "bordersize:"+_rec_chunk['bordersize'] );
+
+									if ( _params_assoc_array['fillcolor'] != null ) _cmd.push( "fillcolor:"+_params_assoc_array['fillcolor'] );
+									else if ( _rec_chunk['fillcolor'] != null ) _cmd.push( "fillcolor:"+_rec_chunk['fillcolor'] );
+
+									if ( _params_assoc_array['bordercolor'] != null ) _cmd.push( "bordercolor:"+_params_assoc_array['bordercolor'] );
+									else if ( _rec_chunk['bordercolor'] != null ) _cmd.push( "bordercolor:"+_rec_chunk['bordercolor'] );
+									
+									if ( _params_assoc_array['bordersize'] != null ) _cmd.push( "bordersize:"+_params_assoc_array['bordersize'] );
+									else if ( _rec_chunk['bordersize'] != null ) _cmd.push( "bordersize:"+_rec_chunk['bordersize'] );
+
 									circles_lib_terminal_interpreter( "point "+( _cmd.join(" ") ), _glob_terminal, _output_channel );
-									if ( _params_assoc_array["remove"] ) _remove_ids.push( _zerobased_index );
+									if ( _b_drop ) _drop_ids.push( _zerobased_index );
 								break ;
 								case FIGURE_CLASS_RECT:
 								_pts_idx_array = _pts_idx_array.concat( _rec_chunk['obj'].get_corners() );
@@ -425,12 +463,13 @@ function circles_terminal_cmd_figures()
 						}
 					}
 					
-					if( !_b_fail && _remove_ids.length > 0 )
+					if( !_b_fail && _drop_ids.length > 0 && _b_drop )
 					{
-						_remove_ids.sort( function( _a, _b ){ return _b - _a ; } ) ; // descending order to remove index safely
-						_remove_ids.forEach( function( _i ){
+						_drop_ids.sort( function( _a, _b ){ return _b - _a ; } ) ; // descending order to remove index safely
+						_drop_ids.forEach( function( _i ){
+							var _class_def = _figures_cmd_get_class_def( _glob_figures_array[_i]['class'] ) ;
 							_glob_figures_array.remove( _i, _i ) ;
-							circles_lib_output( _output_channel, DISPATCH_INFO, "Figure @"+(_idx+1)+" removed with success", _par_1, _cmd_tag );
+							circles_lib_output( _output_channel, DISPATCH_INFO, _class_def+" @"+(_i+1)+" removed with success", _par_1, _cmd_tag );
 							} ) ;
 					}
 
@@ -723,6 +762,19 @@ function circles_terminal_cmd_figures()
 		circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+}
+
+function _figures_cmd_get_class_def( _cls = FIGURES_CLASS_NONE )
+{
+	switch( _cls )
+	{
+		case FIGURE_CLASS_CIRCLE: return "circle" ; break ;
+		case FIGURE_CLASS_POLYGON: return "polygon" ; break ;
+		case FIGURE_CLASS_LINE: return "line" ; break ;
+		case FIGURE_CLASS_POINT: return "point" ; break ;
+		case FIGURE_CLASS_RECT: return "rectangle" ; break ;
+		default: return "unknown figure" ; break ;
+	}
 }
 
 function _figures_cmd_display_list_item( _i, _rec_chunk, _options )

@@ -16,12 +16,19 @@
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 
 * 'figures' cmd:
-   - test 'assemble' and 'disassemble' actions with points, lines and polygons, also including the 'remove' attribute
+   - let 2 points, assemble them, disassemble rec but not drop (2 times: you'll get 4 new points), delete @2 @3 @4 @5
+     and then the whole list is dropped !
+   - implement new syntax: figures delete @2-@5 (hint: fill two props delete_start:2, delete_end:5)
    - check that actions are suitably endowed with 'all' param
    - 'figures show all' does not work because function 'circles_lib_figures_action' does not
      accept parameter 'all' to work out the whole figures_array, as done in the 'figure' command
      for the isolate 'all' for example
 
+* new 'history' cmd:
+  - history 5 : returns a list of the last 5 commands, except 'history' itself
+  - history 5 > batch : write the last 5 commands into the batch script tab
+  - history 5 > file.txt : write the last 5 commands into a file
+	 
 --------------- FIX SOON -----------------------
 
 * at start-up, get width dimensions for setting the default font size properly.

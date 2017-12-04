@@ -4,11 +4,19 @@
 
 <lightblue>usage</lightblue> <snow>figures %action% %indexes% %all% %params% %opacity% %bordersizeness% %pos%</snow>
 
-<lightblue>%action%</lightblue> <snow>copy | connect | delete | disable | enable | hide | isolate | list | render | rotate | show | transfer | update</snow>
+<lightblue>%action%</lightblue> <snow>assemble | copy | delete | disable | disassemble | enable | hide | isolate | list | render | rotate | show | transfer | update</snow>
 <lightblue>%indexes%</lightblue> <snow>input index for the figures to be managed</snow>
-<lightblue>%params%</lightblue> <snow>close | open | silent | reverse | noinherit | rec</snow> <orange>(optional)</orange>
+<lightblue>%params%</lightblue> <snow>close | drop | noinherit | open | silent | reverse | rec </snow> <orange>(optional)</orange>
 <lightblue>%opacity%</lightblue> <snow>from 0.0 to 1.0</snow> <orange>(required if line thickness is input)</orange>
 <lightblue>%bordersizeness%</lightblue> <snow>any positive integer</snow>
+
+<lightblue>figures assemble @1 @2 line | polygon</lightblue>
+<cadetblue>turn a set of point-type entries into a line (default, at least 2 points) or into a polygon (at least 3 points)</cadetblue>
+<gray>refer to 'line' command help file for setting the attributes to the resulting object</gray>
+
+<lightblue>figures assemble @1 @2 @3 polygon drop</lightblue>
+<cadetblue>turn a set of point-type entries into a polygon and drop the source points from the list of records</cadetblue>
+<gray>refer to 'polygon' command help file for setting the attributes to the resulting object</gray>
 
 <lightblue>figures bomb</lightblue>
 <cadetblue>delete all recorded figures</cadetblue>
@@ -21,6 +29,10 @@
 
 <lightblue>figures delete @2 @4</lightblue>
 <cadetblue>delete figures 2 and 4</cadetblue>
+
+<lightblue>figures disassemble @1</lightblue>
+<cadetblue>turn a line or a rect into the respective set of vertexes (points)</cadetblue>
+<gray>refer to 'point' command help file for setting the attributes to the resulting points</gray>
 
 <lightblue>figures hide @1</lightblue>
 <lightblue>figures disable @1</lightblue>

@@ -1,15 +1,15 @@
-<banana>plot a (poly)line</banana>
+<banana>plot a polygon</banana>
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>line %points coords% %close% %bordercolor% %fillcolor% %bordersize% %opacity% %plane% %layerrole% %rec% $label %properties%</snow>
+<lightblue>usage</lightblue> <snow>polygon %points coords% %close% %bordercolor% %fillcolor% %bordersize% %opacity% %plane% %layerrole% %rec% $label %properties%</snow>
 
 <lightblue>%points coords%</lightblue> <snow>a sequence of points - example: (0,0) (0.1,0.2) (0.2,0.3)</snow>
 
 <lightblue>%properties%</lightblue> <snow>mark</snow>
 
 <lightblue>%plane%</lightblue> <snow>zplane | wplane | bip</snow>
-<cadetblue>where the line will be drawn</cadetblue>
+<cadetblue>where the polygon will be drawn</cadetblue>
 
 <lightblue>%bordercolor%</lightblue> <snow>red | #FF0000 | rgb(255,0,0)</snow>
 <cadetblue>Colors can be input by tags, rgb hex or integer triplets. Type 'noclr' to skip it</cadetblue>
@@ -51,6 +51,6 @@
 <cadetblue>%thickness% %opacity% must be input according to the above params sequence</cadetblue>
 <turquoise>Note (2)</turquoise> <cadetblue>$labels can be used to refer to figures, as alternative to indexes</cadetblue>
 <turquoise>Note (3)</turquoise>
-<cadetblue>if you want to update later a line entry, use these parameters</cadetblue>
+<cadetblue>if you want to update later a polygon entry, use these parameters</cadetblue>
 <cadetblue>in '</cadetblue><white>figures</white><cadetblue>' cmd with '</cadetblue><white>update</white><cadetblue>' action</cadetblue>
 <snow>points close draw bordercolor fillcolor opacity thick</snow>
