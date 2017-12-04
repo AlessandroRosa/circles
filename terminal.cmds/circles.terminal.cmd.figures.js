@@ -28,10 +28,9 @@ function circles_terminal_cmd_figures()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" );
 
-    	var _local_cmds_params_array = [ "bomb", "close", "connect", "copy", "disconnect",
-                "delete", "disable", "bordercolor",
-                "enable", "fill", "fillcolor", "isolate",
-                "keep", "list", "long", "open", "permanent", "rec",
+    	var _local_cmds_params_array = [ "assemble", "bomb", "close", "copy", "disassemble",
+                "delete", "disable", "bordercolor", "enable", "fill", "fillcolor", "isolate",
+                "keep", "list", "long", "open", "permanent", "rec", "remove",
                 "rebuild", "render", "rotate", "shift", "swap", "transfer", "update", "html" ];
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -104,7 +103,7 @@ function circles_terminal_cmd_figures()
 				_params_assoc_array['plane'] = circles_lib_plane_get_value( _p );
 				if ( _params_assoc_array['action'] == "update" ) _params_assoc_array['update_props']['plane'] = _params_assoc_array['plane'] ;
 			}
-            else if ( _p.is_one_of_i( "all", "keep", "long", "reverse", "rec", "close", "open", "permanent", "silent" ) )
+            else if ( _p.is_one_of_i( "all", "keep", "long", "reverse", "rec", "close", "open", "permanent", "remove", "silent" ) )
 			{
 				if ( _params_assoc_array['action'] == "update" ) _params_assoc_array['update_props'][ _p ] = YES ;
 			    _params_assoc_array[ _p ] = YES ;
@@ -262,14 +261,14 @@ function circles_terminal_cmd_figures()
                    	else circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
 				}
 				break ;
-				case "connect":
+				case "assemble":
 				_params_assoc_array['figures_ref'] = _params_assoc_array['figures_ref'].unique();
                 if ( _n_input_index > 0 || _all )
 				{
 					var _figures_ref = _all ? _glob_figures_array : _params_assoc_array['figures_ref'] ;
 					var _virtual_index, _zerobased_index, _rec_chunk ;
-					var _pts_idx_array = [] ;
-					connectloop:
+					var _pts_idx_array = [], _remove_ids = [] ;
+					assembleloop:
 					for( var _idx = 0 ; _idx < _figures_ref.length ; _idx++ )
 					{
 						if ( !_all )
@@ -287,22 +286,23 @@ function circles_terminal_cmd_figures()
 								case FIGURE_CLASS_LINE:
 								case FIGURE_CLASS_POLYGON:
 								case FIGURE_CLASS_RECT:
-								_b_fail = YES ; _error_str = "Fail to perform connection: figure @"+_virtual_index+" is not a point" ;
-								break connectloop ;
+								_b_fail = YES ; _error_str = "Fail to assemble: figure @"+_virtual_index+" is not a point" ;
+								break assembleloop ;
 								break ;
 								case FIGURE_CLASS_POINT:
 								_pts_idx_array.push( _virtual_index-1 );
+								if ( _params_assoc_array["remove"] ) _remove_ids.push( _zerobased_index );
 								break ;
 								default:
-								_b_fail = YES ; _error_str = "Fail to perform connection: figure @"+_virtual_index+" is of unknown type" ;
-								break connectloop ;
+								_b_fail = YES ; _error_str = "Fail to assemble: figure @"+_virtual_index+" is of unknown type" ;
+								break assembleloop ;
 								break ;
 							}
 						}
 					}
 					
-					if ( _pts_idx_array.length == 0 ) { _b_fail = YES, _error_str = "Fail to perform connection: no index refers to a point" ; }
-					else if ( _pts_idx_array.length == 1 ) { _b_fail = YES, _error_str = "Fail to perform connection: only one index refers to a point" ; }
+					if ( _pts_idx_array.length == 0 ) { _b_fail = YES, _error_str = "Fail to assemble: no index refers to a point" ; }
+					else if ( _pts_idx_array.length == 1 ) { _b_fail = YES, _error_str = "Fail to assemble: only one index refers to a point" ; }
 					else
 					{
 						var _cmd = [ 'line' ] ; _pts_idx_array.forEach( function( _idx ){ _cmd.push( _glob_figures_array[_idx]['obj'].output("cartesian") ); } ) ;
@@ -314,9 +314,18 @@ function circles_terminal_cmd_figures()
 						circles_lib_terminal_interpreter( _cmd.join( " " ), _glob_terminal, _output_channel );
 					}
 					
+					if( !_b_fail && _remove_ids.length > 0 )
+					{
+						_remove_ids.sort( function( _a, _b ){ return _b - _a ; } ) ; // descending order to remove index safely
+						_remove_ids.forEach( function( _i ){
+							_glob_figures_array.remove( _i, _i ) ;
+							circles_lib_output( _output_channel, DISPATCH_INFO, "Figure @"+(_idx+1)+" removed with success", _par_1, _cmd_tag );
+							} ) ;
+					}
+
 					if ( !_b_fail && _rec ) circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
 				}
-                else if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Copy failure: missing input indexes" ; }
+                else if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Fail to assemble: missing input indexes" ; }
 				break;
                 case "copy":
 				_params_assoc_array['figures_ref'] = _params_assoc_array['figures_ref'].unique();
@@ -352,16 +361,15 @@ function circles_terminal_cmd_figures()
                 }
                 else if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Copy failure: missing input indexes" ; }
                 break ;
-				case "disconnect":
+				case "disassemble":
 				_params_assoc_array['figures_ref'] = _params_assoc_array['figures_ref'].unique();
                 if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Can't "+_action+" : missing input indexes" ; }
                 else
 				{
 					var _figures_ref = _all ? _glob_figures_array : _params_assoc_array['figures_ref'] ;
 					var _virtual_index, _zerobased_index, _rec_chunk ;
-					var _pts_idx_array = [] ;
-					var _cmd_lines = [] ;
-					connectloop:
+					var _pts_idx_array = [], _cmd_lines = [], _remove_ids = [] ;
+					disassembleloop:
 					for( var _idx = 0 ; _idx < _figures_ref.length ; _idx++ )
 					{
 						if ( !_all )
@@ -370,14 +378,13 @@ function circles_terminal_cmd_figures()
 							_zerobased_index = _virtual_index - 1, _index = UNDET ;
 							_rec_chunk = _glob_figures_array[_zerobased_index] ;
 						}
-						else { _virtual_index = _idx + 1; _rec_chunk = _glob_figures_array[_idx] ; }
-						console.log( _rec_chunk );
+						else { _virtual_index = _idx + 1; _zerobased_index = _idx ; _rec_chunk = _glob_figures_array[_idx] ; }
                         if ( _rec_chunk != null )
                         {
 							switch( _rec_chunk['class'] )
 							{
 								case FIGURE_CLASS_CIRCLE:
-								_b_fail = YES ; _error_str = "Fail to perform disconnection: figure @"+_virtual_index+" cannot be disconnected" ;
+								_b_fail = YES ; _error_str = "Fail to disassemble: figure @"+_virtual_index+" cannot be disconnected" ;
 								break connectloop ;
 								break ;
 								case FIGURE_CLASS_LINE:
@@ -390,6 +397,7 @@ function circles_terminal_cmd_figures()
 									if ( _rec_chunk['bordercolor'] != null ) _cmd.push( "bordercolor:"+_rec_chunk['bordercolor'] );
 									if ( _rec_chunk['bordersize'] != null ) _cmd.push( "bordersize:"+_rec_chunk['bordersize'] );
 									circles_lib_terminal_interpreter( "point "+( _cmd.join(" ") ), _glob_terminal, _output_channel );
+									if ( _params_assoc_array["remove"] ) _remove_ids.push( _zerobased_index );
 								break ;
 								case FIGURE_CLASS_POLYGON:
 								var _pts = _rec_chunk['obj'].get_vertexes();
@@ -401,19 +409,29 @@ function circles_terminal_cmd_figures()
 									if ( _rec_chunk['bordercolor'] != null ) _cmd.push( "bordercolor:"+_rec_chunk['bordercolor'] );
 									if ( _rec_chunk['bordersize'] != null ) _cmd.push( "bordersize:"+_rec_chunk['bordersize'] );
 									circles_lib_terminal_interpreter( "point "+( _cmd.join(" ") ), _glob_terminal, _output_channel );
+									if ( _params_assoc_array["remove"] ) _remove_ids.push( _zerobased_index );
 								break ;
 								case FIGURE_CLASS_RECT:
 								_pts_idx_array = _pts_idx_array.concat( _rec_chunk['obj'].get_corners() );
 								break ;
 								case FIGURE_CLASS_POINT:
-								_b_fail = YES ; _error_str = "Fail to perform disconnection: figure @"+_virtual_index+" is already a point cannot be disconnected" ;
+								_b_fail = YES ; _error_str = "Fail to disassemble: figure @"+_virtual_index+" is already a point cannot be disconnected" ;
 								break ;
 								default:
-								_b_fail = YES ; _error_str = "Fail to perform disconnection: figure @"+_virtual_index+" is of unknown type" ;
-								break connectloop ;
+								_b_fail = YES ; _error_str = "Fail to perform disassemble: figure @"+_virtual_index+" is of unknown type" ;
+								break disassembleloop ;
 								break ;
 							}
 						}
+					}
+					
+					if( !_b_fail && _remove_ids.length > 0 )
+					{
+						_remove_ids.sort( function( _a, _b ){ return _b - _a ; } ) ; // descending order to remove index safely
+						_remove_ids.forEach( function( _i ){
+							_glob_figures_array.remove( _i, _i ) ;
+							circles_lib_output( _output_channel, DISPATCH_INFO, "Figure @"+(_idx+1)+" removed with success", _par_1, _cmd_tag );
+							} ) ;
 					}
 
 					if ( !_b_fail && _rec ) circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );

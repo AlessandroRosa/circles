@@ -79,7 +79,7 @@ function circles_lib_colors_get_formats( _p_color = "" )
     return [ _b_fail ? RET_ERROR : RET_OK, _out_rgb_dec, _out_rgb_hex, _out_tag ];
 }
 
-function circles_lib_colors_rgb_dec_to_hex( rgb )
+function circles_lib_colors_rgb_dec_to_hex( rgb = "" )
 {
     var HEX = "", rgb = ( new String( rgb ) ).toLowerCase().trim().replaceAll( " ", "" );
     if ( rgb.testME( _glob_rgbdec_regex_pattern, "^([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3})$" ) )
@@ -101,7 +101,7 @@ function circles_lib_colors_rgb_dec_to_hex( rgb )
     return HEX ;
 }
 
-function circles_rgb_hex_to_dec( hex )
+function circles_rgb_hex_to_dec( hex = "" )
 {
     hex = ( new String( hex ) ).toLowerCase().trim();
     var RGB = "" ;
@@ -171,7 +171,7 @@ function circles_lib_colors_decolorize( _items_array = [], _update = NO, _silent
     }
 }
 
-function circles_lib_colors_decode_tags( _data )
+function circles_lib_colors_decode_tags( _data = "" )
 {
     var _color ;
 	$.each( def_clrs_tags_keys, function( _i, _key ) {
@@ -182,9 +182,9 @@ function circles_lib_colors_decode_tags( _data )
     return _data ;
 }
 
-function circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, nSTEPS, _silent, _output_channel )
+function circles_lib_colors_compute_gradient( RGBintSTART = "", RGBintEND = "", nSTEPS = 1, _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
-	nSTEPS = safe_int( nSTEPS, 1 ) - 1 ;
+	nSTEPS = Math.min( 1, safe_int( nSTEPS, 1 ) - 1 ) ;
     RGBintSTART = safe_string( RGBintSTART, _glob_palette_array[0] );
     if ( RGBintSTART.length == 0 ) RGBintSTART = _glob_palette_array[0] ;
     RGBintEND = safe_string( RGBintEND, _glob_palette_array.get_last() );
@@ -223,7 +223,7 @@ function circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, nSTEPS, _s
 
        var _msg = "Colors palette has been resized to " + tmpPALETTE.length + " entr" + ( tmpPALETTE.length == 1 ? "y" : "ies" ) ;
        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
-			 return [ RET_OK, tmpPALETTE, _msg ] ;
+		return [ RET_OK, tmpPALETTE, _msg ] ;
     }
     else
 	{

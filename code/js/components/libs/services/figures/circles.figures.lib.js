@@ -18,7 +18,7 @@ function circles_lib_figures_add( _rec_chunk )
     else return NO ;
 }
 
-function circles_lib_figures_output_text( _fig_obj, _separator )
+function circles_lib_figures_output_text( _fig_obj, _separator = _glob_crlf )
 {
     _separator = safe_string( _separator, _glob_crlf );
     if ( is_array( _fig_obj ) )
@@ -82,7 +82,7 @@ function circles_lib_figures_output_text( _fig_obj, _separator )
     }
 }
 
-function circles_lib_figures_find_duplicates( _class, _plane, _obj, _haystack )
+function circles_lib_figures_find_duplicates( _class = FIGURE_CLASS_NONE, _plane = NO_PLANE, _obj = null, _haystack = null )
 {
     var _b_go = NO, _b_found = NO ;
     if ( !is_array( _haystack ) ) _haystack = _glob_figures_array ;

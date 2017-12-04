@@ -1,4 +1,4 @@
-function circles_lib_palette_init( _silent, _output_channel )
+function circles_lib_palette_init( _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
     _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
     if ( safe_size( _glob_palette_array, 0 ) > 0 ) _glob_palette_array.flush();
@@ -14,7 +14,7 @@ function circles_lib_palette_init( _silent, _output_channel )
     return [ RET_OK, "Palette init with success" ] ;
 }
 
-function circles_lib_palette_destroy( _question, _silent, _output_channel )
+function circles_lib_palette_destroy( _question = YES, _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
@@ -46,7 +46,7 @@ function circles_lib_palette_destroy( _question, _silent, _output_channel )
     }
 }
 
-function circles_lib_palette_delete_interval( _range_str, _question, _silent, _output_channel )
+function circles_lib_palette_delete_interval( _range_str = "", _question = YES, _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
      _range_str = safe_string( _range_str, "" ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
      _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
@@ -88,10 +88,7 @@ function circles_lib_palette_delete_interval( _range_str, _question, _silent, _o
                         }
                         else _check_fns.push( function( _x ) { return ( _x >= _tok_from && _x <= _tok_to ) ? YES : NO ; } );
                    }
-                   else if ( _tok.onlyDigits() )
-                   {
-                        _check_fns.push( function( _x ) { return _x == _tok ? YES : NO ; } );
-                   }
+                   else if ( _tok.onlyDigits() ) _check_fns.push( function( _x ) { return _x == _tok ? YES : NO ; } );
                    else
                    {
                         var _msg = "Syntax error in range definition" ;
@@ -129,7 +126,7 @@ function circles_lib_palette_delete_interval( _range_str, _question, _silent, _o
      }
 }
 
-function circles_lib_palette_delete_entry( _delete_index, _question, _silent, _output_channel )
+function circles_lib_palette_delete_entry( _delete_index = 0, _question = YES, _silent = NO, _output_channel = OUTPUT_SCREEN )
 {
    _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
    _delete_index = safe_int( _delete_index, 0 ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
