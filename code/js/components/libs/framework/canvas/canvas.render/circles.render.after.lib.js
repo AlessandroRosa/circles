@@ -193,7 +193,7 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
                 {
                     case FIGURE_CLASS_POINT:
                     circles_lib_draw_point( _canvas_context, _mapper, _obj.x, _obj.y,
-                    _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius, _opacity, _properties_mask );
+                    _bordercolor.length>0, _bordercolor, _fillcolor.length>0, _fillcolor, _bordersize, _radius, _opacity, _properties_mask );
                     break ;
                     case FIGURE_CLASS_LINE:
                     circles_lib_draw_polyline( _canvas_context, _mapper, _obj,

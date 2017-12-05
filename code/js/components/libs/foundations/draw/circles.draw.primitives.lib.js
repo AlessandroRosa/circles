@@ -547,7 +547,7 @@ function circles_lib_draw_pixel( _context, _mapper, _pt_x, _pt_y, _bordercolor, 
 }
 
 // in this config, the point is a different geometric object from the pixel
-function circles_lib_draw_point( _context, _mapper, _pt_x, _pt_y, _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius, _opacity, _properties_mask, _map_it )
+function circles_lib_draw_point( _context, _mapper, _pt_x, _pt_y, _border = 0, _bordercolor = "transparent", _fill = 0, _fillcolor = "transparent", _bordersize = 0, _radius = 1, _opacity = 1.0, _properties_mask, _map_it )
 {
    if ( !is_html_context( _context ) || !is_screen_mapper( _mapper ) ) return null ;
     _pt_x = safe_float( _pt_x, 0 ), _pt_y = safe_float( _pt_y, 0 );
@@ -558,10 +558,7 @@ function circles_lib_draw_point( _context, _mapper, _pt_x, _pt_y, _border, _bord
     _opacity = safe_float( _opacity, DEFAULT_MAX_OPACITY );
     _map_it = safe_int( _map_it, is_screen_mapper( _mapper ) ? YES : NO );
     if ( _map_it ) _glob_persistent_vars['scr_pt'] = _mapper.from_cartesian_to_client( _pt_x, _pt_y ) ;
-    else
-    {
-       _glob_persistent_vars['scr_pt'].x = _pt_x, _glob_persistent_vars['scr_pt'].y = _pt_y ;
-    }
+    else { _glob_persistent_vars['scr_pt'].x = _pt_x, _glob_persistent_vars['scr_pt'].y = _pt_y ; }
 
     _context.globalAlpha = _opacity ;
     _context.beginPath();
@@ -578,7 +575,7 @@ function circles_lib_draw_point( _context, _mapper, _pt_x, _pt_y, _border, _bord
        _context.fill();
     }
     
-		_context.closePath();
+	_context.closePath();
 
     switch( _glob_export_format )
     {

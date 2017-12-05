@@ -16,10 +16,10 @@
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 
 * 'figures' cmd:
+   - test that all properties, for each primitive object, are regularly updated by circles_lib_figures_update_manager
    - let 2 points, assemble them, disassemble rec but not drop (2 times: you'll get 4 new points), delete @2 @3 @4 @5
      and then the whole list is dropped !
    - implement new syntax: figures delete @2-@5 (hint: fill two props delete_start:2, delete_end:5)
-   - check that actions are suitably endowed with 'all' param
    - 'figures show all' does not work because function 'circles_lib_figures_action' does not
      accept parameter 'all' to work out the whole figures_array, as done in the 'figure' command
      for the isolate 'all' for example

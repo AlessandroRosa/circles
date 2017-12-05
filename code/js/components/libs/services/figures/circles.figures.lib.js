@@ -115,12 +115,12 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _u
     // separate entries of indexes from properties to be updated
 	var _all = _upd_props['all'] ? 1 : 0, _figures_ref = _all ? _glob_figures_array : _upd_props['figures_ref'] ;
     // check input params to be coherent with each obj properties
-    var _point_props_tarray = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'plane', 'enabled' ];
+    var _point_props_array = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'plane', 'enabled', 'radius' ];
     var _rect_props_array = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'borderradius', 'plane', 'enabled' ];
     var _line_props_array = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'mark', 'close', 'plane', 'enabled' ];
     var _circle_props_array = [ 'center', 'radius', 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'plane', 'enabled' ];
     var _polygon_props_array = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'borderradius', 'plane', 'enabled' ];
-    var _x, _virtual_index, _zerobased_index, _rec_chunk, _prop_array_ref = null ;
+    var _virtual_index, _zerobased_index, _rec_chunk, _props_array_ref = null ;
     for( var _i = 0 ; _i < _figures_ref.length ; _i++ )
     {
 		if ( !_all )
@@ -131,21 +131,21 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _u
 		}
 		else { _virtual_index = _i + 1; _rec_chunk = _glob_figures_array[_i] ; }
 
-		_prop_array_ref = null ;
+		_props_array_ref = null ;
 		switch( _rec_chunk['class'] )
 		{
-            case FIGURE_CLASS_POINT: _prop_array_ref = _point_props_array ; break ;
-            case FIGURE_CLASS_RECT: _prop_array_ref = _rect_props_array ; break ;
-            case FIGURE_CLASS_CIRCLE: _prop_array_ref = _circle_props_array ; break ;
-            case FIGURE_CLASS_LINE: _prop_array_ref = _line_props_array ; break ;
-            case FIGURE_CLASS_POLYGON: _prop_array_ref = _polygon_props_array ; break ;
-			default: break ;
+            case FIGURE_CLASS_POINT: _props_array_ref = _point_props_array ; break ;
+            case FIGURE_CLASS_RECT: _props_array_ref = _rect_props_array ; break ;
+            case FIGURE_CLASS_CIRCLE: _props_array_ref = _circle_props_array ; break ;
+            case FIGURE_CLASS_LINE: _props_array_ref = _line_props_array ; break ;
+            case FIGURE_CLASS_POLYGON: _props_array_ref = _polygon_props_array ; break ;
+			default: _props_array_ref = null ; break ;
 		}
 
-		if ( is_array( _prop_array_ref ) )
-		_prop_array_ref.forEach( function( _prop )
+		if ( is_array( _props_array_ref ) )
+		_props_array_ref.forEach( function( _prop )
 		{
-			if ( _rec_chunk[_prop] != null && _upd_props[_prop] != null ) _rec_chunk[_prop] = _upd_props[_prop] ;
+			if ( _upd_props[_prop] != null ) _rec_chunk[_prop] = _upd_props[_prop] ;
 		} );
     }
 }
