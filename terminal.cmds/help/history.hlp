@@ -1,0 +1,8 @@
+<banana>retrieve history of terminal commands</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
+
+<lightblue>usage</lightblue>
+
+<lightblue>history 10</lightblue>
+<cadetblue>return the latest 10 entries in the history</cadetblue>

@@ -48,56 +48,61 @@ if ( typeof safe_size != "function" )
 
 function point()
 {
-		this.customclass = arguments.callee.name ;
+	this.customclass = arguments.callee.name ;
     this.notes = "" ;
     // standard arguments sequence : x, y, environment, bordercolor, fillcolor, radius, notes
-		if ( is_array( arguments[0] ) )
-		{
-       var _i = 0 ;
-		   this.x = arguments[0][_i].x, this.y = arguments[0][_i].y ;
-       _i++ ;
-		   this.env = safe_int( arguments[0][_i], _POINT_2D_CLS_EUCLIDEAN_ENV ) ;
-       _i++ ;
-		   if ( is_string( arguments[0][_i] ) ) this.bordercolor = safe_string( arguments[0][_i], "blue" ) ;
-       _i++ ;
-		   if ( is_string( arguments[0][_i] ) ) this.fillcolor = safe_string( arguments[0][_i], "" ) ;
-       _i++ ;
-		   this.radius = safe_float( arguments[0][_i], 0 ) ;
-       _i++ ;
-		   if ( is_string( arguments[0][_i] ) ) this.notes = safe_string( arguments[0][_i], "" ) ;
-		}
+	if ( is_array( arguments[0] ) )
+	{
+		var _i = 0 ;
+		this.x = arguments[0][_i].x, this.y = arguments[0][_i].y ;
+        _i++ ;
+		this.env = safe_int( arguments[0][_i], _POINT_2D_CLS_EUCLIDEAN_ENV ) ;
+        _i++ ;
+		if ( is_string( arguments[0][_i] ) ) this.bordercolor = safe_string( arguments[0][_i], "blue" ) ;
+        _i++ ;
+		if ( is_string( arguments[0][_i] ) ) this.fillcolor = safe_string( arguments[0][_i], "" ) ;
+        _i++ ;
+		this.radius = safe_float( arguments[0][_i], 0 ) ;
+        _i++ ;
+		if ( is_string( arguments[0][_i] ) ) this.notes = safe_string( arguments[0][_i], "" ) ;
+	}
     else if ( is_point( arguments[0] ) )
     {
-       this.x = arguments[0].x, this.y = arguments[0].y ;
-       this.env = safe_int( arguments[0].env, _POINT_2D_CLS_EUCLIDEAN_ENV ) ;
-       this.bordercolor = safe_string( arguments[0].bordercolor, "blue" ) ;
-       this.fillcolor = safe_string( arguments[0].fillcolor, "" ) ;
-       this.radius = safe_float( arguments[0].radius, 0 ) ;
-       if ( is_string( arguments[0] ) ) this.notes = safe_string( arguments[0].notes, "" ) ;
+        this.x = arguments[0].x, this.y = arguments[0].y ;
+        this.env = safe_int( arguments[0].env, _POINT_2D_CLS_EUCLIDEAN_ENV ) ;
+        this.bordercolor = safe_string( arguments[0].bordercolor, "blue" ) ;
+        this.fillcolor = safe_string( arguments[0].fillcolor, "" ) ;
+        this.radius = safe_float( arguments[0].radius, 0 ) ;
+        if ( is_string( arguments[0] ) ) this.notes = safe_string( arguments[0].notes, "" ) ;
     }
-		else if ( arguments.length >= 2 )
-		{
-       var _i = 0 ;
-		   if ( is_point( arguments[0] ) )
-       {
-          this.x = arguments[0].x, this.y = arguments[0].y ;
-          _i = 1 ;
-       }
-       else
-       {
-          this.x = arguments[0], this.y = arguments[1] ;
-          _i = 2 ;
-       }
-			 this.env = safe_int( arguments[_i], _POINT_2D_CLS_EUCLIDEAN_ENV ) ;
-       _i++ ;
-			 this.bordercolor = is_string( arguments[_i] ) ? safe_string( arguments[_i], "blue" ) : "" ;
-       _i++ ;
-			 this.fillcolor = is_string( arguments[_i] ) ? safe_string( arguments[_i], "" ) : "" ;
-       _i++ ;
-			 this.radius = safe_float( arguments[_i], 0 ) ;
-       _i++ ;
-			 if ( is_string( arguments[_i] ) ) this.notes = safe_string( arguments[_i], "" ) ;
+	else if ( /^\(([\-\+])*([0-9\.]+)\,([\-\+])*([0-9\.]+)\)$/g.test( arguments[0] ) )
+	{
+		var _arg = ( arguments[0].replace( /[\(\)]/g, "" ) ).split( "," ) ;
+		this.x = safe_float( _arg[0], 0 ), this.y = safe_float( _arg[1], 0 ) ;
+	}
+	else if ( arguments.length >= 2 )
+	{
+        var _i = 0 ;
+	    if ( is_point( arguments[0] ) )
+        {
+			this.x = arguments[0].x, this.y = arguments[0].y ;
+			_i = 1 ;
 		}
+		else
+		{
+			this.x = arguments[0], this.y = arguments[1] ;
+			_i = 2 ;
+		}
+		this.env = safe_int( arguments[_i], _POINT_2D_CLS_EUCLIDEAN_ENV ) ;
+		_i++ ;
+		this.bordercolor = is_string( arguments[_i] ) ? safe_string( arguments[_i], "blue" ) : "" ;
+		_i++ ;
+		this.fillcolor = is_string( arguments[_i] ) ? safe_string( arguments[_i], "" ) : "" ;
+		_i++ ;
+		this.radius = safe_float( arguments[_i], 0 ) ;
+		_i++ ;
+		if ( is_string( arguments[_i] ) ) this.notes = safe_string( arguments[_i], "" ) ;
+	}
 }
 
 point.prototype.set_env = function( _env ) { this.env = safe_float( _env, _POINT_2D_CLS_EUCLIDEAN_ENV ) ; }

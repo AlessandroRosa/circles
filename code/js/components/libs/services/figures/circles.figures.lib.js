@@ -117,10 +117,10 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _u
     // check input params to be coherent with each obj properties
     var _point_props_array = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'plane', 'enabled', 'radius' ];
     var _rect_props_array = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'borderradius', 'plane', 'enabled' ];
-    var _line_props_array = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'mark', 'close', 'plane', 'enabled' ];
-    var _circle_props_array = [ 'center', 'radius', 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'plane', 'enabled' ];
     var _polygon_props_array = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'borderradius', 'plane', 'enabled' ];
-    var _virtual_index, _zerobased_index, _rec_chunk, _props_array_ref = null ;
+    var _line_props_array = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'mark', 'close', 'plane', 'enabled' ];
+    var _circle_props_array = [ 'bordersize', 'bordercolor', 'fillcolor', 'opacity', 'plane', 'enabled', 'radius', 'center' ];
+    var _virtual_index, _zerobased_index, _rec_chunk, _props_array_ref = null, _class = "" ;
     for( var _i = 0 ; _i < _figures_ref.length ; _i++ )
     {
 		if ( !_all )
@@ -131,8 +131,8 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _u
 		}
 		else { _virtual_index = _i + 1; _rec_chunk = _glob_figures_array[_i] ; }
 
-		_props_array_ref = null ;
-		switch( _rec_chunk['class'] )
+		_props_array_ref = null, _class = _rec_chunk['class'] ;
+		switch( _class )
 		{
             case FIGURE_CLASS_POINT: _props_array_ref = _point_props_array ; break ;
             case FIGURE_CLASS_RECT: _props_array_ref = _rect_props_array ; break ;
@@ -145,7 +145,11 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _u
 		if ( is_array( _props_array_ref ) )
 		_props_array_ref.forEach( function( _prop )
 		{
-			if ( _upd_props[_prop] != null ) _rec_chunk[_prop] = _upd_props[_prop] ;
+			if ( _prop == "center" && _upd_props[_prop] != null && _class == FIGURE_CLASS_CIRCLE )
+				_rec_chunk['obj'].center = new point( _upd_props[_prop] ) ;
+			else if ( _prop == "radius" && _upd_props[_prop] != null && _class == FIGURE_CLASS_CIRCLE )
+				_rec_chunk['radius'] = _rec_chunk['obj'].radius = safe_float( _upd_props[_prop], 0 );
+			else if ( _upd_props[_prop] != null ) _rec_chunk[_prop] = _upd_props[_prop] ;
 		} );
     }
 }

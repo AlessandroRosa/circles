@@ -160,16 +160,15 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
             _filtered = ( _filter_array.length == 0 || _filter_array.includes( _rec_chunk['myhash'] ) ) ? YES : NO ;
             if ( _enabled && _filtered && _plane_type.is_one_of( _plane, ALL_PLANES ) )
             {
-                _class = _rec_chunk['class'] ;
-                _obj = _rec_chunk['obj'] ;
-                _border = _rec_chunk['border'], _bordercolor = _rec_chunk['bordercolor'] ;
-                _fill = _rec_chunk['fill'], _fillcolor = _rec_chunk['fillcolor'] ;
-                _opacity = _rec_chunk['opacity'] ;
-                _bordersize = _rec_chunk['bordersize'];
+                _class = _rec_chunk['class'], _obj = _rec_chunk['obj'] ;
+                _border = safe_int( _rec_chunk['border'], 0 ), _bordercolor = safe_string( _rec_chunk['bordercolor'], "" ) ;
+                _fill = safe_int( _rec_chunk['fill'], 0 ), _fillcolor = safe_string( _rec_chunk['fillcolor'], "" ) ;
+                _opacity = safe_float( _rec_chunk['opacity'], 1.0 ) ;
+                _bordersize = safe_int( _rec_chunk['bordersize'], 1 );
                 _properties_mask = _rec_chunk['propertiesmask'];
-                _close = _rec_chunk['close'] != null ? _rec_chunk['close'] : NO ;
+                _close = _rec_chunk['close'] != null ? safe_int( _rec_chunk['close'], 0 ) : NO ;
                 _canvas_context = null, _mapper = null ;
-                _radius = _rec_chunk['radius'];
+                _radius = safe_float( _rec_chunk['radius'], 0 );
 				_canvas = circles_lib_canvas_layer_find( _plane, FIND_LAYER_BY_ROLE_DEF, _rec_chunk['layer'] );
 
                 switch( _plane )

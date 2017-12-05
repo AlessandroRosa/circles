@@ -57,19 +57,13 @@ function circles_terminal_cmd_console()
             else if ( _p.is_one_of_i( "left", "right" ) ) _params_assoc_array['x'] = _p ;
             else if ( _p.is_one_of_i( "maxi", "mini", "wide", "tall" ) ) _params_assoc_array['consolesize'] = _p ;
             else if ( _p.is_one_of_i( "top", "bottom" ) ) _params_assoc_array['y'] = _p ;
-            else if ( _p.testME( _glob_percentage_regex_pattern ) )
+            else if ( _p.testME( _glob_percentage_regex_pattern ) && _params_assoc_array['action'].includes( "resize" ) )
             {
-                if ( _params_assoc_array['action'].includes( "resize" ) )
-                {
-                    if ( _params_assoc_array['w'] == null ) _params_assoc_array['w'] = safe_string( _p, "" );
-                    else if ( _params_assoc_array['h'] == null ) _params_assoc_array['h'] = safe_string( _p, "" );
-                }
+                if ( _params_assoc_array['w'] == null ) _params_assoc_array['w'] = safe_string( _p, "" );
+                else if ( _params_assoc_array['h'] == null ) _params_assoc_array['h'] = safe_string( _p, "" );
             }
-            else if ( _params_assoc_array['action'].stricmp( "history" ) )
-            {
-                if ( _p.testME( _glob_integer_regex_pattern ) )
+            else if ( _params_assoc_array['action'].stricmp( "history" ) && _p.testME( _glob_integer_regex_pattern ) )
                 _params_assoc_array['history'] = safe_int( _p, 0 );
-            }
             else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
          
@@ -180,17 +174,17 @@ function circles_terminal_cmd_console()
                        case "history":
                        if ( _output_channel == OUTPUT_TERMINAL )
                        {
-                           var _n_history = _params_assoc_array["history"] ;
+                           var _n_history = safe_int( _params_assoc_array["history"], 0 ) ;
                            var _h = _glob_terminal.history().data().clone();
                                _h.reverse(); // from latest to oldest
                            var _h_n = safe_size( _h, 0 );
                            var _n_extract = Math.min( _n_history, _h_n )+1;
                            $("#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).html( "" );
                            var _b_append = NO ;
-                           for( var _i = 1 ; _i <= _n_extract ; _i++ )
+                           for( var _i = 1 ; _i < _n_extract ; _i++ )
                            {
                               _b_append = _params_assoc_array['nohelp'] != null ? ( !_h[_i].includes( "/h" ) && !_h[_i].includes( "/?" ) ) : YES ;
-                              if ( _b_append ) $("#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).append( _h[_i] + _glob_crlf );
+                              if ( _b_append ) $("#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).append( _h[_n_extract-_i] + _glob_crlf );
                            }
 
                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Last "+_n_extract+" cmd" + ( _n_extract != 1 ? "s have" : " has" ) + " been copied into the batch script tab", _par_1, _cmd_tag );

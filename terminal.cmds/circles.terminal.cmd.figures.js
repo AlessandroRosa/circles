@@ -110,6 +110,8 @@ function circles_terminal_cmd_figures()
 					if ( _p == "hide" ) _params_assoc_array['update_props']['enabled'] = 0 ;
 					else if ( _p == "show" ) _params_assoc_array['update_props']['enabled'] = 1 ;
 				}
+				else if ( _p == "hide" ) { _params_assoc_array['action'] = "update" ; _params_assoc_array['update_props']['enabled'] = 0 ; }
+				else if ( _p == "show" ) { _params_assoc_array['action'] = "update" ; _params_assoc_array['update_props']['enabled'] = 1 ; }
 				else _params_assoc_array['action'] = _p ;
 			}
             else if ( _p.is_one_of_i( "zplane", "z-plane", "wplane", "w-plane", "bip", "bipbox", "allplanes" ) )
@@ -207,6 +209,9 @@ function circles_terminal_cmd_figures()
 						circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 					}
 					break ;
+					case "update":
+					_params_assoc_array['update_props']['center'] = _p ;
+					break ;
 					default: break ;
 				}
             }
@@ -269,9 +274,9 @@ function circles_terminal_cmd_figures()
 
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
 				if ( _n_figures == 0 )  circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
-                else if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Fail to assemble: missing input indexes" ; }
-                else if ( _n_input_index == 1 ) { _b_fail = YES, _error_str = "Fail to assemble: select at least two elements" ; }
-				else if ( _n_input_index < 3 && _cmd == "polygon" ) { _b_fail = YES, _error_str = "Fail to assemble: at least 3 points are required to assemble a polygon" ; }
+                else if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Fail to assemble: missing input indexes" ; }
+                else if ( _n_input_index == 1 && !_all ) { _b_fail = YES, _error_str = "Fail to assemble: select at least two elements" ; }
+				else if ( _n_figures < 3 && _n_input_index < 3 && !_all && _cmd == "polygon" ) { _b_fail = YES, _error_str = "Fail to assemble: at least 3 points are required to assemble a polygon" ; }
                 else if ( _n_input_index > 1 || _all )
 				{
 					var _figures_ref = _all ? _glob_figures_array : _params_assoc_array['figures_ref'] ;
@@ -490,8 +495,6 @@ function circles_terminal_cmd_figures()
                 case "delete":
                 case "disable":
                 case "enable":
-                case "hide":
-                case "show":
                 case "transfer":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
 				if ( _n_figures == 0 )  circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
@@ -588,10 +591,10 @@ function circles_terminal_cmd_figures()
                 else
                 {
                     var _reverse = _params_assoc_array['reverse'] ;
-                    _row = "Found <yellow>"+_n+"</yellow> element" + ( ( _n == 1 ) ? "" : "s" ) + ( _reverse ? " - Reverse list" : "" );
+                    _row = "Found <yellow>"+_n_figures+"</yellow> element" + ( _n_figures == 1 ? "" : "s" ) + ( _reverse ? " - Reverse list" : "" );
                     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                     var _counter = 1 ;
-                    for( var _i = ( _reverse ? _n - YES : NO ); _reverse ? _i >= 0 : _i < _n ; _reverse ? _i-- : _i++ )
+                    for( var _i = ( _reverse ? _n_figures - YES : NO ); _reverse ? _i >= 0 : _i < _n_figures ; _reverse ? _i-- : _i++ )
                     {
                         _row = _figures_cmd_display_list_item( _counter, _glob_figures_array[_i], _params_assoc_array );
                         _counter++ ;
@@ -622,9 +625,10 @@ function circles_terminal_cmd_figures()
 				if ( _n_figures == 0 )  circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
 				else
 				{
-					if ( _params_assoc_array['plane'] == NO_PLANE ) _param_assoc_array['plane'] = ALL_PLANES ;
+					if ( _params_assoc_array['plane'] == NO_PLANE ) _params_assoc_array['plane'] = ALL_PLANES ;
+					var _plane_def = circles_lib_plane_def_get( _params_assoc_array['plane'] ) ;
 					circles_lib_canvas_afterrender_figures_draw( [], YES, _params_assoc_array['plane'] );
-					circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Rendering the figures list", _par_1, _cmd_tag );
+					circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Rendering the figures list on "+_plane_def, _par_1, _cmd_tag );
 				}
                 break ;
 				case "rotate":
@@ -870,7 +874,6 @@ function _figures_cmd_display_list_item( _i, _rec_chunk, _options )
          }
 
         _row += _margin_str + _enabled + _margin_str + "<yellow>Label</yellow> " + _label ;
-
         if ( _options['long'] )
         {
             var _bordercolor = _rec_chunk['bordercolor'] != null ? _rec_chunk['bordercolor'].trim() : "" ;

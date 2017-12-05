@@ -217,7 +217,7 @@ circle.prototype.is_internally_tangent = function( C2 )
     return ( ( dX*dX + dY*dY ) == dR*dR ) ? 1 : 0 ;
 }
 
-circle.prototype.write = function() { document.write( this.output() ) ; }
+circle.prototype.write = function( _format = "" ) { document.write( this.output( _format ) ) ; }
 circle.prototype.fulloutput = function() { return ( this.output() + " Draw : " + this.draw + "/" + this.bordercolor + " Fill : " + this.fill + "/" + this.fillcolor ) ; }
 circle.prototype.pack = function() { return this.center.x + "@" + this.center.y + "@" + this.radius ; }
 circle.prototype.unpack = function( _packed_input )
@@ -250,13 +250,14 @@ circle.prototype.output = function( _format = "", _round_digits = _CIRCLE_OBJ_MA
     _round_digits = safe_int( _round_digits, _CIRCLE_OBJ_MAX_ACCURACY );
     _include_notes = safe_int( _include_notes, YES ), _format = safe_string( _format, "" ) ;
     var _out = "" ;
- 		if ( !is_point( this.center ) || isNaN( this.radius ) ) return "" ;
+ 	if ( !is_point( this.center ) || isNaN( this.radius ) ) return "" ;
     var _center_x = this.center.x == 0 ? this.center.x : this.center.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ;
     var _center_y = this.center.y == 0 ? this.center.y : this.center.y.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ;
     var _radius = this.radius == 0 ? this.radius : this.radius.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ;
 
     switch( _format )
     {
+       case "cartesian":
        case "triplet":
        _out = "(" + _center_x + "," + _center_y + "," + _radius + ")" ;
        break ;
@@ -264,7 +265,7 @@ circle.prototype.output = function( _format = "", _round_digits = _CIRCLE_OBJ_MA
        _out = _center_x + "," + _center_y + "," + _radius ;
        break ;
        default:
-       _out = ( "center: (" + _center_x + "," + _center_y + ") radius:" + _radius ) ;
+       _out = ( "center:(" + _center_x + "," + _center_y + ") radius:" + _radius ) ;
        break ;
     }
 
