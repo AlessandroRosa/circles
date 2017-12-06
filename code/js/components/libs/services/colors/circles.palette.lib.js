@@ -1,23 +1,23 @@
-function circles_lib_palette_init( _silent = NO, _output_channel = OUTPUT_SCREEN )
+function circles_lib_palette_init( _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
-    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     if ( safe_size( _glob_palette_array, 0 ) > 0 ) _glob_palette_array.flush();
-    var _ret_chunk = circles_lib_colors_compute_gradient( _glob_palette_start_rgb, _glob_palette_end_rgb, _glob_palette_steps, _silent, _output_channel );
+    var _ret_chunk = circles_lib_colors_compute_gradient( _glob_palette_start_rgb, _glob_palette_end_rgb, _glob_palette_steps, _silent, _out_channel );
     _glob_palette_array = _ret_chunk[1] ;
     if ( !is_array( _glob_palette_array ) )
     {
       var _msg = "Can't compute the color gradient." + _glob_crlf + _ret_chunk + _glob_crlf + _ERR_00_05 ;
-      if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+      if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
       return [ RET_ERROR, _msg ] ;
     }
     else if ( typeof CIRCLESformsPALETTEshow === "function" ) CIRCLESformsPALETTEshow();
     return [ RET_OK, "Palette init with success" ] ;
 }
 
-function circles_lib_palette_destroy( _question = YES, _silent = NO, _output_channel = OUTPUT_SCREEN )
+function circles_lib_palette_destroy( _question = YES, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     if ( safe_size( _glob_palette_array, 0 ) > 0 )
     {
        var _b_go = !_question ? YES : confirm( _QUESTION_11_01 );
@@ -27,13 +27,13 @@ function circles_lib_palette_destroy( _question = YES, _silent = NO, _output_cha
           if ( safe_size( _glob_palette_array, 0 ) == 0 )
           {
              var _msg = "Palette has been correctly flushed away" ;
-             if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
              return [ RET_OK, _msg ] ;
           }
           else
           {
              var _msg = "Memory error: can't flush this palette away" ;
-             if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
              return [ RET_ERROR, _msg ] ;
           }
        }
@@ -41,14 +41,14 @@ function circles_lib_palette_destroy( _question = YES, _silent = NO, _output_cha
     else
     {
        var _msg = "Palette is already empty" ;
-       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app_title );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app_title );
        return [ RET_IRRELEVANT, _msg ] ;
     }
 }
 
-function circles_lib_palette_delete_interval( _range_str = "", _question = YES, _silent = NO, _output_channel = OUTPUT_SCREEN )
+function circles_lib_palette_delete_interval( _range_str = "", _question = YES, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
-     _range_str = safe_string( _range_str, "" ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+     _range_str = safe_string( _range_str, "" ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
      _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
      if ( _range_str.length > 0 )
      {
@@ -74,7 +74,7 @@ function circles_lib_palette_delete_interval( _range_str = "", _question = YES, 
                                 if ( _tok_to < 0 ) _msg += _glob_crlf + "* " + _tok_to + " is negative;" ;
                                 if ( _tok_from > _palette_size ) _msg += _glob_crlf + "* " + _tok_from + " is larger than palette size ("+_palette_size+");" ;
                                 if ( _tok_to > _palette_size ) _msg += _glob_crlf + "* " + _tok_to + " is larger than palette size ("+_palette_size+");" ;
-                            if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+                            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
                             else return [ RET_ERROR, _msg ] ;
                         }
                         else if ( _tok_from >= _tok_to )
@@ -83,7 +83,7 @@ function circles_lib_palette_delete_interval( _range_str = "", _question = YES, 
                             if ( _tok_from > _tok_to ) _msg += _glob_crlf + "Candidate lower bound exceeds candidate upper bound: " + _tok ;
                             else if ( _tok_from == _tok_to ) _msg += _glob_crlf + "Candidate lower and bounds match" ;
                             
-                            if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+                            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
                             return [ RET_ERROR, _msg ] ;
                         }
                         else _check_fns.push( function( _x ) { return ( _x >= _tok_from && _x <= _tok_to ) ? YES : NO ; } );
@@ -92,7 +92,7 @@ function circles_lib_palette_delete_interval( _range_str = "", _question = YES, 
                    else
                    {
                         var _msg = "Syntax error in range definition" ;
-                        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+                        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
                         return [ RET_ERROR, _msg ] ;
                    }
               }
@@ -114,22 +114,22 @@ function circles_lib_palette_delete_interval( _range_str = "", _question = YES, 
               CIRCLESformsPALETTEshow();
               $("#CANVAScolorCELLgradientSTEPS").val( _glob_palette_array.length );
               _msg = "Items deleted from palette with success" ;
-              if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+              if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
               return [ RET_OK, _msg ] ;
           }
      }
      else
      {
          var _msg = "Missing range for colors deletion" ;
-         if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_WARNING, _msg ] ;
      }
 }
 
-function circles_lib_palette_delete_entry( _delete_index = 0, _question = YES, _silent = NO, _output_channel = OUTPUT_SCREEN )
+function circles_lib_palette_delete_entry( _delete_index = 0, _question = YES, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
    _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-   _delete_index = safe_int( _delete_index, 0 ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+   _delete_index = safe_int( _delete_index, 0 ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
    var _b_go = !_question ? YES : confirm( _QUESTION_11_02 );
    if ( _b_go )
    {

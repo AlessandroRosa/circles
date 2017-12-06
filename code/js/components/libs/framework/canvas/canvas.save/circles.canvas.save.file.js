@@ -1,7 +1,7 @@
-function circles_lib_canvas_save_to_file( _plane_type, _canvas_id, _filename, _merge, _silent, _output_channel )
+function circles_lib_canvas_save_to_file( _plane_type, _canvas_id, _filename, _merge, _silent, _out_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     _silent = safe_int( _silent, NO ), _merge = safe_int( _merge, NO );
     if ( !is_html_canvas( _canvas ) ) return [ 0, "Can't save: missing canvas reference" ] ;
     _filename = safe_string( _filename, "circles.pix.png" );
@@ -11,5 +11,5 @@ function circles_lib_canvas_save_to_file( _plane_type, _canvas_id, _filename, _m
     else if ( _glob_export_format == EXPORT_EPS ) _filename = _filename.replaceAll( ".png", ".eps" );
     else if ( _glob_export_format == EXPORT_LATEX ) _filename = _filename.replaceAll( ".png", ".tex" );
     else _filename += ".png" ;
-    return circles_lib_files_pix_save_ask( _plane_type, _canvas_id, _filename, _merge, _silent, _output_channel );
+    return circles_lib_files_pix_save_ask( _plane_type, _canvas_id, _filename, _merge, _silent, _out_channel );
 }

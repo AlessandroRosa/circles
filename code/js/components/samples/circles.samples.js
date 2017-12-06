@@ -1,6 +1,6 @@
-function CIRCLESsamplesOPEN( i, _silent, _output_channel )
+function CIRCLESsamplesOPEN( i, _silent, _out_channel )
 {
-	_silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+	_silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_n = circles_lib_count_items();
     if (_glob_bip_use)
     {
@@ -31,7 +31,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
     var _wplane_mapper = _glob_bip_use ? bipbox_sm : wplane_sm ;
 
     var _reset_mask = ( ~RESET_NONE ) & ( ~RESET_BIP );
-    circles_lib_config_create_new_main( ( _silent || _items_n == 0 ) ? YES : NO, _silent, _reset_mask, _drop_additional_figures, _b_clean, _output_channel );
+    circles_lib_config_create_new_main( ( _silent || _items_n == 0 ) ? YES : NO, _silent, _reset_mask, _drop_additional_figures, _b_clean, _out_channel );
 
     var _ret_chunk = null ;
     switch( i )
@@ -51,7 +51,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.4, -0.2 ), 0.4 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.0, 0.497 ), 0.402 ), null, "D", 0, NO, circles_lib_alphabet_get_color_from_symbol('D'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 255,0,0 )", "rgb( 255,255,0 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 255,0,0 )", "rgb( 255,255,0 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -81,7 +81,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -1, -1 ), 1 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 1, -1 ), 1 ), null, "D", 0, NO, circles_lib_alphabet_get_color_from_symbol('D'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,56,85 )", "rgb( 139,203,255 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,56,85 )", "rgb( 139,203,255 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -112,7 +112,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -1.1, -0.9 ), 0.9 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 1.1, -0.9 ), 0.9 ), null, "D", 0, NO, circles_lib_alphabet_get_color_from_symbol('D'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,56,85 )", "rgb( 139,203,255 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,56,85 )", "rgb( 139,203,255 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -143,7 +143,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 1 ), 1 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, -1 ), 1 ), null, "D", 0, NO, circles_lib_alphabet_get_color_from_symbol('D'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,191,0 )", "rgb( 229,248,229 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,191,0 )", "rgb( 229,248,229 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -176,7 +176,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 1.5 ), 0.5 ), null, "E", 0, NO, _glob_draw_seed_color, YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, -1.5 ), 0.5 ), null, "F", 0, NO, _glob_draw_seed_color, YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,191,0 )", "rgb( 229,248,229 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,191,0 )", "rgb( 229,248,229 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -207,7 +207,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.6, 0 ), 0.54 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.6, 0 ), 0.54 ), null, "D", 0, NO, circles_lib_alphabet_get_color_from_symbol('D'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,191,0 )", "rgb( 229,248,229 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,191,0 )", "rgb( 229,248,229 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -238,7 +238,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -1000, 0 ), 999.5 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.27172619047619045,0.7390625 ), 0.2324404761904762 ), null, "D", 0, NO, circles_lib_alphabet_get_color_from_symbol('D'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 179,144,63 )", "rgb( 229,248,229 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 179,144,63 )", "rgb( 229,248,229 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -269,7 +269,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point(-0.8829268292682927,-0.7658536585365853), 0.7658536585365853 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point(0.8829268292682927,-0.7658536585365853), 0.7658536585365853 ), null, "D", 0, NO, circles_lib_alphabet_get_color_from_symbol('D'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 191,0,0 )", "rgb( 255,192,0 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 191,0,0 )", "rgb( 255,192,0 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -300,7 +300,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point(-0.6609210396477568,-0.6595582756015897), 0.6595582756015897 ), null, "C", 0, NO, circles_lib_alphabet_get_color_from_symbol('C'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point(0.6609210396477568,-0.6595582756015897), 0.6595582756015897 ), null, "D", 0, NO, circles_lib_alphabet_get_color_from_symbol('D'), YES, "", "", 1, ITEM_TYPE_CIRCLE ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 215,115,0 )", "rgb( 244,224,91 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 215,115,0 )", "rgb( 244,224,91 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -329,7 +329,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 0.61 ), 0.4 ), null, "B", 0, YES, _glob_draw_seed_color, NO, "", "b", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, -0.61 ), 0.4 ), null, "b", 0, YES, _glob_draw_seed_color, NO, "", "B", 1, 0 ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 21,80,150 )", "rgb( 135,235,170 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 21,80,150 )", "rgb( 135,235,170 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -358,7 +358,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, 0.4 ), 0.4 ), null, "B", 0, YES, _glob_draw_seed_color, NO, "", "b", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0, -0.4 ), 0.4 ), null, "b", 0, YES, _glob_draw_seed_color, NO, "", "B", 1, 0 ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 21,80,150 )", "rgb( 135,235,170 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 21,80,150 )", "rgb( 135,235,170 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -389,7 +389,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point( -0.4, -0.4 ), 0.4 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "b", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0.4, -0.4 ), 0.4 ), null, "a", 0, NO, circles_lib_alphabet_get_color_from_symbol('a'), YES, "", "A", 1, 0 ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,56,85 )", "rgb( 139,203,255 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,56,85 )", "rgb( 139,203,255 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -420,7 +420,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0,0.4 ), 0.4 ), null,"B", 0, NO, circles_lib_alphabet_get_color_from_symbol('B'), YES, "", "b", 1, 0 ) );
         _glob_seeds_array.push( new item_obj( null, new circle( new point( 0,-0.4 ), 0.4 ), null, "b", 0, NO, circles_lib_alphabet_get_color_from_symbol('b'), YES, "", "B", 1, 0 ) );
 
-        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,192,85 )", "rgb( 255,255,49 )", 10, _silent, _output_channel );
+        var _ret_chunk = circles_lib_colors_compute_gradient( "rgb( 0,192,85 )", "rgb( 255,255,49 )", 10, _silent, _out_channel );
         _glob_palette_array = _ret_chunk[1] ;
 
         _glob_construction_mode = CONSTRUCTION_TILING ;
@@ -440,8 +440,8 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
     CIRCLESsamplesCTRLmanager();
     var _ret_msg = [], _final_ret = YES ;
     var _init_mask = circles_lib_items_verify_init_mask( INIT_FROM_DISKS );
-    circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES, _output_channel );
-    var _ret_chunk = circles_lib_items_init( null, NO, YES, _init_mask, NO, YES, _output_channel );
+    circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, YES, _out_channel );
+    var _ret_chunk = circles_lib_items_init( null, NO, YES, _init_mask, NO, YES, _out_channel );
     if ( _ret_chunk[0] != RET_IRRELEVANT )
     {
        _final_ret &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
@@ -449,7 +449,7 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
     }
 
     var new_method_str = circles_lib_method_get_def( _glob_method );
-    _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, _silent, YES, _output_channel );
+    _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, _silent, YES, _out_channel );
     if ( _ret_chunk[0] != RET_IRRELEVANT )
     {
        _final_ret &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
@@ -458,14 +458,14 @@ function CIRCLESsamplesOPEN( i, _silent, _output_channel )
 
 		circles_lib_set_target_plane( W_PLANE ) ;
     _ret_chunk = circles_lib_canvas_process_ask( NO, _silent, _glob_bip_use ? BIP_BOX : _glob_target_plane,
-																								 YES, _b_clean, NO, null, _output_channel );
+																								 YES, _b_clean, NO, null, _out_channel );
     if ( _ret_chunk[0] != RET_IRRELEVANT )
     {
         _final_ret &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
         if ( is_array( _ret_chunk ) ) _ret_msg.push( _ret_chunk[1] );
     }
 
-    if ( _final_ret == RET_ERROR && _output_channel == OUTPUT_SCREEN && !_silent )
+    if ( _final_ret == RET_ERROR && _out_channel == OUTPUT_SCREEN && !_silent )
     circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg.join( _glob_crlf ), _glob_app_title );
     else
     {

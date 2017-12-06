@@ -2,14 +2,14 @@ function circles_terminal_cmd_target()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
+     var _out_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _long_mode = 0 ;
@@ -18,19 +18,19 @@ function circles_terminal_cmd_target()
      var _error_str = "" ;
      var _out_text_string = "" ;
      var _fn_ret_val = null ;
-     var _params_assoc_array = [];
+     var _cmd_params = [];
      var _keywords_array = [ "grid", "figures", "rendering" ] ;
      
 		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
-         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-         _params_assoc_array['help'] = NO ;
-         _params_assoc_array['keywords'] = NO ;
-         _params_assoc_array['action'] = "" ;
-         _params_assoc_array['layer'] = "" ;
-         _params_assoc_array['plane'] = _glob_target_plane ;
-         _params_assoc_array['service'] = "" ;
+         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _cmd_params['help'] = NO ;
+         _cmd_params['keywords'] = NO ;
+         _cmd_params['action'] = "" ;
+         _cmd_params['layer'] = "" ;
+         _cmd_params['plane'] = _glob_target_plane ;
+         _cmd_params['service'] = "" ;
 
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
@@ -38,47 +38,47 @@ function circles_terminal_cmd_target()
          // pre-scan for levenshtein correction
     		 var _local_cmds_params_array = [];
     				 _local_cmds_params_array.push( "assign", "create", "reset", "list", "zplane", "wplane", "release", "html", "help" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
               _p = _params_array[_i].toLowerCase();
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-              else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-              else if ( _p.is_one_of_i( "assign", "create", "reset", "list", "release" ) ) _params_assoc_array['action'] = _p ;
-              else if ( _p.is_one_of_i( "zplane", "wplane" ) ) _params_assoc_array['plane'] = _p ;
+              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
+              else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+              else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
+              else if ( _p.is_one_of_i( "assign", "create", "reset", "list", "release" ) ) _cmd_params['action'] = _p ;
+              else if ( _p.is_one_of_i( "zplane", "wplane" ) ) _cmd_params['plane'] = _p ;
               else
               {
-                   if ( _p.start_with_i( "service:" ) ) _params_assoc_array['service'] = _p.replaceAll( "service:", "" );
-                   else if ( _p.start_with_i( "layer:" ) ) _params_assoc_array['layer'] = _p.replaceAll( "layer:", "" );
+                   if ( _p.start_with_i( "service:" ) ) _cmd_params['service'] = _p.replaceAll( "service:", "" );
+                   else if ( _p.start_with_i( "layer:" ) ) _cmd_params['layer'] = _p.replaceAll( "layer:", "" );
               }
          }
          
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
-         else if ( _params_assoc_array['keywords'] )
+         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
+         else if ( _cmd_params['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else if ( !_b_fail )
          {
-             var _action = _params_assoc_array['action'] ;
-             var _plane_ref = _params_assoc_array['plane'] ;
+             var _action = _cmd_params['action'] ;
+             var _plane_ref = _cmd_params['plane'] ;
              var _plane_type = circles_lib_plane_def_get( _plane_ref );
-             var _layer_ref = safe_string( _params_assoc_array['layer'], "" );
-             var _service_ref = safe_string( _params_assoc_array['service'], "" );
+             var _layer_ref = safe_string( _cmd_params['layer'], "" );
+             var _service_ref = safe_string( _cmd_params['service'], "" );
              if ( _action.length > 0 )
              {
                   switch( _action )
                   {
                        case "release":
-                       circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                       circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                        break ;
                        case "assign":
                        if ( _plane_type == NO_PLANE )
@@ -108,20 +108,20 @@ function circles_terminal_cmd_target()
                             {
                                 if ( _plane_type == Z_PLANE ) _glob_target_zplane_layers_array[ _service_ref ] = _canvas ;
                                 else if ( _plane_type == W_PLANE ) _glob_target_wplane_layers_array[ _service_ref ] = _canvas ;
-                                circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Target for "+_plane_ref+"/"+_service_ref+" has been assigned to '"+_layer_ref+"' with success", _par_1, _cmd_tag );
+                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Target for "+_plane_ref+"/"+_service_ref+" has been assigned to '"+_layer_ref+"' with success", _par_1, _cmd_tag );
                             }
                             else
                             {
-                                _b_fail = YES, _error_str = "Target assignment failure: '"+_params_assoc_array['layer']+"' is not included inside the "+_plane_ref+" pile" ;
+                                _b_fail = YES, _error_str = "Target assignment failure: '"+_cmd_params['layer']+"' is not included inside the "+_plane_ref+" pile" ;
                             }
                        }
                        break;
                        case "create":
-                       if ( _params_assoc_array['plane'] == NO_PLANE )
+                       if ( _cmd_params['plane'] == NO_PLANE )
                        {
                             _b_fail = YES, _error_str = "Target creation failure: missing input plane" ;
                        }
-                       else if ( _params_assoc_array['layer'].length == 0 )
+                       else if ( _cmd_params['layer'].length == 0 )
                        {
                             _b_fail = YES, _error_str = "Target creation failure: Missing input layer" ;
                        }
@@ -142,7 +142,7 @@ function circles_terminal_cmd_target()
                                 {
                                      if ( _plane_type == Z_PLANE ) _glob_target_zplane_layers_array[ _service_ref ] = _canvas ;
                                      else if ( _plane_type == W_PLANE ) _glob_target_wplane_layers_array[ _service_ref ] = _canvas ;
-                                     circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Target for "+_plane_ref+"/"+_service_ref+" has been set up with success", _par_1, _cmd_tag );
+                                     circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Target for "+_plane_ref+"/"+_service_ref+" has been set up with success", _par_1, _cmd_tag );
                                 }
                                 else
                                 {
@@ -179,7 +179,7 @@ function circles_terminal_cmd_target()
                            _html_table += "</table>" ;
                            circles_lib_terminal_html_display( _glob_terminal, _html_table );
                            
-                       circles_lib_output( _output_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
+                       circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
 
                            _html_table = "<table>" ;
                            _html_table += "<tr><td COLSPAN=\"5\" STYLE=\"color:lightblue;\">Target W-plane layers list</td></tr>" ;
@@ -220,7 +220,7 @@ function circles_terminal_cmd_target()
                             _glob_target_wplane_layers_array['grid'] = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
                             _glob_target_wplane_layers_array['rendering'] = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_RENDERING );
                             _glob_target_wplane_layers_array['figures'] = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
-                            circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Targets have been reset to default settings with success", _par_1, _cmd_tag );
+                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Targets have been reset to default settings with success", _par_1, _cmd_tag );
                        }
 
 						     		   var _params_array = [] ;
@@ -229,7 +229,7 @@ function circles_terminal_cmd_target()
 							             _params_array['yes_fn'] = function() { reset_fn(); }
 							             _params_array['ifquestiondisabled_fn'] = function() { reset_fn(); }
 					   if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
-					   circles_lib_terminal_cmd_ask_yes_no( _params_array, _output_channel );
+					   circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                        break ;
                        default: break ;
                   }
@@ -238,7 +238,7 @@ function circles_terminal_cmd_target()
      }
      else { _b_fail = YES, _error_str = "Missing input params" ; }
      
-     if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

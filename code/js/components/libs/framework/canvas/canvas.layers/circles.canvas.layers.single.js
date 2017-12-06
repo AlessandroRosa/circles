@@ -183,10 +183,10 @@ function circles_lib_canvas_layer_show( _plane_type, _role, _b_show )
     if ( is_html_canvas( _canvas ) ) $( "#"+_canvas.get_iddiv() ).get(0).style.display = _b_show ? "block" : "none" ;
 }
 
-function circles_lib_canvas_layer_init( _base_container_id, _recalc_coords, _div_id, _canvas_id, _visible, _role, bkcolor, _b_clean, _output_channel )
+function circles_lib_canvas_layer_init( _base_container_id, _recalc_coords, _div_id, _canvas_id, _visible, _role, bkcolor, _b_clean, _out_channel )
 {
 	_visible = safe_int( _visible, YES ), _role = safe_float( _role, 0 );
-	_b_clean = safe_int( _b_clean, YES ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+	_b_clean = safe_int( _b_clean, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _div = $( "#"+_div_id ).get(0);
     var base_container = $("#"+_base_container_id ).get(0);
     var _canvas = $("#"+_canvas_id ).get(0);
@@ -203,7 +203,7 @@ function circles_lib_canvas_layer_init( _base_container_id, _recalc_coords, _div
         {
            if ( _recalc_coords ) { _canvas.set_width( _glob_canvas_width ), _canvas.set_height( _glob_canvas_width ); }
            _canvas.set_visible( _visible ), _canvas.set_role_id( _role ) ;
-           circles_lib_canvas_clean( _canvas, bkcolor, _output_channel );
+           circles_lib_canvas_clean( _canvas, bkcolor, _out_channel );
            if ( _canvas.get_type().is_one_of( Z_PLANE ) ) circles_lib_zplane_mapper_init( _glob_canvas_width, DEFAULT_CANVAS_BORDER_SIZE, _recalc_coords );
            else if ( _canvas.get_type().is_one_of( W_PLANE ) ) circles_lib_wplane_mapper_init( _glob_canvas_width, DEFAULT_CANVAS_BORDER_SIZE, _recalc_coords );
 		}
@@ -300,10 +300,10 @@ function circles_lib_canvas_layer_explain_role( _plane_type, _role )
     return is_html_canvas( _canvas ) ? _canvas.get_role_def() : "unfound layer" ;
 }
 
-function circles_lib_canvas_layer_refresh( _plane_type, _layer_role_index, _bkcolor, _output_channel )
+function circles_lib_canvas_layer_refresh( _plane_type, _layer_role_index, _bkcolor, _out_channel )
 {
     _plane_type = safe_int( circles_lib_return_plane_type( _plane_type, NO ), Z_PLANE );
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _sm = null, _layers_pile_ref ;
     if ( _plane_type == Z_PLANE ) { _sm = zplane_sm ; _layers_pile_ref = _glob_zplane_layers_pile_array ; }
     else if ( _plane_type == W_PLANE ) { _sm = wplane_sm ; _layers_pile_ref = _glob_wplane_layers_pile_array ; }
@@ -314,7 +314,7 @@ function circles_lib_canvas_layer_refresh( _plane_type, _layer_role_index, _bkco
     {
         _layers_pile_ref[ _layer_pos_index ].getContext( _glob_canvas_ctx_2D_mode ).backgroundColor = _bkcolor ;
         $( "#" + _layer.get_idcanvas() ).css( {'background-color': _bkcolor } );
-        return _plane_type == Z_PLANE ? circles_lib_canvas_render_zplane( null, _sm, [ _layer_role_index ], YES, NO, YES, NO, YES, YES, _output_channel ) : circles_lib_canvas_render_wplane( null, _sm, [ _layer_role_index ], YES, YES, YES, YES, NO, YES, _output_channel );
+        return _plane_type == Z_PLANE ? circles_lib_canvas_render_zplane( null, _sm, [ _layer_role_index ], YES, NO, YES, NO, YES, YES, _out_channel ) : circles_lib_canvas_render_wplane( null, _sm, [ _layer_role_index ], YES, YES, YES, YES, NO, YES, _out_channel );
     }
     else return [ RET_ERROR, "missing plane ref" ] ;
 }

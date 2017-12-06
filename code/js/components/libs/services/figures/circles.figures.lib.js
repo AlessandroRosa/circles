@@ -110,7 +110,7 @@ function circles_lib_figures_find_duplicates( _class = FIGURE_CLASS_NONE, _plane
     return _b_found ;
 }
 
-function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _upd_props = [] )
+function circles_lib_figures_update_manager( _out_channel = OUTPUT_SCREEN, _upd_props = [] )
 {
     // separate entries of indexes from properties to be updated
 	var _all = _upd_props['all'] ? 1 : 0, _figures_ref = _all ? _glob_figures_array : _upd_props['figures_ref'] ;
@@ -154,7 +154,7 @@ function circles_lib_figures_update_manager( _output_channel = OUTPUT_SCREEN, _u
     }
 }
 
-function circles_lib_figures_action( _output_channel = OUTPUT_SCREEN, _action = "", _index_array = [], _plane_type = NO_PLANE, _refresh = YES, _param_01 = 0 )
+function circles_lib_figures_action( _out_channel = OUTPUT_SCREEN, _action = "", _index_array = [], _plane_type = NO_PLANE, _refresh = YES, _param_01 = 0 )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ), _refresh = safe_int( _refresh, YES );
     var _n_input_index = safe_size( _index_array, 0 ), _b_fail = NO, _error_str = "" ;
@@ -181,25 +181,25 @@ function circles_lib_figures_action( _output_channel = OUTPUT_SCREEN, _action = 
                         case "delete":
                         _glob_figures_array.remove( _x, _x );
                         if ( _glob_terminal_echo_flag )
-                        circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item @"+(_myhash+1)+" deleted", _param_01 );
+                        circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Item @"+(_myhash+1)+" deleted", _param_01 );
                         _x = -1 ;
                         _refresh = YES ;
                         break ;
                         case "disable":
                         case "hide":
                         _glob_figures_array[_x]['enabled'] = NO ;
-                        if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item @"+(_myhash+1)+" disabled", _param_01 );
+                        if ( _glob_terminal_echo_flag ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Item @"+(_myhash+1)+" disabled", _param_01 );
                         _refresh = YES ;
                         break ;
                         case "enable":
                         case "show":
                         _glob_figures_array[_x]['enabled'] = YES ;
-                        if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item @"+(_myhash+1)+" enabled", _param_01 );
+                        if ( _glob_terminal_echo_flag ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Item @"+(_myhash+1)+" enabled", _param_01 );
                         _refresh = YES ;
                         break ;
                         case "transfer":
                         _glob_figures_array[_x]['plane'] = _plane ;
-                        if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Item @"+(_myhash+1)+" transfered to " + circles_lib_plane_def_get(_plane), _param_01 );
+                        if ( _glob_terminal_echo_flag ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Item @"+(_myhash+1)+" transfered to " + circles_lib_plane_def_get(_plane), _param_01 );
                         _refresh = YES ;
                         break ;
 					    default: break ;
@@ -210,7 +210,7 @@ function circles_lib_figures_action( _output_channel = OUTPUT_SCREEN, _action = 
             if ( _action.stricmp( "delete" ) && _glob_figures_array.length > 0 )
             {
                 // rebuild hash tags after previous operations
-                if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_INFO, "Rebuilding hash tags", _param_01 );
+                if ( _glob_terminal_echo_flag ) circles_lib_output( _out_channel, DISPATCH_INFO, "Rebuilding hash tags", _param_01 );
                 for( var _i = 0 ; _i < _glob_figures_array.length ; _i++ ) _glob_figures_array[_i]['myhash'] = "rec"+_i;
             }
 

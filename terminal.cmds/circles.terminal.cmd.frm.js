@@ -4,14 +4,14 @@ function circles_terminal_cmd_frm()
 {
      var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
      var _params = arguments[0] ;
-     var _output_channel = arguments[1] ;
+     var _out_channel = arguments[1] ;
      var _par_1 = arguments[2] ;
      var _cmd_mode = arguments[3] ;
      var _caller_id = arguments[4] ;
      _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _max_var_identifier_length = 12 ;
@@ -20,7 +20,7 @@ function circles_terminal_cmd_frm()
      var _fn_ret_val = null ;
      var _out_text_string = "" ;
      var _var_identifier = "" ;
-     var _params_assoc_array = [];
+     var _cmd_params = [];
      var _std_var_label = "z" ;
      var _fn_ret_val = null ;
      var _trace_entries = [ "tr(", "tr^", "tr[" ] ;
@@ -28,17 +28,17 @@ function circles_terminal_cmd_frm()
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      else if ( _params.length > 0 )
      {
-         _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-         _params_assoc_array['keywords'] = NO ;
-         _params_assoc_array['frm'] = [] ;
-         _params_assoc_array['action'] = null ;
-         _params_assoc_array[''+_std_var_label] = null ;
-         _params_assoc_array['dump_array'] = null ;
-         _params_assoc_array['dump_operator_index'] = UNDET ;
-         _params_assoc_array['settings'] = [] ;
-         _params_assoc_array['settings']['accuracy'] = _glob_accuracy ;
-         _params_assoc_array['settings']['classification'] = NO ;
-         _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
+         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+         _cmd_params['keywords'] = NO ;
+         _cmd_params['frm'] = [] ;
+         _cmd_params['action'] = null ;
+         _cmd_params[''+_std_var_label] = null ;
+         _cmd_params['dump_array'] = null ;
+         _cmd_params['dump_operator_index'] = UNDET ;
+         _cmd_params['settings'] = [] ;
+         _cmd_params['settings']['accuracy'] = _glob_accuracy ;
+         _cmd_params['settings']['classification'] = NO ;
+         _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
          
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
@@ -48,20 +48,20 @@ function circles_terminal_cmd_frm()
     		 var _magic_entries = [] ;
 				 		 _magic_entries.push( "jorgensenineq" );
 				 		 _local_cmds_params_array = _local_cmds_params_array.concat( _magic_entries );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-				 _params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-				 _params_assoc_array['dump_operator_index'] = _dump_operator_index ;
-				 _params_assoc_array['dump_array'] = [];
+				 _cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+				 _cmd_params['dump_operator_index'] = _dump_operator_index ;
+				 _cmd_params['dump_array'] = [];
 				
 				 // gather all dump parameters into one array
-         if ( _params_assoc_array['dump'] )
+         if ( _cmd_params['dump'] )
          {
     				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-    				 if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
+    				 if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
          }
-         if ( _dump_operator_index != UNFOUND ) _params_assoc_array['settings'].push( "assign" ) ;
+         if ( _dump_operator_index != UNFOUND ) _cmd_params['settings'].push( "assign" ) ;
 
          var _p ;
          // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
@@ -69,79 +69,79 @@ function circles_terminal_cmd_frm()
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
             _p = _params_array[_i] ;
-            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = _help = YES ;
-            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-            else if ( _p.is_one_of_i( "release" ) ) _params_assoc_array['action'] = _p ;
-            else if ( _magic_entries.includes_i( _p ) ) _params_assoc_array['settings']['magic'] = _p ;
-            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-            else if ( _p.stricmp( "seeds" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_SEEDS ;
-            else if ( _p.stricmp( "generators" ) ) _params_assoc_array["item"] = ITEMS_SWITCH_GENS ;
-            else if ( _p.stricmp( "classification" ) ) _params_assoc_array["classification"] = YES ;
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+            else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
+            else if ( _magic_entries.includes_i( _p ) ) _cmd_params['settings']['magic'] = _p ;
+            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
+            else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
+            else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
+            else if ( _p.stricmp( "classification" ) ) _cmd_params["classification"] = YES ;
             else if ( _p.start_with_i( _std_var_label + ":" ) )
-            _params_assoc_array[''+_std_var_label] = parse_complex_from_string( _p.replaceAll( _std_var_label+":" ) );
-            else if ( _p.start_with_i( "approx:" ) ) _params_assoc_array['approx'] = safe_int( _p.replaceAll( "approx", "" ), DEFAULT_MAX_ACCURACY ); 
+            _cmd_params[''+_std_var_label] = parse_complex_from_string( _p.replaceAll( _std_var_label+":" ) );
+            else if ( _p.start_with_i( "approx:" ) ) _cmd_params['approx'] = safe_int( _p.replaceAll( "approx", "" ), DEFAULT_MAX_ACCURACY ); 
             else if ( _p.start_with_i( "roundto:" ) )
             {
 				_p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
 			    if ( _p <= 0 || _p > DEFAULT_MAX_ACCURACY )
 				{
 					_p = _glob_accuracy ;
-					if ( _p <= 0 ) circles_lib_output( _output_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'accuracy' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
-					else circles_lib_output( _output_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'accuracy' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+					if ( _p <= 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'accuracy' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+					else circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'accuracy' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
 				}
-				_params_assoc_array['settings']['accuracy'] = _p ;
+				_cmd_params['settings']['accuracy'] = _p ;
             }
-            else _params_assoc_array['frm'].push( _p.trim() );
+            else _cmd_params['frm'].push( _p.trim() );
          }
          
-         if ( safe_string( _params_assoc_array['settings']['magic'], "" ).length > 0 )
+         if ( safe_string( _cmd_params['settings']['magic'], "" ).length > 0 )
 				 {
          			var _label = "" ;
-         		  switch( safe_string( _params_assoc_array['settings']['magic'], "" ) )
+         		  switch( safe_string( _cmd_params['settings']['magic'], "" ) )
          		  {
 						 			case "jorgensenineq":
 						 			_label = "Jorgensen's inequality" ;
-						 			_params_assoc_array['frm'] = [ "abs(tr^2(A)-4)+abs(tr[A,B]-2)>=1" ] ;
+						 			_cmd_params['frm'] = [ "abs(tr^2(A)-4)+abs(tr[A,B]-2)>=1" ] ;
 						 			break ;
 							}
 							
-							if ( _params_assoc_array['frm'].length > 0 )
+							if ( _cmd_params['frm'].length > 0 )
 							{
-									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "Found magic entry '<lightblue>"+_params_assoc_array['settings']['magic']+"</lightblue>' and", _par_1, _cmd_tag );
-									var _frm = $.terminal.escape_brackets( _params_assoc_array['frm'][0] ) ;
-									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "turned to <yellow>"+_label+"</yellow> formula" );
-									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<white>"+_frm+"</white>", _par_1, _cmd_tag );
-									circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "", _par_1, _cmd_tag );
+									circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Found magic entry '<lightblue>"+_cmd_params['settings']['magic']+"</lightblue>' and", _par_1, _cmd_tag );
+									var _frm = $.terminal.escape_brackets( _cmd_params['frm'][0] ) ;
+									circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "turned to <yellow>"+_label+"</yellow> formula" );
+									circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<white>"+_frm+"</white>", _par_1, _cmd_tag );
+									circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "", _par_1, _cmd_tag );
 							}
 				 }
 
-         if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
-         else if ( _params_assoc_array['keywords'] )
+         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
+         else if ( _cmd_params['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
                  _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
          else
          {
-             var _action = safe_string( _params_assoc_array['action'], "" ).trim() ;
-             var _settings = _params_assoc_array['settings'] ;
-             var _accuracy = _params_assoc_array['settings']['accuracy'] ;
-             var _classification = _params_assoc_array["classification"] ;
+             var _action = safe_string( _cmd_params['action'], "" ).trim() ;
+             var _settings = _cmd_params['settings'] ;
+             var _accuracy = _cmd_params['settings']['accuracy'] ;
+             var _classification = _cmd_params["classification"] ;
              switch( _action )
              {
                  case "release":
-                 circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                 circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                  break ;
                  default:
-                 var _n_frm = safe_size( _params_assoc_array['frm'], 0 );
-		             var _items_array = _params_assoc_array["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-		             var _dest_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
-		             var _category_ref = _params_assoc_array["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
+                 var _n_frm = safe_size( _cmd_params['frm'], 0 );
+		             var _items_array = _cmd_params["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+		             var _dest_ref = _cmd_params["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+		             var _category_ref = _cmd_params["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
                  if ( _n_frm == 0 )
                  {
                     _b_fail = 1 ;
@@ -149,15 +149,15 @@ function circles_terminal_cmd_frm()
                  }
                  else
                  {
-                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Parsing input formula ...</lightblue>", _par_1, _cmd_tag );
-                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>All symbols will refer to the group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
-                    circles_lib_output( _output_channel, DISPATCH_INFO, "", 0, "frm" );
-                    $.each( _params_assoc_array['frm'], function( _i, _tok ){ _params_assoc_array['frm'][_i] = _tok.trim() ; } ) ;
-                    var _frm = _params_assoc_array['frm'].join( "" ) ;
+                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Parsing input formula ...</lightblue>", _par_1, _cmd_tag );
+                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>All symbols will refer to the group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
+                    circles_lib_output( _out_channel, DISPATCH_INFO, "", 0, "frm" );
+                    $.each( _cmd_params['frm'], function( _i, _tok ){ _cmd_params['frm'][_i] = _tok.trim() ; } ) ;
+                    var _frm = _cmd_params['frm'].join( "" ) ;
                     var _is_var = _frm.testME( _glob_varid_regex_pattern ) ? YES : NO ;
                     var _illegals = _glob_punctuation.clone().remove( [ ".", "-", "^", "," ] ).concat( _glob_illegal_symbols ) ;
                     var _is_formula = YES, _is_illegal = NO, _what_illegals = [] ;
-                    $.each( _params_assoc_array['frm'],
+                    $.each( _cmd_params['frm'],
                             function( _i, _tok )
                             {
                                $.each( _illegals, function( _i, _punct )
@@ -180,20 +180,20 @@ function circles_terminal_cmd_frm()
                     }
                     else if ( _is_formula )
                     {
-                        var _frm = _params_assoc_array['frm'].join( "" ) ;
+                        var _frm = _cmd_params['frm'].join( "" ) ;
                         if ( _frm.includes_i( _std_var_label ) )
                         {
-                            circles_lib_output( _output_channel, DISPATCH_INFO, "Found polynomial in var '"+_std_var_label+"'", _par_1, _cmd_tag );
-                            if ( _params_assoc_array[''+_std_var_label] == null )
+                            circles_lib_output( _out_channel, DISPATCH_INFO, "Found polynomial in var '"+_std_var_label+"'", _par_1, _cmd_tag );
+                            if ( _cmd_params[''+_std_var_label] == null )
                             {
                                _b_fail = YES, _error_str = "Missing input var '"+_std_var_label+"' value." ;
                             }
                             else
                             {
-                               var _var_formula = _params_assoc_array[''+_std_var_label].formula(YES,YES,_accuracy);
+                               var _var_formula = _cmd_params[''+_std_var_label].formula(YES,YES,_accuracy);
                                _frm = _frm.replaceAll( _std_var_label, "("+_var_formula+")" );
-                               circles_lib_output( _output_channel, DISPATCH_INFO, "Current var '"+_std_var_label+"' is " + _var_formula, _par_1, _cmd_tag );
-                               circles_lib_output( _output_channel, DISPATCH_INFO, "Parsing the polynomial " + _frm, _par_1, _cmd_tag );
+                               circles_lib_output( _out_channel, DISPATCH_INFO, "Current var '"+_std_var_label+"' is " + _var_formula, _par_1, _cmd_tag );
+                               circles_lib_output( _out_channel, DISPATCH_INFO, "Parsing the polynomial " + _frm, _par_1, _cmd_tag );
                             }
                         }
                         
@@ -202,7 +202,7 @@ function circles_terminal_cmd_frm()
                         		_mask |= _frm.one_in_i( _determinant_entries ) ? 2 : 0 ;
                         if ( _mask & 1 )
                         {
-                            var _ret_chunk = circles_terminal_cmd_frm_trace_resolver( _glob_terminal, _items_array, _frm, _accuracy, _output_channel, _classification, _cmd_tag );
+                            var _ret_chunk = circles_terminal_cmd_frm_trace_resolver( _glob_terminal, _items_array, _frm, _accuracy, _out_channel, _classification, _cmd_tag );
                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                             var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                             if ( _ret_id == RET_ERROR )
@@ -214,8 +214,8 @@ function circles_terminal_cmd_frm()
                         
 												if ( _mask & 2 )
                         {
-                        		if ( _classification ) circles_lib_output( _output_channel, DISPATCH_INFO, "'Classification' works for trace operator exclusively and it will be skipped", _par_1, _cmd_tag );
-                            var _ret_chunk = circles_terminal_cmd_frm_determinant_resolver( _glob_terminal, _items_array, _frm, _accuracy, _output_channel, _par_1, _cmd_tag );
+                        		if ( _classification ) circles_lib_output( _out_channel, DISPATCH_INFO, "'Classification' works for trace operator exclusively and it will be skipped", _par_1, _cmd_tag );
+                            var _ret_chunk = circles_terminal_cmd_frm_determinant_resolver( _glob_terminal, _items_array, _frm, _accuracy, _out_channel, _par_1, _cmd_tag );
                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                             var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                             if ( _ret_id == RET_ERROR )
@@ -227,14 +227,14 @@ function circles_terminal_cmd_frm()
                         
 												if ( _mask == 0 )												
                         {
-                        		if ( _classification ) circles_lib_output( _output_channel, DISPATCH_INFO, "'Classification' works for trace operator exclusively and it will be skipped", _par_1, _cmd_tag );
+                        		if ( _classification ) circles_lib_output( _out_channel, DISPATCH_INFO, "'Classification' works for trace operator exclusively and it will be skipped", _par_1, _cmd_tag );
                             // after correction, let's solve the input expression
                             var _new_frm = circles_lib_parse_adjust_formula( _frm );
                             if ( !_new_frm.stricmp( _frm ) )
                             {
-                               circles_lib_output( _output_channel, DISPATCH_INFO, "Input expression has been parsed and corrected into: " + _new_frm, _par_1, _cmd_tag );
+                               circles_lib_output( _out_channel, DISPATCH_INFO, "Input expression has been parsed and corrected into: " + _new_frm, _par_1, _cmd_tag );
                                _frm = _new_frm ;
-                               circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Expression parsed into </lightgray> <yellow>"+_frm+"</yellow>", _par_1, _cmd_tag );
+                               circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Expression parsed into </lightgray> <yellow>"+_frm+"</yellow>", _par_1, _cmd_tag );
                             }
                         }
                         
@@ -261,9 +261,9 @@ function circles_terminal_cmd_frm()
                             _fn_ret_val = _is_boolean ? _result : ( is_complex( _complex_obj ) ? _complex_obj : null ) ;
                             if ( ( is_complex( _complex_obj ) || _is_boolean ) && !_b_fail && _settings.includes_i( "assign" ) )
                             {
-                               if ( _params_assoc_array['dump'] && _params_assoc_array['dump_array'] != null )
+                               if ( _cmd_params['dump'] && _cmd_params['dump_array'] != null )
                                {
-                                  _var_identifier = _params_assoc_array['dump_array'][0] ;
+                                  _var_identifier = _cmd_params['dump_array'][0] ;
                                   _var_identifier = is_string( _var_identifier ) ? _var_identifier.trim() : null;
                                   var _ret_chunk = circles_lib_dump_data_to_format( _complex_obj, _var_identifier, _frm );
    																var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
@@ -272,21 +272,21 @@ function circles_terminal_cmd_frm()
    																{
    																		_b_fail = YES, _error_str = _ret_msg ;
    																}
-   																else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+   																else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                                }
-                               else circles_lib_output( _output_channel, DISPATCH_ERROR, "Missing destination for dumping." + _result, _par_1, _cmd_tag );
+                               else circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing destination for dumping." + _result, _par_1, _cmd_tag );
                             }
-                            else if ( ( !is_complex( _complex_obj ) && !_is_boolean ) || _b_fail ) circles_lib_output( _output_channel, DISPATCH_ERROR, "Fail to resolve input formula", _par_1, _cmd_tag );
+                            else if ( ( !is_complex( _complex_obj ) && !_is_boolean ) || _b_fail ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to resolve input formula", _par_1, _cmd_tag );
                         }
 
                         var _n_detected = is_array( _extracted_vars_array ) ? safe_size( _extracted_vars_array, 0 ) : 0 ;
                         var _vars_detected = (_n_detected==0?"No":_n_detected)+" custom var" + ( ( _n_detected == 1 ) ? "" : "s" )+" detected" ;
                         if ( _n_detected > 0 ) _vars_detected += " : " + _extracted_vars_array.join( ", " ); 
-                        circles_lib_output( _output_channel, DISPATCH_INFO, _vars_detected, _par_1, _cmd_tag );
+                        circles_lib_output( _out_channel, DISPATCH_INFO, _vars_detected, _par_1, _cmd_tag );
 
 												if ( is_complex( _complex_obj ) )
                         {
-                           _fn_ret_val = _complex_obj = _complex_obj.roundTo( _params_assoc_array['approx'] != null ? _params_assoc_array['approx'] : _glob_accuracy );
+                           _fn_ret_val = _complex_obj = _complex_obj.roundTo( _cmd_params['approx'] != null ? _cmd_params['approx'] : _glob_accuracy );
                            _result = _complex_obj.formula(YES,YES,_accuracy);
                         }
 												else if ( _is_boolean )
@@ -295,10 +295,10 @@ function circles_terminal_cmd_frm()
 													 _result = _result ? "true" : "false" ;														
 												}
 
-                        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Result is</lightblue> <yellow>" + _result + "</yellow>", _par_1, _cmd_tag );
+                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Result is</lightblue> <yellow>" + _result + "</yellow>", _par_1, _cmd_tag );
 
                         if ( _settings.includes_i( "assign" ) && !_b_fail && _var_identifier.length > 0 )
-                        circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Result has been flushed into var " + _var_identifier, _par_1, _cmd_tag );
+                        circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Result has been flushed into var " + _var_identifier, _par_1, _cmd_tag );
                     }
                  }
                  break ;
@@ -307,14 +307,14 @@ function circles_terminal_cmd_frm()
      }
      else { _b_fail = YES, _error_str = "Missing input expression" ; }
 
-     if ( _output_channel == OUTPUT_FUNCTION ) return _b_fail ? null : _fn_ret_val ;
-     else if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _out_channel == OUTPUT_FUNCTION ) return _b_fail ? null : _fn_ret_val ;
+     else if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
 }
 
-function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _formula_in, _accuracy, _output_channel, _classification )
+function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _formula_in, _accuracy, _out_channel, _classification )
 {
-    _output_channel = safe_int( _output_channel, OUTPUT_TERMINAL );
+    _out_channel = safe_int( _out_channel, OUTPUT_TERMINAL );
     _classification = safe_int( _classification, NO );
     _formula_in = safe_string( _formula_in, "" ).trim();
  		var _items_n = circles_lib_count_items();
@@ -380,20 +380,20 @@ function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _form
                        }
                        else if ( _ret == YES )
                        {
-                          var _mm = circles_lib_word_mobiusmap_get( _word, _items_array, _output_channel );
+                          var _mm = circles_lib_word_mobiusmap_get( _word, _items_array, _out_channel );
                           if ( !is_mobius_map( _mm ) ) return [ RET_ERROR, "Error while computing '"+_trace+"'" ] ;
                           else
                           {
                              var _tr_complex = _mm.trace().pow(_exponent).formula( YES, YES, _accuracy );
                              _formula_out = _formula_out.replace( _trace, "("+_tr_complex+")" ) ;
                              _trace = $.terminal.escape_brackets( _trace );
-                             circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_trace+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", 0, "frm" );
+                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_trace+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", 0, "frm" );
                              if ( _classification )
                              {
-		                             circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'standard test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,NO)+"</yellow>", 0, "frm" );
-		                             circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'nearly test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,YES)+"</yellow>", 0, "frm" );
+		                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'standard test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,NO)+"</yellow>", 0, "frm" );
+		                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'nearly test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,YES)+"</yellow>", 0, "frm" );
 														 }
-                             circles_lib_output( _output_channel, DISPATCH_INFO, "", 0, "frm" );
+                             circles_lib_output( _out_channel, DISPATCH_INFO, "", 0, "frm" );
                           }
                        }
                        else
@@ -461,7 +461,7 @@ function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _form
                               }
                               else if ( _ret == YES )
                               {
-                                 var _mm = circles_lib_word_mobiusmap_get( _commutator, _items_array, _output_channel );
+                                 var _mm = circles_lib_word_mobiusmap_get( _commutator, _items_array, _out_channel );
                                  if ( !is_mobius_map( _mm ) )
                                  {
                                     _ret_chunk = [ RET_ERROR, "Error while computing '"+_trace+"'" ] ;
@@ -472,13 +472,13 @@ function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _form
                                     var _tr_complex = _mm.trace().pow(_exponent).formula(YES,YES,_accuracy);
                                     _formula_out = _formula_out.replaceAll( _trace, "("+_tr_complex+")" );
 		                                _trace = $.terminal.escape_brackets( _trace );
-					                          circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_trace+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", 0, "frm" );
+					                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_trace+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", 0, "frm" );
 	                                  if ( _classification )
 		                                {
-				                                circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'standard test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,NO)+"</yellow>", 0, "frm" );
-				                                circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'nearly test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,YES)+"</yellow>", 0, "frm" );
+				                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'standard test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,NO)+"</yellow>", 0, "frm" );
+				                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'nearly test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,YES)+"</yellow>", 0, "frm" );
 																		}
-                                    circles_lib_output( _output_channel, DISPATCH_INFO, "", 0, "frm" );
+                                    circles_lib_output( _out_channel, DISPATCH_INFO, "", 0, "frm" );
                                  }
                               }
                               else
@@ -501,9 +501,9 @@ function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _form
     }
 }
 
-function circles_terminal_cmd_frm_determinant_resolver( _terminal, _items_array, _formula_in, _accuracy, _output_channel, _par_1 )
+function circles_terminal_cmd_frm_determinant_resolver( _terminal, _items_array, _formula_in, _accuracy, _out_channel, _par_1 )
 {
-    _output_channel = safe_int( _output_channel, OUTPUT_TERMINAL );
+    _out_channel = safe_int( _out_channel, OUTPUT_TERMINAL );
     _formula_in = safe_string( _formula_in, "" ).trim();
     if ( _formula_in.length == 0 ) return [ RET_ERROR, "" ] ;
     else
@@ -562,13 +562,13 @@ function circles_terminal_cmd_frm_determinant_resolver( _terminal, _items_array,
                           }
                           else if ( _ret == YES )
                           {
-                               var _mm = circles_lib_word_mobiusmap_get( _word, _items_array, _output_channel );
+                               var _mm = circles_lib_word_mobiusmap_get( _word, _items_array, _out_channel );
                                if ( !is_mobius_map( _mm ) ) return [ RET_ERROR, "Error while computing '"+_determinant+"'" ] ;
                                else
                                {
                                    var _tr_complex = _mm.det().pow(_exponent).formula(YES,YES,_accuracy ) ;
                                    _formula_out = _formula_out.replaceAll( _determinant, "("+_tr_complex+")" );
-	                                 circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_determinant+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", _par_1, "frm" );
+	                                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_determinant+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", _par_1, "frm" );
                                }
                           }
                           else
@@ -637,7 +637,7 @@ function circles_terminal_cmd_frm_determinant_resolver( _terminal, _items_array,
                                     }
                                     else if ( _ret == YES )
                                     {
-                                        var _mm = circles_lib_word_mobiusmap_get( _commutator, _items_array, _output_channel );
+                                        var _mm = circles_lib_word_mobiusmap_get( _commutator, _items_array, _out_channel );
                                         if ( !is_mobius_map( _mm ) )
                                         {
                                            _ret_chunk = [ RET_ERROR, "Error while computing '"+_determinant+"'" ] ;
@@ -647,8 +647,8 @@ function circles_terminal_cmd_frm_determinant_resolver( _terminal, _items_array,
                                         {
                                            var _tr_complex = _mm.det().pow(_exponent).formula(YES,YES,_accuracy);
                                            _formula_out = _formula_out.replaceAll( _determinant, "("+_tr_complex+")" );
-				                                   circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_determinant+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", _par_1, "frm" );
-                                           circles_lib_output( _output_channel, DISPATCH_INFO, "", 0, "frm" );
+				                                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_determinant+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", _par_1, "frm" );
+                                           circles_lib_output( _out_channel, DISPATCH_INFO, "", 0, "frm" );
                                         }
                                     }
                                     else

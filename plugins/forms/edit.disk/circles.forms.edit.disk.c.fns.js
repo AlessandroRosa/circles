@@ -1,12 +1,12 @@
-function CIRCLESformsEDITDISKcreate_inverse_element( _items_array, _i, _silent, _output_channel )
+function CIRCLESformsEDITDISKcreate_inverse_element( _items_array, _i, _silent, _out_channel )
 {
-		_silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+		_silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ){ return is_item_obj( _obj ) ; } );
     if ( !_test )
     {
        var _msg = "Input container does not appear to be the items container" ;
-       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsEDITDISKoutMSG" ) ;
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsEDITDISKoutMSG" ) ;
        return [ RET_WARNING, _msg ];
     }
     
@@ -27,14 +27,14 @@ function CIRCLESformsEDITDISKcreate_inverse_element( _items_array, _i, _silent, 
        {
           _items_array.push( new item_obj( inv_map, null, null, inverse_symbol, 0, draw, bordercolor, fill, fillcolor, _symbol, bordersize, item_type, inverse_symbol ) );
           _items_array[ _i ].inverse_symbol = safe_string( inverse_symbol, "" ) ;
-          if ( _output_channel == OUTPUT_SCREEN && !_silent )
+          if ( _out_channel == OUTPUT_SCREEN && !_silent )
           circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "The inverse item has been created with success", 'CIRCLESformsEDITDISKoutMSG' )
           return [ RET_OK, _items_array.length - 1 ] ;
        }
        else
        {
           var _msg = "The inverse map has been already created" ;
-          if ( _output_channel == OUTPUT_SCREEN && !_silent )
+          if ( _out_channel == OUTPUT_SCREEN && !_silent )
           circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsEDITDISKoutMSG" ) ;
           return [ RET_WARNING, _msg ] ;
        }
@@ -42,7 +42,7 @@ function CIRCLESformsEDITDISKcreate_inverse_element( _items_array, _i, _silent, 
     else
     {
        var _msg = "The inverse map cannot be created" ;
-       if ( _output_channel == OUTPUT_SCREEN && !_silent )
+       if ( _out_channel == OUTPUT_SCREEN && !_silent )
        circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsEDITDISKoutMSG" ) ;
        return [ RET_WARNING, _msg ];
     }
@@ -86,12 +86,12 @@ function CIRCLESformsEDITDISKbtnbarSHOW( _sel_id )
         _show ? $( "#CIRCLESeditBARDIV_" + _i ).slideDown("slow") : $( "#CIRCLESeditBARDIV_" + _i ).slideUp("fast");
     }
 }
-function CIRCLESformsEDITDISKremoveMOBIUSfillCOLOR( _index, _question, _silent, _output_channel )
+function CIRCLESformsEDITDISKremoveMOBIUSfillCOLOR( _index, _question, _silent, _out_channel )
 {
 		// works with seeds
 		var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     _silent = safe_int( _silent, NO ), _question = safe_int( _question, NO );
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN ), _index = safe_int( _index, UNFOUND );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _index = safe_int( _index, UNFOUND );
     if ( _index != UNFOUND )
     {
        var _b_go = !_question ? YES : confirm( _QUESTION_29 );
@@ -103,13 +103,13 @@ function CIRCLESformsEDITDISKremoveMOBIUSfillCOLOR( _index, _question, _silent, 
              circles_lib_plugin_load('forms','edit.disk', NO, _index);
 
              var _msg = "Fill color removed with success" ;
-             if ( _output_channel == OUTPUT_SCREEN && !_silent )
+             if ( _out_channel == OUTPUT_SCREEN && !_silent )
              circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg, "CIRCLESformsEDITDISKoutMSG" ) ;
              return [ RET_OK, _msg ] ;
           }
           else
           {
-             if ( _output_channel == OUTPUT_SCREEN && !_silent )
+             if ( _out_channel == OUTPUT_SCREEN && !_silent )
              circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _ERR_26_01, 'CIRCLESformsEDITDISKoutMSG' )
              return [ RET_ERROR, _ERR_26_01 ] ;
           }
@@ -117,7 +117,7 @@ function CIRCLESformsEDITDISKremoveMOBIUSfillCOLOR( _index, _question, _silent, 
     }
     else
     {
-        if ( _output_channel == OUTPUT_SCREEN && !_silent )
+        if ( _out_channel == OUTPUT_SCREEN && !_silent )
         circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _ERR_26_00, 'CIRCLESformsEDITDISKoutMSG' )
         return [ RET_ERROR, _ERR_26_00 ] ;
     }
@@ -188,12 +188,12 @@ function CIRCLESformsEDITDISKswitchMOBIUSparams( _symbol, _type /* 1: orthogonal
     }
 }
 
-function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch, _question, _silent, _output_channel )
+function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch, _question, _silent, _out_channel )
 {
     var _chunk = circles_lib_items_set( _items_switch, YES ) ;
     var _items_n = _chunk['count'], _items_array = _chunk['array'], _caption = _chunk['label'], _items_switch = _chunk['switch'] ;
     _item_index = safe_int( _item_index, UNFOUND ), _item_type = safe_int( _item_type, ITEM_TYPE_CIRCLE );
-		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
 
     var _b_colorize = $( "#CIRCLESformsEDITDISKcolorizeCHECKBOX" ).prop( "checked" ) ? YES : NO ;
     var X = safe_float( $("#CIRCLEselectedCENTERx").val(), 0 );
@@ -236,7 +236,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
     if ( _glob_method == METHOD_NONE )
     {
     		var _msg = "Missing method declaration" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent )
+        if ( _out_channel == OUTPUT_SCREEN && !_silent )
         circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsEDITDISKoutMSG" ) ;
         return [ RET_WARNING, _msg ] ;
     }
@@ -245,14 +245,14 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
     		var _msg = "Can't apply values:"+_glob_crlf ;
 				if ( _symbol.length != 1 ) _msg += "* symbol must be 1-char long" ;
 				if ( !_symbol.isAlpha() ) _msg += "* symbol must be of alphabetic kind" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent )
+        if ( _out_channel == OUTPUT_SCREEN && !_silent )
         circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsEDITDISKoutMSG" ) ;
         return [ RET_ERROR, _msg ] ;
     }
     else if ( _item_type == ITEM_TYPE_CIRCLE && RADIUS <= 0 )
     {
     		var _msg = "Can't apply values."+_glob_crlf.repeat(2)+"Radius must be strictly positive" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent )
+        if ( _out_channel == OUTPUT_SCREEN && !_silent )
         circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsEDITDISKoutMSG" ) ;
         return [ RET_ERROR, _msg ] ;
     }
@@ -269,7 +269,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
             if ( _symbol.length > 0 && _inv_symbol.length > 0 && _symbol == _inv_symbol )
             {
                var _msg = "Can't apply params: symbol and its inverse are the same" ;
-               if ( _output_channel == OUTPUT_SCREEN && !_silent )
+               if ( _out_channel == OUTPUT_SCREEN && !_silent )
                circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsEDITDISKoutMSG" ) ;
                return [ RET_ERROR, _msg ] ;
             }
@@ -297,7 +297,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                   
 	                _items_array.push( new item_obj( _mm, _complex_circle, _screen_circle, _symbol, PARAMSinputTYPEmask,
 	                   		                           draw, DRAWCOLOR, fill, FILLCOLOR, _inv_symbol, bordersize, _item_type, _symbol ) );
-                  if ( _b_colorize ) circles_lib_colors_colorize_group( _items_array, YES, YES, _output_channel ) ;
+                  if ( _b_colorize ) circles_lib_colors_colorize_group( _items_array, YES, YES, _out_channel ) ;
                }
 
                _glob_disk_sel_index = _item_index = safe_int( circles_lib_count_items( _items_array ) - 1, UNFOUND );
@@ -316,7 +316,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                    _glob_zplane_selected_items_array = [];
                    _glob_zplane_selected_items_array.push( _item_index );
                    circles_lib_helper_div_remove();
-                   var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
+                   var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
                    if ( _ret_chunk[0] != RET_OK )
                    {
                       circles_lib_log_add_entry( _ret_chunk[1], LOG_WARNING );
@@ -353,7 +353,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
                  _items_array[_item_index].inverse_symbol = safe_string( _inv_symbol, "" ) ;
                  _items_array[_item_index].params_mask = PARAMSinputTYPEmask ;
                  _glob_disk_sel_index = _item_index, _b_go = YES, _glob_to_save = NO ;
-                  if ( _b_colorize ) circles_lib_colors_colorize_group( _items_array, YES, YES, _output_channel ) ;
+                  if ( _b_colorize ) circles_lib_colors_colorize_group( _items_array, YES, YES, _out_channel ) ;
                   
                  _msg = "Params have been applied with success" ;
             }
@@ -370,7 +370,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
 		            $("#CIRCLESformsEDITDISKapplyBTN").css( "color", "black" );
 						}
 
-            if ( _output_channel == OUTPUT_SCREEN && !_silent )
+            if ( _out_channel == OUTPUT_SCREEN && !_silent )
             circles_lib_output( OUTPUT_SPECIAL_FX, _b_go ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, 'CIRCLESformsEDITDISKoutMSG' )
             return [ _b_go ? RET_OK : RET_ERROR, _msg ] ;
         }

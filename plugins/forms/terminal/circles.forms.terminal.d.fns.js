@@ -186,9 +186,9 @@ function CIRCLESformsTERMINALbatchcompilerCLEANdebug( _question = 1, _silent = 0
     }
 }
 
-function CIRCLESformsTERMINALhistoryDISPLAYtoggle( _suffix = "", _silent = 0, _output_channel = OUTPUT_SCREEN )
+function CIRCLESformsTERMINALhistoryDISPLAYtoggle( _suffix = "", _silent = 0, _out_channel = OUTPUT_SCREEN )
 {
-    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     $("#TERMINALhistoryCONTAINER" + _suffix ).toggle();
     if ( $("#TERMINALhistoryCONTAINER" + _suffix ).is(":visible") )
     {
@@ -205,7 +205,7 @@ function CIRCLESformsTERMINALhistoryDISPLAYtoggle( _suffix = "", _silent = 0, _o
         else
         {
             var _msg = "Terminal cmds history is empty" ;
-            if ( _output_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+            if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
             return [ RET_WARNING, _msg ] ;
         }
     }

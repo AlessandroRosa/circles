@@ -1,25 +1,25 @@
-function CIRCLESmultithreadingPROCESSdictionary( _options_chunk, _silent, _output_channel )
+function CIRCLESmultithreadingPROCESSdictionary( _options_chunk, _silent, _out_channel )
 {
-    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     return CIRCLESmultithreadingINITworker( [ MULTITHREADING_OBJ_WORKAREA_DICTIONARY,
-                                              _options_chunk, _silent, _output_channel ] );
+                                              _options_chunk, _silent, _out_channel ] );
 }
 
-function CIRCLESmultithreadingPROCESSwindowresize( _options_chunk, _silent, _output_channel )
+function CIRCLESmultithreadingPROCESSwindowresize( _options_chunk, _silent, _out_channel )
 {
-    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     return CIRCLESmultithreadingINITworker( [ MULTITHREADING_OBJ_WORKAREA_CANVAS_REDRAWING,
-                                            _options_chunk, _silent, _output_channel ] );
+                                            _options_chunk, _silent, _out_channel ] );
 }
 
-function CIRCLESmultithreadingPROCESSrendering( canvas, mapper, method, _process, _fixedpts_io, _working_plane, _silent, _output_channel )
+function CIRCLESmultithreadingPROCESSrendering( canvas, mapper, method, _process, _fixedpts_io, _working_plane, _silent, _out_channel )
 {
     _working_plane = safe_int( _working_plane, _glob_target_plane != NO_PLANE ? _glob_target_plane : W_PLANE );
-    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
 		if ( _working_plane > 0 )
     return CIRCLESmultithreadingINITworker( [ MULTITHREADING_OBJ_WORKAREA_RENDERING,
                                             [ method, _process, _fixedpts_io, _working_plane, canvas, mapper ],
-                                            _silent, _output_channel ] );
+                                            _silent, _out_channel ] );
     else return [ RET_ERROR, "It's impossible to start-up the rendering process: no plane selected yet" ] ;
 }
 
@@ -107,13 +107,13 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
         _startINDEX++ ;
  	var _silent = safe_int( _input_chunk[ _startINDEX ], NO );
         _startINDEX++ ;
- 	var _output_channel = safe_int( _input_chunk[ _startINDEX ], OUTPUT_SCREEN );
+ 	var _out_channel = safe_int( _input_chunk[ _startINDEX ], OUTPUT_SCREEN );
     var _items_n = circles_lib_count_items();
     var _pre_check_ret = CIRCLESmultithreadingPREcheck();
     if ( _workarea == MULTITHREADING_OBJ_WORKAREA_NONE )
     {
        var _msg = "This multi-tasking thread initialization has failed: missing workarea." ;
-       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
     else if ( _pre_check_ret < 0 )
@@ -124,7 +124,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
        else if ( _pre_check_ret == -7 ) _msg = "The automaton table is empty." ;
        else if ( _pre_check_ret == -8 ) _msg = "The probabilities table is empty." ;
        else if ( _pre_check_ret == -9 ) _msg = "Detected mismatch between the number of probabilities and the length of current alphabet." ;
-       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }
 	else if ( _workarea == MULTITHREADING_OBJ_WORKAREA_RENDERING ) // rendering
@@ -206,7 +206,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
              _MSG += "and thus rendering destination is not well determined." + _glob_crlf.repeat(2) ;
              _MSG += "Please, select the destination plane from buttons below" ;
                 
-         if ( _output_channel == OUTPUT_SCREEN )
+         if ( _out_channel == OUTPUT_SCREEN )
          {
            alert_set_btns_width( 70 );
            alert_plug_label( ALERT_YES, "W-plane" );
@@ -230,7 +230,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
          _glob_process_running_flag = YES ;
          _glob_rec_canvas_entities_array.flush_associative();
          if ( _glob_export_format == EXPORT_SVG ) _svg_comment( _glob_export_code_array, "RENDERING THE CURRENT CONFIGURATION" );
-         circles_lib_items_switch_to( circles_lib_gens_model_exists() ? ITEMS_SWITCH_GENS : ITEMS_SWITCH_SEEDS, YES, _output_channel );
+         circles_lib_items_switch_to( circles_lib_gens_model_exists() ? ITEMS_SWITCH_GENS : ITEMS_SWITCH_SEEDS, YES, _out_channel );
 			   _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
          $("[id$=renderBTN]").filter( function(){ return !this.id.start_with( "PLUGIN" ) } ).attr( "class", "link_rounded_dead" );
          $("[id$=renderBTN]").css( { "color" : "#D0D0D0" } );
@@ -352,7 +352,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
 			else if( _opcode == 4.0 ) _msg = "Inversion of the dictionary" ;
 			else _msg = "Unknown operation" ;
 
- 			if ( _output_channel == OUTPUT_SCREEN )
+ 			if ( _out_channel == OUTPUT_SCREEN )
 			{
            var HTMLcode = "<table STYLE=\"background-color:white;width:100%;\" ALIGN=\"center\">" ;
 							 HTMLcode += "<tr><td HEIGHT=\"15\"></td></tr>" ;
@@ -362,7 +362,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
     					 HTMLcode += "</table>" ;
     			 SPLASH( HTMLcode, SHOW, 480, 180 );
        }
-       else circles_lib_output( _output_channel, DISPATCH_INFO, _msg, "" );
+       else circles_lib_output( _out_channel, DISPATCH_INFO, _msg, "" );
 						
 			 _glob_worker_lock = YES ;
        
@@ -462,7 +462,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
     		    _glob_worker = new Worker( "code/js/components/multi.threading/circles.multi.threading.worker.resizing.core.js" );
     			  CIRCLESmultithreadingADDresizingLISTENER();
 
-     			  if ( _output_channel == OUTPUT_SCREEN )
+     			  if ( _out_channel == OUTPUT_SCREEN )
             {
                var HTMLcode = "<table STYLE=\"background-color:white;width:100%;\" ALIGN=\"center\">" ;
  							 HTMLcode += "<tr><td HEIGHT=\"20\"></td></tr>" ;
@@ -478,7 +478,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
      					 HTMLcode += "</table>" ;
        			   SPLASH( HTMLcode, SHOW, 380, 150 );
             }
-            else circles_lib_output( _output_channel, DISPATCH_INFO, _msg, "Resizing stage 1/2" );
+            else circles_lib_output( _out_channel, DISPATCH_INFO, _msg, "Resizing stage 1/2" );
 
     		    _glob_worker.postMessage( { 'id' : 'init' } ) ;
 

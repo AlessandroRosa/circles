@@ -1,10 +1,10 @@
 var _tmp_save_canvas_obj = null ;
 
-function circles_lib_files_pix_save( _plane_type, _canvas_id = "", _filename = "", _merge, _silent, _output_channel )
+function circles_lib_files_pix_save( _plane_type, _canvas_id = "", _filename = "", _merge, _silent, _out_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
 	_canvas_id = safe_string( _canvas_id, "" ), _filename = safe_string( _filename, "" );
-    _merge = safe_int( _merge, NO ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _merge = safe_int( _merge, NO ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _index = _plane_type == Z_PLANE ? _glob_zplane_selected_canvas_index_for_merging : _glob_wplane_selected_canvas_index_for_merging ;
 	var _canvas = $( "#"+safe_string( _canvas_id, "" ) ).get(0) ;
 	if ( _canvas_id && is_html_canvas( _canvas ) ) { _tmp_save_canvas_obj = _canvas ; _merge = NO ; }
@@ -15,13 +15,13 @@ function circles_lib_files_pix_save( _plane_type, _canvas_id = "", _filename = "
     {
         _tmp_save_canvas_obj.toBlob( function(blob) { saveAs( blob, _filename ); }, _filename );
         var _msg = "Picture has been saved into a file with success" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
         return [ RET_OK, _msg ];
     }
     else
     {
         var _msg = "Can't save this pix: a layer must be chosen first" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
     }
 }
@@ -33,10 +33,10 @@ function circles_lib_files_pix_save_canvas_from_ref( _plane_type, _role = "", _f
     return circles_lib_files_pix_save_ask( _plane_type, _canvas.id, _filename, NO, YES, OUTPUT_SCREEN );
 }
 
-function circles_lib_files_pix_save_ask( _plane_type, _canvas_id = "", _filename = "", _merge = NO, _silent = NO, _output_channel = OUTPUT_SCREEN )
+function circles_lib_files_pix_save_ask( _plane_type, _canvas_id = "", _filename = "", _merge = NO, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN ), _silent = safe_int( _silent, NO ), _merge = safe_int( _merge, NO );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _silent = safe_int( _silent, NO ), _merge = safe_int( _merge, NO );
     if ( _canvas_id )
 	{
 		_tmp_save_canvas_obj = $("#"+_canvas_id).get(0) ;
@@ -73,9 +73,9 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas_id = "", _filename
     {
     	if ( _merge ) _glob_canvas_obj_ref = _tmp_save_canvas_obj ;
 		else if ( is_html_canvas( _canvas ) ) _glob_canvas_obj_ref = _canvas ;
-		_save_fn += "circles_lib_canvas_save_to_pdf( _glob_canvas_obj_ref, '" + _filename + "', "+_silent+", "+_output_channel+" );" ;
+		_save_fn += "circles_lib_canvas_save_to_pdf( _glob_canvas_obj_ref, '" + _filename + "', "+_silent+", "+_out_channel+" );" ;
 	}
-    else if ( _is_png ) _save_fn += "circles_lib_files_pix_save( "+_plane_type+", '"+_canvas_id+"', '" + _filename + "', "+_merge+", "+_silent+", "+_output_channel+" )" ;
+    else if ( _is_png ) _save_fn += "circles_lib_files_pix_save( "+_plane_type+", '"+_canvas_id+"', '" + _filename + "', "+_merge+", "+_silent+", "+_out_channel+" )" ;
     else
     {
         var _ext = _filename.includes( "." ) ? _filename.trim().split( "." ) : [];
@@ -92,7 +92,7 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas_id = "", _filename
         {
              if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) )
              {
-                  var _checkbox_cmd = "alertCLOSE();circles_lib_files_pix_save_ask( "+_plane_type+",null,'"+_filename+"',this.checked?YES:NO,"+_silent+","+_output_channel+" );" ;
+                  var _checkbox_cmd = "alertCLOSE();circles_lib_files_pix_save_ask( "+_plane_type+",null,'"+_filename+"',this.checked?YES:NO,"+_silent+","+_out_channel+" );" ;
 
                   HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
                   HTMLcode += "<tr><td CLASS=\"general_rounded_corners\" STYLE=\"color:orange;background-color:white;padding:6px;\">If merge option is checked, the background color shall be set in the backmost layer, otherwise it will be transparent in the resulting pix.</td></tr>" ;
@@ -165,7 +165,7 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas_id = "", _filename
     HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
     HTMLcode += "</table>" ;
 
-    if ( _output_channel == OUTPUT_SCREEN )
+    if ( _out_channel == OUTPUT_SCREEN )
     {
         alert_plug_label( ALERT_YES, "Yes" );
         alert_plug_label( ALERT_NO, "No" );
@@ -193,22 +193,22 @@ function circles_lib_files_pix_save_enable_radio_ctrls( _b_enable )
     }
 }
 
-function circles_lib_files_pix_save_set_canvas( _plane_type, _role_index, _silent, _output_channel )
+function circles_lib_files_pix_save_set_canvas( _plane_type, _role_index, _silent, _out_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _role_index = safe_int( _role_index, ROLE_NONE );
-    _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _role_ref = safe_float( _plane_type + "." + _role_index, ROLE_NONE );
     if ( _plane_type == NO_PLANE )
     {
          var _msg = "Can't save the pix: missing layer ref" ;
-         if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ];
     }
     else if ( _role_ref == ROLE_NONE )
     {
          var _msg = "Can't save the pix: missing layer ref" ;
-         if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ];
     }
     else

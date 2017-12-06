@@ -1,10 +1,10 @@
 var _glob_e_ps_open = 0 ;
 
-function circles_lib_canvas_save_to_e_ps( _filename, _silent, _output_channel )
+function circles_lib_canvas_save_to_e_ps( _filename, _silent, _out_channel )
 {
      _filename = safe_string( _filename, "" );
      _silent = safe_int( _silent, NO );
-     _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
      var _code = _glob_js_e_ps_obj.get_codelist().join( _glob_crlf );       _code = _code.trim();
      if ( _code.length > 0 )
      {
@@ -22,7 +22,7 @@ function circles_lib_canvas_save_to_e_ps( _filename, _silent, _output_channel )
      else
      {
         var _msg = "Code is not available to save the "+( _glob_export_format == EXPORT_PS ? "PS" : "EPS" )+" file" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
         else return [ 0, _msg ];
      }
 }

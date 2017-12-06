@@ -1,7 +1,7 @@
-function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode = 0, _silent = 0, _output_channel = OUTPUT_SPECIAL_FX )
+function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode = 0, _silent = 0, _out_channel = OUTPUT_SPECIAL_FX )
 {
 	_silent = safe_int( _silent, NO ), _opcode = safe_int( _opcode, CIRCLESembeddingsGENERALPURPOSE_ADD );
-	_output_channel = safe_int( _output_channel, OUTPUT_SPECIAL_FX );
+	_out_channel = safe_int( _out_channel, OUTPUT_SPECIAL_FX );
     var _entries = $( "[id^=PLUGIN_PARAM_]" );
     $.each( _entries, function( _i, _id ) { $( _id ).val( $( _id ).val().replaceAll( ",", "." ) ); } );
     var _index_ref = _plugin_last_ref, _opcode_str = "" ;
@@ -32,7 +32,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode = 0, _silent = 0, 
            $("#PLUGIN_PARAM_D").val( "" );
            $("#PLUGIN_PARAM_A").focus();
 		   CIRCLESembeddingsGENERALPURPOSEcurr_sel = UNDET ;
-		   circles_lib_output( _output_channel, DISPATCH_WARNING, "Form has been cleaned for a new entry", 'PLUGIN_OUTMSG' ) ;
+		   circles_lib_output( _out_channel, DISPATCH_WARNING, "Form has been cleaned for a new entry", 'PLUGIN_OUTMSG' ) ;
 		   return YES ;
         }
         else return NO ;
@@ -49,17 +49,17 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode = 0, _silent = 0, 
 	     _MSG += _glob_crlf + "Duplicates will be not admitted into the current candidate group," ;
 		 _MSG += _glob_crlf.repeat(2)+"This entry won't be inserted !" ;
       }
-	  circles_lib_output( _output_channel, DISPATCH_WARNING, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+	  circles_lib_output( _out_channel, DISPATCH_WARNING, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 	  return NO ;
 	}
 	else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSEcurr_sel == UNDET )
 	{
-	  circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: missing reference index.", 'PLUGIN_OUTMSG' ) ;
+	  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: missing reference index.", 'PLUGIN_OUTMSG' ) ;
 	  return NO ;
 	}
 	else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSE_gens_container[ CIRCLESembeddingsGENERALPURPOSEcurr_sel ] == null )
 	{
-	  circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: unfound referenced element.", 'PLUGIN_OUTMSG' ) ;
+	  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: unfound referenced element.", 'PLUGIN_OUTMSG' ) ;
 	  return NO ;
 	}
     else
@@ -115,7 +115,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode = 0, _silent = 0, 
 					var _ret = NO ;
 					if ( _new_n > _old_n )
 					{
-						circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Generator #"+_new_n+" has been added with success to the candidate group!", 'PLUGIN_OUTMSG' ) ;
+						circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Generator #"+_new_n+" has been added with success to the candidate group!", 'PLUGIN_OUTMSG' ) ;
 						_ret = YES ;
 					}
 				}
@@ -134,7 +134,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode = 0, _silent = 0, 
 						$("[id$=renderBTN]").css( "color", COLOR_DISABLED );
 						if ( _new_n == _old_n )
 						{
-							circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Gen #"+(CIRCLESembeddingsGENERALPURPOSEcurr_sel+1)+" has been updated with success!", 'PLUGIN_OUTMSG' ) ;
+							circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Gen #"+(CIRCLESembeddingsGENERALPURPOSEcurr_sel+1)+" has been updated with success!", 'PLUGIN_OUTMSG' ) ;
 							_ret = YES ;
 						}
 					}
@@ -149,7 +149,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode = 0, _silent = 0, 
 			}
 			else
 			{
-			    circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" the generator: some entries could be empty.", 'PLUGIN_OUTMSG' ) ;
+			    circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" the generator: some entries could be empty.", 'PLUGIN_OUTMSG' ) ;
 				return NO ;
 			}
 		}
@@ -157,17 +157,17 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode = 0, _silent = 0, 
         {
             var _msg = "Can't "+_opcode_str+" the generator: some entries have not been correctly parsed." ;
                 _msg += _glob_crlf.repeat(2) + "The input params might include invalid chars or unregistered vars." ;
-            circles_lib_output( _output_channel, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+            circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 			return NO ;
         }
 	}
 	return NO ;
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_GEN_DELETE( _index, _question, _silent, _output_channel )
+function CIRCLESembeddingsGENERALPURPOSE_GEN_DELETE( _index, _question, _silent, _out_channel )
 {
 	_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-	_index = Math.max( safe_int( _index, UNFOUND ), UNFOUND ), _output_channel = safe_int( _output_channel, OUTPUT_SPECIAL_FX );
+	_index = Math.max( safe_int( _index, UNFOUND ), UNFOUND ), _out_channel = safe_int( _out_channel, OUTPUT_SPECIAL_FX );
 	if ( _index != UNFOUND )
 	{
 		var _candidate_entry = CIRCLESembeddingsGENERALPURPOSE_gens_container[_index] ;
@@ -189,38 +189,38 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_DELETE( _index, _question, _silent,
 					if ( $("#PLUGINrenderBTN").get(0) != null ) $("#PLUGINrenderBTN").get(0).setAttribute( "class", "linkdead" );
 					$("[id$=initBTN]").css( "color", COLOR_DISABLED );
 					$("[id$=renderBTN]").css( "color", COLOR_DISABLED );
-					circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Deletion of entry '"+( _index + 1 )+"' has been successful.", 'PLUGIN_OUTMSG' ) ;
+					circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Deletion of entry '"+( _index + 1 )+"' has been successful.", 'PLUGIN_OUTMSG' ) ;
 					return YES ;
 				}
 				else
 				{
-					circles_lib_output( _output_channel, DISPATCH_WARNING, "Deletion of entry '"+( _index + 1 )+"' has failed.", 'PLUGIN_OUTMSG' ) ;
+					circles_lib_output( _out_channel, DISPATCH_WARNING, "Deletion of entry '"+( _index + 1 )+"' has failed.", 'PLUGIN_OUTMSG' ) ;
 					return NO ;
 				}
 			}
 			else
 			{
-				circles_lib_output( _output_channel, DISPATCH_WARNING, "Deletion stopped by user.", 'PLUGIN_OUTMSG' ) ;
+				circles_lib_output( _out_channel, DISPATCH_WARNING, "Deletion stopped by user.", 'PLUGIN_OUTMSG' ) ;
 				return NO ;
 			}
 		}
 		else
 		{
-			circles_lib_output( _output_channel, DISPATCH_ERROR, "Can't delete entry '"+( _index + 1 )+"': invalid referenced data.", 'PLUGIN_OUTMSG' ) ;
+			circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't delete entry '"+( _index + 1 )+"': invalid referenced data.", 'PLUGIN_OUTMSG' ) ;
 			return NO ;
 		}
 	}
 	else
 	{
-		circles_lib_output( _output_channel, DISPATCH_ERROR, "Can't delete entry '"+( _index + 1 )+"': missing reference data.", 'PLUGIN_OUTMSG' ) ;
+		circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't delete entry '"+( _index + 1 )+"': missing reference data.", 'PLUGIN_OUTMSG' ) ;
 		return NO ;
 	}
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_GEN_SELECT( _index, _N_GENS, _src_mask, _output_channel )
+function CIRCLESembeddingsGENERALPURPOSE_GEN_SELECT( _index, _N_GENS, _src_mask, _out_channel )
 {
     _index = safe_int( _index, UNDET ), _N_GENS = safe_int( _N_GENS, 0 ), _src_mask = safe_int( _src_mask, 1 ) ;
-	_output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+	_out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _input_maps_array = _src_mask == 1 ? CIRCLESembeddingsGENERALPURPOSE_gens_container : _glob_seeds_array ;
 	var GEN_CHUNK = _input_maps_array[_index] ;
   	if ( GEN_CHUNK != null )
@@ -240,7 +240,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_SELECT( _index, _N_GENS, _src_mask,
         _glob_disk_sel_index = _index ;
         _glob_zplane_selected_items_array = [];
         _glob_zplane_selected_items_array.push( _index );
-        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
+        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
 	    var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 		var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 		if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
@@ -249,7 +249,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_SELECT( _index, _N_GENS, _src_mask,
 	}
 	else
 	{
-		circles_lib_output( _output_channel, DISPATCH_ERROR, "Selection aborted: missing reference index.", 'PLUGIN_OUTMSG' ) ;
+		circles_lib_output( _out_channel, DISPATCH_ERROR, "Selection aborted: missing reference index.", 'PLUGIN_OUTMSG' ) ;
 		return NO ;
 	}
 }
@@ -430,9 +430,9 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_LIST( _resolve_formula, _restore, _
     $("#PLUGIN_LIST_CONTAINER").html( HTMLcode );
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_GEN_NORMALIZE( _index, _output_channel )
+function CIRCLESembeddingsGENERALPURPOSE_GEN_NORMALIZE( _index, _out_channel )
 {
-	_index = Math.max( safe_int( _index, UNFOUND ), UNFOUND ), _output_channel = safe_int( _output_channel, OUTPUT_SPECIAL_FX ) ;
+	_index = Math.max( safe_int( _index, UNFOUND ), UNFOUND ), _out_channel = safe_int( _out_channel, OUTPUT_SPECIAL_FX ) ;
 	if ( _index != UNFOUND )
 	{
 		var GEN_CHUNK = CIRCLESembeddingsGENERALPURPOSE_gens_container[_index] ;
@@ -465,12 +465,12 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_NORMALIZE( _index, _output_channel 
 					CIRCLESembeddingsGENERALPURPOSE_gens_container[_index][2] = _mm.c.formula();
 					CIRCLESembeddingsGENERALPURPOSE_gens_container[_index][3] = _mm.d.formula();
 					CIRCLESembeddingsGENERALPURPOSE_GEN_LIST(YES);
-					circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Generator normalized wirh success", 'PLUGIN_OUTMSG' ) ;
+					circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Generator normalized wirh success", 'PLUGIN_OUTMSG' ) ;
 					return YES ;
 				}
 				else
 				{
-					circles_lib_output( _output_channel, DISPATCH_ERROR, "Can't find generator at index '"+( _index+1 )+"'", 'PLUGIN_OUTMSG' ) ;
+					circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't find generator at index '"+( _index+1 )+"'", 'PLUGIN_OUTMSG' ) ;
 					return NO ;
 				}
 			}
@@ -478,7 +478,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_NORMALIZE( _index, _output_channel 
     }
 	else
 	{
-		circles_lib_output( _output_channel, DISPATCH_ERROR, "Invalid selection", 'PLUGIN_OUTMSG' ) ;
+		circles_lib_output( _out_channel, DISPATCH_ERROR, "Invalid selection", 'PLUGIN_OUTMSG' ) ;
 		return NO ;
 	}
 }

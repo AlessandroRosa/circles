@@ -270,9 +270,9 @@ function CIRCLESformsTERMINALgetHTML( _div_id, _is_popup, _input_w, _input_h, _s
 
 function CIRCLESformsTERMINALstartresize( _new_width, _new_height ) {}
 function CIRCLESformsTERMINALstopresize( _new_width, _new_height ) {}
-function CIRCLESformsTERMINALresize( _new_width, _new_height, _suffix, _output_channel )
+function CIRCLESformsTERMINALresize( _new_width, _new_height, _suffix, _out_channel )
 {
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _terminal_div_id = CIRCLESformsTERMINALdivid ;
     if ( _glob_terminal == null || $("#" + _terminal_div_id ).get(0) == null )
     return [ RET_ERROR, "Can't resize: console not available" ] ;

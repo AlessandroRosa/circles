@@ -3,7 +3,7 @@ function CIRCLESformsSTORAGESPACE_REMOTE_CTRL_KEYWORDS_INIT()
 
 }
 
-function CIRCLESformsSTORAGESPACEremotectrl( _options, _return_fn, _ret_array, _output_channel )
+function CIRCLESformsSTORAGESPACEremotectrl( _options, _return_fn, _ret_array, _out_channel )
 {
 	if ( !is_array( _options ) )
 	{

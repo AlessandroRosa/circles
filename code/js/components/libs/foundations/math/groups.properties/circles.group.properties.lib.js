@@ -18,42 +18,42 @@ function circles_lib_grp_props_test_unitdisk_automorphism( _items_array, _accura
      return _ret ;
 }
 
-function circles_lib_grp_props_get_commutator_features( _items_array, _accuracy, _output_channel, _par_1 )
+function circles_lib_grp_props_get_commutator_features( _items_array, _accuracy, _out_channel, _par_1 )
 {
     _accuracy = Math.min( safe_int( Math.abs( _accuracy ), DEFAULT_MAX_ACCURACY ), DEFAULT_MAX_ACCURACY );
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _caps = circles_lib_alphabet_get_cap_symbols() ;
     var _small = circles_lib_alphabet_get_small_symbols() ;
     if ( safe_size( _small, 0 ) > 0 && safe_size( _caps, 0 ) > 0 && _test )
     {
         var _commutator_word = circles_lib_word_commutator_get( "A", _items_array ) ;
-        circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightgray>Computing commutator</lightgray> <yellow>"+_commutator_word+"</yellow>", _par_1, "" );
-        var _commutator_mm = circles_lib_word_mobiusmap_get( _commutator_word, _items_array, _output_channel );
+        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Computing commutator</lightgray> <yellow>"+_commutator_word+"</yellow>", _par_1, "" );
+        var _commutator_mm = circles_lib_word_mobiusmap_get( _commutator_word, _items_array, _out_channel );
         var _commutator_tr = _commutator_mm.trace();
-        if ( _output_channel.match_bit_mask( OUTPUT_TERMINAL, OUTPUT_SCRIPT ) )
+        if ( _out_channel.match_bit_mask( OUTPUT_TERMINAL, OUTPUT_SCRIPT ) )
         {
-            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "a = <snow>" + _commutator_mm.get_a().roundTo( _accuracy ).formula(YES,YES,_accuracy), _par_1, "" )+"</snow>";
-            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "b = <snow>" + _commutator_mm.get_b().roundTo( _accuracy ).formula(YES,YES,_accuracy), _par_1, "" )+"</snow>";
-            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "c = <snow>" + _commutator_mm.get_c().roundTo( _accuracy ).formula(YES,YES,_accuracy), _par_1, "" )+"</snow>";
-            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "d = <snow>" + _commutator_mm.get_d().roundTo( _accuracy ).formula(YES,YES,_accuracy), _par_1, "" )+"</snow>";
-            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "determinant = " + _commutator_mm.det().roundTo( _accuracy ).formula(YES,YES,_accuracy), _par_1, "" );
-            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "trace = <snow>" + _commutator_tr.roundTo( _accuracy ).formula(YES,YES,_accuracy) + "</snow>" ) ;
-            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "" ) ;
-            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<snow>Properties from commutator</snow> <yellow>"+_commutator_word+"</yellow>" ) ;
-            circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "      >>" + ( _commutator_mm.is_identity() ? "<snow>Commutator map is identity</snow> <greenshock>items commute</greenshock>" : "<snow>Commutator map is not identity</snow> <orange>items do not commute</orange>" ), _par_1, "" );
+            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "a = <snow>" + _commutator_mm.get_a().roundTo( _accuracy ).formula(YES,YES,_accuracy), _par_1, "" )+"</snow>";
+            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "b = <snow>" + _commutator_mm.get_b().roundTo( _accuracy ).formula(YES,YES,_accuracy), _par_1, "" )+"</snow>";
+            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "c = <snow>" + _commutator_mm.get_c().roundTo( _accuracy ).formula(YES,YES,_accuracy), _par_1, "" )+"</snow>";
+            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "d = <snow>" + _commutator_mm.get_d().roundTo( _accuracy ).formula(YES,YES,_accuracy), _par_1, "" )+"</snow>";
+            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "determinant = " + _commutator_mm.det().roundTo( _accuracy ).formula(YES,YES,_accuracy), _par_1, "" );
+            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "trace = <snow>" + _commutator_tr.roundTo( _accuracy ).formula(YES,YES,_accuracy) + "</snow>" ) ;
+            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "" ) ;
+            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>Properties from commutator</snow> <yellow>"+_commutator_word+"</yellow>" ) ;
+            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "      >>" + ( _commutator_mm.is_identity() ? "<snow>Commutator map is identity</snow> <greenshock>items commute</greenshock>" : "<snow>Commutator map is not identity</snow> <orange>items do not commute</orange>" ), _par_1, "" );
 
             if ( _commutator_tr.roundTo( _accuracy ).is_real() )
             {
-                circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "      >> trace is real", _par_1, "" );
+                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "      >> trace is real", _par_1, "" );
                 switch( _commutator_tr.roundTo( _accuracy ).r() )
                 {
                     case 2:
-                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "      >> <white>"+_small[0]+"</white> <lightblue>and</lightblue> <white>"+_small[1]+"</white> <lightblue>share one fixed point</lightblue>", _par_1, "" );
+                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "      >> <white>"+_small[0]+"</white> <lightblue>and</lightblue> <white>"+_small[1]+"</white> <lightblue>share one fixed point</lightblue>", _par_1, "" );
                     break ;
                     case -2:
-                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "      >> <white>"+_small[0]+"</white> <lightblue>and</lightblue> <white>"+_small[1]+"</white> <lightblue>do not share fixed points</lightblue>", _par_1, "" );
+                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "      >> <white>"+_small[0]+"</white> <lightblue>and</lightblue> <white>"+_small[1]+"</white> <lightblue>do not share fixed points</lightblue>", _par_1, "" );
                     break ;
                 }
             }

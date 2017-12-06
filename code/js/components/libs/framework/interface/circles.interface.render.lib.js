@@ -19,11 +19,11 @@ function circles_lib_interface_default()
     return _canvas_side ;
 }
 
-function circles_lib_interface_reset( _opt, _clean, _question, _silent, _output_channel )
+function circles_lib_interface_reset( _opt, _clean, _question, _silent, _out_channel )
 {
 		_opt = safe_int( _opt, INTERFACE_EXTEND_NONE );
 		_clean = safe_int( _clean, NO );
-		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _q_text = "" ;
     if ( _opt.is_one_of( INTERFACE_EXTEND_ZPLANE, INTERFACE_EXTEND_WPLANE ) )
     _q_text = "Confirm to reset coordinates for the extended "+(_opt==INTERFACE_EXTEND_ZPLANE?"Z":"W")+"-plane ?" ;
@@ -68,14 +68,14 @@ function circles_lib_interface_reset( _opt, _clean, _question, _silent, _output_
     
     circles_lib_menu_entries_update() ;
 
-    if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _ret_id ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _glob_app_title );
+    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _ret_id ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _glob_app_title );
     return [ _ret_id, _ret_msg ] ;
 }
 
-function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _output_channel )
+function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _out_channel )
 {
 		_opt = safe_int( _opt, INTERFACE_EXTEND_NONE ), _clean = safe_int( _clean, NO ), _render = safe_int( _render, YES );
-		_output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+		_out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     if ( !is_point( _center_pt ) ) _center_pt = null ;
 		var _menu_width = $( "#menu" ).width();
 		var _zplane_def = circles_lib_plane_def_get_for_cmds( Z_PLANE ), _wplane_def = circles_lib_plane_def_get_for_cmds( W_PLANE );
@@ -85,14 +85,14 @@ function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _outpu
     {
 				case INTERFACE_EXTEND_NONE:
         // reset to default settings : z-plane w/ w-plane
-        circles_lib_canvas_layer_pile_resize_to_default( YES, YES, _output_channel );
+        circles_lib_canvas_layer_pile_resize_to_default( YES, YES, _out_channel );
         if ( _render )
         {
-            var _ret_chunk = circles_lib_canvas_render_wplane(null,null,null,_clean,NO,NO,NO,NO,YES,_output_channel);
+            var _ret_chunk = circles_lib_canvas_render_wplane(null,null,null,_clean,NO,NO,NO,NO,YES,_out_channel);
 	          var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 					  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 					  if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
-    				circles_lib_canvas_redraw_wplane_entities( YES, null, _output_channel ) ;
+    				circles_lib_canvas_redraw_wplane_entities( YES, null, _out_channel ) ;
         }
 				break ;
 				case INTERFACE_EXTEND_ZPLANE:
@@ -150,7 +150,7 @@ function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _outpu
         
 		    circles_lib_coordinates_set_core( null, null, Z_PLANE, YES, YES ) ;
 		    circles_lib_plugin_dispatcher_unicast_message( "coordinates", "forms", POPUP_DISPATCHER_UNICAST_EVENT_REFRESH_CONTENTS ) ;
-        var _ret_chunk = circles_lib_canvas_render_zplane(null,null,null,_clean,YES,_render,NO,YES,YES,_output_channel);
+        var _ret_chunk = circles_lib_canvas_render_zplane(null,null,null,_clean,YES,_render,NO,YES,YES,_out_channel);
 	      var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 	      var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 	      if ( _ret_id == RET_ERROR ) CIRCLESaddLOG( _ret_msg, LOG_ERROR );
@@ -210,11 +210,11 @@ function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _outpu
         _glob_wplaneBOTTOM = _new_right_bottom.y ;
         
 		    circles_lib_coordinates_set_core( null, null, W_PLANE, YES, YES ) ;
-        var _ret_chunk = circles_lib_canvas_render_wplane(null, null, [ ROLE_GRID ], _clean,_clean,_render,NO,NO,YES,_output_channel);
+        var _ret_chunk = circles_lib_canvas_render_wplane(null, null, [ ROLE_GRID ], _clean,_clean,_render,NO,NO,YES,_out_channel);
         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 			  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 			  if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
-        if ( _render ) circles_lib_canvas_redraw_wplane_entities( YES, null, _output_channel ) ;
+        if ( _render ) circles_lib_canvas_redraw_wplane_entities( YES, null, _out_channel ) ;
 				break ;
         default: break ;
 		}
@@ -223,10 +223,10 @@ function circles_lib_interface_extend( _opt, _clean, _center_pt, _render, _outpu
     circles_lib_menu_entries_update() ;
 }
 
-function circles_lib_interface_toggle( _force_action, _output_channel )
+function circles_lib_interface_toggle( _force_action, _out_channel )
 {
     _force_action = safe_int( _force_action, INTERFACE_FORCE_NONE );
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _show = $( "#interfacecontainer" ).css( "display" ).toLowerCase() ;
     if ( !_show.is_one_of_i( "block", "none" ) ) _show = "block" ;
 
@@ -242,7 +242,7 @@ function circles_lib_interface_toggle( _force_action, _output_channel )
        case INTERFACE_EXTEND_NONE:
        var _all_layers_pile = circles_lib_canvas_layer_pile_get( Z_PLANE ).concat( circles_lib_canvas_layer_pile_get( W_PLANE ) ) ;
        $.each( _all_layers_pile, function( _i, _layer ) { _show.strcmp( "block" ) ? $( "#" + _layer.get_iddiv() ).hide() : $( "#" + _layer.get_iddiv() ).show() ; } ) ;
-       if ( _glob_interface_show ) circles_lib_canvas_layer_pile_resize_to_default( NO, YES, _output_channel ) ;
+       if ( _glob_interface_show ) circles_lib_canvas_layer_pile_resize_to_default( NO, YES, _out_channel ) ;
        break ;
        case INTERFACE_EXTEND_ZPLANE:
        var _all_layers_pile = circles_lib_canvas_layer_pile_get( Z_PLANE ) ;

@@ -1,7 +1,7 @@
 function CIRCLESformsGEOMETRICTRANSFORMselectALL( _c ) { $("[id^=CIRCLESLISTtransformLABELcheckbox]").prop( "checked", _c ); }
-function CIRCLESformsGEOMETRICTRANSFORMshift( _question, _silent, _output_channel )
+function CIRCLESformsGEOMETRICTRANSFORMshift( _question, _silent, _out_channel )
 {
-		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
 	  var _dest_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
 	  var _category_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
@@ -41,7 +41,7 @@ function CIRCLESformsGEOMETRICTRANSFORMshift( _question, _silent, _output_channe
                 
            if ( circles_lib_count_seeds() > 0 )
            {
-             var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
+             var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
 		         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 		         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 		         if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
@@ -51,9 +51,9 @@ function CIRCLESformsGEOMETRICTRANSFORMshift( _question, _silent, _output_channe
     }
 }
 
-function CIRCLESformsGEOMETRICTRANSFORMrotate( _question, _silent, _output_channel )
+function CIRCLESformsGEOMETRICTRANSFORMrotate( _question, _silent, _out_channel )
 {
-    _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
 	  var _dest_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
 	  var _category_ref = _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
@@ -108,7 +108,7 @@ function CIRCLESformsGEOMETRICTRANSFORMrotate( _question, _silent, _output_chann
   		         var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 	   	         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 			         if ( _ret_id == RET_ERROR ) circles_lib_log_add_entry( _ret_msg, LOG_ERROR );
-               var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
+               var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
             }
           }
         }

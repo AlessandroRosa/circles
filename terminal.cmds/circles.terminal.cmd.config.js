@@ -4,14 +4,14 @@ function circles_terminal_cmd_config()
 {
     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
     var _params = arguments[0] ;
-    var _output_channel = arguments[1] ;
+    var _out_channel = arguments[1] ;
     var _par_1 = arguments[2] ;
     var _cmd_mode = arguments[3] ;
     var _caller_id = arguments[4] ;
     _params = safe_string( _params, "" ).trim();
 
     if ( _glob_verbose && _glob_terminal_echo_flag )
-    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
     var _b_fail = 0 ;
@@ -20,9 +20,9 @@ function circles_terminal_cmd_config()
     var _fn_ret_val = null ;
     var Y = "yes", N = "no" ;
 
-    var _params_assoc_array = [];
-        _params_assoc_array['params'] = [] ;
-        _params_assoc_array['group'] = "" ;
+    var _cmd_params = [];
+        _cmd_params['params'] = [] ;
+        _cmd_params['group'] = "" ;
     var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
 
     var _keywords = [ 'accuracy', 'automaton', 'canvasmode', 'circle', 'construction', 'depth', 'diskdash', 'diskdraw', 'diskfill',
@@ -33,28 +33,28 @@ function circles_terminal_cmd_config()
     var _groups = [ "generals", "graphix", "rendering", "terminal" ] ;
     var _adds = [ "seeds", "byref", "byval" ] ;
 
-    _params_assoc_array['help'] = NO ;
-    _params_assoc_array['html'] = _output_channel == OUTPUT_HTML ? YES : NO ;
-    _params_assoc_array['keywords'] = NO ;
-    _params_assoc_array['reset'] = NO ;
+    _cmd_params['help'] = NO ;
+    _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+    _cmd_params['keywords'] = NO ;
+    _cmd_params['reset'] = NO ;
 
     // pre-scan for levenshtein correction
     var _local_cmds_params_array = [];
     _local_cmds_params_array = _keywords.concat( _readonly ).concat( _groups ).concat( _adds );
-    circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _output_channel );
+    circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
  	var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-   	_params_assoc_array['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-   	_params_assoc_array['dump_array'] = [];
-    _params_assoc_array['dump_operator_index'] = _dump_operator_index ;
+   	_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+   	_cmd_params['dump_array'] = [];
+    _cmd_params['dump_operator_index'] = _dump_operator_index ;
 
-	_params_assoc_array['transfer_to'] = ( _params_array.indexOf( TERMINAL_TRANSFER_TO_OPERATOR ) != UNFOUND ) ? YES : NO ;
-	_params_assoc_array['transfer_from'] = ( _params_array.indexOf( TERMINAL_TRANSFER_FROM_OPERATOR ) != UNFOUND ) ? YES : NO ;
+	_cmd_params['transfer_to'] = ( _params_array.indexOf( TERMINAL_TRANSFER_TO_OPERATOR ) != UNFOUND ) ? YES : NO ;
+	_cmd_params['transfer_from'] = ( _params_array.indexOf( TERMINAL_TRANSFER_FROM_OPERATOR ) != UNFOUND ) ? YES : NO ;
 	// gather all dump parameters into one array
-    if ( _params_assoc_array['dump'] )
+    if ( _cmd_params['dump'] )
     {
 		for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-  		if ( _params_array[_i].trim().length > 0 ) _params_assoc_array['dump_array'].push( _params_array[_i] );
+  		if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
     }
 
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
@@ -65,46 +65,46 @@ function circles_terminal_cmd_config()
         for( var _i = 0 ; _i < _up_to_index ; _i++ )
         {
             _p = _params_array[_i] ;
-            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _params_assoc_array['help'] = YES ;
-            else if ( _p.is_one_of_i( "/k" ) ) _params_assoc_array['keywords'] = YES ;
-            else if ( _p.stricmp( "html" ) ) _params_assoc_array['html'] = YES ;
-            else if ( _p.stricmp( "reset" ) ) { _params_assoc_array['reset'] = YES ; _params_assoc_array['action'] = "set" ; }
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
+            else if ( _p.stricmp( "reset" ) ) { _cmd_params['reset'] = YES ; _cmd_params['action'] = "set" ; }
             else if ( _p.is_one_of_i( "get", "groups", "keywords", "release", "save", "set" ) )
             {
-               if ( _p.stricmp( "save" ) ) _params_assoc_array['dump'] = YES ;
-               _params_assoc_array['action'] = _p.toLowerCase() ;
+               if ( _p.stricmp( "save" ) ) _cmd_params['dump'] = YES ;
+               _cmd_params['action'] = _p.toLowerCase() ;
             }
-            else if ( _p.is_one_of_i( "rendering", "generals", "terminal", "graphix", "all" ) ) _params_assoc_array['group'] = _p ;
-            else if ( _params_assoc_array['action'] != null )
+            else if ( _p.is_one_of_i( "rendering", "generals", "terminal", "graphix", "all" ) ) _cmd_params['group'] = _p ;
+            else if ( _cmd_params['action'] != null )
             {
-               if ( _params_assoc_array['action'].is_one_of( "get", "set" ) )
-               _params_assoc_array['params'].push( _p );
+               if ( _cmd_params['action'].is_one_of( "get", "set" ) )
+               _cmd_params['params'].push( _p );
             }
         }
      }
      else { _b_fail = YES, _error_str = "Missing input params" ; }
 
-     if ( _params_assoc_array['help'] ) circles_lib_terminal_help_cmd( _params_assoc_array['html'], _cmd_tag, _par_1, _output_channel );
-     else if ( _params_assoc_array['keywords'] )
+     if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
+     else if ( _cmd_params['keywords'] )
      {
          var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-         if ( _msg.length == 0 ) circles_lib_output( _output_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+         if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
          else
          {
              _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-             circles_lib_output( _output_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+             circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
          }
      }
-     else if ( !_b_fail && !is_string( _params_assoc_array['action'] ) )
+     else if ( !_b_fail && !is_string( _cmd_params['action'] ) )
      {
-       if ( _params_assoc_array['group'].length == 0 ) _params_assoc_array['group'] = "all" ;
-			 if ( !_params_assoc_array['help'] )
+       if ( _cmd_params['group'].length == 0 ) _cmd_params['group'] = "all" ;
+			 if ( !_cmd_params['help'] )
        {
            var _method = circles_lib_method_get_def( _glob_method ).toLowerCase();
            var _row_array = [];
                _row_array.push( "<lightblue>Config parameters list</lightblue>", _par_1, _cmd_tag );
   
-           if ( _params_assoc_array['group'].is_one_of( "all", "generals" ) )
+           if ( _cmd_params['group'].is_one_of( "all", "generals" ) )
            {
               _row_array.push( "<banana>Generals</banana>" );
               _row_array.push( "<lavender>operating system</lavender> <skyblue>" + get_os() + "</skyblue>" );
@@ -119,7 +119,7 @@ function circles_terminal_cmd_config()
               }
            }
 
-           if ( _params_assoc_array['group'].is_one_of( "all", "rendering" ) )
+           if ( _cmd_params['group'].is_one_of( "all", "rendering" ) )
            {
                    _row_array.push( "<banana>Rendering</banana>" );
                    _row_array.push( "<lavender>method</lavender> " + ( _method.strcmp( "unknown" ) ? "<gray>"+_method+"</gray>" : "<skyblue>"+_method+"</skyblue>" ) );
@@ -155,7 +155,7 @@ function circles_terminal_cmd_config()
                    _row_array.push( "<lavender>init options</lavender> >> compute from <skyblue>"+_init_from+"</skyblue> | paired elements <skyblue>"+_init_paired+"</skyblue>" );
            }
   
-           if ( _params_assoc_array['group'].is_one_of( "all", "terminal" ) )
+           if ( _cmd_params['group'].is_one_of( "all", "terminal" ) )
            {
                    _row_array.push( "<banana>Terminal</banana>" );
                    _row_array.push( "<lavender>show errors</lavender> <skyblue>" + ( _glob_terminal_errors_switch ? "on" : "off" ) + "</skyblue>" );
@@ -170,7 +170,7 @@ function circles_terminal_cmd_config()
                    }
            }
   
-           if ( _params_assoc_array['group'].is_one_of( "all", "graphix" ) )
+           if ( _cmd_params['group'].is_one_of( "all", "graphix" ) )
            {
           		var _smpr_perc = safe_int( _glob_smpr / _glob_zplane_rendering_layer_placeholder.get_width() * 100.0, 1 );
                 _row_array.push( "<banana>Graphix</banana>" );
@@ -191,39 +191,39 @@ function circles_terminal_cmd_config()
            var _config_str = _row_array.join( _glob_crlf );
                _out_text_string = _config_str ;
   
-           var _html = _params_assoc_array['html'] ;
+           var _html = _cmd_params['html'] ;
            if ( _html ) circles_lib_terminal_color_decode_htmltext( _config_str, 'config', 'right', 'top' );
-           else circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _config_str, _par_1, _cmd_tag );
+           else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _config_str, _par_1, _cmd_tag );
   
-           if ( _params_assoc_array['dump'] )
+           if ( _cmd_params['dump'] )
            {
                _config_str = _config_str.replaceAll( "</lavender>", " : " );
                _config_str = _config_str.strip_tags();
-           	   _params_assoc_array['dump_array'] = is_array( _params_assoc_array['dump_array'] ) ? _params_assoc_array['dump_array'][0] : "circles.config.txt" ;
-               var _ret_chunk = circles_lib_dump_data_to_format( _config_str, _params_assoc_array['dump_array'] );
+           	   _cmd_params['dump_array'] = is_array( _cmd_params['dump_array'] ) ? _cmd_params['dump_array'][0] : "circles.config.txt" ;
+               var _ret_chunk = circles_lib_dump_data_to_format( _config_str, _cmd_params['dump_array'] );
   			   var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
   			   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation";
   			   if ( _ret_id == 0 ) { _b_fail = YES, _error_str = _ret_msg ; }
-  			   else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+  			   else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
            }
        }
      }
-     else if ( is_string( _params_assoc_array['action'] ) )
+     else if ( is_string( _cmd_params['action'] ) )
      {
-           var _action = _params_assoc_array['action'] ;
+           var _action = _cmd_params['action'] ;
            switch( _action )
            {
 			   case "groups":
-			   circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>Config groups are</lightblue> <white>"+_groups.join(", ")+"</white>", _par_1, _cmd_tag );
+			   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Config groups are</lightblue> <white>"+_groups.join(", ")+"</white>", _par_1, _cmd_tag );
 			   break ;
                 case "get":
-                if ( _params_assoc_array['params'].length == 0 ) { _b_fail = YES, _error_str = "Please, enter at least one param to get" ; }
+                if ( _cmd_params['params'].length == 0 ) { _b_fail = YES, _error_str = "Please, enter at least one param to get" ; }
                 else
                 {
                     var _param = "", _outlabel = "", _outval = "" ;
-                    for( var _k = 0 ; _k < _params_assoc_array['params'].length ; _k++ )
+                    for( var _k = 0 ; _k < _cmd_params['params'].length ; _k++ )
                     {
-                         _param = _params_assoc_array['params'][_k] ;
+                         _param = _cmd_params['params'][_k] ;
                          if ( _keywords.includes( _param ) )
                          {
                              switch( _param )
@@ -346,41 +346,41 @@ function circles_terminal_cmd_config()
 						          default: break ;
                              }
   
-                             circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_outlabel+"</lightblue> "+( _outval.includes( "</" ) ? _outval : "<snow>" + _outval + "</snow>" ), _par_1, _cmd_tag );
+                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_outlabel+"</lightblue> "+( _outval.includes( "</" ) ? _outval : "<snow>" + _outval + "</snow>" ), _par_1, _cmd_tag );
                          }
-                         else circles_lib_output( _output_channel, DISPATCH_WARNING, "Unknown param '"+_p+"'", _par_1, _cmd_tag );
+                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Unknown param '"+_p+"'", _par_1, _cmd_tag );
                     }
                 }
                 break ;
                 case "release":
-                circles_lib_output( _output_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 case "save":
                 var _config_list = circles_lib_config_list_generate();
-                if ( _params_assoc_array['dump'] )
+                if ( _cmd_params['dump'] )
                 {
-                    if ( is_array( _params_assoc_array['dump_array'] ) ) _params_assoc_array['dump_array'].push( "circles.config.list.txt" );
-      				var _ret_chunk = circles_lib_dump_data_to_format( _config_list, _params_assoc_array['dump_array'][0] );
+                    if ( is_array( _cmd_params['dump_array'] ) ) _cmd_params['dump_array'].push( "circles.config.list.txt" );
+      				var _ret_chunk = circles_lib_dump_data_to_format( _config_list, _cmd_params['dump_array'][0] );
   					var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
   					var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
   					if ( _ret_id == 0 ) { _b_fail = YES, _error_str = _ret_msg ; }
-  					else circles_lib_output( _output_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+  					else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                 }
-                else circles_lib_output( _output_channel, DISPATCH_INFO, _config_list, _par_1, _cmd_tag );
+                else circles_lib_output( _out_channel, DISPATCH_INFO, _config_list, _par_1, _cmd_tag );
                 break ;
                 case "set":
-                if ( _params_assoc_array['params'].length == 0 && !_params_assoc_array['reset'] ) { _b_fail = YES, _error_str = "Please, enter one param to set" ; }
-                else if ( _params_assoc_array['params'].length == 1 ) { _b_fail = YES, _error_str = "Incomplete set syntax" ; }
+                if ( _cmd_params['params'].length == 0 && !_cmd_params['reset'] ) { _b_fail = YES, _error_str = "Please, enter one param to set" ; }
+                else if ( _cmd_params['params'].length == 1 ) { _b_fail = YES, _error_str = "Incomplete set syntax" ; }
                 else
                 {
-                    var _resp = [], _param = safe_string( _params_assoc_array['params'][0], "" ), _value = safe_string( _params_assoc_array['params'][1], "" ) ;
-                    if ( _readonly.includes( _param ) && !_params_assoc_array['reset'] )
-                    circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, "<orange>Param '"+_param+"' is read-only here.</orange>\n<gray>Use specific command '"+_param+"' instead.</gray>", _par_1, _cmd_tag );
-                    else if ( _keywords.includes( _param ) || _params_assoc_array['reset'] )
+                    var _resp = [], _param = safe_string( _cmd_params['params'][0], "" ), _value = safe_string( _cmd_params['params'][1], "" ) ;
+                    if ( _readonly.includes( _param ) && !_cmd_params['reset'] )
+                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Param '"+_param+"' is read-only here.</orange>\n<gray>Use specific command '"+_param+"' instead.</gray>", _par_1, _cmd_tag );
+                    else if ( _keywords.includes( _param ) || _cmd_params['reset'] )
                     {
-                        if ( _param.strcmp( "accuracy" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "accuracy" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
                                 _glob_accuracy = DEFAULT_MAX_ACCURACY ;
                                 _resp.push( [ 1, "<greenshock>Accuracy reset to default value " + _glob_accuracy + "</greenshock>" ] ) ;
@@ -399,9 +399,9 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                        if ( _param.strcmp( "canvasmode" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "canvasmode" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
                                 _glob_src_canvas_mode = FIXEDPOINTS_IO_NONE ;
                                 _resp.push( [ 1, "<greenshock>Canvas mode reset to default value 'none'</greenshock>" ] ) ;
@@ -417,9 +417,9 @@ function circles_terminal_cmd_config()
 							}
                         }
   
-                        if ( _param.strcmp( "fixedpoints" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "fixedpoints" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
                                 _glob_fixedpt_io = FIXEDPOINTS_IO_NONE ;
                                 _resp.push( [ 1, "<greenshock>Fixed points mode reset to default value 'none'</greenshock>" ] ) ;
@@ -432,9 +432,9 @@ function circles_terminal_cmd_config()
 							else _resp.push( [ 0, "<orange>Invalid parameter value '"+_value+"' for fixed points settings</orange>" ] ) ;
                         }
   
-                        if ( _param.strcmp( "construction" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "construction" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
                                 circles_lib_construction_mode_set( CONSTRUCTION_NONE );
                                 _resp.push( [ 1, "<greenshock>Construction mode reset to default value 'none'</greenshock>" ] ) ;
@@ -450,15 +450,15 @@ function circles_terminal_cmd_config()
                                 _resp.push( [ 1, "<greenshock>Construction is tiling now</greenshock>" ] ) ;
                             }
   
-                            for( var _d = 2 ; _d < _params_assoc_array['params'].length ; _d++ )
+                            for( var _d = 2 ; _d < _cmd_params['params'].length ; _d++ )
                             {
-                                if ( _d == 2 ) _params_assoc_array['operator'] = _params_assoc_array['params'][_d] ;
-                                else if ( _d == 3 ) _params_assoc_array['diskthresholdradius']  = _params_assoc_array['params'][_d] ;
+                                if ( _d == 2 ) _cmd_params['operator'] = _cmd_params['params'][_d] ;
+                                else if ( _d == 3 ) _cmd_params['diskthresholdradius']  = _cmd_params['params'][_d] ;
                             }
   
                             var _mask = 0 ;
-                            var _op = ( _params_assoc_array['operator'] != null ) ? _params_assoc_array['operator'] : "" ;
-                            var _th = ( _params_assoc_array['diskthresholdradius'] != null ) ? _params_assoc_array['diskthresholdradius'] : "" ;
+                            var _op = ( _cmd_params['operator'] != null ) ? _cmd_params['operator'] : "" ;
+                            var _th = ( _cmd_params['diskthresholdradius'] != null ) ? _cmd_params['diskthresholdradius'] : "" ;
   
                             if ( _op.length > 0 ) _mask++ ;
                             if ( _th.length > 0 ) _mask++ ;
@@ -504,9 +504,9 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                        if ( _param.strcmp( "depth" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "depth" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
                                 circles_lib_depth_set( DEFAULT_DEPTH );
                                 _resp.push( [ 1, "<greenshock>Depth value reset to default value '"+DEFAULT_DEPTH+"'</greenshock>" ] ) ;
@@ -525,9 +525,9 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                        if ( _param.strcmp( "diskdash" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "diskdash" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
                                 _glob_activate_dashed_border = YES ;
                                 _resp.push( [ 1, "<greenshock>Dashed border reset to default value 'yes'</greenshock>" ] ) ;
@@ -546,9 +546,9 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                        if ( _param.strcmp( "diskdraw" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "diskdraw" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
                                 _glob_wplane_disk_draw = YES ;
                                 _resp.push( [ 1, "<greenshock>W-plane diskdraw reset to default value 'yes'</greenshock>" ] ) ;
@@ -568,9 +568,9 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                        if ( _param.strcmp( "diskfill" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "diskfill" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
                                 _glob_wplane_disk_fill = YES ;
                                 _resp.push( [ 1, "<greenshock>Diskfill reset to default value 'yes'</greenshock>" ] ) ;
@@ -589,9 +589,9 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                        if ( _param.strcmp( "drawentity" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "drawentity" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
                                 _glob_drawentity = DRAWENTITY_NONE ;
                                 _resp.push( [ 1, "<greenshock>Draw entity reset to default value 'none'</greenshock>" ] ) ;
@@ -599,9 +599,9 @@ function circles_terminal_cmd_config()
 							else
 							{
 								var _d, _p, _MSG ;
-								for( _d = 1 ; _d < _params_assoc_array['params'].length ; _d++ )
+								for( _d = 1 ; _d < _cmd_params['params'].length ; _d++ )
 								{
-									_p = _params_assoc_array['params'][_d] ;
+									_p = _cmd_params['params'][_d] ;
 									if ( _p.stricmp( DRAWENTITY_ISOMETRIC_CIRCLE_CMD ) ) _p = DRAWENTITY_ISOMETRIC_CIRCLE ;
 									else if ( _p.stricmp( DRAWENTITY_INVERSION_CIRCLE_CMD ) ) _p = DRAWENTITY_INVERSION_CIRCLE ;
 									else if ( _p.stricmp( DRAWENTITY_POINT_CMD ) ) _p = DRAWENTITY_POINT ;
@@ -609,7 +609,7 @@ function circles_terminal_cmd_config()
 	  
 									if ( _p.is_one_of( DRAWENTITY_ISOMETRIC_CIRCLE, DRAWENTITY_INVERSION_CIRCLE, DRAWENTITY_POINT, DRAWENTITY_PIXEL ) )
 									{
-										_glob_drawentity = _params_assoc_array['drawentity'] = _p ;
+										_glob_drawentity = _cmd_params['drawentity'] = _p ;
 										var _msg = "<greenshock>Draw entity is now</greenshock> <snow>" + circles_lib_drawentity_get_def( _glob_drawentity ) + "</snow>" ;
 										_resp.push( [ 1, _msg ] ) ;
 									}
@@ -625,7 +625,7 @@ function circles_terminal_cmd_config()
 												_resp.push( [ 0, "Incorrect value: reset to " + _glob_pixel_size ] ) ;
 											}
 										}
-										circles_lib_output( _output_channel, DISPATCH_SUCCESS, "Pixel size is now " + _glob_pixel_size, _par_1, _cmd_tag );
+										circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Pixel size is now " + _glob_pixel_size, _par_1, _cmd_tag );
 									}
 								}
 	  
@@ -633,9 +633,9 @@ function circles_terminal_cmd_config()
 							}
                         }
   
-                        if ( _param.strcmp( "interface" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "interface" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
                                 if ( _value.is_one_of_i( "default", "reset" ) ) { _glob_interface_index = INTERFACE_DEFAULT ; circles_lib_interface_default(); }
                                 _resp.push( [ 1, "<greenshock>Interface layout has been correctly set to '" + _value + "'</greenshock>" ] ) ;
@@ -649,12 +649,12 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                        if ( _param.strcmp( "items" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "items" ) || _cmd_params['reset'] )
                         {
-							if ( _params_assoc_array['reset'] )
+							if ( _cmd_params['reset'] )
 							{
                                 _glob_items_switch = ITEM_SWITCH_TO_NONE ;
-                                var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
+                                var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _out_channel );
          						var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
        							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
 								var _msg = _ret_id ? "<greenshock>Items switch params have been correctly set to 'none'</greenshock>" : "<red>"+_ret_msg+"</red>" ;
@@ -673,8 +673,8 @@ function circles_terminal_cmd_config()
                                 if ( _value.strcmp( "seeds" ) ) _glob_items_switch |= ITEMS_SWITCH_SEEDS ;
                                 else if ( _value.strcmp( "generators" ) ) _glob_items_switch |= ITEMS_SWITCH_GENS ;
   
-                                if ( _params_assoc_array['params'].includes( "byref" ) ) _glob_items_switch |= ITEM_BYREF ;
-                                else if ( _params_assoc_array['params'].includes( "byval" ) ) _glob_items_switch |= ITEM_BYVAL ;
+                                if ( _cmd_params['params'].includes( "byref" ) ) _glob_items_switch |= ITEM_BYREF ;
+                                else if ( _cmd_params['params'].includes( "byval" ) ) _glob_items_switch |= ITEM_BYVAL ;
   
                                 var _resume_params_array = [];
                                 if ( _glob_items_switch == INIT_NONE ) _resume_params_array.push( "No input params." );
@@ -684,7 +684,7 @@ function circles_terminal_cmd_config()
                                 if ( _glob_items_switch & ITEM_BYREF ) _resume_params_array.push( "by reference" );
                                 else if ( _glob_items_switch & ITEM_BYVAL ) _resume_params_array.push( "by value" );
   
-                                var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _output_channel );
+                                var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _out_channel );
          						var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
        							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
 								var _msg = _ret_id ? "<greenshock>Items switch params have been correctly set to '" + _resume_params_array.join( "," ) + "'</greenshock>" : "<red>"+_ret_msg+"</red>" ;
@@ -692,9 +692,9 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                       if ( _param.strcmp( "mapprecision" ) || _params_assoc_array['reset'] )
+                       if ( _param.strcmp( "mapprecision" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
 								_glob_smpr = 100.0 ;
                                 _resp.push( [ 1, "<greenshock>Map precision reset to default value '100%'</greenshock>" ] ) ;
@@ -712,12 +712,12 @@ function circles_terminal_cmd_config()
                             else _resp.push( [ 0, "<orange>Syntax error: input value isn't of percentage type.</orange>" ] ) ;
                         }
   
-                        if ( _param.strcmp( "menu" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "menu" ) || _cmd_params['reset'] )
                         {
-							if ( _params_assoc_array['reset'] )
+							if ( _cmd_params['reset'] )
 							{
                                 $("#CIRCLEScheckboxMENU").prop( ":checked", YES );
-                                circles_lib_menu_show_top( _output_channel );
+                                circles_lib_menu_show_top( _out_channel );
                                 _resp.push( [ 1, "<greenshock>Top menu is 'visible'</greenshock>" ] ) ;
 							}
                             else if ( _value.testME( "^yes|no|y|n$" ) )
@@ -725,7 +725,7 @@ function circles_terminal_cmd_config()
                                 var _menu = ( _value.is_one_of( "yes", "y" ) ? YES : NO );
                                 _value = ( _value.is_one_of( "yes", "y" ) ? "visible" : ( _value.is_one_of( "no", "n" ) ? "hidden" : "???" ) );
                                 $("#CIRCLEScheckboxMENU").prop( ":checked", _menu ? YES : NO );
-                                circles_lib_menu_show_top( _output_channel );
+                                circles_lib_menu_show_top( _out_channel );
                                 _resp.push( [ 1, "<greenshock>Top menu is '" + _value + "'</greenshock>" ] ) ;
                             }
                             else
@@ -736,16 +736,16 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                        if ( _param.strcmp( "title" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "title" ) || _cmd_params['reset'] )
                         {
-                        	if ( _params_assoc_array['reset'] )
+                        	if ( _cmd_params['reset'] )
                             {
 								_glob_title = "" ;
                                 _resp.push( [ 1, "<greenshock>Title reset to default empty value</greenshock>" ] ) ;
                             }
 							else
 							{
-								_value = _params_assoc_array['params'].from_to( 1, _params_assoc_array['params'].length ).join( " " ) ;
+								_value = _cmd_params['params'].from_to( 1, _cmd_params['params'].length ).join( " " ) ;
 								if ( _value.testME( _glob_illegalchars_regex_pattern ) )
 								{
 									var _msg = "<orange>Illegal chars found: fail to set param 'title' to '" + _value + "'</orange>" ;
@@ -761,9 +761,9 @@ function circles_terminal_cmd_config()
 							}
                         }
   
-                        if ( _param.strcmp( "usepalette" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "usepalette" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
 								_glob_palette_use = NO ;
                                 _resp.push( [ 1, "<greenshock>Palette use reset to default value 'no'</greenshock>" ] ) ;
@@ -783,9 +783,9 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                        if ( _param.strcmp( "errors" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "errors" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
 								_glob_terminal_errors_switch = YES ;
                                 _resp.push( [ 1, "<greenshock>Errors use reset to default value 'yes'</greenshock>" ] ) ;
@@ -805,9 +805,9 @@ function circles_terminal_cmd_config()
                             }
                         }
   
-                        if ( _param.strcmp( "warnings" ) || _params_assoc_array['reset'] )
+                        if ( _param.strcmp( "warnings" ) || _cmd_params['reset'] )
                         {
-                            if ( _params_assoc_array['reset'] )
+                            if ( _cmd_params['reset'] )
                             {
 								_glob_terminal_warnings_switch = YES ;
                                 _resp.push( [ 1, "<greenshock>Warnings use reset to default value 'yes'</greenshock>" ] ) ;
@@ -827,23 +827,23 @@ function circles_terminal_cmd_config()
                         }
   
 						if ( _resp.length > 0 )
-						_resp.forEach( function( _chunk ) { circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _chunk[1], _par_1, _cmd_tag ); } ) ;
+						_resp.forEach( function( _chunk ) { circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _chunk[1], _par_1, _cmd_tag ); } ) ;
 
-                        if ( circles_lib_terminal_batch_script_exists() && _glob_verbose && _output_channel == OUTPUT_TERMINAL )
+                        if ( circles_lib_terminal_batch_script_exists() && _glob_verbose && _out_channel == OUTPUT_TERMINAL )
              			{
            					_glob_terminal_change = YES ;
-           	                circles_lib_output( _output_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+           	                circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
            				}
                     }
-                    else circles_lib_output( _output_channel, DISPATCH_WARNING, "Param '"+_param+"' is unknown", _par_1, _cmd_tag );
+                    else circles_lib_output( _out_channel, DISPATCH_WARNING, "Param '"+_param+"' is unknown", _par_1, _cmd_tag );
                 }
                 break ;
 				default: break ;
            }
      }
 
-     if ( _b_fail && _glob_terminal_errors_switch && _output_channel != OUTPUT_FILE_INCLUSION )
-		 circles_lib_output( _output_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _output_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _output_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _output_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+     if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION )
+		 circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
+     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

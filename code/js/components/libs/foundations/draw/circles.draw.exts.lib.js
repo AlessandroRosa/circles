@@ -1,6 +1,6 @@
-function circles_lib_draw_all_screen_disks( _context, _mapper, _selected_items_array, _clean, _silent, _output_channel )
+function circles_lib_draw_all_screen_disks( _context = null, _mapper = zplane_sm, _selected_items_array = [], _clean = YES, _silent = YES, _out_channel = OUTPUT_SCREEN )
 {
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     _silent = safe_int( _silent, YES ), _clean = safe_int( _clean, YES );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     if ( safe_size( _selected_items_array, 0 ) == 0 ) _selected_items_array = [];
@@ -9,7 +9,7 @@ function circles_lib_draw_all_screen_disks( _context, _mapper, _selected_items_a
     else if ( _items_n > 0 )
     {
         var _canvas = _context.canvas ;
-        if ( _clean ) circles_lib_canvas_clean( _canvas, "transparent", _output_channel );
+        if ( _clean ) circles_lib_canvas_clean( _canvas, "transparent", _out_channel );
         if ( _glob_export_format == EXPORT_SVG ) _svg_comment( _glob_export_code_array, "Drawing the disks" );
       	var ITEM, complex_circle, screen_circle, fill, fillcolor, draw, bordercolor, bordersize, bFOUND ;
 				var _opacity = DEFAULT_MAX_OPACITY ;
@@ -54,26 +54,25 @@ function circles_lib_draw_all_screen_disks( _context, _mapper, _selected_items_a
         }
 
      	  var _msg = _errors == 0 ? "All disks drawn with success" : "Can't draw all screen disks: memory failure for item"+(_errors_array.length==1?"":"s")+" indexed at "+_errors_array.join( ", " );
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _errors == 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _errors == 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app_title );
         return [ _errors == 0 ? RET_OK : RET_ERROR, _msg ] ;
     }
     else if ( _items_n == 0 )
     {
        var _ret_chunk = [] ;
        if ( _canvas.get_type() == Z_PLANE )
-       return _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
+       return _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
        else if ( _canvas.get_type() == W_PLANE )
-       return _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, YES, YES, NO, YES, _output_channel );
+       return _ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, YES, YES, NO, YES, _out_channel );
     }
 }
 
-function circles_lib_draw_all_complex_disks( _context, _mapper, _selected_items_array, _init, _silent, _output_channel )
+function circles_lib_draw_all_complex_disks( _context = null, _mapper = zplane_sm, _selected_items_array = [], _init = YES, _silent = YES, _out_channel = OUTPUT_SCREEN )
 {
-    _init = safe_int( _init, YES ), _silent = safe_int( _silent, YES );
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _init = safe_int( _init, YES ), _silent = safe_int( _silent, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     if ( safe_size( _selected_items_array, 0 ) == 0 ) _selected_items_array = [];
     var _canvas = _context != null ? _context.canvas : null ;
-    if ( _init ) circles_lib_items_switch_to( _glob_items_switch, YES, _output_channel );
+    if ( _init ) circles_lib_items_switch_to( _glob_items_switch, YES, _out_channel );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _items_n = circles_lib_count_items( _items_array );
     if ( _items_n > 0 && _context != null )
@@ -120,7 +119,7 @@ function circles_lib_draw_all_complex_disks( _context, _mapper, _selected_items_
           
         _glob_disk_sel_index = safe_size( _selected_items_array, 0 ) == 0 ? UNDET : _selected_items_array[0] ;
         var _msg = "Disks drawn with success" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
         return [ RET_OK, _msg ] ;
     }
     else if ( _items_n == 0 ) return [ RET_ERROR, "Missing input items" ] ;

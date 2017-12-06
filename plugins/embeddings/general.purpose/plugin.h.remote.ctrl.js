@@ -1,5 +1,5 @@
 function CIRCLESembeddingsGENERALPURPOSE_REMOTE_CTRL_KEYWORDS_INIT() { CIRCLESembeddingsGENERALPURPOSEremotectrl_keywords = [ "capture.gens", "capture.seeds" ] ; }
-function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_array, _output_channel )
+function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_array, _out_channel )
 {
 	if ( !is_array( _options ) )
 	{
@@ -69,13 +69,13 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          return YES ;
   		 break ;
 		 case "generate.group":
-		 var _ret = CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO,_output_channel);
+		 var _ret = CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO,_out_channel);
 		 _out_msg = _ret ? "<green>Group has been generated with success</green>" : "<red>Fail to perform the group generation</red>" ;
 	     _ret_array.push( _ret, _out_msg ) ;
          return _ret ;
   		 break ;
 		 case "init":
-		 var _ret = CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO,_output_channel);
+		 var _ret = CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP(YES,NO,_out_channel);
 		 if ( _ret )
 		 {
 			 CIRCLESembeddingsGENERALPURPOSE_CONFIG();
@@ -133,7 +133,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 		 return YES ;
 		 break ;
   		 case "newmap":
-  		 CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_NEW,YES,_output_channel);
+  		 CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_NEW,YES,_out_channel);
         _ret_array.push( YES, "<green>A new Mobius map has been added with success</green>" ) ;
          return YES ;
   		 break ;
@@ -184,7 +184,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
                 case "addmap":
 				if ( _params.length == 4 )
 				{
-					var _ret = CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_ADD,YES,_output_channel);
+					var _ret = CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER(CIRCLESembeddingsGENERALPURPOSE_ADD,YES,_out_channel);
 					_out_msg = _ret ? "<green>Parameters "+_params.join( "," )+" have been been added with success</green>" : "Fail to perform operation" ;
 					_ret_array.push( YES, _out_msg ) ;
 				}
@@ -206,7 +206,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          return YES ;
 		 break ;
 		 case "var.bomb":
-		 CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB(NO,YES,_output_channel);
+		 CIRCLESembeddingsGENERALPURPOSE_VAR_BOMB(NO,YES,_out_channel);
          CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
 		 _ret_array.push( YES, "<green>All vars have been deleted with success</green>" ) ;
 		 return YES ;
@@ -215,7 +215,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          var _var_id = safe_string( _options[1], "" );
          if ( _var_id.length > 0 )
          {
-			var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_DELETE( YES, NO, _var_id, _output_channel ) ;
+			var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_DELETE( YES, NO, _var_id, _out_channel ) ;
 		    _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<red>Fail to accomplish the operation</red>" ;
 		    _ret_array.push( _ret, _out_msg ) ;
             return _ret ;
@@ -228,15 +228,15 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          }
          break ;
          case "var.help":
-         var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( YES, _output_channel ) ;
+         var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( YES, _out_channel ) ;
    	     _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<red>Fail to accomplish the operation</red>" ;
 		 _ret_array.push( _ret, _out_msg ) ;
          return _ret ;
          break ;
          case "var.list":
 		 var _dispatch_mode = DISPATCH_INFO ;
-		 if ( _output_channel == OUTPUT_TERMINAL ) { _output_channel = OUTPUT_HTML ; }
-         var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD( _output_channel ) ;
+		 if ( _out_channel == OUTPUT_TERMINAL ) { _out_channel = OUTPUT_HTML ; }
+         var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER_LIST_BUILD( _out_channel ) ;
    	     _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<red>Fail to accomplish the operation</red>" ;
 		 _ret_array.push( _ret, _out_msg ) ;
          return _ret ;
@@ -246,7 +246,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 		 var _b_go = _var_id.length > 0 && _var_value.length > 0;
          if ( _b_go )
          {
-            var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER( _output_channel, _var_id, _var_value );
+            var _ret = CIRCLESembeddingsGENERALPURPOSE_VAR_REGISTER( _out_channel, _var_id, _var_value );
       	    _out_msg = _ret ? "<green>Operation accomplished with success</green>" : "<red>Fail to accomplish the operation</red>" ;
 			_ret_array.push( _ret, _out_msg );
             return _ret ;

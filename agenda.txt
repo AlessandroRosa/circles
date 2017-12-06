@@ -13,13 +13,6 @@
   Find a solution to save somewhere and get the current terminal plug-in window ID
   later, when required.
 
--------- CMD FIX ( as you meet that cmd during the check ) --------
-
-* 'figures' cmd:
-   - implement new syntax: figures delete @2-@5 (hint: fill two props delete_start:2, delete_end:5)
-
---------------- FIX SOON -----------------------
-
 * at start-up, get width dimensions for setting the default font size properly.
   Such value will be also set for the font-size of the upper coordinate cells through jquery
 
@@ -27,7 +20,14 @@
   caption is pressed.
   Suggestion: copy that same code as it runs when focusing on caption
 
-* Last checked terminal cmd: dg
+-------- CMD FIX ( as you meet that cmd during the check ) --------
+
+* 'figures' cmd:
+   - implement new syntax: figures delete @2-@5 (hint: fill two props delete_start:2, delete_end:5)
+
+--------------- FIX SOON -----------------------
+
+* Next cmd to check: disk
   
 * Listings:
   - run and test all listings

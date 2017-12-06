@@ -24,18 +24,18 @@ function circles_lib_bip_calc_pixel_side( _update = NO )
     if ( _update && $( "#BIPcanvasPIXELsize" ).get(0) != null ) $( "#BIPcanvasPIXELsize" ).val( _glob_bip_pixel_size );
 }
 
-function circles_lib_bip_apply_settings( _output_channel = OUTPUT_SCREEN, _question = YES, _silent = NO, _update = NO,
+function circles_lib_bip_apply_settings( _out_channel = OUTPUT_SCREEN, _question = YES, _silent = NO, _update = NO,
 			                             _center, _x_extent = 1, _y_extent = 1,
 			                             _shorterside = 0, _coords_diagram, _data_diagram, _bk = "" )
 {
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _x_extent = safe_float( _x_extent, 0 ), _y_extent = safe_float( _y_extent, 0 );
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
-    var _b_go = ( _output_channel == OUTPUT_SCREEN && _question ) ? ( confirm( "Do you confirm to apply these settings ?" ) ? YES : NO ) : YES ;
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    var _b_go = ( _out_channel == OUTPUT_SCREEN && _question ) ? ( confirm( "Do you confirm to apply these settings ?" ) ? YES : NO ) : YES ;
     var _b_fail = 0, _error_str = "", _memo = [] ;
     if ( _b_go )
     {
-        if ( _output_channel == OUTPUT_SCREEN )
+        if ( _out_channel == OUTPUT_SCREEN )
         {
             hideCOLORTABLE();
 
@@ -106,7 +106,7 @@ function circles_lib_bip_apply_settings( _output_channel = OUTPUT_SCREEN, _quest
                 _glob_bipbox_canvas.set_width( _canvas_width );
                 _glob_bipbox_canvas.set_height( _canvas_height );
                 _glob_bipbox_canvas.set_backgroundcolor( _glob_bip_bk ) ;
-                circles_lib_canvas_clean( _glob_bipbox_canvas, _glob_bip_bk, _output_channel );
+                circles_lib_canvas_clean( _glob_bipbox_canvas, _glob_bip_bk, _out_channel );
                 var _rect = new rect( 0, 0, _canvas_width, _canvas_height );
 				circles_lib_bip_mapper_init() ;
                 return [ RET_OK, "BIP settings have been applied with success." + _glob_crlf + "You can start the rendering now.", 0 ];
@@ -131,32 +131,32 @@ function circles_lib_bip_check_params()
     return _err_mask ;
 }
 
-function circles_lib_bip_render( _silent, _output_channel )
+function circles_lib_bip_render( _silent, _out_channel )
 {
-		_silent = safe_int( _silent, NO ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+		_silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _msg = "" ;
     if ( _glob_bip_original_plane_data == NO_PLANE )
     {
         _msg = "A plane shall be selected to perform the drawing" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
     }
     else if ( _glob_bip_original_plane_coords == NO_PLANE )
     {
         _msg = "A diagram shall be selected to perform the drawing" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
     }
     else if ( _glob_bip_original_plane_coords == BIP_BOX && ( _glob_bip_x_extent == 0 || _glob_bip_x_extent == 0 ) )
     {
         _msg = "One of the two user-defined region extension is zero" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
     }
     else if ( _glob_bip_halt )
     {
         _msg = "An error occurred while setting params: please, check all values are correct" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
     }
     else if ( is_html_canvas( _glob_bipbox_canvas ) )
@@ -167,15 +167,15 @@ function circles_lib_bip_render( _silent, _output_channel )
             case Z_PLANE:
             _plane_label = "Z-plane" ;
             _svg_destroy( _glob_export_code_array );
-            circles_lib_canvas_clean( _glob_bipbox_canvas, "", _output_channel );
-            _ret_chunk = circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, null, YES, YES, YES, YES, !_silent, _silent, _output_channel );
+            circles_lib_canvas_clean( _glob_bipbox_canvas, "", _out_channel );
+            _ret_chunk = circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, null, YES, YES, YES, YES, !_silent, _silent, _out_channel );
             break ;
             case W_PLANE:
             _plane_label = "W-plane" ;
             _svg_destroy( _glob_export_code_array );
             // _glob_bip_original_plane_data
-            circles_lib_canvas_clean( _glob_bipbox_canvas, "", _output_channel );
-            _ret_chunk = circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, null, YES, YES, YES, YES, !_silent, _silent, _output_channel );
+            circles_lib_canvas_clean( _glob_bipbox_canvas, "", _out_channel );
+            _ret_chunk = circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, null, YES, YES, YES, YES, !_silent, _silent, _out_channel );
             break ;
             default: _plane_label = "Undetermined" ; break ;
         }
@@ -184,13 +184,13 @@ function circles_lib_bip_render( _silent, _output_channel )
         var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
         _glob_bip_use = NO, _glob_bip_halt = NO ;
         var _msg = _ret_id ? "("+_plane_label+") Diagram has been rendered in BIP mode" : _ret_msg ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _glob_app_title );
         return [ _ret_id, _msg ];
     }
     else
     {
         var _msg = "Memory error: BIP feature is not available" ;
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
     }
 }

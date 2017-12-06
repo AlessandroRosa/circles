@@ -581,10 +581,10 @@ function CIRCLESformsGENERALOPTIONSapply( _question, _silent )
       else return [ RET_ERROR, "Operation halted by user" ] ;
 }
 
-function CIRCLESformsGENERALOPTIONSdisksfillOPTIONSask( _question, _silent, _output_channel )
+function CIRCLESformsGENERALOPTIONSdisksfillOPTIONSask( _question, _silent, _out_channel )
 {
 		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-		_output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+		_out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _sd_n = circles_lib_count_seeds();
     var _disk_draw = $("#CIRCLEScheckboxDISKSdraw").is(':checked');
     var _disk_fill = $("#CIRCLEScheckboxDISKSfill").is(':checked');
@@ -608,7 +608,7 @@ function CIRCLESformsGENERALOPTIONSdisksfillOPTIONSask( _question, _silent, _out
 
              MSG = "The 'disk fill' option was set "+( _glob_wplane_disk_fill ? "on" : "off" )+" for all items" ;
              MSG += "Confirm to apply the current palette or the original fill color for each seed ?" ;
-             if ( _output_channel == OUTPUT_SCREEN && !_silent && !_glob_palette_use )
+             if ( _out_channel == OUTPUT_SCREEN && !_silent && !_glob_palette_use )
              {
                  alert_plug_label( ALERT_YES, "Apply" );
                  alert_plug_label( ALERT_NO, "Don't" );
@@ -619,7 +619,7 @@ function CIRCLESformsGENERALOPTIONSdisksfillOPTIONSask( _question, _silent, _out
              }
              else
              {
-                var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
+                var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
    						  var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
    						  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                 return _ret_id ? [ 1, "Disk fill option set up with success" ] : _ret_chunk ;
@@ -630,7 +630,7 @@ function CIRCLESformsGENERALOPTIONSdisksfillOPTIONSask( _question, _silent, _out
     else
     {
        var _msg = "Can't perform this operation."+_glob_crlf+"No items have been registered yet" ;
-       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title ) ;
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title ) ;
        return [ RET_ERROR, _msg ] ;
     }
 }
@@ -646,10 +646,10 @@ function CIRCLESformsGENERALOPTIONSaccuracyMANAGE()
 		if ( _n_gens > 0 ) $.each( _glob_gens_array, function( _i, _gen ){ _glob_gens_array[_i].map.accuracy = _glob_accuracy ; } ) ;
 }
 
-function CIRCLESformsGENERALOPTIONSdisksdrawOPTIONSask( _question, _silent, _output_channel )
+function CIRCLESformsGENERALOPTIONSdisksdrawOPTIONSask( _question, _silent, _out_channel )
 {
 		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-		_output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+		_out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _sd_n = circles_lib_count_seeds();
     var _disk_draw = $("#CIRCLEScheckboxDISKSdraw").is(':checked');
     var _disk_fill = $("#CIRCLEScheckboxDISKSfill").is(':checked');
@@ -671,15 +671,15 @@ function CIRCLESformsGENERALOPTIONSdisksdrawOPTIONSask( _question, _silent, _out
             if ( _glob_seeds_array[_i].complex_circle != null ) _glob_seeds_array[_i].complex_circle.draw = _glob_wplane_disk_draw ;
 
             MSG = "The disk draw option was set "+( _glob_wplane_disk_draw ? "on" : "off" )+" for all items" ;
-            if ( _output_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, MSG, _glob_app_title ) ;
-            return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
+            if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, MSG, _glob_app_title ) ;
+            return circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
          }
          else return [ RET_IRRELEVANT, "Operation halted by user" ] ;
     }
     else
     {
        var _msg = "Can't perform this operation."+_glob_crlf+"No items have been registered yet" ;
-       if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title ) ;
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title ) ;
        return [ RET_ERROR, _msg ] ;
     }
 }
@@ -715,10 +715,10 @@ function CIRCLESformsGENERALOPTIONSscheduledrenderingAPPLY()
 		}
 }
 
-function CIRCLESformsGENERALOPTIONSreset( _question, _silent, _output_channel )
+function CIRCLESformsGENERALOPTIONSreset( _question, _silent, _out_channel )
 {
 		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-		_output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+		_out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _b_go = !_question ? YES : confirm( "Confirm to restore the original settings ?" );
     if ( _b_go )
     {
@@ -746,11 +746,11 @@ function CIRCLESformsGENERALOPTIONSreset( _question, _silent, _output_channel )
         $("#CIRCLESgeneraloptionsSETTINGSticksEDIT").val( _glob_ticks_count );
 
         circles_lib_plugin_load('forms','general.options', NO, 0 );
-        circles_lib_canvas_layer_pile_per_plane_clean( Z_PLANE, UNDET, YES, _output_channel );
-        circles_lib_canvas_layer_pile_per_plane_clean( W_PLANE, UNDET, YES, _output_channel );
+        circles_lib_canvas_layer_pile_per_plane_clean( Z_PLANE, UNDET, YES, _out_channel );
+        circles_lib_canvas_layer_pile_per_plane_clean( W_PLANE, UNDET, YES, _out_channel );
           
-        var _ret_chunk_zplane= circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _output_channel );
-        var _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, YES, YES, NO, YES, _output_channel );
+        var _ret_chunk_zplane= circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+        var _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, YES, YES, NO, YES, _out_channel );
 
         var _final_ret = YES ;
         if ( _ret_chunk_zplane[0] != RET_IRRELEVANT )

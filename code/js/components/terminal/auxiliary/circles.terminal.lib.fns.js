@@ -1,8 +1,8 @@
 function circles_lib_terminal_batch_script_exists() { return ( $("#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).get(0) != null ) ? ( ( $("#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val().trim().length > 0 ) ? YES : NO ) : NO ; }
 function circles_lib_terminal_html_display( _term, _html_code ) { _term.echo( _html_code, {raw: true} ); }
-function circles_lib_terminal_close( _output_channel )
+function circles_lib_terminal_close( _out_channel )
 {
-    if ( _glob_terminal_echo_flag ) circles_lib_output( _output_channel, DISPATCH_STANDARD, "close" );
+    if ( _glob_terminal_echo_flag ) circles_lib_output( _out_channel, DISPATCH_STANDARD, "close" );
     circles_lib_plugin_activate( YES, "terminal", "", "", "forms", CLOSE, CIRCLESformsTERMINALdivid );
 }
 
@@ -59,11 +59,11 @@ function circles_lib_terminal_put_item_in( _obj, _symbol = "", _method = _glob_m
     return _bool_return ? 1 : [ 1, ( _search_index == UNFOUND ? "A new " : "" )+"item, with symbol '"+_symbol+"', has been "+( _search_index != UNFOUND ? "updated" : "inserted" )+" with success" ] ;
 }
 
-function circles_lib_terminal_cmd_ask_for_value( _params_array, _reg_expression, _output_channel )
+function circles_lib_terminal_cmd_ask_for_value( _params_array, _reg_expression, _out_channel )
 {
 		if ( !is_array( _params_array ) )
 		{
-			 circles_lib_output( _output_channel, DISPATCH_ERROR, "Critical fail: no question process available", _param_01 );
+			 circles_lib_output( _out_channel, DISPATCH_ERROR, "Critical fail: no question process available", _param_01 );
 			 return null ;
 		}
     var _question_counter = 1 ;
@@ -91,18 +91,18 @@ function circles_lib_terminal_cmd_ask_for_value( _params_array, _reg_expression,
        }
     };
 
-    if ( _glob_terminal_questions_enabled && _output_channel == OUTPUT_TERMINAL )
+    if ( _glob_terminal_questions_enabled && _out_channel == OUTPUT_TERMINAL )
     {
     	 if ( safe_size( _pre_prompt.trim(), 0 ) > 0 ) _glob_terminal.echo( _pre_prompt ) ;
        _glob_terminal_out_stream.push( _fn, { prompt: _prompt_question });
     }
 }
 
-function circles_lib_terminal_cmd_ask_yes_no( _params_array = [], _output_channel = OUTPUT_TERMINAL )
+function circles_lib_terminal_cmd_ask_yes_no( _params_array = [], _out_channel = OUTPUT_TERMINAL )
 {
 	if ( !is_array( _params_array ) )
 	{
-		circles_lib_output( _output_channel, DISPATCH_ERROR, "Critical fail: no question process available", _param_01 );
+		circles_lib_output( _out_channel, DISPATCH_ERROR, "Critical fail: no question process available", _param_01 );
 		return ;
 	}
     var _question_counter = 1 ;
@@ -130,7 +130,7 @@ function circles_lib_terminal_cmd_ask_yes_no( _params_array = [], _output_channe
        }
     };
 
-    if ( _glob_terminal_questions_enabled && _output_channel == OUTPUT_TERMINAL )
+    if ( _glob_terminal_questions_enabled && _out_channel == OUTPUT_TERMINAL )
     {
     	if ( safe_size( _pre_prompt.trim(), 0 ) > 0 ) _glob_terminal.echo( _pre_prompt ) ;
         _glob_terminal_out_stream.push( _fn, { prompt: _prompt_question });
@@ -138,7 +138,7 @@ function circles_lib_terminal_cmd_ask_yes_no( _params_array = [], _output_channe
     else if ( _ifquestiondisabled_fn != null ) _ifquestiondisabled_fn.call( null ); //
 }
 
-function circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _param_01, _output_channel )
+function circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _param_01, _out_channel )
 {
  		for( var _i = 0 ; _i < _params_array.length ; _i++ )
     {
@@ -146,7 +146,7 @@ function circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_arr
  			if ( _w.length > 0 && !( _w.stricmp( _params_array[_i] ) ) )
  			{
  				 _MSG = "Mismatch error: param '"+_params_array[_i]+"' has been corrected to '"+_w+"'" ;
- 				 circles_lib_output( _output_channel, DISPATCH_STANDARD, _MSG, _param_01 );
+ 				 circles_lib_output( _out_channel, DISPATCH_STANDARD, _MSG, _param_01 );
  				 _params_array[_i] = _w ;
  			}
  		}
@@ -161,14 +161,14 @@ function circles_lib_terminal_wait_icon( _show, _tab_index, _suffix )
     $( "#" + CTRL_ID ).html( _show ? "<IMG SRC=\""+_glob_path_to_img+"wait/wait.icon.12x12.gif\">" : "" );
 }
 
-function circles_lib_terminal_help_cmd( _html_flag, _cmd_tag, _param_01, _output_channel )
+function circles_lib_terminal_help_cmd( _html_flag, _cmd_tag, _param_01, _out_channel )
 {
     jQuery.get( _glob_terminal_help_path + _cmd_tag + ".cmd.hlp",
                 function( _help_text )
                 {
                 		_help_text = $.terminal.escape_brackets( _help_text ) ;
-                    if ( _html_flag ) circles_lib_output( _output_channel, DISPATCH_INFO, LANG_MSG_00, _param_01, _cmd_tag, 1 );
-                    _html_flag ? circles_lib_terminal_color_decode_htmltext( _help_text, _cmd_tag ) : circles_lib_output( _output_channel, DISPATCH_MULTICOLOR, _help_text, _param_01, _cmd_tag, 1 );
+                    if ( _html_flag ) circles_lib_output( _out_channel, DISPATCH_INFO, LANG_MSG_00, _param_01, _cmd_tag, 1 );
+                    _html_flag ? circles_lib_terminal_color_decode_htmltext( _help_text, _cmd_tag ) : circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _help_text, _param_01, _cmd_tag, 1 );
                 },
                 'html');
 }
@@ -302,7 +302,7 @@ function circles_lib_terminal_warning_echo( _message, _return_msg )
     else if ( _glob_terminal != null ) _glob_terminal.echo( _message );
 }
 
-function circles_lib_terminal_disks_check( _output_channel )
+function circles_lib_terminal_disks_check( _out_channel )
 {
     var _err_mask_whole = 0 ; // keeps track of which errors have been found
     var _row = "", _items_n = circles_lib_count_items(), ITEM ;
@@ -318,7 +318,7 @@ function circles_lib_terminal_disks_check( _output_channel )
        _row += "Formula" ;
        _row += ( new String( " ").repeat( 13 ) );
        _row += "Generators" ;
-       circles_lib_output( _output_channel, DISPATCH_INFO, _row );
+       circles_lib_output( _out_channel, DISPATCH_INFO, _row );
 
        _row = ( new String( " " ) ).rpad( " ", COLUMNSpaddingARRAY[0] );
        _row += ( new String( "Gen" ) ).rpad( " ", COLUMNSpaddingARRAY[1] );
@@ -327,7 +327,7 @@ function circles_lib_terminal_disks_check( _output_channel )
        _row += ( new String( "Map" ) ).rpad( " ", COLUMNSpaddingARRAY[4] );
        _row += ( new String( "Circle" ) ).rpad( " ", COLUMNSpaddingARRAY[5] );
        _row += ( new String( "Map" ) ).rpad( " ", COLUMNSpaddingARRAY[6] );
-       circles_lib_output( _output_channel, DISPATCH_INFO, _row );
+       circles_lib_output( _out_channel, DISPATCH_INFO, _row );
 
        var _symbol, _inv_symbol, _complex_circle, _mobius_map, _generator_mobius_map, _generator_circle, _err_mask, _startINDEX ;
 
@@ -368,12 +368,12 @@ function circles_lib_terminal_disks_check( _output_channel )
                if ( _err_mask & 32 ) _err_mask_whole |= 32 ;
                if ( _err_mask & 64 ) _err_mask_whole |= 64 ;
                                         
-               circles_lib_output( _output_channel, _err_mask ? DISPATCH_ERROR : DISPATCH_STANDARD, _row );
+               circles_lib_output( _out_channel, _err_mask ? DISPATCH_ERROR : DISPATCH_STANDARD, _row );
           }
           else
           {
              _row = "This Mobius map is null" ;
-             circles_lib_output( _output_channel, DISPATCH_ERROR, _row );
+             circles_lib_output( _out_channel, DISPATCH_ERROR, _row );
           }
        }
           
@@ -382,12 +382,12 @@ function circles_lib_terminal_disks_check( _output_channel )
     else
     {
        _b_fail = YES ;
-       circles_lib_output( _output_channel, DISPATCH_ERROR, _ERR_33_01 );
+       circles_lib_output( _out_channel, DISPATCH_ERROR, _ERR_33_01 );
        return _ERR_33_01 ;
     }
 }
 
-function circle_terminal_cmd_display_disk_item( ITEM, _i, _output_channel, _params_assoc_array )
+function circle_terminal_cmd_display_disk_item( ITEM, _i, _out_channel, _params_assoc_array )
 {
     var _symbol = new String( is_item_obj( ITEM ) ? ITEM.symbol : "" );
     var _inv_symbol = new String( is_item_obj( ITEM ) ? ITEM.inverse_symbol.trim() : "" );
@@ -414,7 +414,7 @@ function circle_terminal_cmd_display_disk_item( ITEM, _i, _output_channel, _para
        _out_string += is_circle( _cc ) ? _cc.output( null, _roundto ) : _glob_crlf + "No circle init" ;
        if ( safe_size( _notes, 0 ) > 0 )
        _out_string += _glob_crlf + "<lightblue>Notes</lightblue> <snow>" + _notes + "<snow>" ;
-       if ( _output_channel != OUTPUT_TEXT ) circles_lib_terminal_info_echo( _out_string + _glob_crlf );
+       if ( _out_channel != OUTPUT_TEXT ) circles_lib_terminal_info_echo( _out_string + _glob_crlf );
        return _out_string ;
     }
     else
@@ -448,19 +448,19 @@ function circle_terminal_cmd_display_disk_item( ITEM, _i, _output_channel, _para
           {
              var _coords = "<snow>center</snow> <lightblue>("+_cc.center.x + ","+_cc.center.y+")</lightblue>" ;
                  _coords += _glob_crlf + "<lightblue>radius</lightblue>  " + ( _cc.radius <= 0 ? "<red>" + _cc.radius + "</red>" : "<snow>" + _cc.radius + "</snow>" );
-             if ( _output_channel != OUTPUT_TEXT ) circles_lib_terminal_multicolor_echo( _coords );
+             if ( _out_channel != OUTPUT_TEXT ) circles_lib_terminal_multicolor_echo( _coords );
              _out_string += _glob_crlf + _coords ;
           }
           else _out_string += _glob_crlf + "No circle init" ;
        }
     
        if ( safe_size( _notes, 0 ) > 0 ) _out_string += _glob_crlf + "<gray>Notes</gray> <lightgray>" + _notes + "</lightgray>" ;
-       if ( _output_channel != OUTPUT_TEXT ) circles_lib_terminal_multicolor_echo( _out_string );
+       if ( _out_channel != OUTPUT_TEXT ) circles_lib_terminal_multicolor_echo( _out_string );
        return _symbol + _glob_crlf + _out_string ;
     }
 }
 
-function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _output_channel, _params_assoc_array )
+function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _params_assoc_array )
 {
     var _symbol_ref = new String( is_item_obj( ITEM ) ? ITEM.symbol : "" );
     var _inv_symbol = new String( is_item_obj( ITEM ) ? ITEM.inverse_symbol.trim() : "" );
@@ -532,7 +532,7 @@ function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _output_channel, 
     else _out_string += _glob_crlf + "No Mobius map" ;
 
     _out_string = _symbol + _glob_crlf + _out_string ;
-    if ( _output_channel != OUTPUT_TEXT ) circles_lib_terminal_multicolor_echo( _out_string );
+    if ( _out_channel != OUTPUT_TEXT ) circles_lib_terminal_multicolor_echo( _out_string );
     return _out_string ;
 }
 

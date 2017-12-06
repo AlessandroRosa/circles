@@ -603,14 +603,14 @@ function CIRCLESembeddingsGENERALPURPOSE_MOBIUS_INFO( _index )
     else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Invalid referenced data", 'PLUGIN_OUTMSG' ) ;
 }
 
-function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisition, _output_channel = OUTPUT_SPECIAL_FX )
+function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisition, _out_channel = OUTPUT_SPECIAL_FX )
 {
     _silent = safe_int( _silent, NO ), _edit_acquisition = safe_int( _edit_acquisition, YES );
-	_output_channel = safe_int( _output_channel, OUTPUT_SPECIAL_FX );
+	_out_channel = safe_int( _out_channel, OUTPUT_SPECIAL_FX );
     var _index_ref = _plugin_last_ref, _N_GENS = safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 );
 	if ( _N_GENS == 0 )
 	{
-		circles_lib_output( _output_channel, DISPATCH_WARNING, "Can't generate the group: the generators list is empty", 'PLUGIN_OUTMSG' ) ;
+		circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't generate the group: the generators list is empty", 'PLUGIN_OUTMSG' ) ;
 		return NO ;
 	}
 	else
@@ -678,7 +678,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 						_MSG += _glob_crlf+_glob_crlf + "Operation halted: can't generate the group" ;
 						if ( !_silent )
 						{
-							circles_lib_output( _output_channel, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+							circles_lib_output( _out_channel, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 							return NO ;
 						}
 						break ;
@@ -690,7 +690,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 						_MSG += _glob_crlf+"Operation halted: can't generate the group" ;
 					if ( !_silent )
 					{
-						circles_lib_output( _output_channel, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+						circles_lib_output( _out_channel, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 						return NO ;
 					}
 					break ;
@@ -702,7 +702,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
 				    _MSG += _glob_crlf+"Operation halted: can't generate the group" ;
 			    if ( !_silent )
 				{
-				    circles_lib_output( _output_channel, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+				    circles_lib_output( _out_channel, DISPATCH_CRITICAL, _MSG, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 					return NO ;
 				}
 				break ;

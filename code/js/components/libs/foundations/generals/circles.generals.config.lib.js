@@ -1,14 +1,14 @@
-function circles_lib_config_create_new_main( _question, _silent, _reset, _drop_additional_figures, _clean, _output_channel )
+function circles_lib_config_create_new_main( _question, _silent, _reset, _drop_additional_figures, _clean, _out_channel )
 {
 		_question = safe_int( _question, NO ), _silent = safe_int( _silent, NO );
     _reset = safe_int( _reset, ~RESET_NONE ), _clean = safe_int( _clean, YES );
 		_drop_additional_figures = safe_int( _drop_additional_figures, NO );
     var _items_n = circles_lib_count_items();
     var _b_go = ( _question || _items_n == 0 ) ? YES : ( confirm( _QUESTION_27 ) ? YES : NO );
-    return _b_go ? circles_lib_config_create_new_proc( _reset, _drop_additional_figures, _clean, _question, _silent, _output_channel ) : ( _items == 0 ? [ YES, "cmd skipped: no registered config" ] : [ NO, "Fail to set a new config" ] ) ;
+    return _b_go ? circles_lib_config_create_new_proc( _reset, _drop_additional_figures, _clean, _question, _silent, _out_channel ) : ( _items == 0 ? [ YES, "cmd skipped: no registered config" ] : [ NO, "Fail to set a new config" ] ) ;
 }
 
-function circles_lib_config_create_new_proc( _reset_mask, _drop_additional_figures, _clean, _question, _silent, _output_channel )
+function circles_lib_config_create_new_proc( _reset_mask, _drop_additional_figures, _clean, _question, _silent, _out_channel )
 {
     _drop_additional_figures = safe_int( _drop_additional_figures, NO );
     _reset_mask = safe_int( _reset_mask, RESET_NONE ), _clean = safe_int( _clean, YES );
@@ -17,16 +17,16 @@ function circles_lib_config_create_new_proc( _reset_mask, _drop_additional_figur
     var _items_n = circles_lib_count_items();
 
     circles_lib_reset_coords();
-    var _ret_chunk = circles_lib_reset_vars( _reset_mask, _silent, _output_channel );
+    var _ret_chunk = circles_lib_reset_vars( _reset_mask, _silent, _out_channel );
     if ( is_array( _ret_chunk ) ) _reset_filter = _ret_chunk[1] ;
 	  circles_lib_depth_set( _glob_depth, YES );
 
     if ( _clean && _items_n > 0 )
     {
-		_ret_chunk_zplane = circles_lib_coordinates_reset_core( Z_PLANE, YES, _question, _silent, _output_channel );
-        _ret_chunk_zplane = circles_lib_canvas_render_zplane( null, zplane_sm, null, _clean, YES, NO, _question, _silent, YES, _output_channel );
-        _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, _clean, YES, NO, YES, _question, _silent, _output_channel );
-		_ret_chunk_wplane = circles_lib_coordinates_reset_core( W_PLANE, YES, _question, _silent, _output_channel );
+		_ret_chunk_zplane = circles_lib_coordinates_reset_core( Z_PLANE, YES, _question, _silent, _out_channel );
+        _ret_chunk_zplane = circles_lib_canvas_render_zplane( null, zplane_sm, null, _clean, YES, NO, _question, _silent, YES, _out_channel );
+        _ret_chunk_wplane = circles_lib_canvas_render_wplane( null, wplane_sm, null, _clean, YES, NO, YES, _question, _silent, _out_channel );
+		_ret_chunk_wplane = circles_lib_coordinates_reset_core( W_PLANE, YES, _question, _silent, _out_channel );
 		if ( _ret_chunk_zplane[0] != RET_IRRELEVANT )
 		_final_ret &= _ret_chunk_zplane != null ? _ret_chunk_zplane[0] : 0 ;
 		if ( _ret_chunk_wplane[0] != RET_IRRELEVANT )

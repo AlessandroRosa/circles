@@ -1,8 +1,8 @@
-function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks, _output_channel )
+function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks, _out_channel )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _silent = safe_int( _silent, YES );
-    _n_ticks = safe_int( _n_ticks, _glob_ticks_count ), _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _n_ticks = safe_int( _n_ticks, _glob_ticks_count ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
 	  var _sd_n = circles_lib_count_seeds(), _plane_def = circles_lib_plane_def_get( _plane_type ), _max_tick_width = 24 ;
     if ( is_html_canvas( _canvas ) && _plane_type != NO_PLANE )
     {
@@ -338,7 +338,7 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
         var _errors = _sd_n == 0 ? "* No maps\n" : "" ;
         if ( _plane_type == NO_PLANE ) _errors += "* Missing plane reference" ;
         var _plane_def = circles_lib_plane_def_get( _plane_type );
-        if ( _output_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _errors, _glob_app_title );
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _errors, _glob_app_title );
         return [ RET_ERROR, _errors ] ;
     }
 }

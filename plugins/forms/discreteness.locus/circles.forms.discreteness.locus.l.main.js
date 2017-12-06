@@ -692,10 +692,10 @@ function CIRCLESformsDISCRETENESSLOCUSstoreRAYS( _rays_array )
 	CIRCLESformsDISCRETENESSLOCUSpleating_rays_pts_array = CIRCLESformsDISCRETENESSLOCUSpleating_rays_pts_array.concat( _rays_array );
 }
 
-function CIRCLESformsDISCRETENESSLOCUScomputeCUSPupdateTEXT( _text, _pq_word, _features, _fill, _init, _output_channel )
+function CIRCLESformsDISCRETENESSLOCUScomputeCUSPupdateTEXT( _text, _pq_word, _features, _fill, _init, _out_channel )
 {
     _fill = safe_int( _fill, NO ), _init = safe_int( _init, NO );
-    _output_channel = safe_int( _output_channel, OUTPUT_SCREEN );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _transform_map = ( $( "#CIRCLESformsDISCRETENESSLOCUStraceTRANSFORMformula" ).val() + "" ).trim();
     if ( _transform_map.length == 0 ) _transform_map = "%mu%" ;
     _transform_map = _transform_map.replaceAll( "%mu%", "("+_text+")" );
@@ -733,13 +733,13 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSPupdateTEXT( _text, _pq_word, _f
     if ( _fill )
     {
         var _ret_fill = GLOB_PLUGIN_PARAMS_FILLER( _ret_trace, NO );
-        if ( _ret_fill == NO && _output_channel == OUTPUT_TERMINAL )
+        if ( _ret_fill == NO && _out_channel == OUTPUT_TERMINAL )
         circles_lib_terminal_warning_echo( "Can't fill: no plug-in activated yet" );
     }
     if ( _init )
     {
         var _ret_init = GLOB_PLUGIN_PARAMS_FILLER( _ret_trace, YES );
-        if ( _ret_init == NO && _output_channel == OUTPUT_TERMINAL )
+        if ( _ret_init == NO && _out_channel == OUTPUT_TERMINAL )
         circles_lib_terminal_warning_echo( "Can't init: no plug-in activated yet" );
     }
 }

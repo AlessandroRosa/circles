@@ -7,7 +7,7 @@ function multithread_discreteness_locus_process()
     var _out_queue_at_every_n_steps = 25 ;
     var _output_text = "", _output_data = [] ;
 
-    var _output_channel = _glob_inline_workers_input_data.out_channel ;
+    var _out_channel = _glob_inline_workers_input_data.out_channel ;
     var _features = _glob_inline_workers_input_data.features ;
     var _accuracy = _features['accuracy'] ;
     var _maxiterate = _features['maxiterate'] ;
@@ -40,7 +40,7 @@ function multithread_discreteness_locus_process()
     _output_text += "Start fraction " + _start_frac.output() + _crlf ;
     _output_text += "End fraction " + _end_frac.output();
         
-    self.postMessage( { id : "output", ret : { out_channel : _output_channel, features : [],
+    self.postMessage( { id : "output", ret : { out_channel : _out_channel, features : [],
                         text : _output_text, service : _service, save : 0 } } );
 
     _glob_inline_worker_discreteness_locus = new discreteness_locus();
@@ -81,9 +81,9 @@ function multithread_discreteness_locus_process()
     }
 
     if( _glob_inline_worker_run_flag != 0 )
-    self.postMessage( { id : "start", ret : { out_channel : _output_channel, features : _features, service : _service } } );
+    self.postMessage( { id : "start", ret : { out_channel : _out_channel, features : _features, service : _service } } );
 
-	self.postMessage( { id : "output", ret : { out_channel : _output_channel, features : [], text : _output_text, service : _service, save : 0 } } );
+	self.postMessage( { id : "output", ret : { out_channel : _out_channel, features : [], text : _output_text, service : _service, save : 0 } } );
     _output_text = "" ;
     if ( _features['custom_params'] instanceof Array )
     {
@@ -116,7 +116,7 @@ function multithread_discreteness_locus_process()
        		_end_frac = _end_pq.p + "/" + _end_pq.q ;
         var _tr = _glob_inline_worker_discreteness_locus.starting_pt, _old_tr, _runner = 0 ;
 
-        self.postMessage( { id : "output", ret : { out_channel : _output_channel,
+        self.postMessage( { id : "output", ret : { out_channel : _out_channel,
                             features : _features, text : _output_text,
                             data : "Building Farey series of order " + _order,
                             service : _service, save : 0 } } );
@@ -157,7 +157,7 @@ function multithread_discreteness_locus_process()
                 _out_str += _crlf+"Filtered " + _append_count + "/" + _filter_seq.length + " - " + ( _append_count / _filter_seq.length * 100.0 ).roundTo(2) + " %" ;
                 _out_str += _crlf.repeat(2)+"Now processing " + _start_pq.output() + " < " + _pq.output().rpad( "&nbsp;", _max_str_len ) + " < " + _end_pq.output();
 
-                self.postMessage( { id : "output", ret : { out_channel : _output_channel,
+                self.postMessage( { id : "output", ret : { out_channel : _out_channel,
                                     features : _features, text : _output_text,
                                     data : _out_str, service : _service, save : 1 } } );
 
@@ -175,7 +175,7 @@ function multithread_discreteness_locus_process()
 											 _eq_solution, _pleatingrays_max_steps, _bounding_rect, null, _pleatingrays_correction, _pleatingrays_keepgoing ) );
 					}
 
-					self.postMessage( { id : "output", ret : { out_channel : _output_channel,
+					self.postMessage( { id : "output", ret : { out_channel : _out_channel,
 	                                    features : _features, text : _pl_rays_array.clone(),
 	                                    data : "Computing the pleating rays",
 	                                    service : "pleatingrays", save : 0 } } );
@@ -189,7 +189,7 @@ function multithread_discreteness_locus_process()
                 _out_str += "\nRunning " + ( _runner / _filter_seq.length * 100.0 ).roundTo(2) + " %" ;
                 _out_str += "\nFiltered " + _append_count + "/" + _filter_seq.length + " - " + ( _append_count / _filter_seq.length * 100.0 ).roundTo(2) + " %" ;
                 _out_str += "\n\nNow processing " + _start_pq.output() + " < " + _pq.output().rpad( " ", _max_str_len ) + " < " + _end_pq.output();
-                self.postMessage( { id : "output", ret : { out_channel : _output_channel,
+                self.postMessage( { id : "output", ret : { out_channel : _out_channel,
                                     features : [], text : _output_text,
                                     data : _out_str, service : _service, save : 0 } } );
             }
@@ -206,7 +206,7 @@ function multithread_discreteness_locus_process()
          if ( _pq_farey_obj.is_equal_to( _reduced_farey ) &&
               !( _pq_farey_obj.match_signature( _reduced_farey ) ) )
          {
-            self.postMessage( { id : "output", ret : { out_channel : _output_channel, features : [],
+            self.postMessage( { id : "output", ret : { out_channel : _out_channel, features : [],
                                 text : "Detected reducible fraction: " + _pq_farey_obj.output() + " turned into " + _reduced_farey.output(),
                                 service : _service, save : 0 } } );
             _pq_farey_obj.set( _reduced_farey.p, _reduced_farey.q );
@@ -218,7 +218,7 @@ function multithread_discreteness_locus_process()
          {
               if ( _data_storage_ref["farey"][''+_q] != null )
               {
-                self.postMessage( { id : "output", ret : { out_channel : _output_channel, features : [],
+                self.postMessage( { id : "output", ret : { out_channel : _out_channel, features : [],
                                     text : "Found Farey sequence of order " + _q + " already stored in memory",
                                     service : _service, data : _output_data, save : 0 } } );
                 _input_seq = _data_storage_ref["farey"][''+_q] ;
@@ -229,7 +229,7 @@ function multithread_discreteness_locus_process()
 var _callback_run_sequence_fn = function( _curr_frac, _curr_value, _upper_bound )
 {
     var _dist = ( Math.abs( _upper_bound - _curr_value ) ).roundTo( 2 );
-    self.postMessage( { id : "output", ret : { out_channel : _output_channel,
+    self.postMessage( { id : "output", ret : { out_channel : _out_channel,
                         features : _features, text : _output_text,
                         data : "Running " + _curr_frac.join( "," ) + " - dist to upper bound " + _dist,
                         service : _service, save : 0 } } );
@@ -238,14 +238,14 @@ var _callback_run_sequence_fn = function( _curr_frac, _curr_value, _upper_bound 
 var _cusp_callback_fn = function( _current_frac, _runner, _sequence_length )
 {
     var _out = ( _runner / _sequence_length * 100.0 ).roundTo( 2 ) + "" ;
-    self.postMessage( { id : "output", ret : { out_channel : _output_channel, features : _features, text : _output_text,
+    self.postMessage( { id : "output", ret : { out_channel : _out_channel, features : _features, text : _output_text,
                         data : "Resolving cusp at fraction " + _current_frac.lpad( " ", 6 ).rpad( " ", 6 ) + " - " + _out.rpad( " ", 5 ) + "%",
                         service : _service, save : 0 } } );
 }
 
 	_order = _order > 0 ? _order : _q ;
     _input_seq = _pq_farey_obj.farey_sequence( _order > 0 ? _order : _q, _start_frac, _end_frac, _callback_run_sequence_fn );
-    self.postMessage( { id : "output", ret : { out_channel : _output_channel, features : _features, text : _output_text,
+    self.postMessage( { id : "output", ret : { out_channel : _out_channel, features : _features, text : _output_text,
                         data : "Farey sequence completed: now processing the cusp",
                         service : _service, save : 0 } } );
 
@@ -272,7 +272,7 @@ var _cusp_callback_fn = function( _current_frac, _runner, _sequence_length )
 								     _eq_solution, _pleatingrays_max_steps, _bounding_rect, null, _pleatingrays_correction, _pleatingrays_keepgoing ) );
 			}
 
-			self.postMessage( { id : "output", ret : { out_channel : _output_channel, features : _features,
+			self.postMessage( { id : "output", ret : { out_channel : _out_channel, features : _features,
 		        text : _pl_rays_array.clone(), data : "Computing the pleating rays", service : "pleatingrays", save : 0 } } );
 		}
 
@@ -292,7 +292,7 @@ var _cusp_callback_fn = function( _current_frac, _runner, _sequence_length )
             _features['farey_q'] = _q ;
         }
 
-        self.postMessage( { id : "output", ret : { out_channel : _output_channel, features : _features,
+        self.postMessage( { id : "output", ret : { out_channel : _out_channel, features : _features,
                             text : _output_text, data : _output_data,
                             service : _service, save : 1,
                             pq_trace : _ret_trace, pq_cusp : _pq_for_cusp } } );
@@ -300,7 +300,7 @@ var _cusp_callback_fn = function( _current_frac, _runner, _sequence_length )
     }
 
     if( _glob_inline_worker_run_flag != 0 )
-    self.postMessage( { id : "end", ret : { out_channel : _output_channel, features : _features, service : _service } } );
+    self.postMessage( { id : "end", ret : { out_channel : _out_channel, features : _features, service : _service } } );
 }
 
 function multithread_discreteness_locus_output_discreteness_locus_chunk( _chunk_counter, _boundary, _crlf )
