@@ -50,7 +50,7 @@ function circles_lib_canvas_after_render_main()
          else if ( _b_collect ) input_layers_index_array.push( _layer_index );
      }
      
-		 if (_glob_bip_use) _glob_target_plane = _glob_persistent_vars['old_plane_type'] ;
+	if (_glob_bip_use) _glob_target_plane = _glob_persistent_vars['old_plane_type'] ;
      var _canvas = null ; 
 		 if (_glob_bip_use) _canvas = _glob_bipbox_canvas ;
 		 else if ( _glob_target_plane == D_LOCUS ) _canvas = $( "#CIRCLESdlocusdiagramCANVAS" ).get(0) ;

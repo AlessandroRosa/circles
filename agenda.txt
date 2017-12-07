@@ -28,6 +28,7 @@
 --------------- FIX SOON -----------------------
 
 * Next cmd to check: disk
+       test actions: mirror | move | rotate | pair
   
 * Listings:
   - run and test all listings

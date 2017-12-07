@@ -135,7 +135,7 @@ function circles_lib_terminal_cmd_ask_yes_no( _params_array = [], _out_channel =
     	if ( safe_size( _pre_prompt.trim(), 0 ) > 0 ) _glob_terminal.echo( _pre_prompt ) ;
         _glob_terminal_out_stream.push( _fn, { prompt: _prompt_question });
     }
-    else if ( _ifquestiondisabled_fn != null ) _ifquestiondisabled_fn.call( null ); //
+    else if ( _ifquestiondisabled_fn != null ) _ifquestiondisabled_fn.call( null );
 }
 
 function circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _param_01, _out_channel )
@@ -384,79 +384,6 @@ function circles_lib_terminal_disks_check( _out_channel )
        _b_fail = YES ;
        circles_lib_output( _out_channel, DISPATCH_ERROR, _ERR_33_01 );
        return _ERR_33_01 ;
-    }
-}
-
-function circle_terminal_cmd_display_disk_item( ITEM, _i, _out_channel, _params_assoc_array )
-{
-    var _symbol = new String( is_item_obj( ITEM ) ? ITEM.symbol : "" );
-    var _inv_symbol = new String( is_item_obj( ITEM ) ? ITEM.inverse_symbol.trim() : "" );
-    var _cc = is_item_obj( ITEM ) ? ITEM.complex_circle : null ;
-    var _cc_check = is_circle( _cc ) ? YES : NO ;
-    var _bordersize = _cc_check ? _cc.bordersize : 0 ;
-    var _fill = _cc_check ? _cc.fill : 0 ;
-    var _border = _cc_check ? _cc.draw : 0 ;
-    var _bordercolor = new String( _cc_check ? _cc.bordercolor.trim() : "" );
-    if ( _bordercolor.length == 0 ) _bordercolor = "none" ;
-    var _fillcolor = new String( _cc_check ? _cc.fillcolor.trim() : "" );
-    if ( _fillcolor.length == 0 ) _fillcolor = "none" ;
-    var _notes = safe_string( ITEM.notes, "" ).trim() ;
-    var _original_word = safe_string( ITEM.original_word, "" ).trim() ;
-
-    var _extras = _params_assoc_array['extras'] ;
-    var _roundto = Math.min( safe_int( _params_assoc_array['roundto'], _glob_accuracy ), DEFAULT_MAX_ACCURACY ) ;
-    var _what = _extras.one_in( "attr", "coords" ) ? _extras[0] : "all" ; // only one attribute, if mentioned
-    var _out_string = "" ;
-    if ( _params_assoc_array['table'] )
-    {
-       _out_string += _symbol.lpad( " ", 8 );
-       _out_string += _inv_symbol.lpad( " ", 8 );
-       _out_string += is_circle( _cc ) ? _cc.output( null, _roundto ) : _glob_crlf + "No circle init" ;
-       if ( safe_size( _notes, 0 ) > 0 )
-       _out_string += _glob_crlf + "<lightblue>Notes</lightblue> <snow>" + _notes + "<snow>" ;
-       if ( _out_channel != OUTPUT_TEXT ) circles_lib_terminal_info_echo( _out_string + _glob_crlf );
-       return _out_string ;
-    }
-    else
-    {
-    	 var _item_index = circles_lib_find_item_index_by_symbol( _glob_seeds_array, _inv_symbol ) ;
-    	 if ( _item_index == UNFOUND ) _item_index = circles_lib_find_item_index_by_symbol( _glob_gens_array, _inv_symbol ) ;
-    	 var _inverse_exists = _item_index != UNFOUND ;
-    	 var _inverse_color = _inverse_exists ? "snow" : COLOR_ERROR ;
-       var _symbol = _glob_crlf + "<yellow>Disk</yellow> <snow>" + ( _symbol.length == 0 ? "(unknown)" : _symbol ) + ( ( _inv_symbol.length > 0 && _glob_method != METHOD_INVERSION ) ? "</snow> <lightblue>inverse</lightblue> <"+_inverse_color+">"+_inv_symbol+( !_inverse_exists ? " (missing)" : "" )+"</"+_inverse_color+">" : "" );
-       circles_lib_terminal_multicolor_echo( _symbol );
-       if ( _what.is_one_of( "all", "attr" ) )
-       {
-          _out_string  = "Index "+(_i+1);
-          _out_string += "  Fill <snow>" + ( _fill ? "yes" : "no" ) + "</snow>" ;
-          _out_string += "  Draw <snow>" + ( _border ? "yes" : "no" ) + "</snow>" ;
-          _out_string += "  Border size <snow>" + _bordersize + " pixel" + ( _bordersize == 1 ? "" : "s" ) + "</snow>" ;
-          _out_string += _glob_crlf + "Original word <snow>" + _original_word + "</snow>" ;
-
-          var _bordercolor_array = _bordercolor != "none" ? circles_lib_colors_get_formats( _bordercolor ) : null ;
-          var _bordercolor_tag = _bordercolor_array != null ? _bordercolor_array[3] : "" ;
-          var _fillcolor_array = _fillcolor != "none" ? circles_lib_colors_get_formats( _fillcolor ) : null ;
-          var _fillcolor_tag = _fillcolor_array != null ? _fillcolor_array[3] : "" ;
-
-          _out_string += _glob_crlf + "Border color <snow>" + _bordercolor + ( _bordercolor_tag.length > 0 ? " ( "+_bordercolor_tag+" )" : "" ) + "</snow>" ;
-          _out_string += _glob_crlf + "Fill color <snow>" + _fillcolor + ( _fillcolor_tag.length > 0 ? " ( "+_fillcolor_tag+" )" : "" ) + "</snow>" ;
-       }
-                 
-       if ( _what.is_one_of( "all", "coords" ) )
-       {
-          if ( is_circle( _cc ) )
-          {
-             var _coords = "<snow>center</snow> <lightblue>("+_cc.center.x + ","+_cc.center.y+")</lightblue>" ;
-                 _coords += _glob_crlf + "<lightblue>radius</lightblue>  " + ( _cc.radius <= 0 ? "<red>" + _cc.radius + "</red>" : "<snow>" + _cc.radius + "</snow>" );
-             if ( _out_channel != OUTPUT_TEXT ) circles_lib_terminal_multicolor_echo( _coords );
-             _out_string += _glob_crlf + _coords ;
-          }
-          else _out_string += _glob_crlf + "No circle init" ;
-       }
-    
-       if ( safe_size( _notes, 0 ) > 0 ) _out_string += _glob_crlf + "<gray>Notes</gray> <lightgray>" + _notes + "</lightgray>" ;
-       if ( _out_channel != OUTPUT_TEXT ) circles_lib_terminal_multicolor_echo( _out_string );
-       return _symbol + _glob_crlf + _out_string ;
     }
 }
 

@@ -274,7 +274,7 @@ function circles_lib_symbol_zplane_display( _items_array = [], _canvas = null, _
     _symbol = safe_string( _symbol, "" ), _b_invert = safe_int( _b_invert, NO );
     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
-    var zplane_context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
+    var zplane_ctx = _canvas.getContext( _glob_canvas_ctx_2D_mode );
     var _inv_symbol = _symbol.length > 0 ? circles_lib_word_inverse_get( _symbol ) : "" ;
     var _items_n = circles_lib_count_items( _items_array );
     if ( _b_invert ) _glob_show_symbols_zplane = !_glob_show_symbols_zplane ;
@@ -295,30 +295,31 @@ function circles_lib_symbol_zplane_display( _items_array = [], _canvas = null, _
             _symbol = safe_string( ITEM.symbol, "N/D" );
             if ( _symbol.length > 0 && is_circle( _circle_obj ) )
             {
-                 // display lines crossing the center in order to lock the selected circle to view
-                 zplane_context.beginPath();
-                 if ( isCHROME() || isIE() ) zplane_context.setLineDash([4,6]);
-                 zplane_context.lineWidth = 1 ;
-                 zplane_context.strokeStyle = _glob_label_text_color ;
-                 zplane_context.moveTo( _center_pt.x - ( _radius + _bordersize ), _center_pt.y );
-                 zplane_context.lineTo( _center_pt.x + ( _radius - _bordersize ), _center_pt.y );
-                 zplane_context.moveTo( _center_pt.x, _center_pt.y - ( _radius + _bordersize ) );
-                 zplane_context.lineTo( _center_pt.x, _center_pt.y + ( _radius - _bordersize ) );
-                 zplane_context.stroke();
-                 if ( isCHROME() || isIE() ) zplane_context.setLineDash([0,0]);
-                 zplane_context.closePath();
+                // display lines crossing the center in order to lock the selected circle to view
+                zplane_ctx.beginPath();
+                if ( isCHROME() || isIE() ) zplane_ctx.setLineDash([4,6]);
+                zplane_ctx.lineWidth = 1 ;
+                zplane_ctx.strokeStyle = _glob_label_text_color ;
+                zplane_ctx.moveTo( _center_pt.x - ( _radius + _bordersize ), _center_pt.y );
+                zplane_ctx.lineTo( _center_pt.x + ( _radius - _bordersize ), _center_pt.y );
+                zplane_ctx.moveTo( _center_pt.x, _center_pt.y - ( _radius + _bordersize ) );
+                zplane_ctx.lineTo( _center_pt.x, _center_pt.y + ( _radius - _bordersize ) );
+                zplane_ctx.stroke();
+                if ( isCHROME() || isIE() ) zplane_ctx.setLineDash([0,0]);
+                zplane_ctx.closePath();
     
-                 zplane_context.fillStyle = _glob_label_text_color ;
-                 zplane_context.fillText( _symbol, _center_pt.x + 6, _center_pt.y - 2 );
+				zplane_ctx.font = DEFAULT_FONT_SIZE+"pt Arial" ;
+                zplane_ctx.fillStyle = _glob_label_text_color ;
+                zplane_ctx.fillText( _symbol, _center_pt.x + 6, _center_pt.y - 4 );
                     
-                 zplane_context.beginPath();
-                 zplane_context.lineWidth = 2 ;
-                 zplane_context.arc( _center_pt.x, _center_pt.y, 4, 0, CIRCLES_TWO_PI ); // goes along the line drawing the arc
-                 zplane_context.strokeStyle = _glob_label_dot_color ;
-                 zplane_context.fillStyle = _glob_label_dot_color ;
-                 zplane_context.stroke();
-                 zplane_context.fill();
-                 zplane_context.closePath();
+                zplane_ctx.beginPath();
+                zplane_ctx.lineWidth = 2 ;
+                zplane_ctx.arc( _center_pt.x, _center_pt.y, 4, 0, CIRCLES_TWO_PI ); // goes along the line drawing the arc
+                zplane_ctx.strokeStyle = _glob_label_dot_color ;
+                zplane_ctx.fillStyle = _glob_label_dot_color ;
+                zplane_ctx.stroke();
+                zplane_ctx.fill();
+                zplane_ctx.closePath();
             }
         }
     }

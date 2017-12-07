@@ -70,16 +70,7 @@ function circles_terminal_cmd_auto()
         {
             var _all = _cmd_params['all'], _mode = _cmd_params['mode'] ;
 
-            if ( _action.stricmp( "init" ) || _all )
-            {
-                if ( _glob_method == METHOD_NONE && _mode == 1 )
-                {
-                    _fail_flag_array['init'] = 1 ;
-                    circles_lib_output( _out_channel, DISPATCH_WARNING, "A method must be chosen before setting auto init on", _par_1, _cmd_tag );
-                }
-                else _glob_terminal_autoinit_enable = _mode ;
-            }
-
+            if ( _action.stricmp( "init" ) || _all ) _glob_terminal_autoinit_enable = _mode ;
             var _autorefresh_label = "" ;
             if ( _action.stricmp( "refresh" ) || _all )
             {

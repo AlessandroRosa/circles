@@ -86,8 +86,7 @@ function circles_terminal_cmd_init()
             break ;
             default:
             var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-            if ( ( _glob_init_mask & INIT_LOCK ) != 0 &&
-                 ( _cmd_params['initoptions'] != INIT_NONE || _cmd_params['settings']['symbols'] ) )
+            if ( ( _glob_init_mask & INIT_LOCK ) != 0 && ( _cmd_params['initoptions'] != INIT_NONE || _cmd_params['settings']['symbols'] ) )
             {
                 var _msg = "<orange>Init options have been locked.</orange>"+_glob_crlf ;
                     _msg += "<orange>No modifications can be achieved.</orange>" ;

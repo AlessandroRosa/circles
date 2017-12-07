@@ -248,7 +248,7 @@ circle.prototype.roundTo = function( _round_digits = _CIRCLE_OBJ_MAX_ACCURACY )
 circle.prototype.output = function( _format = "", _round_digits = _CIRCLE_OBJ_MAX_ACCURACY, _include_notes = NO )
 {
     _round_digits = safe_int( _round_digits, _CIRCLE_OBJ_MAX_ACCURACY );
-    _include_notes = safe_int( _include_notes, YES ), _format = safe_string( _format, "" ) ;
+    _include_notes = safe_int( _include_notes, NO ), _format = safe_string( _format, "" ) ;
     var _out = "" ;
  	if ( !is_point( this.center ) || isNaN( this.radius ) ) return "" ;
     var _center_x = this.center.x == 0 ? this.center.x : this.center.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ;

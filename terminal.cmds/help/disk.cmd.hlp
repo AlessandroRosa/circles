@@ -11,18 +11,18 @@
 <lightblue>%draw%</lightblue> <snow>nodraw or draw</snow>
 <lightblue>%file%</lightblue> <snow>export the list into a plain text file</snow>
 
-<lightblue>disk add a center:0,0 radius:1 draw fill fillcolor:255,255,255 bordercolor:#E0E0F0</lightblue>
+<lightblue>disk add a 0,0 radius:1 draw fill fillcolor:255,255,255 bordercolor:#E0E0F0</lightblue>
 
-<lightblue>disk add a center:0,0 radius:1 draw fill fillcolor:255,255,255 bordercolor:#E0E0F0 storagein</lightblue>
+<lightblue>disk add a 0,0 radius:1 draw fill fillcolor:255,255,255 bordercolor:#E0E0F0</lightblue>
 <cadetblue>same as above, but the disk is saved into the default storage subset</cadetblue>
 
-<lightblue>disk add a center:0,0 radius:1 draw fill fillcolor:255,255,255 bordercolor:#E0E0F0 storagein storagesubset:disks</lightblue>
+<lightblue>disk add a 0,0 radius:1 draw fill fillcolor:255,255,255 bordercolor:#E0E0F0 storagesubset:disks</lightblue>
 <cadetblue>same as above, but the map is saved into the 'disks' storage subset (if existing)</cadetblue>
 
-<lightblue>disk changelabel a b</lightblue>
+<lightblue>disk changesymbol a b</lightblue>
 <cadetblue>pick up the item with label 'a' and turn it to 'b'</cadetblue>
 
-<lightblue>disk changeinvlabel a A</lightblue>
+<lightblue>disk changeinvsymbol a A</lightblue>
 <cadetblue>pick up the item with label 'a' and turn the inverse label to 'b'</cadetblue>
 
 <lightblue>disk check</lightblue>
@@ -42,12 +42,12 @@
 <lightblue>disk find 2</lightblue>
 <lightblue>disk find A</lightblue>
 
-<lightblue>disk intersect a A %plot%</lightblue>
-<cadetblue>return the intersection points if any and plot them, if required</cadetblue>
+<lightblue>disk intersect a A plot</lightblue>
+<cadetblue>return the intersection points if any and plot them, if 'plot' attribute is mentioned</cadetblue>
 
 <lightblue>disk list -> disk.list.txt</lightblue>
-<lightblue>disk list attr|coords|all</lightblue>
-<cadetblue>whole list (only attributes|coords are displayed - all by default)</lightblue>
+<lightblue>disk list attr | coords | all</lightblue>
+<cadetblue>whole list (only attributes or only coordinates are displayed, both (all) by default)</lightblue>
 
 <lightblue>disk list coords A B</lightblue>
 <cadetblue>just list items tagged as 'A' and as 'B' (only coords displayed)</lightblue>
@@ -82,25 +82,25 @@
 <lightblue>disk pair 1 3 set</lightblue>
 <cadetblue>same as above and register the resulting mobius map into the seeds archive</cadetblue>
 
-<lightblue>disk pair 1 3 set storagein mobius</lightblue>
+<lightblue>disk pair 1 3 set storagesubset:mobius</lightblue>
 <cadetblue>the resulting mobius map is also stored into the 'mobius' storage subset</cadetblue>
 
-<lightblue>disk pair 1 3 set storagein circles</lightblue>
+<lightblue>disk pair 1 3 set storagesubset:circles</lightblue>
 <cadetblue>the disks indexed at 1 and 3 are also stored into the 'circle' storage subset</cadetblue>
 
 <lightblue>disk rotate a %rad:3.14 | deg:45%</lightblue>
 <cadetblue>rotate the disk by radians or degrees</cadetblue>
-<lightblue>disk rotate a center:1,0 deg:180</lightblue>
+<lightblue>disk rotate a 1,0 deg:180</lightblue>
 
 <lightblue>disk select 0</lightblue>
 <lightblue>disk select 1 2 (multiple selection)</lightblue>
 <lightblue>disk select a</lightblue>
 <lightblue>disk select A a (multiple selection)</lightblue>
 
-<lightblue>disk select a,A storagein circles</lightblue>
+<lightblue>disk select a,A storagesubset:circles</lightblue>
 <cadetblue>select and saves both disks into the storage subset 'circles'</lightblue>
 
-<lightblue>disk update 0 center:1,0 fill draw</lightblue>
+<lightblue>disk update 0 1,0 fill draw</lightblue>
 <lightblue>disk update a radius:1.2 nofill nodraw</lightblue>
 <lightblue>disk update A fillcolor:brown</lightblue>
 <lightblue>disk update b fillcolor:255,255,255</lightblue>
