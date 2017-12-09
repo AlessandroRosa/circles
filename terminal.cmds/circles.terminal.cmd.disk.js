@@ -49,8 +49,8 @@ function circles_terminal_cmd_disk()
         _cmd_params['index'] = null ;
         _cmd_params['inv_symbol'] = null ;
         _cmd_params['item'] = ITEMS_SWITCH_SEEDS ;
-        _cmd_params['mirrorx'] = null ;
-        _cmd_params['mirrory'] = null ;
+        _cmd_params['x-mirror'] = null ;
+        _cmd_params['y-mirror'] = null ;
         _cmd_params['notesflag'] = NO ;
         _cmd_params['notes'] = [] ;
         _cmd_params['off'] = NO ;
@@ -73,9 +73,9 @@ function circles_terminal_cmd_disk()
     	_local_cmds_params_array.push( "add", "attr", "coords", "changesymbol", "changeinvsymbol", "check", "copy",
                                        "delete", "find", "fill", "nofill", "draw", "nodraw", "table", "off", "on",
                                        "intersect", "symbol", "list", "mirror", "move", "notes", "select", "html", "help",
-                                       "disabled", "area", "center", "circumference", "curvature", "diameter", "pair", "set",
+                                       "disabled", "area", "center", "circumference", "curvature", "diameter", "set",
                                        "radius", "mirror", "update", "rotate", "round", "plot", "release", "seeds", "generators",
-                                       "colorize", "label" );
+                                       "colorize", "label", "xaxis", "yaxis" );
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 		_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -100,12 +100,12 @@ function circles_terminal_cmd_disk()
             else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
             else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
             else if ( _p.start_with( "storagesubset:" ) ) _cmd_params['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
-            else if ( _p.is_one_of( "all", "draw", "fill", "html", "off", "on", "plot", "table" ) ) _cmd_params[_p] = YES ;
+            else if ( _p.is_one_of( "all", "draw", "fill", "html", "new", "off", "on", "plot", "table" ) ) _cmd_params[_p] = YES ;
             else if ( _p.stricmp( "nofill" ) ) _cmd_params['fill'] = NO ;
             else if ( _p.stricmp( "nodraw" ) ) _cmd_params['border'] = NO ;
             else if ( _p.is_one_of_i( "generators", "seeds" ) ) _cmd_params['params'].push( _p ) ;
-            else if ( _p.is_one_of_i( "add", "changesymbol", "changeinvsymbol", "check", "colorize", "decolorize", "copy", "delete", "find",
-                                      "intersect", "label", "list", "mirror", "move", "notes", "pair", "select", "release",
+            else if ( _p.is_one_of_i( "add", "bomb", "changesymbol", "changeinvsymbol", "check", "colorize", "decolorize", "copy", "delete", "find",
+                                      "intersect", "label", "list", "mirror", "move", "notes", "select", "release",
                                       "rotate", "symbol", "update" ) ) _cmd_params['action'] = _p.toLowerCase();
             else if ( _p.is_one_of_i( "area", "center", "circumference", "curvature", "diameter", "radius" ) )
                     _cmd_params['properties'].push( _p.toLowerCase() );
@@ -175,10 +175,8 @@ function circles_terminal_cmd_disk()
             else if ( _p.toLowerCase().start_with( "radius:" ) ) _cmd_params['radius'] = safe_float( _p.replace( /radius:/gi, "" ), 0 );
             else if ( _p.toLowerCase().start_with( "dx:" ) ) _cmd_params['dx'] = safe_float( _p.replace( /dx:/gi, "" ), 0 );
             else if ( _p.toLowerCase().start_with( "dy:" ) ) _cmd_params['dy'] = safe_float( _p.replace( /dy:/gi, "" ), 0 );
-            else if ( _p.toLowerCase().start_with( "x:" ) ) _cmd_params['x'] = safe_float( _p.replace( /x:/gi, "" ), 0 );
-            else if ( _p.toLowerCase().start_with( "y:" ) ) _cmd_params['y'] = safe_float( _p.replace( /y:/gi, "" ), 0 );
-            else if ( _p.stricmp( "x" ) ) _cmd_params['mirrorx'] = 1 ;
-            else if ( _p.stricmp( "y" ) ) _cmd_params['mirrory'] = 1 ;
+            else if ( _p.stricmp( "xaxis" ) ) _cmd_params['x-mirror'] = 1 ;
+            else if ( _p.stricmp( "yaxis" ) ) _cmd_params['y-mirror'] = 1 ;
             else if ( _p.testME( _glob_cartesian_coords_regex_pattern ) && _cmd_params['center'] == null )
             {
                 if ( !is_point( _cmd_params['center'] ) )
@@ -407,6 +405,25 @@ function circles_terminal_cmd_disk()
                     else { _b_fail = YES, _error_str = _ret_msg ; }
                 }
                 break ;
+				case "bomb":
+				var _n_items = safe_size( _items_array, 0 ) ;
+				if ( _n_items == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the disks list is empty ", _par_1, _cmd_tag );
+				else
+				{
+                   	var _params_array = [], _pre_prompt = null ;
+					_params_array['prepromptquestion'] = null ;
+                   	_params_array['promptquestion'] = _prompt_question = "Confirm to delete all disks ("+_n_items+") ? " ;
+                   	_params_array['yes_fn'] = function() { _items_array.flush();;
+                        if ( _glob_terminal_autorefresh ) circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, NO, _out_channel ) ;
+						circles_lib_output( _out_channel, DISPATCH_SUCCESS, "All disks have been deleted with success.", _par_1, _cmd_tag );
+					}
+                   	_params_array['ifquestiondisabled_fn'] = function() { _items_array.flush();;
+					if ( _glob_terminal_autorefresh ) circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, NO, _out_channel ) ;
+					}
+					if ( !_glob_terminal_echo_flag || _cmd_params["silent"] ) _params_array['yes_fn'].call(this);
+                   	else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+				}
+				break ;
                 case "changesymbol":
                     if ( !is_array( _symbols_array ) ) { _b_fail = YES, _error_str = "Missing input symbols" ; }
                     else if ( _symbols_array.length == 0 ) { _b_fail = YES, _error_str = "Missing input symbols" ; }
@@ -617,7 +634,6 @@ function circles_terminal_cmd_disk()
                             {
                                 _obj_index = safe_int( _index_selection_array[_i], UNFOUND );
                                 _current_symbol = _obj_index != UNFOUND ? _items_array[_obj_index].symbol : "" ;
-								console.log( "OBJ", _obj_index, _current_symbol );
                                 if ( _obj_index != UNFOUND )
                                 {
                                     _items_array.remove( _obj_index, _obj_index );
@@ -836,23 +852,18 @@ function circles_terminal_cmd_disk()
                                     circles_lib_output( _out_channel, DISPATCH_INFO, _row, _par_1, _cmd_tag );
                                 }
                             }
-                            else
-                            {
-                                _row = "Memory leak: detected null map at place " + _i ;
-                                circles_lib_output( _out_channel, DISPATCH_WARNING, _row, _par_1, _cmd_tag );
-                            }
+                            else circles_lib_output( _out_channel, DISPATCH_WARNING, "Memory leak: detected null map at place " + _i, _par_1, _cmd_tag );
                         }
 
                         if ( _n_display == 0 ) _out_file_text += "No maps match the input filters" ;
-
                         if ( _html ) circles_lib_terminal_color_decode_htmltext( "<gray>" + _out_file_txt + "</gray>", 'bip', 'right', 'top' );
                         else if ( _cmd_params['dump'] )
                         {
-		 											  _cmd_params['dump_array'] = is_array( _cmd_params['dump_array'] ) ? _cmd_params['dump_array'][0] : "circles.disk.list.txt" ;
-														var _ret_chunk = circles_lib_dump_data_to_format( _out_file_txt.strip_tags(), _cmd_params['dump_array'], "savepix" );
-														var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
-														var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "" ;
-														circles_lib_output( _out_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
+							_cmd_params['dump_array'] = is_array( _cmd_params['dump_array'] ) ? _cmd_params['dump_array'][0] : "circles.disk.list.txt" ;
+							var _ret_chunk = circles_lib_dump_data_to_format( _out_file_txt.strip_tags(), _cmd_params['dump_array'], "savepix" );
+							var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
+							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "" ;
+							circles_lib_output( _out_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                         }
 
                         _out_text_string = _out_file_txt ;
@@ -864,42 +875,43 @@ function circles_terminal_cmd_disk()
                 break ;
                 case "mirror":
                     var _selected_symbol = "" ;
-                    for( var _l = 0 ; _l < _symbols_array.length ; _l++ )
-                    {
-                         if ( _symbols_array[_l].stricmp( "x" ) )
-                         {
-                             _cmd_params['mirrorx'] = YES ;
-                             _symbols_array.remove( _l, _l );
-                             _l = -1 ;
-                         }
-                         else if ( _symbols_array[_l].stricmp( "y" ) )
-                         {
-                             _cmd_params['mirrory'] = YES ;
-                             _symbols_array.remove( _l, _l );
-                             _l = -1 ;
-                         }
-                    }
-
-                    var _search_index = UNDET, _old_obj, ITEM, _mirror_x, _mirror_y, _old_symbol, _new_symbol ;
+					console.log( _cmd_params );
+                    var _search_index = UNDET, _old_obj, ITEM, _mirror_x, _mirror_y, _symbol = "", _new_item_symbol = "" ;
+                    _mirror_x = _cmd_params['x-mirror'], _mirror_y = _cmd_params['y-mirror'] ;
+					var _mirroring_array = [] ;
+					if ( _mirror_x != null ) _mirroring_array.push( "x-axis" );
+					if ( _mirror_y != null ) _mirroring_array.push( "y-axis" );
                     for( var _i = 0 ; _i < _symbols_array.length ; _i++ )
                     {
-                        _search_index = circles_lib_find_item_index_by_symbol( _items_array, _symbols_array[_i] );
+						_symbol = _symbols_array[_i] ;
+                        _search_index = circles_lib_find_item_index_by_symbol( _items_array, _symbol );
+						console.log( _symbols_array[_i], ">>", _search_index, "|", is_array( _items_array ) );
                         if ( _search_index != UNFOUND && is_array( _items_array ) )
                         {
-                            _old_obj = _items_array[_search_index] ;
-                            ITEM = clone(_old_obj);
-                            if ( is_item_obj( ITEM ) )
+                            if ( is_item_obj( _items_array[_search_index] ) )
                             {
-                                _mirror_x = _cmd_params['mirrorx'], _mirror_y = _cmd_params['mirrory'] ;
-                                if ( _mirror_x == 1 ) ITEM.complex_circle.center.x = -( ITEM.complex_circle.center.x );
-                                if ( _mirror_y == 1 ) ITEM.complex_circle.center.y = -( ITEM.complex_circle.center.y );
-                                    
-                                _old_symbol = ITEM.symbol, _new_symbol = circles_lib_alphabet_suggest_symbol();
-                                ITEM.original_word = ITEM.symbol = _new_symbol ;
-                                ITEM.inverse_symbol = circles_lib_alphabet_suggest_inverse_symbol( _new_symbol );
-                                    
-                                _items_array.push( ITEM );
-                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Disk '"+_old_symbol+"' mirrored to '"+_new_symbol+"' with success", _par_1, _cmd_tag );
+								console.log( _mirror_x, _mirror_y );
+
+								if ( _cmd_params['new'] )
+								{
+									console.log( "#1" );
+									ITEM = _items_array[_search_index].copy();
+									console.log( "#2", _symbol );
+									ITEM.symbol = ITEM.original_word = _new_item_symbol = circles_lib_alphabet_suggest_symbol( _items_array, _symbol.isAlphaUpper() ? CAPS_LETTER : SMALL_LETTER );
+									console.log( "#3", _new_item_symbol );
+									ITEM.inverse_symbol = circles_lib_alphabet_suggest_inverse_symbol( _new_item_symbol );
+									console.log( "#4", ITEM );
+									if ( _mirror_x == 1 ) ITEM.complex_circle.center.x = -ITEM.complex_circle.center.x;
+									if ( _mirror_y == 1 ) ITEM.complex_circle.center.y = -ITEM.complex_circle.center.y;
+									_items_array.push( ITEM );
+								}
+								else
+								{
+									if ( _mirror_x == 1 ) _items_array[_search_index].complex_circle.center.x = -_items_array[_search_index].complex_circle.center.x;
+									if ( _mirror_y == 1 ) _items_array[_search_index].complex_circle.center.y = -_items_array[_search_index].complex_circle.center.y;
+								}
+
+                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Disk '"+_symbol+"' mirrored to '"+_mirroring_array.join( " and " )+"' with success", _par_1, _cmd_tag );
                                 circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _out_channel );
                                 if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init disks", _glob_terminal, _out_channel );
                                 if ( _glob_terminal_autorefresh ) circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, NO, _out_channel ) ;
@@ -909,19 +921,10 @@ function circles_terminal_cmd_disk()
     							    circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
     							}
                             }
-                            else
-                            {
-                                _b_fail = YES, _error_str = "Can't mirror: memory failure" ;
-                            }
+                            else { _b_fail = YES, _error_str = "Can't mirror: memory failure" ; }
                         }
-                        else if ( _search_index == UNFOUND )
-                        {
-                            _b_fail = YES, _error_str = "Can't mirror: no such element is found" ;
-                        }
-                        else if ( !is_array( _items_array ) )
-                        {
-                            _b_fail = YES, _error_str = "Memory failure: can't get current items" ;
-                        }
+                        else if ( _search_index == UNFOUND ) { _b_fail = YES, _error_str = "Can't mirror: no such element is found" ; }
+                        else if ( !is_array( _items_array ) ) { _b_fail = YES, _error_str = "Memory failure: can't get current items" ; }
                     }
                 break ;
                 case "move":
@@ -1002,206 +1005,6 @@ function circles_terminal_cmd_disk()
                             circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
 
                             if ( _cmd_params['storagesubset'].length > 0 ) _cmd_params['storagequeue'].push( _items_array[_seeds_ret_i].copy() );
-                        }
-                    }
-                break ;
-                case "pair":
-                    _symbols_array = _symbols_array.unique();
-                    var _input_params = _cmd_params['params'] ;
-                    var _src_items_set_ref = _input_params.includes( "generators" ) ? 2 : ( _input_params.includes( "seeds" ) ? 1 : 0 ) ;
-                    var _src_items_set_name = "" ;
-                 		if ( !_src_items_set_ref.is_one_of( 1, 2 ) )
-                 		{
-												circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing source set for disks pairing action: seeds will be assumed by default", _par_1, _cmd_tag );
-												_src_items_set_ref = 1 ;
-										}
-										
-                 		switch( _src_items_set_ref )
-										{
-												case 1:
-												circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Pairing action will be performed on the</lightgray> <snow>seed</snow> <lightgray>set</lightgray>", _par_1, _cmd_tag );
-												_src_items_set_ref = _items_array ;
-												_src_items_set_name = "seeds" ;
-												break ;
-												case 2:
-												circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Pairing action will be performed on the</lightgray> <snow>gens</snow> <lightgray>set</lightgray>", _par_1, _cmd_tag );
-												_src_items_set_ref = _glob_gens_array ;
-												_src_items_set_name = "generators" ;
-												break ;
-										}
-										 
-                    var _set = _cmd_params['extras'].includes_i( "set" ) ? YES : NO ;
-                    var _n_symbols = safe_size( _symbols_array, 0 );
-                    var _n_alphabet = safe_size( _glob_alphabet, 0 ) ;
-                    var _n_zplane_items = safe_size( _items_array, 0 );
-                    var _index_count_tmp = 0, _letters_count_tmp = 0 ;
-                    if ( _n_zplane_items == 0 )
-                    {
-                        _b_fail = YES, _error_str = "No disks detected to be paired: try some draws in the Z-plane first" ;
-                    }
-                    else if ( _n_symbols > 0 )
-                    {
-                        $.each( _symbols_array,
-                                function( _i, _l )
-                                {
-                                    if ( ( _l + "" ).isAlpha() ) _letters_count_tmp++ ;
-                                    else if ( ( _l + "" ).isNumber() ) _index_count_tmp++ ;
-                                }
-                                ) ;
-                                
-                        if ( _index_count_tmp > 0 && _letters_count_tmp > 0 )
-                        {
-                           _b_fail = YES, _error_str = "Input items could be not of hybrid type: they all should be numerical indexes or letters" ;
-                        }
-                        else if ( _letters_count_tmp > 0 )
-                        {
-                           if ( _n_alphabet == 0 )
-                           {
-															circles_lib_output( _out_channel, DISPATCH_WARNING, "The current alphabet is still empty: items must be registered and grouped first, in order to be referenced by symbols", _par_1, _cmd_tag );
-															circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>System will attempt to get them through indexes</yellow>", _par_1, _cmd_tag );
-															var _tmp_index = [] ;
-															$.each( _symbols_array, function( _i, _sym ) { var _index = circles_lib_find_item_index_by_symbol( _src_items_set_ref, _sym ); if ( _index != UNFOUND ) _tmp_index.push( _index ) ; } ) ;
-															if ( _tmp_index.length == _letters_count_tmp )
-															{
-																	circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Indexes "+_tmp_index.join( ", " )+" for entries "+_symbols_array.join( ", " )+" have been detected with success</lime>", _par_1, _cmd_tag );
-																	_symbols_array = _tmp_index.clone() ;
-															}
-															else if ( _tmp_index.length != _letters_count_tmp )
-															{
-																	_b_fail = YES ;
-																	var _diff = _symbols_array.difference( _tmp_index, function( _a, _b ) { return _a.strcmp( _b ) ; } );
-				                          _error_str = "Some symbols '"+_diff.join( ", " )+"' do not refer to any entry in the archive" ;
-				                          var _alphabet = circles_lib_alphabet_get();
-				                          if ( !is_array( _alphabet ) ) _alphabet = [] ;
-				                          _error_str += _glob_crlf + ( safe_size( _alphabet, 0 ) > 0 ? "Current available symbols are '"+_alphabet.join( ", " )+"'" : "There are no available symbols: items shall be accessed through indexes" ) ;
-				                          _error_str += _glob_crlf + "Current index range is : 0 - " + Math.max( 0, safe_size( _src_items_set_ref, 0 ) - 1 ) ;
-															}
-                           }
-                           else if ( _n_alphabet == 1 )
-                           {
-                              _b_fail = YES, _error_str = "The size ("+_n_alphabet+") of current alphabet is insufficient: it shall be populated by two entries at least" ;
-                           }
-                        }
-                    }
-                    else if ( _n_symbols == 0 )
-                    {
-                        _b_fail = YES, _error_str = "Missing input letters: can't pair items" ;
-                    }
-                    else if ( _n_symbols == 1 )
-                    {
-                        _b_fail = YES, _error_str = "Insufficient input letters: pairing action requires two entries" ;
-                    }
-                    else if ( _n_symbols > 2 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Exceeding input entries ("+_n_symbols+"): only the first two letters will be acquired to pair items", _par_1, _cmd_tag );
-
-                    if ( !_b_fail )
-                    {
-                        var _symbols = _symbols_array.subset( 2 ), _report = [], _existence_flag = YES ;
-                        circles_lib_output( _out_channel, DISPATCH_INFO, "No errors detected, starting to work on symbols "+_symbols_array.join( ", " ), _par_1, _cmd_tag );
-												if ( _letters_count_tmp > 0 )
-                        {
-                            circles_lib_output( _out_channel, DISPATCH_WARNING, "Input symbols are of alphabetic type: the items with symbols "+_symbols_array.join( ", " )+ " will be detached from current symbols", _par_1, _cmd_tag );
-                            $.each( _src_items_set_ref, function( _i, _item ) { if ( _symbols_array.includes_i( _item.symbol ) ) _src_items_set_ref[_i].original_word = _src_items_set_ref[_i].symbol = "" ; } ) ;
-
-                            circles_lib_output( _out_channel, DISPATCH_INFO, "Input symbols are of alphabetic type: they will be converted into numerical indexes to items", _par_1, _cmd_tag );
-                            $.each( _symbols, function( _i, _sym ) { var _index = circles_lib_find_item_index_by_symbol( _src_items_set_ref, _sym ); if ( !is_item_obj( _src_items_set_ref[_index] ) ) _report.push( _index + 1 ); } ) ;
-                        }
-
-                        if ( _index_count_tmp > 0 )
-                        {
-                            circles_lib_output( _out_channel, DISPATCH_WARNING, "Input symbols are of numerical type: the items indexed as "+_symbols_array.join( ", " )+ " will be cleared to acquire the new settings", _par_1, _cmd_tag );
-                            var _inv_i = 0 ;
-                            $.each( _src_items_set_ref,
-																		function( _i, _item )
-																		{
-																				_inv_i = circles_lib_find_item_index_by_symbol( _src_items_set_ref, _src_items_set_ref[_i].inverse_symbol );
-																				_src_items_set_ref[_i].original_word = _src_items_set_ref[_i].symbol = _src_items_set_ref[_i].inverse_symbol = "" ;
-																				if ( _inv_i != UNFOUND )
-																				_src_items_set_ref[_inv_i].original_word = _src_items_set_ref[_inv_i].symbol = _src_items_set_ref[_inv_i].inverse_symbol = "" ;
-																		} ) ;
-
-                            circles_lib_output( _out_channel, DISPATCH_INFO, "Input symbols are of numerical type: they will be used as numerical indexes to items", _par_1, _cmd_tag );
-                            $.each( _symbols, function( _i, _sym ) { _sym = safe_int( _sym, 0 ) - 1 ; if ( !is_item_obj( _src_items_set_ref[_sym] ) ) _report.push( _sym + 1 ); } ) ;
-                        }
-
-                        if ( safe_size( _report, 0 ) > 0 )
-                        {
-                           _b_fail = YES ;
-                           _error_str = "The following symbols ("+_report.join( ", " )+") do not refer to registered items or just disks on the Z-plane" ;
-                           if ( _report.includes(0) && _index_count_tmp > 0 )
-                           _error_str += _glob_crlf + "Input indexes are 1-based, hence index 0 is not permitted" ;
-                        }
-                        else
-                        {
-                           var _zero_based_indexes = _index_count_tmp > 0 ? _symbols.work( function( _sym ) { return safe_int( _sym, 1 ) - 1 ; } ) : _symbols.copy() ;
-                           var _item_1 = _items_array[ _zero_based_indexes[0] ] ;
-                           var _item_2 = _items_array[ _zero_based_indexes[1] ] ;
-                           if ( is_item_obj( _item_1 ) && is_item_obj( _item_2 ) )
-                           {
-                               var _disk_1 = _item_1.complex_circle, _disk_2 = _item_2.complex_circle ;
-                               var _mm = new mobius_map();
-                                   _mm.init_inversion_from_two_circles( _disk_1, _disk_2 );
-                               var _mm_params = _mm.get_params(YES);
-
-                               var _msg = "The resulting Mobius map is" + _glob_crlf ;
-                               circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
-                               $.each( _mm_params[0], function( _i, _param ) { circles_lib_output( _out_channel, DISPATCH_SUCCESS, _mm_params[1][_i] + ": " + _param.formula(), _par_1, _cmd_tag ); } ) ;
-
-                               var _new_symbol = circles_lib_alphabet_suggest_symbol( _src_items_set_ref, CAPS_LETTER ) ;
-                               circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Suggested new symbol <snow>"+_new_symbol+"</snow>", _par_1, _cmd_tag );
-                                     
-                               _glob_zplane_selected_items_array = _zero_based_indexes.clone();
-                               var _ret_chunk = circles_lib_canvas_render_zplane( null, null, null, NO, YES, YES, NO, YES, _out_channel ) ;
-													     var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-														   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
-														   
-							   if ( _ret_id == RET_ERROR ) { _b_fail = YES, _error_str = _ret_msg ; }
-							   else if ( _ret_id == RET_OK )
-                               circles_lib_output( _out_channel, DISPATCH_INFO, "Selected items have been hightlighted on the z-plane", _par_1, _cmd_tag );
-                                     
-                               if ( _set && !_b_fail )
-                               {
-																	 _src_items_set_ref[ _zero_based_indexes[0] ].map = _mm.copy();
-																	 _src_items_set_ref[ _zero_based_indexes[0] ].original_word = _src_items_set_ref[ _zero_based_indexes[0] ].symbol = _new_symbol ;
-																	 _src_items_set_ref[ _zero_based_indexes[0] ].inverse_symbol = circles_lib_word_inverse_get( _new_symbol ) ;
-																	 _src_items_set_ref[ _zero_based_indexes[0] ].complex_circle.bordercolor = DEFAULT_DRAW_SEED_COLOR ;
-																	 _src_items_set_ref[ _zero_based_indexes[0] ].complex_circle.fillcolor = DEFAULT_FILL_SEED_COLOR ;
-																	 _src_items_set_ref[ _zero_based_indexes[0] ].screen_circle.bordercolor = DEFAULT_DRAW_SEED_COLOR ;
-																	 _src_items_set_ref[ _zero_based_indexes[0] ].screen_circle.fillcolor = DEFAULT_FILL_SEED_COLOR ;
-
-                                   _src_items_set_ref[ _zero_based_indexes[1] ].map = _mm.inv().copy();
-																	 _src_items_set_ref[ _zero_based_indexes[1] ].original_word = _src_items_set_ref[ _zero_based_indexes[1] ].symbol = circles_lib_word_inverse_get( _new_symbol ) ;
-																	 _src_items_set_ref[ _zero_based_indexes[1] ].inverse_symbol = _new_symbol ;
-																	 _src_items_set_ref[ _zero_based_indexes[1] ].complex_circle.bordercolor = DEFAULT_DRAW_INVERSE_SEED_COLOR ;
-																	 _src_items_set_ref[ _zero_based_indexes[1] ].complex_circle.fillcolor = DEFAULT_FILL_INVERSE_SEED_COLOR ;
-																	 _src_items_set_ref[ _zero_based_indexes[1] ].screen_circle.bordercolor = DEFAULT_DRAW_SEED_COLOR ;
-																	 _src_items_set_ref[ _zero_based_indexes[1] ].screen_circle.fillcolor = DEFAULT_FILL_SEED_COLOR ;
-
-                                   circles_lib_output( _out_channel, DISPATCH_SUCCESS, "This Mobius map has been correctly linked to disks", _par_1, _cmd_tag );
-                                   circles_lib_output( _out_channel, DISPATCH_SUCCESS, "and referred by symbol '"+_new_symbol+"'", _par_1, _cmd_tag );
-
-                                   if ( _items_array[ _zero_based_indexes[0] ].symbol.length == 0 ||
-                                        _items_array[ _zero_based_indexes[1] ].symbol.length == 0 )
-                                   circles_lib_output( _out_channel, DISPATCH_WARNING, "Letters have not been associated: use 'init' cmd", _par_1, _cmd_tag );
-
-                                   $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-                               }
-                               else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing input 'set' option: this is just a simulation and no pairing action will be performed on the "+_src_items_set_name+" set", _par_1, _cmd_tag );
-
-                               if ( _cmd_params['storagesubset'].length > 0 )
-                               {
-                                  circles_lib_output( _out_channel, DISPATCH_INFO, "> Detected request for saving items into '"+_cmd_params['storagesubset']+"' storage subset", _par_1, _cmd_tag );
-                                  circles_lib_output( _out_channel, DISPATCH_INFO, "> Both map and its inverse are being computed and stored", _par_1, _cmd_tag );
-                                  _cmd_params['storagequeue'].push( _src_items_set_ref[ _zero_based_indexes[0] ] );
-                                  _cmd_params['storagequeue'].push( _src_items_set_ref[ _zero_based_indexes[1] ] );
-                               }
-                           }
-                           else
-                           {
-                              if ( !is_circle( _disk_1 ) )
-                              circles_lib_output( _out_channel, DISPATCH_WARNING, "Index " + _symbols[0] + " does not refer to any valid disk to be paired", _par_1, _cmd_tag );
-                              if ( !is_circle( _disk_2 ) )
-                              circles_lib_output( _out_channel, DISPATCH_WARNING, "Index " + _symbols[1] + " does not refer to any valid disk to be paired", _par_1, _cmd_tag );
-                           }
                         }
                     }
                 break ;
@@ -1457,7 +1260,7 @@ function circle_terminal_cmd_disk_display_item( ITEM, _i, _out_channel, _params_
     	if ( _item_index == UNFOUND ) _item_index = circles_lib_find_item_index_by_symbol( _glob_gens_array, _inv_symbol ) ;
     	var _inverse_exists = _item_index != UNFOUND ;
     	var _inverse_color = _inverse_exists ? "snow" : COLOR_ERROR ;
-        var _symbol = _glob_crlf + "<yellow>Disk</yellow> <snow>" + ( _symbol.length == 0 ? "(unknown)" : _symbol ) + ( ( _inv_symbol.length > 0 && _glob_method != METHOD_INVERSION ) ? "</snow> <lightblue>inverse</lightblue> <"+_inverse_color+">"+_inv_symbol+( !_inverse_exists ? " (missing)" : "" )+"</"+_inverse_color+">" : "" );
+        var _symbol = _glob_crlf + "<yellow>Disk</yellow> <snow>" + ( _symbol.length == 0 ? "(unknown)" : _symbol ) + ( ( _inv_symbol.length > 0 && _glob_method == METHOD_ALGEBRAIC ) ? "</snow> <lightblue>inverse</lightblue> <"+_inverse_color+">"+_inv_symbol+( !_inverse_exists ? " (missing)" : "" )+"</"+_inverse_color+">" : "" );
         circles_lib_terminal_multicolor_echo( _symbol );
         if ( _what.is_one_of( "all", "attr" ) )
         {

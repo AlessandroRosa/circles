@@ -22,13 +22,18 @@
 
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 
+* test
+  - method inversion
+  - create a new disk 'A'
+  - disk mirror A xaxis yaxis new
+  - init disk << no response !
+
 * 'figures' cmd:
    - implement new syntax: figures delete @2-@5 (hint: fill two props delete_start:2, delete_end:5)
 
 --------------- FIX SOON -----------------------
 
 * Next cmd to check: disk
-       test actions: mirror | move | rotate | pair
   
 * Listings:
   - run and test all listings

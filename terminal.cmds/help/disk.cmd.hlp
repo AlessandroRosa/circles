@@ -19,6 +19,9 @@
 <lightblue>disk add a 0,0 radius:1 draw fill fillcolor:255,255,255 bordercolor:#E0E0F0 storagesubset:disks</lightblue>
 <cadetblue>same as above, but the map is saved into the 'disks' storage subset (if existing)</cadetblue>
 
+<lightblue>disk bomb</lightblue>
+<cadetblue>delete the whole disks list</cadetblue>
+
 <lightblue>disk changesymbol a b</lightblue>
 <cadetblue>pick up the item with label 'a' and turn it to 'b'</cadetblue>
 
@@ -39,6 +42,9 @@
 <lightblue>disk delete a</lightblue>
 <cadetblue>remove the map tagged as 'a'</cadetblue>
 
+<lightblue>disk delete all</lightblue>
+<cadetblue>same as 'bomb' action</cadetblue>
+
 <lightblue>disk find 2</lightblue>
 <lightblue>disk find A</lightblue>
 
@@ -58,13 +64,13 @@
 <lightblue>disk label on/off</lightblue>
 <cadetblue>show/hide labels in Z-plane</cadetblue>
 
-<lightblue>disk mirror x a</lightblue>
+<lightblue>disk mirror xaxis a</lightblue>
 <cadetblue>create a specular copy of the disk 'a' along the x-axis</cadetblue>
 
-<lightblue>disk mirror y a</lightblue>
+<lightblue>disk mirror yaxis a</lightblue>
 <cadetblue>create a specular copy of the disk 'a' along the y-axis</cadetblue>
 
-<lightblue>disk mirror x y a</lightblue>
+<lightblue>disk mirror xaxis yaxis a</lightblue>
 <cadetblue>create a specular copy of the disk 'a' with regard to the origin</cadetblue>
 
 <lightblue>disk move 0 dx:-0.2</lightblue>
@@ -75,18 +81,6 @@
 
 <lightblue>disk A notes this is a text for disk A</lightblue>
 <cadetblue>save a text into the notes for disk A</cadetblue>
-
-<lightblue>disk pair 1 3</lightblue>
-<cadetblue>pick disks 1 and 3 and attempt to recover the mobius map pairing them</cadetblue>
-
-<lightblue>disk pair 1 3 set</lightblue>
-<cadetblue>same as above and register the resulting mobius map into the seeds archive</cadetblue>
-
-<lightblue>disk pair 1 3 set storagesubset:mobius</lightblue>
-<cadetblue>the resulting mobius map is also stored into the 'mobius' storage subset</cadetblue>
-
-<lightblue>disk pair 1 3 set storagesubset:circles</lightblue>
-<cadetblue>the disks indexed at 1 and 3 are also stored into the 'circle' storage subset</cadetblue>
 
 <lightblue>disk rotate a %rad:3.14 | deg:45%</lightblue>
 <cadetblue>rotate the disk by radians or degrees</cadetblue>

@@ -19,9 +19,8 @@ function circles_terminal_cmd_docs()
      var _cmd_params = [];
 
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _params.length > 0 )
-     {
-         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+
+		 _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
          _cmd_params['keywords'] = NO ;
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
@@ -60,12 +59,12 @@ function circles_terminal_cmd_docs()
                 case "release":
                 circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
-                default: window.open( 'docs/circles.docs.php', 'CIRCLESdocsWND', '' ); break ;
+                default: console.log( "IN" );
+				window.open( 'docs/circles/circles.docs.php', 'CIRCLESdocsWND', '' );
+				break ;
              }
          }
 
-     }
-     else if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
      if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
      else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

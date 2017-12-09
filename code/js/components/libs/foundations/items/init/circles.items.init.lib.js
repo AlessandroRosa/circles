@@ -470,13 +470,8 @@ function circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, 
                else return [ RET_ERROR, "<red>Missing or invalid circles data for item '"+_symbol+"'</red>" ];
            }
 
-           var _msg = "<green>All items have been correctly init from disks</green>" ;
-           if ( _report )
-           {
-              _report_array.push( "", _msg );
-              _msg = _report_array.join( _glob_crlf );
-           }
-
+           var _msg = "All items have been correctly init from disks" ;
+           if ( _report ) { _report_array.push( "", _msg ); _msg = _report_array.join( _glob_crlf ); }
            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
            return [ RET_OK, _msg ];
        }

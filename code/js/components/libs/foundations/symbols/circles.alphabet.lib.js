@@ -32,7 +32,7 @@ function circles_lib_alphabet_get( _items_array )
     }
 }
 
-function circles_lib_alphabet_suggest_symbol( _items_array, _symbol_case )
+function circles_lib_alphabet_suggest_symbol( _items_array, _symbol_case = CAPS_LETTER )
 {
 		_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
@@ -54,6 +54,7 @@ function circles_lib_alphabet_suggest_symbol( _items_array, _symbol_case )
          }
          break ;
          case METHOD_INVERSION:
+		 default:
          for( var _i = 0 ; _i < _len ; _i++ )
          {
              _symbol = safe_string( _symbols[_i], "" ) ;
