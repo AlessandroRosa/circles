@@ -2,19 +2,20 @@ function circles_lib_items_copy_to_storage_space( _item_type, _question, _silent
 {
     if ( is_string( _item_type ) )
     {
-				switch( _item_type.toLowerCase() )
-				{
-						case "seeds": default: _item_type = ITEMS_SWITCH_SEEDS ; break ;
-						case "generators": _item_type = ITEMS_SWITCH_GENS ; break ;
-				}
+		switch( _item_type.toLowerCase() )
+		{
+			case "generators": _item_type = ITEMS_SWITCH_GENS ; break ;
+			case "seeds":
+			default: _item_type = ITEMS_SWITCH_SEEDS ; break ;
 		}
+	}
     else _item_type = safe_int( _item_type, ITEMS_SWITCH_SEEDS );
     
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_array = _item_type == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     
-		var _items_n = circles_lib_count_items( _items_array );
+	var _items_n = circles_lib_count_items( _items_array );
     var _symbol = _item_type == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
     var _storage_ref = _item_type == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
     if ( _items_n > 0 )
@@ -33,11 +34,11 @@ function circles_lib_items_copy_to_storage_space( _item_type, _question, _silent
        }
     }
     else
-		{
-			 var _msg = "Fail to copy "+_symbol+"s to storage space." + _glob_crlf.repeat(2) + ( _item_type == ITEMS_SWITCH_SEEDS ? _ERR_33_01 : _ERR_33_02 ) ;
-			 if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
-			 return _msg ;
-		}
+	{
+		var _msg = "Fail to copy "+_symbol+"s to storage space." + _glob_crlf.repeat(2) + ( _item_type == ITEMS_SWITCH_SEEDS ? _ERR_33_01 : _ERR_33_02 ) ;
+		if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+		return _msg ;
+	}
 }
 
 function circles_lib_items_unselect( _question, _silent, _out_channel )
@@ -46,27 +47,26 @@ function circles_lib_items_unselect( _question, _silent, _out_channel )
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     if ( _glob_disk_sel_index != UNDET )
     {
-		   if ( circles_lib_count_items() > 0 )
-		   {
-		      var _b_go = _question ? confirm( _QUESTION_04 ) : YES, _ret_chunk ;
-		      if ( _b_go )
-					{
-			       _glob_disk_sel_index = UNDET ;
-	        	 _glob_zplane_selected_items_array = [];
-             circles_lib_helper_div_remove();
-						 _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
-             if ( safe_int( _ret_chunk[ 0 ], 0 ) == RET_ERROR ) return _ret_chunk ;
-					}
-
-		      return _b_go ? [ 1, "All items have been unselected" ] : [ 0, "Unselection aborted" ] ;
-		   }
-		   else
-		   {
-		      if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't unselect: " + _ERR_33_01, _glob_app_title );
-		      return [ RET_ERROR, "Can't unselect: " + _ERR_33_01 ];
-		   }
+		if ( circles_lib_count_items() > 0 )
+		{
+		    var _b_go = _question ? confirm( _QUESTION_04 ) : YES, _ret_chunk ;
+		    if ( _b_go )
+			{
+		        _glob_disk_sel_index = UNDET ;
+	        	_glob_zplane_selected_items_array = [];
+				circles_lib_helper_div_remove();
+				_ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
+				if ( safe_int( _ret_chunk[ 0 ], 0 ) == RET_ERROR ) return _ret_chunk ;
+			}
+		    return _b_go ? [ 1, "All items have been unselected" ] : [ 0, "Unselection aborted" ] ;
 		}
 		else
+		{
+		    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't unselect: " + _ERR_33_01, _glob_app_title );
+		    return [ RET_ERROR, "Can't unselect: " + _ERR_33_01 ];
+	    }
+	}
+	else
     {
         var _msg = "Can't unselect: no item(s) selected" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
@@ -76,9 +76,9 @@ function circles_lib_items_unselect( _question, _silent, _out_channel )
 
 function circles_lib_items_check_data_coherence( _items_array )
 {
-		_items_array = circles_lib_items_set( _items_array ) ;
+	_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
-		if ( !_test ) return ITEM_ERR_UNDET ;
+	if ( !_test ) return ITEM_ERR_UNDET ;
     else if ( circles_lib_method_check() )
     {
         var FAILerror = ITEM_ERR_NONE, _items_n = circles_lib_count_items( _items_array );
@@ -119,12 +119,13 @@ function circles_lib_items_switch_to( _switch_to_val, _silent, _out_channel )
     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     if ( is_string( _switch_to_val ) )
     {
-				switch( _switch_to_val.toLowerCase() )
-				{
-						case "generators": _switch_to_val = ITEMS_SWITCH_GENS ; break ;
-						case "seeds": default: _switch_to_val = ITEMS_SWITCH_SEEDS ; break ;
-				}
+		switch( _switch_to_val.toLowerCase() )
+		{
+			case "generators": _switch_to_val = ITEMS_SWITCH_GENS ; break ;
+			case "seeds":
+			default: _switch_to_val = ITEMS_SWITCH_SEEDS ; break ;
 		}
+	}
     else if ( !is_number( _switch_to_val ) ) _switch_to_val = ITEMS_SWITCH_SEEDS ;
     else _switch_to_val = safe_int( _switch_to_val, ITEMS_SWITCH_SEEDS );
     if ( !_switch_to_val.is_one_of( ITEMS_SWITCH_SEEDS, ITEMS_SWITCH_GENS ) ) _switch_to_val = ITEMS_SWITCH_SEEDS ;
@@ -133,7 +134,7 @@ function circles_lib_items_switch_to( _switch_to_val, _silent, _out_channel )
     var _zplane_items_desc = circles_lib_items_get_def();
     var _ret_msg = "Switch to "+_zplane_items_desc+" (items)" ;
     if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title + " - Items init" );
-	  return [ RET_OK, _ret_msg ] ;
+	return [ RET_OK, _ret_msg ] ;
 }
 
 function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_mask, _out_channel )
@@ -143,15 +144,15 @@ function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_ma
     var _items_n = _glob_items_switch == ITEMS_SWITCH_GENS ? circles_lib_count_gens() : circles_lib_count_seeds();
     if ( _glob_method == METHOD_NONE )
     {
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_24_03, _glob_app_title );
-       return [ RET_WARNING, _ERR_24_03 ];
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_24_03, _glob_app_title );
+        return [ RET_WARNING, _ERR_24_03 ];
     }
     else if ( _items_n == 0 )
     {
-			 var _msg = _ERR_33_02 ;
-			 if ( _plugin_last_ref != 0 ) _msg += "\nPush 'set parameters' in the plug-in window" ;
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
-       return [ RET_ERROR, _msg ] ;
+		var _msg = _ERR_33_02 ;
+	    if ( _plugin_last_ref != 0 ) _msg += "\nPush 'set parameters' in the plug-in window" ;
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        return [ RET_ERROR, _msg ] ;
     }
     else if ( _items_n > 0 )
     {
@@ -203,9 +204,9 @@ function circles_lib_items_init( _index = UNDET, _question = YES, _silent = NO, 
     _init_mask = safe_int( _init_mask, _glob_init_mask );
     _report = safe_int( _report, NO ), _force_init = safe_int( _force_init, NO );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+	if ( _force_init ) _glob_items_to_init = 1 ;
     if ( _init_mask == INIT_AUTO_RECOGNITION ) _init_mask = circles_lib_items_auto_recognition_group_params();
     var _report_text = "", _items_n = circles_lib_count_items();
-	if ( _force_init ) _glob_items_to_init = 1 ;
     if ( _glob_method == METHOD_NONE )
     {
        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_24_03, _glob_app_title );
@@ -244,7 +245,8 @@ function circles_lib_items_init( _index = UNDET, _question = YES, _silent = NO, 
 		  if ( _ret_chunk[0] == RET_ERROR ) return _ret_chunk ;
        }
         
-       if ( _init_mask & INIT_FROM_DISKS ) _ret_chunk = circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, _force_init, _out_channel );
+
+	   if ( _init_mask & INIT_FROM_DISKS ) _ret_chunk = circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, _force_init, _out_channel );
        else if ( _init_mask & INIT_FROM_MAPS ) _ret_chunk = circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _force_init, _out_channel );
        else if ( !_force_init )
        {
@@ -263,10 +265,15 @@ function circles_lib_items_init( _index = UNDET, _question = YES, _silent = NO, 
         var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
 		var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown response" ;
 
-		if ( _ret_id == 0 )
+		if ( _ret_id == RET_IRRELEVANT )
+		{
+          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _ret_msg, _glob_app_title );
+          return _ret_chunk ;
+		}
+		else if ( _ret_id == RET_ERROR )
 		{
           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ret_msg, _glob_app_title );
-          return [ RET_ERROR, _ret_msg ] ;
+          return _ret_chunk ;
 		}
 
 		var _gens_exist = circles_lib_gens_model_exists();
@@ -366,10 +373,9 @@ function circles_lib_items_auto_recognition_group_params()
     }
 }
 
-function circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, _force, _out_channel )
+function circles_lib_items_init_group_from_disks( _silent = YES, _init_mask = _glob_init_mask, _report = NO, _force = YES, _out_channel = OUTPUT_SCREEN )
 {
-    _init_mask = safe_int( _init_mask, _glob_init_mask );
-    _silent = safe_int( _silent, YES ), _report = safe_int( _report, NO );
+    _init_mask = safe_int( _init_mask, _glob_init_mask ), _silent = safe_int( _silent, YES ), _report = safe_int( _report, NO );
     _force = safe_int( _force, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _locked = _glob_init_mask & INIT_LOCK ? YES : NO, _report_array = [] ;
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -377,21 +383,23 @@ function circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, 
     if ( !( _init_mask & INIT_FROM_DISKS ) ) return [ RET_ERROR, "Inconsistent input params to init group from disks" ] ;
     else if ( _items_n > 0 )
     {
-       var _paired_disk_required = _glob_method.is_one_of( METHOD_ALGEBRAIC ) ? YES : NO ;
-   		 var _check = ( _items_n % 2 != 0 && _glob_method.is_one_of( METHOD_ALGEBRAIC ) ) ? NO : YES ;
-			 if ( _check )
-       {
-       		 var _border, _fill, _bordercolor, _fillcolor ;
-           var _inv_symbol, _final_inverse_symbol, _candidate_inv_symbol, _index_inverse, ITEM, ITEM_INV, _work_mm = new mobius_map() ;
-           if ( _report )
-           {
+        var _paired_disk_required = _glob_method.is_one_of( METHOD_ALGEBRAIC ) ? YES : NO ;
+   		var _check_it = YES ;
+		if ( _items_n % 2 != 0 && _paired_disk_required ) _check_it = NO ;
+		else if ( _glob_method.is_one_of( METHOD_INVERSION ) ) _check_it = NO ;
+		if ( _check_it )
+        {
+       		var _border, _fill, _bordercolor, _fillcolor ;
+            var _inv_symbol, _final_inverse_symbol, _candidate_inv_symbol, _index_inverse, ITEM, ITEM_INV, _work_mm = new mobius_map() ;
+            if ( _report )
+            {
                if ( _glob_verbose && _glob_terminal_echo_flag ) _report_array.push( "<gray>Verbose mode is one: stages will be reported below</gray>" );
                _report_array.push( "<yellow>Starting data init from disks</yellow>" );
                _report_array.push( "<lightblue>" + _items_n + " element" + ( _items_n == 1 ? "" : "s" ) + " found</lightblue>" );
                _report_array.push( "<white>Scanning symbols</white>" );
-           }
+            }
            
-           var _failure_mask = 0 ;
+            var _failure_mask = 0 ;
 
            for( var _i = 0 ; _i < _items_n ; _i++ )
            {
@@ -467,23 +475,25 @@ function circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, 
 		                  else _report_array.push( "<aqua>Connecting items</aqua> <orange>'"+_symbol+"' is locked</orange>" );
 									}
                }
-               else return [ RET_ERROR, "<red>Missing or invalid circles data for item '"+_symbol+"'</red>" ];
+               else return [ RET_ERROR, "Missing or invalid circles data for item '"+_symbol+"'" ];
            }
 
-           var _msg = "All items have been correctly init from disks" ;
+           var _msg = "All items have been correctly initialized from disks" ;
            if ( _report ) { _report_array.push( "", _msg ); _msg = _report_array.join( _glob_crlf ); }
            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
            return [ RET_OK, _msg ];
        }
-       else
+       else if ( _items_n % 2 != 0 && _paired_disk_required )
        {
-           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_33_06, _glob_app_title );
+           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( _out_channel, DISPATCH_WARNING, _ERR_33_06, _glob_app_title );
            return [ RET_ERROR, _ERR_33_06 ] ;
        }
+	   else if ( _glob_method == METHOD_INVERSION ) return [ RET_IRRELEVANT, "Inversion method does not need disks to be initialized" ] ;
+	   else return [ RET_ERROR, _ERR_00_00 + " during initialization" ] ;
     }
     else
     {
-       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_33_01, _glob_app_title );
+       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( _out_channel, DISPATCH_WARNING, _ERR_33_01, _glob_app_title );
        return [ RET_ERROR, _ERR_33_01 ] ;
     }
 }

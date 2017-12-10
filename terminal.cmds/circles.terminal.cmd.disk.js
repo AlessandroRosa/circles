@@ -875,7 +875,6 @@ function circles_terminal_cmd_disk()
                 break ;
                 case "mirror":
                     var _selected_symbol = "" ;
-					console.log( _cmd_params );
                     var _search_index = UNDET, _old_obj, ITEM, _mirror_x, _mirror_y, _symbol = "", _new_item_symbol = "" ;
                     _mirror_x = _cmd_params['x-mirror'], _mirror_y = _cmd_params['y-mirror'] ;
 					var _mirroring_array = [] ;
@@ -885,22 +884,15 @@ function circles_terminal_cmd_disk()
                     {
 						_symbol = _symbols_array[_i] ;
                         _search_index = circles_lib_find_item_index_by_symbol( _items_array, _symbol );
-						console.log( _symbols_array[_i], ">>", _search_index, "|", is_array( _items_array ) );
                         if ( _search_index != UNFOUND && is_array( _items_array ) )
                         {
                             if ( is_item_obj( _items_array[_search_index] ) )
                             {
-								console.log( _mirror_x, _mirror_y );
-
 								if ( _cmd_params['new'] )
 								{
-									console.log( "#1" );
 									ITEM = _items_array[_search_index].copy();
-									console.log( "#2", _symbol );
 									ITEM.symbol = ITEM.original_word = _new_item_symbol = circles_lib_alphabet_suggest_symbol( _items_array, _symbol.isAlphaUpper() ? CAPS_LETTER : SMALL_LETTER );
-									console.log( "#3", _new_item_symbol );
 									ITEM.inverse_symbol = circles_lib_alphabet_suggest_inverse_symbol( _new_item_symbol );
-									console.log( "#4", ITEM );
 									if ( _mirror_x == 1 ) ITEM.complex_circle.center.x = -ITEM.complex_circle.center.x;
 									if ( _mirror_y == 1 ) ITEM.complex_circle.center.y = -ITEM.complex_circle.center.y;
 									_items_array.push( ITEM );
@@ -911,7 +903,8 @@ function circles_terminal_cmd_disk()
 									if ( _mirror_y == 1 ) _items_array[_search_index].complex_circle.center.y = -_items_array[_search_index].complex_circle.center.y;
 								}
 
-                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Disk '"+_symbol+"' mirrored to '"+_mirroring_array.join( " and " )+"' with success", _par_1, _cmd_tag );
+								var _msg = "Disk '"+_symbol+"' mirrored "+(_cmd_params['new']?"to the new disk '"+_new_item_symbol+"'":"")+" through "+_mirroring_array.join( " and " )+" with success" ;
+                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                                 circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _out_channel );
                                 if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init disks", _glob_terminal, _out_channel );
                                 if ( _glob_terminal_autorefresh ) circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, NO, _out_channel ) ;

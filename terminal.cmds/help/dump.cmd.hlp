@@ -1,0 +1,11 @@
+<banana>memory dump for objects in memory</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>dump %object%</snow>
+
+<yellow>dump seeds</yellow>
+<cadetblue>shows the memory dump for the array including the seeds</cadetblue>
+
+<lightblue>dump release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

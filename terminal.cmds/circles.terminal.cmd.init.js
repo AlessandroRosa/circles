@@ -26,8 +26,7 @@ function circles_terminal_cmd_init()
         _cmd_params['zplaneitems'] = "" ;
         _cmd_params['initoptions'] = INIT_NONE ;
         _cmd_params['grammars'] = [];
-        _cmd_params['settings'] = [];
-        _cmd_params['settings']['symbols'] = YES ;
+        _cmd_params['symbols'] = NO ;
         _cmd_params['auto'] = NO;
         _cmd_params['force'] = NO;
 
@@ -58,7 +57,7 @@ function circles_terminal_cmd_init()
         else if ( _p.stricmp( "singly" ) ) _cmd_params['initoptions'] |= INIT_SINGLE_ITEMS ;
         else if ( _p.is_one_of( "lock", "force" ) ) _cmd_params[""+_p] = YES ;
         else if ( _p.stricmp( "unlock" ) ) _cmd_params['lock'] = NO ;
-        else if ( _p.stricmp( "symbols" ) ) _cmd_params['settings']['symbols'] = YES ;
+        else if ( _p.stricmp( "symbols" ) ) _cmd_params['symbols'] = YES ;
         else if ( _p.stricmp( "show" ) ) _cmd_params['showoptions'] = YES ;
         else if ( _p.is_one_of_i( "and", "from" ) ) _cmd_params['grammars'].push( _p );
         else if ( _p.length > 0 ) { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
@@ -86,7 +85,7 @@ function circles_terminal_cmd_init()
             break ;
             default:
             var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-            if ( ( _glob_init_mask & INIT_LOCK ) != 0 && ( _cmd_params['initoptions'] != INIT_NONE || _cmd_params['settings']['symbols'] ) )
+            if ( ( _glob_init_mask & INIT_LOCK ) != 0 && ( _cmd_params['initoptions'] != INIT_NONE || _cmd_params['symbols'] ) )
             {
                 var _msg = "<orange>Init options have been locked.</orange>"+_glob_crlf ;
                     _msg += "<orange>No modifications can be achieved.</orange>" ;
@@ -167,7 +166,7 @@ function circles_terminal_cmd_init()
                 }
                 else
                 {
-                    if ( safe_size( _cmd_params['settings']['symbols'], 0 ) > 0 )
+                    if ( _cmd_params['symbols'] )
                     {
                         _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( !_glob_terminal_echo_flag, _glob_terminal_echo_flag, YES, YES, _out_channel );
                         _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
@@ -188,8 +187,9 @@ function circles_terminal_cmd_init()
 							var _ret_chunk = circles_lib_items_init( null, NO, YES, _init_mask, _glob_verbose, YES, _out_channel );
 							var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
-							if ( _ret_id == RET_OK )
+							switch( _ret_id )
 							{
+								case RET_OK:
 								if ( _init_mask & INIT_SINGLE_ITEMS ) _ret_msg += _glob_crlf + "Letters assignment has been set to: singly items" ;
 								else if ( _init_mask & INIT_PAIRED_ITEMS ) _ret_msg += _glob_crlf + "Items composition init has been set to: paired items" ;
                                         
@@ -208,8 +208,18 @@ function circles_terminal_cmd_init()
 									_glob_terminal_critical_halt_msg = _ret_msg.strip_tags();
 									_error_str = "" ;
 								}
+								break ;
+								case RET_ERROR:
+								_b_fail = YES, _error_str = _ret_msg ;
+								break ;
+								case RET_WARNING:
+								circles_lib_output( _out_channel, DISPATCH_WARNING, _ret_msg.strip_tags(), _par_1, _cmd_tag );
+								break ;
+								case RET_IRRELEVANT:
+								default:
+								circles_lib_output( _out_channel, DISPATCH_INFO, _ret_msg.strip_tags(), _par_1, _cmd_tag );
+								break ;
 							}
-							else { _b_fail = YES, _error_str = _ret_msg ; }
                         }
                     }
                 }
