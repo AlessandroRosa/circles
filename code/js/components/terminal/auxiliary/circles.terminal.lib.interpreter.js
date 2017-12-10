@@ -71,9 +71,9 @@ function circles_lib_terminal_load_cmd( _expression, _params_str, _out_channel, 
     $.ajaxSetup( {async:false} );
     var _filename = "circles.terminal.cmd." + _cmd_tag + ".js", _ret_cmd = false ;
     if ( _glob_code_run_cmds_array.includes( _cmd_tag ) ) return circles_lib_process_cmd( _cmd_tag, _params_str, _out_channel, _cmd_mode, _caller_id );
-    else if ( check_file_exists( _glob_terminal_cmds_path + _filename ) )
+    else if ( check_file_exists( _glob_paths['terminal_cmds_path'] + _filename ) )
     {
-			 $.getScript( _glob_terminal_cmds_path + _filename ).done(
+			 $.getScript( _glob_paths['terminal_cmds_path'] + _filename ).done(
                     function()
                     {
                        var _include_files = is_array( _glob_terminal_cmd_files_include[ _cmd_tag ] ) ? _glob_terminal_cmd_files_include[ _cmd_tag ].clone() : [] ;

@@ -91,8 +91,7 @@ var _glob_inversion_circle_post = new circle();
 
 var _mouse_event_context = null ;
 var _mouse_event_dx = 0, _mouse_event_dy ;
-var _mouse_event_prev_pt = new point() ;
-var _mouse_event_curr_pt = new point() ;
+var _mouse_event_prev_pt = new point(), _mouse_event_curr_pt = new point() ;
 var _mouse_event_rect_left = 0 ;
 var _mouse_event_rect_top = 0 ;
 var _mouse_event_rect_width = 0 ;

@@ -183,10 +183,10 @@ function circles_lib_batch_compiler_exec( _cmd_str, _params_str, _param_01, _cmd
    if ( circles_lib_terminal_cmdfile_exists( _cmd_str ) )
    {
 			var _filename = "circles.terminal.cmd." + _cmd_str + ".js", _ret_load ;
-      if ( check_file_exists( _glob_terminal_cmds_path + _filename ) )
+      if ( check_file_exists( _glob_paths['terminal_cmds_path'] + _filename ) )
       {
           $.ajaxSetup( {async:false} );
-          $.getScript( _glob_terminal_cmds_path + _filename ).done( function()
+          $.getScript( _glob_paths['terminal_cmds_path'] + _filename ).done( function()
                        {
                           if ( !_glob_code_run_cmds_array.includes( _cmd_str ) ) _glob_code_run_cmds_array.push( _cmd_str );
                           var _include_files = is_array( _glob_terminal_cmd_files_include[ _cmd_str ] ) ? _glob_terminal_cmd_files_include[ _cmd_str ].clone() : [] ;
@@ -197,7 +197,7 @@ function circles_lib_batch_compiler_exec( _cmd_str, _params_str, _param_01, _cmd
                     	           if ( circles_lib_terminal_cmdfile_exists( _include_files[_i] ) )
                     	           {
                     	               _filename = "circles.terminal.cmd." + _include_files[_i] + ".js" ;
-                    	               if ( check_file_exists( _glob_terminal_cmds_path + _filename ) )
+                    	               if ( check_file_exists( _glob_paths['terminal_cmds_path'] + _filename ) )
                                      circles_lib_batch_compiler_exec( _include_files[_i], "", _param_01, TERMINAL_CMD_MODE_INCLUSION, _force_cmd_exec ) ;
                                      else circles_lib_output( OUTPUT_SCRIPT, DISPATCH_ERROR, "Missing or corrupted complement cmd '"+_include_files[_i]+"'" );
                     	           }

@@ -7,11 +7,11 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
    var _settings_array = [] ;
        _settings_array['target_plane_type'] = "bip" ;
    var _filename = "circles.terminal.cmd.code.js" ;
-   if ( check_file_exists( _glob_terminal_cmds_path + _filename ) )
+   if ( check_file_exists( _glob_paths['terminal_cmds_path'] + _filename ) )
    {
        var _plain_code = "", _load_failure = 0 ;
        $.ajaxSetup( {async:false} );
-       $.getScript( _glob_terminal_cmds_path + _filename).done( function() { _load_failure = 0, _plain_code = _show_code ? circles_terminal_cmd_code_assemble( null, _settings_array ) : "" ; } ).fail( function() { load_failure = 1 ; circles_lib_log_add_entry( "Component '"+_filename+"' code can't be loaded to support tiny rendering service", LOG_ERROR ); } ) ;
+       $.getScript( _glob_paths['terminal_cmds_path'] + _filename).done( function() { _load_failure = 0, _plain_code = _show_code ? circles_terminal_cmd_code_assemble( null, _settings_array ) : "" ; } ).fail( function() { load_failure = 1 ; circles_lib_log_add_entry( "Component '"+_filename+"' code can't be loaded to support tiny rendering service", LOG_ERROR ); } ) ;
 
        var unixtime_ms = new Date().getTime();
        if ( !is_array( _glob_tinyrender_code_array ) ) _glob_tinyrender_code_array = [];

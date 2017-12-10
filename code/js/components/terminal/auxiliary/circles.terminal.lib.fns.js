@@ -163,7 +163,7 @@ function circles_lib_terminal_wait_icon( _show, _tab_index, _suffix )
 
 function circles_lib_terminal_help_cmd( _html_flag, _cmd_tag, _param_01, _out_channel )
 {
-    jQuery.get( _glob_terminal_help_path + _cmd_tag + ".cmd.hlp",
+    jQuery.get( _glob_paths['terminalhelp'] + _cmd_tag + ".cmd.hlp",
                 function( _help_text )
                 {
                 		_help_text = $.terminal.escape_brackets( _help_text ) ;
@@ -216,10 +216,10 @@ function circles_lib_terminal_cmdfile_exists( _expression )
     var _cmd_tag = _expression.includes( " " ) ? ( _expression.split( " " ) )[0] : _expression ;
     var _filename = "circles.terminal.cmd." + _cmd_tag.toLowerCase() + ".js" ;
     if ( _glob_code_run_cmds_array.includes_i( _cmd_tag ) ) return YES ;
-    else if ( check_file_exists( _glob_terminal_cmds_path + _filename ) )
+    else if ( check_file_exists( _glob_paths['terminal_cmds_path'] + _filename ) )
     {
        $.ajaxSetup( {async:false} );
-       $.getScript( _glob_terminal_cmds_path + _filename ).done( function() { _ret = YES ; } ).fail( function(){ _ret = NO ; circles_lib_log_add_entry( "'"+_cmd_tag+"' cmd existence test failure" , LOG_ERROR ) ; } );
+       $.getScript( _glob_paths['terminal_cmds_path'] + _filename ).done( function() { _ret = YES ; } ).fail( function(){ _ret = NO ; circles_lib_log_add_entry( "'"+_cmd_tag+"' cmd existence test failure" , LOG_ERROR ) ; } );
        return _ret ;
     }
     else

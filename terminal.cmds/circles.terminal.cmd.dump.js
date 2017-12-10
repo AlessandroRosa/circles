@@ -11,7 +11,7 @@ function circles_terminal_cmd_dump()
     if ( _glob_verbose && _glob_terminal_echo_flag )
     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-	var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+	var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
     var _b_fail = 0 ;
     var _error_str = "" ;
     var _dumping_obj = "" ;
@@ -26,9 +26,25 @@ function circles_terminal_cmd_dump()
         _cmd_params['obj'] = null ;
 		_cmd_params['def'] = "" ;
         _cmd_params['keywords'] = NO ;
+		
+		var _OK_ASSIGN = 1, _NO_ASSIGN = 0 ;
+		var _components = [] ;
+			_components['seeds'] = [ "_glob_seeds_array", _NO_ASSIGN ] ;
+			_components['generators'] = [ "_glob_gens_array", _NO_ASSIGN ] ;
+			_components['stdpalette'] = [ "_glob_def_clrs_tags", _OK_ASSIGN ] ;
+			_components['alphabet'] = [ "_glob_alphabet", _NO_ASSIGN ] ;
+			_components['popups'] = [ "_glob_popups_array", _NO_ASSIGN ] ;
+			_components['repetends'] = [ "_glob_repetends_array", _OK_ASSIGN ] ;
+			_components['storage'] = [ "_glob_storage", _NO_ASSIGN ] ;
+			_components['stdmaps'] = [ "_glob_maps", _NO_ASSIGN ] ;
+			_components['automatons'] = [ "_glob_automatons_src_words_array", _NO_ASSIGN ] ;
+			_components['latexoptions'] = [ "_glob_latex_options", _OK_ASSIGN ] ;
+			_components['statusbar'] = [ "_glob_status_bar_settings", _OK_ASSIGN ] ;
+			_components['terminalcounter'] = [ "_glob_terminal_windows_counter", _OK_ASSIGN ] ;
+			
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
-        // pre-scan for levenshtein correction
+        //pre-scan for levenshtein correction
     	var _local_cmds_params_array = [];
     	_local_cmds_params_array.push( "release", "html", "help", "seeds", "generators" );
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );

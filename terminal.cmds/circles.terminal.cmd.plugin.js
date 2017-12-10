@@ -11,7 +11,7 @@ function circles_terminal_cmd_plugin()
      if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-	 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+	 var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
      var _error_str = "" ;
      var _out_text_string = "" ;
@@ -338,7 +338,7 @@ function circles_terminal_cmd_plugin()
                  var _def = _cmd_params['settings']['def'] != null ? _cmd_params['settings']['def'] : "" ;
                  if ( is_consistent_string( _fam ) && is_consistent_string( _def ) )
                  {
-				   var _exists = check_file_exists( _glob_plugins_path + _fam + "/" + _def + "/remote.cmds.info" ) ;
+				   var _exists = check_file_exists( _glob_paths['plugins'] + _fam + "/" + _def + "/remote.cmds.info" ) ;
 				   if ( _exists )
 				   {
 					   var _famLC = _fam.toLowerCase(), _famUC = _fam.toUpperCase();

@@ -11,7 +11,7 @@ function circles_terminal_cmd_dev()
      if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_terminal_abs_cmds_path, "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+		 var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0 ;
      var _error_str = "" ;
      var _out_text_string = "" ;
@@ -90,9 +90,7 @@ function circles_terminal_cmd_dev()
                         _columns.push( [ "Notes (object)", 35, "lightgray" ] );
 
   									// compute max length per each column
-                    $.each( _datatypes,
-										function( _i, _item )
-										{
+                    $.each( _datatypes, function( _i, _item ) {
                         _keys = _item.keys_associative();
                         for( var _k = 0 ; _k < _keys.length ; _k++ )
                         {
