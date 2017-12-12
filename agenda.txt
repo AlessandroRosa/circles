@@ -25,33 +25,10 @@
 * 'figures' cmd:
    - implement new syntax: figures delete @2-@5 (hint: fill two props delete_start:2, delete_end:5)
 
-* CMD DUMP
-
-stdpalette : _glob_def_clrs_tags
-alphabet : _glob_alphabet
-fixedpoints : _glob_input_fixed_pts_array
-popups : _glob_popups_array
-repetends : _glob_repetends_array
-storage : _glob_storage
-stdmaps : _glob_maps
-automatons : _glob_automatons_src_words_array
-latexoptions : _glob_latex_options
-statusbar : _glob_status_bar_settings
-terminalcounter : _glob_terminal_windows_counter
-
-insert new action:
-'exec' it collects, appends all the subsequent params into a line of code.
-Then it runs it.
-
-example:
-dump exec terminalcounter = 0 (only for 'assignable' objects)
-
-it translates into eval('_glob_terminal_windows_counter=0')   
-   
-   
 --------------- FIX SOON -----------------------
 
-* Next cmd to check: env
+* Next cmd to check: fp
+  test all entries inside the help file
   
 * Listings:
   - run and test all listings

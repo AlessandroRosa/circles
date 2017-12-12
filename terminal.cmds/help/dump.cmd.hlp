@@ -3,8 +3,6 @@
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
 <lightblue>usage</lightblue> <snow>dump %object%</snow>
-<slategray>list of objects definitions : seeds, generators, stdpalette, alphabet, popups, repetends</slategray>
-<slategray>storage, stdmaps, automatons, latexoptions, statusbar, terminalcounter</slategray>
 
 <yellow>dump seeds</yellow>
 <cadetblue>shows the memory dump for the array including the seeds</cadetblue>

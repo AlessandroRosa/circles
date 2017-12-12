@@ -91,11 +91,10 @@ function circles_lib_fixedpoints_is_duplicate( _pt, _out_channel )
      }
 }
 
-function circles_lib_fixedpoints_add( _opcode, _entity, _pt_coords, _list_row_index, _limit_to, _out_channel )
+function circles_lib_fixedpoints_add( _opcode = 0, _entity = "", _pt_coords = null, _list_row_index = UNDET, _limit_to = UNDET, _out_channel = OUTPUT_SCREEN )
 {
     _opcode = safe_float( _opcode, 0 ), _entity = safe_string( _entity, "" );
-    _limit_to = safe_int( _limit_to, -1 );
-    _list_row_index = safe_float( _list_row_index, UNDET );
+    _limit_to = safe_int( _limit_to, UNDET ), _list_row_index = safe_float( _list_row_index, UNDET );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     if ( !is_point( _pt_coords ) ) _pt_coords = null ;
     var _sd_n = circles_lib_count_seeds();
@@ -106,7 +105,7 @@ function circles_lib_fixedpoints_add( _opcode, _entity, _pt_coords, _list_row_in
     var _is_word = circles_lib_word_check( _entity, _glob_alphabet );
     
     if ( _opcode == 0 ) return [ RET_WARNING, "Missing operation code" ] ;
-    else if ( _entity.length >= 0 && _pt_coords != null ) // matching pair consisting of one word (possibly, empty) and a pt
+    else if ( _entity.length >= 0 && _pt_coords != null ) // matching pair consisting of one word (possibly, empty) and a point
     {
        var _complex_obj = new complex( _pt_coords.x, _pt_coords.y );
        if ( !circles_lib_fixedpoints_is_duplicate( _pt_coords ) )
@@ -141,7 +140,7 @@ function circles_lib_fixedpoints_add( _opcode, _entity, _pt_coords, _list_row_in
     else if ( _sd_n == 0 ) return [ RET_ERROR, "Missing registered Mobius seed map: error while elaborating the input entity '"+_entity+"'" ] ;
     else if ( _sd_n > 0 && ( _is_word || _is_pqword || _is_repetend ) )
     {
-       var _solved_word, _symbols_index_array, _passed_1 ;
+	   var _solved_word, _symbols_index_array, _passed_1 ;
        if ( _is_pqword ) _solved_word = circles_lib_word_pq_translate( ( _entity.split( "/" ) )[0], ( _entity.split( "/" ) )[1] );
        else if ( _is_repetend ) _solved_word = circles_lib_repetends_resolve( _entity );
        else _solved_word = _entity ;
@@ -152,83 +151,67 @@ function circles_lib_fixedpoints_add( _opcode, _entity, _pt_coords, _list_row_in
        if ( !_passed_1 ) return [ RET_WARNING, "The input '"+_entity+"' does not match the current alphabet '"+_glob_alphabet.join(", ")+"'" ] ;
        else
        {
-          var _index, _mm, _duplicate_found = 0, _duplicate_pts = []; _new_n = 0, _updated_n = 0 ;
+          var _index, _mm, _duplicate_found = 0, _pts_formula = []; _new_n = 0, _updated_n = 0 ;
           _mm = circles_lib_word_mobiusmap_get( _solved_word, _glob_seeds_array, _out_channel );
           if ( is_mobius_map( _mm ) )
           {
-             var _fp_array = _mm.fixed_points(), _b_add_fp2 = NO ;
-             if ( safe_size( _fp_array, 0 ) == 2 )
-             _b_add_fp2 = _fp_array[0].distance( _fp_array[1] ) < _glob_method_fp_dist_tolerance ? YES : NO ;
+			var _fp_array = _mm.fixed_points(), _b_add_fp2 = NO ;
+			if ( safe_size( _fp_array, 0 ) == 2 )
+			{
+				_b_add_fp2 = _fp_array[0].distance( _fp_array[1] ) < _glob_method_fp_dist_tolerance ? NO : YES ;
+				if ( !_b_add_fp2 )
+				{
+					var _msg = "The distance between the returning fixed points is shorter than tolerance ("+_glob_method_fp_dist_tolerance+"),\n" ;
+					_msg += "so they will be merged into one." ;
+					circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, "", "" );
+				}
+			}
 
-             if ( is_complex( _fp_array[0] ) )
-             {
-                 var _type = FIXEDPOINT_NONE ;
-                 if ( _mm.is_sink_pt( _fp_array[0] ) ) _type = FIXEDPOINT_SINK ;
-                 else if ( _mm.is_source_pt( _fp_array[0] ) ) _type = FIXEDPOINT_SOURCE ;
-                 else _type = FIXEDPOINT_NEUTRAL ;
+			_fp_array.forEach( function( _f_pt ){
+				 if ( is_complex( _f_pt ) )
+				 {
+					 var _type = FIXEDPOINT_NONE ;
+					 if ( _mm.is_sink_pt( _f_pt ) ) _type = FIXEDPOINT_SINK ;
+					 else if ( _mm.is_source_pt( _f_pt ) ) _type = FIXEDPOINT_SOURCE ;
+					 else _type = FIXEDPOINT_NEUTRAL ;
 
-                 if ( !circles_lib_fixedpoints_is_duplicate( new point( _fp_array[0].real, _fp_array[0].imag ) )
-                      && ( 1 <= _limit_to|| _limit_to == -1 ) )
-                 {
-                    if ( _opcode.is_one_of( 1, 3 ) )
-                    {
-                       _glob_input_fixed_pts_array.push( [ _entity, new point( _fp_array[0].real, _fp_array[0].imag ), _type, "HASH"+_glob_input_fixed_pts_array.length ] );
-                       _new_n++ ;
-                    }
-                    else if ( _opcode == 2 && _glob_input_fixed_pts_array[ _list_row_index ] != null )
-                    {
-                       _glob_input_fixed_pts_array[ _list_row_index ] = [ _entity, new point( _fp_array[0].real, _fp_array[0].imag ), _type, "HASH"+_list_row_index ] ;
-                       _updated_n++ ;
-                    }
-                 }
-                 else
-                 {
-                    _duplicate_pts.push( "- " + _fp_array[0].formula() );
-                    _duplicate_found++ ;
-                 }
-             }
+					 if ( !circles_lib_fixedpoints_is_duplicate( new point( _f_pt.real, _f_pt.imag ) ) )
+					 {
+						if ( _opcode.is_one_of( 1, 3 ) )
+						{
+						   _glob_input_fixed_pts_array.push( [ _entity, new point( _f_pt.real, _f_pt.imag ), _type, "HASH"+_glob_input_fixed_pts_array.length ] );
+						   _new_n++ ;
+						}
+						else if ( _opcode == 2 && _glob_input_fixed_pts_array[ _list_row_index ] != null )
+						{
+						   _glob_input_fixed_pts_array[ _list_row_index ] = [ _entity, new point( _f_pt.real, _f_pt.imag ), _type, "HASH"+_list_row_index ] ;
+						   _updated_n++ ;
+						}
+					 }
+					 else _duplicate_found++ ;
 
-             if ( is_complex( _fp_array[1] ) && ( _b_add_fp2 || !is_complex( _fp_array[0] ) )
-                   && ( 2 <= _limit_to || _limit_to == -1 ) )
-             {
-                 var _type = FIXEDPOINT_NONE ;
-                 if ( _mm.is_sink_pt( _fp_array[1] ) ) _type = FIXEDPOINT_SINK ;
-                 else if ( _mm.is_source_pt( _fp_array[1] ) ) _type = FIXEDPOINT_SOURCE ;
-                 else _type = FIXEDPOINT_NEUTRAL ;
-                 if ( !circles_lib_fixedpoints_is_duplicate( new point( _fp_array[1].real, _fp_array[1].imag ) ) )
-                 {
-                    if ( _opcode.is_one_of( 1, 3 ) )
-                    {
-                       _glob_input_fixed_pts_array.push( [ _entity, new point( _fp_array[1].real, _fp_array[1].imag ), _type, "HASH"+_glob_input_fixed_pts_array.length ] );
-                       _new_n++ ;
-                    }
-                    else if ( _opcode == 2 && _glob_input_fixed_pts_array[ _list_row_index ] != null )
-                    {
-                       _glob_input_fixed_pts_array[ _list_row_index ] = [ _entity, new point( _fp_array[1].real, _fp_array[1].imag ), _type, "HASH"+_list_row_index ] ;
-                       _updated_n++ ;
-                    }
-                 }
-                 else
-                 {
-                    _duplicate_pts.push( "- " + _fp_array[1].formula() );
-                    _duplicate_found++ ;
-                 }
-             }
+					_pts_formula.push( "- " + _f_pt.formula() );
+				 }
+			} );
 
-             if ( _duplicate_found > 0 ) return [ RET_WARNING, "Found " + _duplicate_found + " duplicate" + ( _duplicate_found == 1 ? "" : "s" ) + " and not inserted:" + _glob_crlf.repeat(2) + _duplicate_pts.join( _glob_crlf ) ] ;
+             if ( _duplicate_found > 0 ) return [ RET_WARNING, "Found " + _duplicate_found + " duplicate" + ( _duplicate_found == 1 ? "" : "s" ) + " and not inserted:" + _glob_crlf.repeat(2) + _pts_formula.join( _glob_crlf ) ] ;
              else
              {
-                var _entries_n = safe_int( _fp_array['n'], 0 );
+                console.log( "ADD#1" );
+				var _entries_n = safe_int( _fp_array.length, 0 );
                 var _ret_id = _entries_n > 0 ? RET_OK : RET_WARNING;
-                var _ret_msg = _ret_id == RET_OK ? ( _entries_n + " fixed point" + ( _entries_n == 1 ? " has" : "s have" ) + " been " + ( _opcode.is_one_of( 1, 3 ) ? "inserted" : "updated" ) ) : "No fixed points to " + ( _opcode.is_one_of( 1, 3 ) ? "insert" : "update" );
-                if ( _ret_id == RET_OK )
-                {
-                   if ( _is_word ) _ret_msg += " from word '"+_entity+"'" ;
-                   else if ( _is_pqword ) _ret_msg += " from P/Q word '"+_entity+"'" ;
-                   else if ( _is_repetend ) _ret_msg += " from repetend '"+_entity+"'" ;
-                }
-                if ( _new_n > 0 ) _ret_msg += _glob_crlf.repeat(2) + "New entries : " + _new_n ;
-                if ( _updated_n > 0 ) _ret_msg += _glob_crlf.repeat(2) + "Updates : " + _new_n ;
+                var _ret_msg = "" ;
+				if ( _ret_id == RET_OK )
+				{
+					_ret_msg = _entries_n + " fixed point" + ( _entries_n == 1 ? " has" : "s have" ) + " been " ;
+					_ret_msg += ( _opcode.is_one_of( 1, 3 ) ? "inserted" : "updated" ) + " with success" ;
+					_ret_msg += _glob_crlf.repeat(2) + _pts_formula.join( _glob_crlf ) ;
+                    
+					if ( _is_word ) _ret_msg += _glob_crlf+"from word '"+_entity+"'" ;
+                    else if ( _is_pqword ) _ret_msg += _glob_crlf+"from P/Q word '"+_entity+"'" ;
+                    else if ( _is_repetend ) _ret_msg += _glob_crlf+"from repetend '"+_entity+"'" ;
+				}
+				else _ret_msg = "No fixed points to " + ( _opcode.is_one_of( 1, 3 ) ? "insert" : "update" ) ;
                 return [ _entries_n > 0 ? RET_OK : RET_ERROR, _ret_msg ] ;
              }
           }

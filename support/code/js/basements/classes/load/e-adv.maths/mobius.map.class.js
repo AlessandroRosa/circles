@@ -681,21 +681,21 @@ mobius_map.prototype.commute_with = function( _mm )
 
 mobius_map.prototype.sink = function()
 {
-    var _f = this.fixed_points(), _n = _f['n'] ;
+    var _f = this.fixed_points(), _n = _f.length ;
     if ( _n == 1 ) return this.is_source_pt( _f['fp1'] ) ? _f['fp1'] : null ;
     else if ( _n == 2 ) return ( this.is_sink_pt( _f['fp1'] ) ) ? _f['fp1'] : ( this.is_sink_pt( _f['fp2'] ) ? _f['fp2'] : null ) ;
 }
 
 mobius_map.prototype.source = function()
 {
-    var _f = this.fixed_points(), _n = _f['n'] ;
+    var _f = this.fixed_points(), _n = _f.length ;
     if ( _n == 1 ) return this.is_source_pt( _f['fp1'] ) ? _f['fp1'] : null ;
     else if ( _n == 2 ) return ( this.is_source_pt( _f['fp1'] ) ) ? _f['fp1'] : ( this.is_source_pt( _f['fp2'] ) ? _f['fp2'] : null ) ;
 }
 
 mobius_map.prototype.neutral = function()
 {
-    var _f = this.fixed_points(), _n = _f['n'] ;
+    var _f = this.fixed_points(), _n = _f.length ;
     if ( _n == 1 ) return this.is_neutral_pt( _f['fp1'] ) ? _f['fp1'] : null ;
     else if ( _n == 2 ) return ( this.is_neutral_pt( _f['fp1'] ) ) ? _f['fp1'] : ( this.is_neutral_pt( _f['fp2'] ) ? _f['fp2'] : null ) ;
 }

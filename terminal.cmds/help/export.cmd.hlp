@@ -4,9 +4,9 @@
 
 <lightblue>usage</lightblue> <snow>export %fileformat%</snow>
 
-<lightblue>%fileformat%</lightblue> <snow>svg | none</snow>
+<lightblue>%fileformat%</lightblue> <snow>eps | latex | ps | svg | none</snow>
 <lightblue>export svg</lightblue>
-<cadetblue>set export option to svg</cadetblue>
+<cadetblue>set export default format to 'svg'</cadetblue>
 
 <lightblue>export release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>

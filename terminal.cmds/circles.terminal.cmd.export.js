@@ -91,7 +91,7 @@ function circles_terminal_cmd_export()
                        break ;
                        case EXPORT_NONE:
                        _b_fail = 0 ;
-                       _format_str = "Export disabled" ;
+                       _format_str = "Export service has been disabled with success" ;
                        break ;
                        default:
                        _b_fail = YES, _error_str = "Can't export: set the output file format" ;

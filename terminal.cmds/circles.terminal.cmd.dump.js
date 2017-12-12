@@ -29,24 +29,24 @@ function circles_terminal_cmd_dump()
 		
 		var _OK_ASSIGN = 1, _NO_ASSIGN = 0 ;
 		var _components = [] ;
-			_components['seeds'] = [ "_glob_seeds_array", _NO_ASSIGN ] ;
-			_components['generators'] = [ "_glob_gens_array", _NO_ASSIGN ] ;
-			_components['stdpalette'] = [ "_glob_def_clrs_tags", _OK_ASSIGN ] ;
-			_components['alphabet'] = [ "_glob_alphabet", _NO_ASSIGN ] ;
-			_components['popups'] = [ "_glob_popups_array", _NO_ASSIGN ] ;
-			_components['repetends'] = [ "_glob_repetends_array", _OK_ASSIGN ] ;
-			_components['storage'] = [ "_glob_storage", _NO_ASSIGN ] ;
-			_components['stdmaps'] = [ "_glob_maps", _NO_ASSIGN ] ;
-			_components['automatons'] = [ "_glob_automatons_src_words_array", _NO_ASSIGN ] ;
-			_components['latexoptions'] = [ "_glob_latex_options", _OK_ASSIGN ] ;
-			_components['statusbar'] = [ "_glob_status_bar_settings", _OK_ASSIGN ] ;
-			_components['terminalcounter'] = [ "_glob_terminal_windows_counter", _OK_ASSIGN ] ;
+			_components['seeds'] = "_glob_seeds_array";
+			_components['generators'] = "_glob_gens_array" ;
+			_components['stdpalette'] = "_glob_def_clrs_tags" ;
+			_components['alphabet'] = "_glob_alphabet" ;
+			_components['popups'] = "_glob_popups_array" ;
+			_components['repetends'] = "_glob_repetends_array" ;
+			_components['storage'] = "_glob_storage" ;
+			_components['stdmaps'] = "_glob_maps" ;
+			_components['automatons'] = "_glob_automatons_src_words_array" ;
+			_components['latexoptions'] = "_glob_latex_options" ;
+			_components['statusbar'] = "_glob_status_bar_settings" ;
+			_components['terminalcounter'] = "_glob_terminal_windows_counter" ;
 			
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         //pre-scan for levenshtein correction
     	var _local_cmds_params_array = [];
-    	_local_cmds_params_array.push( "release", "html", "help", "seeds", "generators" );
+    	_local_cmds_params_array.push( "exec", "release", "html", "help", "seeds", "generators" );
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
         var _p ;
         for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -58,10 +58,17 @@ function circles_terminal_cmd_dump()
             else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
             else if ( _p.stricmp( "seeds" ) ) { _cmd_params['def'] = _p ; _cmd_params['obj'] = "_glob_seeds_array" ; }
             else if ( _p.stricmp( "generators" ) ) { _cmd_params['def'] = _p ; _cmd_params['obj'] = "_glob_gens_array" ; }
+			else if ( _cmd_params['action'] == "exec" ) _cmd_params['exec_str'].push( _p );
             else _cmd_params['obj'] = _p ;
         }
 
-        if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
+        if ( _cmd_params['help'] )
+		{
+			circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
+			var _keys = _components.keys_associative();
+			circles_lib_output( _out_channel, DISPATCH_INFO, "", _msg, _par_1, _cmd_tag );
+			circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Standard objects : <white>"+_keys.join( ", " )+"</white>", _msg, _par_1, _cmd_tag );
+		}
         else if ( _cmd_params['keywords'] )
         {
             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
@@ -81,7 +88,7 @@ function circles_terminal_cmd_dump()
                 circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
                 default:
-				_dumping_obj = _cmd_params['obj'] ;
+				_dumping_obj = _components[ _cmd_params['obj'] ] != null ? _components[ _cmd_params['obj'] ] : _cmd_params['obj'] ;
                 try{ eval( "_out_text_str = dump( "+_dumping_obj+" );" ); }
                 catch( _err ){ circles_lib_error_obj_handler( _err ); }
 

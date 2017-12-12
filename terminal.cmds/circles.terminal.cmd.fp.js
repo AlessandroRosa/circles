@@ -7,7 +7,7 @@ function circles_terminal_cmd_fp()
     var _cmd_mode = arguments[3] ;
     var _caller_id = arguments[4] ;
     _params = safe_string( _params, "" ).trim();
-
+	
     if ( _glob_verbose && _glob_terminal_echo_flag )
     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
@@ -25,120 +25,114 @@ function circles_terminal_cmd_fp()
     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
     else if ( _params.length > 0 )
     {
-         _cmd_params['action'] = "" ;
-         _cmd_params['all'] = NO ;
-         _cmd_params['category'] = "" ;
-         _cmd_params['clean'] = NO ;
-         _cmd_params['dump'] = NO ;
-         _cmd_params['dump_array'] = null ;
-         _cmd_params['dump_operator_index'] = UNDET ;
-         _cmd_params['help'] = NO ;
-         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
-         _cmd_params['inputfp'] = [] ;
-         _cmd_params['index'] = [] ;
-         _cmd_params['keywords'] = NO ;
-         _cmd_params['plane'] = _glob_target_plane ;
-         _cmd_params['roundto'] = _glob_accuracy ;
-         _cmd_params['showtext'] = NO ;
-         _cmd_params['straight'] = NO ;
-         _cmd_params['source'] = [] ;
-         _cmd_params['words'] = [];
-         _cmd_params['settings'] = [] ;
+        _cmd_params['action'] = "" ;
+        _cmd_params['all'] = NO ;
+        _cmd_params['category'] = "" ;
+        _cmd_params['clean'] = NO ;
+        _cmd_params['dump'] = NO ;
+        _cmd_params['dump_array'] = null ;
+        _cmd_params['dump_operator_index'] = UNDET ;
+        _cmd_params['help'] = NO ;
+        _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+        _cmd_params['inputfp'] = [] ;
+        _cmd_params['index'] = [] ;
+        _cmd_params['keywords'] = NO ;
+        _cmd_params['plane'] = _glob_target_plane ;
+        _cmd_params['roundto'] = _glob_accuracy ;
+        _cmd_params['showtext'] = NO ;
+        _cmd_params['straight'] = NO ;
+        _cmd_params['source'] = [] ;
+        _cmd_params['words'] = [];
+        _cmd_params['settings'] = [] ;
 
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "add", "all", "bomb", "clean", "connect", "commutator", "default", "delete",
-                                            "figures", "force", "gensset", "list", "showtext",
-                                            "localize", "sink", "neutral", "source", "zplane", "wplane", "release", "html", "help" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+        var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
+        // pre-scan for levenshtein correction
+  		var _local_cmds_params_array = [];
+    	_local_cmds_params_array.push( "add", "all", "bomb", "clean", "connect", "commutator", "default", "delete",
+                                       "figures", "force", "gensset", "list", "showtext",
+                                       "localize", "sink", "neutral", "source", "zplane", "wplane", "release", "html", "help" );
+        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
-				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-				 _cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-				 _cmd_params['dump_operator_index'] = _dump_operator_index ;
-				 _cmd_params['dump_array'] = [];
+		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
+		_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+		_cmd_params['dump_operator_index'] = _dump_operator_index ;
+		_cmd_params['dump_array'] = [];
 				
-				 // gather all dump params into one array
-         if ( _cmd_params['dump'] )
-         {
-    				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-    				 if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
-         }
+		// gather all dump params into one array
+        if ( _cmd_params['dump'] )
+        {
+    		for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+			if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
+        }
 				 
-         var _p ;
-         // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
-         var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
-         for( var _i = 0 ; _i < _up_to_index ; _i++ )
-         {
-              _p = _params_array[_i] ;
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-              else if ( _p.is_one_of_i( "force" ) )
-              {
-                   if ( !is_array( _cmd_params['settings']['options'] ) ) _cmd_params['settings']['options'] = [] ;
-                   _cmd_params['settings']['options'].push( _p );
-              }
-              else if ( _p.stricmp( "all" ) ) _cmd_params['all'] = YES ;
-              else if ( _p.stricmp( "clean" ) ) _cmd_params['clean'] = YES ;
-              else if ( _p.stricmp( "showtext" ) ) _cmd_params['showtext'] = YES ;
-              else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-              else if ( _p.toLowerCase().start_with( "roundto:" ) )
-              {
-                 _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
-                 if ( _p <= 0 )
-                 {
+        var _p ;
+        // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
+        var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
+        for( var _i = 0 ; _i < _up_to_index ; _i++ )
+        {
+            _p = _params_array[_i] ;
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+            else if ( _p.is_one_of_i( "force" ) )
+            {
+                if ( !is_array( _cmd_params['settings']['options'] ) ) _cmd_params['settings']['options'] = [] ;
+                _cmd_params['settings']['options'].push( _p );
+            }
+            else if ( _p.stricmp( "all" ) ) _cmd_params['all'] = YES ;
+            else if ( _p.stricmp( "clean" ) ) _cmd_params['clean'] = YES ;
+            else if ( _p.stricmp( "showtext" ) ) _cmd_params['showtext'] = YES ;
+            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
+            else if ( _p.toLowerCase().start_with( "roundto:" ) )
+            {
+                _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
+                if ( _p <= 0 )
+                {
                     _p = _glob_accuracy ;
                     circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
-                 }
-                 else if ( _p > DEFAULT_MAX_ACCURACY )
-                 {
+                }
+                else if ( _p > DEFAULT_MAX_ACCURACY )
+                {
                     _p = _glob_accuracy ;
                     circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
-                 }
+                }
                    
-                 _cmd_params['roundto'] = _p ;
-              }
-              else if ( _p.toLowerCase() == "zplane" ) _cmd_params['plane'] = Z_PLANE ;
-              else if ( _p.toLowerCase() == "wplane" ) _cmd_params['plane'] = W_PLANE ;
-              else if ( _p.toLowerCase().is_one_of( "add", "bomb", "connect", "delete", "figures", "list", "localize", "release" ) ) _cmd_params['action'] = _p.toLowerCase();
-              else if ( _p.toLowerCase().is_one_of( "neutral", "sink", "source" ) ) _cmd_params['category'] = _p.toLowerCase();
-              else if ( _p.toLowerCase().is_one_of( "commutator", "default", "gensset" ) ) _cmd_params['source'].push( _p.toLowerCase() );
-              else if ( _p.testME( _glob_positive_integer_regex_pattern ) &&
-                        _cmd_params['action'].is_one_of( "connect", "delete", "localize" ) )
-                        _cmd_params['index'].push( _p );
-              else if ( _p.testME( _glob_word_regex_pattern ) &&
-                        _cmd_params['action'].is_one_of( "add" ) )
-              {
-                 var _n_fp = safe_size( _cmd_params['inputfp'], 0 );
-                 var _n_words = safe_size( _cmd_params['words'], 0 );
-                 if ( _n_words < ( _n_fp - 1 ) )
-                 for( var _m = _n_words ; _m < ( _n_fp - 1 ); _m++ ) _cmd_params['words'].push( "" );
+                _cmd_params['roundto'] = _p ;
+            }
+            else if ( _p.toLowerCase() == "zplane" ) _cmd_params['plane'] = Z_PLANE ;
+            else if ( _p.toLowerCase() == "wplane" ) _cmd_params['plane'] = W_PLANE ;
+            else if ( _p.toLowerCase().is_one_of( "add", "bomb", "connect", "delete", "figures", "list", "localize", "release" ) ) _cmd_params['action'] = _p.toLowerCase();
+            else if ( _p.toLowerCase().is_one_of( "neutral", "sink", "source" ) ) _cmd_params['category'] = _p.toLowerCase();
+            else if ( _p.toLowerCase().is_one_of( "commutator", "default", "gensset" ) ) _cmd_params['source'].push( _p.toLowerCase() );
+            else if ( _p.testME( _glob_positive_integer_regex_pattern ) &&
+                      _cmd_params['action'].is_one_of( "connect", "delete", "localize" ) )
+                      _cmd_params['index'].push( _p );
+            else if ( _p.testME( _glob_word_regex_pattern ) && _cmd_params['action'].is_one_of( "add" ) )
+            {
+                var _n_fp = safe_size( _cmd_params['inputfp'], 0 );
+                var _n_words = safe_size( _cmd_params['words'], 0 );
+                if ( _n_words < ( _n_fp - 1 ) )
+                for( var _m = _n_words ; _m < ( _n_fp - 1 ); _m++ ) _cmd_params['words'].push( "" );
                    
-                 _n_words = safe_size( _cmd_params['words'], 0 );
-                 _cmd_params['words'].push( _p );
-              }
-              else if ( _p.testME( _glob_complex_number_regex_pattern ) ||
-                        _p.testME( _glob_pqword_regex_pattern ) ||
-                        circles_lib_repetends_check_syntax( null, _p ) ||
-                        ( _p.testME( _glob_word_regex_pattern ) && circles_lib_word_check( _p, _glob_alphabet ) ) )
-              {
-                 if ( _p.testME( _glob_complex_number_regex_pattern ) )
-                 {
-                    var _n_fp = safe_size( _cmd_params['inputfp'], 0 );
-                    var _n_words = safe_size( _cmd_params['words'], 0 );
-    
-                    if ( _n_fp < ( _n_words - 1 ) )
-                    for( var _m = _n_fp ; _m < ( _n_words - 1 ); _m++ ) _cmd_params['inputfp'].push( null );
-    
+                _n_words = safe_size( _cmd_params['words'], 0 );
+                _cmd_params['words'].push( _p );
+            }
+            else if ( _p.testME( _glob_complex_number_regex_pattern ) || _p.testME( _glob_pqword_regex_pattern ) ||
+                      circles_lib_repetends_check_syntax( null, _p ) ||
+                      ( _p.testME( _glob_word_regex_pattern ) && circles_lib_word_check( _p, _glob_alphabet ) ) )
+            {
+                if ( _p.testME( _glob_complex_number_regex_pattern ) )
+                {
+                    var _n_fp = safe_size( _cmd_params['inputfp'], 0 ), _n_words = safe_size( _cmd_params['words'], 0 );
+                    if ( _n_fp < ( _n_words - 1 ) ) for( var _m = _n_fp ; _m < ( _n_words - 1 ); _m++ ) _cmd_params['inputfp'].push( null );
                     _n_fp = safe_size( _cmd_params['inputfp'], 0 );
                     _cmd_params['inputfp'].push( _p );
-                 }
+                }
                  else if ( _p.testME( _glob_pqword_regex_pattern ) || circles_lib_repetends_check_syntax( null, _p ) )
                  _cmd_params['words'].push( _p );
-              }
-              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
-         }
+            }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
+        }
 
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
@@ -151,100 +145,93 @@ function circles_terminal_cmd_fp()
                  circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
              }
          }
-         else if ( _cmd_params['action'].length == 0 ) { _b_fail = YES, _error_str = "Missing action specification" ; break ; }
+         else if ( _cmd_params['action'].length == 0 ) { _b_fail = YES, _error_str = "Missing action specification" ; }
          else if ( _cmd_params['action'].length > 0 && !_b_fail )
          {
-             var _round_to = _cmd_params['roundto'], _options = _cmd_params['settings']['options'] ;
-             var _action = _cmd_params['action'] ;
-             if ( _action.length == 0 ) _action == "list" ;
-             var _fp_n = circles_lib_count_fixed_points() ;
-             var _force = ( !is_array( _options ) || _fp_n == 0 ) ? YES : ( _options.one_in_i( "force" ) ? YES : NO ) ;
-             if ( _cmd_params['all'] && _fp_n > 0 )
-             {
+            var _round_to = _cmd_params['roundto'], _options = _cmd_params['settings']['options'] ;
+            var _action = _cmd_params['action'] ;
+            if ( _action.length == 0 ) _action == "list" ;
+            var _fp_n = circles_lib_count_fixed_points() ;
+            var _force = ( !is_array( _options ) || _fp_n == 0 ) ? YES : ( _options.one_in_i( "force" ) ? YES : NO ) ;
+            if ( _cmd_params['all'] && _fp_n > 0 )
+            {
                _cmd_params['index'].flush();
                $.each( _glob_input_fixed_pts_array, function( _i, _val ) { _cmd_params['index'].push( _i + 1 ); } );
                _cmd_params['index'].push( _p );
-             }
+            }
 
-             switch( _action )
-             {
-                 case "add":
-                 var _n_source = safe_size( _cmd_params['source'], 0 );
-                 var _n_inputfp = safe_size( _cmd_params['inputfp'], 0 );
-                 var _n_words = safe_size( _cmd_params['words'], 0 );
-                 if ( _n_source > 0 )
-                 {
-                      var _add_sources = function()
-                      {
-                          $.each( _cmd_params['source'], function( _index, _val )
-                                  {
-                                      var _ret_chunk ;
-                                      if ( _val.strcmp( "commutator" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_commutators( 0, _out_channel );
-                                      else if ( _val.strcmp( "default" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_seeds( _out_channel );
-                                      else if ( _val.strcmp( "gensset" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_gens_set( _out_channel );
-                                      else
-                                      {
-                                           circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid input source", _par_1, _cmd_tag );
-                                           return ;
-                                      }
+            switch( _action )
+            {
+                case "add":
+                var _n_source = safe_size( _cmd_params['source'], 0 );
+                var _n_inputfp = safe_size( _cmd_params['inputfp'], 0 );
+                var _n_words = safe_size( _cmd_params['words'], 0 );
+                if ( _n_source > 0 )
+                {
+                    var _add_sources = function()
+                    {
+                        $.each( _cmd_params['source'], function( _index, _val ) {
+                                var _ret_chunk ;
+                                if ( _val.strcmp( "commutator" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_commutators( 0, _out_channel );
+                                else if ( _val.strcmp( "default" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_seeds( _out_channel );
+                                else if ( _val.strcmp( "gensset" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_gens_set( _out_channel );
+                                else
+                                {
+                                    circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid input source", _par_1, _cmd_tag );
+                                    return ;
+                                }
     
-                                      var _ret_id = safe_int( _ret_chunk[0], RET_WARNING ), _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
-                                      circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-                                  } );
-                          _fp_n = circles_lib_count_fixed_points();
-                          var _ret_msg = ( _fp_n == 0 ) ? "The input fixed points list is empty" : "The fixed points list includes " + _fp_n + " element" + (_fp_n!=1?"s":"")+" now" ;
-                          circles_lib_output( _out_channel, _fp_n > 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-                      }
+                                var _ret_id = safe_int( _ret_chunk[0], RET_WARNING ), _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
+                                circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                        } );
+                        _fp_n = circles_lib_count_fixed_points();
+                        var _ret_msg = ( _fp_n == 0 ) ? "The input fixed points list is empty" : "The fixed points list includes " + _fp_n + " element" + (_fp_n!=1?"s":"")+" now" ;
+                        circles_lib_output( _out_channel, _fp_n > 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                    }
                       
-                      if ( _force ) _add_sources();
-                      else
-                      {
-								     		 var _params_array = [] ;
-								     	   _params_array['prepromptquestion'] = null ;
-					     		 			 _params_array['promptquestion'] = "This operation will overwrite the current fixed points list. Proceed ?" ;
-									     	 _params_array['yes_fn'] = function() { _add_sources(); }
-									     	 _params_array['ifquestiondisabled_fn'] = function() { _add_sources(); }
-                      }
-                 }
+                    if ( _force ) _add_sources();
+                    else
+                    {
+			     		var _params_array = [] ;
+						_params_array['prepromptquestion'] = null ;
+					    _params_array['promptquestion'] = "This operation will overwrite the current fixed points list. Proceed ?" ;
+						_params_array['yes_fn'] = function() { _add_sources(); }
+						_params_array['ifquestiondisabled_fn'] = function() { _add_sources(); }
+                    }
+                }
 
-                 if ( _n_inputfp > 0 && _n_words > 0 )
-                 {
-                      $.each( _cmd_params['inputfp'],
-                              function( _index, _complex_pt )
-                              {
-                                  var _complex_obj = parse_complex_from_string( _complex_pt + "" );
-                                  var _word = safe_string( _cmd_params['words'][_index], "" );
-                                  var _ret_chunk = circles_lib_fixedpoints_add( 1, _word, new point( _complex_obj.real, _complex_obj.imag ), UNDET, _out_channel );
-                                  var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
-                                  var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
-                                  circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-                              } );
-                 }
-                 else if ( _n_inputfp > 0 && _n_words == 0 )
-                 {
-                      $.each( _cmd_params['inputfp'],
-                              function( _index, _complex_pt )
-                              {
-                                  var _complex_obj = parse_complex_from_string( _complex_pt + "" );
-                                  var _word = safe_string( _cmd_params['words'][_index], "" );
-                                  var _ret_chunk = circles_lib_fixedpoints_add( 1, "", new point( _complex_obj.real, _complex_obj.imag ), UNDET, _out_channel );
-                                  var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
-                                  var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
-                                  circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-                              } );
-                 }
-                 else if ( _n_inputfp == 0 && _n_words > 0 )
-                 {
-                      $.each( _cmd_params['words'],
-                              function( _index, _word )
-                              {
-                                  var _ret_chunk = circles_lib_fixedpoints_add( 1, _word, null, UNDET, _out_channel );
-                                  var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
-                                  var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
-                                  circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-                              } );
-                 }
-                 break ;
+                if ( _n_inputfp > 0 && _n_words > 0 )
+                {
+					$.each( _cmd_params['inputfp'], function( _index, _complex_pt ) {
+                            var _complex_obj = parse_complex_from_string( _complex_pt + "" );
+                            var _word = safe_string( _cmd_params['words'][_index], "" );
+                            var _ret_chunk = circles_lib_fixedpoints_add( 1, _word, new point( _complex_obj.real, _complex_obj.imag ), UNDET, _out_channel );
+                            var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
+                            var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
+                            circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                    } );
+                }
+                else if ( _n_inputfp > 0 && _n_words == 0 )
+                {
+                    $.each( _cmd_params['inputfp'], function( _index, _complex_pt ) {
+                            var _complex_obj = parse_complex_from_string( _complex_pt + "" );
+                            var _word = safe_string( _cmd_params['words'][_index], "" );
+                            var _ret_chunk = circles_lib_fixedpoints_add( 1, "", new point( _complex_obj.real, _complex_obj.imag ), UNDET, _out_channel );
+                            var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
+                            var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
+                            circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                    } );
+                }
+                else if ( _n_inputfp == 0 && _n_words > 0 )
+                {
+					$.each( _cmd_params['words'], function( _index, _word ) {
+                            var _ret_chunk = circles_lib_fixedpoints_add( 1, _word, null, UNDET, _out_channel );
+                            var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
+                            var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
+                            circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+                    } );
+                }
+                break ;
                  case "bomb":
                  var _ret_chunk = null ;
                  if ( _fp_n == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "The fixed points list is already empty", _par_1, _cmd_tag );
@@ -455,10 +442,10 @@ function circles_terminal_cmd_fp()
                  circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                  break ;
 				default: break ;
-             }
+            }
              
-             if ( _glob_fixedpt_io != FIXEDPOINTS_IO_INPUT )
-             circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning! Fixed point option is not flagged to 'input' category", _par_1, _cmd_tag );
+            if ( _glob_fixedpt_io != FIXEDPOINTS_IO_INPUT )
+            circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning! Fixed point option is not flagged to 'input' category", _par_1, _cmd_tag );
          }
     }
     else { _b_fail = YES, _error_str = "Missing input params" ; }
