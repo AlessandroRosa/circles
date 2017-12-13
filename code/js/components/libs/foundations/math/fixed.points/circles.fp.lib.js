@@ -91,7 +91,7 @@ function circles_lib_fixedpoints_is_duplicate( _pt, _out_channel )
      }
 }
 
-function circles_lib_fixedpoints_add( _opcode = 0, _entity = "", _pt_coords = null, _list_row_index = UNDET, _limit_to = UNDET, _out_channel = OUTPUT_SCREEN )
+function circles_lib_fixedpoints_add( _opcode = 0, _entity = "", _pt_coords = null, _list_row_index = UNDET, _limit_to = UNDET, _out_channel = OUTPUT_SCREEN, _reset = 0 )
 {
     _opcode = safe_float( _opcode, 0 ), _entity = safe_string( _entity, "" );
     _limit_to = safe_int( _limit_to, UNDET ), _list_row_index = safe_float( _list_row_index, UNDET );
@@ -111,6 +111,7 @@ function circles_lib_fixedpoints_add( _opcode = 0, _entity = "", _pt_coords = nu
        if ( !circles_lib_fixedpoints_is_duplicate( _pt_coords ) )
        {
           if ( _entity.length == 0 ) _entity = _complex_obj.formula();
+		  if ( _reset ) _glob_input_fixed_pts_array.flush();
           if ( _opcode == 1 )
           _glob_input_fixed_pts_array.push( [ _entity, _pt_coords, FIXEDPOINT_USERDEFINED, "HASH"+_glob_input_fixed_pts_array.length ] );
           else if ( _opcode == 2 && _glob_input_fixed_pts_array[ _list_row_index ] != null )
@@ -128,6 +129,7 @@ function circles_lib_fixedpoints_add( _opcode = 0, _entity = "", _pt_coords = nu
           var _complex_obj = parse_complex_from_string( _complex_num_data + "" );
           if ( !circles_lib_fixedpoints_is_duplicate( new point( _complex_obj.real, _complex_obj.imag ) ) )
           {
+			 if ( _reset ) _glob_input_fixed_pts_array.flush();
              if ( _opcode == 1 )
              _glob_input_fixed_pts_array.push( [ _entity, new point( _complex_obj.real, _complex_obj.imag ), FIXEDPOINT_USERDEFINED, "HASH"+_glob_input_fixed_pts_array.length ] );
              else if ( _opcode == 2 && _glob_input_fixed_pts_array[ _list_row_index ] != null )
@@ -155,6 +157,7 @@ function circles_lib_fixedpoints_add( _opcode = 0, _entity = "", _pt_coords = nu
           _mm = circles_lib_word_mobiusmap_get( _solved_word, _glob_seeds_array, _out_channel );
           if ( is_mobius_map( _mm ) )
           {
+			if ( _reset ) _glob_input_fixed_pts_array.flush();
 			var _fp_array = _mm.fixed_points(), _b_add_fp2 = NO ;
 			if ( safe_size( _fp_array, 0 ) == 2 )
 			{
@@ -196,7 +199,6 @@ function circles_lib_fixedpoints_add( _opcode = 0, _entity = "", _pt_coords = nu
 
              if ( _duplicate_found > 0 ) return [ RET_WARNING, "Found " + _duplicate_found + " duplicate" + ( _duplicate_found == 1 ? "" : "s" ) + " and not inserted:" + _glob_crlf.repeat(2) + _pts_formula.join( _glob_crlf ) ] ;
              else
-             {
                 console.log( "ADD#1" );
 				var _entries_n = safe_int( _fp_array.length, 0 );
                 var _ret_id = _entries_n > 0 ? RET_OK : RET_WARNING;
@@ -270,8 +272,7 @@ function circles_lib_fixedpoints_create_figures_from( _index, _plane_type, _out_
 
 function circles_lib_fixedpoints_connect( _plane_type, _clean, _showtext, _out_channel )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    _clean = safe_int( _clean, YES );
+    _plane_type = circles_lib_return_plane_type( _plane_type ), _clean = safe_int( _clean, YES );
     _showtext = safe_int( _showtext, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _fp_n = circles_lib_count_fixed_points();
     if ( _fp_n == 0 ) return [ RET_WARNING, "The fixed points list is empty" ];
@@ -315,10 +316,8 @@ function circles_lib_fixedpoints_connect( _plane_type, _clean, _showtext, _out_c
                    }
 
                    if ( _showtext )
-                   circles_lib_draw_text( _context, _sm, _pt.x, _pt.y, _word,
-                                    _glob_default_text_clr, _fontstyle,
-                                    _shift_x_canvas, _shift_y_canvas,
-                                    YES, DEFAULT_MAX_OPACITY, 0 );
+                   circles_lib_draw_text( _context, _sm, _pt.x, _pt.y, _word, _glob_default_text_clr, _fontstyle,
+                                    _shift_x_canvas, _shift_y_canvas, YES, DEFAULT_MAX_OPACITY, 0 );
                    POINTSarray.push( _pt );
                }
           }
@@ -404,14 +403,14 @@ function circles_lib_fixedpoints_locate( _i, _plane_type, _clean, _showtext, _ou
     }
 }
 
-function circles_lib_fixedpoints_add_from_seeds( _out_channel )
+function circles_lib_fixedpoints_add_from_seeds( _out_channel = OUTPUT_SCREEN, _reset = 0 )
 {
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _reset = safe_int( _reset, 0 );
     var _sd_n = circles_lib_count_seeds(), fp_n = circles_lib_count_fixed_points();
     if ( _sd_n == 0 ) return [ RET_WARNING, "The fixed points list is empty" ];
     else
     {
-       _glob_input_fixed_pts_array.flush();
+       if ( _reset ) _glob_input_fixed_pts_array.flush();
        for( var _z = 0 ; _z < _sd_n ; _z++ ) circles_lib_fixedpoints_add( 1, _glob_seeds_array[_z].symbol, null, _z );
        var _n_fp = circles_lib_count_fixed_points();
        if ( _n_fp == 0 ) return [ RET_WARNING, "No fixed points have been pulled out from seeds" ];
@@ -419,14 +418,14 @@ function circles_lib_fixedpoints_add_from_seeds( _out_channel )
     }
 }
 
-function circles_lib_fixedpoints_add_from_gens_set( _out_channel )
+function circles_lib_fixedpoints_add_from_gens_set( _out_channel = OUTPUT_SCREEN, _reset = 0 )
 {
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _reset = safe_int( _reset, 0 );
     var _gg_n = circles_lib_count_gens();
     if ( _gg_n == 0 ) return [ RET_WARNING, "The generators set is empty" ];
     else
     {
-       _glob_input_fixed_pts_array.flush();
+       if ( _reset ) _glob_input_fixed_pts_array.flush();
        for( var _z = 0 ; _z < _gg_n ; _z++ ) circles_lib_fixedpoints_add( 1, _glob_gens_set_model_array[_z], null, _z, YES );
        var _n_fp = circles_lib_count_fixed_points();
        if ( _n_fp == 0 ) return [ RET_WARNING, "No fixed points have been pulled out from the generators set" ];
@@ -434,16 +433,16 @@ function circles_lib_fixedpoints_add_from_gens_set( _out_channel )
     }
 }
 
-function circles_lib_fixedpoints_add_from_commutators( _keep_up_n_items, _out_channel )
+function circles_lib_fixedpoints_add_from_commutators( _keep_up_n_items = 0, _out_channel = OUTPUT_SCREEN, _reset = 0 )
 {
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
-	 _keep_up_n_items = Math.max( 0, safe_int( _keep_up_n_items, 0 ) );
+	_keep_up_n_items = Math.max( 0, safe_int( _keep_up_n_items, 0 ) );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _reset = safe_int( _reset, 0 );
     var _sd_n = circles_lib_count_seeds();
     if ( _sd_n == 0 ) return [ RET_WARNING, "Can't retrieve the commutators list: missing gens" ];
     else if ( safe_size( _glob_alphabet, 0 ) == 0 ) return [ RET_WARNING, "Can't retrieve the commutators list: no alphabet available" ];
     else
     {
-       _glob_input_fixed_pts_array.flush();
+       if ( _reset ) _glob_input_fixed_pts_array.flush();
        var _alphabet = circles_lib_alphabet_get();
        var _small_letters = circles_lib_alphabet_get_small_symbols();
        var _caps_letters = circles_lib_alphabet_get_cap_symbols();

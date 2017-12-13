@@ -43,7 +43,6 @@ function circles_terminal_cmd_fp()
         _cmd_params['straight'] = NO ;
         _cmd_params['source'] = [] ;
         _cmd_params['words'] = [];
-        _cmd_params['settings'] = [] ;
 
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
@@ -76,13 +75,10 @@ function circles_terminal_cmd_fp()
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
             else if ( _p.is_one_of_i( "force" ) )
             {
-                if ( !is_array( _cmd_params['settings']['options'] ) ) _cmd_params['settings']['options'] = [] ;
-                _cmd_params['settings']['options'].push( _p );
+                if ( !is_array( _cmd_params['options'] ) ) _cmd_params['options'] = [] ;
+                _cmd_params['options'].push( _p );
             }
-            else if ( _p.stricmp( "all" ) ) _cmd_params['all'] = YES ;
-            else if ( _p.stricmp( "clean" ) ) _cmd_params['clean'] = YES ;
-            else if ( _p.stricmp( "showtext" ) ) _cmd_params['showtext'] = YES ;
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
+            else if ( _p.is_one_of_i( "all", "clean", "html", "reset", "showtext" ) ) _cmd_params[_p] = YES ;
             else if ( _p.toLowerCase().start_with( "roundto:" ) )
             {
                 _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
@@ -101,16 +97,15 @@ function circles_terminal_cmd_fp()
             }
             else if ( _p.toLowerCase() == "zplane" ) _cmd_params['plane'] = Z_PLANE ;
             else if ( _p.toLowerCase() == "wplane" ) _cmd_params['plane'] = W_PLANE ;
-            else if ( _p.toLowerCase().is_one_of( "add", "bomb", "connect", "delete", "figures", "list", "localize", "release" ) ) _cmd_params['action'] = _p.toLowerCase();
-            else if ( _p.toLowerCase().is_one_of( "neutral", "sink", "source" ) ) _cmd_params['category'] = _p.toLowerCase();
-            else if ( _p.toLowerCase().is_one_of( "commutator", "default", "gensset" ) ) _cmd_params['source'].push( _p.toLowerCase() );
+            else if ( _p.is_one_of_i( "add", "bomb", "connect", "delete", "figures", "list", "localize", "release" ) ) _cmd_params['action'] = _p.toLowerCase();
+            else if ( _p.is_one_of_i( "neutral", "sink", "source" ) ) _cmd_params['category'] = _p.toLowerCase();
+            else if ( _p.is_one_of_i( "commutator", "default", "gensset" ) ) _cmd_params['source'].push( _p.toLowerCase() );
             else if ( _p.testME( _glob_positive_integer_regex_pattern ) &&
                       _cmd_params['action'].is_one_of( "connect", "delete", "localize" ) )
                       _cmd_params['index'].push( _p );
             else if ( _p.testME( _glob_word_regex_pattern ) && _cmd_params['action'].is_one_of( "add" ) )
             {
-                var _n_fp = safe_size( _cmd_params['inputfp'], 0 );
-                var _n_words = safe_size( _cmd_params['words'], 0 );
+                var _n_fp = safe_size( _cmd_params['inputfp'], 0 ), _n_words = safe_size( _cmd_params['words'], 0 );
                 if ( _n_words < ( _n_fp - 1 ) )
                 for( var _m = _n_words ; _m < ( _n_fp - 1 ); _m++ ) _cmd_params['words'].push( "" );
                    
@@ -148,7 +143,7 @@ function circles_terminal_cmd_fp()
          else if ( _cmd_params['action'].length == 0 ) { _b_fail = YES, _error_str = "Missing action specification" ; }
          else if ( _cmd_params['action'].length > 0 && !_b_fail )
          {
-            var _round_to = _cmd_params['roundto'], _options = _cmd_params['settings']['options'] ;
+            var _round_to = _cmd_params['roundto'], _options = _cmd_params['options'] ;
             var _action = _cmd_params['action'] ;
             if ( _action.length == 0 ) _action == "list" ;
             var _fp_n = circles_lib_count_fixed_points() ;
@@ -166,15 +161,18 @@ function circles_terminal_cmd_fp()
                 var _n_source = safe_size( _cmd_params['source'], 0 );
                 var _n_inputfp = safe_size( _cmd_params['inputfp'], 0 );
                 var _n_words = safe_size( _cmd_params['words'], 0 );
+				if ( _cmd_params['reset'] )
+                circles_lib_output( _out_channel, DISPATCH_INFO, "Fixed points list will be deleted before add new elements", _par_1, _cmd_tag );
+			
                 if ( _n_source > 0 )
                 {
                     var _add_sources = function()
                     {
                         $.each( _cmd_params['source'], function( _index, _val ) {
                                 var _ret_chunk ;
-                                if ( _val.strcmp( "commutator" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_commutators( 0, _out_channel );
-                                else if ( _val.strcmp( "default" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_seeds( _out_channel );
-                                else if ( _val.strcmp( "gensset" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_gens_set( _out_channel );
+                                if ( _val.strcmp( "commutator" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_commutators( 0, _out_channel, _cmd_params['reset'] );
+                                else if ( _val.strcmp( "default" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_seeds( _out_channel, _cmd_params['reset'] );
+                                else if ( _val.strcmp( "gensset" ) ) _ret_chunk = circles_lib_fixedpoints_add_from_gens_set( _out_channel, _cmd_params['reset'] );
                                 else
                                 {
                                     circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid input source", _par_1, _cmd_tag );
@@ -231,30 +229,25 @@ function circles_terminal_cmd_fp()
                             circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                     } );
                 }
+				else if ( _n_source == 0 ) { _b_fail = YES, _error_str = "Can't add fixed points: missing input entries" ;  }
                 break ;
-                 case "bomb":
-                 var _ret_chunk = null ;
-                 if ( _fp_n == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "The fixed points list is already empty", _par_1, _cmd_tag );
-                 else if ( _force ) _ret_chunk = circles_lib_fixedpoints_bomb( _out_channel );
-                 else
-                 {
-						     		  var _params_array = [] ;
-												  _params_array['prepromptquestion'] = null ;
-								     		 	_params_array['promptquestion'] = "This operation will erase the current fixed points list. Proceed ?" ;
-												  _params_array['yes_fn'] = function()
-																										{
-													                             _ret_chunk = circles_lib_fixedpoints_bomb( _out_channel );
-													                             if ( is_array( _ret_chunk ) )
-													                             {
-													                                var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
-													                                var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
-													                                circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-													                             }
-																										}
-												  _params_array['ifquestiondisabled_fn'] = function() { _ret_chunk = circles_lib_fixedpoints_bomb( _out_channel ); }
-                 }
-                 
-                 break ;
+				case "bomb":
+				if ( _fp_n == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the fixed points list is empty ", _par_1, _cmd_tag );
+				else
+				{
+                   	var _params_array = [], _pre_prompt = null ;
+					_params_array['prepromptquestion'] = null ;
+                   	_params_array['promptquestion'] = _prompt_question = "Confirm to delete all fixed points ("+_fp_n+") ? " ;
+                   	_params_array['yes_fn'] = function() { _ret_chunk = circles_lib_fixedpoints_bomb( _out_channel );
+					    var _ret_id = safe_int( _ret_chunk[0], RET_WARNING );
+					    var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
+						circles_lib_output( _out_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+					}
+                   	_params_array['ifquestiondisabled_fn'] = function() { _ret_chunk = circles_lib_fixedpoints_bomb( _out_channel ); }
+					if ( !_glob_terminal_echo_flag || _cmd_params["silent"] ) _params_array['yes_fn'].call(this);
+                   	else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+				}
+				break ;
                  case "connect":
                  if ( _fp_n == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "The input fixed points list is empty", _par_1, _cmd_tag );
                  else if ( _cmd_params['plane'] == NO_PLANE ) circles_lib_output( _out_channel, DISPATCH_INFO, "Missing input plane for fixed points to connect", _par_1, _cmd_tag );

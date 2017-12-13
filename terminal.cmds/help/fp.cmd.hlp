@@ -40,8 +40,8 @@
 <lightblue>fp add 0.2-0.4i -0.2</lightblue>
 <cadetblue>multiple points insertion</cadetblue>
 
-<lightblue>fp add commutators</lightblue>
-<cadetblue>add fixed points calculated from commutators</cadetblue>
+<lightblue>fp add commutators reset</lightblue>
+<cadetblue>delete all previous fixed points and add new ones resulting from commutators</cadetblue>
 
 <lightblue>fp bomb force</lightblue>
 <cadetblue>delete all input fixed points (skipping questions)</cadetblue>
