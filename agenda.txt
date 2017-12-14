@@ -27,8 +27,7 @@
 
 --------------- FIX SOON -----------------------
 
-* Next cmd to check: fp
-  test all entries inside the help file
+* Next cmd to check: frm
   
 * Listings:
   - run and test all listings

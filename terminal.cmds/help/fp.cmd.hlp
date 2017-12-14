@@ -49,11 +49,11 @@
 <lightblue>fp connect wplane</lightblue>
 <cadetblue>draw a polyline on the W-plane, connecting all points in the fixed points list</cadetblue>
 
-<lightblue>fp delete 1+1i</lightblue>
-<cadetblue>delete input fixed point (coords syntax)</cadetblue>
-
 <lightblue>fp delete 1</lightblue>
-<cadetblue>delete input fixed point (index syntax)</cadetblue>
+<cadetblue>delete input fixed point (single index syntax)</cadetblue>
+
+<lightblue>fp delete 1 2 3</lightblue>
+<cadetblue>delete input fixed point (multiple indexes syntax)</cadetblue>
 
 <lightblue>fp figures sources wplane</lightblue>
 <cadetblue>turn source points into objects of 'figure' type, belonging to the W-plane</cadetblue>

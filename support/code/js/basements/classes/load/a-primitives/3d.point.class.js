@@ -92,14 +92,20 @@ point_3d.prototype.roundTo = function( _round_digits )
                        );
 }
 
-point_3d.prototype.output = function( _format, _round_digits, _include_notes )
+point_3d.prototype.output = function( _format = "", _round_digits = _POINT_3D_MAX_ACCURACY, _include_notes = 1 )
 {
-    _round_digits = safe_int( _round_digits, _POINT_3D_MAX_ACCURACY );
-    _include_notes = safe_int( _include_notes, YES );
+    _round_digits = safe_int( _round_digits, _POINT_3D_MAX_ACCURACY ), _include_notes = safe_int( _include_notes, YES );
     if ( _format == null || _format == "undefined" ) _format = "std" ;
     var _out = "" ;
     switch( _format.toLowerCase() )
     {
+        case "algebraic":
+        _out = this.x.roundTo(_round_digits).toString().replace('\\.0*$','') ;
+		if ( this.y > 0 ) _out += "+" ;
+		_out += this.y.roundTo(_round_digits).toString().replace('\\.0*$','') ;
+		if ( this.z > 0 ) _out += "+" ;
+		_out += this.z.roundTo(_round_digits).toString().replace('\\.0*$','') ;
+        break ;
         case "std":
         _out = ( ( this.notes.length > 0 ? this.notes + "&nbsp;" : "" ) + "x:" + this.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) + " y:" + this.y.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) + " z:" + this.z.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ) ;
         break ;

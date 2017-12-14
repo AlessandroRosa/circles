@@ -73,12 +73,7 @@ function circles_terminal_cmd_fp()
             _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.is_one_of_i( "force" ) )
-            {
-                if ( !is_array( _cmd_params['options'] ) ) _cmd_params['options'] = [] ;
-                _cmd_params['options'].push( _p );
-            }
-            else if ( _p.is_one_of_i( "all", "clean", "html", "reset", "showtext" ) ) _cmd_params[_p] = YES ;
+            else if ( _p.is_one_of_i( "all", "clean", "force", "html", "reset", "showtext" ) ) _cmd_params[_p] = YES ;
             else if ( _p.toLowerCase().start_with( "roundto:" ) )
             {
                 _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
@@ -143,11 +138,11 @@ function circles_terminal_cmd_fp()
          else if ( _cmd_params['action'].length == 0 ) { _b_fail = YES, _error_str = "Missing action specification" ; }
          else if ( _cmd_params['action'].length > 0 && !_b_fail )
          {
-            var _round_to = _cmd_params['roundto'], _options = _cmd_params['options'] ;
+            var _round_to = _cmd_params['roundto'] ;
             var _action = _cmd_params['action'] ;
             if ( _action.length == 0 ) _action == "list" ;
             var _fp_n = circles_lib_count_fixed_points() ;
-            var _force = ( !is_array( _options ) || _fp_n == 0 ) ? YES : ( _options.one_in_i( "force" ) ? YES : NO ) ;
+            var _force = _cmd_params['force'] != null ? YES : NO ;
             if ( _cmd_params['all'] && _fp_n > 0 )
             {
                _cmd_params['index'].flush();
@@ -191,10 +186,12 @@ function circles_terminal_cmd_fp()
                     else
                     {
 			     		var _params_array = [] ;
-						_params_array['prepromptquestion'] = null ;
-					    _params_array['promptquestion'] = "This operation will overwrite the current fixed points list. Proceed ?" ;
+						_params_array['prepromptquestion'] = "This operation will overwrite the current fixed points list." ;
+					    _params_array['promptquestion'] = "Proceed (y|n) ?" ;
 						_params_array['yes_fn'] = function() { _add_sources(); }
 						_params_array['ifquestiondisabled_fn'] = function() { _add_sources(); }
+						if ( !_glob_terminal_echo_flag || _cmd_params["silent"] || _force ) _params_array['yes_fn'].call(this);
+						else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                     }
                 }
 
@@ -268,42 +265,42 @@ function circles_terminal_cmd_fp()
                  if ( _n_index == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "Missing input index for fixed points to delete", _par_1, _cmd_tag );
                  else
                  {
-                     var _delete_fp = function()
-                     {
-                         var _hashes = [], _ret_chunk, _zero_based, _ret_id, _ret_msg ;
-                         // loading hashes related to elements to be deleted                       
-                         $.each( _cmd_params['index'],
-                                 function( _i, _fp_index )
-                                 {
-                                     _zero_based = _fp_index - 1, _ret_chunk = _glob_input_fixed_pts_array[_zero_based] ;
-                                     if ( _ret_chunk != null ) _hashes.push( _ret_chunk[3] );
-                                     else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid input index #"+(_fp_index), _par_1, _cmd_tag );
-                                 } );
+					var _zero_based, _ret_id, _ret_msg, _ret_chunk, _hashes = [] ;
+                    // loading hashes related to elements to be deleted
+                    $.each( _cmd_params['index'], function( _i, _fp_index ) {
+                            _zero_based = _fp_index - 1, _ret_chunk = _glob_input_fixed_pts_array[_zero_based] ;
+                            if ( _ret_chunk != null ) _hashes.push( _ret_chunk[3] );
+                            else{ _b_fail = 1 ; circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid input index #"+(_fp_index), _par_1, _cmd_tag ); }
+                    } );
+					 
+					if ( !_b_fail ) 
+					{
+						var _delete_fp = function()
+						{
+							if ( safe_size( _hashes, 0 ) > 0 && !_b_fail )
+								$.each( _hashes, function( _i, _hash ) {
+										_ret_chunk = circles_lib_fixedpoints_find( _hash, _out_channel );
+										_zero_based = _ret_chunk[1] ;
+										_ret_chunk = circles_lib_fixedpoints_delete( _zero_based, _out_channel );
+										_ret_id = safe_int( _ret_chunk[0], RET_WARNING ), _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
+										circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
+							} );
+							else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing valid input indexes for fixed points deletion", _par_1, _cmd_tag );
 
-                         if ( safe_size( _hashes, 0 ) > 0 )
-                         {
-                              $.each( _hashes,
-                                      function( _i, _hash )
-                                      {
-                                          _ret_chunk = circles_lib_fixedpoints_find( _hash, _out_channel );
-                                          _zero_based = _ret_chunk[1] ;
-                                          _ret_chunk = circles_lib_fixedpoints_delete( _zero_based, _out_channel );
-                                          _ret_id = safe_int( _ret_chunk[0], RET_WARNING ), _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
-                                          circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-                                      } );
-                         }
-                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing valid input indexes for fixed points deletion", _par_1, _cmd_tag );
+							_fp_n = circles_lib_count_fixed_points();
+							var _ret_msg = _fp_n == 0 ? "The input fixed points list is empty now" : "The fixed points list includes "+_fp_n+" element" + (_fp_n!=1?"s":"")+" now" ;
+							circles_lib_output( _out_channel, DISPATCH_INFO, _ret_msg, _par_1, _cmd_tag );
+						}
 
-                         _fp_n = circles_lib_count_fixed_points();
-                         var _ret_msg = ( _fp_n == 0 ) ? "The input fixed points list is empty now" : "The fixed points list includes " + _fp_n + " element" + (_fp_n!=1?"s":"")+" now" ;
-                         circles_lib_output( _out_channel, DISPATCH_INFO, _ret_msg, _par_1, _cmd_tag );
-                     }
-
-						     		 var _params_array = [] ;
-								     	   _params_array['prepromptquestion'] = null ;
-					     		 			 _params_array['promptquestion'] = "This operation will erase "+_n_index+" element"+(_n_index!=1?"s":"")+" from fixed points list. Proceed ?" ;
-									     	 _params_array['yes_fn'] = function() { _delete_fp(); }
-									     	 _params_array['ifquestiondisabled_fn'] = function() { _delete_fp(); }
+						var _params_array = [] ;
+						_params_array['prepromptquestion'] = "This operation will erase "+_n_index+" element"+(_n_index!=1?"s":"")+" from fixed points list." ;
+						_params_array['promptquestion'] = "Proceed (y|n) ?" ;
+						_params_array['yes_fn'] = function() { _delete_fp(); }
+						_params_array['ifquestiondisabled_fn'] = function() { _delete_fp(); }
+						if ( !_glob_terminal_echo_flag || _cmd_params["silent"] || _force ) _params_array['yes_fn'].call(this);
+						else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+					}
+					else { _error_str = "Fail to delete elements" ;  }
                  }
                  break ;
                  case "figures":
@@ -314,9 +311,7 @@ function circles_terminal_cmd_fp()
                  {
                       var _hashes = [], _ret_chunk, _zero_based, _ret_id, _ret_msg ;
                       // loading hashes related to elements to be deleted
-                      $.each( _cmd_params['index'],
-                              function( _i, _fp_index )
-                              {
+                      $.each( _cmd_params['index'], function( _i, _fp_index ) {
                                   _zero_based = _fp_index - 1, _ret_chunk = _glob_input_fixed_pts_array[_zero_based] ;
                                   if ( _ret_chunk != null ) _hashes.push( _ret_chunk[3] );
                                   else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid input index #"+(_fp_index), _par_1, _cmd_tag );
@@ -324,9 +319,7 @@ function circles_terminal_cmd_fp()
 
                       if ( safe_size( _hashes, 0 ) > 0 )
                       {
-                           $.each( _hashes,
-                                   function( _i, _hash )
-                                   {
+                           $.each( _hashes, function( _i, _hash ) {
                                       _ret_chunk = circles_lib_fixedpoints_find( _hash, _out_channel );
                                       _zero_based = _ret_chunk[1] ;
                                       _ret_chunk = circles_lib_fixedpoints_create_figures_from( _i, _cmd_params['plane'], _out_channel );
@@ -344,20 +337,19 @@ function circles_terminal_cmd_fp()
                  {
                       if ( _cmd_params['dump'] ) _glob_text = "" ;
                       // pre-scan for columns width optimization
-                      var _cols = [ 8, 0, 0 ] ;
-                      $.each( _glob_input_fixed_pts_array,
-                              function( _index, _chunk )
-                              {
-                                  _cols[0] = Math.max( _chunk[0].length + 2, _cols[0] );
-                                  _cols[1] = Math.max( ( _chunk[1].x + "" ).length + 2, ( _chunk[1].y + "" ).length + 2, _cols[1] );
-                                  _cols[2] = Math.max( _chunk[2].length + 2, _cols[2] );
-                              }
-                            );
+                      var _cols = [ 4, 8, 0, 0 ] ;
+                      $.each( _glob_input_fixed_pts_array, function( _index, _chunk ) {
+                                  _cols[0] = 4 ;
+                                  _cols[1] = Math.max( ("Entity").length+2, _cols[1], _chunk[0].length + 2 );
+                                  _cols[2] = Math.max( ("Coordinates").length+2, _cols[2], _chunk[1].output("algebraic",_round_to).length + 2 );
+                                  _cols[3] = Math.max( ("Type").length+2, _cols[3], _chunk[2].length + 2 );
+                              } );
 
-                      var _entity = ( new String( "Entity" ) ).rpad( " ", _cols[0] );
-                      var _pt_x = "X", _pt_y = "Y" ;
+                      var _idx_cnt = ( new String( "#n" ) ).rpad( " ", _cols[0] );
+                      var _entity = ( new String( "Entity" ) ).rpad( " ", _cols[1] );
+                      var _coords = ( new String( "Coordinates" ) ).rpad( " ", _cols[2] );
                       var _type = "Type" ;
-                      var _row = _entity + new String( _pt_x ).rpad( " ", _cols[1] ) + new String( _pt_y ).rpad( " ", _cols[1] ) + _type ;
+                      var _row = _idx_cnt + _entity + _coords + _type ;
                       if ( _cmd_params['dump'] ) _glob_text = _row ;
                       if ( _out_channel == OUTPUT_TERMINAL )
                       {
@@ -368,36 +360,32 @@ function circles_terminal_cmd_fp()
                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>" + _row + "</yellow>", _par_1, _cmd_tag );
                       }
                       
-                      var _palette = [ "lightblue", "snow" ], _entity, _pt, _type, _open_tag, _close_tag ;
+                    var _palette = [ "lightblue", "snow" ], _entity, _pt, _type, _open_tag, _close_tag, _cnt ;
 
-                      $.each( _glob_input_fixed_pts_array,
-                              function( _index, _chunk )
-                              {
-                                  _entity = _chunk[0].rpad( " ", _cols[0] );
-                                  _pt = _chunk[1] ;
-                                  _type = circles_lib_fixedpoints_get_def( _chunk[2] ).rpad( " ", _cols[2] );
-                                  _row = _entity + new String( _pt.x.roundTo(_round_to) ).rpad( " ", _cols[1] ) + new String( _pt.y.roundTo(_round_to) ).rpad( " ", _cols[1] ) + _type ;
+                    $.each( _glob_input_fixed_pts_array, function( _index, _chunk ) {
+                                  _cnt = ( (_index+1)+"" ).rpad( " ", _cols[0] );
+                                  _entity = _chunk[0].rpad( " ", _cols[1] );
+                                  _pt = _chunk[1].output("algebraic",_round_to).rpad( " ", _cols[2] ) ;
+                                  _type = circles_lib_fixedpoints_get_def( _chunk[2] ).rpad( " ", _cols[3] );
+                                  _row = _cnt + _entity + _pt + _type ;
+								  
                                   _open_tag = "<"+_palette[ _index % _palette.length ]+">" ;
                                   _close_tag = "</"+_palette[ _index % _palette.length ]+">" ;
                                   if ( _out_channel == OUTPUT_TERMINAL )
                                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _open_tag + _row + _close_tag, _par_1, _cmd_tag );
 
                                   if ( _cmd_params['dump'] ) _glob_text += _glob_crlf + _row ;
-                              }
-                            );
+                              } );
 
-                      if ( _cmd_params['dump'] )
-                      {
-            						  _cmd_params['dump_array'] = _cmd_params['dump_array'] != null ? _cmd_params['dump_array'][0] : "circles.benchmark.txt" ;
-            						  var _ret_chunk = circles_lib_dump_data_to_format( _glob_text.strip_tags(), _cmd_params['dump_array'] );
-            						  var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
-            							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
-            							if ( _ret_id == 0 )
-            							{
-            									_b_fail = YES, _error_str = _ret_msg ;
-            							}
-            							else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
-                      }
+                    if ( _cmd_params['dump'] )
+                    {
+  						_cmd_params['dump_array'] = _cmd_params['dump_array'] != null ? _cmd_params['dump_array'][0] : "circles.benchmark.txt" ;
+            			var _ret_chunk = circles_lib_dump_data_to_format( _glob_text.strip_tags(), _cmd_params['dump_array'] );
+            			var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
+            			var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
+            			if ( _ret_id == 0 ) { _b_fail = YES, _error_str = _ret_msg ; }
+            			else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+                    }
                  }
                  break ;
                  case "localize":

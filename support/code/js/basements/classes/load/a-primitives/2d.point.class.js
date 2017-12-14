@@ -200,7 +200,7 @@ point.prototype.roundTo = function( _round_digits )
                       this.env, this.bordercolor, this.fillcolor, this.radius, this.notes );
 }
 
-point.prototype.output = function( _format, _round_digits, _include_notes )
+point.prototype.output = function( _format, _round_digits = _POINT_2D_MAX_ACCURACY, _include_notes = 1 )
 {
     _round_digits = safe_int( _round_digits, _POINT_2D_MAX_ACCURACY );
     _include_notes = safe_int( _include_notes, 1 );
@@ -208,17 +208,22 @@ point.prototype.output = function( _format, _round_digits, _include_notes )
     var _out = "" ;
     switch( _format )
     {
+        case "algebraic":
+        _out = this.x.roundTo(_round_digits).toString().replace('\\.0*$','') ;
+		if ( this.y > 0 ) _out += "+" ;
+		_out += this.y.roundTo(_round_digits).toString().replace('\\.0*$','') ;
+        break ;
         case "std":
-        _out += ( ( this.notes.length > 0 ? this.notes + " " : "" ) + "x:" + this.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) + " y:" + this.y.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ) ;
+        _out = ( ( this.notes.length > 0 ? this.notes + " " : "" ) + "x:" + this.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) + " y:" + this.y.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ) ;
         break ;
         case "cartesian":
-        _out += "("+this.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) + "," + this.y.roundTo(_round_digits).toString().replace( '\\.0*$', '' )+")" ;
+        _out = "("+this.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) + "," + this.y.roundTo(_round_digits).toString().replace( '\\.0*$', '' )+")" ;
         break ;
         case "plain":
-        _out += this.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) + "," + this.y.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ;
+        _out = this.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) + "," + this.y.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ;
         break ;
         default:
-        _out += ( ( this.notes.length > 0 ? this.notes + "&nbsp;" : "" ) + "x:" + this.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) + " y:" + this.y.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ) ;
+        _out = ( ( this.notes.length > 0 ? this.notes + "&nbsp;" : "" ) + "x:" + this.x.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) + " y:" + this.y.roundTo(_round_digits).toString().replace( '\\.0*$', '' ) ) ;
         break ;
     }
 

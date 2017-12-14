@@ -217,8 +217,6 @@ function circles_lib_fixedpoints_add( _opcode = 0, _entity = "", _pt_coords = nu
                 return [ _entries_n > 0 ? RET_OK : RET_ERROR, _ret_msg ] ;
              }
           }
-          else return [ RET_ERROR, "Invalid Mobius maps: error while elaborating the input entity '"+_entity+"'" ] ;
-       }
     }
     else return [ RET_ERROR, "Invalid input entity '"+_entity+"'" ] ;
 }
@@ -461,7 +459,7 @@ function circles_lib_fixedpoints_add_from_commutators( _keep_up_n_items = 0, _ou
     }
 }
 
-function circles_lib_fixedpoints_bomb( _out_channel )
+function circles_lib_fixedpoints_bomb( _out_channel = OUTPUT_SCREEN )
 {
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _fp_n = circles_lib_count_fixed_points();
@@ -481,27 +479,23 @@ function circles_lib_fixedpoints_find( _hash, _out_channel )
     else
     {
         var _ret_index = UNDET, _chunk_hash ;
-        $.each( _glob_input_fixed_pts_array,
-                function( _i, _chunk )
+        $.each( _glob_input_fixed_pts_array, function( _i, _chunk ) {
+                if ( _chunk != null )
                 {
-                   if ( _chunk != null )
-                   {
-                       _chunk_hash = _chunk[3] ;
-                       if ( _hash.strcmp( _chunk_hash ) )
-                       {
-                           _ret_index = _i ;
-                           return false ;
-                       }
-                   }
-                } );
+                    _chunk_hash = _chunk[3] ;
+                    if ( _hash.strcmp( _chunk_hash ) )
+                    {
+                        _ret_index = _i ;
+                        return false ;
+                    }
+                } } );
         return [ RET_OK, _ret_index ] ;
     }
 }
 
-function circles_lib_fixedpoints_delete( _index, _out_channel )
+function circles_lib_fixedpoints_delete( _index = UNDET, _out_channel = OUTPUT_SCREEEN )
 {
-    _index = safe_int( _index, UNDET );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _index = safe_int( _index, UNDET ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _fp_n = circles_lib_count_fixed_points();
     if ( _fp_n == 0 ) return [ RET_WARNING, "Can't delete: the list of input fixed points is already empty" ];
     else if ( _index < 0 ) return [ RET_WARNING, "Can't delete: invalid entry index" ] ;
@@ -512,7 +506,7 @@ function circles_lib_fixedpoints_delete( _index, _out_channel )
         _glob_input_fixed_pts_array.remove( _index, _index );
         var _new_n = circles_lib_count_fixed_points();
         if ( _new_n != _old_n - 1 ) return [ RET_WARNING, "Problems while trying to delete entry at index #"+(_index+1)+"" ];
-        else return [ RET_OK, "The input point, indexed at '"+_index+"' and associated to word '"+_word+"', has been deleted with success" ];
+        else return [ RET_OK, "The input point, indexed at '"+(_index+1)+"' and associated to word '"+_word+"', has been deleted with success" ];
     }
     else return [ RET_WARNING, "Missing element to delete at index #"+(_index+1)+"" ];
 }
