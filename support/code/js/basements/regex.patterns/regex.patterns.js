@@ -1,8 +1,8 @@
 var _glob_cartesian_coords_regex_pattern = "^([\(]{1})([0-9\.\+\-]{1,})(\,|\;)([0-9\.\+\-]{1,})([\)]{1})$" ;
 var _glob_complex_fraction_regex_pattern = "^[+|-]?[\(]?([i0-9\.\+\-]{1,})[\)]?\/[+|-]?[\(]?([i0-9\.\+\-]{1,})[\)]?$" ;
 var _glob_complex_number_regex_pattern = "^[+|-]?[\i0-9\.]{0,}[+|-]?[\i0-9\.]{0,}$" ;
-var _glob_determinant_word_regex_pattern = "^(det)+(\\[|\\()?([a-zA-Z]{1,})((\\*+[1-9]{1,})?)?(\\]|\\))?$" ;
-var _glob_determinant_commutator_regex_pattern = "^(det)+\\[([a-zA-Z]{1})\\,([a-zA-Z]{1})\\]$" ;
+var _glob_determinant_word_regex_pattern = /(det)\[\w+\]/g ;
+var _glob_determinant_commutator_regex_pattern = /(det)\[([a-zA-Z]{1})\,([a-zA-Z]{1})\]/g ;
 var _glob_exponent_regex_pattern = /(\^[0-9]{1,})/g ;
 var _glob_filename_regex_pattern = "^([A-Za-z0-9\.\_]{1,})$" ;
 var _glob_float_regex_pattern = "^[+|-]?([0-9\.]{1,})$" ;

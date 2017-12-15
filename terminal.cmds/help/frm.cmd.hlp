@@ -9,9 +9,6 @@
 <lightblue>frm log(2.0+1.0i)</lightblue>
 <cadetblue>evaluate input formula</cadetblue>
 
-<lightblue>frm sin(0.0+1.0i) parse</lightblue>
-<cadetblue>supply additional infos</cadetblue>
-
 <lightblue>frm tr(ab)*2</lightblue>
 <cadetblue>compute trace of 'ab' word and multiplies it by 2</cadetblue>
 
@@ -21,14 +18,11 @@
 <lightblue>frm tr[a,b]</lightblue>
 <cadetblue>compute commutator from 'ab' (i.e, 'abAB') and return its trace</cadetblue>
 
-<lightblue>frm tr^2[a,b]</lightblue>
-<cadetblue>square the trace of commutator abAB</cadetblue>
-
-<lightblue>frm tr^2[a,b] classification</lightblue>
+<lightblue>frm tr[a,b] classification</lightblue>
 <cadetblue>square the trace of commutator abAB and returns the related classification</cadetblue>
 
-<lightblue>frm tr(ab)*2 seeds|gens</lightblue>
-<cadetblue>double the trace of ab, where this word is computed over the seeds|gens set</cadetblue>
+<lightblue>frm tr(ab)*2 seeds|generators</lightblue>
+<cadetblue>double the trace of ab, where this word is computed over the seeds|generators set</cadetblue>
 
 <lightblue>frm det[ab]</lightblue>
 <cadetblue>computes determinant for word ab</cadetblue>

@@ -2,7 +2,7 @@ function circles_lib_alphabet_get_cap_symbols() { return is_array( _glob_alphabe
 function circles_lib_alphabet_get_small_symbols() { return is_array( _glob_alphabet ) ? _glob_alphabet.filtering( function( _v ) { return _v.isAlphaLower(); } ).purge(0).sort() : []; }
 function circles_lib_alphabet_count_cap_symbols() { return safe_size( circles_lib_alphabet_get_cap_symbols(), 0 ); }
 function circles_lib_alphabet_count_small_symbols() { return safe_size( circles_lib_alphabet_get_small_symbols(), 0 ); }
-function circles_lib_alphabet_get_color_from_symbol( _sym )
+function circles_lib_alphabet_get_color_from_symbol( _sym = "" )
 {
     _sym = safe_string( _sym, "" ).trim();
     if ( safe_size( _sym, 0 ) == 0 ) return null ;
@@ -11,11 +11,11 @@ function circles_lib_alphabet_get_color_from_symbol( _sym )
     else return null ;
 }
 
-function circles_lib_alphabet_get( _items_array )
+function circles_lib_alphabet_get( _items_array = [] )
 {
-		_items_array = circles_lib_items_set( _items_array ) ;
+	_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
-    if ( !_test ) return "" ;
+    if ( !_test ) return [] ;
     var _n = _test ? safe_size( _items_array, 0 ) : 0 ;
     if ( _n == 0 ) return _glob_alphabet ;
     else
@@ -24,7 +24,7 @@ function circles_lib_alphabet_get( _items_array )
         var _l, _i ;
         for( _i = 0 ; _i < _n ; _i++ )
         {
-           _l = safe_string( _items_array[_i].symbol, "" ) ;
+           _l = safe_string( _items_array[_i].symbol, "" ).trim() ;
            if ( _l.length > 0 ) _glob_alphabet.push( _l );
         }
 

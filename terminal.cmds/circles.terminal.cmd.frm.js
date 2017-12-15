@@ -2,53 +2,50 @@ _glob_terminal_cmd_files_include[ "frm" ] = [] ;
 
 function circles_terminal_cmd_frm()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _out_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _max_var_identifier_length = 12 ;
-     var _help = 0 ;
-     var _b_fail = 0, _error_str = "" ;
-     var _fn_ret_val = null ;
-     var _out_text_string = "" ;
-     var _var_identifier = "" ;
-     var _cmd_params = [];
-     var _std_var_label = "z" ;
-     var _fn_ret_val = null ;
-     var _trace_entries = [ "tr(", "tr^", "tr[" ] ;
-     var _determinant_entries = [ "det(", "det^", "det[" ] ;
-     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     else if ( _params.length > 0 )
-     {
-         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
-         _cmd_params['keywords'] = NO ;
-         _cmd_params['frm'] = [] ;
-         _cmd_params['action'] = null ;
-         _cmd_params[''+_std_var_label] = null ;
-         _cmd_params['dump_array'] = null ;
-         _cmd_params['dump_operator_index'] = UNDET ;
-         _cmd_params['settings'] = [] ;
-         _cmd_params['settings']['accuracy'] = _glob_accuracy ;
-         _cmd_params['settings']['classification'] = NO ;
-         _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
+	var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _max_var_identifier_length = 12 ;
+    var _help = 0 ;
+    var _b_fail = 0, _error_str = "" ;
+    var _fn_ret_val = null ;
+    var _out_text_string = "" ;
+    var _var_identifier = "" ;
+    var _cmd_params = [];
+    var _std_var_label = "z" ;
+    var _fn_ret_val = null ;
+    var _trace_entries = [ "tr(", "tr^", "tr[" ] ;
+    var _determinant_entries = [ "det(", "det^", "det[" ] ;
+    if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    else if ( _params.length > 0 )
+    {
+        _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+        _cmd_params['keywords'] = NO ;
+        _cmd_params['frm'] = [] ;
+        _cmd_params['action'] = null ;
+        _cmd_params[''+_std_var_label] = null ;
+        _cmd_params['dump_array'] = null ;
+        _cmd_params['dump_operator_index'] = UNDET ;
+        _cmd_params['accuracy'] = _glob_accuracy ;
+        _cmd_params['classification'] = NO ;
+        _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
          
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "parse", "release", "html", "seeds", "generators", "classification" );
-    		 var _magic_entries = [] ;
-				 		 _magic_entries.push( "jorgensenineq" );
-				 		 _local_cmds_params_array = _local_cmds_params_array.concat( _magic_entries );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+        var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
+        // pre-scan for levenshtein correction
+		var _local_cmds_params_array = [ "release", "html", "seeds", "generators", "classification" ];
+    	var _magic_entries = [ "jorgensenineq" ];
+		_local_cmds_params_array = _local_cmds_params_array.concat( _magic_entries );
+        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 				 _cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -61,7 +58,7 @@ function circles_terminal_cmd_frm()
     				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
     				 if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
          }
-         if ( _dump_operator_index != UNFOUND ) _cmd_params['settings'].push( "assign" ) ;
+         if ( _dump_operator_index != UNFOUND ) _cmd_params.push( "assign" ) ;
 
          var _p ;
          // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
@@ -72,7 +69,7 @@ function circles_terminal_cmd_frm()
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
             else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
-            else if ( _magic_entries.includes_i( _p ) ) _cmd_params['settings']['magic'] = _p ;
+            else if ( _magic_entries.includes_i( _p ) ) _cmd_params['magic'] = _p ;
             else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
             else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
             else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
@@ -89,105 +86,89 @@ function circles_terminal_cmd_frm()
 					if ( _p <= 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'accuracy' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
 					else circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'accuracy' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
 				}
-				_cmd_params['settings']['accuracy'] = _p ;
+				_cmd_params['accuracy'] = _p ;
             }
             else _cmd_params['frm'].push( _p.trim() );
          }
          
-         if ( safe_string( _cmd_params['settings']['magic'], "" ).length > 0 )
-				 {
-         			var _label = "" ;
-         		  switch( safe_string( _cmd_params['settings']['magic'], "" ) )
-         		  {
-						 			case "jorgensenineq":
-						 			_label = "Jorgensen's inequality" ;
-						 			_cmd_params['frm'] = [ "abs(tr^2(A)-4)+abs(tr[A,B]-2)>=1" ] ;
-						 			break ;
-							}
+        if ( safe_string( _cmd_params['magic'], "" ).length > 0 )
+		{
+        	var _label = "" ;
+			switch( safe_string( _cmd_params['magic'], "" ) )
+         	{
+				case "jorgensenineq":
+				_label = "Jorgensen's inequality" ;
+				_cmd_params['frm'] = [ "abs(tr^2(A)-4)+abs(tr[A,B]-2)>=1" ] ;
+				break ;
+				default: break ;
+			}
 							
-							if ( _cmd_params['frm'].length > 0 )
-							{
-									circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Found magic entry '<lightblue>"+_cmd_params['settings']['magic']+"</lightblue>' and", _par_1, _cmd_tag );
-									var _frm = $.terminal.escape_brackets( _cmd_params['frm'][0] ) ;
-									circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "turned to <yellow>"+_label+"</yellow> formula" );
-									circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<white>"+_frm+"</white>", _par_1, _cmd_tag );
-									circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "", _par_1, _cmd_tag );
-							}
-				 }
-
+			if ( _cmd_params['frm'].length > 0 )
+			{
+				circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Found magic entry '<lightblue>"+_cmd_params['magic']+"</lightblue>' and", _par_1, _cmd_tag );
+				var _frm = $.terminal.escape_brackets( _cmd_params['frm'][0] ) ;
+				circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "turned to <yellow>"+_label+"</yellow> formula" );
+				circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<white>"+_frm+"</white>", _par_1, _cmd_tag );
+				circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "", _par_1, _cmd_tag );
+			}
+		}
+		
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
          {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
-             else
-             {
-                 _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-             }
+            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+            else
+            {
+                _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
+                circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+            }
          }
          else
          {
              var _action = safe_string( _cmd_params['action'], "" ).trim() ;
-             var _settings = _cmd_params['settings'] ;
-             var _accuracy = _cmd_params['settings']['accuracy'] ;
+             var _settings = _cmd_params ;
+             var _accuracy = _cmd_params['accuracy'] ;
              var _classification = _cmd_params["classification"] ;
              switch( _action )
              {
-                 case "release":
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-                 break ;
-                 default:
-                 var _n_frm = safe_size( _cmd_params['frm'], 0 );
-		             var _items_array = _cmd_params["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-		             var _dest_ref = _cmd_params["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
-		             var _category_ref = _cmd_params["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
-                 if ( _n_frm == 0 )
-                 {
-                    _b_fail = 1 ;
-                    _error_str = "Missing input expression" ;
-                 }
-                 else
-                 {
+                case "release":
+                circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                break ;
+                default:
+                var _n_frm = safe_size( _cmd_params['frm'], 0 );
+		        var _items_array = _cmd_params["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+		        var _dest_ref = _cmd_params["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+		        var _category_ref = _cmd_params["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
+                if ( _n_frm == 0 ) { _b_fail = 1 ; _error_str = "Missing input expression" ; }
+                else
+                {
                     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Parsing input formula ...</lightblue>", _par_1, _cmd_tag );
                     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>All symbols will refer to the group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
                     circles_lib_output( _out_channel, DISPATCH_INFO, "", 0, "frm" );
                     $.each( _cmd_params['frm'], function( _i, _tok ){ _cmd_params['frm'][_i] = _tok.trim() ; } ) ;
                     var _frm = _cmd_params['frm'].join( "" ) ;
+					
                     var _is_var = _frm.testME( _glob_varid_regex_pattern ) ? YES : NO ;
                     var _illegals = _glob_punctuation.clone().remove( [ ".", "-", "^", "," ] ).concat( _glob_illegal_symbols ) ;
                     var _is_formula = YES, _is_illegal = NO, _what_illegals = [] ;
-                    $.each( _cmd_params['frm'],
-                            function( _i, _tok )
-                            {
-                               $.each( _illegals, function( _i, _punct )
-                                       {
-                                          if ( _tok.includes( _punct ) )
-                                          {
-                                             _is_illegal = YES, _what_illegals.push( _punct );
-                                          }
-                                       }
-                                     );
-                            }
-                          ) ;
+                    $.each( _cmd_params['frm'], function( _i, _tok ) {
+                            $.each( _illegals, function( _i, _punct ) {
+                                if ( _tok.includes( _punct ) ) { _is_illegal = YES, _what_illegals.push( _punct ); }
+                            } );
+                        } ) ;
 
-                    if ( _is_illegal )
-                    {
-                        _b_fail = YES, _error_str = "Input symbols '"+_what_illegals.join( ", " )+"' are illegal." ;
-                    }
+                    if ( _is_illegal ) { _b_fail = YES, _error_str = "Input symbols '"+_what_illegals.join( ", " )+"' are illegal." ; }
                     else if ( _is_var )
                     {
+						// for further use
                     }
                     else if ( _is_formula )
                     {
-                        var _frm = _cmd_params['frm'].join( "" ) ;
                         if ( _frm.includes_i( _std_var_label ) )
                         {
                             circles_lib_output( _out_channel, DISPATCH_INFO, "Found polynomial in var '"+_std_var_label+"'", _par_1, _cmd_tag );
-                            if ( _cmd_params[''+_std_var_label] == null )
-                            {
-                               _b_fail = YES, _error_str = "Missing input var '"+_std_var_label+"' value." ;
-                            }
+                            if ( _cmd_params[''+_std_var_label] == null ) { _b_fail = YES, _error_str = "Missing input var '"+_std_var_label+"' value." ; }
                             else
                             {
                                var _var_formula = _cmd_params[''+_std_var_label].formula(YES,YES,_accuracy);
@@ -197,39 +178,32 @@ function circles_terminal_cmd_frm()
                             }
                         }
                         
-                        var _mask = 0 ;
-                        		_mask |= _frm.one_in_i( _trace_entries ) ? 1 : 0 ;
-                        		_mask |= _frm.one_in_i( _determinant_entries ) ? 2 : 0 ;
+                        var _mask = _frm.one_in_i( _trace_entries ) ? 1 : 0 ;
+                        	_mask |= _frm.one_in_i( _determinant_entries ) ? 2 : 0 ;
                         if ( _mask & 1 )
                         {
                             var _ret_chunk = circles_terminal_cmd_frm_trace_resolver( _glob_terminal, _items_array, _frm, _accuracy, _out_channel, _classification, _cmd_tag );
                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                             var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
-                            if ( _ret_id == RET_ERROR )
-                            {
-                                _b_fail = YES, _error_str = _ret_msg ;
-                            }
+                            if ( _ret_id == RET_ERROR ) { _b_fail = YES, _error_str = _ret_msg ; }
                             else _frm = _ret_msg ;
                         }
                         
-												if ( _mask & 2 )
+						if ( _mask & 2 )
                         {
-                        		if ( _classification ) circles_lib_output( _out_channel, DISPATCH_INFO, "'Classification' works for trace operator exclusively and it will be skipped", _par_1, _cmd_tag );
+                       		if ( _classification ) circles_lib_output( _out_channel, DISPATCH_INFO, "'Classification' works for trace operator exclusively and it will be skipped", _par_1, _cmd_tag );
                             var _ret_chunk = circles_terminal_cmd_frm_determinant_resolver( _glob_terminal, _items_array, _frm, _accuracy, _out_channel, _par_1, _cmd_tag );
                             var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                             var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
-                            if ( _ret_id == RET_ERROR )
-                            {
-                                _b_fail = YES, _error_str = _ret_msg ;
-                            }
+                            if ( _ret_id == RET_ERROR ) { _b_fail = YES, _error_str = _ret_msg ; }
                             else _frm = _ret_msg ;
                         }
                         
-												if ( _mask == 0 )												
+						if ( _mask == 0 )
                         {
-                        		if ( _classification ) circles_lib_output( _out_channel, DISPATCH_INFO, "'Classification' works for trace operator exclusively and it will be skipped", _par_1, _cmd_tag );
+                        	if ( _classification ) circles_lib_output( _out_channel, DISPATCH_INFO, "'Classification' works for trace operator exclusively and it will be skipped", _par_1, _cmd_tag );
                             // after correction, let's solve the input expression
-                            var _new_frm = circles_lib_parse_adjust_formula( _frm );
+                            var _new_frm = circles_lib_parse_fix_formula( _frm );
                             if ( !_new_frm.stricmp( _frm ) )
                             {
                                circles_lib_output( _out_channel, DISPATCH_INFO, "Input expression has been parsed and corrected into: " + _new_frm, _par_1, _cmd_tag );
@@ -243,73 +217,64 @@ function circles_terminal_cmd_frm()
                         var _result = null, _complex_obj = null, _is_boolean = NO ;
                         if ( !_b_fail )
                         {
-                           try
-													 {
-															 _result = _glob_parser.eval( _frm );
-															 if ( _result != null )
-															 {
-																	if ( typeof _result === "boolean" ) _is_boolean = YES ;
-																	else _complex_obj = _result['im'] != null ? new complex( safe_float( _result['re'], 0 ), safe_float( _result['im'], 0 ) ) : new complex( safe_float( _result, 0 ), 0 ) ;
-															 }
-													 }
-                           catch( _err )
-													 {
-													 		_b_fail = YES, _error_str = _err ;
-													 		circles_lib_error_obj_handler( _err ) ;
-													 }
+                            try
+							{
+								_result = _glob_parser.eval( _frm );
+								if ( _result != null )
+								{
+									if ( typeof _result === "boolean" ) _is_boolean = YES ;
+									else _complex_obj = _result['im'] != null ? new complex( safe_float( _result['re'], 0 ), safe_float( _result['im'], 0 ) ) : new complex( safe_float( _result, 0 ), 0 ) ;
+								}
+							}
+                            catch( _err )
+							{
+								_b_fail = YES, _error_str = _err ;
+								circles_lib_error_obj_handler( _err ) ;
+							}
                             
                             _fn_ret_val = _is_boolean ? _result : ( is_complex( _complex_obj ) ? _complex_obj : null ) ;
-                            if ( ( is_complex( _complex_obj ) || _is_boolean ) && !_b_fail && _settings.includes_i( "assign" ) )
+                            if ( ( is_complex( _fn_ret_val ) || _is_boolean ) && !_b_fail && _settings.includes_i( "assign" ) )
                             {
-                               if ( _cmd_params['dump'] && _cmd_params['dump_array'] != null )
-                               {
-                                  _var_identifier = _cmd_params['dump_array'][0] ;
-                                  _var_identifier = is_string( _var_identifier ) ? _var_identifier.trim() : null;
-                                  var _ret_chunk = circles_lib_dump_data_to_format( _complex_obj, _var_identifier, _frm );
-   																var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
-   																var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
-  																if ( _ret_id == 0 )
-   																{
-   																		_b_fail = YES, _error_str = _ret_msg ;
-   																}
-   																else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
-                               }
-                               else circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing destination for dumping." + _result, _par_1, _cmd_tag );
+                                if ( _cmd_params['dump'] && _cmd_params['dump_array'] != null )
+                                {
+									_var_identifier = _cmd_params['dump_array'][0] ;
+									_var_identifier = is_string( _var_identifier ) ? _var_identifier.trim() : null;
+									var _ret_chunk = circles_lib_dump_data_to_format( _complex_obj, _var_identifier, _frm );
+   									var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
+   									var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
+  									if ( _ret_id == 0 ) { _b_fail = YES, _error_str = _ret_msg ; }
+   									else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+                                }
+                                else circles_lib_output( _out_channel, DISPATCH_ERROR, "Missing destination for dumping." + _result, _par_1, _cmd_tag );
                             }
                             else if ( ( !is_complex( _complex_obj ) && !_is_boolean ) || _b_fail ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to resolve input formula", _par_1, _cmd_tag );
                         }
 
-                        var _n_detected = is_array( _extracted_vars_array ) ? safe_size( _extracted_vars_array, 0 ) : 0 ;
-                        var _vars_detected = (_n_detected==0?"No":_n_detected)+" custom var" + ( ( _n_detected == 1 ) ? "" : "s" )+" detected" ;
-                        if ( _n_detected > 0 ) _vars_detected += " : " + _extracted_vars_array.join( ", " ); 
-                        circles_lib_output( _out_channel, DISPATCH_INFO, _vars_detected, _par_1, _cmd_tag );
-
-												if ( is_complex( _complex_obj ) )
+						if ( is_complex( _fn_ret_val ) )
                         {
-                           _fn_ret_val = _complex_obj = _complex_obj.roundTo( _cmd_params['approx'] != null ? _cmd_params['approx'] : _glob_accuracy );
-                           _result = _complex_obj.formula(YES,YES,_accuracy);
+                           _fn_ret_val = _fn_ret_val.roundTo( _cmd_params['approx'] != null ? _cmd_params['approx'] : _glob_accuracy );
+                           _result = _fn_ret_val.formula(YES,YES,_accuracy);
                         }
-												else if ( _is_boolean )
+						else if ( _is_boolean )
                         {
-													 _fn_ret_val = _result ;
-													 _result = _result ? "true" : "false" ;														
-												}
+							_fn_ret_val = _result ;
+							_result = _result ? "true" : "false" ;														
+						}
 
                         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Result is</lightblue> <yellow>" + _result + "</yellow>", _par_1, _cmd_tag );
-
                         if ( _settings.includes_i( "assign" ) && !_b_fail && _var_identifier.length > 0 )
                         circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Result has been flushed into var " + _var_identifier, _par_1, _cmd_tag );
                     }
-                 }
-                 break ;
+                }
+                break ;
              }
-         }
-     }
-     else { _b_fail = YES, _error_str = "Missing input expression" ; }
+        }
+    }
+    else { _b_fail = YES, _error_str = "Missing input expression" ; }
 
-     if ( _out_channel == OUTPUT_FUNCTION ) return _b_fail ? null : _fn_ret_val ;
-     else if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _out_channel == OUTPUT_FUNCTION ) return _b_fail ? null : _fn_ret_val ;
+    else if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
 }
 
 function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _formula_in, _accuracy, _out_channel, _classification )
@@ -325,7 +290,6 @@ function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _form
         var _formula_out = _formula_in ;
         var _parentheses_get_pattern = /\((.*?)\)/g ;
         var _brackets_get_pattern = /\[(.*?)\]/g ;
-        var _mixed_get_pattern = /({|\[|\()(.*?)(}|\]|\))/g ; // get anything between parentheses|brackets|curly braces
 
         var _alphabet = circles_lib_alphabet_get( _items_array );
         var _ret_chunk = [] ;
@@ -336,71 +300,53 @@ function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _form
         if ( safe_size( _alphabet, 0 ) == 0 ) return [ RET_ERROR, "Missing alphabet: register Mobius maps first" ] ;
         else if ( safe_size( _traces_word_matches, 0 ) > 0 )
         {
-           circles_lib_terminal_multicolor_echo( "Found <white>simple trace operator</white> in input formula" );
-           circles_lib_terminal_info_echo( "Computation in progress" );
-           var _word, _exponent ;
-           $.each( _traces_word_matches,
-                   function( _i, _trace )
-                   {
-                   		 _word = ( _trace.match( _parentheses_get_pattern ) )[0] ;
-                       _exponent = _trace.match( _glob_exponent_regex_pattern );
-                       if ( safe_size( _exponent, 0 ) > 1 )
-                       {
-                          _ret_chunk = [ RET_ERROR, "Syntax error: invalid exponent specification" ] ;
-                          return NO ;
-                       }
-                       else if ( safe_size( _exponent, 0 ) == 1 )
-                       {
-                          _exponent = safe_float( _exponent[0].replaceAll( "^", "" ), 0 );
-                          if ( _exponent == 0 )
-                          {
-                             _exponent = 1 ;
-                             circles_lib_terminal_info_echo( "Found exponent as zero ... skipped" );
-                          }
-                       }
-                       else _exponent = 1 ;
+            circles_lib_terminal_multicolor_echo( "Found <white>simple trace operator</white> in input formula" );
+            circles_lib_terminal_info_echo( "Computation in progress" );
+            var _word, _exponent ;
+            $.each( _traces_word_matches, function( _i, _trace ) {
+                   	_word = ( _trace.match( _parentheses_get_pattern ) )[0] ;
+					_exponent = _trace.match( _glob_exponent_regex_pattern );
+                    if ( safe_size( _exponent, 0 ) > 1 )
+                    {
+                        _ret_chunk = [ RET_ERROR, "Syntax error: invalid exponent specification" ] ;
+                        return NO ;
+                    }
+                    else if ( safe_size( _exponent, 0 ) == 1 ) _exponent = safe_float( _exponent[0].replaceAll( "^", "" ), 0 );
+                    else _exponent = 1 ;
 
-                       var _resolved_word = circles_lib_repetends_resolve( _word.replaceAll( [ "(", ")" ], "" ) );
-                       if ( !_word.strcmp( _resolved_word ) )
-                       {
-                           circles_lib_terminal_multicolor_echo( "<lightgray>Detected repetend expression in input string</lightgray>" );
-                           circles_lib_terminal_multicolor_echo( "<lightgray>and resolved into</lightgray> <yellow>"+_resolved_word+"</yellow> " );
-                           _word = _resolved_word ;
-										   }
-                       var _ret = circles_lib_word_check( _word, _alphabet );
-                       if ( _ret == CIRCLES_MISSING_INPUT )
-                       {
-                          _ret_chunk = [ RET_ERROR, "Missing input word" ] ;
-                          return _ret_chunk ;
-                       }
-                       else if ( _ret == CIRCLES_MISSING_ALPHABET )
-                       {
-                          _ret_chunk = [ RET_ERROR, "Missing alphabet" ] ;
-                          return _ret_chunk ;
-                       }
-                       else if ( _ret == YES )
-                       {
-                          var _mm = circles_lib_word_mobiusmap_get( _word, _items_array, _out_channel );
-                          if ( !is_mobius_map( _mm ) ) return [ RET_ERROR, "Error while computing '"+_trace+"'" ] ;
-                          else
-                          {
-                             var _tr_complex = _mm.trace().pow(_exponent).formula( YES, YES, _accuracy );
-                             _formula_out = _formula_out.replace( _trace, "("+_tr_complex+")" ) ;
-                             _trace = $.terminal.escape_brackets( _trace );
-                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_trace+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", 0, "frm" );
-                             if ( _classification )
-                             {
-		                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'standard test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,NO)+"</yellow>", 0, "frm" );
-		                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'nearly test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,YES)+"</yellow>", 0, "frm" );
-														 }
-                             circles_lib_output( _out_channel, DISPATCH_INFO, "", 0, "frm" );
-                          }
-                       }
-                       else
-                       {
-                          _ret_chunk = [ RET_ERROR, $.terminal.escape_brackets( "The input trace '"+_trace+"' does not match the current alphabet '"+_alphabet.join(",")+"'" ) ] ;
-                          return _ret_chunk ;
-                       }
+                    var _resolved_word = circles_lib_repetends_resolve( _word.replaceAll( [ "(", ")" ], "" ) );
+                        if ( !_word.strcmp( _resolved_word ) )
+                        {
+							circles_lib_terminal_multicolor_echo( "<lightgray>Detected repetend expression in input string</lightgray>" );
+							circles_lib_terminal_multicolor_echo( "<lightgray>and resolved into</lightgray> <yellow>"+_resolved_word+"</yellow> " );
+							_word = _resolved_word ;
+						}
+						var _ret = circles_lib_word_check( _word, _alphabet );
+						if ( _ret == CIRCLES_MISSING_INPUT ) { _ret_chunk = [ RET_ERROR, "Missing input word" ] ; return _ret_chunk ; }
+						else if ( _ret == CIRCLES_MISSING_ALPHABET ) { _ret_chunk = [ RET_ERROR, "Missing alphabet" ] ; return _ret_chunk ; }
+						else if ( _ret == YES )
+						{
+							var _mm = circles_lib_word_mobiusmap_get( _word, _items_array, _out_channel );
+							if ( !is_mobius_map( _mm ) ) return [ RET_ERROR, "Error while computing '"+_trace+"'" ] ;
+							else
+							{
+								var _tr_complex = _mm.trace().pow(_exponent).formula( YES, YES, _accuracy );
+								_formula_out = _formula_out.replace( _trace, "("+_tr_complex+")" ) ;
+								_trace = $.terminal.escape_brackets( _trace );
+								circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_trace+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", 0, "frm" );
+								if ( _classification )
+								{
+		                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'standard test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,NO)+"</yellow>", 0, "frm" );
+		                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>This trace is classified under 'nearly test' as</lightblue> <yellow>"+_mm.classification(NO,_accuracy,YES)+"</yellow>", 0, "frm" );
+								}
+								circles_lib_output( _out_channel, DISPATCH_INFO, "", 0, "frm" );
+							}
+						}
+						else
+						{
+							_ret_chunk = [ RET_ERROR, $.terminal.escape_brackets( "The input trace '"+_trace+"' does not match the current alphabet '"+_alphabet.join(",")+"'" ) ] ;
+							return _ret_chunk ;
+						}
                    }
                  );
         }
@@ -501,170 +447,65 @@ function circles_terminal_cmd_frm_trace_resolver( _terminal, _items_array, _form
     }
 }
 
-function circles_terminal_cmd_frm_determinant_resolver( _terminal, _items_array, _formula_in, _accuracy, _out_channel, _par_1 )
+function circles_terminal_cmd_frm_determinant_resolver( _terminal = null, _items_array, _formula_in = "", _accuracy = _glob_accuracy, _out_channel = OUTPUT_TERMINAL, _par_1 )
 {
-    _out_channel = safe_int( _out_channel, OUTPUT_TERMINAL );
-    _formula_in = safe_string( _formula_in, "" ).trim();
-    if ( _formula_in.length == 0 ) return [ RET_ERROR, "" ] ;
+    _out_channel = safe_int( _out_channel, OUTPUT_TERMINAL ), _formula_in = safe_string( _formula_in, "" ).trim();
+    if ( _formula_in.length == 0 || _terminal == null ) return [ RET_ERROR, "" ] ;
     else
     {
-        var _formula_out = _formula_in ;
-        var _parentheses_get_pattern = /\((.*?)\)/g ;
-        var _brackets_get_pattern = /\[(.*?)\]/g ;
-        var _mixed_get_pattern = /({|\[|\()(.*?)(}|\]|\))/g ; // get anything between parentheses|brackets|curly braces
-
-        var _alphabet = circles_lib_alphabet_get( _items_array );
-        var _ret_chunk = [] ;
-
-        var _determinant_word_matches = _formula_in.match( _determinant_word_pattern );
-        var _determinant_commutator_matches = _formula_in.match( _determinant_commutator_pattern );
-
+        var _formula_out = _formula_in, _brackets_get_pattern = /\[(.*?)\]/g ;
+        var _alphabet = circles_lib_alphabet_get( _items_array ), _ret_chunk = [] ;
+        var _determinant_word_matches = _formula_in.match( _glob_determinant_word_regex_pattern );
+        var _determinant_commutator_matches = _formula_in.match( _glob_determinant_commutator_regex_pattern );
         if ( safe_size( _alphabet, 0 ) == 0 ) return [ RET_ERROR, "Missing alphabet. Register Mobius map first" ] ;
-        
         if ( safe_size( _determinant_word_matches, 0 ) > 0 )
         {
              circles_lib_terminal_info_echo( "Found determinant operator in input formula" );
              circles_lib_terminal_info_echo( "Computation in progress" );
              var _word, _exponent ;
-             $.each( _determinant_word_matches,
-                     function( _i, _determinant )
-                     {
-                          _word = ( _determinant.match( _parentheses_get_pattern ) )[0] ;
-                          _exponent = _determinant.match( _glob_exponent_regex_pattern );
-                          if ( safe_size( _exponent, 0 ) > 1 )
-                          {
-                              _ret_chunk = [ RET_ERROR, "Syntax error: invalid exponent specification" ] ;
-                              return NO ;
-                          }
-                          else if ( safe_size( _exponent, 0 ) == 1 )
-                          {
-                              _exponent = safe_float( _exponent[0].replaceAll( "^", "" ), 0 );
-                              if ( _exponent == 0 )
-                              {
-                                  _exponent = 1 ;
-                                  circles_lib_terminal_info_echo( "Found exponent as zero ... skipped" );
-                              }
-                          }
-                          else _exponent = 1 ;
+             $.each( _determinant_word_matches, function( _i, _determinant ) {
+				_word = _determinant.match( _brackets_get_pattern ) ;
+				if ( is_array( _word ) ) _word = _word[0] ;
+                _exponent = _determinant.match( _glob_exponent_regex_pattern );
+				if ( safe_size( _exponent, 0 ) > 1 )
+                {
+                    _ret_chunk = [ RET_ERROR, "Syntax error: invalid exponent specification" ] ;
+                    return NO ;
+                }
+                else if ( safe_size( _exponent, 0 ) == 1 )
+                {
+                    _exponent = safe_float( _exponent[0].replaceAll( "^", "" ), 0 );
+                    if ( _exponent == 0 )
+                    {
+                        _exponent = 1 ;
+                        circles_lib_terminal_info_echo( "Found exponent as zero ... skipped" );
+                    }
+                }
+                else _exponent = 1 ;
 
-                              _word = _word.replaceAll( [ "(", ")" ], "" );
-                              _word = circles_lib_repetends_resolve( _word );
-                          var _ret = circles_lib_word_check( _word, _alphabet );
-                          if ( _ret == CIRCLES_MISSING_INPUT )
-                          {
-                              _ret_chunk = [ RET_ERROR, "Missing input word" ] ;
-                              return NO ;
-                          }
-                          else if ( _ret == CIRCLES_MISSING_ALPHABET )
-                          {
-                              _ret_chunk = [ RET_ERROR, "Missing alphabet" ] ;
-                              return NO ;
-                          }
-                          else if ( _ret == YES )
-                          {
-                               var _mm = circles_lib_word_mobiusmap_get( _word, _items_array, _out_channel );
-                               if ( !is_mobius_map( _mm ) ) return [ RET_ERROR, "Error while computing '"+_determinant+"'" ] ;
-                               else
-                               {
-                                   var _tr_complex = _mm.det().pow(_exponent).formula(YES,YES,_accuracy ) ;
-                                   _formula_out = _formula_out.replaceAll( _determinant, "("+_tr_complex+")" );
-	                                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_determinant+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", _par_1, "frm" );
-                               }
-                          }
-                          else
-                          {
-                               _ret_chunk = [ RET_ERROR, $.terminal.escape_brackets( "The input determinant '"+_determinant+"' does not match the current alphabet '"+_alphabet.join(",")+"'" ) ] ;
-                               return NO ;
-                          }
+                _word = _word.replaceAll( [ "(", ")" ], "" );
+                _word = circles_lib_repetends_resolve( _word );
+                var _ret = circles_lib_word_check( _word, _alphabet );
+                if ( _ret == CIRCLES_MISSING_INPUT ) { _ret_chunk = [ RET_ERROR, "Missing input word" ] ; return NO ; }
+                else if ( _ret == CIRCLES_MISSING_ALPHABET ) { _ret_chunk = [ RET_ERROR, "Missing alphabet" ] ; return NO ; }
+                else if ( _ret == YES )
+                {
+                    var _mm = circles_lib_word_mobiusmap_get( _word, _items_array, _out_channel );
+					if ( !is_mobius_map( _mm ) ) return [ RET_ERROR, "Error while computing '"+_determinant+"'" ] ;
+                    else
+                    {
+                        var _tr_complex = _mm.det().pow(_exponent).formula(YES,YES,_accuracy ) ;
+                        _formula_out = _formula_out.replaceAll( _determinant, "("+_tr_complex+")" );
+	                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_determinant+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", _par_1, "frm" );
+                    }
+                }
+                else
+                {
+                    _ret_chunk = [ RET_ERROR, $.terminal.escape_brackets( "The input determinant '"+_determinant+"' does not match the current alphabet '"+_alphabet.join(",")+"'" ) ] ;
+                    return NO ;
+                }
 
-                     }
-                   );
-        }
-        
-        if ( safe_size( _determinant_commutator_matches, 0 ) > 0 )
-        {
-            circles_lib_terminal_info_echo( "Found commutator determinant operator" );
-            circles_lib_terminal_info_echo( "Computation in progress" );
-            var _ret_chunk = [], _word, _exponent ;
-             $.each( _determinant_commutator_matches,
-                     function( _i, _determinant )
-                     {
-                          _word = ( _determinant.match( _brackets_get_pattern ) )[0] ;
-                          _exponent = _determinant.match( _glob_exponent_regex_pattern );
-                          if ( safe_size( _exponent, 0 ) > 1 )
-                          {
-                              _ret_chunk = [ RET_ERROR, "Syntax error: invalid exponent specification" ] ;
-                              return NO ;
-                          }
-                          else if ( safe_size( _exponent, 0 ) == 1 )
-                          {
-                              _exponent = safe_float( _exponent[0].replaceAll( "^", "" ), 0 );
-                              if ( _exponent == 0 )
-                              {
-                                  _exponent = 1 ;
-                                  circles_lib_terminal_info_echo( "Found exponent as zero ... skipped" );
-                              }
-                          }
-                          else _exponent = 1 ;
-
-                              _word = _word.replaceAll( [ "[", "]" ], "" );
-                          if ( _word.includes( "," ) )
-                          {
-                               var _symbols_array = _word.split( "," );
-                               if ( safe_size( _symbols_array, 0 ) > 0 ) _symbols_array = _symbols_array.unique();
-                               if ( safe_size( _symbols_array, 0 ) < 2 )
-                               {
-                                  _ret_chunk = [ RET_ERROR, "Syntax error in commutator determinant operator: at least 2 symbols are required" ] ;
-                                  return NO ;
-                               }
-                               else
-                               {
-                                    var _word_array = _symbols_array.clone();
-                                    $.each( _symbols_array, function( _i, _sym ) { _word_array.push( circles_lib_word_inverse_get( _sym ) ); } );
-                                    var _commutator = _word_array.join( "" );
-                                    circles_lib_terminal_info_echo( "Resolved input '"+_word+"' into commutator '"+_commutator+"'" );
-
-                                    var _ret = circles_lib_word_check( _commutator, _alphabet );
-                                    if ( _ret == CIRCLES_MISSING_INPUT )
-                                    {
-                                        _ret_chunk = [ RET_ERROR, "Missing input commutator" ] ;
-                                        return NO ;
-                                    }
-                                    else if ( _ret == CIRCLES_MISSING_ALPHABET )
-                                    {
-                                        _ret_chunk = [ RET_ERROR, "Missing alphabet" ] ;
-                                        return NO ;
-                                    }
-                                    else if ( _ret == YES )
-                                    {
-                                        var _mm = circles_lib_word_mobiusmap_get( _commutator, _items_array, _out_channel );
-                                        if ( !is_mobius_map( _mm ) )
-                                        {
-                                           _ret_chunk = [ RET_ERROR, "Error while computing '"+_determinant+"'" ] ;
-                                           return NO ;
-                                        }
-                                        else
-                                        {
-                                           var _tr_complex = _mm.det().pow(_exponent).formula(YES,YES,_accuracy);
-                                           _formula_out = _formula_out.replaceAll( _determinant, "("+_tr_complex+")" );
-				                                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>"+_determinant+"</lightblue> evaluates to <yellow>"+_tr_complex+"</yellow>", _par_1, "frm" );
-                                           circles_lib_output( _out_channel, DISPATCH_INFO, "", 0, "frm" );
-                                        }
-                                    }
-                                    else
-                                    {
-                                        _ret_chunk = [ RET_ERROR, $.terminal.escape_brackets( "The input determinant '"+_determinant+"' does not match the current alphabet '"+_alphabet.join(",")+"'" ) ] ;
-                                        return NO ;
-                                    }
-                               }
-                          }
-                          else
-                          {
-                              _ret_chunk = [ RET_ERROR, "Syntax error in commutator determinant operator" ] ;
-                              return NO ;
-                          }
-                     }
-                   );
+            } );
         }
 
         return ( _ret_chunk[0] == RET_ERROR ) ? _ret_chunk : [ RET_OK, _formula_out ] ;
