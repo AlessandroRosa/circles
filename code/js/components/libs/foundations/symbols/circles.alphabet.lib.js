@@ -11,7 +11,7 @@ function circles_lib_alphabet_get_color_from_symbol( _sym = "" )
     else return null ;
 }
 
-function circles_lib_alphabet_get( _items_array = [] )
+function circles_lib_alphabet_get( _items_array = _glob_seeds_array )
 {
 	_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
@@ -32,9 +32,9 @@ function circles_lib_alphabet_get( _items_array = [] )
     }
 }
 
-function circles_lib_alphabet_suggest_symbol( _items_array, _symbol_case = CAPS_LETTER )
+function circles_lib_alphabet_suggest_symbol( _items_array = _glob_seeds_array, _symbol_case = CAPS_LETTER )
 {
-		_items_array = circles_lib_items_set( _items_array ) ;
+	_items_array = circles_lib_items_set( _items_array ) ;
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
     if ( !_test ) return "" ;
     _symbol_case = safe_int( _symbol_case, CAPS_LETTER );
@@ -71,15 +71,15 @@ function circles_lib_alphabet_suggest_symbol( _items_array, _symbol_case = CAPS_
     return _suggested_symbol.trim();
 }
 
-function circles_lib_alphabet_suggest_inverse_symbol( _input_symbol )
+function circles_lib_alphabet_suggest_inverse_symbol( _input_symbol = "" )
 {
     _input_symbol = safe_string( _input_symbol, "" ).trim();
     return _input_symbol.length > 0 ? safe_string( circles_lib_word_inverse_get( _input_symbol ), "" ) : "" ;
 }
 
-function circles_lib_alphabet_autoconfig_all_symbols( _question, _silent, _force, _init_maps, _out_channel )
+function circles_lib_alphabet_autoconfig_all_symbols( _question = YES, _silent = NO, _force = NO, _init_maps = YES, _out_channel = OUTPUT_SCREEN )
 {
-		_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _force = safe_int( _force, NO );
+	_question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _force = safe_int( _force, NO );
     _init_maps = safe_int( _init_maps, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _items_n = circles_lib_count_items(_items_array);
@@ -100,42 +100,40 @@ function circles_lib_alphabet_autoconfig_all_symbols( _question, _silent, _force
         var _b_go = ( _out_channel == OUTPUT_SCREEN && _question ) ? confirm( _QUESTION_24 ) : YES ;
         if ( _b_go )
         {
-           if ( _items_n > 0 )
-           {
-            	 var _i, _x, _mm, _inv_mm, _symbol, _resident_symbol, _resident_inv_symbol, _inv_symbol, _inverse_mm_index ;
-               _glob_alphabet.flush();
-               for( _i = 0 ; _i < _items_n ; _i++ )
-               {
-                   switch( _glob_method )
-                   {
-                       case METHOD_ALGEBRAIC:
-                       _mm = _items_array[_i].map ;
-                       if ( is_mobius_map( _mm ) )
-                       {
-                           _symbol = _items_array[_i].symbol ;
-                           _inv_symbol = circles_lib_word_inverse_get( _symbol );
-
-                           // search for inverse map through the coefficients
-                           _inverse_mm_index = UNFOUND ;
-                           for( _x = 0 ; _x < _items_n ; _x++ )
-                           {
-                               if ( _inv_symbol.strcmp( _items_array[_x].symbol ) )
-                               {
+            if ( _items_n > 0 )
+            {
+            	var _i, _x, _mm, _inv_mm, _symbol, _resident_symbol, _resident_inv_symbol, _inv_symbol, _inverse_mm_index ;
+                _glob_alphabet = [];
+                for( _i = 0 ; _i < _items_n ; _i++ )
+                {
+                    switch( _glob_method )
+                    {
+						case METHOD_ALGEBRAIC:
+						_mm = _items_array[_i].map ;
+						if ( is_mobius_map( _mm ) )
+						{
+							_symbol = _items_array[_i].symbol, _inv_symbol = circles_lib_word_inverse_get( _symbol );
+							// search for inverse map through the coefficients
+							_inverse_mm_index = UNFOUND ;
+							for( _x = 0 ; _x < _items_n ; _x++ )
+							{
+                                if ( _inv_symbol.strcmp( _items_array[_x].symbol ) )
+                                {
                                    _inverse_mm_index = _x ;
                                    break ;
-                               }
-                           }
+                                }
+							}
 
-                           _resident_symbol = safe_string( _items_array[_i].symbol, "" ) ;
-                           _resident_inv_symbol = safe_string( _items_array[_i].inverse_symbol, "" ) ;
-                           if ( _resident_symbol.length == 0 )
-                           {
+                            _resident_symbol = safe_string( _items_array[_i].symbol, "" ) ;
+                            _resident_inv_symbol = safe_string( _items_array[_i].inverse_symbol, "" ) ;
+                            if ( _resident_symbol.length == 0 )
+                            {
                               _items_array[_i].original_word = _items_array[_i].symbol = circles_lib_alphabet_suggest_symbol( _items_array, CAPS_LETTER );
                               _resident_inv_symbol = _items_array[_i].inverse_symbol = circles_lib_word_inverse_get( _items_array[_i].symbol );
-                           }
+                            }
                            
-                           if ( _resident_inv_symbol.length == 0 )
-                           {
+                            if ( _resident_inv_symbol.length == 0 )
+                            {
                               _symbol = _items_array[_i].symbol = safe_string( _items_array[_i].symbol.trim(), "" ) ;
                               _inv_symbol = _symbol.length > 0 ? circles_lib_word_inverse_get( _symbol ) : "" ;
                               _items_array[_i].inverse_symbol = _inv_symbol ;
@@ -146,41 +144,40 @@ function circles_lib_alphabet_autoconfig_all_symbols( _question, _silent, _force
                                  _items_array[_inverse_mm_index].original_word = _items_array[_inverse_mm_index].symbol = _inv_symbol ;
                                  _items_array[_inverse_mm_index].inverse_symbol = _symbol ;
                               }
-                           }
-                       }
-                       else
-                       {
+                            }
+                        }
+                        else
+                        {
                            var _msg = "Can't set symbols: at least one item is not correctly saved" ;
                            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
                            return [ RET_ERROR, _msg ];
                            break ;
-                       }
-                       break ;
-                       case METHOD_INVERSION:
-                       _symbol = _glob_caps_letters_array[_i].trim();
-                       if ( _items_array[_i].symbol.trim().length == 0 || _force == YES )
-                       _items_array[_i].original_word = _items_array[_i].symbol = _symbol ;
+                        }
+                        break ;
+                        case METHOD_INVERSION:
+                        _symbol = _glob_caps_letters_array[_i].trim();
+                        if ( _items_array[_i].symbol.trim().length == 0 || _force == YES )
+                        _items_array[_i].original_word = _items_array[_i].symbol = _symbol ;
 
-                       _items_array[_i].inverse_symbol = "" ;
-                       if ( !_glob_alphabet.includes( _symbol ) ) _glob_alphabet.push( _symbol );
-                       break ;
-                       default:
-                       break ;
-                   }
-               }
+                        _items_array[_i].inverse_symbol = "" ;
+                        if ( !_glob_alphabet.includes( _symbol ) ) _glob_alphabet.push( _symbol );
+                        break ;
+                        default: break ;
+                    }
+                }
 
-               if ( _init_maps ) circles_lib_items_init(null,NO,YES);
-               circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
-               var _msg = "All symbols have been successfully set up" ;
-               if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
-               return [ RET_OK, _msg ];
-          }
-          else
-     		  {
-				  		var _msg = "Can't set up symbols: " + _ERR_33_01 ;
-					 		if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
-              return [ RET_ERROR, _msg ] ;
-					}
+                if ( _init_maps ) circles_lib_items_init(null,NO,YES);
+                circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
+                var _msg = "All symbols have been successfully set up" ;
+                if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
+                return [ RET_OK, _msg ];
+            }
+			else
+     		{
+				var _msg = "Can't set up symbols: " + _ERR_33_01 ;
+				if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
+				return [ RET_ERROR, _msg ] ;
+			}
         }
     }
 }

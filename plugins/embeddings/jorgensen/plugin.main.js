@@ -279,15 +279,15 @@ function CIRCLESembeddingsJORGENSENmain( _base_id, _move, _restore )
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsJORGENSEN_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsJORGENSEN_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsJORGENSEN_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )
+	{
+		if ( is_string( _move ) )
 		{
-				if ( is_string( _move ) )
-				{
-						_move = _move.replace( /[\|\;\:]/, "," );
-						_move = _move.includes( "," ) ? _move.split( "," ) : [ _move, "TOP" ];
-						move_div( _div.id, _move[0], _move[1] );
-				}
-				else move_div( _div.id, "LEFT", "TOP" );
+			_move = _move.replace( /[\|\;\:]/, "," );
+			_move = _move.includes( "," ) ? _move.split( "," ) : [ _move, "TOP" ];
+			move_div( _div.id, _move[0], _move[1] );
 		}
+		else move_div( _div.id, "LEFT", "TOP" );
+	}
 
     $("#"+_div_id).bind( "click", function() { GLOB_PLUGIN_FOCUS( _base_id ); } );
 

@@ -114,7 +114,7 @@ function circles_lib_items_verify_init_mask( _init_src_opt )
     else return UNDET ;
 }
 
-function circles_lib_items_switch_to( _switch_to_val, _silent, _out_channel )
+function circles_lib_items_switch_to( _switch_to_val = "", _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     if ( is_string( _switch_to_val ) )
@@ -244,7 +244,6 @@ function circles_lib_items_init( _index = UNDET, _question = YES, _silent = NO, 
           _ret_chunk = circles_lib_alphabet_autoconfig_all_symbols( _question, _glob_terminal_echo_flag, YES, NO, _out_channel );
 		  if ( _ret_chunk[0] == RET_ERROR ) return _ret_chunk ;
        }
-        
 
 	   if ( _init_mask & INIT_FROM_DISKS ) _ret_chunk = circles_lib_items_init_group_from_disks( _silent, _init_mask, _report, _force_init, _out_channel );
        else if ( _init_mask & INIT_FROM_MAPS ) _ret_chunk = circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _force_init, _out_channel );
@@ -301,10 +300,9 @@ function circles_lib_items_init( _index = UNDET, _question = YES, _silent = NO, 
         _glob_alphabet = circles_lib_alphabet_get();
         if ( _ret_id == RET_OK )
         {
-          if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
-          if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
+			if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
+			if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( "method", "forms", 1.1 + _glob_current_tab['method'] / 100 );
         }
-
         //circles_lib_plugin_dispatcher_multicast_message( POPUP_DISPATCHER_MULTICAST_EVENT_UPDATE_ALL );
         return [ _ret_id, ( _report_text.length > 0 ? _report_text + _glob_crlf : "" ) + _ret_msg ] ;
     }
@@ -319,25 +317,26 @@ function circles_lib_items_create_from_disk( _index, complex_circle, screen_circ
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _symbol = _index == UNDET ? "" : safe_string( _items_array[_index].symbol, "" ) ;
     var _inv_symbol = _index == UNDET ? "" : safe_string( _items_array[_index].inverse_symbol, "" ) ;
-		switch( _glob_method )
-		{
-			 case METHOD_ALGEBRAIC:
-       _index_inverse = circles_lib_find_item_index_by_symbol( _items_array, _inv_symbol );
-       var _cc = _index_inverse == UNFOUND ? null : _items_array[_index_inverse].complex_circle ;
-       var _inv_cc = _index_inverse == UNFOUND ? null : _items_array[_index_inverse].complex_circle ;
-       if ( is_circle( _cc ) && is_circle( _inv_cc ) ) _mm.init_inversion_from_two_circles( _cc, _inv_cc );
-			 break ;
-			 case METHOD_INVERSION: _mm.init_inversion_from_one_circle( complex_circle ); break ;
-       default: break ;
-		}
-    var _check = _index == UNDET ;
+	switch( _glob_method )
+	{
+		case METHOD_ALGEBRAIC:
+        _index_inverse = circles_lib_find_item_index_by_symbol( _items_array, _inv_symbol );
+        var _cc = _index_inverse == UNFOUND ? null : _items_array[_index_inverse].complex_circle ;
+        var _inv_cc = _index_inverse == UNFOUND ? null : _items_array[_index_inverse].complex_circle ;
+        if ( is_circle( _cc ) && is_circle( _inv_cc ) ) _mm.init_inversion_from_two_circles( _cc, _inv_cc );
+		break ;
+		case METHOD_INVERSION: _mm.init_inversion_from_one_circle( complex_circle ); break ;
+        default: break ;
+	}
+    
+	var _check = _index == UNDET ;
     return new item_obj( _mm, complex_circle, screen_circle, _symbol,
-												 _check ? 0 : _items_array[_index].params_mask,
-		 										 _check ? complex_circle.draw : _items_array[_index].complex_circle.draw,
+						 _check ? 0 : _items_array[_index].params_mask,
+						 _check ? complex_circle.draw : _items_array[_index].complex_circle.draw,
                          _check ? complex_circle.bordercolor : _items_array[_index].complex_circle.bordercolor,
                          _check ? complex_circle.fill : _items_array[_index].complex_circle.fill,
                          _check ? complex_circle.fillcolor : _items_array[_index].complex_circle.fillcolor,
-												 _check ? _inv_symbol : _items_array[_index].inverse_symbol,
+						 _check ? _inv_symbol : _items_array[_index].inverse_symbol,
                          _check ? complex_circle.lineiwdth : _items_array[_index].complex_circle.bordersize,
                          ITEM_TYPE_CIRCLE, "", _symbol );
 }

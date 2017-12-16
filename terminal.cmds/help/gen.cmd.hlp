@@ -28,19 +28,19 @@
 <cadetblue>this repetends syntax expands to abbbb</cadetblue> <yellow>(*)</yellow>
 
 <lightblue>gen add map:(iz-1)/(z-1)</lightblue>
-<cadetblue>add a new item from input formula to seeds ('seeds' is the default option)</cadetblue>
+<cadetblue>add a new Mobius map from input formula to seeds ('seeds' is the default option)</cadetblue>
 
 <lightblue>gen add map:i,-1,1,-1</lightblue>
-<cadetblue>add a new gen from input params to seeds</cadetblue>
+<cadetblue>add a new Mobius map from input params to seeds</cadetblue>
 
 <lightblue>gen add map:i,-1,1,-1 map:1,2,0,1</lightblue>
-<cadetblue>add a two (or even more) generators from input params to seeds</cadetblue>
+<cadetblue>add a two Mobius maps to seeds</cadetblue>
 
 <lightblue>gen add map:abAB</lightblue>
-<cadetblue>add another gen resulting from the input word to seeds</cadetblue>
+<cadetblue>add a Mobius map resulting from the input word to seeds</cadetblue>
 
 <lightblue>gen add map:abAB gens</lightblue>
-<cadetblue>add another generator resulting from the input word</cadetblue>
+<cadetblue>add Mobius map to generators</cadetblue>
 
 <lightblue>gen bomb</lightblue>
 <cadetblue>(ask to) delete all generators</cadetblue>
@@ -65,17 +65,6 @@
 
 <lightblue>gen list short</lightblue>
 <cadetblue>display the same list by omitting the details</cadetblue>
-
-<lightblue>gen rec %plane% %reset%</lightblue>
-<cadetblue>register current items (whether they are seeds or generators) into the figures list</cadetblue>
-<cadetblue>%plane% could be 'zplane' or 'wplane'</cadetblue>
-
-<lightblue>gen rec zplane</lightblue>
-<cadetblue>register generator disks as figures to be displayed on the Z-plane</cadetblue>
-
-<cadetblue>Note: the new figures are appended to the current list, if any</cadetblue>
-<lightblue>gen rec wplane reset</lightblue>
-<cadetblue>free the current figures list and register generator disks as new figures to be displayed on the Z-plane</cadetblue>
 
 <lightblue>gen release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>

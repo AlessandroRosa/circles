@@ -223,7 +223,7 @@ function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent
     }
 }
 
-function circles_lib_symbol_remove_all( _items_array = [], _caller = 0, _question = YES, _silent = NO, _out_channel = OUTPUT_SCREEN )
+function circles_lib_symbol_remove_all( _items_array = _glob_seeds_array, _caller = 0, _question = YES, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
 	_items_array = circles_lib_items_set( _items_array ) ;
     _caller = safe_int( _caller, 0 );
@@ -241,7 +241,7 @@ function circles_lib_symbol_remove_all( _items_array = [], _caller = 0, _questio
     else return [ RET_IRRELEVANT, "Operation aborted by user" ] ;
 }
 
-function circles_lib_symbol_remove( _items_array = [], a, _caller, _b_inverse = NO, _question = YES, _silent = NO, _out_channel = OUTPUT_SCREEN )
+function circles_lib_symbol_remove( _items_array = _glob_seeds_array, a, _caller, _b_inverse = NO, _question = YES, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
 	_items_array = circles_lib_items_set( _items_array ) ;
     _b_inverse = safe_int( _b_inverse, NO );
@@ -267,7 +267,7 @@ function circles_lib_symbol_remove( _items_array = [], a, _caller, _b_inverse = 
     return YES ;
 }
 
-function circles_lib_symbol_zplane_display( _items_array = [], _canvas = null, _symbol = "", _b_invert = NO, _silent = NO, _out_channel = OUTPUT_SCREEN )
+function circles_lib_symbol_zplane_display( _items_array = _glob_seeds_array, _canvas = null, _symbol = "", _b_invert = NO, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
 	_items_array = circles_lib_items_set( _items_array ) ;
     _canvas = !is_html_canvas( _canvas ) ? _glob_zplane_work_layer_placeholder : _canvas ;

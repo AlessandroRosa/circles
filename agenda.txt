@@ -30,7 +30,8 @@
 * try to turn all regex patterns strings into equivalent regex objects
 * all occurrences of ' Can't ... ' shall be replaced by 'Fail to ...'
 
-* Next cmd to check: gensset
+* Next cmd to check: ifs
+  (set random method before testing)
   
 * Listings:
   - run and test all listings

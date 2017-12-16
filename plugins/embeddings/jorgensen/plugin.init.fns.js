@@ -42,10 +42,9 @@ function CIRCLESembeddingsJORGENSEN_PRESETS_INIT()
     CIRCLESembeddingsJORGENSEN_PRESETSarray.push( [ "0", "2*sin(PI/(4-i))", 2, [ -1.2, 1.2, 1.2, -1.2 ], "Family 1 - Sin #1" ] );
 }
 
-function CIRCLESembeddingsJORGENSEN_PRESETS( _opcode, _init )
+function CIRCLESembeddingsJORGENSEN_PRESETS( _opcode = UNDET, _init = NO )
 {
-    _opcode = safe_float( _opcode, UNDET );
-		_init = safe_int( _init, NO );
+    _opcode = safe_float( _opcode, UNDET ), _init = safe_int( _init, NO );
     switch( _opcode )
     {
         case 1: // display
@@ -85,7 +84,7 @@ function CIRCLESembeddingsJORGENSEN_PRESETS( _opcode, _init )
             circles_lib_canvas_coords_acquire( ALL_PLANES );
 
             CIRCLESembeddingsJORGENSEN_INIT(NO,YES);
-					  CIRCLESembeddingsJORGENSEN_COMP( _comp, _init );
+			CIRCLESembeddingsJORGENSEN_COMP( _comp, _init );
             CIRCLESembeddingsJORGENSEN_CONFIG();
             GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
             GLOB_PLUGIN_WIZARD_STEP(1.1,YES);
@@ -200,7 +199,7 @@ function CIRCLESembeddingsJORGENSEN_OUTPUT( MM_01, MM_02, trAB, _init )
     _glob_seeds_array.push( new item_obj( inverse_MM_01, _inv_circle01, screen_INV_CC_01, "A", 0, YES, screen_INV_CC_01.bordercolor, NO, screen_INV_CC_01.bordercolor, "a", 1, ITEM_TYPE_CIRCLE ) );
     _glob_seeds_array.push( new item_obj( inverse_MM_02, _inv_circle02, screen_INV_CC_02, "B", 0, YES, screen_INV_CC_02.bordercolor, NO, screen_INV_CC_02.bordercolor, "b", 1, ITEM_TYPE_CIRCLE ) );
 
- 		_glob_dict_create = _glob_items_to_init = YES ;
+ 	_glob_dict_create = _glob_items_to_init = YES ;
     var _index_ref = _plugin_last_ref;
     GLOB_PLUGIN_APPLY_SETTINGS(_index_ref) ;
     _glob_items_to_init = YES ;
@@ -224,10 +223,9 @@ function CIRCLESembeddingsJORGENSEN_OUTPUT( MM_01, MM_02, trAB, _init )
     }
 }
 
-function CIRCLESembeddingsJORGENSEN_INIT( _skip_edit_acquisition, _calc )
+function CIRCLESembeddingsJORGENSEN_INIT( _skip_edit_acquisition = NO, _calc = NO )
 {
-    _skip_edit_acquisition = safe_int( _skip_edit_acquisition, NO );
-    _calc = safe_int( _calc, NO );
+    _skip_edit_acquisition = safe_int( _skip_edit_acquisition, NO ), _calc = safe_int( _calc, NO );
     _glob_init_mask = INIT_FROM_MAPS | INIT_PAIRED_ITEMS ;
     var _tr_a_formula, trB_formula ;
     if ( !_skip_edit_acquisition )
@@ -277,9 +275,9 @@ function CIRCLESembeddingsJORGENSEN_INIT( _skip_edit_acquisition, _calc )
                        
         if ( CIRCLESembeddingsJORGENSEN_form_flag == 0 )
         {
-		        $("#PLUGIN_CONTAINER").html( HTMLcode );
-		        $("#PLUGIN_CONTAINER").show( "slow", function() { circles_lib_forms_adjust_position( GLOB_PLUGIN_DIV_ID ) ; } );
-				}
+		    $("#PLUGIN_CONTAINER").html( HTMLcode );
+		    $("#PLUGIN_CONTAINER").show( "slow", function() { circles_lib_forms_adjust_position( GLOB_PLUGIN_DIV_ID ) ; } );
+		}
     }
 }
 
@@ -293,7 +291,7 @@ function CIRCLESembeddingsJORGENSEN_PARSE( _tr_a_formula, _tr_b_formula )
     if ( new String( _tr_b_formula ).trim().length == 0 ) _tr_b_formula = "0" ;
 
   	_tr_a_formula = circles_lib_parse_fix_formula( _tr_a_formula );
-		_tr_b_formula = circles_lib_parse_fix_formula( _tr_b_formula );
+	_tr_b_formula = circles_lib_parse_fix_formula( _tr_b_formula );
 
     if ( $("#PLUGIN_PARAM_ALPHA").get(0) != null ) $("#PLUGIN_PARAM_ALPHA").val( _tr_a_formula );
     if ( $("#PLUGIN_PARAM_BETA").get(0) != null ) $("#PLUGIN_PARAM_BETA").val( _tr_b_formula );

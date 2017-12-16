@@ -43,7 +43,7 @@ function circles_lib_gens_model_create_exact( _out_channel = OUTPUT_SCREEN )
     var _sd_n = circles_lib_count_seeds(), _ret = YES, _symbol ;
     for( var _i = 0 ; _i < _sd_n ; _i++ )
     {
-       _symbol = ( new String( _glob_seeds_array[_i].symbol ) ).trim();
+       _symbol = glob_seeds_array[_i].symbol.trim();
        if ( _symbol.length > 0 ) _glob_gens_model_array.push( _symbol );
        else
        {
@@ -83,8 +83,8 @@ function circles_lib_gens_build( _out_channel = OUTPUT_SCREEN, _init_gens = YES,
     var _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _out_channel );
     if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_STANDARD, "--- start to build up generators ---" );
     if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_INFO, "Step 1/2: building the generators up" );
- 	  var _unsolved_gen_word, _unsolved_inverse_gen_word, _resolved_gen_word, _resolved_inverse_gen_word, _msg ;
- 	  var _cc, _sc, _border, _fill, _bordercolor, _fillcolor, INDEX = UNDET, _is_pqword = NO, _is_pqword_inv = NO ;
+ 	var _unsolved_gen_word, _unsolved_inverse_gen_word, _resolved_gen_word, _resolved_inverse_gen_word, _msg ;
+ 	var _cc, _sc, _border, _fill, _bordercolor, _fillcolor, INDEX = UNDET, _is_pqword = NO, _is_pqword_inv = NO ;
     var _sch_n = circles_lib_gens_model_count(), _sd_n = circles_lib_count_seeds();
     var _mm = null, _b_fail = NO, _symbol, _msg, _first_item_letter, _first_item_index, _first_item_obj ;
     if ( _sd_n > 0 )
@@ -160,38 +160,38 @@ function circles_lib_gens_build( _out_channel = OUTPUT_SCREEN, _init_gens = YES,
             if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_INFO, "Step 2/2: gens maps init from input gens words set" );
             _sch_n = circles_lib_gens_model_count();
 
-    				for( var _g = 0 ; _g < _sch_n ; _g++ )
-    				{
-               _unsolved_gen_word = _glob_gens_model_array[_g] ;
-               _first_item_letter = _unsolved_gen_word[0] ;
-		    	     _first_item_index = _glob_symbols_index_array[ _first_item_letter ] ;
-               _first_item_obj = _glob_seeds_array[ _first_item_index ] ;
-               _is_pqword = _unsolved_gen_word.testME( _glob_pqword_regex_pattern );
-               _is_pqword_inv = _unsolved_gen_word.testME( _glob_pqword_inv_regex_pattern );
-               if ( _is_pqword ) _resolved_gen_word = circles_lib_word_pq_translate( ( _unsolved_gen_word.split( "/" ) )[0], ( _unsolved_gen_word.split( "/" ) )[1] );
-               else if ( _is_pqword_inv )
-               {
-                  _resolved_gen_word = circles_lib_word_pq_translate( ( _unsolved_gen_word.replaceAll( "inv", "" ).split( "/" ) )[0], ( _unsolved_gen_word.replaceAll( "inv", "" ).split( "/" ) )[1] ) ;
-                  _resolved_gen_word = circles_lib_word_inverse_get( _resolved_gen_word ) ;
-               }
-               else _resolved_gen_word =circles_lib_repetends_resolve( _unsolved_gen_word );
-               _mm = circles_lib_word_mobiusmap_get( _resolved_gen_word, _glob_seeds_array, _out_channel );
+    		for( var _g = 0 ; _g < _sch_n ; _g++ )
+    		{
+                _unsolved_gen_word = _glob_gens_model_array[_g] ;
+                _first_item_letter = _unsolved_gen_word[0] ;
+		    	_first_item_index = _glob_symbols_index_array[ _first_item_letter ] ;
+                _first_item_obj = _glob_seeds_array[ _first_item_index ] ;
+                _is_pqword = _unsolved_gen_word.testME( _glob_pqword_regex_pattern );
+                _is_pqword_inv = _unsolved_gen_word.testME( _glob_pqword_inv_regex_pattern );
+                if ( _is_pqword ) _resolved_gen_word = circles_lib_word_pq_translate( ( _unsolved_gen_word.split( "/" ) )[0], ( _unsolved_gen_word.split( "/" ) )[1] );
+                else if ( _is_pqword_inv )
+                {
+                   _resolved_gen_word = circles_lib_word_pq_translate( ( _unsolved_gen_word.replaceAll( "inv", "" ).split( "/" ) )[0], ( _unsolved_gen_word.replaceAll( "inv", "" ).split( "/" ) )[1] ) ;
+                   _resolved_gen_word = circles_lib_word_inverse_get( _resolved_gen_word ) ;
+                }
+				else _resolved_gen_word = circles_lib_repetends_resolve( _unsolved_gen_word );
+				_mm = circles_lib_word_mobiusmap_get( _resolved_gen_word, _glob_seeds_array, _out_channel );
 
-               _resolved_inverse_gen_word = circles_lib_word_inverse_get( _resolved_gen_word );
-               if ( _is_pqword || _is_pqword_inv ) _unsolved_inverse_gen_word = _unsolved_gen_word.end_with( "inv" ) ? _unsolved_gen_word.replaceAll( "inv", "" ) : _unsolved_gen_word + "inv" ;
-               else _unsolved_inverse_gen_word = circles_lib_word_inverse_get( _unsolved_gen_word );
+                _resolved_inverse_gen_word = circles_lib_word_inverse_get( _resolved_gen_word );
+                if ( _is_pqword || _is_pqword_inv ) _unsolved_inverse_gen_word = _unsolved_gen_word.end_with( "inv" ) ? _unsolved_gen_word.replaceAll( "inv", "" ) : _unsolved_gen_word + "inv" ;
+                else _unsolved_inverse_gen_word = circles_lib_word_inverse_get( _unsolved_gen_word );
                
-               _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
-               _sc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
+                _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
+                _sc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
 
-               _border = _first_item_obj.complex_circle.draw ;
-               _bordercolor = _first_item_obj.complex_circle.bordercolor ;
-               _fill = _first_item_obj.fill ;
-               _fillcolor = _first_item_obj.complex_circle.fillcolor ;
-               _cc.draw = _border, _cc.bordercolor = _bordercolor ;
-               _cc.fill = _fill, _cc.fillcolor = _fillcolor ;
-               _sc.draw = _border, _sc.bordercolor = _bordercolor ;
-               _sc.fill = _fill, _sc.fillcolor = _fillcolor ;
+                _border = _first_item_obj.complex_circle.draw ;
+                _bordercolor = _first_item_obj.complex_circle.bordercolor ;
+                _fill = _first_item_obj.fill ;
+                _fillcolor = _first_item_obj.complex_circle.fillcolor ;
+                _cc.draw = _border, _cc.bordercolor = _bordercolor ;
+                _cc.fill = _fill, _cc.fillcolor = _fillcolor ;
+                _sc.draw = _border, _sc.bordercolor = _bordercolor ;
+                _sc.fill = _fill, _sc.fillcolor = _fillcolor ;
 
 							 // add map to generators, if not already included yet
                _ret = circles_lib_find_item_index_by_symbol( _glob_gens_array, _resolved_gen_word );
@@ -238,7 +238,7 @@ function circles_lib_gens_build( _out_channel = OUTPUT_SCREEN, _init_gens = YES,
 
         						if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The inverse generator '"+_resolved_inverse_gen_word+"' has been init" + _glob_crlf );
 					      }
-    				}
+    		}
     				
             _sch_n = circles_lib_gens_model_count();
             var _new_n = circles_lib_gens_count();

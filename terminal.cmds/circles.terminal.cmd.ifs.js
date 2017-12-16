@@ -1,33 +1,27 @@
 function circles_terminal_cmd_ifs()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _out_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0, _b_unfound = 0 ;
-     var _error_str = "" ;
-     var _plane = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _cmd_params = [];
+	var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0, _b_unfound = 0 ;
+    var _error_str = "" ;
+    var _plane = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _cmd_params = [];
 
-		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _params.length > 0 && !( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM ) )
-     {
-         var _msg = "<orange>Sorry, this cmd run has been halted prematurely:"+_glob_crlf+"no further input option will take effect until</orange>"+_glob_crlf+"<white>method</white> is not <white>algebraic</white> <orange>and</orange> <white>process</white> is not <white>random</white>" ;
-             _msg += _glob_crlf + "<lightgray>Hint: use 'method' cmd to set both method and process</lightgray>" ;
-         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-     }
-     else if ( _params.length > 0 )
-     {
+	if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    if ( _params.length > 0 )
+    {
          _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
          _cmd_params['keywords'] = NO ;
          _cmd_params['help'] = NO ;
@@ -49,7 +43,7 @@ function circles_terminal_cmd_ifs()
             _p = _params_array[_i].toLowerCase();
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
+            else if ( _p.is_one_of_i( "html" ) ) _cmd_params[_p] = YES ;
             else if ( _p.is_one_of_i( "release", "options", "panel" ) ) _cmd_params['action'] = _p ;
             else if ( _p.is_one_of_i( "all", "densityscan", "mins", "timer", "uselastpt" ) ) _cmd_params['settings'].push( _p ) ;
             else if ( _p.strcmp( "on" ) )
@@ -144,7 +138,13 @@ function circles_terminal_cmd_ifs()
             else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
-         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
+		 if ( !_cmd_params['help'] && _params.length > 0 && !( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM ) )
+		 {
+			var _msg = "<orange>Sorry, this cmd run has been halted prematurely:"+_glob_crlf+"no further input option will take effect until</orange>"+_glob_crlf+"<white>method</white> is not <white>algebraic</white> <orange>and</orange> <white>process</white> is not <white>random</white>" ;
+				_msg += _glob_crlf + "<lightgray>Hint: use 'method' cmd to set both method and process</lightgray>" ;
+			circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+		 }
+         else if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
          {
              var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;

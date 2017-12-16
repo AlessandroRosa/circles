@@ -1,9 +1,9 @@
-function circles_lib_draw_all_screen_disks( _context = null, _mapper = zplane_sm, _selected_items_array = [], _clean = YES, _silent = YES, _out_channel = OUTPUT_SCREEN )
+function circles_lib_draw_all_screen_disks( _context = null, _mapper = zplane_sm, _selected_items_array = _glob_seeds_array, _clean = YES, _silent = YES, _out_channel = OUTPUT_SCREEN )
 {
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     _silent = safe_int( _silent, YES ), _clean = safe_int( _clean, YES );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-    if ( safe_size( _selected_items_array, 0 ) == 0 ) _selected_items_array = [];
+    if ( safe_size( _selected_items_array, 0 ) == 0 ) _selected_items_array = _glob_seeds_array;
     var _items_n = circles_lib_count_items( _items_array );
     if ( !is_html_context( _context ) ) return [ RET_ERROR, "Insufficient or invalid graphic resources" ] ;
     else if ( _items_n > 0 )
@@ -67,10 +67,10 @@ function circles_lib_draw_all_screen_disks( _context = null, _mapper = zplane_sm
     }
 }
 
-function circles_lib_draw_all_complex_disks( _context = null, _mapper = zplane_sm, _selected_items_array = [], _init = YES, _silent = YES, _out_channel = OUTPUT_SCREEN )
+function circles_lib_draw_all_complex_disks( _context = null, _mapper = zplane_sm, _selected_items_array = _glob_seeds_array, _init = YES, _silent = YES, _out_channel = OUTPUT_SCREEN )
 {
     _init = safe_int( _init, YES ), _silent = safe_int( _silent, YES ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
-    if ( safe_size( _selected_items_array, 0 ) == 0 ) _selected_items_array = [];
+    if ( safe_size( _selected_items_array, 0 ) == 0 ) _selected_items_array = _glob_seeds_array;
     var _canvas = _context != null ? _context.canvas : null ;
     if ( _init ) circles_lib_items_switch_to( _glob_items_switch, YES, _out_channel );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;

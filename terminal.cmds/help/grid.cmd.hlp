@@ -10,11 +10,17 @@
 <lightblue>grid 12</lightblue>
 <cadetblue>split grid axes into 12 ticks</cadetblue>
 
-<lightblue>grid zplane show</lightblue>
-<cadetblue>show axes in the Z-plane</cadetblue>
+<lightblue>grid ticks 12</lightblue>
+<cadetblue>equivalent statement as above</cadetblue>
 
-<lightblue>grid wplane hide</lightblue>
-<cadetblue>hide axes in the W-plane</cadetblue>
+<lightblue>grid zplane show</lightblue>
+<cadetblue>enable the grid visibility flag for the Z-plane</cadetblue>
+<cadetblue>but the grid is not rendered</cadetblue>
+
+<lightblue>grid %plane% show render</lightblue>
+<cadetblue>enable the grid visibility flag for the input plane</cadetblue>
+<cadetblue>and the grid is rendered</cadetblue>
+<cadetblue>%plane% can be one among these values : zplane, wplane, bipbox</cadetblue>
 
 <lightblue>grid aquamarine | #FF0000 | rgb(192,38,100)</lightblue>
 <cadetblue>change axes color in both planes</cadetblue>
