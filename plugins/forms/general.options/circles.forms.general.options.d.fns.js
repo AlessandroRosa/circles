@@ -641,7 +641,7 @@ function CIRCLESformsGENERALOPTIONSaccuracyMANAGE()
 		_glob_accuracy = Math.min( _glob_accuracy, DEFAULT_MAX_ACCURACY );
 		if ( _glob_accuracy == 0 ) _glob_accuracy = DEFAULT_MAX_ACCURACY ;
 		$( "#CIRCLESgeneraloptionsSETTINGSaccuracyEDIT" ).val( _glob_accuracy );
-		var _n_seeds = circles_lib_count_seeds(), _n_gens = circles_lib_count_gens();
+		var _n_seeds = circles_lib_count_seeds(), _n_gens = circles_lib_gens_count();
 		if ( _n_seeds > 0 ) $.each( _glob_seeds_array, function( _i, _seed ){ _glob_seeds_array[_i].map.accuracy = _glob_accuracy ; } ) ;
 		if ( _n_gens > 0 ) $.each( _glob_gens_array, function( _i, _gen ){ _glob_gens_array[_i].map.accuracy = _glob_accuracy ; } ) ;
 }

@@ -419,12 +419,12 @@ function circles_lib_fixedpoints_add_from_seeds( _out_channel = OUTPUT_SCREEN, _
 function circles_lib_fixedpoints_add_from_gens_set( _out_channel = OUTPUT_SCREEN, _reset = 0 )
 {
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _reset = safe_int( _reset, 0 );
-    var _gg_n = circles_lib_count_gens();
+    var _gg_n = circles_lib_gens_count();
     if ( _gg_n == 0 ) return [ RET_WARNING, "The generators set is empty" ];
     else
     {
        if ( _reset ) _glob_input_fixed_pts_array.flush();
-       for( var _z = 0 ; _z < _gg_n ; _z++ ) circles_lib_fixedpoints_add( 1, _glob_gens_set_model_array[_z], null, _z, YES );
+       for( var _z = 0 ; _z < _gg_n ; _z++ ) circles_lib_fixedpoints_add( 1, _glob_gens_model_array[_z], null, _z, YES );
        var _n_fp = circles_lib_count_fixed_points();
        if ( _n_fp == 0 ) return [ RET_WARNING, "No fixed points have been pulled out from the generators set" ];
        else return [ RET_OK, "New "+_n_fp+" fixed point"+(_n_fp!=1?"s have":" has")+" been pulled out from the generators set" ];

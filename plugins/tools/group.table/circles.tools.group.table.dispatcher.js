@@ -20,7 +20,7 @@ function CIRCLEStoolsGROUPTABLEdispatcher()
            break ;
            case POPUP_DISPATCHER_MULTICAST_EVENT_RESIZE_ALL:
            var _div_id = _glob_popups_array[_idx][1] ;
-           var _items_n = _glob_items_switch == ITEMS_SWITCH_SEEDS ? circles_lib_count_seeds() : circles_lib_count_gens();
+           var _items_n = _glob_items_switch == ITEMS_SWITCH_SEEDS ? circles_lib_count_seeds() : circles_lib_gens_count();
            var OLD_W = $("#"+_div_id).width() ;
            var WIDTH = Math.max( Math.min( $(window).width(), _items_n * 140 ), OLD_W );
 

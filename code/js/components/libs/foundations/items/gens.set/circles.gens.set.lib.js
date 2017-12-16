@@ -1,49 +1,50 @@
-function circles_lib_gens_model_exists() { return circles_lib_count_gens_set_model() > 0 ? YES : NO ; }
-function circles_lib_gens_set_initflag_get() { return _glob_gens_set_to_init ; }
-function circles_lib_gens_set_initflag_set( _init ) { _glob_gens_set_to_init = safe_int( _init, YES ); }
-function circles_lib_gens_model_get() { return _glob_gens_set_model_array.clone(); }
-function circles_lib_gens_set_get() { return _glob_gens_array.clone() ; }
+function circles_lib_gens_get() { return _glob_gens_array.clone() ; }
+function circles_lib_gens_count() { return is_array( _glob_gens_array ) ? safe_size( _glob_gens_array, 0 ) : 0 ; }
+function circles_lib_gens_model_count() { return safe_size( _glob_gens_model_array, 0 ); }
+function circles_lib_gens_model_exists() { return circles_lib_gens_model_count() > 0 ? YES : NO ; }
+function circles_lib_gens_model_get() { return _glob_gens_model_array.clone(); }
+function circles_lib_gens_initflag_get() { return _glob_gens_set_to_init ; }
+function circles_lib_gens_initflag_set( _init ) { _glob_gens_set_to_init = safe_int( _init, YES ); }
 function circles_lib_gens_alphabet_get()
 {
     var _alphabet = [] ;
     $.each( _glob_gens_array, function( _i, _item ) { _alphabet.push( _item.symbol ); } );
     return _alphabet.clone() ;
 }
-function circles_lib_gens_set_bomb()
+function circles_lib_gens_bomb()
 {
-    if ( !is_array( _glob_gens_set_model_array ) || !is_array( _glob_gens_array ) ) return NO ;
-    _glob_gens_set_model_array.flush();
-    _glob_gens_array = [];
+    if ( !is_array( _glob_gens_model_array ) || !is_array( _glob_gens_array ) ) return NO ;
+    _glob_gens_model_array = [], _glob_gens_array = [];
     return YES ;
 }
 
 function circles_lib_gens_model_is_exact()
 {
-		if ( circles_lib_count_gens_set_model() == circles_lib_count_seeds() )
+	if ( circles_lib_gens_model_count() == circles_lib_count_seeds() )
+	{
+		var _b_go = YES, _candidate_symbol, _sd_n = circles_lib_count_seeds();
+		for( var _i = 0 ; _i < _sd_n ; _i++ )
 		{
-			 var _b_go = YES, _candidate_symbol, _sd_n = circles_lib_count_seeds();
-			 for( var _i = 0 ; _i < _sd_n ; _i++ )
-			 {
-					_candidate_symbol = _glob_gens_set_model_array[ _i ] ;
-					if ( circles_lib_find_item_obj_by_symbol( _glob_seeds_array, _candidate_symbol ) == null )
-					{
-						_b_go = NO ;
-						break ; 
-					}
-			 }
-			 return _b_go ;
+			_candidate_symbol = _glob_gens_model_array[ _i ] ;
+			if ( circles_lib_find_item_obj_by_symbol( _glob_seeds_array, _candidate_symbol ) == null )
+			{
+				_b_go = NO ;
+				break ; 
+			}
 		}
-		else return NO ;
+		return _b_go ;
+	}
+	else return NO ;
 }
 
-function circles_lib_gens_model_create_exact( _out_channel )
+function circles_lib_gens_model_create_exact( _out_channel = OUTPUT_SCREEN )
 {
-    circles_lib_gens_set_bomb();
+    circles_lib_gens_bomb();
     var _sd_n = circles_lib_count_seeds(), _ret = YES, _symbol ;
     for( var _i = 0 ; _i < _sd_n ; _i++ )
     {
        _symbol = ( new String( _glob_seeds_array[_i].symbol ) ).trim();
-       if ( _symbol.length > 0 ) _glob_gens_set_model_array.push( _symbol );
+       if ( _symbol.length > 0 ) _glob_gens_model_array.push( _symbol );
        else
        {
           _ret = NO ;
@@ -55,12 +56,12 @@ function circles_lib_gens_model_create_exact( _out_channel )
     return _ret ;
 }
 
-function circles_lib_gens_set_find_entry( _input_gen )
+function circles_lib_gens_find_entry( _input_gen )
 {
-    var _b_found = NO, _gen, _sch_n = circles_lib_count_gens_set_model();
+    var _b_found = NO, _gen, _sch_n = circles_lib_gens_model_count();
     for( var _i = 0 ; _i < _sch_n ; _i++ )
     {
-       _gen = ( new String( _glob_gens_set_model_array[_i] ) ).trim();
+       _gen = ( new String( _glob_gens_model_array[_i] ) ).trim();
        if ( _gen.strcmp( _input_gen ) )
        {
           _b_found = YES ;
@@ -71,32 +72,27 @@ function circles_lib_gens_set_find_entry( _input_gen )
     return _b_found ;
 }
 
-function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, _question, _silent )
+function circles_lib_gens_build( _out_channel = OUTPUT_SCREEN, _init_gens = YES, _reset_gens_set = YES, _question = YES, _silent = NO )
 {
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _init_gens = safe_int( _init_gens, YES );
+    _reset_gens_set = safe_int( _reset_gens_set, YES ), _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     if ( !_glob_method.is_one_of( METHOD_ALGEBRAIC ) )
-    return [ RET_ERROR, "Generators set is available for algebraic method exclusively" ] ;
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
-    _init_gens = safe_int( _init_gens, YES );
-    _reset_gens_set = safe_int( _reset_gens_set, YES );
-    _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    
-    // the generators set construction begins from seeds
+    return [ RET_ERROR, "Generators are available for the 'algebraic' method exclusively" ] ;
+    // the generators construction begins from seeds
     var _old_items_switch = _glob_items_switch ;
     var _ret_chunk = circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _out_channel );
-
-    if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_STANDARD, "--- start of generators set construction ---" );
-    if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_INFO, "Step 1/2: constructing the generators set" );
+    if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_STANDARD, "--- start to build up generators ---" );
+    if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_INFO, "Step 1/2: building the generators up" );
  	  var _unsolved_gen_word, _unsolved_inverse_gen_word, _resolved_gen_word, _resolved_inverse_gen_word, _msg ;
  	  var _cc, _sc, _border, _fill, _bordercolor, _fillcolor, INDEX = UNDET, _is_pqword = NO, _is_pqword_inv = NO ;
-    var _sch_n = circles_lib_count_gens_set_model(), _sd_n = circles_lib_count_seeds();
+    var _sch_n = circles_lib_gens_model_count(), _sd_n = circles_lib_count_seeds();
     var _mm = null, _b_fail = NO, _symbol, _msg, _first_item_letter, _first_item_index, _first_item_obj ;
     if ( _sd_n > 0 )
     {
-				var _invert_gens = [];
-				_glob_symbols_index_array = [];
-				// mapping the seeds index <-> symbol connection
-        _msg = "Mapping index-symbol connection: " ;
-				for( var _m = 0 ; _m < _sd_n ; _m++ )
+		var _invert_gens = [];
+		_glob_symbols_index_array = [];
+        _msg = "Mapping the seeds index <-> symbol link: " ;
+		for( var _m = 0 ; _m < _sd_n ; _m++ )
         {
             if ( is_item_obj( _glob_seeds_array[_m] ) ) _glob_symbols_index_array[ _glob_seeds_array[_m].symbol ] = _m ;
             else
@@ -107,71 +103,66 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
         }
   									 		
         _msg += _b_fail ? "failed" : " ok" ;
-    		if ( !_silent ) circles_lib_output( _out_channel, _b_fail ? DISPATCH_ERROR : DISPATCH_SUCCESS, _msg );
+   		if ( !_silent ) circles_lib_output( _out_channel, _b_fail ? DISPATCH_ERROR : DISPATCH_SUCCESS, _msg );
         // exact configuration built by default, if required
-  			if ( _sch_n == 0 && !_b_fail )
-  			{
-						if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_INFO, "Missing generators set: the exact generators set is built"  );
- 						_glob_gens_set_model_array.flush();
+		if ( _sch_n == 0 && !_b_fail )
+		{
+			if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_INFO, "Missing generators: the 'exact' model has been applied"  );
+			_glob_gens_model_array = [] ;
             circles_lib_gens_model_create_exact( _out_channel );
-            if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_INFO, _sd_n + " generator"+( _sd_n == 1 ? "" : "s" )+" "+( _sd_n == 1 ? "has" : "have" )+" been added to generators set." );
-				}
+            if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_INFO, _sd_n + " generator"+( _sd_n == 1 ? "" : "s" )+" "+( _sd_n == 1 ? "has" : "have" )+" been added to model." );
+		}
 
-        _sch_n = circles_lib_count_gens_set_model();
+        _sch_n = circles_lib_gens_model_count();
         if ( _b_fail ) return [ RET_ERROR, "Missing symbols: memory failure" ] ;
         else if ( _sch_n == 0 )
         {
-            var _msg = "No generators set available: can't set up elements as required" ;
+            var _msg = "No model available: can't set up elements as required" ;
             if ( _out_channel != OUTPUT_SCREEN && !_silent ) circles_lib_output( _out_channel, DISPATCH_ERROR, _msg );
             return [ RET_ERROR, _msg ] ;
         }
         else
         {
-            if ( _reset_gens_set )
-            {
-							 _glob_gens_array = [];
-	             _glob_gens_set_symbols_map_array.flush_associative();
-						}
+            if ( _reset_gens_set ) { _glob_gens_array = []; _glob_gens_set_symbols_map_array.flush_associative(); }
+			// check seeds to exist, so that all entries will be correctly processed
+    		for( var _g = 0 ; _g < _sch_n ; _g++ )
+    		{
+				_unsolved_gen_word = _glob_gens_model_array[_g] ;
+				_is_pqword = _unsolved_gen_word.testME( _glob_pqword_regex_pattern );
+				_is_pqword_inv = _unsolved_gen_word.testME( _glob_pqword_inv_regex_pattern );
+				if ( _is_pqword ) _resolved_gen_word = circles_lib_word_pq_translate( ( _unsolved_gen_word.split( "/" ) )[0], ( _unsolved_gen_word.split( "/" ) )[1] );
+				else if ( _is_pqword_inv )
+				{
+					_resolved_gen_word = circles_lib_word_pq_translate( ( _unsolved_gen_word.replaceAll( "inv", "" ).split( "/" ) )[0], ( _unsolved_gen_word.replaceAll( "inv", "" ).split( "/" ) )[1] ) ;
+					_resolved_gen_word = circles_lib_word_inverse_get( _resolved_gen_word ) ;
+				}
+				else _resolved_gen_word = circles_lib_repetends_resolve( _unsolved_gen_word );
 
-						// check seeds to exist, so that all entries will be correctly processed
-    				for( var _g = 0 ; _g < _sch_n ; _g++ )
-    				{
-               _unsolved_gen_word = _glob_gens_set_model_array[_g] ;
-               _is_pqword = _unsolved_gen_word.testME( _glob_pqword_regex_pattern );
-               _is_pqword_inv = _unsolved_gen_word.testME( _glob_pqword_inv_regex_pattern );
-               if ( _is_pqword ) _resolved_gen_word = circles_lib_word_pq_translate( ( _unsolved_gen_word.split( "/" ) )[0], ( _unsolved_gen_word.split( "/" ) )[1] );
-               else if ( _is_pqword_inv )
-               {
-                  _resolved_gen_word = circles_lib_word_pq_translate( ( _unsolved_gen_word.replaceAll( "inv", "" ).split( "/" ) )[0], ( _unsolved_gen_word.replaceAll( "inv", "" ).split( "/" ) )[1] ) ;
-                  _resolved_gen_word = circles_lib_word_inverse_get( _resolved_gen_word ) ;
-               }
-               else _resolved_gen_word = circles_lib_repetends_resolve( _unsolved_gen_word );
+				for( var w = 0 ; w < _resolved_gen_word.length ; w++ )
+	            {
+				    INDEX = _glob_symbols_index_array[ _resolved_gen_word[ w ] ] ;
+				    if ( !is_item_obj( _glob_seeds_array[INDEX] ) )
+				    {
+						_b_fail = YES ;
+						break ;
+					}
+            	}
+			}
 
-               for( var w = 0 ; w < _resolved_gen_word.length ; w++ )
-	             {
-				    	    INDEX = _glob_symbols_index_array[ _resolved_gen_word[ w ] ] ;
-					   	    if ( !is_item_obj( _glob_seeds_array[INDEX] ) )
-					   	    {
-										_b_fail = YES ;
-										break ;
-									}
-            	 }
-						}
-
-					  if ( _b_fail )
-					  {
-		            var _msg = "Generators set can't be built up: check input entries sequence" ;
-		            		_msg += _glob_crlf.repeat(2) + "Suggestion: there could be symbols addressing to null objects" ;
-		            if ( _out_channel != OUTPUT_SCREEN && !_silent ) circles_lib_output( _out_channel, DISPATCH_ERROR, _msg );
-		            return [ RET_ERROR, _msg ] ;
-						}
+			if ( _b_fail )
+			{
+		        var _msg = "Fail to build generators: check input entries sequence" ;
+		       		_msg += _glob_crlf.repeat(2) + "Suggestion: there could be symbols addressing to null objects" ;
+		        if ( _out_channel != OUTPUT_SCREEN && !_silent ) circles_lib_output( _out_channel, DISPATCH_ERROR, _msg );
+		        return [ RET_ERROR, _msg ] ;
+			}
 
             if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_INFO, "Step 2/2: gens maps init from input gens words set" );
-            _sch_n = circles_lib_count_gens_set_model();
+            _sch_n = circles_lib_gens_model_count();
 
     				for( var _g = 0 ; _g < _sch_n ; _g++ )
     				{
-               _unsolved_gen_word = _glob_gens_set_model_array[_g] ;
+               _unsolved_gen_word = _glob_gens_model_array[_g] ;
                _first_item_letter = _unsolved_gen_word[0] ;
 		    	     _first_item_index = _glob_symbols_index_array[ _first_item_letter ] ;
                _first_item_obj = _glob_seeds_array[ _first_item_index ] ;
@@ -202,7 +193,7 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
                _sc.draw = _border, _sc.bordercolor = _bordercolor ;
                _sc.fill = _fill, _sc.fillcolor = _fillcolor ;
 
-							 // add map to generators set, if not already included yet
+							 // add map to generators, if not already included yet
                _ret = circles_lib_find_item_index_by_symbol( _glob_gens_array, _resolved_gen_word );
 				       if ( _ret == UNFOUND )
 					     {
@@ -214,8 +205,8 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
 		    			    _glob_gens_array[_glob_gens_array.length-1].notes = "" ;
         					if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "A new generator '" + _unsolved_gen_word + "' has been init" );
 
-                  if ( !_glob_gens_set_model_array.includes( _unsolved_gen_word ) )
-                  _glob_gens_set_model_array.push( _unsolved_gen_word );
+                  if ( !_glob_gens_model_array.includes( _unsolved_gen_word ) )
+                  _glob_gens_model_array.push( _unsolved_gen_word );
 							 }
 
     				    // fill both inverse entries
@@ -242,28 +233,28 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
 		    				    _glob_gens_array[_glob_gens_array.length-1].complex_circle = _cc.copy() ;
 		    				    _glob_gens_array[_glob_gens_array.length-1].notes = "" ;
 
-                    if ( !_glob_gens_set_model_array.includes( _unsolved_inverse_gen_word ) )
-                    _glob_gens_set_model_array.push( _unsolved_inverse_gen_word );
+                    if ( !_glob_gens_model_array.includes( _unsolved_inverse_gen_word ) )
+                    _glob_gens_model_array.push( _unsolved_inverse_gen_word );
 
         						if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The inverse generator '"+_resolved_inverse_gen_word+"' has been init" + _glob_crlf );
 					      }
     				}
     				
-            _sch_n = circles_lib_count_gens_set_model();
-            var _new_n = circles_lib_count_gens();
+            _sch_n = circles_lib_gens_model_count();
+            var _new_n = circles_lib_gens_count();
             _msg = ( _new_n != 0 ? "Ok" : "Failure" ) + ", " + _new_n + " generator" + ( _new_n == 1 ? "" : "s" ) + " over "+_sch_n+" input"+(_sch_n==1?"":"s")+" have been init with success" ;
 
             // Let's check it again for inverse Mobius maps
-            if ( _new_n == 0 ) return [ RET_ERROR, "Fail to populate the generators set" ] ;
+            if ( _new_n == 0 ) return [ RET_ERROR, "Fail to populate the generators list" ] ;
             else if ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) )
             {
                  if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_INFO, _msg );
-                 _msg = "Attempting to initialize inverse gens from the current generators set" ;
+                 _msg = "Attempting to initialize inverse gens from current generators" ;
             		 if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_STANDARD, _msg );
-                 _sch_n = circles_lib_count_gens_set_model();
+                 _sch_n = circles_lib_gens_model_count();
         				 for( var _g = 0 ; _g < _sch_n ; _g++ )
         				 {
-                    _unsolved_gen_word = _glob_gens_set_model_array[_g] ;
+                    _unsolved_gen_word = _glob_gens_model_array[_g] ;
                     _first_item_letter = _unsolved_gen_word[0] ;
       		    	    _first_item_index = _glob_symbols_index_array[ _first_item_letter ] ;
                     _first_item_obj = _glob_seeds_array[ _first_item_index ] ;
@@ -294,8 +285,8 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
                     }
                     else
                     {
-                        if ( !_glob_gens_set_model_array.includes( _unsolved_inverse_gen_word ) )
-                        _glob_gens_set_model_array.push( _unsolved_inverse_gen_word );
+                        if ( !_glob_gens_model_array.includes( _unsolved_inverse_gen_word ) )
+                        _glob_gens_model_array.push( _unsolved_inverse_gen_word );
         
                         _mm = circles_lib_word_mobiusmap_get( _resolved_inverse_gen_word, _glob_seeds_array, _out_channel );
                         _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
@@ -320,12 +311,12 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
         				 }
             }
 
-            if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_STANDARD, "Attempting to tag generators set words to one-letter entries." );
-            // finally, build a new alphabet from the previous generators set, where each entry is announced by one letter
+            if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_STANDARD, "Attempting to tag model entries to one-letter entries." );
+            // finally, build a new alphabet from the previous model, where each entry is announced by one letter
             var _free_symbol = "", _generators_inverses_map = [];
     				for( var _g = 0 ; _g < _sch_n ; _g++ )
             {
-               _unsolved_gen_word = _glob_gens_set_model_array[_g] ;
+               _unsolved_gen_word = _glob_gens_model_array[_g] ;
                _is_pqword = _unsolved_gen_word.testME( _glob_pqword_regex_pattern );
                _is_pqword_inv = _unsolved_gen_word.testME( _glob_pqword_inv_regex_pattern );
                if ( _is_pqword || _is_pqword_inv ) _unsolved_inverse_gen_word = _unsolved_gen_word.end_with( "inv" ) ? _unsolved_gen_word.replaceAll( "inv", "" ) : _unsolved_gen_word + "inv" ;
@@ -335,7 +326,7 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
             
     				for( _g = 0 ; _g < _sch_n ; _g++ )
     				{
-    					 _unsolved_gen_word = _glob_gens_set_model_array[_g] ;
+    					 _unsolved_gen_word = _glob_gens_model_array[_g] ;
                _is_pqword = _unsolved_gen_word.testME( _glob_pqword_regex_pattern );
                _is_pqword_inv = _unsolved_gen_word.testME( _glob_pqword_inv_regex_pattern );
                if ( _is_pqword ) _resolved_gen_word = circles_lib_word_pq_translate( ( _unsolved_gen_word.split( "/" ) )[0], ( _unsolved_gen_word.split( "/" ) )[1] );
@@ -369,7 +360,7 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
                 }
                 else if ( _unsolved_gen_word.length == 0 )
                 {
-                  var _msg = "There exists one element in the generators set without symbol" ;
+                  var _msg = "There exists one element in the model without symbol" ;
                   if ( _out_channel != OUTPUT_SCREEN && !_silent ) circles_lib_output( _out_channel, DISPATCH_ERROR, _msg );
                   return [ RET_ERROR, _msg ] ;
                 }
@@ -379,7 +370,7 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
 
             // replace gens symbols with new ones from the _glob_gens_set_symbols_map_array
             // so we have all gens associated to one letter (together with the benefit of having a 'compressed' alphabet)
-            var _symbol = "", _single_symbol = "", _color, _gg_n = circles_lib_count_gens();
+            var _symbol = "", _single_symbol = "", _color, _gg_n = circles_lib_gens_count();
             for( _g = 0 ; _g < _gg_n ; _g++ )
             {
 							 _symbol = safe_string( _glob_gens_array[_g].symbol, "" );
@@ -402,13 +393,13 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
             if ( _b_fail ) return [ RET_ERROR, "Symbol not found: memory failure" ] ;
             else
             {
-               _sch_n = circles_lib_count_gens_set_model();
+               _sch_n = circles_lib_gens_model_count();
                var _ret_msg = "", _ret_id = 0 ;
                if ( _sch_n > 0 )
                {
                   _glob_items_to_init = NO ;
                   $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
-                  _ret_id = 1, _ret_msg = "The generators set finally includes "+_sch_n+" generator" + ( _sch_n == 1 ? "" : "s" );
+                  _ret_id = 1, _ret_msg = "The generators list now includes "+_sch_n+" generator" + ( _sch_n == 1 ? "" : "s" );
           				if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg );
                }
                else
@@ -419,31 +410,31 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
                   if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_ERROR, _ret_msg );
                }
 
-            	 if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_STANDARD, "--- end of generators set construction ---" );
-               if ( _init_gens )
-               {
-		              var _old_selector = _glob_output_channel ;
-                  _glob_output_channel = OUTPUT_TEXT ;
+            	if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_STANDARD, "--- end to build the generators up ---" );
+                if ( _init_gens )
+                {
+		            var _old_selector = _glob_output_channel ;
+					_glob_output_channel = OUTPUT_TEXT ;
 		
-		              if ( !_silent )
-                  {
-                      circles_lib_output( _out_channel, DISPATCH_INFO, "Pointing source items to generators set" );
-    		              circles_lib_output( _out_channel, DISPATCH_INFO, "Try to initialize the items for drawing" );
-                  }
-		              circles_lib_items_switch_to( ITEMS_SWITCH_GENS, _silent, _out_channel );
-                  var _ret_chunk = circles_lib_items_init( null, _question, _silent, _glob_init_mask, NO, YES, _out_channel );
-		              _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], 0 ) : 0 ;
-		              _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure: unknown response" ;
+		            if ( !_silent )
+					{
+						circles_lib_output( _out_channel, DISPATCH_INFO, "Pointing source items to generators" );
+    		            circles_lib_output( _out_channel, DISPATCH_INFO, "Try to initialize the items for drawing" );
+					}
+		              
+					circles_lib_items_switch_to( ITEMS_SWITCH_GENS, _silent, _out_channel );
+					var _ret_chunk = circles_lib_items_init( null, _question, _silent, _glob_init_mask, NO, YES, _out_channel );
+		            _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], 0 ) : 0 ;
+		            _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure: unknown response" ;
 
-		              if ( !_silent ) circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg );
-		              _glob_output_channel = _old_selector ;
-                  
-                  if ( _ret_id != RET_OK ) return _ret_chunk ;
-							 }
+		            if ( !_silent ) circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg );
+		            _glob_output_channel = _old_selector ;
+					if ( _ret_id != RET_OK ) return _ret_chunk ;
+				}
 
                _glob_gens_set_to_init = NO ;
                var _b_ok = safe_size( _glob_gens_array, 0 ) > 0 ? YES : NO ;
-               var _msg = _b_ok ? "Generators set has been built up with success" : "Fail to build up the generators set" ;
+               var _msg = _b_ok ? "Generators has been built up with success" : "Fail to build up the generators" ;
                _glob_items_switch = ITEMS_SWITCH_GENS ;
                if ( !_silent ) circles_lib_output( _out_channel, _b_ok ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg );
                return [ RET_OK, _msg ] ;
@@ -452,7 +443,7 @@ function circles_lib_gens_set_build( _out_channel, _init_gens, _reset_gens_set, 
 		}
     else
     {
-        var _msg = "Can't build up the generators set: missing items declaration" ;
+        var _msg = "Fail to build the generators up: missing items declaration" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( _out_channel, DISPATCH_ERROR, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }

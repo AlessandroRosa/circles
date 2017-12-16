@@ -53,15 +53,14 @@ function circles_lib_repetends_resolve( _input_rep )
    return _input_rep ;
 }
 
-function circles_lib_repetends_check_syntax( _items_array, _input_rep, _strict_check )
+function circles_lib_repetends_check_syntax( _items_array = [], _input_rep, _strict_check )
 {
-	 _items_array = circles_lib_items_set( _items_array ) ;
-   var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
-   _strict_check = safe_int( _strict_check, YES );
+	_items_array = circles_lib_items_set( _items_array ), _strict_check = safe_int( _strict_check, YES );
+	var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;
    // strick check : include the chars [,],: while checking the syntax
    _input_rep = safe_string( _input_rep, "" ).trim();
    // each input string may contain more concatenated repetends
-   // such as [b:12][ab:2] for example
+   // such as [b*12][ab*2] for example
    var _repetends_array = explodePACKEDarray( _input_rep, "[", "]" ), _ret = REPETEND_TEST_ERR_OK ;
    // alphabet shall be filled-in by the original seeds array
    var _sd_n = safe_size( _items_array, 0 ) ;
@@ -70,13 +69,14 @@ function circles_lib_repetends_check_syntax( _items_array, _input_rep, _strict_c
    else
    {
        var _alphabet = [], _special_chars = [ "[", "]", "*" ] ;
-       // extend the alphabet in order to check the repetend syntax
+       // extend the alphabet to check the repetend syntax
        // ... first the special chars
        if ( _strict_check )
        {
           $.each( _special_chars, function( _i, _ch ) { _alphabet.push( _ch ) } );
           // ... then digits from 0 to 9
           for( var i = 0 ; i <= 9 ; i++ ) _alphabet.push( i + "" );
+		  console.log( _input_rep, _special_chars );
           for( var _c = 0 ; _c < _special_chars.length ; _c++ )
           {
              if ( !( _input_rep.includes( _special_chars[_c] ) ) )

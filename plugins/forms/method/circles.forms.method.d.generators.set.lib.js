@@ -1,5 +1,5 @@
 function CIRCLESgenssetMANAGERreload() { $( "#ALGEBRAICnewGENERATORStable" ).html( CIRCLESgenssetMANAGERshowGENStable() ); CIRCLESgenssetMANAGERgensCOMBOcreate(); }
-function CIRCLESgenssetMANAGERgensSORT() { _glob_gens_set_model_array.sort(); CIRCLESgenssetMANAGERreload(); }
+function CIRCLESgenssetMANAGERgensSORT() { _glob_gens_model_array.sort(); CIRCLESgenssetMANAGERreload(); }
 function CIRCLESgenssetMANAGERcountCANDIDATEentries() { return safe_int( CIRCLESgenssetMANAGERgetCANDIDATEentries().filtering( function( _v ) { return _v.length > 0 ? YES : NO ; } ).length, 0 ); }
 function CIRCLESgenssetMANAGERgetCANDIDATEentries()
 {
@@ -31,7 +31,7 @@ function CIRCLESgenssetMANAGERgeneratorRESTOREfromRANDOMprobs( _question, _silen
        var _probs_n = safe_size( _glob_rnd_probability_array, 0 );
        if ( _probs_n > 0 )
        {
-           circles_lib_gens_set_bomb();
+           circles_lib_gens_bomb();
            var _HIDDEN_EDIT = null, _n_restored = 0, _gen_word = "" ;
            for( var _i = 0 ; _i < _probs_n ; _i++ )
            {
@@ -41,7 +41,7 @@ function CIRCLESgenssetMANAGERgeneratorRESTOREfromRANDOMprobs( _question, _silen
                  _gen_word = ( new String( _HIDDEN_EDIT.value ) ).trim();
                  if ( _gen_word.length > 0 )
                  {
-                    _glob_gens_set_model_array.push( _gen_word );
+                    _glob_gens_model_array.push( _gen_word );
                     _n_restored++ ;
                  }
               }
@@ -54,9 +54,9 @@ function CIRCLESgenssetMANAGERgeneratorRESTOREfromRANDOMprobs( _question, _silen
               CIRCLESgenssetMANAGERreload();
               CIRCLESformsMETHODalgebraicCHANGEtab( 2 );
            }
-           else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Generators set restoration from random table has failed.", _glob_app_title );
+           else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Fail to restore generators from random table.", _glob_app_title );
        }
-       else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't restore: the random table is empty.", _glob_app_title );
+       else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to restore: the random table is empty.", _glob_app_title );
    }
 }
 
@@ -71,12 +71,12 @@ function CIRCLESgenssetMANAGERgensMODELScombo( _question )
        var _chunk_length = safe_size( _chunk, 0 );
        if ( _chunk_length > 0 )
        {
-           var _sch_n = circles_lib_count_gens_set_model();
+           var _sch_n = circles_lib_gens_model_count();
            var _b_go = _sch_n == 0 || !_question ? YES : confirm( "Do you want to overwrite the current generators set ?" );
            if ( _b_go )
            {
-               circles_lib_gens_set_bomb();
-               for( var _i = 1 ; _i < _chunk_length ; _i++ ) _glob_gens_set_model_array.push( _chunk[_i] );
+               circles_lib_gens_bomb();
+               for( var _i = 1 ; _i < _chunk_length ; _i++ ) _glob_gens_model_array.push( _chunk[_i] );
                CIRCLESgenssetMANAGERreload();
                CIRCLESgenssetMANAGERgensSETUP( _question, YES );
            }
@@ -107,10 +107,10 @@ function CIRCLESgenssetMANAGERshowGENStable( _silent )
       HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
 
       var _unsolved_gen_word, _resolved_gen_word, _unsolved_inverse_gen_word, _resolved_inverse_gen_word ;
-      var _sch_n = circles_lib_count_gens_set_model(), _is_pqword = NO, _is_pqword_inv = NO, _is_repetend = NO, _type = "" ;
+      var _sch_n = circles_lib_gens_model_count(), _is_pqword = NO, _is_pqword_inv = NO, _is_repetend = NO, _type = "" ;
       for( var _i = 0 ; _i < _sch_n ; _i++ )
       {
-		  	 _unsolved_gen_word = _glob_gens_set_model_array[_i] ;
+		  	 _unsolved_gen_word = _glob_gens_model_array[_i] ;
          _is_pqword = _unsolved_gen_word.testME( _glob_pqword_regex_pattern );
          _is_pqword_inv = _unsolved_gen_word.testME( _glob_pqword_inv_regex_pattern );
          _is_repetend = circles_lib_repetends_check_syntax( null, _unsolved_gen_word );
@@ -136,7 +136,7 @@ function CIRCLESgenssetMANAGERshowGENStable( _silent )
 			   HTMLcode += "<td ALIGN=\"center\" ID=\"ALGEBRAICnewGENERATORTYPE_"+_i+"\">"+_type+"</td>" ;
 			   HTMLcode += "<td WIDTH=\"5\"></td>" ;
 
-         if ( !_glob_gens_set_model_array.includes( _unsolved_gen_word ) )
+         if ( !_glob_gens_model_array.includes( _unsolved_gen_word ) )
 			   HTMLcode += "<td CLASS=\"link_rounded\" ID=\"ALGEBRAICaddGENERATOR_BTN_"+_i+"\" ONCLICK=\"javascript:CIRCLESgenssetMANAGERgensADD("+_i+",NO,NO,NO);\">Add</td>" ;
          else HTMLcode += "<td></td>" ;
 			   HTMLcode += "<td WIDTH=\"5\"></td>" ;
@@ -173,7 +173,7 @@ function CIRCLESgenssetMANAGERgeneratorNEW( _new_word )
    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't add a new entry: the generators set init is still pending.", _glob_app_title );
 	 else if ( table != null )
 	 {
-       if ( circles_lib_count_gens_set_model() == 0 ) while( table.hasChildNodes() ) table.removeChild(table.firstChild);
+       if ( circles_lib_gens_model_count() == 0 ) while( table.hasChildNodes() ) table.removeChild(table.firstChild);
        var _entries_n = $(":input[id^=ALGEBRAICnewGENERATOR_]").length ;
        var _index = Math.max( 0, _entries_n - 1 );
        var _id = "ALGEBRAICnewGENERATOR_" + _index ;
@@ -263,14 +263,14 @@ function CIRCLESgenssetMANAGERcheckGENERATORsyntax( _gen )
 
 function CIRCLESgenssetMANAGERgensSAVE()
 {
-   var _pack = circles_lib_count_gens_set_model() > 0 ? _glob_gens_set_model_array.join( "@" ) : "" ;
+   var _pack = circles_lib_gens_model_count() > 0 ? _glob_gens_model_array.join( "@" ) : "" ;
    if ( _pack.length > 0 && !_glob_gens_set_store.includes( _pack ) )
    {
        _glob_gens_set_store.push( _pack );
        CIRCLESgenssetMANAGERgensCOMBOcreate();
    }
    else if ( _glob_gens_set_to_init ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: generators set shall be init first", _glob_app_title );
-   else if ( circles_lib_count_gens_set_model() == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: current generators set is empty", _glob_app_title );
+   else if ( circles_lib_gens_model_count() == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: current generators set is empty", _glob_app_title );
 }
 
 function CIRCLESgenssetMANAGERgensCOMBOcreate()
@@ -293,9 +293,9 @@ function CIRCLESgenssetMANAGERgensCOMBOselect()
       var _unpacked = _sel_entry.split( "@" );
       if ( _unpacked.length > 0 )
       {
-         circles_lib_gens_set_bomb();
+         circles_lib_gens_bomb();
          _glob_gens_set_rowcount = 0 ;
-         _glob_gens_set_model_array = _unpacked.clone();
+         _glob_gens_model_array = _unpacked.clone();
          CIRCLESgenssetMANAGERreload();
          CIRCLESformsMETHODmanagerPROCESS( YES, _glob_process );
          $('[id$=initBTN]').css('color',COLOR_ERROR) ;
@@ -319,13 +319,13 @@ function CIRCLESgenssetMANAGERgensSETUP( _question, _silent )
        if ( _b_go )
        {
            _glob_text = "" ;
-           var _ret_chunk = circles_lib_gens_set_build( OUTPUT_TEXT, YES, YES, _question, _silent );
+           var _ret_chunk = circles_lib_gens_build( OUTPUT_TEXT, YES, YES, _question, _silent );
            _glob_gens_set_report = _glob_text ;
            var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
            var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
            if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, _ret_id ? DISPATCH_INFO : DISPATCH_ERROR, _ret_id ? _glob_gens_set_report : _ret_msg, _glob_app_title + " - Construct gens from current set", 520, "auto", null, 230 );
 
-     			 if ( circles_lib_count_gens_set_model() != circles_lib_count_rnd_probabilities() ) _glob_rnd_probability_array.flush();
+     			 if ( circles_lib_gens_model_count() != circles_lib_count_rnd_probabilities() ) _glob_rnd_probability_array.flush();
 
 	         CIRCLESgenssetMANAGERreload();
 
@@ -357,7 +357,7 @@ function CIRCLESgenssetMANAGERgensEXACT( _question, _silent, _out_channel )
 {
    _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
    var _items_array = _glob_seeds_array ;
-   var _items_n = circles_lib_count_items( _items_array ), _sch_n = circles_lib_count_gens_set_model();
+   var _items_n = circles_lib_count_items( _items_array ), _sch_n = circles_lib_gens_model_count();
    if ( _items_n == 0 )
    {
        var _msg = "Can't build the exact generators set."+_glob_crlf+"The "+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" )+" list is empty" ;
@@ -406,7 +406,7 @@ function CIRCLESgenssetMANAGERgensADD( _row_index, _inverse, _question, _silent 
  					{
 							var _table = $( "#ALGEBRAICnewGENERATORStable" ).get(0);
               // just a raw string check: no matter if word, pq-word or repetend
-							var _b_found = _glob_gens_set_model_array.includes( _gen );
+							var _b_found = _glob_gens_model_array.includes( _gen );
               if ( _gen.testME( _glob_pqword_regex_pattern ) && circles_lib_alphabet_count_cap_symbols() != 2 )
               {
                   var _msg = "P/Q words can be computed only when two letters"+_glob_crlf+"are declared (case-insensitively), that is, 'a' and 'b'" ;
@@ -421,9 +421,9 @@ function CIRCLESgenssetMANAGERgensADD( _row_index, _inverse, _question, _silent 
               }
               else if ( !_b_found )
 					   	{
-							    _glob_gens_set_model_array.push( _gen );
+							    _glob_gens_model_array.push( _gen );
 									if ( !_gen.testME( _glob_pqword_regex_pattern ) )
-                  _glob_gens_set_model_array.push( circles_lib_word_inverse_get( _gen ) );
+                  _glob_gens_model_array.push( circles_lib_word_inverse_get( _gen ) );
 
                   _glob_gens_set_rowcount++ ;
 									if ( !_silent )
@@ -456,14 +456,14 @@ function CIRCLESgenssetMANAGERgensADD( _row_index, _inverse, _question, _silent 
 function CIRCLESgenssetMANAGERgeneratorUPDATEinverse( _gen, _row_index )
 {
    // try to recover old value before replacement
-   var _old_generator = _glob_gens_set_model_array[_row_index], _old_inverse_generator = "" ;
+   var _old_generator = _glob_gens_model_array[_row_index], _old_inverse_generator = "" ;
    if ( _old_generator != null )
    {
        var _is_pqword = _old_generator.testME( _glob_pqword_regex_pattern );
        var _is_pqword_inv = _old_generator.testME( _glob_pqword_inv_regex_pattern );
        if ( _is_pqword || _is_pqword_inv ) _old_inverse_generator = _old_generator.end_with( "inv" ) ? _old_generator.replaceAll( "inv", "" ) : _old_generator + "inv" ;
        else _old_inverse_generator = circles_lib_word_inverse_get( _old_generator );
-       var _old_inverse_gen_index = _glob_gens_set_model_array.indexOf( _old_inverse_generator );
+       var _old_inverse_gen_index = _glob_gens_model_array.indexOf( _old_inverse_generator );
        if( _old_inverse_gen_index != UNDET && $( "#ALGEBRAICnewGENERATOR_" + _old_inverse_gen_index ).get(0) != null )
        {
    				 var _inverse_generator = "" ;
@@ -484,12 +484,12 @@ function CIRCLESgenssetMANAGERgensUPDATE( _row_index, _question, _silent )
    if ( _edit != null )
 	 {
        // try to recover old value before replacement
-       var _old_generator = _glob_gens_set_model_array[_row_index], _old_inverse_generator = "" ;
+       var _old_generator = _glob_gens_model_array[_row_index], _old_inverse_generator = "" ;
        var _is_pqword = _old_generator.testME( _glob_pqword_regex_pattern );
        var _is_pqword_inv = _old_generator.testME( _glob_pqword_inv_regex_pattern );
        if ( _is_pqword || _is_pqword_inv ) _old_inverse_generator = _old_generator.end_with( "inv" ) ? _old_generator.replaceAll( "inv", "" ) : _old_generator + "inv" ;
        else _old_inverse_generator = circles_lib_word_inverse_get( _old_generator );
-       var _old_inverse_gen_index = _glob_gens_set_model_array.indexOf( _old_inverse_generator );
+       var _old_inverse_gen_index = _glob_gens_model_array.indexOf( _old_inverse_generator );
    		 var _gen = _edit.value.trim(), _inverse_generator = "" ;
        var _is_pqword = _gen.testME( _glob_pqword_regex_pattern );
        var _is_pqword_inv = _gen.testME( _glob_pqword_inv_regex_pattern );
@@ -507,12 +507,12 @@ function CIRCLESgenssetMANAGERgensUPDATE( _row_index, _question, _silent )
 					if ( _b_go )
 					{
               // updates the gen entry
-              _glob_gens_set_model_array[_row_index] = _gen ;
+              _glob_gens_model_array[_row_index] = _gen ;
               // updates the inverse gen entry
               if ( _old_inverse_gen_index != UNDET )
-              _glob_gens_set_model_array[_old_inverse_gen_index] = _inverse_generator ;
-              else if ( !_glob_gens_set_model_array.includes( _inverse_generator ) )
-              _glob_gens_set_model_array.push( _inverse_generator );
+              _glob_gens_model_array[_old_inverse_gen_index] = _inverse_generator ;
+              else if ( !_glob_gens_model_array.includes( _inverse_generator ) )
+              _glob_gens_model_array.push( _inverse_generator );
 
 				      if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The gen '"+_gen+"' has been updated with success.", _glob_app_title );
               _glob_gens_set_to_init = YES ;
@@ -560,18 +560,18 @@ function CIRCLESgenssetMANAGERgensDELETE( _row_index, _force, _b_switch, _questi
 					 if ( _new_rows == _old_rows - 1 )
 					 {
 							 var _candidate_gen, _container, _btn, _n_removed = 0 ;
-               var _sch_n = circles_lib_count_gens_set_model();
+               var _sch_n = circles_lib_gens_model_count();
 		           for( var _i = 0 ; _i < _sch_n ; _i++ )
 		           {
-									 _candidate_gen = _glob_gens_set_model_array[_i] ;
+									 _candidate_gen = _glob_gens_model_array[_i] ;
 									 if ( _gen_symbol.stricmp( _candidate_gen ) ||
                         _inv_gen_symbol.stricmp( _candidate_gen ) )
                    {
-							       _glob_gens_set_model_array.remove( _i, _i );
+							       _glob_gens_model_array.remove( _i, _i );
 		                 _glob_gens_set_rowcount-- ;
                      _n_removed++ ;
                      _i = -1 ;
-                     _sch_n = circles_lib_count_gens_set_model();
+                     _sch_n = circles_lib_gens_model_count();
                    }
 							 }
 
@@ -602,7 +602,7 @@ function CIRCLESgenssetMANAGERgensBOMB( _b_switch, _question, _silent )
        var _b_go = !_question ? YES : confirm( _q );
        if ( _b_go )
        {
-           circles_lib_gens_set_bomb();
+           circles_lib_gens_bomb();
            _glob_gens_set_rowcount = 0 ;
            _glob_gens_set_to_init = _glob_items_to_init = NO ;
            $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);

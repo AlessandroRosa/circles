@@ -36,7 +36,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
     if ( _items_n > 0 )
     {
          var _min_width_for_div = 620 ;
-         var _rnd_table_size = circles_lib_count_rnd_probabilities(), _sch_n = circles_lib_count_gens_set_model();
+         var _rnd_table_size = circles_lib_count_rnd_probabilities(), _sch_n = circles_lib_gens_model_count();
          if ( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM && _sch_n != _rnd_table_size )
          {
             var _msg = "The generators set ("+_sch_n+" element"+( _sch_n == 1 ? "" : "s" )+") is not congruent with the random table ("+_rnd_table_size+" element"+( _rnd_table_size == 1 ? "" : "s" )+")." ;

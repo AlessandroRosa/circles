@@ -410,13 +410,13 @@ function circles_terminal_cmd_code_4th_step( _opt, _settings_array, _rows_of_cod
     if ( circles_lib_gens_model_exists() && !circles_lib_gens_model_is_exact() )
     {
         _rows_of_code.push( "gensset flush" );
-	  	var _sch_n = circles_lib_count_gens_set_model(), _symbol ;
+	  	var _sch_n = circles_lib_gens_model_count(), _symbol ;
 		if ( _sch_n > 0 )
         {
             var _symbols_array = [];
             for( var _i = 0 ; _i < _sch_n ; _i++ )
         	{
-       		    _symbol = _glob_gens_set_model_array[_i] ;
+       		    _symbol = _glob_gens_model_array[_i] ;
        		    if ( _symbol.length > 0 ) _symbols_array.push( _symbol );
         	}
 
@@ -470,7 +470,7 @@ function circles_terminal_cmd_code_4th_step( _opt, _settings_array, _rows_of_cod
                 }
 
                 var _str = [] ;
-                for( _p = 0 ; _p < _rf_l ; _p++ ) _str.push( _glob_rnd_probability_array[_p] + " " + _glob_gens_set_symbols_map_array[ _glob_gens_set_model_array[_p] ] ) ;
+                for( _p = 0 ; _p < _rf_l ; _p++ ) _str.push( _glob_rnd_probability_array[_p] + " " + _glob_gens_set_symbols_map_array[ _glob_gens_model_array[_p] ] ) ;
 				_str = _str.join( " " );
 
                 var _set_cmd_string = _str + " " + _rng_method ;

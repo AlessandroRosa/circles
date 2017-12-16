@@ -671,14 +671,14 @@ function circles_terminal_cmd_word()
                                       var _bordercolor = is_circle( _sc )  ? _sc.bordercolor : _glob_draw_seed_color ;
                                       var _fill = is_circle( _cc )  ? _cc.fill : YES ;
                                       var _fillcolor = is_circle( _sc )  ? _sc.fillcolor : "" ;
-                                      if ( !_glob_gens_set_model_array.includes( _word ) && !_glob_gens_set_model_array.includes( circles_lib_word_inverse_get( _word ) ) )
+                                      if ( !_glob_gens_model_array.includes( _word ) && !_glob_gens_model_array.includes( circles_lib_word_inverse_get( _word ) ) )
                                       {
-                                          _glob_gens_set_model_array.push( _word );
+                                          _glob_gens_model_array.push( _word );
                                           _glob_gens_array.push( new item_obj( _mm, _cc, _sc, _word, 0,
                                       		                                           _border, _bordercolor, _fill, _fillcolor,
                                       		                                           circles_lib_word_inverse_get( _word ), 1, ITEM_TYPE_MOBIUS ) );
     
-                                          _glob_gens_set_model_array.push( circles_lib_word_inverse_get( _word ) );
+                                          _glob_gens_model_array.push( circles_lib_word_inverse_get( _word ) );
                                           _mm = _mm.inv();
                                           _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
                                           _sc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
@@ -700,7 +700,7 @@ function circles_terminal_cmd_word()
                                   else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to compute generator from word '"+_input_word+"'", _par_1, _cmd_tag );
                               } );
                               
-                        var _gg_n = circles_lib_count_gens(), _sch_n = circles_lib_count_gens_set_model();
+                        var _gg_n = circles_lib_gens_count(), _sch_n = circles_lib_gens_model_count();
                         if ( _gg_n > 0 && _added > 0 )
                         {
                              circles_lib_output( _out_channel, DISPATCH_INFO, _added + " gen"+(_added!=1?'s':'')+" ha"+(_added!=1?'ve':'s')+" been added to the generators set", _par_1, _cmd_tag );

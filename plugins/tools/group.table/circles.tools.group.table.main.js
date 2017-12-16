@@ -32,7 +32,7 @@ function CIRCLEStoolsGROUPTABLEmain( _base_id, _move )
 {
     _move = safe_int( _move, YES );
     CIRCLEStoolsGROUPTABLEuniqueid = _base_id ;
-		var _items_n = _glob_items_switch == ITEMS_SWITCH_SEEDS ? circles_lib_count_seeds() : circles_lib_count_gens();
+		var _items_n = _glob_items_switch == ITEMS_SWITCH_SEEDS ? circles_lib_count_seeds() : circles_lib_gens_count();
     var WIDTH = Math.max( Math.min( $(window).width(), _items_n * 140 ), 480 ), HEIGHT = 250 ;
     var CLOSE_FN = "CIRCLEStoolsGROUPTABLEclose();", _run = YES, _subset = "tools" ;
     var _div_id = CIRCLEStoolsGROUPTABLEdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );

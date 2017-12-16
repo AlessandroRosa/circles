@@ -147,7 +147,7 @@ function CIRCLESmethodMANAGERrandomTABLEsave()
 
 function CIRCLESmethodMANAGERrandomTABLElockallCHECK()
 {
-    var _sch_n = circles_lib_count_gens_set_model();
+    var _sch_n = circles_lib_gens_model_count();
     var _checkbox_n = $( "[id^=PROCrndPROBABILITY_CHECKBOX_]" ).filter( ":checked" ).length ;
     $( "#PROCrndCHECKBOXall" ).prop( "checked", _sch_n == _checkbox_n );
 }
@@ -182,7 +182,7 @@ function CIRCLESmethodMANAGERsetVALUEStoMULTISLIDER()
 
 function CIRCLESmethodMANAGERrandomTABLEuniformDISTRIBUTION()
 {
-    var _sch_n = circles_lib_count_gens_set_model(), _items_exist = _sch_n == 0 ? NO : YES ;
+    var _sch_n = circles_lib_gens_model_count(), _items_exist = _sch_n == 0 ? NO : YES ;
     var _free_indexes = [], _locked_entries = [], _residual = 1.0 ;
     for( var _i = 0 ; _i < _sch_n ; _i++ )
     {
@@ -224,7 +224,7 @@ function CIRCLESmethodMANAGERrandomMODELScombo( _question )
     _question = safe_int( _question, 0 ) ;
     var _chunk_index = $( "#ALGEBRAICrndPRESETScombo" ).val();
         _chunk_index = safe_int( _chunk_index, 0 );
-    var _gs_n = circles_lib_count_gens_set_model();
+    var _gs_n = circles_lib_gens_model_count();
     if ( _chunk_index > 0 )
     {
        var _chunk = _glob_presets['rnd'][_chunk_index-1], _chunk_length = safe_size( _chunk, 0 );
@@ -277,7 +277,7 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
     }
 
     _show = safe_int( _show, NO );
-    var _sch_n = circles_lib_count_gens_set_model();
+    var _sch_n = circles_lib_gens_model_count();
     var _items_exist = _sch_n == 0 ? NO : YES ;
     var _edit, _checkbox, _max = 1.0, _residual = 1.0, _val ;
     var _default_probability = _items_exist ? round_to_decimals( 1.0 / _sch_n, _glob_accuracy ) : 0 ;
@@ -411,9 +411,9 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
       var _unsolved_gen_word, _resolved_gen_word, _is_pqword = NO, _is_pqword_inv = NO ;
       for( var _i = 0 ; _i < _sch_n ; _i++ )
       {
-         if ( _glob_gens_set_model_array[_i] != null )
+         if ( _glob_gens_model_array[_i] != null )
          {
-            _unsolved_gen_word = _glob_gens_set_model_array[_i] ;
+            _unsolved_gen_word = _glob_gens_model_array[_i] ;
             _is_pqword = _unsolved_gen_word.testME( _glob_pqword_regex_pattern );
             _is_pqword_inv = _unsolved_gen_word.testME( _glob_pqword_inv_regex_pattern );
             if ( _is_pqword ) _resolved_gen_word = circles_lib_word_pq_translate( ( _unsolved_gen_word.split( "/" ) )[0], ( _unsolved_gen_word.split( "/" ) )[1] );
@@ -454,7 +454,7 @@ function CIRCLESmethodMANAGERrandomTABLEbuild( _show )
             HTMLcode += "<td WIDTH=\"2\"></td>" ;
             HTMLcode += "<td ID=\"PROCrndPROBABILITY_LABEL_"+_i+"\" STYLE=\"padding-left:5px;\">"+_sum.clean_round_off(_glob_accuracy)+"</td>" ;
             HTMLcode += "<td WIDTH=\"2\"></td>" ;
-            HTMLcode += "<td>originally tagged as <b>"+( _glob_gens_set_model_array[_i] )+"</b></td>" ;
+            HTMLcode += "<td>originally tagged as <b>"+( _glob_gens_model_array[_i] )+"</b></td>" ;
             HTMLcode += "</tr>" ;
             HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
          }

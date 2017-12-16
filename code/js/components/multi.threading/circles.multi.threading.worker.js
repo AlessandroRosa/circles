@@ -311,7 +311,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
             'dist_tolerance' : _glob_distance_tolerance,
             'drawentity' : _glob_drawentity,
             'fz_formula' : _fz_formula,
-            'gens_model' : _glob_gens_set_model_array,
+            'gens_model' : _glob_gens_model_array,
             'gens_symbols_map' : _glob_gens_set_symbols_map_array.swap_keys_vals_associative(),
             'inputfixedpts' : inputfixedpts,
             'items': _items_array,

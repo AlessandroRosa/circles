@@ -4,7 +4,7 @@ function CIRCLEStoolsGROUPTABLEfill_div_with_mobius_maps( _items_mask, _fontsize
     _fontsize = safe_int( _fontsize, CIRCLEStoolsGROUPTABLEfontsize );
     _round_to = safe_int( _round_to, CIRCLEStoolsGROUPTABLEroundto );
     var _switch_label = _items_mask == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
-		var _items_n = _items_mask == ITEMS_SWITCH_SEEDS ? circles_lib_count_seeds() : circles_lib_count_gens();
+		var _items_n = _items_mask == ITEMS_SWITCH_SEEDS ? circles_lib_count_seeds() : circles_lib_gens_count();
 		var _array_ref = _items_mask == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
 		
 		$( "#CIRCLEStoolsGROUPTABLElabel" ).html( "Displaying <b>" + _switch_label + "</b>" );

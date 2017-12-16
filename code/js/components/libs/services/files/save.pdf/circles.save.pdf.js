@@ -297,7 +297,7 @@ function circles_lib_files_pdf_save_report()
 		        default: break ;
 				}
 
-		var _generators_set_array = circles_lib_gens_set_get ? _glob_gens_set_model_array : null ;
+		var _generators_set_array = circles_lib_gens_get ? _glob_gens_model_array : null ;
 		var _generators_set_packed = is_array( _generators_set_array ) ? _generators_set_array.join( "," ) : "" ;
 
     var _filename = _str + !( _str.toLowerCase().right(4).stricmp( ".pdf" ) ) ? ".pdf" : "" ;
@@ -418,7 +418,7 @@ function circles_lib_files_pdf_save_report()
       if ( _generators_set_packed.length > 0 )
       {
          _top += 3 ;
-         doc.text( _left, _top, "Generators set : " + _generators_set_packed );
+         doc.text( _left, _top, "Generators : " + _generators_set_packed );
       }
 
       var _items_n = circles_lib_count_items();

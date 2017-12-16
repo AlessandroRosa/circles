@@ -1,0 +1,86 @@
+<banana>generators model management</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
+
+<cadetblue>Generators are Mobius maps applied for rendering the limit set</cadetblue>
+<cadetblue>the goal is to build up a set of rules (termed 'model') to retrieve generators from seeds</cadetblue>
+<cadetblue>Construction rules may consists of map symbols or formulas</cadetblue>
+
+<lightblue>gen exact</lightblue>
+<cadetblue>construct generators from seeds</cadetblue>
+
+<lightblue>gen model</lightblue>
+<cadetblue>return the generators model</cadetblue>
+
+<lightblue>gen add A</lightblue>
+<cadetblue>add a new item to the generator model set</cadetblue> <yellow>(*)</yellow>
+
+<lightblue>gen add A a B b</lightblue>
+<cadetblue>add a chain of new items to the model</cadetblue>
+<lightgray>this chain of letters covers the usual 2-generators group</lightgray>
+
+<lightblue>gen add A a B b ABab abAB</lightblue>
+<cadetblue>add a chain of new items to the generators model</cadetblue>
+<lightgray>this chain of letters is often used for random IFS applying the commutators</lightgray>
+
+<lightblue>gen add &#91;a&#93;&#91;b*12&#93;</lightblue>
+<cadetblue>add a new item to the model</cadetblue> <yellow>(*)</yellow>
+<cadetblue>this repetends syntax expands to abbbb</cadetblue> <yellow>(*)</yellow>
+
+<lightblue>gen add map:(iz-1)/(z-1)</lightblue>
+<cadetblue>add a new item from input formula to seeds ('seeds' is the default option)</cadetblue>
+
+<lightblue>gen add map:i,-1,1,-1</lightblue>
+<cadetblue>add a new gen from input params to seeds</cadetblue>
+
+<lightblue>gen add map:i,-1,1,-1 map:1,2,0,1</lightblue>
+<cadetblue>add a two (or even more) generators from input params to seeds</cadetblue>
+
+<lightblue>gen add map:abAB</lightblue>
+<cadetblue>add another gen resulting from the input word to seeds</cadetblue>
+
+<lightblue>gen add map:abAB gens</lightblue>
+<cadetblue>add another generator resulting from the input word</cadetblue>
+
+<lightblue>gen bomb</lightblue>
+<cadetblue>(ask to) delete all generators</cadetblue>
+
+<lightblue>gen bomb force</lightblue>
+<cadetblue>straight deletion of all generators</cadetblue>
+
+<lightblue>gen count</lightblue>
+<cadetblue>return the number of registered generators</cadetblue>
+
+<lightblue>gen init</lightblue>
+<cadetblue>construct generators from the current model</cadetblue>
+
+<lightblue>gen init noclear</lightblue>
+<cadetblue>construct generators from the current model without deleting existing entries</cadetblue>
+
+<lightblue>gen list</lightblue>
+<cadetblue>display the model list</cadetblue>
+
+<lightblue>gen list -> maps.list.txt</lightblue>
+<cadetblue>save the same list into a plain text file</cadetblue>
+
+<lightblue>gen list short</lightblue>
+<cadetblue>display the same list by omitting the details</cadetblue>
+
+<lightblue>gen rec %plane% %reset%</lightblue>
+<cadetblue>register current items (whether they are seeds or generators) into the figures list</cadetblue>
+<cadetblue>%plane% could be 'zplane' or 'wplane'</cadetblue>
+
+<lightblue>gen rec zplane</lightblue>
+<cadetblue>register generator disks as figures to be displayed on the Z-plane</cadetblue>
+
+<cadetblue>Note: the new figures are appended to the current list, if any</cadetblue>
+<lightblue>gen rec wplane reset</lightblue>
+<cadetblue>free the current figures list and register generator disks as new figures to be displayed on the Z-plane</cadetblue>
+
+<lightblue>gen release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>
+
+<yellow>------------- NOTES ----------------</yellow>
+<yellow>* Supporting repetends syntax</yellow>
+
+<lightgray>Use 'roundto:n' to round output values to 10E-n</lightgray>

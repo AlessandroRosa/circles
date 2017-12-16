@@ -70,15 +70,15 @@ function CIRCLESformsMETHODfixedpointsSEEDS( _question, _silent, _out_channel )
     }
 }
 
-function CIRCLESformsMETHODfixedpointsWORDSfromGENERATORSSET( _question, _silent, _out_channel )
+function CIRCLESformsMETHODfixedpointsWORDSfromGENERATORSSET( _question = YES, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
      _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
      _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
-     var _gg_n = circles_lib_count_gens(), _fp_n = circles_lib_count_fixed_points();
-     if ( _gg_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The generators set is currently empty", _glob_app_title );
+     var _gg_n = circles_lib_gens_count(), _fp_n = circles_lib_count_fixed_points();
+     if ( _gg_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The generators list is empty", _glob_app_title );
      else
      {
-        var _b_go = _fp_n > 0 && _question ? confirm( "The generators set words list will overwrite current settings.\nConfirm ?" ) : YES ;
+        var _b_go = _fp_n > 0 && _question ? confirm( "The generators model will overwrite current settings.\nConfirm ?" ) : YES ;
         if ( _b_go )
         {
             var _ret_chunk = circles_lib_fixedpoints_add_from_gens_set( _out_channel );
@@ -503,7 +503,7 @@ function CIRCLESformsMETHODfixedpointsBUTTONBAR1( _mask )
           _html_code += "<td><SELECT ID=\"ALGEBRAICfixedpointsFILLcombo\" ONCHANGE=\"javascript:CIRCLESformsMETHODfixedpointsFILLcombo(this.value);\">" ;
           _html_code += "<OPTION VALUE=\"0\"></OPTION>" ;
           _html_code += "<OPTION VALUE=\"1\">Commutators</OPTION>" ;
-          _html_code += "<OPTION VALUE=\"2\">Generators set</OPTION>" ;
+          _html_code += "<OPTION VALUE=\"2\">Generators</OPTION>" ;
           _html_code += "<OPTION VALUE=\"3\">Seeds</OPTION>" ;
           _html_code += "</SELECT></td>" ;
         }

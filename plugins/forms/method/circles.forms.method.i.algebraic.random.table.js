@@ -1,7 +1,7 @@
 function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
 {
 		_move = safe_int( _move, YES );
-    var _sch_n = circles_lib_count_gens_set_model();
+    var _sch_n = circles_lib_gens_model_count();
     var _generators_exist = _sch_n == 0 ? NO : YES ;
 		if ( _generators_exist )
 		{
@@ -122,7 +122,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
 function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY( _move )
 {
 		_move = safe_int( _move, YES );
-    var _sch_n = circles_lib_count_gens_set_model(), _generators_exist = _sch_n == 0 ? NO : YES ;
+    var _sch_n = circles_lib_gens_model_count(), _generators_exist = _sch_n == 0 ? NO : YES ;
 		if ( _generators_exist )
 		{
 			var _RNG_def = $("#RNGcombo option:selected").text();

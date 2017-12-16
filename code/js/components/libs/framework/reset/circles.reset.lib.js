@@ -221,7 +221,7 @@ function circles_lib_reset_vars( _reset_mask, _silent, _out_channel )
 
     if ( _reset_mask & RESET_GENS_SET )
     {
-		    _glob_gens_set_model_array.flush();
+		    _glob_gens_model_array.flush();
 		    _glob_gens_set_symbols_map_array.flush();
 		    _glob_gens_array = [];
 

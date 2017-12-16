@@ -19,13 +19,6 @@ function circles_lib_count_seeds( _safe_count )
   return ( _test && _safe_count ) ? safe_size( _glob_seeds_array, 0 ) : _cnt ;
 }
 
-function circles_lib_count_gens( _safe_count )
-{
-	if ( !is_array( _glob_gens_array ) ) return NO ;
-  var _cnt = 0, _test = _glob_gens_array.test( function( _obj ) { if ( is_item_obj( _obj ) ) _cnt++ ; return is_item_obj( _obj ) ; } ) ;
-  return ( _test && _safe_count ) ? safe_size( _glob_gens_array, 0 ) : _cnt ;
-}
-
 function circles_lib_count_items( _items_array, _safe_count )
 {
   _safe_count = safe_int( _safe_count, NO ), _items_array = circles_lib_items_set( _items_array, NO ) ;
@@ -33,7 +26,6 @@ function circles_lib_count_items( _items_array, _safe_count )
   return ( _test && _safe_count ) ? safe_size( _items_array, 0 ) : _cnt ;
 }
 
-function circles_lib_count_gens_set_model() { return safe_size( _glob_gens_set_model_array, 0 ); }
 function circles_lib_count_rnd_probabilities(){ return safe_size( _glob_rnd_probability_array, 0 ); }
 function circles_lib_count_repetends() { return safe_size( _glob_repetends_array, 0 ); }
 function circles_lib_count_fixed_points() { return safe_size( _glob_input_fixed_pts_array, 0 ); }

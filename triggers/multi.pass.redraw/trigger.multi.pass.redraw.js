@@ -9,7 +9,7 @@ function trigger_multi_pass_redraw( _silent, _out_channel )
 {
     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _sd_n = circles_lib_count_seeds();
-    var _gens_set_n = circles_lib_count_gens_set_model();
+    var _gens_set_n = circles_lib_gens_model_count();
     var _fp_n = circles_lib_count_fixed_points();
     var _rnd_n = circles_lib_count_rnd_probabilities();
     if ( _sd_n == 0 ) return [ RET_ERROR, "Can't run this trigger: no seeds have been registered yet" ] ;

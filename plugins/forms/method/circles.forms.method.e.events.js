@@ -20,7 +20,7 @@ function CIRCLESformsMETHODeventsHANDLER( _ctrl_id, _event )
             // collecting tmp gens model
             var _tmp_gens_model = [], _l ;
  	          $( "[id^=ALGEBRAICnewGENERATOR_]" ).each( function( _i, _box ){ _l = $( "#" + _box.id ).val().trim() ; if ( _l.length > 0 ) _tmp_gens_model.push( _l ) } );
-            var _is_new = !_tmp_gens_model.deep_compare_to( _glob_gens_set_model_array );
+            var _is_new = !_tmp_gens_model.deep_compare_to( _glob_gens_model_array );
 
             if ( _is_new )
             {

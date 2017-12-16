@@ -223,7 +223,7 @@ function circles_terminal_cmd_probability()
                         case "list":
                         var _pp_n = safe_size( _glob_rnd_probability_array, 0 );
                         var _gens_set_exists = circles_lib_gens_model_exists() ;
-                        var _items_n = _gens_set_exists ? circles_lib_count_gens() : circles_lib_count_items() ;
+                        var _items_n = _gens_set_exists ? circles_lib_gens_count() : circles_lib_count_items() ;
 												var _array = _gens_set_exists ? _glob_gens_array : _glob_seeds_array ;
                         if ( _pp_n == 0 )
                         {
@@ -305,7 +305,7 @@ function circles_terminal_cmd_probability()
                         case "set":
                         var _force = is_array( _cmd_params['settings']['options'] ) ? ( _cmd_params['settings']['options'].includes_i( "force" ) ? YES : NO ) : NO ;
                         var _gens_set_exists = circles_lib_gens_model_exists() ;
-                        var _items_n = _gens_set_exists ? circles_lib_count_gens() : circles_lib_count_items() ;
+                        var _items_n = _gens_set_exists ? circles_lib_gens_count() : circles_lib_count_items() ;
                         var _ks = _glob_gens_set_symbols_map_array.keys_associative() ;
 						if ( _ks == null ) _ks = [] ;
                         var _vs = _glob_gens_set_symbols_map_array.values_associative();
@@ -500,7 +500,7 @@ function circles_terminal_cmd_probability()
                                 if ( _diff > 0 )
                                 {
                                     circles_lib_output( _out_channel, DISPATCH_INFO, "Applying final corrections to compensate decimals ...", _par_1, _cmd_tag );
-                                    var _gens_left = circles_lib_count_gens_set_model() - _input_rnd_array.length ;
+                                    var _gens_left = circles_lib_gens_model_count() - _input_rnd_array.length ;
                                     // apply corrections to the remaining entries for compensating full sum
                                     if ( _gens_left > 0 && _diff > 0 )
                                     {
@@ -537,11 +537,11 @@ function circles_terminal_cmd_probability()
 						
 						if ( !_b_fail )
 						{
-							var _sch_n = circles_lib_count_gens_set_model(), _pp_n = safe_size( _cmd_params['settings']['probs'], 0 );
+							var _sch_n = circles_lib_gens_model_count(), _pp_n = safe_size( _cmd_params['settings']['probs'], 0 );
 							if ( _sch_n == 0 )
 							{
 								circles_lib_output( _out_channel, DISPATCH_INFO, "Missing generators set: attempting default generation", _par_1, _cmd_tag );
-								var _ret_chunk = circles_lib_gens_set_build( _out_channel, YES, YES, NO, YES );
+								var _ret_chunk = circles_lib_gens_build( _out_channel, YES, YES, NO, YES );
 								var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
 								var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure : unknown response" ;
 								if ( _ret_id == 0 )

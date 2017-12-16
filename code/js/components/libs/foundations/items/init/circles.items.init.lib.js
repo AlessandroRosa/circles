@@ -141,7 +141,7 @@ function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_ma
 {
     _index = safe_int( _index, UNDET ), _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _init_mask = safe_int( _init_mask, _glob_init_mask ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
-    var _items_n = _glob_items_switch == ITEMS_SWITCH_GENS ? circles_lib_count_gens() : circles_lib_count_seeds();
+    var _items_n = _glob_items_switch == ITEMS_SWITCH_GENS ? circles_lib_gens_count() : circles_lib_count_seeds();
     if ( _glob_method == METHOD_NONE )
     {
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ERR_24_03, _glob_app_title );
@@ -285,7 +285,7 @@ function circles_lib_items_init( _index = UNDET, _question = YES, _silent = NO, 
 			_ret_msg += _glob_crlf + ( is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown response" );
 			if ( _ret_id == RET_OK )
 			{
-				_ret_chunk = circles_lib_gens_set_build( OUTPUT_NONE, NO, YES, _question, _silent ) ;
+				_ret_chunk = circles_lib_gens_build( OUTPUT_NONE, NO, YES, _question, _silent ) ;
 			    _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], 0 ) : 0 ;
 			    _ret_msg += _glob_crlf + ( is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown response" );
 			}

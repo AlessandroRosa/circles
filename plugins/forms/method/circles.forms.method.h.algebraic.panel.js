@@ -50,7 +50,7 @@ function CIRCLESformsMETHODmanagerALGEBRAICpanelBUILD( _new_method, caller_fn, W
       HTMLcode += "</div>" ;
 
       HTMLcode += "<div class=\"tabbertab\" STYLE=\"width:"+(WIDTH-20)+"px;\" VALIGN=\"top\" ID=\"CIRCLESMETHOD_TAB_02\">" ;
-      HTMLcode += "<h2>Generators set</h2>" ;
+      HTMLcode += "<h2>Generators</h2>" ;
       HTMLcode += "<table WIDTH=\"100%\">" ;
       HTMLcode += "<tr><td VALIGN=\"top\" ID=\"ALGEBRAICgeneratorsPANELcontainer\"></td></tr>" ;
       HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;

@@ -97,7 +97,7 @@ function circles_terminal_cmd_print()
                       }
     
           		        // scan inside the generators set
-                      var _gg_n = circles_lib_count_gens();
+                      var _gg_n = circles_lib_gens_count();
           		        if ( _gg_n > 0 )
           		        {
           				        _b_found = NO ;
