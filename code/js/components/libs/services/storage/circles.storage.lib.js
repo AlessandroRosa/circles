@@ -421,7 +421,7 @@ function circles_lib_storage_restore( _subset )
           default: return [ RET_ERROR, "Operation aborted: missing restoration handler for '"+_subset+"' storage subset" ] ; break ;
       }
     }
-    else return [ RET_ERROR, "Can't restore: the subset '"+_subset+"' of storage space is empty" ] ;
+    else return [ RET_ERROR, "Fail to restore: the subset '"+_subset+"' of storage space is empty" ] ;
 }
 
 function circles_lib_storage_recognize_type( _data )

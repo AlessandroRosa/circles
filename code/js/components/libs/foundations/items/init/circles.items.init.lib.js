@@ -62,13 +62,13 @@ function circles_lib_items_unselect( _question, _silent, _out_channel )
 		}
 		else
 		{
-		    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't unselect: " + _ERR_33_01, _glob_app_title );
-		    return [ RET_ERROR, "Can't unselect: " + _ERR_33_01 ];
+		    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Fail to unselect: " + _ERR_33_01, _glob_app_title );
+		    return [ RET_ERROR, "Fail to unselect: " + _ERR_33_01 ];
 	    }
 	}
 	else
     {
-        var _msg = "Can't unselect: no item(s) selected" ;
+        var _msg = "Fail to unselect: no item(s) selected" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
     }
@@ -514,7 +514,7 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
     }
     else if ( !_init_mask.match_bit_mask( INIT_SINGLE_ITEMS, INIT_PAIRED_ITEMS ) )
     {
-       var _msg = "Can't init items: incoherent init option" ;
+       var _msg = "Fail to initialize items! Incoherent init option: missing 'single' or 'paired' attribute" ;
        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ];
     }

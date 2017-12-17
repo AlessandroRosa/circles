@@ -316,7 +316,7 @@ polygon.prototype.apothem = function()
     if ( this.regular() ) return this.side() / ( 2 * Math.tan( Math.PI / n ) )
     else
     {
-       this.log_add( "Can't return apothem for irregular polygon" );
+       this.log_add( "Fail to return apothem for irregular polygon" );
        this.err_no = _POLYGON_ERR_INVALID_VALUE ;
        return _POLYGON_ERR_INVALID_VALUE ;
     }
@@ -349,7 +349,7 @@ polygon.prototype.is_convex = function()
     }
     else
     {
-       this.log_add( "Can't perform convexity check: missing vertexes" );
+       this.log_add( "Fail to perform convexity check: missing vertexes" );
        this.err_no = _POLYGON_ERR_INVALID_VALUE ;
        return _POLYGON_ERR_INVALID_VALUE ;
     }
@@ -403,7 +403,7 @@ polygon.prototype.centroid = function()
     }
     else
     {
-        this.log_add( "Can't calculate centroid: missing vertexes" );
+        this.log_add( "Fail to calculate centroid: missing vertexes" );
         this.err_no = _POLYGON_ERR_INVALID_VALUE ;
         return null ;
     }
@@ -436,7 +436,7 @@ polygon.prototype.triangulation = function()
     }
     else
     {
-       this.log_add( "Can't perform triangulation: irregular polygon" );
+       this.log_add( "Fail to perform triangulation: irregular polygon" );
        this.err_no = _POLYGON_ERR_INVALID_VALUE ;
        return NO ;
     }
@@ -467,7 +467,7 @@ polygon.prototype.area = function()
     }
     else
     {
-       this.log_add( "Can't calculate area: missing vertexes" );
+       this.log_add( "Fail to calculate area: missing vertexes" );
        this.err_no = _POLYGON_ERR_MISSING_INPUT_VERTEXES ;
        return NO ;
     }
@@ -486,7 +486,7 @@ polygon.prototype.draw_point = function()
 		
 		if ( _pt == null )
     {
-       this.log_add( "Can't draw point: missing input coords" );
+       this.log_add( "Fail to draw point: missing input coords" );
        this.err_no = _POLYGON_ERR_INVALID_VALUE ;
        return NO ;
     }
@@ -513,7 +513,7 @@ polygon.prototype.draw_point = function()
 		}
 		else
     {
-       this.log_add( "Can't draw point: missing input canvas obj" );
+       this.log_add( "Fail to draw point: missing input canvas obj" );
        this.err_no = _POLYGON_ERR_MISSING_CANVAS_OBJ_REF ;
        return NO ;
     }
@@ -581,7 +581,7 @@ polygon.prototype.draw = function( _bordercolor, _fillcolor, _bordersize, _remap
     }
     else
     {
-       this.log_add( "Can't draw point: missing input canvas obj" );
+       this.log_add( "Fail to draw point: missing input canvas obj" );
        this.err_no = _POLYGON_ERR_MISSING_CANVAS_OBJ_REF ;
        return NO ;
     }

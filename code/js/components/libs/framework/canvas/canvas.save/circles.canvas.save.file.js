@@ -3,7 +3,7 @@ function circles_lib_canvas_save_to_file( _plane_type, _canvas_id, _filename, _m
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     _silent = safe_int( _silent, NO ), _merge = safe_int( _merge, NO );
-    if ( !is_html_canvas( _canvas ) ) return [ 0, "Can't save: missing canvas reference" ] ;
+    if ( !is_html_canvas( _canvas ) ) return [ 0, "Fail to save: missing canvas reference" ] ;
     _filename = safe_string( _filename, "circles.pix.png" );
     if ( _glob_export_format == EXPORT_PNG ) _filename = !_filename.includes( ".png" ) ? _filename + ".png" : _filename ;
     else if ( _glob_export_format == EXPORT_SVG ) _filename = _filename.replaceAll( ".png", ".svg" );

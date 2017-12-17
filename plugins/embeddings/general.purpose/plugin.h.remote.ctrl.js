@@ -52,8 +52,8 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
   		 break ;
          case "close":
          GLOB_PLUGIN_DESTROY_POPUP_VARS();
-         var _sub = "embeddings", _base_id = "general.purpose" ;
-         circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
+         var _sub = "embeddings", _base_id = "general.purpose".replace( /[\.\_\-]/g, '' ) ;
+         circles_lib_plugin_activate( NO, _base_id, '', '', _sub, CLOSE, _div_id );
         _ret_array.push( YES, "<green>Plug-in has been closed with success</green>" ) ;
 		 return YES ;
          break ;
@@ -129,7 +129,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
 			default: break ;
 		 }
 		 _tab_name = _tab_name.replace( /\./g, ' ' );
-		 _ret_array.push( _found, !_found ? "<red>Can't switch to unknown tab '"+_tab_name+"'</red>" : "<green>Switched to tab '"+_tab_name+"' with success</green>" ) ;
+		 _ret_array.push( _found, !_found ? "<red>Fail to switch to unknown tab '"+_tab_name+"'</red>" : "<green>Switched to tab '"+_tab_name+"' with success</green>" ) ;
 		 return YES ;
 		 break ;
   		 case "newmap":
@@ -222,7 +222,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          }
          else
          {
-		   _out_msg = "<red>Can't delete the var from the list: please, input var ID</red>" ;
+		   _out_msg = "<red>Fail to delete the var from the list: please, input var ID</red>" ;
 		   _ret_array.push( NO, _out_msg ) ;
            return NO ;
          }
@@ -253,7 +253,7 @@ function CIRCLESembeddingsGENERALPURPOSEremotectrl( _options, _return_fn, _ret_a
          }
          else
          {
-			_out_msg = "<red>Can't add the var to the list: please, input var ID and VALUE</red>" ;
+			_out_msg = "<red>Fail to add the var to the list: please, input var ID and VALUE</red>" ;
 			_ret_array.push( NO, _out_msg ) ;
             return NO ;
          }

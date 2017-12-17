@@ -441,8 +441,8 @@ function circles_terminal_cmd_rect()
                 }
 
                 var _area = is_rect( _rect_obj ) ? _rect_obj.area() : 0 ;
-				if ( _cmd_params['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Can't plot rect: missing plane reference" ; }
-				else if ( _check_coords_mask == 0 ) { _b_fail = YES, _error_str = "Can't plot rect: missing coordinates" ; }
+				if ( _cmd_params['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Fail to plot rect: missing plane reference" ; }
+				else if ( _check_coords_mask == 0 ) { _b_fail = YES, _error_str = "Fail to plot rect: missing coordinates" ; }
                 else if ( _area == 0 ) { _b_fail = YES, _error_str = "Input rect is of zero area: process aborted" ; }
 
       		    var _plane_type = circles_lib_plane_get_value( _cmd_params['plane'] ) ;

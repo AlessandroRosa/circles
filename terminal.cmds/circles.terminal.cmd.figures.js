@@ -273,7 +273,7 @@ function circles_terminal_cmd_figures()
 				else if ( _cmd_params['polygon'] ) _cmd = "polygon" ;
 
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
                 else if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Fail to assemble: missing input indexes" ; }
                 else if ( _n_input_index == 1 && !_all ) { _b_fail = YES, _error_str = "Fail to assemble: select at least two elements" ; }
 				else if ( _n_figures < 3 && _n_input_index < 3 && !_all && _cmd == "polygon" ) { _b_fail = YES, _error_str = "Fail to assemble: at least 3 points are required to assemble a polygon" ; }
@@ -345,7 +345,7 @@ function circles_terminal_cmd_figures()
 				break;
 				case "bomb":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
 				else
 				{
                    	var _params_array = [], _pre_prompt = null ;
@@ -361,7 +361,7 @@ function circles_terminal_cmd_figures()
 				break ;
                 case "copy":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
                 else if ( _n_input_index == 0 ) { _b_fail = YES, _error_str = "Copy failure: missing input indexes" ; }
                 else if ( _n_input_index > 0 )
                 {
@@ -396,8 +396,8 @@ function circles_terminal_cmd_figures()
                 break ;
 				case "disassemble":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
-                else if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Can't "+_action+" : missing input indexes" ; }
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+                else if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Fail to "+_action+" : missing input indexes" ; }
                 else
 				{
 					var _figures_ref = _all ? _glob_figures_array : _cmd_params['figures_ref'] ;
@@ -497,8 +497,8 @@ function circles_terminal_cmd_figures()
                 case "enable":
                 case "transfer":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
-                else if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Can't "+_action+" : missing input indexes" ; }
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+                else if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Fail to "+_action+" : missing input indexes" ; }
                 else
                 {
 					var _params_array = [] ;
@@ -520,7 +520,7 @@ function circles_terminal_cmd_figures()
                 break ;
 				case "isolate":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
                 else if ( _n_input_index > 0 || _all )
 				{
 					var _figures_ref = _all ? _glob_figures_array : _cmd_params['figures_ref'] ;
@@ -587,7 +587,7 @@ function circles_terminal_cmd_figures()
 				break
                 case "list":
 				var _n_figures = safe_size( _glob_figures_array, 0 ), _row ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
                 else
                 {
                     var _reverse = _cmd_params['reverse'] ;
@@ -610,7 +610,7 @@ function circles_terminal_cmd_figures()
                 break ;
                 case "rebuild":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
                 else
                 {
                     // rebuild hash tags after previous deletion
@@ -622,7 +622,7 @@ function circles_terminal_cmd_figures()
                 break;
                 case "render":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
 				else
 				{
 					if ( _cmd_params['plane'] == NO_PLANE ) _cmd_params['plane'] = ALL_PLANES ;
@@ -633,7 +633,7 @@ function circles_terminal_cmd_figures()
                 break ;
 				case "rotate":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
 				else if ( _cmd_params['center'] == null ) { _b_fail = YES ; _error_str = "Missing rotation center" ; }
 				else if ( _cmd_params['rotationangle'] == null ) { _b_fail = YES ; _error_str = "Missing rotation angle" ; }
                 else if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Missing input indexes" ; }
@@ -701,7 +701,7 @@ function circles_terminal_cmd_figures()
 				break ;
                 case "shift":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
                 else if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Missing input indexes" ; }
                 else
                 {
@@ -749,7 +749,7 @@ function circles_terminal_cmd_figures()
                 break;
                 case "swap":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
                 else if ( _n_input_index != 2 ) { _b_fail = YES, _error_str = "Swap failure: 2 indexes are required" ; }
                 else
                 {
@@ -772,8 +772,8 @@ function circles_terminal_cmd_figures()
                 break ;
                 case "update":
 				var _n_figures = safe_size( _glob_figures_array, 0 ) ;
-				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
-                else if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Can't update: missing input index" ; }
+				if ( _n_figures == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the list of recorded figures is empty ", _par_1, _cmd_tag );
+                else if ( _n_input_index == 0 && !_all ) { _b_fail = YES, _error_str = "Fail to update: missing input index" ; }
                 else
 				{
 					circles_lib_figures_update_manager( _out_channel, _cmd_params['update_props'] );

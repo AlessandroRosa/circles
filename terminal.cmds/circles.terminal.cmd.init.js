@@ -24,7 +24,7 @@ function circles_terminal_cmd_init()
         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
         _cmd_params['keywords'] = NO ;
         _cmd_params['zplaneitems'] = "" ;
-        _cmd_params['initoptions'] = INIT_NONE ;
+        _cmd_params['initmask'] = INIT_NONE ;
         _cmd_params['grammars'] = [];
         _cmd_params['symbols'] = NO ;
         _cmd_params['auto'] = NO;
@@ -35,7 +35,7 @@ function circles_terminal_cmd_init()
         // pre-scan for levenshtein correction
     var _local_cmds_params_array = [];
     	_local_cmds_params_array.push( "auto", "disks", "force", "symbols", "lock", "maps", "paired", "singly",
-                                       "show", "unlock", "release", "html", "help" );
+                                       "unlock", "release", "html", "help", "options" );
     circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
     var _p ;
@@ -45,20 +45,17 @@ function circles_terminal_cmd_init()
         if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
         else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
         else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
-        else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
+        else if ( _p.is_one_of( "html", "lock", "force", "symbols", "options" ) ) _cmd_params[_p] = YES ;
         else if ( _p.stricmp( "auto" ) )
         {
-            _cmd_params['initoptions'] = circles_lib_items_auto_recognition_group_params();
+            _cmd_params['initmask'] = circles_lib_items_auto_recognition_group_params();
             _cmd_params['auto'] = YES ;
         }
-        else if ( _p.stricmp( "disks" ) ) _cmd_params['initoptions'] |= INIT_FROM_DISKS ;
-        else if ( _p.stricmp( "maps" ) ) _cmd_params['initoptions'] |= INIT_FROM_MAPS ;
-        else if ( _p.stricmp( "paired" ) ) _cmd_params['initoptions'] |= INIT_PAIRED_ITEMS ;
-        else if ( _p.stricmp( "singly" ) ) _cmd_params['initoptions'] |= INIT_SINGLE_ITEMS ;
-        else if ( _p.is_one_of( "lock", "force" ) ) _cmd_params[""+_p] = YES ;
+        else if ( _p.stricmp( "disks" ) ) _cmd_params['initmask'] |= INIT_FROM_DISKS ;
+        else if ( _p.stricmp( "maps" ) ) _cmd_params['initmask'] |= INIT_FROM_MAPS ;
+        else if ( _p.stricmp( "paired" ) ) _cmd_params['initmask'] |= INIT_PAIRED_ITEMS ;
+        else if ( _p.stricmp( "singly" ) ) _cmd_params['initmask'] |= INIT_SINGLE_ITEMS ;
         else if ( _p.stricmp( "unlock" ) ) _cmd_params['lock'] = NO ;
-        else if ( _p.stricmp( "symbols" ) ) _cmd_params['symbols'] = YES ;
-        else if ( _p.stricmp( "show" ) ) _cmd_params['showoptions'] = YES ;
         else if ( _p.is_one_of_i( "and", "from" ) ) _cmd_params['grammars'].push( _p );
         else if ( _p.length > 0 ) { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
     }
@@ -85,13 +82,13 @@ function circles_terminal_cmd_init()
             break ;
             default:
             var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-            if ( ( _glob_init_mask & INIT_LOCK ) != 0 && ( _cmd_params['initoptions'] != INIT_NONE || _cmd_params['symbols'] ) )
+            if ( ( _glob_init_mask & INIT_LOCK ) != 0 && ( _cmd_params['initmask'] != INIT_NONE || _cmd_params['symbols'] ) )
             {
                 var _msg = "<orange>Init options have been locked.</orange>"+_glob_crlf ;
                     _msg += "<orange>No modifications can be achieved.</orange>" ;
                 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
             }
-            else if ( _cmd_params['showoptions'] && !_b_fail )
+            else if ( _cmd_params['options'] && !_b_fail )
             {
                 var _none = _glob_init_mask == INIT_NONE ? YES : NO ;
                 var _locked = _glob_init_mask & INIT_LOCK ? YES : NO ;
@@ -157,7 +154,7 @@ function circles_terminal_cmd_init()
         			}
         			else circles_lib_output( _out_channel, DISPATCH_INFO, "Current method is '"+circles_lib_method_get_def( _glob_method )+"'", _par_1, _cmd_tag );
 
-                    _init_mask = safe_int( _cmd_params['initoptions'], INIT_NONE );
+                    _init_mask = safe_int( _cmd_params['initmask'], INIT_NONE );
                     _ret_chunk = circles_lib_items_init( UNDET, NO, YES, _init_mask | INIT_SYMBOLS, YES, _cmd_params['force'], _out_channel );
                     _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                     _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
@@ -180,7 +177,7 @@ function circles_terminal_cmd_init()
                     }
                     else
                     {
-                        _init_mask = safe_int( _cmd_params['initoptions'], INIT_NONE ) ;
+                        _init_mask = safe_int( _cmd_params['initmask'], INIT_NONE ) ;
                         if ( _init_mask == INIT_NONE ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing init options", _par_1, _cmd_tag );
                         else
                         {

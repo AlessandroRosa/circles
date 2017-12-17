@@ -90,7 +90,7 @@ function circles_terminal_cmd_keepcmd()
                   }
                   else
                   {
-                      _b_fail = YES, _error_str = "Can't keep: the command '" + _p + "' is unknown" ;
+                      _b_fail = YES, _error_str = "Fail to keep: the command '" + _p + "' is unknown" ;
                   } 
                   break ;
                   case "off":

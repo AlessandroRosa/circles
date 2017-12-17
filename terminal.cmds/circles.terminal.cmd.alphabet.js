@@ -26,7 +26,7 @@ function circles_terminal_cmd_alphabet()
         _error_str_array['err5'] = "Symbol '%symbol%' cannot be removed because not included inside the current alphabet" ;
         _error_str_array['err6'] = "Symbol '%symbol%' has%not%been deleted from current alphabet with success" ;
         _error_str_array['err7'] = "Alphabet %inclusor% symbol '%symbol%'" ;
-        _error_str_array['err8'] = "Can't %action%: no input symbol" ;
+        _error_str_array['err8'] = "Fail to %action%: no input symbol" ;
 
         _error_str_array['info1'] = "Type 'alphabet regen' for reconstruction" ;
 

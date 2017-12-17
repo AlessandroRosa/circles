@@ -187,8 +187,8 @@ function circles_terminal_cmd_zoom()
 				break ;
 				case "shift":
 				var _p_len = safe_size( _cmd_params['params'], 0 );
-				if ( _p_len == 0 ) { _b_fail = YES, _error_str = "Can't shift coords: no input params" ; }
-				else if ( _plane_type.is_one_of( NO_PLANE, ALL_PLANES ) ) { _b_fail = YES, _error_str = "Can't shift coords: no specific input plane" ; }
+				if ( _p_len == 0 ) { _b_fail = YES, _error_str = "Fail to shift coords: no input params" ; }
+				else if ( _plane_type.is_one_of( NO_PLANE, ALL_PLANES ) ) { _b_fail = YES, _error_str = "Fail to shift coords: no specific input plane" ; }
 				else
 				{
 					var _ret_chunk = null ;
@@ -202,8 +202,8 @@ function circles_terminal_cmd_zoom()
 				}
 				break ;
 				default: // set coords
-				if ( !_cmd_params['reset'] && _tofit == NO && _side == 0 && _zf == 0 ) { _b_fail = YES, _error_str = "Can't zoom: invalid 'side' param and zoom factor" ; }
-				else if ( _plane_type.is_one_of( NO_PLANE, ALL_PLANES ) ) { _b_fail = YES, _error_str = "Can't perform zoom: no specific input plane" ; }
+				if ( !_cmd_params['reset'] && _tofit == NO && _side == 0 && _zf == 0 ) { _b_fail = YES, _error_str = "Fail to zoom: invalid 'side' param and zoom factor" ; }
+				else if ( _plane_type.is_one_of( NO_PLANE, ALL_PLANES ) ) { _b_fail = YES, _error_str = "Fail to perform zoom: no specific input plane" ; }
 				else
 				{
 					var _ret_chunk, _ret_id, _ret_msg ;

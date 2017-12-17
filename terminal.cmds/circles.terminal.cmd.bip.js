@@ -254,7 +254,7 @@ function circles_terminal_cmd_bip()
                    }
                    else if ( _glob_bip_original_plane_coords == BIP_BOX )
                        circles_lib_output( _out_channel, DISPATCH_WARNING, "Current coords are user defined, thus they have to be manually input", _par_1, _cmd_tag );
-                   else { _b_fail = YES, _error_str = "Can't acquire coords because the BIP source for coords is not a conventional plane ('Z-plane' or 'W-plane')" ; }
+                   else { _b_fail = YES, _error_str = "Fail to acquire coords because the BIP source for coords is not a conventional plane ('Z-plane' or 'W-plane')" ; }
                    break;
                    case "apply":
                    var _tmp_applied_settings_mask = 0 ;
@@ -473,7 +473,7 @@ function circles_terminal_cmd_bip()
                 var _items_n = circles_lib_count_items();
                 if ( _items_n.is_one_of( 0, UNDET ) && _toggle.strcmp( "on" ) )
                 {
-                    _b_fail = YES, _error_str = "Can't toggle BIP on: no disks configuration detected" ;
+                    _b_fail = YES, _error_str = "Fail to toggle BIP on: no disks configuration detected" ;
                 }
                 else
                 {

@@ -53,7 +53,7 @@ function circles_lib_draw_all_screen_disks( _context = null, _mapper = zplane_sm
            if ( is_circle( screen_circle ) ) circles_lib_draw_screen_disk( _context, "", screen_circle, draw, bordercolor, fill, fillcolor, bordersize, _opacity );
         }
 
-     	  var _msg = _errors == 0 ? "All disks drawn with success" : "Can't draw all screen disks: memory failure for item"+(_errors_array.length==1?"":"s")+" indexed at "+_errors_array.join( ", " );
+     	  var _msg = _errors == 0 ? "All disks drawn with success" : "Fail to draw all screen disks: memory failure for item"+(_errors_array.length==1?"":"s")+" indexed at "+_errors_array.join( ", " );
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _errors == 0 ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _glob_app_title );
         return [ _errors == 0 ? RET_OK : RET_ERROR, _msg ] ;
     }

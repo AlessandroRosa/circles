@@ -201,7 +201,7 @@ function CIRCLESmultithreadingINITworker( _input_chunk )
        if ( _working_plane.is_one_of( NO_PLANE, ALL_PLANES ) )
        {
          circles_lib_progressbar_div_show( NO );
-         var _MSG = "Can't run the rendering process." + _glob_crlf.repeat(2) ;
+         var _MSG = "Fail to run the rendering process." + _glob_crlf.repeat(2) ;
              _MSG += "Plane selection has been previously switched to : <b>" + circles_lib_plane_def_get( _working_plane ) + "</b>" + _glob_crlf ;
              _MSG += "and thus rendering destination is not well determined." + _glob_crlf.repeat(2) ;
              _MSG += "Please, select the destination plane from buttons below" ;

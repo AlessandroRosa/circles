@@ -287,7 +287,7 @@ function circles_terminal_cmd_dg()
 
                 if ( safe_size( _err_array, 0 ) > 0 )
                 {
-                    _b_fail = YES, _error_str = "Can't conjugate the current group." + _glob_crlf + _err_array.join( _glob_crlf );
+                    _b_fail = YES, _error_str = "Fail to conjugate the current group." + _glob_crlf + _err_array.join( _glob_crlf );
                 }
                 else if ( safe_size( _service_array, 0 ) == 0 )
                 {
@@ -296,7 +296,7 @@ function circles_terminal_cmd_dg()
                 }
                 else if ( _sd_n == 0 )
                 {
-                    _b_fail = YES, _error_str = "Can't conjugate: missing input seeds";
+                    _b_fail = YES, _error_str = "Fail to conjugate: missing input seeds";
                 }
                 else
                 {
@@ -494,13 +494,13 @@ function circles_terminal_cmd_dg()
                         if ( _new_n == _old_n + 1 ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Group in use has been tagged as '"+_tag+"' and saved with success", _par_1, _cmd_tag );
                         else
                         {
-                            _b_fail = YES, _error_str = "Can't save the group in use: memory error" ;
+                            _b_fail = YES, _error_str = "Fail to save the group in use: memory error" ;
                         }
                     }
                 }
                 else
                 {
-                    _b_fail = YES, _error_str = "Can't save the the group in use: there's no group initialized at the moment" ;
+                    _b_fail = YES, _error_str = "Fail to save the the group in use: there's no group initialized at the moment" ;
                 }
                 break ;
                 case "subgroup":
@@ -900,7 +900,7 @@ function _dg_cmd_record_group( _new_group, _tag )
         _glob_groups_table.push( [ _new_group, safe_size( _new_group, 0 ), _tag ] );
         var _new_n = safe_size( _glob_groups_table, 0 );
         if ( _new_n == _old_n + 1 ) return [ RET_OK, "Input new subgroup "+( safe_size( _tag, 0 ) > 0 ? "'"+_tag+"'" : "" )+" has been recorded with success" ] ;
-        else return [ RET_ERROR, "Can't record the input subgroup: memory error" ] ;
+        else return [ RET_ERROR, "Fail to record the input subgroup: memory error" ] ;
     }
 }
 

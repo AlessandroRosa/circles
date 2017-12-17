@@ -172,7 +172,7 @@ function circles_lib_canvas_render_wplane( _canvas = null, _mapper = wplane_sm, 
 
     if ( _glob_items_to_init && !_silent )
     {
-        var _msg = "Can't draw the W-plane."+_glob_crlf+"Please, init gens first" ;
+        var _msg = "Fail to draw the W-plane."+_glob_crlf+"Please, init gens first" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }

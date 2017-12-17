@@ -137,13 +137,13 @@ function circles_terminal_cmd_calc()
 				    }
 					else else circles_lib_output( _out_channel, DISPATCH_WARNING, "No output convergents", _par_1, _cmd_tag );
 				}
-				else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't compute convergents: missing input fraction", _par_1, _cmd_tag );
+				else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to compute convergents: missing input fraction", _par_1, _cmd_tag );
 		        break ;
 		        case "crossratio":
 				circles_lib_output( OUTPUT_TERMINAL, DISPATCH_MULTICOLOR, "<lightgray>Selected calculation</lightgray> <yellow>cross-ratio</yellow>", _par_1, _cmd_tag );
 		        var _n_pts = safe_size( _cmd_params['settings']['points'], 0 );
-				if ( _n_pts == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't calc cross-ratio: missing input points (4 are required)", _par_1, _cmd_tag );
-		        else if ( _n_pts < 4 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't calc cross-ratio: just " + _n_pts + " input point" + ( _n_pts == 1 ? "" : "s" ) + ", bur 4 are required", _par_1, _cmd_tag );
+				if ( _n_pts == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to calc cross-ratio: missing input points (4 are required)", _par_1, _cmd_tag );
+		        else if ( _n_pts < 4 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to calc cross-ratio: just " + _n_pts + " input point" + ( _n_pts == 1 ? "" : "s" ) + ", bur 4 are required", _par_1, _cmd_tag );
 		        else
 		        {
 					var _pts = null ;

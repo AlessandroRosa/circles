@@ -42,6 +42,10 @@
 <yellow>circle (0,0) radius:1 bordercolor:blue fillcolor:yellow bordersize:7 zplane label:<anything-without-blank-space> storagesubset:circles</yellow>
 <cadetblue>same as above, but the line is saved into the 'circles' storage space (if existing)</cadetblue>
 
+<lightblue>circle abAB isometric | inversion</snow>
+<cadetblue>compute isometric | inversion circle for the input word 'abAB'</cadetblue>
+<cadetblue>'isometric' is the default setting</cadetblue>
+
 <lightgray>-------------------------------</lightgray>
 <turquoise>Note (1)</turquoise>
 <cadetblue>If you need to work with inversion or with isometric disks, use cmd 'disk' instead</cadetblue>

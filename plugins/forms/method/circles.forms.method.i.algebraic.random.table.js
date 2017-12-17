@@ -116,7 +116,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
          if ( _move & POPUP_MOVE ) move_div( _div.id, _x_tag, _y_tag, null, null, _animate );
       }
 		}
-		else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't display the random generator graph: no gens available.", 'PROCESSrandomPROBABILITYoutput' ) ;
+		else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to display the random generator graph: no gens available.", 'PROCESSrandomPROBABILITYoutput' ) ;
 }
 
 function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY( _move )
@@ -153,7 +153,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelDISPLAY( _move )
           circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, "forms", OPEN, _div_id, _caption );
       }
 		}
-		else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't display the random generator graph: no gens available.", 'PROCESSrandomPROBABILITYoutput' ) ;
+		else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to display the random generator graph: no gens available.", 'PROCESSrandomPROBABILITYoutput' ) ;
 }
 
 function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelGRAPH( _method_index, _n_intervals, tryouts, _graph_width )
@@ -247,7 +247,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelGRAPHconstruct( _graph_wi
     {
    		 HTMLcode = "<table ALIGN=\"center\" STYLE=\"border-collapse:collapse;height:"+(_max_height+40)+"px;width:"+_graph_width+"px;\">" ;
        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-       HTMLcode += "<tr><td ALIGN=\"center\">Can't render this graph because no rendering has been performed yet</td></tr>" ;
+       HTMLcode += "<tr><td ALIGN=\"center\">Fail to render this graph because no rendering has been performed yet</td></tr>" ;
        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
        HTMLcode += "</table>" ;
     }
@@ -255,7 +255,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONmodelGRAPHconstruct( _graph_wi
     {
    		 HTMLcode = "<table ALIGN=\"center\" STYLE=\"border-collapse:collapse;height:"+(_max_height+40)+"px;width:"+_graph_width+"px;\">" ;
        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
-       HTMLcode += "<tr><td ALIGN=\"center\">Can't render this graph because items have been initialized</td></tr>" ;
+       HTMLcode += "<tr><td ALIGN=\"center\">Fail to render this graph because items have been initialized</td></tr>" ;
        HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
        HTMLcode += "</table>" ;
     }

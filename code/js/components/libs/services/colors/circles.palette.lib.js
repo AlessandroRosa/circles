@@ -6,7 +6,7 @@ function circles_lib_palette_init( _silent = NO, _out_channel = OUTPUT_SCREEN )
     _glob_palette_array = _ret_chunk[1] ;
     if ( !is_array( _glob_palette_array ) )
     {
-      var _msg = "Can't compute the color gradient." + _glob_crlf + _ret_chunk + _glob_crlf + _ERR_00_05 ;
+      var _msg = "Fail to compute the color gradient." + _glob_crlf + _ret_chunk + _glob_crlf + _ERR_00_05 ;
       if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
       return [ RET_ERROR, _msg ] ;
     }

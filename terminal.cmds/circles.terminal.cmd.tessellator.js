@@ -150,7 +150,7 @@ function circles_terminal_cmd_tessellator()
                      }
                      else if ( _glob_method == METHOD_NONE )
                      {
-                         _b_fail = YES, _error_str += "Can't tessellate. Choose one among these methods first:" ;
+                         _b_fail = YES, _error_str += "Fail to tessellate. Choose one among these methods first:" ;
                          _error_str += _glob_crlf + "inversion   algebraic" ;
                      }
                      else if (
@@ -187,7 +187,7 @@ function circles_terminal_cmd_tessellator()
                                     if ( _cmd_params['cols'] == 0 ) _ret_msg_array.push( "* Missing number of columns of grid tessellation" );
                                     if ( _cmd_params['rows'] == 0 ) _ret_msg_array.push( "* Missing number of rows of grid tessellation" );
 
-                                    _error_str = "Can't process grid tessellation" + _glob_crlf + _ret_msg_array.join( _glob_crlf );
+                                    _error_str = "Fail to process grid tessellation" + _glob_crlf + _ret_msg_array.join( _glob_crlf );
                                }
                                else
                                {
@@ -230,7 +230,7 @@ function circles_terminal_cmd_tessellator()
                                     if ( _cmd_params['startcenter'] == null ) _ret_msg_array.push( "* Missing start center point for radial tessellation" );
                                     if ( _cmd_params['sector'] == 0 && _cmd_params['circles'] == 0 ) _ret_msg_array.push( "* Missing sector amplitude for radial tessellation." );
                                     if ( _cmd_params['circles'] == 0 ) _ret_msg_array.push( "* Missing circles number for radial tessellation" );
-                                    _error_str = "Can't process radial tessellation" + _glob_crlf + _ret_msg_array.join( _glob_crlf );
+                                    _error_str = "Fail to process radial tessellation" + _glob_crlf + _ret_msg_array.join( _glob_crlf );
                                }
                                else
                                {
@@ -283,7 +283,7 @@ function circles_terminal_cmd_tessellator()
                                     if ( _cmd_params['circles'] == 0 ) _ret_msg_array.push( "* Missing circles number for wave tessellation" );
                                     if ( _cmd_params['reps'] == 0 ) _ret_msg_array.push( "* Missing repetitions number for wave tessellation" );
 
-                                    _error_str = "Can't process wave tessellation" + _glob_crlf + _ret_msg_array.join( _glob_crlf );
+                                    _error_str = "Fail to process wave tessellation" + _glob_crlf + _ret_msg_array.join( _glob_crlf );
                                }
                                else
                                {

@@ -122,9 +122,9 @@ function CIRCLEStoolsRAWPOINTSLISTcopyintoSTORAGE()
             $( "#CIRCLEStoolsRAWPOINTSLISTlogBTN" ).html( "<IMG TITLE=\"Operation log\" SRC=\""+_glob_path_to_img+"icons/log/log.icon.01.20x20.png\">" );
             $( "#CIRCLEStoolsRAWPOINTSLISTlogBTN" ).get(0).onclick = function() { CIRCLEStoolsRAWPOINTSLISTshowLOG( $( "#CIRCLEStoolsRAWPOINTSLISTtextareaCONTAINER" ).css( "display" ) == "block" ? SHOW : HIDE ) ; } ;
         }
-        else circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Can't draw points: inconsistent input", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' )
+        else circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Fail to draw points: inconsistent input", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' )
     }
-    else circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Can't copy into storage: input box is empty", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' )
+    else circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Fail to copy into storage: input box is empty", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' )
 }
 
 function CIRCLEStoolsRAWPOINTSLISTsaveTEXT()
@@ -141,7 +141,7 @@ function CIRCLEStoolsRAWPOINTSLISTsaveTEXT()
         var blob = new Blob( _data, { type: 'plain/text', endings: 'native' });
         saveAs( blob, "circles.raw.points.txt" );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: the input text box is empty", _glob_app_title );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to save: the input text box is empty", _glob_app_title );
 }
 
 function CIRCLEStoolsRAWPOINTSLISTdraw()
@@ -206,16 +206,16 @@ function CIRCLEStoolsRAWPOINTSLISTdraw()
             $( "#CIRCLEStoolsRAWPOINTSLISTlogBTN" ).html( "<IMG TITLE=\"Operation log\" SRC=\""+_glob_path_to_img+"icons/log/log.icon.01.20x20.png\">" );
             $( "#CIRCLEStoolsRAWPOINTSLISTlogBTN" ).get(0).onclick = function() { CIRCLEStoolsRAWPOINTSLISTshowLOG( $( "#CIRCLEStoolsRAWPOINTSLISTtextareaCONTAINER" ).css( "display" ) == "block" ? SHOW : HIDE ) ; } ;
         }
-        else circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Can't draw points: inconsistent input", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' )
+        else circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Fail to draw points: inconsistent input", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' )
     }
-    else circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Can't draw points: input box is empty", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' ) ;
+    else circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Fail to draw points: input box is empty", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' ) ;
 }
 
 function CIRCLEStoolsRAWPOINTSLISTdrawPOINTS( _plane_type, _map_type )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ), _map_type = safe_int( _map_type, 0 );
-    if ( _plane_type == NO_PLANE ) circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Can't draw points: missing output plane", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' ) ;
-    else if ( safe_size( CIRCLEStoolsRAWPOINTSLISTpoints, 0 ) == 0 ) circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Can't draw points: missing input", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' ) ;
+    if ( _plane_type == NO_PLANE ) circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Fail to draw points: missing output plane", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' ) ;
+    else if ( safe_size( CIRCLEStoolsRAWPOINTSLISTpoints, 0 ) == 0 ) circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Fail to draw points: missing input", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' ) ;
     else
     {
          var _mapper = _plane_type == Z_PLANE ? zplane_sm : wplane_sm, _screen_pt ;
@@ -463,7 +463,7 @@ function CIRCLEStoolsRAWPOINTSLISTlatticeFORMboxFILL( _action )
 function CIRCLEStoolsRAWPOINTSLISTlatticeAPPLY( _lattice_type )
 {
     _lattice_type = safe_int( _lattice_type, 0 );
-    if ( _lattice_type == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't apply lattice params: invalid input option" );
+    if ( _lattice_type == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to apply lattice params: invalid input option" );
     else
     {
          if ( _lattice_type == 1 ) // rect
@@ -502,7 +502,7 @@ function CIRCLEStoolsRAWPOINTSLISTlatticeAPPLY( _lattice_type )
 									 CIRCLEStoolsRAWPOINTSLISTpoints = _lattice.clone() ;
 									 CIRCLEStoolsRAWPOINTSLISTlatticeFORM( HIDE ) ; 
 							}
-							else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't compute the required lattice: some input data are invalid", _glob_app_title );
+							else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to compute the required lattice: some input data are invalid", _glob_app_title );
          }
          else if ( _lattice_type == 2 ) // circ
          {
@@ -529,7 +529,7 @@ function CIRCLEStoolsRAWPOINTSLISTlatticeAPPLY( _lattice_type )
 									 CIRCLEStoolsRAWPOINTSLISTpoints = _lattice.clone() ;
 									 CIRCLEStoolsRAWPOINTSLISTlatticeFORM( HIDE ) ; 
 							}
-							else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't compute the required lattice: some input data are invalid", _glob_app_title );
+							else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to compute the required lattice: some input data are invalid", _glob_app_title );
          }
     }
 }
@@ -537,7 +537,7 @@ function CIRCLEStoolsRAWPOINTSLISTlatticeAPPLY( _lattice_type )
 function CIRCLEStoolsRAWPOINTSLISTlatticeCLEAN( _lattice_type )
 {
     _lattice_type = safe_int( _lattice_type, 0 );
-    if ( _lattice_type == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't clean lattice params: invalid input option" );
+    if ( _lattice_type == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to clean lattice params: invalid input option" );
     else 
     {
          var _type = _lattice_type == 1 ? "rectangular" : "circular" ;

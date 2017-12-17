@@ -180,7 +180,7 @@ function circles_terminal_cmd_point()
                       if ( _glob_verbose && _glob_terminal_echo_flag )
                       circles_lib_output( _out_channel, DISPATCH_INFO, "Label param is useless if this figure is not going to be recorded", _par_1, _cmd_tag );
                  }
-                 else if ( _cmd_params['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Can't plot point: missing plane reference" ; }
+                 else if ( _cmd_params['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Fail to plot point: missing plane reference" ; }
         
                 // beware of some missing color param, so let's check'em deeper
                 if ( _cmd_params['bordercolor'] == null && _cmd_params['fillcolor'] == null )
@@ -275,7 +275,7 @@ function circles_terminal_cmd_point()
                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Point "+_pt_obj.output("cartesian")+" recorded with success", _par_1, _cmd_tag );
                           }
                       }
-                      else { _b_fail = YES, _error_str = "Can't plot point: memory failure. Free some resources" ; break ; }
+                      else { _b_fail = YES, _error_str = "Fail to plot point: memory failure. Free some resources" ; break ; }
                   }
                  break ;
              }

@@ -469,8 +469,8 @@ function circles_lib_terminal_parse_input_index( _str )
     var _b_go = _str.testME( "^[0-9\,\-]{1,}$" ), _refs_array = [], _token, _i, _t ;
     var _ends_array, _start_symbol, _end_symbol, _start_index, _end_index ;
     
-    if ( _str.length == 0 ) return [ RET_ERROR, "Can't parse this index: it is empty" ] ;
-    else if ( !_b_go ) return [ RET_ERROR, "Can't parse this index: detected syntax error or illegal chars" ] ;
+    if ( _str.length == 0 ) return [ RET_ERROR, "Fail to parse this index: it is empty" ] ;
+    else if ( !_b_go ) return [ RET_ERROR, "Fail to parse this index: detected syntax error or illegal chars" ] ;
     
     var _tokens_array = _str.includes( "," ) ? _str.split( "," ) : [ _str ];
     var _t_l = safe_size( _tokens_array, 0 );
@@ -488,7 +488,7 @@ function circles_lib_terminal_parse_input_index( _str )
               _end_index = _end_symbol.length > 0 ? safe_int( _end_symbol.trim(), UNDET ) : UNDET;
               // one-line swap
               if ( _start_index > _end_index ) _start_index = [_end_index, _end_index = _start_index][0];
-              if ( _start_index == UNDET || _end_index == UNDET ) return [ RET_ERROR, "Can't parse this symbol: missing interval bounds" ] ;
+              if ( _start_index == UNDET || _end_index == UNDET ) return [ RET_ERROR, "Fail to parse this symbol: missing interval bounds" ] ;
               else for( _t = _start_index ; _t <= _end_index ; _t++ ) _refs_array.push( _t );
            }
            else if ( _token.length > 0 ) _refs_array.push( _token );

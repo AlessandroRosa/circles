@@ -18,9 +18,9 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn, _ret_arr
 	{
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
-        var _sub = "forms", _base_id = "discreteness.locus" ;
+        var _sub = "forms", _base_id = "discreteness.locus".replace( /[\.\_\-]/g, '' ) ;
 		CIRCLESformsDISCRETENESSLOCUSdispatcher(POPUP_DISPATCHER_UNICAST_EVENT_CLOSE);
-        circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
+        circles_lib_plugin_activate( NO, _base_id, '', '', _sub, CLOSE, _div_id );
 		_ret_array.push( 1, "<green>Plug-in has been closed with success</green>" ) ;
         return YES ;
         break ;
@@ -83,7 +83,7 @@ function CIRCLESformsDISCRETENESSLOCUSremotectrl( _options, _return_fn, _ret_arr
 			default: break ;
 		}
 		_tab_name = _tab_name.replace( /\./g, ' ' );
-		_ret_array.push( _found, !_found ? "<red>Can't switch to unknown tab '"+_tab_name+"'</red>" : "<green>Switched to tab '"+_tab_name+"' with success</green>" ) ;
+		_ret_array.push( _found, !_found ? "<red>Fail to switch to unknown tab '"+_tab_name+"'</red>" : "<green>Switched to tab '"+_tab_name+"' with success</green>" ) ;
 		return YES ;
 		break ;
 		default:

@@ -54,12 +54,12 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode = 0, _silent = 0, 
 	}
 	else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSEcurr_sel == UNDET )
 	{
-	  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: missing reference index.", 'PLUGIN_OUTMSG' ) ;
+	  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to "+_opcode_str+" this gen: missing reference index.", 'PLUGIN_OUTMSG' ) ;
 	  return NO ;
 	}
 	else if ( _opcode == CIRCLESembeddingsGENERALPURPOSE_UPDATE && CIRCLESembeddingsGENERALPURPOSE_gens_container[ CIRCLESembeddingsGENERALPURPOSEcurr_sel ] == null )
 	{
-	  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" this gen: unfound referenced element.", 'PLUGIN_OUTMSG' ) ;
+	  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to "+_opcode_str+" this gen: unfound referenced element.", 'PLUGIN_OUTMSG' ) ;
 	  return NO ;
 	}
     else
@@ -149,13 +149,13 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_MANAGER( _opcode = 0, _silent = 0, 
 			}
 			else
 			{
-			    circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_opcode_str+" the generator: some entries could be empty.", 'PLUGIN_OUTMSG' ) ;
+			    circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to "+_opcode_str+" the generator: some entries could be empty.", 'PLUGIN_OUTMSG' ) ;
 				return NO ;
 			}
 		}
 		else
         {
-            var _msg = "Can't "+_opcode_str+" the generator: some entries have not been correctly parsed." ;
+            var _msg = "Fail to "+_opcode_str+" the generator: some entries have not been correctly parsed." ;
                 _msg += _glob_crlf.repeat(2) + "The input params might include invalid chars or unregistered vars." ;
             circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
 			return NO ;
@@ -206,13 +206,13 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_DELETE( _index, _question, _silent,
 		}
 		else
 		{
-			circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't delete entry '"+( _index + 1 )+"': invalid referenced data.", 'PLUGIN_OUTMSG' ) ;
+			circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to delete entry '"+( _index + 1 )+"': invalid referenced data.", 'PLUGIN_OUTMSG' ) ;
 			return NO ;
 		}
 	}
 	else
 	{
-		circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't delete entry '"+( _index + 1 )+"': missing reference data.", 'PLUGIN_OUTMSG' ) ;
+		circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to delete entry '"+( _index + 1 )+"': missing reference data.", 'PLUGIN_OUTMSG' ) ;
 		return NO ;
 	}
 }
@@ -470,7 +470,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GEN_NORMALIZE( _index, _out_channel )
 				}
 				else
 				{
-					circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't find generator at index '"+( _index+1 )+"'", 'PLUGIN_OUTMSG' ) ;
+					circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to find generator at index '"+( _index+1 )+"'", 'PLUGIN_OUTMSG' ) ;
 					return NO ;
 				}
 			}

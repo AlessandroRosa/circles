@@ -405,7 +405,7 @@ function circles_lib_complexdisk_remove( _items_array, _question, _silent, _forc
 						 $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
 						 _msg += "Disk"+( _n_removed == 1 ? "" : "s" )+" '"+_removed_symbols_array.join( ", " )+"' "+( _n_removed == 1 ? "has" : "have" )+" been removed with success from " + ( _item_type == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" );
 					}
-					else _msg += "Can't remove disk"+( _n_removed == 1 ? "" : "s" )+" '"+_removed_symbols_array.join( ", " )+"'" ;
+					else _msg += "Fail to remove disk"+( _n_removed == 1 ? "" : "s" )+" '"+_removed_symbols_array.join( ", " )+"'" ;
           if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, _success ? DISPATCH_SUCCESS : DISPATCH_ERROR, _msg, _glob_app_title );
           return [ _success ? RET_OK : RET_ERROR, _msg ];
        }

@@ -275,7 +275,7 @@ function CIRCLESformsTERMINALresize( _new_width, _new_height, _suffix, _out_chan
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _terminal_div_id = CIRCLESformsTERMINALdivid ;
     if ( _glob_terminal == null || $("#" + _terminal_div_id ).get(0) == null )
-    return [ RET_ERROR, "Can't resize: console not available" ] ;
+    return [ RET_ERROR, "Fail to resize: console not available" ] ;
 
     var _popup_width = _new_width - 6 ;    // left + right margin between popup and viewport border
     var _popup_height = _new_height - 10 ; // top + bottom margin

@@ -103,7 +103,7 @@ function circles_terminal_cmd_bomb()
                               if ( _bomb_mask.match_bit_mask( 1, 16 ) ) // disks
                               {
                                  var _items_n = circles_lib_count_items();
-                                 if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb disks: no entries found", _par_1, _cmd_tag );
+                                 if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to bomb disks: no entries found", _par_1, _cmd_tag );
                                  else
                                  {
                                     for( var _i = 0 ; _i < _glob_seeds_array.length ; _i++ )
@@ -118,7 +118,7 @@ function circles_terminal_cmd_bomb()
                               if ( _bomb_mask.match_bit_mask( 2, 16 ) ) // figures
                               {
                                  var _items_n = safe_size( _glob_figures_array, 0 );
-                                 if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb figures: no entries found", _par_1, _cmd_tag );
+                                 if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to bomb figures: no entries found", _par_1, _cmd_tag );
                                  else
                                  {
                                     if ( is_array( _glob_figures_array ) ) _glob_figures_array.flush();
@@ -129,7 +129,7 @@ function circles_terminal_cmd_bomb()
                               if ( _bomb_mask.match_bit_mask( 4, 16 ) ) // items
                               {
                                  var _items_n = circles_lib_count_items();
-                                 if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb items: " + _ERR_33_01, _par_1, _cmd_tag );
+                                 if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to bomb items: " + _ERR_33_01, _par_1, _cmd_tag );
                                  else
                                  {
                              	     if ( is_array( _glob_gens_array ) ) _glob_gens_array = [];
@@ -141,7 +141,7 @@ function circles_terminal_cmd_bomb()
                               if ( _bomb_mask.match_bit_mask( 8, 16 ) ) // symbols
                               {
                                    var _items_n = circles_lib_count_items();
-                                   if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb symbols: no entries found", _par_1, _cmd_tag );
+                                   if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to bomb symbols: no entries found", _par_1, _cmd_tag );
                                    else
                                    {
                                        var _sd_n = circles_lib_count_seeds() ;
@@ -158,7 +158,7 @@ function circles_terminal_cmd_bomb()
                               if ( _bomb_mask.match_bit_mask( 32, 16 ) ) // seeds
                               {
                                    var _items_n = circles_lib_count_items();
-                                   if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb seeds: no entries found", _par_1, _cmd_tag );
+                                   if ( _items_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to bomb seeds: no entries found", _par_1, _cmd_tag );
                                    else
                                    {
                                        if ( is_array( _glob_seeds_array ) ) _glob_seeds_array = [];
@@ -169,7 +169,7 @@ function circles_terminal_cmd_bomb()
                               if ( _bomb_mask.match_bit_mask( 64, 16 ) ) // rnd process probabilities
                               {
                                    var _probs_n = safe_size( _glob_rnd_probability_array, 0 );
-                                   if ( _probs_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb random process probabilities: no entries found", _par_1, _cmd_tag );
+                                   if ( _probs_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to bomb random process probabilities: no entries found", _par_1, _cmd_tag );
                                    else
                                    {
                                        if ( is_array( _glob_rnd_probability_array ) ) _glob_rnd_probability_array.flush();
@@ -180,7 +180,7 @@ function circles_terminal_cmd_bomb()
                               if ( _bomb_mask.match_bit_mask( 128, 16 ) ) // generators model
                               {
                                    var _sch_n = circles_lib_gens_model_count();
-                                   if ( _sch_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb generators list and model: no entries found", _par_1, _cmd_tag );
+                                   if ( _sch_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to bomb generators list and model: no entries found", _par_1, _cmd_tag );
                                    else
                                    {
                                        if ( is_array( _glob_gens_model_array ) )
@@ -202,7 +202,7 @@ function circles_terminal_cmd_bomb()
                               if ( _bomb_mask.match_bit_mask( 512, 16 ) ) // repetends
                               {
                                    var _rep_n = safe_size( _glob_repetends_array, 0 );
-                                   if ( _rep_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Can't bomb repetends: no entries found", _par_1, _cmd_tag );
+                                   if ( _rep_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to bomb repetends: no entries found", _par_1, _cmd_tag );
                                    else
                                    {
                                        if ( is_array( _glob_repetends_array ) ) _glob_repetends_array.flush();

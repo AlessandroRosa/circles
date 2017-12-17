@@ -1,76 +1,74 @@
 function circles_terminal_cmd_info()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _out_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+	if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _cmd_params = [];
-     var _fn_ret_val = null ;
-     var _accuracy = "" ;
+	var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _cmd_params = [];
+    var _fn_ret_val = null ;
+    var _accuracy = "" ;
 
-         _cmd_params['help'] = NO ;
-         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
-         _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
-         _cmd_params['keywords'] = NO ;
-         _cmd_params['accuracy'] = _glob_accuracy ;
-         _cmd_params['settings'] = [] ;
+    _cmd_params['help'] = NO ;
+    _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+    _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
+    _cmd_params['keywords'] = NO ;
+    _cmd_params['accuracy'] = _glob_accuracy ;
 
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "show", "reset", "release", "seeds", "generators", "html", "group", "properties", "extras", "normalize" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+    var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+    _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
+    // pre-scan for levenshtein correction
+    var _local_cmds_params_array = [ "show", "reset", "release", "seeds", "generators", "html", "group", "properties", "extras", "normalize" ];
+    circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
-				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-				 _cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-				 _cmd_params['dump_operator_index'] = _dump_operator_index ;
-				 _cmd_params['dump_array'] = [];
+	var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
+	_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+	_cmd_params['dump_operator_index'] = _dump_operator_index ;
+	_cmd_params['dump_array'] = [];
 				
-				 // gather all dump parameters into one array
-         if ( _cmd_params['dump'] )
-         {
-    				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-    				 if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
-         }
+	// gather all dump parameters into one array
+    if ( _cmd_params['dump'] )
+    {
+		for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+    	if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
+    }
 				 
-         var _p, _max = _dump_operator_index != UNFOUND ? _dump_operator_index : _params_array.length ;
-         for( var _i = 0 ; _i < _max ; _i++ )
-         {
-              _p = _params_array[_i].toLowerCase();
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-              else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
-              else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
-              else if ( _p.is_one_of_i( "all", "extras", "group", "properties" ) )
-              {
-                  if ( !is_array( _cmd_params['settings']['features'] ) ) _cmd_params['settings']['features'] = [] ;
-                  _cmd_params['settings']['features'].push( _p ) ;
-              }
-              else if ( _p.is_one_of_i( "normalize" ) )
-              {
-                  if ( !is_array( _cmd_params['settings']['management'] ) ) _cmd_params['settings']['management'] = [] ;
-                  _cmd_params['settings']['management'].push( _p ) ;
-              }
-              else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
-              else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-              else if ( _p.testME( _glob_positive_integer_regex_pattern ) ) _cmd_params['accuracy'] = Math.max( 0, Math.min( safe_int( _p, _glob_accuracy ), DEFAULT_MAX_ACCURACY ) );
-              else if ( _p.testME( _glob_filename_regex_pattern ) ) _cmd_params['settings']['filename'] = _p ;
-              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
-         }
+    var _p, _max = _dump_operator_index != UNFOUND ? _dump_operator_index : _params_array.length ;
+    for( var _i = 0 ; _i < _max ; _i++ )
+    {
+        _p = _params_array[_i].toLowerCase();
+        if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
+        else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+        else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
+        else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
+        else if ( _p.is_one_of_i( "all", "extras", "group", "properties" ) )
+        {
+            if ( !is_array( _cmd_params['features'] ) ) _cmd_params['features'] = [] ;
+            _cmd_params['features'].push( _p ) ;
+        }
+        else if ( _p.is_one_of_i( "normalize" ) )
+        {
+            if ( !is_array( _cmd_params['management'] ) ) _cmd_params['management'] = [] ;
+            _cmd_params['management'].push( _p ) ;
+        }
+        else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
+        else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
+        else if ( _p.testME( _glob_positive_integer_regex_pattern ) ) _cmd_params['accuracy'] = Math.max( 0, Math.min( safe_int( _p, _glob_accuracy ), DEFAULT_MAX_ACCURACY ) );
+        else if ( _p.testME( _glob_filename_regex_pattern ) ) _cmd_params['filename'] = _p ;
+        else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); }
+    }
 
          if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
          else if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
@@ -105,14 +103,14 @@ function circles_terminal_cmd_info()
                     _out_channel |= OUTPUT_TEXT ;
                 }
 
-                if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't retrieve info: missing registered group", _par_1, _cmd_tag );
+                if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to retrieve info: missing registered group", _par_1, _cmd_tag );
                 else
                 {
-                    var _features = _cmd_params['settings']['features'] ;
+                    var _features = _cmd_params['features'] ;
                     if ( !is_array( _features ) ) _features = [] ;
                     if ( safe_size( _features, 0 ) == 0 ) _features.push( "all" );
                     
-                    var _management = _cmd_params['settings']['management'] ;
+                    var _management = _cmd_params['management'] ;
                     if ( !is_array( _management ) ) _management = [] ;
                     if ( is_array( _management ) && safe_size( _management, 0 ) > 0 ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Further data management</lightgray> <yellow>"+_management.join(", ")+"</yellow>", _par_1, _cmd_tag );
 
@@ -128,9 +126,9 @@ function circles_terminal_cmd_info()
                                 _approx_dec_length = Math.max( _approx_dec_length, ITEM.map.trace().formula(YES,YES,_accuracy).length );
                             } );
 
+                    var _columns = [ 3, 8, 16, _max_dec_length + 2, 12, 18, _approx_dec_length + 2 ], _row = "", _prog_num = 0 ;
                     if ( _features.one_in_i( "all", "group" ) )
                     {
-                        var _columns = [ 3, 8, 16, _max_dec_length + 2, 12, 18, _approx_dec_length + 2 ], _row = "", _prog_num = 0 ;
                         var _classification, _nearly_test, _symbol, _tr, _tr_approx, _max_row_length = 0, _normalized, _do_normalization = _management.includes( "normalize" ) ? YES : NO, _kind = "" ;
 
                         var _header = "" ;
@@ -184,6 +182,7 @@ function circles_terminal_cmd_info()
                         if ( _do_normalization ) _commutator_map.normalize(_accuracy);
                         _classification = _commutator_map.classification(NO,_accuracy);
                         _nearly_test = _commutator_map.classification(NO,_accuracy,YES);
+                        _kind = _commutator_map.kind(NO,_accuracy);
                         var _commutator_tr_approx = _commutator_map.trace().roundTo( _accuracy );
                         var _commutator_tr = _commutator_map.trace();
 
@@ -211,12 +210,11 @@ function circles_terminal_cmd_info()
                             _accuracy = DEFAULT_MAX_ACCURACY ;
                         }
 
-var _ret_chunk = circles_lib_terminal_interpreter( "frm jorgensenineq roundto:"+_accuracy, null, OUTPUT_FUNCTION ) ;
-if ( is_array( _ret_chunk ) )
-{
-    if ( _ret_chunk[0] )
-    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Jorgensen's discreteness inequality test : "+( _ret_chunk[1] ? "<green>passed</green>" : "<red>failed</red>" ), _par_1, _cmd_tag );
-}
+						var _ret_chunk = circles_lib_terminal_interpreter( "frm jorgensenineq roundto:"+_accuracy, null, OUTPUT_FUNCTION ) ;
+						if ( is_array( _ret_chunk ) )
+						{
+							if ( _ret_chunk[0] ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Jorgensen's discreteness inequality test : "+( _ret_chunk[1] ? "<green>passed</green>" : "<red>failed</red>" ), _par_1, _cmd_tag );
+						}
 
                         var _is_classicalschottkygrp = circles_lib_grp_props_is_classical_schottky( _items_array );
                         _row = "<lightblue>Is classical schottky group ?</lightblue> " + ( _is_classicalschottkygrp ? "<greenshock>Yes</greenshock>" : "<coral>No</coral>" );
@@ -247,7 +245,7 @@ if ( is_array( _ret_chunk ) )
                     
                     if ( _cmd_params['dump'] )
                     {
-                       _cmd_params['dump_array'] = is_array( _cmd_params['dump_array'] ) ? _cmd_params['dump_array'][0] : ( _cmd_params['settings']['filename'].length > 0 ? _cmd_params['settings']['filename'] : "circles.info.grp.txt" ) ;
+                       _cmd_params['dump_array'] = is_array( _cmd_params['dump_array'] ) ? _cmd_params['dump_array'][0] : ( _cmd_params['filename'].length > 0 ? _cmd_params['filename'] : "circles.info.grp.txt" ) ;
 											 var _ret_chunk = circles_lib_dump_data_to_format( _glob_text.strip_tags(), _cmd_params['dump_array'] );
 											 var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
 											 var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;

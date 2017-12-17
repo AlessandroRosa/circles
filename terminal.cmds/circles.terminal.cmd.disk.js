@@ -352,7 +352,7 @@ function circles_terminal_cmd_disk()
                 else if ( _index_selection_array.length > 1 ) { _b_fail = YES, _error_str = "Only one symbol must be input" ; }                                        
                 else if ( _ret_i != UNDET )
                 {
-					_b_fail = YES, _error_str = "Can't add: the input disk '"+_symbols_array[0]+"' already exists" ;
+					_b_fail = YES, _error_str = "Fail to add: the input disk '"+_symbols_array[0]+"' already exists" ;
                     _error_str += _glob_crlf + "Use 'update' action instead" ;
                 }
                 else
@@ -407,7 +407,7 @@ function circles_terminal_cmd_disk()
                 break ;
 				case "bomb":
 				var _n_items = safe_size( _items_array, 0 ) ;
-				if ( _n_items == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the disks list is empty ", _par_1, _cmd_tag );
+				if ( _n_items == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the disks list is empty ", _par_1, _cmd_tag );
 				else
 				{
                    	var _params_array = [], _pre_prompt = null ;
@@ -440,7 +440,7 @@ function circles_terminal_cmd_disk()
                          
                        if ( _index_old == UNFOUND )
                        {
-                          _b_fail = YES, _error_str = "Can't change: the input source symbol '"+_old_symbol+"' does not exist in the current alphabet" ;
+                          _b_fail = YES, _error_str = "Fail to change: the input source symbol '"+_old_symbol+"' does not exist in the current alphabet" ;
                        }
                        else
                        {
@@ -477,7 +477,7 @@ function circles_terminal_cmd_disk()
                          
                          if ( _index_old == UNFOUND )
                          {
-                              _b_fail = YES, _error_str = "Can't change: symbol '"+_old_symbol+"' no included in the current alphabet" ;
+                              _b_fail = YES, _error_str = "Fail to change: symbol '"+_old_symbol+"' no included in the current alphabet" ;
                          }
                          else
                          {
@@ -555,7 +555,7 @@ function circles_terminal_cmd_disk()
                          var _dest_index = circles_lib_find_item_index_by_symbol( _items_array, _dest_symbol );
                          if ( _src_index == UNFOUND )
                          {
-                              _b_fail = YES, _error_str = "Can't copy: there exists no source disk with symbol '"+_src_symbol+"'" ;
+                              _b_fail = YES, _error_str = "Fail to copy: there exists no source disk with symbol '"+_src_symbol+"'" ;
                          }
                          else
                          {
@@ -716,7 +716,7 @@ function circles_terminal_cmd_disk()
  												var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                         circles_lib_output( _out_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                     }
-                    else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't find the required map(s)", _par_1, _cmd_tag );
+                    else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to find the required map(s)", _par_1, _cmd_tag );
                 break ;
                 case "intersect" :
                 if ( _symbols_array.length > 0 )
@@ -745,16 +745,16 @@ function circles_terminal_cmd_disk()
                          var _src_index = circles_lib_find_item_index_by_symbol( _items_array, _src_symbol );
                          var _dest_index = circles_lib_find_item_index_by_symbol( _items_array, _dest_symbol );
                          if ( _src_index == UNFOUND && _dest_index == UNFOUND )
-                              circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't intersect: both input disks do not exist", _par_1, _cmd_tag );
+                              circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to intersect: both input disks do not exist", _par_1, _cmd_tag );
                          else if ( _src_index == _dest_index )
-                              circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't intersect: input disks match", _par_1, _cmd_tag );
+                              circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to intersect: input disks match", _par_1, _cmd_tag );
                          else if ( _src_index == UNFOUND || _dest_index == UNFOUND )
                          {
                               _b_fail = YES ;
                               var _l = [] ;
                               if ( _src_index == UNFOUND ) _l.push( _src_symbol );
                               if ( _dest_index == UNFOUND ) _l.push( _dest_symbol );
-                              _error_str = "Can't intersect: the following items"+( ( _l.length == 1 ) ? " is " : "s are " )+" missing: "+_l.join(",")+"" ;
+                              _error_str = "Fail to intersect: the following items"+( ( _l.length == 1 ) ? " is " : "s are " )+" missing: "+_l.join(",")+"" ;
                          }
                          else
                          {
@@ -802,7 +802,7 @@ function circles_terminal_cmd_disk()
                                   var _l = [] ;
                                   if ( _src_circle == null ) _l.push( _src_symbol );
                                   if ( _dest_circle == null ) _l.push( _dest_symbol );
-                                  _error_str = "Can't intersect: the following disk"+( _l.length == 1 ? " is " : "s are " )+" have not been defined: "+_l.join(",")+"" ;
+                                  _error_str = "Fail to intersect: the following disk"+( _l.length == 1 ? " is " : "s are " )+" have not been defined: "+_l.join(",")+"" ;
                               }
                          }
                 }
@@ -914,9 +914,9 @@ function circles_terminal_cmd_disk()
     							    circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
     							}
                             }
-                            else { _b_fail = YES, _error_str = "Can't mirror: memory failure" ; }
+                            else { _b_fail = YES, _error_str = "Fail to mirror: memory failure" ; }
                         }
-                        else if ( _search_index == UNFOUND ) { _b_fail = YES, _error_str = "Can't mirror: no such element is found" ; }
+                        else if ( _search_index == UNFOUND ) { _b_fail = YES, _error_str = "Fail to mirror: no such element is found" ; }
                         else if ( !is_array( _items_array ) ) { _b_fail = YES, _error_str = "Memory failure: can't get current items" ; }
                     }
                 break ;
@@ -946,7 +946,7 @@ function circles_terminal_cmd_disk()
                                      
                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                             }
-                            else circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't move the chosen element: please check parameters syntax", _par_1, _cmd_tag );
+                            else circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to move the chosen element: please check parameters syntax", _par_1, _cmd_tag );
     
                             _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _out_channel );
         										_ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;

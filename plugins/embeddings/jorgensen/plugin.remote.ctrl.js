@@ -29,7 +29,7 @@ function CIRCLESembeddingsJORGENSENremotectrl( _options, _return_fn, _ret_array,
         case "close":
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
         var _sub = "embeddings", _base_id = "jorgensen" ;
-        circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
+        circles_lib_plugin_activate( NO, _base_id, '', '', _sub, CLOSE, _div_id );
         _ret_array.push( YES, "<green>Plug-in has been closed with success</green>" ) ;
         return YES ;
         break ;

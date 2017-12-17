@@ -114,7 +114,7 @@ function circles_terminal_cmd_symbol()
                 if ( _sd_n == 0 ) { _b_fail = YES, _error_str = "Missing input gens or symbols" ; }
                 else if ( _candidate_letters_n != _sd_n * 2 )
                 {
-                    _b_fail = YES, _error_str = "Can't change symbols" ;
+                    _b_fail = YES, _error_str = "Fail to change symbols" ;
                     _error_str += _glob_crlf + "The 'FROM' group size shall equal the 'TO' group size" ;
                     if ( _change_in_len != _sd_n )
                     _error_str += _glob_crlf + ( ( _change_in_len > 0 ) ? "The 'FROM' group size ("+_change_in_len+") shall equal seeds amount (currently, it's "+_sd_n+")" : "The 'FROM' group is empty." );

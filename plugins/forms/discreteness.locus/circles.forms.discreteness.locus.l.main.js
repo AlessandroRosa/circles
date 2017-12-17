@@ -482,7 +482,7 @@ function CIRCLESformsDISCRETENESSLOCUScustomPARAMSset( _silent )
     }
     else
     {
-				circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't set up custom params: all params must be complex", "CIRCLESformsDLOCUSoutMSG" ) ;
+				circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to set up custom params: all params must be complex", "CIRCLESformsDLOCUSoutMSG" ) ;
 				return NO ;
 		}
 }
@@ -734,13 +734,13 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSPupdateTEXT( _text, _pq_word, _f
     {
         var _ret_fill = GLOB_PLUGIN_PARAMS_FILLER( _ret_trace, NO );
         if ( _ret_fill == NO && _out_channel == OUTPUT_TERMINAL )
-        circles_lib_terminal_warning_echo( "Can't fill: no plug-in activated yet" );
+        circles_lib_terminal_warning_echo( "Fail to fill: no plug-in activated yet" );
     }
     if ( _init )
     {
         var _ret_init = GLOB_PLUGIN_PARAMS_FILLER( _ret_trace, YES );
         if ( _ret_init == NO && _out_channel == OUTPUT_TERMINAL )
-        circles_lib_terminal_warning_echo( "Can't init: no plug-in activated yet" );
+        circles_lib_terminal_warning_echo( "Fail to init: no plug-in activated yet" );
     }
 }
 
@@ -844,7 +844,7 @@ function CIRCLESformsDISCRETENESSLOCUScopyCOMBOonchange()
 					}
 					else
 					{
-							 var _msg = "Can't copy the discreteness locus points to storage space: no embedding has been computed" ;
+							 var _msg = "Fail to copy the discreteness locus points to storage space: no embedding has been computed" ;
 							 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsDLOCUSoutMSG" ) ;
 					}
           break ;
@@ -858,7 +858,7 @@ function CIRCLESformsDISCRETENESSLOCUScopyCOMBOonchange()
 					}
 					else
 					{
-							 var _msg = "Can't copy the discreteness locus points to storage space: no embedding has been computed" ;
+							 var _msg = "Fail to copy the discreteness locus points to storage space: no embedding has been computed" ;
 							 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsDLOCUSoutMSG" ) ;
 					}
           break ;

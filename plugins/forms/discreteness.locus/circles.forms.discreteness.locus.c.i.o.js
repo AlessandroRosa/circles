@@ -180,7 +180,7 @@ function CIRCLESformsDISCRETENESSLOCUSsaveEPS( _save_mask )
 {
     _save_mask = safe_int( _save_mask, 0 );
     if ( _save_mask == 0 )
-		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't save the EPS file: no contents have been selected", "CIRCLESformsDLOCUSoutMSG" ) ;
+		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to save the EPS file: no contents have been selected", "CIRCLESformsDLOCUSoutMSG" ) ;
     else
     {
        var _canvas_id = _glob_target_plane == BIP_BOX ? "CIRCLESbipCANVAS" : "CIRCLESdlocusdiagramCANVAS" ;
@@ -242,7 +242,7 @@ function CIRCLESformsDISCRETENESSLOCUSsaveLATEX( _save_mask )
 {
     _save_mask = safe_int( _save_mask, 0 );
     if ( _save_mask == 0 )
-		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't save the LATEX file: no contents have been selected.", "CIRCLESformsDLOCUSoutMSG" ) ;
+		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to save the LATEX file: no contents have been selected.", "CIRCLESformsDLOCUSoutMSG" ) ;
     else
     {
 			 var _discreteness_locus_def = $( "#CIRCLESformsDISCRETENESSLOCUSembeddingCOMBO option:selected" ).text();
@@ -324,5 +324,5 @@ function CIRCLESformsDISCRETENESSLOCUSsaveCOORDS( _csv )
         saveAs( blob, _filename.replaceAll( " ", "" ) );
     }
     else
-		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't save the coords file: no discreteness locus has been process yet.", "CIRCLESformsDLOCUSoutMSG" ) ;
+		circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to save the coords file: no discreteness locus has been process yet.", "CIRCLESformsDLOCUSoutMSG" ) ;
 }

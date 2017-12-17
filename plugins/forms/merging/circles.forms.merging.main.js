@@ -103,7 +103,7 @@ function CIRCLESformsMERGINGrender( _plane_type, _n_layers )
      var _ref = _plane_type == Z_PLANE ? _glob_zplane_merging_array : _glob_wplane_merging_array ;
      var _merge = _plane_type == Z_PLANE ? _glob_zplane_canvas_merge : _glob_wplane_canvas_merge ;
      if ( !_merge && safe_size( _ref, 0 ) == 0 )
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't render due to invalid selection: no input layers to merge" );     
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to render due to invalid selection: no input layers to merge" );     
      else
      {
          if ( _plane_type == Z_PLANE )

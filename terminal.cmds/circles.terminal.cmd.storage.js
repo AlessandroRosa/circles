@@ -206,9 +206,9 @@ function circles_terminal_cmd_storage()
 												                             _msg = _check ? "<green>All words in the dictionary have been copied into storage space</green> <snow>"+_dependency+"</snow> <green>with success</green>" : "<red>Storage destination error: can't perform copy of the whole dictionary into</red> <snow>"+_dependency+"</snow>" ;
                                                      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _par_1, _cmd_tag );
 											                          }
-											                          else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<red>Can't copy : " + _ERR_33_04 + "</red>", _par_1, _cmd_tag );
+											                          else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<red>Fail to copy : " + _ERR_33_04 + "</red>", _par_1, _cmd_tag );
 																					 }
-																					 else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<red>Can't copy : " + _ERR_33_04 + "</red>", _par_1, _cmd_tag );
+																					 else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<red>Fail to copy : " + _ERR_33_04 + "</red>", _par_1, _cmd_tag );
 									                         break ;
 									                         case "farey":
 			                                     if ( circles_lib_plugin_find_index( { subset : "forms", base_id : 'discreteness.locus' }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
@@ -233,13 +233,13 @@ function circles_terminal_cmd_storage()
 									                             var _msg = _check ? "<green>" + _sd_n + " seed"+( _sd_n == 1 ? " has" : "s have" )+" been copied into storage space</green> <snow>seeds</snow> <green>with success</green>" : "<red>Storage destination error: can't perform copy of the seeds</red>" ;
 									                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 									                         }
-									                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't copy seeds: " + _ERR_33_01, _par_1, _cmd_tag );
+									                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to copy seeds: " + _ERR_33_01, _par_1, _cmd_tag );
 									                         break ;
 									                         case "words":
 									                         break ;
 									                         default: // any other data type
 									                         _b_fail = NO ;
-									                         _error_str = "Can't copy: unknown '"+_dependency+"' data type" ;
+									                         _error_str = "Fail to copy: unknown '"+_dependency+"' data type" ;
 									                         break ;
 																			}
 																	}
@@ -470,11 +470,11 @@ function circles_terminal_cmd_storage()
                     _ref = _storageref ; // TEST IT !
                     if ( _ref == null )
                     {
-                         _b_fail = YES, _error_str = "Can't return the list: invalid data type specification" ;
+                         _b_fail = YES, _error_str = "Fail to return the list: invalid data type specification" ;
                     }
                     else if ( safe_size( _ref, 0 ) == 0 )
                     {
-                         _b_fail = YES, _error_str = "Can't return the list: no elements found in storage space" ;
+                         _b_fail = YES, _error_str = "Fail to return the list: no elements found in storage space" ;
                          if ( _dump ) _error_str += _glob_crlf + "No dumping" ;
                     }
                     else
@@ -671,16 +671,16 @@ function circles_terminal_cmd_storage()
     																								                              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<green>Storage subset</green> <snow>"+_dependency+"</snow> <green>has been correctly purged</green>", _par_1, _cmd_tag );
     																																					 		break ;
     																																					 		case NO:
-    																								                              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Can't purge storage subset</orange> <snow>"+_dependency+"</snow>", _par_1, _cmd_tag );
+    																								                              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Fail to purge storage subset</orange> <snow>"+_dependency+"</snow>", _par_1, _cmd_tag );
     																																					 		break ;
     																																					 		case NOT_EXISTS :
-    																								                              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Can't purge: storage subset</orange> <snow>"+_dependency+"</snow> <orange>does not exist</orange>", _par_1, _cmd_tag );
+    																								                              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Fail to purge: storage subset</orange> <snow>"+_dependency+"</snow> <orange>does not exist</orange>", _par_1, _cmd_tag );
     																																					 		break ;
 																										                              default: break ;
     																																					 }
     																																			}
     																							                    }
-    																							                    else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Can't purge: the storage subspace</orange> <snow>"+_dependency+"</snow> <orange>is already empty</orange>", _par_1, _cmd_tag );
+    																							                    else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Fail to purge: the storage subspace</orange> <snow>"+_dependency+"</snow> <orange>is already empty</orange>", _par_1, _cmd_tag );
     																															}
     																														) ;
     																									  }
@@ -719,16 +719,16 @@ function circles_terminal_cmd_storage()
 																								                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<green>Storage subset</green> <snow>"+_dependency+"</snow> <green>has been correctly removed</green>", _par_1, _cmd_tag );
 																																					 			break ;
 																																					 			case NO:
-																								                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Can't remove storage subset</orange> <snow>"+_dependency+"</snow>", _par_1, _cmd_tag );
+																								                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Fail to remove storage subset</orange> <snow>"+_dependency+"</snow>", _par_1, _cmd_tag );
 																																					 			break ;
 																																					 			case NOT_EXISTS :
-																								                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Can't remove: storage subset</orange> <snow>"+_dependency+"</snow> <orange>does not exist</orange>", _par_1, _cmd_tag );
+																								                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Fail to remove: storage subset</orange> <snow>"+_dependency+"</snow> <orange>does not exist</orange>", _par_1, _cmd_tag );
 																																					 			break ;
 																									                              default: break ;
 																																					 }
 																																			}
 																													        }
-																			                            else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Can't remove: the storage subspace</orange> <snow>"+_dependency+"</snow> <orange>does not exist</orange>", _par_1, _cmd_tag );
+																			                            else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Fail to remove: the storage subspace</orange> <snow>"+_dependency+"</snow> <orange>does not exist</orange>", _par_1, _cmd_tag );
 																									     				}
 																									     );
 																									}
@@ -761,7 +761,7 @@ function circles_terminal_cmd_storage()
                     var _storageref = _all ? circles_lib_storage_parse_dependencies_syntax( null, "all" ) : _cmd_params['extras']['storageref'] ;
                     if ( _storageref == null )
                     {
-                         circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't restore: missing input storage space subset", _par_1, _cmd_tag );
+                         circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to restore: missing input storage space subset", _par_1, _cmd_tag );
                          break ;
                     }
                     if ( !is_array( _storageref ) ) _storageref = [ _storageref ] ;
@@ -796,7 +796,7 @@ function circles_terminal_cmd_storage()
                     						                              var _msg = _check ? "All words in the dictionary have been restored into current dictionary with success" : "Storage destination error: can't perform whole dictionary restoration" ;
                     						                              circles_lib_output( _out_channel, _check ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
                     						                         }
-                    						                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't restore data: the storage space includes no dictionary", _par_1, _cmd_tag );
+                    						                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to restore data: the storage space includes no dictionary", _par_1, _cmd_tag );
                     						                         break ;
                     						                         case "farey":
                                                          if ( circles_lib_plugin_find_index( { subset : "forms", base_id : 'discreteness.locus' }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
@@ -820,13 +820,13 @@ function circles_terminal_cmd_storage()
                     						                              var _msg = _check ? "All seeds have been restored into storage space with success" : "Storage destination error: can't restore seeds data" ;
                     						                              circles_lib_output( _out_channel, _check ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
                     						                         }
-                    						                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't restore data: the storage space includes no seeds", _par_1, _cmd_tag );
+                    						                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to restore data: the storage space includes no seeds", _par_1, _cmd_tag );
                     						                         break ;
                     						                         case "words":
                     						                         break ;
                     						                         default: // any other data type
                     						                         _b_fail = YES ;
-                    						                         _error_str = "Can't restore: unknown '"+_datatypes_array+"' data type" ;
+                    						                         _error_str = "Fail to restore: unknown '"+_datatypes_array+"' data type" ;
                     						                         break ;
                     																}
                     														}
@@ -958,14 +958,14 @@ function circles_terminal_cmd_storage()
               {
                    var _subset = safe_string( _datatypes_array[0], "" );
                    if ( safe_string( _subset, "" ).trim().length == 0 )
-                   circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't export to a file: missing storage space subset specification", _par_1, _cmd_tag );
+                   circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to export to a file: missing storage space subset specification", _par_1, _cmd_tag );
                    else
                    {
                        if ( _out_stream.size_recursive() == 0 && safe_string( _subset, "" ).trim().length > 0 )
                        _out_stream = _glob_storage[ _subset ] ;
                        
                        if ( !is_array( _out_stream ) )
-                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't export to a file: storage space subset '"+_subset+"' is not consistent", _par_1, _cmd_tag );
+                       circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to export to a file: storage space subset '"+_subset+"' is not consistent", _par_1, _cmd_tag );
                        else if ( _out_stream.size_recursive() > 0 )
                        {
                         	  circles_lib_output( _out_channel, DISPATCH_INFO, "Exporting '"+_subset+"' subset of storage space to a file", _par_1, _cmd_tag );
@@ -1000,7 +1000,7 @@ function circles_terminal_cmd_storage()
                             var blob = new Blob( [ _out_string ], { type: 'plain/text', endings: 'native' });
                             saveAs( blob, _filename );
                        }
-                       else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't export to a file: storage space subset '"+_subset+"' is empty", _par_1, _cmd_tag );
+                       else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to export to a file: storage space subset '"+_subset+"' is empty", _par_1, _cmd_tag );
                    }
               }
          }

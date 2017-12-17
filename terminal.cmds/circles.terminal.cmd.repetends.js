@@ -176,7 +176,7 @@ function circles_terminal_cmd_repetends()
 																													 }
 													                                 else
 													                                 {
-													                                    var _remove_word_err = "Can't remove the repetend: " ;
+													                                    var _remove_word_err = "Fail to remove the repetend: " ;
 													                                    switch( _b_found )
 													                                    {
 													                                        case -1:
@@ -227,7 +227,7 @@ function circles_terminal_cmd_repetends()
                                     }
                                     else if ( _glob_terminal_errors_switch )
                                     {
-                                        var _add_error_str = "Can't set this repetend: " ;
+                                        var _add_error_str = "Fail to set this repetend: " ;
                                         switch( _ret )
                                         {
                                             case -4:

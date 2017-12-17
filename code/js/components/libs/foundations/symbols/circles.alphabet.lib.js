@@ -90,7 +90,7 @@ function circles_lib_alphabet_autoconfig_all_symbols( _question = YES, _silent =
     }
     else if ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) && _items_n % 2 == 1 )
     {
-        var _msg = "Can't set symbols when method is <b>" + circles_lib_method_get_def( _glob_method ) + "</b>" ;
+        var _msg = "Fail to set symbols when method is <b>" + circles_lib_method_get_def( _glob_method ) + "</b>" ;
             _msg += _glob_crlf.repeat(2) + _ERR_33_06 + _glob_crlf + ": it's currently " + _items_n ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
@@ -148,7 +148,7 @@ function circles_lib_alphabet_autoconfig_all_symbols( _question = YES, _silent =
                         }
                         else
                         {
-                           var _msg = "Can't set symbols: at least one item is not correctly saved" ;
+                           var _msg = "Fail to set symbols: at least one item is not correctly saved" ;
                            if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
                            return [ RET_ERROR, _msg ];
                            break ;
@@ -174,7 +174,7 @@ function circles_lib_alphabet_autoconfig_all_symbols( _question = YES, _silent =
             }
 			else
      		{
-				var _msg = "Can't set up symbols: " + _ERR_33_01 ;
+				var _msg = "Fail to set up symbols: " + _ERR_33_01 ;
 				if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
 				return [ RET_ERROR, _msg ] ;
 			}

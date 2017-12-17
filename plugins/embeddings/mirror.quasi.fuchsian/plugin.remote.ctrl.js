@@ -17,9 +17,9 @@ function CIRCLESembeddingsMIRRORQUASIFUCHSIANremotectrl( _options, _return_fn, _
 	switch( _options[0].toLowerCase() )
 	{
         case "close":
-        var _sub = "embeddings", _base_id = "mirror.quasi.fuchsian" ;
+        var _sub = "embeddings", _base_id = "mirror.quasi.fuchsian".replace( /[\.\_\-]/g, '' ) ;
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
-        circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
+        circles_lib_plugin_activate( NO, _base_id, '', '', _sub, CLOSE, _div_id );
         _ret_array.push( YES, "<green>Plug-in has been closed with success</green>" ) ;
         return YES ;
         break ;

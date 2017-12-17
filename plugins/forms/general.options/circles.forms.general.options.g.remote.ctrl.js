@@ -12,9 +12,10 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array,
 	switch( _options[0].toLowerCase() )
 	{
         case "close":
+		console.log( "IN" );
         GLOB_PLUGIN_DESTROY_POPUP_VARS();
-        var _sub = "forms", _base_id = "general.options" ;
-        circles_lib_plugin_activate( NO, _sub, '', '', _base_id, CLOSE, _plugin_tmp_vars_array[ _sub ][ _base_id.replace( /[\.\_\-]/g, '' ) ] );
+        var _sub = "forms", _base_id = "general.options".replace( /[\.\_\-]/g, '' );
+        circles_lib_plugin_activate( NO, _base_id, '', '', _sub, CLOSE, _div_id );
         _ret_array.push( YES, "<green>Plug-in has been closed with success</green>" ) ;
 		return YES ;
         break ;

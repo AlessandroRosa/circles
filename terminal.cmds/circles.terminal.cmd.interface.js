@@ -27,13 +27,11 @@ function circles_terminal_cmd_interface()
          _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
          _cmd_params['help'] = NO ;
          _cmd_params['keywords'] = NO ;
-         _cmd_params['settings'] = [] ;
          
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
          // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "extend", "default", "release", "reset", "html", "wplane", "zplane" );
+    		 var _local_cmds_params_array = [ "extend", "default", "silent", "release", "reset", "html", "wplane", "zplane" ];
          circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -42,8 +40,8 @@ function circles_terminal_cmd_interface()
               if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
               else if ( _p.is_one_of_i( "default", "extend", "reset" ) ) _cmd_params['action'] = _p ;
-              else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-              else if ( _p.is_one_of_i( "zplane", "wplane" ) ) _cmd_params['settings']['plane'] = _p ;
+              else if ( _p.is_one_of_i( "html", "silent" ) ) _cmd_params[_p] = YES ;
+              else if ( _p.is_one_of_i( "zplane", "wplane" ) ) _cmd_params['plane'] = _p ;
               else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
 
@@ -63,57 +61,51 @@ function circles_terminal_cmd_interface()
             var _action = _cmd_params['action'] ;
             switch( _action )
             {
-                  case "default":
-									var _params_array = [] ;
-									 	  _params_array['prepromptquestion'] = null ;
-								  		_params_array['promptquestion'] = "Confirm to restore the default interface ? " ;
-									   	_params_array['yes_fn'] = function() { circles_lib_interface_reset( INTERFACE_EXTEND_NONE, YES, NO, YES ); }
-									   	_params_array['ifquestiondisabled_fn'] = function() { circles_lib_interface_reset( INTERFACE_EXTEND_NONE, YES, NO, YES ); }
-				  if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
-				  else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
-                  break ;
-                  case "extend":
-                  if ( _cmd_params['settings']['plane'] != null )
-                  {
-										  var _plane_type = circles_lib_plane_get_value( _cmd_params['settings']['plane'] ) ;
-										  if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) )
-										  {
-													var _plane_def = circles_lib_plane_def_get( _plane_type ) ;
-													var _opt = 0 ;
-													if ( _plane_type == Z_PLANE ) _opt = INTERFACE_EXTEND_ZPLANE ;
-													else if ( _plane_type == W_PLANE ) _opt = INTERFACE_EXTEND_WPLANE ;
+                case "default":
+				var _params_array = [] ;
+				_params_array['prepromptquestion'] = null ;
+				_params_array['promptquestion'] = "Confirm to restore the default interface (y|n) ? " ;
+				_params_array['yes_fn'] = function() { circles_lib_interface_reset( INTERFACE_EXTEND_NONE, YES, NO, YES ); }
+				_params_array['ifquestiondisabled_fn'] = function() { circles_lib_interface_reset( INTERFACE_EXTEND_NONE, YES, NO, YES ); }
+				if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
+				else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+                break ;
+                case "extend":
+                if ( _cmd_params['plane'] != null )
+                {
+					var _plane_type = circles_lib_plane_get_value( _cmd_params['plane'] ) ;
+					if ( _plane_type.is_one_of( Z_PLANE, W_PLANE ) )
+					{
+						var _plane_def = circles_lib_plane_def_get( _plane_type ) ;
+						var _opt = 0 ;
+						if ( _plane_type == Z_PLANE ) _opt = INTERFACE_EXTEND_ZPLANE ;
+						else if ( _plane_type == W_PLANE ) _opt = INTERFACE_EXTEND_WPLANE ;
 
-									     		var _params_array = [] ;
-											     	  _params_array['prepromptquestion'] = null ;
-								     		 			_params_array['promptquestion'] = "Confirm to extend "+_plane_def+" ? " ;
-												     	_params_array['yes_fn'] = function() { circles_lib_interface_extend( _opt, NO, null, _out_channel ); }
-												     	_params_array['ifquestiondisabled_fn'] = function() { circles_lib_interface_extend( _opt, YES, null, _out_channel ); }
-						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						var _params_array = [] ;
+					  	_params_array['prepromptquestion'] = null ;
+						_params_array['promptquestion'] = "Confirm to extend "+_plane_def+" (y|n) ? " ;
+						_params_array['yes_fn'] = function() { circles_lib_interface_extend( _opt, NO, null, _out_channel ); }
+						_params_array['ifquestiondisabled_fn'] = function() { circles_lib_interface_extend( _opt, YES, null, _out_channel ); }
+						if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 						else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
-											}
-									    else
-									    {
-				                  _b_fail = YES, _error_str = "Missing input plane specification" ;
-											}
-                  }
-							    else
-							    {
-		                  _b_fail = YES, _error_str = "Missing input plane specification" ;
-									}
-                  break ;
-                  case "hide":
-					     		var _params_array = [] ;
-							     	  _params_array['prepromptquestion'] = null ;
-				     		 			_params_array['promptquestion'] = "Confirm to hide the interface? " ;
-								     	_params_array['yes_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_HIDE, _out_channel ); }
-								     	_params_array['ifquestiondisabled_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_HIDE, _out_channel ); }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
-					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
-                  break ;
-                  case "reset":
-                  if ( _cmd_params['settings']['plane'] != null )
-                  {
-										  var _plane_type = circles_lib_plane_get_value( _cmd_params['settings']['plane'] ) ;
+					}
+					else { _b_fail = YES, _error_str = "Missing input plane specification" ; }
+                }
+				else { _b_fail = YES, _error_str = "Missing input plane specification" ; }
+                break ;
+                case "hide":
+				var _params_array = [] ;
+				_params_array['prepromptquestion'] = null ;
+				_params_array['promptquestion'] = "Confirm to hide the interface? " ;
+				_params_array['yes_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_HIDE, _out_channel ); }
+				_params_array['ifquestiondisabled_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_HIDE, _out_channel ); }
+				if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+				else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+                break ;
+                case "reset":
+                if ( _cmd_params['plane'] != null )
+                {
+										  var _plane_type = circles_lib_plane_get_value( _cmd_params['plane'] ) ;
 										  if ( _plane_type != NO_PLANE )
 										  {
 													var _plane_def = circles_lib_plane_def_get( _plane_type ) ;
@@ -139,19 +131,19 @@ function circles_terminal_cmd_interface()
 		                  _b_fail = YES, _error_str = "Missing input plane specification" ;
 									}
                   break ;
-                  case "release":
-                  circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-                  break ;
-                  case "show":
-					     		var _params_array = [] ;
-							     	  _params_array['prepromptquestion'] = null ;
-				     		 			_params_array['promptquestion'] = "Confirm to show the interface? " ;
-								     	_params_array['yes_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_SHOW, _out_channel ); }
-								     	_params_array['ifquestiondisabled_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_SHOW, _out_channel ); }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
-					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
-                  break ;
-                  default: break ;
+                case "release":
+                circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
+                break ;
+                case "show":
+				var _params_array = [] ;
+				_params_array['prepromptquestion'] = null ;
+				_params_array['promptquestion'] = "Confirm to show the interface (y|n) ? " ;
+				_params_array['yes_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_SHOW, _out_channel ); }
+				_params_array['ifquestiondisabled_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_SHOW, _out_channel ); }
+				if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+				else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
+                break ;
+                default: break ;
             }
          }
      }

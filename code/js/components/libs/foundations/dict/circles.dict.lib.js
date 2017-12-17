@@ -86,8 +86,8 @@ function circles_lib_dict_invert_words( _input_dict, _opcode, _action_id, _multi
 		_multithread = safe_int( _multithread, 0 );
     var _dict = is_array( _input_dict ) ? _input_dict : _glob_original_dict ;
     var _dict_size = circles_lib_count_dict(), _opcode = safe_float( _opcode, 0 );
-    if ( !_dict.is_multidimensional() ) return [ DICTIONARY_ERR_INCOHERENT_INPUT, "Can't perform this action: the input dictionary is not of valid type.", [] ] ;
-		else if ( _dict_size == 0 ) return [ DICTIONARY_ERR_EMPTY_INPUT, "Can't perform this action: the input dictionary is empty.", [] ] ;
+    if ( !_dict.is_multidimensional() ) return [ DICTIONARY_ERR_INCOHERENT_INPUT, "Fail to perform this action: the input dictionary is not of valid type.", [] ] ;
+		else if ( _dict_size == 0 ) return [ DICTIONARY_ERR_EMPTY_INPUT, "Fail to perform this action: the input dictionary is empty.", [] ] ;
 		else
 		{
     	 var _dict_slices_n = safe_size( _dict, 0 );
@@ -125,10 +125,10 @@ function circles_lib_dict_work_on_length( _input_dict, _opcode, _action_id, _fro
        _msg += "Missing action specification: default set to 'keepword'" ;
     }
 
-    if ( !_dict.is_multidimensional() ) return [ DICTIONARY_ERR_INCOHERENT_INPUT, "Can't perform this action: the input dictionary is not of valid type.", [] ] ;
-		else if ( _dict_size == 0 ) return [ DICTIONARY_ERR_EMPTY_INPUT, "Can't perform this action: the input dictionary is empty.", [] ] ;
-    else if ( _from == UNDET || _to == UNDET ) return [ DICTIONARY_ERR_INCOHERENT_INPUT, "Can't perform this action: numerical values are not consistent.", [] ] ;
-    else if ( _to < _from ) return [ DICTIONARY_ERR_INCOHERENT_INPUT, "Can't perform this action: interval limits are not coherent.", [] ] ;
+    if ( !_dict.is_multidimensional() ) return [ DICTIONARY_ERR_INCOHERENT_INPUT, "Fail to perform this action: the input dictionary is not of valid type.", [] ] ;
+		else if ( _dict_size == 0 ) return [ DICTIONARY_ERR_EMPTY_INPUT, "Fail to perform this action: the input dictionary is empty.", [] ] ;
+    else if ( _from == UNDET || _to == UNDET ) return [ DICTIONARY_ERR_INCOHERENT_INPUT, "Fail to perform this action: numerical values are not consistent.", [] ] ;
+    else if ( _to < _from ) return [ DICTIONARY_ERR_INCOHERENT_INPUT, "Fail to perform this action: interval limits are not coherent.", [] ] ;
     else
     {
     	 var _dict_slices_n = safe_size( _dict, 0 ), _rec_slice_from = 0, _rec_slice_to = 0, _len = 0 ;
@@ -170,12 +170,12 @@ function circles_lib_dict_work_on_words( _input_dict, _opcode, _action_id, _star
     _include_token_str = safe_string( _include_token_str, "" );
     _end_token_str = safe_string( _end_token_str, "" );
 
-    if ( !_dict.is_multidimensional() ) return [ DICTIONARY_ERR_INCOHERENT_INPUT, "Can't perform this action: the input dictionary is not of valid type.", [] ] ;
-    else if ( safe_size( _dict, 0 ) == 0 ) return [ DICTIONARY_ERR_EMPTY, "Can't perform this action: the input dictionary is empty.", [] ] ;
+    if ( !_dict.is_multidimensional() ) return [ DICTIONARY_ERR_INCOHERENT_INPUT, "Fail to perform this action: the input dictionary is not of valid type.", [] ] ;
+    else if ( safe_size( _dict, 0 ) == 0 ) return [ DICTIONARY_ERR_EMPTY, "Fail to perform this action: the input dictionary is empty.", [] ] ;
     else if ( ( _opcode == 3.1 && _start_token_str.length == 0 ) ||
 					    ( _opcode == 3.2 && _include_token_str.length == 0 ) ||
 			   			( _opcode == 3.3 && _end_token_str.length == 0 )
-			 			) return [ DICTIONARY_ERR_MISSING_INPUT, "Can't perform this action: missing input value", [] ];
+			 			) return [ DICTIONARY_ERR_MISSING_INPUT, "Fail to perform this action: missing input value", [] ];
     else
     {
        var _collection_array = [], _word, _i, _w ;

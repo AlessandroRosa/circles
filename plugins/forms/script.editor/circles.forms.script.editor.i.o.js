@@ -173,7 +173,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerSAVEfile()
 		    saveAs( blob, CIRCLESformsSCRIPTEDITORmodulelabelCURRENT+".txt" );
 		}
 		else
-		circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, "Can't save data into a file: the input code box is empty", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
+		circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, "Fail to save data into a file: the input code box is empty", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
 }
 
 function CIRCLESformsSCRIPTEDITORcodemanagerSAVEprojectZIPFILE( _silent )
@@ -187,7 +187,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerSAVEprojectZIPFILE( _silent )
 												"CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
 		else if ( CIRCLESformsSCRIPTEDITORstatusCURRENT == PENDING )
 		circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING,
-												"Can't save the current proj into a zip archive."+_glob_crlf+"Code file '"+CIRCLESformsSCRIPTEDITORmodulelabelCURRENT+"' is still pending." + _glob_crlf + "Please, record it first.",
+												"Fail to save the current proj into a zip archive."+_glob_crlf+"Code file '"+CIRCLESformsSCRIPTEDITORmodulelabelCURRENT+"' is still pending." + _glob_crlf + "Please, record it first.",
 												"", "" ) ;
 		else
 		{

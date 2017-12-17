@@ -81,7 +81,7 @@ function CIRCLESmethodMANAGERrepetendsCHECK()
 function CIRCLESmethodMANAGERrepetendsSAVE()
 {
   	var _N_REPS = _glob_repetends_array.size_recursive(), GEN_CHUNK, _FOUND = NO ;
-    if ( _N_REPS == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save: no repetends have been registered yet.", _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
+    if ( _N_REPS == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to save: no repetends have been registered yet.", _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
     else
     {
         var _out_stream = [] ;
@@ -199,7 +199,7 @@ function CIRCLESmethodMANAGERrepetendsUPDATE( _question, _index, _old_value )
          var _new_value = $( "#ALGEBRAICrepetendWORD_" + _index ).val();
          var _termination = $( "#ALGEBRAICrepetendTERMINATION_" + _index ).val();
          var _check_rep = circles_lib_repetends_check_syntax( null, _new_value );
-         if ( !_check_rep ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't update: wrong repetend syntax for entry '"+_new_value+"'", _glob_app_title );
+         if ( !_check_rep ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to update: wrong repetend syntax for entry '"+_new_value+"'", _glob_app_title );
          else
          {
              var _b_go = _question ? confirm( "Confirm to update repetend '"+_old_value+"' with new value '"+_new_value+"' ?" ) : YES ;
@@ -232,7 +232,7 @@ function CIRCLESmethodMANAGERrepetendsUPDATE( _question, _index, _old_value )
                                           $( "#ALGEBRAICrepetendTERMINATION_" + _index ).css( "background-color", "white" );
                                       }, 1000 );
                       }
-                      else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't find out the correct entry to update.", _glob_app_title );
+                      else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to find out the correct entry to update.", _glob_app_title );
                  }
              }
          }
@@ -246,9 +246,9 @@ function CIRCLESmethodMANAGERrepetendsDELETE( _question, _termination, _rep )
     if ( _termination.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing input termination for performing deletion", _glob_app_title );
     else if ( _termination.length == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing input repetend for performing deletion", _glob_app_title );
     else if ( !is_array( _glob_repetends_array[_termination] ) )
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid data type for termination '"+_termination+"'."+_glob_crlf+"Can't perform deletion", _glob_app_title );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Invalid data type for termination '"+_termination+"'."+_glob_crlf+"Fail to perform deletion", _glob_app_title );
     else if ( !_glob_repetends_array[_termination].includes( _rep ) )
-    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Incoherent data reference: entry '"+_rep+"' is not listed among repetends with termination '"+_termination+"'."+_glob_crlf+"Can't perform deletion", _glob_app_title );
+    circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Incoherent data reference: entry '"+_rep+"' is not listed among repetends with termination '"+_termination+"'."+_glob_crlf+"Fail to perform deletion", _glob_app_title );
     else
     {
         var _b_go = _question ? confirm( "Attempting to delete repetend '"+_rep+"' for termination '"+_termination+"'."+_glob_crlf.repeat(2)+"Continue ?" ) : YES ;

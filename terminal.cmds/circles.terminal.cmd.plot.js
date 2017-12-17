@@ -167,7 +167,7 @@ function circles_terminal_cmd_plot()
 
          _symbols_array = is_array( _symbols_array ) ? _symbols_array.unique().sort() : [] ;
          var _sel_n = safe_size( _symbols_array, 0 );
-         if ( _sel_n > 0 && _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't plot Mobius maps: no registered entries", _par_1, _cmd_tag );
+         if ( _sel_n > 0 && _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to plot Mobius maps: no registered entries", _par_1, _cmd_tag );
          else if ( is_array( _symbols_array ) )
          {
              var ITEM = null, _index = UNFOUND ;

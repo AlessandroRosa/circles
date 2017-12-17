@@ -106,7 +106,7 @@ function circles_lib_symbol_shift( _items_array, _fwd, _question, _silent, _out_
     }
     else
     {
-       var MSG = "Can't perform cyclic permutation of group symbols" + _glob_crlf ;
+       var MSG = "Fail to perform cyclic permutation of group symbols" + _glob_crlf ;
            MSG += _sd_n == 1 ? "The group includes one only element" : "The group is empty" ;
        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
        return [ RET_ERROR, MSG ] ;
@@ -205,7 +205,7 @@ function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent
            }
            else
            {
-           	  var _msg = "Can't swap symbols.\n\nCoordinates are not consistent with archived data" ;
+           	  var _msg = "Fail to swap symbols.\n\nCoordinates are not consistent with archived data" ;
               if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
               return [ RET_ERROR, _msg ] ;
            }

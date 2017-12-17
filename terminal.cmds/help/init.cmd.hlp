@@ -2,31 +2,31 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>init %initfrom% %initpickupmode% %action% auto force</snow>
+<lightblue>usage</lightblue> <snow>init %initfrom% %initmode% %action% auto force</snow>
 
 <lightblue>%action%</lightblue> <snow>labels | show | lock | unlock</snow>
 <lightblue>%initfrom%</lightblue> <snow>disks | maps</snow>
 <cadetblue>values to take up for attempting items initialization</cadetblue>
-<lightblue>%initpickupmode%</lightblue> <snow>singly | paired</snow>
+<lightblue>%initmode%</lightblue> <snow>singly | paired</snow>
 <cadetblue>how values are to be taken for attempting items initialization</cadetblue>
 
 <lightblue>init auto</snow>
 <cadetblue>set up the best init options fitting both method and the current items configuration</cadetblue>
 
-<lightblue>init force</snow>
-<cadetblue>force input init action to be performed, altough the group has been already initialized</cadetblue>
-
-<lightblue>init disks paired</snow>
+<lightblue>init disks|maps paired</snow>
 <cadetblue>init items by inverse symbols pairing and calculating maps from disks</cadetblue>
 <lightblue>this cmd fits to any configuration of disks drawn by user</lightblue>
 
-<lightblue>init disks paired</snow>
-<cadetblue>init items by inverse symbols pairing and calculating maps from disks</cadetblue>
+<lightblue>init disks paired force</snow>
+<cadetblue>same as above and action is performed despite of a previous initialization</cadetblue>
+
+<lightblue>init singly disks</snow>
+<cadetblue>init disks when method is set to 'inversion'</cadetblue>
 
 <lightblue>init symbols</snow>
 <cadetblue>init symbols of all items according to the current method</cadetblue>
 
-<lightblue>init show</snow>
+<lightblue>init options</snow>
 <cadetblue>show all current init options</cadetblue>
 
 <lightblue>init release</lightblue>

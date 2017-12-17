@@ -89,7 +89,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONcopy( _silent, _question )
     var _case_id = safe_int( $( "#CIRCLEStoolsALPHABETCOLORIZATIONlettercaseCOMBO" ).val(), 1 );
     if ( !is_array( _glob_lower_alphabet_colorization_array ) || !is_array( _glob_upper_alphabet_colorization_array ) )
     {
-        var _msg = "Can't perform the copy: invalid input data." ;
+        var _msg = "Fail to perform the copy: invalid input data." ;
             _msg += _glob_crlf.repeat( 2 );
             _msg += "Try to reset, update entries as you will and then copy again." ;
         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
@@ -139,7 +139,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONonselectCOLOR( case_id, _LETTER )
         default: break ;
 		}
 		
-		if ( _array_ref == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't match the color to letter: missing referenced data", _glob_app_title );
+		if ( _array_ref == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to match the color to letter: missing referenced data", _glob_app_title );
 		else
 		{
 				$( "#CIRCLEStoolsALPHABETCOLORIZATION_RESPONSE_" + _LETTER ).css( "color", DEFAULT_COLOR_SUCCESS );
@@ -155,7 +155,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONreset( _silent, _question )
     var _arr = _glob_seeds_array, _n_seeds = circles_lib_count_seeds();
     if ( _n_seeds == 0 )
     {
-         var _msg = "Can't reset alphabet colorization: no seed has been registered yet" ;
+         var _msg = "Fail to reset alphabet colorization: no seed has been registered yet" ;
          if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_WARNING, _msg ] ;
     }
@@ -198,7 +198,7 @@ function CIRCLEStoolsALPHABETCOLORIZATIONapply( _silent, _question )
     var _arr = _glob_seeds_array, _n_seeds = circles_lib_count_seeds();
     if ( _n_seeds == 0 )
     {
-         var _msg = "Can't apply alphabet colorization: no seed has been registered yet" ;
+         var _msg = "Fail to apply alphabet colorization: no seed has been registered yet" ;
          if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_WARNING, _msg ] ;
     }

@@ -769,7 +769,7 @@ function circles_terminal_cmd_word()
 															if ( _cmd_params['extras'].includes( "trace" ) )
 															{
 																	 if ( _sd_n == 0 )
-                                   circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't compute trace: missing registered seeds", _par_1, _cmd_tag );
+                                   circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to compute trace: missing registered seeds", _par_1, _cmd_tag );
 																	 else
 																	 {
 		                                   _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _out_channel );
@@ -783,11 +783,11 @@ function circles_terminal_cmd_word()
 																						}
 																						else
 																						{
-				                                        _out_str = is_complex( _tr ) ? "Trace of '"+$.terminal.escape_brackets(_word)+"' is " + _tr.formula(YES,YES,_round_to) : "Can't compute trace: word '"+_word+"' returned error" ;
+				                                        _out_str = is_complex( _tr ) ? "Trace of '"+$.terminal.escape_brackets(_word)+"' is " + _tr.formula(YES,YES,_round_to) : "Fail to compute trace: word '"+_word+"' returned error" ;
 				                                        circles_lib_output( _out_channel, is_complex( _tr ) ? DISPATCH_INFO : DISPATCH_WARNING, _out_str, _par_1, _cmd_tag );
 																						}
 		                                   }
-		                                   else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't compute trace: word '"+_word+"' returned error", _par_1, _cmd_tag );
+		                                   else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to compute trace: word '"+_word+"' returned error", _par_1, _cmd_tag );
 																	 }
 															}
                           } );
@@ -859,7 +859,7 @@ function circles_terminal_cmd_word()
                   if ( !is_array( _alphabet ) )
                   {
                       _b_fail = 1 ;
-                      _error_str = "Can't compute trace: no group has been initialized yet" ;
+                      _error_str = "Fail to compute trace: no group has been initialized yet" ;
                   }
                   else
                   {
@@ -880,17 +880,17 @@ function circles_terminal_cmd_word()
                                       if ( is_mobius_map( _mm ) )
                                       {
                                            _tr = _mm.trace();
-                                           _out_str = ( is_complex( _tr ) ) ? "Trace of '"+$.terminal.escape_brackets(_symbol)+"' is " + _tr.formula(YES,YES,_round_to) : "Can't compute trace: word '"+_symbol+"' returned error" ;
+                                           _out_str = ( is_complex( _tr ) ) ? "Trace of '"+$.terminal.escape_brackets(_symbol)+"' is " + _tr.formula(YES,YES,_round_to) : "Fail to compute trace: word '"+_symbol+"' returned error" ;
                                            circles_lib_output( _out_channel, is_complex( _tr ) ? DISPATCH_SUCCESS : DISPATCH_WARNING, _out_str, _par_1, _cmd_tag );
                                       }
-                                      else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't compute trace: word '"+_symbol+"' returned error", _par_1, _cmd_tag );
+                                      else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to compute trace: word '"+_symbol+"' returned error", _par_1, _cmd_tag );
                                   }
-                                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't compute trace: word '"+_symbol+"' does not match current alphabet ("+_alphabet.join(",")+")", _par_1, _cmd_tag );
+                                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to compute trace: word '"+_symbol+"' does not match current alphabet ("+_alphabet.join(",")+")", _par_1, _cmd_tag );
                               }
                              );
                   }
              }
-             else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't compute trace: input is empty", _par_1, _cmd_tag );
+             else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to compute trace: input is empty", _par_1, _cmd_tag );
              break ;
              case "track":
              var _bFOUND = 1 ;
@@ -912,8 +912,8 @@ function circles_terminal_cmd_word()
              
              var _check = circles_lib_word_check( _solved_repetend, _glob_alphabet );
              var _w_len = safe_size( _solved_repetend, 0 );
-             if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't track: the list of registered items is empty", _par_1, _cmd_tag );
-             else if ( _w_len == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't track: the input word is empty", _par_1, _cmd_tag );
+             if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to track: the list of registered items is empty", _par_1, _cmd_tag );
+             else if ( _w_len == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to track: the input word is empty", _par_1, _cmd_tag );
              else if ( safe_size( _glob_alphabet, 0 ) == 0 )
              {
                   _b_fail = YES, _error_str = "Missing alphabet: try init input seeds first" ;
@@ -924,7 +924,7 @@ function circles_terminal_cmd_word()
              }
              else if ( _glob_method == METHOD_NONE )
              {
-                  _b_fail = YES, _error_str += "Can't track."+_glob_crlf+"Choose one among these methods first: " + _track_methods_list.join( ", " );
+                  _b_fail = YES, _error_str += "Fail to track."+_glob_crlf+"Choose one among these methods first: " + _track_methods_list.join( ", " );
              }
              else if ( _cmd_params['service'].length == 0 )
              {
@@ -1050,7 +1050,7 @@ function circles_terminal_cmd_word()
                        case "fixedpoints":
                        var _ret = circles_lib_word_check( _input_word, _glob_alphabet );
                        if ( _ret == CIRCLES_MISSING_ALPHABET ) circles_lib_output( _out_channel, DISPATCH_ERROR, "The input word does not match the current alphabet", _par_1, _cmd_tag );
-                       else if ( _ret == CIRCLES_MISSING_INPUT ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't perform this operation.\nPlease, input a word", _par_1, _cmd_tag );
+                       else if ( _ret == CIRCLES_MISSING_INPUT ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to perform this operation.\nPlease, input a word", _par_1, _cmd_tag );
                        else
                        {
 					                  var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -1060,7 +1060,7 @@ function circles_terminal_cmd_word()
                             if ( _ret_data == null )
                             {
                                  if ( _ret_data == CIRCLES_MISSING_ALPHABET ) circles_lib_output( _out_channel, DISPATCH_ERROR, "The input word does not match the current alphabet", _par_1, _cmd_tag );
-                                 else if ( _ret_data == CIRCLES_MISSING_INPUT ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't perform this operation.\nPlease, input a word", _par_1, _cmd_tag );
+                                 else if ( _ret_data == CIRCLES_MISSING_INPUT ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to perform this operation.\nPlease, input a word", _par_1, _cmd_tag );
                             }
                             else
                             {

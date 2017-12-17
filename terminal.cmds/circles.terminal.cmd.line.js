@@ -172,9 +172,9 @@ function circles_terminal_cmd_line()
                      if ( _glob_verbose && _glob_terminal_echo_flag ) circles_lib_output( _out_channel, DISPATCH_INFO, "Label param is useless if this figure is not going to be recorded", _par_1, _cmd_tag );
                   }
                   
-				  if ( _cmd_params['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Can't plot line: missing plane reference" ; }
-                  else if ( _cmd_params['points'].length == 0 ) { _b_fail = YES, _error_str = "Can't plot line: missing coordinates" ; }
-                  else if ( _cmd_params['points'].length == 1 ) { _b_fail = YES, _error_str = "Can't plot line: points must be at least 2" ; }
+				  if ( _cmd_params['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Fail to plot line: missing plane reference" ; }
+                  else if ( _cmd_params['points'].length == 0 ) { _b_fail = YES, _error_str = "Fail to plot line: missing coordinates" ; }
+                  else if ( _cmd_params['points'].length == 1 ) { _b_fail = YES, _error_str = "Fail to plot line: points must be at least 2" ; }
                   else if ( _cmd_params['points'].length == 2 && _cmd_params['close'] )
                   {
                      _cmd_params['close'] = NO ;
@@ -262,7 +262,7 @@ function circles_terminal_cmd_line()
 						 else circles_lib_output( _out_channel, DISPATCH_WARNING, "Storage space '"+_subset+"' does not exist", _par_1, _cmd_tag );
 					  }
 				  }
-                  else { _b_fail = YES ; _error_str += "\nCan't draw line: memory failure. Free some resources" ; }
+                  else { _b_fail = YES ; _error_str += "\nFail to draw line: memory failure. Free some resources" ; }
                   break ;
              }
          }

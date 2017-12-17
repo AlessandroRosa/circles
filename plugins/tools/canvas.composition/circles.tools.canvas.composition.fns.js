@@ -105,7 +105,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONcompositionREVERSE( _question = YES, _sile
             CIRCLEStoolsCANVASCOMPOSITIONcompositionRENDER(YES) ;
          }
     }
-    else if ( !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Can't swap layers up: the composition pile is empty", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
+    else if ( !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Fail to swap layers up: the composition pile is empty", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 }
 
 function CIRCLEStoolsCANVASCOMPOSITIONcanvasSAVEASform() { circles_lib_canvas_save_to_file( NO_PLANE, "CIRCLEStoolsCANVASCOMPOSITIONcanvas", "circles.composition.png", NO, NO ) ; }
@@ -138,7 +138,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUswapup( _silent = NO )
               }
          }
     }
-    else if ( !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Can't swap layers up: the composition pile is empty", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
+    else if ( !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_ERROR, "Fail to swap layers up: the composition pile is empty", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 }
 
 function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUswapdown( _silent )
@@ -160,7 +160,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUswapdown( _silent )
               }
          }
     }
-    else if ( !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX,  DISPATCH_ERROR, "Can't swap layers down: the composition pile is empty", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
+    else if ( !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX,  DISPATCH_ERROR, "Fail to swap layers down: the composition pile is empty", "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
 }
 
 function CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUremove()
@@ -190,7 +190,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONaddto( _plane_type, _silent )
              var _ok = _new_size == _old_size + 1 ;
              if ( !_silent )
              circles_lib_output( OUTPUT_SPECIAL_FX, _ok ? DISPATCH_SUCCESS : DISPATCH_WARNING,
-					 										   _ok ? "Layer has been added with success" : "Can't add layer",
+					 										   _ok ? "Layer has been added with success" : "Fail to add layer",
                                  "CIRCLEStoolsCANVASCOMPOSITIONoutputBOX" ) ;
              CIRCLEStoolsCANVASCOMPOSITIONdropdownMENUupdate() ;
          }

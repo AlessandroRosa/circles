@@ -52,7 +52,7 @@ function circles_lib_coordinates_shift( _where, _plane_type, _scalar_shift, _sil
                case "right" : left += dX, right += dX ; break ;
                case "top" : top += dY, bottom += dY ; break ;
                case "bottom" : top -= dY, bottom -= dY ; break ;
-               default: return [ RET_ERROR, "Can't shift coords: unknown parameter '"+_where+"'" ] ; break ;
+               default: return [ RET_ERROR, "Fail to shift coords: unknown parameter '"+_where+"'" ] ; break ;
             }
 
             if ( _form_panel_src )
@@ -119,7 +119,7 @@ function circles_lib_coordinates_shift( _where, _plane_type, _scalar_shift, _sil
                 $("#PLANEbottom").val( -DEFAULT_PLANE_COORD );
             }
 
-            var _msg = "Can't shift: input "+_plane_def+" coordinates are invalid and then reset to default values" ;
+            var _msg = "Fail to shift: input "+_plane_def+" coordinates are invalid and then reset to default values" ;
             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
             return [ RET_ERROR, _msg ] ;
         }
@@ -175,9 +175,9 @@ function circles_lib_coordinates_zoomtofit( _plane_type = NO_PLANE, _render = YE
     if ( ERR != 0 )
     {
 		var MSG = "" ;
-	    if ( ERR == 1 ) MSG = "Can't perform this operation."+_glob_crlf+"Circles shall be initialized first" ;
-	    else if ( ERR == 2 ) MSG = "Can't perform this operation."+_glob_crlf+_ERR_33_01 ;
-	    else if ( ERR == 3 ) MSG = "Can't perform this operation."+_glob_crlf+"It seems that no W-plane diagram has been processed yet" ;
+	    if ( ERR == 1 ) MSG = "Fail to perform this operation."+_glob_crlf+"Circles shall be initialized first" ;
+	    else if ( ERR == 2 ) MSG = "Fail to perform this operation."+_glob_crlf+_ERR_33_01 ;
+	    else if ( ERR == 3 ) MSG = "Fail to perform this operation."+_glob_crlf+"It seems that no W-plane diagram has been processed yet" ;
 	    if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, MSG, _glob_app_title );
 	    return [ RET_ERROR, MSG ] ;
     }

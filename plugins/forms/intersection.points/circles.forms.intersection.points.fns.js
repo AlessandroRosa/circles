@@ -20,7 +20,7 @@ function CIRCLESformsINTERSECTIONPOINTSresizeTANGENCYask( index1, index2 )
        alert_set_btns_width( "70px" );
        circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app_title );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: elements need to be tagged first.", _glob_app_title );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to perform this operation: elements need to be tagged first.", _glob_app_title );
 }
 
 function CIRCLESformsINTERSECTIONPOINTSmoveTANGENCYask( index1, index2 )
@@ -45,7 +45,7 @@ function CIRCLESformsINTERSECTIONPOINTSmoveTANGENCYask( index1, index2 )
        alert_set_btns_width( "70px" );
        circles_lib_output( OUTPUT_SCREEN, DISPATCH_QUESTION | DISPATCH_YESNO, MSG, _glob_app_title );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: elements need to be tagged first.", _glob_app_title );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to perform this operation: elements need to be tagged first.", _glob_app_title );
 }
 
 function CIRCLESformsINTERSECTIONPOINTScopyPOINTS( packed_pts )
@@ -118,8 +118,8 @@ function CIRCLESformsINTERSECTIONPOINTSresizeTANGENTdisks()
     var _index1 = safe_int( $("#CIRCLEScombo1 option:selected").val(), UNDET ), _index2 = safe_int( $("#CIRCLEScombo2 option:selected").val(), UNDET );
     if ( _index1 != UNDET && _index2 != UNDET && ( _index1 != _index2 ) ) CIRCLESformsINTERSECTIONPOINTSresizeTANGENCYask( _index1, _index2 );
     else if ( _index1 != UNDET && _index2 != UNDET && ( _index1 == _index2 ) )
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: a same circle has been chosen.", _glob_app_title );
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't perform this operation: choose two circles first.", _glob_app_title );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to perform this operation: a same circle has been chosen.", _glob_app_title );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Fail to perform this operation: choose two circles first.", _glob_app_title );
 }
 
 function CIRCLESformsINTERSECTIONPOINTSmoveTANGENTdisks()
@@ -127,8 +127,8 @@ function CIRCLESformsINTERSECTIONPOINTSmoveTANGENTdisks()
     var _index1 = safe_int( $("#CIRCLEScombo1 option:selected").val(), UNDET ), _index2 = safe_int( $("#CIRCLEScombo2 option:selected").val(), UNDET );
     if ( _index1 != UNDET && _index2 != UNDET && ( _index1 != _index2 ) ) CIRCLESformsINTERSECTIONPOINTSmoveTANGENCYask( _index1, _index2 );
     else if ( _index1 != UNDET && _index2 != UNDET && ( _index1 == _index2 ) )
-         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: a same circle has been chosen.", _glob_app_title );
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't perform this operation: choose two circles first.", _glob_app_title );
+         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to perform this operation: a same circle has been chosen.", _glob_app_title );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Fail to perform this operation: choose two circles first.", _glob_app_title );
 }
 
 function CIRCLESformsINTERSECTIONPOINTSfind( _mark_points )
@@ -139,7 +139,7 @@ function CIRCLESformsINTERSECTIONPOINTSfind( _mark_points )
     var index2 = safe_int( $("#CIRCLEScombo2").val(), UNDET );
     var tolerance = Math.pow( 10, -_glob_accuracy );
 
-    if ( index1 == index2 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't perform this operation: the same circle has been selected.", _glob_app_title );
+    if ( index1 == index2 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to perform this operation: the same circle has been selected.", _glob_app_title );
     else if ( index1 != index2 )
     {
          var CIRCLE_01 = is_item_obj( _items_array[index1] ) ? _items_array[index1].complex_circle : null ;

@@ -111,7 +111,7 @@ function circles_terminal_cmd_code()
                 {
                     $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val( _plain_code );
                     if ( $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val().length == 0 )
-                    circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't flush the resulting code into the 'Batch Script' tab.\nPlease, close and re-open the terminal pop-up", _par_1, _cmd_tag );
+                    circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to flush the resulting code into the 'Batch Script' tab.\nPlease, close and re-open the terminal pop-up", _par_1, _cmd_tag );
                     else
                     circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The resulting code has been copied into the 'Batch Script' tab", _par_1, _cmd_tag );
                 }

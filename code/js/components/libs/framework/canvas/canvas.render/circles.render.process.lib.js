@@ -337,7 +337,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                      if ( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_NONE )
                      {
                          HTMLcode += "<tr><td HEIGHT=\"15\"></td></tr>" ;
-                         HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Can't run this configuration</td></tr>" ;
+                         HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Fail to run this configuration</td></tr>" ;
                          HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                          HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Missing process reference</td></tr>" ;
                          HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
@@ -382,7 +382,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
 										)
                  {
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                    HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Can't run this configuration</td></tr>" ;
+                    HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Fail to run this configuration</td></tr>" ;
                     HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
                     HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Please, fix problems first</td></tr>" ;
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
@@ -472,7 +472,7 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                      var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                      return _ret_chunk ;
                   }
-                  else return [ RET_ERROR, "Can't refresh : missing input plane" ] ;
+                  else return [ RET_ERROR, "Fail to refresh : missing input plane" ] ;
               }
           }
      }
@@ -508,10 +508,10 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                  return _ret_chunk ;
              }
-             else return [ RET_ERROR, "Can't refresh : missing input plane" ] ;
+             else return [ RET_ERROR, "Fail to refresh : missing input plane" ] ;
           }
      }
-     else if ( _items_n == UNDET ) return [ RET_ERROR, "Can't refresh: missing items declaration" ];
+     else if ( _items_n == UNDET ) return [ RET_ERROR, "Fail to refresh: missing items declaration" ];
 }
 
 function circles_lib_canvas_render_process( canvas, mapper, _plane_type, _silent, _out_channel )
@@ -528,7 +528,7 @@ function circles_lib_canvas_render_process( canvas, mapper, _plane_type, _silent
      }
      else if ( _glob_items_to_init )
      {
-     		 var _msg = "Can't draw: seeds need to be initialized again" ;
+     		 var _msg = "Fail to draw: seeds need to be initialized again" ;
          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ] ;
      }

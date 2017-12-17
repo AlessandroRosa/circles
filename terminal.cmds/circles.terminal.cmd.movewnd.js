@@ -74,7 +74,7 @@ function circles_terminal_cmd_movewnd()
                 if ( _popup_obj != null )
                 circles_lib_plugin_move_wnd( _popup_obj[1], _cmd_params['coords'][0], _cmd_params['coords'][1] );
                 else
-                circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't move: the input popup does not exist", _par_1, _cmd_tag );
+                circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to move: the input popup does not exist", _par_1, _cmd_tag );
             }
             else
             {

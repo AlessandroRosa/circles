@@ -48,7 +48,7 @@ function circles_lib_draw_orbit_from_word( _context, _mapper, _items_array,
     }
     else
     {
-        var _msg = "Can't draw the orbit: please type a word" ;
+        var _msg = "Fail to draw the orbit: please type a word" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
         return [ RET_ERROR, _msg, null ] ;
     }
@@ -67,7 +67,7 @@ function circles_lib_draw_word_circlewise( _context, _mapper, _items_array, _cle
     var _cc = null, _b_check_word = circles_lib_word_check( _input_word, _glob_alphabet );
     if ( !is_array( _glob_symbols_index_array ) )
     {
-        var _MSG = "Can't draw words: no seeds - letter association." + _glob_crlf ;
+        var _MSG = "Fail to draw words: no seeds - letter association." + _glob_crlf ;
         if ( circles_lib_count_alphabet() == 0 )
         _MSG += _glob_crlf + "* Missing alphabet: no letters have been registered yet" ;
         if ( circles_lib_count_seeds() == 0 )
@@ -156,7 +156,7 @@ function circles_lib_draw_word_pointwise( _context, _mapper, _items_array, _clea
     var _cc = null, _b_check_word = circles_lib_word_check( _input_word, _glob_alphabet ) ;
     if ( !is_array( _glob_symbols_index_array ) )
     {
-        var _MSG = "Can't draw words: no seeds - letter association." + _glob_crlf ;
+        var _MSG = "Fail to draw words: no seeds - letter association." + _glob_crlf ;
         if ( circles_lib_count_alphabet() == 0 )
         _MSG += _glob_crlf + "* Missing alphabet: no letters have been registered yet" ;
         if ( circles_lib_count_seeds() == 0 )
@@ -215,7 +215,7 @@ function circles_lib_draw_word_inversion( _context, _mapper, _items_array, _clea
     var _cc = null, _b_check_word = circles_lib_word_check( _input_word, _glob_alphabet );
     if ( !is_array( _glob_symbols_index_array ) )
     {
-        var _MSG = "Can't draw words: no seeds - letter association." + _glob_crlf ;
+        var _MSG = "Fail to draw words: no seeds - letter association." + _glob_crlf ;
         if ( circles_lib_count_alphabet() == 0 )
         _MSG += _glob_crlf + "* Missing alphabet: no letters have been registered yet" ;
         if ( circles_lib_count_seeds() == 0 )

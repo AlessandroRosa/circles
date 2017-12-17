@@ -158,9 +158,9 @@ function circles_terminal_cmd_polygon()
                     circles_lib_output( _out_channel, DISPATCH_INFO, "Skipped label param. Mismatch setting: no rec param input", _par_1, _cmd_tag );
                     if ( _glob_verbose && _glob_terminal_echo_flag ) circles_lib_output( _out_channel, DISPATCH_INFO, "Label param is useless if this figure is not going to be recorded", _par_1, _cmd_tag );
                 }
-                else if ( _cmd_params['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Can't plot polygon: missing plane reference" ; }
-                else if ( _cmd_params['vertexes'].length == 0 ) { _b_fail = YES, _error_str = "Can't plot polygon: missing coordinates" ; }
-                else if ( _cmd_params['vertexes'].length < 3 ) { _b_fail = YES, _error_str = "Can't plot polygon: points must be at least 2" ; }
+                else if ( _cmd_params['plane'] == NO_PLANE ) { _b_fail = YES, _error_str = "Fail to plot polygon: missing plane reference" ; }
+                else if ( _cmd_params['vertexes'].length == 0 ) { _b_fail = YES, _error_str = "Fail to plot polygon: missing coordinates" ; }
+                else if ( _cmd_params['vertexes'].length < 3 ) { _b_fail = YES, _error_str = "Fail to plot polygon: points must be at least 2" ; }
           
                 // beware of some missing color param, so let's check'em deeper
                 if ( _cmd_params['bordercolor'] == null ) { _b_fail = YES, _error_str = "Missing 'bordercolor' attribute: this polygon won't be visible" ; }
@@ -243,7 +243,7 @@ function circles_terminal_cmd_polygon()
 						 else circles_lib_output( _out_channel, DISPATCH_WARNING, "Storage space '"+_subset+"' does not exist", _par_1, _cmd_tag );
 					  }
 				  }
-                  else { _b_fail = YES ; _error_str = "Can't draw circle: memory failure. Free some resources" ; }
+                  else { _b_fail = YES ; _error_str = "Fail to draw circle: memory failure. Free some resources" ; }
                   break ;
             }
         }

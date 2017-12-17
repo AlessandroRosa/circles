@@ -192,7 +192,7 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
                 circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_03, _glob_app_title );
                 break ;
                 case 4.5:
-                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't start: no sinks found", _glob_app_title );
+                circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Fail to start: no sinks found", _glob_app_title );
                 break ;
                 case 4.6:
                 circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _ERR_33_04, _glob_app_title );

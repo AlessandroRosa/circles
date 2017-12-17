@@ -242,7 +242,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
     }
     else if( _symbol.length != 1 && !_symbol.isAlpha() )
     {
-    		var _msg = "Can't apply values:"+_glob_crlf ;
+    		var _msg = "Fail to apply values:"+_glob_crlf ;
 				if ( _symbol.length != 1 ) _msg += "* symbol must be 1-char long" ;
 				if ( !_symbol.isAlpha() ) _msg += "* symbol must be of alphabetic kind" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent )
@@ -251,7 +251,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
     }
     else if ( _item_type == ITEM_TYPE_CIRCLE && RADIUS <= 0 )
     {
-    		var _msg = "Can't apply values."+_glob_crlf.repeat(2)+"Radius must be strictly positive" ;
+    		var _msg = "Fail to apply values."+_glob_crlf.repeat(2)+"Radius must be strictly positive" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent )
         circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsEDITDISKoutMSG" ) ;
         return [ RET_ERROR, _msg ] ;
@@ -268,7 +268,7 @@ function CIRCLESformsEDITDISKobjectAPPLY( _item_index, _item_type, _items_switch
             
             if ( _symbol.length > 0 && _inv_symbol.length > 0 && _symbol == _inv_symbol )
             {
-               var _msg = "Can't apply params: symbol and its inverse are the same" ;
+               var _msg = "Fail to apply params: symbol and its inverse are the same" ;
                if ( _out_channel == OUTPUT_SCREEN && !_silent )
                circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "CIRCLESformsEDITDISKoutMSG" ) ;
                return [ RET_ERROR, _msg ] ;
@@ -394,10 +394,10 @@ function CIRCLESformsEDITDISKsetTRANSPARENTfillcolor( _index )
           $('#CIRCLEScircleSELECTEDfillcolor').html( 'none' );
        }
        else
-       circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't set the fill color: archival error 0.2", 'CIRCLESformsEDITDISKoutMSG' )
+       circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to set the fill color: archival error 0.2", 'CIRCLESformsEDITDISKoutMSG' )
     }
     else
-    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't set the fill color: archival error 0.1", 'CIRCLESformsEDITDISKoutMSG' )
+    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to set the fill color: archival error 0.1", 'CIRCLESformsEDITDISKoutMSG' )
 }
 
 function CIRCLESformsEDITDISKsetTRANSPARENTbordercolor( _index )
@@ -417,8 +417,8 @@ function CIRCLESformsEDITDISKsetTRANSPARENTbordercolor( _index )
           $('#CIRCLEScircleSELECTEDbordercolor').html( 'none' );
        }
        else
-       circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't set the draw color: archival error 0.1", 'CIRCLESformsEDITDISKoutMSG' )
+       circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to set the draw color: archival error 0.1", 'CIRCLESformsEDITDISKoutMSG' )
     }
     else
-    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't set the fill color: archival error 0.1", 'CIRCLESformsEDITDISKoutMSG' )
+    circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to set the fill color: archival error 0.1", 'CIRCLESformsEDITDISKoutMSG' )
 }

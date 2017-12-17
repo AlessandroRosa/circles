@@ -208,7 +208,7 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_DELETE( _question = YES, _silent = 
     var _var_id = _var_id.length > 0 ? _var_id : $("#PLUGINvaridEDIT").val() ;
     if ( _var_id.length == 0 )
     {
-        var _msg = "Can't delete var params:" + _glob_crlf ;
+        var _msg = "Fail to delete var params:" + _glob_crlf ;
         if ( _var_id.length == 0 ) _msg += _glob_crlf + "missing var ID" ;
         if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] );
         return NO ;

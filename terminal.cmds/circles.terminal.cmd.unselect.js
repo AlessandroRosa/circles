@@ -69,7 +69,7 @@ function circles_terminal_cmd_unselect()
                   circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
                   default:
-                   if ( _items_n == 0 ) { _b_fail = YES, _error_str = "Can't unselect: " + _ERR_33_01 ; }
+                   if ( _items_n == 0 ) { _b_fail = YES, _error_str = "Fail to unselect: " + _ERR_33_01 ; }
                    else
                    {
                         var _plane_str = "" ;

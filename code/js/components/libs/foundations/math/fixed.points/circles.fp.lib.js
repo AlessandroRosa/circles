@@ -436,8 +436,8 @@ function circles_lib_fixedpoints_add_from_commutators( _keep_up_n_items = 0, _ou
 	_keep_up_n_items = Math.max( 0, safe_int( _keep_up_n_items, 0 ) );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _reset = safe_int( _reset, 0 );
     var _sd_n = circles_lib_count_seeds();
-    if ( _sd_n == 0 ) return [ RET_WARNING, "Can't retrieve the commutators list: missing gens" ];
-    else if ( safe_size( _glob_alphabet, 0 ) == 0 ) return [ RET_WARNING, "Can't retrieve the commutators list: no alphabet available" ];
+    if ( _sd_n == 0 ) return [ RET_WARNING, "Fail to retrieve the commutators list: missing gens" ];
+    else if ( safe_size( _glob_alphabet, 0 ) == 0 ) return [ RET_WARNING, "Fail to retrieve the commutators list: no alphabet available" ];
     else
     {
        if ( _reset ) _glob_input_fixed_pts_array.flush();
@@ -475,7 +475,7 @@ function circles_lib_fixedpoints_bomb( _out_channel = OUTPUT_SCREEN )
 function circles_lib_fixedpoints_find( _hash, _out_channel )
 {
     var _fp_n = circles_lib_count_fixed_points();
-    if ( _fp_n == 0 ) return [ RET_WARNING, "Can't find: the list of input fixed points is already empty" ];
+    if ( _fp_n == 0 ) return [ RET_WARNING, "Fail to find: the list of input fixed points is already empty" ];
     else
     {
         var _ret_index = UNDET, _chunk_hash ;
@@ -497,8 +497,8 @@ function circles_lib_fixedpoints_delete( _index = UNDET, _out_channel = OUTPUT_S
 {
     _index = safe_int( _index, UNDET ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _fp_n = circles_lib_count_fixed_points();
-    if ( _fp_n == 0 ) return [ RET_WARNING, "Can't delete: the list of input fixed points is already empty" ];
-    else if ( _index < 0 ) return [ RET_WARNING, "Can't delete: invalid entry index" ] ;
+    if ( _fp_n == 0 ) return [ RET_WARNING, "Fail to delete: the list of input fixed points is already empty" ];
+    else if ( _index < 0 ) return [ RET_WARNING, "Fail to delete: invalid entry index" ] ;
     else if ( _glob_input_fixed_pts_array[_index] != null )
     {
         var _word = _glob_input_fixed_pts_array[_index][0] ;

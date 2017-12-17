@@ -233,7 +233,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTmergeSELECTED()
                     );
          }
          else
-				 circles_lib_output( OUTPUT_SCRIPT_EDITOR, "Can't merge: the scripts list is empty", DISPATCH_WARNING, "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
+				 circles_lib_output( OUTPUT_SCRIPT_EDITOR, "Fail to merge: the scripts list is empty", DISPATCH_WARNING, "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
     }
     else circles_lib_output( OUTPUT_SCRIPT_EDITOR, "Critical error: incoherent archive structure", DISPATCH_CRITICAL, "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
 }
@@ -271,9 +271,9 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTdeleteSELECTED()
 							}
          }
          else if ( _count_selected == 0 )
-				 circles_lib_output( OUTPUT_SCRIPT_EDITOR, "Can't delete: missing selected entries", DISPATCH_WARNING, "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
+				 circles_lib_output( OUTPUT_SCRIPT_EDITOR, "Fail to delete: missing selected entries", DISPATCH_WARNING, "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
          else if ( _entries_n == 0 )
-				 circles_lib_output( OUTPUT_SCRIPT_EDITOR, "Can't delete: the scripts list is empty", DISPATCH_WARNING, "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
+				 circles_lib_output( OUTPUT_SCRIPT_EDITOR, "Fail to delete: the scripts list is empty", DISPATCH_WARNING, "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
     }
     else circles_lib_output( OUTPUT_SCRIPT_EDITOR, "Critical error: incoherent archive structure", DISPATCH_CRITICAL, "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
 }
@@ -381,5 +381,5 @@ function CIRCLESformsSCRIPTEDITORcodemanagerLISTadd( _silent )
 								circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_CRITICAL, "Fail to "+_action+" code to project '"+CIRCLESformsSCRIPTEDITORprojectlabelCURRENT+"'", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
 				}
 		}
-		else circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, "Can't add: the code box is empty", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
+		else circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, "Fail to add: the code box is empty", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
 }

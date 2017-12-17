@@ -94,7 +94,7 @@ function CIRCLESembeddingsGENERALPURPOSE_LOADgroup( _filename, _file_contents )
 function CIRCLESembeddingsGENERALPURPOSE_SAVE_GROUP()
 {
   	var _N_GENS = safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 ), GEN_CHUNK, _FOUND = NO ;
-    if ( _N_GENS == 0 ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't save: no gens have been registered yet.", 'PLUGIN_OUTMSG' ) ;
+    if ( _N_GENS == 0 ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to save: no gens have been registered yet.", 'PLUGIN_OUTMSG' ) ;
     else
     {
         var _out_stream = [] ;

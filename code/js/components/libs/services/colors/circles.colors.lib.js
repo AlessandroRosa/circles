@@ -227,7 +227,7 @@ function circles_lib_colors_compute_gradient( RGBintSTART = "", RGBintEND = "", 
     }
     else
 	{
-        var _msg = "Can't resize the colors palette : invalid input RGB colors" ;
+        var _msg = "Fail to resize the colors palette : invalid input RGB colors" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
 		return [ RET_ERROR, null, _msg ] ;
 	}

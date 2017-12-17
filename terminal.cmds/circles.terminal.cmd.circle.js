@@ -65,9 +65,8 @@ function circles_terminal_cmd_circle()
             _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
             else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p.toLowerCase();
-            else if ( _p.is_one_of_i( "deg", "rec" ) ) _cmd_params[_p] = YES ;
+            else if ( _p.is_one_of_i( "compute", "deg", "html", "inversion", "isometric", "rec" ) ) _cmd_params[_p] = YES ;
             else if ( _p.start_with( "storagesubset:" ) ) _cmd_params['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
             else if ( _p.start_with_i( "$" ) )
             {
@@ -88,11 +87,11 @@ function circles_terminal_cmd_circle()
 
                 if ( !_b_fail ) _cmd_params['label'] = _p ;
             }
-            else if ( _p.is_one_of_i( "zplane", "wplane", "bip" ) )
+            else if ( _p.is_one_of_i( "zplane", "z-plane", "wplane", "w-plane", "bip", "bipbox" ) )
             {
-                if ( _p.stricmp( "zplane" ) ) _cmd_params['plane'] = Z_PLANE ;
-                else if ( _p.stricmp( "wplane" ) ) _cmd_params['plane'] = W_PLANE ;
-                else if ( _p.stricmp( "bip" ) ) _cmd_params['plane'] = BIP_BOX ;
+                if ( _p.stricmp( "zplane", "z-plane" ) ) _cmd_params['plane'] = Z_PLANE ;
+                else if ( _p.stricmp( "wplane", "w-plane" ) ) _cmd_params['plane'] = W_PLANE ;
+                else if ( _p.stricmp( "bip", "bipbox" ) ) _cmd_params['plane'] = BIP_BOX ;
 
 				_msg = "<lightblue>Plane has been set to</lightblue> <snow>"+_p+"</snow>" ;
 				circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
@@ -187,6 +186,7 @@ function circles_terminal_cmd_circle()
     				circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                 }
             }
+            else if ( _p.testME( _glob_simple_string_regex_pattern ) ) { _cmd_params['compute'] = YES ; _cmd_params['word'] = _p ; }
         }
     }
     else { _b_fail = YES ; _error_str = "Missing input params" ; }
@@ -221,20 +221,19 @@ function circles_terminal_cmd_circle()
                    }
                    else if ( _cmd_params['plane'] == NO_PLANE )
                    {
-                      _b_fail = YES ; _error_str = "Can't plot the circle: missing plane reference" ; 
+                      _b_fail = YES ; _error_str = "Fail to plot the circle: missing plane reference" ; 
                    }
-                   else if ( !is_point( _cmd_params['center'] ) )
+                   else if ( !is_point( _cmd_params['center'] ) && !_cmd_params['compute'] )
                    {
-                      _b_fail = YES ; _error_str = "Can't plot the circle: missing center coords" ;
+                      _b_fail = YES ; _error_str = "Fail to plot the circle: missing center coords" ;
                    }
-                   else if ( _cmd_params['radius'] == null )
+                   else if ( _cmd_params['radius'] == null && !_cmd_params['compute'] )
                    {
-                      _b_fail = YES ; _error_str = "Can't plot the circle: missing radius" ;
+                      _b_fail = YES ; _error_str = "Fail to plot the circle: missing radius" ;
                    }
           
                    // beware of some missing color param, so let's check'em deeper
-                   if ( _cmd_params['bordercolor'] == null &&
-                        _cmd_params['fillcolor'] == null )
+                   if ( _cmd_params['bordercolor'] == null && _cmd_params['fillcolor'] == null )
                    {
                        _b_fail = YES ; _error_str = "Missing draw and filling colors: this circle won't be visible" ;
                    }
@@ -245,7 +244,36 @@ function circles_terminal_cmd_circle()
                        var _fillcolor = _cmd_params['fillcolor'] ;
                        var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.is_one_of_i( "noclr", "transparent" ) ) ? YES : NO ) : NO ;
                        if ( _border == NO && _fill == NO ) { _b_fail = YES ; _error_str = "Missing draw and filling colors: this circle won't be visible" ; }
-                   }
+
+					   if ( _cmd_params['word'].length > 0 )
+					   {
+						   var _word = _cmd_params['word'], _mm ;
+						   circles_lib_output( _out_channel, DISPATCH_INFO, "Computing the isometric circle for word '"+_word+"' ", _par_1, _cmd_tag );
+						   circles_lib_output( _out_channel, DISPATCH_INFO, "Checking '"+_word+"' for coherence with current alphabet ", _par_1, _cmd_tag );
+						   for( var _runner = 0 ; _runner < _word.length ; _runner++ )
+						   {
+								if ( !_glob_alphabet.includes( _word[_runner] ) )
+								{
+									_b_fail = YES, _error_str = "Symbol '"+_word[_runner]+"' is not included in the current alphabet: " + _glob_alphabet.join( ", " );
+								}
+						   }
+
+						   if ( !_b_fail )
+						   {
+							   circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Coherence test passed with success", _par_1, _cmd_tag );
+							   var _resolved_word = circles_lib_repetends_resolve( _word );
+							   if ( !_word.strcmp( _resolved_word ) )
+							   circles_lib_output( _out_channel, DISPATCH_INFO, "Input word"+_glob_crlf+_word+_glob_crlf+"has been resolved to"+_glob_crlf+_resolved_word, _par_1, _cmd_tag );
+
+							   circles_lib_output( _out_channel, DISPATCH_INFO, "Mobius map composition from word '" + _word + "'", _par_1, _cmd_tag );
+							   _mm = circles_lib_word_mobiusmap_get( _word, _glob_seeds_array, _out_channel );
+							   var _cc = _cmd_params['inversion'] ? _mm.inversion_circle() : _mm.isometric_circle();
+							   _cmd_params['center'] = _cc.get_center();
+							   _cmd_params['radius'] = _cc.get_radius();
+							   circles_lib_output( _out_channel, DISPATCH_INFO, "Resulting circle " + _glob_crlf + _cc.output( "" ), _par_1, _cmd_tag );
+						   }
+					   }
+				   }
             }
 
               // elaborating the params
@@ -257,11 +285,10 @@ function circles_terminal_cmd_circle()
                    var _fillcolor = _cmd_params['fillcolor'] ;
                    var _fill = _fillcolor != null ? ( ( _fillcolor.length > 0 && !_fillcolor.stricmp( "noclr" ) ) ? YES : NO ) : NO ;
           
-                   var _bordersize = ( _cmd_params['bordersize'] == null ) ? 1 : safe_int( _cmd_params['bordersize'], 1 );
+                   var _bordersize = _cmd_params['bordersize'] == null ? 1 : safe_int( _cmd_params['bordersize'], 1 );
                    if ( _bordersize == 0 ) { _border = NO ; _bordercolor = "" ; }
                    var _opacity = ( _cmd_params['opacity'] == null ) ? 1.0 : safe_float( _cmd_params['opacity'], DEFAULT_MAX_OPACITY );
-                   var _circle_obj = new circle( _cmd_params['center'], _cmd_params['radius'],
-                   								 _border, _fill, _bordercolor, _fillcolor, _bordersize );
+                   var _circle_obj = new circle( _cmd_params['center'], _cmd_params['radius'], _border, _fill, _bordercolor, _fillcolor, _bordersize );
 				   var _layer = circles_lib_canvas_layer_find( _cmd_params['plane'], FIND_LAYER_BY_ROLE_DEF, _cmd_params['layer'], _out_channel );
 				   if ( is_html_canvas( _layer ) )
 				   {
@@ -289,8 +316,7 @@ function circles_terminal_cmd_circle()
                        var _screen_circle = circles_lib_draw_complex_disk( _canvas_context, _mapper,
 								_circle_obj.center.x, _circle_obj.center.y, _circle_obj.radius,
                                 _border, _bordercolor, _fill, _fillcolor, _bordersize, _opacity,
-                                _cmd_params['sector_start'],
-								_cmd_params['sector_end'],
+                                _cmd_params['sector_start'], _cmd_params['sector_end'],
 								"", _cmd_params['propertiesmask'] );
                        if ( !is_circle( _screen_circle ) ) { _b_fail = YES ; _error_str = "Fail to draw the circle: invalid object declation" ; }
                        else
@@ -328,7 +354,7 @@ function circles_terminal_cmd_circle()
                             }
                        }
                    }
-                   else { _b_fail = YES ; _error_str = "Can't draw circle: memory failure. Free some resources" ; }
+                   else { _b_fail = YES ; _error_str = "Fail to draw circle: memory failure. Free some resources" ; }
               }
               break ;
          }

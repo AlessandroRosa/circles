@@ -26,7 +26,7 @@ function circles_lib_canvas_coords_reset( _plane_type, _render, _out_channel )
          return circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, null, YES, YES, _render, YES, NO, YES, _out_channel );
          break ;
          default:
-         return [ RET_ERROR, "Can't reset: improper plane type" ] ;
+         return [ RET_ERROR, "Fail to reset: improper plane type" ] ;
          break ;
     }
 }
@@ -120,7 +120,7 @@ function circles_lib_canvas_coords_shift( _where, _plane_type, _silent, _render,
            _glob_bipBOTTOM = -DEFAULT_PLANE_COORD ;
        }
 
-       var _msg = "Can't zoom: coordinates are improper and they will be reset to default values" ;
+       var _msg = "Fail to zoom: coordinates are improper and they will be reset to default values" ;
        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
        return [ RET_ERROR, _msg ] ;
     }

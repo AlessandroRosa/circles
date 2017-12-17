@@ -27,8 +27,8 @@ function CIRCLESformsSCRIPTEDITORcodemanagerCOMPILEprocess( _silent )
 						}
 						else circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_INFO, "Compiling has been halted by user", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
         }
-        else if ( _selected_n == 0 ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, "Can't run: missing selected code files in proj '"+CIRCLESformsSCRIPTEDITORprojectlabelCURRENT+"'", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
-        else if ( _entries_n == 0 ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, "Can't run: missing code files in proj '"+CIRCLESformsSCRIPTEDITORprojectlabelCURRENT+"'", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
+        else if ( _selected_n == 0 ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, "Fail to run: missing selected code files in proj '"+CIRCLESformsSCRIPTEDITORprojectlabelCURRENT+"'", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
+        else if ( _entries_n == 0 ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, "Fail to run: missing code files in proj '"+CIRCLESformsSCRIPTEDITORprojectlabelCURRENT+"'", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
     }
     else circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_CRITICAL, "Critical error: incoherent proj data", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
 }
@@ -191,7 +191,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerDISPLAYcollectedOBJSlist( _entry_lab
 		{
 		    var _proj_array_ref = _glob_js_code_projs_array[CIRCLESformsSCRIPTEDITORprojectlabelCURRENT] ;
 		    if ( safe_size( _proj_array_ref, 0 ) == 0 && !_silent )
-				circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_INFO, "Can't display objs collection: the current project is empty", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
+				circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_INFO, "Fail to display objs collection: the current project is empty", "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
 				else
 				{
             var _objs_array_ref = CIRCLESformsSCRIPTEDITORproject_collectedobjsCURRENT ;

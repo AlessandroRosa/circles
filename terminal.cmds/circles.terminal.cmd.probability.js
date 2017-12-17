@@ -531,9 +531,9 @@ function circles_terminal_cmd_probability()
                             }
                         }
                         else if ( _n_letters == 0 && _diff != 0 )
-                        circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't set match letters to probabilities: missing letters", _par_1, _cmd_tag );
+                        circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to set match letters to probabilities: missing letters", _par_1, _cmd_tag );
                         else if ( _n_probabilities == 0 && _diff != 0 )
-                        circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't set match letters to probabilities: missing probabilities", _par_1, _cmd_tag );
+                        circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to set match letters to probabilities: missing probabilities", _par_1, _cmd_tag );
 						
 						if ( !_b_fail )
 						{

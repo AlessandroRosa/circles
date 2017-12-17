@@ -226,10 +226,10 @@ function circles_terminal_cmd_fp()
                             circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                     } );
                 }
-				else if ( _n_source == 0 ) { _b_fail = YES, _error_str = "Can't add fixed points: missing input entries" ;  }
+				else if ( _n_source == 0 ) { _b_fail = YES, _error_str = "Fail to add fixed points: missing input entries" ;  }
                 break ;
 				case "bomb":
-				if ( _fp_n == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't perform "+_action+" action: the fixed points list is empty ", _par_1, _cmd_tag );
+				if ( _fp_n == 0 )  circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to perform "+_action+" action: the fixed points list is empty ", _par_1, _cmd_tag );
 				else
 				{
                    	var _params_array = [], _pre_prompt = null ;

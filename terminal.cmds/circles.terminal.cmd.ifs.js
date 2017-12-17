@@ -26,7 +26,6 @@ function circles_terminal_cmd_ifs()
          _cmd_params['keywords'] = NO ;
          _cmd_params['help'] = NO ;
          _cmd_params['action'] = "" ;
-         _cmd_params['settings'] = [] ;
          _cmd_params['values'] = [] ;
          
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
@@ -43,13 +42,13 @@ function circles_terminal_cmd_ifs()
             _p = _params_array[_i].toLowerCase();
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.is_one_of_i( "html" ) ) _cmd_params[_p] = YES ;
+            else if ( _p.is_one_of_i( "hide", "html", "show" ) ) _cmd_params[_p] = YES ;
             else if ( _p.is_one_of_i( "release", "options", "panel" ) ) _cmd_params['action'] = _p ;
-            else if ( _p.is_one_of_i( "all", "densityscan", "mins", "timer", "uselastpt" ) ) _cmd_params['settings'].push( _p ) ;
+            else if ( _p.is_one_of_i( "all", "densityscan", "mins", "timer", "uselastpt" ) ) _cmd_params.push( _p ) ;
             else if ( _p.strcmp( "on" ) )
             {
                var _cnt = 0 ;
-               if ( _cmd_params['settings'].one_in_i( "uselastpt", "all" ) )
+               if ( _cmd_params.one_in_i( "uselastpt", "all" ) )
                {
                   _glob_use_last_pt = YES ;
                   _b_unfound = NO ;
@@ -57,7 +56,7 @@ function circles_terminal_cmd_ifs()
                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<white>Use last pt</white> <green>for random IFS options has been flagged on</green>", _par_1, _cmd_tag );
                }
 
-               if ( _cmd_params['settings'].one_in_i( "timer", "all" ) )
+               if ( _cmd_params.one_in_i( "timer", "all" ) )
                {
                   _glob_scheduled_rendering_flag = YES ;
                   _b_unfound = NO ;
@@ -65,7 +64,7 @@ function circles_terminal_cmd_ifs()
                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<white>Scheduled timer</white> <green>for random IFS options has been flagged on</green>", _par_1, _cmd_tag );
                }
 
-               if ( _cmd_params['settings'].one_in_i( "densityscan", "all" ) )
+               if ( _cmd_params.one_in_i( "densityscan", "all" ) )
                {
                   _glob_density_scan_flag = YES ;
                   _b_unfound = NO ;
@@ -79,11 +78,14 @@ function circles_terminal_cmd_ifs()
                   _b_unfound = YES ;
                }
                else if ( circles_lib_plugin_find_index( { subset : "forms", base_id : "general.options" }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) ) circles_lib_plugin_load( 'forms', 'general.options', NO, 1 ) ;
+				var _enable = _glob_use_last_pt || _glob_scheduled_rendering_flag || _glob_density_scan_flag ;
+			    if ( $("#CIRCLESgeneraloptionsIFSRANDOMlabel").get(0) != null )
+				$("#CIRCLESgeneraloptionsIFSRANDOMlabel").css( "color", _enable ? DEFAULT_EDIT_COLOR_ENABLED : DEFAULT_EDIT_COLOR_DISABLED );
             }
             else if ( _p.strcmp( "off" ) )
             {
                var _cnt = 0 ;
-               if ( _cmd_params['settings'].one_in_i( "uselastpt", "all" ) )
+               if ( _cmd_params.one_in_i( "uselastpt", "all" ) )
                {
                   _glob_use_last_pt = NO ;
                   circles_lib_output( _out_channel, DISPATCH_SUCCESS, "'Use last pt' in random IFS options has been flagged off", _par_1, _cmd_tag );
@@ -91,7 +93,7 @@ function circles_terminal_cmd_ifs()
                   _cnt++ ;
                }
 
-               if ( _cmd_params['settings'].one_in_i( "timer", "all" ) )
+               if ( _cmd_params.one_in_i( "timer", "all" ) )
                {
                   _glob_scheduled_rendering_flag = NO ;
                   circles_lib_output( _out_channel, DISPATCH_SUCCESS, "'Scheduled timer' for random IFS options has been flagged off", _par_1, _cmd_tag );
@@ -99,7 +101,7 @@ function circles_terminal_cmd_ifs()
                   _cnt++ ;
                }
 
-               if ( _cmd_params['settings'].one_in_i( "densityscan", "all" ) )
+               if ( _cmd_params.one_in_i( "densityscan", "all" ) )
                {
                   _glob_density_scan_flag = NO ;
                   circles_lib_output( _out_channel, DISPATCH_SUCCESS, "'Density scan' for random IFS options has been flagged off", _par_1, _cmd_tag );
@@ -113,10 +115,13 @@ function circles_terminal_cmd_ifs()
                   _b_unfound = YES ;
                }
                else if ( circles_lib_plugin_find_index( { subset : "forms", base_id : "general.options" }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) ) circles_lib_plugin_load( 'forms', 'general.options', NO, 1 ) ;
+				var _enable = _glob_use_last_pt || _glob_scheduled_rendering_flag || _glob_density_scan_flag ;
+			    if ( $("#CIRCLESgeneraloptionsIFSRANDOMlabel").get(0) != null )
+				$("#CIRCLESgeneraloptionsIFSRANDOMlabel").css( "color", _enable ? DEFAULT_EDIT_COLOR_ENABLED : DEFAULT_EDIT_COLOR_DISABLED );
             }
             else if ( _p.testME( _glob_positive_integer_regex_pattern ) )
             {
-               if ( _cmd_params['settings'].includes( "mins" ) )
+               if ( _cmd_params.includes( "mins" ) )
                {
                   _p = safe_int( _p, 0 );
                   if ( _p > 0 )
@@ -161,15 +166,28 @@ function circles_terminal_cmd_ifs()
             switch( _action )
             {
            		case "options":
-           		var _msg  = "<lightblue>Use last point feature</lightblue> "+( _glob_use_last_pt ? "<snow>Active</snow>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
+           		var _msg  = "<lightblue>Use last point feature</lightblue> "+( _glob_use_last_pt ? "<lime>Active</lime>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
            			_msg += "<lightblue>Last recorded point</lightblue> <snow>"+_glob_last_pt.formula()+"</snow>" + _glob_crlf ;
-           			_msg += "<lightblue>Scheduled rendering timer</lightblue> "+( _glob_scheduled_rendering_flag ? "<snow>Active</snow>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
+           			_msg += "<lightblue>Scheduled rendering timer</lightblue> "+( _glob_scheduled_rendering_flag ? "<green>Active</green>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
            			_msg += "<lightblue>Scheduled rendering interval</lightblue> "+( _glob_scheduled_rendering_interval + " minute" + ( _glob_scheduled_rendering_interval==1?"":"s" ) )+ _glob_crlf ;
-           			_msg += "<lightblue>Density scanner</lightblue> "+( _glob_density_scan_flag ? "<snow>Active</snow>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
+           			_msg += "<lightblue>Density scanner</lightblue> "+( _glob_density_scan_flag ? "<green>Active</green>" : "<lightgray>Inactive</lightgray>" )+ _glob_crlf ;
    	            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				var _enable = _glob_use_last_pt || _glob_scheduled_rendering_flag || _glob_density_scan_flag ;
+				if ( $("#CIRCLESgeneraloptionsIFSRANDOMlabel").get(0) != null )
+				$("#CIRCLESgeneraloptionsIFSRANDOMlabel").css( "color", _enable ? DEFAULT_EDIT_COLOR_ENABLED : DEFAULT_EDIT_COLOR_DISABLED );
            		break ;
            		case "panel":
-                circles_lib_plugin_load('forms','general.options', NO, 1 ) ;
+				if ( _cmd_params['hide'] )
+				{
+					var _options = [ "close" ], _ret_array = [] ;
+					var _dispatcher_fn = "CIRCLESformsGENERALOPTIONSremotectrl( _options, null, _ret_array, "+_out_channel+" )" ;
+					console.log( _dispatcher_fn );
+					var _output = null ;
+					try{ eval( "_output = " + _dispatcher_fn + ";" ) }
+					catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
+					console.log( _ret_array );
+				}
+				else circles_lib_plugin_load('forms','general.options',NO,YES) ;
            		break ;
    	            case "release":
    	            circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );

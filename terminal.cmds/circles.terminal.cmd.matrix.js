@@ -138,11 +138,11 @@ function circles_terminal_cmd_matrix()
                 if ( !is_array( _glob_storage['matrix'] ) ) _glob_storage['matrix'] = [];
                 if ( _symbols_n == 0 && _complex_n == 0 )
                 {
-                    _b_fail = YES, _error_str = "Can't "+_action+": missing complex entries of input letters referring to Mobius maps in the current group" ;
+                    _b_fail = YES, _error_str = "Fail to "+_action+": missing complex entries of input letters referring to Mobius maps in the current group" ;
                 }
                 else if ( _action == "power" && safe_size( _cmd_params['inputs'], 0 ) == 0 )
                 {
-                    _b_fail = YES, _error_str = "Can't "+_action+": missing exponent" ;
+                    _b_fail = YES, _error_str = "Fail to "+_action+": missing exponent" ;
                 }
                 else
                 {
@@ -264,7 +264,7 @@ function circles_terminal_cmd_matrix()
                 if ( !is_array( _glob_storage['matrix'] ) ) _glob_storage['matrix'] = [];
                 if ( _symbols_n == 0 && _complex_n == 0 )
                 {
-                    _b_fail = YES, _error_str = "Can't "+_action+": missing complex entries of input letters referring to Mobius maps in the current group" ;
+                    _b_fail = YES, _error_str = "Fail to "+_action+": missing complex entries of input letters referring to Mobius maps in the current group" ;
                 }
                 else
                 {
@@ -423,7 +423,7 @@ function circles_terminal_cmd_matrix()
                 if ( !is_array( _glob_storage['matrix'] ) ) _glob_storage['matrix'] = [];
                 if ( _symbols_n == 0 && _complex_n == 0 )
                 {
-                    _b_fail = YES, _error_str = "Can't "+_action+": missing complex entries of input letters referring to Mobius maps in the current group" ;
+                    _b_fail = YES, _error_str = "Fail to "+_action+": missing complex entries of input letters referring to Mobius maps in the current group" ;
                 }
                 else
                 {
@@ -462,7 +462,7 @@ function circles_terminal_cmd_matrix()
                 if ( !is_array( _glob_storage['matrix'] ) ) _glob_storage['matrix'] = [];
                 if ( _symbols_n == 0 && _complex_n == 0 )
                 {
-                    _b_fail = YES, _error_str = "Can't "+_action+": missing complex entries of input letters referring to Mobius maps in the current group" ;
+                    _b_fail = YES, _error_str = "Fail to "+_action+": missing complex entries of input letters referring to Mobius maps in the current group" ;
                 }
                 else
                 {
@@ -507,7 +507,7 @@ function circles_terminal_cmd_matrix()
                 if ( !is_array( _glob_storage['matrix'] ) ) _glob_storage['matrix'] = [];
                 if ( _symbols_n == 0 && _complex_n == 0 )
                 {
-                    _b_fail = YES, _error_str = "Can't "+_action+": missing complex entries of input letters referring to Mobius maps in the current group" ;
+                    _b_fail = YES, _error_str = "Fail to "+_action+": missing complex entries of input letters referring to Mobius maps in the current group" ;
                 }
                 else
                 {

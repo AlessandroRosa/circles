@@ -310,7 +310,7 @@ function circles_terminal_cmd_mobius()
                         }
                         else { _b_fail = YES, _error_str = _ret_msg ; }
                 }
-                else if ( _symbol.length == 0 ) { _b_fail = YES, _error_str = "Can't add: symbol is missing" ; }
+                else if ( _symbol.length == 0 ) { _b_fail = YES, _error_str = "Fail to add: symbol is missing" ; }
                 else if ( !is_array( _items_array ) ) { _b_fail = YES, _error_str = "Memory failure: can't get current items" ; }
                 else 
                 {
@@ -414,15 +414,15 @@ function circles_terminal_cmd_mobius()
                          
                          if ( _index_old == UNDET )
                          {
-                              _b_fail = YES, _error_str = "Can't change: the input source symbol '"+_old_symbol+"' does not exist in the current alphabet" ;
+                              _b_fail = YES, _error_str = "Fail to change: the input source symbol '"+_old_symbol+"' does not exist in the current alphabet" ;
                          }
                          else if ( _inverse_index_old == UNDET )
                          {
-                              _b_fail = YES, _error_str = "Can't change: the input source symbol '"+_old_symbol+"' has no inverse item '"+_inverse_old_symbol+"' in the current alphabet" ;
+                              _b_fail = YES, _error_str = "Fail to change: the input source symbol '"+_old_symbol+"' has no inverse item '"+_inverse_old_symbol+"' in the current alphabet" ;
                          }
                          else if ( _index_new != UNDET )
                          {
-                              _b_fail = YES, _error_str = "Can't change: the input destination symbol '"+_old_symbol+"' refers to an already existing item" ;
+                              _b_fail = YES, _error_str = "Fail to change: the input destination symbol '"+_old_symbol+"' refers to an already existing item" ;
                          }
                          else
                          {
@@ -480,7 +480,7 @@ function circles_terminal_cmd_mobius()
                         var _msg = _check ? "All seeds have been copied into storage space with success" : "Storage destination error: can't perform copy of the seeds" ;
                         circles_lib_output( _out_channel, _check ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
                     }
-                    else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't copy seeds: " + _ERR_33_01, _par_1, _cmd_tag );
+                    else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to copy seeds: " + _ERR_33_01, _par_1, _cmd_tag );
                     break ;
                     case "decolorize":
                     if ( _items_n > 0 )
@@ -617,13 +617,13 @@ function circles_terminal_cmd_mobius()
                             var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, YES, _out_channel );
 		  										  var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
 														var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to dump value" ;
-                            if ( _ret_id ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't find the required map(s)", _par_1, _cmd_tag );
+                            if ( _ret_id ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to find the required map(s)", _par_1, _cmd_tag );
                             else
                             {
                                 _b_fail = YES, _error_str = _ret_msg ;
                             }
                         }
-                        else circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't find the required map(s)", _par_1, _cmd_tag );
+                        else circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to find the required map(s)", _par_1, _cmd_tag );
                     }
                     else
                     {
@@ -1099,7 +1099,7 @@ function circles_terminal_cmd_mobius()
             			else { _b_fail = YES, _error_str = _ret_msg ; }
             		}
             	}
-            	else circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't compute fixed points: missing input symbols", _par_1, _cmd_tag );
+            	else circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to compute fixed points: missing input symbols", _par_1, _cmd_tag );
             }
          }
     }

@@ -176,7 +176,7 @@ function circles_terminal_cmd_map()
 
                 if ( _warns_array.length > 0 )
                 {
-                    var _warning = "Can't add a new map : " + _warns_array.join( _glob_crlf );
+                    var _warning = "Fail to add a new map : " + _warns_array.join( _glob_crlf );
                     circles_lib_output( _out_channel, DISPATCH_WARNING, _warning, _par_1, _cmd_tag );
                 }
                 else
@@ -251,12 +251,12 @@ function circles_terminal_cmd_map()
                 var _tag = safe_string( _cmd_params['tag'].trim(), "" );
                 if ( _tag.length == 0 ) _warns_array.push( "Missing input tag" );
                 else if ( !_tag.testME( _glob_simple_string_regex_pattern ) ) _warns_array.push( "Tag '"+_tag+"' includes illegal chars" );
-                else if ( _glob_maps[ _tag ] == null ) _warns_array.push( "Can't find '"+_tag+"' in the maps list." );
+                else if ( _glob_maps[ _tag ] == null ) _warns_array.push( "Fail to find '"+_tag+"' in the maps list." );
                 else if ( _glob_maps[ _tag ][0] == YES ) _warns_array.push( "'"+_tag+"' refers to a default map, which can't be deleted" );
 
                 if ( _warns_array.length > 0 )
                 {
-                    var _warning = "Can't delete map : " + _warns_array.join( _glob_crlf );
+                    var _warning = "Fail to delete map : " + _warns_array.join( _glob_crlf );
                     circles_lib_output( _out_channel, DISPATCH_WARNING, _warning, _par_1, _cmd_tag );
                 }
                 else
@@ -281,15 +281,15 @@ function circles_terminal_cmd_map()
 
                 if ( safe_size( _symbol, 0 ) == 0 && !_auto_symbol )
                 {
-                    _b_fail = YES, _error_str = "Can't declare a new gen: missing generator symbol" ;
+                    _b_fail = YES, _error_str = "Fail to declare a new gen: missing generator symbol" ;
                 }
                 else if ( circles_lib_find_item_obj_by_symbol( _glob_seeds_array, _symbol ) != null )
                 {
-                    _b_fail = YES, _error_str = "Can't declare a new gen: there's already one with symbol '"+_symbol+"'" ;
+                    _b_fail = YES, _error_str = "Fail to declare a new gen: there's already one with symbol '"+_symbol+"'" ;
                 }
                 else if ( safe_size( _formula, 0 ) == 0 )
                 {
-                    _b_fail = YES, _error_str = "Can't declare a new gen: missing map formula" ;
+                    _b_fail = YES, _error_str = "Fail to declare a new gen: missing map formula" ;
                 }
                 else
                 {
@@ -326,7 +326,7 @@ function circles_terminal_cmd_map()
                                          if ( _gen_dupl )
                                          {
                                               _symbol = _glob_seeds_array[_mm_index].symbol ;
-                                              _error_str = "Can't declare the new gen '"+_mobius_map_str+"' "+_glob_crlf+"it's already included in the current group and with symbol '"+( _symbol )+"'" ;
+                                              _error_str = "Fail to declare the new gen '"+_mobius_map_str+"' "+_glob_crlf+"it's already included in the current group and with symbol '"+( _symbol )+"'" ;
                                               circles_lib_output( _out_channel, DISPATCH_WARNING, _error_str, _par_1, _cmd_tag );
                                          }
                                          else
@@ -349,7 +349,7 @@ function circles_terminal_cmd_map()
                                          _inv_symbol = _use_inverse ? circles_lib_word_inverse_get( _symbol ) : "" ;
                                          if ( _inv_dupl )
                                          {
-                                              _error_str = "Can't declare a new inverse gen: it's already included in the current group and with symbol '" + ( _glob_seeds_array[_inv_dupl].symbol )+"'" ;
+                                              _error_str = "Fail to declare a new inverse gen: it's already included in the current group and with symbol '" + ( _glob_seeds_array[_inv_dupl].symbol )+"'" ;
                                               circles_lib_output( _out_channel, DISPATCH_WARNING, _error_str, _par_1, _cmd_tag );
                                          }
                                          else
@@ -366,12 +366,12 @@ function circles_terminal_cmd_map()
                                      }
                                      else
                                      {
-                                         _b_fail = YES, _error_str = "Can't declare a new gen: found syntax errors while parsing formal input formulas" ;
+                                         _b_fail = YES, _error_str = "Fail to declare a new gen: found syntax errors while parsing formal input formulas" ;
                                      }
                                 }
                                 else
                                 {
-                                    _b_fail = YES, _error_str = "Can't declare a new gen: found syntax errors in formal input formulas" ;
+                                    _b_fail = YES, _error_str = "Fail to declare a new gen: found syntax errors in formal input formulas" ;
                                 }
                             }
                           );
@@ -466,12 +466,12 @@ function circles_terminal_cmd_map()
 
                 if ( _tag.length == 0 ) _warns_array.push( "Missing input tag" );
                 else if ( !_tag.testME( _glob_simple_string_regex_pattern ) ) _warns_array.push( "Tag '"+_tag+"' includes illegal chars" );
-                else if ( _glob_maps[ _tag ] == null ) _warns_array.push( "Can't find '"+_tag+"' in the maps list" );
+                else if ( _glob_maps[ _tag ] == null ) _warns_array.push( "Fail to find '"+_tag+"' in the maps list" );
                 else if ( _glob_maps[ _tag ][0] == YES ) _warns_array.push( "'"+_tag+"' refers to a default map, which can't be modified" );
 
                 if ( _warns_array.length > 0 )
                 {
-                    var _warning = "Can't modify this map : " + _warns_array.join( _glob_crlf );
+                    var _warning = "Fail to modify this map : " + _warns_array.join( _glob_crlf );
                     circles_lib_output( _out_channel, DISPATCH_WARNING, _warning, _par_1, _cmd_tag );
                 }
                 else
@@ -513,13 +513,13 @@ function circles_terminal_cmd_map()
 
                 if ( _tag.length == 0 ) _warns_array.push( "Missing input tag" );
                 else if ( !_tag.testME( _glob_simple_string_regex_pattern ) ) _warns_array.push( "Tag '"+_tag+"' includes illegal chars" );
-                else if ( _glob_maps[ _tag ] == null ) _warns_array.push( "Can't find '"+_tag+"' in the maps list" );
+                else if ( _glob_maps[ _tag ] == null ) _warns_array.push( "Fail to find '"+_tag+"' in the maps list" );
                 else if ( _glob_maps[ _tag ][0] == YES ) _warns_array.push( "'"+_tag+"' refers to a default map,which can't be modified" );
                 else if ( safe_string( _cmd_params['newtag'], "" ).length == 0 ) _warns_array.push( "new input tag is empty" );
 
                 if ( _warns_array.length > 0 )
                 {
-                    var _warning = "Can't change tag for this map : " + _warns_array.join( _glob_crlf );
+                    var _warning = "Fail to change tag for this map : " + _warns_array.join( _glob_crlf );
                     circles_lib_output( _out_channel, DISPATCH_WARNING, _warning, _par_1, _cmd_tag );
                 }
                 else

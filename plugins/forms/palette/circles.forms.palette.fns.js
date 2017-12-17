@@ -118,7 +118,7 @@ function CIRCLESformsPALETTEcomputeGRADIENTpre( _silent, _out_channel )
      var _ret_chunk = circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, STEPS, _silent, _out_channel );
      var _ret_id = _ret_chunk[0], _tmp_array = _ret_chunk[1] ;
      var _msg = _ret_chunk[2] ;
-     if ( _ret_id == RET_ERROR ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg + _glob_crlf + "Can't compute the color gradient." + _glob_crlf + _ERR_00_05, _glob_app_title );
+     if ( _ret_id == RET_ERROR ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg + _glob_crlf + "Fail to compute the color gradient." + _glob_crlf + _ERR_00_05, _glob_app_title );
      else CIRCLESformsPALETTEshow();
 
      $("#CANVASpaletteLABEL_01").html( _glob_palette_steps > _glob_depth ? "<span STYLE=\"color:red;\">exceeding current depth : "+_glob_depth+"</span>" : "" );
@@ -197,7 +197,7 @@ function CIRCLESformsPALETTEappend( _question, _silent, _out_channel )
          _glob_palette_steps = STEPS ;
          var _ret_chunk = circles_lib_colors_compute_gradient( RGBintSTART, RGBintEND, STEPS, _silent, _out_channel );
          var appendPALETTEarray = _ret_chunk[1] ;
-         if ( !is_array( appendPALETTEarray ) && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Can't compute the color gradient." + _glob_crlf + _ret_chunk[1] + _glob_crlf + _ERR_00_05, _glob_app_title );
+         if ( !is_array( appendPALETTEarray ) && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Fail to compute the color gradient." + _glob_crlf + _ret_chunk[1] + _glob_crlf + _ERR_00_05, _glob_app_title );
          else
          {
              if ( !is_array( _glob_palette_array ) ) _glob_palette_array = [] ;

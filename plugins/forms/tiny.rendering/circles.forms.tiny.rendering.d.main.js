@@ -260,7 +260,7 @@ function CIRCLESformsTINYRENDERINGscriptSAVEFILE( _div_id, _REF_ID )
         var blob = new Blob( [ _code ], { type: 'plain/text', endings: 'native' } );
         saveAs( blob, _filename );
     }
-    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't save code to a file: text is empty.", _glob_app_title );
+    else circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to save code to a file: text is empty.", _glob_app_title );
 }
 
 function CIRCLESformsTINYRENDERINGremove( _div_id, _REF_ID )

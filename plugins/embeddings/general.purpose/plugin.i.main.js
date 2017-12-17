@@ -610,7 +610,7 @@ function CIRCLESembeddingsGENERALPURPOSE_GENERATE_GROUP( _silent, _edit_acquisit
     var _index_ref = _plugin_last_ref, _N_GENS = safe_size( CIRCLESembeddingsGENERALPURPOSE_gens_container, 0 );
 	if ( _N_GENS == 0 )
 	{
-		circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't generate the group: the generators list is empty", 'PLUGIN_OUTMSG' ) ;
+		circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to generate the group: the generators list is empty", 'PLUGIN_OUTMSG' ) ;
 		return NO ;
 	}
 	else

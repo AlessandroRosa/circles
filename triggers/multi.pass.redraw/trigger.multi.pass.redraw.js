@@ -12,8 +12,8 @@ function trigger_multi_pass_redraw( _silent, _out_channel )
     var _gens_set_n = circles_lib_gens_model_count();
     var _fp_n = circles_lib_count_fixed_points();
     var _rnd_n = circles_lib_count_rnd_probabilities();
-    if ( _sd_n == 0 ) return [ RET_ERROR, "Can't run this trigger: no seeds have been registered yet" ] ;
-    else if ( _sd_n % 2 == 1 ) return [ RET_ERROR, "Can't run this trigger: seeds must be even in number" ] ;
+    if ( _sd_n == 0 ) return [ RET_ERROR, "Fail to run this trigger: no seeds have been registered yet" ] ;
+    else if ( _sd_n % 2 == 1 ) return [ RET_ERROR, "Fail to run this trigger: seeds must be even in number" ] ;
     else
     {
 				var _b_go = ( ( _gens_set_n > 0 || _fp_n > 0 ) && !_silent ) ? confirm( "Do you want to run this trigger ?" + _glob_crlf + "(All previous settings will be lost)" ) : YES ;

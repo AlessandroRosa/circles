@@ -133,7 +133,7 @@ function CIRCLESformsSTORAGESPACErestore( _subset, _question, _silent, _out_chan
                  default: if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _ret_msg, _glob_app_title ); break ;
               }
           }
-          else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't restore: the subset '"+_subset+"' of storage space is empty.", _glob_app_title );
+          else if ( !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to restore: the subset '"+_subset+"' of storage space is empty.", _glob_app_title );
           return _ret_id ;
        }
     }

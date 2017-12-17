@@ -128,20 +128,20 @@ function circles_terminal_cmd_gen()
                     {
                        _b_fail = YES ;
                        _report.push( "The input word '"+_p+"' does not match the current alphabet" );
-                       _report.push( "Can't add the input word '"+_p+"' to the gens list" );
+                       _report.push( "Fail to add the input word '"+_p+"' to the gens list" );
                     }
                     else if ( _ret == REPETEND_TEST_ERR_EMPTY_GROUP )
                     {
                        _b_fail = YES ;
                        _report.push( "The "+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" )+" list is empty, together with the alphabet" );
                        _report.push( "You must input the Mobius maps first" );
-                       _report.push( "Can't add the input word '"+_p+"' to the gens list" );
+                       _report.push( "Fail to add the input word '"+_p+"' to the gens list" );
                     }
                     else if ( _ret == REPETEND_TEST_ERR_INVALID_CHARS )
                     {
                        _b_fail = YES ;
                        _report.push( "Found invalid chars in the repetend syntax" );
-                       _report.push( "Can't add the input word '"+_p+"' to the gens list" );
+                       _report.push( "Fail to add the input word '"+_p+"' to the gens list" );
                     }
                     else if ( _ret == REPETEND_TEST_ERR_MISSING_ALPHABET ) { _b_fail = YES ; _report.push( "The input generator symbol is empty" ); }
                     else if ( _ret == REPETEND_TEST_ERR_MISSING_INPUT_WORD ) { _b_fail = YES ; _report.push( "Syntax error in the input word '"+_p+"': probably missing brackets or asterisk" ); }
@@ -230,7 +230,7 @@ function circles_terminal_cmd_gen()
 
                                 var _mm = new mobius_map( _mobius_params_array );
                                 if ( circles_lib_find_item_index_by_map( _glob_seeds_array, _mm ) != UNFOUND )
-                                     circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't add entry '"+_map_tag+"': found duplicate Mobius map inside the generators", _par_1, _cmd_tag );
+                                     circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to add entry '"+_map_tag+"': found duplicate Mobius map inside the generators", _par_1, _cmd_tag );
                                 else
                                 {
                                   var _symbol_lowercase = circles_lib_alphabet_suggest_symbol( _glob_seeds_array, SMALL_LETTER );
@@ -329,7 +329,7 @@ function circles_terminal_cmd_gen()
 					}
                     if ( circles_lib_plugin_is_visible( "method", "forms" ) ) circles_lib_plugin_dispatcher_unicast_message( 'method', 'forms', 3.21 ) ;
                  }
-                 else circles_lib_output( _out_channel, DISPATCH_ERROR, "Can't flush the generators away: memory failure", _par_1, _cmd_tag );
+                 else circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to flush the generators away: memory failure", _par_1, _cmd_tag );
                }
 
                var _sch_n = circles_lib_gens_model_count();
@@ -398,7 +398,7 @@ function circles_terminal_cmd_gen()
 						else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
                     }
                }
-               else { _b_fail = YES, _error_str = "Can't construct the generators." + _ERR_33_01 ; }
+               else { _b_fail = YES, _error_str = "Fail to construct the generators." + _ERR_33_01 ; }
                break ;
                case "init":
                if ( circles_lib_gens_model_exists() )
@@ -549,7 +549,7 @@ function circles_terminal_cmd_gen()
                        _msg = _b_go ? "All gens have been correctly registered into the figures list" : "Warning! Not all gens have been registered into the figures list" ;
     							 circles_lib_output( _out_channel, _b_go ? DISPATCH_SUCCESS : DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
                 }
-                else { _b_fail = YES, _error_str = "Can't register as figures: the input items list is empty" ; }
+                else { _b_fail = YES, _error_str = "Fail to register as figures: the input items list is empty" ; }
             }
          }
     }

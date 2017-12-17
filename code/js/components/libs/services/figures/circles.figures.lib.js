@@ -216,9 +216,9 @@ function circles_lib_figures_action( _out_channel = OUTPUT_SCREEN, _action = "",
 
             if ( _refresh ) circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
         }
-        else { _b_fail = YES ; _error_str = "Can't "+_action+": the list of figures is empty" ; }
+        else { _b_fail = YES ; _error_str = "Fail to "+_action+": the list of figures is empty" ; }
     }
-    else { _b_fail = YES ; _error_str = "Can't "+_action+": missing index to candidate item" ; }
+    else { _b_fail = YES ; _error_str = "Fail to "+_action+": missing index to candidate item" ; }
 
     if ( _refresh ) circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
     return [ _b_fail, _error_str ] ;

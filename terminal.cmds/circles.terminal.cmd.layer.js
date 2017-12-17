@@ -687,7 +687,7 @@ function circles_terminal_cmd_layer()
                 else _side = Math.max( _w, _h );
 
                 var _ret_layer = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _role_def, _out_channel );
-                if ( _ret_layer == null ) { _b_fail = YES ; _error_str = "Can't display thumbnail: incorrect layer reference" ; }
+                if ( _ret_layer == null ) { _b_fail = YES ; _error_str = "Fail to display thumbnail: incorrect layer reference" ; }
                 else
                 {
                     var _src_canvas_id = _ret_layer.get_idcanvas() ;

@@ -131,8 +131,8 @@ function circles_terminal_cmd_normalize()
               {
                   case "show":
                   var _sel_n = safe_size( _symbols_array, 0 );
-                  if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_action+": the list of registered items is empty", _par_1, _cmd_tag );
-                  else if ( _sel_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_action+": missing input symbols", _par_1, _cmd_tag );
+                  if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to "+_action+": the list of registered items is empty", _par_1, _cmd_tag );
+                  else if ( _sel_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to "+_action+": missing input symbols", _par_1, _cmd_tag );
                   else
                   {
                        var ITEM = null, _out_str = "", _index = UNFOUND ;
@@ -190,8 +190,8 @@ function circles_terminal_cmd_normalize()
                   break ;
                   case "compute":
                   var _sel_n = safe_size( _symbols_array, 0 );
-                  if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_action+": the list of registered items is empty", _par_1, _cmd_tag );
-                  else if ( _sel_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Can't "+_action+": missing input symbols", _par_1, _cmd_tag );
+                  if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to "+_action+": the list of registered items is empty", _par_1, _cmd_tag );
+                  else if ( _sel_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to "+_action+": missing input symbols", _par_1, _cmd_tag );
                   else
                   {
                        var _prompt_question = "Confirm to normalize "+( ( _sel_n == 1 && _all == 0 ) ? "this map" : ( ( _all ) ? "all maps" : "these maps" ) )+"? " ;

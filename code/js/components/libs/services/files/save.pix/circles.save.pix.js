@@ -20,7 +20,7 @@ function circles_lib_files_pix_save( _plane_type, _canvas_id = "", _filename = "
     }
     else
     {
-        var _msg = "Can't save this pix: a layer must be chosen first" ;
+        var _msg = "Fail to save this pix: a layer must be chosen first" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ];
     }
@@ -61,7 +61,7 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas_id = "", _filename
         else if ( _is_ps ) _FMT = "PS" ;
         else if ( _is_eps ) _FMT = "EPS" ;
         else if ( _is_pdf ) _FMT = "PDF" ;
-        var _msg = "Can't export to "+_FMT+" format: data are empty." ;
+        var _msg = "Fail to export to "+_FMT+" format: data are empty." ;
             _msg += _glob_crlf + "Please, rendering the picture again." ;
         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
@@ -201,13 +201,13 @@ function circles_lib_files_pix_save_set_canvas( _plane_type, _role_index, _silen
     var _role_ref = safe_float( _plane_type + "." + _role_index, ROLE_NONE );
     if ( _plane_type == NO_PLANE )
     {
-         var _msg = "Can't save the pix: missing layer ref" ;
+         var _msg = "Fail to save the pix: missing layer ref" ;
          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ];
     }
     else if ( _role_ref == ROLE_NONE )
     {
-         var _msg = "Can't save the pix: missing layer ref" ;
+         var _msg = "Fail to save the pix: missing layer ref" ;
          if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ];
     }

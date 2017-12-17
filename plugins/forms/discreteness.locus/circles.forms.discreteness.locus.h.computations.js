@@ -201,7 +201,7 @@ function CIRCLESformsDISCRETENESSLOCUScomputeCUSP()
                     circles_lib_log_add_entry( _msg, LOG_ERROR ) ;
                 }
 				}
-				else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't render the selected cusp: invalid input params", "CIRCLESformsDLOCUSoutMSG" ) ; 
+				else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to render the selected cusp: invalid input params", "CIRCLESformsDLOCUSoutMSG" ) ; 
     }
 }
 
@@ -342,9 +342,9 @@ function CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARY( _canvas, _screen_rect )
                 }
 		        }
 				}
-				else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't render the selected slice: invalid input params", "CIRCLESformsDLOCUSoutMSG" ) ;
+				else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to render the selected slice: invalid input params", "CIRCLESformsDLOCUSoutMSG" ) ;
     }
-    else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Can't compute the slice: fractions or params are not congruent.", "CIRCLESformsDLOCUSoutMSG" ) ;
+    else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, "Fail to compute the slice: fractions or params are not congruent.", "CIRCLESformsDLOCUSoutMSG" ) ;
 }
 
 function CIRCLESformsDISCRETENESSLOCUScomputeBOUNDARYend( _adapt_view )

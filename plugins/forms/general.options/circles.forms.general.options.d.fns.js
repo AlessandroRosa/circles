@@ -629,7 +629,7 @@ function CIRCLESformsGENERALOPTIONSdisksfillOPTIONSask( _question, _silent, _out
     }
     else
     {
-       var _msg = "Can't perform this operation."+_glob_crlf+"No items have been registered yet" ;
+       var _msg = "Fail to perform this operation."+_glob_crlf+"No items have been registered yet" ;
        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title ) ;
        return [ RET_ERROR, _msg ] ;
     }
@@ -678,7 +678,7 @@ function CIRCLESformsGENERALOPTIONSdisksdrawOPTIONSask( _question, _silent, _out
     }
     else
     {
-       var _msg = "Can't perform this operation."+_glob_crlf+"No items have been registered yet" ;
+       var _msg = "Fail to perform this operation."+_glob_crlf+"No items have been registered yet" ;
        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title ) ;
        return [ RET_ERROR, _msg ] ;
     }

@@ -95,8 +95,8 @@ function CIRCLESformsMETHODfixedpointsCOMMUTATORS( _question, _silent, _out_chan
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_array = _glob_seeds_array, _items_n = circles_lib_count_items( _items_array ) ;
     var _fp_n = circles_lib_count_fixed_points();
-    if ( _items_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't retrieve the commutators list: missing gens", _glob_app_title );
-    else if ( safe_size( _glob_alphabet ) == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't retrieve the commutators list: no alphabet available", _glob_app_title );
+    if ( _items_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to retrieve the commutators list: missing gens", _glob_app_title );
+    else if ( safe_size( _glob_alphabet ) == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to retrieve the commutators list: no alphabet available", _glob_app_title );
     else
     {
        var _b_go = _fp_n > 0 && _question ? confirm( "The commutators words list will overwrite current settings. Confirm ?" ) : YES ;
@@ -178,8 +178,8 @@ function CIRCLESformsMETHODfixedpointsDELETE( _index, _question, _silent, _out_c
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _fp_n = circles_lib_count_fixed_points();
-    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't delete: the list of input fixed points is already empty", _glob_app_title );
-    else if ( _index == UNDET ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't delete: invalid entry reference", _glob_app_title );
+    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to delete: the list of input fixed points is already empty", _glob_app_title );
+    else if ( _index == UNDET ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to delete: invalid entry reference", _glob_app_title );
     else
     {
         var _word = _glob_input_fixed_pts_array[_index][0] ;
@@ -226,7 +226,7 @@ function CIRCLESformsMETHODfixedpointsDELETEfixedPTS( _type, _question, _silent,
     _type = safe_int( _type, FIXEDPOINT_SINK ), _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _def = circles_lib_fixedpoints_get_def(_type), _fp_n = circles_lib_count_fixed_points();
-    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't remove "+_def+" fixed points: the list is currently empty.", _glob_app_title );
+    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to remove "+_def+" fixed points: the list is currently empty.", _glob_app_title );
     else
     {
         var _msg = "Do you confirm to remove "+_def+" fixed points from this list and keep up all others ?" ;
@@ -264,7 +264,7 @@ function CIRCLESformsMETHODfixedpointsKEEPfixedPTS( _type, _question, _silent, _
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _def = circles_lib_fixedpoints_get_def(_type);
     var _fp_n = circles_lib_count_fixed_points();
-    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Can't keep "+_def+" fixed points: the list is currently empty.", _glob_app_title );
+    if ( _fp_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Fail to keep "+_def+" fixed points: the list is currently empty.", _glob_app_title );
     else
     {
          var _msg = "Do you confirm to keep all "+_def+" fixed points in this list and remove all others ?" ;
