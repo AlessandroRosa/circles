@@ -27,11 +27,9 @@ function circles_terminal_cmd_circle()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
 
-    	var _local_cmds_params_array = [];
-    		_local_cmds_params_array.push( "draw", "bordercolor", "fill", "fillcolor", "opacity", "radius",
-						 				   "wplane", "zplane", "bip", "rec", "thick", "release", "html" );
+    	var _local_cmds_params_array = [ "draw", "bordercolor", "fill", "fillcolor", "opacity", "radius",
+						 				 "wplane", "zplane", "bip", "rec", "thick", "release", "html" ];
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
-
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 		_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
 		_cmd_params['dump_operator_index'] = _dump_operator_index ;
@@ -56,6 +54,7 @@ function circles_terminal_cmd_circle()
         _cmd_params['sector_end'] = CIRCLES_TWO_PI ;
         _cmd_params['storagequeue'] = [] ;
         _cmd_params['storagesubset'] = "circles" ;
+		_cmd_params['word'] = "" ;
         var _p,  _b_cmd_open = NO ;
         // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
         var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
@@ -114,7 +113,7 @@ function circles_terminal_cmd_circle()
 				}
 				else { _b_fail = YES ; _error_str = "Bad circle sector format: '"+_p+"'" ; break ; }
 			}
-			else if ( _p.toLowerCase().start_with( "layer:" ) && _cmd_params['layer'] == null )
+			else if ( _p.toLowerCase().start_with( "layer:" ) )
 			{
 				_cmd_params['layer'] = safe_string( _p.replace( /layer:/gi, "" ), "" ) ;
 				_msg = "<lightblue>Layer has been set to</lightblue> <snow>"+_cmd_params['layer']+"</snow>" ;
@@ -219,18 +218,9 @@ function circles_terminal_cmd_circle()
                       if ( _glob_verbose && _glob_terminal_echo_flag )
                       circles_lib_output( _out_channel, DISPATCH_INFO, "'Label' param has been skipped because this circle is not going to be recorded", _par_1, _cmd_tag );
                    }
-                   else if ( _cmd_params['plane'] == NO_PLANE )
-                   {
-                      _b_fail = YES ; _error_str = "Fail to plot the circle: missing plane reference" ; 
-                   }
-                   else if ( !is_point( _cmd_params['center'] ) && !_cmd_params['compute'] )
-                   {
-                      _b_fail = YES ; _error_str = "Fail to plot the circle: missing center coords" ;
-                   }
-                   else if ( _cmd_params['radius'] == null && !_cmd_params['compute'] )
-                   {
-                      _b_fail = YES ; _error_str = "Fail to plot the circle: missing radius" ;
-                   }
+                   else if ( _cmd_params['plane'] == NO_PLANE ) { _b_fail = YES ; _error_str = "Fail to plot the circle: missing plane reference" ;  }
+                   else if ( !is_point( _cmd_params['center'] ) && !_cmd_params['compute'] ) { _b_fail = YES ; _error_str = "Fail to plot the circle: missing center coords" ; }
+                   else if ( _cmd_params['radius'] == null && !_cmd_params['compute'] ) { _b_fail = YES ; _error_str = "Fail to plot the circle: missing radius" ; }
           
                    // beware of some missing color param, so let's check'em deeper
                    if ( _cmd_params['bordercolor'] == null && _cmd_params['fillcolor'] == null )

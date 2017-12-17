@@ -7,12 +7,6 @@
 <lightblue>keepcmd farey</lightblue>
 <cadetblue>fix 'plugin' command for next use</cadetblue>
 
-<lightblue>keepcmd popup open forms</lightblue>
-<cadetblue>compound version with add params</cadetblue>
-<lightgray>if a sequence of params is much used, you can keep it too as a single cmd through this compound variation</lightgray>
-<lightgray>acting as a shortcut<./lightgray>
-<lightgray>After setting it on, try to input 'general.options' or 'coordinates'</lightgray>
-
 <lightblue>keepcmd off</lightblue>
 <cadetblue>toggles the fixed command off</cadetblue>
 

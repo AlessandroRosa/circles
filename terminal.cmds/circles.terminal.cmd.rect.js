@@ -27,7 +27,7 @@ function circles_terminal_cmd_rect()
         _cmd_params['help'] = NO ;
         _cmd_params['keywords'] = NO ;
         _cmd_params['label'] = "" ;
-		_cmd_params['layerdef'] = "work" ;
+		_cmd_params['layer'] = "work" ;
         _cmd_params['plane'] = Z_PLANE ;
         _cmd_params['syntax'] = [] ;
         _cmd_params['syntax']['inequality'] = [] ;
@@ -141,14 +141,14 @@ function circles_terminal_cmd_rect()
 					default: break ;
 				}
 			}
-            else if ( _p.toLowerCase().start_with( "layer:" ) && _cmd_params['layer'] == null )
+            else if ( _p.toLowerCase().start_with( "layer:" ) )
             {
 				if ( _cmd_params['plane'] == null ) { _b_fail = 1 ; _error_str = "Layer argument shall be preceeded by plane definition" ; }
 				else
 				{
-					_cmd_params['layerdef'] = safe_string( _p.replace( /layer:/gi, "" ), "" ) ; ;
-					var _layer = _cmd_params['layer'] = circles_lib_canvas_layer_find( _cmd_params['plane'], FIND_LAYER_BY_ROLE_DEF, _cmd_params['layerdef'] ) ;
-					if ( is_html_canvas( _layer ) ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Selected</lime> <snow>"+_cmd_params['layerdef']+" layer</snow> <lime>for rect rendering</lime>", _par_1, _cmd_tag );
+					_cmd_params['layer'] = safe_string( _p.replace( /layer:/gi, "" ), "" ) ; ;
+					var _layer = _cmd_params['layer'] = circles_lib_canvas_layer_find( _cmd_params['plane'], FIND_LAYER_BY_ROLE_DEF, _cmd_params['layer'] ) ;
+					if ( is_html_canvas( _layer ) ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Selected</lime> <snow>"+_cmd_params['layer']+" layer</snow> <lime>for rect rendering</lime>", _par_1, _cmd_tag );
 					else { _b_fail = 1 ; _error_str = "Invalid layer '"+_p+"' definition: check the correct spelling or the belonging to the proper plane" ; }
 				}
             }
@@ -450,7 +450,7 @@ function circles_terminal_cmd_rect()
                 if ( _plane_type == Z_PLANE )
                 {
 					_plane_rect = zplane_sm.get_coords_rect();
-					var _layer_def = _cmd_params['layerdef'] ;
+					var _layer_def = _cmd_params['layer'] ;
 					var _layer = _cmd_params['layer'] = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _layer_def ) ;
 					if ( is_html_canvas( _layer ) ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Selected</lime> <snow>"+_layer_def+" layer</snow> <lime>for rect rendering</lime>", _par_1, _cmd_tag );
 					else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid layer '"+_layer_def+"' definition: check the correct spelling or the belonging to the proper plane\nRectangle will be draw on the 'work' layer of the Z-plane", _par_1, _cmd_tag );
@@ -461,7 +461,7 @@ function circles_terminal_cmd_rect()
                 else if ( _plane_type == W_PLANE )
                 {
 					_plane_rect = wplane_sm.get_coords_rect();
-					var _layer_def = _cmd_params['layerdef'] ;
+					var _layer_def = _cmd_params['layer'] ;
 					var _layer = _cmd_params['layer'] = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _layer_def ) ;
 					if ( is_html_canvas( _layer ) ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Selected</lime> <snow>"+_layer_def+" layer</snow> <lime>for rect rendering</lime>", _par_1, _cmd_tag );
 					else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid layer '"+_layer_def+"' definition: check the correct spelling or the belonging to the proper plane\nRectangle will be draw on the 'work' layer of the W-plane", _par_1, _cmd_tag );
@@ -514,7 +514,7 @@ function circles_terminal_cmd_rect()
 						_rec_chunk['fill'] = _fill ;
 						_rec_chunk['fillcolor'] = _fillcolor ;
 						_rec_chunk['label'] = _cmd_params['label'] ;
-						_rec_chunk['layer'] = _cmd_params['layerdef'] ;
+						_rec_chunk['layer'] = _cmd_params['layer'] ;
 						_rec_chunk['bordersize'] = _bordersize ;
 						_rec_chunk['myhash'] = "rec" + _glob_figures_array.length ;
 						_rec_chunk['obj'] = _rect_obj ;

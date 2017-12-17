@@ -88,7 +88,7 @@ function circles_terminal_cmd_point()
                   else if ( _p.stricmp( "wplane" ) ) _cmd_params['plane'] = W_PLANE ;
                   else if ( _p.stricmp( "bip" ) ) _cmd_params['plane'] = BIP_BOX ;
              }
-			else if ( _p.toLowerCase().start_with( "layer:" ) && _cmd_params['layer'] == null )
+			else if ( _p.toLowerCase().start_with( "layer:" ) )
 			{
 				_cmd_params['layer'] = safe_string( _p.replace( /layer:/gi, "" ), "" ) ;
 				_msg = "<lightblue>Layer has been set to</lightblue> <snow>"+_cmd_params['layer']+"</snow>" ;

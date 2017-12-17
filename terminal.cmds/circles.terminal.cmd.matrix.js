@@ -1,73 +1,71 @@
 function circles_terminal_cmd_matrix()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _out_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _help = NO ;
-     var _cmd_params = [];
-     var _sd_n = circles_lib_count_seeds();
-     var _begin_flag = 0 ;
-     var _fn_ret_val = null ;
-     var _zero = new complex( 0, 0 ), _unit_real = new complex( 1, 0 ), _unit_imag = new complex( 0, 1 );
+	var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _cmd_params = [];
+    var _sd_n = circles_lib_count_seeds();
+    var _begin_flag = 0 ;
+    var _fn_ret_val = null ;
+    var _zero = new complex( 0, 0 ), _unit_real = new complex( 1, 0 ), _unit_imag = new complex( 0, 1 );
 
-     _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
-     _cmd_params['help'] = NO ;
-     _cmd_params['keywords'] = NO ;
-     _cmd_params['all'] = NO ;
-     _cmd_params['silent'] = NO ;
-     _cmd_params['action'] = "" ;
-     _cmd_params['inputs'] = [] ;
-     _cmd_params['complex'] = [] ;
-     _cmd_params['symbols'] = [] ;
-     _cmd_params['maps'] = [] ;
-     _cmd_params['service'] = [] ;
-     _cmd_params['roundto'] = _glob_accuracy ;
+    _cmd_params['action'] = "" ;
+    _cmd_params['all'] = NO ;
+    _cmd_params['complex'] = [] ;
+    _cmd_params['keywords'] = NO ;
+    _cmd_params['help'] = NO ;
+    _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+    _cmd_params['inputs'] = [] ;
+    _cmd_params['maps'] = [] ;
+    _cmd_params['roundto'] = _glob_accuracy ;
+    _cmd_params['service'] = [] ;
+    _cmd_params['silent'] = NO ;
+    _cmd_params['symbols'] = [] ;
+    _cmd_params['target'] = "seeds" ;
 
-     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _params.length > 0 )
-     {
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "add", "adjoint", "check", "conjugate", "determinant", "sub", "inverse",
-                                            "negative", "normalize", "sub", "prod", "pull", "trace", "transpose",
-                                            "html", "help"
-																					);
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+    if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    if ( _params.length > 0 )
+    {
+        var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
+        // pre-scan for levenshtein correction
+  		var _local_cmds_params_array = [ "add", "adjoint", "check", "conjugate", "determinant", "sub", "inverse",
+                                         "negative", "normalize", "sub", "prod", "pull", "trace", "transpose", "html", "help" ];
+        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
 
-				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-				 _cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-				 _cmd_params['dump_operator_index'] = _dump_operator_index ;
-				 _cmd_params['dump_array'] = [];
+		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
+		_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+		_cmd_params['dump_operator_index'] = _dump_operator_index ;
+		_cmd_params['dump_array'] = [];
 
-				 // gather all dump parameters into one array
-         if ( _cmd_params['dump'] )
-         {
-    				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-    				 if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
-         }
+		// gather all dump parameters into one array
+        if ( _cmd_params['dump'] )
+        {
+    		for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+    		if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
+        }
 
-         var _p ;
-         // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
-         var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
-         for( var _i = 0 ; _i < _up_to_index ; _i++ )
-         {
+        var _p ;
+        // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
+        var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
+        for( var _i = 0 ; _i < _up_to_index ; _i++ )
+        {
               _p = _params_array[_i] ;
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
+              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+              else if ( _p.is_one_of_i( "seeds", "generators" ) ) _cmd_params['target'] = _p.toLowerCase() ;
               else if ( _p.toLowerCase().start_with( "roundto:" ) )
               {
                  _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
@@ -103,28 +101,28 @@ function circles_terminal_cmd_matrix()
                   }
               }
               else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
-         }
+        }
 
-         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
-         else if ( _cmd_params['keywords'] )
-         {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
-             else
-             {
-                 _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-             }
-         }
-         else if ( !_b_fail )
-         {
-           if ( _cmd_params['all'] ) _cmd_params['symbols'] = circles_lib_alphabet_get();
-           var _round_to = _cmd_params['roundto'] ;
-           var _action = _cmd_params['action'] ;
-           var _symbols_n = safe_size( _cmd_params['symbols'], 0 );
-           var _complex_n = safe_size( _cmd_params['complex'], 0 );
-           switch( _action )
-           {
+        if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
+        else if ( _cmd_params['keywords'] )
+        {
+            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+            else
+            {
+                _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
+                circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+            }
+        }
+        else if ( !_b_fail )
+        {
+            if ( _cmd_params['all'] ) _cmd_params['symbols'] = circles_lib_alphabet_get();
+            var _round_to = _cmd_params['roundto'], _action = _cmd_params['action'] ;
+            var _symbols_n = safe_size( _cmd_params['symbols'], 0 );
+            var _complex_n = safe_size( _cmd_params['complex'], 0 );
+			var _target_array = _cmd_params['target'] == "seeds" ? _glob_seeds_array : _glob_gens_array ;
+            switch( _action )
+            {
                 case "release":
                 circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
@@ -151,9 +149,7 @@ function circles_terminal_cmd_matrix()
                     if ( _complex_n > 0 ) _merge_array = _merge_array.concat( _cmd_params['complex'] );
 
                     var _item_obj,_mm_params, _ret_action_label, _rows, _matrix, _ret_matrix, _dump_symbol ;
-                    $.each( _merge_array,
-                            function( _i, _input )
-                            {
+                    $.each( _merge_array, function( _i, _input ) {
                                 if ( is_array( _input ) )
                                 {
                                      _mm_params = _input.clone();
@@ -162,7 +158,7 @@ function circles_terminal_cmd_matrix()
                                 }
                                 else if ( is_string( _input ) )
                                 {
-                                    _item_obj = circles_lib_find_item_obj_by_symbol( _glob_seeds_array, _input );
+                                    _item_obj = circles_lib_find_item_obj_by_symbol( _target_array, _input );
                                     _mm_params = is_item_obj( _item_obj ) ? _item_obj.map.get_params() : null ;
                                     _dump_symbol = ( _cmd_params['all'] ) ? _input : _cmd_params['dump_array'][_i] ;
                                 }
@@ -208,7 +204,7 @@ function circles_terminal_cmd_matrix()
                                         _ret_action_label = "Transpose" ;
                                         _ret_matrix = _matrix.get_transpose_matrix();
                                         break ;
-																        default: break ;
+										default: break ;
                                     }
 
                                     circles_lib_output( _out_channel, DISPATCH_WARNING, _ret_action_label+" of entry #"+(_i+1) + " is " + _glob_crlf + _ret_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
@@ -221,11 +217,11 @@ function circles_terminal_cmd_matrix()
                                              {
                                                   if ( safe_size( _dump_symbol, 0 ) == 1 )
                                                   {
-                                                       var _mm_index = circles_lib_find_item_index_by_symbol( _glob_seeds_array, _dump_symbol );
+                                                       var _mm_index = circles_lib_find_item_index_by_symbol( _target_array, _dump_symbol );
                                                        var _elements_init = _glob_init_mask & INIT_SINGLE_ITEMS ? INIT_SINGLE_ITEMS : INIT_PAIRED_ITEMS ;
                                                        if ( _mm_index != UNFOUND )
                                                        {
-                                                            _glob_seeds_array[_mm_index].map.set_params( _ret_matrix.array() );
+                                                            _target_array[_mm_index].map.set_params( _ret_matrix.array() );
                                                             _glob_items_to_init = YES, _glob_init_mask = INIT_FROM_MAPS | _elements_init ;
                                                             circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_echo_flag, _out_channel );
                                                             var _ret_chunk = circles_lib_items_init( null, NO, NO, _glob_init_mask, NO, NO, _out_channel );
@@ -275,7 +271,7 @@ function circles_terminal_cmd_matrix()
                         case "sub": _action_str = "difference" ; break ;
                         case "prod": _action_str = "product" ; break ;
                         case "div": _action_str = "division" ; break ;
-								        default: break ;
+						default: break ;
                     }
 
                     var _merge_array = [];
@@ -284,35 +280,33 @@ function circles_terminal_cmd_matrix()
 
                     var _item_obj,_mm_params, _rows, _matrix, _original_str, _tmp ;
                     // starting from neutral element (identity)
-                    $.each( _merge_array,
-                            function( _i, _input )
-                            {
+                    $.each( _merge_array, function( _i, _input ) {
                                   _original_str = _input ;
                                   _tmp = parse_complex_from_string( circles_lib_math_parse_formula( _input ) );
                                   if ( is_complex( _tmp ) )
                                   {
-                                       switch( _action )
-                                       {
-                                           case "add":
-                                           _tmp_matrix.set_params( [ _tmp, _zero, _zero, _zero ] )
-                                           if ( _i > 0 ) _ret_matrix = _ret_matrix.add( _tmp_matrix );
-                                           else _ret_matrix = _tmp_matrix.copy();
-                                           break ;
-                                           case "sub":
-                                           _tmp_matrix.set_params( [ _tmp, _zero, _zero, _zero ] )
-                                           if ( _i > 0 ) _ret_matrix = _ret_matrix.sub( _tmp_matrix );
-                                           else _ret_matrix = _tmp_matrix.copy();
-                                           break ;
-                                           case "prod":
-                                           if ( _i > 0 ) _ret_matrix = _ret_matrix.mul_scalar( _tmp );
-                                           else _ret_matrix = _tmp_matrix.copy();
-                                           break ;
-                                           case "div":
-                                           if ( _i > 0 ) _ret_matrix = _ret_matrix.div_scalar( _tmp );
-                                           else _ret_matrix = _tmp_matrix.copy();
-                                           break ;
-																	         default: break ;
-                                       }
+                                        switch( _action )
+                                        {
+                                            case "add":
+                                            _tmp_matrix.set_params( [ _tmp, _zero, _zero, _zero ] )
+                                            if ( _i > 0 ) _ret_matrix = _ret_matrix.add( _tmp_matrix );
+                                            else _ret_matrix = _tmp_matrix.copy();
+                                            break ;
+                                            case "sub":
+                                            _tmp_matrix.set_params( [ _tmp, _zero, _zero, _zero ] )
+                                            if ( _i > 0 ) _ret_matrix = _ret_matrix.sub( _tmp_matrix );
+                                            else _ret_matrix = _tmp_matrix.copy();
+                                            break ;
+                                            case "prod":
+                                            if ( _i > 0 ) _ret_matrix = _ret_matrix.mul_scalar( _tmp );
+                                            else _ret_matrix = _tmp_matrix.copy();
+                                            break ;
+                                            case "div":
+                                            if ( _i > 0 ) _ret_matrix = _ret_matrix.div_scalar( _tmp );
+                                            else _ret_matrix = _tmp_matrix.copy();
+                                            break ;
+											default: break ;
+                                        }
 
                                        if ( _i > 0 )
                                        circles_lib_output( _out_channel, DISPATCH_INFO, "Performing scalar "+_action_str+" by '"+_original_str+"'", _par_1, _cmd_tag );
@@ -326,7 +320,7 @@ function circles_terminal_cmd_matrix()
                                       }
                                       else
                                       {
-                                          _item_obj = circles_lib_find_item_obj_by_symbol( _glob_seeds_array, _input );
+                                          _item_obj = circles_lib_find_item_obj_by_symbol( _target_array, _input );
                                           _mm_params = is_mobius_map( _item_obj ) ? _item_obj.map.get_params() : null ;
                                       }
 
@@ -354,7 +348,7 @@ function circles_terminal_cmd_matrix()
                                               if ( _i > 0 ) _ret_matrix = _ret_matrix.mul( _matrix.inv() );
                                               else _ret_matrix = _matrix.copy();
                                               break ;
-																			        default: break ;
+												default: break ;
                                           }
                                           
                                           if ( _i > 0 )
@@ -363,7 +357,7 @@ function circles_terminal_cmd_matrix()
                                       else circles_lib_output( _out_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
                                   }
                             }
-                          );
+                    );
 
                     if ( is_complex_matrix( _ret_matrix ) )
                     circles_lib_output( _out_channel, DISPATCH_INFO, "Result from matrix "+_action_str+" is " + _glob_crlf + _ret_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
@@ -388,11 +382,11 @@ function circles_terminal_cmd_matrix()
                               {
                                    if ( safe_size( _dump_symbol, 0 ) == 1 )
                                    {
-                                       var _mm_index = circles_lib_find_item_index_by_symbol( _glob_seeds_array, _dump_symbol );
+                                       var _mm_index = circles_lib_find_item_index_by_symbol( _target_array, _dump_symbol );
                                        var _elements_init = _glob_init_mask & INIT_SINGLE_ITEMS ? INIT_SINGLE_ITEMS : INIT_PAIRED_ITEMS ;
                                        if ( _mm_index != UNFOUND )
                                        {
-                                            _glob_seeds_array[_mm_index].map.set_params( _ret_matrix.array() );
+                                            _target_array[_mm_index].map.set_params( _ret_matrix.array() );
                                             _glob_items_to_init = YES, _glob_init_mask = INIT_FROM_MAPS | _elements_init ;
                                             circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _glob_terminal_echo_flag, _out_channel );
                                             var _ret_chunk = circles_lib_items_init( null, NO, NO, _glob_init_mask, NO, NO, _out_channel );
@@ -441,7 +435,7 @@ function circles_terminal_cmd_matrix()
                                }
                                else
                                {
-                                  _item_obj = circles_lib_find_item_obj_by_symbol( _glob_seeds_array, _input );
+                                  _item_obj = circles_lib_find_item_obj_by_symbol( _target_array, _input );
                                   _mm_params = is_mobius_map( _item_obj ) ? _item_obj.map.get_params() : null ;
                                }
 
@@ -480,7 +474,7 @@ function circles_terminal_cmd_matrix()
                                 }
                                 else
                                 {
-                                    _item_obj = circles_lib_find_item_obj_by_symbol( _glob_seeds_array, _input );
+                                    _item_obj = circles_lib_find_item_obj_by_symbol( _target_array, _input );
                                     _mm_params = is_mobius_map( _item_obj ) ? _item_obj.map.get_params() : null ;
                                 }
 
@@ -526,7 +520,7 @@ function circles_terminal_cmd_matrix()
                                }
                                else
                                {
-                                  _item_obj = circles_lib_find_item_obj_by_symbol( _glob_seeds_array, _input );
+                                  _item_obj = circles_lib_find_item_obj_by_symbol( _target_array, _input );
                                   _mm_params = is_mobius_map( _item_obj ) ? _item_obj.map.get_params() : null ;
                                }
 
@@ -545,14 +539,14 @@ function circles_terminal_cmd_matrix()
                 default:
                 _b_fail = YES, _error_str = _action.length > 0 ? "Unknown action '"+_action+"'" : "Missing input action specification" ;
                 break ;
-           }
-         }
-     }
-     else { _b_fail = YES, _error_str = "Missing input params" ; }
+            }
+        }
+    }
+    else { _b_fail = YES, _error_str = "Missing input params" ; }
 
-     if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+    if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
 
 function circles_terminal_cmd_matrix_check_str( _input_str, _input_matrix, _out_channel, _par_1 )

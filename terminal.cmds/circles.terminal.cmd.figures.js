@@ -95,8 +95,7 @@ function circles_terminal_cmd_figures()
 					_cmd_params['figures_ref'].push( _candidate_index );
 					if ( _cmd_params['action'] == "update" )
 					{
-						if ( !is_array( _cmd_params['update_props']['figures_ref'] ) )
-							_cmd_params['update_props']['figures_ref'] = [] ;
+						if ( !is_array( _cmd_params['update_props']['figures_ref'] ) ) _cmd_params['update_props']['figures_ref'] = [] ;
 						_cmd_params['update_props']['figures_ref'].push( _candidate_index );
 					}
 				}
@@ -350,7 +349,7 @@ function circles_terminal_cmd_figures()
 				{
                    	var _params_array = [], _pre_prompt = null ;
 					_params_array['prepromptquestion'] = null ;
-                   	_params_array['promptquestion'] = _prompt_question = "Confirm to delete all recorded figures ("+_n_figures+") ? " ;
+                   	_params_array['promptquestion'] = _prompt_question = "Confirm to delete ("+_n_figures+") all recorded figures (y|n) ? " ;
                    	_params_array['yes_fn'] = function() { _glob_figures_array = []; circles_lib_canvas_afterrender_figures_draw( null, YES, ALL_PLANES );
 						circles_lib_output( _out_channel, DISPATCH_SUCCESS, "All recorded figures have been deleted with success.", _par_1, _cmd_tag );
 					}
