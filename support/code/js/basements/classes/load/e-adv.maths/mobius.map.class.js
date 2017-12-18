@@ -65,7 +65,7 @@ var MOBIUS_MAP_ANTI_HOMOGRAPHY_MASK_DEN = 2 ;
 
 function mobius_map()
 {
-		this.customclass = arguments.callee.name ;
+	this.customclass = arguments.callee.name ;
     this.notes = "" ;
     this.anti_homography_mask = 0 ;
     this.accuracy = MOBIUS_MAP_MAX_ACCURACY ;
@@ -87,7 +87,7 @@ function mobius_map()
              a = arguments[0][0], b = arguments[0][1], c = arguments[0][2], d = arguments[0][3] ;
              if ( is_string( arguments[1] ) ) this.notes = arguments[1] ;
              this.anti_homography_mask = safe_int( arguments[2], 0 ) ;
-		         this.accuracy = Math.min( safe_int( Math.abs( arguments[3] ), MOBIUS_MAP_MAX_ACCURACY ), MOBIUS_MAP_MAX_ACCURACY ) ;
+		     this.accuracy = Math.min( safe_int( Math.abs( arguments[3] ), MOBIUS_MAP_MAX_ACCURACY ), MOBIUS_MAP_MAX_ACCURACY ) ;
           }
        }
        else

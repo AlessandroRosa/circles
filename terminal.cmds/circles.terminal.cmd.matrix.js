@@ -44,7 +44,6 @@ function circles_terminal_cmd_matrix()
   		var _local_cmds_params_array = [ "add", "adjoint", "check", "conjugate", "determinant", "sub", "inverse",
                                          "negative", "normalize", "sub", "prod", "pull", "trace", "transpose", "html", "help" ];
         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
-
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 		_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
 		_cmd_params['dump_operator_index'] = _dump_operator_index ;
@@ -62,12 +61,12 @@ function circles_terminal_cmd_matrix()
         var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
         for( var _i = 0 ; _i < _up_to_index ; _i++ )
         {
-              _p = _params_array[_i] ;
-              if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-              else if ( _p.is_one_of_i( "seeds", "generators" ) ) _cmd_params['target'] = _p.toLowerCase() ;
-              else if ( _p.toLowerCase().start_with( "roundto:" ) )
-              {
+            _p = _params_array[_i] ; console.log( _p );
+            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+            else if ( _p.is_one_of_i( "seeds", "generators" ) ) _cmd_params['target'] = _p.toLowerCase() ;
+            else if ( _p.toLowerCase().start_with( "roundto:" ) )
+            {
                  _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
                  if ( _p <= 0 )
                  {
@@ -81,27 +80,28 @@ function circles_terminal_cmd_matrix()
                  }
                    
                  _cmd_params['roundto'] = _p ;
-              }
-              else if ( _p.stricmp( "all" ) ) _cmd_params['all'] = YES ;
-              else if ( _p.stricmp( "silent" ) ) _cmd_params['silent'] = YES ;
-              else if ( _cmd_params['all'] && _p.stricmp( "dump" ) ) _cmd_params['dump'] = YES ;
-              else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-              else if ( _p.is_one_of_i( "adjoint", "check", "conjugate", "inverse", "negative", "normalize", "transpose",
-                                        "add", "prod", "sub", "div", "determinant", "trace", "power", "pull", "release" ) )
-                  _cmd_params['action'] = _p.toLowerCase();
-              else if ( _cmd_params['action'].is_one_of_i( "power" ) && _p.testME( _glob_integer_regex_pattern ) )
-                  _cmd_params['inputs'].push( _p );
-              else if ( _cmd_params['action'].is_one_of_i( "adjoint", "check", "conjugate", "inverse", "negative", "normalize", "transpose",
-                                                                   "add", "prod", "sub", "div",
-                                                                   "determinant", "trace", "power", "pull" ) )
-              {
-                  if( !circles_terminal_cmd_matrix_parse_str( _p, _cmd_params, _out_channel, _par_1 ) )
-                  {
-                      _b_fail = YES, _error_str = "Invalid input param '"+_p+"' for "+_cmd_params['action']+" action"  ; break ;
-                  }
-              }
-              else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
+            }
+            else if ( _p.is_one_of_i( "all", "html", "silent", "new" ) ||
+				 ( _cmd_params['all'] && _p.stricmp( "dump" ) ) ) _cmd_params[_p] = YES ;
+            else if ( _p.is_one_of_i( "adjoint", "check", "conjugate", "inverse", "negative", "normalize", "transpose",
+                                      "add", "prod", "sub", "div", "determinant", "trace", "power", "pull", "release" ) )
+                _cmd_params['action'] = _p.toLowerCase();
+            else if ( _cmd_params['action'].is_one_of_i( "power" ) && _p.testME( _glob_integer_regex_pattern ) )
+                _cmd_params['inputs'].push( _p );
+            else if ( _cmd_params['action'].is_one_of_i( "adjoint", "check", "conjugate", "inverse", "negative", "normalize", "transpose",
+                      "add", "prod", "sub", "div", "determinant", "trace", "power", "pull" ) )
+            {
+				console.log( _p );
+                if( !circles_terminal_cmd_matrix_parse_str( _p, _cmd_params, _out_channel, _cmd_tag, _par_1 ) )
+                {
+                    _b_fail = YES, _error_str = "Invalid input param '"+_p+"' for "+_cmd_params['action']+" action"  ; break ;
+                }
+				console.log( _p );
+            }
+            else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
+		
+		console.log( _cmd_params );
 
         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
         else if ( _cmd_params['keywords'] )
@@ -148,6 +148,7 @@ function circles_terminal_cmd_matrix()
                     if ( _symbols_n > 0 ) _merge_array = _merge_array.concat( _cmd_params['symbols'] );
                     if ( _complex_n > 0 ) _merge_array = _merge_array.concat( _cmd_params['complex'] );
 
+					console.log( _cmd_params['symbols'] );
                     var _item_obj,_mm_params, _ret_action_label, _rows, _matrix, _ret_matrix, _dump_symbol ;
                     $.each( _merge_array, function( _i, _input ) {
                                 if ( is_array( _input ) )
@@ -209,7 +210,23 @@ function circles_terminal_cmd_matrix()
 
                                     circles_lib_output( _out_channel, DISPATCH_WARNING, _ret_action_label+" of entry #"+(_i+1) + " is " + _glob_crlf + _ret_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
 
-                                    if ( _cmd_params['dump'] )
+									if ( _cmd_params['new'] && _ret_matrix instanceof complex_matrix )
+									{
+										var _target_array = _cmd_params['target'] == "seeds" ? _glob_seeds_array : _glob_gens_array ;
+										var _new_sym = circles_lib_alphabet_suggest_symbol(_target_array);
+										var _inv_sym = _new_sym.toLowerCase();
+										var _mm = new mobius_map( _ret_matrix.array() );
+										var _inv_mm = new mobius_map( _ret_matrix.inv().array() );
+										var _item = new item_obj( _mm, null, null, _new_sym, 0,
+																  YES, _glob_draw_seed_color, NO, "", _inv_sym, 1, ITEM_TYPE_MOBIUS ) ;
+										var _inv_item = new item_obj( _mm, null, null, _inv_sym, 0,
+																  YES, _glob_draw_inverse_seed_color, NO, "", _new_sym, 1, ITEM_TYPE_MOBIUS ) ;
+										_target_array.push( _item, _inv_item );
+										var _msg = "A new item has been added to "+_cmd_params['target']+", together with its inverse." ;
+										circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
+										circles_lib_colors_colorize_group(_target_array, YES, NO, _out_channel);
+								    }
+                                    else if ( _cmd_params['dump'] )
                                     {
                                         if ( _dump_symbol != null )
                                         {
@@ -233,10 +250,7 @@ function circles_terminal_cmd_matrix()
                                                                 $('[id$=renderBTN]').css('color',COLOR_ERROR) ;
                                                                 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Dumping "+_ret_action_label+" matrix into gen '"+_dump_symbol+"'", _par_1, _cmd_tag );
                                                             }
-                                                            else
-                                                            {
-                                                                _b_fail = YES, _error_str = _ret_msg ;
-                                                            }
+                                                            else { _fail = YES, _error_str = _ret_msg ; }
                                                        }
                                                        else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it does not refer to any registered map", _par_1, _cmd_tag );
                                                   }
@@ -281,12 +295,12 @@ function circles_terminal_cmd_matrix()
                     var _item_obj,_mm_params, _rows, _matrix, _original_str, _tmp ;
                     // starting from neutral element (identity)
                     $.each( _merge_array, function( _i, _input ) {
-                                  _original_str = _input ;
-                                  _tmp = parse_complex_from_string( circles_lib_math_parse_formula( _input ) );
-                                  if ( is_complex( _tmp ) )
-                                  {
-                                        switch( _action )
-                                        {
+                            _original_str = _input ;
+                            _tmp = parse_complex_from_string( circles_lib_math_parse_formula( _input ) );
+                            if ( is_complex( _tmp ) )
+                            {
+                                switch( _action )
+                                {
                                             case "add":
                                             _tmp_matrix.set_params( [ _tmp, _zero, _zero, _zero ] )
                                             if ( _i > 0 ) _ret_matrix = _ret_matrix.add( _tmp_matrix );
@@ -306,57 +320,57 @@ function circles_terminal_cmd_matrix()
                                             else _ret_matrix = _tmp_matrix.copy();
                                             break ;
 											default: break ;
-                                        }
+                                }
 
-                                       if ( _i > 0 )
-                                       circles_lib_output( _out_channel, DISPATCH_INFO, "Performing scalar "+_action_str+" by '"+_original_str+"'", _par_1, _cmd_tag );
-                                  }
-                                  else
-                                  {
-                                      if ( is_array( _input ) )
-                                      {
-                                          _mm_params = _input.clone();
-                                          _input = _input.work( function( _v ) { return _v.formula(YES,YES,_round_to); } );
-                                      }
-                                      else
-                                      {
-                                          _item_obj = circles_lib_find_item_obj_by_symbol( _target_array, _input );
-                                          _mm_params = is_mobius_map( _item_obj ) ? _item_obj.map.get_params() : null ;
-                                      }
-
-                                      if ( _mm_params != null )
-                                      {
-                                          _rows = Math.ceil( safe_size( _mm_params, 0 ) / 2 );
-                                          _matrix = new complex_matrix( _rows, _rows ); // square matrix
-                                          _matrix.set_params( _mm_params );
-                                          // perform matrix action here
-                                          switch( _action )
-                                          {
-                                              case "add":
-                                              if ( _i > 0 ) _ret_matrix = _ret_matrix.add( _matrix );
-                                              else _ret_matrix = _matrix.copy();
-                                              break ;
-                                              case "sub":
-                                              if ( _i > 0 ) _ret_matrix = _ret_matrix.sub( _matrix );
-                                              else _ret_matrix = _matrix.copy();
-                                              break ;
-                                              case "prod":
-                                              if ( _i > 0 ) _ret_matrix = _ret_matrix.mul( _matrix );
-                                              else _ret_matrix = _matrix.copy();
-                                              break ;
-                                              case "div":
-                                              if ( _i > 0 ) _ret_matrix = _ret_matrix.mul( _matrix.inv() );
-                                              else _ret_matrix = _matrix.copy();
-                                              break ;
-												default: break ;
-                                          }
-                                          
-                                          if ( _i > 0 )
-                                          circles_lib_output( _out_channel, DISPATCH_INFO, "Performing matrix "+_action_str, _par_1, _cmd_tag );
-                                      }
-                                      else circles_lib_output( _out_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
-                                  }
+                                if ( _i > 0 )
+                                circles_lib_output( _out_channel, DISPATCH_INFO, "Performing scalar "+_action_str+" by '"+_original_str+"'", _par_1, _cmd_tag );
                             }
+                            else
+                            {
+                                if ( is_array( _input ) )
+                                {
+                                    _mm_params = _input.clone();
+                                    _input = _input.work( function( _v ) { return _v.formula(YES,YES,_round_to); } );
+                                }
+                                else
+                                {
+                                    _item_obj = circles_lib_find_item_obj_by_symbol( _target_array, _input );
+                                    _mm_params = is_mobius_map( _item_obj ) ? _item_obj.map.get_params() : null ;
+                                }
+
+                                if ( _mm_params != null )
+                                {
+                                    _rows = Math.ceil( safe_size( _mm_params, 0 ) / 2 );
+                                    _matrix = new complex_matrix( _rows, _rows ); // square matrix
+                                    _matrix.set_params( _mm_params );
+                                    // perform matrix action here
+                                    switch( _action )
+                                    {
+                                        case "add":
+                                        if ( _i > 0 ) _ret_matrix = _ret_matrix.add( _matrix );
+                                        else _ret_matrix = _matrix.copy();
+                                        break ;
+                                        case "sub":
+                                        if ( _i > 0 ) _ret_matrix = _ret_matrix.sub( _matrix );
+                                        else _ret_matrix = _matrix.copy();
+                                        break ;
+                                        case "prod":
+                                        if ( _i > 0 ) _ret_matrix = _ret_matrix.mul( _matrix );
+                                        else _ret_matrix = _matrix.copy();
+                                        break ;
+                                        case "div":
+                                        if ( _i > 0 ) _ret_matrix = _ret_matrix.mul( _matrix.inv() );
+                                        else _ret_matrix = _matrix.copy();
+                                        break ;
+										default: break ;
+                                    }
+                                          
+                                    if ( _i > 0 )
+                                    circles_lib_output( _out_channel, DISPATCH_INFO, "Performing matrix "+_action_str, _par_1, _cmd_tag );
+                                }
+                                else circles_lib_output( _out_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
+                            }
+                        }
                     );
 
                     if ( is_complex_matrix( _ret_matrix ) )
@@ -368,16 +382,16 @@ function circles_terminal_cmd_matrix()
 
                     if ( _cmd_params['dump'] )
                     {
-                         var _dump_size = safe_size( _cmd_params['dump_array'], 0 );
-                         var _dump_symbol = ( _dump_size > 0 ) ? ( _dump_size == 1 ? _cmd_params['dump_array'][0] : UNDET ) : null ;
-                         if ( _dump_symbol == UNDET )
-                         {
-                             _dump_symbol = _cmd_params['dump_array'][0] ;
-                             circles_lib_output( _out_channel, DISPATCH_WARNING, "Only one destination symbol can be input, thus '"+_dump_symbol+"' is assumed", _par_1, _cmd_tag );
-                         }
+                        var _dump_size = safe_size( _cmd_params['dump_array'], 0 );
+                        var _dump_symbol = ( _dump_size > 0 ) ? ( _dump_size == 1 ? _cmd_params['dump_array'][0] : UNDET ) : null ;
+                        if ( _dump_symbol == UNDET )
+                        {
+                            _dump_symbol = _cmd_params['dump_array'][0] ;
+                            circles_lib_output( _out_channel, DISPATCH_WARNING, "Only one destination symbol can be input, thus '"+_dump_symbol+"' is assumed", _par_1, _cmd_tag );
+                        }
 
-                         if ( _dump_symbol != null )
-                         {
+                        if ( _dump_symbol != null )
+                        {
                               if ( is_string( _dump_symbol ) )
                               {
                                    if ( safe_size( _dump_symbol, 0 ) == 1 )
@@ -408,8 +422,8 @@ function circles_terminal_cmd_matrix()
                                    else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it must be one letter long", _par_1, _cmd_tag );
                               }
                               else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it must be of string type", _par_1, _cmd_tag );
-                         }
-                         else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing destination map tag", _par_1, _cmd_tag );
+                        }
+                        else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing destination map tag", _par_1, _cmd_tag );
                     }
                 }
                 break ;
@@ -425,8 +439,7 @@ function circles_terminal_cmd_matrix()
                     if ( _symbols_n > 0 ) _merge_array = _merge_array.concat( _cmd_params['symbols'] );
                     if ( _complex_n > 0 ) _merge_array = _merge_array.concat( _cmd_params['complex'] );
                     var _item_obj,_mm_params, _rows, _matrix, _det ;
-                    $.each( _merge_array,
-                            function( _i, _input )
+                    $.each( _merge_array, function( _i, _input )
                             {
                                if ( is_array( _input ) )
                                {
@@ -447,8 +460,7 @@ function circles_terminal_cmd_matrix()
                                   circles_terminal_cmd_matrix_check_str( _input, _matrix, _out_channel, _par_1, _cmd_tag );
                                }
                                else circles_lib_output( _out_channel, DISPATCH_WARNING, "Symbol '"+_input+"' does not refer to any registered map", _par_1, _cmd_tag );
-                            }
-                          );
+                            } );
                 }
                 break ;
                 case "determinant":
@@ -464,8 +476,7 @@ function circles_terminal_cmd_matrix()
                     if ( _symbols_n > 0 ) _merge_array = _merge_array.concat( _cmd_params['symbols'] );
                     if ( _complex_n > 0 ) _merge_array = _merge_array.concat( _cmd_params['complex'] );
                     var _item_obj,_mm_params, _ret_mm, _rows, _matrix, _ret_value ;
-                    $.each( _merge_array,
-                            function( _i, _input )
+                    $.each( _merge_array, function( _i, _input )
                             {
                                 if ( is_array( _input ) )
                                 {
@@ -510,8 +521,7 @@ function circles_terminal_cmd_matrix()
                     if ( _complex_n > 0 ) _merge_array = _merge_array.concat( _cmd_params['complex'] );
 
                     var _item_obj,_mm_params, _rows, _matrix ;
-                    $.each( _merge_array,
-                            function( _i, _input )
+                    $.each( _merge_array, function( _i, _input )
                             {
                                if ( is_array( _input ) )
                                {
@@ -576,7 +586,7 @@ function circles_terminal_cmd_matrix_check_str( _input_str, _input_matrix, _out_
      else circles_lib_output( _out_channel, DISPATCH_WARNING, "Found invalid input matrix '"+_input_str+"' to check", _par_1, _cmd_tag );
 }
 
-function circles_terminal_cmd_matrix_parse_str( _input_str, _cmd_params, _out_channel, _par_1 )
+function circles_terminal_cmd_matrix_parse_str( _input_str = "", _cmd_params = [], _out_channel = OUTPUT_TERMINAL, _cmd_tag = "", _par_1 = 0 )
 {
     if ( _input_str.testME( _glob_complex_number_regex_pattern ) ||
          is_complex( _tmp = parse_complex_from_string( circles_lib_math_parse_formula( _input_str ) ) ) )

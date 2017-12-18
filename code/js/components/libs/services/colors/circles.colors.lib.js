@@ -141,9 +141,9 @@ function circles_lib_colors_colorize_group( _items_array = _glob_seeds_array, _u
                 if ( _item.screen_circle.fill ) _items_array[_i].screen_circle.cillcolor = _color ;
         } );
 
-        if ( _update ) circles_lib_canvas_process_ask(NO,YES,Z_PLANE,YES,YES,CHECK);
+        if ( _update ) circles_lib_canvas_process_ask(NO,_silent,Z_PLANE,YES,YES,CHECK,[],_out_channel);
         var _msg = "All group entries have been colorized with success" ;
-        if ( !_silent && _out_channel != OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
+        if ( !_silent ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _glob_app_title );
         return [ RET_OK, _msg ] ;
     }
 }

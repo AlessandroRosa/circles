@@ -6,7 +6,7 @@
 
 <lightblue>action #1</lightblue> <snow>adjoint | conjugate | inverse | negative | transpose | power</snow>
 <lightblue>action #2</lightblue> <snow>check | determinant | diff | div | prod | add | trace | pull</snow>
-<lightblue>params</lightblue> <snow>all | dump | silent</snow>
+<lightblue>params</lightblue> <snow>all | copy | silent</snow>
 
 <lightblue>matrix release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>
@@ -22,8 +22,8 @@
 <cadetblue>matrix check a</cadetblue> <snow>perform some test to matrix 'a' for detecting the related family</snow>
 
 <yellow>------------- DUMPING ----------------</yellow>
-<cadetblue>matrix conjugate b -> B</cadetblue> <snow>compute conjugate matrix related to map 'a' and dump it into 'B'</snow>
-<cadetblue>matrix transpose a -> a</cadetblue> <snow>compute transpose matrix related to map 'a' and dump it into 'a' again</snow>
-<cadetblue>matrix transpose all dump</cadetblue> <snow>compute transpose matrix of each group element and dump it into itself</snow>
+<cadetblue>matrix conjugate b -> B</cadetblue> <snow>compute conjugate matrix related to map 'a' and copy it into 'B'</snow>
+<cadetblue>matrix transpose a -> a</cadetblue> <snow>compute transpose matrix related to map 'a' and copy it into 'a' again</snow>
+<cadetblue>matrix transpose all copy</cadetblue> <snow>compute transpose matrix of each group element and copy it into itself</snow>
 
 <lightgray>Note: use 'roundto:n' for rounding decimals to 10E-n</lightgray>
