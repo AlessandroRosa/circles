@@ -7,6 +7,7 @@
 <lightblue>action #1</lightblue> <snow>adjoint | conjugate | inverse | negative | transpose | power</snow>
 <lightblue>action #2</lightblue> <snow>check | determinant | diff | div | prod | add | trace | pull</snow>
 <lightblue>params</lightblue> <snow>all | copy | silent</snow>
+<lightblue>maps</lightblue> <snow>seeds | generators</snow>
 
 <lightblue>matrix release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>
@@ -20,6 +21,9 @@
 <cadetblue>matrix add B 2+i</cadetblue> <snow>show resulting matrix coming from the sum of 'B' plus '2+i'</snow>
 <cadetblue>matrix power a 2</cadetblue> <snow>show resulting matrix coming from raising matrix 'a' to 2</snow>
 <cadetblue>matrix check a</cadetblue> <snow>perform some test to matrix 'a' for detecting the related family</snow>
+
+<cadetblue>matrix conjugate a new generators</cadetblue>
+<snow>calculate the conjugate matrix related to map 'a' and build up a new group item, together with its inverse</snow>
 
 <yellow>------------- DUMPING ----------------</yellow>
 <cadetblue>matrix conjugate b -> B</cadetblue> <snow>compute conjugate matrix related to map 'a' and copy it into 'B'</snow>

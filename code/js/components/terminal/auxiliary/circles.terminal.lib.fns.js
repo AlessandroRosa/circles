@@ -389,19 +389,19 @@ function circles_lib_terminal_disks_check( _out_channel )
 
 function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _params_assoc_array )
 {
-    var _symbol_ref = new String( is_item_obj( ITEM ) ? ITEM.symbol : "" );
-    var _inv_symbol = new String( is_item_obj( ITEM ) ? ITEM.inverse_symbol.trim() : "" );
-    var _cc = is_item_obj( ITEM ) ? ITEM.complex_circle : null ;
-    var _cc_check = _cc != null ? YES : NO ;
+	var _is_item_obj = is_item_obj( ITEM ) ;
+    var _symbol = _is_item_obj ? ITEM.symbol : "";
+    var _inv_symbol = _is_item_obj ? ITEM.inverse_symbol.trim() : "";
+    var _cc = _is_item_obj ? ITEM.complex_circle : null, _cc_check = _cc != null ? YES : NO ;
     var _bordersize = _cc_check ? _cc.bordersize : 0 ;
     var _fill = _cc_check ? _cc.fill : UNDET ;
     var _border = _cc_check ? _cc.draw : UNDET ;
-    var _mm = is_item_obj( ITEM ) ? ITEM.map : null ;
-		var _anti_homography_mask = is_item_obj( ITEM ) ? ITEM.map.anti_homography_mask : UNDET ;
+    var _mm = _is_item_obj ? ITEM.map : null ;
+	var _anti_homography_mask = _is_item_obj ? ITEM.map.anti_homography_mask : UNDET ;
 
-    var _bordercolor = new String( _cc_check ? _cc.bordercolor.trim() : "" );
+    var _bordercolor = _cc_check ? _cc.bordercolor.trim() : "";
     if ( _bordercolor.length == 0 ) _bordercolor = "none" ;
-    var _fillcolor = new String( _cc_check ? _cc.fillcolor.trim() : "" );
+    var _fillcolor = _cc_check ? _cc.fillcolor.trim() : "";
     if ( _fillcolor.length == 0 ) _fillcolor = "none" ;
     var _notes = safe_string( ITEM.notes, "" ).trim() ;
     var _original_word = safe_string( ITEM.original_word, "" ).trim() ;
@@ -411,15 +411,14 @@ function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _pa
     var _extras = safe_size( _params_assoc_array['extras'], 0 ) > 0 ? _params_assoc_array['extras'] : [] ;
     var _what = _extras.one_in( "attr", "params" ) ? _extras[0] : "all" ; // only one attribute, if mentioned
 
-    var _symbol = _glob_crlf + "<yellow>Mobius map</yellow> <snow>" + ( _symbol_ref.length == 0 ? "(unknown)" : _symbol_ref ) + "</snow>" ;
+    var _out_string = _glob_crlf + "<yellow>Mobius map</yellow> <snow>" + ( _symbol.length == 0 ? "(unknown)" : _symbol ) + "</snow>" ;
     if ( _glob_method != METHOD_INVERSION && !_short )
-    _symbol += " - inverse symbol <lightblue>" + ( _inv_symbol.length == 0 ? "(unknown inverse)" : _inv_symbol ) + "</lightblue>" ;
-    _symbol += " - Index <snow>" + _i + "</snow>" ;
+    _out_string += " - inverse symbol <lightblue>" + ( _inv_symbol.length == 0 ? "(unknown inverse)" : _inv_symbol ) + "</lightblue>" ;
+    _out_string += " - Index <snow>" + _i + "</snow>\n" ;
 
-    var _out_string = "" ;
     if ( is_mobius_map( _mm ) )
     {
-       if ( !( _mm.is_consistent() ) ) _out_string += _glob_crlf + "This Mobius map is not consistent: at least one param has not been initialized" ;
+       if ( !_mm.is_consistent() ) _out_string += _glob_crlf + "This Mobius map is not consistent: at least one param has not been initialized" ;
        else
        {
           var _params = "" ;
@@ -445,15 +444,15 @@ function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _pa
              _params += _glob_crlf + "Original word <snow>" + _original_word + "</snow>" ;
           }
 
-          _out_string += _params ;
-          if ( _anti_homography_mask == UNDET ) _out_string += _glob_crlf + "undetermined z computation" ;
-          else
-					{
-							_out_string += _glob_crlf + "<lightgray>Var z management in Mobius map</lightgray>" ;
-							_out_string += _glob_crlf + "Numerator : <white>z is applied as " + ( _anti_homography_mask & 1 ? "conjugated" : "identical" ) + "</white>" ;
-							_out_string += _glob_crlf + "Denominator : <white>z is applied as " + ( _anti_homography_mask & 2 ? "conjugated" : "identical" ) + "</white>" ;
-					}
-          if ( safe_size( _notes, 0 ) > 0 ) _out_string += _glob_crlf + "<gray>Notes</gray> <lightgray>" + _notes + "</lightgray>" ;
+        _out_string += _params ;
+        if ( _anti_homography_mask == UNDET ) _out_string += _glob_crlf + "undetermined z computation" ;
+        else
+		{
+			_out_string += _glob_crlf + "<lightgray>Var z management in Mobius map</lightgray>" ;
+			_out_string += _glob_crlf + "Numerator : <white>z is applied as " + ( _anti_homography_mask & 1 ? "conjugated" : "identical" ) + "</white>" ;
+			_out_string += _glob_crlf + "Denominator : <white>z is applied as " + ( _anti_homography_mask & 2 ? "conjugated" : "identical" ) + "</white>" ;
+		}
+        if ( safe_size( _notes, 0 ) > 0 ) _out_string += _glob_crlf + "<gray>Notes</gray> <lightgray>" + _notes + "</lightgray>" ;
        }
     }
     else _out_string += _glob_crlf + "No Mobius map" ;

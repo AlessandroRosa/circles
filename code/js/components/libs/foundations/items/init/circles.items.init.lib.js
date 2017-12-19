@@ -205,7 +205,7 @@ function circles_lib_items_init( _index = UNDET, _question = YES, _silent = NO, 
     _report = safe_int( _report, NO ), _force_init = safe_int( _force_init, NO );
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
 	if ( _force_init ) _glob_items_to_init = 1 ;
-    if ( _init_mask == INIT_AUTO_RECOGNITION ) _init_mask = circles_lib_items_auto_recognition_group_params();
+    if ( _init_mask & INIT_AUTO_RECOGNITION ) _init_mask = circles_lib_items_auto_recognition_group_params();
     var _report_text = "", _items_n = circles_lib_count_items();
     if ( _glob_method == METHOD_NONE )
     {
@@ -558,13 +558,14 @@ function circles_lib_items_init_group_from_maps( _silent, _init_mask, _report, _
                           _complex_circle = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _items_array[_i].map.inversion_circle() : _items_array[_i].map.isometric_circle();
                           _items_array[_i].complex_circle = _complex_circle.copy();
                        }
-                       // restore values
-                       _items_array[_i].complex_circle.draw = _border ;
-                       _items_array[_i].complex_circle.bordercolor = _bordercolor ;
-                       _items_array[_i].complex_circle.fill = _fill ;
-                       _items_array[_i].complex_circle.fillcolor = _fillcolor ;
-                       _items_array[_i].complex_circle.bordersize = _bordersize ;
-					             _items_array[_i].screen_circle = circles_lib_get_screendisk_from_complexdisk( zplane_sm, _items_array[_i].complex_circle );
+                        
+						// restore values
+                        _items_array[_i].complex_circle.draw = _border ;
+                        _items_array[_i].complex_circle.bordercolor = _bordercolor ;
+                        _items_array[_i].complex_circle.fill = _fill ;
+                        _items_array[_i].complex_circle.fillcolor = _fillcolor ;
+                        _items_array[_i].complex_circle.bordersize = _bordersize ;
+					    _items_array[_i].screen_circle = circles_lib_get_screendisk_from_complexdisk( zplane_sm, _items_array[_i].complex_circle );
 
                        if ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) )
                        {

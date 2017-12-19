@@ -451,24 +451,20 @@ function circles_terminal_cmd_mobius()
                     case "colorize":
                     if ( _items_n > 0 )
                     {
-             	     		 var _params_array = [] ;
-             					 _params_array['prepromptquestion'] = null ;
-             					 _params_array['promptquestion'] = "Confirm to colorize all "+_dest_ref+"? " ;
-             					 _params_array['yes_fn'] = function()
-                       {
+             	     	var _params_array = [] ;
+             			_params_array['prepromptquestion'] = null ;
+             			_params_array['promptquestion'] = "Confirm to colorize all "+_dest_ref+"? " ;
+             			_params_array['yes_fn'] = function() {
                           var _ret_chunk = circles_lib_colors_colorize_group( _dest_ref, YES, YES, _out_channel );
                           var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                           var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                           circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-                       }
-             					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _out_channel ); }
+                        }
+						_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _out_channel ); }
 						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
              			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                     }
-                    else
-                    {
-                        _b_fail = YES, _error_str = "The list of seeds is empty" ;
-                    }
+                    else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
                     break ;
                     case "copy":
                     if ( safe_size( _items_array, 0 ) > 0 )
@@ -499,17 +495,13 @@ function circles_terminal_cmd_mobius()
 						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
              			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                     }
-                    else
-                    {
-                       _b_fail = YES, _error_str = "The list of seeds is empty" ;
-                    }
+                    else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
                     break ;
                     case "delete" :
                     var _all = _cmd_params['all'] ;
                     var _old_sd_n = _sd_n ;
                     var _sel_n = safe_size( _selection_indexes_array, 0 );
                     var _prompt_question = "Confirm to delete "+( ( _sel_n == 1 && _all == NO ) ? "this Mobius map and its inverse " : ( ( _all ) ? "the whole group of maps" : "these Mobius maps and their inverse " ) )+"? " ;
-                    
                     var _delete_map = function()
                     {
                         if ( _all == NO )
@@ -730,23 +722,21 @@ function circles_terminal_cmd_mobius()
                     if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "The "+( (  _glob_items_switch == ITEMS_SWITCH_SEEDS ) ? "Seeds" : "Generators" )+" maps list is empty", _par_1, _cmd_tag );
                     else if ( _sd_n > 0 && is_array( _items_array ) )
                     {
-                        circles_lib_output( _out_channel, DISPATCH_STANDARD, "Retrieving the "+( (  _glob_items_switch == ITEMS_SWITCH_SEEDS ) ? "Seeds" : "Generators" )+" ..", _par_1, _cmd_tag );
-                        var _out_file_txt = "Seeds list" ;
-                    		var ITEM, _row, _exists, _print, _n_display ;
+                        circles_lib_output( _out_channel, DISPATCH_STANDARD, "Retrieving the "+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" )+" ..", _par_1, _cmd_tag );
+                        var _out_file_txt = "Seeds list", ITEM, _row, _exists, _print, _n_display ;
                         for( var _i = 0 ; _i < _sd_n ; _i++ )
                         {
-                             ITEM = _items_array[_i];
-                             _exists = is_item_obj( ITEM ) ? YES : NO ;
+                             ITEM = _items_array[_i], _exists = is_item_obj( ITEM ) ? YES : NO ;
                              if ( _exists )
                              {
                                  _print = ( _symbols_array.length == 0 || ( _symbols_array.length > 0 && _symbols_array.includes( ITEM.symbol ) ) ) ? YES : NO ;
                                  if ( _print )
                                  {
-         														 _row = circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _cmd_params );
-                                     _out_file_txt += _row + _glob_crlf.repeat(2) ;
-                                     _n_display++ ;
-                                     if ( _out_channel == OUTPUT_SCRIPT && _cmd_params['dump'] )
-                                     circles_lib_output( _out_channel, DISPATCH_INFO, _row, _par_1, _cmd_tag );
+         							row = circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _cmd_params );
+                                    _out_file_txt += _row + _glob_crlf.repeat(2) ;
+                                    _n_display++ ;
+                                    if ( _out_channel == OUTPUT_SCRIPT && _cmd_params['dump'] )
+                                    circles_lib_output( _out_channel, DISPATCH_INFO, _row, _par_1, _cmd_tag );
                                  }
                              }
                              else
@@ -770,10 +760,7 @@ function circles_terminal_cmd_mobius()
 
                         _out_text_string = _out_file_txt ;
                     }
-                    else if ( !is_array( _items_array ) )
-                    {
-                        _b_fail = YES, _error_str = "Memory failure: can't get current items" ;
-                    }
+                    else if ( !is_array( _items_array ) ) { _b_fail = YES, _error_str = "Memory failure: can't get current items" ; }
                     break ;
                     case "notes":
                     var _array = null, _msg = "" ;

@@ -70,6 +70,15 @@ function circles_lib_alphabet_suggest_symbol( _items_array = _glob_seeds_array, 
     
     return _suggested_symbol.trim();
 }
+function circles_lib_alphabet_generate()
+{
+	_glob_alphabet = [] ;
+	_glob_seeds_array.forEach( function( _mm )
+	{
+		if ( !_glob_alphabet.includes( _mm.symbol ) ) _glob_alphabet.push( _mm.symbol );
+	} );
+	return _glob_alphabet ;
+}
 
 function circles_lib_alphabet_suggest_inverse_symbol( _input_symbol = "" )
 {

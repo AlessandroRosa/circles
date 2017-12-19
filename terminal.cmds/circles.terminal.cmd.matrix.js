@@ -61,7 +61,7 @@ function circles_terminal_cmd_matrix()
         var _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
         for( var _i = 0 ; _i < _up_to_index ; _i++ )
         {
-            _p = _params_array[_i] ; console.log( _p );
+            _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
             else if ( _p.is_one_of_i( "seeds", "generators" ) ) _cmd_params['target'] = _p.toLowerCase() ;
@@ -89,9 +89,9 @@ function circles_terminal_cmd_matrix()
             else if ( _cmd_params['action'].is_one_of_i( "power" ) && _p.testME( _glob_integer_regex_pattern ) )
                 _cmd_params['inputs'].push( _p );
             else if ( _cmd_params['action'].is_one_of_i( "adjoint", "check", "conjugate", "inverse", "negative", "normalize", "transpose",
-                      "add", "prod", "sub", "div", "determinant", "trace", "power", "pull" ) &&  )
+                      "add", "prod", "sub", "div", "determinant", "trace", "power", "pull" ) )
             {
-				if ( _p.length > 1 ) _cmd_params['symbols'].push( _p );
+				if ( _p.length == 1 ) _cmd_params['symbols'].push( _p ); // assumed to be a Mobius map symbol
                 else if( !circles_terminal_cmd_matrix_parse_str( _p, _cmd_params, _out_channel, _cmd_tag, _par_1 ) )
                 {
                     _b_fail = YES, _error_str = "Invalid input param '"+_p+"' for "+_cmd_params['action']+" action"  ; break ;
@@ -100,8 +100,6 @@ function circles_terminal_cmd_matrix()
             else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
 		
-		console.log( _cmd_params );
-
         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
         else if ( _cmd_params['keywords'] )
         {
@@ -147,7 +145,6 @@ function circles_terminal_cmd_matrix()
                     if ( _symbols_n > 0 ) _merge_array = _merge_array.concat( _cmd_params['symbols'] );
                     if ( _complex_n > 0 ) _merge_array = _merge_array.concat( _cmd_params['complex'] );
 
-					console.log( _cmd_params['symbols'] );
                     var _item_obj,_mm_params, _ret_action_label, _rows, _matrix, _ret_matrix, _dump_symbol ;
                     $.each( _merge_array, function( _i, _input ) {
                                 if ( is_array( _input ) )
@@ -230,11 +227,11 @@ function circles_terminal_cmd_matrix()
 											circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
 											circles_lib_colors_colorize_group(_target_array, YES, NO, _out_channel);
 											_glob_items_to_init = YES ;
-											if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init auto", _glob_terminal, _out_channel );
+											if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init paired maps", _glob_terminal, _out_channel );
 											else
 											{
-												console.log( "OK" );
-												circles_lib_output( _out_channel, DISPATCH_INFO, "Now type 'init auto' for changes to take effect inside the current group", _par_1, _cmd_tag );
+												var _alphabet = circles_lib_alphabet_generate();
+												circles_lib_output( _out_channel, DISPATCH_INFO, "Now type 'init paired maps' for changes to take effect inside the current group", _par_1, _cmd_tag );
 											}
 										}
 								    }
@@ -458,7 +455,7 @@ function circles_terminal_cmd_matrix()
                                else
                                {
                                   _item_obj = circles_lib_find_item_obj_by_symbol( _target_array, _input );
-                                  _mm_params = is_mobius_map( _item_obj ) ? _item_obj.map.get_params() : null ;
+                                  _mm_params = is_item_obj( _item_obj ) ? _item_obj.map.get_params() : null ;
                                }
 
                                if ( _mm_params != null )
@@ -507,6 +504,7 @@ function circles_terminal_cmd_matrix()
                                     {
                                         case "determinant": _ret_value = _trace = _matrix.det(); break ;
                                         case "trace": _ret_value = _trace = _matrix.trace(); break ;
+										default: break ;
                                     }
                                     
                                     // perform matrix action here
@@ -568,12 +566,13 @@ function circles_terminal_cmd_matrix()
     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
 
-function circles_terminal_cmd_matrix_check_str( _input_str, _input_matrix, _out_channel, _par_1 )
+function circles_terminal_cmd_matrix_check_str( _input_str, _input_matrix, _out_channel, _par_1, _cmd_tag = "" )
 {
      if ( is_complex_matrix( _input_matrix ) )
      {
-          circles_lib_output( _out_channel, DISPATCH_INFO, "Checking matrix '"+_input_str+"'", _par_1, _cmd_tag );
-          circles_lib_output( _out_channel, DISPATCH_INFO, _input_matrix.output( "plain", _glob_crlf, [ "a", "b", "c", "d" ] ), _par_1, _cmd_tag );
+          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>Checking the matrix '"+_input_str+"'</snow>", _par_1, _cmd_tag );
+		  var _arr = _input_matrix.output( "array", _glob_crlf, [ "a", "b", "c", "d" ] ) ;
+		  _arr.forEach( function( _el ){ circles_lib_output( _out_channel, DISPATCH_INFO, _el, _par_1, _cmd_tag ); } ) ;
           if ( _input_matrix.is_logical_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is an identity matrix", _par_1, _cmd_tag );
           if ( _input_matrix.is_row_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a row matrix", _par_1, _cmd_tag );
           if ( _input_matrix.is_column_matrix() ) circles_lib_output( _out_channel, DISPATCH_INFO, "This is a column matrix", _par_1, _cmd_tag );

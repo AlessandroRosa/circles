@@ -1534,17 +1534,26 @@ complex_matrix.prototype.output_col = function( _col_index, _format, _linebreak_
     else return "error" ;
 }
 
-complex_matrix.prototype.output = function( _format, _linebreak_cmd, _rowlabels_array )
+complex_matrix.prototype.output = function( _format, _linebreak_cmd = "\\n", _rowlabels_array )
 {
     _format = ( _format == null || _format == _CM_UNDEF || !is_string( _format ) ) ? "plain" : _format.toLowerCase() ;
     if ( _rowlabels_array == null || _rowlabels_array == _CM_UNDEF ) _rowlabels_array = [] ;
-    _linebreak_cmd = safe_string( _linebreak_cmd, "\n" ) ;
+    _linebreak_cmd = safe_string( _linebreak_cmd, "\\n" ) ;
     var _str = "" ;
     switch( _format.toLowerCase() )
     {
+		case "array":
+		var _arr = [] ;
+        for( var _i = 0 ; _i < this.grid.length ; _i++ )
+		_arr.push( ( _rowlabels_array[_i] != null ? _rowlabels_array[_i] + " : " : "" ) + ( is_complex( this.grid[ _i ] ) ? this.grid[ _i ].formula() : this.grid[ _i ] ) ) ;
+		return _arr ;
+		break ;
         case "plain":
         for( var _i = 0 ; _i < this.grid.length ; _i++ )
-        _str += ( _rowlabels_array[_i] != null ? _rowlabels_array[_i] + " : " : "" ) + ( is_complex( this.grid[ _i ] ) ? this.grid[ _i ].formula() : this.grid[ _i ] ) + _linebreak_cmd ;
+		{
+			_str += ( _rowlabels_array[_i] != null ? _rowlabels_array[_i] + " : " : "" ) + ( is_complex( this.grid[ _i ] ) ? this.grid[ _i ].formula() : this.grid[ _i ] ) ;
+			_str += _linebreak_cmd ;
+		}
         break ;
         case "grid":
         for( var _i = 0 ; _i < this.grid.length ; _i++ )
@@ -1565,6 +1574,7 @@ complex_matrix.prototype.output = function( _format, _linebreak_cmd, _rowlabels_
         }
         _str += "</table>" ;
         break ;
+		default: break ;
     }
 
     return _str ;

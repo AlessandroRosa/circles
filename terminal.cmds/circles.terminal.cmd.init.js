@@ -46,13 +46,14 @@ function circles_terminal_cmd_init()
         else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
         else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
         else if ( _p.is_one_of( "html", "lock", "force", "symbols", "options" ) ) _cmd_params[_p] = YES ;
+        else if ( _p.is_one_of( "all" ) ) _cmd_params['initmask'] = INIT_ALL ;
         else if ( _p.stricmp( "auto" ) )
         {
             _cmd_params['initmask'] = circles_lib_items_auto_recognition_group_params();
             _cmd_params['auto'] = YES ;
         }
         else if ( _p.stricmp( "disks" ) ) _cmd_params['initmask'] |= INIT_FROM_DISKS ;
-        else if ( _p.stricmp( "maps" ) ) _cmd_params['initmask'] |= INIT_FROM_MAPS ;
+        else if ( _p.stricmp( "maps" ) ) _cmd_params['initmask'] |= INIT_FROM_MAPS | INIT_CALC_CIRCLES ;
         else if ( _p.stricmp( "paired" ) ) _cmd_params['initmask'] |= INIT_PAIRED_ITEMS ;
         else if ( _p.stricmp( "singly" ) ) _cmd_params['initmask'] |= INIT_SINGLE_ITEMS ;
         else if ( _p.stricmp( "unlock" ) ) _cmd_params['lock'] = NO ;

@@ -27,12 +27,7 @@
 
 --------------- FIX SOON -----------------------
 
-* test
-  'matrix conjugate a new'
-  - a js error is returned ;
-  - check the new seeds list
-
-* Next cmd to check: matrix
+* Next cmd to check: mobius
 
 * TEST:
   > jorgensen's embedding #19

@@ -1,39 +1,36 @@
 if ( typeof is_mobius_map != "function" ) function is_mobius_map( _obj ) { return _obj instanceof mobius_map ; }
 if ( typeof is_item_obj != "function" ) function is_item_obj( _obj ) { return _obj instanceof item_obj ? 1 : 0 ; }
 
-function item_obj( mobius_map,
-                   complex_circle, screen_circle,
-                   symbol, params_mask,
-                   draw, bordercolor, fill, fillcolor,
-                   inverse_symbol,
-                   bordersize, item_type, notes, _original_word )
+function item_obj( mobius_map = null, complex_circle = null, screen_circle = null,
+                   symbol = "", params_mask = 0,
+                   draw = YES, bordercolor = _glob_draw_seed_color, fill = NO, fillcolor = _glob_fill_seed_color,
+                   inverse_symbol = "",
+                   bordersize = 1, item_type = 0, notes = "", _original_word = "" )
 {
-   this.map = is_mobius_map( mobius_map ) ? mobius_map.copy() : null ;
-   this.complex_circle = new circle();
-   if ( is_mobius_map( this.map ) && !is_circle( complex_circle ) )
-   this.complex_circle.isometric_circle_from_matrix( this.map.a, this.map.b, this.map.c, this.map.d, YES );
-   else if ( is_circle( complex_circle ) )
-   {
-      this.complex_circle = complex_circle.copy();
-      this.complex_circle.bordercolor = safe_string( bordercolor, _glob_draw_seed_color );
-      this.complex_circle.fillcolor = safe_string( fillcolor, _glob_fill_seed_color );
-      this.complex_circle.draw = safe_int( draw, YES );
-      this.complex_circle.fill = safe_int( fill, NO );
-      this.complex_circle.bordersize = safe_int( bordersize, 1 );
-      this.complex_circle.fixer( CIRCLES_MAX_COORD );
-   }
+    this.map = is_mobius_map( mobius_map ) ? mobius_map.copy() : null ;
+    this.complex_circle = new circle();
+    if ( is_mobius_map( this.map ) && !is_circle( complex_circle ) )
+    this.complex_circle.isometric_circle_from_matrix( this.map.a, this.map.b, this.map.c, this.map.d, YES );
+    else if ( is_circle( complex_circle ) ) this.complex_circle = complex_circle.copy();
 
-   this.screen_circle = is_circle( screen_circle ) ? screen_circle : new circle( new point( 0, 0 ), 0 );
-   this.screen_circle.fixer( CIRCLES_MAX_COORD );
-   // Uppercase letters for direct maps, lowercase of related inverse maps
-   this.symbol = safe_string( symbol, "" );
-   this.inverse_symbol = safe_string( inverse_symbol, this.symbol.reverse().flipCase() );
-   // item_type >> 0: circle, 1: map
-   this.params_mask = safe_int( params_mask, 0 );
-   this.item_type = safe_int( item_type, ITEM_TYPE_CIRCLE );
-   this.notes = safe_string( notes, "" ) ;
-   this.original_word = is_string( _original_word ) ? ( ( _original_word.length > 0 ) ? safe_string( _original_word, this.symbol ) : this.symbol ) : this.symbol ;
-   this.hashtag = ( new Date() ).getTime() + "" ;
+    this.complex_circle.bordercolor = safe_string( bordercolor, _glob_draw_seed_color );
+    this.complex_circle.fillcolor = safe_string( fillcolor, _glob_fill_seed_color );
+    this.complex_circle.draw = safe_int( draw, YES );
+    this.complex_circle.fill = safe_int( fill, NO );
+    this.complex_circle.bordersize = safe_int( bordersize, 1 );
+    this.complex_circle.fixer( CIRCLES_MAX_COORD );
+
+    this.screen_circle = is_circle( screen_circle ) ? screen_circle : new circle( new point( 0, 0 ), 0 );
+    this.screen_circle.fixer( CIRCLES_MAX_COORD );
+    // Uppercase letters for direct maps, lowercase of related inverse maps
+    this.symbol = safe_string( symbol, "" );
+    this.inverse_symbol = safe_string( inverse_symbol, this.symbol.reverse().flipCase() );
+    // item_type >> 0: circle, 1: map
+    this.params_mask = safe_int( params_mask, 0 );
+    this.item_type = safe_int( item_type, ITEM_TYPE_CIRCLE );
+    this.notes = safe_string( notes, "" ) ;
+    this.original_word = is_string( _original_word ) ? ( _original_word.length > 0 ? safe_string( _original_word, this.symbol ) : this.symbol ) : this.symbol ;
+    this.hashtag = new Date().getTime() + "" ;
 }
 
 item_obj.prototype.copy = function()
