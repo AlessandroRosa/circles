@@ -77,7 +77,7 @@ function circles_terminal_cmd_plane()
              var _plane_type = _cmd_params['plane'] ;
              _context_plane_label = "Selected plane: " + circles_lib_plane_def_get( _plane_type );
              var _plane_cmd = circles_lib_plane_def_get_for_cmds( _plane_type );
-             if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init all", _glob_terminal, _out_channel );
+             if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init auto", _glob_terminal, _out_channel );
              if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh "+_plane_cmd+" clean silent", _glob_terminal, _out_channel );
 
              switch( _cmd_params['plane'] )

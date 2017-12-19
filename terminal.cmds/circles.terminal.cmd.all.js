@@ -131,7 +131,7 @@ function circles_terminal_cmd_all()
 							}
 			            }
 			    
-		                if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init all", _glob_terminal, _out_channel );
+		                if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init auto", _glob_terminal, _out_channel );
 		                if ( _glob_terminal_autorefresh )  circles_lib_terminal_interpreter( "refresh zplane wplane clean silent", _glob_terminal, _out_channel );
 			
 		                if ( _action.length > 0 )

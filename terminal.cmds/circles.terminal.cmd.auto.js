@@ -80,8 +80,8 @@ function circles_terminal_cmd_auto()
 
 				switch( _glob_terminal_autorefresh )
 				{
-					case 1 : _autorefresh_label = "Autorefresh mode is "+_already_refresh+"on" ; break ;
-					default : _autorefresh_label = "Autorefresh mode is "+_already_refresh+"off" ; break ;
+					case 1 : _autorefresh_label = "Auto-refresh is "+_already_refresh+"on" ; break ;
+					default : _autorefresh_label = "Auto-refresh is "+_already_refresh+"off" ; break ;
 				}
 
                 if ( _fail_flag_array['refresh'] != 1 )
@@ -94,8 +94,8 @@ function circles_terminal_cmd_auto()
             var _autoinit_label = "" ;
             switch( _glob_terminal_autoinit_enable )
             {
-                case 1 : _autoinit_label = "Autoinit mode is "+_already_init+"on" ; break ;
-                default : _autoinit_label = "Autoinit mode is "+_already_init+"off" ; break ;
+                case 1 : _autoinit_label = "Auto-initialization of groups is "+_already_init+"on" ; break ;
+                default : _autoinit_label = "Auto-initialization of groups is "+_already_init+"off" ; break ;
             }
 
             if ( _all || _action.stricmp( "init" ) )
@@ -109,7 +109,10 @@ function circles_terminal_cmd_auto()
             }
         }
     }
-    else { _b_fail = YES, _error_str = "Missing input params" ; }
+    else {
+		circles_lib_output( _out_channel, DISPATCH_INFO, "Auto-refresh is "+(_glob_terminal_autorefresh?"on":"off"), _par_1, _cmd_tag );
+		circles_lib_output( _out_channel, DISPATCH_INFO, "Auto-initialization of groups is "+(_glob_terminal_autoinit_enable?"on":"off"), _par_1, _cmd_tag );
+	}
 	
     if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION )
 		circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );

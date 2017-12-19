@@ -566,7 +566,7 @@ function circles_terminal_cmd_mobius()
                             var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                             if ( _ret_id == RET_OK )
                             {
-                                if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init all", _glob_terminal, _out_channel );
+                                if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init auto", _glob_terminal, _out_channel );
                                 //if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _out_channel );
                             }
                             else
@@ -640,7 +640,7 @@ function circles_terminal_cmd_mobius()
 
                     var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                     var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure" ;
-                    if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init all", _glob_terminal, _out_channel );
+                    if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init auto", _glob_terminal, _out_channel );
                     //if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _out_channel );
                     if ( _ret_id == 0 ) circles_lib_output( _out_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                     else
@@ -882,7 +882,7 @@ function circles_terminal_cmd_mobius()
 														var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
                             if ( _ret_id )
                             {
-                                if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init all", _glob_terminal, _out_channel );
+                                if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init auto", _glob_terminal, _out_channel );
                                 //if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _out_channel );
 
     							              if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )

@@ -27,7 +27,8 @@
 
 --------------- FIX SOON -----------------------
 
-* test 'matrix conjugate a new'
+* test
+  'matrix conjugate a new'
   - a js error is returned ;
   - check the new seeds list
 

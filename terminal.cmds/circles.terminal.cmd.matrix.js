@@ -89,14 +89,13 @@ function circles_terminal_cmd_matrix()
             else if ( _cmd_params['action'].is_one_of_i( "power" ) && _p.testME( _glob_integer_regex_pattern ) )
                 _cmd_params['inputs'].push( _p );
             else if ( _cmd_params['action'].is_one_of_i( "adjoint", "check", "conjugate", "inverse", "negative", "normalize", "transpose",
-                      "add", "prod", "sub", "div", "determinant", "trace", "power", "pull" ) )
+                      "add", "prod", "sub", "div", "determinant", "trace", "power", "pull" ) &&  )
             {
-				console.log( _p );
-                if( !circles_terminal_cmd_matrix_parse_str( _p, _cmd_params, _out_channel, _cmd_tag, _par_1 ) )
+				if ( _p.length > 1 ) _cmd_params['symbols'].push( _p );
+                else if( !circles_terminal_cmd_matrix_parse_str( _p, _cmd_params, _out_channel, _cmd_tag, _par_1 ) )
                 {
                     _b_fail = YES, _error_str = "Invalid input param '"+_p+"' for "+_cmd_params['action']+" action"  ; break ;
                 }
-				console.log( _p );
             }
             else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
@@ -213,18 +212,31 @@ function circles_terminal_cmd_matrix()
 									if ( _cmd_params['new'] && _ret_matrix instanceof complex_matrix )
 									{
 										var _target_array = _cmd_params['target'] == "seeds" ? _glob_seeds_array : _glob_gens_array ;
+										var _old_n = _target_array.length ;
 										var _new_sym = circles_lib_alphabet_suggest_symbol(_target_array);
 										var _inv_sym = _new_sym.toLowerCase();
 										var _mm = new mobius_map( _ret_matrix.array() );
 										var _inv_mm = new mobius_map( _ret_matrix.inv().array() );
 										var _item = new item_obj( _mm, null, null, _new_sym, 0,
 																  YES, _glob_draw_seed_color, NO, "", _inv_sym, 1, ITEM_TYPE_MOBIUS ) ;
-										var _inv_item = new item_obj( _mm, null, null, _inv_sym, 0,
+										var _inv_item = new item_obj( _inv_mm, null, null, _inv_sym, 0,
 																  YES, _glob_draw_inverse_seed_color, NO, "", _new_sym, 1, ITEM_TYPE_MOBIUS ) ;
 										_target_array.push( _item, _inv_item );
-										var _msg = "A new item has been added to "+_cmd_params['target']+", together with its inverse." ;
-										circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
-										circles_lib_colors_colorize_group(_target_array, YES, NO, _out_channel);
+										var _new_n = _target_array.length ;
+										if ( _old_n == _new_n ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to add new entries from matrix", _par_1, _cmd_tag );
+										else
+										{
+											var _msg = "A new item has been added to "+_cmd_params['target']+", together with its inverse." ;
+											circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
+											circles_lib_colors_colorize_group(_target_array, YES, NO, _out_channel);
+											_glob_items_to_init = YES ;
+											if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init auto", _glob_terminal, _out_channel );
+											else
+											{
+												console.log( "OK" );
+												circles_lib_output( _out_channel, DISPATCH_INFO, "Now type 'init auto' for changes to take effect inside the current group", _par_1, _cmd_tag );
+											}
+										}
 								    }
                                     else if ( _cmd_params['dump'] )
                                     {
@@ -412,10 +424,7 @@ function circles_terminal_cmd_matrix()
                                                 $('[id$=renderBTN]').css('color',COLOR_ERROR) ;
                                                 circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Dumping matrix "+_action+" into gen '"+_dump_symbol+"'", _par_1, _cmd_tag );
                                             }
-                                            else
-                                            {
-                                                _b_fail = YES, _error_str = _ret_msg ;
-                                            }
+                                            else { _b_fail = YES, _error_str = _ret_msg ; }
                                        }
                                        else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid dumping symbol '"+_dump_symbol+"': it does not refer to any registered map", _par_1, _cmd_tag );
                                    }
@@ -591,9 +600,9 @@ function circles_terminal_cmd_matrix_parse_str( _input_str = "", _cmd_params = [
     if ( _input_str.testME( _glob_complex_number_regex_pattern ) ||
          is_complex( _tmp = parse_complex_from_string( circles_lib_math_parse_formula( _input_str ) ) ) )
     {
-         _cmd_params['complex'].push( _input_str );
-         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>"+_input_str + "</yellow> <greenshock>has been parsed as a complex number</greenshock>", _par_1, _cmd_tag );
-         return YES ;
+        _cmd_params['complex'].push( _input_str );
+        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>"+_input_str + "</yellow> <greenshock>has been parsed as a complex number</greenshock>", _par_1, _cmd_tag );
+        return YES ;
     }
     else if ( safe_size( _input_str, 0 ) == 1 && _input_str.isAlpha() )
     {
