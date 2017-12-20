@@ -25,8 +25,8 @@ function circles_terminal_cmd_polygon()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
-    	var _local_cmds_params_array = [ "zplane", "wplane", "bip", "rec", "release", "html", "help" ];
-        //circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+    	var _cmd_terms_dict = [ "zplane", "wplane", "bip", "rec", "release", "html", "help" ];
+        //circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 		_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
 		_cmd_params['dump_operator_index'] = _dump_operator_index ;
@@ -136,7 +136,7 @@ function circles_terminal_cmd_polygon()
         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
         else if ( _cmd_params['keywords'] )
         {
-            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
             else
             {

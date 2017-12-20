@@ -31,8 +31,8 @@ function circles_terminal_cmd_interface()
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
          // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [ "extend", "default", "silent", "release", "reset", "html", "wplane", "zplane" ];
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+    		 var _cmd_terms_dict = [ "extend", "default", "silent", "release", "reset", "html", "wplane", "zplane" ];
+         circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
          {
@@ -48,7 +48,7 @@ function circles_terminal_cmd_interface()
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
          {
-            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
             else
             {
@@ -99,7 +99,7 @@ function circles_terminal_cmd_interface()
 				_params_array['promptquestion'] = "Confirm to hide the interface? " ;
 				_params_array['yes_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_HIDE, _out_channel ); }
 				_params_array['ifquestiondisabled_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_HIDE, _out_channel ); }
-				if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+				if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 				else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                 break ;
                 case "reset":
@@ -118,7 +118,7 @@ function circles_terminal_cmd_interface()
 								     		 			_params_array['promptquestion'] = "Confirm to reset "+_plane_def+" ? " ;
 												     	_params_array['yes_fn'] = function() { circles_lib_interface_reset( _opt, YES, NO, YES, _out_channel ); }
 												     	_params_array['ifquestiondisabled_fn'] = function() { circles_lib_interface_reset( _opt, YES, NO, YES, _out_channel ); }
-						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 						else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
 											}
 									    else
@@ -140,7 +140,7 @@ function circles_terminal_cmd_interface()
 				_params_array['promptquestion'] = "Confirm to show the interface (y|n) ? " ;
 				_params_array['yes_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_SHOW, _out_channel ); }
 				_params_array['ifquestiondisabled_fn'] = function() { circles_lib_interface_toggle( INTERFACE_FORCE_SHOW, _out_channel ); }
-				if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+				if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 				else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                 break ;
                 default: break ;

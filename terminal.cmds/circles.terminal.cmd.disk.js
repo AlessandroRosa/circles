@@ -69,14 +69,14 @@ function circles_terminal_cmd_disk()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
-    	var _local_cmds_params_array = [];
-    	_local_cmds_params_array.push( "add", "attr", "coords", "changesymbol", "changeinvsymbol", "check", "copy",
+    	var _cmd_terms_dict = [];
+    	_cmd_terms_dict.push( "add", "attr", "coords", "changesymbol", "changeinvsymbol", "check", "copy",
                                        "delete", "find", "fill", "nofill", "draw", "nodraw", "table", "off", "on",
                                        "intersect", "symbol", "list", "mirror", "move", "notes", "select", "html", "help",
                                        "disabled", "area", "center", "circumference", "curvature", "diameter", "set",
                                        "radius", "mirror", "update", "rotate", "round", "plot", "release", "seeds", "generators",
                                        "colorize", "label", "xaxis", "yaxis" );
-        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+        circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 		_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
 		_cmd_params['dump_operator_index'] = _dump_operator_index ;
@@ -100,7 +100,7 @@ function circles_terminal_cmd_disk()
             else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
             else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
             else if ( _p.start_with( "storagesubset:" ) ) _cmd_params['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
-            else if ( _p.is_one_of( "all", "draw", "fill", "html", "new", "off", "on", "plot", "table" ) ) _cmd_params[_p] = YES ;
+            else if ( _p.is_one_of( "all", "draw", "fill", "html", "new", "off", "on", "plot", "table", "silent" ) ) _cmd_params[_p] = YES ;
             else if ( _p.stricmp( "nofill" ) ) _cmd_params['fill'] = NO ;
             else if ( _p.stricmp( "nodraw" ) ) _cmd_params['border'] = NO ;
             else if ( _p.is_one_of_i( "generators", "seeds" ) ) _cmd_params['params'].push( _p ) ;
@@ -200,7 +200,7 @@ function circles_terminal_cmd_disk()
         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
         else if ( _cmd_params['keywords'] )
         {
-            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
             else
             {
@@ -519,7 +519,7 @@ function circles_terminal_cmd_disk()
 						circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 					}
     			_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _out_channel ); }
- 				if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+ 				if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
     			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
 				}
 				else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
@@ -616,7 +616,7 @@ function circles_terminal_cmd_disk()
 					  circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 					}
 					_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel ); }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
 			    }
 			    else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
@@ -688,7 +688,7 @@ function circles_terminal_cmd_disk()
 						_params_array['prepromptquestion'] = null ;
 						_params_array['promptquestion'] = "Confirm to delete "+( ( _sel_n == 1 && _all == 0 ) ? "this disk and the one of the related inverse group element" : ( ( _all ) ? "all disks" : "these disks and the ones of the related inverse group elements" ) )+"? " ;
 						_params_array['ifquestiondisabled_fn'] = _params_array['yes_fn'] = function() { _delete_disk(); }
-						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 						else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                     }
                     else { _b_fail = YES, _error_str = "Memory failure: can't get current disks" ; }

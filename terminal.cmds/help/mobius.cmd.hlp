@@ -2,13 +2,13 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>mobius %action% %property% %label% %all% %invlabel% %index% %a% %b% %c% %d% %bordersizeness% %fill% %draw% %file%</snow>
+<lightblue>usage</lightblue> <snow>mobius %action% %property% %label% %all% %invlabel% %index% %a% %b% %c% %d% %bordersizeness% %fill% %border% %file%</snow>
 
 <lightblue>%property%</lightblue> <snow>characteristic | determinant | fixedpoints | isometric | kind | multiplier | normalize | trace</snow>
 <lightblue>%action%</lightblue> <snow>add | copy | check | delete | find | list | select | update</snow>
 <lightblue>%index%</lightblue> <snow>zero-based integer indexing for the map, if label was not set yet</snow>
 <lightblue>%fill%</lightblue> <snow>nofill or fill</snow>
-<lightblue>%draw%</lightblue> <snow>nodraw or draw</snow>
+<lightblue>%border%</lightblue> <snow>noborder or border</snow>
 <lightblue>label, invl</lightblue> <snow>set letter of the given map or of the associated inverse map</snow>
 <lightblue>file</lightblue> <snow>export the list into a plain text file</snow>
 
@@ -22,10 +22,16 @@
 <cadetblue>same as above, but the map is saved into the 'mobius' storage subset (if existing)</cadetblue>
 
 <lightblue>mobius assemble A B a b</lightblue>
-<cadetblue>assemble a new Mobius map from input seeds</cadetblue>
+<cadetblue>assemble one new Mobius map from seeds (default)</cadetblue>
+
+<lightblue>mobius assemble A B a b generators</lightblue>
+<cadetblue>assemble one new Mobius map from generators</cadetblue>
 
 <lightblue>mobius assemble A B a b -> out.txt</lightblue>
-<cadetblue>composition and dumping into a plain text file</cadetblue>
+<cadetblue>assemble one new Mobius map and dump it into a plain text file</cadetblue>
+
+<lightblue>mobius assemble A B a b rec</lightblue>
+<cadetblue>assemble one new Mobius map from seeds and save it into the working group, together with its inverse</cadetblue>
 
 <lightblue>mobius colorize</lightblue>
 <cadetblue>set colors to all seeds|gens by matching symbols with the default palette</cadetblue>
@@ -104,10 +110,10 @@
 <lightblue>mobius select a,A storagein storagesubset:mobius</lightblue>
 <cadetblue>select and saves both mobius maps into the storage subset 'mobius'</lightblue>
 
-<lightblue>mobius update 0 a:(1,0) fill draw</lightblue>
+<lightblue>mobius update 0 a:(1,0) fill border</lightblue>
 <cadetblue>update param a inside map with index 0</cadetblue>
 
-<lightblue>mobius update a c:(1,0) nofill nodraw</lightblue>
+<lightblue>mobius update a c:(1,0) nofill noborder</lightblue>
 <cadetblue>update param c inside map with symbol 'a'</cadetblue>
 
 <lightblue>mobius update A fillcolor:brown</lightblue>

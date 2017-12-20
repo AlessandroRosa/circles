@@ -48,11 +48,11 @@ function circles_terminal_cmd_gen()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
-    	var _local_cmds_params_array = [];
-    	_local_cmds_params_array.push( "short", "inverse", "add", "count", "exact", "bomb", "model", "init",
+    	var _cmd_terms_dict = [];
+    	_cmd_terms_dict.push( "short", "inverse", "add", "count", "exact", "bomb", "model", "init",
 			"list", "noclear", "seeds", "generators", "copy", "force", "reset", "zplane", "wplane", "bip",
     		"html", "release" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
 
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 		_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -74,6 +74,7 @@ function circles_terminal_cmd_gen()
             _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+            else if ( _p.is_one_of_i( "copy", "html", "force", "inverse", "rec", "reset", "short", "silent" ) ) _cmd_params[_p] = YES ;
             else if ( _p.is_one_of_i( "add", "count", "exact", "flush", "bomb", "init", "list", "model", "release" ) ) _cmd_params['action'] = _p.toLowerCase();
             else if ( _p.toLowerCase().start_with( "roundto:" ) )
             {
@@ -94,7 +95,6 @@ function circles_terminal_cmd_gen()
             else if ( _p.stricmp( "noclear" ) ) _cmd_params["clear"] = NO ;
             else if ( _p.stricmp( "seeds" ) ) _cmd_params["items"] = ITEMS_SWITCH_SEEDS ;
             else if ( _p.stricmp( "generators" ) ) _cmd_params["items"] = ITEMS_SWITCH_GENS ;
-            else if ( _p.is_one_of_i( "copy", "html", "force", "inverse", "rec", "reset", "short", "silent" ) ) _cmd_params[_p] = YES ;
             else if ( _p.is_one_of_i( "zplane", "wplane", "bip" ) )
             {
                if ( _p.stricmp( "zplane" ) ) _cmd_params['plane'] = Z_PLANE ;
@@ -160,7 +160,7 @@ function circles_terminal_cmd_gen()
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
          {
-            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
             else
             {
@@ -380,7 +380,7 @@ function circles_terminal_cmd_gen()
 							circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
 						}
 						_q_params_array['ifquestiondisabled_fn'] = function() { _exact_fn(); }
-						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
         				else circles_lib_terminal_cmd_ask_yes_no( _q_params_array, _out_channel );
                     }
                     else

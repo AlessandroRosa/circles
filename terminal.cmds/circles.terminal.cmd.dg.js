@@ -46,23 +46,22 @@ function circles_terminal_cmd_dg()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
-    	var _local_cmds_params_array = [];
-    	_local_cmds_params_array.push( "bomb", "call", "clean", "conjugate", "delete", "defaultmaps", "init", "html",
+    	var _cmd_terms_dict = [];
+    	_cmd_terms_dict.push( "bomb", "call", "clean", "conjugate", "delete", "defaultmaps", "init", "html",
                     "inversion", "isometric", "list", "renametag", "release", "rec", "refresh", "render",
                     "save", "short", "show", "subgroup", "wplane", "zplane" );
-        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+        circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
         var _p ;
         for( var _i = 0 ; _i < _params_array.length ; _i++ )
         {
             _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-            else if ( _p.stricmp( "short" ) ) _cmd_params['short'] = YES ;
+            else if ( _p.is_one_of_i( "html", "short", "silent" ) ) _cmd_params[_p] = YES ;
             else if ( _p.includes_i( ":", "$" ) && !( _p.start_with_i( "map:" ) ) )
             {
-                   var _chunk = _p.split( ":" );
-                   _cmd_params['vars'][ _chunk[0].replaceAll( '$', '' ) ] = _chunk[1] ;
+                var _chunk = _p.split( ":" );
+                _cmd_params['vars'][_chunk[0].replaceAll('$','')] = _chunk[1] ;
             }
             else if ( _p.toLowerCase().start_with( "map:" ) )
             {
@@ -172,7 +171,7 @@ function circles_terminal_cmd_dg()
         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
         else if ( _cmd_params['keywords'] )
         {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+             var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
              if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
@@ -201,7 +200,7 @@ function circles_terminal_cmd_dg()
 					_params_array['promptquestion'] = "Confirm to delete all registered groups ? " ;
 					_params_array['yes_fn'] = function() { _glob_groups_table = []; circles_lib_output( _out_channel, DISPATCH_SUCCESS, "All entries have been deleted", _par_1, _cmd_tag ); }
 					_params_array['ifquestiondisabled_fn'] = function() { _glob_groups_table = []; }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
 				}
 				else circles_lib_output( _out_channel, DISPATCH_INFO, "No registered entries", _par_1, _cmd_tag );
@@ -259,7 +258,7 @@ function circles_terminal_cmd_dg()
 					_params_array['promptquestion'] = "Confirm to call the group #"+_index+" in ? (y/n) : " ;
 					_params_array['yes_fn'] = function() { _call_group(); }
 					_params_array['ifquestiondisabled_fn'] = function() { _call_group(); }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                 }
                 break ;
@@ -273,7 +272,7 @@ function circles_terminal_cmd_dg()
 						_params_array['promptquestion'] = "Confirm to clean the whole groups list ?" ;
 						_params_array['yes_fn'] = function() { _glob_groups_table.flush(); }
 						_params_array['ifquestiondisabled_fn'] = function() { _glob_groups_table.flush(); }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                 }
                 break ;
@@ -391,7 +390,7 @@ function circles_terminal_cmd_dg()
 					else _params_array['promptquestion'] = "Confirm to delete the registered group with index #"+_index+" ? " ;
 					_params_array['yes_fn'] = function() { _delete_group(); }
 					_params_array['ifquestiondisabled_fn'] = function() { _delete_group(); }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                 }
                 break ;

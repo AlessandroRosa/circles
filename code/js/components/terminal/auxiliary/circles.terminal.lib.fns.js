@@ -138,11 +138,11 @@ function circles_lib_terminal_cmd_ask_yes_no( _params_array = [], _out_channel =
     else if ( _ifquestiondisabled_fn != null ) _ifquestiondisabled_fn.call( null );
 }
 
-function circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _param_01, _out_channel )
+function circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _param_01, _out_channel )
 {
  		for( var _i = 0 ; _i < _params_array.length ; _i++ )
     {
- 			_w = _levenshtein_search_for_closest( _params_array[_i], _local_cmds_params_array, 1 );
+ 			_w = _levenshtein_search_for_closest( _params_array[_i], _cmd_terms_dict, 1 );
  			if ( _w.length > 0 && !( _w.stricmp( _params_array[_i] ) ) )
  			{
  				 _MSG = "Mismatch error: param '"+_params_array[_i]+"' has been corrected to '"+_w+"'" ;

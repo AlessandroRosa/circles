@@ -11,7 +11,7 @@ function circles_terminal_cmd_normalize()
      if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+	var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
      var _b_fail = 0, _cnt = 0 ;
      var _error_str = "" ;
      var _out_text_string = "" ;
@@ -26,25 +26,24 @@ function circles_terminal_cmd_normalize()
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
      {
-         _cmd_params['action'] = "" ;
-         _cmd_params['all'] = 0 ;
-         _cmd_params['dump'] = NO ;
-         _cmd_params['dump_array'] = null ;
-         _cmd_params['dump_operator_index'] = UNDET ;
-         _cmd_params['help'] = NO ;
-         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
-         _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
-         _cmd_params['keywords'] = NO ;
-         _cmd_params['index'] = null ;
-         _cmd_params['roundto'] = _glob_accuracy ;
-         _cmd_params['symbol'] = null ;
+        _cmd_params['action'] = "" ;
+        _cmd_params['all'] = 0 ;
+        _cmd_params['dump'] = NO ;
+        _cmd_params['dump_array'] = null ;
+        _cmd_params['dump_operator_index'] = UNDET ;
+        _cmd_params['help'] = NO ;
+        _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+        _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
+        _cmd_params['keywords'] = NO ;
+        _cmd_params['index'] = null ;
+        _cmd_params['roundto'] = _glob_accuracy ;
+        _cmd_params['symbol'] = null ;
 
-         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
-         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
-         // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "show", "compute", "release", "html" );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+        var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
+        _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
+        // pre-scan for levenshtein correction
+    	var _cmd_terms_dict = [ "show", "compute", "release", "html" ];
+         circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 				 _cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -54,8 +53,8 @@ function circles_terminal_cmd_normalize()
 				 // gather all dump parameters into one array
          if ( _cmd_params['dump'] )
          {
-    				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-    				 if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
+			for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+    		if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
          }
 				 
          var _p ;
@@ -66,6 +65,7 @@ function circles_terminal_cmd_normalize()
             _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+            else if ( _p.stricmp( "all", "html", "silent" ) ) _cmd_params[_p] = YES ;
             else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
             else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
             else if ( _p.toLowerCase().start_with( "roundto:" ) )
@@ -84,8 +84,6 @@ function circles_terminal_cmd_normalize()
                    
               _cmd_params['roundto'] = _p ;
             }
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-            else if ( _p.stricmp( "all" ) ) _cmd_params['all'] = YES ;
             else if ( _p.is_one_of_i( "show", "compute", "release" ) ) _cmd_params['action'] = _p.toLowerCase();
             else if ( _p.length == 1 && _p.isAlpha() ) _symbols_array.push( _p );
             else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
@@ -94,7 +92,7 @@ function circles_terminal_cmd_normalize()
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
          {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+             var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
              if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
@@ -229,7 +227,7 @@ function circles_terminal_cmd_normalize()
 						             	_params_array['promptquestion'] = _prompt_question ;
 						             	_params_array['yes_fn'] = function() { _normalize_maps( _symbols_array ); }
 						             	_params_array['ifquestiondisabled_fn'] = function() { _normalize_maps( _symbols_array ); }
-						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 						else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                   }
                   break ;

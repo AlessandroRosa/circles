@@ -29,20 +29,19 @@ function circles_terminal_cmd_probability()
        _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
        _cmd_params['help'] = NO ;
        _cmd_params['keywords'] = NO ;
-       _cmd_params['settings'] = [] ;
-       _cmd_params['settings']['rng'] = "" ;
-       _cmd_params['settings']['warmup'] = UNDET ;
-       _cmd_params['settings']['repsthreshold'] = UNDET ;
-       _cmd_params['settings']['repsdepth'] = UNDET ;
+       _cmd_params['rng'] = "" ;
+       _cmd_params['warmup'] = UNDET ;
+       _cmd_params['repsthreshold'] = UNDET ;
+       _cmd_params['repsdepth'] = UNDET ;
 
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
-        var _local_cmds_params_array = [];
-    	    _local_cmds_params_array.push( "clean", "default", "exact", "list", "set", "help",
+        var _cmd_terms_dict = [];
+    	    _cmd_terms_dict.push( "clean", "default", "exact", "list", "set", "help",
                      "built-in", "uniform", "normal", "exponential", "poisson",
                      "gamma", "sine", "release", "html", "repsthreshold", "warmup", "repsdepth" );
-        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+        circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
         var _p ;
         params_loop:
 	    for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -50,31 +49,31 @@ function circles_terminal_cmd_probability()
            _p = _params_array[_i] ;
            if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
            else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-           else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-           else if ( _p.is_one_of_i( "force", "lock", "silent" ) )
+           else if ( _p.is_one_of_i( "html", "silent" ) ) _cmd_params[_p] = YES ;
+           else if ( _p.is_one_of_i( "force", "lock" ) )
            {
-             if ( !is_array( _cmd_params['settings']['options'] ) ) _cmd_params['settings']['options'] = [] ;
-             _cmd_params['settings']['options'].push( _p.toLowerCase() );
+             if ( !is_array( _cmd_params['options'] ) ) _cmd_params['options'] = [] ;
+             _cmd_params['options'].push( _p.toLowerCase() );
            }
            else if ( _p.is_one_of_i( "exponential", "gamma", "gaussian", "normal", "poisson", "sine", "built-in", "uniform", "mersenne" ) )
-           _cmd_params['settings']['rng'] = _p ;
+           _cmd_params['rng'] = _p ;
               else if ( _p.start_with_i( "warmup:" ) )
               {
                   var _w = safe_int( _p.replaceAll( "warmup:", "" ), DEFAULT_RND_WARMUP );
-                  if ( _w > 0 ) _cmd_params['settings']['warmup'] = _w ;
+                  if ( _w > 0 ) _cmd_params['warmup'] = _w ;
                   else { _b_fail = YES, _error_str = "warm-up must be strictly positive" ; break ; }
               }
               else if ( _p.start_with_i( "repsthreshold:" ) )
               {
                   var _w = safe_float( _p.replaceAll( "repsthreshold:", "" ), DEFAULT_RND_REPS_THRESHOLD );
                   var _min = 0, _max = 1 ;
-                  if ( _w.ranges_in( _min, _max, YES ) ) _cmd_params['settings']['repsthreshold'] = _w ;
+                  if ( _w.ranges_in( _min, _max, YES ) ) _cmd_params['repsthreshold'] = _w ;
                   else { _b_fail = YES, _error_str = "repetends threshold must range from "+_min+" to " + _max ; break ; }
               }
               else if ( _p.start_with_i( "repsdepth:" ) )
               {
                   var _d = safe_int( _p.replaceAll( "repsdepth:", "" ), DEFAULT_RND_REPS_DEPTH );
-                  if ( _d > 0 ) _cmd_params['settings']['repsdepth'] = _d ;
+                  if ( _d > 0 ) _cmd_params['repsdepth'] = _d ;
                   else { _b_fail = YES, _error_str = "repetends depth must be strictly positive" ; }
               }
               else if ( _p.is_one_of_i( "clean", "default", "exact", "list", "release", "set" ) ) _cmd_params['action'] = _p ;
@@ -88,33 +87,33 @@ function circles_terminal_cmd_probability()
                 _p = Math.max( safe_float( _p, 0 ), 0 ) ;
                 if ( _p > 0 && _p < FULL_SUM )
                 {
-                    if ( !is_array( _cmd_params['settings']['probs'] ) ) _cmd_params['settings']['probs'] = [] ;
-                    _cmd_params['settings']['probs'].push( _p ) ;
+                    if ( !is_array( _cmd_params['probs'] ) ) _cmd_params['probs'] = [] ;
+                    _cmd_params['probs'].push( _p ) ;
                 }
                 else { _b_fail = YES, _error_str = "The input probability "+_p+" is illegal: it shall range in ]0, "+FULL_SUM+"[" ; break ; }
               }
               else if ( _p.testME( _glob_word_regex_pattern ) )
               {
-                       var _lock = is_array( _cmd_params['settings']['options'] ) ? ( _cmd_params['settings']['options'].includes( "lock" ) ? YES : NO ) : NO ;
+                       var _lock = is_array( _cmd_params['options'] ) ? ( _cmd_params['options'].includes( "lock" ) ? YES : NO ) : NO ;
                        if ( _lock )
                        {
-                          if ( !is_array( _cmd_params['settings']['lockedletters'] ) ) _cmd_params['settings']['lockedletters'] = [] ;
-                          if ( _cmd_params['settings']['lockedletters'].includes( _p ) )
+                          if ( !is_array( _cmd_params['lockedletters'] ) ) _cmd_params['lockedletters'] = [] ;
+                          if ( _cmd_params['lockedletters'].includes( _p ) )
                                circles_lib_output( _out_channel, DISPATCH_WARNING, "Word "+_p+" is already locked", _par_1, _cmd_tag );
                           else
                           {
-                             _cmd_params['settings']['lockedletters'].push( _p ) ;
+                             _cmd_params['lockedletters'].push( _p ) ;
                              circles_lib_output( _out_channel, DISPATCH_INFO, "Word "+_p+" has been marked as 'locked'", _par_1, _cmd_tag );
                           }
                        }
                        else
                        {
-                          if ( !is_array( _cmd_params['settings']['letters'] ) ) _cmd_params['settings']['letters'] = [] ;
-                          if ( _cmd_params['settings']['letters'].includes( _p ) )
+                          if ( !is_array( _cmd_params['letters'] ) ) _cmd_params['letters'] = [] ;
+                          if ( _cmd_params['letters'].includes( _p ) )
                                circles_lib_output( _out_channel, DISPATCH_WARNING, "Word "+_p+" has been already acquired", _par_1, _cmd_tag );
                           else
                           {
-                             _cmd_params['settings']['letters'].push( _p ) ;
+                             _cmd_params['letters'].push( _p ) ;
                              circles_lib_output( _out_channel, DISPATCH_INFO, "Word "+_p+" has been acquired", _par_1, _cmd_tag );
                           }
                        }
@@ -125,7 +124,7 @@ function circles_terminal_cmd_probability()
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
          {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+             var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
              if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
@@ -149,7 +148,7 @@ function circles_terminal_cmd_probability()
                         circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                         break ;
                         case "clean":
-                        var _force = is_array( _cmd_params['settings']['options'] ) ? ( _cmd_params['settings']['options'].includes_i( "force" ) ? YES : NO ) : NO ;
+                        var _force = is_array( _cmd_params['options'] ) ? ( _cmd_params['options'].includes_i( "force" ) ? YES : NO ) : NO ;
                         var _entries_n = safe_size( _glob_rnd_probability_array, 0 );
                         var removal_fn = function()
                         {
@@ -172,7 +171,7 @@ function circles_terminal_cmd_probability()
     									             	_params_array['promptquestion'] = _prompt_question ;
     									             	_params_array['yes_fn'] = function() { removal_fn(); }
     									             	_params_array['ifquestiondisabled_fn'] = function() { removal_fn(); }
-								if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+								if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
     							else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                             }
                         }
@@ -214,7 +213,7 @@ function circles_terminal_cmd_probability()
     															                              circles_lib_output( _out_channel, DISPATCH_INFO, "Please, init gens for modifications to take effect", _par_1, _cmd_tag );
     																												 }
    									             	 _params_array['ifquestiondisabled_fn'] = function() { default_fn(); }
-								if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+								if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
     							else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                             }
                             else circles_lib_output( _out_channel, DISPATCH_INFO, _ERR_33_01, _par_1, _cmd_tag );
@@ -303,34 +302,34 @@ function circles_terminal_cmd_probability()
 												}
                         break ;
                         case "set":
-                        var _force = is_array( _cmd_params['settings']['options'] ) ? ( _cmd_params['settings']['options'].includes_i( "force" ) ? YES : NO ) : NO ;
+                        var _force = is_array( _cmd_params['options'] ) ? ( _cmd_params['options'].includes_i( "force" ) ? YES : NO ) : NO ;
                         var _gens_set_exists = circles_lib_gens_model_exists() ;
                         var _items_n = _gens_set_exists ? circles_lib_gens_count() : circles_lib_count_items() ;
                         var _ks = _glob_gens_set_symbols_map_array.keys_associative() ;
 						if ( _ks == null ) _ks = [] ;
                         var _vs = _glob_gens_set_symbols_map_array.values_associative();
 
-                        if ( _cmd_params['settings']['warmup'] != UNDET )
+                        if ( _cmd_params['warmup'] != UNDET )
                         {
-                            _glob_rnd_reps_warmup = _cmd_params['settings']['warmup'] ;
+                            _glob_rnd_reps_warmup = _cmd_params['warmup'] ;
                             circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Warm-up set to " + _glob_rnd_reps_warmup.roundTo(_decimals), _par_1, _cmd_tag );
                         }
 
-                        if ( _cmd_params['settings']['repsthreshold'] != UNDET )
+                        if ( _cmd_params['repsthreshold'] != UNDET )
                         {
-                            _glob_rnd_reps_threshold = _cmd_params['settings']['repsthreshold'] ;
+                            _glob_rnd_reps_threshold = _cmd_params['repsthreshold'] ;
                             circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Repetends threshold set to " + _glob_rnd_reps_threshold.roundTo(_decimals), _par_1, _cmd_tag );
                         }
 
-                        if ( _cmd_params['settings']['repsdepth'] != UNDET )
+                        if ( _cmd_params['repsdepth'] != UNDET )
                         {
-                            _glob_rnd_reps_depth = _cmd_params['settings']['repsdepth'] ;
+                            _glob_rnd_reps_depth = _cmd_params['repsdepth'] ;
                             circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Repetends depth set to " + _glob_rnd_reps_depth.roundTo(_decimals), _par_1, _cmd_tag );
                         }
 
-                        if ( safe_size( _cmd_params['settings']['rng'], 0 ) > 0 )
+                        if ( safe_size( _cmd_params['rng'], 0 ) > 0 )
                         {
-							switch( _cmd_params['settings']['rng'] )
+							switch( _cmd_params['rng'] )
 							{
 								case "built-in": _glob_probabilityRNGmethod = RNG_BUILT_IN ; break ;
 								case "uniform": _glob_probabilityRNGmethod = RNG_UNIFORM ; break ;
@@ -344,23 +343,23 @@ function circles_terminal_cmd_probability()
 								case "lcg": _glob_probabilityRNGmethod = RNG_LINEAR_CONGRUENT; break ;
 								default:
 								_glob_probabilityRNGmethod = RNG_BUILT_IN ;
-                                _cmd_params['settings']['rng'] = "built-in" ;
+                                _cmd_params['rng'] = "built-in" ;
                                 var _msg = "" ;
-                                if ( _cmd_params['settings']['rng'].length > 0 )
-								_msg = "RNG method "+_cmd_params['settings']['rng']+" is not available. Reset to the default 'built-in' method" ;
+                                if ( _cmd_params['rng'].length > 0 )
+								_msg = "RNG method "+_cmd_params['rng']+" is not available. Reset to the default 'built-in' method" ;
                                 else _msg = "Missing input RNG method. Reset to the default 'built-in' method" ;
                                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
 								break ;
 							}
-                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<green>RNG method has been set up to</green> <white>" + _cmd_params['settings']['rng'] + "</white> <green>with success</green>", _par_1, _cmd_tag );
+                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<green>RNG method has been set up to</green> <white>" + _cmd_params['rng'] + "</white> <green>with success</green>", _par_1, _cmd_tag );
                         }
 
-                        var _letters_arr = _cmd_params['settings']['letters'] ;
+                        var _letters_arr = _cmd_params['letters'] ;
                         if ( !is_array( _letters_arr ) ) _letters_arr = [] ;
 						_alphabet = _letters_arr ;
-                        var _locked_letters_arr = _cmd_params['settings']['lockedletters'] ;
+                        var _locked_letters_arr = _cmd_params['lockedletters'] ;
                         if ( !is_array( _locked_letters_arr ) ) _locked_letters_arr = [] ;
-                        var _probabilities_array = _cmd_params['settings']['probs'] ;
+                        var _probabilities_array = _cmd_params['probs'] ;
                         if ( !is_array( _probabilities_array ) ) _probabilities_array = [] ;
 
                         var _intersection_array = _letters_arr.intersection( _locked_letters_arr, function( a, b ) { return a == b ; } );
@@ -537,7 +536,7 @@ function circles_terminal_cmd_probability()
 						
 						if ( !_b_fail )
 						{
-							var _sch_n = circles_lib_gens_model_count(), _pp_n = safe_size( _cmd_params['settings']['probs'], 0 );
+							var _sch_n = circles_lib_gens_model_count(), _pp_n = safe_size( _cmd_params['probs'], 0 );
 							if ( _sch_n == 0 )
 							{
 								circles_lib_output( _out_channel, DISPATCH_INFO, "Missing generators set: attempting default generation", _par_1, _cmd_tag );

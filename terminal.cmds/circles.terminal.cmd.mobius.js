@@ -27,46 +27,45 @@ function circles_terminal_cmd_mobius()
     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
     if ( _params.length > 0 )
     {
-        _cmd_params['settings'] = [] ;
-        _cmd_params['settings']['params'] = [] ;
-        _cmd_params['settings']['action'] = "" ;
+        _cmd_params['action'] = "" ;
         _cmd_params['all'] = NO ;
         _cmd_params['border'] = UNDET ;
         _cmd_params['bordercolor'] = null ;
+        _cmd_params['bordersize'] = null ;
         _cmd_params['dump'] = NO ;
         _cmd_params['dump_array'] = null ;
         _cmd_params['dump_operator_index'] = UNDET ;
         _cmd_params['extras'] = [] ;
         _cmd_params['fill'] = UNDET ;
         _cmd_params['fillcolor'] = null ;
-		_cmd_params['generator'] = NO ;
         _cmd_params['help'] = NO ;
         _cmd_params['keywords'] = NO ;
         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
         _cmd_params['index'] = null ;
         _cmd_params['inv_symbol'] = null ;
-        _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
-        _cmd_params['symbol'] = null ;
-        _cmd_params['bordersize'] = null ;
+        _cmd_params["target"] = ITEMS_SWITCH_SEEDS ;
+        _cmd_params['notes'] = [] ;
         _cmd_params['off'] = NO ;
         _cmd_params['on'] = NO ;
+		_cmd_params['params'] = [] ;
         _cmd_params['properties'] = [] ;
         _cmd_params['roundto'] = _glob_accuracy ;
-        _cmd_params['settings']['storagequeue'] = [] ;
-        _cmd_params['settings']['storagesubset'] = "seeds" ;
+        _cmd_params['storagequeue'] = [] ;
+        _cmd_params['storagesubset'] = "seeds" ;
+        _cmd_params['symbol'] = null ;
+		_cmd_params['target'] = "seeds" ;
         _cmd_params['vars'] = [] ;
-        _cmd_params['notes'] = [] ;
 
         _cmd_params['a'] = null, _cmd_params['b'] = null, _cmd_params['c'] = null, _cmd_params['d'] = null ;
 
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
-    	var _local_cmds_params_array = [];
-    		_local_cmds_params_array.push( "fill", "nofill", "draw", "nodraw", "on", "off", "disabled" );
-			_local_cmds_params_array.push( "add", "check", "class", "copy", "delete", "generators", "notes", "find", "fixedpoints", "list",
-				 							"generator", "group", "plot", "select", "seeds", "update", "html", "colorize", "decolorize" );
-        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+    	var _cmd_terms_dict = [];
+    		_cmd_terms_dict.push( "fill", "nofill", "border", "nodraw", "on", "off", "disabled" );
+			_cmd_terms_dict.push( "add", "check", "class", "copy", "delete", "generators", "notes", "find", "fixedpoints", "list",
+				 						   "group", "plot", "select", "seeds", "update", "html", "colorize", "decolorize" );
+        circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
 
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 		_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -88,43 +87,38 @@ function circles_terminal_cmd_mobius()
             _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-            else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
-            else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
-            else if ( _p.is_one_of_i( "storagein" ) ) _cmd_params['settings']['params'].push( _p ) ;
-            else if ( _p.start_with( "storagesubset:" ) ) _cmd_params['settings']['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
-            else if ( _p.stricmp( "all" ) ) _cmd_params['all'] = YES ;
-            else if ( _p.stricmp( "fill" ) ) _cmd_params['fill'] = YES ;
+            else if ( _p.is_one_of_i( "all", "border", "fill", "html", "off", "rec", "silent" ) ) _cmd_params[_p] = YES ;
             else if ( _p.stricmp( "nofill" ) ) _cmd_params['fill'] = NO ;
-            else if ( _p.stricmp( "draw" ) ) _cmd_params['border'] = YES ;
             else if ( _p.stricmp( "nodraw" ) ) _cmd_params['border'] = NO ;
-            else if ( _p.stricmp( "off" ) ) _cmd_params['off'] = YES ;
-            else if ( _p.stricmp( "generator" ) ) _cmd_params['generator'] = YES ;
+            else if ( _p.stricmp( "seeds" ) ) _cmd_params["target"] = ITEMS_SWITCH_SEEDS ;
+            else if ( _p.stricmp( "generators" ) ) _cmd_params["target"] = ITEMS_SWITCH_GENS ;
+            else if ( _p.is_one_of_i( "storagein" ) ) _cmd_params['params'].push( _p ) ;
+            else if ( _p.start_with( "storagesubset:" ) ) _cmd_params['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
             else if ( _p.is_one_of_i( "add", "assemble", "changesymbol", "check", "colorize", "decolorize", "copy", "delete",
                                       "find", "inverse", "symbol", "list", "notes", "group", "release", "select", "update" ) )
-            _cmd_params['settings']['action'] = _p.toLowerCase();
+            _cmd_params['action'] = _p.toLowerCase();
             else if ( _p.is_one_of_i( "characteristic", "class", "determinant", "fixedpoints", "circle", "multiplier", "normalize", "trace" ) )
             _cmd_params['properties'].push( _p.toLowerCase() );
             else if ( _p.is_one_of_i( "plot", "attr", "params" ) ) _cmd_params['extras'].push( _p.toLowerCase() );
             else if ( _p.isAlpha() || _p.isNumber() )
 			{
-				if ( _p.isAlpha() && _cmd_params['settings']['action'].stricmp( "assemble" ) )
+				if ( _p.isAlpha() && _cmd_params['action'].stricmp( "assemble" ) )
 				{
-					if ( _cmd_params['settings']['assemble'] == null ) _cmd_params['settings']['assemble'] = [] ;
-					_cmd_params['settings']['assemble'].push( _p );
+					if ( _cmd_params['assemble'] == null ) _cmd_params['assemble'] = [] ;
+					_cmd_params['assemble'].push( _p );
 				}
-				else if ( !_cmd_params['settings']['action'].stricmp( "notes" ) ) _symbols_array.push( _p );
+				else if ( !_cmd_params['action'].stricmp( "notes" ) ) _symbols_array.push( _p );
 			}
             else if ( _p.toLowerCase().start_with( "notes:" ) )
             {
-               _p = safe_string( _p.replaceAll( "notes:", "" ), "" ) ;
+               _p = safe_string( _p.replace( /^notes:/gi, "" ), "" ) ;
                _cmd_params['notes'].push( _p ) ;
                _cmd_params['notesflag'] = YES ;
-               _cmd_params['settings']['action'] = "notes" ;
+               _cmd_params['action'] = "notes" ;
             }
             else if ( _p.toLowerCase().start_with( "roundto:" ) )
             {
-               _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
+               _p = safe_int( _p.replace( /^roundto:/gi, "" ), 0 ) ;
                if ( _p <= 0 )
                {
                   _p = _glob_accuracy ;
@@ -139,10 +133,10 @@ function circles_terminal_cmd_mobius()
                _cmd_params['roundto'] = _p ;
             }
             else if ( _p.toLowerCase().start_with( "bordersize:" ) )
-            _cmd_params['bordersize'] = safe_int( _p.toLowerCase().replaceAll( "bordersize:", "" ), 1 );
+            _cmd_params['bordersize'] = safe_int( _p.toLowerCase().replace( /^bordersize:/gi, "" ), 1 );
 			else if ( _p.toLowerCase().start_with( "bordercolor:" )  )
 			{
-               _p = _p.replaceAll( "bordercolor:", "" );
+               _p = _p.replace( /^bordercolor:/gi, "" );
                if ( circles_lib_colors_is_def( _p ) )
                {
 				 _cmd_params['bordercolor'] = _p ;
@@ -152,7 +146,7 @@ function circles_terminal_cmd_mobius()
             }
 			else if ( _p.toLowerCase().start_with( "fillcolor:" )  )
 			{
-               _p = _p.replaceAll( "fillcolor:", "" );
+               _p = _p.replace( /^fillcolor:/gi, "" );
                if ( circles_lib_colors_is_def( _p ) )
                {
 				  _cmd_params['fillcolor'] = _p ;
@@ -177,25 +171,25 @@ function circles_terminal_cmd_mobius()
             }
             else
             {
-               if ( _cmd_params['settings']['action'].stricmp( "notes" ) ) _cmd_params['notes'].push( _p ) ;
+               if ( _cmd_params['action'].stricmp( "notes" ) ) _cmd_params['notes'].push( _p ) ;
                else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
             }
          }
 
-        var _action = _cmd_params['settings']['action'] ;
-        var _items_array = _cmd_params["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+        var _action = _cmd_params['action'] ;
+        var _items_array = _cmd_params["target"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
 		var _items_n = circles_lib_count_items( _items_array );
-        var _dest_ref = _cmd_params["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
-        var _category_ref = _cmd_params["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
+        var _dest_ref = _cmd_params["target"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+        var _category_ref = _cmd_params["target"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
         var _round_to = _cmd_params['roundto'] ;
         var _mm = new mobius_map( _cmd_params['a'], _cmd_params['b'], _cmd_params['c'], _cmd_params['d'] );
-        var _storage_queue_request = _cmd_params['settings']['params'].includes_i( "storagein" ) ? YES : NO ;
+        var _storage_queue_request = _cmd_params['params'].includes_i( "storagein" ) ? YES : NO ;
         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
 
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
          {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+             var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
              if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
@@ -294,7 +288,7 @@ function circles_terminal_cmd_mobius()
                         if ( _new_sd_n == _old_sd_n + 1 )
                         {
                             circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The new Mobius map"+( ( _symbol.length > 0 ) ? " '"+_symbol+"'" : "" )+" has been added", _par_1, _cmd_tag );
-                            if ( _storage_queue_request ) _cmd_params['settings']['storagequeue'].push( _items_array[_obj_index].copy() );
+                            if ( _storage_queue_request ) _cmd_params['storagequeue'].push( _items_array[_obj_index].copy() );
                         }
                          
                         var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _out_channel );
@@ -321,7 +315,7 @@ function circles_terminal_cmd_mobius()
                 if ( _glob_method == METHOD_NONE ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning: a method has to be set up", _par_1, _cmd_tag ); 
                 break ;
                 case "assemble" :
-				var _input_array = _cmd_params['settings']['assemble'] ;
+				var _input_array = _cmd_params['assemble'] ;
                     if ( is_array( _input_array ) )
                     {
 						var ALPHABET = circles_lib_alphabet_get();
@@ -337,6 +331,9 @@ function circles_terminal_cmd_mobius()
                         
 						if ( _input_array.length > 0 && !_b_fail )
 						{
+							var _msg = "Assembling action. Maps source: "+_cmd_params['target'] ;
+							circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+							
 							var _words_array = [], _mobius_maps_array = [];
 							var _passed, WORD, _resolved_gen ;
 							// check valid syntax
@@ -356,7 +353,7 @@ function circles_terminal_cmd_mobius()
 								var G = null, _mm = null, INDEX = 0 ;
                                 for( _i = 0 ; _i < _words_array.length ; _i++ )
 								{
-				 		            WORD = ( new String( _words_array[_i] ) ).trim();
+				 		            WORD = _words_array[_i].trim();
 				 		            if ( WORD.length > 0 )
 				 		            {
 										// construction must be pursued using seeds
@@ -369,11 +366,40 @@ function circles_terminal_cmd_mobius()
 								var _work_mobius_map = new mobius_map();
 								_work_mobius_map = _work_mobius_map.advanced_composition( _mobius_maps_array );
 
+								if ( _cmd_params['rec'] )
+								{
+									var _target_array = _cmd_params['target'] == "seeds" ? _glob_seeds_array : _glob_gens_array ;
+									var _old_n = _target_array.length ;
+									var _new_sym = circles_lib_alphabet_suggest_symbol(_target_array);
+									var _inv_sym = _new_sym.toLowerCase();
+									var _inv_mm = _work_mobius_map.inv();
+									var _item = new item_obj( _work_mobius_map, null, null, _new_sym, 0,
+															  YES, _glob_draw_seed_color, NO, "", _inv_sym, 1, ITEM_TYPE_MOBIUS ) ;
+									var _inv_item = new item_obj( _inv_mm, null, null, _inv_sym, 0,
+															  YES, _glob_draw_inverse_seed_color, NO, "", _new_sym, 1, ITEM_TYPE_MOBIUS ) ;
+									_target_array.push( _item, _inv_item );
+									var _new_n = _target_array.length ;
+									if ( _old_n == _new_n ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to add new entries from mobius map", _par_1, _cmd_tag );
+									else
+									{
+										var _msg = "A new item has been added to "+_cmd_params['target']+", together with its inverse." ;
+										circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
+										circles_lib_colors_colorize_group(_target_array, YES, NO, _out_channel);
+										_glob_items_to_init = YES ;
+										if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init paired maps", _glob_terminal, _out_channel );
+										else
+										{
+											var _alphabet = circles_lib_alphabet_generate();
+											circles_lib_output( _out_channel, DISPATCH_INFO, "Now type 'init paired maps' for changes to take effect inside the current group", _par_1, _cmd_tag );
+										}
+									}
+								}
+								
                                 if ( _storage_queue_request )
                                 {
                                     var ITEM = new item_obj( _work_mobius_map ) ;
                                     ITEM.validate( INIT_FROM_MAPS );
-                                    _cmd_params['settings']['storagequeue'].push( ITEM );
+                                    _cmd_params['storagequeue'].push( ITEM );
                                 }
 
                                 var _msg = "Word '"+_words_array.join( "" )+"' was assembled into one new Mobius map:" + _glob_crlf ;
@@ -461,7 +487,7 @@ function circles_terminal_cmd_mobius()
                           circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                         }
 						_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _out_channel ); }
-						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
              			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                     }
                     else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
@@ -492,7 +518,7 @@ function circles_terminal_cmd_mobius()
                           circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                        }
             					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel ); }
-						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flagg || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
              			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                     }
                     else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
@@ -543,7 +569,7 @@ function circles_terminal_cmd_mobius()
                         else if ( _all == YES )
                         {
                              _items_array.flush();
-                             if ( _cmd_params["item"] == ITEMS_SWITCH_SEEDS ) _glob_seeds_array = [];
+                             if ( _cmd_params["target"] == ITEMS_SWITCH_SEEDS ) _glob_seeds_array = [];
                              _new_sd_n = circles_lib_count_items( _items_array );
                              if ( _new_sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The Mobius maps list has been emptied with success", _par_1, _cmd_tag );
                         }
@@ -559,17 +585,11 @@ function circles_terminal_cmd_mobius()
                             if ( _ret_id == RET_OK )
                             {
                                 if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init auto", _glob_terminal, _out_channel );
-                                //if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _out_channel );
+                                if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _out_channel );
                             }
-                            else
-                            {
-                                _b_fail = YES, _error_str = _ret_msg ;
-                            }
+                            else { _b_fail = YES, _error_str = _ret_msg ; }
                         }
-                        else
-                        {
-                           _b_fail = YES, _error_str = _ret_msg ;
-                        }
+                        else { _b_fail = YES, _error_str = _ret_msg ; }
                     }
 
                     if ( _old_sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning! No deletion can be performed: the Mobius maps list is empty", _par_1, _cmd_tag );
@@ -577,12 +597,12 @@ function circles_terminal_cmd_mobius()
                     else if ( _glob_terminal_echo_flag ) _delete_map();
                     else if ( is_array( _items_array ) )
                     {
-				           		  var _params_array = [] ;
-										     	  _params_array['prepromptquestion'] = null ;
-				             		 		_params_array['promptquestion'] = _prompt_question ;
-				             		 		_params_array['yes_fn'] = function() { _delete_map(); }
-				             		 		_params_array['ifquestiondisabled_fn'] = function() { _delete_map(); }
-						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+				        var _params_array = [] ;
+						_params_array['prepromptquestion'] = null ;
+				        _params_array['promptquestion'] = _prompt_question ;
+				        _params_array['yes_fn'] = function() { _delete_map(); }
+				        _params_array['ifquestiondisabled_fn'] = function() { _delete_map(); }
+						if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 				        else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                     }
                     else if ( !is_array( _items_array ) ) { _b_fail = YES, _error_str = "Memory failure: can't get current items" ; }
@@ -671,7 +691,7 @@ function circles_terminal_cmd_mobius()
                         }
 
                         if ( _storage_queue_request )
-                        _cmd_params['settings']['storagequeue'].push( _inv_item_obj );
+                        _cmd_params['storagequeue'].push( _inv_item_obj );
                     }
 
                     if ( _symbols_array.length == 0 && _selection_indexes_array.length > 0 )
@@ -690,22 +710,20 @@ function circles_terminal_cmd_mobius()
                                 ITEM = is_array( _items_array ) ? _items_array[_obj_index] : null ;
                                 if ( _obj_index != UNDET && is_item_obj( ITEM ) )
                                 {
-                                     _symbol = ITEM.symbol ;
-                                     _inv_symbol = ITEM.inverse_symbol ;
-                                     _inverse_symbol_index = circles_lib_find_item_index_by_symbol( _items_array, _inv_symbol );
-                                     if ( _inverse_symbol_index == UNFOUND )
-                                     _insert_inverse_mm_obj( ITEM, _inverse_symbol_index, _out_channel );
-                                     else
-                                     {
-                                          _prompt_question = "An item with symbol '"+_inv_symbol+"' already exists. Replace ?" ;
-													           		  var _params_array = [] ;
-																			     	  _params_array['prepromptquestion'] = null ;
-													             		 		_params_array['promptquestion'] = _prompt_question ;
-													             		 		_params_array['yes_fn'] = function() { _insert_inverse_mm_obj( ITEM, _obj_index, _out_channel ); }
-													             		 		_params_array['ifquestiondisabled_fn'] = function() { _insert_inverse_mm_obj( ITEM, _obj_index, _out_channel ); }
-										if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+                                    _symbol = ITEM.symbol, _inv_symbol = ITEM.inverse_symbol ;
+                                    _inverse_symbol_index = circles_lib_find_item_index_by_symbol( _items_array, _inv_symbol );
+                                    if ( _inverse_symbol_index == UNFOUND ) _insert_inverse_mm_obj( ITEM, _inverse_symbol_index, _out_channel );
+                                    else
+                                    {
+                                        _prompt_question = "An item with symbol '"+_inv_symbol+"' already exists. Replace ?" ;
+										var _params_array = [] ;
+										_params_array['prepromptquestion'] = null ;
+										_params_array['promptquestion'] = _prompt_question ;
+										_params_array['yes_fn'] = function() { _insert_inverse_mm_obj( ITEM, _obj_index, _out_channel ); }
+										_params_array['ifquestiondisabled_fn'] = function() { _insert_inverse_mm_obj( ITEM, _obj_index, _out_channel ); }
+										if ( !_glob_terminal_echo_flagg || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 										else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
-                                     }
+                                    }
                                 }
                             }
                         }
@@ -784,7 +802,7 @@ function circles_terminal_cmd_mobius()
                             circles_lib_output( _out_channel, DISPATCH_SUCCESS, _msg, _par_1, _cmd_tag );
 
                             if ( _storage_queue_request )
-                            _cmd_params['settings']['storagequeue'].push( _items_array[_seeds_ret_i].copy() );
+                            _cmd_params['storagequeue'].push( _items_array[_seeds_ret_i].copy() );
                         }
                     }
                     break ;
@@ -807,7 +825,7 @@ function circles_terminal_cmd_mobius()
 														 		 _b_fail = YES, _error_str = _ret_msg ;
 														 }
 														 
-                             if ( _storage_queue_request ) $.each( _glob_zplane_selected_items_array, function( _i, _index ) { _cmd_params['settings']['storagequeue'].push( _items_array[_index].copy() ); } ) ;
+                             if ( _storage_queue_request ) $.each( _glob_zplane_selected_items_array, function( _i, _index ) { _cmd_params['storagequeue'].push( _items_array[_index].copy() ); } ) ;
                         }
                         else
                         {
@@ -843,12 +861,12 @@ function circles_terminal_cmd_mobius()
                                 {
                                     //if ( _cmd_params['symbol'] != null ) _items_array[_obj_index].symbol = _cmd_params['symbol'][0] ;
                                     if ( _cmd_params['inv_symbol'] != null ) _items_array[_obj_index].inverse_symbol = _cmd_params['inv_symbol'][0] ;
-                                    if ( _cmd_params['border'] != UNDET ) _items_array[_obj_index].complex_circle.draw = _cmd_params['border'] ;
+                                    if ( _cmd_params['border'] != UNDET ) _items_array[_obj_index].complex_circle.border = _cmd_params['border'] ;
                                     if ( _cmd_params['fill'] != UNDET ) _items_array[_obj_index].complex_circle.fill = _cmd_params['fill'] ;
                                     if ( _cmd_params['bordercolor'] != null )
                                     {
                                       _items_array[_obj_index].complex_circle.bordercolor = _cmd_params['bordercolor'] ;
-                                      _items_array[_obj_index].complex_circle.draw = 1 ;
+                                      _items_array[_obj_index].complex_circle.border = 1 ;
                                     }
                                     if ( _cmd_params['fillcolor'] != null ) { _items_array[_obj_index].complex_circle.fillcolor = _cmd_params['fillcolor'] ; _items_array[_obj_index].complex_circle.fill = 1 ; }
                                     if ( _cmd_params['bordersize'] != null ) _items_array[_obj_index].complex_circle.bordersize = _cmd_params['bordersize'] ;
@@ -859,7 +877,7 @@ function circles_terminal_cmd_mobius()
 
                                     circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Mobius map '"+_items_array[_obj_index].symbol+"' has been updated", _par_1, _cmd_tag ); 
                                     if ( _storage_queue_request )
-                                    _cmd_params['settings']['storagequeue'].push( _items_array[_obj_index].copy() );
+                                    _cmd_params['storagequeue'].push( _items_array[_obj_index].copy() );
                                 }
                                 else circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning: there's no element with that symbol or index", _par_1, _cmd_tag );
                             }
@@ -898,15 +916,15 @@ function circles_terminal_cmd_mobius()
 
             if ( _storage_queue_request )
             {
-                  var _n_queue = safe_size( _cmd_params['settings']['storagequeue'], 0 );
-                  var _subset = safe_string( _cmd_params['settings']['storagesubset'], "seeds" ) ;
+                  var _n_queue = safe_size( _cmd_params['storagequeue'], 0 );
+                  var _subset = safe_string( _cmd_params['storagesubset'], "seeds" ) ;
                   if ( _n_queue > 0 && is_array( _glob_storage[ _subset ] ) )
                   {
                       circles_lib_output( _out_channel, DISPATCH_INFO, "Found "+_n_queue+" candidate Mobius map"+(_n_queue==1?"":"s")+" in the storage queue", _par_1, _cmd_tag );
                       circles_lib_output( _out_channel, DISPATCH_INFO, "to be stored in the storage subset '"+_subset+"'", _par_1, _cmd_tag );
                       var _old_n = safe_size( _glob_storage[_subset], 0 ), _last_index ;
                       if ( _old_n == 0 && !is_array( _glob_storage[_subset] ) ) _glob_storage[_subset] = [] ;
-                      $.each( _cmd_params['settings']['storagequeue'],
+                      $.each( _cmd_params['storagequeue'],
                               function( _i, _item_obj )
                               {
                                  switch ( _subset )

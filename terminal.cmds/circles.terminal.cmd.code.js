@@ -45,9 +45,9 @@ function circles_terminal_cmd_code()
         }
 
         // pre-scan for levenshtein correction
-    	var _local_cmds_params_array = [];
-			_local_cmds_params_array.push( "html" );
-        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+    	var _cmd_terms_dict = [];
+			_cmd_terms_dict.push( "html" );
+        circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
 
         var _p ;
         // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
@@ -64,7 +64,7 @@ function circles_terminal_cmd_code()
     if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
     else if ( _cmd_params['keywords'] )
     {
-        var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+        var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
         if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
         else
         {

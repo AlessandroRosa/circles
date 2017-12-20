@@ -53,20 +53,20 @@ function circles_terminal_cmd_storage()
         }
 
          // pre-scan for levenshtein correction
-    		 var _local_cmds_params_array = [];
-    				 _local_cmds_params_array.push( "add", "datatypes", "keys", "list", "long", "reset", "restore", "purge", "exists",
+    		 var _cmd_terms_dict = [];
+    				 _cmd_terms_dict.push( "add", "datatypes", "keys", "list", "long", "reset", "restore", "purge", "exists",
 						 																"remove", "copy", "size", "screen", "search", "subkeys", "release", "html", "help",
 						 																"check", "complex", "farey", "fraction", "line", "point", "rect", "string" );
-         _local_cmds_params_array = _local_cmds_params_array.concat( _glob_storage.keys_associative() );
-         circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+         _cmd_terms_dict = _cmd_terms_dict.concat( _glob_storage.keys_associative() );
+         circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
          var _p, _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
          for( var _i = 0 ; _i < _up_to_index ; _i++ )
          {
               _p = _params_array[_i].trim() ;
               if ( safe_size( _p, 0 ) == 0 ) continue ;
-              else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
               else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+              else if ( _p.is_one_of_i( "html", "silent" ) ) _cmd_params[_p] = YES ;
               else if ( _p.is_one_of_i( "all", "export" ) ) _cmd_params['extras'].push( _p.toLowerCase() ); // 'all' can't be applied to send/pull action
               else if ( _p.is_one_of_i( "add", "copy", "create", "datatypes", "exists", "reset", "search", "keys", "list",
                                         "purge", "remove", "restore", "size", "subkeys", "release" ) )
@@ -114,7 +114,7 @@ function circles_terminal_cmd_storage()
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
          {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+             var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
              if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
              else
              {
@@ -684,7 +684,7 @@ function circles_terminal_cmd_storage()
     																															}
     																														) ;
     																									  }
-						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
     					else circles_lib_terminal_cmd_ask_yes_no( _question_array, _out_channel );
                         circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     }
@@ -732,7 +732,7 @@ function circles_terminal_cmd_storage()
 																									     				}
 																									     );
 																									}
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _question_array, _out_channel );
                     circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     break ;
@@ -751,7 +751,7 @@ function circles_terminal_cmd_storage()
                                                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<green>Storage space now includes "+_new_keys_n+" new key" + ( _new_keys_n == 1 ? "" : "s" )+ "</green>", _par_1, _cmd_tag );
                                                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<green>The new keys are</green> <snow>"+_new_keys.join( "</snow><green>,</green><snow>" )+"</snow>", _par_1, _cmd_tag );
 																									  }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _question_array, _out_channel );
                     circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     break ;
@@ -832,7 +832,7 @@ function circles_terminal_cmd_storage()
                     														}
                     												  );
                                                   }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _question_array, _out_channel );
                     circles_lib_plugin_dispatcher_unicast_message( "storage.space", "forms", 1.0 );
                     break ;

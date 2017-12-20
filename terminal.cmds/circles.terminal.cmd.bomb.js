@@ -32,10 +32,10 @@ function circles_terminal_cmd_bomb()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
-    	var _local_cmds_params_array = [];
-    	_local_cmds_params_array.push( "disks", "everything", "figures", "freedraw", "generators", "all",
+    	var _cmd_terms_dict = [];
+    	_cmd_terms_dict.push( "disks", "everything", "figures", "freedraw", "generators", "all",
                                        "html", "items", "symbols", "seeds", "probabilities", "repetends" );
-        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+        circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
         var _p ;
         for( var _i = 0 ; _i < _params_array.length ; _i++ )
         {
@@ -43,7 +43,7 @@ function circles_terminal_cmd_bomb()
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
             else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
+            else if ( _p.is_one_of_i( "html", "silent" ) ) _cmd_params[_p] = YES ;
             else if ( _p.is_one_of_i( "all", "figures", "symbols", "disks", "freedraw", "seeds", "items", "repetends", "generators", "gensmodel", "probabilities", "everything" ) )
             _cmd_params['bomb'].push( _p );
             else { _b_fail = YES ; _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
@@ -52,7 +52,7 @@ function circles_terminal_cmd_bomb()
         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
         else if ( _cmd_params['keywords'] )
         {
-            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
             else
             {
@@ -179,24 +179,24 @@ function circles_terminal_cmd_bomb()
   
                               if ( _bomb_mask.match_bit_mask( 128, 16 ) ) // generators model
                               {
-                                   var _sch_n = circles_lib_gens_model_count();
-                                   if ( _sch_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to bomb generators list and model: no entries found", _par_1, _cmd_tag );
-                                   else
-                                   {
-                                       if ( is_array( _glob_gens_model_array ) )
-                                       {
-																					 _glob_gens_model_array.flush();
-		                                       circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Generators list and model have been bombed with success", _par_1, _cmd_tag );
-																			 }
-                                       else circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Generators list and model are of invalid type", _par_1, _cmd_tag );
+                                    var _sch_n = circles_lib_gens_model_count();
+                                    if ( _sch_n == 0 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Fail to bomb generators list and model: no entries found", _par_1, _cmd_tag );
+                                    else
+                                    {
+                                        if ( is_array( _glob_gens_model_array ) )
+                                        {
+											_glob_gens_model_array.flush();
+		                                    circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Generators list and model have been bombed with success", _par_1, _cmd_tag );
+										}
+                                        else circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Generators list and model are of invalid type", _par_1, _cmd_tag );
 
-                                       if ( is_array( _glob_gens_set_symbols_map_array ) )
-                                       {
-																					 _glob_gens_set_symbols_map_array.flush() ;
-		                                       circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Generators list and model have been bombed with success", _par_1, _cmd_tag );
-																			 }
-                                       else circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Generators list and model are of invalid type", _par_1, _cmd_tag );
-                                   }
+                                        if ( is_array( _glob_gens_set_symbols_map_array ) )
+                                        {
+											_glob_gens_set_symbols_map_array.flush() ;
+		                                    circles_lib_output( OUTPUT_TERMINAL, DISPATCH_SUCCESS, "Generators list and model have been bombed with success", _par_1, _cmd_tag );
+										}
+                                        else circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Generators list and model are of invalid type", _par_1, _cmd_tag );
+                                    }
                               }
 
                               if ( _bomb_mask.match_bit_mask( 512, 16 ) ) // repetends
@@ -210,8 +210,12 @@ function circles_terminal_cmd_bomb()
                                    }
                               }
 							
-							circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _out_channel );
-							circles_lib_terminal_interpreter( "refresh wplane clean silent", _glob_terminal, _out_channel );
+							if ( _glob_terminal_autorefresh )
+							{
+								circles_lib_output( OUTPUT_TERMINAL, DISPATCH_INFO, "Detected auto-refresh on", _par_1, _cmd_tag );
+								circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _out_channel );
+								circles_lib_terminal_interpreter( "refresh wplane clean silent", _glob_terminal, _out_channel );
+							}
                           }
   
 						var _params_array = [], _pre_prompt = null ;
@@ -219,7 +223,7 @@ function circles_terminal_cmd_bomb()
 						_params_array['promptquestion'] = _prompt_question ;
 						_params_array['yes_fn'] = function() { _bombing( _bomb_mask ); }
 						_params_array['ifquestiondisabled_fn'] = function() { _bombing( _bomb_mask ); }
-						if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+						if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 						else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                      }
                 }

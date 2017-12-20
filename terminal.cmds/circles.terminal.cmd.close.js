@@ -23,13 +23,12 @@ function circles_terminal_cmd_close()
     {
         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
         _cmd_params['keywords'] = NO ;
-        _cmd_params['silent'] = NO ;
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
-		var _local_cmds_params_array = [];
-    	_local_cmds_params_array.push( "release", "html", "help", "silent" );
-        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+		var _cmd_terms_dict = [];
+    	_cmd_terms_dict.push( "release", "html", "help", "silent" );
+        circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
         var _p ;
         for( var _i = 0 ; _i < _params_array.length ; _i++ )
         {
@@ -37,8 +36,7 @@ function circles_terminal_cmd_close()
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
             else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-            else if ( _p.stricmp( "silent" ) ) _cmd_params['silent'] = YES ;
+            else if ( _p.is_one_of_i( "html", "silent" ) ) _cmd_params[_p] = YES ;
             else { _b_fail = YES ; _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
         }
     }
@@ -46,7 +44,7 @@ function circles_terminal_cmd_close()
      if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
      else if ( _cmd_params['keywords'] )
      {
-         var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+         var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
          if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
          else
          {
@@ -70,7 +68,7 @@ function circles_terminal_cmd_close()
    		 		_params_array['promptquestion'] = "Confirm to close the terminal console ? " ;
    		 		_params_array['yes_fn'] = function() { circles_lib_terminal_close( _out_channel ); }
    		 		_params_array['ifquestiondisabled_fn'] = function() { circles_lib_terminal_close( _out_channel ); }
-				if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+				if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
          		else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
 			}
             break ;

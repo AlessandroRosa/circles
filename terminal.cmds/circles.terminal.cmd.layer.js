@@ -28,12 +28,12 @@ function circles_terminal_cmd_layer()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
-		var _local_cmds_params_array = [];
-    	_local_cmds_params_array.push( "apply", "bip", "bkcolor", "clean", "close", "copy", "create",
+		var _cmd_terms_dict = [];
+    	_cmd_terms_dict.push( "apply", "bip", "bkcolor", "clean", "close", "copy", "create",
                 "default", "delete", "from", "hide", "info", "list", "merge",
                 "open", "opacity", "rec", "redirect", "resize", "reversepile", "show", "split",
                 "to", "thumbnail", "update", "visible", "wplane", "zplane", "html", "help" );
-        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+        circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
 
 		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
 		_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
@@ -61,7 +61,7 @@ function circles_terminal_cmd_layer()
             _p = _params_array[_i].toLowerCase();
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
+            else if ( _p.is_one_of_i( "html", "rec", "silent" ) ) _cmd_params[_p] = YES ;
             else if ( _p.stricmp( "open" ) )
             {
                 if ( _glob_storage[_cmd_tag] == null ) _glob_storage[_cmd_tag] = [] ;
@@ -78,7 +78,6 @@ function circles_terminal_cmd_layer()
                 circles_lib_terminal_interpreter( "keepcmd off", _glob_terminal, _out_channel );
             }
             else if ( _p.is_one_of_i( "to" ) ) _index_associations[ "" + _p ] = _i ;
-            else if ( _p.stricmp( "rec" ) ) _cmd_params['rec'] = YES ;
             else if ( _p.testME( _glob_percentage_regex_pattern ) ) _cmd_params['w'] = safe_int( _p, 0 );
             else if ( _p.testME( _glob_positive_integer_regex_pattern ) )
             {
@@ -188,7 +187,7 @@ function circles_terminal_cmd_layer()
      if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
      else if ( _cmd_params['keywords'] )
      {
-         var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+         var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
          if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
          else
          {
@@ -340,7 +339,7 @@ function circles_terminal_cmd_layer()
 									_params_array['promptquestion'] = "Confirm to delete "+_action_params_array['plane']+" layer '"+_action_params_array['roledef']+"' ?" ;
 									_params_array['yes_fn'] = function() { _delete_layer(); }
 									_params_array['ifquestiondisabled_fn'] = function() { _delete_layer(); }
-								if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+								if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 								else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                             }
                           }
@@ -406,7 +405,7 @@ function circles_terminal_cmd_layer()
 					_params_array['promptquestion'] = "Restore default settings ?" ;
 					_params_array['yes_fn'] = function() { _restore_defaults(); }
 					_params_array['ifquestiondisabled_fn'] = function() { _restore_defaults(); }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                 }
                 break ;

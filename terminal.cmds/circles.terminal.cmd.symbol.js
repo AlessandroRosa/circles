@@ -22,46 +22,38 @@ function circles_terminal_cmd_symbol()
 	if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
     if ( _params.length > 0 )
     {
-        _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
-        _cmd_params['help'] = NO ;
-        _cmd_params['keywords'] = NO ;
         _cmd_params['action'] = null ;
         _cmd_params['all'] = NO ;
         _cmd_params['auto'] = NO ;
         _cmd_params['backward'] = NO ;
         _cmd_params['force'] = NO ;
         _cmd_params['forward'] = NO ;
+        _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+        _cmd_params['help'] = NO ;
         _cmd_params['inverse'] = NO ;
         _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
+        _cmd_params['keywords'] = NO ;
         _cmd_params['param'] = "" ;
          
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
-    	var _local_cmds_params_array = [];
-    	_local_cmds_params_array.push( "all", "auto", "change", "clean", "force", "forward", "backward",
+    	var _cmd_terms_dict = [ "all", "auto", "change", "clean", "force", "forward", "backward",
                     "clean", "hide", "init", "list", "shift", "show", "inverse",
-                    "html", "release", "generators", "seeds", "colorize", "decolorize"
-																					);
-        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+                    "html", "release", "generators", "seeds", "colorize", "decolorize" ];
+        circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
         var _p ;
         for( var _i = 0 ; _i < _params_array.length ; _i++ )
         {
             _p = _params_array[_i];
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-            else if ( _p.stricmp( "all" ) ) _cmd_params['all'] = YES ;
-            else if ( _p.stricmp( "auto" ) ) _cmd_params['auto'] = YES ;
-            else if ( _p.stricmp( "force" ) ) _cmd_params['force'] = NO ;
+            else if ( _p.is_one_of_i( "all", "auto", "backward", "force", "forward", "html", "inverse", "silent" ) ) _cmd_params[_p] = YES ;
             else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
             else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
-            else if ( _p.stricmp( "forward" ) ) _cmd_params['forward'] = YES ;
-            else if ( _p.stricmp( "backward" ) ) _cmd_params['backward'] = YES ;
-            else if ( _p.stricmp( "inverse" ) ) _cmd_params['inverse'] = YES ;
             else if ( _p.is_one_of_i( "from", "to" ) ) _cmd_params['param'] = _p.toLowerCase();
-            else if ( _p.is_one_of_i( "clean", "colorize", "decolorize", "change", "hide", "init", "list", "release", "shift", "show" ) )
-            _cmd_params['action'] = _p.toLowerCase();
+            else if ( _p.is_one_of_i( "clean", "colorize", "decolorize", "change", "hide", "init", 
+									  "list", "release", "shift", "show" ) ) _cmd_params['action'] = _p.toLowerCase();
             else if ( _p.testME( _glob_symbol_regex_pattern ) )
             {
                 if ( _cmd_params['param'].strcmp( "from" ) )
@@ -81,7 +73,7 @@ function circles_terminal_cmd_symbol()
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
          {
-            var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+            var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
             else
             {
@@ -276,7 +268,7 @@ function circles_terminal_cmd_symbol()
     	                   	_params_array['promptquestion'] = "Are you sure to clean all symbols ?" ;
     	                   	_params_array['yes_fn'] = function() { _clean_fn(); }
     	                   	_params_array['ifquestiondisabled_fn'] = function() { _clean_fn(); }
-							if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+							if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
     	                   	else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                        }
                 }
@@ -295,7 +287,7 @@ function circles_terminal_cmd_symbol()
                         circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
                     }
            			_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _out_channel ); }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
            			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                 }
                 else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
@@ -313,7 +305,7 @@ function circles_terminal_cmd_symbol()
 						circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 					}
 					_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel ); }
-					if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+					if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
 			    }
 			    else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }

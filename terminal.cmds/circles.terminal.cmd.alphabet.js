@@ -36,7 +36,6 @@ function circles_terminal_cmd_alphabet()
         _cmd_params['keywords'] = NO ;
         _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
         _cmd_params['long'] = 0 ;
-        _cmd_params['settings'] = [] ;
         _cmd_params['symbol'] = [] ;
          
     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
@@ -45,18 +44,18 @@ function circles_terminal_cmd_alphabet()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" );
         // pre-scan for levenshtein correction
-    	var _local_cmds_params_array = [];
-    		_local_cmds_params_array.push( "add", "check", "delete", "inv", "long", "regen", "html",
+    	var _cmd_terms_dict = [];
+    		_cmd_terms_dict.push( "add", "check", "delete", "inv", "long", "regen", "html",
                                            "release", "bomb", "show", "colorize", "decolorize" );
-        circles_lib_terminal_levenshtein( _params_array, _local_cmds_params_array, _par_1, _out_channel );
+        circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
         var _p ;
         for( var _i = 0 ; _i < _params_array.length ; _i++ )
         {
             _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-            else if ( _p.is_one_of_i( "long", "inv" ) ) _cmd_params['settings'].push( _p.toLowerCase() ) ;
+            else if ( _p.is_one_of_i( "html", "silent" ) ) _cmd_params['html'] = YES ;
+            else if ( _p.is_one_of_i( "long", "inv" ) ) _cmd_params.push( _p.toLowerCase() ) ;
             else if ( _p.is_one_of_i( "add", "bomb", "check", "colorize", "decolorize", "delete", "regen", "release", "show" ) ) _cmd_params['action'] = _p ;
             else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
             else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
@@ -89,7 +88,7 @@ function circles_terminal_cmd_alphabet()
     if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
     else if ( _cmd_params['keywords'] )
     {
-        var _msg = circles_lib_terminal_tabular_arrange_data( _local_cmds_params_array.sort() ) ;
+        var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
         if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
         else
         {
@@ -126,7 +125,7 @@ function circles_terminal_cmd_alphabet()
 			else
 			{
 				var _out_id, _out_msg, _mask = 0, _symbol ;
-				if ( _cmd_params['settings'].includes( "inv" ) )
+				if ( _cmd_params.includes( "inv" ) )
 				circles_lib_output( _out_channel, DISPATCH_INFO, "Found 'inv' option: symbols will be added together wth their inverses", _par_1, _cmd_tag );
 
 				for( var _i = 0 ; _i < _symbols_array.length ; _i++ )
@@ -141,7 +140,7 @@ function circles_terminal_cmd_alphabet()
 						{
 							_glob_alphabet.push( _symbol );
 							circles_lib_output( _out_channel, DISPATCH_SUCCESS, _error_str_array['err2'].replaceAll( [ "%symbol%", "%not%", "%success%" ], [ _symbol, " ", "with success" ] ), _par_1, _cmd_tag );
-							if ( _cmd_params['settings'].includes( "inv" ) )
+							if ( _cmd_params.includes( "inv" ) )
 							{
 								_glob_alphabet.push( _symbol.flipCase() );
 								circles_lib_output( _out_channel, DISPATCH_INFO, _error_str_array['err2'].replaceAll( [ "%symbol%", "%not%", "%success%" ], [ _symbol.flipCase(), " ", "with success" ] ), _par_1, _cmd_tag );
@@ -185,7 +184,7 @@ function circles_terminal_cmd_alphabet()
 				_params_array['promptquestion'] = "Confirm to delete all entries in the current alphabet ?" ;
 				_params_array['yes_fn'] = function() { _bomb_alphabet(); }
 				_params_array['ifquestiondisabled_fn'] = function() { _bomb_alphabet(); }
-				if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+				if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 				else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
             }
             _fn_ret_val = _glob_alphabet.clone() ;
@@ -254,7 +253,7 @@ function circles_terminal_cmd_alphabet()
 					circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 					}
     			_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_colorize_group( _dest_ref, YES, YES, _out_channel ); }
-				if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+				if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
      			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
             }
             else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
@@ -272,7 +271,7 @@ function circles_terminal_cmd_alphabet()
 					  circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 					}
     			_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel ); }
-				if ( !_glob_terminal_echo_flag ) _params_array['yes_fn'].call(this);
+				if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
      			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
             }
             else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
@@ -323,7 +322,7 @@ function circles_terminal_cmd_alphabet()
             var _n_sd = circles_lib_count_seeds();
             if ( _n_sd > 0 )
             {
-			  _long_mode = _cmd_params['settings'].includes_i( "long" ) ? 1 : 0 ;
+			  _long_mode = _cmd_params.includes_i( "long" ) ? 1 : 0 ;
 			  if ( _long_mode ) circles_lib_output( _out_channel, DISPATCH_INFO, "Long mode has been switched on", _par_1, _cmd_tag );
 
 			  circles_lib_output( _out_channel, DISPATCH_INFO, "Attempting to regenerate the alphabet from current seeds configuration", _par_1, _cmd_tag );

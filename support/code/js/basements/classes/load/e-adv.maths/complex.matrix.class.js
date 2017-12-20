@@ -144,8 +144,8 @@ complex_matrix.prototype.count_rows = function() { return safe_int( this.rows, 0
 complex_matrix.prototype.count_cols = function() { return safe_int( this.cols, 0 ) ; }
 complex_matrix.prototype.set_parser_refs = function( _parser_obj_ref, _parser_eval_fn_tag )
 {
-		this.parser_obj_ref = _parser_obj_ref ;
-		this.parser_eval_fn_tag = _parser_eval_fn_tag ;
+	this.parser_obj_ref = _parser_obj_ref ;
+	this.parser_eval_fn_tag = _parser_eval_fn_tag ;
 }
 
 // -- START -- grid management
