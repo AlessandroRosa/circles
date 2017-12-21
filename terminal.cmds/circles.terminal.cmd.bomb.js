@@ -70,6 +70,7 @@ function circles_terminal_cmd_bomb()
                 break ;
                 default:
                 var _bomb_mask = 0 ;
+				console.log( _cmd_params['bomb'] );
                 if ( _cmd_params['bomb'].length > 0 )
                 {
                     var _prompt_question = "<lightblue>The following objects have been selected for bombing:</lightblue>" + _glob_crlf ;
@@ -227,6 +228,7 @@ function circles_terminal_cmd_bomb()
 						else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                      }
                 }
+				else { _b_fail = YES, _error_str = "Missing input params" ; }
                 break ;
             }
         }

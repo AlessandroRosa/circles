@@ -94,7 +94,7 @@ function circles_terminal_cmd_mobius()
             else if ( _p.stricmp( "generators" ) ) _cmd_params["target"] = ITEMS_SWITCH_GENS ;
             else if ( _p.is_one_of_i( "storagein" ) ) _cmd_params['params'].push( _p ) ;
             else if ( _p.start_with( "storagesubset:" ) ) _cmd_params['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
-            else if ( _p.is_one_of_i( "add", "assemble", "changesymbol", "check", "colorize", "decolorize", "copy", "delete",
+            else if ( _p.is_one_of_i( "add", "assemble", "updatesymbol", "check", "colorize", "decolorize", "copy", "delete",
                                       "find", "inverse", "symbol", "list", "notes", "group", "release", "select", "update" ) )
             _cmd_params['action'] = _p.toLowerCase();
             else if ( _p.is_one_of_i( "characteristic", "class", "determinant", "fixedpoints", "circle", "multiplier", "normalize", "trace" ) )
@@ -107,7 +107,21 @@ function circles_terminal_cmd_mobius()
 					if ( _cmd_params['assemble'] == null ) _cmd_params['assemble'] = [] ;
 					_cmd_params['assemble'].push( _p );
 				}
-				else if ( !_cmd_params['action'].stricmp( "notes" ) ) _symbols_array.push( _p );
+				else if ( !_cmd_params['action'].stricmp( "notes" ) )
+				{
+					if ( _p.isAlpha() )
+					{
+						if ( _glob_alphabet.includes( _p ) ) _symbols_array.push( _p );
+						else { _b_fail = YES, _error_str = "Unknown input symbol '"+_p+"'" ; }
+					}
+					else if ( _p.isNumber() )
+					{
+						var _items_array = _cmd_params["target"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+						if ( _items_array[_p] != null ) _symbols_array.push( _p );
+						else { _b_fail = YES, _error_str = "Unknown input index '"+_p+"'" ; }
+					}
+						
+				}
 			}
             else if ( _p.toLowerCase().start_with( "notes:" ) )
             {
@@ -279,16 +293,23 @@ function circles_terminal_cmd_mobius()
                         var _old_sd_n = circles_lib_count_items( _items_array );
                         var _cc = _glob_drawentity == DRAWENTITY_INVERSION_CIRCLE ? _mm.inversion_circle() : _mm.isometric_circle();
                         var _screen_cc = circles_lib_complex_to_screen_disk( _cc, zplane_sm );
-                        _items_array.push( new item_obj( _mm, _cc, _screen_cc, _symbol, 0,
-                                                         _cmd_params['border'] != UNDET ? YES : NO, "",
-                                                         _cmd_params['fill'] != UNDET ? YES : NO, "",
-                                                         _inv_symbol, 1, ITEM_TYPE_MOBIUS ) );
-    
+						var _item = new item_obj( _mm, null, null, _symbol, 0,
+												  YES, _glob_draw_seed_color, NO, "", _inv_sym, 1, ITEM_TYPE_MOBIUS ) ;
+						var _inv_item = new item_obj( _mm.inv(), null, null, _inv_symbol, 0,
+													YES, _glob_draw_inverse_seed_color, NO, "", _symbol, 1, ITEM_TYPE_MOBIUS ) ;
+						_items_array.push( _item, _inv_item );
                         var _new_sd_n = circles_lib_count_items( _items_array );
-                        if ( _new_sd_n == _old_sd_n + 1 )
+                        if ( _new_sd_n > _old_sd_n )
                         {
-                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The new Mobius map"+( ( _symbol.length > 0 ) ? " '"+_symbol+"'" : "" )+" has been added", _par_1, _cmd_tag );
+                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The new Mobius map"+( ( _symbol.length > 0 ) ? " '"+_symbol+"'" : "" )+" has been added, together with its inverse", _par_1, _cmd_tag );
                             if ( _storage_queue_request ) _cmd_params['storagequeue'].push( _items_array[_obj_index].copy() );
+							_glob_items_to_init = YES ;
+							if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init paired maps", _glob_terminal, _out_channel );
+							else
+							{
+								var _alphabet = circles_lib_alphabet_generate();
+								circles_lib_output( _out_channel, DISPATCH_INFO, "Now type 'init paired maps' for changes to take effect inside the current group", _par_1, _cmd_tag );
+							}
                         }
                          
                         var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _out_channel );
@@ -423,7 +444,7 @@ function circles_terminal_cmd_mobius()
 					}
 					else { _b_fail = YES, _error_str = "No input Mobius maps" ; }
                     break ;
-                    case "changesymbol":
+                    case "updatesymbol":
                     if ( !is_array( _symbols_array ) ) { _b_fail = YES, _error_str = "Missing input symbols" ; }
                     else if ( _symbols_array.length == 0 ) { _b_fail = YES, _error_str = "Missing input symbols" ; }
                     else if ( _symbols_array.length != 2 ) { _b_fail = YES, _error_str = "Two input symbols must be input" ; }
@@ -472,14 +493,14 @@ function circles_terminal_cmd_mobius()
                     }
                     break ;
                     case "check":
-                    circles_lib_terminal_disks_check( _out_channel );
+                    circles_lib_terminal_disks_check( _items_array, _out_channel );
                     break ;
                     case "colorize":
                     if ( _items_n > 0 )
                     {
              	     	var _params_array = [] ;
              			_params_array['prepromptquestion'] = null ;
-             			_params_array['promptquestion'] = "Confirm to colorize all "+_dest_ref+"? " ;
+             			_params_array['promptquestion'] = "Confirm to colorize all "+_dest_ref+" (y|n) ? " ;
              			_params_array['yes_fn'] = function() {
                           var _ret_chunk = circles_lib_colors_colorize_group( _dest_ref, YES, YES, _out_channel );
                           var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
@@ -490,10 +511,10 @@ function circles_terminal_cmd_mobius()
 						if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
              			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                     }
-                    else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
+                    else { _b_fail = YES, _error_str = "The list of Mobius maps is empty" ; }
                     break ;
                     case "copy":
-                    if ( safe_size( _items_array, 0 ) > 0 )
+                    if ( _items_n > 0 )
                     {
                         _glob_storage['seeds'] = _items_array.clone();
                         var _check = 1 ;
@@ -507,27 +528,27 @@ function circles_terminal_cmd_mobius()
                     case "decolorize":
                     if ( _items_n > 0 )
                     {
-            	     		 var _params_array = [] ;
-            					 _params_array['prepromptquestion'] = null ;
-            					 _params_array['promptquestion'] = "Confirm to decolorize all "+_dest_ref+"? " ;
-            					 _params_array['yes_fn'] = function()
-                       {
+            	     	var _params_array = [] ;
+            			_params_array['prepromptquestion'] = null ;
+            			_params_array['promptquestion'] = "Confirm to decolorize all "+_dest_ref+"? " ;
+            		    _params_array['yes_fn'] = function()
+                        {
                           var _ret_chunk = circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel );
                           var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
                           var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
                           circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-                       }
-            					 _params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel ); }
-						if ( !_glob_terminal_echo_flagg || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
+                        }
+            			_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel ); }
+						if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
              			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                     }
-                    else { _b_fail = YES, _error_str = "The list of seeds is empty" ; }
+                    else { _b_fail = YES, _error_str = "The list of Mobius maps is empty" ; }
                     break ;
                     case "delete" :
                     var _all = _cmd_params['all'] ;
                     var _old_sd_n = _sd_n ;
                     var _sel_n = safe_size( _selection_indexes_array, 0 );
-                    var _prompt_question = "Confirm to delete "+( ( _sel_n == 1 && _all == NO ) ? "this Mobius map and its inverse " : ( ( _all ) ? "the whole group of maps" : "these Mobius maps and their inverse " ) )+"? " ;
+                    var _prompt_question = "Confirm to delete "+( ( _sel_n == 1 && _all == NO ) ? "this Mobius map and its inverse " : ( _all ? "the whole group of maps" : "these Mobius maps and their inverse " ) )+"? " ;
                     var _delete_map = function()
                     {
                         if ( _all == NO )
@@ -715,13 +736,13 @@ function circles_terminal_cmd_mobius()
                                     if ( _inverse_symbol_index == UNFOUND ) _insert_inverse_mm_obj( ITEM, _inverse_symbol_index, _out_channel );
                                     else
                                     {
-                                        _prompt_question = "An item with symbol '"+_inv_symbol+"' already exists. Replace ?" ;
+                                        _prompt_question = "Found item with symbol '"+_inv_symbol+"'. Replace it (y|n) ?" ;
 										var _params_array = [] ;
 										_params_array['prepromptquestion'] = null ;
 										_params_array['promptquestion'] = _prompt_question ;
 										_params_array['yes_fn'] = function() { _insert_inverse_mm_obj( ITEM, _obj_index, _out_channel ); }
 										_params_array['ifquestiondisabled_fn'] = function() { _insert_inverse_mm_obj( ITEM, _obj_index, _out_channel ); }
-										if ( !_glob_terminal_echo_flagg || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
+										if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 										else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                                     }
                                 }
@@ -735,7 +756,7 @@ function circles_terminal_cmd_mobius()
                     }
                     else circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning: there's no map with that symbol or index", _par_1, _cmd_tag );
                     break ;
-                    case "list" :
+                    case "list":
                     var _html = _cmd_params['html'] ;
                     if ( _sd_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "The "+( (  _glob_items_switch == ITEMS_SWITCH_SEEDS ) ? "Seeds" : "Generators" )+" maps list is empty", _par_1, _cmd_tag );
                     else if ( _sd_n > 0 && is_array( _items_array ) )
@@ -811,35 +832,25 @@ function circles_terminal_cmd_mobius()
                     break ;
                     case "select":
                     var _ret_chunk = [];
-                    if ( is_array( _selection_indexes_array ) ) _glob_zplane_selected_items_array = _selection_indexes_array.clone();
-                    if ( _glob_zplane_selected_items_array.length > 0 && is_array( _items_array ) )
+                    if ( _selection_indexes_array.length > 0 && is_array( _items_array ) )
                     {
                         var _layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
                         if ( is_html_canvas( _layer_placeholder ) )
                         {
-                             var _ret_chunk = circles_lib_canvas_render_zplane( _layer_placeholder, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
-												     var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
-													   var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
-													   if ( _ret_id == RET_ERROR )
-													   {
-														 		 _b_fail = YES, _error_str = _ret_msg ;
-														 }
-														 
-                             if ( _storage_queue_request ) $.each( _glob_zplane_selected_items_array, function( _i, _index ) { _cmd_params['storagequeue'].push( _items_array[_index].copy() ); } ) ;
+							_glob_zplane_selected_items_array = [] ;
+                            var _ret_chunk = circles_lib_canvas_render_zplane( _layer_placeholder, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+							if ( is_array( _selection_indexes_array ) ) _glob_zplane_selected_items_array = _selection_indexes_array.clone();
+								_ret_chunk = circles_lib_canvas_render_zplane( _layer_placeholder, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+
+							var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
+							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
+							if ( _ret_id == RET_ERROR ) { _b_fail = YES, _error_str = _ret_msg ; }
+                            if ( _storage_queue_request ) $.each( _glob_zplane_selected_items_array, function( _i, _index ) { _cmd_params['storagequeue'].push( _items_array[_index].copy() ); } ) ;
                         }
-                        else
-                        {
-                            _b_fail = YES, _error_str = "Memory failure" ;
-                        }
+                        else { _b_fail = YES, _error_str = "Memory failure" ; }
                     }
-                    else if ( !is_array( _items_array ) )
-                    {
-                        _b_fail = YES, _error_str = "Memory failure: can't get current items" ;
-                    }
-                    else
-                    {
-                        _b_fail = YES, _error_str = "No items selected" ;
-                    }
+                    else if ( !is_array( _items_array ) ) { _b_fail = YES, _error_str = "Memory failure: can't get current items" ; }
+                    else { _b_fail = YES, _error_str = "No items selected" ; }
                     break ;
                     case "symbol" :
                     _glob_show_symbols_zplane = _cmd_params['on'] ? 1 : 0 ;
@@ -852,14 +863,13 @@ function circles_terminal_cmd_mobius()
                         var _sel_n = safe_size( _selection_indexes_array, 0 );
                         if ( _sel_n > 0 || _all )
                         {
-                            var _entries_n = ( _all ) ? _sd_n : _sel_n, ITEM, _obj_index ;
+                            var _entries_n = _all ? _sd_n : _sel_n, ITEM, _obj_index ;
                             for( var _i = 0 ; _i < _entries_n; _i++ )
                             {
-                                _obj_index = ( _all ) ? _i : _selection_indexes_array[_i] ;
+                                _obj_index = _all ? _i : _selection_indexes_array[_i] ;
                                 ITEM = ( is_array( _items_array ) ) ? _items_array[_obj_index] : null ;
                                 if ( _obj_index != UNDET && is_item_obj( ITEM ) )
                                 {
-                                    //if ( _cmd_params['symbol'] != null ) _items_array[_obj_index].symbol = _cmd_params['symbol'][0] ;
                                     if ( _cmd_params['inv_symbol'] != null ) _items_array[_obj_index].inverse_symbol = _cmd_params['inv_symbol'][0] ;
                                     if ( _cmd_params['border'] != UNDET ) _items_array[_obj_index].complex_circle.border = _cmd_params['border'] ;
                                     if ( _cmd_params['fill'] != UNDET ) _items_array[_obj_index].complex_circle.fill = _cmd_params['fill'] ;
@@ -875,7 +885,10 @@ function circles_terminal_cmd_mobius()
                                     if ( _cmd_params['c'] != null ) _items_array[_obj_index].map.c = _cmd_params['c'] ;
                                     if ( _cmd_params['d'] != null ) _items_array[_obj_index].map.d = _cmd_params['d'] ;
 
-                                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Mobius map '"+_items_array[_obj_index].symbol+"' has been updated", _par_1, _cmd_tag ); 
+									var _inv_index = circles_lib_find_item_index_by_inverse_symbol( _items_array, _items_array[_obj_index].inverse_symbol )
+									_items_array[_inv_index].map = _items_array[_obj_index].map.inv();
+									
+                                    circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Mobius map '"+_items_array[_obj_index].symbol+"' has been updated, together with its inverse map '"+_items_array[_obj_index].inverse_symbol+"'", _par_1, _cmd_tag ); 
                                     if ( _storage_queue_request )
                                     _cmd_params['storagequeue'].push( _items_array[_obj_index].copy() );
                                 }
@@ -883,30 +896,24 @@ function circles_terminal_cmd_mobius()
                             }
                             
                             var _ret_chunk = circles_lib_items_switch_to( _glob_items_switch, _glob_terminal_echo_flag, _out_channel );
-														var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
-														var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
+							var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
+							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
                             if ( _ret_id )
                             {
-                                if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init auto", _glob_terminal, _out_channel );
-                                //if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _out_channel );
-
-    							              if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
-    							  						{
-    																_glob_terminal_change = YES ;
-    								                circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-    														}
+								_glob_items_to_init = YES ;
+                                if ( _glob_terminal_autoinit_enable ) circles_lib_terminal_interpreter( "init paired maps", _glob_terminal, _out_channel );
+                                if ( _glob_terminal_autorefresh ) circles_lib_terminal_interpreter( "refresh zplane clean silent", _glob_terminal, _out_channel );
+    							if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+		  						{
+									_glob_terminal_change = YES ;
+					                circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+								}
                             }
-                            else
-                            {
-                                _b_fail = YES, _error_str = _ret_msg ;
-                            }
+                            else { _b_fail = YES, _error_str = _ret_msg ; }
                         }
                         else circles_lib_output( _out_channel, DISPATCH_ERROR, "Error: no chosen map for update. Possibly missing symbol", _par_1, _cmd_tag );
                     }
-                    else if ( !is_array( _items_array ) )
-                    {
-                        _b_fail = YES, _error_str = "Memory failure: can't get current selection" ;
-                    }
+                    else if ( !is_array( _items_array ) ) { _b_fail = YES, _error_str = "Memory failure: can't get current selection" ; }
                     else circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning: there's no map with that symbol or index", _par_1, _cmd_tag ); 
 
                     if ( _glob_method == METHOD_NONE ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning: set up a method before continuing", _par_1, _cmd_tag ); 
@@ -1022,8 +1029,8 @@ function circles_terminal_cmd_mobius()
                                       break ;
                                       case "fixedpoints":
                                       _work_array = [], _fp_array = _mm.fixed_points();
-                                  		if ( !is_array( _fp_array ) )
-                                  		circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning, memory lack! No fixed points found for map '"+_symbol+"'", _par_1, _cmd_tag );
+									  if ( !is_array( _fp_array ) )
+                                  	  circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning, memory lack! No fixed points found for map '"+_symbol+"'", _par_1, _cmd_tag );
                                   		else
                                   		{
                                   				_fp_n = safe_size( _fp_array, 0 );
@@ -1065,10 +1072,11 @@ function circles_terminal_cmd_mobius()
                                               if ( _cmd_params['extras'].includes( "plot" ) )
                                               {
                                                   _canvas = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_WORK );
-                                                  _opacity = $("#"+canvas.get_iddiv() ).css( "opacity" );
                                                   _context = _canvas.getContext( _glob_canvas_ctx_2D_mode );
                                                   for( _w = 0 ; _w < _work_array.length ; _w++ )
-                                                  if ( _work_array[_w] != null ) circles_lib_draw_point( _context, zplane_sm, _work_array[_w].x, _work_array[_w].y, YES, DEFAULT_PT_BORDER_COLOR, YES, DEFAULT_PT_INTERIOR_COLOR, _glob_pt_border, _glob_pt_radius, _opacity );
+                                                  if ( _work_array[_w] != null )
+												  circles_lib_draw_point( _context, zplane_sm, _work_array[_w].x, _work_array[_w].y,
+																		  YES, DEFAULT_PT_BORDER_COLOR, YES, DEFAULT_PT_INTERIOR_COLOR, _glob_pt_border, _glob_pt_radius );
                                               }
                                   				}
                                   		}
@@ -1092,7 +1100,7 @@ function circles_terminal_cmd_mobius()
                                    }
                               }
             						 }
-            						 else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing map with symbol '"+_symbol+"' was found in the archive", _par_1, _par_1, _cmd_tag );
+            						 else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing map with symbol '"+_symbol+"'", _par_1, _par_1, _cmd_tag );
                      }
 
                     if ( _cmd_params['dump'] && !_b_fail )

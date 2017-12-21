@@ -27,7 +27,7 @@
 
 --------------- FIX SOON -----------------------
 
-* Next cmd to check: mobius
+* Next cmd to check: movewnd
 
 * TEST:
   > jorgensen's embedding #19

@@ -547,7 +547,9 @@ function circles_lib_draw_pixel( _context, _mapper, _pt_x, _pt_y, _bordercolor, 
 }
 
 // in this config, the point is a different geometric object from the pixel
-function circles_lib_draw_point( _context, _mapper, _pt_x, _pt_y, _border = 0, _bordercolor = "transparent", _fill = 0, _fillcolor = "transparent", _bordersize = 0, _radius = 1, _opacity = 1.0, _properties_mask, _map_it )
+function circles_lib_draw_point( _context, _mapper, _pt_x = null, _pt_y = null,
+								 _border = 0, _bordercolor = "transparent", _fill = 0, _fillcolor = "transparent",
+								 _bordersize = 0, _radius = 1, _opacity = 1.0, _properties_mask = 0, _map_it = NO )
 {
    if ( !is_html_context( _context ) || !is_screen_mapper( _mapper ) ) return null ;
     _pt_x = safe_float( _pt_x, 0 ), _pt_y = safe_float( _pt_y, 0 );

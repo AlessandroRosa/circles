@@ -70,7 +70,7 @@ function circles_terminal_cmd_disk()
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
     	var _cmd_terms_dict = [];
-    	_cmd_terms_dict.push( "add", "attr", "coords", "changesymbol", "changeinvsymbol", "check", "copy",
+    	_cmd_terms_dict.push( "add", "attr", "coords", "updatesymbol", "changeinvsymbol", "check", "copy",
                                        "delete", "find", "fill", "nofill", "draw", "nodraw", "table", "off", "on",
                                        "intersect", "symbol", "list", "mirror", "move", "notes", "select", "html", "help",
                                        "disabled", "area", "center", "circumference", "curvature", "diameter", "set",
@@ -97,14 +97,14 @@ function circles_terminal_cmd_disk()
             _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
-            else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
+            else if ( _p.stricmp( "seeds" ) ) _cmd_params["target"] = ITEMS_SWITCH_SEEDS ;
+            else if ( _p.stricmp( "generators" ) ) _cmd_params["target"] = ITEMS_SWITCH_GENS ;
             else if ( _p.start_with( "storagesubset:" ) ) _cmd_params['storagesubset'] = _p.replaceAll( "storagesubset:", "" ) ;
             else if ( _p.is_one_of( "all", "draw", "fill", "html", "new", "off", "on", "plot", "table", "silent" ) ) _cmd_params[_p] = YES ;
             else if ( _p.stricmp( "nofill" ) ) _cmd_params['fill'] = NO ;
             else if ( _p.stricmp( "nodraw" ) ) _cmd_params['border'] = NO ;
             else if ( _p.is_one_of_i( "generators", "seeds" ) ) _cmd_params['params'].push( _p ) ;
-            else if ( _p.is_one_of_i( "add", "bomb", "changesymbol", "changeinvsymbol", "check", "colorize", "decolorize", "copy", "delete", "find",
+            else if ( _p.is_one_of_i( "add", "bomb", "updatesymbol", "changeinvsymbol", "check", "colorize", "decolorize", "copy", "delete", "find",
                                       "intersect", "label", "list", "mirror", "move", "notes", "select", "release",
                                       "rotate", "symbol", "update" ) ) _cmd_params['action'] = _p.toLowerCase();
             else if ( _p.is_one_of_i( "area", "center", "circumference", "curvature", "diameter", "radius" ) )
@@ -191,9 +191,9 @@ function circles_terminal_cmd_disk()
         }
 
         var _action = _cmd_params['action'] ;
-        var _items_array = _cmd_params["item"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-        var _dest_ref = _cmd_params["item"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
-        var _category_ref = _cmd_params["item"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
+        var _items_array = _cmd_params["target"] == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+        var _dest_ref = _cmd_params["target"] == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" ;
+        var _category_ref = _cmd_params["target"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
 		var _items_n = circles_lib_count_items( _items_array );
         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
 
@@ -424,7 +424,7 @@ function circles_terminal_cmd_disk()
                    	else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
 				}
 				break ;
-                case "changesymbol":
+                case "updatesymbol":
                     if ( !is_array( _symbols_array ) ) { _b_fail = YES, _error_str = "Missing input symbols" ; }
                     else if ( _symbols_array.length == 0 ) { _b_fail = YES, _error_str = "Missing input symbols" ; }
                     else if ( _symbols_array.length != 2 ) { _b_fail = YES, _error_str = "Two input symbols must be input" ; }
@@ -495,7 +495,7 @@ function circles_terminal_cmd_disk()
                     }
                 break ;
                 case "check":
-                var _out_text = circles_lib_terminal_disks_check( _out_channel );
+                var _out_text = circles_lib_terminal_disks_check( _items_array, _out_channel );
                 if ( _cmd_params['dump'] )
                 {
 					_cmd_params['dump_array'] = is_array( _cmd_params['dump_array'] ) ? _cmd_params['dump_array'][0] : "circles.disk.check.txt" ;
@@ -695,7 +695,7 @@ function circles_terminal_cmd_disk()
                 break ;
                 case "find":
                     var ITEM = null, _b_found = NO, a = [], _sel ;
-                    if ( _cmd_params["item"] == ITEMS_SWITCH_SEEDS ) _glob_zplane_selected_items_array = [];
+                    if ( _cmd_params["target"] == ITEMS_SWITCH_SEEDS ) _glob_zplane_selected_items_array = [];
                     circles_lib_helper_div_remove();
                     for( var _i = 0 ; _i < _index_selection_array.length ; _i++ )
                     {

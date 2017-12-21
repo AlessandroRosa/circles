@@ -2,7 +2,7 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>mobius %action% %property% %label% %all% %invlabel% %index% %a% %b% %c% %d% %bordersizeness% %fill% %border% %file%</snow>
+<lightblue>usage</lightblue> <snow>mobius %action% %property% %items% %label% %all% %invlabel% %index% %a% %b% %c% %d% %bordersizeness% %fill% %border% %file%</snow>
 
 <lightblue>%property%</lightblue> <snow>characteristic | determinant | fixedpoints | isometric | kind | multiplier | normalize | trace</snow>
 <lightblue>%action%</lightblue> <snow>add | copy | check | delete | find | list | select | update</snow>
@@ -11,6 +11,7 @@
 <lightblue>%border%</lightblue> <snow>noborder or border</snow>
 <lightblue>label, invl</lightblue> <snow>set letter of the given map or of the associated inverse map</snow>
 <lightblue>file</lightblue> <snow>export the list into a plain text file</snow>
+<lightblue>items</lightblue> <snow>seeds</snow> or <snow>generators</snow>
 
 <lightblue>mobius add a a:(0,0) b:(1,0) c:(1,0) d:(0,0)</lightblue>
 <cadetblue>add one mobius map with input parameters to the seeds list</cadetblue>
@@ -33,18 +34,12 @@
 <lightblue>mobius assemble A B a b rec</lightblue>
 <cadetblue>assemble one new Mobius map from seeds and save it into the working group, together with its inverse</cadetblue>
 
-<lightblue>mobius colorize</lightblue>
-<cadetblue>set colors to all seeds|gens by matching symbols with the default palette</cadetblue>
-
-<lightblue>mobius decolorize</lightblue>
-<cadetblue>set default colors to all seeds|gens</cadetblue>
-
 <lightblue>mobius check</lightblue>
 
-<lightblue>mobius changesymbol A C</lightblue>
+<lightblue>mobius updatesymbol A C</lightblue>
 <cadetblue>find the item with symbol 'A' and set the latter to 'C'</cadetblue>
 
-<lightblue>mobius changesymbol 0 a</lightblue>
+<lightblue>mobius updatesymbol 0 a</lightblue>
 <cadetblue>find the item with index 0 and set the symbol to 'a'</cadetblue>
 
 <lightblue>mobius class all</lightblue>
@@ -53,8 +48,14 @@
 <lightblue>mobius class a b</lightblue>
 <cadetblue>return the class of two Mobius maps, tagged as 'a' and as 'b'</cadetblue>
 
+<lightblue>mobius colorize</lightblue>
+<cadetblue>set colors to all seeds|gens by matching symbols with the default palette</cadetblue>
+
 <lightblue>mobius copy</lightblue>
-<cadetblue>copy all seeds into storage space</lightblue>
+<cadetblue>copy all maps into storage space</lightblue>
+
+<lightblue>mobius decolorize</lightblue>
+<cadetblue>set default colors to all seeds|gens</cadetblue>
 
 <lightblue>mobius delete 0</lightblue>
 <lightblue>mobius delete a</lightblue>
@@ -62,7 +63,7 @@
 
 <lightblue>mobius find 2</lightblue>
 <lightblue>mobius find A</lightblue>
-<cadetblue>find mobius map through its index or symbol</cadetblue>
+<cadetblue>indexed or symbolic search through the archive</cadetblue>
 
 <lightblue>mobius fixedpoints a </lightblue>
 <cadetblue>compute fixed points of the map 'a'</cadetblue>
@@ -77,9 +78,7 @@
 <cadetblue>compute fixed points of all maps and plot'em on the Z-plane</cadetblue>
 
 <lightblue>mobius inverse a</lightblue>
-
-<lightblue>mobius label on/off</lightblue>
-<cadetblue>show/hide labels in Z-plane</cadetblue>
+<cadetblue>try to build a new mobius map, being the inverse of the one tagged as 'a'</cadetblue>
 
 <lightblue>mobius list -> maps.list.txt</lightblue>
 <cadetblue>save current list into a plain text file</lightblue>
@@ -93,9 +92,6 @@
 
 <lightblue>mobius A notes this is a text for mobius map A</lightblue>
 <cadetblue>save a text into the notes for disk A</cadetblue>
-
-<lightblue>mobius pair</lightblue>
-<cadetblue>check correspondance between a map and its inverse</cadetblue>
 
 <lightblue>mobius release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>
@@ -114,7 +110,7 @@
 <cadetblue>update param a inside map with index 0</cadetblue>
 
 <lightblue>mobius update a c:(1,0) nofill noborder</lightblue>
-<cadetblue>update param c inside map with symbol 'a'</cadetblue>
+<cadetblue>update param c inside map with symbol 'a', together with its inverse 'A'</cadetblue>
 
 <lightblue>mobius update A fillcolor:brown</lightblue>
 <lightblue>mobius update b fillcolor:255,255,255</lightblue>

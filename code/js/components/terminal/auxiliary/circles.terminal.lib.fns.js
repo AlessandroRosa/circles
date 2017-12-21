@@ -302,13 +302,13 @@ function circles_lib_terminal_warning_echo( _message, _return_msg )
     else if ( _glob_terminal != null ) _glob_terminal.echo( _message );
 }
 
-function circles_lib_terminal_disks_check( _out_channel )
+function circles_lib_terminal_disks_check( _items_array = null, _out_channel = OUTPUT_SCREEN )
 {
     var _err_mask_whole = 0 ; // keeps track of which errors have been found
     var _row = "", _items_n = circles_lib_count_items(), ITEM ;
     if ( _items_n > 0 )
     {
-       var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
+       var _items_array = is_array( _items_array ) ? _items_array : ( _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ) ;
        var OKcode = "OK", FAILcode = "NO", DISABLEDcode = "DISABLED" ;
        var COLUMNSpaddingARRAY = [ 5, 8, 12, 8, 12, 8, 12 ];
        _row = "Ref" ;

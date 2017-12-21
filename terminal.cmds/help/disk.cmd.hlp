@@ -22,7 +22,7 @@
 <lightblue>disk bomb</lightblue>
 <cadetblue>delete the whole disks list</cadetblue>
 
-<lightblue>disk changesymbol a b</lightblue>
+<lightblue>disk updatesymbol a b</lightblue>
 <cadetblue>pick up the item with label 'a' and turn it to 'b'</cadetblue>
 
 <lightblue>disk changeinvsymbol a A</lightblue>
