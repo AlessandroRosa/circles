@@ -52,7 +52,17 @@ function trigger_gens_set_01( _silent, _out_channel )
 
             // computes all commutators and related fixed points, then put'em all into their proper array
             var _ret_chunk = circles_lib_fixedpoints_add_from_commutators( 1, _out_channel );
-            	_ret_chunk = circles_lib_gens_build( _out_channel, YES, YES, NO, YES );
+            _ret_chunk = circles_lib_gens_build( _out_channel, YES, YES, NO, YES );
+			if ( _out_channel != OUTPUT_SCREEN )
+			{
+				switch( _ret_chunk[0] )
+				{
+					case RET_OK: circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_chunk[1], _par_1, _cmd_tag ); break ;
+					case RET_ERROR: circles_lib_output( _out_channel, DISPATCH_ERROR, _ret_chunk[1], _par_1, _cmd_tag ); break ;
+					case RET_WARNING: circles_lib_output( _out_channel, DISPATCH_WARNING, _ret_chunk[1], _par_1, _cmd_tag ); break ;
+					default: break ;
+				}
+			}
             $('[id$=initBTN]').css('color',DEFAULT_COLOR_STD);
             $('[id$=renderBTN]').css('color',COLOR_ERROR);
             return [ RET_OK, "Trigger has been exec with success !" ] ;

@@ -1,4 +1,4 @@
-function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _render, _b_clean, _b_init_items, _selected_layers_array, _out_channel )
+function circles_lib_canvas_process_ask( _question = YES, _silent = NO, _plane_type, _render, _b_clean, _b_init_items, _selected_layers_array, _out_channel )
 {
 	_plane_type = circles_lib_return_plane_type( _plane_type, YES ) ;
     _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
@@ -8,7 +8,6 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     if ( !is_array( _selected_layers_array ) ) _selected_layers_array = [] ;
-    
     var _ret_chunk = circles_lib_triggers_open_all_automated_entries( YES, _out_channel );
     var _ret_id = _ret_chunk[0] ;
     if ( _ret_id == RET_ERROR )
@@ -35,106 +34,106 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
 
     if ( _items_n > 0 )
     {
-         var _min_width_for_div = 620 ;
-         var _rnd_table_size = circles_lib_count_rnd_probabilities(), _sch_n = circles_lib_gens_model_count();
-         if ( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM && _sch_n != _rnd_table_size )
-         {
+        var _min_width_for_div = 620 ;
+        var _rnd_table_size = circles_lib_count_rnd_probabilities(), _sch_n = circles_lib_gens_model_count();
+        if ( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM && _sch_n != _rnd_table_size )
+        {
             var _msg = "The generators set ("+_sch_n+" element"+( _sch_n == 1 ? "" : "s" )+") is not congruent with the random table ("+_rnd_table_size+" element"+( _rnd_table_size == 1 ? "" : "s" )+")." ;
             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
             return [ RET_ERROR, _msg ];
-         }
-         else if ( _glob_method == METHOD_NONE && _plane_type == W_PLANE )
-         {
+        }
+        else if ( _glob_method == METHOD_NONE && _plane_type == W_PLANE )
+        {
             var _msg = "No method was chosen yet."+_glob_crlf+"Please choose one !" ;
             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
             return [ RET_ERROR, _msg ];
-         }
-         else if ( _glob_depth == 0 )
-         {
+        }
+        else if ( _glob_depth == 0 )
+        {
             var _msg = "Depth must be greater than zero" ;
             if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
             return [ RET_ERROR, _msg ];
-         }
+        }
 
-         var _advice_cnt = 0 ;
-         var _check_group = circles_lib_symbol_check_group( _items_array );
-         var _items_error = circles_lib_items_check_data_coherence();
-         var _process_fail_error = _glob_process == PROCESS_NONE ? YES : NO ;
-         var _repetends_fail_error = typeof CIRCLESmethodMANAGERrepetendsCHECK === "function" ? !CIRCLESmethodMANAGERrepetendsCHECK() : NO ;
-         var _repetends_exists = circles_lib_repetends_exist();
-         var _rnd_sum = safe_float( _glob_rnd_probability_array.sum().toFixed( _glob_accuracy ), 0 ).clean_round_off( 2 );
-         var _rnd_sum_check = _rnd_sum == 1.0 ? YES : NO ;
+        var _advice_cnt = 0 ;
+        var _check_group = circles_lib_symbol_check_group( _items_array );
+        var _items_error = circles_lib_items_check_data_coherence();
+        var _process_fail_error = _glob_process == PROCESS_NONE ? YES : NO ;
+        var _repetends_fail_error = typeof CIRCLESmethodMANAGERrepetendsCHECK === "function" ? !CIRCLESmethodMANAGERrepetendsCHECK() : NO ;
+        var _repetends_exists = circles_lib_repetends_exist();
+        var _rnd_sum = safe_float( _glob_rnd_probability_array.sum().toFixed( _glob_accuracy ), 0 ).clean_round_off( 2 );
+        var _rnd_sum_check = _rnd_sum == 1.0 ? YES : NO ;
 
-         if ( !is_html_canvas( _glob_zplane_rendering_layer_placeholder ) )
-         _glob_zplane_rendering_layer_placeholder = _glob_zplane_rendering_layer_placeholder ;
-         if ( is_html_canvas( _glob_wplane_rendering_layer_placeholder ) )
-         _glob_wplane_rendering_layer_placeholder = _glob_wplane_rendering_layer_placeholder ;
-         if ( is_html_canvas( _glob_bip_layer_placeholder ) ) _glob_bip_layer_placeholder = _glob_bipbox_canvas ;
+        if ( !is_html_canvas( _glob_zplane_rendering_layer_placeholder ) )
+        _glob_zplane_rendering_layer_placeholder = _glob_zplane_rendering_layer_placeholder ;
+        if ( is_html_canvas( _glob_wplane_rendering_layer_placeholder ) )
+        _glob_wplane_rendering_layer_placeholder = _glob_wplane_rendering_layer_placeholder ;
+        if ( is_html_canvas( _glob_bip_layer_placeholder ) ) _glob_bip_layer_placeholder = _glob_bipbox_canvas ;
 
-         if ( _question )
-         {
-             // splash box contents arrangement
-             var HTMLcode = "<table WIDTH=\""+BOX_WIDTH+"\">" ;
-                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-             var _n_palette = safe_size( _glob_palette_array, 0 );
-             if ( _glob_palette_use && _glob_depth > _n_palette && _plane_type.is_one_of( W_PLANE, BIP_BOX, ALL_PLANES ) )
-             {
-                 HTMLcode += "<tr>" ;
-                 HTMLcode += "<td valign=\"top\" WIDTH=\""+BOX_WIDTH+"\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F8F8F8;padding:6px;\">" ;
-                 HTMLcode += "<table WIDTH=\"100%\">" ;
-                 HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-                 HTMLcode += "<tr><td STYLE=\"padding-left:6px;\">Note #"+(_advice_cnt+1)+": depth is larger than palette size</td></tr>";
-                 HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-                 HTMLcode += "<tr><td STYLE=\"padding-left:6px;\">Confirm to resize the palette and fit the depth value ?</td></tr>";
-                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                 HTMLcode += "<tr><td ALIGN=\"right\" VALIGN=\"top\"><table><tr><td CLASS=\"link_rounded\" ONCLICK=\"javascript:var _ret_chunk=circles_lib_colors_compute_gradient('','',"+_glob_depth+",NO);_glob_palette_array=_ret_chunk[1];alertCLOSE();circles_lib_canvas_process_ask("+_question+","+_silent+","+_plane_type+","+_render+","+_b_clean+","+_b_init_items+",'"+_selected_layers_array.join(',')+"');\" STYLE=\"width:140px;\">Resize palette to "+_glob_depth+" entr"+(_glob_depth==1?"y":"ies")+"</td></tr></table></td></tr>" ;
-                 HTMLcode += "</table>" ;
-                 HTMLcode += "</td>" ;
-                 HTMLcode += "</tr>" ;
-                 HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
-                 _advice_cnt++ ;
-             }
+        if ( _question )
+        {
+            // splash box contents arrangement
+            var HTMLcode = "<table WIDTH=\""+BOX_WIDTH+"\">" ;
+                HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+            var _n_palette = safe_size( _glob_palette_array, 0 );
+            if ( _glob_palette_use && _glob_depth > _n_palette && _plane_type.is_one_of( W_PLANE, BIP_BOX, ALL_PLANES ) )
+            {
+                HTMLcode += "<tr>" ;
+                HTMLcode += "<td valign=\"top\" WIDTH=\""+BOX_WIDTH+"\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F8F8F8;padding:6px;\">" ;
+                HTMLcode += "<table WIDTH=\"100%\">" ;
+                HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
+                HTMLcode += "<tr><td STYLE=\"padding-left:6px;\">Note #"+(_advice_cnt+1)+": depth is larger than palette size</td></tr>";
+                HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
+                HTMLcode += "<tr><td STYLE=\"padding-left:6px;\">Confirm to resize the palette and fit the depth value ?</td></tr>";
+                HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+                HTMLcode += "<tr><td ALIGN=\"right\" VALIGN=\"top\"><table><tr><td CLASS=\"link_rounded\" ONCLICK=\"javascript:var _ret_chunk=circles_lib_colors_compute_gradient('','',"+_glob_depth+",NO);_glob_palette_array=_ret_chunk[1];alertCLOSE();circles_lib_canvas_process_ask("+_question+","+_silent+","+_plane_type+","+_render+","+_b_clean+","+_b_init_items+",'"+_selected_layers_array.join(',')+"');\" STYLE=\"width:140px;\">Resize palette to "+_glob_depth+" entr"+(_glob_depth==1?"y":"ies")+"</td></tr></table></td></tr>" ;
+                HTMLcode += "</table>" ;
+                HTMLcode += "</td>" ;
+                HTMLcode += "</tr>" ;
+                HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
+                _advice_cnt++ ;
+            }
 
-             if( _glob_use_last_pt )
-             {
-                 HTMLcode += "<tr>" ;
-                 HTMLcode += "<td valign=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F8F8F8;padding:6px;\">" ;
-                 HTMLcode += "<table WIDTH=\"100%\">" ;
-                 HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-                 HTMLcode += "<tr><td STYLE=\"padding-left:6px;\">Note #"+(_advice_cnt+1)+": no cleaning action will be perfomed on canvas</td></tr>";
-                 HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-                 HTMLcode += "<tr><td STYLE=\"padding-left:6px;\">because of 'Use last point' has been flagged on</td></tr>";
-                 HTMLcode += "</table>" ;
-                 HTMLcode += "</td>" ;
-                 HTMLcode += "</tr>" ;
-                 HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
-                 _advice_cnt++ ;
-             }
+            if( _glob_use_last_pt )
+            {
+                HTMLcode += "<tr>" ;
+                HTMLcode += "<td valign=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F8F8F8;padding:6px;\">" ;
+                HTMLcode += "<table WIDTH=\"100%\">" ;
+                HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
+                HTMLcode += "<tr><td STYLE=\"padding-left:6px;\">Note #"+(_advice_cnt+1)+": no cleaning action will be perfomed on canvas</td></tr>";
+                HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
+                HTMLcode += "<tr><td STYLE=\"padding-left:6px;\">because of 'Use last point' has been flagged on</td></tr>";
+                HTMLcode += "</table>" ;
+                HTMLcode += "</td>" ;
+                HTMLcode += "</tr>" ;
+                HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
+                _advice_cnt++ ;
+            }
 
-             HTMLcode += "<tr><td WIDTH=\""+BOX_WIDTH+"\" VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#ECECEC;padding:2px;\">" ;
-             HTMLcode += "<table WIDTH=\""+BOX_WIDTH+"\">" ;
-             HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
-             HTMLcode += "<tr><td>Please, before starting to render, consider these settings</td></tr>" ;
-             HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+            HTMLcode += "<tr><td WIDTH=\""+BOX_WIDTH+"\" VALIGN=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#ECECEC;padding:2px;\">" ;
+            HTMLcode += "<table WIDTH=\""+BOX_WIDTH+"\">" ;
+            HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
+            HTMLcode += "<tr><td>Please, before starting to render, consider these settings</td></tr>" ;
+            HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                  
-             if ( _check_group != GROUP_TEST_ERR_OK && _plane_type.is_one_of( W_PLANE, BIP_BOX, ALL_PLANES ) )
-             {
-                 HTMLcode += "<tr>" ;
-                 HTMLcode += "<td valign=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F8F8F8;padding:3px;\">" ;
-                 HTMLcode += "<table>" ;
-                 HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_alphabet_autoconfig_all_symbols(YES,NO,NO);alertCLOSE();circles_lib_canvas_process_ask("+_question+","+_silent+","+_plane_type+","+_render+","+_b_clean+","+_b_init_items+",'"+_selected_layers_array.join(',')+"');\">Symbols need to be set</td></tr>";
-                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                 HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_alphabet_autoconfig_all_symbols(YES,NO,NO);alertCLOSE();circles_lib_canvas_process_ask("+_question+","+_silent+","+_plane_type+","+_render+","+_b_clean+","+_b_init_items+",'"+_selected_layers_array.join(',')+"');\">Click here to go</td></tr>";
-                 HTMLcode += "</table>" ;
-                 HTMLcode += "</td>" ;
-                 HTMLcode += "</tr>" ;
-                 HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
-                 _HALT = YES ;
-                 _advice_cnt++ ;
-             }
+            if ( _check_group != GROUP_TEST_ERR_OK && _plane_type.is_one_of( W_PLANE, BIP_BOX, ALL_PLANES ) )
+            {
+                HTMLcode += "<tr>" ;
+                HTMLcode += "<td valign=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#F8F8F8;padding:3px;\">" ;
+                HTMLcode += "<table>" ;
+                HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_alphabet_autoconfig_all_symbols(YES,NO,NO);alertCLOSE();circles_lib_canvas_process_ask("+_question+","+_silent+","+_plane_type+","+_render+","+_b_clean+","+_b_init_items+",'"+_selected_layers_array.join(',')+"');\">Symbols need to be set</td></tr>";
+                HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+                HTMLcode += "<tr><td CLASS=\"link\" ONCLICK=\"javascript:circles_lib_alphabet_autoconfig_all_symbols(YES,NO,NO);alertCLOSE();circles_lib_canvas_process_ask("+_question+","+_silent+","+_plane_type+","+_render+","+_b_clean+","+_b_init_items+",'"+_selected_layers_array.join(',')+"');\">Click here to go</td></tr>";
+                HTMLcode += "</table>" ;
+                HTMLcode += "</td>" ;
+                HTMLcode += "</tr>" ;
+                HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
+                _HALT = YES ;
+                _advice_cnt++ ;
+            }
                  
-             if ( _glob_drawentity == DRAWENTITY_NONE )
-             {
+            if ( _glob_drawentity == DRAWENTITY_NONE )
+            {
                 HTMLcode += "<tr>" ;
                 HTMLcode += "<td valign=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#FFBFA7;padding:3px;\">" ;
                 HTMLcode += "<table>" ;
@@ -146,10 +145,10 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                 HTMLcode += "</tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
                 _advice_cnt++ ;
-             }
+            }
 
-             if ( !_rnd_sum_check && _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM )
-             {
+            if ( !_rnd_sum_check && _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM )
+            {
                 HTMLcode += "<tr>" ;
                 HTMLcode += "<td valign=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#FFBFA7;padding:3px;\">" ;
                 HTMLcode += "<table>" ;
@@ -162,12 +161,12 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                 HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
                 _HALT = YES ;
                 _advice_cnt++ ;
-             }
+            }
                   
-             if ( _repetends_fail_error != 0
-                  && _plane_type.is_one_of( W_PLANE, BIP_BOX, ALL_PLANES )
-                  && _glob_method == METHOD_ALGEBRAIC )
-             {
+            if ( _repetends_fail_error != 0
+                 && _plane_type.is_one_of( W_PLANE, BIP_BOX, ALL_PLANES )
+                 && _glob_method == METHOD_ALGEBRAIC )
+            {
                 HTMLcode += "<tr>" ;
                 HTMLcode += "<td valign=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#FFBFA7;padding:3px;\">" ;
                 HTMLcode += "<table>" ;
@@ -180,10 +179,10 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                 HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
                 _HALT = YES ;
                 _advice_cnt++ ;
-             }
+            }
                   
-             if ( !_draw_all && _glob_drawentity.is_one_of( DRAWENTITY_PIXEL, DRAWENTITY_POINT ) )
-             {
+            if ( !_draw_all && _glob_drawentity.is_one_of( DRAWENTITY_PIXEL, DRAWENTITY_POINT ) )
+            {
                 HTMLcode += "<tr>" ;
                 HTMLcode += "<td valign=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:white;padding:3px;\">" ;
                 HTMLcode += "<table>" ;
@@ -197,9 +196,9 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                 HTMLcode += "</tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
                 _advice_cnt++ ;
-             }
-             else if ( !_fill_all && _glob_drawentity == DRAWENTITY_POINT )
-             {
+            }
+            else if ( !_fill_all && _glob_drawentity == DRAWENTITY_POINT )
+            {
                 HTMLcode += "<tr>" ;
                 HTMLcode += "<td valign=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#FFDB71;padding:3px;\">" ;
                 HTMLcode += "<table>" ;
@@ -213,11 +212,11 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                 HTMLcode += "</tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
                 _advice_cnt++ ;
-             }
+            }
 
-             if ( ( _items_error != ITEM_ERR_NONE || _glob_items_to_init )
+            if ( ( _items_error != ITEM_ERR_NONE || _glob_items_to_init )
                   && _plane_type.is_one_of( W_PLANE, BIP_BOX, ALL_PLANES ) )
-             {
+            {
                 HTMLcode += "<tr>" ;
                 HTMLcode += "<td valign=\"top\" CLASS=\"general_rounded_corners\" STYLE=\"background-color:#FFCEB9;padding:3px;\">" ;
                 HTMLcode += "<table>" ;
@@ -243,17 +242,17 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                 _HALT = YES ;
                 _advice_cnt++ ;
 
-    						if ( _sh < _min_width_for_div )
-     						{
-    				 			 var _div_h = Math.max( 100, _sh - 340 ) ;
-    							 //HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\""+BOX_WIDTH+"\">" ;
-    				 			 //HTMLcode += "<DIV STYLE=\"position:relative;width:"+(BOX_WIDTH-10)+";height:"+_div_h+"px;overflow:auto;\">" ;
-    					 		 //HTMLcode += "<table>" ;
-    						}
-             }
+				if ( _sh < _min_width_for_div )
+				{
+		 			var _div_h = Math.max( 100, _sh - 340 ) ;
+					//HTMLcode += "<tr><td VALIGN=\"top\" WIDTH=\""+BOX_WIDTH+"\">" ;
+    				//HTMLcode += "<DIV STYLE=\"position:relative;width:"+(BOX_WIDTH-10)+";height:"+_div_h+"px;overflow:auto;\">" ;
+    				//HTMLcode += "<table>" ;
+    			}
+            }
 
-             if (_glob_bip_use)
-             {
+            if (_glob_bip_use)
+            {
                 HTMLcode += "<tr><td>Bip activated : <b>Yes</b></td></tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                 var _bip_coords_src_plane = circles_lib_plane_def_get( _glob_bip_original_plane_coords ) ;
@@ -262,99 +261,99 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                 HTMLcode += "<tr><td>Bip data source : <b>"+_bip_data_src_plane+"</b></td></tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-             }
+            }
 
-             HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
-             HTMLcode += "<tr><td>Clean diagram <b>"+( _b_clean ? "Yes" : "No" )+"</b></td></tr>" ;
-             HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-             HTMLcode += "<tr><td>Render figures <b>"+( _render ? "Yes" : "No" )+"</b></td></tr>" ;
-             HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+            HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
+            HTMLcode += "<tr><td>Clean diagram <b>"+( _b_clean ? "Yes" : "No" )+"</b></td></tr>" ;
+            HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+            HTMLcode += "<tr><td>Render figures <b>"+( _render ? "Yes" : "No" )+"</b></td></tr>" ;
+            HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                   
-             if ( _plane_type != BIP_BOX )
-             {
+            if ( _plane_type != BIP_BOX )
+            {
                 HTMLcode += "<tr><td>Z-plane rendering redirected to <b>"+circles_lib_canvas_layer_explain_role( Z_PLANE, _glob_zplane_rendering_layer_placeholder.get_role_id() )+"</b> layer</td></tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                 HTMLcode += "<tr><td>W-plane rendering redirected to <b>"+circles_lib_canvas_layer_explain_role( W_PLANE, _glob_wplane_rendering_layer_placeholder.get_role_id() )+"</b> layer</td></tr>" ;
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-             }
+            }
 
-             if ( _plane_type == Z_PLANE )
-             {
-                 HTMLcode += "<tr><td>Refresh the Z-plane</td></tr>" ;
-                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-             }
-             else if ( _plane_type.is_one_of( W_PLANE, BIP_BOX ) )
-             {
-                 HTMLcode += "<tr>" ;
-                 HTMLcode += "<td VALIGN=\"top\">" ;
-                 HTMLcode += "<table>" ;
-                 if ( _plugin_main_ref > 0 )
-                 {
+            if ( _plane_type == Z_PLANE )
+            {
+                HTMLcode += "<tr><td>Refresh the Z-plane</td></tr>" ;
+                HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+            }
+            else if ( _plane_type.is_one_of( W_PLANE, BIP_BOX ) )
+            {
+                HTMLcode += "<tr>" ;
+                HTMLcode += "<td VALIGN=\"top\">" ;
+                HTMLcode += "<table>" ;
+                if ( _plugin_main_ref > 0 )
+                {
                     HTMLcode += "<tr><td>Plug-in <b>"+( _glob_submethod_desc.length > 0 ? "("+_glob_submethod_desc+")" : "" )+"</b></td></tr>" ;
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                 }
-                 HTMLcode += "<tr><td>Method <b>"+circles_lib_method_get_def( _glob_method )+"</b></td></tr>" ;
-                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                 HTMLcode += "<tr><td>Construction mode <b>"+circles_lib_construction_mode_get_def( _glob_construction_mode )+"</b></td></tr>" ;
-                 if ( _glob_method == METHOD_ALGEBRAIC )
-                 {
+                }
+                HTMLcode += "<tr><td>Method <b>"+circles_lib_method_get_def( _glob_method )+"</b></td></tr>" ;
+                HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+                HTMLcode += "<tr><td>Construction mode <b>"+circles_lib_construction_mode_get_def( _glob_construction_mode )+"</b></td></tr>" ;
+                if ( _glob_method == METHOD_ALGEBRAIC )
+                {
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-		                HTMLcode += "<tr><td>Process <b>"+circles_lib_process_get_def( _glob_process )+"</b></td></tr>" ;
+		            HTMLcode += "<tr><td>Process <b>"+circles_lib_process_get_def( _glob_process )+"</b></td></tr>" ;
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-		                HTMLcode += "<tr><td>Fixed point <b>"+circles_lib_fixedpoints_io_get_def( _glob_fixedpt_io )+"</b></td></tr>" ;
-								 }
+		            HTMLcode += "<tr><td>Fixed point <b>"+circles_lib_fixedpoints_io_get_def( _glob_fixedpt_io )+"</b></td></tr>" ;
+				}
                           
-                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                 HTMLcode += "<tr><td>Draw entity <b>"+circles_lib_drawentity_get_def( _glob_drawentity )+"</b></td></tr>" ;
+                HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+                HTMLcode += "<tr><td>Draw entity <b>"+circles_lib_drawentity_get_def( _glob_drawentity )+"</b></td></tr>" ;
     
-                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                 HTMLcode += "<tr><td>Depth <b>"+_glob_depth+"</b></td></tr>" ;
+                HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+                HTMLcode += "<tr><td>Depth <b>"+_glob_depth+"</b></td></tr>" ;
     
-                 if ( _glob_method.is_one_of( METHOD_INVERSION, METHOD_ALGEBRAIC ) &&
-                     _glob_process != PROCESS_RANDOM )
-                 {
+                if ( _glob_method.is_one_of( METHOD_INVERSION, METHOD_ALGEBRAIC ) &&
+                    _glob_process != PROCESS_RANDOM )
+                {
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                     HTMLcode += "<tr><td>Recompute dictionary <b>"+( _glob_dict_create ? "Yes</b>" : "No</b>" )+"</td></tr>" ;
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                     HTMLcode += "<tr><td>Apply Repetends <b>"+( _repetends_exists ? "Yes" : "No" )+"</b></td></tr>" ;
-                 }
+                }
 
-                 if ( _glob_volatile_settings['f.z.formula'] != null )
-                 {
-                     if ( safe_size( _glob_volatile_settings['f.z.formula'], 0 ) > 0 )
-                     {
-                         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                         HTMLcode += "<tr><td>Rendered entities will be remapped by <b>"+( _glob_volatile_settings['f.z.formula'] )+"</td></tr>" ;
-                         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                     }
-                 }
+                if ( _glob_volatile_settings['f.z.formula'] != null )
+                {
+                    if ( safe_size( _glob_volatile_settings['f.z.formula'], 0 ) > 0 )
+                    {
+                        HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+                        HTMLcode += "<tr><td>Rendered entities will be remapped by <b>"+( _glob_volatile_settings['f.z.formula'] )+"</td></tr>" ;
+                        HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+                    }
+                }
 
-                     HTMLcode += "</table>" ;
-                     HTMLcode += "</td>" ;
-                     HTMLcode += "</tr>" ;
-                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+                HTMLcode += "</table>" ;
+                HTMLcode += "</td>" ;
+                HTMLcode += "</tr>" ;
+                HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                       
-                     if ( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_NONE )
-                     {
-                         HTMLcode += "<tr><td HEIGHT=\"15\"></td></tr>" ;
-                         HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Fail to run this configuration</td></tr>" ;
-                         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                         HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Missing process reference</td></tr>" ;
-                         HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                         _process_fail_error = _HALT = YES ;
-                     }
+                if ( _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_NONE )
+                {
+                    HTMLcode += "<tr><td HEIGHT=\"15\"></td></tr>" ;
+                    HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Fail to run this configuration</td></tr>" ;
+                    HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+                    HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Missing process reference</td></tr>" ;
+                    HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
+                    _process_fail_error = _HALT = YES ;
+                }
 
-    						 if ( _sh < _min_width_for_div )
-    						 {
-   						 		  //HTMLcode += "</table>" ;
-   						 		  //HTMLcode += "</div>" ;
-   						 		  //HTMLcode += "</td></tr>" ;
+    			if ( _sh < _min_width_for_div )
+    			{
+					//HTMLcode += "</table>" ;
+   					//HTMLcode += "</div>" ;
+   					//HTMLcode += "</td></tr>" ;
                     //HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-								 }
+				}
 
-		             HTMLcode += "</table></td></tr>" ;
-                 if ( !_HALT )
-                 {
+		        HTMLcode += "</table></td></tr>" ;
+                if ( !_HALT )
+                {
                     HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
                     HTMLcode += "<tr>" ;
                     HTMLcode += "<td VALIGN=\"top\" CLASS=\"general_rounded_corners_bottom\" STYLE=\"background-color:#F7F7F7;padding:5px;\">" ;
@@ -375,23 +374,17 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                     HTMLcode += "</td>" ;
                     HTMLcode += "</tr>" ;
                     HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
-                 }
+                }
                       
-                 if ( _items_error != ITEM_ERR_NONE || _check_group != GROUP_TEST_ERR_OK || _repetends_fail_error || _HALT ||
-											( !_rnd_sum_check && _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM )
-										)
-                 {
+                if ( _items_error != ITEM_ERR_NONE || _check_group != GROUP_TEST_ERR_OK || _repetends_fail_error || _HALT ||
+					( !_rnd_sum_check && _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM ) )
+                {
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
                     HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Fail to run this configuration</td></tr>" ;
                     HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
                     HTMLcode += "<tr><td STYLE=\"color:"+DEFAULT_COLOR_ERROR+";\" ALIGN=\"center\">Please, fix problems first</td></tr>" ;
                     HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
-                 }
-                 /*
-                 else if ( !_HALT )
-                 {
-                 }
-                 */
+                }
              }
              else
              {
@@ -399,22 +392,22 @@ function circles_lib_canvas_process_ask( _question, _silent, _plane_type, _rende
                 HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
              }
 
-              HTMLcode += "</table>" ;
-              HTMLcode += "</td></tr><tr><td HEIGHT=\"5\"></td></tr></table>" ;
+            HTMLcode += "</table>" ;
+            HTMLcode += "</td></tr><tr><td HEIGHT=\"5\"></td></tr></table>" ;
+			  
+            var CAPTION = _glob_app_title + " - " + _plane_type_label ;
+            alert_plug_label( ALERT_YES, "Render" );
 
-              var CAPTION = _glob_app_title + " - " + _plane_type_label ;
-              alert_plug_label( ALERT_YES, "Render" );
-
-              if ( _plane_type.is_one_of( Z_PLANE ) )
-              alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_render_zplane( null, zplane_sm, '"+_selected_layers_array.join(',')+"', "+_b_clean+", YES, "+_render+", "+_question+", YES, YES, "+_out_channel+" );" );
-              else if ( _plane_type.is_one_of( W_PLANE ) )
-              {
-                 alert_plug_label( ALERT_NO, ( _items_error != ITEM_ERR_NONE || _check_group != GROUP_TEST_ERR_OK || _repetends_fail_error ||
-   																				   ( !_rnd_sum_check && _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM ) ) ? "Close" : "No" );
-                 alert_plug_label( ALERT_CANCEL, "Init but no render" );
-                 alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_render_wplane( null, wplane_sm, '"+_selected_layers_array.join(',')+"', "+_b_clean+", YES, "+_render+", "+_b_init_items+", "+_question+", YES, "+_out_channel+" );" );
-              }
-              else if ( _plane_type == BIP_BOX )
+            if ( _plane_type.is_one_of( Z_PLANE ) )
+            alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_render_zplane( null, zplane_sm, '"+_selected_layers_array.join(',')+"', "+_b_clean+", YES, "+_render+", "+_question+", YES, YES, "+_out_channel+" );" );
+            else if ( _plane_type.is_one_of( W_PLANE ) )
+            {
+                alert_plug_label( ALERT_NO, ( _items_error != ITEM_ERR_NONE || _check_group != GROUP_TEST_ERR_OK || _repetends_fail_error ||
+					( !_rnd_sum_check && _glob_method == METHOD_ALGEBRAIC && _glob_process == PROCESS_RANDOM ) ) ? "Close" : "No" );
+                alert_plug_label( ALERT_CANCEL, "Init but no render" );
+                alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_render_wplane( null, wplane_sm, '"+_selected_layers_array.join(',')+"', "+_b_clean+", YES, "+_render+", "+_b_init_items+", "+_question+", YES, "+_out_channel+" );" );
+            }
+            else if ( _plane_type == BIP_BOX )
               alert_plug_fn( ALERT_YES, "alertCLOSE();circles_lib_canvas_render_bipbox( _glob_bip_original_plane_data, '"+_selected_layers_array.join(',')+"', "+_b_clean+", YES, "+_render+", "+_b_init_items+", "+_question+", YES, "+_out_channel+" );" );
               else if ( _plane_type == NO_PLANE ) alert_plug_fn( ALERT_YES, "alertCLOSE();" );
 

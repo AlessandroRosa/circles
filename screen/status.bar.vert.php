@@ -87,7 +87,7 @@
     <tr><td HEIGHT="2"></td></tr>
     <tr>
     <td WIDTH="2"></td>
-    <td HEIGHT="20" WIDTH="50" CLASS="link_rounded" ALIGN="center" ID="STATUSBARrenderBTN" ONCLICK="javascript:circles_lib_set_target_plane(W_PLANE,YES);circles_lib_items_switch_to(_glob_items_switch,YES);circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_glob_target_plane,YES,YES,CHECK);">Render</td>
+    <td HEIGHT="20" WIDTH="50" CLASS="link_rounded" ALIGN="center" ID="STATUSBARrenderBTN" ONCLICK="javascript:circles_lib_set_target_plane(_glob_target_plane,YES);circles_lib_items_switch_to(_glob_items_switch,YES);circles_lib_canvas_process_ask(YES,NO,_glob_bip_use?BIP_BOX:_glob_target_plane,YES,YES,CHECK);">Render</td>
     </tr>
     <tr><td HEIGHT="2"></td></tr>
     <tr>

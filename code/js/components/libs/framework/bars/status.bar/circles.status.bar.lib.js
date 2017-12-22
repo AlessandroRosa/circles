@@ -1,3 +1,4 @@
+function circles_lib_statusbar_update_elements() { $( "#STATUSBARdrawdisksBTN" ).css( "color", _glob_zplaneMOUSEprocSWITCH == MOUSE_DRAWDISKS_PROC_ID ? "blue" : "black" ); }
 function circles_lib_statusbar_drag_enable() { $( '#CIRCLESbarsSTATUSBARdiv' ).draggable('enable'); $('#STATUSBARdragICON').prop( "src", _glob_path_to_img+"icons/drag/drag.icon.01.20x20.png" ) ; }
 function circles_lib_statusbar_drag_disable() { $('#CIRCLESbarsSTATUSBARdiv').draggable('disable'); $('#STATUSBARdragICON').prop( "src", _glob_path_to_img+"icons/hand/hand.icon.01.20x20.png" ) ; }
 function circles_lib_statusbar_toggle() { $("#CIRCLESbarsSTATUSBARdiv" ).toggle( "slow", function() { circles_lib_menu_entries_update(); } ); }
@@ -29,22 +30,29 @@ function CIRCLESbarsSTATUSBARdispatcher() // keep this fn name due to std naming
         break ;
         case POPUP_DISPATCHER_UNICAST_EVENT_REMOTE_CONTROL:
         var _subset = _glob_popups_array[ POPUP_INDEX ][8] ;
-		    var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
-		    circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
-		    break ;
+		var _base_id = _glob_popups_array[ POPUP_INDEX ][12] ;
+		circles_lib_plugin_remotectrl_dispatch_to_service( _glob_popups_array[_idx][1], arguments ) ;
+		break ;
         default: break ;
      }
    }
 }
 
-function circles_lib_statusbar_log_icon_show( _show )
+function circles_lib_statusbar_log_icon_show( _show = NO )
 {
-	 _show = safe_int( _show, NO );
-	 $( "#STATUSBARextras" ).html( _show ? "<IMG TITLE=\"Detected run-time errors\" SRC=\""+_glob_path_to_img+"/icons/error/error.01.20x20.png\">" : "" );
-	 $( "#STATUSBARextras" ).css( "cursor", _show ? "pointer" : "default" ) ;
-	 $( "#STATUSBARotherAPPENDIX" ).html( _show ? "<SUB>("+safe_size( _glob_app_log, 0 )+")</SUB>" : "" ) ;
-	 if ( _show ) $( "#STATUSBARextras" ).bind( "mousedown", function(){ circles_lib_plugin_load( 'forms', 'log' ) ; } ) ;
-	 else $( "#STATUSBARextras" ).unbind( "mousedown" ) ;
+	_show = safe_int( _show, NO );
+	var _b_err = 0 ;
+	for( var _l = 0 ; _l < _glob_app_log.length ; _l++ ) if ( _glob_app_log[2] == LOG_ERROR ) { _b_err = 1 ; break ; }
+	var _iconcode = "" ;
+	if ( _b_err )
+	{
+		_iconcode = "<IMG TITLE=\"Detected run-time errors\" SRC=\""+_glob_path_to_img+"/icons/error/error.01.20x20.png\">" ;
+		$( "#STATUSBARextras" ).html( _show ? _iconcode : "" );
+		$( "#STATUSBARextras" ).css( "cursor", _show ? "pointer" : "default" ) ;
+		$( "#STATUSBARotherAPPENDIX" ).html( _show ? "<SUB>("+safe_size( _glob_app_log, 0 )+")</SUB>" : "" ) ;
+		if ( _show ) $( "#STATUSBARextras" ).bind( "mousedown", function(){ circles_lib_plugin_load( 'forms', 'log' ) ; } ) ;
+		else $( "#STATUSBARextras" ).unbind( "mousedown" ) ;
+	}
 }
 
 function circles_lib_statusbar_dropdown_zoom_populate()
@@ -73,9 +81,9 @@ function circles_lib_statusbar_reset()
    }
 }
 
-function circles_lib_statusbar_load( _orientation, _xloc, _yloc, _show, _xpos, _ypos, _callback_fn )
+function circles_lib_statusbar_load( _orientation = "horz", _xloc = 0, _yloc = 0, _show = YES, _xpos = null, _ypos = null, _callback_fn = null )
 {
-	 _show = safe_int( _show, YES ), _orientation = safe_string( _orientation, "horz" );
+	_show = safe_int( _show, YES ), _orientation = safe_string( _orientation, "horz" );
    _xpos = safe_int( _xpos, UNDET ), _ypos = safe_int( _ypos, UNDET );
    if ( _glob_status_bar_settings['orientation'] != _orientation )
    {
@@ -130,118 +138,112 @@ function circles_lib_statusbar_load( _orientation, _xloc, _yloc, _show, _xpos, _
    else return NO ;
 }
 
-function circles_lib_statusbar_init( _show )
+function circles_lib_statusbar_init( _show = YES )
 {
-	 _show = safe_int( _show, YES );
-   if ( $( "#CIRCLESbarsSTATUSBARdiv" ).get(0) != null )
-   {
-    	 $( "#CIRCLESbarsSTATUSBARdiv" ).width( $( "#STATUSBAR" ).width() + 4 );
-    	 var _top_z_canvas = circles_lib_canvas_layer_get_topmost( Z_PLANE );
-    	 var _top_w_canvas = circles_lib_canvas_layer_get_topmost( W_PLANE );
-    	 var _max_z_index = Math.max( _top_z_canvas['zindex'], _top_w_canvas['zindex'] );
-    	 $( "#CIRCLESbarsSTATUSBARdiv" ).zIndex( _max_z_index + 1 );
-       circles_lib_statusbar_set_border_rects() ;
-    	 if ( _show )
-       {
-          $( "#CIRCLESbarsSTATUSBARdiv" ).css( "left", $( window ).width() - $( "#CIRCLESbarsSTATUSBARdiv" ).width() - 5 );
-          $( "#CIRCLESbarsSTATUSBARdiv" ).css( "display", "block" );
-       }
-       return YES ;
-   }
-   else return NO ;
+	_show = safe_int( _show, YES );
+	if ( $( "#CIRCLESbarsSTATUSBARdiv" ).get(0) != null )
+	{
+    	$( "#CIRCLESbarsSTATUSBARdiv" ).width( $( "#STATUSBAR" ).width() + 4 );
+    	var _top_z_canvas = circles_lib_canvas_layer_get_topmost( Z_PLANE );
+    	var _top_w_canvas = circles_lib_canvas_layer_get_topmost( W_PLANE );
+    	var _max_z_index = Math.max( _top_z_canvas['zindex'], _top_w_canvas['zindex'] );
+    	$( "#CIRCLESbarsSTATUSBARdiv" ).zIndex( _max_z_index + 1 );
+		circles_lib_statusbar_set_border_rects() ;
+    	if ( _show )
+        {
+			$( "#CIRCLESbarsSTATUSBARdiv" ).css( "left", $( window ).width() - $( "#CIRCLESbarsSTATUSBARdiv" ).width() - 5 );
+			$( "#CIRCLESbarsSTATUSBARdiv" ).css( "display", "block" );
+        }
+        return YES ;
+	}
+	else return NO ;
 }
 
 function circles_lib_statusbar_set_border_rects()
 {
-   var _x_extent = 54, _y_extent = 14, _menu_height = $("#menu").height(), _extras = 12 ;
-   _glob_top_border_rect.width_height_constructor( _extras, _menu_height + _extras,
-																									 $(window).width() - _extras, _y_extent );
-   _glob_bottom_border_rect.width_height_constructor( 0, $(window).height() - _y_extent - _extras,
-																										  $(window).width() - _extras, _y_extent );
+    var _x_extent = 54, _y_extent = 14, _menu_height = $("#menu").height(), _extras = 12 ;
+    _glob_top_border_rect.width_height_constructor( _extras, _menu_height + _extras,
+	$(window).width() - _extras, _y_extent );
+    _glob_bottom_border_rect.width_height_constructor( 0, $(window).height() - _y_extent - _extras,
+	$(window).width() - _extras, _y_extent );
 
-   _glob_left_border_rect.width_height_constructor( 0, _glob_top_border_rect.get_bottom() + _extras,
-																									  _x_extent, $(window).height() - _menu_height - _glob_top_border_rect.height() - _glob_bottom_border_rect.height() );
+    _glob_left_border_rect.width_height_constructor( 0, _glob_top_border_rect.get_bottom() + _extras,
+		_x_extent, $(window).height() - _menu_height - _glob_top_border_rect.height() - _glob_bottom_border_rect.height() );
 
    _glob_right_border_rect.width_height_constructor( $(window).width() - _x_extent, _glob_top_border_rect.get_bottom() + _extras,
-																									   _x_extent, $(window).height() - _menu_height - _glob_top_border_rect.height() - _glob_bottom_border_rect.height() );
+		_x_extent, $(window).height() - _menu_height - _glob_top_border_rect.height() - _glob_bottom_border_rect.height() );
 }
 
 function circles_lib_statusbar_set_extras_icon( _e )
 {
-   if ( $("#STATUSBARextras").get(0) != null )
-   {
-      var _icon_code = "", ICONSIZE = "20x20" ;
-      switch( _e )
-      {
-         case OTHER_ZOOM : _icon_code = "<IMG TITLE=\"Zoom\" SRC=\"%imgpath%icons/lens/lens.icon.01."+ICONSIZE+".png\">" ; break ;
-         case OTHER_NONE :
-         default : _icon_code = "" ; break ;
-      }
+	if ( $("#STATUSBARextras").get(0) != null )
+	{
+		var _icon_code = "", ICONSIZE = "20x20" ;
+		switch( _e )
+		{
+			case OTHER_ZOOM : _icon_code = "<IMG TITLE=\"Zoom\" SRC=\"%imgpath%icons/lens/lens.icon.01."+ICONSIZE+".png\">" ; break ;
+			case OTHER_NONE :
+			default : _icon_code = "" ; break ;
+		}
           
-      _icon_code = _icon_code.replaceAll( "%imgpath%", _glob_path_to_img );
-      $("#STATUSBARextras").html( _icon_code );
-   } 
+		_icon_code = _icon_code.replaceAll( "%imgpath%", _glob_path_to_img );
+		$("#STATUSBARextras").html( _icon_code );
+	} 
 }
 
 function circles_lib_statusbar_update_list_icon()
 {
-   var _len = safe_size( _glob_popups_array, 0 );
-   $("#STATUSBARpopuplist").bind( "mouseover", _len > 0 ? function() { this.style.cursor = 'pointer' ; } : function() {} );
-   $("#STATUSBARpopuplist").bind( "mousedown", _len > 0 ? function() { circles_lib_plugin_show_list(YES); } : function() {} );
-   $("#STATUSBARpopuplist").html( _len > 0 ? "<IMG TITLE=\"Pop-ups List\" SRC=\""+_glob_path_to_img+"icons/menu/menu.icon.01.20x20.png\">" : "" );
-   if ( _len == 0 ) circles_lib_plugin_show_list( HIDE );
+	var _len = safe_size( _glob_popups_array, 0 );
+	$("#STATUSBARpopuplist").bind( "mouseover", _len > 0 ? function() { this.style.cursor = 'pointer' ; } : function() {} );
+	$("#STATUSBARpopuplist").bind( "mousedown", _len > 0 ? function() { circles_lib_plugin_show_list(YES); } : function() {} );
+	$("#STATUSBARpopuplist").html( _len > 0 ? "<IMG TITLE=\"Pop-ups List\" SRC=\""+_glob_path_to_img+"icons/menu/menu.icon.01.20x20.png\">" : "" );
+	if ( _len == 0 ) circles_lib_plugin_show_list( HIDE );
 }
 
-function circles_lib_statusbar_set_config_icon( _e )
+function circles_lib_statusbar_set_config_icon( _e = 0 )
 {
-   if ( $("#STATUSBARconfig").get(0) != null )
-   {
-      var _icon_code = "", ICONSIZE = "20x20" ;
-      switch( _e )
-      {
-         case CONFIG_STD : _icon_code = "<IMG TITLE=\"Config : normal\" SRC=\"%imgpath%icons/screen/screen.icon.02."+ICONSIZE+".png\">" ; break ;
-         case CONFIG_BIPBOX : _icon_code = "<IMG TITLE=\"Config : bip canvas\" SRC=\"%imgpath%icons/batch/batch.icon.02."+ICONSIZE+".png\">" ; break ;
-         default : _icon_code = "<IMG TITLE=\"Config : unknown\" SRC=\"%imgpath%icons/questionmark/question.mark.icon.01."+ICONSIZE+".png\">" ; break ;
-      }
-      _icon_code = _icon_code.replaceAll( "%imgpath%", _glob_path_to_img );
-      $("#STATUSBARconfig").html( _icon_code );
-      return YES ;
-   }
-   else return NO ;
+	if ( $("#STATUSBARconfig").get(0) != null )
+	{
+		var _icon_code = "", ICONSIZE = "20x20" ;
+		switch( _e )
+		{
+			case CONFIG_STD : _icon_code = "<IMG TITLE=\"Config : normal\" SRC=\"%imgpath%icons/screen/screen.icon.02."+ICONSIZE+".png\">" ; break ;
+			case CONFIG_BIPBOX : _icon_code = "<IMG TITLE=\"Config : bip canvas\" SRC=\"%imgpath%icons/batch/batch.icon.02."+ICONSIZE+".png\">" ; break ;
+			default : _icon_code = "<IMG TITLE=\"Config : unknown\" SRC=\"%imgpath%icons/questionmark/question.mark.icon.01."+ICONSIZE+".png\">" ; break ;
+		}
+		_icon_code = _icon_code.replaceAll( "%imgpath%", _glob_path_to_img );
+		$("#STATUSBARconfig").html( _icon_code );
+		return YES ;
+	}
+	else return NO ;
 }
 
-function circles_lib_statusbar_set_output_stream( _out_channel )
+function circles_lib_statusbar_set_output_stream( _out_channel = OUTPUT_SCREEN )
 {
-   _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
-   _glob_output_channel = _out_channel ;
-   if ( $("#STATUSBARoutput").get(0) != null )
-   {
-      var _icon_code = "", ICONSIZE = "20x20" ;
-      switch( _out_channel )
-      {
-         case OUTPUT_SCREEN : _icon_code = "<IMG TITLE=\"Output : screen\" SRC=\"%imgpath%icons/screen/screen.icon.01."+ICONSIZE+".png\">" ; break ;
-         case OUTPUT_TERMINAL : _icon_code = "<IMG TITLE=\"Output : terminal console\" SRC=\"%imgpath%icons/cmd.prompt/cmd.prompt.icon.01."+ICONSIZE+".png\">" ; break ;
-         case OUTPUT_SCRIPT : _icon_code = "<IMG TITLE=\"Output : batch compiler\" SRC=\"%imgpath%icons/batch/batch.icon.01."+ICONSIZE+".png\">" ; break ;
-         default : _icon_code = "<IMG TITLE=\"Output : unknown\" SRC=\"%imgpath%icons/questionmark/question.mark.icon.01."+ICONSIZE+".png\">" ; break ;
-      }
+	_out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _glob_output_channel = _out_channel ;
+	if ( $("#STATUSBARoutput").get(0) != null )
+	{
+		var _icon_code = "", ICONSIZE = "20x20" ;
+		switch( _out_channel )
+		{
+			case OUTPUT_SCREEN : _icon_code = "<IMG TITLE=\"Output : screen\" SRC=\"%imgpath%icons/screen/screen.icon.01."+ICONSIZE+".png\">" ; break ;
+			case OUTPUT_TERMINAL : _icon_code = "<IMG TITLE=\"Output : terminal console\" SRC=\"%imgpath%icons/cmd.prompt/cmd.prompt.icon.01."+ICONSIZE+".png\">" ; break ;
+			case OUTPUT_SCRIPT : _icon_code = "<IMG TITLE=\"Output : batch compiler\" SRC=\"%imgpath%icons/batch/batch.icon.01."+ICONSIZE+".png\">" ; break ;
+			default : _icon_code = "<IMG TITLE=\"Output : unknown\" SRC=\"%imgpath%icons/questionmark/question.mark.icon.01."+ICONSIZE+".png\">" ; break ;
+		}
          
-      _icon_code = _icon_code.replaceAll( "%imgpath%", _glob_path_to_img );
-      $("#STATUSBARoutput").html( _icon_code );
-      return YES ;
-   }
-   else return NO ;
+		_icon_code = _icon_code.replaceAll( "%imgpath%", _glob_path_to_img );
+		$("#STATUSBARoutput").html( _icon_code );
+		return YES ;
+	}
+	else return NO ;
 }
 
-function circles_lib_statusbar_update_elements()
+function circles_lib_statusbar_set_depth( _depth = 1 )
 {
-   $( "#STATUSBARdrawdisksBTN" ).css( "color", _glob_zplaneMOUSEprocSWITCH == MOUSE_DRAWDISKS_PROC_ID ? "blue" : "black" );
-}
-
-function circles_lib_statusbar_set_depth( _depth )
-{
-   _depth = Math.max( 1, safe_int( _depth, 1 ) );
-	 //if ( event.stopPropagation )      event.stopPropagation();
-	 //if ( event.cancelBubble != null ) event.cancelBubble = true;
-   circles_lib_depth_set( _depth, YES );
-   $('[id$=renderBTN]').css('color',COLOR_ERROR) ;
+	_depth = Math.max( 1, safe_int( _depth, 1 ) );
+	//if ( event.stopPropagation )      event.stopPropagation();
+	//if ( event.cancelBubble != null ) event.cancelBubble = true;
+	circles_lib_depth_set( _depth, YES );
+	$('[id$=renderBTN]').css('color',COLOR_ERROR) ;
 }

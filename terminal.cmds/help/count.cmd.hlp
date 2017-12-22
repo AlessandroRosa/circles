@@ -1,0 +1,10 @@
+<banana>count elements for the current working group configuration</banana>
+<white>Type param /k to return all available keywords</white>
+<white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
+
+<lightblue>usage</lightblue> <snow>count</snow>
+
+<cadetblue>count</cadetblue>
+
+<lightblue>count release</lightblue>
+<cadetblue>return the latest release date for this command</cadetblue>

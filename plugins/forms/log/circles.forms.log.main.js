@@ -128,6 +128,7 @@ function CIRCLESformsLOGlist()
                     case LOG_SUCCESS: _textcolor = DEFAULT_COLOR_GO ; break ;
                     case LOG_ERROR: _textcolor = DEFAULT_COLOR_ERROR ; break ;
                     case LOG_WARNING: _textcolor = DEFAULT_COLOR_WARNING ; break ;
+                    case LOG_INFO: _textcolor = DEFAULT_COLOR_INFO_FOR_TEXT ; break ;
                     default: _textcolor = DEFAULT_EDIT_COLOR_DISABLED ; break ;
                 }
                 // keep the ending CRLF for clipboard copy
