@@ -363,9 +363,9 @@ function circles_terminal_cmd_alphabet()
 						  }
                           else _out_array.push( _symbol );
                       }
-                      else circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning ! Generator with index "+(_i+1) + " has not been tagged.\nTry to init all again", _par_1, _cmd_tag );
+                      else circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning ! Generator with index "+(_i+1) + " has not been tagged."+_glob_crlf+"Try to init all again", _par_1, _cmd_tag );
                   }
-                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning ! Generator with index "+(_i+1) + " does not exist.\nTry to init all again", _par_1, _cmd_tag );
+                  else circles_lib_output( _out_channel, DISPATCH_WARNING, "Warning ! Generator with index "+(_i+1) + " does not exist."+_glob_crlf+"Try to init all again", _par_1, _cmd_tag );
               }
       
               _glob_alphabet = circles_lib_alphabet_get();
@@ -419,8 +419,12 @@ function circles_terminal_cmd_alphabet()
             if ( !is_array( _glob_alphabet ) ) _glob_alphabet = [] ;
             if ( safe_size( _glob_alphabet, 0 ) > 0 )
 			{
-				circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Current alphabet is <lightblue>" + _glob_alphabet.join( ", " ) + "</lightblue>", _par_1, _cmd_tag );
-				circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Current alphabet size is <white>" + safe_size( _glob_alphabet, 0 )+"</white>", _par_1, _cmd_tag );
+				var _msg = "Current alphabet is <lightblue>" + _glob_alphabet.join( ", " ) + "</lightblue>" ;
+				circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				_out_text_string += _msg ;
+				_msg = "Current alphabet size is <white>" + safe_size( _glob_alphabet, 0 )+"</white>" ;
+				circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
+				_out_text_string += "\n"+_msg ;
 			}
             else
 			{

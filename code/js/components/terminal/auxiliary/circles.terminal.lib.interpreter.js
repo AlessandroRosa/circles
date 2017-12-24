@@ -64,7 +64,7 @@ function circles_lib_terminal_exec( _input_str_01, _input_str_02, _terminal, _ou
     }
 }
 
-function circles_lib_terminal_load_cmd( _expression, _params_str, _out_channel, _cmd_mode, _caller_id )
+function circles_lib_terminal_load_cmd( _expression = "", _params_str = "", _out_channel = OUTPUT_TERMINAL, _cmd_mode = TERMINAL_CMD_MODE_NONE, _caller_id = "" )
 {
     _expression = safe_string( _expression, "" ).trim();
     var _cmd_tag = _expression.includes( " " ) ? ( _expression.split( " " ) )[0] : _expression ;
@@ -73,32 +73,29 @@ function circles_lib_terminal_load_cmd( _expression, _params_str, _out_channel, 
     if ( _glob_code_run_cmds_array.includes( _cmd_tag ) ) return circles_lib_process_cmd( _cmd_tag, _params_str, _out_channel, _cmd_mode, _caller_id );
     else if ( check_file_exists( _glob_paths['terminal_cmds_path'] + _filename ) )
     {
-			 $.getScript( _glob_paths['terminal_cmds_path'] + _filename ).done(
-                    function()
-                    {
-                       var _include_files = is_array( _glob_terminal_cmd_files_include[ _cmd_tag ] ) ? _glob_terminal_cmd_files_include[ _cmd_tag ].clone() : [] ;
-                       var _n_include = safe_size( _include_files, 0 );
-                       // 1. load the list of additional files, if declared, for the cmd to run
-											 if ( _n_include > 0 )
-	                     {
-		                      for( var _i = 0 ; _i < _n_include ; _i++ )
-		                      {
-                             if ( !_glob_code_run_cmds_array.includes( _include_files[_i] ) )
-                             circles_lib_terminal_load_cmd( _include_files[_i], "", OUTPUT_FILE_INCLUSION, TERMINAL_CMD_MODE_INCLUSION, _caller_id ) ;
-			                    }
-		                   }
+		$.getScript( _glob_paths['terminal_cmds_path'] + _filename ).done( function()
+        {
+            var _include_files = is_array( _glob_terminal_cmd_files_include[ _cmd_tag ] ) ? _glob_terminal_cmd_files_include[ _cmd_tag ].clone() : [] ;
+            var _n_include = safe_size( _include_files, 0 );
+            // 1. load the list of additional files, if declared, for the cmd to run
+			if ( _n_include > 0 )
+	        {
+		        for( var _i = 0 ; _i < _n_include ; _i++ )
+		        {
+                    if ( !_glob_code_run_cmds_array.includes( _include_files[_i] ) )
+                    circles_lib_terminal_load_cmd( _include_files[_i], "", OUTPUT_FILE_INCLUSION, TERMINAL_CMD_MODE_INCLUSION, _caller_id ) ;
+			    }
+		    }
     
- 											 // 2. process the cmd
-                       _ret_cmd = circles_lib_process_cmd( _cmd_tag, _params_str, _out_channel, _cmd_mode, _caller_id );
-
-                   } ).fail( function(){ _ret_cmd = [ RET_ERROR, "Fail to execute cmd " + _cmd_tag ] ; } );
-
-       return _ret_cmd ;
+ 			// 2. process the cmd
+            _ret_cmd = circles_lib_process_cmd( _cmd_tag, _params_str, _out_channel, _cmd_mode, _caller_id );
+        } ).fail( function(){ _ret_cmd = [ RET_ERROR, "Fail to execute cmd " + _cmd_tag ] ; } );
+        return _ret_cmd ;
     }
     else return [ RET_ERROR, "Fail to load cmd " + _cmd_tag + " : missing or corrupted command" ] ;
 }
 
-function circles_lib_process_cmd( _cmd_tag, _params_str, _out_channel, _cmd_mode, _caller_id )
+function circles_lib_process_cmd( _cmd_tag = "", _params_str = "", _out_channel = OUTPUT_TERMINAL, _cmd_mode = TERMINAL_CMD_MODE_NONE, _caller_id = "" )
 {
     if ( _glob_terminal_keepcmd.length > 0 && !_cmd_tag.stricmp( "keepcmd" ) )
     _params_str = _glob_terminal_keepcmd.replaceAll( _cmd_tag, "" ).trim() + " " + _params_str ;

@@ -83,7 +83,7 @@ window.onkeyup = function( event )
        var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
 
        var MSG = "Full screen mode "+( _glob_fullscreen_mode ? "enabled" : "disabled" )+"" ;
-           MSG += "\n\nConfirm to redraw the W-plane diagram ?" ;
+           MSG += _glob_crlf.repeat(2)+"Confirm to redraw the W-plane diagram ?" ;
               
        if ( circles_lib_count_seeds() > 0 )
        {
@@ -238,9 +238,9 @@ window.onerror = function( message, url, linenumber, colnumber, error )
       var WAITbarDIV = $( "#WAITbarDIV" ).get(0);
       if ( WAITbarDIV != null ) WAITbarDIV.style.display = "none" ;
       
-      var _log_msg = message ;
-      		_log_msg += "\nLine " + linenumber + ", col " + colnumber ;
-      if ( error != null ) _log_msg += "\nError " + error ;
+    var _log_msg = message ;
+    _log_msg += _glob_crlf+"Line " + linenumber + ", col " + colnumber ;
+      if ( error != null ) _log_msg += _glob_crlf+"Error " + error ;
       circles_lib_log_add_entry( _log_msg, LOG_WARNING );
 
       var _caption = ( _glob_app_title != null && _glob_app_title != "undefined" ) ? _glob_app_title : "Circles" ;

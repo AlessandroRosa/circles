@@ -231,7 +231,7 @@ function circles_terminal_cmd_probability()
 						else if ( _items_n != _pp_n )
                         {
 							_b_fail = YES, _error_str = "Mismatch error: the number ("+_pp_n+") of entries in the probability table is not the same as of gens ("+_items_n+")" ;
-                             if ( _glob_items_to_init ) _error_str += "\nTry to init gens again." ;
+                             if ( _glob_items_to_init ) _error_str += _glob_crlf+"Try to init gens again." ;
 												}
 												else
 												{
@@ -377,8 +377,8 @@ function circles_terminal_cmd_probability()
                             _b_fail = _glob_terminal_coderun_break = _glob_terminal_critical_halt = YES ;
 							_error_str = "" ;
 							var _msg = "Probabilities settings must follow after generators settings." ;
-								_msg += "\nRefer to 'gensset' cmd with 'add' parameter" ;
-								_msg += "\nType 'gensset /h' for full info" ;
+								_msg += _glob_crlf+"Refer to 'gensset' cmd with 'add' parameter" ;
+								_msg += _glob_crlf+"Type 'gensset /h' for full info" ;
                             circles_lib_output( _out_channel, DISPATCH_CRITICAL, _msg, _par_1, _cmd_tag );
 						}
 						else if ( _n_intersection > 0 )

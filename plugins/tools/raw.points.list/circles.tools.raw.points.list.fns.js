@@ -18,7 +18,7 @@ function CIRCLEStoolsRAWPOINTSLISThelp()
 
 function CIRCLEStoolsRAWPOINTSLISTload( _filename, _file_contents )
 {
-		var _file_rows = _file_contents.includes( CRLF_WIN ) ? _file_contents.split( CRLF_WIN ) : ( _file_contents.includes( CRLF_NO_WIN ) ? _file_contents.split( CRLF_NO_WIN ) : null );
+		var _file_rows = _file_contents.includes( CRLF_WIN ) ? _file_contents.split( CRLF_WIN ) : ( _file_contents.includes( CRLF_NOWIN ) ? _file_contents.split( CRLF_NOWIN ) : null );
 		var _new_words_counter = 0, _text = [] ;
 		$.each( _file_rows,
     				function( _i, _row )
@@ -67,10 +67,10 @@ function CIRCLEStoolsRAWPOINTSLISTcopyintoSTORAGE()
 {
     var _map_type = safe_int( $( "#CIRCLEStoolsRAWPOINTSLISTmapCOMBO option:selected" ).val(), 0 ) ;
     var _plane_type = safe_int( $( "#CIRCLEStoolsRAWPOINTSLISTplaneCOMBO option:selected" ).val(), 0 ) ;
-    var _text = $( "#CIRCLEStoolsRAWPOINTSLISTtextarea" ).val().replaceAll( [ CRLF_WIN, CRLF_NO_WIN ], CRLF_NO_WIN ) ;
+    var _text = $( "#CIRCLEStoolsRAWPOINTSLISTtextarea" ).val().replaceAll( [ CRLF_WIN, CRLF_NOWIN ], CRLF_NOWIN ) ;
     if ( _text.length > 0 )
     {
-        var _rows = _text.split( CRLF_NO_WIN ), _n_errors = 0, _pt, _params, _n_params = 0 ;
+        var _rows = _text.split( CRLF_NOWIN ), _n_errors = 0, _pt, _params, _n_params = 0 ;
         CIRCLEStoolsRAWPOINTSLISTpoints = [], CIRCLEStoolsRAWPOINTSLISTreport = [] ;
         if ( safe_size( _rows, 0 ) > 0 )
         {
@@ -148,12 +148,12 @@ function CIRCLEStoolsRAWPOINTSLISTdraw()
 {
     var _map_type = safe_int( $( "#CIRCLEStoolsRAWPOINTSLISTmapCOMBO option:selected" ).val(), 0 ) ;
     var _plane_type = safe_int( $( "#CIRCLEStoolsRAWPOINTSLISTplaneCOMBO option:selected" ).val(), 0 ) ;
-    var _text = $( "#CIRCLEStoolsRAWPOINTSLISTtextarea" ).val().replaceAll( [ CRLF_WIN, CRLF_NO_WIN ], CRLF_NO_WIN ) ;
+    var _text = $( "#CIRCLEStoolsRAWPOINTSLISTtextarea" ).val().replaceAll( [ CRLF_WIN, CRLF_NOWIN ], CRLF_NOWIN ) ;
     if ( _plane_type == NO_PLANE ) circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Please, choose input coords category", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' ) ;
     else if ( _map_type == 0 ) circles_lib_output( OUTPUT_SPECIAL_FX,DISPATCH_WARNING, "Please, choose input coords category", 'CIRCLEStoolsRAWPOINTSLISToutputBOX' ) ;
     else if ( _text.length > 0 )
     {
-        if ( _text.includes( CRLF_NO_WIN ) ) _text = _text.replaceAll( CRLF_NO_WIN, ";" ) ;
+        if ( _text.includes( CRLF_NOWIN ) ) _text = _text.replaceAll( CRLF_NOWIN, ";" ) ;
         if ( _text.includes( ")(" ) ) _text = _text.replaceAll( ")(", ";" ).replaceAll( "(", "" ).replaceAll( ")", ";" ) ;
         else _text = _text.replaceAll( "(", "" ).replaceAll( ")", ";" ) ;
 

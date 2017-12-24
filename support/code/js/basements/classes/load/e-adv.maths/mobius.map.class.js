@@ -33,7 +33,7 @@ if ( typeof is_positive_infinity != "function" ) function is_positive_infinity( 
 if ( typeof is_negative_infinity != "function" ) function is_negative_infinity( _n ) { return _n == -Infinity ? 1 : 0 ; }
 if ( typeof is_mobius_map != "function" ) function is_mobius_map( _obj ) { return _obj instanceof mobius_map ; }
 if ( typeof is_circle != "function" ) function is_circle( _c ) { return _c instanceof circle ? 1 : 0 ; }
-if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ).trim() ; }
+if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ) ; }
 if ( typeof safe_int != "function" ) function safe_int( _val, _set_if_nan ) { _val = parseInt( _val, 10 ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
 if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) { _val = parseFloat( _val ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
 if ( typeof XOR != "function" ) function XOR(a,b) { return ( a ? 1 : 0 ) ^ ( b ? 1 : 0 ); }
@@ -116,7 +116,7 @@ mobius_map.prototype.is_upper_half_plane_preserving = function() { return ( this
 mobius_map.prototype.output = function( _sep = "\n", _fmt = "coeffs", _accuracy, _style_for_html )
 {
 	_accuracy = Math.min( safe_int( Math.abs( _accuracy ), COMPLEX_CLASS_MAX_ACCURACY ), COMPLEX_CLASS_MAX_ACCURACY ) ;
-    _sep = safe_string( _sep, "\n" ), _fmt = safe_string( _fmt, "coeffs" ).toLowerCase() ;
+    _fmt = safe_string( _fmt, "coeffs" ).toLowerCase() ;
     if ( _fmt.length == 0 ) _fmt = "coeffs" ;
     if ( _sep.length == 0 ) _sep = "\n" ;
     var _floatREGEXpattern = "^([0-9\.\+\-]{1,})$" ;
@@ -547,25 +547,25 @@ mobius_map.prototype.div = function( mm )	{ return this.mul( mm.inv() ) ; }
 mobius_map.prototype.mul = function( mm )
 {
     return new mobius_map( this.a.mul( mm.a ).add( this.b.mul( mm.c ) ),
-													 this.a.mul( mm.b ).add( this.b.mul( mm.d ) ),
-													 this.c.mul( mm.a ).add( this.d.mul( mm.c ) ),
-													 this.c.mul( mm.b ).add( this.d.mul( mm.d ) ), this.notes, this.anti_homography_mask, this.accuracy );
+		this.a.mul( mm.b ).add( this.b.mul( mm.d ) ),
+		this.c.mul( mm.a ).add( this.d.mul( mm.c ) ),
+		this.c.mul( mm.b ).add( this.d.mul( mm.d ) ), this.notes, this.anti_homography_mask, this.accuracy );
 }
 
-mobius_map.prototype.distance_from = function( _mm )
+mobius_map.prototype.distance_from = function( _mm = null )
 {
-		if ( is_mobius_map( _mm ) ) return -1 ;
-		else
-		{
-				var _dist = this.a.sub( _mm.a ).pow( 2.0 ) ;
-				_dist = _d.add( this.b.sub( _mm.b ).pow( 2.0 ) );
-				_dist = _d.add( this.c.sub( _mm.c ).pow( 2.0 ) );
-			  _dist = _d.add( this.d.sub( _mm.d ).pow( 2.0 ) );
-			  return _dist.sqrt().radius() ;
-		}
+	if ( is_mobius_map( _mm ) ) return -1 ;
+	else
+	{
+		var _dist = this.a.sub( _mm.a ).pow( 2.0 ) ;
+		_dist = _d.add( this.b.sub( _mm.b ).pow( 2.0 ) );
+		_dist = _d.add( this.c.sub( _mm.c ).pow( 2.0 ) );
+		_dist = _d.add( this.d.sub( _mm.d ).pow( 2.0 ) );
+		return _dist.sqrt().radius() ;
+	}
 }
 
-mobius_map.prototype.normalize = function( _self )
+mobius_map.prototype.normalize = function( _self = 1 )
 {
     _self = safe_int( _self, 1 );
     var det = this.det() ;

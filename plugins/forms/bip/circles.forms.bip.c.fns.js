@@ -44,30 +44,30 @@ function CIRCLESformsBIPreviewSETTINGS( _silent, _out_channel )
             _glob_bip_bk = _glob_bipbox_canvas.getContext( _glob_canvas_ctx_2D_mode ).backgroundColor ;
         var _bip_color_tag = ( circles_lib_colors_get_formats( _glob_bip_bk ) )[COLOR_TAG] ;
         var _open_fontcolor_tag = "", _close_fontcolor_tag = "" ;
-        var _msg = "Settings applied.\n" ;
+        var _msg = "Settings applied."+_glob_crlf ;
             _msg += _glob_crlf + _memo.join( _glob_crlf )  + _glob_crlf ;
         var _corners = bipbox_sm.get_coords_corners();
-            _msg += "\nBip region coordinates:"
-            _msg += "\nCenter (x,y): " + ( is_point( _glob_bip_box_center_pt ) ? ( _glob_bip_box_center_pt.x + "," + _glob_bip_box_center_pt.y ) : "none" );
-            _msg += "\nLeft, Up: " + ( _corners['lu'] != null ? ( _corners['lu'].x + "," + _corners['lu'].y ) : "not set yet" );
-            _msg += "\nRight, Down : " + ( _corners['rd'] != null ? ( _corners['rd'].x + "," + _corners['rd'].y ) : "not set yet" );
+            _msg += _glob_crlf+"Bip region coordinates:"
+            _msg += _glob_crlf+"Center (x,y): " + ( is_point( _glob_bip_box_center_pt ) ? ( _glob_bip_box_center_pt.x + "," + _glob_bip_box_center_pt.y ) : "none" );
+            _msg += _glob_crlf+"Left, Up: " + ( _corners['lu'] != null ? ( _corners['lu'].x + "," + _corners['lu'].y ) : "not set yet" );
+            _msg += _glob_crlf+"Right, Down : " + ( _corners['rd'] != null ? ( _corners['rd'].x + "," + _corners['rd'].y ) : "not set yet" );
 
-            _msg += "\n\n" + "Additional metrics : "  ;
+            _msg += _glob_crlf.repeat(2) + "Additional metrics : "  ;
             _open_fontcolor_tag = ( _canvas_width == 0 || _canvas_height == 0 ) ? "<SPAN STYLE=\"color:orange;\">" : "" ;
             _close_fontcolor_tag = ( _canvas_width == 0 || _canvas_height == 0 ) ? "</SPAN>" : "" ;
-            _msg += "\nPixel size (in units) : " + _glob_bip_pixel_size ;
-            _msg += "\nPixels: " + _open_fontcolor_tag + _canvas_width + " x " + _canvas_height + " pixels" + _close_fontcolor_tag ;
+            _msg += _glob_crlf+"Pixel size (in units) : " + _glob_bip_pixel_size ;
+            _msg += _glob_crlf+"Pixels: " + _open_fontcolor_tag + _canvas_width + " x " + _canvas_height + " pixels" + _close_fontcolor_tag ;
 
             _open_fontcolor_tag = ( _glob_bip_x_extent == 0 || _glob_bip_y_extent == 0 ) ? "<SPAN STYLE=\"color:orange;\">" : "" ;
             _close_fontcolor_tag = ( _glob_bip_x_extent == 0 || _glob_bip_y_extent == 0 ) ? "</SPAN>" : "" ;
-            _msg += "\nX,Y extents: " + _open_fontcolor_tag + _glob_bip_x_extent + " x " + _glob_bip_y_extent + _close_fontcolor_tag ;
+            _msg += _glob_crlf+"X,Y extents: " + _open_fontcolor_tag + _glob_bip_x_extent + " x " + _glob_bip_y_extent + _close_fontcolor_tag ;
 
             _open_fontcolor_tag = _glob_bip_shorterside_pixels == 0 ? "<SPAN STYLE=\"color:orange;\">" : "" ;
             _close_fontcolor_tag = _glob_bip_shorterside_pixels == 0 ? "</SPAN>" : "" ;
-            _msg += "\nShorter side (pixels): " + _open_fontcolor_tag + _glob_bip_shorterside_pixels + _close_fontcolor_tag ;
+            _msg += _glob_crlf+"Shorter side (pixels): " + _open_fontcolor_tag + _glob_bip_shorterside_pixels + _close_fontcolor_tag ;
 
-            _msg += "\nBackground color : " + _glob_bip_bk + ( _bip_color_tag.length > 0 ? " ("+_bip_color_tag+")" : "" );
-            _msg += "\nTicks : " + _glob_bip_ticks + _glob_crlf ;
+            _msg += _glob_crlf+"Background color : " + _glob_bip_bk + ( _bip_color_tag.length > 0 ? " ("+_bip_color_tag+")" : "" );
+            _msg += _glob_crlf+"Ticks : " + _glob_bip_ticks + _glob_crlf ;
 
         switch( _glob_export_format )
         {
@@ -79,7 +79,7 @@ function CIRCLESformsBIPreviewSETTINGS( _silent, _out_channel )
             default: _msg += _glob_crlf + "Export to unknown option" ; break ;
         }
 
-        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg.replace( /\n/g, "<br>" ), "CIRCLESformsBIPoutputMSG", 8000 ) ;
+        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg.replace( /\r\n|\n/g, "<br>" ), "CIRCLESformsBIPoutputMSG", 8000 ) ;
         return [ RET_OK, _msg ];
     }
     else

@@ -84,8 +84,8 @@ function circles_terminal_cmd_benchmark()
 				
             var _msg = "" ;
 				_msg += "Process started at " + _start_date ;
-				_msg += "\nDuration : " + safe_int( _diff, 0 ) + " second" + ( _diff == 1 ? "" : "s" );
-				_msg += "\nProcess closed at " + _end_date ;
+				_msg += _glob_crlf+"Duration : " + safe_int( _diff, 0 ) + " second" + ( _diff == 1 ? "" : "s" );
+				_msg += _glob_crlf+"Process closed at " + _end_date ;
             circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );     
             if ( _cmd_params['dump'] )
             {
@@ -98,7 +98,7 @@ function circles_terminal_cmd_benchmark()
             }
             _out_text_string = _msg ;
              
-            _fn_ret_val = { "duration" : secs, "start_unixtime" : _glob_benchmark_end_microtime, "end_unixtime" : _glob_benchmark_end_microtime } ;
+            _fn_ret_val = { "duration" : _diff, "start_unixtime" : _glob_benchmark_end_microtime, "end_unixtime" : _glob_benchmark_end_microtime } ;
             break ;
         }
     }

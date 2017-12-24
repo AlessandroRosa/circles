@@ -19,7 +19,7 @@ var _jseps_palette = [] ;
 
 // AUXILIARY FUNCTIONS
 if ( typeof is_array != "function" ) function is_array( _a ) 		{ return _a instanceof Array ? 1 : 0 ; }
-if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ).trim() ; }
+if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ) ; }
 if ( typeof get_rgb_dec_triplet != "function" )
 {
     function get_rgb_dec_triplet( _rgbhex )

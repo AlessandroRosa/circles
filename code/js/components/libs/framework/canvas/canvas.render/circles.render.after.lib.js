@@ -72,7 +72,7 @@ function circles_lib_canvas_after_render_main()
          if ( _glob_comment.length > 0 )
          {
               _svg_comment( _glob_export_code_array, "COMMENT TO THIS PICTURE" );
-              var _lines_array = _glob_comment.replaceAll( CRLF_WIN, CRLF_NO_WIN ).split( CRLF_NO_WIN ), _tokens_array ;
+              var _lines_array = _glob_comment.replaceAll( CRLF_WIN, CRLF_NOWIN ).split( CRLF_NOWIN ), _tokens_array ;
               var _y_pos = is_html_canvas( _canvas ) ? _canvas.get_height() : null, _font_size = 12 ;
                   _y_pos += 18 ;
               var _chars_per_line = Math.floor( 1.65 * _canvas.get_width() / _font_size );
@@ -203,7 +203,6 @@ function circles_lib_canvas_afterrender_figures_draw( _filter_array = [], _b_cle
                     _bordercolor, _fillcolor, _bordersize, YES, _opacity, UNDET, _properties_mask, YES );
                     break ;
                     case FIGURE_CLASS_RECT:
-					console.log( _obj );
                     if ( _borderradius )
                     circles_lib_draw_rounded_rect( _canvas_context, _mapper,
                     _obj, _border, _bordercolor, _fill, _fillcolor, _bordersize, _borderradius, YES, _opacity, _properties_mask );

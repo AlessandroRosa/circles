@@ -14,7 +14,7 @@
 <lightblue>pdf silent <- code</lightblue>
 <cadetblue>skip questions and output code from batch script service</cadetblue>
 
-<lightblue>pdf canvas <- code</lightblue>
+<lightblue>pdf showcanvas <- code</lightblue>
 <cadetblue>output code and add both Z-plane and W-plane canvas into the pdf</cadetblue>
 
 <lightblue>pdf <- debug</lightblue>

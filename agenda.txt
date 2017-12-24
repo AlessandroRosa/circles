@@ -27,7 +27,16 @@
 
 --------------- FIX SOON -----------------------
 
-* Next cmd to check: palette
+* Next cmd to check: pdf
+  try to add props z-layer, w-layer, z-merge, w-merge
+  
+  pdf showcanvas z-layer:grid w-layer:rendering <- code
+  pdf showcanvas z-merge w-layer:rendering <- code
+
+* rework _out_text_string in all terminal cmds
+  _out_text_string is used to print output into pdf files for example
+  _out_text_string is not properly filled inside most terminal cmds.
+  Examine each action for correct output to _out_text_string
 
 * TEST:
   > jorgensen's embedding #19

@@ -111,7 +111,7 @@ function circles_terminal_cmd_code()
                 {
                     $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val( _plain_code );
                     if ( $( "#CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).val().length == 0 )
-                    circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to flush the resulting code into the 'Batch Script' tab.\nPlease, close and re-open the terminal pop-up", _par_1, _cmd_tag );
+                    circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to flush the resulting code into the 'Batch Script' tab."+_glob_crlf+"Please, close and re-open the terminal pop-up", _par_1, _cmd_tag );
                     else
                     circles_lib_output( _out_channel, DISPATCH_SUCCESS, "The resulting code has been copied into the 'Batch Script' tab", _par_1, _cmd_tag );
                 }
@@ -190,7 +190,7 @@ function circles_terminal_cmd_code_1st_step( _opt, _settings_array, _rows_of_cod
            if ( is_string( _desc ) ) _desc = _desc.strip_tags();
        var _info = _plugin_info_array[_plu_str] ;
            if ( is_string( _info ) ) _info = _info.strip_tags();
-       _rows_of_code.push( "/*\n" + _desc + _glob_crlf + _info + "\n*/" );
+       _rows_of_code.push( "/*"+_glob_crlf + _desc + _glob_crlf + _info + _glob_crlf+"*/" );
     }
 
 	if ( _glob_comment.length > 0 ) _rows_of_code.push( "comment:", "[", _glob_comment, "]", "" );

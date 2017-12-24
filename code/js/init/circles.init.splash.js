@@ -1,4 +1,3 @@
-_glob_crlf = is_win() ? CRLF_WIN : CRLF_NO_WIN ;
 if ( is_canvas_supported() && is_multithreading_compatible() )
 {
     var _sw = $(window).width(), _sh = $(window).height() ;

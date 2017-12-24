@@ -2,7 +2,7 @@ function CIRCLESembeddingsGENERALPURPOSE_TIPS()
 {
     var _index_ref = _plugin_last_ref;
     var _tips = [];
-        _tips.push( "- For faster inputs, write one row with multiple params,\nseparared by comma, and type enter." );
+        _tips.push( "- For faster inputs, write one row with multiple params,"+_glob_crlf+"separated by comma, and type enter." );
         _tips.push( _glob_crlf );
         _tips.push( "- Mathematical functions available here for input params formulas:" );
         _tips.push( ( [ "abs","acos","arg","asin","atan","atan2","conj","cos","cosh","cot" ] ).join( ", " ) );

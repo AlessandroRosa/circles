@@ -287,7 +287,7 @@ function circles_terminal_cmd_zoom()
 								_glob_zplaneBOTTOM = _center_pt.y - _side / 2.0 ;
 								zplane_sm.set_coords_rect( new rect( _glob_zplaneLEFT, _glob_zplaneTOP, _glob_zplaneRIGHT, _glob_zplaneBOTTOM, _RECT_ORIENTATION_CARTESIAN ) ) ;
 								_ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, _glob_terminal_autorefresh, !_silent, _silent, NO, _out_channel );
-								if ( _ret_chunk[0] ) _ret_chunk[1] = "coordinates have been "+(_reset?"reset":"set")+"\n" + _ret_chunk[1] ;
+								if ( _ret_chunk[0] ) _ret_chunk[1] = "coordinates have been "+(_reset?"reset":"set")+_glob_crlf+ _ret_chunk[1] ;
 							}
 
 							if ( _plane_type.is_one_of( W_PLANE, ALL_PLANES ) )
@@ -298,7 +298,7 @@ function circles_terminal_cmd_zoom()
 								_glob_wplaneBOTTOM = _center_pt.y - _side / 2.0 ;
 								wplane_sm.set_coords_rect( new rect( _glob_wplaneLEFT, _glob_wplaneTOP, _glob_wplaneRIGHT, _glob_wplaneBOTTOM, _RECT_ORIENTATION_CARTESIAN ) ) ;
 								_ret_chunk = circles_lib_canvas_render_wplane( null, wplane_sm, null, YES, YES, _glob_terminal_autorefresh, NO, !_silent, _silent, _out_channel );
-								if ( _ret_chunk[0] ) _ret_chunk[1] = "coordinates have been "+(_reset?"reset":"set")+"\n" + _ret_chunk[1] ;
+								if ( _ret_chunk[0] ) _ret_chunk[1] = "coordinates have been "+(_reset?"reset":"set")+_glob_crlf+ _ret_chunk[1] ;
 							}
 
 							if ( _plane_type.is_one_of( BIP_BOX, ALL_PLANES ) )

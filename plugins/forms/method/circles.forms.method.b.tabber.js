@@ -53,7 +53,7 @@ var CIRCLESMETHODtabberOptions = {
     }
 
     if (id == 'tab2') {
-      return confirm('Switch to '+t.tabs[i].headingText+'?\nEvent type: '+e.type);
+      return confirm("Switch to "+t.tabs[i].headingText+"?"+_glob_crlf+"Event type: "+e.type);
     }
   },
 

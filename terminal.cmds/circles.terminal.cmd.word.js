@@ -1050,7 +1050,7 @@ function circles_terminal_cmd_word()
                        case "fixedpoints":
                        var _ret = circles_lib_word_check( _input_word, _glob_alphabet );
                        if ( _ret == CIRCLES_MISSING_ALPHABET ) circles_lib_output( _out_channel, DISPATCH_ERROR, "The input word does not match the current alphabet", _par_1, _cmd_tag );
-                       else if ( _ret == CIRCLES_MISSING_INPUT ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to perform this operation.\nPlease, input a word", _par_1, _cmd_tag );
+                       else if ( _ret == CIRCLES_MISSING_INPUT ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to perform this operation."+_glob_crlf+"Please, input a word", _par_1, _cmd_tag );
                        else
                        {
 					                  var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
@@ -1060,7 +1060,7 @@ function circles_terminal_cmd_word()
                             if ( _ret_data == null )
                             {
                                  if ( _ret_data == CIRCLES_MISSING_ALPHABET ) circles_lib_output( _out_channel, DISPATCH_ERROR, "The input word does not match the current alphabet", _par_1, _cmd_tag );
-                                 else if ( _ret_data == CIRCLES_MISSING_INPUT ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to perform this operation.\nPlease, input a word", _par_1, _cmd_tag );
+                                 else if ( _ret_data == CIRCLES_MISSING_INPUT ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to perform this operation."+_glob_crlf+"Please, input a word", _par_1, _cmd_tag );
                             }
                             else
                             {

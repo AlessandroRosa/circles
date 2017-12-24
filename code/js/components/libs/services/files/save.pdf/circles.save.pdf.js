@@ -89,46 +89,49 @@ function circles_lib_files_pdf_add_pix( doc, _left, _top, _display_zplane, _disp
      }
 }
 
-function circles_lib_files_pdf_save_ask( _fn, _silent, _out_channel )
+function circles_lib_files_pdf_save_ask( _fn = null, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
      _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
      if ( !object_exists( _fn ) )
      {
          var _msg = "Missing parameters to save the PDF" ;
-         if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
+         if ( _out_channel == OUTPUT_SCREEN ) circles_lib_output( _out_channel, DISPATCH_CRITICAL, _msg, _glob_app_title );
          return [ RET_ERROR, _msg ] ;
      }
      else
      {
-         // _fn is a process that constructs a pdf and fills it according to user needs, such as CIRCLESpdfREPORT
-         var HTMLcode = "<table>" ;
-             HTMLcode += "<tr><td HEIGHT=\"15\"></td></tr>" ;
-             HTMLcode += "<tr><td WIDTH=\"5\"></td><td>Confirm to save this config into a PDF file ?</td></tr>" ;
-             HTMLcode += "<tr><td HEIGHT=\"35\"></td></tr>" ;
-             HTMLcode += "</table>" ;
+        // _fn is a process that constructs a pdf and fills it according to user needs, such as CIRCLESpdfREPORT
+        var HTMLcode = "<table>" ;
+            HTMLcode += "<tr><td HEIGHT=\"15\"></td></tr>" ;
+            HTMLcode += "<tr><td WIDTH=\"5\"></td><td>Confirm to save this config into a PDF file ?</td></tr>" ;
+            HTMLcode += "<tr><td HEIGHT=\"35\"></td></tr>" ;
+            HTMLcode += "</table>" ;
 
-         var _args = [];
-         for( var _i = 3 ; _i < arguments.length ; _i++ ) ( new String( arguments[_i] ).start_with( "_" ) ) ? _args.push( arguments[_i] ) : _args.push( "'"+arguments[_i]+"'" );
-         var _cmd = _fn.myname() + "("+_args.join(",")+")" ;
-         if ( _silent ) eval( _cmd );
-         else
-         {
-             alert_plug_label( ALERT_YES, "Proceed" );
-             alert_plug_label( ALERT_NO, "Cancel" );
-             alert_plug_fn( ALERT_YES, _cmd+";alertCLOSE();" );
-             alert_plug_fn( ALERT_NO, "alertCLOSE();" );
-             alert_set_btns_width( "70px" );
-             var ICON = _glob_path_to_img + "icons/pdf/pdf.icon.01.48x48.png" ;
-             alert_msg( ALERT_QUESTION | ALERT_YESNO, HTMLcode, _glob_app_title, 400, "auto", ICON );
-         }
+        var _args = [];
+        for( var _i = 3 ; _i < arguments.length ; _i++ )
+		( new String( arguments[_i] ).start_with( "_" ) ) ? _args.push( arguments[_i] ) : _args.push( "'"+arguments[_i]+"'" );
+        
+		var _cmd = _fn.myname() + "("+_args.join(",")+")" ;
+		console.log( _cmd );
+        if ( _silent ) eval( _cmd );
+        else
+        {
+            alert_plug_label( ALERT_YES, "Proceed" );
+            alert_plug_label( ALERT_NO, "Cancel" );
+            alert_plug_fn( ALERT_YES, _cmd+";alertCLOSE();" );
+            alert_plug_fn( ALERT_NO, "alertCLOSE();" );
+            alert_set_btns_width( "70px" );
+            var ICON = _glob_path_to_img + "icons/pdf/pdf.icon.01.48x48.png" ;
+			console.log( ICON );
+            alert_msg( ALERT_QUESTION | ALERT_YESNO, HTMLcode, _glob_app_title, 400, "auto", ICON );
+        }
      }
 }
 
 function circles_lib_files_pdf_save_text()
 {
      var _caller_type = arguments[0] != null ? safe_int( arguments[0], CALLER_TYPE_NONE ) : CALLER_TYPE_NONE ;
-     var _font_family = "", _font_style = "" ;
-
+     var _font_family = "", _font_style = "", _attributes = [] ;
      switch( _caller_type )
      {
           case CALLER_TYPE_CMD:
@@ -141,11 +144,14 @@ function circles_lib_files_pdf_save_text()
               _font_family = "Courier" ;
               _font_style = "" ;
           }
+		  _attributes = arguments[5] ;
+		  if ( _attributes.length > 0 ) _attributes = _attributes.split(",");
+		  console.log( _attributes );
           break ;
           case CALLER_TYPE_NONE: break ;
-	        default: break ;
+	      default: break ;
      }
-
+	 
      var doc = new jsPDF();
 
      if ( _font_family.length > 0 ) doc.setFont( _font_family, _font_style );
@@ -196,6 +202,11 @@ function circles_lib_files_pdf_save_text()
 
      if ( _include_canvas )
      {
+		 var _z_merge = _attributes.includes_i( "z-merge" ), _w_merge = _attributes.includes_i( "w-merge" );
+		 var _z_layer = null ; _attributes.forEach( function( _cmd ){ if ( _cmd.start_with_i( "z-layer" ) ) _z_layer = _cmd.replace( /z-layer:/g, "" ) ; } ) ;
+			 console.log( _z_layer );
+		 var _w_layer = null ; _attributes.forEach( function( _cmd ){ if ( _cmd.start_with_i( "w-layer" ) ) _w_layer = _cmd.replace( /w-layer:/g, "" ) ; } ) ;
+			 console.log( _w_layer );
           var _tmp_canvas = document.createElement( "canvas" );
               _left = 130, _top = 25 ;
           var _zplane_rendering_canvas = _glob_zplane_rendering_layer_placeholder ;
@@ -245,6 +256,7 @@ function circles_lib_files_pdf_save_text()
           PIXDATA = _tmp_canvas.toDataURL( 'image/jpeg', 1.0 );
         	doc.addImage( PIXDATA, 'JPEG', _left, _top, 60, 60 );
           doc.setDrawColor(212, 212, 212);
+          doc.roundedRect( _left, _top, 60, 60, 5, 5, 'D');
           _top += 66 ;
           doc.text( _left, _top, "Left : " + _glob_wplaneLEFT );
           _top += 4 ;
@@ -439,7 +451,7 @@ function circles_lib_files_pdf_save_report()
                     _symbol = ITEM.symbol, _inv_symbol = ITEM.inverse_symbol.trim();
                     _gens_array.push( "--STARTNEWGEN--" );
                     _gens_array.push( _symbol + ( ( _inv_symbol.length > 0 ) ? " (inverse map is with symbol '" + _inv_symbol + "')" : "" )  );
-                    $.each( ITEM.map.output().split( "\n" ), function( _i, _param ) { _gens_array.push( _param ); } );
+                    $.each( ITEM.map.output().split( _glob_crlf ), function( _i, _param ) { _gens_array.push( _param ); } );
                     _gens_array.push( "--FEATURES--" );
                     _gens_array.push( "Trace: " + ITEM.map.trace().pow(2).formula() );
                     _gens_array.push( "Determinant: " + ITEM.map.det().formula() );

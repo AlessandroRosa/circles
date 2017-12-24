@@ -4,7 +4,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
     var _items_n = circles_lib_count_items();
     if (_glob_bip_use)
     {
-        var _msg = "BIP flag is still on.\n" ;
+        var _msg = "BIP flag is still on."+_glob_crlf ;
         _msg += "Confirm to switch it off and draw this sample on the screen ?" ;
         var _b_go = _silent ? YES : confirm( _msg );
         if ( _b_go ) _glob_bip_use = NO ;
@@ -20,7 +20,7 @@ function CIRCLESsamplesOPEN( i, _silent, _out_channel )
     {
         var _msg = "There are " + _n_additional_figures + " figure" ;
             _msg += _n_additional_figures == 1 ? "" : "s" ;
-            _msg += " recorded.\n\nDo you want to drop'em ?" ;
+            _msg += " recorded."+_glob_crlf.repeat(2)+"Do you want to drop'em ?" ;
         _drop_additional_figures = _silent ? YES : confirm( _msg );
         _b_clean = _b_clean ? YES : NO ;
     }

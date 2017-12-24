@@ -37,7 +37,7 @@ function circles_lib_files_get_export_format()
 function circles_lib_files_load_environment( _filename, _file_contents )
 {
     _file_contents = safe_string( _file_contents, "" );
-    var _config_rows = _file_contents.includes( CRLF_WIN ) ? _file_contents.split( CRLF_WIN ) : ( _file_contents.includes( CRLF_NO_WIN ) ? _file_contents.split( CRLF_NO_WIN ) : null );
+    var _config_rows = _file_contents.includes( CRLF_WIN ) ? _file_contents.split( CRLF_WIN ) : ( _file_contents.includes( CRLF_NOWIN ) ? _file_contents.split( CRLF_NOWIN ) : null );
     if ( _config_rows == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "'"+_filename+"' does not appear as a valid config file.", _glob_app_title );
     else
     {
@@ -161,7 +161,7 @@ function circles_lib_files_load_default_fn_lib()
 
 function circles_lib_files_parse_js_file( _data )
 {
-	var _data_rows = _data.includes( CRLF_WIN ) ? _data.split( CRLF_WIN ) : ( _data.includes( CRLF_NO_WIN ) ? _data.split( CRLF_NO_WIN ) : [ _data ] );
+	var _data_rows = _data.includes( CRLF_WIN ) ? _data.split( CRLF_WIN ) : ( _data.includes( CRLF_NOWIN ) ? _data.split( CRLF_NOWIN ) : [ _data ] );
 	var _row, _ret_chunk = [ [], "" ] ;
     for( var _i = 0 ; _i < _data_rows.length ; _i++ )
     {
@@ -297,7 +297,7 @@ function circles_lib_files_load_default_datatypes()
                $.get( _scan_folders[_sf].rel + _res_array[_i] ).done(
               function( _code )
               { 
-                  _code = _code.split( CRLF_NO_WIN );
+                  _code = _code.split( CRLF_NOWIN );
                   _chunk = [] ;
                   for( var _c = 0 ; _c < _code.length ; _c++ )
                   {

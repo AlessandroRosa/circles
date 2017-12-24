@@ -157,7 +157,7 @@ function CIRCLESformsLOGtableSAVE()
             _out_array = _out_array.concat( _glob_app_log.from_to( 0, 50 ) ) ;
         else _out_array.push( "Log is empty" ) ;
 		var _filename = "circles.log.txt" ;
-		var blob = new Blob( [ _out_array.join( _glob_crlf != null ? _glob_crlf : "\r\n" ) ], { type: 'plain/text', endings: 'native' });
+		var blob = new Blob( [ _out_array.join( _glob_crlf ) ], { type: 'plain/text', endings: 'native' });
 		saveAs( blob, _filename );
 		break ;
         default:

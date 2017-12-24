@@ -236,7 +236,7 @@ function circles_terminal_cmd_init()
     {
 		_glob_items_to_init = YES ;
         $('[id$=initBTN]').css('color',COLOR_ERROR) ;
-        circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ).strip_tags()+"\nType '"+_cmd_tag+" /h' for syntax help", _par_1, _cmd_tag );
+        circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ).strip_tags()+_glob_crlf+"Type '"+_cmd_tag+" /h' for syntax help", _par_1, _cmd_tag );
     }
 
     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;

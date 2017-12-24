@@ -59,10 +59,10 @@ function CIRCLESformsDISCRETENESSLOCUSdrawCANVAS( _options_array, _silent )
 								var _font_size = Math.floor( _canvas_h / 16 ) ;
 								var _font_style = _font_size + "px Arial" ;
 								var _shift_x = 0, _shift_y = 0, _ctx = _diagram_canvas.getContext( HTML_CANVAS_ELEMENT_2D_MODE ) ;
-								var TEXT = "Rendering of the discreteness locus\nwill be directed to the " + _target_plane_def ;
+								var TEXT = "Rendering of the discreteness locus"+_glob_crlf+"will be directed to the " + _target_plane_def ;
 								var _row_height = _font_size * 1.5 ;
-								var X = 0, Y = ( _ctx.get_height() - TEXT.count( "\n" ) * _row_height ) / 2.0 ;
-								TEXT = TEXT.replaceAll( [ CRLF_WIN, CRLF_NO_WIN ], _glob_crlf ).split( _glob_crlf );
+								var X = 0, Y = ( _ctx.get_height() - TEXT.count( _glob_crlf ) * _row_height ) / 2.0 ;
+								TEXT = TEXT.replaceAll( [ CRLF_WIN, CRLF_NOWIN ], _glob_crlf ).split( _glob_crlf );
 								$.each( TEXT, function( _i, _tok )
 												{
 														circles_lib_draw_text( _ctx, null, 0, Y, _tok, _textcolor, _font_style, _shift_x, _shift_y, NO, _glob_opacity, 0, "center" ) ;

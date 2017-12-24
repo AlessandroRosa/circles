@@ -88,7 +88,7 @@ function CIRCLESformsBENCHMARKtableSAVE()
 						_out_array.push( "Duration : " + _duration.toFixed(3) + " secs" );
 
 				var _filename = "circles.benchmark.txt" ;
-				var blob = new Blob( [ _out_array.join( _glob_crlf != null ? _glob_crlf : "\r\n" ) ], { type: 'plain/text', endings: 'native' });
+				var blob = new Blob( [ _out_array.join( _glob_crlf ) ], { type: 'plain/text', endings: 'native' });
 			  saveAs( blob, _filename );
 				break ;
         default:

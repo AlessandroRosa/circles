@@ -205,7 +205,7 @@ function circles_lib_symbol_swap( _items_array, _index_array, _question, _silent
            }
            else
            {
-           	  var _msg = "Fail to swap symbols.\n\nCoordinates are not consistent with archived data" ;
+           	  var _msg = "Fail to swap symbols."+_glob_crlf.repeat(2)+"Coordinates are not consistent with archived data" ;
               if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
               return [ RET_ERROR, _msg ] ;
            }

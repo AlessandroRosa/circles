@@ -453,7 +453,7 @@ function circles_terminal_cmd_rect()
 					var _layer_def = _cmd_params['layer'] ;
 					var _layer = _cmd_params['layer'] = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _layer_def ) ;
 					if ( is_html_canvas( _layer ) ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Selected</lime> <snow>"+_layer_def+" layer</snow> <lime>for rect rendering</lime>", _par_1, _cmd_tag );
-					else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid layer '"+_layer_def+"' definition: check the correct spelling or the belonging to the proper plane\nRectangle will be draw on the 'work' layer of the Z-plane", _par_1, _cmd_tag );
+					else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid layer '"+_layer_def+"' definition: check the correct spelling or the belonging to the proper plane"+_glob_crlf+"Rectangle will be draw on the 'work' layer of the Z-plane", _par_1, _cmd_tag );
 
 					_mapper = zplane_sm, _canvas = is_html_canvas( _layer ) ? _layer : _glob_zplane_work_layer_placeholder ;
 					_context = _canvas.getContext( _glob_canvas_ctx_2D_mode ) ;
@@ -464,7 +464,7 @@ function circles_terminal_cmd_rect()
 					var _layer_def = _cmd_params['layer'] ;
 					var _layer = _cmd_params['layer'] = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _layer_def ) ;
 					if ( is_html_canvas( _layer ) ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lime>Selected</lime> <snow>"+_layer_def+" layer</snow> <lime>for rect rendering</lime>", _par_1, _cmd_tag );
-					else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid layer '"+_layer_def+"' definition: check the correct spelling or the belonging to the proper plane\nRectangle will be draw on the 'work' layer of the W-plane", _par_1, _cmd_tag );
+					else circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid layer '"+_layer_def+"' definition: check the correct spelling or the belonging to the proper plane"+_glob_crlf+"Rectangle will be draw on the 'work' layer of the W-plane", _par_1, _cmd_tag );
 
 					_mapper = wplane_sm, _canvas = is_html_canvas( _layer ) ? _layer : _glob_wplane_work_layer_placeholder ;
 					_context = _canvas.getContext( _glob_canvas_ctx_2D_mode ) ;

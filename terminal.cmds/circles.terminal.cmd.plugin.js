@@ -117,7 +117,7 @@ function circles_terminal_cmd_plugin()
 							       $.each( _result, function( _i, _data_chunk )
 							       				 {
 													      // crlf detection
- 												        _crlf = _data_chunk.includes( CRLF_WIN ) ? CRLF_WIN : CRLF_NO_WIN ;
+ 												        _crlf = _data_chunk.includes( CRLF_WIN ) ? CRLF_WIN : CRLF_NOWIN ;
 																_rows = _data_chunk.split( _crlf );
 																_item = [] ;
 																$.each( _rows, function( _r, _row )
@@ -280,7 +280,7 @@ function circles_terminal_cmd_plugin()
                     var _json = _plugin_tmp_vars_array['plugin_sel']['orig_family_def'] ;
                     var _path = "plugins/" + _json.fam + "/" + _json.def + "/remote.cmds.info" ;
                     var jqxhr = $.get( _path, function() {}).done(function( _data ) {
-                        _data = _data.split( "\n" ) ;
+                        _data = _data.split( _glob_crlf ) ;
                         if ( _data.length > 0 )
                         {
                           circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "Remote control messages for Plug-in <white>" + _json.fam + " / " + _json.def + "</white>", _par_1, _cmd_tag );

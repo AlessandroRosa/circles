@@ -32,7 +32,7 @@ if ( typeof is_string != "function" ) function is_string( _obj ) { return ( type
 if ( typeof is_rect != "function" ) function is_rect( _obj ) { return _obj instanceof rect ? 1 : 0 ; }
 if ( typeof is_lattice != "function" ) function is_lattice( _obj ) { return _obj instanceof lattice ? 1 : 0 ; }
 if ( typeof is_point != "function" ) function is_point( _obj ) { return _obj instanceof point ? 1 : 0 ; }
-if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ).trim() ; }
+if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ) ; }
 if ( typeof safe_int != "function" ) function safe_int( _val, _set_if_nan ) { _val = parseInt( _val, 10 ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
 if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) { _val = parseFloat( _val ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
 

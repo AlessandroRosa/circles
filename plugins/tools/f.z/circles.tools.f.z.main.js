@@ -23,9 +23,9 @@ function CIRCLEStoolsFZnormalize()
 
 function CIRCLEStoolsFZhelp()
 {
-		var _msg = "As long as this service is open, it will work together with the diagram rendering process," ;
-				_msg += "\nwhich will output the points after they have been mapped through this formula." ;
-		circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app_title ) ;
+	var _msg = "As long as this service is open, it will work together with the diagram rendering process," ;
+	_msg += _glob_crlf+"which will output the points after they have been mapped through this formula." ;
+	circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, _msg, _glob_app_title ) ;
 }
 
 function CIRCLEStoolsFZmain( _base_id, _move )

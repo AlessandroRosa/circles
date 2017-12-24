@@ -379,9 +379,9 @@ function CIRCLESembeddingsGENERALPURPOSE_VAR_HELP( _section = 1, _out_channel = 
     switch( _section )
     {
         case 1: // vars info
-		_msg += "Lexical rule for vars declaration:\n" ;
-        _msg += "\n1) Var ID must start with the underscore '_'. Example: _a" ;
-        _msg += "\n2) Var ID includes underscore and alphanumeric chars exclusively" ;
+		_msg += "Lexical rule for vars declaration:"+_glob_crlf ;
+        _msg += _glob_crlf+"1) Var ID must start with the underscore '_'. Example: _a" ;
+        _msg += _glob_crlf+"2) Var ID includes underscore and alphanumeric chars exclusively" ;
         break ;
         default: break ;
     }

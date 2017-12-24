@@ -36,11 +36,10 @@ function CIRCLESformsSCRIPTEDITORcodemanagerCOMPILEprocess( _silent )
 function CIRCLESformsSCRIPTEDITORcodemanagerCOMPILEloop()
 {
     var _proj_array_ref = _glob_js_code_projs_array[CIRCLESformsSCRIPTEDITORprojectlabelCURRENT] ;
-		var _label, _code, _run, _breakpoint, _msg, _compile_ret, _translated_code ;
-		$.each( _proj_array_ref,
-		        function( _i, _chunk )
-		        {
-		           _label = _chunk[0], _code = _chunk[1], _run = _chunk[2], _breakpoint = _chunk[3] ;
+	var _label, _code, _run, _breakpoint, _msg, _compile_ret, _translated_code ;
+	$.each( _proj_array_ref, function( _i, _chunk )
+	{
+	    _label = _chunk[0], _code = _chunk[1], _run = _chunk[2], _breakpoint = _chunk[3] ;
 		           if ( _run )
 		           {
 		               _compile_ret = YES ;
@@ -63,7 +62,7 @@ function CIRCLESformsSCRIPTEDITORcodemanagerCOMPILEloop()
 		                  _msg = [ "<red>Fail to compile script  <snow>'"+_label+"' </snow></red>",
 		                 					 "<red>Error " + _err.message + "</red>",
 		                           _err.fileName ? "<red>Found in file '<white>"+err.fileName+"</white>' at line <white>" + _err.lineNumber + "</white></red>" : "",
-                               "<orange>Translated code</orange>\n<gray>"+_translated_code+"</gray>"
+                               "<orange>Translated code</orange>"+_glob_crlf+"<gray>"+_translated_code+"</gray>"
 														 ] ;
 		                  circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_MULTICOLOR, _msg, "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
 		                  CIRCLESformsSCRIPTEDITORglobalERRORflag = YES, _compile_ret = NO ;
@@ -167,18 +166,19 @@ function CIRCLESformsSCRIPTEDITORcodemanagerDUMPcollectedOBJ( _obj_id )
 {
     var _out_text = "", _b_go = YES, _tmp_obj ;
     _obj_id = _obj_id.includes( "@" ) ? _obj_id.split( "@" ) : [ 0, _obj_id, 0 ] ;
-    try{
-          var _expr = "_tmp_obj = window." + _obj_id[1] + " ;" ;
-          try { eval( _expr ) }
-          catch( _err ){ circles_lib_error_obj_handler( _err ); } ;
-          _out_text = dump( _tmp_obj, 0, YES ) ;
-          _out_text = [ "<lightblue>"+_obj_id[1] + "</lightblue> <white>dumps to"+"</white>" ].concat( _out_text.split( "</br>" ).work( function( _e ) { return "<white>"+_e+"</white>" ; } ) ) ;
-       }
+    try
+	{
+        var _expr = "_tmp_obj = window." + _obj_id[1] + " ;" ;
+        try { eval( _expr ) }
+        catch( _err ){ circles_lib_error_obj_handler( _err ); } ;
+        _out_text = dump( _tmp_obj, 0, YES ) ;
+        _out_text = [ "<lightblue>"+_obj_id[1] + "</lightblue> <white>dumps to"+"</white>" ].concat( _out_text.split( "</br>" ).work( function( _e ) { return "<white>"+_e+"</white>" ; } ) ) ;
+    }
     catch( _err )
-		{
-				_b_go = NO ;
-				circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_INFO, _err.message + "\nDump failure for collected obj " + _obj_id, "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
-		}
+	{
+		_b_go = NO ;
+		circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_INFO, _err.message + _glob_crlf + "Dump failure for collected obj " + _obj_id, "CIRCLESformsSCRIPTEDITORoutputTABLE" ) ;
+	}
     if ( _b_go ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_MULTICOLOR, _out_text, "CIRCLESformsSCRIPTEDITORoutputTABLE", 1 ) ;
 }
 

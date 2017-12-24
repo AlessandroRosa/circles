@@ -201,9 +201,9 @@ function circles_terminal_cmd_console()
 					  $("#"+_glob_terminal_current_id).css( "font-family", DEFAULT_TERMINAL_FONT_FAMILY );
 					  $("#"+_glob_terminal_current_id).css( "font-size", DEFAULT_TERMINAL_FONT_SIZE );
 					  var _msg = "<white>Background color</white> has been reset to <white>"+DEFAULT_TERMINAL_BKCOLOR+"</white>" ;
-						  _msg += "\n<white>Prompt color</white> has been reset to <white>"+DEFAULT_TERMINAL_PROMPTCOLOR+"</white>" ;
-						  _msg += "\n<white>Font family</white> has been reset to <white>"+DEFAULT_TERMINAL_FONT_FAMILY+"</white>" ;
-						  _msg += "\n<white>Font size</white> has been reset to <white>"+DEFAULT_TERMINAL_FONT_SIZE+"</white>" ;
+						  _msg += _glob_crlf+"<white>Prompt color</white> has been reset to <white>"+DEFAULT_TERMINAL_PROMPTCOLOR+"</white>" ;
+						  _msg += _glob_crlf+"<white>Font family</white> has been reset to <white>"+DEFAULT_TERMINAL_FONT_FAMILY+"</white>" ;
+						  _msg += _glob_crlf+"<white>Font size</white> has been reset to <white>"+DEFAULT_TERMINAL_FONT_SIZE+"</white>" ;
 					  circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Console parameters have been reset with success", _par_1, _cmd_tag );
 					  circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 					  break ;
@@ -232,7 +232,7 @@ function circles_terminal_cmd_console()
                                  var _ret_msg = safe_string( _ret_chunk[1], _ERR_00_00 );
                                  
                                  if ( _ret_id == RET_ERROR ) { _b_fail = YES, _error_str = _ret_msg ; }
-                                 else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg + "\nNew width / height are " + _cmd_params['w'] + "px / " + _cmd_params['h'] + "px respectively", _par_1, _cmd_tag );
+                                 else circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg + _glob_crlf+"New width / height are " + _cmd_params['w'] + "px / " + _cmd_params['h'] + "px respectively", _par_1, _cmd_tag );
                             }
                             else { _b_fail = YES, _error_str = "Both input size params must be strictly positive" ; }
                        }
@@ -241,7 +241,7 @@ function circles_terminal_cmd_console()
 					   default:
                        if ( _cmd_params['x'].length > 0 || _cmd_params['y'].length > 0 )
                        move_div( circles_lib_plugin_build_divid( "forms", "terminal" ) + _glob_terminal_form_suffix, _cmd_params['x'], _cmd_params['y'] );
-                       else circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to apply command 'console'.\nMissing action specification", _par_1, _cmd_tag );
+                       else circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to apply command 'console'."+_glob_crlf+"Missing action specification", _par_1, _cmd_tag );
                        break ;
                    }
             }
@@ -249,7 +249,7 @@ function circles_terminal_cmd_console()
     }
     else { _b_fail = YES, _error_str = "Missing input params" ; }
 
-    if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to apply command '"+_cmd_tag+"'.\nType '"+_cmd_tag+" /h' for syntax help", _par_1, _cmd_tag );
+    if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, "Fail to apply command '"+_cmd_tag+"'."+_glob_crlf+"Type '"+_cmd_tag+" /h' for syntax help", _par_1, _cmd_tag );
     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

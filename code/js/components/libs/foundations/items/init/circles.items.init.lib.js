@@ -150,7 +150,7 @@ function circles_lib_items_init_wrapper_fn( _index, _question, _silent, _init_ma
     else if ( _items_n == 0 )
     {
 		var _msg = _ERR_33_02 ;
-	    if ( _plugin_last_ref != 0 ) _msg += "\nPush 'set parameters' in the plug-in window" ;
+	    if ( _plugin_last_ref != 0 ) _msg += _glob_crlf+"Push 'set parameters' in the plug-in window" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;
     }

@@ -261,7 +261,7 @@ function circles_terminal_cmd_line()
 						else circles_lib_output( _out_channel, DISPATCH_WARNING, "Storage space '"+_subset+"' does not exist", _par_1, _cmd_tag );
 					}
 				}
-                else { _b_fail = YES ; _error_str += "\nFail to draw line: memory failure. Free some resources" ; }
+                else { _b_fail = YES ; _error_str += _glob_crlf+"Fail to draw line: memory failure. Free some resources" ; }
                 break ;
             }
         }

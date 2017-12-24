@@ -103,10 +103,10 @@ function circles_terminal_cmd_srcptset()
                   var _shape = _glob_storage['srcptset']['shape'] ;
                   var _word = _glob_storage['srcptset']['word'] ;
                   var _pts = _glob_storage['srcptset']['pts'] ;
-                  _msg += "\n<white>Word</white> : " + ( _word != null ? "<green>"+_word+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
-                  _msg += "\n<white>Points</white> : " + ( _pts.length > 0 ? "<green>set up</green>" : "<lightgray>not set up yet</lightgray>" ) ;
-                  _msg += "\n<white>Plane</white> : " + ( _plane != null ? "<green>"+_plane+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
-                  _msg += "\n<white>Shape</white> : " + ( _shape != null ? "<green>"+_shape+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
+                  _msg += _glob_crlf+"<white>Word</white> : " + ( _word != null ? "<green>"+_word+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
+                  _msg += _glob_crlf+"<white>Points</white> : " + ( _pts.length > 0 ? "<green>set up</green>" : "<lightgray>not set up yet</lightgray>" ) ;
+                  _msg += _glob_crlf+"<white>Plane</white> : " + ( _plane != null ? "<green>"+_plane+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
+                  _msg += _glob_crlf+"<white>Shape</white> : " + ( _shape != null ? "<green>"+_shape+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
 
                   switch( _shape )
                   {
@@ -114,22 +114,22 @@ function circles_terminal_cmd_srcptset()
                     case "disk":
                     var _center = _glob_storage['srcptset']['center'] ;
                     var _radius = _glob_storage['srcptset']['radius'] ;
-                    _msg += "\n<white>Center</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _center != null ? "<green>"+_center+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
-                    _msg += "\n<white>Radius</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _radius != null ? "<green>"+_radius+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
+                    _msg += _glob_crlf+"<white>Center</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _center != null ? "<green>"+_center+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
+                    _msg += _glob_crlf+"<white>Radius</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _radius != null ? "<green>"+_radius+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
                     break ;
                     case "line":
                     var _start_pt = _glob_storage['srcptset']['start_pt'] ;
                     var _end_pt = _glob_storage['srcptset']['end_pt'] ;
-                    _msg += "\n<white>Start point</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _start_pt != null ? "<green>"+_start_pt+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
-                    _msg += "\n<white>End point</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _end_pt != null ? "<green>"+_end_pt+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
+                    _msg += _glob_crlf+"<white>Start point</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _start_pt != null ? "<green>"+_start_pt+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
+                    _msg += _glob_crlf+"<white>End point</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _end_pt != null ? "<green>"+_end_pt+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
                     break ;
                     case "rect":
                     var _center = _glob_storage['srcptset']['center'] ;
                     var _width = _glob_storage['srcptset']['width'] ;
                     var _height = _glob_storage['srcptset']['height'] ;
-                    _msg += "\n<white>Center</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _center != null ? "<green>"+_center+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
-                    _msg += "\n<white>Width</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _width != null ? "<green>"+_width+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
-                    _msg += "\n<white>Height</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _height != null ? "<green>"+_height+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
+                    _msg += _glob_crlf+"<white>Center</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _center != null ? "<green>"+_center+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
+                    _msg += _glob_crlf+"<white>Width</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _width != null ? "<green>"+_width+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
+                    _msg += _glob_crlf+"<white>Height</white> for <green>"+_shape+"</green> <white>shape</white> : " + ( _height != null ? "<green>"+_height+"</green>" : "<lightgray>not set up yet</lightgray>" ) ;
                     break ;
                     default: break ;
                   }
@@ -138,7 +138,7 @@ function circles_terminal_cmd_srcptset()
                else
                {
                  var _msg = "Cannot return the current configuration because";
-                     _msg += "\nthe source points set has not been initialized." ;
+                     _msg += _glob_crlf+"the source points set has not been initialized." ;
                  circles_lib_output( _out_channel, DISPATCH_WARNING, _msg, _par_1, _cmd_tag );
                }
                break ;
@@ -260,9 +260,9 @@ function circles_terminal_cmd_srcptset()
                  else
                  {
                     var _msg = "Cannot run, due to missing data:" ;
-                    if ( ( _run_mask & 1 ) == 0 ) _msg += "\n* Missing input plane specification" ;
-                    if ( ( _run_mask & 2 ) == 0 ) _msg += "\n* Missing input shape specification" ;
-                    if ( ( _run_mask & 4 ) == 0 ) _msg += "\n* Missing word shape specification" ;
+                    if ( ( _run_mask & 1 ) == 0 ) _msg += _glob_crlf+"* Missing input plane specification" ;
+                    if ( ( _run_mask & 2 ) == 0 ) _msg += _glob_crlf+"* Missing input shape specification" ;
+                    if ( ( _run_mask & 4 ) == 0 ) _msg += _glob_crlf+"* Missing word shape specification" ;
                     circles_lib_output( _out_channel, DISPATCH_ERROR, _msg, _par_1, _cmd_tag );
                  }
                }
@@ -307,7 +307,7 @@ function circles_terminal_cmd_srcptset()
                  {
                     _glob_storage['srcptset']['word'] = "" ;
                     var _msg = "Cannot input the word '"+_input_word+"': missing registered group and no alphabet available." ;
-                        _msg += "\nThe latter is required for check consistenceo of the input word" ;
+                        _msg += _glob_crlf+"The latter is required for check consistenceo of the input word" ;
                     circles_lib_output( _out_channel, DISPATCH_ERROR, _msg, _par_1, _cmd_tag );
                  }
                  else if ( _input_word.length == 0 )
@@ -324,7 +324,7 @@ function circles_terminal_cmd_srcptset()
                    else
                    {
                      _glob_storage['srcptset']['word'] = "" ;
-                     circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot input the word '"+_input_word+"':\nit does not match the current alphabet {"+_glob_alphabet.join( "," )+"}", _par_1, _cmd_tag );
+                     circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot input the word '"+_input_word+"':"+_glob_crlf+"it does not match the current alphabet {"+_glob_alphabet.join( "," )+"}", _par_1, _cmd_tag );
                    }
                  }
                }

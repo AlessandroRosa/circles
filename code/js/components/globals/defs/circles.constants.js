@@ -1,4 +1,4 @@
-var CRLF_WIN = "\r\n", CRLF_NO_WIN = "\n" ;
+var CRLF_WIN = "\r\n", CRLF_NOWIN = "\n" ;
 var UNDET = -1, UNFOUND = -1, UNDEF = "undefined" ;
 var ENABLED = 1, SHOW = 1, OPEN = 1, YES = 1, ON = 1 ;
 var DISABLED = 0, HIDE = 0, CLOSE = 0, NO = 0, NULL = 0, OFF = 0 ;

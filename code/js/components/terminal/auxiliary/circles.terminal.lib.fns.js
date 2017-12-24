@@ -172,7 +172,7 @@ function circles_lib_terminal_help_cmd( _html_flag, _cmd_tag, _param_01, _out_ch
 
 function circles_lib_terminal_color_decode_htmltext( _html_code = "", _cmd_tag = "", _x_pos = 0, _y_pos = 40, _bk = "#232323", _return_html = NO )
 {
-    _html_code = _html_code.replaceAll( [ CRLF_WIN, CRLF_NO_WIN, '<br>' ], "<br>" );
+    _html_code = _html_code.replaceAll( [ CRLF_WIN, CRLF_NOWIN, '<br>' ], "<br>" );
     _cmd_tag = safe_string( _cmd_tag, "" ), _return_html = safe_int( _return_html, NO );
     var _color_tags_array = _glob_def_clrs_tags.keys_associative(), _color_tag = "", _color_def = "" ;
     for( var _x = 0 ; _x < _color_tags_array.length ; _x++ )
@@ -382,7 +382,7 @@ function circles_lib_terminal_disks_check( _items_array = null, _out_channel = O
     }
 }
 
-function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _params_assoc_array )
+function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i = UNDET, _out_channel = OUTPUT_TERMINAL, _params_assoc_array = [] )
 {
 	var _is_item_obj = is_item_obj( ITEM ) ;
     var _symbol = _is_item_obj ? ITEM.symbol : "";
@@ -406,10 +406,10 @@ function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _pa
     var _extras = safe_size( _params_assoc_array['extras'], 0 ) > 0 ? _params_assoc_array['extras'] : [] ;
     var _what = _extras.one_in( "attr", "params" ) ? _extras[0] : "all" ; // only one attribute, if mentioned
 
-    var _out_string = _glob_crlf + "<yellow>Mobius map</yellow> <snow>" + ( _symbol.length == 0 ? "(unknown)" : _symbol ) + "</snow>" ;
+    var _out_string = "<yellow>Mobius map</yellow> <snow>" + ( _symbol.length == 0 ? "(unknown)" : _symbol ) + "</snow>" ;
     if ( _glob_method != METHOD_INVERSION && !_short )
     _out_string += " - inverse symbol <lightblue>" + ( _inv_symbol.length == 0 ? "(unknown inverse)" : _inv_symbol ) + "</lightblue>" ;
-    _out_string += " - Index <snow>" + _i + "</snow>\n" ;
+    _out_string += " - Index <snow>" + _i + "</snow>" + _glob_crlf ;
 
     if ( is_mobius_map( _mm ) )
     {
@@ -417,26 +417,26 @@ function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _pa
        else
        {
           var _params = "" ;
-          if ( _what.is_one_of( "all", "params" ) ) _params += _mm.output( null, "coeffs", _roundto ) ;
+          if ( _what.is_one_of( "all", "params" ) ) _params += _mm.output( _glob_crlf, "coeffs", _roundto ) ;
           if ( _what.is_one_of( "all", "attr" ) && !_short )
           {
              if ( _params.length > 0 ) _params += _glob_crlf ;
-             _params += "Complex circle <snow>" + ( is_circle( ITEM.complex_circle ) ? ITEM.complex_circle.output( null, _roundto ) : "" ) + "</snow>" ;
-             _params += _glob_crlf + "Trace <snow>" + ( ( is_complex( _mm.a ) && is_complex( _mm.d ) ) ? _mm.trace().roundTo( _roundto ).formula() : UNDEF ) + "</snow>" ;
-             _params += " Normalized <snow>" + ( _mm.is_normalized() ? "yes" : "no" ) + "</snow>" ;
-             _params += _glob_crlf + "Class <snow>" + _mm.classification(NO) + "</snow>  Kind <snow>" + _mm.kind(NO) + "</snow>" ;
+             _params += "Complex circle <snow>" + ( is_circle( ITEM.complex_circle ) ? ITEM.complex_circle.output( _glob_crlf, _roundto ) : "" ) + "</snow>"+_glob_crlf ;
+             _params += "Trace <snow>" + ( ( is_complex( _mm.a ) && is_complex( _mm.d ) ) ? _mm.trace().roundTo( _roundto ).formula() : UNDEF ) + "</snow>"+_glob_crlf ;
+             _params += " Normalized <snow>" + ( _mm.is_normalized() ? "yes" : "no" ) + "</snow>"+_glob_crlf ;
+             _params += "Class <snow>" + _mm.classification(NO) + "</snow>  Kind <snow>" + _mm.kind(NO) + "</snow>"+_glob_crlf ;
 
              var _bordercolor_array = _bordercolor != "none" ? circles_lib_colors_get_formats( _bordercolor ) : null ;
              var _bordercolor_tag = _bordercolor_array != null ? _bordercolor_array[3] : "" ;
              var _fillcolor_array = _fillcolor != "none" ? circles_lib_colors_get_formats( _fillcolor ) : null ;
              var _fillcolor_tag = _fillcolor_array != null ? _fillcolor_array[3] : "" ;
 
-             _params += _glob_crlf + "Draw <snow>" + ( _border == UNDET ? "? " : ( _border ? "yes" : "no" ) ) + "</snow>" ;
-             _params += "  color: " + _bordercolor + ( _bordercolor_tag.length > 0 ? " ( "+_bordercolor_tag+" )" : "" );
-             _params += _glob_crlf + "Fill <snow>" + ( _fill == UNDET ? "? " : ( _fill ? "yes" : "no" ) ) + "</snow>" ;
-             _params += "  color: " + _fillcolor + ( _fillcolor_tag.length > 0 ? " ( "+_fillcolor_tag+" )" : "" );
-             _params += _glob_crlf + "Border size <snow>" + _bordersize + " pixel" + ( _bordersize == 1 ? "" : "s" ) + "</snow>" ;
-             _params += _glob_crlf + "Original word <snow>" + _original_word + "</snow>" ;
+             _params += "Draw <snow>" + ( _border == UNDET ? "? " : ( _border ? "yes" : "no" ) ) + "</snow>"+_glob_crlf ;
+             _params += "  Color: " + _bordercolor + ( _bordercolor_tag.length > 0 ? " ( "+_bordercolor_tag+" )" : "" )+_glob_crlf;
+             _params += "Fill <snow>" + ( _fill == UNDET ? "? " : ( _fill ? "yes" : "no" ) ) + "</snow>"+_glob_crlf ;
+             _params += "  Color: " + _fillcolor + ( _fillcolor_tag.length > 0 ? " ( "+_fillcolor_tag+" )" : "" )+_glob_crlf;
+             _params += "Border size <snow>" + _bordersize + " pixel" + ( _bordersize == 1 ? "" : "s" ) + "</snow>"+_glob_crlf ;
+             _params += "Original word <snow>" + _original_word + "</snow>" ;
           }
 
         _out_string += _params ;
@@ -451,7 +451,6 @@ function circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _pa
        }
     }
     else _out_string += _glob_crlf + "No Mobius map" ;
-
     _out_string = _symbol + _glob_crlf + _out_string ;
     if ( _out_channel != OUTPUT_TEXT ) circles_lib_terminal_multicolor_echo( _out_string );
     return _out_string ;

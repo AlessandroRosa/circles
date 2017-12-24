@@ -1,6 +1,6 @@
 function CIRCLESembeddingsGENERALPURPOSE_LOADgroup( _filename, _file_contents )
 {
-    var _file_rows = _file_contents.replaceAll( [ CRLF_WIN, CRLF_NO_WIN ], _glob_crlf ).split( _glob_crlf );
+    var _file_rows = _file_contents.replaceAll( [ CRLF_WIN, CRLF_NOWIN ], _glob_crlf ).split( _glob_crlf );
     // remove blank entries
     _file_rows = _file_rows.work( function( _entry ) { return ( _entry + "" ).trim().replaceAll( _glob_crlf, "" ); } );
     _file_rows = _file_rows.filtering( function( _entry ) { return ( _entry + "" ).trim().length > 0 ; } ).reset_index();
@@ -86,8 +86,8 @@ function CIRCLESembeddingsGENERALPURPOSE_LOADgroup( _filename, _file_contents )
     CIRCLESembeddingsGENERALPURPOSE_VAR_REFRESH_PANEL();
 
     var _msg = "The generators have been correctly loaded." ;
-        _msg += "\nNow press the button below to generate the whole group." ;
-        _msg += "\n\nThen you can  render it." ;
+        _msg += _glob_crlf+"Now press the button below to generate the whole group." ;
+        _msg += _glob_crlf.repeat(2)+"Then you can render it." ;
     alert_msg( ALERT_SUCCESS, _msg, _glob_app_title + " - " + _plugin_definitions_array[_plugin_last_ref] + " - Tips", 440 );
 }
 
@@ -136,7 +136,7 @@ function CIRCLESembeddingsGENERALPURPOSE_SAVE_GROUP()
         }
             
         CIRCLESembeddingsGENERALPURPOSEcomment = $( "#PLUGINcommentTEXTAREA" ).val();
-        _out_stream.push( "comment=" + CIRCLESembeddingsGENERALPURPOSEcomment.replaceAll( [ _glob_crlf, CRLF_WIN, CRLF_NO_WIN ], "@@@" ) );
+        _out_stream.push( "comment=" + CIRCLESembeddingsGENERALPURPOSEcomment.replaceAll( [ _glob_crlf, CRLF_WIN, CRLF_NOWIN ], "@@@" ) );
         $.each( CIRCLESembeddingsGENERALPURPOSE_gens_container, function( _i, _gen_chunk )
                 {
                    _out_stream.push( "a"+_i+"=" + _gen_chunk[0] );

@@ -10,7 +10,7 @@ function circles_lib_batch_compiler_run( _script_ctrl_id, _debug_ctrl_id, _id_bo
        circles_lib_unload_cmd();
 
        _glob_terminal_current_cmd = "" ;
-       _script_code = _script_code.replaceAll( [ CRLF_WIN, CRLF_NO_WIN, '<br>' ], _glob_crlf );
+       _script_code = _script_code.replaceAll( [ CRLF_WIN, CRLF_NOWIN, '<br>' ], _glob_crlf );
        var _script_code_lines_array = _script_code.split( _glob_crlf );
        var _tmp_array = [], _code_row ;
        // cleaning from blank rows
@@ -134,13 +134,13 @@ function circles_lib_batch_compiler_run( _script_ctrl_id, _debug_ctrl_id, _id_bo
           }
           else if ( _glob_terminal_critical_halt == YES && _glob_terminal_errors_switch && _output_flag )
           {
-             _msg = "A critical error has been caught.\nCode run has been halted.\n" ;
+             _msg = "A critical error has been caught."+_glob_crlf+"Code run has been halted."+_glob_crlf ;
              _msg += _glob_terminal_critical_halt_msg.length > 0 ? _glob_terminal_critical_halt_msg : "unknown reason" ;
              circles_lib_output( OUTPUT_SCRIPT, DISPATCH_ERROR, _msg, _debug_ctrl_id );
              if ( $("#"+_debug_ctrl_id).get(0) != null )
              {
                  var _prev = $("#"+_debug_ctrl_id).html();
-                 $("#"+_debug_ctrl_id).html( _msg + "\nHalt at line " + _glob_terminal_current_line_number );
+                 $("#"+_debug_ctrl_id).html( _msg+_glob_crlf+"Halt at line " + _glob_terminal_current_line_number );
              }
              break ;
           }

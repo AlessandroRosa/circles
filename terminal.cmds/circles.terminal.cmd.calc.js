@@ -147,7 +147,7 @@ function circles_terminal_cmd_calc()
 		        else
 		        {
 					var _pts = null ;
-					if ( _n_pts > 4 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "More than 4 input points have been acquired, thus only\nthe first ones will be kept up for cross-ratio: namely, ...", _par_1, _cmd_tag );
+					if ( _n_pts > 4 ) circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "More than 4 input points have been acquired, thus only"+_glob_crlf+"the first ones will be kept up for cross-ratio: namely, ...", _par_1, _cmd_tag );
 					else circles_lib_output( OUTPUT_TERMINAL, DISPATCH_WARNING, "Resuming the 4 input points acquired for cross-ratio calculation", _par_1, _cmd_tag );
 		
 					_pts = _cmd_params['settings']['points'].subset( 4 ) ;

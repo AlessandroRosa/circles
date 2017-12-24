@@ -334,10 +334,10 @@ function CIRCLESformsSCRIPTEDITORlist()
 
 function CIRCLESformsSCRIPTEDITORcodemanagerINFO()
 {
-		var MSG = "Circles (Java)script editor\n\n" ;
-				MSG += "is supported by Codemirror editor\n" ;
-				MSG += "Visit <A STYLE=\"color:blue;\" HREF=\"https://codemirror.net/\" TARGET=\"_blank\">codemirror official website</A>" ;
-		circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, MSG, _glob_app_title );
+	var MSG = "Circles (Java)script editor"+_glob_crlf.repeat(2);
+	MSG += "is supported by Codemirror editor"+_glob_crlf ;
+	MSG += "Visit <A STYLE=\"color:blue;\" HREF=\"https://codemirror.net/\" TARGET=\"_blank\">codemirror official website</A>" ;
+	circles_lib_output( OUTPUT_SCREEN, DISPATCH_INFO, MSG, _glob_app_title );
 }
 
 function CIRCLESformsSCRIPTEDITORcodemanagerBUILTIN()

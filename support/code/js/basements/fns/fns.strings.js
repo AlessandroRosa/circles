@@ -1,4 +1,4 @@
-function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ).trim() ; }
+function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ) ; }
 function explodePACKEDarray( PACKEDarrayIN, LEFTdelimiter, RIGHTdelimiter )
 {
     var arrayOUT = new Array();

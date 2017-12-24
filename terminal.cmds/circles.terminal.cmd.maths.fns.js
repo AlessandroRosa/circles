@@ -60,7 +60,7 @@ function circles_terminal_cmd_deg()
          {
               var _rad = ( _params.toUpperCase() == "PI" ) ? Math.PI : safe_float( _params, 0.0 );
               var _deg = _rad / ( 2.0 * Math.PI ) * 360.0 ;
-              circles_lib_output( _out_channel, DISPATCH_INFO, _rad + ( ( _rad == 1 ) ? " radiant" : " radians" ) + "</lightblue>\n<cadetblue>" + _deg + ( ( _deg == 1 ) ? " degree" : " degrees" ), _par_1, _cmd_tag );
+              circles_lib_output( _out_channel, DISPATCH_INFO, _rad + ( ( _rad == 1 ) ? " radiant" : " radians" ) + "</lightblue>"+_glob_crlf+"<cadetblue>" + _deg + ( ( _deg == 1 ) ? " degree" : " degrees" ), _par_1, _cmd_tag );
          }
      }
 
@@ -101,7 +101,7 @@ function circles_terminal_cmd_rad()
          {
               var _deg = safe_float( _params, 0 );
               var _rad = _deg / 360.0 * ( 2.0 * Math.PI );
-              var _MSG = _deg + ( ( _deg == 1 ) ? " degree" : " degrees" ) + "</lightblue>\n<cadetblue>" + _rad + ( ( _rad == 1 ) ? " radiant" : " radians", _par_1, _cmd_tag );
+              var _MSG = _deg + ( ( _deg == 1 ) ? " degree" : " degrees" ) + "</lightblue>"+_glob_crlf+"<cadetblue>" + _rad + ( ( _rad == 1 ) ? " radiant" : " radians", _par_1, _cmd_tag );
               circles_lib_output( _out_channel, DISPATCH_INFO, _MSG, _par_1, _cmd_tag );
          }
      }

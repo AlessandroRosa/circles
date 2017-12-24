@@ -181,11 +181,9 @@ function circles_terminal_cmd_ifs()
 				{
 					var _options = [ "close" ], _ret_array = [] ;
 					var _dispatcher_fn = "CIRCLESformsGENERALOPTIONSremotectrl( _options, null, _ret_array, "+_out_channel+" )" ;
-					console.log( _dispatcher_fn );
 					var _output = null ;
 					try{ eval( "_output = " + _dispatcher_fn + ";" ) }
 					catch( _err ) { circles_lib_error_obj_handler( _err ) ; }
-					console.log( _ret_array );
 				}
 				else circles_lib_plugin_load('forms','general.options',NO,YES) ;
            		break ;

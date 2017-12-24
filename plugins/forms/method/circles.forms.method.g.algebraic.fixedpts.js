@@ -78,7 +78,7 @@ function CIRCLESformsMETHODfixedpointsWORDSfromGENERATORSSET( _question = YES, _
      if ( _gg_n == 0 ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "The generators list is empty", _glob_app_title );
      else
      {
-        var _b_go = _fp_n > 0 && _question ? confirm( "The generators model will overwrite current settings.\nConfirm ?" ) : YES ;
+        var _b_go = _fp_n > 0 && _question ? confirm( "The generators model will overwrite current settings."+_glob_crlf+"Confirm ?" ) : YES ;
         if ( _b_go )
         {
             var _ret_chunk = circles_lib_fixedpoints_add_from_gens_set( _out_channel );

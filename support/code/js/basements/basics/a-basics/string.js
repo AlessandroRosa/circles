@@ -28,7 +28,7 @@
 if ( typeof is_array != "function" ) function is_array( _a ) 		 { return _a instanceof Array ? 1 : 0 ; }
 if ( typeof is_string != "function" ) function is_string( _obj ) { return ( typeof _obj == "string" || _obj instanceof String ) ; }
 if ( typeof is_consistent_string != "function" ) function is_consistent_string( _obj ) { return is_string( _obj ) ? ( _obj.length > 0 ? 1 : 0 ) : 0 ; }
-if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ).trim() ; }
+if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ) ; }
 if ( typeof safe_int != "function" ) function safe_int( _val, _set_if_nan ) { _val = parseInt( _val, 10 ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
 if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) { _val = parseFloat( _val ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
 if ( typeof is_regex != "function" ) function is_regex( _obj ) { return ( typeof _obj === "object" && _obj.test ) ? 1 : 0 ; }
@@ -41,7 +41,6 @@ String.prototype.find_substring_pos = function( s )
        _pos_array.push( _pos );
        _pos = this.indexOf( s, _pos + 1 );
     }
-    
     return _pos_array ;
 }
 

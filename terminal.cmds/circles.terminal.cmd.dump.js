@@ -106,7 +106,7 @@ function circles_terminal_cmd_dump()
     else { _b_fail = YES, _error_str = "Missing obj to dump" ; }
      
     if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION )
-		 circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ).strip_tags()+"\nType '"+_cmd_tag+" /h' for syntax help", _par_1, _cmd_tag );
+		 circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ).strip_tags()+_glob_crlf+"Type '"+_cmd_tag+" /h' for syntax help", _par_1, _cmd_tag );
     if ( _out_channel == OUTPUT_TEXT ) return _out_text_str ;
     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

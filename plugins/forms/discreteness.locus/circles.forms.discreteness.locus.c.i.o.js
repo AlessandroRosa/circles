@@ -64,7 +64,7 @@ function CIRCLESformsDISCRETENESSLOCUSsaveCONFIG()
 function CIRCLESformsDISCRETENESSLOCUSloadCONFIG( _filename, _file_contents )
 {
     var _tokens, _label, _value ;
-    var _file_rows = _file_contents.replaceAll( [ CRLF_WIN, CRLF_NO_WIN ], _glob_crlf ).split( _glob_crlf );
+    var _file_rows = _file_contents.replaceAll( [ CRLF_WIN, CRLF_NOWIN ], _glob_crlf ).split( _glob_crlf );
         // remove blank entries
         _file_rows = _file_rows.work( function( _entry ) { return ( _entry + "" ).trim().replaceAll( _glob_crlf, "" ); } );
         _file_rows = _file_rows.filtering( function( _entry ) { return ( _entry + "" ).trim().length > 0 ; } ).reset_index();

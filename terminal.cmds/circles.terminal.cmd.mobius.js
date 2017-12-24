@@ -347,7 +347,7 @@ function circles_terminal_cmd_mobius()
                              _b_fail = YES, _error_str = "Alphabet is not available" ;
                              _sd_n = circles_lib_count_items( _items_array );
                              if ( _sd_n.is_one_of( 0, UNDET ) )
-                             _error_str += "\nNo seeds have been input or initialized" ;
+                             _error_str += _glob_crlf+"No seeds have been input or initialized" ;
                         }
                         
 						if ( _input_array.length > 0 && !_b_fail )
@@ -430,7 +430,7 @@ function circles_terminal_cmd_mobius()
 								{
 									var _text = "Word to assemble : " + _input_array.join( "" );
 										_text += _glob_crlf.repeat(2) + "Resulting Mobius map:";
-										_text += _glob_crlf + _work_mobius_map.output( "\n", "coeffs" );
+										_text += _glob_crlf + _work_mobius_map.output( _glob_crlf, "coeffs" );
 									var _ret_chunk = circles_lib_dump_data_to_format( _text,
 										_cmd_params['dump_array'][0], _cmd_params['dump_array'][1],
 										_cmd_params['dump_array'][2], _cmd_params['dump_array'][3] );
@@ -756,34 +756,34 @@ function circles_terminal_cmd_mobius()
                     else if ( _sd_n > 0 && is_array( _items_array ) )
                     {
                         circles_lib_output( _out_channel, DISPATCH_STANDARD, "Retrieving the "+( _glob_items_switch == ITEMS_SWITCH_SEEDS ? "Seeds" : "Generators" )+" ..", _par_1, _cmd_tag );
-                        var _out_file_txt = "Seeds list", ITEM, _row, _exists, _print, _n_display ;
+                        var _out_file_txt = "Seeds list"+_glob_crlf, ITEM, _row, _exists, _print, _n_display = 0 ;
                         for( var _i = 0 ; _i < _sd_n ; _i++ )
                         {
-                             ITEM = _items_array[_i], _exists = is_item_obj( ITEM ) ? YES : NO ;
-                             if ( _exists )
-                             {
-                                 _print = ( _symbols_array.length == 0 || ( _symbols_array.length > 0 && _symbols_array.includes( ITEM.symbol ) ) ) ? YES : NO ;
-                                 if ( _print )
-                                 {
-         							row = circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _cmd_params );
-                                    _out_file_txt += _row + _glob_crlf.repeat(2) ;
+                            ITEM = _items_array[_i], _exists = is_item_obj( ITEM ) ? YES : NO ;
+                            if ( _exists )
+                            {
+                                _print = ( _symbols_array.length == 0 || ( _symbols_array.length > 0 && _symbols_array.includes( ITEM.symbol ) ) ) ? YES : NO ;
+                                if ( _print )
+                                {
+         							_row = circle_terminal_cmd_display_mobiusmap_item( ITEM, _i, _out_channel, _cmd_params );
+                                    _out_file_txt += _row + _glob_crlf.repeat(2);
                                     _n_display++ ;
                                     if ( _out_channel == OUTPUT_SCRIPT && _cmd_params['dump'] )
                                     circles_lib_output( _out_channel, DISPATCH_INFO, _row, _par_1, _cmd_tag );
-                                 }
-                             }
-                             else
-                             {
-                                 _row = "Memory leak: detected null map at place " + _i ;
-                                 circles_lib_output( _out_channel, DISPATCH_WARNING, _row, _par_1, _cmd_tag );
-                             }
+                                }
+                            }
+                            else
+                            {
+                                _row = "Memory leak: detected null map at place "+_i ;
+                                circles_lib_output( _out_channel, DISPATCH_WARNING, _row, _par_1, _cmd_tag );
+                            }
                         }
 
                         if ( _n_display == 0 ) _out_file_text += "No maps match the input filters" ;
                         if ( _html ) circles_lib_terminal_color_decode_htmltext( "<gray>"+_out_file_txt+"</gray>", 'mobius', 'right', 'top' );
                         else if ( _cmd_params['dump'] )
                         {
-                            if ( is_array( _cmd_params['dump_array'] ) ) _cmd_params['dump_array'].push( "circles.mobius.list.txt" );
+							if ( is_array( _cmd_params['dump_array'] ) ) _cmd_params['dump_array'].push( "circles.mobius.list.txt" );
 							var _ret_chunk = circles_lib_dump_data_to_format( _out_file_txt.strip_tags(), _cmd_params['dump_array'][0], "savepix" );
 							var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO;
 							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Fail to perform operation" ;
@@ -799,10 +799,7 @@ function circles_terminal_cmd_mobius()
                     var _array = null, _msg = "" ;
                     var _symbol = safe_string( _symbols_array[0], "" ).trim() ;
                     var _seeds_ret_i = circles_lib_find_item_index_by_symbol( _items_array, _symbol );
-                    if ( _symbol.length == 0 )
-                    {
-                        _b_fail = YES, _error_str = "Missing disk ref to complete operation on notes" ;
-                    }
+                    if ( _symbol.length == 0 ) { _b_fail = YES, _error_str = "Missing disk ref to complete operation on notes" ; }
                     else
                     {
                         if ( _seeds_ret_i == UNDET )
@@ -1090,11 +1087,11 @@ function circles_terminal_cmd_mobius()
                                       _out_text_array.push( _out_text_row );
                                   		circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _out_text_row, _par_1, _cmd_tag );
                                       break ;
-															        default: break ;
+										default: break ;
                                    }
                               }
-            						 }
-            						 else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing map with symbol '"+_symbol+"'", _par_1, _par_1, _cmd_tag );
+            			}
+            			else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing map with symbol '"+_symbol+"'", _par_1, _par_1, _cmd_tag );
                      }
 
                     if ( _cmd_params['dump'] && !_b_fail )

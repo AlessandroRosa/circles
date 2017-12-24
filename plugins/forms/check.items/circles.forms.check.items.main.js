@@ -200,12 +200,11 @@ function CIRCLESformsHELPGENERATORSbarHTMLCODE( _err_mask_whole )
     return HTMLcode ;
 }
 
-function CIRCLESformsHELPGENERATORSdisplayERROR( _err_mask, _sep )
+function CIRCLESformsHELPGENERATORSdisplayERROR( _err_mask = 0, _sep = _glob_crlf )
 {
-    if ( !is_string( _sep ) ) _sep = "\n" ;
+    if ( !is_string( _sep ) ) _sep = _glob_crlf ;
     var _title = "" ;
-    if ( _err_mask > 0 ) _title = "Some error have been found for this Mobius object.\n" ;
-     
+    if ( _err_mask > 0 ) _title = "Some error have been found for this Mobius object."+_sep ;
     if ( _err_mask & 1 )  _title += _sep + "* Missing symbol" ;
     if ( _err_mask & 2 )  _title += _sep + "* Missing inverse symbol" ;
     if ( _err_mask & 4 )  _title += _sep + "* Complex circle object is null" ;
@@ -213,6 +212,5 @@ function CIRCLESformsHELPGENERATORSdisplayERROR( _err_mask, _sep )
     if ( _err_mask & 16 ) _title += _sep + "* Mobius map is null" ;
     if ( _err_mask & 32 ) _title += _sep + "* Generator circle is a point" ;
     if ( _err_mask & 64 ) _title += _sep + "* Generator is null" ;
-     
     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _title, _glob_app_title );
 }

@@ -684,7 +684,7 @@ function CIRCLESformsDISCRETENESSLOCUSpopupPROCESSstart( _process_type, _embeddi
 function CIRCLESformsDISCRETENESSLOCUSpopupPROCESSupdateTEXT( _text, _features )
 {
     if ( is_string( _text ) )
-    $( "#CIRCLESformsDISCRETENESSLOCUSsplashTEXT" ).html( _text.replaceAll( " ", "&nbsp;" ).replaceAll( "\n", "<br>" ) );
+    $( "#CIRCLESformsDISCRETENESSLOCUSsplashTEXT" ).html( _text.replaceAll( " ", "&nbsp;" ).replaceAll( _glob_crlf, "<br>" ) );
 }
 
 function CIRCLESformsDISCRETENESSLOCUSstoreRAYS( _rays_array )

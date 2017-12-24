@@ -59,7 +59,7 @@ function circles_terminal_cmd_docs()
                 case "release":
                 circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                 break ;
-                default: console.log( "IN" );
+                default:
 				window.open( 'docs/circles/circles.docs.php', 'CIRCLESdocsWND', '' );
 				break ;
              }

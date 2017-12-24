@@ -301,7 +301,7 @@ function circles_terminal_cmd_storage()
                     case "datatypes":
                     circles_lib_files_load_default_datatypes();
                     circles_lib_output( _out_channel, DISPATCH_INFO, "Currently registered datatypes", _par_1, _cmd_tag );
-                    circles_lib_output( _out_channel, DISPATCH_INFO, "\n", _par_1, _cmd_tag );
+                    circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
                     var _datatypes = circles_lib_datatype_get_table(YES), _notes_rows, _keys ;
                     var _columns = [], _out, _keys, _startINDEX = 0 ;
                         _columns.push( [ "Datatype", 12, "white" ] );
@@ -344,10 +344,9 @@ function circles_terminal_cmd_storage()
                     _out += "<"+_columns[_startINDEX][2]+">" + ( _columns[_startINDEX][0] ).rpad( " ", _columns[_startINDEX][1] ) + "</"+_columns[_startINDEX][2]+">" ;
 
                     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _out, _par_1, _cmd_tag );
-                    circles_lib_output( _out_channel, DISPATCH_INFO, "\n", _par_1, _cmd_tag );
+                    circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
 
-  									$.each( _datatypes,
-										function( _i, _item )
+  									$.each( _datatypes, function( _i, _item )
 										{
                         _startINDEX = 0 ;
                         if ( _item['datatype_public'] != null )
@@ -985,13 +984,13 @@ function circles_terminal_cmd_storage()
                                  $.each( _out_stream, function( _i, _pt ) { _out_string += _pt.output( "cartesian" ) + _glob_crlf ; } );
                                  break ;
                                  case "dict":
-                                 _out_string = _out_stream.get_linear_array().join( _glob_crlf != null ? _glob_crlf : "\r\n" );
+                                 _out_string = _out_stream.get_linear_array().join( _glob_crlf );
                                  break ;
                                  case "seeds":
                                  $.each( _out_stream, function( _i, _item ) { _out_string += _item.output() + _glob_crlf ; } );
                                  break ;
                                  case "words":
-                                 _out_string = _glob_storage[_subset].join( _glob_crlf != null ? _glob_crlf : "\r\n" );
+                                 _out_string = _glob_storage[_subset].join( _glob_crlf );
                                  break ;
                                  default: break ;
                             }

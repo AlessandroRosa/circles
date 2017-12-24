@@ -99,7 +99,7 @@ function circles_terminal_cmd_doctor()
                 _error_array = _doctor_scan_init_options( _items_array, _out_channel, _cmd_tag );
                 _error_scan |= _error_array[0] ;
                 _error_scan += safe_int( _error_array[1], 0 );
-                if ( _error_counter == 0 ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, "\nNo errors found", _par_1, _cmd_tag );
+                if ( _error_counter == 0 ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, _glob_crlf+"No errors found", _par_1, _cmd_tag );
                 circles_lib_output( _out_channel, DISPATCH_INFO, "Doctor's scan has finished", _par_1, _cmd_tag );
                 break ;
             }

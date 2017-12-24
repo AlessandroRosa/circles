@@ -31,7 +31,7 @@ function circles_lib_output( _out_channel_type = OUTPUT_NONE, _out_msg_type = DI
 {
     _out_channel_type = safe_int( _out_channel_type, OUTPUT_NONE );
     _out_msg_type = safe_int( _out_msg_type, DISPATCH_INFO );
-    _out_msg_text = is_array( _out_msg_text ) ? _out_msg_text.join( _out_channel_type == OUTPUT_SCREEN ? "<br/>" : "\n" ) : safe_string( _out_msg_text, "" ) ;
+    _out_msg_text = is_array( _out_msg_text ) ? _out_msg_text.join( _out_channel_type == OUTPUT_SCREEN ? "<br/>" : _glob_crlf ) : safe_string( _out_msg_text, "" ) ;
     
     if ( _out_channel_type & OUTPUT_SPECIAL_FX )
     {
@@ -134,7 +134,7 @@ function circles_lib_output( _out_channel_type = OUTPUT_NONE, _out_msg_type = DI
             if ( _textcolor.length > 0 && !_out_msg_text.includes( "</" ) )
             {
                _html += "&nbsp;<SPAN STYLE=\"color:"+_textcolor+";\">" + _out_msg_text + "</SPAN>" ;
-               _html = _html.replaceAll( [ CRLF_WIN, CRLF_NO_WIN, '<br>' ], "<br>" );
+               _html = _html.replaceAll( [ CRLF_WIN, CRLF_NOWIN, '<br>' ], "<br>" );
             }
             else if ( _out_msg_text.includes( "</" ) )
             {
@@ -154,7 +154,7 @@ function circles_lib_output( _out_channel_type = OUTPUT_NONE, _out_msg_type = DI
     _glob_text += "<SPAN STYLE=\"color:"+_textcolor+";\">" + _out_msg_text + "</SPAN>" + _glob_crlf ;
 
     if ( _out_channel_type & OUTPUT_HELP )
-    $("#CIRCLESformsTERMINALbatchcompilerHELPdiv").html( _out_msg_text.replaceAll( [ CRLF_WIN, CRLF_NO_WIN, '<br>' ], "<br>" ) );
+    $("#CIRCLESformsTERMINALbatchcompilerHELPdiv").html( _out_msg_text.replaceAll( [ CRLF_WIN, CRLF_NOWIN, '<br>' ], "<br>" ) );
 
     if ( _out_channel_type & OUTPUT_SCRIPT_EDITOR )
     {
@@ -358,7 +358,7 @@ function circles_lib_dump_data_to_format( /* additional arguments will be proces
        else if ( is_array( _obj ) ) $.each( _obj, function( _i, _chunk ) { _out_obj_data += _glob_crlf + _chunk ; } );
        else _out_obj_data = _obj ;
 	   
-	   _out_obj_data = _glob_appTITLE + "\n" + _glob_appSUBTITLE + "\nLast release " + _glob_appLASTreleaseDATE + "\n\n" + _out_obj_data ;
+	   _out_obj_data = _glob_appTITLE + _glob_crlf + _glob_appSUBTITLE + _glob_crlf + "Last release " + _glob_appLASTreleaseDATE + _glob_crlf.repeat(2) + _out_obj_data ;
        if ( _out_obj_data.length > 0 )
        {
            var blob = new Blob( [ _out_obj_data.strip_tags() ], { type: 'plain/text', endings: 'native' });
@@ -367,7 +367,7 @@ function circles_lib_dump_data_to_format( /* additional arguments will be proces
        }
        else return [ RET_ERROR, "Missing data or file path" ] ;
     }
-    else return [ RET_ERROR, "\nFirst dump parameter must be a filename or a custom var identifier" ] ;
+    else return [ RET_ERROR, _glob_crlf+"First dump parameter must be a filename or a custom var identifier" ] ;
 }
 
 function circles_lib_extras_special_fx_msg( _ctrl_id, _text, _color, _milliseconds_duration, _mutex )

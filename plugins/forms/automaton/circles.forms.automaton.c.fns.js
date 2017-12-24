@@ -1,6 +1,6 @@
 function CIRCLESformsAUTOMATONload( _filename, _file_contents )
 {
-    var _automaton_rows = ( _file_contents.includes( CRLF_WIN ) ) ? _file_contents.split( CRLF_WIN ) : ( _file_contents.includes( CRLF_NO_WIN ) ? _file_contents.split( CRLF_NO_WIN ) : null );
+    var _automaton_rows = ( _file_contents.includes( CRLF_WIN ) ) ? _file_contents.split( CRLF_WIN ) : ( _file_contents.includes( CRLF_NOWIN ) ? _file_contents.split( CRLF_NOWIN ) : null );
     if ( _automaton_rows == null ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "'"+_filename+"' does not appear as a valid automaton data file.", _glob_app_title );
     else
     {
@@ -169,7 +169,7 @@ function CIRCLESformsAUTOMATONtableSAVE()
 						_out_array.push( CIRCLESformsAUTOMATONname );
 				$.each( _keys, function( _i, _key ) { _out_array.push( _key + "@" + CIRCLESformsAUTOMATONarray[_key].join( "|" ) ); } );
 				var _filename = "circles.automaton.scheme.txt" ;
-				var blob = new Blob( [ _out_array.join( _glob_crlf != null ? _glob_crlf : "\r\n" ) ], { type: 'plain/text', endings: 'native' });
+				var blob = new Blob( [ _out_array.join( _glob_crlf ) ], { type: 'plain/text', endings: 'native' });
 			  saveAs( blob, _filename );
 				break ;
         default:
@@ -232,7 +232,7 @@ function CIRCLESformsAUTOMATONtableCHECK()
                         var ROW_NTH = COORDS[0], COL_NTH = COORDS[1] ;
                         
                         var _MSG = "Word '"+$( "#"+_item.id ).val()+"' at row " + ROW_NTH + ", column " + COL_NTH ;
-                            _MSG += "\ndoes not match announced entries" ;
+                            _MSG += _glob_crlf+"does not match announced entries" ;
                         $( "#" + _item.id ).css( "background-color", "#FFE997" );
                         _errors.push( _MSG ) ;
                     }
@@ -242,8 +242,8 @@ function CIRCLESformsAUTOMATONtableCHECK()
 
                 if ( _errors.length > 0 )
                 {
-                    var _MSG = "Found "+_errors.length+" error"+( _errors.length == 1 ? "" : "s" ) + "\n\n"
-                    _MSG += _errors.join( "\n\n" ) ;
+                    var _MSG = "Found "+_errors.length+" error"+( _errors.length == 1 ? "" : "s" ) + _glob_crlf.repeat(2);
+                    _MSG += _errors.join( _glob_crlf.repeat(2) ) ;
                     circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _MSG, _glob_app_title );
                 }
             }

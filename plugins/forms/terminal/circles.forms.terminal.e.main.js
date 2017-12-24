@@ -263,7 +263,7 @@ function CIRCLESformsTERMINALgetHTML( _div_id, _is_popup, _input_w, _input_h, _s
     HTMLcode += "</tr>" ;
     HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
     HTMLcode += "</table>" ;
-    HTMLcode = HTMLcode.replaceAll( [ CRLF_WIN, CRLF_NO_WIN, '<br>' ], "<br>" ).replaceAll( "%imgpath%", _glob_path_to_img );
+    HTMLcode = HTMLcode.replaceAll( [ CRLF_WIN, CRLF_NOWIN, '<br>' ], "<br>" ).replaceAll( "%imgpath%", _glob_path_to_img );
 
     return HTMLcode ;
 }
@@ -337,11 +337,11 @@ function CIRCLESformsTERMINALactivate( WIDTH, HEIGHT, _div_id, _suffix )
         (
            function( command, terminal ){ circles_lib_terminal_interpreter( command, terminal, OUTPUT_TERMINAL ); },
            {
-               greetings: ["Circles terminal console", "Powered by Jquery terminal", "Type 'help' for commands list"].join('\n'),
+               greetings: ["Circles terminal console", "Powered by Jquery terminal", "Type 'help' for commands list"].join(_glob_crlf),
                prompt: _glob_terminal_default_prompt
            }
         );
-        $('#terminal_div'+_suffix).click(); // put the focus on the terminal console
+        $('#terminal_div'+_suffix).click(); //put the focus on the terminal console
     } );
 
     CIRCLESformsTERMINALform_div = $( "#"+_div_id ).get(0);

@@ -375,7 +375,7 @@ function circles_terminal_cmd_config()
                 {
                     var _resp = [], _param = safe_string( _cmd_params['params'][0], "" ), _value = safe_string( _cmd_params['params'][1], "" ) ;
                     if ( _readonly.includes( _param ) && !_cmd_params['reset'] )
-                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Param '"+_param+"' is read-only here.</orange>\n<gray>Use specific command '"+_param+"' instead.</gray>", _par_1, _cmd_tag );
+                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Param '"+_param+"' is read-only here.</orange>"+_glob_crlf+"<gray>Use specific command '"+_param+"' instead.</gray>", _par_1, _cmd_tag );
                     else if ( _keywords.includes( _param ) || _cmd_params['reset'] )
                     {
                         if ( _param.strcmp( "accuracy" ) || _cmd_params['reset'] )
@@ -394,7 +394,7 @@ function circles_terminal_cmd_config()
                             {
 								var _msg = "<orange>Fail to set accuracy to '" + _value + "'</orange>" ;
                                 if ( _glob_verbose && _glob_terminal_echo_flag )
-                                _msg += "\n<gray>The input accuracy value shall be a positive integer</gray>" ;
+                                _msg += _glob_crlf+"<gray>The input accuracy value shall be a positive integer</gray>" ;
                                 _resp.push( [ 0, _msg ] ) ;
                             }
                         }
@@ -520,7 +520,7 @@ function circles_terminal_cmd_config()
                             {
 								var _msg = "<orange>Fail to set depth to '" + _value + "'</orange>" ;
                                 if ( _glob_verbose && _glob_terminal_echo_flag )
-                                _msg += "\n<gray>The input depth value shall be a positive integer</gray>" ;
+                                _msg += _glob_crlf+"<gray>The input depth value shall be a positive integer</gray>" ;
                                 _resp.push( [ 0, _msg ] ) ;
                             }
                         }
@@ -541,7 +541,7 @@ function circles_terminal_cmd_config()
                             else
                             {
 								var _msg = "<orange>Fail to set param 'diskdash' to '" + _value + "'</orange>" ;
-                                if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += "\n<gray>The input value should be 'yes' or 'no'</gray>" ;
+                                if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += _glob_crlf+"<gray>The input value should be 'yes' or 'no'</gray>" ;
                                 _resp.push( [ 0, _msg ] ) ;
                             }
                         }
@@ -563,7 +563,7 @@ function circles_terminal_cmd_config()
                             {
 								var _msg = "<orange>Fail to set param 'diskdraw' to '" + _value + "'</orange>" ;
                                 if ( _glob_verbose && _glob_terminal_echo_flag )
-                                _msg += "\n<gray>The input value should be 'yes' or 'no'</gray>" ;
+                                _msg += _glob_crlf+"<gray>The input value should be 'yes' or 'no'</gray>" ;
                                 _resp.push( [ 0, _msg ] ) ;
                             }
                         }
@@ -584,7 +584,7 @@ function circles_terminal_cmd_config()
                             else
                             {
 								var _msg = "<orange>Fail to set param 'diskfill' to '" + _value + "'</orange>" ;
-                                if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += "\n<gray>The input value should be 'yes' or 'no'</gray>" ;
+                                if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += _glob_crlf+"<gray>The input value should be 'yes' or 'no'</gray>" ;
                                 _resp.push( [ 0, _msg ] ) ;
                             }
                         }
@@ -644,7 +644,7 @@ function circles_terminal_cmd_config()
                             {
 								var _msg = "<orange>Inconsistent input value '" + _value + "'</orange>" ;
                                 if ( _glob_verbose && _glob_terminal_echo_flag )
-									_msg += "\n<gray>The input value should be 'default'</gray>" ;
+									_msg += _glob_crlf+"<gray>The input value should be 'default'</gray>" ;
                                 _resp.push( [ 0, _msg ] ) ;
                             }
                         }
@@ -664,7 +664,7 @@ function circles_terminal_cmd_config()
                             {
 								var _msg = "<orange>Inconsistent input value '" + _value + "'</orange>" ;
                                 if ( _glob_verbose && _glob_terminal_echo_flag )
-									_msg += "\n<gray>The input value should be 'seeds' or 'gens'</gray>" ;
+									_msg += _glob_crlf+"<gray>The input value should be 'seeds' or 'gens'</gray>" ;
                                 _resp.push( [ 0, _msg ] ) ;
                             }
                             else
@@ -731,7 +731,7 @@ function circles_terminal_cmd_config()
                             else
                             {
 								var _msg = "<orange>Fail to set param 'menu' to '" + _value + "'</orange>" ;
-                                if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += "\n<gray>The input value should be 'yes' or 'no'</gray>" ;
+                                if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += _glob_crlf+"<gray>The input value should be 'yes' or 'no'</gray>" ;
                                 _resp.push( [ 0, _msg ] ) ;
                             }
                         }
@@ -750,7 +750,7 @@ function circles_terminal_cmd_config()
 								{
 									var _msg = "<orange>Illegal chars found: fail to set param 'title' to '" + _value + "'</orange>" ;
 									if ( _glob_verbose && _glob_terminal_echo_flag )
-										_msg += "\n<gray>Only alphanumeric chars are allowed.</gray>" ;
+										_msg += _glob_crlf+"<gray>Only alphanumeric chars are allowed.</gray>" ;
 									_resp.push( [ 0, _msg ] ) ;
 								}
 								else
@@ -778,7 +778,7 @@ function circles_terminal_cmd_config()
                             {
 								var _msg =  "<orange>Fail to set param 'usepalette' to '" + _value + "'</orange>"
                                 if ( _glob_verbose && _glob_terminal_echo_flag )
-									_msg += "\n<gray>The input value should be 'yes' or 'no'</gray>" ;
+									_msg += _glob_crlf+"<gray>The input value should be 'yes' or 'no'</gray>" ;
                                 _resp.push( [ 0, _msg ] ) ;
                             }
                         }
@@ -800,7 +800,7 @@ function circles_terminal_cmd_config()
                             {
 								var _msg = "<orange>Fail to set param 'errors' to '" + _value + "'</orange>" ;
                                 if ( _glob_verbose && _glob_terminal_echo_flag )
-									_msg += "\n<gray>The input value should be 'yes' or 'no'</gray>" ;
+									_msg += _glob_crlf+"<gray>The input value should be 'yes' or 'no'</gray>" ;
                                 _resp.push( [ 0, _msg ] ) ;
                             }
                         }
@@ -821,7 +821,7 @@ function circles_terminal_cmd_config()
                             else
                             {
 								var _msg = "<orange>Fail to set param 'warnings' to '" + _value + "'</orange>" ;
-                                if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += "\n<gray>The input value should be 'yes' or 'no'</gray>" ;
+                                if ( _glob_verbose && _glob_terminal_echo_flag ) _msg += _glob_crlf+"<gray>The input value should be 'yes' or 'no'</gray>" ;
                                 _resp.push( [ 0, _msg ] ) ;
                             }
                         }

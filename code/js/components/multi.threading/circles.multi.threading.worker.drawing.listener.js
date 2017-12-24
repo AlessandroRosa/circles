@@ -177,9 +177,9 @@ function CIRCLESmultithreadingADDdrawingLISTENER()
                 break ;
                 case 4.1:
                 var MSG = "Coordinates are not consistent for rasterization" ;
-                    if ( safe_int( msg.w, 0 ) == 0 ) MSG += "\n* Check width ;" ;
-                    if ( safe_int( msg.h, 0 ) == 0 ) MSG += "\n* Check height ;" ;
-                    if ( safe_int( msg.d, 0 ) == 0 ) MSG += "\n* Check density ;" ;
+                    if ( safe_int( msg.w, 0 ) == 0 ) MSG += _glob_crlf+"* Check width ;" ;
+                    if ( safe_int( msg.h, 0 ) == 0 ) MSG += _glob_crlf+"* Check height ;" ;
+                    if ( safe_int( msg.d, 0 ) == 0 ) MSG += _glob_crlf+"* Check density ;" ;
                     circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, MSG, _glob_app_title );
                 break ;
                 case 4.2:

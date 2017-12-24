@@ -102,7 +102,7 @@ function circles_terminal_cmd_circle()
 				{
 					_p = _p.replaceAll( [ "[", "]" ], "" ).split( "," );
 					_msg = "<lightblue>Found sector range syntax</lightblue> <snow>from "+_p[0]+"</snow> to <snow>"+_p[1]+"</snow>" ;
-					_msg += "<gray>\nInput angle mode in "+(_cmd_params['rad']?"radians":"degrees")+"</gray>" ;
+					_msg += "<gray>"+_glob_crlf+"Input angle mode in "+(_cmd_params['rad']?"radians":"degrees")+"</gray>" ;
 					circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 					//before converting to radians, values will be adapted for
 					//rendering sectors according to the standard counter-clockwise orientation

@@ -36,6 +36,8 @@ self.addEventListener( 'message', function(e)
     var data = e.data ;
     var msg_id = data.id, msg_lang = data.lang ;
     
+    importScripts( JS_FOLDER_COMPONENTS + "globals/defs/circles.constants.js" );
+    importScripts( JS_FOLDER_COMPONENTS + "globals/defaults/circles.defaults.js" );
     importScripts( JS_FOLDER_SUPPORT + "basics/a-basics/number.js" );
     importScripts( JS_FOLDER_SUPPORT + "basics/a-basics/string.js" );
     importScripts( JS_FOLDER_SUPPORT + "basics/a-basics/json.lib.js" );
@@ -44,6 +46,7 @@ self.addEventListener( 'message', function(e)
     importScripts( JS_FOLDER_SUPPORT + "fns/fns.math.js" );
     importScripts( JS_FOLDER_SUPPORT + "fns/fns.generals.js" );
     importScripts( JS_FOLDER_SUPPORT + "fns/fns.strings.js" );
+    importScripts( JS_FOLDER_SUPPORT + "fns/fns.system.js" );
     
     msg_lang = safe_string( msg_lang, "en" );
 
@@ -59,8 +62,6 @@ self.addEventListener( 'message', function(e)
     importScripts( JS_FOLDER_ALL_SHARED + "random.gens/marsaglia.zaman.lib.js" );
     importScripts( JS_FOLDER_ALL_SHARED + "random.gens/cmwc.lib.js" );
     importScripts( JS_FOLDER_COMPONENTS + "langs/" + msg_lang + "/circles.lang.js" );
-    importScripts( JS_FOLDER_COMPONENTS + "globals/defaults/circles.defaults.js" );
-    importScripts( JS_FOLDER_COMPONENTS + "globals/defs/circles.constants.js" );
     importScripts( JS_FOLDER_COMPONENTS + "libs/foundations/objs/circles.dictionary.obj.js" );
     importScripts( JS_FOLDER_COMPONENTS + "libs/foundations/objs/circles.item.obj.js" );
     importScripts( JS_FOLDER_COMPONENTS + "globals/defs/circles.colors.palette.js" );

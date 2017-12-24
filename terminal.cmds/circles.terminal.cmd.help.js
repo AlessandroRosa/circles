@@ -26,7 +26,7 @@ function circles_terminal_cmd_help()
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      else if ( _params.length == 0 )
      {
-         circles_lib_output( _out_channel, DISPATCH_INFO, "No command specified for help.\nThis is the list of all available commands", _par_1, _cmd_tag );
+         circles_lib_output( _out_channel, DISPATCH_INFO, "No command specified for help."+_glob_crlf+"This is the list of all available commands", _par_1, _cmd_tag );
          circles_lib_output( _out_channel, DISPATCH_INFO, "Type: help %cmd% or %cmd% /h for command help text", _par_1, _cmd_tag );
          var vars = { tip: "",
                       folder : "terminal.cmds/help/",
@@ -173,7 +173,7 @@ function circles_terminal_cmd_help()
      }
 
     if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION )
-    circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + "\nPlease, just type 'help' for commands list", _par_1, _cmd_tag );
+    circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + _glob_crlf+"Please, just type 'help' for commands list", _par_1, _cmd_tag );
     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

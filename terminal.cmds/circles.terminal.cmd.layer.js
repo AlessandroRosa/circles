@@ -425,18 +425,18 @@ function circles_terminal_cmd_layer()
                 else if ( _glob_bip_original_plane_data == W_PLANE ) _bip_rendering_label = "W-plane type" ;
 
                 var _msg = "<lightgray>Information about association between default canvases and graphic services</lightgray>" ;
-					_msg += "\n<khaki>Z-plane</khaki>" ;
-                    _msg += "\n<cyan>Grid</cyan> redirected to <greenshock>" + _zplane_grid_label + "</greenshock>" ;
-                    _msg += "\n<cyan>Rendering</cyan> redirected to <greenshock>" + _zplane_rendering_label + "</greenshock>" ;
-                    _msg += "\n<cyan>Freedraw</cyan> redirected to <greenshock>" + _zplane_freedraw_label + "</greenshock>" ;
-                    _msg += "\n<cyan>Work</cyan> redirected to <greenshock>" + _zplane_work_label + "</greenshock>" ;
-                    _msg += "\n\n<khaki>W-plane</khaki>" ;
-                    _msg += "\n<cyan>Grid</cyan> redirected to <greenshock>" + _wplane_grid_label + "</greenshock>" ;
-                    _msg += "\n<cyan>Rendering</cyan> redirected to <greenshock>" + _wplane_rendering_label + "</greenshock>" ;
-                    _msg += "\n<cyan>Freedraw</cyan> redirected to <greenshock>" + _wplane_freedraw_label + "</greenshock>" ;
-                    _msg += "\n<cyan>Work</cyan> redirected to <greenshock>" + _wplane_work_label + "</greenshock>" ;
-                    _msg += "\n\n<khaki>Bip box</khaki>" ;
-                    _msg += "\n<cyan>Rendering</cyan> redirected from <greenshock>" + _bip_rendering_label + "</greenshock>" ;
+					_msg += _glob_crlf+"<khaki>Z-plane</khaki>" ;
+                    _msg += _glob_crlf+"<cyan>Grid</cyan> redirected to <greenshock>" + _zplane_grid_label + "</greenshock>" ;
+                    _msg += _glob_crlf+"<cyan>Rendering</cyan> redirected to <greenshock>" + _zplane_rendering_label + "</greenshock>" ;
+                    _msg += _glob_crlf+"<cyan>Freedraw</cyan> redirected to <greenshock>" + _zplane_freedraw_label + "</greenshock>" ;
+                    _msg += _glob_crlf+"<cyan>Work</cyan> redirected to <greenshock>" + _zplane_work_label + "</greenshock>" ;
+                    _msg += _glob_crlf+"<khaki>W-plane</khaki>" ;
+                    _msg += _glob_crlf+"<cyan>Grid</cyan> redirected to <greenshock>" + _wplane_grid_label + "</greenshock>" ;
+                    _msg += _glob_crlf+"<cyan>Rendering</cyan> redirected to <greenshock>" + _wplane_rendering_label + "</greenshock>" ;
+                    _msg += _glob_crlf+"<cyan>Freedraw</cyan> redirected to <greenshock>" + _wplane_freedraw_label + "</greenshock>" ;
+                    _msg += _glob_crlf+"<cyan>Work</cyan> redirected to <greenshock>" + _wplane_work_label + "</greenshock>" ;
+                    _msg += _glob_crlf+"<khaki>Bip box</khaki>" ;
+                    _msg += _glob_crlf+"<cyan>Rendering</cyan> redirected from <greenshock>" + _bip_rendering_label + "</greenshock>" ;
                     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
                 break ;
                 case "list":
@@ -450,7 +450,7 @@ function circles_terminal_cmd_layer()
                         var _id = "", _canvas_id, _div_id, _index = 0.0, _role = "", _role_def, _output_row = "", _z_index = -1, _bkcolor = "" ;
 						var _plane_def = circles_lib_plane_def_get( _plane_type ) ;                        
 						
-                        var _caption = "<khaki>Scanning the layers list on</khaki> <orange>"+_plane_def+"</orange>\n<white>Found " + _layers_list.length + " entr" + ( _layers_list.length == 1 ? "y" : "ies" ) + "</white>" ;
+                        var _caption = "<khaki>Scanning the layers list on</khaki> <orange>"+_plane_def+"</orange>"+_glob_crlf+"<white>Found " + _layers_list.length + " entr" + ( _layers_list.length == 1 ? "y" : "ies" ) + "</white>" ;
                         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _caption, _par_1, _cmd_tag );
 						var _max_len = 0 ; // compute max string length among the layer ids in the list, prior to display
 						_layers_list.forEach( function( _layer ){
@@ -572,7 +572,7 @@ function circles_terminal_cmd_layer()
                 {
                     _b_fail = YES ;
                     _error_str = "Inconsistent layer references:" ;
-                    _error_str += "\nmissing " + circles_lib_plane_def_get( _cmd_params['to_plane'] ) + " " + _cmd_params['to_plane'] ;
+                    _error_str += _glob_crlf+"missing " + circles_lib_plane_def_get( _cmd_params['to_plane'] ) + " " + _cmd_params['to_plane'] ;
                 }
                 break ;
 				case "redirectlist":

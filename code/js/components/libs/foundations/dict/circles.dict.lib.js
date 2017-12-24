@@ -72,11 +72,11 @@ function circles_lib_dict_destroy()
 
 function circles_lib_dict_save( _filename )
 {
-	  var _filename = ( _filename != null && _filename != UNDEF ) ? _filename : "dictionary.txt" ;
+	var _filename = ( _filename != null && _filename != UNDEF ) ? _filename : "dictionary.txt" ;
     var _basename = basename( _filename );
     var _extension = _filename.includes( "." ) ? _filename.split( ".").get_last() : "" ;
 		_filename = _glob_title.length > 0 ? ( _glob_title + "." + _basename + "." +  _extension ) : "circles." + _filename ;
-    var blob = new Blob( [ _glob_dict_processor.sliced_dict_get_linear_array().join( _glob_crlf != null ? _glob_crlf : "\r\n" ) ], { type: 'plain/text', endings: 'native' });
+    var blob = new Blob( [ _glob_dict_processor.sliced_dict_get_linear_array().join( _glob_crlf ) ], { type: 'plain/text', endings: 'native' });
     saveAs( blob, _filename );
     return YES ;
 }
@@ -252,7 +252,7 @@ function circles_lib_dict_work_on_words( _input_dict, _opcode, _action_id, _star
 
 function circles_lib_dict_progressive_generation( _dictionary_obj, _alphabet, _depth, _word_type, _construction_mode, _allow_repetition, _compute_inv_symbol, _crash_words_packed, _multithread )
 {
-		_multithread = safe_int( _multithread, 0 );
+	_multithread = safe_int( _multithread, 0 );
     var _crash_words_array = _crash_words_packed != null ? _crash_words_packed.split( "|" ) : [] ;
     var _csl = safe_size( _crash_words_array, 0 );
     if ( _dictionary_obj != null ) _dictionary_obj.flush();

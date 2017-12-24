@@ -358,7 +358,7 @@ function circles_terminal_cmd_gen()
                    var _ret = circles_lib_gens_model_create_exact( _out_channel );
                    if ( !_ret )
                    {
-                      _b_fail = YES, _error_str = "The "+(  _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seed" : "generator" )+", indexed at "+_i+", lacks of symbol.\nGenerators construction has been aborted." ;
+                      _b_fail = YES, _error_str = "The "+(  _glob_items_switch == ITEMS_SWITCH_SEEDS ? "seed" : "generator" )+", indexed at "+_i+", lacks of symbol."+_glob_crlf+"Generators construction has been aborted." ;
                       return NO ;
                    }
                    else return _ret ;

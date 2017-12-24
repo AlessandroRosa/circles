@@ -597,8 +597,8 @@ function CIRCLESgenssetMANAGERgensBOMB( _b_switch, _question, _silent )
    if ( _entries_n > 0 )
    {
        var _q = "The generators set includes " + _entries_n + " gen" + ( _entries_n == 1 ? "" : "s" ) + "." ;
-           _q += "\n\nConfirm to delete them all ?" ;
-           _q += "\n(Deletions could not be recovered)" ;
+           _q += _glob_crlf.repeat(2)+"Confirm to delete them all ?" ;
+           _q += _glob_crlf+"(Deletions could not be recovered)" ;
        var _b_go = !_question ? YES : confirm( _q );
        if ( _b_go )
        {

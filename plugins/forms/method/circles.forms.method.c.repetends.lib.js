@@ -360,7 +360,7 @@ function CIRCLESmethodMANAGERrepetendsLOAD( _filename, _file_contents )
 {
     _glob_repetends_array.flush_associative();
     var _alphabet = circles_lib_alphabet_get();
-		var _reps_rows = ( _file_contents.includes( CRLF_WIN ) ) ? _file_contents.split( CRLF_WIN ) : ( _file_contents.includes( CRLF_NO_WIN ) ? _file_contents.split( CRLF_NO_WIN ) : null );
+		var _reps_rows = ( _file_contents.includes( CRLF_WIN ) ) ? _file_contents.split( CRLF_WIN ) : ( _file_contents.includes( CRLF_NOWIN ) ? _file_contents.split( CRLF_NOWIN ) : null );
     var _row_array, _termination ;
 		$.each( _reps_rows,
     				function( _i, _row )

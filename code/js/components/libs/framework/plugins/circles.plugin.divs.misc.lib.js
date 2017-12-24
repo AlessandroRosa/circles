@@ -77,33 +77,29 @@ function circles_lib_plugin_load()
        var _subset = arguments[0], _base_id = arguments[1], _i, _params = [] ;
        for( _i = 2 ; _i < _args_n ; _i++ )
        {
-          if ( ( "" + arguments[_i] ).length > 0 )
-				  {
-						 if ( ( safe_string( arguments[_i], "" ) ).start_with_i( "move:" ) )
-						 {
-						 		 var _tok = ( ( safe_string( arguments[_i], "" ).split( ":" ) )[1] ).toLowerCase() ;
-								 switch( _tok )
-								 {
-										case "yes": _params['a'] = 1 ; break ;
-										case "no": _params['a'] = 0 ; break ;
-						        default: _params['a'] = _tok ; break ;
-								 }
-						 }
-						 else if ( ( safe_string( arguments[_i], "" ) ).start_with_i( "items:", "plane:", "symbol", "tab:" ) )
-						 {
-						 		 _params['b'] = safe_string( ( ( safe_string( arguments[_i], "" ).split( ":" ) )[1] ), "" );
-						 }
-						 else if ( ( safe_string( arguments[_i], "" ) ).start_with_i( "src:" ) )
-						 {
-						 		 _params['c'] = safe_string( ( ( safe_string( arguments[_i], "" ).split( ":" ) )[1] ), "" );
-						 }
-             else if ( is_array( arguments[_i] ) )
-             {
-                _glob_persistent_vars['tmp_arg'+_i] = arguments[_i].clone();
-                _params.push( "_glob_persistent_vars['tmp_arg"+_i+"']" );
-             }
-             else _params.push( ""+arguments[_i] );
+			if ( ( "" + arguments[_i] ).length > 0 )
+			{
+				if ( ( safe_string( arguments[_i], "" ) ).start_with_i( "move:" ) )
+				{
+					var _tok = ( ( safe_string( arguments[_i], "" ).split( ":" ) )[1] ).toLowerCase() ;
+					switch( _tok )
+					{
+						case "yes": _params['a'] = 1 ; break ;
+						case "no": _params['a'] = 0 ; break ;
+						default: _params['a'] = _tok ; break ;
 					}
+				}
+				else if ( ( safe_string( arguments[_i], "" ) ).start_with_i( "items:", "plane:", "symbol", "tab:" ) )
+					_params['b'] = safe_string( ( ( safe_string( arguments[_i], "" ).split( ":" ) )[1] ), "" );
+				else if ( ( safe_string( arguments[_i], "" ) ).start_with_i( "src:" ) )
+					_params['c'] = safe_string( ( ( safe_string( arguments[_i], "" ).split( ":" ) )[1] ), "" );
+				else if ( is_array( arguments[_i] ) )
+				{
+					_glob_persistent_vars['tmp_arg'+_i] = arguments[_i].clone();
+					_params.push( "_glob_persistent_vars['tmp_arg"+_i+"']" );
+				}
+				else _params.push( ""+arguments[_i] );
+			}
        }
        
        var _popup_base_id = circles_lib_plugin_clean_baseid( _base_id );
@@ -113,48 +109,47 @@ function circles_lib_plugin_load()
        var _rel_folder_path = "plugins/"+_subset+"/"+_base_id+"/" ;
        if ( _abs_folder_path.match( /[A-Za-z0-9\.\-\/]/g ).length != _abs_folder_path.length )
        {
-					circles_lib_log_add_entry( "Incorrect input syntax", LOG_ERROR ) ;
-          return NO ;
-			 }
+			circles_lib_log_add_entry( "Incorrect input syntax", LOG_ERROR ) ;
+			return NO ;
+		}
        
-       var vars = { tip: "", folder : _abs_folder_path, filter : "/[?.js]$/",
-									  exact : 0, search_params : "0,0,1,0" } ;
+       var vars = { tip: "", folder : _abs_folder_path, filter : "/[?.js]$/", exact : 0, search_params : "0,0,1,0" } ;
        var _result = get_filedata_from_folder( "support/code/phpcode/svc/svc.filelist.php", "POST", false, vars );
        if ( _result.length > 0 )
        {
-       		var _old_title = document.title ;
+			var _old_title = document.title ;
          	document.title = "Loading module";
-					var _res_array = _result.includes( "@@@" ) ? _result.split( "@@@" ) : [ _result ] ;
-          var _rl = safe_size( _res_array, 0 ), _load_failure = NO, _src_code_load_failures = [] ;
-          for( _i = 0 ; _i < _rl ; _i++ )
-          {
-              $.ajaxSetup( { async:false } );
-              $.getScript( _rel_folder_path + _res_array[_i] ).done( function(){} ).fail( function(){ circles_lib_log_add_entry( "'"+_res_array[_i]+"' can't be loaded: suspected invalid filename or internal code error", LOG_ERROR ) ; _src_code_load_failures.push( _res_array[_i] ) ; } );
-          }
+			var _res_array = _result.includes( "@@@" ) ? _result.split( "@@@" ) : [ _result ] ;
+			var _rl = safe_size( _res_array, 0 ), _load_failure = NO, _src_code_load_failures = [] ;
+			for( _i = 0 ; _i < _rl ; _i++ )
+			{
+				$.ajaxSetup( { async:false } );
+				$.getScript( _rel_folder_path + _res_array[_i] ).done( function(){} ).fail( function(){ circles_lib_log_add_entry( "'"+_res_array[_i]+"' can't be loaded: suspected invalid filename or internal code error", LOG_ERROR ) ; _src_code_load_failures.push( _res_array[_i] ) ; } );
+			}
 
           _load_failure = safe_size( _src_code_load_failures, 0 ) > 0 ? YES : NO ;
           if ( !_load_failure )
           {
           		var _ret = 1, _ret_msg = "" ;
-					    try{ eval( _main_opener_cmd ) ; }
-					    catch( _err )
-							{
-									_ret = 0, _ret_msg = _err.name + ": " + _err.message ;
-									circles_lib_error_obj_handler( _err );
-							}
+				try{ eval( _main_opener_cmd ) ; }
+				catch( _err )
+				{
+					_ret = 0, _ret_msg = _err.name + ": " + _err.message ;
+					circles_lib_error_obj_handler( _err );
+				}
 
               if ( !_ret )
               {
-                 _ret_msg = "'"+_popup_base_id+"' service can't run because of internal code error(s)"+_glob_crlf+_ret_msg ;
-						 		 circles_lib_log_add_entry( _ret_msg, LOG_ERROR ) ;
+					_ret_msg = "'"+_popup_base_id+"' service can't run because of internal code error(s)"+_glob_crlf+_ret_msg ;
+					circles_lib_log_add_entry( _ret_msg, LOG_ERROR ) ;
               }
             	document.title = _old_title ;
               return _ret ;
           }
           else
           {
-							circles_lib_log_add_entry( "'"+_popup_base_id+"' service can't run due to invalid components" , LOG_ERROR ) ;
-            	document.title = _old_title ;
+				circles_lib_log_add_entry( "'"+_popup_base_id+"' service can't run due to invalid components" , LOG_ERROR ) ;
+				document.title = _old_title ;
               return NO ;
           }
        }

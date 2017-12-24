@@ -1,6 +1,6 @@
 function error_generic( MSG )
 {
-    MSG = MSG.replaceAll( [ CRLF_NO_WIN, CRLF_WIN ], "<br>" );
+    MSG = MSG.replaceAll( [ CRLF_NOWIN, CRLF_WIN ], "<br>" );
     var HTMLcode = "<table ALIGN=\"center\">" ;
         HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
         HTMLcode += "<tr><td>"+MSG+"</td></tr>" ;
@@ -17,7 +17,7 @@ function error_404( MSG, actionCODE, FILEPATH )
     if ( actionCODE > 0 )
     {
         var MSG_ACTIONCODE = "Action code : " + actionCODE ;
-            MSG = MSG.replaceAll( [ CRLF_NO_WIN, CRLF_WIN ], "<br>" ) ;
+            MSG = MSG.replaceAll( [ CRLF_NOWIN, CRLF_WIN ], "<br>" ) ;
 
         var file = basename( FILEPATH );
         var dir = dirname( FILEPATH );
@@ -52,7 +52,7 @@ function error_404( MSG, actionCODE, FILEPATH )
 
 function error_701( MSG )
 {
-        MSG = MSG.replaceAll( [ CRLF_NO_WIN, CRLF_WIN ], "<br>" );
+        MSG = MSG.replaceAll( [ CRLF_NOWIN, CRLF_WIN ], "<br>" );
 
         var HTMLcode = "<table ALIGN=\"center\"  WIDTH=\"100%\">" ;
             HTMLcode += "<tr><td HEIGHT=\"10\"></td></tr>" ;
@@ -74,7 +74,7 @@ function error_TIMEOUT( MSG, actionCODE )
 {
     var MSG_ACTIONCODE = "Action code : " + actionCODE ;
     
-    MSG = MSG.replaceAll( [ CRLF_NO_WIN, CRLF_WIN ], "<br>" );
+    MSG = MSG.replaceAll( [ CRLF_NOWIN, CRLF_WIN ], "<br>" );
 
     var HTMLcode = "<table ALIGN=\"center\" >" ;
         if ( _glob_isDEVELOPER )

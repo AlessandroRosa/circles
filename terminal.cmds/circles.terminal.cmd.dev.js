@@ -81,7 +81,7 @@ function circles_terminal_cmd_dev()
                     case "datatypes":
                     circles_lib_files_load_default_datatypes();
                     circles_lib_output( _out_channel, DISPATCH_INFO, "Currently registered datatypes", _par_1, _cmd_tag );
-                    circles_lib_output( _out_channel, DISPATCH_INFO, "\n", _par_1, _cmd_tag );
+                    circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
                     var _datatypes = circles_lib_datatype_get_table(YES), _notes_rows, _keys ;
                     var _columns = [], _out, _keys, _startINDEX = 0 ;
                         _columns.push( [ "Datatype", 12, "white" ] );
@@ -117,10 +117,9 @@ function circles_terminal_cmd_dev()
                     _out += "<"+_columns[2][2]+">" + ( _columns[2][0] ).rpad( " ", _columns[2][1] ) + "</"+_columns[2][2]+">" ;
                     _out += "<"+_columns[3][2]+">" + ( _columns[3][0] ).rpad( " ", _columns[3][1] ) + "</"+_columns[3][2]+">" ;
                     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _out, _par_1, _cmd_tag );
-                    circles_lib_output( _out_channel, DISPATCH_INFO, "\n", _par_1, _cmd_tag );
+                    circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
 
-  									$.each( _datatypes,
-										function( _i, _item )
+  					$.each( _datatypes, function( _i, _item )
 										{
                         _startINDEX = 0 ;
                         if ( _item['datatype_public'] != null )

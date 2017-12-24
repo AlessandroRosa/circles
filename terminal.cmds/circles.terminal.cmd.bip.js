@@ -427,7 +427,7 @@ function circles_terminal_cmd_bip()
 				   {
 					   _ret_msg = "Bip session has been closed after rendering, for data safety reasons." ;
 					   circles_lib_output( _out_channel, DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
-					   _ret_msg = "\nIf you want to save it, please open the bip session again" ;
+					   _ret_msg = _glob_crlf+"If you want to save it, please open the bip session again" ;
 					   circles_lib_output( _out_channel, DISPATCH_INFO, _ret_msg, _par_1, _cmd_tag );
 				   }
                    else circles_lib_output( _out_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
@@ -486,8 +486,8 @@ function circles_terminal_cmd_bip()
                     circles_lib_output( _out_channel, _already ? DISPATCH_INFO : DISPATCH_SUCCESS, "Bip session has been "+( _already ? "already " : "" )+( _glob_bip_use ? "opened" : "closed" )+"", _par_1, _cmd_tag );
                     if ( _glob_verbose && !_already )
                     {
-                        if ( _on ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "A new BIP session has been opened for further operations.\n<yellow>Except saving</yellow>, BIP actions can take place only in opened sessions", _par_1, _cmd_tag );
-                        else circles_lib_output( _out_channel, DISPATCH_INFO, "This BIP session has been closed.\nNo further BIP operations can be run", _par_1, _cmd_tag );
+                        if ( _on ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "A new BIP session has been opened for further operations."+_glob_crlf+"<yellow>Except saving</yellow>, BIP actions can take place only in opened sessions", _par_1, _cmd_tag );
+                        else circles_lib_output( _out_channel, DISPATCH_INFO, "This BIP session has been closed."+_glob_crlf+"No further BIP operations can be run", _par_1, _cmd_tag );
                     }
                 }
                 break ;
