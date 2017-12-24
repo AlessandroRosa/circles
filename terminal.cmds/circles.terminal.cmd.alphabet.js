@@ -265,12 +265,12 @@ function circles_terminal_cmd_alphabet()
     				_params_array['prepromptquestion'] = null ;
     				_params_array['promptquestion'] = "Confirm to decolorize all "+_dest_ref+"? " ;
     				_params_array['yes_fn'] = function() {
-					  var _ret_chunk = circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel );
+					  var _ret_chunk = circles_lib_colors_decolorize_group( _dest_ref, YES, YES, _out_channel );
 					  var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 					  var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
 					  circles_lib_output( _out_channel, _ret_id == RET_OK ? DISPATCH_SUCCESS : DISPATCH_WARNING, _ret_msg, _par_1, _cmd_tag );
 					}
-    			_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize( _dest_ref, YES, YES, _out_channel ); }
+    			_params_array['ifquestiondisabled_fn'] = function() { circles_lib_colors_decolorize_group( _dest_ref, YES, YES, _out_channel ); }
 				if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
      			else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
             }

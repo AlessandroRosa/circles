@@ -4,11 +4,14 @@
 
 <lightblue>usage</lightblue> <snow>movewnd %popup% %coords%</snow>
 
-<cadetblue>movewnd forms dictionary left top</cadetblue>
-<lightblue>move the popup 'dictionary', belonging to 'forms' subset, to left top corner</lightblue>
+<cadetblue>movewnd embeddings jorgensen left top</cadetblue>
+<lightblue>move the popup 'jorgensen', belonging to 'embeddings' subset, to left top corner</lightblue>
 
-<cadetblue>movewnd forms dictionary 200 300</cadetblue>
-<lightblue>move the popup 'dictionary', belonging to 'forms' subset, to x:200 y:300</lightblue>
+<cadetblue>movewnd embeddings jorgensen 200 300</cadetblue>
+<lightblue>move the popup 'jorgensen', belonging to 'embeddings' subset, to x:200 y:300</lightblue>
+
+<cadetblue>movewnd list</cadetblue>
+<lightblue>return the list of pop-up windows currently displayed on the screen</lightblue>
 
 <lightblue>movewnd release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>

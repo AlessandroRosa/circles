@@ -148,7 +148,7 @@ function circles_lib_colors_colorize_group( _items_array = _glob_seeds_array, _u
     }
 }
 
-function circles_lib_colors_decolorize( _items_array = _glob_seeds_array, _update = NO, _silent = NO, _out_channel = OUTPUT_SCREEN )
+function circles_lib_colors_decolorize_group( _items_array = _glob_seeds_array, _update = NO, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
     _update = safe_int( _update, NO ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
 	_items_array = circles_lib_items_set( _items_array );
@@ -184,7 +184,7 @@ function circles_lib_colors_decode_tags( _data = "" )
 
 function circles_lib_colors_compute_gradient( RGBintSTART = "", RGBintEND = "", nSTEPS = 1, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
-	nSTEPS = Math.min( 1, safe_int( nSTEPS, 1 ) - 1 ) ;
+	nSTEPS = Math.max( 1, Math.min( 255, safe_int( nSTEPS, 1 ) - 1 ) ) ;
     RGBintSTART = safe_string( RGBintSTART, _glob_palette_array[0] );
     if ( RGBintSTART.length == 0 ) RGBintSTART = _glob_palette_array[0] ;
     RGBintEND = safe_string( RGBintEND, _glob_palette_array.get_last() );
@@ -221,13 +221,13 @@ function circles_lib_colors_compute_gradient( RGBintSTART = "", RGBintEND = "", 
           tmpPALETTE.push( "rgb( "+R+","+G+","+B+" )" );
        }
 
-       var _msg = "Colors palette has been resized to " + tmpPALETTE.length + " entr" + ( tmpPALETTE.length == 1 ? "y" : "ies" ) ;
+       var _msg = "A new palette with a gradient of " + tmpPALETTE.length + " entr" + ( tmpPALETTE.length == 1 ? "y" : "ies" ) + " has been created" ;
        if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_SUCCESS, _msg, _glob_app_title );
-		return [ RET_OK, tmpPALETTE, _msg ] ;
+	   return [ RET_OK, tmpPALETTE, _msg ] ;
     }
     else
 	{
-        var _msg = "Fail to resize the colors palette : invalid input RGB colors" ;
+        var _msg = "Fail to compute gradient the colors palette : invalid input RGB colors" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, _msg, _glob_app_title );
 		return [ RET_ERROR, null, _msg ] ;
 	}

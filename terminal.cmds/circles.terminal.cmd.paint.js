@@ -41,7 +41,7 @@ function circles_terminal_cmd_paint()
          _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
          // pre-scan for levenshtein correction
     		 var _cmd_terms_dict = [];
-    				 _cmd_terms_dict.push( "show", "compute", "release", "all", "html", "help" );
+    				 _cmd_terms_dict.push( "show", "compute", "release", "all", "html", "help", "colorslist" );
          circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
 
 				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
@@ -52,8 +52,8 @@ function circles_terminal_cmd_paint()
 				 // gather all dump parameters into one array
          if ( _cmd_params['dump'] )
          {
-    				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-    				 if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
+    		for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+    		if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
          }
 				 
          var _p ;
@@ -64,11 +64,10 @@ function circles_terminal_cmd_paint()
             _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p.toLowerCase();
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-            else if ( _p.stricmp( "all" ) ) _cmd_params['all'] = YES ;
-            else if ( _p.length == 1 && _p.isAlpha() ) _symbols_array.push( _p );
+            else if ( _p.is_one_of_i( "tags", "release" ) ) _cmd_params['action'] = _p.toLowerCase();
+            else if ( _p.is_one_of_i( "all", "html" ) ) _cmd_params[_p] = YES ;
             else if ( _p.stricmp( "none" ) ) _cmd_params['color'] = "transparent" ;
+            else if ( _p.length == 1 && _p.isAlpha() ) _symbols_array.push( _p );
             else if ( circles_lib_colors_is_def( _p ) ) _cmd_params['color'] = _p ;
             else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
@@ -92,6 +91,22 @@ function circles_terminal_cmd_paint()
                   case "release":
                   circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
+				  case "tags":
+				  var _colors_defs = _glob_def_clrs_tags.keys_associative(), _cnt = 0, _cols = 5, _row = "", _max_len = 0 ;
+				  _colors_defs.forEach( function( _def ){ _max_len = Math.max( _max_len, _def.length ) ; } ) ;
+				  _colors_defs.forEach( function( _def )
+				  {
+					  _def = _def.replace( /^tag./, "" );
+					  if ( _cnt % _cols == 0 && _row.length > 0 )
+					  {
+						circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row+_glob_crlf, _par_1, _cmd_tag );
+						_row = "" ;
+					  }
+					  else _row += "<"+_def+">CLR</"+_def+"> " + _def.rpad( " ", _max_len+1 ) + "  " ;
+					  _cnt++ ;
+				  }	) ;
+				  
+				  break ;
                   default:
                   // convert input symbols into an array of indexes to be applied to next actions
                   var _selection_indexes_array = [] ;

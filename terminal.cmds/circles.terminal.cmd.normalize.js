@@ -1,27 +1,27 @@
 function circles_terminal_cmd_normalize()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _out_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
 	var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0, _cnt = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _symbols_array = [] ;
-     var _inv_symbols_array = [] ;
-     var _rotation_degree = 0, _rotation_radians = 0 ;
-     var _sd_n = circles_lib_count_seeds();
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _cmd_params = [];
+    var _b_fail = 0, _cnt = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _symbols_array = [] ;
+    var _inv_symbols_array = [] ;
+    var _rotation_degree = 0, _rotation_radians = 0 ;
+    var _sd_n = circles_lib_count_seeds();
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _cmd_params = [];
 
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
      if ( _params.length > 0 )
@@ -45,17 +45,17 @@ function circles_terminal_cmd_normalize()
     	var _cmd_terms_dict = [ "show", "compute", "release", "html" ];
          circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
 
-				 var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-				 _cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-				 _cmd_params['dump_operator_index'] = _dump_operator_index ;
-				 _cmd_params['dump_array'] = [];
+		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
+		_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+		_cmd_params['dump_operator_index'] = _dump_operator_index ;
+		_cmd_params['dump_array'] = [];
 				
-				 // gather all dump parameters into one array
-         if ( _cmd_params['dump'] )
-         {
+		// gather all dump parameters into one array
+        if ( _cmd_params['dump'] )
+        {
 			for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
     		if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
-         }
+        }
 				 
          var _p ;
          // if dumping is set on, then cmd params are processed up to the dump operator itself: dump params will be managed separately
@@ -65,12 +65,13 @@ function circles_terminal_cmd_normalize()
             _p = _params_array[_i] ;
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.stricmp( "all", "html", "silent" ) ) _cmd_params[_p] = YES ;
+            else if ( _p.is_one_of_i( "all", "html", "silent" ) ) _cmd_params[_p] = YES ;
+            else if ( _p.is_one_of_i( "show", "compute", "release" ) ) _cmd_params['action'] = _p.toLowerCase();
             else if ( _p.stricmp( "seeds" ) ) _cmd_params["item"] = ITEMS_SWITCH_SEEDS ;
             else if ( _p.stricmp( "generators" ) ) _cmd_params["item"] = ITEMS_SWITCH_GENS ;
             else if ( _p.toLowerCase().start_with( "roundto:" ) )
             {
-              _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
+              _p = safe_int( _p.replace( /^roundto:/g, "" ), 0 ) ;
               if ( _p <= 0 )
               {
                  _p = _glob_accuracy ;
@@ -81,10 +82,8 @@ function circles_terminal_cmd_normalize()
                  _p = _glob_accuracy ;
                  circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
               }
-                   
               _cmd_params['roundto'] = _p ;
             }
-            else if ( _p.is_one_of_i( "show", "compute", "release" ) ) _cmd_params['action'] = _p.toLowerCase();
             else if ( _p.length == 1 && _p.isAlpha() ) _symbols_array.push( _p );
             else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
          }
@@ -133,6 +132,7 @@ function circles_terminal_cmd_normalize()
                   else if ( _sel_n == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "Fail to "+_action+": missing input symbols", _par_1, _cmd_tag );
                   else
                   {
+                       circles_lib_output( _out_channel, DISPATCH_INFO, "Catching up infos about the Mobius Maps from the current configuration", _par_1, _cmd_tag );
                        var ITEM = null, _out_str = "", _index = UNFOUND ;
                        var _a_str, _b_str, _c_str, _d_str, _det_str, _check, _check_str ;
                        for( var _i = 0 ; _i < _sel_n ; _i++ )
@@ -142,20 +142,14 @@ function circles_terminal_cmd_normalize()
                             if ( is_item_obj( ITEM ) && _index != UNFOUND )
                             {
                                  _check = ITEM.map.is_normalized();
-                                 _out_str += "<yellow>"+ITEM.symbol+"</yellow>" + ( new String( "" ) ).rpad( " ", 6 - ITEM.symbol.length );
-                                 _a_str = new String( ITEM.map.get_a().formula(1,1,_round_to) );
-                                 _out_str += "<lightblue>"+_a_str+"</lightblue>" + ( new String( "" ) ).rpad( " ", ( _glob_accuracy + 6 ) - _a_str.length );
-                                 _b_str = new String( ITEM.map.get_b().formula(1,1,_round_to) );
-                                 _out_str += "<lightblue>"+_b_str +"</lightblue>"+ ( new String( "" ) ).rpad( " ", ( _glob_accuracy + 6 ) - _b_str.length );
-                                 _c_str = new String( ITEM.map.get_c().formula(1,1,_round_to) );
-                                 _out_str += "<lightblue>"+_c_str +"</lightblue>"+ ( new String( "" ) ).rpad( " ", ( _glob_accuracy + 6 ) - _c_str.length );
-                                 _d_str = new String( ITEM.map.get_d().formula(1,1,_round_to) );
-                                 _out_str += "<lightblue>"+_d_str +"</lightblue>"+ ( new String( "" ) ).rpad( " ", ( _glob_accuracy + 6 ) - _d_str.length );
-                                 _det_str = new String( ITEM.map.det().formula(1,1,_round_to) );
-                                 _out_str += "<lightblue>"+_det_str +"</lightblue>"+ ( new String( "" ) ).rpad( " ", ( _glob_accuracy + 6 ) - _det_str.length );
-                                 _check_str = ( _check ) ? "yes" : "no" ;
-                                 _out_str += ( _check ) ? "<green>"+_check_str+"</green>" : "<red>"+_check_str+"</red>"+ ( new String( "" ) ).rpad( " ", 6 );
-                                 _out_str += _glob_crlf ;
+                                 _out_str = "<yellow>"+ITEM.symbol+"</yellow>" + _glob_crlf ;
+                                 _out_str += "a: <lightblue>" + ITEM.map.get_a().formula(1,1,_round_to) + "</lightblue>" + _glob_crlf ;
+                                 _out_str += "b: <lightblue>" + ITEM.map.get_b().formula(1,1,_round_to) + "</lightblue>" + _glob_crlf ;
+                                 _out_str += "c: <lightblue>" + ITEM.map.get_c().formula(1,1,_round_to) + "</lightblue>" + _glob_crlf ;
+                                 _out_str += "d: <lightblue>" + ITEM.map.get_d().formula(1,1,_round_to) + "</lightblue>" + _glob_crlf ;
+                                 _out_str += "Det: <lightblue>" + ITEM.map.det().formula(1,1,_round_to) + "</lightblue>" + _glob_crlf ;
+                                 _out_str += "Normalized: " + ( _check ? "<green>Yes</green>" : "<red>No</red>" ) ;
+	                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _out_str, _par_1, _cmd_tag );
                             }
                             else
                             {
@@ -164,20 +158,7 @@ function circles_terminal_cmd_normalize()
                             }
                        }
 
-                       if ( _out_str.length > 0 && !_b_fail && _action.stricmp( "show" ) )
-                       {
-                            var _header =  new String( "<snow>Symbol</snow>" ) + ( new String() ).rpad( " ", 6 - ( new String( "symbol" ) ).length );
-                                _header += new String( "<snow>A</snow>" ) + ( new String() ).rpad( " ", ( _glob_accuracy + 6 ) - ( new String( "A" ) ).length );
-                                _header += new String( "<snow>B</snow>" ) + ( new String() ).rpad( " ", ( _glob_accuracy + 6 ) - ( new String( "B" ) ).length );
-                                _header += new String( "<snow>C</snow>" ) + ( new String() ).rpad( " ", ( _glob_accuracy + 6 ) - ( new String( "C" ) ).length );
-                                _header += new String( "<snow>D</snow>" ) + ( new String() ).rpad( " ", ( _glob_accuracy + 6 ) - ( new String( "D" ) ).length );
-                                _header += new String( "<snow>Determinant</snow>" ) + ( new String() ).rpad( " ", ( _glob_accuracy + 6 ) - ( new String( "Determinant" ) ).length );
-                                _header += new String( "<snow>Normalized</snow>" ) + ( new String() ).rpad( " ", 6 );
-                                _header += _glob_crlf ;
-                                _out_str = _header + _out_str ;
-                            circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _out_str, _par_1, _cmd_tag );
-                       }
-                       else if ( !_b_fail && _action.stricmp( "compute" ) )
+                       if ( !_b_fail && _action.stricmp( "compute" ) )
                        {
                             var _msg = "Normalization for " ;
                                 _msg += ( _cmd_params['all'] ) ? "all maps " : "maps " + _symbols_array.join( ", " ) + " " ;

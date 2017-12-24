@@ -7,7 +7,7 @@
    14 : rect obj for popup wnd pos and extents
 */
 
-function circles_lib_set_caption_text( _div_id, _caption_text )
+function circles_lib_set_caption_text( _div_id = "", _caption_text = "" )
 {
     _caption_text = safe_string( _caption_text, "" ).trim();
     if ( _caption_text.length == 0 ) return NO ;
@@ -20,15 +20,21 @@ function circles_lib_set_caption_text( _div_id, _caption_text )
     else return -1 ;
 }
 
-function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrows,
-				 _append_fns_at_close, _width, _height, _caller_fn,
-				 _base_id, _div_id, _subset, _iconpath, _focus_fn,
-				 _help_fn, _fns_group_label,
-				 _normalize_fns, _minimize_fns, _maximize_fns )
+function circles_lib_plugin_caption_code( _run = NO, _title = "", _caption_colspan = 0, _arrows = NO,
+				 _append_fns_at_close = "", _width = -1, _height = -1, _caller_fn = null,
+				 _base_id = "", _div_id = "", _subset = "", _iconpath, _focus_fn = null,
+				 _help_fn = "", _fns_group_label = "",
+				 _normalize_fns = null, _minimize_fns = null, _maximize_fns = null )
 {
     _run = safe_int( _run, NO ), _div_id = safe_string( _div_id, "" );
     _iconpath = safe_string( _iconpath, "" );
     _fns_group_label = safe_string( _fns_group_label, "" );
+    _caption_colspan = safe_int( _caption_colspan, 1 ), _arrows = safe_int( _arrows, 1 );
+    _caller_fn = safe_string( _caller_fn, "" );
+    _focus_fn = safe_string( _focus_fn, "" );
+    _append_fns_at_close = safe_string( _append_fns_at_close, "" );
+    _help_fn = safe_string( _help_fn, "" );
+	_title = _title.length > 70 ? _title.substr( 0, 65 ) + "&nbsp;.." : _title ;
     var _popup_wnd_width = _width ; // save the original input data
     var _div_label = _div_id.replaceAll( [ "POPUP", "DIV" ], "" );
     if ( _width != "100%" ) _width = safe_int( _width, "100%" );
@@ -36,13 +42,6 @@ function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrow
     if ( !is_array( _normalize_fns ) ) _normalize_fns = [ "", _div_id, _width, _height ] ;
 
     _glob_popup_divs_rec_default_metrics_array[''+_div_id] = [ _width ] ;
-    
-    _caption_colspan = safe_int( _caption_colspan, 1 ), _arrows = safe_int( _arrows, 1 );
-    _caller_fn = safe_string( _caller_fn, "" );
-    _focus_fn = safe_string( _focus_fn, "" );
-    _append_fns_at_close = safe_string( _append_fns_at_close, "" );
-    _help_fn = safe_string( _help_fn, "" );
-	_title = _title.length > 70 ? _title.substr( 0, 65 ) + "&nbsp;.." : _title ;
 
 	var _clean_base_id = safe_string( _base_id, "" ).replace( /[\.\_\-]/g, "" ).toUpperCase();
     var METHODstr = circles_lib_method_get_def( _glob_method );
@@ -90,23 +89,23 @@ function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrow
        HTMLcode += "<td WIDTH=\"2\"></td>" ;
     }
 
- 		HTMLcode += "<td WIDTH=\"3\"></td>" ;
+	HTMLcode += "<td WIDTH=\"3\"></td>" ;
     HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_maximize('"+_div_id+"', '"+( is_array( _maximize_fns ) ? _maximize_fns.join("|") : "" )+"');\"><IMG TITLE=\"Maximize Window\" SRC=\"%imgpath%icons/wnd/maximize.icon.01.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
-		HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_minimize('"+_div_id+"', '"+( is_array( _minimize_fns ) ? _minimize_fns.join("|") : "" )+"');\"><IMG TITLE=\"Minimize Window\" SRC=\"%imgpath%icons/wnd/minimize.icon.01.20x20.png\"></td>" ;
+	HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_minimize('"+_div_id+"', '"+( is_array( _minimize_fns ) ? _minimize_fns.join("|") : "" )+"');\"><IMG TITLE=\"Minimize Window\" SRC=\"%imgpath%icons/wnd/minimize.icon.01.20x20.png\"></td>" ;
     HTMLcode += "<td WIDTH=\"3\"></td>" ;
-	  HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_normalize('"+_div_id+"', '"+( is_array( _normalize_fns ) ? _normalize_fns.join("|") : "" )+"');\"><IMG TITLE=\"Normalize Window\" SRC=\"%imgpath%icons/wnd/normalize.icon.01.20x20.png\"></td>" ;
+	HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_normalize('"+_div_id+"', '"+( is_array( _normalize_fns ) ? _normalize_fns.join("|") : "" )+"');\"><IMG TITLE=\"Normalize Window\" SRC=\"%imgpath%icons/wnd/normalize.icon.01.20x20.png\"></td>" ;
 
     if ( _arrows )
     {
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', '', 'TOP' );\"><IMG TITLE=\""+_CAPTION_BTN_03+"\" SRC=\"%imgpath%icons/bullets/bullet.up.20x20.png\"></td>" ;
+       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd('"+_div_id+"', '', 'TOP' );\"><IMG TITLE=\""+_CAPTION_BTN_03+"\" SRC=\"%imgpath%icons/bullets/bullet.up.20x20.png\"></td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', '', 'BOTTOM' );\"><IMG TITLE=\""+_CAPTION_BTN_04+"\" SRC=\"%imgpath%icons/bullets/bullet.down.20x20.png\"></td>" ;
+       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd('"+_div_id+"', '', 'BOTTOM' );\"><IMG TITLE=\""+_CAPTION_BTN_04+"\" SRC=\"%imgpath%icons/bullets/bullet.down.20x20.png\"></td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', 'LEFT', '' );\"><IMG TITLE=\""+_CAPTION_BTN_01+"\" SRC=\"%imgpath%icons/bullets/bullet.left.20x20.png\"></td>" ;
+       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd('"+_div_id+"', 'LEFT', '' );\"><IMG TITLE=\""+_CAPTION_BTN_01+"\" SRC=\"%imgpath%icons/bullets/bullet.left.20x20.png\"></td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
-       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd( '"+_div_id+"', 'RIGHT', '' );\"><IMG TITLE=\""+_CAPTION_BTN_02+"\" SRC=\"%imgpath%icons/bullets/bullet.right.20x20.png\"></td>" ;
+       HTMLcode += "<td CLASS=\"popup_caption_btn\" ONCLICK=\"javascript:circles_lib_plugin_move_wnd('"+_div_id+"', 'RIGHT', '' );\"><IMG TITLE=\""+_CAPTION_BTN_02+"\" SRC=\"%imgpath%icons/bullets/bullet.right.20x20.png\"></td>" ;
        HTMLcode += "<td WIDTH=\"3\"></td>" ;
     }
 
@@ -135,13 +134,13 @@ function circles_lib_plugin_caption_code( _run, _title, _caption_colspan, _arrow
     return HTMLcode ;
 }
 
-function circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, contents, _class, _zIndex, _bind_events, _top )
+function circles_lib_plugin_create( _div_id = "", WIDTH = 0, HEIGHT = 0, contents = "", _class = 0, _zIndex = -1, _bind_events = NO, _top = -1 )
 {
     _zIndex = safe_int( _zIndex, 10 ), _bind_events = safe_int( _bind_events, YES );
     _top = safe_int( _top, 100 ), _class = safe_string( _class, "popup_wnd" );
     WIDTH = Math.max( safe_int( WIDTH, 0 ), 0 ), HEIGHT = Math.max( safe_int( HEIGHT, 0 ), 0 ) ;
-    var _div = $("#"+_div_id ).get(0);
-        _div = _div == null ? document.createElement("div") : _div ;
+    var _div = _div_id.length > 0 ? $("#"+_div_id ).get(0) : null ;
+        _div = _div_id.length > 0 ? ( _div == null ? document.createElement("div") : _div ) : null ;
     if ( _div != null )
     {
       _glob_wnd_id = _div_id, _glob_wnd = _div ;
@@ -184,9 +183,13 @@ function circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, contents, _class, _z
     return _div ;
 }
 
-function circles_lib_plugin_destroy_wnd( _div_id )
+function circles_lib_plugin_destroy_wnd( _div_id = "", _subset = "" )
 {
-    var _popup_chunk = circles_lib_plugin_find_wnd( { div_id : _div_id }, POPUP_SEARCH_BY_DIV_ID );
+	_div_id = safe_string( _div_id, "" ).trim(), _subset = safe_string( _subset, "" ).trim();
+	var _json = {}, _mask = 0 ;
+	if ( _div_id.length > 0 ) { _json.div_id = _div_id ; _mask |= POPUP_SEARCH_BY_DIV_ID ; }
+	if ( _subset.length > 0 ) { _json.subset = _subset ; _mask |= POPUP_SEARCH_BY_SUBSET }
+    var _popup_chunk = circles_lib_plugin_find_wnd( { div_id : _div_id, subset : _subset }, _mask );
     if ( !is_array( _popup_chunk ) ) return NO ;
     else
     {
@@ -208,7 +211,7 @@ function circles_lib_plugin_destroy_wnd( _div_id )
     }
 }
 
-function circles_lib_plugin_register( _calling_params, _div_id, _caption, _status, _visible, _caption_class, _subset = "forms", _base_id, _allow_multiple_instances )
+function circles_lib_plugin_register( _calling_params = [ "", "" ], _div_id = "", _caption = "", _status, _visible, _caption_class, _subset = "forms", _base_id = "", _allow_multiple_instances = NO )
 {
     if ( !is_array( _calling_params ) ) _calling_params = [ "", "" ] ;
     _div_id = safe_string( _div_id, "" ).trim();
@@ -229,27 +232,25 @@ function circles_lib_plugin_register( _calling_params, _div_id, _caption, _statu
                                _base_id,
                                _allow_multiple_instances,
                                new rect()
-                             ]
-                           );
+                             ] );
     return _glob_popups_array.get_last() ;
 }
 
-function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _calling_fn, _calling_args,
-				_subset, _b_open, _div_id, _caption, _append_fns_at_close,
+function circles_lib_plugin_activate( _allow_multiple_instances = NO, _base_id = "", _calling_fn = null, _calling_args = null,
+				_subset = "", _b_open = OPEN, _div_id = "", _caption = "", _append_fns_at_close,
 				_normalize_fns, _minimize_fns, _maximize_fns, _caption_class )
 {
-		var _tmp_args = [] ; for( var _a = 0 ; _a < _calling_args.length ; _a++ ) _tmp_args.push( _calling_args[_a] );
-				_calling_args = _tmp_args.work( function( _tok ) { return "'"+( ( new String( _tok ) ).addslashes() )+"'" ; } ) ;
-		var _calling_params = [ _calling_fn, _calling_args.join( "," ) ] ;
+	var _tmp_args = [] ; for( var _a = 0 ; _a < _calling_args.length ; _a++ ) _tmp_args.push( _calling_args[_a] );
+		_calling_args = _tmp_args.work( function( _tok ) { return "'"+( ( new String( _tok ) ).addslashes() )+"'" ; } ) ;
+	var _calling_params = [ _calling_fn, _calling_args.join( "," ) ] ;
 
     _b_open = safe_int( _b_open, OPEN );
     if ( !_b_open ) _glob_popup_mask ^= 1;
     _allow_multiple_instances = safe_int( _allow_multiple_instances, NO );
-    _base_id = safe_string( _base_id, "" ).trim();
-    _div_id = safe_string( _div_id, "" );
+    _subset = safe_string( _subset, "forms" ).trim();
+    _base_id = safe_string( _base_id, "" ).trim(), _div_id = safe_string( _div_id, "" );
     _caption = safe_string( _caption, "" ).trim();
     _append_fns_at_close = safe_string( _append_fns_at_close, "" ).trim();
-    _subset = safe_string( _subset, "forms" ).trim();
     _caption_class = safe_string( _caption_class, "popup_caption_bk_enabled" ).trim();
     var _close = ( !_b_open && _append_fns_at_close.length > 0 ) ? eval( _append_fns_at_close ) : YES ;
     if ( !_close ) return ;
@@ -323,7 +324,7 @@ function circles_lib_plugin_activate( _allow_multiple_instances, _base_id, _call
   	  $("#"+_div_id).get(0).onmousedown = function( event ) { POPUPSDIVonmousedown( _div_id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
   	  $("#"+_div_id).get(0).onmouseup = function( event ) { POPUPSDIVonmouseup( _div_id, event, _append_fns_at_close, _normalize_fns, _minimize_fns, _maximize_fns, _calling_fn, _calling_args ); }
   	  $("#"+_div_id).get(0).oncontextmenu = function( event ) { return POPUPSDIVoncontextmenu( _unique_id, this.id, event ); }
-		}
+	}
 
     if ( !_b_open && $( "#"+_div_id ).get(0) != null )
     circles_lib_plugin_destroy_wnd( _div_id );

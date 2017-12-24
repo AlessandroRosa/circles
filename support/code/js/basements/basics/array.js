@@ -770,35 +770,35 @@ if ( !Array.remove )
 {
     Array.prototype.remove = function()
     {
-				if ( is_array( arguments[0] ) )
-				{
-						for( var _a = 0 ; _a < arguments[0].length ; _a++ )
-						{
-		    				var from = this.indexOf( arguments[0][_a] ), to = this.indexOf( arguments[0][_a] ) ;
-				        var rest = this.slice( ( to || from ) + 1 || this.length ) ;
-				        this.length = from < 0 ? this.length + from : from ;
-				        this.push.apply( this, rest ) ;
-						}
-						
-						return this ;
-				}
+		if ( is_array( arguments[0] ) )
+		{
+			var from, rest ;
+			for( var _a = 0 ; _a < arguments[0].length ; _a++ )
+			{
+				from = this.indexOf( arguments[0][_a] ), to = this.indexOf( arguments[0][_a] ) ;
+				rest = this.slice( ( to || from ) + 1 || this.length ) ;
+				this.length = from < 0 ? this.length + from : from ;
+				this.push.apply( this, rest ) ;
+			}
+			return this ;
+		}
         else // from-index-to-index syntax
-    		{
-    				var from, to ;
-            if ( arguments.length == 2 )
-            {
-                from = safe_int( arguments[0], -1 ), to = safe_int( arguments[1], -1 ) ;
-            }
-            else if ( arguments.length == 1 ) from = to = safe_int( arguments[0], -1 ) ;
+   		{
+			var from, to ;
+			if ( arguments.length == 2 )
+			{
+				from = safe_int( arguments[0], -1 ), to = safe_int( arguments[1], -1 ) ;
+			}
+			else if ( arguments.length == 1 ) from = to = safe_int( arguments[0], -1 ) ;
 
-            if ( from != -1 && to != -1 && from <= to )
-            {
-    		        var rest = this.slice( ( to || from ) + 1 || this.length ) ;
-    		        this.length = from < 0 ? this.length + from : from ;
-    		        return this.push.apply( this, rest ) ;
-            }
-            else return this ;
-				}
+			if ( from != -1 && to != -1 && from <= to )
+			{
+				var rest = this.slice( ( to || from ) + 1 || this.length ) ;
+				this.length = from < 0 ? this.length + from : from ;
+				return this.push.apply( this, rest ) ;
+			}
+			else return this ;
+		}
     }
 }
 

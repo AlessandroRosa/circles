@@ -152,34 +152,29 @@ function circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _para
  		}
 }
 
-function circles_lib_terminal_wait_icon( _show, _tab_index, _suffix )
+function circles_lib_terminal_wait_icon( _show = YES, _tab_index = 0, _suffix = "" )
 {
+	_show = safe_int( _show, YES );
     var CTRL_ID = "" ;
     if ( _tab_index == 0 ) CTRL_ID = "CIRCLESTERMINAL_TAB_01_BAR_BTN_03" + _suffix ;
-
     if ( CTRL_ID.length > 0 && $( "#" + CTRL_ID ).get(0) != null )
     $( "#" + CTRL_ID ).html( _show ? "<IMG SRC=\""+_glob_path_to_img+"wait/wait.icon.12x12.gif\">" : "" );
 }
 
 function circles_lib_terminal_help_cmd( _html_flag, _cmd_tag, _param_01, _out_channel )
 {
-    jQuery.get( _glob_paths['terminalhelp'] + _cmd_tag + ".cmd.hlp",
-                function( _help_text )
-                {
-                		_help_text = $.terminal.escape_brackets( _help_text ) ;
-                    if ( _html_flag ) circles_lib_output( _out_channel, DISPATCH_INFO, LANG_MSG_00, _param_01, _cmd_tag, 1 );
-                    _html_flag ? circles_lib_terminal_color_decode_htmltext( _help_text, _cmd_tag ) : circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _help_text, _param_01, _cmd_tag, 1 );
-                },
-                'html');
+    jQuery.get( _glob_paths['terminalhelp'] + _cmd_tag + ".cmd.hlp", function( _help_text ) {
+        _help_text = $.terminal.escape_brackets( _help_text ) ;
+        if ( _html_flag ) circles_lib_output( _out_channel, DISPATCH_INFO, LANG_MSG_00, _param_01, _cmd_tag, 1 );
+        _html_flag ? circles_lib_terminal_color_decode_htmltext( _help_text, _cmd_tag ) : circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _help_text, _param_01, _cmd_tag, 1 );
+        }, 'html');
 }
 
-function circles_lib_terminal_color_decode_htmltext( _html_code, _cmd_tag, _x_pos, _y_pos, _bk, _return_html )
+function circles_lib_terminal_color_decode_htmltext( _html_code = "", _cmd_tag = "", _x_pos = 0, _y_pos = 40, _bk = "#232323", _return_html = NO )
 {
     _html_code = _html_code.replaceAll( [ CRLF_WIN, CRLF_NO_WIN, '<br>' ], "<br>" );
-    _cmd_tag = safe_string( _cmd_tag, "" );
-    _return_html = safe_int( _return_html, NO );
-    var _color_tags_array = _glob_def_clrs_tags.keys_associative();
-    var _color_tag = "", _color_def = "" ;
+    _cmd_tag = safe_string( _cmd_tag, "" ), _return_html = safe_int( _return_html, NO );
+    var _color_tags_array = _glob_def_clrs_tags.keys_associative(), _color_tag = "", _color_def = "" ;
     for( var _x = 0 ; _x < _color_tags_array.length ; _x++ )
     {
        _color_tag = _color_tags_array[ _x ] ;

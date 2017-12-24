@@ -195,15 +195,17 @@ function circles_terminal_cmd_plugin()
                  else circles_lib_output( _out_channel, DISPATCH_ERROR, "Cannot get current Plug-in: please, set it first", _par_1, _cmd_tag );
                  break ;
                  case "list":
-                 var _cols_width = [ 9, 14, 25, 30 ], _startINDEX = 0, _row = "" ;
+                 var _cols_width = [ 9, 14, 25, 30, 10 ], _startINDEX = 0, _row = "" ;
                  	 _row = "<lightgray>Currently open pop-up windows</lightgray>" ;
                      _row += _glob_crlf + "<snow>"+( new String( "Visible" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</snow>" ;
                      _startINDEX++ ;
-                     _row += "<lightblue>"+( new String( "Subset" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
+                     _row += "<lightblue>"+( "Subset" ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
                      _startINDEX++ ;
-                     _row += "<white>"+( new String( "Opening id" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</white>" ;
+                     _row += "<white>"+( "Name" ).rpad( " ", _cols_width[_startINDEX] ) + "</white>" ;
                      _startINDEX++ ;
-                     _row += "<lightblue>"+( new String( "Popup caption" ) ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
+                     _row += "<lightblue>"+( "Popup caption" ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
+                     _startINDEX++ ;
+                     _row += "<lightblue>"+( "Active" ).rpad( " ", _cols_width[_startINDEX] ) + "</lightblue>" ;
                   circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                   var _subset, _base_id, _caption, _visible ;
                   $.each( _glob_popups_array, function( _i, _chunk )
@@ -217,6 +219,8 @@ function circles_terminal_cmd_plugin()
   							_row += "<white>"+_base_id.rpad( " ", _cols_width[_startINDEX] )+"</white>" ;
                             _startINDEX++ ;
                             _row += "<lightblue>"+_caption.rpad( " ", _cols_width[_startINDEX] )+"</lightblue>" ;
+							_startINDEX++ ;
+							_row += ""+(_chunk[6]?"<lime>Yes</lime>":"<slategray>No</slategray>") ;
                             circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _row, _par_1, _cmd_tag );
                           }
                         );

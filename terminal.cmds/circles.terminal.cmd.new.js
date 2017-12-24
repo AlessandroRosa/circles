@@ -1,56 +1,55 @@
 function circles_terminal_cmd_new()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _out_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _cmd_params = [];
-         _cmd_params['mask'] = UNDET ;
-         _cmd_params['clean'] = NO ;
-
-     _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
-     _cmd_params['help'] = NO ;
-     _cmd_params['keywords'] = NO ;
+	var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _cmd_params = [];
+        _cmd_params['mask'] = UNDET ;
+        _cmd_params['clean'] = NO ;
+    _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
+    _cmd_params['help'] = NO ;
+    _cmd_params['keywords'] = NO ;
+    _cmd_params['list'] = [] ;
          
      var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
      _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
-     _cmd_params['mask'] = RESET_NONE ;
-     // pre-scan for levenshtein correction
-	 var _cmd_terms_dict = [];
- 		 _cmd_terms_dict.push( "release", "bip", "clean", "coords", "generals", "none", "plugins", "terminal", "html", "help" );
-     circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
-     var _p ;
-     for( var _i = 0 ; _i < _params_array.length ; _i++ )
-     {
-             _p = _params_array[_i].toLowerCase();
-             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
-             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-             else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
-             else if ( _p.is_one_of_i( "html", "silent" ) ) _cmd_params[_p] = YES ;
-             else if ( _p.stricmp( "bip" ) ) _cmd_params['mask'] |= RESET_BIP ;
-             else if ( _p.stricmp( "clean" ) ) _cmd_params['clean'] = YES ;
-             else if ( _p.stricmp( "coords" ) ) _cmd_params['mask'] |= RESET_COORDS ;
-             else if ( _p.stricmp( "dict" ) ) _cmd_params['mask'] |= RESET_DICT ;
-             else if ( _p.stricmp( "generals" ) ) _cmd_params['mask'] |= RESET_GENERALS ;
-             else if ( _p.stricmp( "gensset" ) ) _cmd_params['mask'] |= RESET_GENS_SET ;
-             else if ( _p.stricmp( "none" ) ) _cmd_params['mask'] = RESET_NONE ;
-             else if ( _p.stricmp( "plugins" ) ) _cmd_params['mask'] |= RESET_PLUGINS ;
-             else if ( _p.stricmp( "terminal" ) ) _cmd_params['mask'] |= RESET_TERMINAL ;
-             else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
-     }
+    _cmd_params['mask'] = RESET_NONE ;
+    // pre-scan for levenshtein correction
+	var _cmd_terms_dict = [ "release", "bip", "clean", "coords", "generals", "none", "plugins", "terminal", "html", "help" ];
+    circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
+    var _p ;
+    for( var _i = 0 ; _i < _params_array.length ; _i++ )
+    {
+        _p = _params_array[_i].toLowerCase();
+        if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
+        else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+        else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
+        else if ( _p.is_one_of_i( "html", "silent" ) ) _cmd_params[_p] = YES ;
+        else if ( _p.stricmp( "clean" ) ) _cmd_params['clean'] = YES ;
+        else if ( _p.stricmp( "none" ) ) _cmd_params['mask'] = RESET_NONE ;
+        else if ( _p.stricmp( "bip" ) ) { _cmd_params['mask'] |= RESET_BIP ; _cmd_params['list'].push( _p ); }
+        else if ( _p.stricmp( "coords" ) ) { _cmd_params['mask'] |= RESET_COORDS ; _cmd_params['list'].push( _p ); }
+        else if ( _p.stricmp( "dict" ) ) { _cmd_params['mask'] |= RESET_DICT ; _cmd_params['list'].push( _p ); }
+        else if ( _p.stricmp( "generals" ) ) { _cmd_params['mask'] |= RESET_GENERALS ; _cmd_params['list'].push( _p ); }
+        else if ( _p.stricmp( "gensset" ) ) { _cmd_params['mask'] |= RESET_GENS_SET ; _cmd_params['list'].push( _p ); }
+        else if ( _p.stricmp( "plugins" ) ) { _cmd_params['mask'] |= RESET_PLUGINS ; _cmd_params['list'].push( _p ); }
+        else if ( _p.stricmp( "terminal" ) ) { _cmd_params['mask'] |= RESET_TERMINAL ; _cmd_params['list'].push( _p ); }
+        else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
+    }
 
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
@@ -87,7 +86,9 @@ function circles_terminal_cmd_new()
                                   $("#CIRCLESbatchcompilerOKlabel").html( "" );
                              }
           
-                             circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
+							if ( _cmd_params['list'].length > 0 )
+								circles_lib_output( _out_channel, DISPATCH_INFO, "Reset settings for: "+_cmd_params['list'].join( ", " ), _par_1, _cmd_tag );
+                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
                         }
                         else circles_lib_output( _out_channel, DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                     }

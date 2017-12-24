@@ -27,7 +27,7 @@
 
 --------------- FIX SOON -----------------------
 
-* Next cmd to check: movewnd
+* Next cmd to check: palette
 
 * TEST:
   > jorgensen's embedding #19

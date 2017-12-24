@@ -18,6 +18,9 @@
 <snow>paint A B rgb(160,160,160)</snow>
 <cadetblue>same as before, but integer coords are used</cadetblue>
 
+<snow>paint tags</snow>
+<cadetblue>returns the list of available color tags</cadetblue>
+
 <lightblue>paint release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>
 
