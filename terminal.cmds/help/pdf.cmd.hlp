@@ -15,7 +15,13 @@
 <cadetblue>skip questions and output code from batch script service</cadetblue>
 
 <lightblue>pdf showcanvas <- code</lightblue>
-<cadetblue>output code and add both Z-plane and W-plane canvas into the pdf</cadetblue>
+<cadetblue>include generating script and add both Z-plane (default rendering layer) and W-plane canvas (default rendering layer) into the pdf</cadetblue>
+
+<lightblue>pdf showcanvas z-layer:grid w-layer:rendering <- code</lightblue>
+<cadetblue>include generating script and add Z-plane grid and W-plane rendering canvas into the pdf</cadetblue>
+
+<lightblue>pdf showcanvas z-merge w-merge <- code</lightblue>
+<cadetblue>include generating script and add merge all Z-plane layers into one as well as W-plane layers</cadetblue>
 
 <lightblue>pdf <- debug</lightblue>
 <cadetblue>output debug report from batch script service</cadetblue>

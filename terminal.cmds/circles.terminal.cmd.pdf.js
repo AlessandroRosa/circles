@@ -50,10 +50,17 @@ function circles_terminal_cmd_pdf()
         if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
         else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
         else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
-        else if ( _p.start_with_i( "z-layer", "w-layer" ) ||
-				  _p.is_one_of_i( "z-merge", "w-merge" ) ) _cmd_params['attributes'].push( _p ) ;
-		else if ( _p.toLowerCase().start_with( "layer:" ) && _cmd_params['layer'] == null )
-			_cmd_params['layer'] = _p = safe_string( _p.replace( /^layer:/gi, "" ), "" ) ;
+        else if ( _p.is_one_of_i( "z-merge", "w-merge" ) ) _cmd_params['attributes'].push( _p ) ;
+		else if ( _p.toLowerCase().start_with( "z-layer:" ) && _cmd_params['z-layer'] == null )
+		{
+			_cmd_params['attributes'].push( _p ) ;
+			_cmd_params['z-layer'] = _p = safe_string( _p.replace( /^z-layer:/gi, "" ), "" ) ;
+		}
+		else if ( _p.toLowerCase().start_with( "w-layer:" ) && _cmd_params['w-layer'] == null )
+		{
+			_cmd_params['attributes'].push( _p ) ;
+			_cmd_params['w-layer'] = _p = safe_string( _p.replace( /^w-layer:/gi, "" ), "" ) ;
+		}
         else if ( _p.is_one_of_i( "html", "showcanvas", "silent" ) ) _cmd_params[_p] = YES ;
     }
 
@@ -150,7 +157,7 @@ function circles_terminal_cmd_pdf()
                                      {
                                          circles_lib_output( _out_channel, DISPATCH_INFO, "saving code into pdf file", _par_1, _cmd_tag );
                                          if ( _return_datatype == "text" )
-                                         circles_lib_files_pdf_save_ask( circles_lib_files_pdf_save_text, _silent, _out_channel, CALLER_TYPE_CMD, '_glob_text', _filename, _include_canvas, _cmd_ref, _cmd_params['attributes'] );
+                                         circles_lib_files_pdf_save_ask( circles_lib_files_pdf_save_text, _silent, _out_channel, CALLER_TYPE_CMD, _glob_text, _filename, _include_canvas, _cmd_ref, _cmd_params['attributes'] );
                                      }
                                      else
                                      {
@@ -173,12 +180,15 @@ function circles_terminal_cmd_pdf()
                                 if ( !_filename.toLowerCase().end_with( ".pdf" ) ) _filename += ".pdf" ;
                             var _cmd_ref = "" ; // leave it blank here
                             var _canvas_role = "" ; // find role
-                            var _ret_layer = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _cmd_params['layer'] );
-                            if ( _ret_layer == null ) { _b_fail = YES, _error_str = "Missing canvas role reference" ; }
+                            var _ret_z_layer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_DEF, _cmd_params['z-layer'] != null ? _cmd_params['z-layer'] : "rendering" );
+                            var _ret_w_layer = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_DEF, _cmd_params['w-layer'] != null ? _cmd_params['w-layer'] : "rendering" );
+                            if ( _ret_z_layer == null ) { _b_fail = YES, _error_str = "Missing canvas role reference for Z-plane" ; }
+                            else if ( _ret_w_layer == null ) { _b_fail = YES, _error_str = "Missing canvas role reference for W-plane" ; }
                             else
                             {
-                                var _canvas_role = _ret_layer.get_role_id() ;
-                                circles_lib_files_pdf_save_ask( circles_lib_files_pdf_save_canvas, _silent, _out_channel, CALLER_TYPE_CANVAS, _filename, _canvas_role, _cmd_ref );
+                                var _z_canvas_role = _z_ret_layer.get_role_id() ;
+                                var _w_canvas_role = _w_ret_layer.get_role_id() ;
+                                circles_lib_files_pdf_save_ask( circles_lib_files_pdf_save_canvas, _silent, _out_channel, CALLER_TYPE_CANVAS, _filename, _z_canvas_role, _w_canvas_role, _cmd_ref );
                             }
                     break ;
 					default: break ;

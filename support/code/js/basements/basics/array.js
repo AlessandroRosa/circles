@@ -756,13 +756,8 @@ if ( !Array.swap )
 {
     Array.prototype.swap = function( i1, i2 )
     {
-        if ( i1 != i2 && i1 >= 0 && i2 >= 0 &&
-             i1 < this.length && i2 < this.length )
-        {
-            var TMP = this[i1] ;
-            this[i1] = this[i2] ;
-            this[i2] = TMP ;
-        }
+        if ( i1 != i2 && i1 >= 0 && i2 >= 0 && i1 < this.length && i2 < this.length )
+        [ this[i1], this[i2] ] = [ this[i1], this[i2] ] ;
     }
 }
 

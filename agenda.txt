@@ -22,13 +22,15 @@
 
 -------- CMD FIX ( as you meet that cmd during the check ) --------
 
+* history -> filename.txt
+
 * 'figures' cmd:
    - implement new syntax: figures delete @2-@5 (hint: fill two props delete_start:2, delete_end:5)
 
 --------------- FIX SOON -----------------------
 
 * Next cmd to check: pdf
-  try to add props z-layer, w-layer, z-merge, w-merge
+  implement code for z-merge, w-merge inside circles_lib_files_pdf_save_text
   
   pdf showcanvas z-layer:grid w-layer:rendering <- code
   pdf showcanvas z-merge w-layer:rendering <- code
