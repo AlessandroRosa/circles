@@ -181,8 +181,8 @@ function circles_terminal_cmd_palette()
                             circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Colors palette has been adapted to current depth ("+_glob_depth+")", _par_1, _cmd_tag );
 							if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
           					{
-          										_glob_terminal_change = YES ;
-          							      circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
+          						_glob_terminal_change = YES ;
+          						circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
           					}
                         }
                         else { _b_fail = YES, _error_str = "Fail to resize palette: " + _ret_msg ; }
@@ -354,6 +354,8 @@ function circles_terminal_cmd_palette()
                           else circles_lib_output( _out_channel, DISPATCH_TEXTCOLOR_TYPE, _line, _hex );
                         }
                     }
+  
+					_out_text_string = _out_file_text
   
                     if ( _html ) circles_lib_terminal_color_decode_htmltext( _out_tagged_txt, 'palette', 'right', 'top' );
                     else if ( _cmd_params['dump'] )

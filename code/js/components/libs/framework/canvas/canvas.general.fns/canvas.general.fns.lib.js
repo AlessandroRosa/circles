@@ -236,7 +236,6 @@ function circles_lib_canvas_merge_all_per_plane( _plane_type = NO_PLANE, _layer_
           {
               for( var _i = 0 ; _i < _canvas_array.length ; _i++ )
               _custom_use_context.drawImage( _canvas_array[_i], 0, 0, _canvas_w, _canvas_h, 0, 0, _canvas_w, _canvas_h );
-
 			  return _glob_custom_use_canvas ;
           }
           else return null ;

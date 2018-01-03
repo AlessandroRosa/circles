@@ -29,16 +29,14 @@
 
 --------------- FIX SOON -----------------------
 
-* Next cmd to check: pdf
-  implement code for z-merge, w-merge inside circles_lib_files_pdf_save_text
-  
-  pdf showcanvas z-layer:grid w-layer:rendering <- code
-  pdf showcanvas z-merge w-layer:rendering <- code
+* Next cmd to check: pixels
 
 * rework _out_text_string in all terminal cmds
   _out_text_string is used to print output into pdf files for example
   _out_text_string is not properly filled inside most terminal cmds.
-  Examine each action for correct output to _out_text_string
+  Examine each action for correct output to _out_text_string.
+  Try: pdf showcanvas <- config
+       pdf showcanvas <- palette list
 
 * TEST:
   > jorgensen's embedding #19
