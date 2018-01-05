@@ -29,7 +29,8 @@
 
 --------------- FIX SOON -----------------------
 
-* Next cmd to check: pixels
+* Next cmd to check: plot
+  Test all examples in .hlp file
 
 * rework _out_text_string in all terminal cmds
   _out_text_string is used to print output into pdf files for example

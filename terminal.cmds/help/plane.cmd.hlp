@@ -1,8 +1,8 @@
-<banana>set the plane context for the following commands</banana>
+<banana>set the default plane for the next commands</banana>
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>plane zplane | wplane | all | none</snow>
+<lightblue>usage</lightblue> <snow>plane zplane | wplane | bip | all | none</snow>
 
 <lightblue>plane release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>
