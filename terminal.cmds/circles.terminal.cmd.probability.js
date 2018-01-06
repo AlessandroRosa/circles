@@ -19,7 +19,7 @@ function circles_terminal_cmd_probability()
      var _out_text_string = "" ;
      var _fn_ret_val = null ;
      var _cmd_params = [];
-     var FULL_SUM = 1.0, _alphabet = circles_lib_gens_alphabet_get() ;
+     var FULL_SUM = 1.0 ;
      var _decimals = 5 ;
 
 	 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
@@ -38,7 +38,7 @@ function circles_terminal_cmd_probability()
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
         // pre-scan for levenshtein correction
         var _cmd_terms_dict = [];
-    	    _cmd_terms_dict.push( "clean", "default", "exact", "list", "set", "help",
+    	    _cmd_terms_dict.push( "clean", "default", "exact", "list", "set", "help", "table",
                      "built-in", "uniform", "normal", "exponential", "poisson",
                      "gamma", "sine", "release", "html", "repsthreshold", "warmup", "repsdepth" );
         circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
@@ -76,7 +76,7 @@ function circles_terminal_cmd_probability()
                   if ( _d > 0 ) _cmd_params['repsdepth'] = _d ;
                   else { _b_fail = YES, _error_str = "repetends depth must be strictly positive" ; }
               }
-              else if ( _p.is_one_of_i( "clean", "default", "exact", "list", "release", "set" ) ) _cmd_params['action'] = _p ;
+              else if ( _p.is_one_of_i( "clean", "default", "exact", "list", "table", "release", "set" ) ) _cmd_params['action'] = _p ;
               else if ( _p.testME( _glob_float_regex_pattern ) )
               {
                 if ( _p.includes(".") )
@@ -99,11 +99,11 @@ function circles_terminal_cmd_probability()
                        {
                           if ( !is_array( _cmd_params['lockedletters'] ) ) _cmd_params['lockedletters'] = [] ;
                           if ( _cmd_params['lockedletters'].includes( _p ) )
-                               circles_lib_output( _out_channel, DISPATCH_WARNING, "Word "+_p+" is already locked", _par_1, _cmd_tag );
+                               circles_lib_output( _out_channel, DISPATCH_WARNING, "Word '"+_p+"' is already locked", _par_1, _cmd_tag );
                           else
                           {
                              _cmd_params['lockedletters'].push( _p ) ;
-                             circles_lib_output( _out_channel, DISPATCH_INFO, "Word "+_p+" has been marked as 'locked'", _par_1, _cmd_tag );
+                             circles_lib_output( _out_channel, DISPATCH_INFO, "Word '"+_p+"' is marked as 'locked'", _par_1, _cmd_tag );
                           }
                        }
                        else
@@ -179,11 +179,22 @@ function circles_terminal_cmd_probability()
                         break ;
                         case "default":
                         case "exact":
-                        if ( circles_lib_gens_model_is_exact() )
+                        if ( circles_lib_gens_model_is_exact() && _action == "exact" )
                         {
                             var _label = _action.strcmp( "exact" ) ? "required" : _action ;
-                            _msg = "The current gens config is already classified as 'exact', thus matching the "+_label+" settings." ;
+                            _msg = "The current generators config is already classified as 'exact', thus matching the "+_label+" settings." ;
                             circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+							if ( _glob_rnd_probability_array.length == 0 )
+							{
+                               circles_lib_output( _out_channel, DISPATCH_INFO, "Found empty probability list: attempting to its restoration", _par_1, _cmd_tag );
+                               var _default_value = FULL_SUM / _items_n ;
+                               for( var _i = 0 ; _i < _items_n ; _i++ ) _glob_rnd_probability_array[_i] = _default_value ;
+                               _glob_probabilityRNGmethod = RNG_BUILT_IN ;
+                               _glob_rnd_reps_threshold = DEFAULT_RND_REPS_THRESHOLD ;
+                               _glob_rnd_reps_depth = DEFAULT_RND_REPS_DEPTH ;
+                               _glob_items_to_init=YES;$('[id$=initBTN]').css('color',COLOR_ERROR) ;
+                               circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Random generators set to 'built-in'", _par_1, _cmd_tag );
+							}
                         }
                         else
                         {
@@ -202,17 +213,16 @@ function circles_terminal_cmd_probability()
 
                             if ( _items_n > 0 )
                             {
-                               var _prompt_question = "Are you sure to restore default values ?" ;
-   									     		   var _params_array = [] ;
-    											       	 _params_array['prepromptquestion'] = "Default values refer to the 'exact' configuration, i.e. only one-letter gens" ;
-    									             _params_array['promptquestion'] = _prompt_question ;
-    									             _params_array['yes_fn'] = function()
-    															 													 {
-    														                                default_fn();
-    															                              circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Probability values have been restored to default settings", _par_1, _cmd_tag );
-    															                              circles_lib_output( _out_channel, DISPATCH_INFO, "Please, init gens for modifications to take effect", _par_1, _cmd_tag );
-    																												 }
-   									             	 _params_array['ifquestiondisabled_fn'] = function() { default_fn(); }
+								var _prompt_question = "Are you sure to restore default values ?" ;
+								var _params_array = [] ;
+    							_params_array['prepromptquestion'] = "Default values refer to the 'exact' configuration, i.e. only one-letter generators" ;
+    							_params_array['promptquestion'] = _prompt_question ;
+    							_params_array['yes_fn'] = function() {
+									default_fn();
+    								circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Probability values have been restored to default settings", _par_1, _cmd_tag );
+    								circles_lib_output( _out_channel, DISPATCH_INFO, "Please, init generators for modifications to take effect", _par_1, _cmd_tag );
+    								}
+   								_params_array['ifquestiondisabled_fn'] = function() { default_fn(); }
 								if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
     							else circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                             }
@@ -220,23 +230,20 @@ function circles_terminal_cmd_probability()
                         }
                         break ;
                         case "list":
+                        case "table":
                         var _pp_n = safe_size( _glob_rnd_probability_array, 0 );
                         var _gens_set_exists = circles_lib_gens_model_exists() ;
                         var _items_n = _gens_set_exists ? circles_lib_gens_count() : circles_lib_count_items() ;
 												var _array = _gens_set_exists ? _glob_gens_array : _glob_seeds_array ;
-                        if ( _pp_n == 0 )
-                        {
-														 _b_fail = YES, _error_str = "The probability table is empty" ;
-						}
+                        if ( _pp_n == 0 ) { _b_fail = YES, _error_str = "The probability table is empty" ; }
 						else if ( _items_n != _pp_n )
                         {
-							_b_fail = YES, _error_str = "Mismatch error: the number ("+_pp_n+") of entries in the probability table is not the same as of gens ("+_items_n+")" ;
-                             if ( _glob_items_to_init ) _error_str += _glob_crlf+"Try to init gens again." ;
-												}
-												else
-												{
-														 if ( _gens_set_exists )
-											 			 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Detected generators set with </lightgray><snow>"+_items_n+"</snow> <lightgray>entr"+(_items_n==1?"y":"ies")+"</lightgray>", _par_1, _cmd_tag );
+							_b_fail = YES, _error_str = "Mismatch error: the number ("+_pp_n+") of entries in the probability table is not the same as of generators ("+_items_n+")" ;
+                             if ( _glob_items_to_init ) _error_str += _glob_crlf+"Type 'gen init' to init generators again." ;
+						}
+						else
+						{
+							if ( _gens_set_exists ) circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Detected generators set with </lightgray><snow>"+_items_n+"</snow> <lightgray>entr"+(_items_n==1?"y":"ies")+"</lightgray>", _par_1, _cmd_tag );
 														 
                              var _ks = _glob_gens_set_symbols_map_array.keys_associative();
                              var _vs = _glob_gens_set_symbols_map_array.values_associative();
@@ -299,7 +306,7 @@ function circles_terminal_cmd_probability()
  														 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
  														 circles_lib_output( _out_channel, DISPATCH_INFO, "Repetends threshold is "+_glob_rnd_reps_threshold.roundTo(_decimals)+" ("+(_glob_rnd_reps_threshold*100.0).roundTo(_decimals)+"%)", _par_1, _cmd_tag );
  														 circles_lib_output( _out_channel, DISPATCH_INFO, "Repetends depth is " + _glob_rnd_reps_depth, _par_1, _cmd_tag );
-												}
+						}
                         break ;
                         case "set":
                         var _force = is_array( _cmd_params['options'] ) ? ( _cmd_params['options'].includes_i( "force" ) ? YES : NO ) : NO ;
@@ -356,7 +363,6 @@ function circles_terminal_cmd_probability()
 
                         var _letters_arr = _cmd_params['letters'] ;
                         if ( !is_array( _letters_arr ) ) _letters_arr = [] ;
-						_alphabet = _letters_arr ;
                         var _locked_letters_arr = _cmd_params['lockedletters'] ;
                         if ( !is_array( _locked_letters_arr ) ) _locked_letters_arr = [] ;
                         var _probabilities_array = _cmd_params['probs'] ;
@@ -367,7 +373,7 @@ function circles_terminal_cmd_probability()
                         var _n_intersection = safe_size( _intersection_array, 0 );
                         var _n_locked = safe_size( _locked_letters_arr, 0 ) ;
                         var _n_letters = safe_size( _letters_arr, 0 ) ;
-                        var _n_alphabet = safe_size( _alphabet, 0 ) ;
+                        var _n_alphabet = safe_size( _glob_alphabet, 0 ) ;
                         var _n_probabilities = safe_size( _probabilities_array, 0 ) ;
                         var _diff = _n_letters - _n_probabilities ;
                         var _min = Math.min( _n_letters, _n_probabilities ) ;
@@ -377,8 +383,8 @@ function circles_terminal_cmd_probability()
                             _b_fail = _glob_terminal_coderun_break = _glob_terminal_critical_halt = YES ;
 							_error_str = "" ;
 							var _msg = "Probabilities settings must follow after generators settings." ;
-								_msg += _glob_crlf+"Refer to 'gensset' cmd with 'add' parameter" ;
-								_msg += _glob_crlf+"Type 'gensset /h' for full info" ;
+								_msg += _glob_crlf+"Refer to 'gen' cmd with 'add' parameter" ;
+								_msg += _glob_crlf+"Type 'gen /h' for full info" ;
                             circles_lib_output( _out_channel, DISPATCH_CRITICAL, _msg, _par_1, _cmd_tag );
 						}
 						else if ( _n_intersection > 0 )
@@ -414,7 +420,7 @@ function circles_terminal_cmd_probability()
 
                                 var _lock_sum = 0, _lock_n = _locked_letters_arr.length ;
                                 if ( !_force )
-                                $.each( _locked_letters_arr, function( _i, _letter ) { _lock_sum += _glob_rnd_probability_array[ _alphabet.indexOf( _letter ) ] ; } ) ;
+                                $.each( _locked_letters_arr, function( _i, _letter ) { _lock_sum += _glob_rnd_probability_array[ _glob_alphabet.indexOf( _letter ) ] ; } ) ;
 
                                 var _new_prob_sum = 0 ;
                                 _probabilities_array.work( function( _prob ){ _new_prob_sum += _prob ; } ) ;
@@ -437,21 +443,20 @@ function circles_terminal_cmd_probability()
                                     _letter = _letters_arr[_m], _prob = _probabilities_array[_m], _index = _ks.indexOf( _letter );
                                     if ( _input_rnd_array[_m] == null )
                                     {
-                                      circles_lib_output( _out_channel, DISPATCH_WARNING, "Reference warning: gen '"+_letter+"' can't be set to probability "+_prob.roundTo(_decimals), _par_1, _cmd_tag );
+                                      circles_lib_output( _out_channel, DISPATCH_WARNING, "Reference warning: generator '"+_letter+"' can't be set to probability "+_prob.roundTo(_decimals), _par_1, _cmd_tag );
                                       break ;
                                     }
                                 }
     
                                 if ( _lock_sum > 0 )
                                 {
-                                    var _n_entries_to_change = _force ? _n_letters : ( safe_size( _alphabet, 0 ) - _n_letters - _n_locked ) ;
+                                    var _n_entries_to_change = _force ? _n_letters : ( safe_size( _glob_alphabet, 0 ) - _n_letters - _n_locked ) ;
                                     circles_lib_output( _out_channel, DISPATCH_INFO, "Re-distributing the new probabilities to "+_n_entries_to_change+" unlocked entr"+(_n_entries_to_change==1?"y":"ies"), _par_1, _cmd_tag );
                                     var _new_prob = _n_entries_to_change > 0 ? _residue / _n_entries_to_change : UNDET ;
                                     if ( _new_prob != UNDET && _n_entries_to_change > 0 )
                                     {
                                         var _tmp_input = _input_rnd_array.clone();
-                                        $.each( _alphabet, function ( _i, _letter )
-                                                {
+                                        $.each( _glob_alphabet, function ( _i, _letter ) {
                                                      _index = _vs.indexOf( _letter ) ;
                                                      if ( !( _locked_letters_arr.includes( _letter ) ) )
                                                      {
@@ -459,11 +464,11 @@ function circles_terminal_cmd_probability()
                                                         if ( !( _letters_arr.includes( _letter ) ) )
                                                         {
                                                           if ( _input_rnd_array[_index] == null )
-                                                          circles_lib_output( _out_channel, DISPATCH_WARNING, "Reference warning: gen '"+_letter+"' can't be reset to probability "+_new_prob.roundTo(_decimals), _par_1, _cmd_tag );
+                                                          circles_lib_output( _out_channel, DISPATCH_WARNING, "Reference warning: generator '"+_letter+"' can't be reset to probability "+_new_prob.roundTo(_decimals), _par_1, _cmd_tag );
                                                           else
                                                           {
                                                             _input_rnd_array[_index] = _new_prob ;
-                                                            circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Gen '"+_letter+"' has been reset to probability "+_new_prob.roundTo(_decimals), _par_1, _cmd_tag );
+                                                            circles_lib_output( _out_channel, DISPATCH_INFO, "Generator '"+_letter+"' probability has been set to "+_new_prob.roundTo(_decimals), _par_1, _cmd_tag );
                                                           }
                                                         }
                                                         else
@@ -477,7 +482,7 @@ function circles_terminal_cmd_probability()
                                                      {
                                                         var _prob = _glob_rnd_probability_array[_index] ;
                                                         _input_rnd_array[_index] = _prob ;
-                                                        circles_lib_output( _out_channel, DISPATCH_WARNING, "Gen '"+_letter+"' has been marked as 'locked' and its probability is kept up at "+_prob, _par_1, _cmd_tag );
+                                                        circles_lib_output( _out_channel, DISPATCH_WARNING, "Generator '"+_letter+"' is marked as 'locked' and probability fixed at "+_prob, _par_1, _cmd_tag );
                                                      }
                                                 } ) ;
                                     }
@@ -493,7 +498,7 @@ function circles_terminal_cmd_probability()
                             if ( !_b_fail )
                             {
                                 var _checksum = 0, _diff = 0 ;
-                                $.each( _alphabet, function( _i, _letter ) { _checksum += safe_float( _input_rnd_array[ _alphabet.indexOf( _letter ) ], 0 ) ; } ) ;
+                                $.each( _glob_alphabet, function( _i, _letter ) { _checksum += safe_float( _input_rnd_array[ _glob_alphabet.indexOf( _letter ) ], 0 ) ; } ) ;
                                 // check final sum to 1.0: if so, apply changes, otherwise don't
                                 _diff = Math.abs( _checksum - FULL_SUM ) ;
                                 if ( _diff > 0 )
@@ -512,7 +517,7 @@ function circles_terminal_cmd_probability()
                                     for( var _i = 0 ; _i < _input_rnd_array.length ; _i++ ) _tmp_sum += _input_rnd_array[_i] ;
                                     // ... and check it again
                                     _checksum = 0 ;
-                                    $.each( _alphabet, function( _i, _letter ) { _checksum += _input_rnd_array[ _alphabet.indexOf( _letter ) ] ; } ) ;
+                                    $.each( _glob_alphabet, function( _i, _letter ) { _checksum += _input_rnd_array[ _glob_alphabet.indexOf( _letter ) ] ; } ) ;
                                 }
 
                                 if ( _checksum == FULL_SUM )

@@ -1,12 +1,12 @@
 function circles_terminal_cmd_print()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _out_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
      if ( _glob_verbose && _glob_terminal_echo_flag )
      circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
@@ -40,7 +40,7 @@ function circles_terminal_cmd_print()
               else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
               else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
               else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
-              else if ( _p.trim().length > 0 ) _cmd_params['var'].push( _p.trim() );
+              else if ( _p.trim().length == 1 ) _cmd_params['var'].push( _p.trim() );
          }
 
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
@@ -69,8 +69,8 @@ function circles_terminal_cmd_print()
                       var _vars_array = _cmd_params['var'] ;
                    		if ( _vars_array.length == 1 && _vars_array[0].includes( "," ) ) _vars_array = _vars_array[0].split( "," );
                    		else if ( _vars_array.length == 1 && _vars_array[0].includes( ";" ) ) _vars_array = _vars_array[0].split( ";" );
-                   		_vars_array = _vars_array.unique();
-                   		_vars_array.sort();
+					  _vars_array = _vars_array.unique();
+                   	  _vars_array.sort();
                       // scan among seeds
                       var _items_found = 0 ;
                       var _b_found = NO, _var_id = "", _item_output = "", _custom_var = null ;
@@ -116,50 +116,9 @@ function circles_terminal_cmd_print()
           				                }
           				            }
           						    }
-          						}
-    
-                      // scan among custom vars
-                      _gg_n = is_array( _glob_terminal_vars_catalogue ) ? _glob_terminal_vars_catalogue.size_associative() : 0 ;
-          		        if ( _gg_n > 0 )
-          		        {
-                           var _custom_var_type, _custom_var_value, _custom_var_formula ;
-          						     for( var _i = 0 ; _i < _vars_array.length ; _i++ )
-          						     {
-          						          _var_id = _vars_array[_i] ;
-          				              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "scanning for '<white>"+_var_id+"</white>' among <lightblue>custom vars</lightblue>", _par_1, _cmd_tag );
-          				              _custom_var = _glob_terminal_vars_catalogue[ "var."+_var_id ] ;
-          				              if ( _custom_var != null )
-          				              {
-        				                   _items_found++ ;
-        				                   circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Found custom var '"+_var_id+"'", _par_1, _cmd_tag );
-        				                   _custom_var_type = _custom_var['type'] ;
-        				                   _custom_var_value = _custom_var['value'] ;
-        				                   _custom_var_formula = _custom_var['formula'] ;
-    
-         				                   circles_lib_output( _out_channel, DISPATCH_INFO, "type: " + _custom_var_type, _par_1, _cmd_tag );
-         				                   switch( _custom_var_type )
-         				                   {
-          				                     case "integer":
-          				                     case "float":
-          				                     if ( _custom_var_formula.length > 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "formula: " + _custom_var_formula, _par_1, _cmd_tag );
-          				                     circles_lib_output( _out_channel, DISPATCH_INFO, "value: " + _custom_var_value, _par_1, _cmd_tag );
-          				                     break ;
-          				                     case "complex":
-          				                     var _custom_var_obj = _custom_var['obj'] ;
-          				                     if ( _custom_var_formula.length > 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "formula: " + _custom_var_formula, _par_1, _cmd_tag );
-          				                     circles_lib_output( _out_channel, DISPATCH_INFO, "value: " + _custom_var_obj.formula(), _par_1, _cmd_tag );
-          				                     break ;
-          				                     case "mobius":
-          				                     var _custom_var_obj = _custom_var['obj'] ;
-          				                     circles_lib_output( _out_channel, DISPATCH_INFO, _custom_var_obj.output(), _par_1, _cmd_tag );
-          				                     break ;
-          				                     default: break ;
-          				                 }
-          				              }
-          						     }
-          		        }
-    
-                      if ( _items_found == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "no items found", _par_1, _cmd_tag );
+          				}
+
+						if ( _items_found == 0 ) circles_lib_output( _out_channel, DISPATCH_WARNING, "no items found", _par_1, _cmd_tag );
                    }
                   break ;
              }

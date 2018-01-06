@@ -43,7 +43,7 @@ function circles_lib_gens_model_create_exact( _out_channel = OUTPUT_SCREEN )
     var _sd_n = circles_lib_count_seeds(), _ret = YES, _symbol ;
     for( var _i = 0 ; _i < _sd_n ; _i++ )
     {
-       _symbol = glob_seeds_array[_i].symbol.trim();
+       _symbol = _glob_seeds_array[_i].symbol.trim();
        if ( _symbol.length > 0 ) _glob_gens_model_array.push( _symbol );
        else
        {

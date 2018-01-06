@@ -1,4 +1,4 @@
-function circles_lib_triggers_open( _trigger_id, _silent, _out_channel )
+function circles_lib_triggers_open( _trigger_id = "", _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _trigger_chunk = _glob_triggers_table[''+_trigger_id], _msg, _ret ;
@@ -17,23 +17,21 @@ function circles_lib_triggers_open( _trigger_id, _silent, _out_channel )
        if ( check_file_exists( _trigger_fullpath ) )
        {
           var _ret ;
-          $.getScript( _trigger_fullpath, function( response, status )
-                       {
+          $.getScript( _trigger_fullpath, function( response, status ) {
                           if ( status.toLowerCase().stricmp( "success" ) )
                           {
                              if ( _trigger_fn.omits( "(" ) ) _trigger_fn += "( _silent, _out_channel )" ;
                              else if ( _trigger_fn.end_with( "()" ) ) _trigger_fn = _trigger_fn.replaceAll( "()", "( _silent, _out_channel )" );
                              eval( _trigger_fn );
-                             _ret = RET_OK, _msg = "Trigger '"+_trigger_title+"' loaded and run with success" ;
+                             _ret = RET_OK, _msg = "Trigger '"+_trigger_title+"' has been loaded and run with success" ;
                              if ( !_silent && _out_channel == OUTPUT_SCREEN )
-														 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg, "circles_lib_triggers_outbox" ) ;
+							 circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, _msg, "circles_lib_triggers_outbox" ) ;
                           }
                           else
                           {
                              _ret = RET_ERROR, _msg = "Fail to load the trigger" ;
                              if ( !_silent && _out_channel == OUTPUT_SCREEN ) circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _msg, "circles_lib_triggers_outbox" ) ;
-                          }
-                       } );
+                          } } );
           return [ _ret, _msg ] ;
        }
        else
@@ -94,7 +92,7 @@ function circles_lib_triggers_open_all( _silent = NO, _out_channel = OUTPUT_SCRE
     return [ _ret, _msg, _fails ] ;
 }
 
-function circles_lib_triggers_set_all_to_automated( _on, _silent, _out_channel )
+function circles_lib_triggers_set_all_to_automated( _on = YES, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
     _on = safe_int( _on, YES ) ;
     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
