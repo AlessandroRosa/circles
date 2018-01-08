@@ -29,7 +29,7 @@
 
 --------------- FIX SOON -----------------------
 
-* Next cmd to check: repetends
+* Next cmd to check: rgb
 
 * rework _out_text_string in all terminal cmds
   _out_text_string is used to print output into pdf files for example

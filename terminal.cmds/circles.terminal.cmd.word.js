@@ -866,7 +866,7 @@ function circles_terminal_cmd_word()
                       $.each( _symbols_array,
                               function( _i, _symbol )
                               {
-                                  _is_rep = circles_lib_repetends_check_syntax( _symbol );
+                                  _is_rep = circles_lib_repetends_check_syntax( null, _symbol );
                                   if ( _is_rep == YES )
                                   {
                                        _rep_str = circles_lib_repetends_resolve( _symbol );

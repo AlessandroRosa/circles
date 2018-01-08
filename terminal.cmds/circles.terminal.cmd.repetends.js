@@ -1,33 +1,33 @@
 function circles_terminal_cmd_repetends()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _out_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _sd_n = circles_lib_count_seeds();
-     var _help = 0 ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _termination = "" ;
-     var _repetend = "" ;
-     var _counter = 0 ;
-     var _repetend_length = 0 ;
-     var _append_str = "", _replace_str = "" ;
-     var _fn_ret_val = null ;
-     var _cmd_params = [];
+	var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _sd_n = circles_lib_count_seeds();
+    var _help = 0 ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _termination = "" ;
+    var _repetend = "" ;
+    var _counter = 0 ;
+    var _repetend_length = 0 ;
+    var _append_str = "", _replace_str = "" ;
+    var _fn_ret_val = null ;
+    var _cmd_params = [];
 
-		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _params.length > 0 )
-     {
+	if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    if ( _params.length > 0 )
+    {
         _cmd_params['action'] = "" ;
         _cmd_params['help'] = NO ;
         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
@@ -50,49 +50,53 @@ function circles_terminal_cmd_repetends()
             {
                 switch( _cmd_params['action'].toLowerCase() )
                 {
-                    case "remove": if ( _counter == 0 ) _termination = _p.trim(); break ;
+					case "remove":
+					if ( _counter == 0 ) _termination = _p.trim();
+					_counter++ ;
+					break ;
                     case "set":
                     if ( _counter == 0 ) _termination = _p.trim();
                     else if ( _counter == 1 ) _repetend = _p.trim();
+					_counter++ ;
                     break ;
-                    case "suggest": if ( _counter == 0 ) _repetend_length = safe_int( _p.trim(), 0 ); break ;
-                    default: _b_fail = YES _error_str = "Unknown parameter '"+_p+"'" ; break ;
+                    case "suggest":
+					if ( _counter == 0 ) _repetend_length = safe_int( _p.trim(), 0 );
+					_counter++ ;
+					break ;
+                    default:
+					_b_fail = YES ;
+					_error_str = "Unknown parameter '"+_p+"'" ;
+					break ;
                 }
-                _counter++ ;
             }
         }
          
-         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
-         else if ( _cmd_params['keywords'] )
-         {
-             var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
-             if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
-             else
-             {
-                 _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
-                 circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
-             }
-         }
-         else if ( !_b_fail )
-         {
-              if ( !_glob_method.is_one_of( METHOD_ALGEBRAIC )
-                   && !_glob_process.is_one_of( PROCESS_RANDOM ) )
-              {
-                   _b_fail = YES, _error_str = "Repetends can be managed when method is 'algebraic' and process is not 'random'" ;
-              }
-              else if ( _sd_n > 0 )
-              {
-                   var _alphabet = [], ITEM, _symbol ;
-                   for( var i = 0 ; i < _sd_n ; i++ )
-                   {
-                        ITEM = _glob_seeds_array[i] ;
-                        _symbol = is_item_obj( ITEM ) ? ITEM.symbol : "" ;
-                        if ( _symbol.length > 0 ) _alphabet.push( _symbol );
-                   }
+		if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
+        else if ( _cmd_params['keywords'] )
+        {
+            var _msg = circles_lib_terminal_tabular_arrange_data( _cmd_terms_dict.sort() ) ;
+            if ( _msg.length == 0 ) circles_lib_output( _out_channel, DISPATCH_INFO, "No keywords for cmd '"+_cmd_tag+"'", _par_1, _cmd_tag );
+            else
+            {
+                _msg = "Keywords for cmd '"+_cmd_tag+"'" + _glob_crlf + "Type '/h' for help about usage" + _glob_crlf.repeat(2) + _msg ;
+                circles_lib_output( _out_channel, DISPATCH_INFO, _msg, _par_1, _cmd_tag );
+            }
+        }
+        else if ( !_b_fail )
+        {
+            if ( !_glob_method.is_one_of( METHOD_ALGEBRAIC ) && !_glob_process.is_one_of( PROCESS_RANDOM ) )
+            {
+                _b_fail = YES, _error_str = "Repetends can be managed when method is 'algebraic' and process is not 'random'" ;
+            }
+            else if ( _sd_n > 0 )
+            {
+                var _alphabet = [], ITEM, _symbol ;
+                for( var i = 0 ; i < _sd_n ; i++ )
+                if ( is_item_obj( _glob_seeds_array[i] ) ) _alphabet.push( _glob_seeds_array[i].symbol );
                    
-                   var _action = _cmd_params['action'].toLowerCase();
-                   switch( _action )
-                   {
+                var _action = _cmd_params['action'].toLowerCase();
+                switch( _action )
+                {
                         case "flush":
                         var _entries_n = circles_lib_repetends_count(), _question_counter = 1 ;
                         var _prompt_question = "Are you sure to flush the whole repetend list away ?" ;
@@ -199,49 +203,53 @@ function circles_terminal_cmd_repetends()
                             case "set":
                             if ( _repetend.length > 0 )
                             {
-                                    var _ret = circles_lib_repetends_check_syntax( _repetend, "", YES );
-                                    if ( _ret == 1 )
+                                var _ret = circles_lib_repetends_check_syntax( _glob_seeds_array, _repetend, "", YES );
+                                if ( _ret == 1 )
+                                {
+                                    var _old_counter = circles_lib_repetends_count();
+                                    _glob_repetends_array[ _termination ] = _repetend ;
+                                    if ( _cmd_params["copy"] && !_glob_storage['words'].includes( _repetend ) )
                                     {
-                                        var _old_counter = circles_lib_repetends_count();
-                                        _glob_repetends_array[ _termination ] = _repetend ;
-                                        if ( _cmd_params["copy"] && !_glob_storage['words'].includes( _repetend ) )
-                                        {
-                                             _glob_storage['words'].push( _repetend );
-                                             circles_lib_output( _out_channel, DISPATCH_INFO, "Repetend '"+_repetend+"' has been copied into the data storage space with success", _par_1, _cmd_tag );
-                                        }
+                                        _glob_storage['words'].push( _repetend );
+										var _msg = "Repetend '"+_repetend+"' has been copied into the data storage space with success" ;
+                                        circles_lib_output( _out_channel, DISPATCH_INFO, $.terminal.escape_brackets( _msg ), _par_1, _cmd_tag );
+                                    }
 
-                                        var _new_counter = circles_lib_repetends_count();
-                                        var _b_go = ( _new_counter >= _old_counter ) ? YES : NO ;
-                                        var _msg_type = _b_go ? DISPATCH_SUCCESS : DISPATCH_ERROR ;
-                                        var _msg = _b_go ? "Repetend '"+_repetend+"' has been set up with success" : "Memory failure: can't set the repetend '"+_repetend+"'" ;
-                                        circles_lib_output( _out_channel, _msg_type, _msg, _par_1, _cmd_tag );
-                                        if ( _b_go ) circles_lib_repetends_resolve_array();
-
-										if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
-										{
+                                    var _new_counter = circles_lib_repetends_count();
+                                    var _b_go = ( _new_counter >= _old_counter ) ? YES : NO ;
+                                    var _msg_type = _b_go ? DISPATCH_SUCCESS : DISPATCH_ERROR ;
+                                    var _msg = _b_go ? "Repetend '"+_repetend+"' has been set up with success" : "Memory failure: can't set the repetend '"+_repetend+"'" ;
+                                    circles_lib_output( _out_channel, _msg_type, $.terminal.escape_brackets( _msg ), _par_1, _cmd_tag );
+                                    if ( _b_go ) circles_lib_repetends_resolve_array();
+									if ( circles_lib_terminal_batch_script_exists() && _out_channel == OUTPUT_TERMINAL )
+									{
 											_glob_terminal_change = YES ;
 										    circles_lib_output( _out_channel, DISPATCH_INFO, TERMINAL_LABEL_01, _par_1, _cmd_tag );
-										}
-                                    }
+									}
+                                }
                                     else if ( _glob_terminal_errors_switch )
                                     {
-                                        var _add_error_str = "Fail to set this repetend: " ;
+                                        var _add_error_str = "Fail to set the repetend: " ;
                                         switch( _ret )
                                         {
                                             case -4:
                                             circles_lib_output( _out_channel, DISPATCH_ERROR, _add_error_str + "syntax error", _par_1, _cmd_tag );
                                             break ;
-                                            case -3:
+                                            case REPETEND_TEST_ERR_MISSING_INPUT_WORD:
                                             circles_lib_output( _out_channel, DISPATCH_ERROR, _add_error_str + "the input repetend is an empty string", _par_1, _cmd_tag );
                                             break ;
-                                            case -2:
-                                            circles_lib_output( _out_channel, DISPATCH_ERROR, _add_error_str + "the alphabet is empty, maybe the disks list is either", _par_1, _cmd_tag );
+                                            case REPETEND_TEST_ERR_MISSING_ALPHABET:
+                                            circles_lib_output( _out_channel, DISPATCH_ERROR, _add_error_str + "the alphabet is empty, maybe also the disks list", _par_1, _cmd_tag );
                                             break ;
-                                            case -1:
+                                            case REPETEND_TEST_ERR_INVALID_CHARS:
+                                            circles_lib_output( _out_channel, DISPATCH_ERROR, _add_error_str + "invalid characters", _par_1, _cmd_tag );
+                                            break ;
+                                            case REPETEND_TEST_ERR_EMPTY_GROUP:
                                             circles_lib_output( _out_channel, DISPATCH_ERROR, _add_error_str + _ERR_33_01, _par_1, _cmd_tag );
                                             break ;
-                                            case 0:
-                                            break ;
+                                            case REPETEND_TEST_ERR_UNDET:
+											circles_lib_output( _out_channel, DISPATCH_ERROR, "Undetermined error", _par_1, _cmd_tag );
+											break ;
          				                    default: break ;
                                         }
 
@@ -264,10 +272,10 @@ function circles_terminal_cmd_repetends()
                             }
                             break ;
 			                default: break ;
-                      }
-              }
-              else { _b_fail = YES, _error_str = _ERR_33_01 ; }
-         }	
+                }
+            }
+            else { _b_fail = YES, _error_str = _ERR_33_01 ; }
+        }
      }
      else { _b_fail = YES, _error_str = "Missing input params" ; }
 
