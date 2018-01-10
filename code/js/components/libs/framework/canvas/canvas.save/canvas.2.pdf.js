@@ -2,12 +2,12 @@ var _glob_e_ps_open = 0 ;
 
 function circles_lib_canvas_save_to_pdf( _canvas, _filename, _silent, _out_channel )
 {
-     if ( !is_html_canvas( _canvas ) ) _canvas = _glob_canvas_obj_ref ;
-		 _filename = safe_string( _filename, "" );
-     _silent = safe_int( _silent, NO );
-     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
-     if ( is_html_canvas( _canvas ) )
-     {
+    if ( !is_html_canvas( _canvas ) ) _canvas = _glob_canvas_obj_ref ;
+	_filename = safe_string( _filename, "" );
+    _silent = safe_int( _silent, NO );
+    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    if ( is_html_canvas( _canvas ) )
+    {
          // remove extension if explictly inside input var
 		     var _extension = _filename.includes( "." ) ? _filename.split( ".").get_last() : "" ;
              _filename = _glob_title.length > 0 ? ( _glob_title + "." + _filename ) : "circles." + _filename ;

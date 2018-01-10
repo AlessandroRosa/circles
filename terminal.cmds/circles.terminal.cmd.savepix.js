@@ -39,16 +39,16 @@ function circles_terminal_cmd_savepix()
             _p = _params_array[_i].toLowerCase();
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
             else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
             else if ( _p.start_with( "layer:" ) ) _cmd_params['layer'] = _p.replace( /layer:/g, "" ) ;
             else if ( _p.start_with( "export:" ) )
 			{
 				_p = _p.replace( /export:/g, "" ) ;
-				if ( !( /^\.*?(pdf|svg|tex)$/.test( _p ) ) )
+				if ( !( /^\.*?(pdf|png|svg|ps|tex)$/.test( _p ) ) )
 				{ _b_fail = YES ; _error_str = "Invalid export extension '"+_p+"': choose one among .pdf|.ps|.eps|.svg" ; }
 				else _cmd_params['export'] = _p.replace( /\./g, "" ) ;
 			}
-            else if ( _p.stricmp( "html" ) ) _cmd_params['html'] = YES ;
             else if ( _p.stricmp( "bip", "bipbox" ) ) _cmd_params['plane'] = BIP_BOX ;
             else if ( _p.stricmp( "wplane", "w-plane" ) ) _cmd_params['plane'] = W_PLANE ;
             else if ( _p.stricmp( "zplane", "z-plane" ) ) _cmd_params['plane'] = Z_PLANE ;
@@ -81,6 +81,7 @@ function circles_terminal_cmd_savepix()
 					_layer = _cmd_params['layer'] != null ? _cmd_params['layer'] : "" ;
 				var _layer_label = _layer ;
 				var _layer = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _layer, _out_channel );
+				console.log( _layer );
                 var _canvas = null ;
 				if ( is_html_canvas( _layer ) ) _canvas = _layer ;
 				else
@@ -107,6 +108,7 @@ function circles_terminal_cmd_savepix()
 					else if ( _glob_export_format == EXPORT_PNG ) _ext = ".png" ;
 					else _ext = ".png" ;
 				}
+				if ( _ext[0] != "." ) _ext = "."+_ext ;
 
                 var _out_filename = _plane_label + (_layer_label.length>0?"."+_layer_label:"") + _ext ;
                 if ( !_b_fail && !_help && is_html_canvas( _canvas ) )

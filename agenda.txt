@@ -29,7 +29,11 @@
 
 --------------- FIX SOON -----------------------
 
-* Next cmd to check: rgb
+* Next cmd to check: savepix
+  formats being different from "png" return a warning: empty input data
+  
+* set up a jorgensen with triggers and render
+  then terminal cmd "code", remove 2. choice (plugin)
 
 * rework _out_text_string in all terminal cmds
   _out_text_string is used to print output into pdf files for example

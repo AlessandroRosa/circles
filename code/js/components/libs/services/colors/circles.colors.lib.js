@@ -49,7 +49,7 @@ function circles_lib_colors_get_formats( _p_color = "" )
              if ( !_key.start_with( "tag." ) ) _key = "tag." + _key ;
              _out_rgb_hex = _glob_def_clrs_tags[_key] ;
              _out_rgb_dec = circles_rgb_hex_to_dec( _out_rgb_hex );
-             _out_tag = _key ;
+             _out_tag = _key.replace( /tag./i, "" ) ;
              _b_tag_found = YES ;
              break ;
           }

@@ -1,27 +1,27 @@
 function circles_terminal_cmd_rgb()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _out_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _help = NO ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _fn_ret_val = null ;
-     var _cmd_params = [];
+	var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _help = NO ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _fn_ret_val = null ;
+    var _cmd_params = [];
 
-		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _params.length > 0 )
-     {
+	if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    if ( _params.length > 0 )
+    {
              _cmd_params['color'] = "" ;
          _cmd_params['help'] = NO ;
          _cmd_params['keywords'] = NO ;
@@ -82,10 +82,10 @@ function circles_terminal_cmd_rgb()
                   break ;
              }
          }
-     }
-     else { _b_fail = YES, _error_str = "Missing color format" ; }
+    }
+    else { _b_fail = YES, _error_str = "Missing color format" ; }
      
-     if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+    if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }

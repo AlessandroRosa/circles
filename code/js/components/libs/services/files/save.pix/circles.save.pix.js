@@ -1,6 +1,6 @@
 var _tmp_save_canvas_obj = null ;
 
-function circles_lib_files_pix_save( _plane_type, _canvas_id = "", _filename = "", _merge, _silent, _out_channel )
+function circles_lib_files_pix_save( _plane_type = NO_PLANE, _canvas_id = "", _filename = "", _merge = NO, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
 	_canvas_id = safe_string( _canvas_id, "" ), _filename = safe_string( _filename, "" );
@@ -26,14 +26,14 @@ function circles_lib_files_pix_save( _plane_type, _canvas_id = "", _filename = "
     }
 }
 
-function circles_lib_files_pix_save_canvas_from_ref( _plane_type, _role = "", _filename = "" )
+function circles_lib_files_pix_save_canvas_from_ref( _plane_type = NO_PLANE, _role = "", _filename = "" )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     var _canvas = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_INDEX, _role );
     return circles_lib_files_pix_save_ask( _plane_type, _canvas.id, _filename, NO, YES, OUTPUT_SCREEN );
 }
 
-function circles_lib_files_pix_save_ask( _plane_type, _canvas_id = "", _filename = "", _merge = NO, _silent = NO, _out_channel = OUTPUT_SCREEN )
+function circles_lib_files_pix_save_ask( _plane_type = NO_PLANE, _canvas_id = "", _filename = "", _merge = NO, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _silent = safe_int( _silent, NO ), _merge = safe_int( _merge, NO );
@@ -61,7 +61,7 @@ function circles_lib_files_pix_save_ask( _plane_type, _canvas_id = "", _filename
         else if ( _is_ps ) _FMT = "PS" ;
         else if ( _is_eps ) _FMT = "EPS" ;
         else if ( _is_pdf ) _FMT = "PDF" ;
-        var _msg = "Fail to export to "+_FMT+" format: data are empty." ;
+        var _msg = "Fail to export to "+_FMT+" format: empty input data." ;
             _msg += _glob_crlf + "Please, rendering the picture again." ;
         circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, _msg, _glob_app_title );
         return [ RET_ERROR, _msg ] ;

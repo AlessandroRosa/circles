@@ -1,4 +1,4 @@
-function circles_lib_batch_compiler_run( _script_ctrl_id, _debug_ctrl_id, _id_boxes_array, _debug_flag, _output_flag )
+function circles_lib_batch_compiler_run( _script_ctrl_id, _debug_ctrl_id, _id_boxes_array = [], _debug_flag, _output_flag )
 {
    _script_ctrl_id = safe_string( _script_ctrl_id, "CIRCLESbatchcompilerTEXT" + _glob_terminal_form_suffix ).trim();
    _debug_ctrl_id = safe_string( _debug_ctrl_id, "CIRCLESdebugDIV" ).trim();
@@ -20,7 +20,7 @@ function circles_lib_batch_compiler_run( _script_ctrl_id, _debug_ctrl_id, _id_bo
           if ( _code_row.length > 0 ) _tmp_array.push( _code_row ); 
        }
          
-       _script_code_lines_array = _tmp_array.clone();
+       _script_code_lines_array = _tmp_array;
        if ( _output_flag ) circles_lib_output( OUTPUT_SCRIPT, DISPATCH_INFO, "Code start", _debug_ctrl_id );
          
        var _open_comment = 0, _msg ;
@@ -109,9 +109,9 @@ function circles_lib_batch_compiler_run( _script_ctrl_id, _debug_ctrl_id, _id_bo
              circles_lib_batch_compiler_exec( _cmd_str, _params_str, _debug_ctrl_id, TERMINAL_CMD_MODE_ACTIVE );
           }
 
-          var _warning_ctrl_id = safe_string( _id_boxes_array[0], "" ).trim() ;
-          var _errors_ctrl_id = safe_string( _id_boxes_array[1], "" ).trim() ;
-          var _ok_ctrl_id = safe_string( _id_boxes_array[2], "" ).trim() ;
+          var _warning_ctrl_id = _id_boxes_array[0] != null ? safe_string( _id_boxes_array[0], "" ).trim() : "" ;
+          var _errors_ctrl_id = _id_boxes_array[1] != null ? safe_string( _id_boxes_array[1], "" ).trim() : "" ;
+          var _ok_ctrl_id = _id_boxes_array[2] != null ? safe_string( _id_boxes_array[2], "" ).trim() : "" ;
           
           if ( $( "#" + _warning_ctrl_id ).get(0) != null )
           $( "#" + _warning_ctrl_id ).html( ( _glob_terminal_warnings_counter > 0 && _output_flag ) ? _glob_terminal_warnings_counter + " warning" + ( _glob_terminal_warnings_counter != 1 ? "s" : "" ) : "" );
@@ -124,7 +124,7 @@ function circles_lib_batch_compiler_run( _script_ctrl_id, _debug_ctrl_id, _id_bo
 
           if ( _glob_terminal_coderun_break == YES && _output_flag )
           {
-             circles_lib_output( OUTPUT_SCRIPT, DISPATCH_INFO, "Code run break", _debug_ctrl_id );
+			 circles_lib_output( OUTPUT_SCRIPT, DISPATCH_INFO, "Code run break", _debug_ctrl_id );
              break ;
           } 
           else if ( _glob_terminal_user_halt == YES && _output_flag )
@@ -148,16 +148,16 @@ function circles_lib_batch_compiler_run( _script_ctrl_id, _debug_ctrl_id, _id_bo
           document.title = "Parse line " + _i + "/" + _SL + " - " + safe_int( _i / _SL * 100.0, 0 ) + " %" ;
        }
          
-       document.title = _old_doc_title ;
+        document.title = _old_doc_title;
 
-       if ( function_exists( "CIRCLESformsTERMINALpurgecmdUPDATEstatus" ) )
-			 CIRCLESformsTERMINALpurgecmdUPDATEstatus( _glob_terminal_form_suffix ) ;
+        if ( function_exists( "CIRCLESformsTERMINALpurgecmdUPDATEstatus" ) )
+		CIRCLESformsTERMINALpurgecmdUPDATEstatus( _glob_terminal_form_suffix ) ;
 
-       if ( _glob_comment ) _glob_comment = NO ;
-       if ( _glob_filter ) _glob_filter = NO ;
+        if ( _glob_comment ) _glob_comment = NO ;
+        if ( _glob_filter ) _glob_filter = NO ;
          
-       _glob_comment = _comment_array.length > 0 ? _comment_array.join( _glob_crlf ) : "" ;
-       _glob_filter = _filter_array.length > 0 ? _filter_array.join( _glob_crlf ) : "" ;
+        _glob_comment = _comment_array.length > 0 ? _comment_array.join( _glob_crlf ) : "" ;
+        _glob_filter = _filter_array.length > 0 ? _filter_array.join( _glob_crlf ) : "" ;
 
        // silent mode default status is always resumed to default value at the end of the run
        // in order to preserve question in the beginning, if any
