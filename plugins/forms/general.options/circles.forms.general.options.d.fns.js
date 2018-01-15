@@ -116,12 +116,12 @@ function CIRCLESformsGENERALOPTIONSlayersDELETE( _plane_type, _i )
           var _top_canvas = circles_lib_canvas_get_topmost( _plane_type );
           if ( _plane_type == Z_PLANE && is_html_canvas( _top_canvas ) )
           {
-             _glob_zplane_topmost_layer_placeholder = _top_canvas ;
+             _glob_zplane_topmost_layer_pointer = _top_canvas ;
              circles_lib_events_bind_to_zplane( _top_canvas );
           }
           else if ( _plane_type == W_PLANE && is_html_canvas( _top_canvas ) )
           {
-             _glob_wplane_topmost_layer_placeholder = _top_canvas ;
+             _glob_wplane_topmost_layer_pointer = _top_canvas ;
              circles_lib_events_bind_to_wplane( _top_canvas );
           }
        }
@@ -202,12 +202,12 @@ function CIRCLESformsGENERALOPTIONSlayersSWAP( _plane_type, _layer_pos_index1, _
     if ( _plane_type == NO_PLANE ) return NO ;
     else if ( _plane_type == Z_PLANE && is_html_canvas( _top_canvas ) )
     {
-       _glob_zplane_topmost_layer_placeholder = _top_canvas ;
+       _glob_zplane_topmost_layer_pointer = _top_canvas ;
        circles_lib_events_bind_to_zplane( _top_canvas );
     }
     else if ( _plane_type == W_PLANE && is_html_canvas( _top_canvas ) )
     {
-       _glob_wplane_topmost_layer_placeholder = _top_canvas ;
+       _glob_wplane_topmost_layer_pointer = _top_canvas ;
        circles_lib_events_bind_to_wplane( _top_canvas );
     }
 
@@ -439,7 +439,7 @@ function CIRCLESformsGENERALOPTIONSlayersLIST( _plane_type, _reloader_fn )
 function CIRCLESformsGENERALOPTIONSsmprMANAGER( _opcode, _silent )
 {
 		_opcode = safe_int( _opcode, 0 ), _silent = safe_int( _silent, NO );
-    var _px_width = _glob_zplane_rendering_layer_placeholder.get_width() ;
+    var _px_width = _glob_zplane_rendering_layer_pointer.get_width() ;
 		switch( _opcode )
 		{
 				case 0:
@@ -507,13 +507,13 @@ function CIRCLESformsGENERALOPTIONSapply( _question, _silent )
            _assignment_array.push( [ "DEFAULTlabeltextcolor", "_glob_label_text_color" ] );
            _assignment_array.push( [ "DEFAULTlabeldotcolor", "_glob_label_dot_color" ] );
            _assignment_array.push( [ "ZPLANECANVASbkcolor", "" ] );
-           _assignment_array.push( [ "ZPLANEGRIDbkcolor", "_glob_zplane_grid_layer_placeholder.get_backgroundcolor()" ] );
-           _assignment_array.push( [ "ZPLANERENDERINGbkcolor", "_glob_zplane_rendering_layer_placeholder.get_backgroundcolor()" ] );
-           _assignment_array.push( [ "ZPLANEWORKbkcolor", "_glob_zplane_work_layer_placeholder.get_backgroundcolor()" ] );
+           _assignment_array.push( [ "ZPLANEGRIDbkcolor", "_glob_zplane_grid_layer_pointer.get_backgroundcolor()" ] );
+           _assignment_array.push( [ "ZPLANERENDERINGbkcolor", "_glob_zplane_rendering_layer_pointer.get_backgroundcolor()" ] );
+           _assignment_array.push( [ "ZPLANEWORKbkcolor", "_glob_zplane_work_layer_pointer.get_backgroundcolor()" ] );
            _assignment_array.push( [ "WPLANECANVASbkcolor", "" ] );
-           _assignment_array.push( [ "WPLANEGRIDbkcolor", "_glob_wplane_grid_layer_placeholder.get_backgroundcolor()" ] );
-           _assignment_array.push( [ "WPLANERENDERINGbkcolor", "_glob_wplane_grid_layer_placeholder.get_backgroundcolor()" ] );
-           _assignment_array.push( [ "WPLANEWORKbkcolor", "_glob_wplane_work_layer_placeholder.get_backgroundcolor()" ] );
+           _assignment_array.push( [ "WPLANEGRIDbkcolor", "_glob_wplane_grid_layer_pointer.get_backgroundcolor()" ] );
+           _assignment_array.push( [ "WPLANERENDERINGbkcolor", "_glob_wplane_grid_layer_pointer.get_backgroundcolor()" ] );
+           _assignment_array.push( [ "WPLANEWORKbkcolor", "_glob_wplane_work_layer_pointer.get_backgroundcolor()" ] );
 
            _assignment_array.push( [ "DEFAULTboundarycolor", "_glob_default_discreteness_locus_clr" ] );
            _assignment_array.push( [ "DEFAULTpleatingraycolor", "_glob_default_pleating_ray_clr" ] );

@@ -29,6 +29,13 @@
 
 --------------- FIX SOON -----------------------
 
+* test jseps separatedly, cmd by cmd
+  Example:
+  init class
+  process text
+  close class
+  get the code and save manually into an .eps file
+
 * Next cmd to check: savepix
   formats being different from "png" return a warning: empty input data
   

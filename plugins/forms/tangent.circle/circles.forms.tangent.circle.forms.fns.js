@@ -22,7 +22,7 @@ function CIRCLESformsTANGENTCIRCLEprocess( X, Y )
            if ( selected_circle.center.is_equal_to( C2 ) ) HTMLcode += "<tr><td STYLE=\"padding:3px;\" ALIGN=\"center\">Circles match: cannot construct the new tangent circle</td></tr>" ;
            else
            {
-                  var context = _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+                  var context = _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode );
                   var C1 = selected_circle.center ;
                   var d = C1.distance( C2 );
                   var r1 = selected_circle.radius, r2 = 0 ;

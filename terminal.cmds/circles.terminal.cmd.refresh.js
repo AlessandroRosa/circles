@@ -112,7 +112,7 @@ function circles_terminal_cmd_refresh()
                               // render flag shall be active for 'rendering' layer only, whereas all others must display the specific contents
                               if ( _layer_ref == "grid" )
                               {
-                                  _ret_chunk = circles_lib_canvas_render_zplane( _glob_zplane_grid_layer_placeholder, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
+                                  _ret_chunk = circles_lib_canvas_render_zplane( _glob_zplane_grid_layer_pointer, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
                                   _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                                   _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                                   circles_lib_output( _out_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
@@ -126,14 +126,14 @@ function circles_terminal_cmd_refresh()
                               }
                               if ( _layer_ref == "freedraw" )
                               {
-                                  _ret_chunk = circles_lib_canvas_render_zplane( _glob_zplane_freedraw_layer_placeholder, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
+                                  _ret_chunk = circles_lib_canvas_render_zplane( _glob_zplane_freedraw_layer_pointer, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
                                   _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                                   _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                                   circles_lib_output( _out_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
                               }
                               if ( _layer_ref == "work" )
                               {
-                                  _ret_chunk = circles_lib_canvas_render_zplane( _glob_zplane_work_layer_placeholder, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
+                                  _ret_chunk = circles_lib_canvas_render_zplane( _glob_zplane_work_layer_pointer, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
                                   _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                                   _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                                   circles_lib_output( _out_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
@@ -187,7 +187,7 @@ function circles_terminal_cmd_refresh()
                               // render flag shall be active for 'rendering' layer only, whereas all others must display the specific contents
                               if ( _layer_ref == "grid" )
                               {
-                                   _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_grid_layer_placeholder, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
+                                   _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_grid_layer_pointer, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
                                    _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                                    _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                                    circles_lib_output( _out_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
@@ -195,7 +195,7 @@ function circles_terminal_cmd_refresh()
     
                               if ( _layer_ref == "rendering" )
                               {
-                                   _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_rendering_layer_placeholder, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
+                                   _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_rendering_layer_pointer, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
                                    _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                                    _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                                    if ( _ret_id ) circles_lib_canvas_after_render_main();
@@ -204,7 +204,7 @@ function circles_terminal_cmd_refresh()
                               
                               if ( _layer_ref == "freedraw" )
                               {
-                                   _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_freedraw_layer_placeholder, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
+                                   _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_freedraw_layer_pointer, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
                                    _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                                    _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                                    circles_lib_output( _out_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
@@ -212,7 +212,7 @@ function circles_terminal_cmd_refresh()
     
                               if ( _layer_ref == "work" )
                               {
-                                   _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_work_layer_placeholder, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
+                                   _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_work_layer_pointer, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
                                    _ret_id &= is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                                    _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                                    if ( _ret_id ) circles_lib_canvas_afterrender_figures_draw( null, _clean, W_PLANE );
@@ -289,9 +289,9 @@ function circles_terminal_cmd_refresh()
                               var _final_ret = YES ;
                               if ( _layer_ref == "grid" )
                               {
-                                  var _ret_chunk_zplane = circles_lib_canvas_render_zplane( _glob_zplane_grid_layer_placeholder, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
+                                  var _ret_chunk_zplane = circles_lib_canvas_render_zplane( _glob_zplane_grid_layer_pointer, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
                                   if ( _ret_chunk_zplane[0] != RET_IRRELEVANT ) _final_ret &= _ret_chunk_zplane != null ? _ret_chunk_zplane[0] : 0 ;
-                                  var _ret_chunk_wplane = circles_lib_canvas_render_wplane( _glob_wplane_grid_layer_placeholder, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
+                                  var _ret_chunk_wplane = circles_lib_canvas_render_wplane( _glob_wplane_grid_layer_pointer, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
                                   if ( _ret_chunk_wplane[0] != RET_IRRELEVANT ) _final_ret &= _ret_chunk_wplane != null ? _ret_chunk_wplane[0] : 0 ;
                               }
     
@@ -305,18 +305,18 @@ function circles_terminal_cmd_refresh()
     
                               if ( _layer_ref == "freedraw" )
                               {
-                                  var _ret_chunk = circles_lib_canvas_render_zplane( _glob_zplane_freedraw_layer_placeholder, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
+                                  var _ret_chunk = circles_lib_canvas_render_zplane( _glob_zplane_freedraw_layer_pointer, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
                                   if ( _ret_chunk[0] != RET_IRRELEVANT ) _final_ret &= is_array( _ret_chunk ) ? _ret_chunk[0] : 0 ;
-                                  var _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_freedraw_layer_placeholder, zplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
+                                  var _ret_chunk = circles_lib_canvas_render_wplane( _glob_wplane_freedraw_layer_pointer, zplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
                                   if ( _ret_chunk[0] != RET_IRRELEVANT ) _final_ret &= is_array( _ret_chunk ) ? _ret_chunk[0] : 0 ;
                               }
     
                               if ( _layer_ref == "work" )
                               {
-                                  var _ret_chunk_zplane = circles_lib_canvas_render_zplane( _glob_zplane_work_layer_placeholder, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
+                                  var _ret_chunk_zplane = circles_lib_canvas_render_zplane( _glob_zplane_work_layer_pointer, zplane_sm, null, _clean, YES, _render, !_silent, _silent, YES, _out_channel );
                                   if ( _ret_chunk_zplane[0] != RET_IRRELEVANT )
                                   _final_ret &= _ret_chunk_zplane != null ? _ret_chunk_zplane[0] : 0 ;
-                                  var _ret_chunk_wplane = circles_lib_canvas_render_wplane( _glob_wplane_work_layer_placeholder, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
+                                  var _ret_chunk_wplane = circles_lib_canvas_render_wplane( _glob_wplane_work_layer_pointer, wplane_sm, null, _clean, YES, _render, YES, !_silent, _silent, _out_channel );
                                   if ( _ret_chunk_wplane[0] != RET_IRRELEVANT )
                                   _final_ret &= _ret_chunk_wplane != null ? _ret_chunk_wplane[0] : 0 ;
                               }

@@ -57,7 +57,7 @@ function _latex_line( _screen_line, _dashed )
          _dashed = safe_int( _dashed, 0 ); 
          var _x1 = _screen_line.start_pt.x, _y1 = _screen_line.start_pt.y ;
          var _x2 = _screen_line.end_pt.x, _y2 = _screen_line.end_pt.y ;
-         var _bordersize = _screen_line.lw, _clr = _screen_line.bordercolor ;
+         var _bordersize = _screen_line.bordersize, _clr = _screen_line.bordercolor ;
     
          _glob_js_latex_obj.line( _x1, _y1, _x2, _y2, _clr );
      }

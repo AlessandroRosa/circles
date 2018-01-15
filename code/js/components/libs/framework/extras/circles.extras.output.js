@@ -257,8 +257,8 @@ function circles_lib_dump_data_to_format( /* additional arguments will be proces
         {
             var _tmp_canvas = document.createElement( "canvas" );
                 _left = 130, _top = 25 ;
-            var _zplane_rendering_canvas = _glob_zplane_rendering_layer_placeholder ;
-            var _wplane_rendering_canvas = _glob_wplane_rendering_layer_placeholder ;
+            var _zplane_rendering_canvas = _glob_zplane_rendering_layer_pointer ;
+            var _wplane_rendering_canvas = _glob_wplane_rendering_layer_pointer ;
               // display Z-plane on the pdf
             _pdf_obj.setTextColor(0, 0, 212);
             _pdf_obj.setFontSize( 9 );

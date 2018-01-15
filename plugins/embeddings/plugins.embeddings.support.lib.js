@@ -388,7 +388,7 @@ function GLOB_PLUGIN_GENS_TABLE_SHOW( _base_id )
           HTMLcode += "<table>" ;
           HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
           HTMLcode += "<tr>" ;
-          HTMLcode += "<td "+( _n_fixed_points == 0 ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_fixedpoints_draw("+i+", circles_lib_extras_canvas_dropdown_get_placeholder('"+_base_id+"') );\"" )+">Mark Fixed Points</td>" ;
+          HTMLcode += "<td "+( _n_fixed_points == 0 ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_fixedpoints_draw("+i+", circles_lib_extras_canvas_dropdown_get_pointer('"+_base_id+"') );\"" )+">Mark Fixed Points</td>" ;
           HTMLcode += "<td WIDTH=\"15\"></td>" ;
           HTMLcode += "<td "+( i == UNDET ? "CLASS=\"linkdead\"" : "CLASS=\"link_rounded\" ONCLICK=\"javascript:circles_lib_plugin_load('forms','edit.disk',NO,"+i+");\"" )+">Edit</td>" ;
           HTMLcode += "<td WIDTH=\"15\"></td>" ;

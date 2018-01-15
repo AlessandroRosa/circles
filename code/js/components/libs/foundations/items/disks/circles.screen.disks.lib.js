@@ -44,7 +44,7 @@ function circles_lib_screendisk_add_from_coords( X, Y, RADIUS, _out_channel )
 
 function circles_lib_screendisk_mark( _complex_x, _complex_y, _complex_radius )
 {
-    var context = _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode );
+    var context = _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode );
     var _screen_circle = circles_lib_draw_complex_disk( context, zplane_sm,
                                                  _complex_x, _complex_y, _complex_radius,
                                                  1, _glob_fill_seed_color, 0, "", null, null, null, null, "", 2 );

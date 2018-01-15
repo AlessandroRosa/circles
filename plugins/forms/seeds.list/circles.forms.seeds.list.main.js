@@ -147,9 +147,9 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
                   }
 
                   // ACTIONS
-                  _glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+                  _glob_zplane_rendering_layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
-                  HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_zplane_selected_items_array = [];_glob_zplane_selected_items_array.push("+i+");_glob_disk_sel_index="+i+";circles_lib_canvas_render_zplane(_glob_zplane_rendering_layer_placeholder,zplane_sm,null,YES,YES,YES,NO,YES);circles_lib_plugin_load('forms','edit.disk',NO,"+i+",ITEMS_SWITCH_SEEDS);\">Edit</td>" ;
+                  HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:_glob_zplane_selected_items_array = [];_glob_zplane_selected_items_array.push("+i+");_glob_disk_sel_index="+i+";circles_lib_canvas_render_zplane(_glob_zplane_rendering_layer_pointer,zplane_sm,null,YES,YES,YES,NO,YES);circles_lib_plugin_load('forms','edit.disk',NO,"+i+",ITEMS_SWITCH_SEEDS);\">Edit</td>" ;
                   HTMLcode += "<td WIDTH=\"1\"></td>" ;
                   HTMLcode += "<td CLASS=\"link_rounded\" ONCLICK=\"javascript:event.stopPropagation();_glob_zplane_selected_items_array = [];_glob_zplane_selected_items_array.push("+i+");_glob_disk_sel_index="+i+";circles_lib_canvas_render_zplane(null,zplane_sm,null,YES,YES,YES,NO,YES);\">Select</td>" ;
                   HTMLcode += "<td WIDTH=\"1\"></td>" ;

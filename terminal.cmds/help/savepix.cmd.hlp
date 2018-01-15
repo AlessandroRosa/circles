@@ -2,18 +2,23 @@
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
-<lightblue>usage</lightblue> <snow>savepix %plane% %layer% %export%</snow>
+<lightblue>usage</lightblue> <snow>savepix %plane% %layer% %export% %merge%</snow>
 
 <lightblue>%plane%</lightblue> <snow>zplane | wplane</snow>
+
+<lightblue>%merge%</lightblue> <snow>merge all layers of a plane into one and then finally save it</snow>
 
 <lightblue>%layer%</lightblue> <snow>call 'layer' cmd to retrieve the current layers list of the input plane</snow>
 <cadetblue>default layer: rendering</cadetblue>
 
-<lightblue>%export%</lightblue> <snow>choose one among these extensions : .pdf | .ps | .eps | .svg</snow>
-<cadetblue>default extension: .png</cadetblue>
+<lightblue>%export%</lightblue> <snow>choose one among these extensions : pdf | ps | eps | svg</snow>
+<cadetblue>default extension: png</cadetblue>
 
 <lightblue>savepix zplane | wplane</lightblue>
 <cadetblue>save the rendering layer of the input plane into an image</cadetblue>
 
 <lightblue>savepix release</lightblue>
 <cadetblue>return the latest release date for this command</cadetblue>
+
+<cadetblue>examples</cadetblue>
+<yellow>savepix zplane layer:grid png</yellow>

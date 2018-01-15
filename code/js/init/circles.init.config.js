@@ -8,17 +8,17 @@ circles_lib_storage_reset();
 
 _glob_redraw_pass_counter = is_64bits_architecture() ? 12 : 6 ;
 
-_glob_zplane_grid_layer_placeholder = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
-_glob_zplane_rendering_layer_placeholder = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_RENDERING );
-_glob_zplane_freedraw_layer_placeholder = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
-_glob_zplane_work_layer_placeholder = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_WORK );
+_glob_zplane_grid_layer_pointer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
+_glob_zplane_rendering_layer_pointer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_RENDERING );
+_glob_zplane_freedraw_layer_pointer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
+_glob_zplane_work_layer_pointer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_WORK );
 
-_glob_wplane_grid_layer_placeholder = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
-_glob_wplane_rendering_layer_placeholder = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_RENDERING );
-_glob_wplane_freedraw_layer_placeholder = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
-_glob_wplane_work_layer_placeholder = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_WORK );
+_glob_wplane_grid_layer_pointer = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
+_glob_wplane_rendering_layer_pointer = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_RENDERING );
+_glob_wplane_freedraw_layer_pointer = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
+_glob_wplane_work_layer_pointer = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_WORK );
 
-_glob_bip_layer_placeholder = _glob_bipbox_canvas ;
+_glob_bip_layer_pointer = _glob_bipbox_canvas ;
 
 var _glob_custom_div = document.createElement("div");
 

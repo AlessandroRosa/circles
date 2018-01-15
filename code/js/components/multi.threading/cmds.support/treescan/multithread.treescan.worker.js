@@ -31,7 +31,7 @@ function inline_worker_output_member( ret )
             var _lastpt = ret.lastpt ;
             var _bordercolor = ret.bordercolor ;
             var _fillcolor = ret.fillcolor ;
-            circles_lib_draw_point( _glob_wplane_freedraw_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm,
+            circles_lib_draw_point( _glob_wplane_freedraw_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm,
                               _lastpt.x, _lastpt.y,
                               YES, _bordercolor, YES, _fillcolor, 1, 2, _glob_opacity, 0 );
 
@@ -69,12 +69,12 @@ function inline_worker_output_member( ret )
             var _fillcolor = ret.fillcolor ;
             if ( _glob_method == METHOD_INVERSION )
             {
-                 var _ret_chunk = circles_lib_draw_word_inversion( _glob_wplane_freedraw_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, null, NO, _word, YES, _out_channel );
+                 var _ret_chunk = circles_lib_draw_word_inversion( _glob_wplane_freedraw_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), wplane_sm, null, NO, _word, YES, _out_channel );
             }
             else if ( _glob_method.is_one_of( METHOD_ALGEBRAIC ) && _word.length > 0 )
             {
                  var _start_x = safe_float( ret.startpt.x, 0 ), _start_y = safe_float( ret.startpt.y, 0 );
-                 var _ret_chunk = circles_lib_draw_word_pointwise( _glob_wplane_freedraw_layer_placeholder, wplane_sm, null, NO,
+                 var _ret_chunk = circles_lib_draw_word_pointwise( _glob_wplane_freedraw_layer_pointer, wplane_sm, null, NO,
                                                             _word, _start_x, _start_y,
                                                             YES, NO, YES, _bordercolor, _fillcolor, YES, YES, _out_channel );
             }

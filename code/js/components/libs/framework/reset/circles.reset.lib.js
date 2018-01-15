@@ -28,15 +28,15 @@ function circles_lib_reset_canvas()
          _ret = circles_lib_canvas_layer_update( W_PLANE, _ret_pos_index, "visible", YES );
      }
 
-     _glob_zplane_grid_layer_placeholder = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
-     _glob_zplane_rendering_layer_placeholder = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_RENDERING );
-     _glob_zplane_freedraw_layer_placeholder = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
-     _glob_zplane_work_layer_placeholder = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_WORK );
+     _glob_zplane_grid_layer_pointer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
+     _glob_zplane_rendering_layer_pointer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_RENDERING );
+     _glob_zplane_freedraw_layer_pointer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
+     _glob_zplane_work_layer_pointer = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_WORK );
 
-     _glob_wplane_grid_layer_placeholder = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
-     _glob_wplane_rendering_layer_placeholder = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_RENDERING );
-     _glob_wplane_freedraw_layer_placeholder = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
-     _glob_wplane_work_layer_placeholder = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_WORK );
+     _glob_wplane_grid_layer_pointer = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
+     _glob_wplane_rendering_layer_pointer = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_RENDERING );
+     _glob_wplane_freedraw_layer_pointer = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
+     _glob_wplane_work_layer_pointer = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_WORK );
 
      circles_lib_reset_colors();
      _glob_density_rect_lastindex = UNDET ;

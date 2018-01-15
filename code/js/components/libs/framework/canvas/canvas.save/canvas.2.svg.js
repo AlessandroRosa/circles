@@ -1,6 +1,6 @@
 var _glob_svg_open = 0 ;
 
-function circles_lib_canvas_save_to_svg( _filename, _silent = NO, _out_channel = OUTPUT_SCREEN )
+function circles_lib_canvas_save_to_svg( _filename = "", _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
      _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
      var _code_array = _glob_export_code_array ;
@@ -77,21 +77,21 @@ function _svg_comment( _code_array, _text )
      if ( _text.length > 0 ) _code_array.push( "<!-- "+_text+" -->" + _glob_crlf );
 }
 
-function _svg_line( _code_array, _screen_line, _dashed )
+function _svg_line( _code_array = [], _screen_line, _dashed = 0 )
 {
-     if ( _glob_svg_open == 1 )
-     {
-         _dashed = safe_int( _dashed, 0 ); 
-         var _x1 = _screen_line.start_pt.x, _y1 = _screen_line.start_pt.y ;
-         var _x2 = _screen_line.end_pt.x, _y2 = _screen_line.end_pt.y ;
-         var _bordersize = _screen_line.lw, _clr = _screen_line.bordercolor ;
+    if ( _glob_svg_open == 1 )
+    {
+        _dashed = safe_int( _dashed, 0 ); 
+        var _x1 = _screen_line.start_pt.x, _y1 = _screen_line.start_pt.y ;
+        var _x2 = _screen_line.end_pt.x, _y2 = _screen_line.end_pt.y ;
+        var _bordersize = _screen_line.bordersize, _clr = _screen_line.bordercolor ;
     
-         var _dash_attr = _dashed ? " stroke-dasharray=\"2,2,2\"" : "" ;
-         var _draw_attr = _bordersize != 0 ? " stroke=\""+_clr+"\"" : " stroke=\"transparent\"" ;
-         var _bordersize_attr = " stroke-width=\""+_bordersize+"\"" ;
+        var _dash_attr = _dashed ? " stroke-dasharray=\"2,2,2\"" : "" ;
+        var _draw_attr = _bordersize != 0 ? " stroke=\""+_clr+"\"" : " stroke=\"transparent\"" ;
+        var _bordersize_attr = " stroke-width=\""+_bordersize+"\"" ;
          
-         _code_array.push( "<line"+_bordersize_attr+_draw_attr+_dash_attr+" x1=\""+_x1+"\" y1=\""+_y1+"\" x2=\""+_x2+"\" y2=\""+_y2+"\" />" + _glob_crlf );
-     }
+        _code_array.push( "<line"+_bordersize_attr+_draw_attr+_dash_attr+" x1=\""+_x1+"\" y1=\""+_y1+"\" x2=\""+_x2+"\" y2=\""+_y2+"\" />" + _glob_crlf );
+    }
 }
 
 function _svg_point( _code_array, _screen_pt, _border, _bordercolor, _fill, _fillcolor, _bordersize, _radius )

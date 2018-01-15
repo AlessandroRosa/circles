@@ -180,14 +180,14 @@ function circles_terminal_cmd_grid()
                 var _final_ret = YES ;
                 if ( ( _cmd_params['render'] || _glob_terminal_autorefresh == ENABLED ) && _cmd_params['planeindex'].is_one_of( Z_PLANE, ALL_PLANES ) )
                 {
-                    var _canvas = circles_lib_canvas_get_exists( Z_PLANE, "grid" ) ? circles_lib_canvas_get_target( Z_PLANE, "fixedpoints" ) : _glob_zplane_grid_layer_placeholder ;
+                    var _canvas = circles_lib_canvas_get_exists( Z_PLANE, "grid" ) ? circles_lib_canvas_get_target( Z_PLANE, "fixedpoints" ) : _glob_zplane_grid_layer_pointer ;
                     var _ret_chunk_zplane = circles_lib_canvas_render_zplane( _canvas, zplane_sm, null, YES, NO, NO, NO, YES, _out_channel );
                     if ( _ret_chunk_zplane[0] != RET_IRRELEVANT ) _final_ret &= _ret_chunk_zplane[0] ;
                 }
 
                 if ( ( _cmd_params['render'] || _glob_terminal_autorefresh == ENABLED ) && _cmd_params['planeindex'].is_one_of( W_PLANE, ALL_PLANES ) )
                 {
-                    var _canvas = circles_lib_canvas_get_exists( W_PLANE, "grid" ) ? circles_lib_canvas_get_target( W_PLANE, "fixedpoints" ) : _glob_wplane_grid_layer_placeholder ;
+                    var _canvas = circles_lib_canvas_get_exists( W_PLANE, "grid" ) ? circles_lib_canvas_get_target( W_PLANE, "fixedpoints" ) : _glob_wplane_grid_layer_pointer ;
                     var _ret_chunk_wplane = circles_lib_canvas_render_wplane( _canvas, wplane_sm, [ ROLE_GRID ], YES, NO, NO, YES, NO, YES, _out_channel );
                     if ( _ret_chunk_wplane[0] != RET_IRRELEVANT ) _final_ret &= _ret_chunk_wplane[0] ;
                 }

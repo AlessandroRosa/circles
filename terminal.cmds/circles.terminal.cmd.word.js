@@ -383,7 +383,7 @@ function circles_terminal_cmd_word()
                       _extracted_color_tags.push( _glob_def_clrs_tags[ "tag." + _color_tag ] ) ;
                    }
                       
-                   var _context = _glob_wplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ) ;
+                   var _context = _glob_wplane_work_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ) ;
                    if ( _cmd_params["copy"] ) _glob_storage["points"]["displacedset"] = [] ;
 
                    if ( _cmd_params["markpoints"] )

@@ -108,8 +108,8 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 			else if ( confirm( _question ) )
 		    {
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-              if ( _glob_zplane_rendering_layer_placeholder.get_role_id() != ROLE_RENDERING )
-		          _glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+              if ( _glob_zplane_rendering_layer_pointer.get_role_id() != ROLE_RENDERING )
+		          _glob_zplane_rendering_layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
               // gathering the hashtags of selected entries
               var _hashtags = [];
@@ -131,7 +131,7 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 				    	_glob_screencircles_sel_array.flush();
 		               
               circles_lib_helper_div_remove();
-              circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
+              circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
 				 			if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
               _glob_items_to_init = YES ;
 		    }
@@ -143,13 +143,13 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-              if ( _glob_zplane_rendering_layer_placeholder.get_role_id() != ROLE_RENDERING )
-							_glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+              if ( _glob_zplane_rendering_layer_pointer.get_role_id() != ROLE_RENDERING )
+							_glob_zplane_rendering_layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
 				      _glob_disk_sel_index = ( _glob_disk_sel_index + 1 ) % _items_array.length ;
-              circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
-							_glob_zplane_grid_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_GRID );
-				      circles_lib_grid_draw( _glob_zplane_grid_layer_placeholder, zplane_sm, Z_PLANE, YES, _glob_ticks_count );
+              circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
+							_glob_zplane_grid_layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_GRID );
+				      circles_lib_grid_draw( _glob_zplane_grid_layer_pointer, zplane_sm, Z_PLANE, YES, _glob_ticks_count );
 							if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
 					}
 		}
@@ -159,14 +159,14 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-              if ( _glob_zplane_rendering_layer_placeholder.get_role_id() != ROLE_RENDERING )
-							_glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+              if ( _glob_zplane_rendering_layer_pointer.get_role_id() != ROLE_RENDERING )
+							_glob_zplane_rendering_layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
-							var _shift_x = Math.ceil( _glob_zplane_rendering_layer_placeholder.get_width() / _glob_smpr );
+							var _shift_x = Math.ceil( _glob_zplane_rendering_layer_pointer.get_width() / _glob_smpr );
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 							_items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle.center.x -= _shift_x ;
 				          
-              circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
+              circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
 
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 				      circles_lib_complexdisk_update( ITEMS_SWITCH_SEEDS, _items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle, _glob_zplane_selected_items_array[_i] );
@@ -184,14 +184,14 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-              if ( _glob_zplane_rendering_layer_placeholder.get_role_id() != ROLE_RENDERING )
-							_glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+              if ( _glob_zplane_rendering_layer_pointer.get_role_id() != ROLE_RENDERING )
+							_glob_zplane_rendering_layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
-							var _shift_x = Math.ceil( _glob_zplane_rendering_layer_placeholder.get_width() / _glob_smpr );
+							var _shift_x = Math.ceil( _glob_zplane_rendering_layer_pointer.get_width() / _glob_smpr );
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 							_items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle.center.x += _shift_x ;
 
-				      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
+				      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
 
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 				      circles_lib_complexdisk_update( ITEMS_SWITCH_SEEDS, _items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle, _glob_zplane_selected_items_array[_i] );
@@ -209,14 +209,14 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-              if ( _glob_zplane_rendering_layer_placeholder.get_role_id() != ROLE_RENDERING )
-							_glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+              if ( _glob_zplane_rendering_layer_pointer.get_role_id() != ROLE_RENDERING )
+							_glob_zplane_rendering_layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
-							var _shift_y = Math.ceil( _glob_zplane_rendering_layer_placeholder.get_height() / _glob_smpr );
+							var _shift_y = Math.ceil( _glob_zplane_rendering_layer_pointer.get_height() / _glob_smpr );
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 							_items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle.center.y -= _shift_y ;
 
-				      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
+				      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
 
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 				      circles_lib_complexdisk_update( ITEMS_SWITCH_SEEDS, _items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle, _glob_zplane_selected_items_array[_i] );
@@ -234,14 +234,14 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-              if ( _glob_zplane_rendering_layer_placeholder.get_role_id() != ROLE_RENDERING )
-							_glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+              if ( _glob_zplane_rendering_layer_pointer.get_role_id() != ROLE_RENDERING )
+							_glob_zplane_rendering_layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
-							var _shift_y = Math.ceil( _glob_zplane_rendering_layer_placeholder.get_height() / _glob_smpr );
+							var _shift_y = Math.ceil( _glob_zplane_rendering_layer_pointer.get_height() / _glob_smpr );
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 							_items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle.center.y += _shift_y ;
 
-				      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
+				      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
 
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 				      circles_lib_complexdisk_update( ITEMS_SWITCH_SEEDS, _items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle, _glob_zplane_selected_items_array[_i] );
@@ -259,14 +259,14 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-              if ( _glob_zplane_rendering_layer_placeholder.get_role_id() != ROLE_RENDERING )
-							_glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+              if ( _glob_zplane_rendering_layer_pointer.get_role_id() != ROLE_RENDERING )
+							_glob_zplane_rendering_layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
-							var _radius_increment = Math.floor( _glob_zplane_rendering_layer_placeholder.get_height() / _glob_smpr );
+							var _radius_increment = Math.floor( _glob_zplane_rendering_layer_pointer.get_height() / _glob_smpr );
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 							_items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle.radius += _radius_increment ;
 
-				      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
+				      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
 
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 				      circles_lib_complexdisk_update( ITEMS_SWITCH_SEEDS, _items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle, _glob_zplane_selected_items_array[_i] );
@@ -284,14 +284,14 @@ function circles_lib_events_body_keyup( _event, _param1, _param2 ) // user relea
 					else
 					{
               var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
-              if ( _glob_zplane_rendering_layer_placeholder.get_role_id() != ROLE_RENDERING )
-							_glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+              if ( _glob_zplane_rendering_layer_pointer.get_role_id() != ROLE_RENDERING )
+							_glob_zplane_rendering_layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
-							var _radius_increment = Math.floor( _glob_zplane_rendering_layer_placeholder.get_height() / _glob_smpr );
+							var _radius_increment = Math.floor( _glob_zplane_rendering_layer_pointer.get_height() / _glob_smpr );
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 							_items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle.radius -= _radius_increment ;
 
-				      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
+				      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
 
 							for( var _i = 0 ; _i < _glob_zplane_selected_items_array.length ; _i++ )
 				      circles_lib_complexdisk_update( ITEMS_SWITCH_SEEDS, _items_array[ _glob_zplane_selected_items_array[_i] ].screen_circle, _glob_zplane_selected_items_array[_i] );
@@ -342,13 +342,13 @@ function circles_lib_events_body_keydown( _event, _param1, _param2 ) // user is 
 							if ( _glob_worker_lock ) circles_lib_output( OUTPUT_SCRIPT_EDITOR, DISPATCH_WARNING, CIRCLES_WARNING_LABEL_02, _glob_app_title );
 							else
 							{
-                  if ( _glob_zplane_rendering_layer_placeholder.get_role_id() != ROLE_RENDERING )
-									_glob_zplane_rendering_layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+                  if ( _glob_zplane_rendering_layer_pointer.get_role_id() != ROLE_RENDERING )
+									_glob_zplane_rendering_layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
 
 						   		_glob_disk_sel_index = ( _glob_disk_sel_index - 1 ) % _sd_n ;
 						   		if ( _glob_disk_sel_index < 0 ) _glob_disk_sel_index = _sd_n - 1 ;
 
-						      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, null, YES );
+						      circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, null, YES );
 							    if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display();
 							}
 					 }

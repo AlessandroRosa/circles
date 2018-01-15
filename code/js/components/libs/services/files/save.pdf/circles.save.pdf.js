@@ -38,8 +38,8 @@ function circles_lib_files_pdf_add_pix( doc, _left, _top, _display_zplane = NO, 
 {
      var _tmp_canvas = document.createElement( "canvas" );
          _left = 130, _top = 25 ;
-     var _zplane_rendering_canvas = _glob_zplane_rendering_layer_placeholder ;
-     var _wplane_rendering_canvas = _glob_wplane_rendering_layer_placeholder ;
+     var _zplane_rendering_canvas = _glob_zplane_rendering_layer_pointer ;
+     var _wplane_rendering_canvas = _glob_wplane_rendering_layer_pointer ;
      _display_zplane = safe_int( _display_zplane, NO );
      _display_wplane = safe_int( _display_wplane, NO );
 
@@ -184,11 +184,11 @@ function circles_lib_files_pdf_save_text()
               _left = 130, _top = 25 ;
          var _zplane_rendering_canvas = null ;
 		     if ( _z_merge ) _zplane_rendering_canvas = circles_lib_canvas_merge_all_per_plane( Z_PLANE ) ;
-			 else _zplane_rendering_canvas = _z_layer != null ? circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_DEF, _z_layer ) : _glob_zplane_rendering_layer_placeholder ;
+			 else _zplane_rendering_canvas = _z_layer != null ? circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_DEF, _z_layer ) : _glob_zplane_rendering_layer_pointer ;
 			 console.log( _zplane_rendering_canvas );
          var _wplane_rendering_canvas = null ;
 			 if ( _w_merge ) _wplane_rendering_canvas = circles_lib_canvas_merge_all_per_plane( W_PLANE ) ;
-			 else _wplane_rendering_canvas = _w_layer != null ? circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_DEF, _w_layer ) : _glob_wplane_rendering_layer_placeholder ;
+			 else _wplane_rendering_canvas = _w_layer != null ? circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_DEF, _w_layer ) : _glob_wplane_rendering_layer_pointer ;
 
           // display Z-plane on the pdf
           doc.setTextColor(0, 0, 212);
@@ -270,8 +270,8 @@ function circles_lib_files_pdf_save_report()
     var _zplane_rendering_canvas = null, _wplane_rendering_canvas = null, _bip_canvas = null ;
     var _str = circles_lib_plane_def_get( _plane_type );
 
-    _zplane_rendering_canvas = _glob_zplane_rendering_layer_placeholder ;
-    _wplane_rendering_canvas = _plane_type.is_one_of( W_PLANE ) ? _glob_wplane_rendering_layer_placeholder : ( $("#" + _canvas_id ).get(0) != null ? $("#" + _canvas_id ).get(0) : _glob_bip_layer_placeholder );
+    _zplane_rendering_canvas = _glob_zplane_rendering_layer_pointer ;
+    _wplane_rendering_canvas = _plane_type.is_one_of( W_PLANE ) ? _glob_wplane_rendering_layer_pointer : ( $("#" + _canvas_id ).get(0) != null ? $("#" + _canvas_id ).get(0) : _glob_bip_layer_pointer );
 			
 		var _alphabet =  circles_lib_alphabet_get();
 		var _reduced_words = _dictionary_init_settings_array['use_reduced_words'] ;
@@ -480,9 +480,9 @@ function circles_lib_files_pdf_save_report()
 
       if ( _plugin_last_ref != 0 )
       {
-           var _index_ref = _plugin_last_ref;
-           var _vars_array = _plugin_rec_configs_array[ _index_ref ] ;
-           if ( is_array( _vars_array ) )
+           var _index_ref = _plugin_last_ref, _vars_array = _plugin_rec_configs_array[ _index_ref ] ;
+		   console.log( _vars_array );
+           if ( is_consistent_array( _vars_array ) )
            {
                 var _plugin_def = _plugin_definitions_array[_index_ref] ;
                 var _entry = "" ;

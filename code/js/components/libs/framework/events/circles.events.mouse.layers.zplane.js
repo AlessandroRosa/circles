@@ -3,9 +3,9 @@ function Z_PLANE_work_canvas_onmouseover( obj, event )
     _glob_canvas_obj_ref = obj ;
     if ( _glob_zplane_canvas_timerID == null ) circles_lib_canvas_zplane_start_timer();
     if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_ZOOM_PROC_ID )
-		$( "#"+_glob_zplane_work_layer_placeholder.id ).css('cursor','zoom-in');
+		$( "#"+_glob_zplane_work_layer_pointer.id ).css('cursor','zoom-in');
     else if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_PICK_LASTPT_PROC_ID )
-		$( "#" + _glob_zplane_work_layer_placeholder.id ).css('cursor', "url("+_glob_path_to_img+"icons/picker/picker.icon.01.20x20.png), auto" );
+		$( "#" + _glob_zplane_work_layer_pointer.id ).css('cursor', "url("+_glob_path_to_img+"icons/picker/picker.icon.01.20x20.png), auto" );
     else if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_DRAWDISKS_PROC_ID )
     {
        _glob_zplaneMOUSEleftBTNstatus = OFF, _glob_centerX = _glob_centerY = UNDET ;
@@ -108,7 +108,7 @@ function Z_PLANE_work_canvas_onmousemove( obj, event )
          if ( _glob_disk_sel_index == UNFOUND && is_item_obj( _glob_seeds_array[_glob_disk_sel_index] ) )
          {
              _glob_seeds_array[_glob_disk_sel_index].screen_circle.center = new point( _glob_mouse_x, _glob_mouse_y );
-             circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, null, YES );
+             circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, null, YES );
          }
          else if ( is_item_obj( _glob_seeds_array[_glob_disk_sel_index] ) )
          {
@@ -128,7 +128,7 @@ function Z_PLANE_work_canvas_onmousemove( obj, event )
                 _glob_seeds_array[ _glob_zplane_selected_items_array[_i] ].screen_circle.center.y += _glob_mouse_dy ;
              }
 
-             circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
+             circles_lib_draw_all_screen_disks( _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ), zplane_sm, _glob_zplane_selected_items_array, YES );
          }
     }
 	  else if ( _glob_zplaneMOUSEprocSWITCH == MOUSE_DRAWDISKS_PROC_ID && _glob_zplaneMOUSEleftBTNstatus == ON )
@@ -386,8 +386,8 @@ function Z_PLANE_work_canvas_onmouseup( obj, event )
            alert_msg( ALERT_YESNO | ALERT_QUESTION, HTMLcode, _glob_app_title + " - " + circles_lib_plane_def_get( Z_PLANE ), 640 );
            var screen_left_top_pt = zplane_sm.from_cartesian_to_client( _glob_zoom_rect.x1, _glob_zoom_rect.y1 );
            var screen_right_bottom_pt = zplane_sm.from_cartesian_to_client( _glob_zoom_rect.x2, _glob_zoom_rect.y2 );
-           circles_lib_canvas_blowup( [ _glob_zplane_grid_layer_placeholder, _glob_zplane_rendering_layer_placeholder,
-                                        _glob_zplane_work_layer_placeholder, _glob_zplane_freedraw_layer_placeholder ],
+           circles_lib_canvas_blowup( [ _glob_zplane_grid_layer_pointer, _glob_zplane_rendering_layer_pointer,
+                                        _glob_zplane_work_layer_pointer, _glob_zplane_freedraw_layer_pointer ],
                                $('#ZOOMthumbCANVAS').get(0),
                                screen_left_top_pt.x, screen_left_top_pt.y,
                                screen_right_bottom_pt.x - screen_left_top_pt.x,
@@ -417,7 +417,7 @@ function Z_PLANE_work_canvas_onmouseup( obj, event )
                      _text += "<br>3. Push canc to delete selection" ;
                  circles_lib_helper_div_create( Z_PLANE, "Disks selection", _text, 270, 110 );
 
-                 circles_lib_canvas_clean( _glob_zplane_rendering_layer_placeholder );
+                 circles_lib_canvas_clean( _glob_zplane_rendering_layer_pointer );
                  var _ret_chunk = circles_lib_canvas_render_zplane( null, zplane_sm, null, YES, YES, YES, NO, YES, OUTPUT_SCREEN );
              }
          }

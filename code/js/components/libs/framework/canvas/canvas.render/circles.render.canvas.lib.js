@@ -1,4 +1,4 @@
-function circles_lib_canvas_render_zplane( _canvas = null, _mapper = zplane_sm, _selected_layers_array = [], _b_clean = NO, _b_render_bk = YES, _b_render_objs = YES, _question = NO, _silent = YES, _b_reset_coords = YES, _out_channel )
+function circles_lib_canvas_render_zplane( _canvas = _glob_zplane_rendering_layer_pointer, _mapper = zplane_sm, _selected_layers_array = [], _b_clean = NO, _b_render_bk = YES, _b_render_objs = YES, _question = NO, _silent = YES, _b_reset_coords = YES, _out_channel )
 {
     _b_clean = safe_int( _b_clean, NO ), _b_render_bk = safe_int( _b_render_bk, YES ), _b_render_objs = safe_int( _b_render_objs, YES );
     _b_reset_coords = safe_int( _b_reset_coords, YES );
@@ -28,10 +28,10 @@ function circles_lib_canvas_render_zplane( _canvas = null, _mapper = zplane_sm, 
     }
 
     var _grid_canvas = null, _rendering_canvas = null, _freedraw_canvas = null, _work_canvas = null ;
-    _grid_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( Z_PLANE, "grid" ) ? circles_lib_canvas_get_target( Z_PLANE, "grid" ) : _glob_zplane_grid_layer_placeholder ) ;
-    _rendering_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( Z_PLANE, "rendering" ) ? circles_lib_canvas_get_target( Z_PLANE, "rendering" ) : _glob_zplane_rendering_layer_placeholder ) ;
-    _freedraw_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( Z_PLANE, "freedraw" ) ? circles_lib_canvas_get_target( Z_PLANE, "freedraw" ) : _glob_zplane_freedraw_layer_placeholder ) ;
-    _work_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( Z_PLANE, "work" ) ? circles_lib_canvas_get_target( Z_PLANE, "work" ) : _glob_zplane_work_layer_placeholder ) ;
+    _grid_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( Z_PLANE, "grid" ) ? circles_lib_canvas_get_target( Z_PLANE, "grid" ) : _glob_zplane_grid_layer_pointer ) ;
+    _rendering_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( Z_PLANE, "rendering" ) ? circles_lib_canvas_get_target( Z_PLANE, "rendering" ) : _glob_zplane_rendering_layer_pointer ) ;
+    _freedraw_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( Z_PLANE, "freedraw" ) ? circles_lib_canvas_get_target( Z_PLANE, "freedraw" ) : _glob_zplane_freedraw_layer_pointer ) ;
+    _work_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( Z_PLANE, "work" ) ? circles_lib_canvas_get_target( Z_PLANE, "work" ) : _glob_zplane_work_layer_pointer ) ;
 
     _glob_apply_dashed_border = YES ;
     if ( _b_reset_coords ) circles_lib_reset_coords();
@@ -72,18 +72,22 @@ function circles_lib_canvas_render_zplane( _canvas = null, _mapper = zplane_sm, 
     switch( _glob_export_format )
     {
         case EXPORT_SVG:
+		if ( !is_html_canvas( _canvas ) ) _canvas = _glob_zplane_rendering_layer_pointer ;
         if ( _glob_svg_open == 0 ) _glob_export_code_array = [];
         var _w = _canvas.get_width(), _h = _canvas.get_height();
         _svg_open( _glob_export_code_array, _w, _h, "Z-plane", _canvas );
         _svg_comment( _glob_export_code_array, "Exporting the Z-plane" );
         break ;
         case EXPORT_PS:
+		if ( !is_html_canvas( _canvas ) ) _canvas = _glob_zplane_rendering_layer_pointer ;
         if ( _glob_e_ps_open == 0 ) _glob_js_e_ps_obj.init( _glob_e_ps_language_level, NO, "", 0, 0, _canvas.get_width(), _canvas.get_height(), "Exporting the Z-plane", YES );
         break ;
         case EXPORT_EPS:
+		if ( !is_html_canvas( _canvas ) ) _canvas = _glob_zplane_rendering_layer_pointer ;
         if ( _glob_e_ps_open == 0 ) _glob_js_e_ps_obj.init( _glob_e_ps_language_level, YES, "", 0, 0, _canvas.get_width(), _canvas.get_height(), "Exporting the Z-plane", YES );
         break ;
         case EXPORT_LATEX:
+		if ( !is_html_canvas( _canvas ) ) _canvas = _glob_zplane_rendering_layer_pointer ;
         if ( _glob_latex_open == 0 ) _glob_js_latex_obj.init( _canvas.get_width(), _canvas.get_height(), _glob_latex_options, YES, YES, "Exporting the Z-plane" );
         break ;
         case EXPORT_NONE: default: break ;
@@ -96,21 +100,21 @@ function circles_lib_canvas_render_zplane( _canvas = null, _mapper = zplane_sm, 
         switch( _layer_role_index )
         {
             case ROLE_GRID: // grid
-            if ( _glob_show_grid_zplane && ( _glob_zplane_grid_layer_placeholder.is_visible() || is_html_canvas( _grid_canvas ) ) )
+            if ( _glob_show_grid_zplane && ( _glob_zplane_grid_layer_pointer.is_visible() || is_html_canvas( _grid_canvas ) ) )
             circles_lib_grid_draw( _grid_canvas, _mapper, Z_PLANE, YES, _glob_ticks_count, _out_channel );
             break ;
             case ROLE_RENDERING: // rendering
-            if ( _b_render_objs && ( _glob_zplane_rendering_layer_placeholder.is_visible() || is_html_canvas( _rendering_canvas ) ) )
+            if ( _b_render_objs && ( _glob_zplane_rendering_layer_pointer.is_visible() || is_html_canvas( _rendering_canvas ) ) )
             circles_lib_draw_all_complex_disks( _rendering_canvas.getContext( _glob_canvas_ctx_2D_mode ), _mapper, _glob_zplane_selected_items_array, NO, _silent, _out_channel );
             break ;
             case ROLE_FREEDRAW: // free draw
-            if ( _glob_zplane_freedraw_layer_placeholder.is_visible() || is_html_canvas( _freedraw_canvas ) )
+            if ( _glob_zplane_freedraw_layer_pointer.is_visible() || is_html_canvas( _freedraw_canvas ) )
             {
 
             }
             break ;
             case ROLE_WORK: // work
-            if ( _glob_zplane_work_layer_placeholder.is_visible() || is_html_canvas( _work_canvas ) )
+            if ( _glob_zplane_work_layer_pointer.is_visible() || is_html_canvas( _work_canvas ) )
 			{
                 if ( _glob_show_symbols_zplane ) circles_lib_symbol_zplane_display( null, _work_canvas, null, NO, NO, _out_channel );
                 circles_lib_canvas_afterrender_figures_draw( null, NO, Z_PLANE );
@@ -137,7 +141,6 @@ function circles_lib_canvas_render_zplane( _canvas = null, _mapper = zplane_sm, 
          circles_lib_plugin_load('forms','general.options',NO,2);
       }
    }
-
    return [ RET_OK, "Z-plane rendered with success" ] ;
 }
 
@@ -165,10 +168,10 @@ function circles_lib_canvas_render_wplane( _canvas = null, _mapper = wplane_sm, 
     }
     
     var _grid_canvas = null, _rendering_canvas = null, _freedraw_canvas = null, _work_canvas = null ;
-    _grid_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( W_PLANE, "grid" ) ? circles_lib_canvas_get_target( W_PLANE, "grid" ) : _glob_wplane_grid_layer_placeholder ) ;
-    _rendering_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( W_PLANE, "rendering" ) ? circles_lib_canvas_get_target( W_PLANE, "rendering" ) : _glob_wplane_rendering_layer_placeholder ) ;
-    _freedraw_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( W_PLANE, "freedraw" ) ? circles_lib_canvas_get_target( W_PLANE, "freedraw" ) : _glob_wplane_freedraw_layer_placeholder ) ;
-    _work_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( W_PLANE, "work" ) ? circles_lib_canvas_get_target( W_PLANE, "work" ) : _glob_wplane_work_layer_placeholder ) ;
+    _grid_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( W_PLANE, "grid" ) ? circles_lib_canvas_get_target( W_PLANE, "grid" ) : _glob_wplane_grid_layer_pointer ) ;
+    _rendering_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( W_PLANE, "rendering" ) ? circles_lib_canvas_get_target( W_PLANE, "rendering" ) : _glob_wplane_rendering_layer_pointer ) ;
+    _freedraw_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( W_PLANE, "freedraw" ) ? circles_lib_canvas_get_target( W_PLANE, "freedraw" ) : _glob_wplane_freedraw_layer_pointer ) ;
+    _work_canvas = is_html_canvas( _canvas ) ? _canvas : ( circles_lib_canvas_get_exists( W_PLANE, "work" ) ? circles_lib_canvas_get_target( W_PLANE, "work" ) : _glob_wplane_work_layer_pointer ) ;
 
     if ( _glob_items_to_init && !_silent )
     {
@@ -182,7 +185,7 @@ function circles_lib_canvas_render_wplane( _canvas = null, _mapper = wplane_sm, 
     {
         if ( !is_array( _selected_layers_array ) )
         {
-            if ( _b_render_bk && _glob_wplane_grid_layer_placeholder.is_visible() ) circles_lib_canvas_layer_pile_init( W_PLANE, _b_clean, NO );
+            if ( _b_render_bk && _glob_wplane_grid_layer_pointer.is_visible() ) circles_lib_canvas_layer_pile_init( W_PLANE, _b_clean, NO );
             circles_lib_canvas_layer_pile_per_plane_clean( W_PLANE, UNDET, _silent, _out_channel );
             circles_lib_canvas_layer_pile_reset( W_PLANE );
         }
@@ -207,7 +210,7 @@ function circles_lib_canvas_render_wplane( _canvas = null, _mapper = wplane_sm, 
     var _w = _rendering_canvas.get_width(), _h = _rendering_canvas.get_height();
     var _desc = "W-plane | " + circles_lib_method_get_def( _glob_method ) + ( _glob_submethod_desc.length > 0 ? " | " + _glob_submethod_desc : "" )  ;
     var _base_canvas = null ;
-    if ( _glob_show_grid_wplane && _glob_wplane_grid_layer_placeholder.is_visible() ) _base_canvas = _grid_canvas ;
+    if ( _glob_show_grid_wplane && _glob_wplane_grid_layer_pointer.is_visible() ) _base_canvas = _grid_canvas ;
     if ( _base_canvas == null ) _base_canvas = _grid_canvas ;
     switch( _glob_export_format )
     {
@@ -274,11 +277,11 @@ function circles_lib_canvas_render_wplane( _canvas = null, _mapper = wplane_sm, 
         switch( _layer_role_index )
         {
             case ROLE_GRID: // grid
-            if ( _glob_show_grid_wplane && _glob_wplane_grid_layer_placeholder.is_visible() )
+            if ( _glob_show_grid_wplane && _glob_wplane_grid_layer_pointer.is_visible() )
  						circles_lib_grid_draw( _grid_canvas, _mapper, W_PLANE, YES, _glob_ticks_count, _out_channel );
             break ;
             case ROLE_RENDERING: // rendering
-            if ( _b_render_objs && _glob_wplane_rendering_layer_placeholder.is_visible() )
+            if ( _b_render_objs && _glob_wplane_rendering_layer_pointer.is_visible() )
             {
                 _ret_chunk = circles_lib_canvas_render_process( _rendering_canvas, _mapper, W_PLANE, _silent, _out_channel );
                 circles_lib_items_switch_to( ITEMS_SWITCH_SEEDS, _silent, _out_channel );
@@ -292,13 +295,13 @@ function circles_lib_canvas_render_wplane( _canvas = null, _mapper = wplane_sm, 
             }
             break ;
             case ROLE_FREEDRAW: // freedraw layer
-            if ( _glob_wplane_freedraw_layer_placeholder.is_visible() )
+            if ( _glob_wplane_freedraw_layer_pointer.is_visible() )
             {
 
             }
             break ;
             case ROLE_WORK: // work layer
-            if ( _glob_wplane_work_layer_placeholder.is_visible() )
+            if ( _glob_wplane_work_layer_pointer.is_visible() )
             {
                 circles_lib_canvas_afterrender_figures_draw( null, NO, W_PLANE );
             }
@@ -376,17 +379,17 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
                 circles_lib_grid_draw( _canvas, _mapper, Z_PLANE, YES, _glob_ticks_count, _out_channel );
                 break ;
                 case ROLE_RENDERING: // rendering
-                if ( _b_render_objs && _glob_zplane_rendering_layer_placeholder.is_visible() )
+                if ( _b_render_objs && _glob_zplane_rendering_layer_pointer.is_visible() )
                 circles_lib_draw_all_complex_disks( _canvas.getContext( _glob_canvas_ctx_2D_mode ), _mapper, _glob_zplane_selected_items_array, NO, _silent, _out_channel );
                 break ;
                 case ROLE_FREEDRAW: // free draw
-                if ( _glob_zplane_freedraw_layer_placeholder.is_visible() )
+                if ( _glob_zplane_freedraw_layer_pointer.is_visible() )
                 {
 
                 }
                 break ;
                 case ROLE_WORK: // work
-                if ( _glob_zplane_work_layer_placeholder.is_visible() )
+                if ( _glob_zplane_work_layer_pointer.is_visible() )
     						{
     						}
                 break ;
@@ -429,11 +432,11 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
              switch( _layer_role_index )
              {
                   case 1: // grid
-                  if ( _glob_show_grid_wplane && _glob_wplane_grid_layer_placeholder.is_visible() )
+                  if ( _glob_show_grid_wplane && _glob_wplane_grid_layer_pointer.is_visible() )
                   circles_lib_grid_draw( _canvas, _mapper, BIP_BOX, YES, _glob_ticks_count, _out_channel );
                   break ;
                   case 2: // rendering
-                  if ( _b_render_objs && _glob_wplane_rendering_layer_placeholder.is_visible() )
+                  if ( _b_render_objs && _glob_wplane_rendering_layer_pointer.is_visible() )
                   {
                       _ret_chunk = circles_lib_canvas_render_process( _canvas, _mapper, BIP_BOX, _silent, _out_channel );
                       _ret_id = ( is_array( _ret_chunk ) || _ret_chunk == UNDEF ) ? safe_int( _ret_chunk[0], 0 ) : 0 ;
@@ -446,13 +449,13 @@ function circles_lib_canvas_render_bipbox( _plane_type, _selected_layers_array, 
                   }
                   break ;
                   case 3: // freedraw layer
-                  if ( _glob_wplane_freedraw_layer_placeholder.is_visible() )
+                  if ( _glob_wplane_freedraw_layer_pointer.is_visible() )
                   {
 
                   }
                   break ;
                   case 4: // work layer
-                  if ( _glob_wplane_work_layer_placeholder.is_visible() )
+                  if ( _glob_wplane_work_layer_pointer.is_visible() )
                   {
                        // for further developments
                   }

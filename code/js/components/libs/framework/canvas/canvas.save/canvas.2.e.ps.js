@@ -1,30 +1,28 @@
 var _glob_e_ps_open = 0 ;
 
-function circles_lib_canvas_save_to_e_ps( _filename, _silent, _out_channel )
+function circles_lib_canvas_save_to_e_ps( _filename = "", _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
-     _filename = safe_string( _filename, "" );
-     _silent = safe_int( _silent, NO );
-     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
-     var _code = _glob_js_e_ps_obj.get_codelist().join( _glob_crlf );       _code = _code.trim();
-     if ( _code.length > 0 )
-     {
-          // remove extension if explictly inside input var
- 			    var _extension = _filename.includes( "." ) ? _filename.split( ".").get_last() : "" ;
-              _filename = _filename.replaceAll( [ ( _glob_export_format == EXPORT_PS ? ".ps" : ".eps" ), _extension ], "" );
-              _extension = _glob_export_format == EXPORT_PS ? "ps" : "eps" ;
-              _filename = _glob_title.length > 0 ? ( _glob_title + "." + _filename ) : "circles." + _filename ;
-              _filename += _extension ;
-              _filename = _filename.replaceAll( "..", "." );
-          var blob = new Blob( [ _code ], { type: 'plain/text', endings: 'native' });
-          saveAs( blob, _filename );
-          return [ 1, "Saving the "+_extension.toUpperCase()+" file: now wait for the dialog box to open" ];
-     }
-     else
-     {
+    _filename = safe_string( _filename, "" ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    var _code = _glob_js_e_ps_obj.get_codelist().join( _glob_crlf ).trim();
+    if ( _code.length > 0 )
+    {
+        // remove extension if explictly inside input var
+		var _extension = _filename.includes( "." ) ? _filename.split( ".").get_last() : "" ;
+            _filename = _filename.replace( /(\.)*(e)*(ps)/gi, "" ) ;
+            _extension = _glob_export_format == EXPORT_PS ? ".ps" : ".eps" ;
+            _filename = _glob_title.length > 0 ? ( _glob_title + "." + _filename ) : "circles." + _filename ;
+            _filename += _extension ;
+            _filename = _filename.replaceAll( "..", "." );
+        var blob = new Blob( [ _code ], { type: 'plain/text', endings: 'native' });
+        saveAs( blob, _filename );
+        return [ 1, "Saving the "+_extension.toUpperCase()+" file: now wait for the dialog box to open" ];
+    }
+    else
+    {
         var _msg = "Code is not available to save the "+( _glob_export_format == EXPORT_PS ? "PS" : "EPS" )+" file" ;
         if ( _out_channel == OUTPUT_SCREEN && !_silent ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_CRITICAL, _msg, _glob_app_title );
         else return [ 0, _msg ];
-     }
+    }
 }
 
 function _e_ps_open( _w, _h, _desc, _canvas )
@@ -46,20 +44,20 @@ function _e_ps_open( _w, _h, _desc, _canvas )
      return _glob_e_ps_open ;
 }
 
-function _e_ps_comment( _text )
+function _e_ps_comment( _text = "" )
 {
      _text = safe_string( new String( _text ), "" ).trim();
-     _glob_js_e_ps_obj.comment( _text );
+     if ( _text.length > 0 ) _glob_js_e_ps_obj.comment( _text );
 }
 
-function _e_ps_line( _screen_line, _dashed )
+function _e_ps_line( _screen_line, _dashed = 0 )
 {
      if ( _glob_e_ps_open == 1 )
      {
          _dashed = safe_int( _dashed, 0 ); 
          var _x1 = _screen_line.start_pt.x, _y1 = _screen_line.start_pt.y ;
          var _x2 = _screen_line.end_pt.x, _y2 = _screen_line.end_pt.y ;
-         var _bordersize = _screen_line.lw, _clr = _screen_line.bordercolor ;
+         var _bordersize = _screen_line.bordersize, _clr = _screen_line.bordercolor ;
     
          var _dash_attr = _dashed ? "[2,2]" : "" ;
          var _draw_attr = _bordersize != 0 ? " stroke=\""+_clr+"\"" : " stroke=\"transparent\"" ;

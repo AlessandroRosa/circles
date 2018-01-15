@@ -9,6 +9,6 @@ var _glob_bip_ticks = DEFAULT_TICKS ;
 var _glob_bip_bk = "" ;
 var _glob_bip_halt = NO ;
 var _glob_bipbox_canvas = null ;
-var _glob_bip_layer_placeholder = null ;
+var _glob_bip_layer_pointer = null ;
 var _glob_bip_opacity = DEFAULT_MAX_OPACITY ;
 var _glob_bip_pixel_size = 1 ;

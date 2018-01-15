@@ -118,12 +118,12 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
                 switch( _glob_export_format )
                 {
                     case EXPORT_SVG:
-                    _screen_line = new line( axis_left_pt.x, _screenY, axis_right_pt.x, _screenY, _pixel_size, '#E0E0E0' );
+                    _screen_line = new line( axis_left_pt.x, _screenY, axis_right_pt.x, _screenY, _pixel_size, DEFAULT_AXES_COLOR );
                     _svg_line( _glob_export_code_array, _screen_line, 0 );
                     break ;
                     case EXPORT_PS:
                     case EXPORT_EPS:
-                    _glob_js_e_ps_obj.line( axis_left_pt.x, _screenY, axis_right_pt.x, _screenY, _pixel_size, '#E0E0E0', UNDET, "" );
+                    _glob_js_e_ps_obj.line( axis_left_pt.x, _screenY, axis_right_pt.x, _screenY, _pixel_size, DEFAULT_AXES_COLOR, UNDET, "" );
                     break ;
                     case EXPORT_LATEX:
                     _glob_js_latex_obj.line( axis_left_pt.x, _screenY, axis_right_pt.x, _screenY, 'gray' );
@@ -135,6 +135,7 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
             var ticklength = _glob_grid_marker_len ;
             // draw VERTICAL LINES (Y axis)
             var next_x, curr_x = 0, _screenX, _next_screenX, cartesian_pt, _next_cartesian_pt, _screen_line ;
+			console.log( "GRID COLOR", _glob_grid_color );
             for( var i = 0 ; i <= _x_howmanyticks ; i++ )
             {
                 _screenX = safe_int( axis_left_pt.x + ( i * _x_screen_tick_width ), 0 );
@@ -157,12 +158,12 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
                 switch( _glob_export_format )
                 {
                     case EXPORT_SVG:
-                    _screen_line = new line( _screenX, axis_left_pt.y, _screenX, axis_right_pt.y, _pixel_size, '#E0E0E0' );
+                    _screen_line = new line( _screenX, axis_left_pt.y, _screenX, axis_right_pt.y, _pixel_size, DEFAULT_AXES_COLOR );
                     _svg_line( _glob_export_code_array, _screen_line, 0 );
                     break ;
                     case EXPORT_PS:
                     case EXPORT_EPS:
-                    _glob_js_e_ps_obj.line( _screenX, axis_left_pt.y, _screenX, axis_right_pt.y, _pixel_size, '#E0E0E0', UNDET, "" );
+                    _glob_js_e_ps_obj.line( _screenX, axis_left_pt.y, _screenX, axis_right_pt.y, _pixel_size, DEFAULT_AXES_COLOR, UNDET, "" );
                     break ;
                     case EXPORT_LATEX:
                     _glob_js_latex_obj.line( _screenX, axis_left_pt.y, _screenX, axis_right_pt.y, 'gray' );

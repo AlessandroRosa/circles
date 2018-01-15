@@ -1,37 +1,33 @@
 function circles_lib_files_get_export_format()
 {
-		if ( is_array( _glob_export_code_array ) )
-		{
-				 var _chunk = _glob_export_code_array.left( 4 ) ;
-				 var _export_format = EXPORT_NONE ;
-				 $.each( _chunk,
-				 				 function( _i, _item )
-				 				 {
-											if ( _item.includes( "<svg" ) )
-											{
-													 _export_format = EXPORT_SVG ;
-													 return ;
-											}
-											else if ( _item.includes( "documentclass" ) )
-											{
-													 _export_format = EXPORT_LATEX ;
-													 return ;
-											}
-											else if ( _item.includes( "EPS" ) )
-											{
-													 _export_format = EXPORT_EPS ;
-													 return ;
-											}
-											else if ( _item.includes( "%!PS" ) )
-											{
-													 _export_format = EXPORT_PS ;
-													 return ;
-											}
-								 }
-				 			 ) ;
-				 return _export_format ;
-		}
-		else return EXPORT_NONE ;
+	if ( is_array( _glob_export_code_array ) )
+	{
+		var _chunk = _glob_export_code_array.left( 4 ), _export_format = EXPORT_NONE ;
+		$.each( _chunk, function( _i, _item ) {
+				if ( _item.includes( "<svg" ) )
+				{
+					_export_format = EXPORT_SVG ;
+					return ;
+				}
+				else if ( _item.includes( "documentclass" ) )
+				{
+					_export_format = EXPORT_LATEX ;
+					return ;
+				}
+				else if ( _item.includes( "EPS" ) )
+				{
+					_export_format = EXPORT_EPS ;
+					return ;
+				}
+				else if ( _item.includes( "%!PS" ) )
+				{
+					_export_format = EXPORT_PS ;
+					return ;
+				}
+		} ) ;
+		return _export_format ;
+	}
+	else return EXPORT_NONE ;
 }
 
 function circles_lib_files_load_environment( _filename, _file_contents )

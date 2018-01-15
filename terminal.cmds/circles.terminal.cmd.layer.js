@@ -410,15 +410,15 @@ function circles_terminal_cmd_layer()
                 }
                 break ;
                 case "info":
-                var _zplane_grid_label = ( _glob_zplane_grid_layer_placeholder != null ) ? _glob_zplane_grid_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
-                var _zplane_rendering_label = _glob_zplane_rendering_layer_placeholder != null ? _glob_zplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
-                var _zplane_freedraw_label = ( _glob_zplane_freedraw_layer_placeholder != null ) ? _glob_zplane_freedraw_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
-                var _zplane_work_label = ( _glob_zplane_work_layer_placeholder != null ) ? _glob_zplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
+                var _zplane_grid_label = ( _glob_zplane_grid_layer_pointer != null ) ? _glob_zplane_grid_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
+                var _zplane_rendering_label = _glob_zplane_rendering_layer_pointer != null ? _glob_zplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
+                var _zplane_freedraw_label = ( _glob_zplane_freedraw_layer_pointer != null ) ? _glob_zplane_freedraw_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
+                var _zplane_work_label = ( _glob_zplane_work_layer_pointer != null ) ? _glob_zplane_work_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
 
-                var _wplane_grid_label = ( _glob_wplane_grid_layer_placeholder != null ) ? _glob_wplane_grid_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
-                var _wplane_rendering_label = _glob_wplane_rendering_layer_placeholder != null ? _glob_wplane_rendering_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
-                var _wplane_freedraw_label = ( _glob_wplane_freedraw_layer_placeholder != null ) ? _glob_wplane_freedraw_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
-                var _wplane_work_label = ( _glob_wplane_work_layer_placeholder != null ) ? _glob_wplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
+                var _wplane_grid_label = ( _glob_wplane_grid_layer_pointer != null ) ? _glob_wplane_grid_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
+                var _wplane_rendering_label = _glob_wplane_rendering_layer_pointer != null ? _glob_wplane_rendering_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
+                var _wplane_freedraw_label = ( _glob_wplane_freedraw_layer_pointer != null ) ? _glob_wplane_freedraw_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
+                var _wplane_work_label = ( _glob_wplane_work_layer_pointer != null ) ? _glob_wplane_work_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ).label : "unknown" ;
 
                 var _bip_rendering_label = "" ;
                 if ( _glob_bip_original_plane_data == Z_PLANE ) _bip_rendering_label = "Z-plane type" ;
@@ -550,16 +550,16 @@ function circles_terminal_cmd_layer()
                     switch( _cmd_params['to_plane'] )
                     {
                         case Z_PLANE:
-                        if ( _to_service.stricmp( "grid" ) ) _glob_zplane_grid_layer_placeholder = _candidate_from_layer ;
-                        else if ( _to_service.stricmp( "rendering" ) ) _glob_zplane_rendering_layer_placeholder = _candidate_from_layer ;
-                        else if ( _to_service.stricmp( "freedraw" ) ) _glob_zplane_freedraw_layer_placeholder = _candidate_from_layer ;
-                        else if ( _to_service.stricmp( "work" ) ) _glob_zplane_work_layer_placeholder = _candidate_from_layer ;
+                        if ( _to_service.stricmp( "grid" ) ) _glob_zplane_grid_layer_pointer = _candidate_from_layer ;
+                        else if ( _to_service.stricmp( "rendering" ) ) _glob_zplane_rendering_layer_pointer = _candidate_from_layer ;
+                        else if ( _to_service.stricmp( "freedraw" ) ) _glob_zplane_freedraw_layer_pointer = _candidate_from_layer ;
+                        else if ( _to_service.stricmp( "work" ) ) _glob_zplane_work_layer_pointer = _candidate_from_layer ;
                         break ;
                         case W_PLANE:
-                        if ( _to_service.stricmp( "grid" ) ) _glob_wplane_grid_layer_placeholder = _candidate_from_layer ;
-                        else if ( _to_service.stricmp( "rendering" ) ) _glob_wplane_rendering_layer_placeholder = _candidate_from_layer ;
-                        else if ( _to_service.stricmp( "freedraw" ) ) _glob_wplane_freedraw_layer_placeholder = _candidate_from_layer ;
-                        else if ( _to_service.stricmp( "work" ) ) _glob_wplane_work_layer_placeholder = _candidate_from_layer ;
+                        if ( _to_service.stricmp( "grid" ) ) _glob_wplane_grid_layer_pointer = _candidate_from_layer ;
+                        else if ( _to_service.stricmp( "rendering" ) ) _glob_wplane_rendering_layer_pointer = _candidate_from_layer ;
+                        else if ( _to_service.stricmp( "freedraw" ) ) _glob_wplane_freedraw_layer_pointer = _candidate_from_layer ;
+                        else if ( _to_service.stricmp( "work" ) ) _glob_wplane_work_layer_pointer = _candidate_from_layer ;
                         break ;
                         default:
                         _b_fail = YES ; _error_str = "Redirection assignment failure: inconsistent plane reference" ;
@@ -580,24 +580,24 @@ function circles_terminal_cmd_layer()
 				{
 					case Z_PLANE:
 					circles_lib_output( _out_channel, DISPATCH_INFO, "Redirection list for Z-plane", _par_1, _cmd_tag );
-					var _msg = "<white>Grid Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_zplane_grid_layer_placeholder.id )+"</yellow>" ;
+					var _msg = "<white>Grid Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_zplane_grid_layer_pointer.id )+"</yellow>" ;
 					circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-						_msg = "<white>Rendering Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_zplane_rendering_layer_placeholder.id )+"</yellow>" ;
+						_msg = "<white>Rendering Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_zplane_rendering_layer_pointer.id )+"</yellow>" ;
 					circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-						_msg = "<white>Freedraw Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_zplane_freedraw_layer_placeholder.id )+"</yellow>" ;
+						_msg = "<white>Freedraw Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_zplane_freedraw_layer_pointer.id )+"</yellow>" ;
 					circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-						_msg = "<white>Work Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_zplane_work_layer_placeholder.id )+"</yellow>" ;
+						_msg = "<white>Work Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_zplane_work_layer_pointer.id )+"</yellow>" ;
 					circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 					break ;
 					case W_PLANE:
 					circles_lib_output( _out_channel, DISPATCH_INFO, "Redirection list for W-plane", _par_1, _cmd_tag );
-					var _msg = "<white>Grid Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_wplane_grid_layer_placeholder.id )+"</yellow>" ;
+					var _msg = "<white>Grid Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_wplane_grid_layer_pointer.id )+"</yellow>" ;
 					circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-						_msg = "<white>Rendering Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_wplane_rendering_layer_placeholder.id )+"</yellow>" ;
+						_msg = "<white>Rendering Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_wplane_rendering_layer_pointer.id )+"</yellow>" ;
 					circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-						_msg = "<white>Freedraw Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_wplane_freedraw_layer_placeholder.id )+"</yellow>" ;
+						_msg = "<white>Freedraw Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_wplane_freedraw_layer_pointer.id )+"</yellow>" ;
 					circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
-						_msg = "<white>Work Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_wplane_work_layer_placeholder.id )+"</yellow>" ;
+						_msg = "<white>Work Layer</white> directed to service <yellow>"+circles_lib_canvas_layer_roledef_get( _glob_wplane_work_layer_pointer.id )+"</yellow>" ;
 					circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _cmd_tag );
 					break ;
 					default: break ;

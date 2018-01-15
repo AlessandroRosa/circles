@@ -710,8 +710,8 @@ function circles_terminal_cmd_disk()
 
                     if ( _glob_zplane_selected_items_array.length > 0 && _b_found )
                     {
-                        var _layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
-                        var _ret_chunk = circles_lib_canvas_render_zplane( _layer_placeholder, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+                        var _layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+                        var _ret_chunk = circles_lib_canvas_render_zplane( _layer_pointer, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
 											  var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
  												var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                         circles_lib_output( _out_channel, _ret_id ? DISPATCH_SUCCESS : DISPATCH_ERROR, _ret_msg, _par_1, _cmd_tag );
@@ -1062,12 +1062,12 @@ function circles_terminal_cmd_disk()
                     var _n_sel = safe_size( _glob_zplane_selected_items_array, 0 );
                     if ( _n_sel > 0 && is_array( _items_array ) )
                     {
-                        var _layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
-                        if ( is_html_canvas( _layer_placeholder ) )
+                        var _layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+                        if ( is_html_canvas( _layer_pointer ) )
                         {
                             var _need_symbol = 0 ;
                             $.each( _items_array, function( _i, _item_obj ){ if ( safe_string( _item_obj.symbol, "" ).trim().length == 0 ) _need_symbol++ ; } ) ;
-                            var _ret_chunk = circles_lib_canvas_render_zplane( _layer_placeholder, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+                            var _ret_chunk = circles_lib_canvas_render_zplane( _layer_pointer, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
 						    var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
          					var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : _ERR_00_00 ;
                             if ( _ret_id == 0 ) { _b_fail = YES, _error_str = _ret_msg ; }

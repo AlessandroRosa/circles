@@ -56,8 +56,8 @@ function line()
     {
         this.start_pt = new point( arguments[0], arguments[1] ) ;
         this.end_pt = new point( arguments[2], arguments[3] ) ;
-        this.bordersize = safe_int( arguments[3], 1 ) ;
-        this.bordercolor = safe_string( arguments[4], "" ) ;
+        this.bordersize = safe_int( arguments[4], 1 ) ;
+        this.bordercolor = safe_string( arguments[5], "" ) ;
         this.slope = this.slope() ;
         this.length = this.get_length() ;
         this.error = 0 ;

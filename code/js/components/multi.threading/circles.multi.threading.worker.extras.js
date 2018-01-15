@@ -105,9 +105,9 @@ function CIRCLESmultithreadingDENSITYscanner( _canvas, _density_coeff )
         _glob_density_rect_lastindex = _index ;
         var _pt = new point( safe_float( _ref[2][0] ), safe_float( _ref[2][1], 0 ) ) ;
         var _rect = new rect( _pt.x - _rect_w / 2, _pt.y - _rect_h / 2, _pt.x + _rect_w / 2, _pt.y + _rect_h / 2, _RECT_ORIENTATION_SCREEN, "" );
-        _ctx = _glob_wplane_work_layer_placeholder.getContext( _glob_canvas_ctx_2D_mode ) ;
+        _ctx = _glob_wplane_work_layer_pointer.getContext( _glob_canvas_ctx_2D_mode ) ;
 				circles_lib_draw_rect( _ctx, wplane_sm, _rect, NO, "", YES, "#C3C3FB", 0, NO, 0.70, 0 ) ;
-        setTimeout( function(){ circles_lib_canvas_clean( _glob_wplane_work_layer_placeholder ); }, 2500 ) ;
+        setTimeout( function(){ circles_lib_canvas_clean( _glob_wplane_work_layer_pointer ); }, 2500 ) ;
         // picking up the point stored in the resulting rect
         _pt = wplane_sm.from_client_to_cartesian( _pt.x, _pt.y );
         return _pt ;

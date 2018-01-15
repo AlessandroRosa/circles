@@ -270,7 +270,7 @@ function circles_lib_symbol_remove( _items_array = _glob_seeds_array, a, _caller
 function circles_lib_symbol_zplane_display( _items_array = _glob_seeds_array, _canvas = null, _symbol = "", _b_invert = NO, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
 	_items_array = circles_lib_items_set( _items_array ) ;
-    _canvas = !is_html_canvas( _canvas ) ? _glob_zplane_work_layer_placeholder : _canvas ;
+    _canvas = !is_html_canvas( _canvas ) ? _glob_zplane_work_layer_pointer : _canvas ;
     _symbol = safe_string( _symbol, "" ), _b_invert = safe_int( _b_invert, NO );
     _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     var _test = _items_array.test( function( _obj ) { return is_item_obj( _obj ) ; } ) ;

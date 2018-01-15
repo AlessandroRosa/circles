@@ -18,7 +18,7 @@ function circles_lib_extras_button_enable( _ctrl_id, _checkvar, _focus )
     }
 }
 
-function circles_lib_extras_canvas_dropdown_get_placeholder( _ctrl_id )
+function circles_lib_extras_canvas_dropdown_get_pointer( _ctrl_id )
 {
     var _dropdown_id = "CIRCLESchoose"+_ctrl_id.replace( /[\.\_\-]/g, "" ).toUpperCase()+"canvasDROPDOWN" ;
     if ( $( "#"+_dropdown_id ).get(0) != null )

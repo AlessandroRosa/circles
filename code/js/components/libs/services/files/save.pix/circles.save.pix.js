@@ -37,7 +37,8 @@ function circles_lib_files_pix_save_ask( _plane_type = NO_PLANE, _canvas_id = ""
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _silent = safe_int( _silent, NO ), _merge = safe_int( _merge, NO );
-    if ( _canvas_id )
+	if ( is_html_canvas( _canvas_id ) ) _tmp_save_canvas_obj = _canvas_id ;
+	else if ( is_string( _canvas_id ) )
 	{
 		_tmp_save_canvas_obj = $("#"+_canvas_id).get(0) ;
 		if ( !is_html_canvas( _tmp_save_canvas_obj ) ) return [ RET_ERROR, "Invalid input canvas" ];
@@ -53,7 +54,8 @@ function circles_lib_files_pix_save_ask( _plane_type = NO_PLANE, _canvas_id = ""
     var _is_eps = _export_format == EXPORT_EPS || _filename.right(4).stricmp( ".eps" );
     var _is_pdf = _export_format == EXPORT_PDF || _filename.right(4).stricmp( ".pdf" );
     var _save_fn = "" ;
-
+	console.log( _is_png, _is_svg, _is_ps, _is_eps, _is_pdf, "|", _export_format, "|", _filename, _filename.right(4) );
+	
     if ( ( _is_svg || _is_ps || _is_eps || _is_pdf ) && safe_size( _glob_export_code_array, 0 ) == 0 )
     {
         var _FMT = "" ;

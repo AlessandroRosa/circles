@@ -267,7 +267,7 @@ function circles_lib_interface_render()
     $("#"+W_PLANE_LAYERS_PILE_ID ).css( "width", _glob_canvas_width + "px" );
     $("#"+W_PLANE_LAYERS_PILE_ID ).css( "height", _glob_canvas_width + "px" );
     
-    var MASTER_SIDE = _glob_zplane_rendering_layer_placeholder != null ? _glob_zplane_rendering_layer_placeholder.get_width() : _glob_canvas_width ;
+    var MASTER_SIDE = _glob_zplane_rendering_layer_pointer != null ? _glob_zplane_rendering_layer_pointer.get_width() : _glob_canvas_width ;
     var MASTER_BORDER = 0 ;
     
     circles_lib_zplane_mapper_init( _glob_canvas_width, MASTER_BORDER, YES );
@@ -330,7 +330,7 @@ function circles_lib_interface_prepare()
     $("#"+W_PLANE_LAYERS_PILE_ID ).css( "width", _glob_canvas_width + "px" );
     $("#"+W_PLANE_LAYERS_PILE_ID ).css( "height", _glob_canvas_width + "px" );
 
-    var MASTER_SIDE = _glob_zplane_rendering_layer_placeholder != null ? _glob_zplane_rendering_layer_placeholder.get_width() : _glob_canvas_width ;
+    var MASTER_SIDE = _glob_zplane_rendering_layer_pointer != null ? _glob_zplane_rendering_layer_pointer.get_width() : _glob_canvas_width ;
     var MASTER_BORDER = 0 ;
     
     circles_lib_zplane_mapper_init( _glob_canvas_width, MASTER_BORDER, YES );

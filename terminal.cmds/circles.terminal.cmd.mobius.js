@@ -825,13 +825,13 @@ function circles_terminal_cmd_mobius()
                     var _ret_chunk = [];
                     if ( _selection_indexes_array.length > 0 && is_array( _items_array ) )
                     {
-                        var _layer_placeholder = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
-                        if ( is_html_canvas( _layer_placeholder ) )
+                        var _layer_pointer = circles_lib_canvas_get_from_role( Z_PLANE, ROLE_RENDERING );
+                        if ( is_html_canvas( _layer_pointer ) )
                         {
 							_glob_zplane_selected_items_array = [] ;
-                            var _ret_chunk = circles_lib_canvas_render_zplane( _layer_placeholder, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+                            var _ret_chunk = circles_lib_canvas_render_zplane( _layer_pointer, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
 							if ( is_array( _selection_indexes_array ) ) _glob_zplane_selected_items_array = _selection_indexes_array.clone();
-								_ret_chunk = circles_lib_canvas_render_zplane( _layer_placeholder, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
+								_ret_chunk = circles_lib_canvas_render_zplane( _layer_pointer, zplane_sm, null, YES, YES, YES, NO, YES, _out_channel );
 
 							var _ret_id = is_array( _ret_chunk ) ? _ret_chunk[0] : RET_ERROR ;
 							var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Unknown error" ;
