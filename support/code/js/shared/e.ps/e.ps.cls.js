@@ -18,8 +18,10 @@ var _jseps_palette = [] ;
     _jseps_palette['yellow'] = "#FFFF00" ;
 
 // AUXILIARY FUNCTIONS
-if ( typeof is_array != "function" ) function is_array( _a ) 		{ return _a instanceof Array ? 1 : 0 ; }
+if ( typeof is_array != "function" ) function is_array( _a ) { return _a instanceof Array ? 1 : 0 ; }
 if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ) ; }
+if ( typeof safe_int != "function" ) function safe_int( _val, _set_if_nan ) { _val = parseInt( _val, 10 ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
+if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) { _val = parseFloat( _val ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
 if ( typeof get_rgb_dec_triplet != "function" )
 {
     function get_rgb_dec_triplet( _rgbhex )
@@ -36,24 +38,6 @@ if ( typeof get_rgb_dec_triplet != "function" )
          else if ( _rgbhex.toLowerCase().indexOf( "rgb" ) != -1 )
               return _rgbhex.replace( "rgb", "" ).replace( "(", "" ).replace( ")", "" ).trim().split( "," ) ;
          else return "" ;
-    }
-}
-
-if ( typeof safe_int != "function" )
-{
-    function safe_int( _val, _set_if_nan )
-    {
-        _val = parseInt( _val, 10 );
-        return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ;
-    }
-}
-
-if ( typeof safe_float != "function" )
-{
-    function safe_float( _val, _set_if_nan )
-    {
-        _val = parseFloat( _val );
-        return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ;
     }
 }
 
@@ -84,9 +68,7 @@ jseps.prototype.init = function( _language_level = 2, _encapsulated = 1, _author
 
 jseps.prototype.get_codelist_ref = function() { return this.eps_code ; }
 jseps.prototype.get_codelist = function() { return this.eps_code.slice(0) ; }
-
 jseps.prototype.close = function() { this.comment( "%%end of file" ); }
-
 jseps.prototype.reset = function( _desc )
 {
     _desc = safe_string( _desc, "" ).trim() ;
@@ -387,6 +369,7 @@ jseps.prototype.circle = function( _center_x, _center_y, _radius, _bordersize, _
     this.eps_code.push( "newpath" );
     this.eps_code.push( _center_x + " " + _center_y + " " + _radius + " 0 360 arc" );
     this.eps_code.push( "closepath" );
+	console.log( "EPS CIRCLE", _bordercolor, _fillcolor );
     if ( _bordercolor.length > 0 )
     {
         if ( _bordercolor[0] != "#" && _jseps_palette[ "" + _bordercolor ] != null ) _bordercolor = _jseps_palette[ "" + _bordercolor ] ;

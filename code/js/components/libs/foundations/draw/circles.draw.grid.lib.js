@@ -1,7 +1,6 @@
-function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks, _out_channel )
+function circles_lib_grid_draw( _canvas = null, _mapper = null, _plane_type = NO_PLANE, _silent = YES, _n_ticks = _glob_ticks_count, _out_channel = OUTPUT_SCREEN )
 {
-    _plane_type = circles_lib_return_plane_type( _plane_type ) ;
-    _silent = safe_int( _silent, YES );
+    _plane_type = circles_lib_return_plane_type( _plane_type ), _silent = safe_int( _silent, YES );
     _n_ticks = safe_int( _n_ticks, _glob_ticks_count ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
 	  var _sd_n = circles_lib_count_seeds(), _plane_def = circles_lib_plane_def_get( _plane_type ), _max_tick_width = 24 ;
     if ( is_html_canvas( _canvas ) && _plane_type != NO_PLANE )
@@ -135,7 +134,6 @@ function circles_lib_grid_draw( _canvas, _mapper, _plane_type, _silent, _n_ticks
             var ticklength = _glob_grid_marker_len ;
             // draw VERTICAL LINES (Y axis)
             var next_x, curr_x = 0, _screenX, _next_screenX, cartesian_pt, _next_cartesian_pt, _screen_line ;
-			console.log( "GRID COLOR", _glob_grid_color );
             for( var i = 0 ; i <= _x_howmanyticks ; i++ )
             {
                 _screenX = safe_int( axis_left_pt.x + ( i * _x_screen_tick_width ), 0 );

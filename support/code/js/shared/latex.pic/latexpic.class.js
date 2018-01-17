@@ -1,4 +1,7 @@
 if ( typeof is_array != "function" ) function is_array( _a ) 		{ return _a instanceof Array ? 1 : 0 ; }
+if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ) ; }
+if ( typeof safe_int != "function" ) function safe_int( _val, _set_if_nan ) { _val = parseInt( _val, 10 ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
+if ( typeof safe_float != "function" ) function safe_float( _val, _set_if_nan ) { _val = parseFloat( _val ); return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ; }
 if ( typeof is_number != "function" ) function is_number( _obj )  { return ( typeof _obj == "number" || _obj instanceof Number ) ; }
 
 if ( typeof get_os != "function" )
@@ -17,31 +20,11 @@ if ( typeof swap != "function" )
 {
     function swap( _a, _b )
     {
-        var _x = _a ;
-      	_a = _b, _b = _x ;
+      	[ _b, _a ] = [ _a, _b ] ;
       	return [ _a, _b ] ;
     }
 }
 
-if ( typeof safe_int != "function" )
-{
-    function safe_int( _val, _set_if_nan )
-    {
-        _val = parseInt( _val, 10 );
-        return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ;
-    }
-}
-
-if ( typeof safe_float != "function" )
-{
-    function safe_float( _val, _set_if_nan )
-    {
-        _val = parseFloat( _val );
-        return isNaN( _val ) ? ( isNaN( _set_if_nan ) ? 0 : _set_if_nan ) : _val ;
-    }
-}
-
-if ( typeof safe_string != "function" ) function safe_string( _obj, _default_str ) { return ( typeof _obj == "string" || _obj instanceof String ) ? new String( _obj ).trim() : new String( _default_str + "" ) ; }
 // official 'xcolor' package shades table
 var _latex_palette = [] ;
     _latex_palette['apricot'] = "#fbb982" ;
@@ -268,7 +251,7 @@ laTeXpic.prototype.text = function( _pos_x, _pos_y, _text, _textcolor, _fontfami
 					case "teletype": _fontshape = "\\ttfamily" ; break ;
 					case "uppercase": _fontshape = "\\uppercase" ; break ;
 					default: _fontshape = "\\normalfont" ; break ;
-		}
+	}
     
     if ( this.usecustomfonts )
     {

@@ -15,7 +15,9 @@ function circles_lib_canvas_save_to_e_ps( _filename = "", _silent = NO, _out_cha
             _filename = _filename.replaceAll( "..", "." );
         var blob = new Blob( [ _code ], { type: 'plain/text', endings: 'native' });
         saveAs( blob, _filename );
-        return [ 1, "Saving the "+_extension.toUpperCase()+" file: now wait for the dialog box to open" ];
+		var _msg = "Saving the "+_extension.toUpperCase() ;
+		if ( _out_channel != OUTPUT_SCREEN ) _msg += " file: now wait for the dialog box to open" ;
+        return [ 1, _msg ];
     }
     else
     {
@@ -105,6 +107,7 @@ function _e_ps_circle( _screen_circle, _dashed, _opacity )
          var _draw_attr = ( ( _screen_circle.draw || _dashed ) && _screen_circle.bordercolor.length > 0 ) ? " stroke=\""+_screen_circle.bordercolor+"\"" : "" ;
          var _fill_attr = ( _screen_circle.fill && _screen_circle.fillcolor.length > 0 ) ? " fill=\""+_screen_circle.fillcolor+"\"" : " fill=\"transparent\"" ;
          
+		 console.log( _screen_circle );
          global_js_e_ps_obj.circle( _screen_circle.center.x, _screen_circle.center.y, _screen_circle.center.radius,
                                     _screen_circle.bordersize,
                                     _screen_circle.draw ? _screen_circle.bordercolor : "",

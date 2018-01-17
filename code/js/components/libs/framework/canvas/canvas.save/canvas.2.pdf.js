@@ -58,7 +58,9 @@ function circles_lib_canvas_save_to_pdf( _canvas, _filename, _silent, _out_chann
          _top = pdf_header( doc, 1 );
          				pdf_pix( doc, _canvas, 25, 25, 120 );
          doc.output( "save", _filename );
-				 return [ 1, "Saving the "+_extension.toUpperCase()+" file: now wait for the dialog box to open" ];
+		var _msg = "Saving the "+_extension.toUpperCase() ;
+		if ( _out_channel != OUTPUT_SCREEN ) _msg += " file: now wait for the dialog box to open" ;
+        return [ 1, _msg ];
      }
      else
      {

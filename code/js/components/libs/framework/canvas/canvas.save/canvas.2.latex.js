@@ -17,7 +17,9 @@ function circles_lib_canvas_save_to_latex( _filename, _silent, _out_channel )
               _filename = _filename.replaceAll( "..", "." );
           var blob = new Blob( [ _code ], { type: 'plain/text', endings: 'native' });
           saveAs( blob, _filename );
-          return [ 1, "Saving the "+_extension.toUpperCase()+" file: now wait for the dialog box to open" ];
+		  var _msg = "Saving the "+_extension.toUpperCase() ;
+		  if ( _out_channel != OUTPUT_SCREEN ) _msg += " file: now wait for the dialog box to open" ;
+		  return [ 1, _msg ];
      }
      else
      {
@@ -90,9 +92,7 @@ function _latex_circle( _screen_circle, _dashed, _opacity )
 {
      if ( _glob_latex_open == 1 )
      {
-         _dashed = safe_int( _dashed, NO );
-         _opacity = safe_int( _opacity, DEFAULT_MAX_OPACITY );
-    
+         _dashed = safe_int( _dashed, NO ), _opacity = safe_int( _opacity, DEFAULT_MAX_OPACITY );
          _dashed = ( ( _screen_circle.fill == 0 || _screen_circle.fillcolor.length == 0 || _screen_circle.fillcolor.stricmp( "transparent" ) ) && ( _screen_circle.draw == 0 || _screen_circle.bordercolor.length == 0 || _screen_circle.bordercolor.stricmp( "transparent" ) ) ) ? YES : NO ;
          if ( _dashed && _screen_circle.bordercolor.length == 0 ) _screen_circle.bordercolor = DEFAULT_EDIT_COLOR_DISABLED ;
 

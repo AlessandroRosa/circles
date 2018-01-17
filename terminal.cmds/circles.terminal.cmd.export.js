@@ -20,8 +20,6 @@ function circles_terminal_cmd_export()
      var _cmd_params = [];
 
      if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _params.length > 0 )
-     {
          _cmd_params['format'] = UNDET ;
          _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
          _cmd_params['keywords'] = NO ;
@@ -68,8 +66,8 @@ function circles_terminal_cmd_export()
                   circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                   break ;
                   default:
-                  var _format = safe_int( _cmd_params['format'], EXPORT_NONE );
-                  _glob_export_format = _format ;
+                  var _format = safe_int( _cmd_params['format'], UNDET );
+                  if ( _format != UNDET ) _glob_export_format = _format ;
                   var _format_str = "" ;
                   switch( _glob_export_format )
                   {
@@ -94,17 +92,12 @@ function circles_terminal_cmd_export()
                        _format_str = "Export service has been disabled with success" ;
                        break ;
                        default:
-                       _b_fail = YES, _error_str = "Fail to export: set the output file format" ;
+                       _b_fail = YES, _error_str = "Missing output file format" ;
                        break ;
                   }
                   break ;
              }
          }
-     }
-     else
-     {
-         _b_fail = YES, _error_str = "Missing input params" ;
-     }
 
      if ( !_b_fail && !_help ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, _format_str, _par_1, _cmd_tag );
      else if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );

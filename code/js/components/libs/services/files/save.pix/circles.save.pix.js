@@ -35,6 +35,7 @@ function circles_lib_files_pix_save_canvas_from_ref( _plane_type = NO_PLANE, _ro
 
 function circles_lib_files_pix_save_ask( _plane_type = NO_PLANE, _canvas_id = "", _filename = "", _merge = NO, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
+	console.log( arguments );
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
     _out_channel = safe_int( _out_channel, OUTPUT_SCREEN ), _silent = safe_int( _silent, NO ), _merge = safe_int( _merge, NO );
 	if ( is_html_canvas( _canvas_id ) ) _tmp_save_canvas_obj = _canvas_id ;

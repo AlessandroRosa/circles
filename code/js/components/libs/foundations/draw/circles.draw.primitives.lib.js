@@ -187,10 +187,10 @@ function circles_lib_draw_complex_disk( _context, _mapper, _complex_x, _complex_
            _svg_circle( _glob_export_code_array, _glob_persistent_vars['scr_circle'], _border == 0 ? _svg_allow_dashline_for_border_off : NO, _opacity );
        break ;
        case EXPORT_PS:
-       _glob_js_e_ps_obj.circle( _glob_persistent_vars['scr_center_pt'].x, _glob_persistent_vars['scr_center_pt'].y, Math.abs( _glob_persistent_vars['scr_center_pt'].x - _glob_persistent_vars['scr_radius_pt'].x ), _bordersize, _bordercolor, _fillcolor, "", "" );
+       _glob_js_e_ps_obj.circle( _glob_persistent_vars['scr_center_pt'].x, _glob_persistent_vars['scr_center_pt'].y, Math.abs( _glob_persistent_vars['scr_center_pt'].x - _glob_persistent_vars['scr_radius_pt'].x ), _bordersize, _border ? _bordercolor : "", _fill ? _fillcolor : "", "", "" );
        break ;
        case EXPORT_EPS:
-       _glob_js_e_ps_obj.circle( _glob_persistent_vars['scr_center_pt'].x, _glob_persistent_vars['scr_center_pt'].y, Math.abs( _glob_persistent_vars['scr_center_pt'].x - _glob_persistent_vars['scr_radius_pt'].x ), _bordersize, _bordercolor, _fillcolor, "", "" );
+       _glob_js_e_ps_obj.circle( _glob_persistent_vars['scr_center_pt'].x, _glob_persistent_vars['scr_center_pt'].y, Math.abs( _glob_persistent_vars['scr_center_pt'].x - _glob_persistent_vars['scr_radius_pt'].x ), _bordersize, _border ? _bordercolor : "", _fill ? _fillcolor : "", "", "" );
        break ;
        case EXPORT_LATEX:
        _glob_js_latex_obj.circle( _glob_persistent_vars['scr_center_pt'].x, _glob_persistent_vars['scr_center_pt'].y, Math.abs( _glob_persistent_vars['scr_center_pt'].x - _glob_persistent_vars['scr_radius_pt'].x ), _fill, _fillcolor );

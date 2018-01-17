@@ -103,10 +103,27 @@ function circles_terminal_cmd_savepix()
 				}
 				if ( _ext[0] != "." ) _ext = "."+_ext ;
 
+				console.log( _glob_export_code_array );
                 var _out_filename = _plane_label + ( _layer_label.length > 0 ? "."+_layer_label : "" ) + _ext ;
                 if ( !_b_fail && !_help && is_html_canvas( _canvas ) )
                 {
-                    var _ret_chunk = circles_lib_files_pix_save_ask( _plane_type, _canvas.id, _out_filename, _cmd_params['merge'], YES, _out_channel );
+                    var _ret_chunk = null ;
+					switch( _glob_export_format )
+					{
+						case EXPORT_SVG:
+						case EXPORT_PDF:
+						case EXPORT_PNG:
+						_ret_chunk = circles_lib_files_pix_save_ask( _plane_type, _canvas, _out_filename, _cmd_params['merge'], YES, _out_channel );
+						break ;
+						case EXPORT_PS:
+						case EXPORT_EPS:
+						_ret_chunk = circles_lib_canvas_save_to_e_ps( _out_filename ) ;
+						break ;
+						case EXPORT_LATEX:
+						_ret_chunk = circles_lib_canvas_save_to_latex( _out_filename ) ;
+						break ;
+						default: break;
+					}
                     var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                     var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure" ;
                     if ( _ret_id ) circles_lib_output( _out_channel, DISPATCH_SUCCESS, _ret_msg, _par_1, _cmd_tag );
