@@ -196,6 +196,7 @@ function circles_terminal_cmd_disk()
         var _category_ref = _cmd_params["target"] == ITEMS_SWITCH_SEEDS ? "seed" : "generator" ;
 		var _items_n = circles_lib_count_items( _items_array );
         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightgray>Working on the current group of</lightgray> <white>"+_dest_ref+"</white>", _par_1, _cmd_tag );
+		console.log( _caller_id );
 
         if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
         else if ( _cmd_params['keywords'] )

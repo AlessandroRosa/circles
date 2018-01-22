@@ -41,10 +41,9 @@ function circles_lib_items_copy_to_storage_space( _item_type, _question, _silent
 	}
 }
 
-function circles_lib_items_unselect( _question, _silent, _out_channel )
+function circles_lib_items_unselect( _question = YES, _silent = NO, _out_channel = OUTPUT_SCREEN )
 {
-    _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO );
-    _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
+    _question = safe_int( _question, YES ), _silent = safe_int( _silent, NO ), _out_channel = safe_int( _out_channel, OUTPUT_SCREEN );
     if ( _glob_disk_sel_index != UNDET )
     {
 		if ( circles_lib_count_items() > 0 )

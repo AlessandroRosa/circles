@@ -36,7 +36,7 @@
   close class
   get the code and save manually into an .eps file
 
-* Next cmd to check: savepix
+* Next cmd to check: srcptset
   formats being different from "png" return a warning: empty input data
   
 * set up a jorgensen with triggers and render

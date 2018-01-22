@@ -1,7 +1,6 @@
-function circles_lib_terminal_interpreter( _cmd, _terminal, _out_channel )
+function circles_lib_terminal_interpreter( _cmd = "", _terminal = _glob_terminal, _out_channel = OUTPUT_TERMINAL )
 {
-    _cmd = safe_string( _cmd, "" ).trim();
-    _terminal = !object_exists( _terminal ) ? _glob_terminal : _terminal ;
+    _cmd = safe_string( _cmd, "" ).trim(), _terminal = !object_exists( _terminal ) ? _glob_terminal : _terminal ;
     if ( safe_size( _cmd, 0 ) > 0 && _terminal != null )
     {
        var _cmd_array = circles_lib_terminal_parse_cmd( _cmd );
@@ -16,7 +15,7 @@ function circles_lib_terminal_interpreter( _cmd, _terminal, _out_channel )
     else return null ;
 }
 
-function circles_lib_terminal_parse_cmd( _cmd )
+function circles_lib_terminal_parse_cmd( _cmd = "" )
 {
     _cmd = safe_string( _cmd, "" ).trim();
     if ( safe_size( _cmd, 0 ) == 0 ) return [] ;
@@ -27,10 +26,9 @@ function circles_lib_terminal_parse_cmd( _cmd )
     return _cmd_array ;
 }
 
-function circles_lib_terminal_exec( _input_str_01, _input_str_02, _terminal, _out_channel )
+function circles_lib_terminal_exec( _input_str_01, _input_str_02, _terminal, _out_channel = OUTPUT_TERMINAL )
 {
-    _input_str_01 = safe_string( _input_str_01, "" ).trim();
-    _out_channel = safe_int( _out_channel, OUTPUT_TERMINAL );
+    _input_str_01 = safe_string( _input_str_01, "" ).trim(), _out_channel = safe_int( _out_channel, OUTPUT_TERMINAL );
     var _b_operator_found = _input_str_02.one_in( TERMINAL_TRANSFER_TO_OPERATOR, TERMINAL_TRANSFER_FROM_OPERATOR );
     _glob_terminal_out_stream = _terminal ;
     if ( _b_operator_found ) // operators have higher evaluation precedence than cmds
@@ -129,10 +127,10 @@ function circles_lib_process_cmd( _cmd_tag = "", _params_str = "", _out_channel 
     }
 }
 
-function circles_lib_unload_cmd( _cmd )
+function circles_lib_unload_cmd( _cmd = "" )
 {
     _cmd = safe_string( _cmd, "" ).trim();
-		// release resources
+	// release resources
     if ( safe_size( _glob_code_run_cmds_array, 0 ) > 0 )
     {
        if ( _cmd.stricmp( "all" ) || _cmd.length == 0 ) _glob_code_run_cmds_array.flush();
