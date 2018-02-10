@@ -37,10 +37,11 @@ function circles_terminal_cmd_savepix()
         var _p ;
         for( var _i = 0 ; _i < _params_array.length ; _i++ )
         {
-            _p = _params_array[_i].toLowerCase();
+            _p = _params_array[_i];
             if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-            else if ( _p.is_one_of_i( "html", "merge", "release" ) ) _cmd_params[_p] = YES ;
+            else if ( _p.is_one_of_i( "html", "merge" ) ) _cmd_params[_p] = YES ;
+            else if ( _p.is_one_of_i( "release" ) ) _cmd_params['action'] = _p ;
             else if ( _p.start_with( "layer:" ) ) _cmd_params['layer'] = _p.replace( /layer:/g, "" ) ;
             else if ( /(\.)*(pdf|ps|eps|png|svg)/i.test( _p ) ) _cmd_params['export'] = _p.replace( /\./g, "" ) ;
             else if ( _p.is_one_of_i( "bip", "bipbox" ) ) _cmd_params['plane'] = BIP_BOX ;
@@ -103,7 +104,6 @@ function circles_terminal_cmd_savepix()
 				}
 				if ( _ext[0] != "." ) _ext = "."+_ext ;
 
-				console.log( _glob_export_code_array );
                 var _out_filename = _plane_label + ( _layer_label.length > 0 ? "."+_layer_label : "" ) + _ext ;
                 if ( !_b_fail && !_help && is_html_canvas( _canvas ) )
                 {
@@ -122,7 +122,9 @@ function circles_terminal_cmd_savepix()
 						case EXPORT_LATEX:
 						_ret_chunk = circles_lib_canvas_save_to_latex( _out_filename ) ;
 						break ;
-						default: break;
+						default:
+						_ret_chunk = circles_lib_files_pix_save_ask( _plane_type, _canvas, _out_filename, _cmd_params['merge'], YES, _out_channel );
+						break;
 					}
                     var _ret_id = is_array( _ret_chunk ) ? safe_int( _ret_chunk[0], NO ) : NO ;
                     var _ret_msg = is_array( _ret_chunk ) ? _ret_chunk[1] : "Memory failure" ;

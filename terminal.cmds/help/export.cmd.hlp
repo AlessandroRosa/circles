@@ -4,7 +4,7 @@
 
 <lightblue>usage</lightblue> <snow>export %fileformat%</snow>
 
-<lightblue>%fileformat%</lightblue> <snow>eps | latex | ps | svg | none</snow>
+<lightblue>%fileformat%</lightblue> <snow>eps | latex | ps | png | svg | none</snow>
 
 <lightblue>export</lightblue>
 <cadetblue>return current export format</cadetblue>

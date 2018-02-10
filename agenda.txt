@@ -25,20 +25,19 @@
 * history -> filename.txt
 
 * 'figures' cmd:
-   - implement new syntax: figures delete @2-@5 (hint: fill two props delete_start:2, delete_end:5)
+  - implement new syntax: figures delete @2-@5 (hint: fill two props delete_start:2, delete_end:5)
 
 --------------- FIX SOON -----------------------
 
-* test jseps separatedly, cmd by cmd
+* Next cmd to check: storage
+
+  * test jseps separatedly, cmd by cmd
   Example:
   init class
   process text
   close class
   get the code and save manually into an .eps file
 
-* Next cmd to check: srcptset
-  formats being different from "png" return a warning: empty input data
-  
 * set up a jorgensen with triggers and render
   then terminal cmd "code", remove 2. choice (plugin)
 
@@ -63,9 +62,6 @@
   - run and test all listings
   LAST CHECKED : epstein.../ep.ma.ma.02.txt
   
-- srcptset terminal cmd:
-  * build point set according to input params
-
 * FORMS
   - method
     > test repetends services (index search)

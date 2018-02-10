@@ -7,7 +7,6 @@
 
 <lightblue>pdf <- mobius list</lightblue>
 <lightblue>pdf <- disk list</lightblue>
-<lightblue>pdf <- zplane rendering</lightblue>
 <cadetblue>output the Z-plane rendering canvas into the pdf</cadetblue>
 <cadetblue>use role name: refer to 'canvas' cmd</cadetblue>
 
