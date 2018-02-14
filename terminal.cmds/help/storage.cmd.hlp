@@ -19,16 +19,16 @@
 <cadetblue>create a new storage space subset and tag it as 'mytag'</cadetblue>
 <cadetblue>this tag will be used as reference for further actions</cadetblue>
 
-<lightblue>storage create mytag@l1@l2</lightblue>
-<cadetblue>create a new level-2 storage space subset and tag it as 'l2'</cadetblue>
-<cadetblue>'l2' is a subkey of 'l1', being a subkey of 'mytag'</cadetblue>
+<lightblue>storage create mytag@L1@L2</lightblue>
+<cadetblue>create a new level-2 storage space subset and tag it as 'L2'</cadetblue>
+<cadetblue>'L2' is a subkey of 'L1', being a subkey of 'mytag'</cadetblue>
 <gray>Users can create a level-n subkey in one instruction</gray>
 
-<lightblue>storage subkeys points</lightblue>
-<cadetblue>return keywords to current subsets (level 1) of subset 'points' (level 0)</cadetblue>
+<lightblue>storage subkey mytag</lightblue>
+<cadetblue>return keywords to current subsets (level 1) of subset 'mytag' (level 0)</cadetblue>
 
-<lightblue>storage subkeys points@displacedset</lightblue>
-<cadetblue>return keywords to current subsets (level 2) of subset 'points@displacedset' (level 1)</cadetblue>
+<lightblue>storage subkey mytag@L1</lightblue>
+<cadetblue>return keywords to current subsets (level 2) of subset 'mytag@L1' (level 1)</cadetblue>
 
 <lightblue>storage add points point(0,0)</lightblue>
 <cadetblue>add a point object, with coordinates (0,0), to the storage subset 'points'</cadetblue>

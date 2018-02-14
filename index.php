@@ -132,5 +132,6 @@ circles_lib_statusbar_load( "vert", "left", "top", NO, 10, 100 );
 <?php @include( $PATH_TO_CIRCLES."triggers/triggers.init.php" ); ?>
 <SCRIPT LANGUAGE="javascript" TYPE="text/javascript">
 circles_lib_files_load_default_fn_lib();
+circles_lib_files_load_default_datatypes();
 DEFAULT_FONT_SIZE = $(window).width() > 1024 ? 14 : 9 ;
 </SCRIPT>

@@ -29,6 +29,20 @@
 
 --------------- FIX SOON -----------------------
 
+* put and compile properly for all datatypes in "support" folder:
+  /*frameworkdatatype
+     datatype_dev : complex
+     datatype_public : complex
+     constructor1 : complex(real, imag)
+     notes_constructor1 : custom datatype
+     constructor2 :
+     notes_constructor2 :
+     output method:
+     comparison method: is_equal_to
+     typization method : is_complex
+     notes: complex number - custom datatype
+     frameworkdatatype*/
+
 * Next cmd to check: storage
 
   * test jseps separatedly, cmd by cmd

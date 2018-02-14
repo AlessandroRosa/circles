@@ -1,28 +1,28 @@
 function circles_terminal_cmd_storage()
 {
-     var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
-     var _params = arguments[0] ;
-     var _out_channel = arguments[1] ;
-     var _par_1 = arguments[2] ;
-     var _cmd_mode = arguments[3] ;
-     var _caller_id = arguments[4] ;
-     _params = safe_string( _params, "" ).trim();
+    var _cmd_tag = arguments.callee.myname().replaceAll( "circles_terminal_cmd_", "" );
+    var _params = arguments[0] ;
+    var _out_channel = arguments[1] ;
+    var _par_1 = arguments[2] ;
+    var _cmd_mode = arguments[3] ;
+    var _caller_id = arguments[4] ;
+    _params = safe_string( _params, "" ).trim();
 
-     if ( _glob_verbose && _glob_terminal_echo_flag )
-     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
+    if ( _glob_verbose && _glob_terminal_echo_flag )
+    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<slategray>cmd '"+_cmd_tag+"' running in "+( _cmd_mode == TERMINAL_CMD_MODE_ACTIVE ? "active" : "passive" )+" mode</slategray>", _par_1, _cmd_tag );
 
-		 var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
-     var _b_fail = 0 ;
-     var _error_str = "" ;
-     var _out_text_string = "" ;
-     var _plane = "" ;
-     var _fn_ret_val = null ;
-     var _cmd_params = [];
-     var _out_stream = [] ;
+	var _last_release_date = get_file_modify_date( _glob_paths['terminal_abs_cmds'], "circles.terminal.cmd."+_cmd_tag+".js" ) ;
+    var _b_fail = 0 ;
+    var _error_str = "" ;
+    var _out_text_string = "" ;
+    var _plane = "" ;
+    var _fn_ret_val = null ;
+    var _cmd_params = [];
+    var _out_stream = [] ;
 
-		 if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
-     if ( _params.length > 0 )
-     {
+	if ( _cmd_mode == TERMINAL_CMD_MODE_INCLUSION ) return null ;
+    if ( _params.length > 0 )
+    {
         _cmd_params['help'] = NO ;
         _cmd_params['html'] = _out_channel == OUTPUT_HTML ? YES : NO ;
         _cmd_params['keywords'] = NO ;
@@ -37,79 +37,79 @@ function circles_terminal_cmd_storage()
         var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
         _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
 
- 			  var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
-	 		  _cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
-			  _cmd_params['dump_operator_index'] = _dump_operator_index ;
-			  _cmd_params['dump_array'] = [];
+		var _dump_operator_index = _params_array.indexOf( TERMINAL_OPERATOR_DUMP_TO );
+	 	_cmd_params['dump'] = _dump_operator_index != UNFOUND ? YES : NO ;
+		_cmd_params['dump_operator_index'] = _dump_operator_index ;
+		_cmd_params['dump_array'] = [];
+		_cmd_params['transfer_to'] = ( _params_array.indexOf( TERMINAL_TRANSFER_TO_OPERATOR ) != UNFOUND ) ? YES : NO ;
+	 	_cmd_params['transfer_from'] = ( _params_array.indexOf( TERMINAL_TRANSFER_FROM_OPERATOR ) != UNFOUND ) ? YES : NO ;
 
-	 		  _cmd_params['transfer_to'] = ( _params_array.indexOf( TERMINAL_TRANSFER_TO_OPERATOR ) != UNFOUND ) ? YES : NO ;
-	 		  _cmd_params['transfer_from'] = ( _params_array.indexOf( TERMINAL_TRANSFER_FROM_OPERATOR ) != UNFOUND ) ? YES : NO ;
-
-			  // gather all dump parameters into one array
+		// gather all dump parameters into one array
         if ( _cmd_params['dump'] )
         {
-  				 for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
-  				 if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
+			for( var _i = _dump_operator_index + 1 ; _i < _params_array.length ; _i++ )
+  			if ( _params_array[_i].trim().length > 0 ) _cmd_params['dump_array'].push( _params_array[_i] );
         }
 
-         // pre-scan for levenshtein correction
-    		 var _cmd_terms_dict = [];
-    				 _cmd_terms_dict.push( "add", "datatypes", "keys", "list", "long", "reset", "restore", "purge", "exists",
-						 																"remove", "copy", "size", "screen", "search", "subkeys", "release", "html", "help",
-						 																"check", "complex", "farey", "fraction", "line", "point", "rect", "string" );
-         _cmd_terms_dict = _cmd_terms_dict.concat( _glob_storage.keys_associative() );
-         circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
-         var _p, _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
-         for( var _i = 0 ; _i < _up_to_index ; _i++ )
-         {
-              _p = _params_array[_i].trim() ;
-              if ( safe_size( _p, 0 ) == 0 ) continue ;
-              else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
-              else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
-              else if ( _p.is_one_of_i( "html", "silent" ) ) _cmd_params[_p] = YES ;
-              else if ( _p.is_one_of_i( "all", "export" ) ) _cmd_params['extras'].push( _p.toLowerCase() ); // 'all' can't be applied to send/pull action
-              else if ( _p.is_one_of_i( "add", "copy", "create", "datatypes", "exists", "reset", "search", "keys", "list",
-                                        "purge", "remove", "restore", "size", "subkeys", "release" ) )
-                   _cmd_params['action'] = _p.toLowerCase();
-              else if ( circles_lib_storage_parse_dependencies_syntax( _p, "check" ) )
-              {
-									 if ( !is_array( _cmd_params['extras']['storageref'] ) ) _cmd_params['extras']['storageref'] = [] ;
-									 _cmd_params['extras']['storageref'].push( _p ) ;
-							}
-              else if ( _p.testME( _glob_integer_regex_pattern ) ) _cmd_params['index'].push( _p );
-              else if ( /([0-9\.]{1,})/.test( _p ) )
-              {
-									 if ( !is_array( _cmd_params['numbers'] ) ) _cmd_params['numbers'] = [] ;
-									 _cmd_params['numbers'].push( _p );
-							}
-              else if ( _operators.includes( _p ) )
-              {
-									 if ( !is_array( _cmd_params['operators'] ) ) _cmd_params['operators'] = [] ;
-									 _cmd_params['operators'].push( _p );
-							}
-              else if ( _p.one_in_i( "circle", "complex", "farey", "fraction", "line", "point", "rect", "string" ) )
-              {
-									 if ( !is_array( _cmd_params['extras']['items'] ) ) _cmd_params['extras']['items'] = [] ;
-									 _cmd_params['extras']['items'].push( _p ) ;
-							}
-              else if ( _p.toLowerCase().start_with( "roundto:" ) )
-              {
-                  _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
-                  if ( _p <= 0 )
-                  {
-                      _p = _glob_accuracy ;
-                      circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
-                  }
-                  else if ( _p > DEFAULT_MAX_ACCURACY )
-                  {
-                      _p = _glob_accuracy ;
-                      circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
-                  }
+        // pre-scan for levenshtein correction
+    	var _cmd_terms_dict = [];
+    	_cmd_terms_dict.push( "add", "datatypes", "keys", "list", "long", "reset", "restore", "purge", "exists",
+			"remove", "copy", "size", "screen", "search", "subkeys", "release", "html", "help",
+			"check", "complex", "farey", "fraction", "line", "point", "rect", "string" );
+        _cmd_terms_dict = _cmd_terms_dict.concat( _glob_storage.keys_associative() );
+        circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
+        var _p, _up_to_index = _dump_operator_index == UNFOUND ? _params_array.length : _dump_operator_index ;
+        for( var _i = 0 ; _i < _up_to_index ; _i++ )
+        {
+            _p = _params_array[_i].trim() ;
+			console.log( _p, _p.one_in_i( "circle", "complex", "farey", "fraction", "line", "point", "rect", "string" ), circles_lib_storage_parse_dependencies_syntax( _p, "check" ) );
+            if ( safe_size( _p, 0 ) == 0 ) continue ;
+            else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
+            else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
+            else if ( _p.is_one_of_i( "html", "silent" ) ) _cmd_params[_p] = YES ;
+            else if ( _p.is_one_of_i( "all", "export" ) ) _cmd_params['extras'].push( _p.toLowerCase() ); // 'all' can't be applied to send/pull action
+            else if ( _p.is_one_of_i( "add", "copy", "create", "datatypes", "exists", "reset", "search", "keys", "list",
+                "purge", "remove", "restore", "size", "subkeys", "release" ) ) _cmd_params['action'] = _p.toLowerCase();
+            else if ( circles_lib_storage_parse_dependencies_syntax( _p, "check" ) )
+            {
+				if ( !is_array( _cmd_params['extras']['storageref'] ) ) _cmd_params['extras']['storageref'] = [] ;
+				_cmd_params['extras']['storageref'].push( _p ) ;
+			}
+            else if ( _p.testME( _glob_integer_regex_pattern ) ) _cmd_params['index'].push( _p );
+            else if ( /([0-9\.]{1,})/.test( _p ) )
+            {
+				if ( !is_array( _cmd_params['numbers'] ) ) _cmd_params['numbers'] = [] ;
+				_cmd_params['numbers'].push( _p );
+			}
+            else if ( _operators.includes( _p ) )
+            {
+				if ( !is_array( _cmd_params['operators'] ) ) _cmd_params['operators'] = [] ;
+				_cmd_params['operators'].push( _p );
+			}
+            else if ( _p.start_with_i( "circle", "complex", "farey", "fraction", "line", "point", "rect", "string" ) )
+            {
+				console.log( "IN" );
+				if ( !is_array( _cmd_params['extras']['items'] ) ) _cmd_params['extras']['items'] = [] ;
+				_cmd_params['extras']['items'].push( _p ) ;
+			}
+            else if ( _p.toLowerCase().start_with( "roundto:" ) )
+            {
+                _p = safe_int( _p.replaceAll( "roundto:", "" ), 0 ) ;
+                if ( _p <= 0 )
+                {
+                    _p = _glob_accuracy ;
+                    circles_lib_output( _out_channel, DISPATCH_WARNING, "Invalid value or zero detected for 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                }
+                else if ( _p > DEFAULT_MAX_ACCURACY )
+                {
+                    _p = _glob_accuracy ;
+                    circles_lib_output( _out_channel, DISPATCH_WARNING, "Maximum ("+DEFAULT_MAX_ACCURACY+") exceeded by 'roundto' param: reset to current setting ("+_glob_accuracy+")", _par_1, _cmd_tag );
+                }
                    
-                  _cmd_params['roundto'] = _p ;
-              }
+                _cmd_params['roundto'] = _p ;
+            }
 			else { _b_fail = YES, _error_str = "Unknown input param '"+_p+"' at token #"+(_i+1); break ; }
-         }
+        }
          
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
          else if ( _cmd_params['keywords'] )
@@ -134,49 +134,44 @@ function circles_terminal_cmd_storage()
                     circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                     break ;
                     case "add":
-                    var _ret = 0, _size = 0 ;
-                    var _all = _extras_all ? YES : NO ;
+                    var _ret = 0, _size = 0, _all = _extras_all ? YES : NO ;
                     var _storageref = _all ? circles_lib_storage_parse_dependencies_syntax( null, "all" ) : _cmd_params['extras']['storageref'] ;
                     if ( !is_array( _storageref ) ) _storageref = [ _storageref ] ;
                     var _n_dependencies = safe_size( _storageref, 0 );
-                    var _items = _cmd_params['extras']['items'], _items_n = safe_size( _items, 0 ) ;
+                    var _items = _cmd_params['extras']['items'], _items_n = safe_size( _items, 0 );
                     if ( is_array( _storageref ) && _n_dependencies > 0 && _items_n > 0 )
                     {
-												var _datatypes = [] ;
+						var _datatypes = [] ;
                         $.each( _items, function( _i, _expr ){ _datatypes.push( circles_lib_datatype_detect_from_expression( _expr ) ) ; } ) ;
                         var _datatypes_expr = safe_size( _datatypes, 0 ) > 1 ? "objects" : _datatypes.subset(1).join( "" ) ;
+						console.log( "DATATYPES", _datatypes_expr );
                         var _n_expr = safe_size( _datatypes_expr, 0 );
-                        
-                        $.each( _storageref,
-																function( _i, _dependency )
-																{
-																		_ret = circles_lib_storage_parse_dependencies_syntax( _dependency, _action, _items ) ;
-																		switch( _ret )
-																		{
-																				case YES:
-																				_items_n = safe_size( _items, 0 );
-																				_error_str = "<green>"+_items_n+" "+_datatypes_expr+( _items_n == 1 ? " has" : " have" )+" been correctly added to storage subset</green> <snow>"+_dependency+"</snow>" ;
-                                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _error_str, _par_1, _cmd_tag );
-																				break ;												
-																				case NO:
-																				_error_str = "<orange>No objects have been added to</orange> <snow>"+_dependency+"</snow>" ;
-                                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _error_str, _par_1, _cmd_tag );
-																				break ;
-																				default:
-																				_error_str = "<red>Unknown error while trying to add object"+(_n_expr==1?"":"s")+" to storage subset</red> <snow>"+_dependency+"</snow>" ;
-                                        circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _error_str, _par_1, _cmd_tag );
-																				break ;												
-																		}
-																}
-															) ;
-										}
-										else
-										{
-												if ( !is_array( _storageref ) || _n_dependencies == 0 )
-												circles_lib_output( OUTPUT_TERMINAL, DISPATCH_ERROR, "Fail to add: invalid storage subset", _par_1, _cmd_tag );
-												else if ( _items == 0 )
-												circles_lib_output( OUTPUT_TERMINAL, DISPATCH_ERROR, "Fail to add: missing or invalid input item", _par_1, _cmd_tag );
-										}
+                        $.each( _storageref, function( _i, _dependency ) {
+							_ret = circles_lib_storage_parse_dependencies_syntax( _dependency, _action, _items ) ;
+							switch( _ret )
+							{
+								case YES:
+								_items_n = safe_size( _items, 0 );
+								_error_str = "<green>"+_items_n+" "+_datatypes_expr+( _items_n == 1 ? " has" : " have" )+" been correctly added to storage subset</green> <snow>"+_dependency+"</snow>" ;
+                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _error_str, _par_1, _cmd_tag );
+								break ;												
+								case NO:
+								_error_str = "<orange>No objects have been added to</orange> <snow>"+_dependency+"</snow>" ;
+                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _error_str, _par_1, _cmd_tag );
+								break ;
+								default:
+								_error_str = "<red>Unknown error while trying to add object"+(_n_expr==1?"":"s")+" to storage subset</red> <snow>"+_dependency+"</snow>" ;
+                                circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _error_str, _par_1, _cmd_tag );
+								break ;												
+							} } );
+					}
+					else
+					{
+						if ( !is_array( _storageref ) || _n_dependencies == 0 )
+						circles_lib_output( OUTPUT_TERMINAL, DISPATCH_ERROR, "Fail to add: invalid storage subset", _par_1, _cmd_tag );
+						else if ( _items == 0 )
+						circles_lib_output( OUTPUT_TERMINAL, DISPATCH_ERROR, "Fail to add: missing or invalid input item", _par_1, _cmd_tag );
+					}
                     break ;
                     case "copy":
                     var _ret = 0, _size = 0, _check, _msg ;
@@ -299,7 +294,6 @@ function circles_terminal_cmd_storage()
 										}
                     break ;
                     case "datatypes":
-                    circles_lib_files_load_default_datatypes();
                     circles_lib_output( _out_channel, DISPATCH_INFO, "Currently registered datatypes", _par_1, _cmd_tag );
                     circles_lib_output( _out_channel, DISPATCH_INFO, _glob_crlf, _par_1, _cmd_tag );
                     var _datatypes = circles_lib_datatype_get_table(YES), _notes_rows, _keys ;
@@ -451,7 +445,7 @@ function circles_terminal_cmd_storage()
 											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Found "+_n_keys+" storage subset"+(_n_keys==1?"":"s")+"</lightblue>", _par_1, _cmd_tag );
 											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>Keys and size are reported in parentheses per each entry</yellow>", _par_1, _cmd_tag );
 											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>"+_n_keys+"</snow> <lightblue>key"+( _n_keys == 1 ? "" : "s" )+" :</lightblue> "+_keys_size.join( ", " ), _par_1, _cmd_tag );
-											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>Subkeys amount is reported in parentheses per each entry</yellow>", _par_1, _cmd_tag );
+											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<yellow>Subkeys number is reported in parentheses per each entry</yellow>", _par_1, _cmd_tag );
 											 circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>subkey"+( _n_keys == 1 ? "" : "s" )+" :</lightblue> "+_out.join( ", " ), _par_1, _cmd_tag );
 										}
                     break ;
@@ -946,10 +940,7 @@ function circles_terminal_cmd_storage()
 										else circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing input subkeys", _par_1, _cmd_tag );
                     break ;
                     default:
-                    if ( !_extras.includes( "export" ) )
-                    {
-    						        _b_fail = YES, _error_str = "Unknown action '"+_action+"'" ;
-                    }
+                    if ( !_extras.includes( "export" ) ) { _b_fail = YES, _error_str = "Unknown action '"+_action+"'" ; }
                     break ;
               }
               
@@ -1003,10 +994,10 @@ function circles_terminal_cmd_storage()
                    }
               }
          }
-     }
-     else { _b_fail = YES, _error_str = "Missing input params" ; }
+    }
+    else { _b_fail = YES, _error_str = "Missing input params" ; }
 
-     if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
-     if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
-     else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
+    if ( _b_fail && _glob_terminal_errors_switch && _out_channel != OUTPUT_FILE_INCLUSION ) circles_lib_output( _out_channel, DISPATCH_ERROR, $.terminal.escape_brackets( _error_str ) + ( _out_channel == OUTPUT_TERMINAL ? _glob_crlf + "Type '" +_cmd_tag+" /h' for syntax help" : "" ), _par_1, _cmd_tag );
+    if ( _out_channel == OUTPUT_TEXT ) return _out_text_string ;
+    else if ( _out_channel == OUTPUT_FUNCTION ) return _fn_ret_val ;
 }
