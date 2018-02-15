@@ -62,7 +62,7 @@ function circles_terminal_cmd_storage()
         for( var _i = 0 ; _i < _up_to_index ; _i++ )
         {
             _p = _params_array[_i].trim() ;
-			console.log( _p, _p.one_in_i( "circle", "complex", "farey", "fraction", "line", "point", "rect", "string" ), circles_lib_storage_parse_dependencies_syntax( _p, "check" ) );
+			console.log( _p, _p.start_with_i( "circle", "complex", "farey", "fraction", "line", "point", "rect", "string" ), circles_lib_storage_parse_dependencies_syntax( _p, "check" ) );
             if ( safe_size( _p, 0 ) == 0 ) continue ;
             else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
@@ -75,8 +75,11 @@ function circles_terminal_cmd_storage()
 				if ( !is_array( _cmd_params['extras']['storageref'] ) ) _cmd_params['extras']['storageref'] = [] ;
 				_cmd_params['extras']['storageref'].push( _p ) ;
 			}
-            else if ( _p.testME( _glob_integer_regex_pattern ) ) _cmd_params['index'].push( _p );
-            else if ( /([0-9\.]{1,})/.test( _p ) )
+            else if ( _p.testME( _glob_integer_regex_pattern ) )
+			{
+				_cmd_params['index'].push( _p );
+			}
+            else if ( /^([0-9\.]{1,}$)/.test( _p ) )
             {
 				if ( !is_array( _cmd_params['numbers'] ) ) _cmd_params['numbers'] = [] ;
 				_cmd_params['numbers'].push( _p );
@@ -88,7 +91,6 @@ function circles_terminal_cmd_storage()
 			}
             else if ( _p.start_with_i( "circle", "complex", "farey", "fraction", "line", "point", "rect", "string" ) )
             {
-				console.log( "IN" );
 				if ( !is_array( _cmd_params['extras']['items'] ) ) _cmd_params['extras']['items'] = [] ;
 				_cmd_params['extras']['items'].push( _p ) ;
 			}
@@ -139,12 +141,12 @@ function circles_terminal_cmd_storage()
                     if ( !is_array( _storageref ) ) _storageref = [ _storageref ] ;
                     var _n_dependencies = safe_size( _storageref, 0 );
                     var _items = _cmd_params['extras']['items'], _items_n = safe_size( _items, 0 );
+
                     if ( is_array( _storageref ) && _n_dependencies > 0 && _items_n > 0 )
                     {
 						var _datatypes = [] ;
                         $.each( _items, function( _i, _expr ){ _datatypes.push( circles_lib_datatype_detect_from_expression( _expr ) ) ; } ) ;
                         var _datatypes_expr = safe_size( _datatypes, 0 ) > 1 ? "objects" : _datatypes.subset(1).join( "" ) ;
-						console.log( "DATATYPES", _datatypes_expr );
                         var _n_expr = safe_size( _datatypes_expr, 0 );
                         $.each( _storageref, function( _i, _dependency ) {
 							_ret = circles_lib_storage_parse_dependencies_syntax( _dependency, _action, _items ) ;
@@ -182,29 +184,27 @@ function circles_terminal_cmd_storage()
 
                     if ( is_array( _storageref ) && _n_dependencies > 0 )
                     {
-			                    $.each( _storageref,
-			                            function( _i, _dependency )
-			                            {
-			                                if ( !circles_lib_storage_parse_dependencies_syntax( _dependency, "exists" ) ) return YES ;
-			                                _storage_ref = circles_lib_storage_parse_dependencies_syntax( _dependency, "get" ) ;
-																			switch( _dependency )
-									                    {
-                                           case "dict":
-									                         if ( is_array( _glob_original_dict ) )
-									                         {
-											                          if ( _glob_original_dict.size_recursive() > 0 )
-											                          {
-												                             _storage_ref = _glob_original_dict.clone();
-												                             _check = 1 ;
-												                             _check &= is_array( _storage_ref ) ;
-												                             _check &= _storage_ref.size_recursive() > 0 ? 1 : 0 ;
-												                             _msg = _check ? "<green>All words in the dictionary have been copied into storage space</green> <snow>"+_dependency+"</snow> <green>with success</green>" : "<red>Storage destination error: can't perform copy of the whole dictionary into</red> <snow>"+_dependency+"</snow>" ;
-                                                     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _par_1, _cmd_tag );
-											                          }
-											                          else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<red>Fail to copy : " + _ERR_33_04 + "</red>", _par_1, _cmd_tag );
-																					 }
-																					 else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<red>Fail to copy : " + _ERR_33_04 + "</red>", _par_1, _cmd_tag );
-									                         break ;
+			            $.each( _storageref, function( _i, _dependency ) {
+			                if ( !circles_lib_storage_parse_dependencies_syntax( _dependency, "exists" ) ) return YES ;
+			                _storage_ref = circles_lib_storage_parse_dependencies_syntax( _dependency, "get" ) ;
+							switch( _dependency )
+							{
+                                case "dict":
+							    if ( is_array( _glob_original_dict ) )
+							    {
+							        if ( _glob_original_dict.size_recursive() > 0 )
+									{
+									    _storage_ref = _glob_original_dict.clone();
+									    _check = 1 ;
+										_check &= is_array( _storage_ref ) ;
+										_check &= _storage_ref.size_recursive() > 0 ? 1 : 0 ;
+										_msg = _check ? "<green>All words in the dictionary have been copied into storage space</green> <snow>"+_dependency+"</snow> <green>with success</green>" : "<red>Storage destination error: can't perform copy of the whole dictionary into</red> <snow>"+_dependency+"</snow>" ;
+                                        xircles_lib_output( _out_channel, DISPATCH_MULTICOLOR, _msg, _par_1, _par_1, _cmd_tag );
+									}
+									else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<red>Fail to copy : " + _ERR_33_04 + "</red>", _par_1, _cmd_tag );
+								}
+								else circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<red>Fail to copy : " + _ERR_33_04 + "</red>", _par_1, _cmd_tag );
+								break ;
 									                         case "farey":
 			                                     if ( circles_lib_plugin_find_index( { subset : "forms", base_id : 'discreteness.locus' }, POPUP_SEARCH_BY_BASE_ID | POPUP_SEARCH_BY_SUBSET ) != UNFOUND )
 			                                     {
@@ -461,6 +461,7 @@ function circles_terminal_cmd_storage()
                     if ( _dump ) _glob_text = [] ;
 
                     _ref = _storageref ; // TEST IT !
+					console.log( _ref );
                     if ( _ref == null )
                     {
                          _b_fail = YES, _error_str = "Fail to return the list: invalid data type specification" ;
@@ -472,38 +473,41 @@ function circles_terminal_cmd_storage()
                     }
                     else
                     {
-												var _max_length = 0, _n_formats = 0, _datatypes_array, _ref_size = 0 ;
+						var _max_length = 0, _n_formats = 0, _datatypes_array, _ref_size = 0 ;
                         var _html_columns = Math.floor( _glob_terminal.cols() / _max_length ) - 2 ;
                         var _html = "" ;
                         
                         _html += "<table>" ;
-                   			$.each(	_storageref,
-                   							function( _i, _dependency )
-                   							{
-																		if ( !circles_lib_storage_parse_dependencies_syntax( _dependency, "exists" ) )
-                                    {
-                                         circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Subset "+_dependency+"</lightblue> <orange>does not exist</orange>", _par_1, _cmd_tag );
-                                         return YES ;
-                                    }
+                   			$.each(	_storageref, function( _i, _dependency ) {
+								console.log( "IN#1" );
+								if ( !circles_lib_storage_parse_dependencies_syntax( _dependency, "exists" ) )
+                                {
+                                    circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Subset "+_dependency+"</lightblue> <orange>does not exist</orange>", _par_1, _cmd_tag );
+                                    return YES ;
+                                }
+								console.log( "IN#2" );
 
-																		_datatypes_array = circles_lib_storage_detect_dependency_datatype( _dependency ) ;
-																		_n_dataformats = safe_size( _datatypes_array, 0 );
+								_datatypes_array = circles_lib_storage_detect_dependency_datatype( _dependency ) ;
+								_datatypes_array = _datatypes_array.unique();
+								console.log( "IN#3" );
+								_n_datatypes = safe_size( _datatypes_array, 0 );
+								console.log( "IN#4", _datatypes_array, _n_datatypes );
 
-																		if ( _dependency.one_in_i( "dict", "farey" ) )
-									                  {
-									                      if ( _dependency.includes( "dict" ) )
-									                      _ret_parse_array.work( function( _w ){ _max_length = Math.max( _max_length, _w.length ); } );
-									                      else if ( _dependency.includes( "farey" ) )
-									                      _ret_parse_array.work( function( _f ){ _max_length = Math.max( _max_length, _f.output( "std", "/" ).length ); } );
-								                    }
-                                    else _ret_parse_array = circles_lib_storage_parse_dependencies_syntax( _dependency, "get" ) ;
-                                    
-                                    _ref_size = safe_size( _ret_parse_array, 0 );
+								if ( _dependency.one_in_i( "dict", "farey" ) )
+								{
+								    if ( _dependency.includes( "dict" ) )
+								    _ret_parse_array.work( function( _w ){ _max_length = Math.max( _max_length, _w.length ); } );
+								    else if ( _dependency.includes( "farey" ) )
+								    _ret_parse_array.work( function( _f ){ _max_length = Math.max( _max_length, _f.output( "std", "/" ).length ); } );
+								}
+                                else _ret_parse_array = circles_lib_storage_parse_dependencies_syntax( _dependency, "get" ) ;
+                                _ref_size = safe_size( _ret_parse_array, 0 );
+								console.log( "RET PARSE", _ret_parse_array.clone() );
 
-																		if ( !_datatypes_array.one_in_i( "dict", "farey" ) )
+								if ( !_datatypes_array.one_in_i( "dict", "farey" ) )
                                     {
     											              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Data types pre-scan for storage subset</lightblue> <snow>"+_dependency+"</snow>", _par_1, _cmd_tag );
-    											              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected "+_n_dataformats+" data type"+(_n_dataformats==1?"":"s")+"</lightblue> <snow>"+_datatypes_array.join( ", " )+"</snow> <lightblue>in subset</lightblue> <snow>"+_dependency+"</snow>", _par_1, _cmd_tag );
+    											              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected "+_n_datatypes+" data type"+(_n_datatypes==1?"":"s")+"</lightblue> <snow>"+_datatypes_array.join( ", " )+"</snow> <lightblue>in subset</lightblue> <snow>"+_dependency+"</snow>", _par_1, _cmd_tag );
                                         if ( _ref_size == 0 )
     											              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<orange>Subset</orange> <snow>"+_dependency+"</snow> <orange>is empty</orange>", _par_1, _cmd_tag );
                                         else
@@ -511,10 +515,10 @@ function circles_terminal_cmd_storage()
                                     }
                                     else
                                     {
-    										             	  _html += "<tr><td COLSPAN=\"5\">Data types pre-scan for storage subset "+_dependency+"</td></tr>" ;
-    										             	  if ( _n_dataformats > 1 ) _html += "<tr><td COLSPAN=\"5\">Storage subset "+_dependency+" is hybrid</td></tr>" ;
-    										             	  else if ( _n_dataformats == 1 ) _html += "<tr><td COLSPAN=\"5\">Detected "+_n_dataformats+" data type "+(_n_dataformats==1?"":"s")+" "+_datatypes_array.join( ", " )+" in "+_dependency+"</td></tr>" ;
-                                        else if ( _n_dataformats == 0 ) _html += "<tr><td COLSPAN=\"5\">No data types detected</td></tr>" ;
+										_html += "<tr><td COLSPAN=\"5\">Data types pre-scan for storage subset "+_dependency+"</td></tr>" ;
+    									if ( _n_datatypes > 1 ) _html += "<tr><td COLSPAN=\"5\">Storage subset "+_dependency+" is hybrid</td></tr>" ;
+    									else if ( _n_datatypes == 1 ) _html += "<tr><td COLSPAN=\"5\">Detected "+_n_datatypes+" data type "+(_n_datatypes==1?"":"s")+" "+_datatypes_array.join( ", " )+" in "+_dependency+"</td></tr>" ;
+                                        else if ( _n_datatypes == 0 ) _html += "<tr><td COLSPAN=\"5\">No data types detected</td></tr>" ;
 
                                         if ( _ref_size == 0 )
                                         _html += "<tr><td COLSPAN=\"5\">Subset "+_dependency+" is empty</td></tr>" ;
@@ -523,10 +527,9 @@ function circles_terminal_cmd_storage()
 											              
 											              // read and process each item in the given storage subspace, according to its data type
                                     if ( _ref_size > 0 )
-                                    $.each( _ret_parse_array,
-	                                          function( _i, _item )
-                                            {
+                                    $.each( _ret_parse_array, function( _i, _item ) {
                                                  _dataformat = circles_lib_datatype_detect_from_obj( _item );
+												 console.log( "DATA FORMAT", _dataformat, _item );
                                                  switch( _dataformat )
 						                                     {
 						                                          case "circle":
