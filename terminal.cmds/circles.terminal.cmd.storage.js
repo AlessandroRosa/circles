@@ -62,7 +62,6 @@ function circles_terminal_cmd_storage()
         for( var _i = 0 ; _i < _up_to_index ; _i++ )
         {
             _p = _params_array[_i].trim() ;
-			console.log( _p, _p.start_with_i( "circle", "complex", "farey", "fraction", "line", "point", "rect", "string" ), circles_lib_storage_parse_dependencies_syntax( _p, "check" ) );
             if ( safe_size( _p, 0 ) == 0 ) continue ;
             else if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = YES ;
             else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
@@ -461,15 +460,11 @@ function circles_terminal_cmd_storage()
                     if ( _dump ) _glob_text = [] ;
 
                     _ref = _storageref ; // TEST IT !
-					console.log( _ref );
-                    if ( _ref == null )
-                    {
-                         _b_fail = YES, _error_str = "Fail to return the list: invalid data type specification" ;
-                    }
+                    if ( _ref == null ) { _b_fail = YES, _error_str = "Fail to return the list: invalid data type specification" ; }
                     else if ( safe_size( _ref, 0 ) == 0 )
                     {
-                         _b_fail = YES, _error_str = "Fail to return the list: no elements found in storage space" ;
-                         if ( _dump ) _error_str += _glob_crlf + "No dumping" ;
+                        _b_fail = YES, _error_str = "Fail to return the list: no elements found in storage space" ;
+                        if ( _dump ) _error_str += _glob_crlf + "No dumping" ;
                     }
                     else
                     {
@@ -479,19 +474,15 @@ function circles_terminal_cmd_storage()
                         
                         _html += "<table>" ;
                    			$.each(	_storageref, function( _i, _dependency ) {
-								console.log( "IN#1" );
 								if ( !circles_lib_storage_parse_dependencies_syntax( _dependency, "exists" ) )
                                 {
                                     circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Subset "+_dependency+"</lightblue> <orange>does not exist</orange>", _par_1, _cmd_tag );
                                     return YES ;
                                 }
-								console.log( "IN#2" );
 
 								_datatypes_array = circles_lib_storage_detect_dependency_datatype( _dependency ) ;
 								_datatypes_array = _datatypes_array.unique();
-								console.log( "IN#3" );
 								_n_datatypes = safe_size( _datatypes_array, 0 );
-								console.log( "IN#4", _datatypes_array, _n_datatypes );
 
 								if ( _dependency.one_in_i( "dict", "farey" ) )
 								{
@@ -502,9 +493,7 @@ function circles_terminal_cmd_storage()
 								}
                                 else _ret_parse_array = circles_lib_storage_parse_dependencies_syntax( _dependency, "get" ) ;
                                 _ref_size = safe_size( _ret_parse_array, 0 );
-								console.log( "RET PARSE", _ret_parse_array.clone() );
-
-								if ( !_datatypes_array.one_in_i( "dict", "farey" ) )
+								if ( !_datatypes_array.includes( "dict", "farey" ) )
                                     {
     											              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Data types pre-scan for storage subset</lightblue> <snow>"+_dependency+"</snow>", _par_1, _cmd_tag );
     											              circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<lightblue>Detected "+_n_datatypes+" data type"+(_n_datatypes==1?"":"s")+"</lightblue> <snow>"+_datatypes_array.join( ", " )+"</snow> <lightblue>in subset</lightblue> <snow>"+_dependency+"</snow>", _par_1, _cmd_tag );
@@ -525,11 +514,10 @@ function circles_terminal_cmd_storage()
                                         else _html += "<tr><td COLSPAN=\"5\">Subset "+_dependency+" includes "+_ref_size+" element"+(_ref_size==1?"":"s")+"</td></tr>" ;
                                     }
 											              
-											              // read and process each item in the given storage subspace, according to its data type
+									// read and process each item in the given storage subspace, according to its data type
                                     if ( _ref_size > 0 )
                                     $.each( _ret_parse_array, function( _i, _item ) {
                                                  _dataformat = circles_lib_datatype_detect_from_obj( _item );
-												 console.log( "DATA FORMAT", _dataformat, _item );
                                                  switch( _dataformat )
 						                                     {
 						                                          case "circle":
@@ -538,7 +526,7 @@ function circles_terminal_cmd_storage()
 						                                          case "complex":
 						                                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>"+(_i+1)+")</snow> "+_dataformat+" <snow>" + _item.formula(0,1,_round_to) + "</snow>", _par_1, _cmd_tag );
 						                                          break ;
-						                                          case "2d point":
+						                                          case "point":
 						                                          if ( is_point( _item ) )
 						                                          circles_lib_output( _out_channel, DISPATCH_MULTICOLOR, "<snow>"+(_i+1)+")</snow> "+_dataformat+" <snow>"+_item.output( "cartesian", _round_to ) + "</snow>", _par_1, _cmd_tag );
 						                                          else
