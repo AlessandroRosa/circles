@@ -10,20 +10,14 @@
 <lightblue>symbol list</lightblue>
 <cadetblue>return the list of used symbols</cadetblue>
 
-<lightblue>symbol list inverse</lightblue>
-<cadetblue>return the list of used inverse symbols</cadetblue>
-
 <lightblue>symbol init</lightblue>
 <cadetblue>initialization of gens symbols, according to given method</cadetblue>
 
 <lightblue>symbol clean</lightblue>
 <cadetblue>clean symbols from all gens</cadetblue>
 
-<lightblue>symbol clean inverse</lightblue>
-<cadetblue>clean symbols from inverse gens only</cadetblue>
-
 <lightblue>symbol clean all</lightblue>
-<cadetblue>clean all (i.e. inverse ones too) symbols from gens</cadetblue>
+<cadetblue>clean all  symbols from gens</cadetblue>
 
 <lightblue>symbol clean force</lightblue>
 <cadetblue>clean symbols from gens (continue skipping any error)</cadetblue>
@@ -37,13 +31,13 @@
 <lightblue>symbol shift</lightblue>
 <cadetblue>cyclically shift of symbols in the group (default direction:forward)</cadetblue>
 
-<lightblue>symbol shift backward</lightblue>
-<cadetblue>cyclically shift of symbols in the group (backward direction)</cadetblue>
+<lightblue>symbol shift back</lightblue>
+<cadetblue>cyclically shift of symbols in the group (reverse direction)</cadetblue>
 
 <lightblue>symbol show|hide</lightblue>
 <cadetblue>show/hide symbols</cadetblue>
 
-<lightblue>symbol change from A a B b to B a b A</lightblue>
+<lightblue>symbol change from</lightblue> <yellow>A a B b</yellow> <lightblue>to</lightblue> <yellow>B a b A</yellow>
 <cadetblue>turn items symbols according to the input sequence</cadetblue>
 
 <lightblue>symbol release</lightblue>

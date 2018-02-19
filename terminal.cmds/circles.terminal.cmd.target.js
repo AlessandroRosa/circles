@@ -30,14 +30,13 @@ function circles_terminal_cmd_target()
          _cmd_params['action'] = "" ;
          _cmd_params['layer'] = "" ;
          _cmd_params['plane'] = _glob_target_plane ;
-         _cmd_params['service'] = "" ;
 
          var _params_array = _params.includes( " " ) ? _params.split( " " ) : [ _params ] ;
          _params_array.clean_from( " " ); _params_array.clean_from( "" ); 
 
          // pre-scan for levenshtein correction
     		 var _cmd_terms_dict = [];
-    				 _cmd_terms_dict.push( "assign", "create", "reset", "list", "zplane", "wplane", "release", "html", "help" );
+    				 _cmd_terms_dict.push( "assign", "reset", "list", "zplane", "wplane", "release", "html", "help" );
          circles_lib_terminal_levenshtein( _params_array, _cmd_terms_dict, _par_1, _out_channel );
          var _p ;
          for( var _i = 0 ; _i < _params_array.length ; _i++ )
@@ -46,13 +45,9 @@ function circles_terminal_cmd_target()
               if ( _p.is_one_of_i( "/h", "/help", "--help", "/?" ) ) _cmd_params['help'] = _help = YES ;
               else if ( _p.is_one_of_i( "/k" ) ) _cmd_params['keywords'] = YES ;
               else if ( _p.is_one_of_i( "html", "silent" ) ) _cmd_params[_p] = YES ;
-              else if ( _p.is_one_of_i( "assign", "create", "reset", "list", "release" ) ) _cmd_params['action'] = _p ;
+              else if ( _p.is_one_of_i( "assign", "reset", "list", "release" ) ) _cmd_params['action'] = _p ;
               else if ( _p.is_one_of_i( "zplane", "wplane" ) ) _cmd_params['plane'] = _p ;
-              else
-              {
-                   if ( _p.start_with_i( "service:" ) ) _cmd_params['service'] = _p.replaceAll( "service:", "" );
-                   else if ( _p.start_with_i( "layer:" ) ) _cmd_params['layer'] = _p.replaceAll( "layer:", "" );
-              }
+              else if ( _p.start_with_i( "layer:" ) ) _cmd_params['layer'] = _p.replaceAll( "layer:", "" );
          }
          
          if ( _cmd_params['help'] ) circles_lib_terminal_help_cmd( _cmd_params['html'], _cmd_tag, _par_1, _out_channel );
@@ -72,84 +67,12 @@ function circles_terminal_cmd_target()
              var _plane_ref = _cmd_params['plane'] ;
              var _plane_type = circles_lib_plane_def_get( _plane_ref );
              var _layer_ref = safe_string( _cmd_params['layer'], "" );
-             var _service_ref = safe_string( _cmd_params['service'], "" );
              if ( _action.length > 0 )
              {
                   switch( _action )
                   {
                        case "release":
                        circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
-                       break ;
-                       case "assign":
-                       if ( _plane_type == NO_PLANE )
-                       {
-                            _b_fail = YES, _error_str = "Target assignment failure: missing input plane" ;
-                       }
-                       else if ( _layer_ref.length == 0 )
-                       {
-                            _b_fail = YES, _error_str = "Target assignment failure: missing input layer" ;
-                       }
-                       else if ( _service_ref.length == 0 )
-                       {
-                            _b_fail = YES, _error_str = "Target assignment failure: missing input service" ;
-                       }
-                       else if ( !circles_lib_canvas_get_exists( _plane_type, _service_ref ) )
-                       {
-                            _b_fail = YES, _error_str = "Target assignment failure: no service '"+_service_ref+"' found in the "+_plane_def+" services list" ;
-                       }
-                       else if ( !circles_lib_canvas_get_exists( _plane_type, _service_ref ) )
-                       {
-                            _b_fail = YES, _error_str = "Target assignment failure: no service '"+_service_ref+"' found in the "+_plane_def+" services list" ;
-                       }
-                       else
-                       {
-                            var _canvas = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _layer_ref );
-                            if ( is_html_canvas( _canvas ) )
-                            {
-                                if ( _plane_type == Z_PLANE ) _glob_target_zplane_layers_array[ _service_ref ] = _canvas ;
-                                else if ( _plane_type == W_PLANE ) _glob_target_wplane_layers_array[ _service_ref ] = _canvas ;
-                                circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Target for "+_plane_ref+"/"+_service_ref+" has been assigned to '"+_layer_ref+"' with success", _par_1, _cmd_tag );
-                            }
-                            else
-                            {
-                                _b_fail = YES, _error_str = "Target assignment failure: '"+_cmd_params['layer']+"' is not included inside the "+_plane_ref+" pile" ;
-                            }
-                       }
-                       break;
-                       case "create":
-                       if ( _cmd_params['plane'] == NO_PLANE )
-                       {
-                            _b_fail = YES, _error_str = "Target creation failure: missing input plane" ;
-                       }
-                       else if ( _cmd_params['layer'].length == 0 )
-                       {
-                            _b_fail = YES, _error_str = "Target creation failure: Missing input layer" ;
-                       }
-                       else
-                       {
-                           if ( _keywords_array.includes( _service_ref ) )
-                           {
-                                _b_fail = YES, _error_str = "Target creation failure: '"+_service_ref+"' is a special keyword and can't be used for creating new targets" ;
-                           }
-                           else if ( !_service_ref.testME( _glob_varid_regex_pattern ) )
-                           {
-                                _b_fail = YES, _error_str = "Target creation failure: '"+_service_ref+"' includes illegal chars" ;
-                           }
-                           else
-                           {
-                                var _canvas = circles_lib_canvas_layer_find( _plane_type, FIND_LAYER_BY_ROLE_DEF, _layer_ref );
-                                if ( is_html_canvas( _canvas ) )
-                                {
-                                     if ( _plane_type == Z_PLANE ) _glob_target_zplane_layers_array[ _service_ref ] = _canvas ;
-                                     else if ( _plane_type == W_PLANE ) _glob_target_wplane_layers_array[ _service_ref ] = _canvas ;
-                                     circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Target for "+_plane_ref+"/"+_service_ref+" has been set up with success", _par_1, _cmd_tag );
-                                }
-                                else
-                                {
-                                     _b_fail = YES, _error_str = "Target creation failure: '"+_service_ref+"' is not included inside the "+_plane_ref+" pile" ;
-                                }
-                           }
-                       }
                        break ;
                        case "list":
                        var _keys, _values, _out_row ;
@@ -215,23 +138,41 @@ function circles_terminal_cmd_target()
                             _glob_target_zplane_layers_array['grid'] = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
                             _glob_target_zplane_layers_array['rendering'] = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_RENDERING );
                             _glob_target_zplane_layers_array['figures'] = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
+                            _glob_target_zplane_layers_array['work'] = circles_lib_canvas_layer_find( Z_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_WORK );
 
                             _glob_target_wplane_layers_array = [] ;
                             _glob_target_wplane_layers_array['grid'] = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_GRID );
                             _glob_target_wplane_layers_array['rendering'] = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_RENDERING );
                             _glob_target_wplane_layers_array['figures'] = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_FREEDRAW );
+                            _glob_target_wplane_layers_array['work'] = circles_lib_canvas_layer_find( W_PLANE, FIND_LAYER_BY_ROLE_INDEX, ROLE_WORK );
                             circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Targets have been reset to default settings with success", _par_1, _cmd_tag );
                        }
 
-						     		   var _params_array = [] ;
-								     	  	 _params_array['prepromptquestion'] = _pre_prompt ;
-							             _params_array['promptquestion'] = _prompt_question ;
-							             _params_array['yes_fn'] = function() { reset_fn(); }
-							             _params_array['ifquestiondisabled_fn'] = function() { reset_fn(); }
+						var _params_array = [] ;
+						_params_array['prepromptquestion'] = _pre_prompt ;
+						_params_array['promptquestion'] = _prompt_question ;
+						_params_array['yes_fn'] = function() { reset_fn(); }
+						_params_array['ifquestiondisabled_fn'] = function() { reset_fn(); }
 					   if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					   circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                        break ;
-                       default: break ;
+                       default:
+					   var _mask = _cmd_params['plane'].is_one_of( Z_PLANE, W_PLANE ) ? 1 : 0 ;
+					   var _layer = _mask == 1 ? circles_lib_canvas_layer_find( _cmd_params['plane'], FIND_LAYER_BY_ROLE_DEF, _cmd_params['layer'] ) : null ;
+					   if ( _layer != null ) _mask |= 2 ;
+					   if ( _mask == (1|3) )
+					   {
+						   _glob_target_plane = _layer ;
+						   circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Target for plane "+_cmd_params['plane']+" has been set with success to '"+_cmd_params['layer']+"'", _par_1, _cmd_tag );
+					   }
+					   else
+					   {
+						   if ( ( _mask & 1 ) == 0 )
+						   circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing plane input to set the target", _par_1, _cmd_tag );
+						   if ( ( _mask & 2 ) == 0 )
+						   circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing layer input to set the target", _par_1, _cmd_tag );
+					   }
+					   break ;
                   }
              }
          }

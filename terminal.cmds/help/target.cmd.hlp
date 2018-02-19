@@ -1,14 +1,14 @@
-<banana>select a layer to be the target for canvas-dedicated services</banana>
+<banana>select a layer to be the target for canvas services</banana>
 <white>Type param /k to return all available keywords</white>
 <white>Type param</white> <yellow>/h</yellow> <white>to watch help inside the terminal or</white> <yellow>/h html</yellow> <white>in a separate pop-up</white>
 
 <lightblue>usage</lightblue> <snow>target %action% %plane% %layer%</snow>
 
-<lightblue>action</lightblue> <snow>create | reset | list</snow>
+<lightblue>action</lightblue> <snow>reset | list</snow>
 <lightblue>plane</lightblue> <snow>zplane | wplane</snow>
 <cadetblue>check plane layers pile for correct name space</cadetblue>
 
-<lightblue>target zplane work</lightblue>
+<lightblue>target zplane layer:work</lightblue>
 <cadetblue>select work layer in the Z-plane pile</cadetblue>
 
 <lightblue>target release</lightblue>

@@ -30,12 +30,6 @@
 --------------- FIX SOON -----------------------
 
 * Next cmd to check: storage
-  - storage add points point(0,0)
-    
-	first turn 'point(0,0)' into a point object
-	then all further storage lib functions shall apply the typization method to
-	check whether the input object belongs to the correct datatype
-
 
   * test jseps separatedly, cmd by cmd
   Example:
