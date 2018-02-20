@@ -67,15 +67,14 @@ function circles_terminal_cmd_target()
              var _plane_ref = _cmd_params['plane'] ;
              var _plane_type = circles_lib_plane_def_get( _plane_ref );
              var _layer_ref = safe_string( _cmd_params['layer'], "" );
-             if ( _action.length > 0 )
-             {
-                  switch( _action )
-                  {
+
+			switch( _action )
+            {
                        case "release":
                        circles_lib_output( _out_channel, DISPATCH_INFO, _cmd_tag + " cmd - last release date is " + _last_release_date, _par_1, _cmd_tag );
                        break ;
                        case "list":
-                       var _keys, _values, _out_row ;
+                       var _keys, _values, _out_row, _is_target ;
                        _keys = _glob_target_zplane_layers_array.keys_associative();
                        _values = _glob_target_zplane_layers_array.values_associative();
                        
@@ -88,15 +87,20 @@ function circles_terminal_cmd_target()
                            _html_table += "<td STYLE=\"color:yellow;\">Layer targets</td>" ;
                            _html_table += "<td WIDTH=\"10\"></td>" ;
                            _html_table += "<td STYLE=\"color:yellow;\">Default</td>" ;
+                           _html_table += "<td WIDTH=\"10\"></td>" ;
+                           _html_table += "<td STYLE=\"color:lime;\">Target</td>" ;
                            _html_table += "</tr>" ;
                        for( var _i = 0 ; _i < _keys.length ; _i++ )
                        {
+						   _is_target = ( "CIRCLESzplane_"+_values[_i].get_role_def()+"_layerCANVAS" ).strcmp( _glob_target_plane.get_idcanvas() ) ? 1 : 0 ;
                            _html_table += "<tr>" ;
                            _html_table += "<td STYLE=\"color:lightblue;\">"+_keys[_i]+"</td>" ;
                            _html_table += "<td WIDTH=\"10\"></td>" ;
                            _html_table += "<td STYLE=\"color:snow;\">"+_values[_i].get_role_def()+"</td>" ;
                            _html_table += "<td WIDTH=\"10\"></td>" ;
                            _html_table += "<td STYLE=\"color:snow;\">"+( _values[_i].is_defaultcanvas() ? "yes" : "no" )+"</td>" ;
+                           _html_table += "<td WIDTH=\"10\"></td>" ;
+                           _html_table += "<td STYLE=\"color:white;\">"+( _is_target ? "<SPAN STYLE=\"color:lime;\">yes</SPAN>" : "no" )+"</td>" ;
                            _html_table += "</tr>" ;
                        }
                            _html_table += "</table>" ;
@@ -112,18 +116,23 @@ function circles_terminal_cmd_target()
                            _html_table += "<td STYLE=\"color:yellow;\">Layer targets</td>" ;
                            _html_table += "<td WIDTH=\"10\"></td>" ;
                            _html_table += "<td STYLE=\"color:yellow;\">Default</td>" ;
+                           _html_table += "<td WIDTH=\"10\"></td>" ;
+                           _html_table += "<td STYLE=\"color:lime;\">Target</td>" ;
                            _html_table += "</tr>" ;
 
                        _keys = _glob_target_wplane_layers_array.keys_associative();
                        _values = _glob_target_wplane_layers_array.values_associative();
                        for( var _i = 0 ; _i < _keys.length ; _i++ )
                        {
+						   _is_target = ( "CIRCLESwplane_"+_values[_i].get_role_def()+"_layerCANVAS" ).strcmp( _glob_target_plane.get_idcanvas() ) ? 1 : 0 ;
                            _html_table += "<tr>" ;
                            _html_table += "<td STYLE=\"color:lightblue;\">"+_keys[_i]+"</td>" ;
                            _html_table += "<td WIDTH=\"10\"></td>" ;
                            _html_table += "<td STYLE=\"color:snow;\">"+_values[_i].get_role_def()+"</td>" ;
                            _html_table += "<td WIDTH=\"10\"></td>" ;
                            _html_table += "<td STYLE=\"color:snow;\">"+( _values[_i].is_defaultcanvas() ? "yes" : "no" )+"</td>" ;
+                           _html_table += "<td WIDTH=\"10\"></td>" ;
+                           _html_table += "<td STYLE=\"color:white;\">"+( _is_target ? "<SPAN STYLE=\"color:lime;\">yes</SPAN>" : "no" )+"</td>" ;
                            _html_table += "</tr>" ;
                        }
                            _html_table += "</table>" ;
@@ -156,14 +165,16 @@ function circles_terminal_cmd_target()
 					   if ( !_glob_terminal_echo_flag || _cmd_params['silent'] ) _params_array['yes_fn'].call(this);
 					   circles_lib_terminal_cmd_ask_yes_no( _params_array, _out_channel );
                        break ;
-                       default:
-					   var _mask = _cmd_params['plane'].is_one_of( Z_PLANE, W_PLANE ) ? 1 : 0 ;
+                default:
+				var _plane_val = circles_lib_plane_get_value( _cmd_params['plane'] ) ;
+					   var _mask = _plane_val.is_one_of( Z_PLANE, W_PLANE ) ? 1 : 0 ;
 					   var _layer = _mask == 1 ? circles_lib_canvas_layer_find( _cmd_params['plane'], FIND_LAYER_BY_ROLE_DEF, _cmd_params['layer'] ) : null ;
 					   if ( _layer != null ) _mask |= 2 ;
 					   if ( _mask == (1|3) )
 					   {
 						   _glob_target_plane = _layer ;
-						   circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Target for plane "+_cmd_params['plane']+" has been set with success to '"+_cmd_params['layer']+"'", _par_1, _cmd_tag );
+						   console.log( _glob_target_plane );
+						   circles_lib_output( _out_channel, DISPATCH_SUCCESS, "Target for plane '"+_cmd_params['plane']+"' has been set with success to '"+_cmd_params['layer']+"'", _par_1, _cmd_tag );
 					   }
 					   else
 					   {
@@ -172,9 +183,8 @@ function circles_terminal_cmd_target()
 						   if ( ( _mask & 2 ) == 0 )
 						   circles_lib_output( _out_channel, DISPATCH_WARNING, "Missing layer input to set the target", _par_1, _cmd_tag );
 					   }
-					   break ;
-                  }
-             }
+			    break ;
+            }
          }
      }
      else { _b_fail = YES, _error_str = "Missing input params" ; }

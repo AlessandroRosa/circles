@@ -29,7 +29,7 @@
 
 --------------- FIX SOON -----------------------
 
-* Next cmd to check: storage
+* Next cmd to check: terminal
 
   * test jseps separatedly, cmd by cmd
   Example:
