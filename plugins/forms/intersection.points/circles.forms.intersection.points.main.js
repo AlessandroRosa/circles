@@ -3,6 +3,7 @@ function CIRCLESformsINTERSECTIONPOINTSmain( _base_id, _move )
 {
     CIRCLESformsINTERSECTIONPOINTSbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES );
+    var _this_fn_name = "CIRCLESformsINTERSECTIONPOINTSmain" ;
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _items_n = circles_lib_count_items( _items_array ) ;
     var _run = _items_n > 1, _subset = "forms" ;
@@ -10,7 +11,7 @@ function CIRCLESformsINTERSECTIONPOINTSmain( _base_id, _move )
     var _div_id = CIRCLESformsINTERSECTIONPOINTSdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLESformsINTERSECTIONPOINTSclose();" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsINTERSECTIONPOINTScaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
+        HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsINTERSECTIONPOINTScaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset );
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
 
     if ( _items_n > 1 )
@@ -128,6 +129,6 @@ function CIRCLESformsINTERSECTIONPOINTSmain( _base_id, _move )
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsINTERSECTIONPOINTScaption, CLOSE_FN );
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsINTERSECTIONPOINTScaption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div.id, "RIGHT", "TOP" );
 }

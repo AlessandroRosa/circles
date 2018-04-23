@@ -1,22 +1,23 @@
 function CIRCLESformsMETHODclose() { return circles_lib_plugin_dispatcher_unicast_message( "method", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _caller_fn )
 {
-		if ( is_string( _tab_index ) )
+	if ( is_string( _tab_index ) )
+	{
+		if ( _tab_index.isAlpha() )
 		{
-				if ( _tab_index.isAlpha() )
-				{
-						switch( _tab_index.toLowerCase() )
-						{
-								case "repetends": _tab_index = 0 ; break ;
-								case "generators": _tab_index = 1 ; break ;
-								case "ifs": _tab_index = 2 ; break ;
-								case "fixedpoints": _tab_index = 3 ; break ;
-				        default: break ;
-						}
-				}
-				else _tab_index = safe_int( _tab_index, 0 );
+			switch( _tab_index.toLowerCase() )
+			{
+				case "repetends": _tab_index = 0 ; break ;
+				case "generators": _tab_index = 1 ; break ;
+				case "ifs": _tab_index = 2 ; break ;
+				case "fixedpoints": _tab_index = 3 ; break ;
+				default: break ;
+			}
 		}
+		else _tab_index = safe_int( _tab_index, 0 );
+	}
     else if ( !is_number( _tab_index ) ) _tab_index = safe_int( _tab_index, 0 );
+	var _this_fn_name = "CIRCLESformsMETHODmain" ;
 
     CIRCLESformsMETHODbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES ), _new_method = safe_int( _new_method, _glob_method );
@@ -76,7 +77,7 @@ function CIRCLESformsMETHODmain( _base_id, _move, _tab_index, _new_method, _call
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
     if ( _div != null )
     {
-        circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsMETHODcaption );
+        circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div.id, CIRCLESformsMETHODcaption );
         CIRCLESformsMETHODctrls( _new_method );
         if ( _move ) move_div( _div.id, "LEFT", "TOP" );
         // fill tab with boxes and fill through all stored repetends (if any)

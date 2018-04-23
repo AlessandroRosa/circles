@@ -26,7 +26,7 @@
  */
 
 ;(function(API) {
-'use strict'
+"use strict"
 
 var name = 'jsPDF IE Below 9 Shim plugin';
 // Shim in IE6-9 support

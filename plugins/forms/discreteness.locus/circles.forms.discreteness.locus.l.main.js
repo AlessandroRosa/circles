@@ -33,9 +33,10 @@ function CIRCLESformsDISCRETENESSLOCUSnormalize()
   $("#"+CIRCLESformsDISCRETENESSLOCUSdiv_id).resizable('enable');
 }
 
-function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
+function CIRCLESformsDISCRETENESSLOCUSmain( _base_id = "", _move = YES )
 {
 	_glob_persistent_vars['old_target_plane'] = _glob_target_plane, _glob_target_plane = D_LOCUS ;
+	var _this_fn_name = "CIRCLESformsDISCRETENESSLOCUSmain" ;
     if ( is_array( _glob_storage['dlocus_selected_pts'] ) )
     CIRCLESformsDISCRETENESSLOCUSscreen_selected_pts_array = _glob_storage['dlocus_selected_pts'].clone();
     CIRCLESformsDISCRETENESSLOCUSbaseid = safe_string( _base_id, "" ) ;
@@ -52,7 +53,7 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
     var _help_fn = "CIRCLESformsDISCRETENESSLOCUShelp();" ;
     _glob_current_tab['dlocus'] = 0 ;
     var HTMLcode = "<table ID=\"CIRCLESformsDISCRETENESSLOCUSmasterTABLE\" WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsDISCRETENESSLOCUScaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name,
+        HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsDISCRETENESSLOCUScaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name,
                     _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png", "", _help_fn, "CIRCLESformsDISCRETENESSLOCUS" );
 
     HTMLcode += "<tr><td VALIGN=\"top\">" + CIRCLESformsDISCRETENESSLOCUSupperMENU() + "</td></tr>";
@@ -162,7 +163,7 @@ function CIRCLESformsDISCRETENESSLOCUSmain( _base_id, _move )
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsDISCRETENESSLOCUScaption, "",
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsDISCRETENESSLOCUScaption, "",
                       [ "CIRCLESformsDISCRETENESSLOCUSnormalize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLESformsDISCRETENESSLOCUSminimize", _div_id ],
                       [ "CIRCLESformsDISCRETENESSLOCUSmaximize", _div_id ],

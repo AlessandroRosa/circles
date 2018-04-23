@@ -7,17 +7,76 @@
    14 : rect obj for popup wnd pos and extents
 */
 
-function circles_lib_set_caption_text( _div_id = "", _caption_text = "" )
+function circles_lib_plugin_create( _div_id = "", WIDTH = 0, HEIGHT = 0, contents = "", _class = 0, _zIndex = -1, _bind_events = NO, _top = -1 )
 {
-    _caption_text = safe_string( _caption_text, "" ).trim();
-    if ( _caption_text.length == 0 ) return NO ;
-    var _caption_id = "PLUGIN"+_div_id+"CAPTION" ;
-    if ( $("#"+_caption_id).get(0) != null )
+    _zIndex = safe_int( _zIndex, 10 ), _bind_events = safe_int( _bind_events, YES );
+    _top = safe_int( _top, 100 ), _class = safe_string( _class, "popup_wnd" );
+    WIDTH = Math.max( safe_int( WIDTH, 0 ), 0 ), HEIGHT = Math.max( safe_int( HEIGHT, 0 ), 0 ) ;
+    var _div = _div_id.length > 0 ? $("#"+_div_id ).get(0) : null ;
+        _div = _div_id.length > 0 ? ( _div == null ? document.createElement("div") : _div ) : null ;
+    if ( _div != null )
     {
-       $("#"+_caption_id).html( _caption_text );
-       return YES ;
+      _glob_wnd_id = _div_id, _glob_wnd = _div ;
+      document.body.appendChild( _div );
+      _div.id = _div_id ;
+      _div.style.filter = "alpha(opacity="+DEFAULT_OPACITY*100+");" ;
+      _div.style.position = "absolute" ;
+      _div.style.padding = "4px" ;
+      _div.setAttribute( "class", _class );
+
+      $("#"+_div_id).prop( "opacity", DEFAULT_OPACITY );
+      $("#"+_div_id).css( "width", safe_int( WIDTH, 0 ) > 0 ? WIDTH + "px" : "auto" );
+      $("#"+_div_id).css( "height", safe_int( HEIGHT, 0 ) > 0 ? HEIGHT + "px" : "auto" );
+      $("#"+_div_id).css( "background-color", "white" );
+      $("#"+_div_id).css( "top", _top+"px" );
+      $("#"+_div_id).zIndex( _zIndex );
+      $("#"+_div_id).html( contents );
+      $("#"+_div_id).prop( "display", "none" );
+
+      if ( _bind_events )
+      $("#"+_div_id).bind( 'mousedown focus', function(e)
+      {
+        if ( e != null )
+        {
+          if ( e.originalEvent != null )
+          {
+            var _tag = safe_string( e.originalEvent.srcElement.tagName, "" ).toLowerCase();
+            var _type = safe_string( e.originalEvent.srcElement.type, "" ).toLowerCase();
+            if ( !_tag.is_one_of( "input", "select", "textarea" ) && !_type.is_one_of( "checkbox", "textarea" ) )
+            {
+              e.stopPropagation();
+              e.cancelBubble = true;
+              e.preventDefault();
+            }
+            circles_lib_plugin_focus( _div_id, YES, e );
+          }
+        }
+      } );
     }
-    else return -1 ;
+    return _div ;
+}
+
+function circles_lib_plugin_register( _calling_params = [ "", "" ], _div_id = "", _caption = "", _status, _visible, _caption_class, _subset = "forms", _base_id = "", _allow_multiple_instances = NO )
+{
+    if ( !is_array( _calling_params ) ) _calling_params = [ "", "" ] ;
+    _div_id = safe_string( _div_id, "" ).trim();
+    _caption = safe_string( _caption, "" ).trim();
+    _status = safe_int( _status, CLOSE ), _visible = safe_int( _visible, HIDE );
+    _subset = safe_string( _subset, "forms" ).trim();
+    _base_id = safe_string( _base_id, "" ).trim();
+    _allow_multiple_instances = safe_int( _allow_multiple_instances, NO );
+    var _unique_id = safe_string( "POPUP"+unixtime(), POPUP_NO_ID ).trim();
+    var _focused = 0, _idx = circles_lib_plugin_find_index( _unique_id, POPUP_SEARCH_BY_UNIQUE_ID ) ;
+
+    if ( _idx == UNFOUND || _allow_multiple_instances )
+    _glob_popups_array.push( [ _unique_id, _div_id, _caption,
+                               _status, _visible, 0, NO,
+                               _caption_class, _subset,
+                               _calling_params[0], _calling_params[1],
+                               [  ],//to keep context menu fns array
+                               _base_id, _allow_multiple_instances, new rect()
+                             ] );
+    return _glob_popups_array.get_last() ;
 }
 
 function circles_lib_plugin_caption_code( _run = NO, _title = "", _caption_colspan = 0, _arrows = NO,
@@ -134,53 +193,17 @@ function circles_lib_plugin_caption_code( _run = NO, _title = "", _caption_colsp
     return HTMLcode ;
 }
 
-function circles_lib_plugin_create( _div_id = "", WIDTH = 0, HEIGHT = 0, contents = "", _class = 0, _zIndex = -1, _bind_events = NO, _top = -1 )
+function circles_lib_set_caption_text( _div_id = "", _caption_text = "" )
 {
-    _zIndex = safe_int( _zIndex, 10 ), _bind_events = safe_int( _bind_events, YES );
-    _top = safe_int( _top, 100 ), _class = safe_string( _class, "popup_wnd" );
-    WIDTH = Math.max( safe_int( WIDTH, 0 ), 0 ), HEIGHT = Math.max( safe_int( HEIGHT, 0 ), 0 ) ;
-    var _div = _div_id.length > 0 ? $("#"+_div_id ).get(0) : null ;
-        _div = _div_id.length > 0 ? ( _div == null ? document.createElement("div") : _div ) : null ;
-    if ( _div != null )
+    _caption_text = safe_string( _caption_text, "" ).trim();
+    if ( _caption_text.length == 0 ) return NO ;
+    var _caption_id = "PLUGIN"+_div_id+"CAPTION" ;
+    if ( $("#"+_caption_id).get(0) != null )
     {
-      _glob_wnd_id = _div_id, _glob_wnd = _div ;
-      document.body.appendChild( _div );
-      _div.id = _div_id ;
-      _div.style.filter = "alpha(opacity="+DEFAULT_OPACITY*100+");" ;
-      _div.style.position = "absolute" ;
-      _div.style.padding = "4px" ;
-      _div.setAttribute( "class", _class );
-
-      $("#"+_div_id).prop( "opacity", DEFAULT_OPACITY );
-      $("#"+_div_id).css( "width", safe_int( WIDTH, 0 ) > 0 ? WIDTH + "px" : "auto" );
-      $("#"+_div_id).css( "height", safe_int( HEIGHT, 0 ) > 0 ? HEIGHT + "px" : "auto" );
-      $("#"+_div_id).css( "background-color", "white" );
-      $("#"+_div_id).css( "top", _top+"px" );
-      $("#"+_div_id).zIndex( _zIndex );
-      $("#"+_div_id).html( contents );
-      $("#"+_div_id).prop( "display", "none" );
-
-      if ( _bind_events )
-      $("#"+_div_id).bind( 'mousedown focus', function(e)
-      {
-        if ( e != null )
-        {
-          if ( e.originalEvent != null )
-          {
-            var _tag = safe_string( e.originalEvent.srcElement.tagName, "" ).toLowerCase();
-            var _type = safe_string( e.originalEvent.srcElement.type, "" ).toLowerCase();
-            if ( !_tag.is_one_of( "input", "select", "textarea" ) && !_type.is_one_of( "checkbox", "textarea" ) )
-            {
-              e.stopPropagation();
-              e.cancelBubble = true;
-              e.preventDefault();
-            }
-            circles_lib_plugin_focus( _div_id, YES, e );
-          }
-        }
-      } );
+       $("#"+_caption_id).html( _caption_text );
+       return YES ;
     }
-    return _div ;
+    else return -1 ;
 }
 
 function circles_lib_plugin_destroy_wnd( _div_id = "", _subset = "" )
@@ -209,31 +232,6 @@ function circles_lib_plugin_destroy_wnd( _div_id = "", _subset = "" )
       }
       else return NO ;
     }
-}
-
-function circles_lib_plugin_register( _calling_params = [ "", "" ], _div_id = "", _caption = "", _status, _visible, _caption_class, _subset = "forms", _base_id = "", _allow_multiple_instances = NO )
-{
-    if ( !is_array( _calling_params ) ) _calling_params = [ "", "" ] ;
-    _div_id = safe_string( _div_id, "" ).trim();
-    _caption = safe_string( _caption, "" ).trim();
-    _status = safe_int( _status, CLOSE ), _visible = safe_int( _visible, HIDE );
-    _subset = safe_string( _subset, "forms" ).trim();
-    _base_id = safe_string( _base_id, "" ).trim();
-    _allow_multiple_instances = safe_int( _allow_multiple_instances, NO );
-    var _unique_id = safe_string( "POPUP"+unixtime(), POPUP_NO_ID ).trim();
-    var _focused = 0, _idx = circles_lib_plugin_find_index( _unique_id, POPUP_SEARCH_BY_UNIQUE_ID ) ;
-
-    if ( _idx == UNFOUND || _allow_multiple_instances )
-    _glob_popups_array.push( [ _unique_id, _div_id, _caption,
-                               _status, _visible, 0, NO,
-                               _caption_class, _subset,
-                               _calling_params[0], _calling_params[1],
-                               [ /*to keep context menu fns array*/ ],
-                               _base_id,
-                               _allow_multiple_instances,
-                               new rect()
-                             ] );
-    return _glob_popups_array.get_last() ;
 }
 
 function circles_lib_plugin_activate( _allow_multiple_instances = NO, _base_id = "", _calling_fn = null, _calling_args = null,

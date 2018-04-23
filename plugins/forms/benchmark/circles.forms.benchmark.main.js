@@ -2,6 +2,7 @@ function CIRCLESformsBENCHMARKclose() { return circles_lib_plugin_dispatcher_uni
 function CIRCLESformsBENCHMARKmain( _base_id, _move )
 {
      CIRCLESformsBENCHMARKbaseid = safe_string( _base_id, "" ).trim() ;
+	var _this_fn_name = "CIRCLESformsBENCHMARKmain" ;
      _move = safe_int( _move, YES );
      var _start_date = new Date( _glob_benchmark_start_microtime * 1000 );
      var _start_hh = _start_date.getHours();
@@ -22,7 +23,7 @@ function CIRCLESformsBENCHMARKmain( _base_id, _move )
      var CLOSE_FN = "CIRCLESformsBENCHMARKclose()" ;
      var _div_id = CIRCLESformsBENCHMARKdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
      var HTMLcode =  "<table WIDTH=\""+WIDTH+"\">" ;
-         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsBENCHMARKcaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "clock/clock.20x20.png" );
+         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsBENCHMARKcaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "clock/clock.20x20.png" );
          HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
          if ( _glob_benchmark_operations > 0 )
          {
@@ -56,7 +57,7 @@ function CIRCLESformsBENCHMARKmain( _base_id, _move )
      _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
      var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsBENCHMARKcaption, CLOSE_FN );
+     circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsBENCHMARKcaption, CLOSE_FN );
      if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );
 }
 

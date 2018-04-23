@@ -1,4 +1,4 @@
-  /* framework data type
+  /*frameworkdatatype
      datatype_dev : Number
      datatype_public : Number
      constructor1 : Number(number)
@@ -9,7 +9,7 @@
      comparison method: =
      typization method : is_number
      notes: built-in number object
-     framework data type */
+     frameworkdatatype*/
 
 if ( typeof is_array != "function" )  function is_array( _a ) { return _a instanceof Array ? 1 : 0 ; }
 if ( typeof is_number != "function" ) function is_number( _obj ) { return ( typeof _obj == "number" || _obj instanceof Number ) ; }

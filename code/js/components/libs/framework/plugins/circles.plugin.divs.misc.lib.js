@@ -124,7 +124,11 @@ function circles_lib_plugin_load()
 			for( _i = 0 ; _i < _rl ; _i++ )
 			{
 				$.ajaxSetup( { async:false } );
-				$.getScript( _rel_folder_path + _res_array[_i] ).done( function(){} ).fail( function(){ circles_lib_log_add_entry( "'"+_res_array[_i]+"' can't be loaded: suspected invalid filename or internal code error", LOG_ERROR ) ; _src_code_load_failures.push( _res_array[_i] ) ; } );
+				$.getScript( _rel_folder_path + _res_array[_i] ).done( function(){}
+				).fail( function(){ 
+					circles_lib_log_add_entry( "'"+_res_array[_i]+"' can't be loaded: suspected invalid filename or internal code error", LOG_ERROR ) ;
+					_src_code_load_failures.push( _res_array[_i] ) ;
+				} );
 			}
 
           _load_failure = safe_size( _src_code_load_failures, 0 ) > 0 ? YES : NO ;

@@ -30,6 +30,19 @@
 
 // Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
+  /*frameworkdatatype
+     datatype_dev : rect
+     datatype_public : rect
+     constructor1 : rect(x1,y1,x2,y2)
+     notes_constructor1 : custom datatype
+     constructor2 : rect( point1, point2 )
+     notes_constructor2 : custom datatype
+     output method: output
+     comparison method: is_equal_to
+     typization method : is_rect
+     notes: rect object - custom datatype
+     frameworkdatatype*/
+
 var _RECT_MAX_ACCURACY = 12 ; // suggested value for all accuracy tests. Never exceed 20, which is max value allowed by javascript .toPrecision built-in function
 var _RECT_ORIENTATION_SCREEN = 0, _RECT_ORIENTATION_CARTESIAN = 1 ;
 
@@ -59,37 +72,37 @@ if ( typeof safe_size != "function" )
 
 function rect()
 {
-		this.customclass = arguments.callee.name ;
+	this.customclass = arguments.callee.name ;
     // constructor may be coded as one among the following formats,
     // whose params basically follow this order 
     // [ ... coordinates ... ] , orientation, notes
     // coordinates might be input separatedly or inside an array, from a pair of points or from another rect obj
     this.orientation = _RECT_ORIENTATION_SCREEN ;
-		if ( arguments.length >= 4 )
+	if ( arguments.length >= 4 )
+	{
+        this.x1 = safe_float( arguments[0], 0 ), this.y1 = safe_float( arguments[1], 0 ) ;
+		this.x2 = safe_float( arguments[2], 0 ), this.y2 = safe_float( arguments[3], 0 ) ;
+        this.set_orientation( arguments[4] );
+        this.notes = safe_string( arguments[5], "" ) ;
+	}
+	else if ( is_point( arguments[0] ) && is_point( arguments[1] ) )
+	{
+        this.x1 = safe_float( arguments[0].x, 0 ), this.y1 = safe_float( arguments[0].y, 0 ) ;
+		this.x2 = safe_float( arguments[1].x, 0 ), this.y2 = safe_float( arguments[1].y, 0 ) ;
+        this.set_orientation( arguments[2] );
+		this.notes = safe_string( arguments[3], "" ) ;
+	}
+	else if ( is_array( arguments[0] ) )
+	{
+		if ( arguments[0].length == 4 )
 		{
-       this.x1 = safe_float( arguments[0], 0 ), this.y1 = safe_float( arguments[1], 0 ) ;
-		   this.x2 = safe_float( arguments[2], 0 ), this.y2 = safe_float( arguments[3], 0 ) ;
-       this.set_orientation( arguments[4] );
-       this.notes = safe_string( arguments[5], "" ) ;
+		    this.x1 = safe_float( arguments[0][0], 0 ), this.y1 = safe_float( arguments[0][1], 0 ) ;
+			this.x2 = safe_float( arguments[0][2], 0 ), this.y2 = safe_float( arguments[0][3], 0 ) ;
 		}
-		else if ( is_point( arguments[0] ) && is_point( arguments[1] ) )
-		{
-       this.x1 = safe_float( arguments[0].x, 0 ), this.y1 = safe_float( arguments[0].y, 0 ) ;
-		   this.x2 = safe_float( arguments[1].x, 0 ), this.y2 = safe_float( arguments[1].y, 0 ) ;
-       this.set_orientation( arguments[2] );
-		   this.notes = safe_string( arguments[3], "" ) ;
-		}
-		else if ( is_array( arguments[0] ) )
-		{
-			 if ( arguments[0].length == 4 )
-			 {
-			   this.x1 = safe_float( arguments[0][0], 0 ), this.y1 = safe_float( arguments[0][1], 0 ) ;
-			   this.x2 = safe_float( arguments[0][2], 0 ), this.y2 = safe_float( arguments[0][3], 0 ) ;
-			 }
 
-       this.set_orientation( arguments[1] );
-		   this.notes = safe_string( arguments[2], "" ) ;
-		}
+        this.set_orientation( arguments[1] );
+		this.notes = safe_string( arguments[2], "" ) ;
+	}
     else if ( is_rect( arguments[0] ) ) this.from_rect( arguments[0] );
     else this.notes = "" ;
 		

@@ -26,7 +26,7 @@ MIT license.
  */
 
 ;(function(API) {
-'use strict'
+"use strict"
 
 /**
 Returns an array of length matching length of the 'word' string, with each
@@ -218,7 +218,7 @@ table or other default width is not available.
 @returns {Array} with strings chopped to size.
 */
 API.splitTextToSize = function(text, maxlen, options) {
-	'use strict'
+	"use strict"
 
 	if (!options) {
 		options = {}

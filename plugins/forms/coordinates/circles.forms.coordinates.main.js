@@ -55,6 +55,7 @@ function CIRCLESformsCOORDINATESform( _plane_type, _return_html, coords_array )
 function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
 {
     _plane_type = circles_lib_return_plane_type( _plane_type ) ;
+    var _this_fn_name = "CIRCLESformsCOORDINATESmain" ;
     CIRCLESformsCOORDINATESbaseid = safe_string( _base_id, "" ) ;
     CIRCLESformsCOORDINATESplane_type = _plane_type ;
     _move = safe_int( _move, YES );
@@ -86,7 +87,7 @@ function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
     var _div_id = CIRCLESformsCOORDINATESdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
     var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
         HTMLcode += "<table WIDTH=\"100%\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsCOORDINATEScaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "lens/lens.icon.01.20x20.png", ONACTIVATEFN );
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsCOORDINATEScaption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "lens/lens.icon.01.20x20.png", ONACTIVATEFN );
 
     var _left_up = _corners_array['lu'], _right_down = _corners_array['rd'] ;
     var LEFT = _left_up.x, TOP = _left_up.y, RIGHT = _right_down.x, BOTTOM = _right_down.y ;
@@ -195,7 +196,7 @@ function CIRCLESformsCOORDINATESmain( _base_id, _move, _plane_type )
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsCOORDINATEScaption, CLOSE_FN );
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsCOORDINATEScaption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div.id, _plane_type == Z_PLANE ? "RIGHT" : "LEFT", "TOP" );
 }
 

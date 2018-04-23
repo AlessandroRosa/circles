@@ -186,9 +186,9 @@ function multithread_discreteness_locus_process()
             else if ( _append_count % _out_queue_at_every_n_steps == 1 && _glob_inline_worker_run_flag != 0 )
             {
                 _out_str = "Discreteness locus rendering based upon a Farey sequence of order " + _order ;
-                _out_str += _glob_crlf+"Running " + ( _runner / _filter_seq.length * 100.0 ).roundTo(2) + " %" ;
-                _out_str += _glob_crlf+"Filtered " + _append_count + "/" + _filter_seq.length + " - " + ( _append_count / _filter_seq.length * 100.0 ).roundTo(2) + " %" ;
-                _out_str += _glob_crlf.repeat(2)+"Now processing " + _start_pq.output() + " < " + _pq.output().rpad( " ", _max_str_len ) + " < " + _end_pq.output();
+                _out_str += "\nRunning " + ( _runner / _filter_seq.length * 100.0 ).roundTo(2) + " %" ;
+                _out_str += "\nFiltered " + _append_count + "/" + _filter_seq.length + " - " + ( _append_count / _filter_seq.length * 100.0 ).roundTo(2) + " %" ;
+                _out_str += "\n\nNow processing " + _start_pq.output() + " < " + _pq.output().rpad( " ", _max_str_len ) + " < " + _end_pq.output();
                 self.postMessage( { id : "output", ret : { out_channel : _out_channel,
                                     features : [], text : _output_text,
                                     data : _out_str, service : _service, save : 0 } } );

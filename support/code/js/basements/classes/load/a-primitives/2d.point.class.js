@@ -14,6 +14,19 @@
 
 // Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
+  /*frameworkdatatype
+     datatype_dev : point
+     datatype_public : point
+     constructor1 : point(number,number)
+     notes_constructor1 : x,y,z coords
+     constructor2 : point(point)
+     notes_constructor2 : copy constructor
+     output method: output('std')
+     comparison method: is_equal_to
+     typization method : is_point
+     notes: 2d point
+     frameworkdatatype*/
+
 var _POINT_2D_CLS_ERR = 0 ;
 var _POINT_2D_CLS_EUCLIDEAN_ENV = 1 ;
 var _POINT_2D_CLS_HALFPLANE_ENV = 2 ;

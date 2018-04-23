@@ -13,6 +13,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
 {
     _move = safe_int( _move, YES );
     _selected_index = ( is_string( _selected_index ) ) ? circles_lib_find_item_index_by_symbol( null, _selected_index ) : safe_int( _selected_index, 0 ) ;
+	var _this_fn_name = "CIRCLESformsSEEDSLISTmain" ;
     var _chunk = circles_lib_items_set( _items_switch, YES ) ;
     var _items_n = _chunk['count'], _items_array = _chunk['array'], _caption = _chunk['label'], _items_switch = _chunk['switch'] ;
     CIRCLESformsSEEDSLISTbaseid = safe_string( _base_id, "" ) ;
@@ -52,7 +53,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
          var dims = getViewportExtents();
          var WIDTH = 650, HEIGHT = "auto" ;
          var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-             HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsSEEDSLISTcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "info/info.icon.01.20x20.png" );
+             HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsSEEDSLISTcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "info/info.icon.01.20x20.png" );
              HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
              HTMLcode += "<tr>" ;
              HTMLcode += "<td STYLE=\"padding-left:5px;\">"+( "Found <b>"+_items_n+"</b> "+( _items_n == 1 ? "entry" : "entries" ) )+"</td>" ;
@@ -216,7 +217,7 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
     {
         var WIDTH = 370, HEIGHT = "auto" ;
         var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-            HTMLcode += circles_lib_plugin_caption_code( NO, CIRCLESformsSEEDSLISTcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id );
+            HTMLcode += circles_lib_plugin_caption_code( NO, CIRCLESformsSEEDSLISTcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id );
             HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
             HTMLcode += "<tr><td ALIGN=\"center\">"+( "Found <b>"+_items_n+"</b> Entr"+( _items_n == 1 ? "y" : "ies" ) )+"</td></tr>" ;
             HTMLcode += "<tr><td HEIGHT=\"12\"></td></tr>" ;
@@ -246,6 +247,6 @@ function CIRCLESformsSEEDSLISTmain( _base_id, _move, _selected_index, _items_swi
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsSEEDSLISTcaption, CLOSE_FN );
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsSEEDSLISTcaption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div.id, "CENTER", "TOP" );
 }

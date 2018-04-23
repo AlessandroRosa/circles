@@ -21,7 +21,7 @@ function CIRCLESembeddingsGENERALPURPOSE_CONFIG( _base_id )
 
     if ( _glob_drawentity == DRAWENTITY_NONE ) circles_lib_drawentity_set( DRAWENTITY_PIXEL );
     if ( _glob_depth <= 1 ) circles_lib_depth_set( DEFAULT_DEPTH, YES );
-    _plugin_init_fns_array[_index_ref] = arguments.callee.name ;
+    _plugin_init_fns_array[_index_ref] = "CIRCLESembeddingsGENERALPURPOSE_CONFIG" ;
     CIRCLESembeddingsGENERALPURPOSE_PRESETS_INIT();
 }
 
@@ -45,7 +45,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 	_plugin_last_ref = _plugin_main_ref ;
     var _index_ref = _plugin_last_ref ;
     var _items_n = circles_lib_count_items();
-    var this_fn_name = arguments.callee.name + "(NO,"+_restore+")" ;
+    var _this_fn_name = "CIRCLESembeddingsGENERALPURPOSEmain" + "(NO,"+_restore+")" ;
     var SW = $(window).width(), SH = $(window).height();
 
     var _init_btn_clr = CELLgetCLR( "STATUSBARinitBTN" );
@@ -58,7 +58,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
 
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
     HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN, WIDTH, HEIGHT,
-                this_fn_name, 'general.purpose', _div_id, _subset, "plug/plug.icon.01.20x20.png", "", "", "CIRCLES"+_subset+"GENERALPURPOSE_",
+                _this_fn_name, 'general.purpose', _div_id, _subset, "plug/plug.icon.01.20x20.png", "", "", "CIRCLES"+_subset+"GENERALPURPOSE_",
 				[ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 				[ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 				[ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
@@ -85,7 +85,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
     HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:CIRCLESembeddingsGENERALPURPOSE_SAVE_GROUP();\">Save</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
-    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:if ( circles_lib_method_check() ) CIRCLESembeddingsGENERALPURPOSE_CALL_METHOD('"+this_fn_name+"'); else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _ERR_00_01, 'PLUGIN_OUTMSG' ) ;\">Method</td>" ;
+    HTMLcode += "<td CLASS=\"link\" ONCLICK=\"javascript:if ( circles_lib_method_check() ) CIRCLESembeddingsGENERALPURPOSE_CALL_METHOD('"+_this_fn_name+"'); else circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_WARNING, _ERR_00_01, 'PLUGIN_OUTMSG' ) ;\">Method</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
     HTMLcode += "<td CLASS=\"link\">Comment</td>" ;
     HTMLcode += "<td WIDTH=\"10\"></td>" ;
@@ -400,7 +400,7 @@ function CIRCLESembeddingsGENERALPURPOSEmain( _base_id, _move, _restore )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id ] );
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGENERALPURPOSE_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGENERALPURPOSE_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )
 	{
 		if ( is_string( _move ) )

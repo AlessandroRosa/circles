@@ -32,6 +32,7 @@ function CIRCLEStoolsCANVASCOMPOSITIONmain( _base_id, _move )
 {
     CIRCLEStoolsCANVASCOMPOSITIONuniqueid = _base_id ;
     _move = safe_int( _move, YES );
+	var _this_fn_name = "CIRCLEStoolsCANVASCOMPOSITIONmain" ;
     var _min_dim_type = $( window ).height() < $( window ).width() ? 1 : 2 ;
     var _max_dim_type = $( window ).height() > $( window ).width() ? 1 : 2 ;
     var _dim = _max_dim_type == 1 ? $( window ).height() : $( window ).width();

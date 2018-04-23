@@ -14,7 +14,7 @@
 
 // Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
-  /* framework data type
+  /*frameworkdatatype
      datatype_dev : fraction
      datatype_public : fraction
      constructor1 : fraction(number,number)
@@ -27,7 +27,7 @@
      typization method : is_fraction
      output method: output('std')
      notes: rational fraction
-     framework data type */
+     frameworkdatatype*/
 
 if ( typeof is_array != "function" ) function is_array( _obj ) { return _obj instanceof Array ? 1 : 0 ; }
 if ( typeof is_complex != "function" ) function is_complex( _obj ) { return _obj instanceof complex ? 1 : 0 ; }

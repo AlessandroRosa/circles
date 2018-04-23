@@ -13,6 +13,18 @@
 */
 
 // Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
+  /*frameworkdatatype
+     datatype_dev : complex
+     datatype_public : complex
+     constructor1 : complex(real, imag)
+     notes_constructor1 : custom datatype
+     constructor2 :
+     notes_constructor2 :
+     output method:
+     comparison method: is_equal_to
+     typization method : is_complex
+     notes: complex number - custom datatype
+     frameworkdatatype*/
 
 var COMPLEX_MAX_FLOAT = Number.MAX_VALUE / Math.pow( 10, 3 ), COMPLEX_MIN_FLOAT = Number.MIN_VALUE * Math.pow( 10, 3 ) ;
 var COMPLEX_CLASS_MAX_ACCURACY = 12 ; // suggested value for all accuracy tests. Never exceed 20, which is max value allowed by javascript .toPrecision built-in function
@@ -114,7 +126,7 @@ complex.prototype.safe_complex = function( _safe_c )
     this.imag = safe_float( this.imag, _safe_c.real ) ;
 }
 
-complex.prototype.write = function()           			 { document.write( "r:" + this.real.toString() + " i:" + this.imag.toString() ) ; }
+complex.prototype.write = function() { document.write( "r:" + this.real.toString() + " i:" + this.imag.toString() ) ; }
 complex.prototype.output = function( _round_digits ) { return this.formula() ; }
 complex.prototype.formula = function( _b_unit, _b_approx, _round_digits )
 {

@@ -37,7 +37,7 @@ Creates new jsPDF document object instance
 @name jsPDF
 */
 var jsPDF = (function () {
-    'use strict';
+    "use strict"
     /*jslint browser:true, plusplus: true, bitwise: true, nomen: true */
     /*global document: false, btoa, atob, zpipe, Uint8Array, ArrayBuffer, Blob, saveAs, adler32cs, Deflater */
 

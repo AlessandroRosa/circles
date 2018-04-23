@@ -32,6 +32,7 @@ function CIRCLEStoolsFZmain( _base_id, _move )
 {
     CIRCLEStoolsFZuniqueid = _base_id ;
     _move = safe_int( _move, YES );
+	var _this_fn_name = "CIRCLEStoolsFZmain" ;
     var WIDTH = 520, HEIGHT = "auto", _run = YES, _subset = "tools" ;
     var _div_id = CIRCLEStoolsFZdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLEStoolsFZclose();" ;

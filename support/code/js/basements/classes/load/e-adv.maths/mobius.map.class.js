@@ -21,6 +21,19 @@
     with complex entries a, b, c, d
 */
 
+  /*frameworkdatatype
+     datatype_dev : mobius_map
+     datatype_public : mobius_map
+     constructor1 : mobius_map( array_of_four_complex_numbers )
+     notes_constructor1 : 
+     constructor2 : mobius_map(mobius_map)
+     notes_constructor2 : copy constructor
+     output method: output()
+     comparison method: is_equal_to
+     typization method : is_mobius_map
+     notes: mobius_map
+     frameworkdatatype*/
+
 if ( typeof is_array != "function" ) function is_array( _obj ) { return _obj instanceof Array ? 1 : 0 ; }
 if ( typeof is_complex != "function" ) function is_complex( _obj ) { return _obj instanceof complex ? 1 : 0 ; }
 if ( typeof is_integer != "function" ) function is_integer( _obj ) { return is_number( _obj ) ? ( Math.floor( _obj ) == _obj ? 1 : 0 ) : 0 ; }

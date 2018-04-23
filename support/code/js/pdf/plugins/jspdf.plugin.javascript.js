@@ -26,7 +26,7 @@
 /*global jsPDF */
 
 (function (jsPDFAPI) {
-    'use strict';
+   "use strict"
     var jsNamesObj, jsJsObj, text;
     jsPDFAPI.addJS = function (txt) {
         text = txt;

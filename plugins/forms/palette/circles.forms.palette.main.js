@@ -1,6 +1,7 @@
 function CIRCLESformsPALETTEclose() { return circles_lib_plugin_dispatcher_unicast_message( "palette", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); return YES ; }
 function CIRCLESformsPALETTEmain( _base_id, _move )
 {
+	var _this_fn_name = "CIRCLESformsPALETTEmain" ;
     CIRCLESformsPALETTEbaseid = safe_string( _base_id, "" ) ;
 	  _move = safe_int( _move, YES );
 	  var _palette_len = safe_size( _glob_palette_array, 0 );
@@ -13,7 +14,7 @@ function CIRCLESformsPALETTEmain( _base_id, _move )
 	var WIDTH = 350, HEIGHT = "auto" ;
   var _div_id = CIRCLESformsPALETTEdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
   var HTMLcode = "<table WIDTH=\""+WIDTH+"\">";
-      HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsPALETTEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "palette/palette.icon.01.20x20.png" );
+      HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsPALETTEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "palette/palette.icon.01.20x20.png" );
       HTMLcode += "<tr>" ;
       HTMLcode += "<td VALIGN=\"top\">" ;
 
@@ -196,7 +197,7 @@ function CIRCLESformsPALETTEmain( _base_id, _move )
       _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
       var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-      circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsPALETTEcaption );
+      circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div.id, CIRCLESformsPALETTEcaption );
       if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );
 }
 

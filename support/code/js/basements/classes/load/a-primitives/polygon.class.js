@@ -16,7 +16,7 @@
 
 // Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
-  /* framework data type
+  /*frameworkdatatype
      datatype_dev : polygon
      datatype_public : polygon
      constructor1 : polygon(array)
@@ -29,7 +29,7 @@
      comparison method: is_equal_to
      typization method : is_polygon
      notes: 2d polygon
-     framework data type */
+     frameworkdatatype*/
 
 var _POLYGON_MAX_ACCURACY = 12 ; // suggested value for all accuracy tests. Never exceed 20, which is max value allowed by javascript .toPrecision built-in function
 var _POLYGON_ERR_INVALID_VALUE = -1 ;

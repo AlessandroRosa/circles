@@ -25,7 +25,7 @@ Copyright (c) 2012 Willow Systems Corporation, willow-systems.com
  */
 
 ;(function(jsPDFAPI) {
-'use strict'
+"use strict"
 
 /**
 Parses SVG XML and converts only some of the SVG elements into
@@ -92,7 +92,7 @@ jsPDFAPI.addSVG = function(svgtext, x, y, w, h) {
 	}
 
 	function convertPathToPDFLinesArgs(path){
-		'use strict'
+		"use strict"
 		// we will use 'lines' method call. it needs:
 		// - starting coordinate pair
 		// - array of arrays of vector shifts (2-len for line, 6 len for bezier)

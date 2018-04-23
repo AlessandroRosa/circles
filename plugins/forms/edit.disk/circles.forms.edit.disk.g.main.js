@@ -48,6 +48,7 @@ function CIRCLESformsEDITDISKask( _item_index, _items_switch )
 
 function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
 {
+    var _this_fn_name = "CIRCLESformsEDITDISKmain" ;
     var _options = is_array( arguments[4] ) ? arguments[4] : [] ;
     var _chunk = circles_lib_items_set( _items_switch, YES ) ;
     var _items_n = _chunk['count'], _items_array = _chunk['array'], _caption = _chunk['label'], _items_switch = _chunk['switch'] ;
@@ -91,7 +92,7 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     var _caption = _items_switch == ITEMS_SWITCH_SEEDS ? CIRCLESformsEDITDISKcaption01 : CIRCLESformsEDITDISKcaption02 ;
     _caption += " - index #" + _item_index + ( ( symbol.length > 0 ) ? " - Symbol : " + symbol : "" ) ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
+        HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset );
 
     if ( _items_n > 0 )
     {
@@ -321,7 +322,7 @@ function CIRCLESformsEDITDISKmain( _base_id, _move, _item_index, _items_switch )
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
     tabberAutomatic( CIRCLESEDITtabberOptions, "CIRCLESEDIT" );
 
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div_id, "RIGHT", "TOP" );
 
     $("#CIRCLESEDITmainDIV").get(0).tabber.tabShow( _glob_current_tab['editdisk'] );

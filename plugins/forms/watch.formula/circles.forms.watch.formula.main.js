@@ -4,6 +4,7 @@ function CIRCLESformsWATCHFORMULAmain( _base_id, _move, index, _items_switch )
     if ( is_string( index ) ) index = circles_lib_find_item_index_by_symbol( null, index ) ;
     var _chunk = circles_lib_items_set( _items_switch, YES ) ;
     var _items_n = _chunk['count'], _items_array = _chunk['array'], _caption = _chunk['label'], _items_switch = _chunk['switch'] ;
+	var _this_fn_name = "CIRCLESformsWATCHFORMULAmain" ;
     CIRCLESformsWATCHFORMULAbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES ), _index = safe_int( index, UNFOUND );
     if ( index != UNFOUND )
@@ -24,7 +25,7 @@ function CIRCLESformsWATCHFORMULAmain( _base_id, _move, index, _items_switch )
           var _caption = CIRCLESformsWATCHFORMULAcaption + " ( Symbol "+_symbol+" )" ;
           var CLOSE_FN = "CIRCLESformsWATCHFORMULAclose();" ;
           var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-              HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
+              HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset );
               HTMLcode += "<tr>" ;
               HTMLcode += "<td VALIGN=\"top\">" ;
               HTMLcode += "<table ALIGN=\"center\">" ;
@@ -78,7 +79,7 @@ function CIRCLESformsWATCHFORMULAmain( _base_id, _move, index, _items_switch )
 
           var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
           if ( _move && _div != null ) move_div( _div.id, "CENTER", "TOP" );
-          circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
+          circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
        }
     }
     else circles_lib_output( OUTPUT_SCREEN, DISPATCH_ERROR, "Coordinates are not consistent with archived data", _glob_app_title );

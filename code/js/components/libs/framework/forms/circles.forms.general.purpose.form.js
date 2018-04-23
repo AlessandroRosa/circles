@@ -66,6 +66,7 @@ function CIRCLESgeneralpurposeFORM( _subset, _base_id, _move, _w, _h, _caption, 
     _x_pos_tag = safe_string( _x_pos_tag, "LEFT" ), _y_pos_tag = safe_string( _y_pos_tag, "TOP" );
     _caption = safe_string( _caption, 'General Purpose' );
     _word_wrap = safe_int( _word_wrap, NO ), _resizable = safe_int( _resizable, NO );
+	var _this_fn_name = "CIRCLESgeneralpurposeFORM" ;
     var WIDTH = safe_int( _w, 350 ), HEIGHT = safe_int( _h, "auto" );
     var _div_id = circles_lib_plugin_build_divid( _subset, _base_id );
     if ( $("#" + _div_id).resizable('instance') != undefined ) $("#" + _div_id).resizable('destroy');
@@ -74,7 +75,7 @@ function CIRCLESgeneralpurposeFORM( _subset, _base_id, _move, _w, _h, _caption, 
 
     var CLOSE_FN = "CIRCLESgeneralpurposeFORMclose();", _subset = "forms" ;
     var HTMLcode =  "<table ID=\"POPUPgeneralpurposesMASTERTABLE\" WIDTH=\"99%\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "info/info.icon.01.20x20.png" );
+        HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 5, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "info/info.icon.01.20x20.png" );
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;
         HTMLcode += "<tr><td VALIGN=\"top\"><DIV ID=\"CIRCLESgeneralpurposeDIV\" STYLE=\"position:relative;"+( _word_wrap ? "word-wrap:break-word;" : "" )+"background-color:"+_bkcolor+";padding:6px;width:"+( WIDTH - 10 )+"px;height:"+(_h-25)+"px;overflow:auto;\" CLASS=\"general_rounded_corners\">"+_html_code+"</DIV></td></tr>" ;
         HTMLcode += "<tr><td HEIGHT=\"2\"></td></tr>" ;

@@ -33,7 +33,7 @@ var _glob_mathjs = math, _glob_parser = _glob_mathjs.parser();
 
 var _glob_current_tab = [] ;
 var _glob_output_channel = OUTPUT_SCREEN ;
-var _glob_crlf = null ; // carriage return / line feed
+var _glob_crlf = is_win() ? CRLF_WIN : CRLF_NOWIN ;
 
 var _glob_alt_key = NO ;
 var _glob_canc_key = NO ;

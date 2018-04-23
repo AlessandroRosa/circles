@@ -35,6 +35,7 @@ function CIRCLESformsSCRIPTEDITORmain( _base_id, _move )
 {
     CIRCLESformsSCRIPTEDITORbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES ) ;
+	var _this_fn_name = "CIRCLESformsSCRIPTEDITORmain" ;
     var TOP = 40 ;
     var WIDTH = Math.floor( $( window ).width() * 0.85 ), HEIGHT = $( window ).height() - ( TOP + 15 ) ;
     var _subset = "forms" ;
@@ -100,7 +101,7 @@ function CIRCLESformsSCRIPTEDITORmain( _base_id, _move )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode, null, null, null, TOP );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsSCRIPTEDITORcaption, CLOSE_FN,
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsSCRIPTEDITORcaption, CLOSE_FN,
 					                      [ "CIRCLESformsSCRIPTEDITORnormalize", _div_id, WIDTH, HEIGHT ],
 					                      [ "CIRCLESformsSCRIPTEDITORminimize", _div_id, WIDTH, HEIGHT ],
 					                      [ "CIRCLESformsSCRIPTEDITORmaximize", _div_id, WIDTH, HEIGHT ] );

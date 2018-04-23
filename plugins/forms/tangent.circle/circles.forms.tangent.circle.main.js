@@ -9,6 +9,7 @@ function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
         return ;
     }
       
+	var _this_fn_name = "CIRCLESformsTANGENTCIRCLEmain" ;
     var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
     var _items_n = circles_lib_count_items( _items_array ) ;
     var _subset = "forms";
@@ -23,7 +24,7 @@ function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
         var _fontcolor = _glob_method == METHOD_NONE ? DEFAULT_EDIT_COLOR_DISABLED : DEFAULT_COLOR_STD ;
         var _candidate_item, _candidate_symbol ;
         var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-              HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsTANGENTCIRCLEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset );
+              HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsTANGENTCIRCLEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset );
               HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
               HTMLcode += "<tr>" ;
               HTMLcode += "<td VALIGN=\"top\">" ;
@@ -86,7 +87,7 @@ function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
       {
           var WIDTH = 360, HEIGHT = "auto" ;
           var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-              HTMLcode += circles_lib_plugin_caption_code( NO, CIRCLESformsTANGENTCIRCLEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id );
+              HTMLcode += circles_lib_plugin_caption_code( NO, CIRCLESformsTANGENTCIRCLEcaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id );
               HTMLcode += "<tr><td HEIGHT=\"5\"></td></tr>" ;
               HTMLcode += "<tr>" ;
               HTMLcode += "<td ALIGN=\"center\" STYLE=\"font-size:12pt;color:"+DEFAULT_COLOR_ERROR+";\">Service unavailable because<br>"+_ERR_33_01+"</td>" ;
@@ -101,6 +102,6 @@ function CIRCLESformsTANGENTCIRCLEmain( _base_id, _move )
       if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
       _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
       var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-      circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsTANGENTCIRCLEcaption, CLOSE_FN );
+      circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsTANGENTCIRCLEcaption, CLOSE_FN );
       if ( _move && _div != null ) move_div( _div.id, "RIGHT", "TOP" );
 }

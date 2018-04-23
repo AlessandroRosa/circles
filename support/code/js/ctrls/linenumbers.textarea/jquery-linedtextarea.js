@@ -1,7 +1,6 @@
 (function(undefined){
 
-    'use strict';
-    
+    "use strict"
     var BehaveHooks = BehaveHooks || (function(){
 		var hooks = {};
 		

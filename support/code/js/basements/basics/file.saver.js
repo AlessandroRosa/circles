@@ -16,7 +16,7 @@
 var saveAs = saveAs
   || (navigator.msSaveOrOpenBlob && navigator.msSaveOrOpenBlob.bind(navigator))
   || (function(view) {
-	"use strict";
+	"use strict"
 	var
 		  doc = view.document
 		  // only get URL when necessary in case BlobBuilder.js hasn't overridden it yet

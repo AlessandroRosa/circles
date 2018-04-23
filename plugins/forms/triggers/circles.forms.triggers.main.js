@@ -3,6 +3,7 @@ function CIRCLESformsTRIGGERSmain( _base_id, _move )
 {
     CIRCLESformsTRIGGERSbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES );
+	var _this_fn_name = "CIRCLESformsTRIGGERSmain" ;
     var _keys = _glob_triggers_table.is_associative() ? _glob_triggers_table.keys_associative() : _glob_triggers_table ;
     var _n_triggers = safe_size( _keys, 0 );
     var _extra_height = CIRCLES_POPUP_CAPTION_HEIGHT + CIRCLES_POPUP_SUB_CAPTION_HEIGHT + CIRCLES_POPUP_CAPTION_BORDER * 3 ;
@@ -11,7 +12,7 @@ function CIRCLESformsTRIGGERSmain( _base_id, _move )
     var CLOSE_FN = "CIRCLESformsTRIGGERSclose();", _subset = "forms" ;
     var _div_id = CIRCLESformsTRIGGERSdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\">";
-        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsTRIGGERScaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png" );
+        HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsTRIGGERScaption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png" );
         HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
     if ( _n_triggers > 0 )
     {
@@ -56,7 +57,7 @@ function CIRCLESformsTRIGGERSmain( _base_id, _move )
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsTRIGGERScaption );
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div.id, CIRCLESformsTRIGGERScaption );
     if ( _move && _div != null ) move_div( _div.id, "LEFT", "BOTTOM", WIDTH, HEIGHT );
 
 	CIRCLESformsTRIGGERSupdatelist(WIDTH,_triggers_list_height);

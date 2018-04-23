@@ -35,7 +35,7 @@ function circles_lib_return_plane_type( _plane_def, _set_target )
     return _plane_def ;
 }
 
-function circles_lib_plane_get_value( _plane_def )
+function circles_lib_plane_get_value( _plane_def = "" )
 {
     _plane_def = safe_string( _plane_def, "").toLowerCase();
     if ( _plane_def.includes_i( _glob_plane_cmd_defs_array[''+Z_PLANE] ) ) return Z_PLANE ;
@@ -44,8 +44,8 @@ function circles_lib_plane_get_value( _plane_def )
     else return NO_PLANE ;
 }
 
-function circles_lib_plane_def_get( _plane_type ) { return _glob_plane_defs_array[''+_plane_type] != null ? _glob_plane_defs_array[''+_plane_type] : "unknown" ; }
-function circles_lib_plane_def_get_for_cmds( _plane_type ) { return _glob_plane_cmd_defs_array[''+_plane_type] != null ? _glob_plane_cmd_defs_array[''+_plane_type] : "unknown" ; }
+function circles_lib_plane_def_get( _plane_type = NO_PLANE ) { return _glob_plane_defs_array[''+_plane_type] != null ? _glob_plane_defs_array[''+_plane_type] : "unknown" ; }
+function circles_lib_plane_def_get_for_cmds( _plane_type = NO_PLANE ) { return _glob_plane_cmd_defs_array[''+_plane_type] != null ? _glob_plane_cmd_defs_array[''+_plane_type] : "unknown" ; }
 function circles_lib_items_get_def()
 {
     if ( _glob_items_switch & ITEMS_SWITCH_SEEDS ) return "seeds" ;

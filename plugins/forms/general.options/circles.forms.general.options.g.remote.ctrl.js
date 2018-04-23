@@ -145,8 +145,8 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array,
           break ;
           case "zplane":
           HEIGHT = Math.max( $(window).height() - 90, 260 ) ;
-          var this_fn_name = "CIRCLESformsGENERALOPTIONSmain('general.options', 1, 2)" ;
-          HTMLcode = CIRCLESformsGENERALOPTIONSzplanelayersTAB( this_fn_name );
+          var _this_fn_name = "CIRCLESformsGENERALOPTIONSmain('general.options', 1, 2)" ;
+          HTMLcode = CIRCLESformsGENERALOPTIONSzplanelayersTAB( _this_fn_name );
           circles_lib_set_caption_text( _div_id, "General Options - Z-plane" );
           CIRCLESformsGENERALOPTIONSresize( WIDTH - 20, HEIGHT );
 
@@ -157,8 +157,8 @@ function CIRCLESformsGENERALOPTIONSremotectrl( _options, _return_fn, _ret_array,
           break ;
           case "wplane":
           WIDTH = 450, HEIGHT = Math.max( $(window).height() - 90, 260 ) ;
-          var this_fn_name = "CIRCLESformsGENERALOPTIONSmain('general.options', 1, 3)" ;
-          HTMLcode = CIRCLESformsGENERALOPTIONSwplanelayersTAB( this_fn_name );
+          var _this_fn_name = "CIRCLESformsGENERALOPTIONSmain('general.options', 1, 3)" ;
+          HTMLcode = CIRCLESformsGENERALOPTIONSwplanelayersTAB( _this_fn_name );
           circles_lib_set_caption_text( _div_id, "General Options - W-plane" );
           CIRCLESformsGENERALOPTIONSresize( WIDTH - 20, HEIGHT );
 

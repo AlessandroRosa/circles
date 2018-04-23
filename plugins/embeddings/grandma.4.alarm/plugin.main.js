@@ -121,7 +121,7 @@ function CIRCLESembeddingsGRANDMA4ALARM_CONFIG( _base_id )
 
     _glob_submethod_desc = _plugin_definitions_array[_index_ref] ;
     _glob_submethod_desc = safe_string( _glob_submethod_desc, "" );
-    _plugin_init_fns_array[_index_ref] = arguments.callee.name ;
+    _plugin_init_fns_array[_index_ref] = "CIRCLESembeddingsGRANDMA4ALARM_CONFIG" ;
     _glob_target_plane = W_PLANE ;
 		circles_lib_drawentity_set( DRAWENTITY_PIXEL );
     circles_lib_method_set( METHOD_ALGEBRAIC );
@@ -151,7 +151,7 @@ function CIRCLESembeddingsGRANDMA4ALARMmain( _base_id, _move, _restore )
     _glob_palette_use = NO ;
     var _index_ref = _plugin_last_ref;
     var _items_n = circles_lib_count_items();
-    var this_fn_name = arguments.callee.name + "(NO,"+_restore+")" ;
+    var _this_fn_name = "CIRCLESembeddingsGRANDMA4ALARMmain" + "(NO,"+_restore+")" ;
 
     CIRCLESembeddingsGRANDMA4ALARM_PATTERNS();
     if ( _restore )
@@ -185,7 +185,7 @@ function CIRCLESembeddingsGRANDMA4ALARMmain( _base_id, _move, _restore )
 
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
     HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN, WIDTH, HEIGHT,
-                this_fn_name, 'grandma.4.alarm', _div_id, _subset, "plug/plug.icon.01.20x20.png", "", "", "CIRCLES"+_subset+"GRANDMA4ALARM_",
+                _this_fn_name, 'grandma.4.alarm', _div_id, _subset, "plug/plug.icon.01.20x20.png", "", "", "CIRCLES"+_subset+"GRANDMA4ALARM_",
 																								[ "CIRCLESembeddingsGRANDMA4ALARM_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGRANDMA4ALARM_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 																								[ "CIRCLESembeddingsGRANDMA4ALARM_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
@@ -305,7 +305,7 @@ function CIRCLESembeddingsGRANDMA4ALARMmain( _base_id, _move, _restore )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGRANDMA4ALARM_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMA4ALARM_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMA4ALARM_MAXIMIZE", _div_id ] );
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, 'embeddings', OPEN, _div.id, _glob_submethod_desc, [ "CIRCLESembeddingsGRANDMA4ALARM_NORMALIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMA4ALARM_MINIMIZE", _div_id, WIDTH, HEIGHT ], [ "CIRCLESembeddingsGRANDMA4ALARM_MAXIMIZE", _div_id ] );
     if ( _move && _div != null )
 		{
 				if ( is_string( _move ) )

@@ -7,6 +7,7 @@ function CIRCLESformsMERGINGmain( _base_id, _move, _plane_type )
     if ( _plane_type == NO_PLANE ) circles_lib_output( OUTPUT_SCREEN, DISPATCH_WARNING, "Missing plane ref", _glob_app_title );
     else
     {
+		var _this_fn_name = "CIRCLESformsMERGINGmain" ;
          var _plane_def = circles_lib_plane_def_get( _plane_type );
          var _layers_array = circles_lib_canvas_layer_pile_per_plane_get( _plane_type );
          var _n_layers = safe_size( _layers_array, 0 );
@@ -72,7 +73,7 @@ function CIRCLESformsMERGINGmain( _base_id, _move, _plane_type )
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
           var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-          circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsMERGINGcaption + " - " + _plane_def, CLOSE_FN );
+          circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsMERGINGcaption + " - " + _plane_def, CLOSE_FN );
           if ( _move && _div != null ) move_div( _div.id, _plane_type == Z_PLANE ? "RIGHT" : "LEFT", "TOP" );
      }
 }

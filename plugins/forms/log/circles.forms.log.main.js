@@ -35,11 +35,12 @@ function CIRCLESformsLOGmain( _base_id, _move )
 {
     CIRCLESformsLOGbaseid = safe_string( _base_id, "" ) ;
     _move = safe_int( _move, YES ) ;
+    var _this_fn_name = "CIRCLESformsLOGmain" ;
     var WIDTH = Math.floor( Math.min( 420, $( window ).width() / 2 ) ), HEIGHT = $( window ).height() - 140 ; // menu height
     var _subset = "forms" ;
     var _div_id = CIRCLESformsLOGdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ), CLOSE_FN = "CIRCLESformsLOGclose()" ;
     var HTMLcode = "<table WIDTH=\"100%\">" ;
-    HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsLOGcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png",
+    HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsLOGcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png",
 																		            "", "", "CIRCLESformsLOG" );
     HTMLcode += "<tr><td HEIGHT=\"4\"></td></tr>" ;
     HTMLcode += "<tr><td><table>" ;

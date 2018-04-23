@@ -16,6 +16,19 @@
 
 var _CIRCLE_OBJ_MAX_ACCURACY = 10 ; // the orthogonality test fails for accuracy > 10, but 20 is max value allowed by javascript .toPrecision built-in function
 
+  /*frameworkdatatype
+     datatype_dev : circle
+     datatype_public : circle
+     constructor1 : circle(x1,y1,radius)
+     notes_constructor1 : custom datatype
+     constructor2 : circle( center_pt, radius )
+     notes_constructor2 : custom datatype
+     output method: output
+     comparison method: is_equal_to
+     typization method : is_circle
+     notes: circle object - custom datatype
+     frameworkdatatype*/
+
 if ( typeof is_array != "function" ) function is_array( _obj ) { return _obj instanceof Array ? 1 : 0 ; }
 if ( typeof is_complex != "function" ) function is_complex( _obj ) { return _obj instanceof complex ? 1 : 0 ; }
 if ( typeof is_integer != "function" ) function is_integer( _obj ) { return is_number( _obj ) ? ( Math.floor( _obj ) == _obj ? 1 : 0 ) : 0 ; }

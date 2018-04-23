@@ -339,8 +339,8 @@ function CIRCLESformsGENERALOPTIONSbasicsTAB()
         return HTMLcode ;
 }
 
-function CIRCLESformsGENERALOPTIONSzplanelayersTAB( this_fn_name ) { return CIRCLESformsGENERALOPTIONSlayersLIST( Z_PLANE, this_fn_name ); }
-function CIRCLESformsGENERALOPTIONSwplanelayersTAB( this_fn_name ) { return CIRCLESformsGENERALOPTIONSlayersLIST( W_PLANE, this_fn_name ); }
+function CIRCLESformsGENERALOPTIONSzplanelayersTAB( _this_fn_name ) { return CIRCLESformsGENERALOPTIONSlayersLIST( Z_PLANE, _this_fn_name ); }
+function CIRCLESformsGENERALOPTIONSwplanelayersTAB( _this_fn_name ) { return CIRCLESformsGENERALOPTIONSlayersLIST( W_PLANE, _this_fn_name ); }
 
 function CIRCLESformsGENERALOPTIONSexportTAB()
 {

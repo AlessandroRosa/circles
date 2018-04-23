@@ -2,6 +2,7 @@ function CIRCLESformsCHECKITEMSclose() { return circles_lib_plugin_dispatcher_un
 function CIRCLESformsCHECKITEMSmain( _base_id, _move, _items_switch )
 {
     _move = safe_int( _move, YES );
+   var _this_fn_name = "CIRCLESformsCHECKITEMSmain" ;
     var _chunk = circles_lib_items_set( _items_switch, YES ) ;
     var _items_n = _chunk['count'], _items_array = _chunk['array'], _caption = _chunk['label'], _items_switch = _chunk['switch'] ;
     CIRCLESformsCHECKITEMSbaseid = safe_string( _base_id, "" ) ;
@@ -13,7 +14,7 @@ function CIRCLESformsCHECKITEMSmain( _base_id, _move, _items_switch )
     var _caption = _items_switch == ITEMS_SWITCH_SEEDS ? CIRCLESformsCHECKITEMScaption01 : CIRCLESformsCHECKITEMScaption02 ;
     var _are_seeds_switched = _items_switch == ITEMS_SWITCH_SEEDS ? YES : NO ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\">" ;
-        HTMLcode += circles_lib_plugin_caption_code( _items_n > 0 ? YES : NO, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "aid/aid.20x20.png" );
+        HTMLcode += circles_lib_plugin_caption_code( _items_n > 0 ? YES : NO, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "aid/aid.20x20.png" );
         HTMLcode += "<tr>" ;
         HTMLcode += "<td VALIGN=\"top\" ALIGN=\"center\" WIDTH=\"100%\" ALIGN=\"center\">" ;
         HTMLcode += "<table ALIGN=\"center\" WIDTH=\""+WIDTH+"\">" ;
@@ -169,7 +170,7 @@ function CIRCLESformsCHECKITEMSmain( _base_id, _move, _items_switch )
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div.id, "CENTER", "TOP" );
 }
 

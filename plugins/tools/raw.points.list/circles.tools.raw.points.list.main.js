@@ -27,6 +27,7 @@ function CIRCLEStoolsRAWPOINTSLISTmain( _base_id, _move )
 {
     CIRCLEStoolsRAWPOINTSLISTuniqueid = _base_id ;
     _move = safe_int( _move, YES );
+	var _this_fn_name = "CIRCLEStoolsRAWPOINTSLISTmain" ;
     var WIDTH = 420, HEIGHT = "auto", _run = YES, _subset = "tools" ;
     var _div_id = CIRCLEStoolsRAWPOINTSLISTdiv_id = circles_lib_plugin_build_divid( _subset, _base_id );
     var CLOSE_FN = "CIRCLEStoolsRAWPOINTSLISTclose();" ;

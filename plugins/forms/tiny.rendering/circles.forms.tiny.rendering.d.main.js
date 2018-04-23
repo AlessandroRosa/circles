@@ -4,6 +4,7 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
 {
    CIRCLESformsTINYRENDERINGbaseid = safe_string( _base_id, "" ) ;
    _move = safe_int( _move, YES ), _show_code = safe_int( _show_code, YES );
+	var _this_fn_name = "CIRCLESformsTINYRENDERINGmain" ;
    var _settings_array = [] ;
        _settings_array['target_plane_type'] = "bip" ;
    var _filename = "circles.terminal.cmd.code.js" ;
@@ -125,7 +126,7 @@ function CIRCLESformsTINYRENDERINGmain( _base_id, _move, _show_code, _clone_ref_
        _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
        var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-       circles_lib_plugin_activate( YES, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsTINYRENDERINGcaption );
+       circles_lib_plugin_activate( YES, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsTINYRENDERINGcaption );
        if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );
               
        tabberAutomatic( CIRCLESformsTINYRENDERINGtabberOptions, "CIRCLESformsTINYRENDERING"+_REF_ID );

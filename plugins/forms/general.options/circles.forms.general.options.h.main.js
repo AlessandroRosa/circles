@@ -1,6 +1,7 @@
 function CIRCLESformsGENERALOPTIONSclose() { return circles_lib_plugin_dispatcher_unicast_message( "general.options", "forms", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE ); }
 function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
 {
+    var _this_fn_name = "CIRCLESformsGENERALOPTIONSmain" ;
 		if ( is_string( _tab_index ) )
 		{
 				if ( _tab_index.isAlpha() )
@@ -22,7 +23,7 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
     _move = safe_int( _move, YES );
 
     CIRCLESformsGENERALOPTIONSbaseid = safe_string( _base_id, "" ) ;
-    var this_fn_name = arguments.callee.name + "('"+_base_id+"', "+_move+","+_tab_index+")" ;
+    var _this_fn_name = arguments.callee.name + "('"+_base_id+"', "+_move+","+_tab_index+")" ;
     CIRCLESformsGENERALOPTIONStabindex = _tab_index = Math.max( 1, safe_int( _tab_index, 1 ) ) ;
     if ( _glob_smpr == 0 ) _glob_smpr = 120 ;
 
@@ -49,7 +50,7 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
     }
 
      var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ALIGN=\"center\" ID=\"GENERALoptionsMASTERtable\">" ;
-         HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "tools/tools.01.20x20.png" );
+         HTMLcode += circles_lib_plugin_caption_code( YES, _caption, 1, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "tools/tools.01.20x20.png" );
          HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"18\" ID=\"CIRCLESformsGENERALOPTIONSoutputBOX\" ALIGN=\"center\"></td></tr>" ;
          HTMLcode += "<tr><td HEIGHT=\"3\"></td></tr>" ;
@@ -107,8 +108,8 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
      switch( _tab_index )
      {
         case 1: HTMLcode += CIRCLESformsGENERALOPTIONSbasicsTAB(); break ;
-        case 2: HTMLcode += CIRCLESformsGENERALOPTIONSzplanelayersTAB( this_fn_name ); break ;
-        case 3: HTMLcode += CIRCLESformsGENERALOPTIONSwplanelayersTAB( this_fn_name ); break ;
+        case 2: HTMLcode += CIRCLESformsGENERALOPTIONSzplanelayersTAB( _this_fn_name ); break ;
+        case 3: HTMLcode += CIRCLESformsGENERALOPTIONSwplanelayersTAB( _this_fn_name ); break ;
         case 4: HTMLcode += CIRCLESformsGENERALOPTIONScolorsTAB(); break ;
         case 5: HTMLcode += CIRCLESformsGENERALOPTIONSextrasTAB(); break ;
         case 6: HTMLcode += CIRCLESformsGENERALOPTIONSexportTAB(); break ;
@@ -126,7 +127,7 @@ function CIRCLESformsGENERALOPTIONSmain( _base_id, _move, _tab_index )
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
 
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-     circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
+     circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN );
      if ( _move && _div != null ) move_div( _div.id, "CENTER", "TOP" );
         
      if ( _tab_index == 2 )

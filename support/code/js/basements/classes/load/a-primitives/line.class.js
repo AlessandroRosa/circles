@@ -14,6 +14,19 @@
 
 // Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
+  /*frameworkdatatype
+     datatype_dev : line
+     datatype_public : line
+     constructor1 : line(x1,y1,x2,y2)
+     notes_constructor1 : custom datatype
+     constructor2 : line( point1, point2 )
+     notes_constructor2 : custom datatype
+     output method: output
+     comparison method: is_equal_to
+     typization method : is_line
+     notes: line object - custom datatype
+     frameworkdatatype*/
+
 var LINE_MAX_ACCURACY = 12 ; // suggested value for all accuracy tests. Never exceed 20, which is max value allowed by javascript .toPrecision built-in function
 var LINE_CLASS_ERROR_NONE = 0, LINE_CLASS_ERROR_PARALLEL = 1, LINE_CLASS_ERROR_COINCIDENT = 2, LINE_CLASS_ERROR_UNKNOWN = 3 ;
 

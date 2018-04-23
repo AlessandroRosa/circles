@@ -1,5 +1,4 @@
 var LANG_MSG_00 = "opening a pop-up to display help text in html version" ;
-var _glob_crlf = is_win() ? CRLF_WIN : CRLF_NOWIN ;
 var _ERR_00_00 = "Unknown error" ;
 var _ERR_00_01 = "Operation perfomed with success" ;
 var _ERR_00_02 = "Group consistence failed: "+_glob_crlf + _ERR_33_01 ;

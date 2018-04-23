@@ -34,43 +34,26 @@ var CIRCLESformsDISCRETENESSLOCUStabberOptions = {
     i == 0 ? $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).show() : $( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).hide();
     i == 0 ? $( "#CIRCLESdlocusworklayerCANVAS" ).show() : $( "#CIRCLESdlocusworklayerCANVAS" ).hide();
 
-		if ( i != 0 )
-		{
-        CIRCLESformsDISCRETENESSLOCUScanvas_mouse_proc_switch = MOUSE_NO_PROC_ID ;
-				CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( CIRCLESformsDISCRETENESSLOCUSdiv_id, NO, NO ) ;
-				CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX_CLICK( NO ) ;
-				CIRCLESformsDISCRETENESSLOCUSinitZOOMproc( NO ) ;
-		}
-		else
-		{
-				CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( CIRCLESformsDISCRETENESSLOCUSdiv_id, NO, YES ) ;
-				//$( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).offset( $( "#CIRCLESdlocusdiagramCANVAS" ).offset() );
-		}
+	if ( i != 0 )
+	{
+		CIRCLESformsDISCRETENESSLOCUScanvas_mouse_proc_switch = MOUSE_NO_PROC_ID ;
+		CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( CIRCLESformsDISCRETENESSLOCUSdiv_id, NO, NO ) ;
+		CIRCLESformsDISCRETENESSLOCUSpickforpluginCHECKBOX_CLICK( NO ) ;
+		CIRCLESformsDISCRETENESSLOCUSinitZOOMproc( NO ) ;
+	}
+	else
+	{
+		CIRCLESformsDISCRETENESSLOCUSworkLAYERmanagement( CIRCLESformsDISCRETENESSLOCUSdiv_id, NO, YES ) ;
+		//$( "#CIRCLESformsDISCRETENESSLOCUSworkLAYER" ).offset( $( "#CIRCLESdlocusdiagramCANVAS" ).offset() );
+	}
 
     switch( i )
     {
-          case 0:
-          break ;
-          case 1:
-          break ;
-          case 2:
-          break ;
-          case 3:
-          break ;
-          case 4:
-          break ;
-          case 5:
-          break ;
-          case 6:
-          break ;
-          case 7:
-          break ;
-          default:
-          break ;
+        default: break ;
     }
 
     if (id == 'tab2') {
-      return confirm("Switch to "+t.tabs[i].headingText+"?"+_glob_crlf+"+"Event type: "+e.type);
+      return confirm("Switch to "+t.tabs[i].headingText+"?"+_glob_crlf+"+"+"Event type: "+e.type);
     }
   },
 

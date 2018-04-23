@@ -164,7 +164,7 @@
 })(typeof exports != "undefined" ? exports : window);
 
 (function($, undefined) {
-    "use strict";
+    "use strict"
     // -----------------------------------------------------------------------
     // :: map object to object
     // -----------------------------------------------------------------------

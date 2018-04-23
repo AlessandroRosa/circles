@@ -26,7 +26,7 @@ Copyright (c) 2012 https://github.com/siefkenj/
  */
 
 ;(function(jsPDFAPI) {
-'use strict'
+"use strict"
 
 var namespace = 'addImage_'
 
@@ -34,7 +34,7 @@ var namespace = 'addImage_'
 // a jpeg image and returns [width, height]
 // Algorithm from: http://www.64lines.com/jpeg-width-height
 var getJpegSize = function(imgData) {
-	'use strict'
+	"use strict"
 	var width, height;
 	// Verify we have a valid jpeg header 0xff,0xd8,0xff,0xe0,?,?,'J','F','I','F',0x00
 	if (!imgData.charCodeAt(0) === 0xff ||
@@ -132,7 +132,7 @@ var getJpegSize = function(imgData) {
 }
 
 jsPDFAPI.addImage = function(imageData, format, x, y, w, h) {
-	'use strict'
+	"use strict"
 	if (typeof imageData === 'object' && imageData.nodeType === 1) {
         var canvas = document.createElement('canvas');
         canvas.width = imageData.clientWidth;

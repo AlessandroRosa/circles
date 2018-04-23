@@ -12,18 +12,18 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-  /* framework data type
+  /*frameworkdatatype
      datatype_dev : String
      datatype_public : string
      constructor1 : String(string-between-quotes)
-     notes_constructor1 : built-in number datatype
+     notes_constructor1 : built-in String datatype
      constructor2 : String()
-     notes_constructor2 : built-in number datatype
+     notes_constructor2 : built-in String datatype
      output method:
      comparison method: =
      typization method : is_string
      notes: built-in string object
-     framework data type */
+     frameworkdatatype*/
 
 if ( typeof is_array != "function" ) function is_array( _a ) 		 { return _a instanceof Array ? 1 : 0 ; }
 if ( typeof is_string != "function" ) function is_string( _obj ) { return ( typeof _obj == "string" || _obj instanceof String ) ; }
@@ -532,8 +532,8 @@ String.prototype.percentage_decode = function() { return this.replaceAll( "@perc
 String.prototype.firstchar = function() { return this.charAt(0) ; }
 String.prototype.lastchar = function() { return this.charAt( this.length - 1 ) ; }
 String.prototype.ucfirst = function() { return this.charAt(0).toUpperCase() + this.substr( 1, this.length ) ; }
-String.prototype.is_equal_to = function( token2 ) { return this.strcmp( token2 ) ; }
-String.prototype.repeat = function( num ) 		{ return new Array( ( isNaN( num ) ) ? 1 : ++num ).join( this ) ; }
+String.prototype.is_equal_to = function( token2 = "" ) { return this.strcmp( token2 ) ; }
+String.prototype.repeat = function( num = 0 ) { return new Array( ( isNaN( num ) ) ? 1 : ++num ).join( this ) ; }
 String.prototype.fromURLtoSTRING = function() { return this.replaceAll( "&", "%46" ) ; }
 String.prototype.fromSTRINGtoURL = function() { return this.replaceAll( "%46", "&" ) ; return s ; }
 String.prototype.get_between = function(start_index, end_index) { return this.substring(start_index,end_index+1); };
@@ -549,8 +549,8 @@ String.prototype.omits = function( _input ) { return !this.includes( _input ); }
 String.prototype.omits_i = function( _input ) { return !this.includes_i( _input ); }
 
 // case sensitive string comparison
-String.prototype.strcmp = function( token2 ) { return this == ( token2 + "" ) ? 1 : 0 ; }
-String.prototype.notstrcmp = function( token2 ) { return this != ( token2 + "" ) ? 1 : 0 ; }
+String.prototype.strcmp = function( token2 = "" ) { return this == ( token2 + "" ) ? 1 : 0 ; }
+String.prototype.notstrcmp = function( token2 = "" ) { return this != ( token2 + "" ) ? 1 : 0 ; }
 // case insensitive string comparison
 String.prototype.stricmp = function( token2 ) { return this.toLowerCase() == ( token2 + "" ).toLowerCase() ? 1 : 0 ; }
 String.prototype.notstricmp = function( token2 ) { return this.toLowerCase() != ( token2 + "" ).toLowerCase() ? 1 : 0 ; }

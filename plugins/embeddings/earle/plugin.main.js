@@ -70,7 +70,7 @@ function CIRCLESembeddingsEARLE_CONFIG( _base_id )
 
     _glob_submethod_desc = _plugin_definitions_array[_index_ref] ;
     _glob_submethod_desc = safe_string( _glob_submethod_desc, "" );
-    _plugin_init_fns_array[_index_ref] = arguments.callee.name ;
+    _plugin_init_fns_array[_index_ref] = "CIRCLESembeddingsEARLE_CONFIG" ;
     _glob_target_plane = W_PLANE ;
 		circles_lib_drawentity_set( DRAWENTITY_PIXEL );
     circles_lib_method_set( METHOD_ALGEBRAIC );
@@ -94,11 +94,11 @@ function CIRCLESembeddingsEARLE_RECORD_PARAMS()
 function CIRCLESembeddingsEARLEmain( _base_id, _move, _restore )
 {
     _move = is_string( _move ) ? _move : safe_int( _move, YES ), _restore = safe_int( _restore, NO );
+	var _this_fn_name = "CIRCLESembeddingsEARLEmain" ;
     var _clean_base_id = _base_id.replace( /[\.\_\-]/g, "" ).toLowerCase() ;
     CIRCLESembeddingsEARLE_CONFIG( _base_id );
 		_glob_palette_use = NO, _plugin_last_ref = _plugin_main_ref ;
     var _index_ref = _plugin_last_ref, _items_n = circles_lib_count_items();
-    var this_fn_name = arguments.callee.name + "("+_move+","+_restore+")" ;
 
     CIRCLESembeddingsEARLE_PATTERNS();
     if ( _restore )
@@ -123,7 +123,7 @@ function CIRCLESembeddingsEARLEmain( _base_id, _move, _restore )
     var WIDTH = 450, HEIGHT = "auto" ;
     var HTMLcode = "<table WIDTH=\""+WIDTH+"\" ID=\"PLUGINmasterTABLE\">" ;
     HTMLcode += circles_lib_plugin_caption_code( YES, _glob_submethod_desc, 1, YES, CLOSE_FN,
-                WIDTH, HEIGHT, this_fn_name, 'earle', _div_id, _subset, "plug/plug.icon.01.20x20.png", "", "", "CIRCLES"+_subset+"EARLE_",
+                WIDTH, HEIGHT, _this_fn_name, 'earle', _div_id, _subset, "plug/plug.icon.01.20x20.png", "", "", "CIRCLES"+_subset+"EARLE_",
 								[ "CIRCLES"+_subset+"EARLE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 								[ "CIRCLES"+_subset+"EARLE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 								[ "CIRCLES"+_subset+"EARLE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );
@@ -234,7 +234,7 @@ function CIRCLESembeddingsEARLEmain( _base_id, _move, _restore )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, 'embeddings', OPEN, _div_id, _glob_submethod_desc,
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, 'embeddings', OPEN, _div_id, _glob_submethod_desc,
       				  [ "CIRCLES"+_subset+"EARLE_NORMALIZE", _div_id, WIDTH, HEIGHT ],
 			   			  [ "CIRCLES"+_subset+"EARLE_MINIMIZE", _div_id, WIDTH, HEIGHT ],
 							  [ "CIRCLES"+_subset+"EARLE_MAXIMIZE", _div_id, WIDTH, HEIGHT ] );

@@ -1,8 +1,9 @@
 function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
 {
-		_move = safe_int( _move, YES );
+	_move = safe_int( _move, YES );
     var _sch_n = circles_lib_gens_model_count();
     var _generators_exist = _sch_n == 0 ? NO : YES ;
+	var _this_fn_name = "CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY" ;
 		if ( _generators_exist )
 		{
         var _probabilities_exist = safe_size( _glob_probability_showcase_array, 0 ) > 0 ? YES : NO ;
@@ -111,7 +112,7 @@ function CIRCLESformsMETHODprobabilityDISTRIBUTIONprocessDISPLAY( _move )
             _y_tag = _glob_popup_divs_rec_positions_array[_div.id][1].toUpperCase();
          }
 
-         circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div.id, CIRCLESformsMETHODcaption );
+         circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div.id, CIRCLESformsMETHODcaption );
          var _animate = _move & POPUP_REC_POSITION ? NO : YES ;
          if ( _move & POPUP_MOVE ) move_div( _div.id, _x_tag, _y_tag, null, null, _animate );
       }

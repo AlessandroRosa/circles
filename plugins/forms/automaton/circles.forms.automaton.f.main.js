@@ -33,9 +33,10 @@ function CIRCLESformsAUTOMATONnormalize()
     $("#" + CIRCLESformsAUTOMATONdiv_id).resizable('enable');
 }
 
-function CIRCLESformsAUTOMATONmain( _base_id, _move )
+function CIRCLESformsAUTOMATONmain( _base_id = "", _move = YES )
 {
     CIRCLESformsAUTOMATONbaseid = safe_string( _base_id, "" ) ;
+	var _this_fn_name = "CIRCLESformsAUTOMATONmain" ;
     _move = safe_int( _move, YES );
     _glob_dict_processor.set_process( _DICTIONARY_AUTOMATON_PROCESS );
     _glob_using_automaton = YES ;
@@ -46,7 +47,7 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
     var _div_id = CIRCLESformsAUTOMATONdiv_id = circles_lib_plugin_build_divid( _subset, _base_id ) ;
     var HTMLcode = "<table WIDTH=\"100%\">" ;
         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsAUTOMATONcaption, 3, YES,
-                    CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png",
+                    CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png",
 										"", "", "CIRCLESformsAUTOMATON" );
         HTMLcode += "<tr><td HEIGHT=\"1\"></td></tr>" ;
 				HTMLcode += "<tr>" ;
@@ -73,7 +74,7 @@ function CIRCLESformsAUTOMATONmain( _base_id, _move )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsAUTOMATONcaption, CLOSE_FN,
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsAUTOMATONcaption, CLOSE_FN,
                       [ "CIRCLESformsAUTOMATONnormalize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLESformsAUTOMATONminimize", _div_id, WIDTH, HEIGHT ],
                       [ "CIRCLESformsAUTOMATONmaximize", _div_id, WIDTH, HEIGHT ] );

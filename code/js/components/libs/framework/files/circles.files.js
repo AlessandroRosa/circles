@@ -214,29 +214,33 @@ function circles_lib_files_parse_lib_file( _data )
 function circles_lib_files_load_default_datatypes()
 {
    // INTERNAL COMMENTS FOR DATA TYPE RECOGNITION ARE PARSED AS FOLLOWS (including '/*' and '*/' )
-  /* framework data type (EXAMPLE)
+   /*frameworkdatatype (EXAMPLE)
      name : point
      constructor1 : point(number,number)
      constructor2 : point(point)
      output method: output('std')
      notes: 2d point
-     framework data type */
+     frameworkdatatype*/
 
     var _scan_folders = [
-    { abs : "code/js/basements/classes/load/a-primitives/",
+    { abs : "support/code/js/basements/classes/load/a-primitives/",
       rel : "support/code/js/basements/classes/load/a-primitives/",
       filter : "/[?.js]$/"
     },
-    { abs : "code/js/basements/classes/load/b-basic.maths",
+    { abs : "support/code/js/basements/classes/load/b-basic.maths",
       rel : "support/code/js/basements/classes/load/b-basic.maths/",
       filter : "/[?.js]$/"
     },
-    { abs : "code/js/basements/classes/load/e-adv.maths",
+    { abs : "support/code/js/basements/classes/load/e-adv.maths",
       rel : "support/code/js/basements/classes/load/e-adv.maths/",
       filter : "/[?.js]$/"
     },
-    { abs : "code/js/basements/basics",
+    { abs : "support/code/js/basements/basics",
       rel : "support/code/js/basements/basics/",
+      filter : "/[?.js]$/"
+    },
+    { abs : "support/code/js/basements/basics/a-basics",
+      rel : "support/code/js/basements/basics/a-basics/",
       filter : "/[?.js]$/"
     }
     ] ;

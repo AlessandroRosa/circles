@@ -25,7 +25,7 @@ Copyright (c) 2012 2012 Willow Systems Corporation, willow-systems.com
  */
 
 ;(function(jsPDFAPI) {
-'use strict'
+"use strict"
 
 
 if(!String.prototype.trim) {
@@ -574,7 +574,7 @@ Notes:
 @returns {Object} jsPDF instance
 */
 jsPDFAPI.fromHTML = function(HTML, x, y, settings) {
-	'use strict'
+	"use strict"
 	// `this` is _jsPDF object returned when jsPDF is inited (new jsPDF())
 	// `this.internal` is a collection of useful, specific-to-raw-PDF-stream functions.
 	// for example, `this.internal.write` function allowing you to write directly to PDF stream.

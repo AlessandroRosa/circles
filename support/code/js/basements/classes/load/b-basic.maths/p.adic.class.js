@@ -14,7 +14,7 @@
 
 // Code by Alessandro Rosa - alessandro.a.rosa@gmail.com
 
-  /* framework data type
+  /*frameworkdatatype
      datatype_dev : p_adic
      datatype_public : p-adic number
      constructor1 : p_adic(number,number)
@@ -23,7 +23,7 @@
      typization method : is_p_adic
      output method: output()
      notes : p-adic numbers class manager
-     framework data type */
+     frameworkdatatype*/
 
 if ( typeof is_array != "function" ) function is_array( _obj ) { return _obj instanceof Array ? 1 : 0 ; }
 if ( typeof is_complex != "function" ) function is_complex( _obj ) { return _obj instanceof complex ? 1 : 0 ; }

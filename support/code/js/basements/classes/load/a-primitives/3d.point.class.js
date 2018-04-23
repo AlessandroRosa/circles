@@ -16,7 +16,7 @@
 
 var _POINT_3D_MAX_ACCURACY = 12 ; // suggested value for all accuracy tests. Never exceed 20, which is max value allowed by javascript .toPrecision built-in function
 
-  /* framework data type
+  /*frameworkdatatype
      datatype_dev : point_3d
      datatype_public : 3d point
      constructor1 : point_3d(number,number,number)
@@ -27,7 +27,7 @@ var _POINT_3D_MAX_ACCURACY = 12 ; // suggested value for all accuracy tests. Nev
      comparison method: is_equal_to
      typization method : is_point_3d
      notes: 3d point
-     framework data type */
+     frameworkdatatype*/
 
 if ( typeof is_array != "function" ) function is_array( _obj ) { return _obj instanceof Array ? 1 : 0 ; }
 if ( typeof is_complex != "function" ) function is_complex( _obj ) { return _obj instanceof complex ? 1 : 0 ; }

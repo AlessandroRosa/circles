@@ -26,7 +26,7 @@ MIT license.
  */
 
 ;(function(API) {
-'use strict'
+"use strict"
 
 /*
 # reference (Python) versions of 'compress' and 'uncompress'

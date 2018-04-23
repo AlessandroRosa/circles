@@ -24,7 +24,7 @@
  */
 
 (function (jsPDFAPI) {
-    'use strict';
+   "use strict"
     /*jslint browser:true */
     /*global document: false, jsPDF */
 

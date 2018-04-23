@@ -22,6 +22,19 @@
 */
 var _JS_PARSER_REGISTER_CUSTOM_DATATYPE_lattice ;
 
+  /*frameworkdatatype
+     datatype_dev : lattice
+     datatype_public : lattice
+     constructor1 : lattice(x1,y1,x2,y2)
+     notes_constructor1 : custom datatype
+     constructor2 : lattice( point1, point2 )
+     notes_constructor2 : custom datatype
+     output method: output
+     comparison method: is_equal_to
+     typization method : is_lattice
+     notes: lattice object - custom datatype
+     frameworkdatatype*/
+
 if ( typeof is_array != "function" ) function is_array( _obj ) { return _obj instanceof Array ? 1 : 0 ; }
 if ( typeof is_complex != "function" ) function is_complex( _obj ) { return _obj instanceof complex ? 1 : 0 ; }
 if ( typeof is_integer != "function" ) function is_integer( _obj ) { return is_number( _obj ) ? ( Math.floor( _obj ) == _obj ? 1 : 0 ) : 0 ; }

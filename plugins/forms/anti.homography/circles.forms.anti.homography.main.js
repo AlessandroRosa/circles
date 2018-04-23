@@ -94,7 +94,8 @@ function CIRCLESformsANTIHOMOGRAPHYlist( _items_switch = ITEMS_SWITCH_SEEDS, _up
 
 function CIRCLESformsANTIHOMOGRAPHYmain( _base_id, _move, _items_switch )
 {
-    var _items_info = circles_lib_items_set( _items_switch, YES ) ;
+    var _this_fn_name = "CIRCLESformsANTIHOMOGRAPHYmain" ;
+	var _items_info = circles_lib_items_set( _items_switch, YES ) ;
     var _items_n = _items_info['count'], _items_array =  _items_info['array'], _caption = _items_info['label'], _items_switch = _items_info['switch'] ;
     CIRCLESformsANTIHOMOGRAPHYdata_src_type = _items_switch ;
     CIRCLESformsANTIHOMOGRAPHYbaseid = safe_string( _base_id, "" ) ;
@@ -107,7 +108,7 @@ function CIRCLESformsANTIHOMOGRAPHYmain( _base_id, _move, _items_switch )
     var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX01\" VALUE=\""+UNDET+"\"><INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESpairingINDEX02\" VALUE=\""+UNDET+"\">" ;
         HTMLcode += "<table WIDTH=\"100%\">" ;
         HTMLcode += circles_lib_plugin_caption_code( YES, CIRCLESformsANTIHOMOGRAPHYcaption + " - " + _caption, 5, YES, CLOSE_FN,
-        WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "lens/lens.icon.01.20x20.png", ONACTIVATEFN );
+        WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "lens/lens.icon.01.20x20.png", ONACTIVATEFN );
 
     HTMLcode += "<tr><td HEIGHT=\"8\"></td></tr>" ;
     HTMLcode += "<tr><td VALIGN=\"top\"><table><tr>" ;
@@ -145,6 +146,6 @@ function CIRCLESformsANTIHOMOGRAPHYmain( _base_id, _move, _items_switch )
     if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
     _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-    circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsANTIHOMOGRAPHYcaption + " - " + _caption, CLOSE_FN );
+    circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsANTIHOMOGRAPHYcaption + " - " + _caption, CLOSE_FN );
     if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );
 }

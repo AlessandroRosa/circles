@@ -28,6 +28,7 @@ function CIRCLESformsBIPmain( _base_id, _move )
 {
    CIRCLESformsBIPbaseid = safe_string( _base_id, "" ) ;
    _move = safe_int( _move, YES );
+   var _this_fn_name = "CIRCLESformsBIPmain" ;
    var _items_array = _glob_items_switch == ITEMS_SWITCH_GENS ? _glob_gens_array : _glob_seeds_array ;
    var _items_n = circles_lib_count_items( _items_array ) ;
       
@@ -51,7 +52,7 @@ function CIRCLESformsBIPmain( _base_id, _move )
 	 
    var HTMLcode = "<INPUT TYPE=\"HIDDEN\" ID=\"CIRCLESrepetendsCURRENTkey\" VALUE=\"\">" ;
    HTMLcode += "<table WIDTH=\""+WIDTH+"\">" ;
-   HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsBIPcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, arguments.callee.name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png", null, "CIRCLESformsBIPhelp()" );
+   HTMLcode += circles_lib_plugin_caption_code( _run, CIRCLESformsBIPcaption, 3, YES, CLOSE_FN, WIDTH, HEIGHT, _this_fn_name, _base_id, _div_id, _subset, "gearwheel/gearwheel.icon.01.20x20.png", null, "CIRCLESformsBIPhelp()" );
    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
    HTMLcode += "<tr><td HEIGHT=\"18\" ID=\"CIRCLESformsBIPoutputMSG\"></td></tr>" ;
    HTMLcode += "<tr><td HEIGHT=\"6\"></td></tr>" ;
@@ -139,7 +140,7 @@ function CIRCLESformsBIPmain( _base_id, _move )
    if ( _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] == null ) _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET] = [] ;
    _plugin_tmp_vars_array[GLOB_PLUGIN_SUBSET][GLOB_PLUGIN_BASE_ID] = _div_id ;
    var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
-   circles_lib_plugin_activate( NO, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, CIRCLESformsBIPcaption, CLOSE_FN );
+   circles_lib_plugin_activate( NO, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, CIRCLESformsBIPcaption, CLOSE_FN );
    if ( _move && _div != null ) move_div( _div.id, "LEFT", "TOP" );
    CIRCLESformsBIPcoordsMANAGER( _glob_bip_original_plane_coords );
           

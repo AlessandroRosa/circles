@@ -50,6 +50,7 @@ function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _te
     CIRCLESformsTERMINALbaseid = safe_string( _base_id, "" ) ;
     _glob_terminal_windows_counter++ ;
     _move = safe_int( _move, YES ), _tab = safe_int( _tab, 0 ), _new = safe_int( _new, NO );
+	var _this_fn_name = "CIRCLESformsTERMINALmain" ;
     var _extras_menu_height = 52 ;
     var WIDTH = Math.floor( $( window ).width() / 2 ), HEIGHT = $( window ).height() - ( _extras_menu_height + 18 ); // menu height
     WIDTH = _term_width = safe_int( _term_width, WIDTH );
@@ -68,7 +69,7 @@ function CIRCLESformsTERMINALmain( _base_id, _move, _tab, _new, _term_width, _te
 
     var _div = circles_lib_plugin_create( _div_id, WIDTH, HEIGHT, HTMLcode );
     var CLOSE_FN = "CIRCLESformsTERMINALclose("+_suffix+");" ;
-    circles_lib_plugin_activate( YES, _base_id, arguments.callee.name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN,
+    circles_lib_plugin_activate( YES, _base_id, _this_fn_name, arguments, _subset, OPEN, _div_id, _caption, CLOSE_FN,
                       [ "CIRCLESformsTERMINALnormalize", _div_id, _suffix, WIDTH, HEIGHT ],
                       [ "CIRCLESformsTERMINALminimize", _div_id, _suffix, WIDTH, HEIGHT ],
                       [ "CIRCLESformsTERMINALmaximize", _div_id, _suffix, WIDTH, HEIGHT ] );

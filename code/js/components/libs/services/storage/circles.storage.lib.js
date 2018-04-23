@@ -17,7 +17,7 @@ function circles_lib_storage_reset()
     return safe_size( _keys, 0 ) ;
 }
 
-function circles_lib_storage_parse_dependencies_syntax( _input_str, _action )
+function circles_lib_storage_parse_dependencies_syntax( _input_str = "", _action = "" )
 {
 		_input_str = safe_string( _input_str, "" ), _action = safe_string( _action, "" );
 		if ( _action.stricmp( "all" ) ) return _glob_storage.keys_associative();
@@ -50,12 +50,18 @@ function circles_lib_storage_parse_dependencies_syntax( _input_str, _action )
 									else
 									{
 											 _items = is_array( _items ) ? _items : [ _items ] ;
-											 $.each( _items,
-											 function( _i, _item )
+											 $.each( _items, function( _i, _item )
 											 {
+												_cmd = "_item = new " + _item + " ;" ;
+												try { eval( _cmd ) ; }
+												catch( _err ) { _ret = NO ; circles_lib_error_obj_handler( _err ); return _ret ; }
+
+												if ( _ret )
+												{
 													_cmd = _storage_cmd_init + ".push( _item );" ;
 													try { eval( _cmd ) ; }
 													catch( _err ) { _ret = NO ; circles_lib_error_obj_handler( _err ); return _ret ; }
+												}
 											 }
 											 ) ;
 											 return _ret ;
@@ -378,28 +384,27 @@ function circles_lib_storage_parse_filter_syntax( _subset, _input_filter_str, _i
     }
 }
 
-function circles_lib_storage_detect_dependency_datatype( _input_array )
+function circles_lib_storage_detect_dependency_datatype( _input_array = [] )
 {
     if ( !is_array( _input_array ) ) _input_array = circles_lib_storage_parse_dependencies_syntax( _input_array, "get" ) ;
-		var _datatype = [] ;
-		if ( is_array( _input_array ) )
-		{
-				var _table = circles_lib_datatype_get_table() ;
-				$.each( _input_array,
-			  function( _i, _item )
- 				{
- 					  $.each( _table,
- 					          function( _t, _type )
- 					          {
-												if ( _type[0].call( this, _item ) && !_datatype.includes( _type[5] ) )
-												_datatype.push( _type[5] ) ;
-										}
-									) ;
+	var _datatype = [] ;
+	if ( is_array( _input_array ) )
+	{
+		var _table = circles_lib_datatype_get_table(), _b_is = 0, _cmd = "" ;
+		$.each( _input_array, function( _i, _item ) {
+			$.each( _table, function( _t, _type ) {
+				_cmd = "_b_is = "+_type['typizationmethod']+"( _item );" ;
+				try{ eval( _cmd ); }
+				catch( e ){ _b_is = NO ; }
+				if ( _b_is )
+				{
+					_datatype.push( _type['datatype_public'] ) ;
+					return false ;
 				}
-	 			) ;
-		}
-		
-		return _datatype.clone();
+			} ) ;
+		} ) ;
+	}
+	return _datatype.clone();
 }
 
 function circles_lib_storage_restore( _subset )
