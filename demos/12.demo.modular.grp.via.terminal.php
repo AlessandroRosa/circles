@@ -197,9 +197,10 @@ var _demon = new demo_n();
 
     _demon.add( { pre_fn : function()
                   {
-                     $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
-                     var _code = "We're ready for the final rendering" ;
-                     $( "#presentation_div" ).html( _code ) ;
+                    $( "#presentation_div" ).css( "background-color", "#699ED6" ) ;
+                    var _code = "We're ready for the final rendering" ;
+                    $( "#presentation_div" ).html( _code ) ;
+  					circles_lib_set_target_plane( "wplane" ) ;
                   },
                   ctrl_id : "presentation_div", time : 3, time_unit : "s",
                   action : "move", set_value : { to_x : 30, to_y : $(window).height() - 110 }, showlabel : false, desclabel : "",

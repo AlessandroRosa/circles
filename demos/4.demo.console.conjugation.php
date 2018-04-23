@@ -115,6 +115,7 @@ var _demon = new demo_n();
                       CIRCLESembeddingsEARLE_CONFIG();
                       GLOB_PLUGIN_WIZARD_STEP(0.1,NO);
                       GLOB_PLUGIN_WIZARD_STEP(1.1,YES);
+  					  circles_lib_set_target_plane( "wplane" ) ;
           			  circles_lib_output( OUTPUT_SPECIAL_FX, DISPATCH_SUCCESS, "Group has been init with success", 'PLUGIN_OUTMSG') ;
                 } } );
 

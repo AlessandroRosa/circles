@@ -179,6 +179,7 @@ var _demon = new demo_n();
                   action : "fadeout", set_value : "fast", showlabel : false, desclabel : "",
                   post_fn : function()
                   {
+  					  circles_lib_set_target_plane( "wplane" ) ;
                      circles_lib_plugin_dispatcher_unicast_message( "general.purpose", "embeddings", POPUP_DISPATCHER_UNICAST_EVENT_CLOSE );
                   }
                 } );
